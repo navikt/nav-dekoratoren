@@ -88,7 +88,7 @@ export const template = (req: Request) => {
             <meta charset="utf-8" />
             <!-- Decorator development styling -->
             <style>
-            html, body {  height: 100%; }
+            html {height: 100%}, body {  height: 100%; min-width: 320px}
             .decorator-dev-container {
                 display:flex;
                 flex-direction: column;

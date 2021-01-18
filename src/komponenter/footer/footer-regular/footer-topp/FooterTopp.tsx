@@ -58,7 +58,7 @@ const FooterTopp = () => {
                         <LenkeMedIkon
                             onClick={scrollToTop}
                             tekst={<Tekst id="footer-til-toppen" />}
-                            ikon={<PilOppHvit style={{ height: '18px', width: '18px' }} />}
+                            ikon={<PilOppHvit style={{ height: '1.125rem', width: '1.125rem' }} />}
                             venstrestiltIkon={true}
                         />
                     </div>

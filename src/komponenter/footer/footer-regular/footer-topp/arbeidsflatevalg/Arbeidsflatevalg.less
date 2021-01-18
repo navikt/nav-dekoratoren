@@ -1,22 +1,31 @@
 @import (reference) '../../../../../styling-variabler.less';
 
-.arbeidsflate {
-    width: 100%;
-}
-
 .arbeidsflatevalg {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin: 0;
+    width: 100%;
+
+    @media @screen-desktop-medium-up {
+        padding-left: 1rem;
+    }
 
     li {
-        margin-bottom: 0;
+        flex: 1 1 17rem;
+        margin: 0 1rem 1rem 0;
+        @media @screen-desktop-small-width-down {
+            &:first-child {
+                margin-bottom: 1rem;
+            }
+        }
     }
 
     .arbeidsflate-lenkepanel {
         border-color: @white;
         background-color: @navBlaDarken40;
         border-radius: 8px;
+        height: 100%;
 
         .lenkepanel__heading {
             margin-bottom: 0.5rem;
@@ -53,24 +62,5 @@
                 color: @navBla;
             }
         }
-    }
-
-    @media @screen-desktop {
-        li {
-            width: 48%;
-        }
-    }
-
-    @media @screen-desktop-medium-up {
-        flex-direction: column;
-
-        li {
-            margin-bottom: 1rem;
-            width: auto;
-        }
-    }
-
-    @media @screen-desktop-large-up {
-        justify-content: left;
     }
 }

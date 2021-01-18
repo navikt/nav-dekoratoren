@@ -9,20 +9,15 @@ import { MenySeksjoner } from 'komponenter/header/header-regular/common/meny-sek
 import { MenyLayout } from 'komponenter/header/header-regular/common/meny-seksjoner/MenySeksjoner';
 import { matchMedia } from 'utils/match-media-polyfill';
 
-const layoutWidthBreakpoint = 1440;
-const mqlWidthBreakpoint = matchMedia(
-    `(min-width: ${layoutWidthBreakpoint}px)`
-);
-const layoutHeightBreakpoint = 960;
-const mqlHeightBreakpoint = matchMedia(
-    `(min-height: ${layoutHeightBreakpoint}px)`
-);
+const layoutWidthBreakpoint = 90;
+const mqlWidthBreakpoint = matchMedia(`(min-width: ${layoutWidthBreakpoint}em)`);
+const layoutHeightBreakpoint = 60;
+const mqlHeightBreakpoint = matchMedia(`(min-height: ${layoutHeightBreakpoint}em)`);
 
+/* Todo: skriv om dette da det ikke gir mening med relative units. *16 er brukt for å gjøre det likt som
+ da det var pixler */
 const getLayoutFromWindowSize = () =>
-    window.innerWidth >= layoutWidthBreakpoint &&
-    window.innerHeight >= layoutHeightBreakpoint
-        ? 'grid'
-        : 'mosaic';
+    window.innerWidth >= layoutWidthBreakpoint && window.innerHeight >= layoutHeightBreakpoint * 16 ? 'grid' : 'mosaic';
 
 interface Props {
     menyLenker: MenyNode;
