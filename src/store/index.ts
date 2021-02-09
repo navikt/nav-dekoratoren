@@ -7,15 +7,12 @@ import { MenuValue } from '../utils/meny-storage-utils';
 
 export const createStore = (env?: Environment, cookies?: Cookies) => {
     const composeEnhancers = (
-        (typeof window !== 'undefined' &&
-            (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+        (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
         compose
     )();
 
-    const paramLanguage =
-        env?.PARAMS.LANGUAGE !== Locale.IKKEBESTEMT && env?.PARAMS.LANGUAGE;
-    const paramContext =
-        env?.PARAMS.CONTEXT !== MenuValue.IKKEBESTEMT && env?.PARAMS.CONTEXT;
+    const paramLanguage = env?.PARAMS.LANGUAGE !== Locale.IKKEBESTEMT && env?.PARAMS.LANGUAGE;
+    const paramContext = env?.PARAMS.CONTEXT !== MenuValue.IKKEBESTEMT && env?.PARAMS.CONTEXT;
 
     const cookieLanguage = cookies?.get('decorator-language');
     const cookieContext = cookies?.get('decorator-context');

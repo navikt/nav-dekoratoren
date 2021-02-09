@@ -24,45 +24,43 @@ const Arbeidsflatemeny = () => {
     return (
         <nav className={cls.className} id={cls.className} aria-label="Velg brukergruppe">
             <ul className={cls.element('topp-liste-rad')} role="tablist">
-                {arbeidsflateLenker(XP_BASE_URL).map((lenke, index) => {
-                    return (
-                        <li
-                            role="tab"
-                            aria-selected={arbeidsflate === lenke.key}
-                            className={cls.element('liste-element')}
-                            key={lenke.key}
+                {arbeidsflateLenker(XP_BASE_URL).map((lenke, index) => (
+                    <li
+                        role="tab"
+                        aria-selected={arbeidsflate === lenke.key}
+                        className={cls.element('liste-element')}
+                        key={lenke.key}
+                    >
+                        <LenkeMedSporing
+                            classNameOverride={cls.element('lenke')}
+                            id={getKbId(KbNavGroup.HeaderMenylinje, {
+                                col: index,
+                                row: 0,
+                                sub: 0,
+                            })}
+                            href={lenke.url}
+                            onClick={(event) => {
+                                setCookie('decorator-context', lenke.key, cookieOptions);
+                                dispatch(settArbeidsflate(lenke.key));
+                                if (erNavDekoratoren()) {
+                                    event.preventDefault();
+                                }
+                            }}
+                            analyticsEventArgs={{
+                                context: arbeidsflate,
+                                category: AnalyticsCategory.Header,
+                                action: 'arbeidsflate-valg',
+                                label: lenke.key,
+                            }}
                         >
-                            <LenkeMedSporing
-                                classNameOverride={cls.element('lenke')}
-                                id={getKbId(KbNavGroup.HeaderMenylinje, {
-                                    col: index,
-                                    row: 0,
-                                    sub: 0,
-                                })}
-                                href={lenke.url}
-                                onClick={(event) => {
-                                    setCookie('decorator-context', lenke.key, cookieOptions);
-                                    dispatch(settArbeidsflate(lenke.key));
-                                    if (erNavDekoratoren()) {
-                                        event.preventDefault();
-                                    }
-                                }}
-                                analyticsEventArgs={{
-                                    context: arbeidsflate,
-                                    category: AnalyticsCategory.Header,
-                                    action: 'arbeidsflate-valg',
-                                    label: lenke.key,
-                                }}
-                            >
-                                <div className={cls.element('lenke-inner', arbeidsflate === lenke.key ? 'active' : '')}>
-                                    <Normaltekst>
-                                        <Tekst id={lenke.lenkeTekstId} />
-                                    </Normaltekst>
-                                </div>
-                            </LenkeMedSporing>
-                        </li>
-                    );
-                })}
+                            <div className={cls.element('lenke-inner', arbeidsflate === lenke.key ? 'active' : '')}>
+                                <Normaltekst>
+                                    <Tekst id={lenke.lenkeTekstId} />
+                                </Normaltekst>
+                            </div>
+                        </LenkeMedSporing>
+                    </li>
+                ))}
             </ul>
         </nav>
     );
