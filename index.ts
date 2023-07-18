@@ -5,6 +5,7 @@ import fastifyView from "@fastify/view";
 import mustache from "mustache";
 import fastifyStatic from "@fastify/static";
 import path from "path";
+import { parseParams } from "./params";
 
 const fastify = Fastify();
 
@@ -33,9 +34,26 @@ fastify.get("/", async (req, reply) => {
     };
 
     const footerLinks = get(menu, "no.Footer.Columns.Privatperson")?.children;
+    const mainMenu = get(menu, "no.Header.Main menu")?.children;
     const personvern = get(menu, "no.Footer.Personvern")?.children;
 
-    return reply.view("/templates/index.mustache", { footerLinks, personvern });
+    // Get typesafe parsed params
+    const params = parseParams(req.query);
+
+    return reply.view("/templates/index.mustache", {
+      footerLinks,
+      personvern,
+      mainMenu: mainMenu?.map((contextLink) => {
+        return {
+          styles:
+            contextLink.displayName.toLowerCase() === params.context
+              ? "font-bold border-[#3386e0]"
+              : "border-transparent",
+          context: contextLink.displayName.toLowerCase(),
+          ...contextLink,
+        };
+      }),
+    });
   } catch (e) {
     console.log(e);
   }

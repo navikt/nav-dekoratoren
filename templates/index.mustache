@@ -8,10 +8,16 @@
   <link href="dist.css" rel="stylesheet" />
 </head>
 <body>
-  <header class="header">
-    <div class="header-content bg-red-500">
-      Header
-
+  <header class="header bg-white h-[80px] shadow-sm">
+    <div class="max-w-[1344px] w-full mx-auto flex items-center h-full ">
+      <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+      <!-- Context links -->
+      <div id="arbeidsflate" class="flex h-full items-center gap-4 ml-[40px]">
+      {{#mainMenu}}
+        <!-- @todo: implement proper colos -->
+        <a class="h-full flex items-center border-b-4 {{ styles }}" href="?context={{context}}">{{ displayName }}</a>
+      {{/mainMenu}}
+      </div>
     </div>
   </header>
   <main>main</main>
@@ -24,8 +30,7 @@
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          focusable="false"
-          role="img"
+          focusable="false" role="img"
         >
           <path
             fill-rule="evenodd"
