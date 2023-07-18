@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "yarn start & yarn browsersync",
-    "start": "ts-node index.ts",
+    "start": "nodemon index.ts",
     "browsersync": "browser-sync start --proxy 'localhost:3000' --files templates/* public/* --port 3001",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.29.3",
+    "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
