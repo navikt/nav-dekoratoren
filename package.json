@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "yarn start & yarn browsersync",
+    "dev": "concurrently \"yarn start\" \"yarn browsersync\" \"yarn tailwind\"",
     "start": "nodemon index.ts",
     "browsersync": "browser-sync start --proxy 'localhost:3000' --files templates/* public/* --port 3001",
+    "tailwind": "npx tailwindcss -i ./public/main.css -o ./public/dist.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -23,7 +24,9 @@
   },
   "devDependencies": {
     "browser-sync": "^2.29.3",
+    "concurrently": "^8.2.0",
     "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
