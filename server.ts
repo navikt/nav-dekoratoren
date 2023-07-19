@@ -74,24 +74,34 @@ const getTexts = async (lang: string, params: Params): Promise<object> => {
   };
 };
 
-app.use<{}, {}, {}, { lang: string }>("/footer", async (req, res) => {
-  const lang = ["en", "se"].includes(req.query.lang) ? req.query.lang : "no";
-  const params = parseParams(req.query);
+app.use<{}, {}, {}, { simple: string; lang: string }>(
+  "/footer",
+  async (req, res) => {
+    const lang = ["en", "se"].includes(req.query.lang) ? req.query.lang : "no";
+    const simple = req.query.simple === "";
+    const params = parseParams(req.query);
 
-  res.render("footer", { ...(await getTexts(lang, params)) });
-});
+    res.render("footer", { simple, ...(await getTexts(lang, params)) });
+  }
+);
 
-app.use<{ lang: string }>("/:lang?", async (req, res) => {
-  const lang = ["en", "se"].includes(req.params.lang) ? req.params.lang : "no";
-  const params = parseParams(req.query);
+app.use<{ lang: string }, {}, {}, { simple: string }>(
+  "/:lang?",
+  async (req, res) => {
+    const lang = ["en", "se"].includes(req.params.lang)
+      ? req.params.lang
+      : "no";
 
-  console.log("Hit this");
+    const simple = req.query.simple === "";
+    const params = parseParams(req.query);
 
-  res.render("index", {
-    lang: { [lang]: true },
-    ...(await getTexts(lang, params)),
-  });
-});
+    res.render("index", {
+      simple,
+      lang: { [lang]: true },
+      ...(await getTexts(lang, params)),
+    });
+  }
+);
 
 app.listen(3000, function () {
   console.log("Server started");
