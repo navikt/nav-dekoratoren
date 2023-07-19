@@ -257,6 +257,7 @@ module.exports = {
           "0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 25px 50px -5px rgba(0, 0, 0, 0.1)",
         "focus-inverted": "0 0 0 3px rgba(153, 195, 255, 1)",
         focus: "0 0 0 3px rgba(0, 52, 125, 1)",
+        inset: "inset 0 0 0 0.125rem rgba(0, 0, 0, 0.1)",
       },
       fontWeight: {
         bold: "600",
@@ -310,5 +311,6 @@ module.exports = {
       },
     },
   },
+
   plugins: [],
 };
