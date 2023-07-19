@@ -62,17 +62,32 @@ const getTexts = async (lang: string): Promise<object> => {
   };
 };
 
-app.use<{}, {}, {}, { lang: string }>("/footer", async (req, res) => {
-  const lang = ["en", "se"].includes(req.query.lang) ? req.query.lang : "no";
+app.use<{}, {}, {}, { simple: string; lang: string }>(
+  "/footer",
+  async (req, res) => {
+    const lang = ["en", "se"].includes(req.query.lang) ? req.query.lang : "no";
+    const simple = req.query.simple === "";
 
-  res.render("footer", { ...(await getTexts(lang)) });
-});
+    res.render("footer", { simple, ...(await getTexts(lang)) });
+  }
+);
 
-app.use<{ lang: string }>("/:lang?", async (req, res) => {
-  const lang = ["en", "se"].includes(req.params.lang) ? req.params.lang : "no";
+app.use<{ lang: string }, {}, {}, { simple: string }>(
+  "/:lang?",
+  async (req, res) => {
+    const lang = ["en", "se"].includes(req.params.lang)
+      ? req.params.lang
+      : "no";
 
-  res.render("index", { lang: { [lang]: true }, ...(await getTexts(lang)) });
-});
+    const simple = req.query.simple === "";
+
+    res.render("index", {
+      simple,
+      lang: { [lang]: true },
+      ...(await getTexts(lang)),
+    });
+  }
+);
 
 app.listen(3000, function () {
   console.log("Server started");
