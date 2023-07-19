@@ -46,6 +46,8 @@ const paramsSchema = z.object({
   maskHotjar: z.boolean().default(false),
 });
 
+export type Params = z.infer<typeof paramsSchema>;
+
 export function parseParams(params: any) {
   return paramsSchema.parse(params);
 }

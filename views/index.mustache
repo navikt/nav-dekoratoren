@@ -1,0 +1,36 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <link href="/public/dist.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="header bg-white h-[80px] shadow-sm">
+    <div class="max-w-[1344px] w-full mx-auto flex items-center h-full ">
+      <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+      <!-- Context links -->
+      <div id="arbeidsflate" class="flex h-full items-center gap-4 ml-[40px]">
+      {{#mainMenu}}
+        <!-- @todo: implement proper colos -->
+        <a class="h-full flex items-center border-b-4 {{ styles }}" href="?context={{context}}">{{ displayName }}</a>
+      {{/mainMenu}}
+      </div>
+    </div>
+  </header>
+  <main>
+    <div>main</div>
+    <select id="language-select">
+      <option value="no" {{#lang.no}}selected{{/lang.no}}>no</option>
+      <option value="en" {{#lang.en}}selected{{/lang.en}}>en</option>
+      <option value="se" {{#lang.se}}selected{{/lang.se}}>se</option>
+    </select>
+  </main>
+
+  <div id="decorator-footer">
+    {{> footer}}
+  </div>
+  <script src="/public/bundle.js"></script>
+</body>
