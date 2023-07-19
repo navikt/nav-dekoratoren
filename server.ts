@@ -29,14 +29,20 @@ const getTexts = async (lang: string, params: Params): Promise<object> => {
     no: {
       share_screen: "Del skjerm med veileder",
       to_top: "Til toppen",
+      menu: "Meny",
+      close: "Lukk",
     },
     en: {
       share_screen: "Share screen with your counsellor",
       to_top: "To the top",
+      menu: "Menu",
+      close: "Close",
     },
     se: {
       share_screen: "Del skjerm med veileder",
       to_top: "Til toppen",
+      menu: "Meny",
+      close: "Lukk",
     },
   };
 
@@ -64,7 +70,7 @@ const getTexts = async (lang: string, params: Params): Promise<object> => {
         styles:
           contextLink.displayName.toLowerCase() === params.context
             ? "font-bold border-[#3386e0]"
-            : "border-transparent",
+            : "border-transparent hover:border-gray-300 text-color-gray-700",
         context: contextLink.displayName.toLowerCase(),
         ...contextLink,
       };
@@ -97,6 +103,8 @@ app.use<{ lang: string }, {}, {}, { simple: string }>(
 
     res.render("index", {
       simple,
+      // Get from api later
+      innlogget: false,
       lang: { [lang]: true },
       ...(await getTexts(lang, params)),
     });

@@ -8,8 +8,11 @@
   <link href="/public/dist.css" rel="stylesheet" />
 </head>
 <body>
-  <header class="header bg-white h-[80px] shadow-sm">
-    <div class="max-w-[1344px] w-full mx-auto flex items-center h-full ">
+  <div id="menu-background" class="fixed top-0 left-0 right-0 bottom-0 bg-modal-background z-10 opacity-0 pointer-events-none transition duration-[350ms] transition-ease-in"></div>
+
+  <header class="header bg-white h-[80px] border-b border-gray-300 z-20">
+    <div class="max-w-[1344px] w-full mx-auto flex justify-between items-center h-full ">
+    <div class="flex items-center h-full w-full">
       <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
       <!-- Context links -->
       <div id="arbeidsflate" class="flex h-full items-center gap-4 ml-[40px]">
@@ -17,8 +20,28 @@
         <!-- @todo: implement proper colos -->
         <a class="h-full flex items-center border-b-4 {{ styles }}" href="?context={{context}}">{{ displayName }}</a>
       {{/mainMenu}}
+        </div>
+      </div>        
+        <!-- Menu button -->
+        <!-- Show different buttons based on auth state -->
+      {{#innlogget}}
+          Du er innlogget
+        {{/innlogget}}
+        {{^innlogget}}
+        <div class="flex items-center">
+        <button id="menu-button" class="group flex gap-2 text-blue-500 rounded-[3px] py-3 px-2 pr-4 pl-1 border-2 border-transparent hover:border-blue-500 hover:bg-blue-100 active:bg-surface-action-active active:text-white ring-[3px] ring-transparent active:ring-blue-800 active:border active:border-white">
+          <img class="group-active:hidden group-[.active]:hidden block" src="/public/ikoner/meny/burger.svg" alt="Meny"  />
+          <img class="group-active:block group-[.active]:hidden hidden" src="/public/ikoner/meny/burger-white.svg" alt="Meny"  />
+          <span class="font-bold group-[.active]:hidden">{{ menu }}</span>
+          
+          <img class="group-[.active]:group-active:hidden group-[.active]:block hidden" src="/public/ikoner/meny/menu-close.svg" alt="Meny"  />
+
+          <img class="group-[.active]:group-active:block hidden" src="/public/ikoner/meny/menu-close-white.svg" alt="Meny"  />
+          <span class="font-bold group-[.active]:block hidden">{{ close }}</span>
+        </div>
+        {{/innlogget}}
+      <div id="menu" class="absolute top-[80px] h-[400px] w-full bg-white max-w-[1440px] rounded-b-small hidden">
       </div>
-    </div>
   </header>
   <main>
     <div>main</div>
@@ -28,7 +51,6 @@
       <option value="se" {{#lang.se}}selected{{/lang.se}}>se</option>
     </select>
   </main>
-
   <div id="decorator-footer">
     {{> footer}}
   </div>

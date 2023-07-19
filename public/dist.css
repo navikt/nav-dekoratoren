@@ -16,7 +16,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #e5e7eb;
+  border-color: currentColor;
   /* 2 */
 }
 
@@ -534,8 +534,48 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .static {
   position: static;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.top-\[80px\] {
+  top: 80px;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
 }
 
 .mx-auto {
@@ -547,8 +587,20 @@ video {
   margin-left: 40px;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-\[400px\] {
+  height: 400px;
 }
 
 .h-\[80px\] {
@@ -567,12 +619,41 @@ video {
   max-width: 1344px;
 }
 
+.max-w-\[1440px\] {
+  max-width: 1440px;
+}
+
 .items-center {
   align-items: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-4 {
   gap: 1rem;
+}
+
+.rounded-\[3px\] {
+  border-radius: 3px;
+}
+
+.rounded-b-small {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
 }
 
 .border-b-4 {
@@ -584,27 +665,76 @@ video {
   border-color: rgb(51 134 224 / var(--tw-border-opacity));
 }
 
+.border-gray-300 {
+  border-color: rgba(207, 207, 207, 1);
+}
+
 .border-transparent {
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0);
+}
+
+.bg-modal-background {
+  background-color: rgba(50, 65, 79, 0.8);
 }
 
 .bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.pl-1 {
+  padding-left: 0.25rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .font-bold {
-  font-weight: 700;
+  font-weight: 600;
+}
+
+.text-blue-500 {
+  color: rgba(0, 103, 197, 1);
 }
 
 .underline {
   text-decoration-line: underline;
 }
 
-.shadow-sm {
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+.opacity-0 {
+  opacity: 0;
+}
+
+.ring-\[3px\] {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-transparent {
+  --tw-ring-color: rgba(255, 255, 255, 0);
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-\[350ms\] {
+  transition-duration: 350ms;
 }
 
 html,
@@ -690,4 +820,71 @@ a {
   text-decoration-color: #99c4dd;
   text-decoration-thickness: 0.0625em;
   text-underline-offset: 0.15em;
+}
+
+#menu {
+}
+
+#menu.active {
+  display: block;
+}
+
+#menu-background.active {
+  opacity: 1;
+}
+
+.hover\:border-blue-500:hover {
+  border-color: rgba(0, 103, 197, 1);
+}
+
+.hover\:border-gray-300:hover {
+  border-color: rgba(207, 207, 207, 1);
+}
+
+.hover\:bg-blue-100:hover {
+  background-color: rgba(204, 225, 255, 1);
+}
+
+.active\:border:active {
+  border-width: 1px;
+}
+
+.active\:border-white:active {
+  border-color: rgba(255, 255, 255, 1);
+}
+
+.active\:bg-surface-action-active:active {
+  background-color: rgba(0, 91, 130, 1);
+}
+
+.active\:text-white:active {
+  color: rgba(255, 255, 255, 1);
+}
+
+.active\:ring-blue-800:active {
+  --tw-ring-color: rgba(0, 52, 125, 1);
+}
+
+.group:active .group-active\:block {
+  display: block;
+}
+
+.group:active .group-active\:hidden {
+  display: none;
+}
+
+.group.active .group-\[\.active\]\:block {
+  display: block;
+}
+
+.group.active .group-\[\.active\]\:hidden {
+  display: none;
+}
+
+.group.active:active .group-\[\.active\]\:group-active\:block {
+  display: block;
+}
+
+.group.active:active .group-\[\.active\]\:group-active\:hidden {
+  display: none;
 }

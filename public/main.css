@@ -82,3 +82,14 @@ a {
   text-decoration-thickness: 0.0625em;
   text-underline-offset: 0.15em;
 }
+
+#menu {
+}
+
+#menu.active {
+  display: block;
+}
+
+#menu-background.active {
+  opacity: 1;
+}
