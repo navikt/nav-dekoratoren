@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
+    "dev": "concurrently \"yarn start\" \"yarn browsersync\" \"yarn tailwind\"",
+    "browsersync": "browser-sync start --proxy 'localhost:3000' --files templates/* public/* --port 3001",
+    "tailwind": "npx tailwindcss -i ./public/main.css -o ./public/dist.css --watch",
     "start": "nodemon --ext ts,mustache server.ts",
-    "dev": "yarn start & yarn browsersync",
-    "browsersync": "browser-sync start --proxy 'localhost:3000' --files views/* public/* --port 3001",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -22,8 +23,11 @@
   },
   "devDependencies": {
     "browser-sync": "^2.29.3",
+    "concurrently": "^8.2.0",
     "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "zod": "^3.21.4"
   }
 }
