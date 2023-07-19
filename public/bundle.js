@@ -11,5 +11,5 @@ document.getElementById("language-select").addEventListener("change", (e) => {
 });
 
 if (!document.getElementById("decorator-footer").hasChildNodes()) {
-  swapFooter("no");
+  swapFooter("nb");
 }

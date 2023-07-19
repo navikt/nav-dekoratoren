@@ -1,8 +1,6 @@
 import z from "zod";
 
 const authLevelSchema = z.enum(["Level3", "Level4"]);
-// export
-// nb / nn / en / se / pl / uk / ru
 const languageSchema = z.enum(["nb", "nn", "en", "se", "pl", "uk", "ru"]);
 const contextSchema = z.enum([
   "privatperson",
@@ -20,7 +18,10 @@ const background = z.enum(["white", "gray", "transparent"]);
 
 const paramsSchema = z.object({
   context: contextSchema.default("privatperson"),
-  simple: z.boolean().default(false),
+  simple: z
+    .enum(["true", "false"])
+    .transform((value) => value === "true")
+    .default("false"),
   simpleHeader: z.boolean().default(false),
   simpleFooter: z.boolean().default(false),
   enforceLogin: z.boolean().default(false),
@@ -48,6 +49,4 @@ const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export function parseParams(params: any) {
-  return paramsSchema.parse(params);
-}
+export const parseParams = paramsSchema.safeParse;
