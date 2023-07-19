@@ -87,22 +87,19 @@ app.use("/footer", async (req, res) => {
   }
 });
 
-app.use<{ lang: string }, {}, {}, { simple: string }>(
-  "/:lang?",
-  async (req, res) => {
-    const params = parseParams(req.query);
+app.use("/", async (req, res) => {
+  const params = parseParams(req.query);
 
-    if (params.success) {
-      res.render("index", {
-        simple: params.data.simple,
-        lang: { [params.data.language]: true },
-        ...(await getTexts(params.data)),
-      });
-    } else {
-      res.status(400).send(params.error);
-    }
+  if (params.success) {
+    res.render("index", {
+      simple: params.data.simple,
+      lang: { [params.data.language]: true },
+      ...(await getTexts(params.data)),
+    });
+  } else {
+    res.status(400).send(params.error);
   }
-);
+});
 
 app.listen(3000, function () {
   console.log("Server started");
