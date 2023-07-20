@@ -18,10 +18,7 @@ const background = z.enum(["white", "gray", "transparent"]);
 
 const paramsSchema = z.object({
   context: contextSchema.default("privatperson"),
-  simple: z
-    .enum(["true", "false"])
-    .transform((value) => value === "true")
-    .default("false"),
+  simple: z.boolean().default(false),
   simpleHeader: z.boolean().default(false),
   simpleFooter: z.boolean().default(false),
   enforceLogin: z.boolean().default(false),
@@ -49,4 +46,15 @@ const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export const parseParams = paramsSchema.safeParse;
+export const parseParams = (params: any) => {
+  return paramsSchema.safeParse({
+    ...params,
+    simple:
+      params.simple === "true"
+        ? true
+        : params.simple === "false"
+        ? false
+        : params.simple,
+    breadcrumbs: JSON.parse(params.breadcrumbs),
+  });
+};
