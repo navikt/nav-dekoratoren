@@ -34,28 +34,16 @@ window.addEventListener("message", (e) => {
     if (e.data.payload.breadcrumbs) {
       const breadcrumbsListEl = document.getElementById("breadcrumbs-list");
       const firstChild = breadcrumbsListEl.querySelector("a:first-child");
-      breadcrumbsListEl.innerHTML = "";
-      breadcrumbsListEl.append(firstChild);
-      e.data.payload.breadcrumbs.forEach(({ url, title }, i, array) => {
-        const li = document.createElement("li");
-
-        "flex items-center before:content-chevronRightIcon"
-          .split(" ")
-          .forEach((c) => li.classList.add(c));
-
-        if (array.length - 1 === i) {
-          li.appendChild(document.createTextNode(title));
-        } else {
-          const a = document.createElement("a");
-          a.setAttribute("href", url);
-          "text-blue-500 underline"
-            .split(" ")
-            .forEach((c) => li.classList.add(c));
-          a.appendChild(document.createTextNode(title));
-          li.appendChild(a);
-        }
-        breadcrumbsListEl.appendChild(li);
-      });
+      const list = e.data.payload.breadcrumbs.map(
+        ({ url, title }, i, array) =>
+          `<li class="flex items-center before:content-chevronRightIcon">${
+            array.length - 1 === i
+              ? title
+              : `<a href=${url} class="text-blue-500 underline">${title}</a>`
+          }</li>
+`
+      );
+      breadcrumbsListEl.innerHTML = [firstChild.outerHTML, ...list].join("");
     }
   }
 });
