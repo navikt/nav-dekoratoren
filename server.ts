@@ -1,4 +1,4 @@
-import express, { Request } from "express";
+import express from "express";
 import mustacheExpress from "mustache-express";
 import { Params, parseParams } from "./params";
 
@@ -10,7 +10,7 @@ app.set("views", `${__dirname}/views`);
 
 app.use("/public", express.static("public"));
 
-const getTexts = async (lang: string, params: Params): Promise<object> => {
+const getTexts = async (params: Params): Promise<object> => {
   interface Node {
     children: Node[];
     displayName: string;
@@ -26,7 +26,7 @@ const getTexts = async (lang: string, params: Params): Promise<object> => {
   };
 
   const texts: { [lang: string]: { [key: string]: string } } = {
-    no: {
+    nb: {
       share_screen: "Del skjerm med veileder",
       to_top: "Til toppen",
       menu: "Meny",
@@ -56,11 +56,11 @@ const getTexts = async (lang: string, params: Params): Promise<object> => {
   const key: { [key: string]: string } = {
     en: "en.Footer.Columns",
     se: "se.Footer.Columns",
-    no: "no.Footer.Columns.Privatperson",
+    nb: "no.Footer.Columns.Privatperson",
     "": "no.Footer.Columns.Privatperson",
   };
 
-  const footerLinks = get(menu, key[lang])?.children;
+  const footerLinks = get(menu, key[params.language])?.children;
   const mainMenu = get(menu, "no.Header.Main menu")?.children;
   const personvern = get(menu, "no.Footer.Personvern")?.children;
   return {
@@ -76,40 +76,37 @@ const getTexts = async (lang: string, params: Params): Promise<object> => {
       };
     }),
     personvern,
-    ...texts[lang],
+    ...texts[params.language],
   };
 };
 
-app.use<{}, {}, {}, { simple: string; lang: string }>(
-  "/footer",
-  async (req, res) => {
-    const lang = ["en", "se"].includes(req.query.lang) ? req.query.lang : "no";
-    const simple = req.query.simple === "";
-    const params = parseParams(req.query);
+app.use("/footer", async (req, res) => {
+  const params = parseParams(req.query);
 
-    res.render("footer", { simple, ...(await getTexts(lang, params)) });
-  }
-);
-
-app.use<{ lang: string }, {}, {}, { simple: string }>(
-  "/:lang?",
-  async (req, res) => {
-    const lang = ["en", "se"].includes(req.params.lang)
-      ? req.params.lang
-      : "no";
-
-    const simple = req.query.simple === "";
-    const params = parseParams(req.query);
-
-    res.render("index", {
-      simple,
-      // Get from api later
+  if (params.success) {
+    res.render("footer", {
+      simple: params.data.simple,
       innlogget: false,
-      lang: { [lang]: true },
-      ...(await getTexts(lang, params)),
+      ...(await getTexts(params.data)),
     });
+  } else {
+    res.status(400).send(params.error);
   }
-);
+});
+
+app.use("/", async (req, res) => {
+  const params = parseParams(req.query);
+
+  if (params.success) {
+    res.render("index", {
+      simple: params.data.simple,
+      lang: { [params.data.language]: true },
+      ...(await getTexts(params.data)),
+    });
+  } else {
+    res.status(400).send(params.error);
+  }
+});
 
 app.listen(3000, function () {
   console.log("Server started");
