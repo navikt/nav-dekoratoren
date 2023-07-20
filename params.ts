@@ -55,6 +55,8 @@ export const parseParams = (params: any) => {
         : params.simple === "false"
         ? false
         : params.simple,
-    breadcrumbs: JSON.parse(params.breadcrumbs),
+    breadcrumbs: params.breadcrumbs
+      ? JSON.parse(params.breadcrumbs)
+      : params.breadcrumbs,
   });
 };

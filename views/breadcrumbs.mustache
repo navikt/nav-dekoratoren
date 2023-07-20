@@ -1,5 +1,5 @@
 <nav class="max-w-[1344px] w-full mx-auto py-3">
-  <ol class="flex items-center">
+  <ol class="flex items-center" id="breadcrumbs-list">
     <li>
       <a class="flex gap-1 items-center" href="nav.no">
         <svg
@@ -22,7 +22,7 @@
         <span class="text-blue-500 underline">nav.no</span>
       </a>
     </li>
-    {{#breadcrumb}}
+    {{#breadcrumbs}}
     <li class="flex items-center before:content-chevronRightIcon">
       {{^last}}
       <a class="text-blue-500 underline" href="{{ url }}">{{ title }}</a>
@@ -31,6 +31,6 @@
       {{ title }}
       {{/last}}
     </li>
-    {{/breadcrumb}}
+    {{/breadcrumbs}}
   </ol>
 </nav>

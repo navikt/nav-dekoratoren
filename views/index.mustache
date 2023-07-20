@@ -110,7 +110,7 @@
     </div>
   </header>
   <div>
-    {{> breadcrumb}}
+    {{> breadcrumbs}}
     <main>
       <div>main</div>
       <select id="language-select">
@@ -118,10 +118,29 @@
         <option value="en">en</option>
         <option value="se">se</option>
       </select>
+      <form id="breadcrumbs-form">
+        <textarea class="border" cols="80" rows="15" name="breadcrumbs">
+[
+  {
+    "url": "https://www.nav.no/person/dittnav",
+    "title": "Ditt NAV"
+  },
+  {
+    "url": "https://www.nav.no/person/kontakt-oss",
+    "title": "Kontakt oss"
+  }
+]
+</textarea
+        >
+        <button class="bg-blue-200 p-4 hover:bg-blue-300 active:bg-blue-400">
+          set breadcrumbs
+        </button>
+      </form>
     </main>
   </div>
   <div id="decorator-footer">
     {{> footer}}
   </div>
-  <script src="/public/bundle.js"></script>
+  <script src="/public/decorator-bundle.js"></script>
+  <script src="/public/app-bundle.js"></script>
 </body>
