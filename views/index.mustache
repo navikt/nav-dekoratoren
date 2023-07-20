@@ -5,22 +5,19 @@
     href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet"
   />
-  <link href="/public/dist.css" rel="stylesheet" />
+  <link href="/dist.css" rel="stylesheet" />
 </head>
 <body>
   <div
     id="menu-background"
     class="fixed top-0 left-0 right-0 bottom-0 bg-modal-background z-10 opacity-0 pointer-events-none transition duration-[350ms] transition-ease-in"
   ></div>
-  <header
-    id="hovedmeny"
-    class="header bg-white h-[80px] border-gray-300 border-b z-20"
-  >
+  <header id="hovedmeny" class="header bg-white border-gray-300 border-b z-20">
     <div
       class="max-w-[1344px] w-full mx-auto flex justify-between items-center h-full"
     >
       <div class="flex items-center h-full w-full">
-        <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+        <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
         <!-- Context links -->
         <div id="arbeidsflate" class="flex h-full items-center gap-4 ml-[40px]">
           {{#mainMenu}}
@@ -46,23 +43,23 @@
         >
           <img
             class="group-active:hidden group-[.active]:hidden block"
-            src="/public/ikoner/meny/burger.svg"
+            src="/ikoner/meny/burger.svg"
             alt="Meny"
           />
           <img
             class="group-active:block group-[.active]:hidden hidden"
-            src="/public/ikoner/meny/burger-white.svg"
+            src="/ikoner/meny/burger-white.svg"
             alt="Meny"
           />
           <span class="font-bold group-[.active]:hidden">{{ menu }}</span>
           <img
             class="group-[.active]:group-active:hidden group-[.active]:block hidden"
-            src="/public/ikoner/meny/menu-close.svg"
+            src="/ikoner/meny/menu-close.svg"
             alt="Meny"
           />
           <img
             class="group-[.active]:group-active:block hidden"
-            src="/public/ikoner/meny/menu-close-white.svg"
+            src="/ikoner/meny/menu-close-white.svg"
             alt="Meny"
           />
           <span class="font-bold group-[.active]:block hidden">{{
@@ -108,9 +105,9 @@
         </ul>
       </div>
     </div>
+    {{> breadcrumbs}}
   </header>
   <div>
-    {{> breadcrumbs}}
     <main>
       <div>main</div>
       <select id="language-select">
@@ -141,6 +138,6 @@
   <div id="decorator-footer">
     {{> footer}}
   </div>
-  <script src="/public/decorator-bundle.js"></script>
-  <script src="/public/app-bundle.js"></script>
+  <script src="/decorator-bundle.js"></script>
+  <script src="/app-bundle.js"></script>
 </body>

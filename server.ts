@@ -1,6 +1,7 @@
 import express from "express";
 import mustacheExpress from "mustache-express";
 import { Params, parseParams } from "./params";
+import cors from "cors";
 
 const app = express();
 
@@ -8,7 +9,9 @@ app.engine("mustache", mustacheExpress());
 app.set("view engine", "mustache");
 app.set("views", `${__dirname}/views`);
 
-app.use("/public", express.static("public"));
+app.use(cors());
+
+app.use(express.static("public"));
 
 const getTexts = async (params: Params): Promise<object> => {
   interface Node {
