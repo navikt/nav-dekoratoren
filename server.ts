@@ -106,6 +106,10 @@ app.use("/", async (req, res) => {
     res.render("index", {
       simple: params.data.simple,
       lang: { [params.data.language]: true },
+      breadcrumb: params.data.breadcrumbs.map((b, i, a) => ({
+        ...b,
+        last: a.length - 1 === i,
+      })),
       ...(await getTexts(params.data)),
     });
   } else {
