@@ -40,7 +40,38 @@
           <span class="font-bold group-[.active]:block hidden">{{ close }}</span>
         </div>
         {{/innlogget}}
-      <div id="menu" class="absolute top-[80px] h-[400px] w-full bg-white max-w-[1440px] rounded-b-small hidden">
+      <div id="menu" class="absolute top-[80px] w-full bg-white max-w-[1440px] rounded-b-small hidden">
+        <div>
+          <h2>Hva kan vi hjelpe deg med?</h2>
+          <a href="#">Til forsiden</a>
+        </div>
+        <div>
+          <ul>
+          {{#headerMenuLinks}}
+          <li>
+            <h3>{{displayName}}</h3>
+            <ul>
+              {{#children}}
+              <li>
+                <a href="{{path}}">{{displayName}}</a>
+              </li>
+              {{/children}}
+            </ul>
+          </li>
+          {{/headerMenuLinks}}
+          </ul>
+          <ul>
+            <li>
+              <a href="/minside">Min side</a>
+            </li>
+            <li>
+              <a href="/no/bedrift">Arbeidsgiver</a>
+            </li>
+            <li>
+              <a href="/no/samarbeidspartner">Samarbeidspartner</a>
+            </li>
+          </ul>
+        </div>
       </div>
   </header>
   <main>

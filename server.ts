@@ -63,6 +63,10 @@ const getTexts = async (params: Params): Promise<object> => {
   const footerLinks = get(menu, key[params.language])?.children;
   const mainMenu = get(menu, "no.Header.Main menu")?.children;
   const personvern = get(menu, "no.Footer.Personvern")?.children;
+  const headerMenuLinks = get(
+    menu,
+    "no.Header.Main menu.Privatperson"
+  )?.children;
   return {
     footerLinks,
     mainMenu: mainMenu?.map((contextLink) => {
@@ -76,6 +80,7 @@ const getTexts = async (params: Params): Promise<object> => {
       };
     }),
     personvern,
+    headerMenuLinks,
     ...texts[params.language],
   };
 };
