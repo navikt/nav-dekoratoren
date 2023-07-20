@@ -29,14 +29,20 @@ const getTexts = async (params: Params): Promise<object> => {
     nb: {
       share_screen: "Del skjerm med veileder",
       to_top: "Til toppen",
+      menu: "Meny",
+      close: "Lukk",
     },
     en: {
       share_screen: "Share screen with your counsellor",
       to_top: "To the top",
+      menu: "Menu",
+      close: "Close",
     },
     se: {
       share_screen: "Del skjerm med veileder",
       to_top: "Til toppen",
+      menu: "Meny",
+      close: "Lukk",
     },
   };
 
@@ -64,7 +70,7 @@ const getTexts = async (params: Params): Promise<object> => {
         styles:
           contextLink.displayName.toLowerCase() === params.context
             ? "font-bold border-[#3386e0]"
-            : "border-transparent",
+            : "border-transparent hover:border-gray-300 text-color-gray-700",
         context: contextLink.displayName.toLowerCase(),
         ...contextLink,
       };
@@ -80,6 +86,7 @@ app.use("/footer", async (req, res) => {
   if (params.success) {
     res.render("footer", {
       simple: params.data.simple,
+      innlogget: false,
       ...(await getTexts(params.data)),
     });
   } else {

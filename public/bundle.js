@@ -13,3 +13,16 @@ document.getElementById("language-select").addEventListener("change", (e) => {
 if (!document.getElementById("decorator-footer").hasChildNodes()) {
   swapFooter("nb");
 }
+
+const menuButton = document.getElementById("menu-button");
+const menuBackground = document.getElementById("menu-background");
+
+function toggleActive(el) {
+  el.classList.toggle("active");
+}
+
+menuButton.addEventListener("click", () => {
+  const menu = document.getElementById("menu");
+
+  [menuButton, menuBackground, menu].forEach(toggleActive);
+});
