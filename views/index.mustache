@@ -71,11 +71,11 @@
     </div>
     <div
       id="menu"
-      class="absolute top-[80px] w-full bg-white max-w-[1440px] rounded-b-small hidden"
+      class="absolute top-[80px] mx-auto left-1/2 transform -translate-x-1/2 w-full bg-white max-w-[1440px] rounded-b-small hidden  px-6 py-8"
     >
-      <div>
-        <h2>Hva kan vi hjelpe deg med?</h2>
-        <a href="#">Til forsiden</a>
+          <div class="mb-4">
+        <h2 class="text-heading-medium font-semibold">Hva kan vi hjelpe deg med?</h2>
+        <a class="text-text-action underline pt-2 pb-3 inline-block" href="#">Til forsiden</a>
       </div>
       <div>
         <ul>
@@ -85,7 +85,7 @@
             <ul>
               {{#children}}
               <li>
-                <a href="{{ path }}">{{ displayName }}</a>
+                <a class="text-text-action" href="{{ path }}">{{ displayName }}</a>
               </li>
               {{/children}}
             </ul>
