@@ -1,7 +1,8 @@
 import express from "express";
 import mustacheExpress from "mustache-express";
-import { Params, parseParams } from "./params";
+import { Context, Params, parseParams } from "./params";
 import cors from "cors";
+import { capitalizeFirstLetter } from "./utils";
 
 const app = express();
 
@@ -10,8 +11,21 @@ app.set("view engine", "mustache");
 app.set("views", `${__dirname}/views`);
 
 app.use(cors());
-
 app.use(express.static("public"));
+
+function getContextKey(context: Context)  {
+    return capitalizeFirstLetter(context)
+}
+
+// How should we handle if the params are invalid?
+app.use((req, res, next) => {
+ const result = parseParams(req.query);
+  if (result.success) {
+    req.decorator = result.data;
+  }
+
+  next();
+})
 
 const getTexts = async (params: Params): Promise<object> => {
   interface Node {
@@ -56,10 +70,12 @@ const getTexts = async (params: Params): Promise<object> => {
     displayName: "",
   };
 
+  const contextKey = getContextKey(params.context);
+
   const key: { [key: string]: string } = {
     en: "en.Footer.Columns",
     se: "se.Footer.Columns",
-    nb: "no.Footer.Columns.Privatperson",
+    nb: `no.Footer.Columns.${contextKey}`,
     "": "no.Footer.Columns.Privatperson",
   };
 
@@ -68,7 +84,7 @@ const getTexts = async (params: Params): Promise<object> => {
   const personvern = get(menu, "no.Footer.Personvern")?.children;
   const headerMenuLinks = get(
     menu,
-    "no.Header.Main menu.Privatperson"
+    `no.Header.Main menu.${contextKey}`
   )?.children;
   return {
     footerLinks,

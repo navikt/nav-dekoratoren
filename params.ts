@@ -1,5 +1,13 @@
 import z from "zod";
 
+declare global {
+    namespace Express {
+        export interface Request {
+            decorator: Params;
+        }
+    }
+}
+
 const authLevelSchema = z.enum(["Level3", "Level4"]);
 const languageSchema = z.enum(["nb", "nn", "en", "se", "pl", "uk", "ru"]);
 const contextSchema = z.enum([
@@ -7,6 +15,8 @@ const contextSchema = z.enum([
   "arbeidsgiver",
   "samarbeidspartner",
 ]);
+
+export type Context = z.infer<typeof contextSchema>;
 
 const breadcrumbSchema = z.object({
   title: z.string(),

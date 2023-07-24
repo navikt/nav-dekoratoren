@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "concurrently \"yarn start\" \"yarn browsersync\" \"yarn tailwind\"",
-    "browsersync": "browser-sync start --proxy 'localhost:3000' --files templates/* public/* --port 3001",
+    "browsersync": "browser-sync start --proxy 'localhost:3000' --files views/* public/* --port 3001 --reloadDelay 200",
     "tailwind": "npx tailwindcss -i ./public/main.css -o ./public/dist.css --watch",
     "start": "nodemon --ext ts,mustache server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
