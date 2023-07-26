@@ -5,10 +5,10 @@
     href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet"
   />
-  <link href="/dist.css" rel="stylesheet" />
+  {{& scriptsAndLinks }}
 </head>
 <body>
-{{> header}}
+  {{> header}}
   <div>
     <main>
       <div>main</div>
@@ -40,6 +40,4 @@
   <div id="decorator-footer">
     {{> footer}}
   </div>
-  <script src="/decorator-bundle.js"></script>
-  <script src="/app-bundle.js"></script>
 </body>
