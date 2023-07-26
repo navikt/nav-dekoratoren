@@ -3,6 +3,7 @@ import mustacheExpress from "mustache-express";
 import { Context, Params, parseParams } from "./params";
 import cors from "cors";
 import { capitalizeFirstLetter } from "./utils";
+import { GetComponents } from "./components";
 
 const app = express();
 
@@ -22,12 +23,19 @@ app.use((req, res, next) => {
  const result = parseParams(req.query);
   if (result.success) {
     req.decorator = result.data;
+  } else {
+      res.status(400).send(result.error);
   }
 
   next();
 })
 
-const getTexts = async (params: Params): Promise<object> => {
+app.use((req, res, next) => {
+    res.components = GetComponents(res, req.decorator);
+    next();
+})
+
+export const getTexts = async (params: Params): Promise<object> => {
   interface Node {
     children: Node[];
     displayName: string;
@@ -79,25 +87,36 @@ const getTexts = async (params: Params): Promise<object> => {
     "": "no.Footer.Columns.Privatperson",
   };
 
+  const menuLinksKey: { [key: string]: string } = {
+    en: "en.Header.Main menu",
+    se: "se.Header.Main menu",
+    nb: `no.Header.Main menu.${contextKey}`,
+    "": "no.Header.Main menu",
+    };
+
+
+
   const footerLinks = get(menu, key[params.language])?.children;
   const mainMenu = get(menu, "no.Header.Main menu")?.children;
   const personvern = get(menu, "no.Footer.Personvern")?.children;
   const headerMenuLinks = get(
     menu,
-    `no.Header.Main menu.${contextKey}`
+    menuLinksKey[params.language]
   )?.children;
+
   return {
     footerLinks,
     mainMenu: mainMenu?.map((contextLink) => {
       return {
         styles:
           contextLink.displayName.toLowerCase() === params.context
-            ? "font-bold border-[#3386e0]"
-            : "border-transparent hover:border-gray-300 text-color-gray-700",
+            ? "active"
+            : "",
         context: contextLink.displayName.toLowerCase(),
         ...contextLink,
       };
     }),
+    isNorwegian: params.language === "nb",
     personvern,
     headerMenuLinks,
     ...texts[params.language],
@@ -105,35 +124,33 @@ const getTexts = async (params: Params): Promise<object> => {
 };
 
 app.use("/footer", async (req, res) => {
-  const params = parseParams(req.query);
+  const params = req.decorator;
 
-  if (params.success) {
-    res.render("footer", {
-      simple: params.data.simple,
-      innlogget: false,
-      ...(await getTexts(params.data)),
-    });
-  } else {
-    res.status(400).send(params.error);
-  }
+  return res.components.Footer({
+    simple: params.simple,
+    innlogget: false,
+    ...(await getTexts(params)),
+  })
+});
+
+app.use("/header", async (req, res) => {
+    const params = req.decorator;
+
+    return res.components.HeaderMenuLinks()
 });
 
 app.use("/", async (req, res) => {
-  const params = parseParams(req.query);
+    return res.components.Index("World")
 
-  if (params.success) {
-    res.render("index", {
-      simple: params.data.simple,
-      lang: { [params.data.language]: true },
-      breadcrumbs: params.data.breadcrumbs.map((b, i, a) => ({
-        ...b,
-        last: a.length - 1 === i,
-      })),
-      ...(await getTexts(params.data)),
-    });
-  } else {
-    res.status(400).send(params.error);
-  }
+    // res.render("index", {
+    //   simple: params.data.simple,
+    //   lang: { [params.data.language]: true },
+    //   breadcrumbs: params.data.breadcrumbs.map((b, i, a) => ({
+    //     ...b,
+    //     last: a.length - 1 === i,
+    //   })),
+    //   ...(await getTexts(params.data)),
+    // });
 });
 
 app.listen(3000, function () {

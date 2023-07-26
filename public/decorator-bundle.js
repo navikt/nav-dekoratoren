@@ -7,6 +7,7 @@ const swapFooter = (lang) =>
       (html) => (document.getElementById("decorator-footer").innerHTML = html)
     );
 
+
 document.getElementById("language-select").addEventListener("change", (e) => {
   swapFooter(e.target.value);
   history.replaceState({}, "", `/${e.target.value}${location.search}`);
@@ -23,11 +24,23 @@ function toggleActive(el) {
   el.classList.toggle("active");
 }
 
+function purgeActive(el) {
+  el.classList.remove("active");
+}
+
 menuButton.addEventListener("click", () => {
   const menu = document.getElementById("menu");
 
   [menuButton, menuBackground, menu].forEach(toggleActive);
 });
+
+menuBackground.addEventListener("click", () => {
+    console.log("click")
+    const menu = document.getElementById("menu");
+
+    [menuButton, menuBackground, menu].forEach(purgeActive);
+});
+
 
 window.addEventListener("message", (e) => {
   if (e.data.source === "decoratorClient" && e.data.event == "params") {
@@ -47,3 +60,32 @@ window.addEventListener("message", (e) => {
     }
   }
 });
+
+
+const contextLinks = document.querySelectorAll(".context-link");
+
+function removeClassFromElements(elements, className) {
+    for (const element of elements) {
+        element.classList.remove(className);
+    }
+}
+
+for (const contextLink of contextLinks) {
+    contextLink.addEventListener("click", (e) => {
+        const targetContext = contextLink.getAttribute("data-context");
+
+        fetch(`/header?context=${targetContext}`).then((res) => res.text()).then((html) => {
+            console.log(html)
+
+
+        removeClassFromElements(contextLinks, "active");
+        contextLink.classList.add("active");
+
+        document.getElementById("header-menu-links").innerHTML = html;
+        })
+    });
+}
+
+
+
+// @TODO:  Create a wrapper function around fetch that handles passing search params
