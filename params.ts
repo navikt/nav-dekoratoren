@@ -1,9 +1,13 @@
 import z from "zod";
+import { GetComponents } from "./components";
 
 declare global {
     namespace Express {
         export interface Request {
             decorator: Params;
+        }
+        export interface Response {
+            components: ReturnType<typeof GetComponents>;
         }
     }
 }
@@ -18,7 +22,7 @@ const contextSchema = z.enum([
 
 export type Context = z.infer<typeof contextSchema>;
 
-const breadcrumbSchema = z.object({
+export const breadcrumbSchema = z.object({
   title: z.string(),
   url: z.string().url(),
   handleInApp: z.boolean().default(false),
