@@ -14,6 +14,7 @@ body {
   margin: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  background-color: red;
 }
 
 ul {
@@ -96,10 +97,10 @@ a {
 }
 
 .context-link {
-    border-color: transparent;
+  border-color: transparent;
 }
 
 .context-link.active {
-    font-weight: bold;
-    border-color: #3386e0;
+  font-weight: bold;
+  border-color: #3386e0;
 }
