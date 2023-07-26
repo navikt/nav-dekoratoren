@@ -2,6 +2,7 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
+      video: false,
     baseUrl: process.env.IS_OLD
       ? "https://nav.no/dekoratoren"
       : "http://localhost:3000",
