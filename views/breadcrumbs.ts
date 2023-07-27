@@ -1,6 +1,6 @@
-import { html } from "common-tags";
+import { html } from "../utils";
 
-export const Breadcrumbs = () => html`
+export const Breadcrumbs = html`
   <nav class="max-w-[1344px] w-full mx-auto py-3">
     <ol class="flex items-center" id="breadcrumbs-list">
       <li>

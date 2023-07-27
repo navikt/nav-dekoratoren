@@ -1,8 +1,8 @@
-import { html } from "common-tags";
-import { Breadcrumbs } from "./breadcrumbs";
-import { HeaderMenuLinks } from "./header-menu-links";
+import { html } from "../utils";
+// import { Breadcrumbs } from "./breadcrumbs";
+// import { HeaderMenuLinks } from "./header-menu-links";
 
-export const Header = () => html`
+export const Header = html`
 <div id="decorator-header">
   <div
     id="menu-background"
@@ -77,7 +77,6 @@ export const Header = () => html`
       </div>
       <div>
           <div id="header-menu-links">
-          ${HeaderMenuLinks()}
           {{>header-menu-links}}
           </div>
         <ul>
@@ -94,7 +93,7 @@ export const Header = () => html`
       </div>
     </div>
   </header>
-  ${Breadcrumbs()}
+  {{> breadcrumbs}}
 </div>
 `
 // <!-- {{> breadcrumbs}} -->

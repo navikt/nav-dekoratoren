@@ -6,6 +6,7 @@ import { Response } from 'express'
 import { getTexts } from './server'
 import { Index } from './views'
 import Mustache from 'mustache'
+import { RenderView } from './views-utils'
 
 const breadcrumbsSchema = z.object({
     breadcrumbs: z.array(breadcrumbSchema).default([]),
@@ -26,7 +27,7 @@ export function GetComponents (res: Response, params: Params) {
     return {
         Index: async (scriptsAndLinks: string) => {
 
-            const rendered = Mustache.render(Index(), {
+            const rendered = RenderView(Index, {
                 scriptsAndLinks,
                 simple: params.simple,
                 lang: { [params.language]: true },
@@ -38,6 +39,7 @@ export function GetComponents (res: Response, params: Params) {
                 language: params.language,
                 ...(await getTexts(params))
             })
+
 
             res.status(200).send(rendered)
             // return res.render('index', {

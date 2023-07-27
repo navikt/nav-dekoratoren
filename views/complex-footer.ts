@@ -1,6 +1,6 @@
-import { html } from "common-tags";
+import { html } from "../utils";
 
-export const ComplexFooter = () => html`
+export const ComplexFooter = html`
 <footer class="footer">
   <div class="footer-content">
     <a class="to-top-link" href="#">

@@ -1,10 +1,7 @@
-import { Header } from "./header";
-import { Footer } from "./footer";
-
-import { html } from 'common-tags';
+import { html } from "../utils";
 
 
-export const Index = () => html`
+export const Index = html`
 <html lang="{{ language }}">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,11 +13,11 @@ export const Index = () => html`
   {{& scriptsAndLinks }}
 </head>
 <body>
-  ${Header()}
+  {{> header}}
   <div>
     <main>
       <div>main</div>
-      <select id="language-select">
+      <select id="language-select"
         <option value="nb">nb</option>
         <option value="en">en</option>
         <option value="se">se</option>
@@ -46,7 +43,7 @@ export const Index = () => html`
     </main>
   </div>
   <div id="decorator-footer">
-  ${Footer()}
+  {{> footer}}
   </div>
 </body>
 </html>

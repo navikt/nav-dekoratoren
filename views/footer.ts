@@ -1,15 +1,11 @@
-import { html } from "common-tags";
-
-import { SimpleFooter } from "./simple-footer";
-import { ComplexFooter } from "./complex-footer";
+import { html } from "../utils";
 
 
-export const Footer = () => html`
+export const Footer = html`
 {{#simple}}
-${SimpleFooter()}
+{{> simple-footer}}
 {{/simple}}
 {{^simple}}
-${ComplexFooter()}
+{{> complex-footer}}
 {{/simple}}
 `;
-// <!-- {{> complex-footer}} -->

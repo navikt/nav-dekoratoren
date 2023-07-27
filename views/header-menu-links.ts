@@ -1,6 +1,6 @@
-import { html } from "common-tags";
+import { html } from "../utils";
 
-export const HeaderMenuLinks = () => html`
+export const HeaderMenuLinks = html`
   <ul class="grid grid-cols-4 gap-4">
     {{#headerMenuLinks}}
     <li>
