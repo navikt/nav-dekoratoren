@@ -1,5 +1,6 @@
 import z from "zod";
 import { GetComponents } from "./components";
+import { ViewKey } from "./views-utils";
 
 declare global {
     namespace Express {
@@ -8,6 +9,7 @@ declare global {
         }
         export interface Response {
             components: ReturnType<typeof GetComponents>;
+            sendView: (view: ViewKey, data?: any) => void
         }
     }
 }

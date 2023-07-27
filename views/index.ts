@@ -1,6 +1,5 @@
 import { html } from "../utils";
 
-
 export const Index = html`
 <html lang="{{ language }}">
 <head>

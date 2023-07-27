@@ -1,19 +1,15 @@
 import http from "http";
 import express from "express";
 import { WebSocketServer } from "ws";
-import mustacheExpress from "mustache-express";
 import { Context, Params, parseParams } from "./params";
 import cors from "cors";
 import { capitalizeFirstLetter } from "./utils";
 import { GetComponents } from "./components";
+import { RenderView, SendView, ViewKey } from "./views-utils";
 
 const isProd = process.env.NODE_ENV === "production";
 
 const app = express();
-
-app.engine("mustache", mustacheExpress());
-app.set("view engine", "mustache");
-app.set("views", `${__dirname}/views`);
 
 app.use(cors());
 app.use(express.static(isProd ? "dist" : "public"));
@@ -22,7 +18,6 @@ function getContextKey(context: Context) {
   return capitalizeFirstLetter(context);
 }
 
-// How should we handle if the params are invalid?
 app.use((req, res, next) => {
   const result = parseParams(req.query);
 
@@ -32,6 +27,13 @@ app.use((req, res, next) => {
     res.status(400).send(result.error);
   }
 
+  next();
+});
+
+app.use((req, res, next) => {
+  res.sendView = (view: ViewKey, data?: object) => {
+    SendView(view, data, res);
+  };
   next();
 });
 
@@ -135,7 +137,6 @@ app.use("/footer", async (req, res) => {
 
 app.use("/header", async (req, res) => {
   const params = req.decorator;
-
   return res.components.HeaderMenuLinks();
 });
 
@@ -167,19 +168,7 @@ app.use("/", async (req, res) => {
     }
   };
 
-
   res.components.Index(scriptsAndLinks());
-  // res.render("index", {
-  //   scriptsAndLinks: scriptsAndLinks(),
-  //   simple: req.decorator.simple,
-  //   lang: { [req.decorator.language]: true },
-  //   way: "asdf",
-  //   breadcrumbs: req.decorator.breadcrumbs.map((b, i, a) => ({
-  //     ...b,
-  //     last: a.length - 1 === i,
-  //   })),
-  //   ...(await getTexts(req.decorator)),
-  // });
 });
 
 const server = http.createServer(app);
