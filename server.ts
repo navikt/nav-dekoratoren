@@ -25,6 +25,7 @@ function getContextKey(context: Context) {
 // How should we handle if the params are invalid?
 app.use((req, res, next) => {
   const result = parseParams(req.query);
+
   if (result.success) {
     req.decorator = result.data;
   } else {

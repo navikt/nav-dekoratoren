@@ -1,4 +1,6 @@
-describe("template spec", () => {
+import { Params, formatParams } from "../../params";
+
+describe("Setting parameters", () => {
   it("Breadcrumbs is set", () => {
     const breadcrumbs = [
       {
@@ -10,6 +12,7 @@ describe("template spec", () => {
         title: "Kontakt oss",
       },
     ];
+
     cy.visit(
       "/?breadcrumbs=" + encodeURIComponent(JSON.stringify(breadcrumbs))
     );
@@ -19,4 +22,32 @@ describe("template spec", () => {
     cy.get("#breadcrumbs-list").should("contain", "Ditt NAV");
     cy.get("#breadcrumbs-list").should("contain", "Kontakt oss");
   });
+
+  it("Language is set", () => {
+    cy.visit("/?language=en");
+
+    cy.get("html").should("have.attr", "lang", "en");
+
+    // Other languages
+    cy.get("footer").should("contain", "Norwegian")
+    cy.get("footer").should("contain", "Sámegiella")
+  });
+
+  it("Simple", () => {
+    cy.visit("/?simple=true");
+
+
+    // Other languages
+    //
+    cy.get("#decorator-footer").children().should("have.class", "simple-footer")
+  });
+
+  it("Formatting params", () => {
+      const testParams: Partial<Params> = {
+        context: "privatperson",
+      }
+
+      const formatted = formatParams(testParams)
+
+  })
 });

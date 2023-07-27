@@ -8,7 +8,7 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
   css: ["client/main.css"],
   defaultExtractor: (content) => {
     // Added ":" to regex to match tailwind modifiers
-    return content.match(/[A-Za-z0-9_:-]+/g) || [];
+    return content.match(/[A-Za-z0-9_:\-\[\]]+/g) || [];
   },
   variables: true,
 });

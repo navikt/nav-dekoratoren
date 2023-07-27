@@ -4,6 +4,8 @@ import z from 'zod'
 import { Params, breadcrumbSchema } from './params'
 import { Response } from 'express'
 import { getTexts } from './server'
+import { Index } from './views'
+import Mustache from 'mustache'
 
 const breadcrumbsSchema = z.object({
     breadcrumbs: z.array(breadcrumbSchema).default([]),
@@ -23,7 +25,9 @@ type RenderParams = Params & Texts
 export function GetComponents (res: Response, params: Params) {
     return {
         Index: async (scriptsAndLinks: string) => {
-            return res.render('index', {
+
+            const rendered = Mustache.render(Index(), {
+                scriptsAndLinks,
                 simple: params.simple,
                 lang: { [params.language]: true },
                 way: "asdf",
@@ -34,6 +38,20 @@ export function GetComponents (res: Response, params: Params) {
                 language: params.language,
                 ...(await getTexts(params))
             })
+
+            res.status(200).send(rendered)
+            // return res.render('index', {
+            //     scriptsAndLinks,
+            //     simple: params.simple,
+            //     lang: { [params.language]: true },
+            //     way: "asdf",
+            //     breadcrumbs: params.breadcrumbs.map((b, i, a) => ({
+            //         ...b,
+            //         last: a.length - 1 === i,
+            //     })),
+            //     language: params.language,
+            //     ...(await getTexts(params))
+            // })
         },
         Breadcrumbs: (breadcrumbs: Breadcrumbs) => {
             return res.render('breadcrumbs', breadcrumbs)
