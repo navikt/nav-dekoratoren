@@ -22,14 +22,16 @@ type RenderParams = Params & Texts
 
 export function GetComponents (res: Response, params: Params) {
     return {
-        Index: async (hello: string) => {
+        Index: async (scriptsAndLinks: string) => {
             return res.render('index', {
                 simple: params.simple,
                 lang: { [params.language]: true },
+                way: "asdf",
                 breadcrumbs: params.breadcrumbs.map((b, i, a) => ({
                     ...b,
                     last: a.length - 1 === i,
                 })),
+                language: params.language,
                 ...(await getTexts(params))
             })
         },

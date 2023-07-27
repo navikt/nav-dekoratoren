@@ -166,17 +166,19 @@ app.use("/", async (req, res) => {
     }
   };
 
-  res.render("index", {
-    scriptsAndLinks: scriptsAndLinks(),
-    simple: req.decorator.simple,
-    lang: { [req.decorator.language]: true },
-    way: "asdf",
-    breadcrumbs: req.decorator.breadcrumbs.map((b, i, a) => ({
-      ...b,
-      last: a.length - 1 === i,
-    })),
-    ...(await getTexts(req.decorator)),
-  });
+
+  res.components.Index(scriptsAndLinks());
+  // res.render("index", {
+  //   scriptsAndLinks: scriptsAndLinks(),
+  //   simple: req.decorator.simple,
+  //   lang: { [req.decorator.language]: true },
+  //   way: "asdf",
+  //   breadcrumbs: req.decorator.breadcrumbs.map((b, i, a) => ({
+  //     ...b,
+  //     last: a.length - 1 === i,
+  //   })),
+  //   ...(await getTexts(req.decorator)),
+  // });
 });
 
 const server = http.createServer(app);
