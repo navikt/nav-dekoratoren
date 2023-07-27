@@ -1,8 +1,6 @@
 import "vite/modulepreload-polyfill";
 import "./main.css";
 
-console.log("sa");
-
 const swapHeaderAndFooter = (lang: string) => {
   const params = new URL(
     document.getElementById("decorator-env")?.getAttribute("data-src") ?? ""
