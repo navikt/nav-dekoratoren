@@ -1,3 +1,4 @@
+@import "@navikt/ds-tokens";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,7 +15,7 @@ body {
   margin: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  background-color: red;
+  background-color: var(--a-bg-subtle);
 }
 
 ul {
