@@ -33,7 +33,6 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
-    "@types/common-tags": "^1.8.1",
     "@types/cors": "^2.8.13",
     "common-tags": "^1.8.2",
     "concurrently": "^8.2.0",
