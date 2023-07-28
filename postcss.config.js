@@ -1,3 +1,5 @@
+const prefixer = require("postcss-prefix-selector");
+
 const purgecss = require("@fullhuman/postcss-purgecss")({
   content: [
     "views/**/*.ts",
@@ -19,8 +21,16 @@ module.exports = {
   plugins: [
     require("tailwindcss"),
     require("autoprefixer"),
-    // purge twice because it has trouble with ":root, :host" from @navikt/ds-tokens
-    purgecss,
+    prefixer({
+      transform(prefix, selector, prefixedSelector, filePath, rule) {
+        if ([":root", ":host"].includes(selector)) {
+          console.log(selector);
+          return ".decorator-header, .decorator-footer";
+        }
+
+        return selector;
+      },
+    }),
     purgecss,
   ],
 };
