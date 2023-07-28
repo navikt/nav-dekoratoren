@@ -1,3 +1,6 @@
+import { html } from "../utils";
+
+export const SimpleFooter = html`
 <footer class="simple-footer">
   <style>
     .simple-footer {
@@ -58,3 +61,4 @@
     </a>
   </div>
 </footer>
+`;

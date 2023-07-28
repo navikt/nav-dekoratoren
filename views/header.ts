@@ -1,3 +1,8 @@
+import { html } from "../utils";
+// import { Breadcrumbs } from "./breadcrumbs";
+// import { HeaderMenuLinks } from "./header-menu-links";
+
+export const Header = html`
 <div id="decorator-header">
   <div
     id="menu-background"
@@ -88,5 +93,7 @@
       </div>
     </div>
   </header>
-    {{> breadcrumbs}}
+  {{> breadcrumbs}}
 </div>
+`
+// <!-- {{> breadcrumbs}} -->

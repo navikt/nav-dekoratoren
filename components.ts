@@ -4,6 +4,9 @@ import z from 'zod'
 import { Params, breadcrumbSchema } from './params'
 import { Response } from 'express'
 import { getTexts } from './server'
+import { Index } from './views'
+import Mustache from 'mustache'
+import { RenderView } from './views-utils'
 
 const breadcrumbsSchema = z.object({
     breadcrumbs: z.array(breadcrumbSchema).default([]),
@@ -17,37 +20,39 @@ type Footer = {
 }
 
 type Texts = Awaited<ReturnType<typeof getTexts>>
-type RenderParams = Params & Texts
 
 
 export function GetComponents (res: Response, params: Params) {
     return {
-        Index: async (hello: string) => {
-            return res.render('index', {
+        Index: async (scriptsAndLinks: string) => {
+            res.sendView('index', {
+                scriptsAndLinks,
                 simple: params.simple,
                 lang: { [params.language]: true },
+                way: "asdf",
                 breadcrumbs: params.breadcrumbs.map((b, i, a) => ({
                     ...b,
                     last: a.length - 1 === i,
                 })),
+                language: params.language,
                 ...(await getTexts(params))
             })
         },
         Breadcrumbs: (breadcrumbs: Breadcrumbs) => {
-            return res.render('breadcrumbs', breadcrumbs)
+            return res.sendView('breadcrumbs', breadcrumbs)
         },
         Header: (header: Footer) => {
-            return res.render('header', header)
+            return res.sendView('header', header)
         },
         HeaderMenuLinks: async () => {
-            return res.render('header-menu-links', {
+            return res.sendView('header-menu-links', {
                 simple: params.simple,
                 innlogget: false,
                 ...(await getTexts(params)),
             })
         },
         Footer: (footer: Footer) => {
-            return res.render('footer', footer)
+            return res.sendView('footer', footer)
         }
     }
 

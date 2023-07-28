@@ -1,5 +1,6 @@
 import z from "zod";
 import { GetComponents } from "./components";
+import { ViewKey } from "./views-utils";
 
 declare global {
     namespace Express {
@@ -8,6 +9,7 @@ declare global {
         }
         export interface Response {
             components: ReturnType<typeof GetComponents>;
+            sendView: (view: ViewKey, data?: any) => void
         }
     }
 }
@@ -77,3 +79,19 @@ export const parseParams = (params: any) => {
       : params.availableLanguages,
   });
 };
+
+// Make into string that can be put i URL
+export function formatParams (params: Partial<Params>) {
+    const result = new URLSearchParams()
+
+    for (const [k, v] of Object.entries(params)) {
+        if (Array.isArray(v)) {
+            // it's an array, so we need to stringify it
+            result.append(k, JSON.stringify(v))
+        } else {
+            result.append(k, v.toString())
+        }
+    }
+}
+
+// function

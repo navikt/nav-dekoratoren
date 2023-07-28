@@ -1,3 +1,7 @@
+import { html } from "../utils";
+
+export const Index = html`
+<html lang="{{ language }}">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +16,7 @@
   <div>
     <main>
       <div>main</div>
-      <select id="language-select">
+      <select id="language-select"
         <option value="nb">nb</option>
         <option value="en">en</option>
         <option value="se">se</option>
@@ -38,6 +42,9 @@
     </main>
   </div>
   <div id="decorator-footer">
-    {{> footer}}
+  {{> footer}}
   </div>
 </body>
+</html>
+`;
+    // {{> footer}}
