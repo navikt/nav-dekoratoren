@@ -1,4 +1,9 @@
-import { Texts } from "./texts";
+import { Context, Params } from "./params";
+import { Texts, texts } from "./texts";
+
+function getContextKey(context: Context) {
+  return capitalizeFirstLetter(context);
+}
 
 export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -16,4 +21,76 @@ export const html = (strings: TemplateStringsArray, ...values: TemplateStringVal
                    ))
   );
 
-type PropsWithText<T> = T & { texts: Texts };
+
+
+  export type PropsWithTextAndParams<T> = T & {
+      texts: Texts,
+      params: Params
+  };
+
+export const getData = async (params: Params) => {
+  interface Node {
+    children: Node[];
+    displayName: string;
+  }
+
+  const get = (node: Node, path: string): Node | undefined => {
+    if (path.includes(".")) {
+      return path
+        .split(".")
+        .reduce<Node>((prev, curr) => get(prev, curr)!, node);
+    }
+    return node.children.find(({ displayName }) => displayName === path);
+  };
+
+
+  const menu = {
+    children: await fetch("https://www.nav.no/dekoratoren/api/meny").then(
+      (response) => response.json()
+    ),
+    displayName: "",
+  };
+
+  const contextKey = getContextKey(params.context);
+
+  const key: { [key: string]: string } = {
+    en: "en.Footer.Columns",
+    se: "se.Footer.Columns",
+    nb: `no.Footer.Columns.${contextKey}`,
+    "": "no.Footer.Columns.Privatperson",
+  };
+
+  const menuLinksKey: { [key: string]: string } = {
+    en: "en.Header.Main menu",
+    se: "se.Header.Main menu",
+    nb: `no.Header.Main menu.${contextKey}`,
+    "": "no.Header.Main menu",
+  };
+
+  const footerLinks = get(menu, key[params.language])?.children;
+  const mainMenu = get(menu, "no.Header.Main menu")?.children;
+  const personvern = get(menu, "no.Footer.Personvern")?.children;
+  const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
+
+  if (!mainMenu || !footerLinks || !personvern || !headerMenuLinks) {
+      throw new Error("Main menu or footer links not found");
+  }
+
+  return {
+    footerLinks,
+    mainMenu: mainMenu.map((contextLink) => {
+      return {
+        styles:
+          contextLink.displayName.toLowerCase() === params.context
+            ? "active"
+            : "",
+        context: contextLink.displayName.toLowerCase(),
+        ...contextLink,
+      };
+    }),
+    isNorwegian: params.language === "nb",
+    personvern,
+    headerMenuLinks,
+    texts: texts[params.language],
+  };
+}
