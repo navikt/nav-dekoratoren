@@ -4,8 +4,10 @@ import { WebSocketServer } from "ws";
 import { Context, Params, parseParams } from "./params";
 import cors from "cors";
 import { capitalizeFirstLetter } from "./utils";
-import { GetComponents } from "./components";
-import { RenderView, SendView, ViewKey } from "./views-utils";
+import { Index } from "./views";
+import { texts } from "./texts";
+import { Footer } from "./views/footer";
+import { HeaderMenuLinks } from "./views/header-menu-links";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -30,19 +32,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  res.sendView = (view: ViewKey, data?: object) => {
-    SendView(view, data, res);
-  };
-  next();
-});
-
-app.use((req, res, next) => {
-  res.components = GetComponents(res, req.decorator);
-  next();
-});
-
-export const getTexts = async (params: Params): Promise<object> => {
+export const getData = async (params: Params) => {
   interface Node {
     children: Node[];
     displayName: string;
@@ -57,26 +47,6 @@ export const getTexts = async (params: Params): Promise<object> => {
     return node.children.find(({ displayName }) => displayName === path);
   };
 
-  const texts: { [lang: string]: { [key: string]: string } } = {
-    nb: {
-      share_screen: "Del skjerm med veileder",
-      to_top: "Til toppen",
-      menu: "Meny",
-      close: "Lukk",
-    },
-    en: {
-      share_screen: "Share screen with your counsellor",
-      to_top: "To the top",
-      menu: "Menu",
-      close: "Close",
-    },
-    se: {
-      share_screen: "Del skjerm med veileder",
-      to_top: "Til toppen",
-      menu: "Meny",
-      close: "Lukk",
-    },
-  };
 
   const menu = {
     children: await fetch("https://www.nav.no/dekoratoren/api/meny").then(
@@ -106,9 +76,13 @@ export const getTexts = async (params: Params): Promise<object> => {
   const personvern = get(menu, "no.Footer.Personvern")?.children;
   const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
 
+  if (!mainMenu || !footerLinks || !personvern || !headerMenuLinks) {
+      throw new Error("Main menu or footer links not found");
+  }
+
   return {
     footerLinks,
-    mainMenu: mainMenu?.map((contextLink) => {
+    mainMenu: mainMenu.map((contextLink) => {
       return {
         styles:
           contextLink.displayName.toLowerCase() === params.context
@@ -121,23 +95,37 @@ export const getTexts = async (params: Params): Promise<object> => {
     isNorwegian: params.language === "nb",
     personvern,
     headerMenuLinks,
-    ...texts[params.language],
+    texts: texts[params.language],
   };
 };
 
+
+type GetDataResponse = Awaited<ReturnType<typeof getData>>;
+// These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
+export type MainMenu = GetDataResponse["mainMenu"];
+export type FooterLinks = GetDataResponse["footerLinks"];
+export type Personvern = GetDataResponse["personvern"];
+export type HeaderMenuLinksData = GetDataResponse["headerMenuLinks"];
+
 app.use("/footer", async (req, res) => {
   const params = req.decorator;
+  // Maybe make into middleware
+  const data = await getData(params);
 
-  return res.components.Footer({
-    simple: params.simple,
-    innlogget: false,
-    ...(await getTexts(params)),
-  });
+  return res.status(200).send(Footer({
+      simple: req.decorator.simple,
+      personvern: data.personvern,
+      footerLinks: data.footerLinks,
+      texts: data.texts
+  }));
 });
 
 app.use("/header", async (req, res) => {
   const params = req.decorator;
-  return res.components.HeaderMenuLinks();
+  const data = await getData(params);
+  return res.status(200).send(HeaderMenuLinks({
+      headerMenuLinks: data.headerMenuLinks,
+  }));
 });
 
 app.use("/", async (req, res) => {
@@ -168,7 +156,27 @@ app.use("/", async (req, res) => {
     }
   };
 
-  res.components.Index(scriptsAndLinks());
+
+  const data = await getData(req.decorator);
+
+  res.status(200)
+  .send(Index({
+      scriptsAndLinks: scriptsAndLinks(),
+      language: req.decorator.language,
+      headerProps: {
+          texts: data.texts,
+          mainMenu: data.mainMenu,
+          headerMenuLinks: data.headerMenuLinks,
+          innlogget: false,
+          isNorwegian: true
+      },
+      footerProps: {
+          texts: data.texts,
+          personvern: data.personvern,
+          footerLinks: data.footerLinks,
+          simple: req.decorator.simple
+      }
+  }))
 });
 
 const server = http.createServer(app);
