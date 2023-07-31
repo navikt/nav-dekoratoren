@@ -1,10 +1,16 @@
+import { Breadcrumb } from "../params";
 import { html } from "../utils";
 
-export const Breadcrumbs = html`
-  <nav class="max-w-[1344px] w-full mx-auto py-3">
+export function Breadcrumbs({
+    breadcrumbs
+}: {
+    breadcrumbs: Breadcrumb[]
+}) {
+return html`
+  <nav class="max-w-[1344px] w-full mx-auto py-3" id="breadcrumbs-wrapper">
     <ol class="flex items-center" id="breadcrumbs-list">
       <li>
-        <a class="flex gap-1 items-center" href="nav.no">
+        <a class="flex gap-1 items-center amplitude-link" href="#">
           <svg
             class="text-3xl"
             width="1em"
@@ -25,13 +31,21 @@ export const Breadcrumbs = html`
           <span class="text-blue-500 underline">nav.no</span>
         </a>
       </li>
-      {{#breadcrumbs}}
+      ${breadcrumbs.map(({ title, url }, index) => html`
       <li class="flex items-center before:content-chevronRightIcon">
-        {{^last}}
-        <a class="text-blue-500 underline" href="{{ url }}">{{ title }}</a>
-        {{/last}} {{#last}} {{ title }} {{/last}}
+      ${index === breadcrumbs.length - 1 ? title : html`
+        <a class="text-blue-500 underline amplitude-link" href="${ url }">${title}</a>
+    `}
       </li>
-      {{/breadcrumbs}}
+      `)}
+      <!-- {{#breadcrumbs}} -->
+      <!-- <li class="flex items-center before:content-chevronRightIcon"> -->
+      <!--   {{^last}} -->
+      <!--   <a class="text-blue-500 underline" href="{{ url }}">{{ title }}</a> -->
+      <!--   {{/last}} {{#last}} {{ title }} {{/last}} -->
+      <!-- </li> -->
+      <!-- {{/breadcrumbs}} -->
     </ol>
   </nav>
 `;
+}

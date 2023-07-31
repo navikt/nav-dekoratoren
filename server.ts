@@ -3,11 +3,12 @@ import express from "express";
 import { WebSocketServer } from "ws";
 import { Context, Params, parseParams } from "./params";
 import cors from "cors";
-import { capitalizeFirstLetter } from "./utils";
+import { capitalizeFirstLetter, getData } from "./utils";
 import { Index } from "./views";
 import { texts } from "./texts";
 import { Footer } from "./views/footer";
 import { HeaderMenuLinks } from "./views/header-menu-links";
+import { Header } from "./views/header";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -16,9 +17,6 @@ const app = express();
 app.use(cors());
 app.use(express.static(isProd ? "dist" : "public"));
 
-function getContextKey(context: Context) {
-  return capitalizeFirstLetter(context);
-}
 
 app.use((req, res, next) => {
   const result = parseParams(req.query);
@@ -32,72 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-export const getData = async (params: Params) => {
-  interface Node {
-    children: Node[];
-    displayName: string;
-  }
-
-  const get = (node: Node, path: string): Node | undefined => {
-    if (path.includes(".")) {
-      return path
-        .split(".")
-        .reduce<Node>((prev, curr) => get(prev, curr)!, node);
-    }
-    return node.children.find(({ displayName }) => displayName === path);
-  };
-
-
-  const menu = {
-    children: await fetch("https://www.nav.no/dekoratoren/api/meny").then(
-      (response) => response.json()
-    ),
-    displayName: "",
-  };
-
-  const contextKey = getContextKey(params.context);
-
-  const key: { [key: string]: string } = {
-    en: "en.Footer.Columns",
-    se: "se.Footer.Columns",
-    nb: `no.Footer.Columns.${contextKey}`,
-    "": "no.Footer.Columns.Privatperson",
-  };
-
-  const menuLinksKey: { [key: string]: string } = {
-    en: "en.Header.Main menu",
-    se: "se.Header.Main menu",
-    nb: `no.Header.Main menu.${contextKey}`,
-    "": "no.Header.Main menu",
-  };
-
-  const footerLinks = get(menu, key[params.language])?.children;
-  const mainMenu = get(menu, "no.Header.Main menu")?.children;
-  const personvern = get(menu, "no.Footer.Personvern")?.children;
-  const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
-
-  if (!mainMenu || !footerLinks || !personvern || !headerMenuLinks) {
-      throw new Error("Main menu or footer links not found");
-  }
-
-  return {
-    footerLinks,
-    mainMenu: mainMenu.map((contextLink) => {
-      return {
-        styles:
-          contextLink.displayName.toLowerCase() === params.context
-            ? "active"
-            : "",
-        context: contextLink.displayName.toLowerCase(),
-        ...contextLink,
-      };
-    }),
-    isNorwegian: params.language === "nb",
-    personvern,
-    headerMenuLinks,
-    texts: texts[params.language],
-  };
-};
 
 
 type GetDataResponse = Awaited<ReturnType<typeof getData>>;
@@ -116,6 +48,7 @@ app.use("/footer", async (req, res) => {
       simple: req.decorator.simple,
       personvern: data.personvern,
       footerLinks: data.footerLinks,
+      feedback: req.decorator.feedback,
       texts: data.texts
   }));
 });
@@ -163,19 +96,21 @@ app.use("/", async (req, res) => {
   .send(Index({
       scriptsAndLinks: scriptsAndLinks(),
       language: req.decorator.language,
-      headerProps: {
+      header: Header({
           texts: data.texts,
           mainMenu: data.mainMenu,
           headerMenuLinks: data.headerMenuLinks,
           innlogget: false,
-          isNorwegian: true
-      },
-      footerProps: {
+          isNorwegian: true,
+          breadcrumbs: req.decorator.breadcrumbs,
+      }),
+      footer: Footer({
           texts: data.texts,
           personvern: data.personvern,
           footerLinks: data.footerLinks,
-          simple: req.decorator.simple
-      }
+          simple: req.decorator.simple,
+          feedback: req.decorator.feedback
+      }),
   }))
 });
 

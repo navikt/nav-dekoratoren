@@ -28,6 +28,8 @@ export const breadcrumbSchema = z.object({
   handleInApp: z.boolean().default(false),
 });
 
+export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
+
 const background = z.enum(["white", "gray", "transparent"]);
 
 const paramsSchema = z.object({
@@ -63,12 +65,8 @@ export type Params = z.infer<typeof paramsSchema>;
 export const parseParams = (params: any) => {
   return paramsSchema.safeParse({
     ...params,
-    simple:
-      params.simple === "true"
-        ? true
-        : params.simple === "false"
-        ? false
-        : params.simple,
+    simple: parseBooleanParam(params.simple),
+    feedback: parseBooleanParam(params.feedback),
     breadcrumbs: params.breadcrumbs
       ? JSON.parse(params.breadcrumbs)
       : params.breadcrumbs,
@@ -77,6 +75,10 @@ export const parseParams = (params: any) => {
       : params.availableLanguages,
   });
 };
+
+function parseBooleanParam(param: string | undefined): boolean {
+    return param === "true" ? true : false;
+}
 
 // Make into string that can be put i URL
 export function formatParams (params: Partial<Params>) {
@@ -90,6 +92,24 @@ export function formatParams (params: Partial<Params>) {
             result.append(k, v.toString())
         }
     }
+
+    return result;
 }
+
+export function parseParamsClient (params: URLSearchParams) {
+    const result: any = {}
+
+    for (const [k, v] of Object.entries(params)) {
+        if (Array.isArray(v)) {
+            // it's an array, so we need to stringify it
+            result[k] = JSON.stringify(v)
+        } else {
+            result[k] = v.toString()
+        }
+    }
+
+    return result as Params;
+}
+
 
 // function

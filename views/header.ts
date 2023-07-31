@@ -1,6 +1,8 @@
+import { Breadcrumb } from "../params";
 import { HeaderMenuLinksData, MainMenu } from "../server";
 import { Texts } from "../texts";
 import { html } from "../utils";
+import { Breadcrumbs } from "./breadcrumbs";
 import { HeaderMenuLinks } from "./header-menu-links";
 
 export type HeaderProps = Parameters<typeof Header>[0];
@@ -11,12 +13,14 @@ export function Header({
   headerMenuLinks,
   texts,
   innlogget,
+  breadcrumbs,
 }: {
   isNorwegian: boolean;
   mainMenu: MainMenu;
   texts: Texts;
   headerMenuLinks: HeaderMenuLinksData;
   innlogget: boolean;
+  breadcrumbs: Breadcrumb[];
 }) {
   return html`
     <div id="decorator-header">
@@ -40,9 +44,9 @@ export function Header({
             >
               ${isNorwegian &&
               mainMenu.map(
-                ({ displayName }) => html`
+                ({ displayName, styles }) => html`
                   <button
-                    class="context-link h-full flex items-center border-b-4 {{ styles }}"
+                    class="context-link h-full flex items-center border-b-4 ${ styles }"
                     href="?context=${displayName.toLowerCase()}"
                     data-context="${ displayName.toLowerCase() }"
                   >
@@ -123,6 +127,9 @@ export function Header({
           </div>
         </div>
       </header>
+      ${Breadcrumbs({
+          breadcrumbs
+      })}
     </div>
   `;
 }
