@@ -1,6 +1,15 @@
+import { Personvern } from "../server";
+import { Texts } from "../texts";
 import { html } from "../utils";
 
-export const SimpleFooter = html`
+export function SimpleFooter({
+    personvern,
+    texts
+}: {
+    texts: Texts
+    personvern: Personvern
+}) {
+ return html`
 <footer class="simple-footer">
   <style>
     .simple-footer {
@@ -34,15 +43,14 @@ export const SimpleFooter = html`
   </style>
   <div class="simple-footer__content">
     <ul class="simple-footer__link-list">
-      {{#personvern}}
+        ${personvern.map((link) => html`
       <li>
-        <a class="simple-footer__link" href="{{ path }}">{{ displayName }}</a>
+        <a class="simple-footer__link" href="${ (link as any).path }">${ link.displayName }</a>
       </li>
-      {{/personvern}}
+        `)}
     </ul>
     <a class="simple-footer__link" href="#">
-      {{ share_screen
-      }}<svg
+      ${ texts.share_screen }<svg
         width="1em"
         height="1em"
         viewBox="0 0 24 24"
@@ -62,3 +70,5 @@ export const SimpleFooter = html`
   </div>
 </footer>
 `;
+}
+
