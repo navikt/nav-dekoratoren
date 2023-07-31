@@ -7,17 +7,15 @@ import { Breadcrumbs } from "./views/breadcrumbs";
 import { Index } from "./views";
 import { Response } from "express";
 
-
 // Maybe move GetComponents here, i don't really like the abstraction right now
 export const views = {
-      header: Header,
-      'index': Index,
-      'header-menu-links': HeaderMenuLinks,
-      'simple-footer': SimpleFooter,
-      'complex-footer': ComplexFooter,
-      'footer': Footer,
-      'breadcrumbs': Breadcrumbs,
-}
+  header: Header,
+  index: Index,
+  "header-menu-links": HeaderMenuLinks,
+  "simple-footer": SimpleFooter,
+  "complex-footer": ComplexFooter,
+  footer: Footer,
+  breadcrumbs: Breadcrumbs,
+};
 
-export type ViewKey = keyof typeof views
-
+export type ViewKey = keyof typeof views;

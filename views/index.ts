@@ -1,17 +1,17 @@
 import { html } from "../utils";
 
 export function Index({
-    language,
-    scriptsAndLinks,
-    header,
-    footer,
+  language,
+  scriptsAndLinks,
+  header,
+  footer,
 }: {
-    language: string;
-    scriptsAndLinks: string;
-    header: string;
-    footer: string;
+  language: string;
+  scriptsAndLinks: string;
+  header: string;
+  footer: string;
 }) {
-    return html`
+  return html`
 <html lang="${language}">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com" />

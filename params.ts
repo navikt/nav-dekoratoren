@@ -1,15 +1,15 @@
 import z from "zod";
 
 declare global {
-    namespace Express {
-        export interface Request {
-            decorator: Params;
-        }
-        // export interface Response {
-        //     components: ReturnType<typeof GetComponents>;
-        //     sendView: (view: ViewKey, data?: any) => void
-        // }
+  namespace Express {
+    export interface Request {
+      decorator: Params;
     }
+    // export interface Response {
+    //     components: ReturnType<typeof GetComponents>;
+    //     sendView: (view: ViewKey, data?: any) => void
+    // }
+  }
 }
 
 const authLevelSchema = z.enum(["Level3", "Level4"]);
@@ -46,7 +46,7 @@ const paramsSchema = z.object({
       z.object({
         locale: languageSchema,
         url: z.string().url().optional(),
-      })
+      }),
     )
     .default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),
@@ -77,39 +77,38 @@ export const parseParams = (params: any) => {
 };
 
 function parseBooleanParam(param: string | undefined): boolean {
-    return param === "true" ? true : false;
+  return param === "true" ? true : false;
 }
 
 // Make into string that can be put i URL
-export function formatParams (params: Partial<Params>) {
-    const result = new URLSearchParams()
+export function formatParams(params: Partial<Params>) {
+  const result = new URLSearchParams();
 
-    for (const [k, v] of Object.entries(params)) {
-        if (Array.isArray(v)) {
-            // it's an array, so we need to stringify it
-            result.append(k, JSON.stringify(v))
-        } else {
-            result.append(k, v.toString())
-        }
+  for (const [k, v] of Object.entries(params)) {
+    if (Array.isArray(v)) {
+      // it's an array, so we need to stringify it
+      result.append(k, JSON.stringify(v));
+    } else {
+      result.append(k, v.toString());
     }
+  }
 
-    return result;
+  return result;
 }
 
-export function parseParamsClient (params: URLSearchParams) {
-    const result: any = {}
+export function parseParamsClient(params: URLSearchParams) {
+  const result: any = {};
 
-    for (const [k, v] of Object.entries(params)) {
-        if (Array.isArray(v)) {
-            // it's an array, so we need to stringify it
-            result[k] = JSON.stringify(v)
-        } else {
-            result[k] = v.toString()
-        }
+  for (const [k, v] of Object.entries(params)) {
+    if (Array.isArray(v)) {
+      // it's an array, so we need to stringify it
+      result[k] = JSON.stringify(v);
+    } else {
+      result[k] = v.toString();
     }
+  }
 
-    return result as Params;
+  return result as Params;
 }
-
 
 // function

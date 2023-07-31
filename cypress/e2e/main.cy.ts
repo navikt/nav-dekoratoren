@@ -14,7 +14,7 @@ describe("Setting parameters", () => {
     ];
 
     cy.visit(
-      "/?breadcrumbs=" + encodeURIComponent(JSON.stringify(breadcrumbs))
+      "/?breadcrumbs=" + encodeURIComponent(JSON.stringify(breadcrumbs)),
     );
 
     cy.get("#breadcrumbs-list").should("exist");
@@ -29,25 +29,25 @@ describe("Setting parameters", () => {
     cy.get("html").should("have.attr", "lang", "en");
 
     // Other languages
-    cy.get("footer").should("contain", "Norwegian")
-    cy.get("footer").should("contain", "Sámegiella")
+    cy.get("footer").should("contain", "Norwegian");
+    cy.get("footer").should("contain", "Sámegiella");
   });
 
   it("Simple", () => {
     cy.visit("/?simple=true");
 
-
     // Other languages
     //
-    cy.get("#decorator-footer").children().should("have.class", "simple-footer")
+    cy.get("#decorator-footer")
+      .children()
+      .should("have.class", "simple-footer");
   });
 
   it("Formatting params", () => {
-      const testParams: Partial<Params> = {
-        context: "privatperson",
-      }
+    const testParams: Partial<Params> = {
+      context: "privatperson",
+    };
 
-      const formatted = formatParams(testParams)
-
-  })
+    const formatted = formatParams(testParams);
+  });
 });

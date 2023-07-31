@@ -11,22 +11,26 @@ export function capitalizeFirstLetter(text: string) {
 
 type TemplateStringValues = string | string[] | boolean;
 
-export const html = (strings: TemplateStringsArray, ...values: TemplateStringValues[]) =>
+export const html = (
+  strings: TemplateStringsArray,
+  ...values: TemplateStringValues[]
+) =>
   String.raw(
     { raw: strings },
     ...values.map((item) =>
-                   (Array.isArray(item) ? item.join("")
-                    // Check for boolean
-                    : item === false ? "" : item
-                   ))
+      Array.isArray(item)
+        ? item.join("")
+        : // Check for boolean
+        item === false
+        ? ""
+        : item,
+    ),
   );
 
-
-
-  export type PropsWithTextAndParams<T> = T & {
-      texts: Texts,
-      params: Params
-  };
+export type PropsWithTextAndParams<T> = T & {
+  texts: Texts;
+  params: Params;
+};
 
 export const getData = async (params: Params) => {
   interface Node {
@@ -43,10 +47,9 @@ export const getData = async (params: Params) => {
     return node.children.find(({ displayName }) => displayName === path);
   };
 
-
   const menu = {
     children: await fetch("https://www.nav.no/dekoratoren/api/meny").then(
-      (response) => response.json()
+      (response) => response.json(),
     ),
     displayName: "",
   };
@@ -73,7 +76,7 @@ export const getData = async (params: Params) => {
   const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
 
   if (!mainMenu || !footerLinks || !personvern || !headerMenuLinks) {
-      throw new Error("Main menu or footer links not found");
+    throw new Error("Main menu or footer links not found");
   }
 
   return {
@@ -93,4 +96,4 @@ export const getData = async (params: Params) => {
     headerMenuLinks,
     texts: texts[params.language],
   };
-}
+};

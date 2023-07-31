@@ -1,11 +1,10 @@
 import http from "http";
 import express from "express";
 import { WebSocketServer } from "ws";
-import { Context, Params, parseParams } from "./params";
+import { parseParams } from "./params";
 import cors from "cors";
-import { capitalizeFirstLetter, getData } from "./utils";
+import { getData } from "./utils";
 import { Index } from "./views";
-import { texts } from "./texts";
 import { Footer } from "./views/footer";
 import { HeaderMenuLinks } from "./views/header-menu-links";
 import { Header } from "./views/header";
@@ -16,7 +15,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.static(isProd ? "dist" : "public"));
-
 
 app.use((req, res, next) => {
   const result = parseParams(req.query);
@@ -30,8 +28,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 type GetDataResponse = Awaited<ReturnType<typeof getData>>;
 // These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
 export type MainMenu = GetDataResponse["mainMenu"];
@@ -44,21 +40,25 @@ app.use("/footer", async (req, res) => {
   // Maybe make into middleware
   const data = await getData(params);
 
-  return res.status(200).send(Footer({
+  return res.status(200).send(
+    Footer({
       simple: req.decorator.simple,
       personvern: data.personvern,
       footerLinks: data.footerLinks,
       feedback: req.decorator.feedback,
-      texts: data.texts
-  }));
+      texts: data.texts,
+    }),
+  );
 });
 
 app.use("/header", async (req, res) => {
   const params = req.decorator;
   const data = await getData(params);
-  return res.status(200).send(HeaderMenuLinks({
+  return res.status(200).send(
+    HeaderMenuLinks({
       headerMenuLinks: data.headerMenuLinks,
-  }));
+    }),
+  );
 });
 
 app.use("/", async (req, res) => {
@@ -75,7 +75,7 @@ app.use("/", async (req, res) => {
         script(resources.file),
         ...resources.css.map(
           (href: string) =>
-            `<link type="text/css" rel="stylesheet" href="${href}"></link>`
+            `<link type="text/css" rel="stylesheet" href="${href}"></link>`,
         ),
       ].join("");
     } else {
@@ -89,29 +89,29 @@ app.use("/", async (req, res) => {
     }
   };
 
-
   const data = await getData(req.decorator);
 
-  res.status(200)
-  .send(Index({
+  res.status(200).send(
+    Index({
       scriptsAndLinks: scriptsAndLinks(),
       language: req.decorator.language,
       header: Header({
-          texts: data.texts,
-          mainMenu: data.mainMenu,
-          headerMenuLinks: data.headerMenuLinks,
-          innlogget: false,
-          isNorwegian: true,
-          breadcrumbs: req.decorator.breadcrumbs,
+        texts: data.texts,
+        mainMenu: data.mainMenu,
+        headerMenuLinks: data.headerMenuLinks,
+        innlogget: false,
+        isNorwegian: true,
+        breadcrumbs: req.decorator.breadcrumbs,
       }),
       footer: Footer({
-          texts: data.texts,
-          personvern: data.personvern,
-          footerLinks: data.footerLinks,
-          simple: req.decorator.simple,
-          feedback: req.decorator.feedback
+        texts: data.texts,
+        personvern: data.personvern,
+        footerLinks: data.footerLinks,
+        simple: req.decorator.simple,
+        feedback: req.decorator.feedback,
       }),
-  }))
+    }),
+  );
 });
 
 const server = http.createServer(app);
@@ -121,8 +121,8 @@ if (!isProd) {
 
   server.on("upgrade", (request, socket, head) =>
     wss.handleUpgrade(request, socket, head, (ws) =>
-      ws.emit("connection", ws, request)
-    )
+      ws.emit("connection", ws, request),
+    ),
   );
 }
 
