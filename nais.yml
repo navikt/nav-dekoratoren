@@ -8,6 +8,10 @@ metadata:
 spec:
   image: {{ image }}
   port: 3000
+  accessPolicy:
+    outbound:
+      external:
+        - host: www.nav.no
   replicas:
     min: 1
     max: 2
