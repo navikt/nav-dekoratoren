@@ -11,6 +11,8 @@ import { Header } from "./views/header";
 import { decoratorParams } from "./middlewares";
 
 const isProd = process.env.NODE_ENV === "production";
+const port = 3000;
+const host = process.env.HOST ?? `http://localhost:${port}`;
 
 const app = express();
 
@@ -63,30 +65,40 @@ app.get("/data/:key", async (req, res) => {
 });
 
 app.use("/", async (req, res) => {
-  const scriptsAndLinks = () => {
+  const entryPointPath = "client/main.ts";
+
+  const scripts = () => {
     const script = (src: string) =>
       `<script type="module" src="${src}"></script>`;
 
+    if (isProd) {
+      const resources: { file: string; css: string[] } =
+        require("./dist/manifest.json")[entryPointPath];
+      return [script(resources.file)].join("");
+    } else {
+      return [
+        "http://localhost:5173/@vite/client",
+        `http://localhost:5173/${entryPointPath}`,
+        `${host}/dev-client.js`,
+      ]
+        .map(script)
+        .join("");
+    }
+  };
+  const links = () => {
     const entryPointPath = "client/main.ts";
 
     if (isProd) {
       const resources: { file: string; css: string[] } =
         require("./dist/manifest.json")[entryPointPath];
       return [
-        script(resources.file),
         ...resources.css.map(
           (href: string) =>
-            `<link type="text/css" rel="stylesheet" href="${href}"></link>`,
+            `<link type="text/css" rel="stylesheet" href="${host}/${href}"></link>`,
         ),
       ].join("");
     } else {
-      return [
-        "http://localhost:5173/@vite/client",
-        `http://localhost:5173/${entryPointPath}`,
-        "/dev-client.js",
-      ]
-        .map(script)
-        .join("");
+      return "";
     }
   };
 
@@ -94,7 +106,8 @@ app.use("/", async (req, res) => {
 
   res.status(200).send(
     Index({
-      scriptsAndLinks: scriptsAndLinks(),
+      scripts: scripts(),
+      links: links(),
       language: req.decorator.language,
       header: Header({
         texts: data.texts,
@@ -129,6 +142,6 @@ if (!isProd) {
   );
 }
 
-server.listen(3000, function () {
-  console.log("Listening on http://localhost:3000");
+server.listen(port, function () {
+  console.log(`Listening on http://localhost:${port}`);
 });

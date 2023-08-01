@@ -22,7 +22,7 @@ export function Header({
   breadcrumbs: Breadcrumb[];
 }) {
   return html`
-    <div id="decorator-header">
+    <div id="header-withmenu">
       <div
         id="menu-background"
         class="fixed top-0 left-0 right-0 bottom-0 bg-modal-background z-10 opacity-0 pointer-events-none transition duration-[350ms] transition-ease-in"

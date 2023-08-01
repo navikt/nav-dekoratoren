@@ -24,7 +24,7 @@ export function Footer(props: FooterProps) {
 
   // Remember to look in the footer for the proper structure
   return html`
-    <div id="decorator-footer" class="bg-white">
+    <div id="footer-withmenu" class="bg-white">
       ${props.feedback && Feedback({ texts: props.texts })} ${footer}
     </div>
   `;

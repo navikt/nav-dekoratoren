@@ -21,5 +21,8 @@ spec:
       memory: 512Mi
     limits:
       memory: 512Mi
+  env:
+    - name: HOST
+      value: https://decorator-next.ekstern.dev.nav.no
   ingresses:
     - https://decorator-next.ekstern.dev.nav.no
