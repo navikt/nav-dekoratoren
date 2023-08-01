@@ -15,7 +15,7 @@ export function Index({
   footer: string;
 }) {
   return html`
-<!DOCTYPE html>
+  <!DOCTYPE html>
     <html lang="${language}">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,11 +48,8 @@ export function Index({
     "title": "Kontakt oss"
   }
 ]
-</textarea
-              >
-              <button
-                class="bg-blue-200 p-4 hover:bg-blue-300 active:bg-blue-400"
-              >
+</textarea>
+              <button class="bg-blue-200 p-4 hover:bg-blue-300 active:bg-blue-400">
                 set breadcrumbs
               </button>
             </form>

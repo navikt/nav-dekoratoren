@@ -11,11 +11,7 @@
     "cypress:run:reference": "IS_OLD=true cypress run",
     "dev": "concurrently \"vite\" \"nodemon --ext ts --watch views/ --watch server.ts --exec ts-node -r tsconfig-paths/register server\" \"npm run tailwind\"",
     "build": "vite build",
-<<<<<<< HEAD
-    "serve": "export NODE_ENV=production && ts-node -r tsconfig-paths/register server"
-=======
-    "serve": "NODE_ENV=production && ts-node server"
->>>>>>> e66907e (the commit message you deserve)
+    "serve": "NODE_ENV=production && ts-node -r tsconfig-paths/register server"
   },
   "keywords": [],
   "author": "",
