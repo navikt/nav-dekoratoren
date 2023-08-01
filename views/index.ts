@@ -12,6 +12,7 @@ export function Index({
   footer: string;
 }) {
   return html`
+<!DOCTYPE html>
 <html lang="${language}">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
