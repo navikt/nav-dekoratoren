@@ -36,8 +36,6 @@ describe("Setting parameters", () => {
   it("Simple", () => {
     cy.visit("/?simple=true");
 
-    // Other languages
-    //
     cy.get("#decorator-footer")
       .children()
       .should("have.class", "simple-footer");
@@ -50,4 +48,12 @@ describe("Setting parameters", () => {
 
     const formatted = formatParams(testParams);
   });
+
+  it("Should show feedback box in footer", () => {
+    cy.visit("/?feedback=true");
+
+    cy.get("#decorator-footer")
+      .children()
+      .should("have.id", "feedback");
+  })
 });
