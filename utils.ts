@@ -97,3 +97,15 @@ export const getData = async (params: Params) => {
     texts: texts[params.language],
   };
 };
+
+export function getDataSubset(params: Params, datakey: DataKeys) {
+    return getData(params).then((data) => data[datakey]);
+}
+
+export type GetDataResponse = Awaited<ReturnType<typeof getData>>;
+export type DataKeys = keyof GetDataResponse;
+// These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
+export type MainMenu = GetDataResponse["mainMenu"];
+export type FooterLinks = GetDataResponse["footerLinks"];
+export type Personvern = GetDataResponse["personvern"];
+export type HeaderMenuLinksData = GetDataResponse["headerMenuLinks"];

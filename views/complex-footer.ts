@@ -1,4 +1,4 @@
-import { FooterLinks, Personvern } from "../server";
+import { FooterLinks, Personvern } from "@/utils";
 import { Texts } from "../texts";
 import { html } from "../utils";
 

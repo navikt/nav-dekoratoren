@@ -1,7 +1,6 @@
 import { Breadcrumb } from "../params";
-import { HeaderMenuLinksData, MainMenu } from "../server";
+import { HeaderMenuLinksData, MainMenu, html } from "@/utils";
 import { Texts } from "../texts";
-import { html } from "../utils";
 import { Breadcrumbs } from "./breadcrumbs";
 import { HeaderMenuLinks } from "./header-menu-links";
 

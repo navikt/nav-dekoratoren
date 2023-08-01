@@ -1,5 +1,5 @@
 import { Params } from "../params";
-import { FooterLinks, Personvern } from "../server";
+import { FooterLinks, Personvern } from "@/utils";
 import { Texts } from "../texts";
 import { html } from "../utils";
 import { ComplexFooter } from "./complex-footer";

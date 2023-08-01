@@ -9,9 +9,9 @@
     "cypress:open:reference": "IS_OLD=true cypress open",
     "cypress:run": "cypress run",
     "cypress:run:reference": "IS_OLD=true cypress run",
-    "dev": "concurrently \"vite\" \"nodemon --ext ts,mustache --watch views/ --watch server.ts server\" \"npm run tailwind\"",
+    "dev": "concurrently \"vite\" \"nodemon --ext ts --watch views/ --watch server.ts --exec ts-node -r tsconfig-paths/register server\" \"npm run tailwind\"",
     "build": "vite build",
-    "serve": "export NODE_ENV=production && ts-node server"
+    "serve": "export NODE_ENV=production && ts-node -r tsconfig-paths/register server"
   },
   "keywords": [],
   "author": "",
@@ -41,7 +41,9 @@
     "nodemon": "^3.0.1",
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6",
+    "vite-tsconfig-paths": "^4.2.0",
     "zod": "^3.21.4"
   },
   "packageManager": "yarn@3.6.1"
