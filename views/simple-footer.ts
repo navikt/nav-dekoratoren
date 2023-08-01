@@ -1,4 +1,4 @@
-import { Personvern } from "../server";
+import { Personvern } from "@/utils";
 import { Texts } from "../texts";
 import { html } from "../utils";
 

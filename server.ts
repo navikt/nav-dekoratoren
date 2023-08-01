@@ -3,11 +3,12 @@ import express from "express";
 import { WebSocketServer } from "ws";
 import { parseParams } from "./params";
 import cors from "cors";
-import { getData } from "./utils";
+import { DataKeys, getData } from "./utils";
 import { Index } from "./views";
 import { Footer } from "./views/footer";
 import { HeaderMenuLinks } from "./views/header-menu-links";
 import { Header } from "./views/header";
+import { decoratorParams } from "./middlewares";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -15,25 +16,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.static(isProd ? "dist" : "public"));
-
-app.use((req, res, next) => {
-  const result = parseParams(req.query);
-
-  if (result.success) {
-    req.decorator = result.data;
-  } else {
-    res.status(400).send(result.error);
-  }
-
-  next();
-});
-
-type GetDataResponse = Awaited<ReturnType<typeof getData>>;
-// These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
-export type MainMenu = GetDataResponse["mainMenu"];
-export type FooterLinks = GetDataResponse["footerLinks"];
-export type Personvern = GetDataResponse["personvern"];
-export type HeaderMenuLinksData = GetDataResponse["headerMenuLinks"];
+app.use(decoratorParams);
 
 app.use("/footer", async (req, res) => {
   const params = req.decorator;
@@ -59,6 +42,24 @@ app.use("/header", async (req, res) => {
       headerMenuLinks: data.headerMenuLinks,
     }),
   );
+});
+
+app.get("/data/:key", async (req, res) => {
+    const { params } = req;
+    const dataKey = params.key as DataKeys;
+
+    if (!dataKey) {
+        return res.status(400).send("Missing key");
+    }
+
+    const data = await getData(req.decorator);
+    const subset = data[dataKey];
+
+    if (!subset) {
+        res.status(404).send("Data not found with key:" + dataKey);
+    }
+
+    res.send(subset);
 });
 
 app.use("/", async (req, res) => {
@@ -113,6 +114,8 @@ app.use("/", async (req, res) => {
     }),
   );
 });
+
+
 
 const server = http.createServer(app);
 

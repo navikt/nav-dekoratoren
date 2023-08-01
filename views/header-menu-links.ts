@@ -1,4 +1,4 @@
-import { HeaderMenuLinksData } from "../server";
+import { HeaderMenuLinksData } from "@/utils";
 import { html } from "../utils";
 
 export function HeaderMenuLinks({
