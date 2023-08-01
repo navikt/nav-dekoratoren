@@ -116,6 +116,7 @@ app.use("/", async (req, res) => {
         innlogget: false,
         isNorwegian: true,
         breadcrumbs: req.decorator.breadcrumbs,
+        utilsBackground: req.decorator.utilsBackground,
       }),
       footer: Footer({
         texts: data.texts,

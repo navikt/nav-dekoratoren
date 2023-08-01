@@ -1,4 +1,4 @@
-import { Breadcrumb } from "../params";
+import { Breadcrumb, UtilsBackground } from "../params";
 import { HeaderMenuLinksData, MainMenu, html } from "@/utils";
 import { Texts } from "../texts";
 import { Breadcrumbs } from "./breadcrumbs";
@@ -13,6 +13,7 @@ export function Header({
   texts,
   innlogget,
   breadcrumbs,
+  utilsBackground
 }: {
   isNorwegian: boolean;
   mainMenu: MainMenu;
@@ -20,6 +21,7 @@ export function Header({
   headerMenuLinks: HeaderMenuLinksData;
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
+  utilsBackground: UtilsBackground
 }) {
   return html`
     <div id="header-withmenu">
@@ -133,7 +135,8 @@ export function Header({
         </div>
       </header>
       ${Breadcrumbs({
-        breadcrumbs,
+          breadcrumbs,
+          utilsBackground
       })}
     </div>
   `;
