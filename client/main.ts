@@ -133,21 +133,10 @@ const buttons = document.querySelectorAll(".feedback-content button");
 
 buttons.forEach((button) => {
     button.addEventListener("click", async () => {
-        // get search params to object
-        const searchParams = new URLSearchParams(window.location.search);
-        const parsedParams = parseParamsClient(searchParams);
-
-        // TODO: Reimplement this
-        // const data = await getData({
-        //   ...parsedParams,
-        //   context: "privatperson",
-        //   language: "nb",
-        // });
-        //
-        // const feedbackContent = document.querySelector(".feedback-content");
-        // if (feedbackContent) {
-        //   feedbackContent.innerHTML = FeedbackSuccess();
-        // }
+        const feedbackContent = document.querySelector(".feedback-content");
+        if (feedbackContent) {
+          feedbackContent.innerHTML = FeedbackSuccess();
+        }
     });
 });
 
