@@ -47,21 +47,21 @@ app.use("/header", async (req, res) => {
 });
 
 app.get("/data/:key", async (req, res) => {
-    const { params } = req;
-    const dataKey = params.key as DataKeys;
+  const { params } = req;
+  const dataKey = params.key as DataKeys;
 
-    if (!dataKey) {
-        return res.status(400).send("Missing key");
-    }
+  if (!dataKey) {
+    return res.status(400).send("Missing key");
+  }
 
-    const data = await getData(req.decorator);
-    const subset = data[dataKey];
+  const data = await getData(req.decorator);
+  const subset = data[dataKey];
 
-    if (!subset) {
-        res.status(404).send("Data not found with key:" + dataKey);
-    }
+  if (!subset) {
+    res.status(404).send("Data not found with key:" + dataKey);
+  }
 
-    res.send(subset);
+  res.send(subset);
 });
 
 app.use("/", async (req, res) => {
@@ -74,7 +74,7 @@ app.use("/", async (req, res) => {
     if (isProd) {
       const resources: { file: string; css: string[] } =
         require("./dist/manifest.json")[entryPointPath];
-      return [script(resources.file)].join("");
+      return script(`${host}/${resources.file}`);
     } else {
       return [
         "http://localhost:5173/@vite/client",
@@ -127,8 +127,6 @@ app.use("/", async (req, res) => {
     }),
   );
 });
-
-
 
 const server = http.createServer(app);
 

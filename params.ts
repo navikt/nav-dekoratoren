@@ -24,7 +24,7 @@ export type Context = z.infer<typeof contextSchema>;
 
 export const breadcrumbSchema = z.object({
   title: z.string(),
-  url: z.string().url(),
+  url: z.string(),
   handleInApp: z.boolean().default(false),
 });
 
