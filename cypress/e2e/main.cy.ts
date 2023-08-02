@@ -1,4 +1,4 @@
-import { Params, formatParams } from "../../params";
+import { Params } from "../../params";
 
 describe("Setting parameters", () => {
   it("Breadcrumbs is set", () => {
@@ -36,24 +36,12 @@ describe("Setting parameters", () => {
   it("Simple", () => {
     cy.visit("/?simple=true");
 
-    cy.get("#decorator-footer")
-      .children()
-      .should("have.class", "simple-footer");
-  });
-
-  it("Formatting params", () => {
-    const testParams: Partial<Params> = {
-      context: "privatperson",
-    };
-
-    const formatted = formatParams(testParams);
+    cy.get("#footer-withmenu").children().should("have.class", "simple-footer");
   });
 
   it("Should show feedback box in footer", () => {
     cy.visit("/?feedback=true");
 
-    cy.get("#decorator-footer")
-      .children()
-      .should("have.id", "feedback");
-  })
+    cy.get("#footer-withmenu").children().should("have.id", "feedback");
+  });
 });

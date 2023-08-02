@@ -79,7 +79,6 @@ app.use('/', async (req, res) => {
       return [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
-        `${host}/dev-client.js`,
       ]
         .map(script)
         .join('');
