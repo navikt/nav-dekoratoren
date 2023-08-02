@@ -1,6 +1,6 @@
-import { Texts } from "../texts";
-import { html } from "../utils";
-import { Button } from "./components";
+import { Texts } from '../texts';
+import { html } from '../utils';
+import { Button } from './components';
 
 export function Feedback({ texts }: { texts: Texts }) {
   return html`
@@ -10,7 +10,7 @@ export function Feedback({ texts }: { texts: Texts }) {
       >
         <h2 class="text-xl">${texts.did_you_find}</h2>
         <div class="mx-4">
-          ${Button({ text: "Ja" })} ${Button({ text: "Nei" })}
+          ${Button({ text: 'Ja' })} ${Button({ text: 'Nei' })}
         </div>
       </div>
       <script></script>

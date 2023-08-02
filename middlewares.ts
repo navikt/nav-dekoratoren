@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { parseParams } from "./params";
+import { NextFunction, Request, Response } from 'express';
+import { parseParams } from './params';
 
 export function decoratorParams(
   req: Request,

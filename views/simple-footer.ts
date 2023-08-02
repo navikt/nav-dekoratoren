@@ -1,6 +1,6 @@
-import { Personvern } from "@/utils";
-import { Texts } from "../texts";
-import { html } from "../utils";
+import { Personvern } from '@/utils';
+import { Texts } from '../texts';
+import { html } from '../utils';
 
 export function SimpleFooter({
   personvern,

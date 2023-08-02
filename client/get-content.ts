@@ -1,5 +1,5 @@
-import { type Params } from "@/params";
-import type { DataKeys, GetDataResponse } from "@/utils";
+import { type Params } from '@/params';
+import type { DataKeys, GetDataResponse } from '@/utils';
 
 function formatParams(params: Partial<Params>) {
   return new URLSearchParams(

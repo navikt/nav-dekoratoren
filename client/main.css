@@ -1,4 +1,4 @@
-@import "@navikt/ds-tokens";
+@import '@navikt/ds-tokens';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +9,7 @@ body {
 }
 
 body {
-  font-family: "Source Sans 3", sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   line-height: 1.333;
   font-size: 1.125rem;
   margin: 0;
@@ -116,4 +116,8 @@ a {
 
 #breadcrumbs-wrapper.transparent {
   background-color: transparent;
+}
+
+#sok-dropdown.active {
+  display: block;
 }

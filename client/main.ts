@@ -1,26 +1,26 @@
-import "vite/modulepreload-polyfill";
-import "./main.css";
-import { Breadcrumb, Context, UtilsBackground } from "../params";
-import { FeedbackSuccess } from "../views/feedback";
-import { Breadcrumbs } from "../views/breadcrumbs";
-import getContent from "./get-content";
-import { HeaderMenuLinks } from "@/views/header-menu-links";
+import 'vite/modulepreload-polyfill';
+import './main.css';
+import { Breadcrumb, Context, UtilsBackground } from '../params';
+import { FeedbackSuccess } from '../views/feedback';
+import { Breadcrumbs } from '../views/breadcrumbs';
+import getContent from './get-content';
+import { HeaderMenuLinks } from '@/views/header-menu-links';
 
-window.addEventListener("message", (e) => {
-  if (e.data.source === "decoratorClient" && e.data.event === "ready") {
-    window.postMessage({ source: "decorator", event: "ready" });
+window.addEventListener('message', (e) => {
+  if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
+    window.postMessage({ source: 'decorator', event: 'ready' });
   }
-  if (e.data.source === "decoratorClient" && e.data.event == "params") {
+  if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
     if (e.data.payload.breadcrumbs) {
       const breadcrumbs: Breadcrumb[] = e.data.payload.breadcrumbs;
       const breadcrumbsWrapperEl = document.getElementById(
-        "breadcrumbs-wrapper",
+        'breadcrumbs-wrapper',
       );
       if (breadcrumbsWrapperEl) {
         breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
           breadcrumbs,
           utilsBackground: breadcrumbsWrapperEl.getAttribute(
-            "data-background",
+            'data-background',
           ) as UtilsBackground,
         });
 
@@ -28,14 +28,14 @@ window.addEventListener("message", (e) => {
           .filter((br) => br.handleInApp)
           .forEach((br) => {
             document
-              .getElementById("breadcrumbs-wrapper")
+              .getElementById('breadcrumbs-wrapper')
               ?.querySelector(`a[href="${br.url}"]`)
-              ?.addEventListener("click", (e) => {
+              ?.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.postMessage({
-                  source: "decorator",
-                  event: "breadcrumbClick",
-                  payload: { yes: "wat" },
+                  source: 'decorator',
+                  event: 'breadcrumbClick',
+                  payload: { yes: 'wat' },
                 });
               });
           });
@@ -44,47 +44,48 @@ window.addEventListener("message", (e) => {
   }
 });
 
-window.addEventListener("message", (e) => {
-  if (e.data.source === "decoratorClient") {
-    console.log("message:", e.data);
+window.addEventListener('message', (e) => {
+  if (e.data.source === 'decoratorClient') {
+    console.log('message:', e.data);
   }
 });
 
-const menuButton = document.getElementById("menu-button");
-const menuBackground = document.getElementById("menu-background");
+const menuButton = document.getElementById('menu-button');
+const menuBackground = document.getElementById('menu-background');
 
 function toggleActive(el: HTMLElement) {
-  el.classList.toggle("active");
+  el.classList.toggle('active');
 }
 
 function purgeActive(el: HTMLElement) {
-  el.classList.remove("active");
+  el.classList.remove('active');
 }
 
-menuButton?.addEventListener("click", () => {
-  const menu = document.getElementById("menu");
-
-  [menuButton, menuBackground, menu].forEach((el) => el && toggleActive(el));
+// Can probably be done direclty
+menuButton?.addEventListener('click', () => {
+  const menu = document.getElementById('menu');
+  menu?.classList.toggle('active');
+  menuBackground?.classList.toggle('active');
 });
 
-menuBackground?.addEventListener("click", () => {
-  const menu = document.getElementById("menu");
+menuBackground?.addEventListener('click', () => {
+  const menu = document.getElementById('menu');
 
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 });
 
 document
-  .querySelectorAll(".context-link")
+  .querySelectorAll('.context-link')
   .forEach((contextLink, _, contextLinks) =>
-    contextLink.addEventListener("click", async (_) => {
-      contextLinks.forEach((el) => el.classList.remove("active"));
-      contextLink.classList.add("active");
+    contextLink.addEventListener('click', async (_) => {
+      contextLinks.forEach((el) => el.classList.remove('active'));
+      contextLink.classList.add('active');
 
-      const headerMenuLinksEl = document.getElementById("header-menu-links");
+      const headerMenuLinksEl = document.getElementById('header-menu-links');
       if (headerMenuLinksEl) {
         headerMenuLinksEl.innerHTML = HeaderMenuLinks({
-          headerMenuLinks: await getContent("headerMenuLinks", {
-            context: contextLink.getAttribute("data-context") as Context,
+          headerMenuLinks: await getContent('headerMenuLinks', {
+            context: contextLink.getAttribute('data-context') as Context,
           }),
         });
       }
@@ -93,11 +94,11 @@ document
 
 // @TODO:  Create a wrapper function around fetch that handles passing search params
 
-const buttons = document.querySelectorAll(".feedback-content button");
+const buttons = document.querySelectorAll('.feedback-content button');
 
 buttons.forEach((button) => {
-  button.addEventListener("click", async () => {
-    const feedbackContent = document.querySelector(".feedback-content");
+  button.addEventListener('click', async () => {
+    const feedbackContent = document.querySelector('.feedback-content');
     if (feedbackContent) {
       feedbackContent.innerHTML = FeedbackSuccess();
     }
@@ -105,16 +106,16 @@ buttons.forEach((button) => {
 });
 
 function attachAmplitudeLinks() {
-  const amplitudeLinks = document.querySelectorAll(".amplitude-link");
+  const amplitudeLinks = document.querySelectorAll('.amplitude-link');
 
-  document.body.addEventListener("click", (e) => {
-    if ((e.target as Element).classList.contains("amplitude-link")) {
-      alert("Found an ampltidude link");
+  document.body.addEventListener('click', (e) => {
+    if ((e.target as Element).classList.contains('amplitude-link')) {
+      alert('Found an ampltidude link');
     }
     if (
-      (e.target as Element).parentNode?.classList.contains("amplitude-link")
+      (e.target as Element).parentNode?.classList.contains('amplitude-link')
     ) {
-      alert("Found an ampltidude link");
+      alert('Found an ampltidude link');
     }
   });
 }

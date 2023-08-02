@@ -1,5 +1,5 @@
-import { HeaderMenuLinksData } from "@/utils";
-import { html } from "../utils";
+import { HeaderMenuLinksData } from '@/utils';
+import { html } from '../utils';
 
 export function HeaderMenuLinks({
   headerMenuLinks,

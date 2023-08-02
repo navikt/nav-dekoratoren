@@ -1,5 +1,5 @@
-import { Breadcrumb, UtilsBackground } from "../params";
-import { html } from "../utils";
+import { Breadcrumb, UtilsBackground } from '../params';
+import { html } from '../utils';
 
 export function Breadcrumbs({
   utilsBackground,

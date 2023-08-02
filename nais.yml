@@ -1,7 +1,7 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
 metadata:
-  name: "decorator-next"
+  name: 'decorator-next'
   namespace: personbruker
   labels:
     team: personbruker

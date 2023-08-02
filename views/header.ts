@@ -1,8 +1,11 @@
-import { Breadcrumb, UtilsBackground } from "../params";
-import { HeaderMenuLinksData, MainMenu, html } from "@/utils";
-import { Texts } from "../texts";
-import { Breadcrumbs } from "./breadcrumbs";
-import { HeaderMenuLinks } from "./header-menu-links";
+import { Breadcrumb, UtilsBackground } from '../params';
+import { HeaderMenuLinksData, MainMenu, html } from '../utils';
+import { Texts } from '../texts';
+import { Breadcrumbs } from './breadcrumbs';
+import { HeaderMenuLinks } from './header-menu-links';
+import { ToggleIconButton } from './components/icon-button';
+import { BurgerIcon } from './icons/burger';
+import Search from './search';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -66,37 +69,16 @@ export function Header({
               ? html` Du er innlogget `
               : html`
                   <div class="flex items-center">
-                    <button
-                      id="menu-button"
-                      class="group flex gap-2 text-blue-500 rounded-[3px] py-3 px-2 pr-4 pl-1 border-2 border-transparent hover:border-blue-500 hover:bg-blue-100 active:bg-surface-action-active active:text-white ring-[3px] ring-transparent active:ring-blue-800 active:border active:border-white"
-                    >
-                      <img
-                        class="group-active:hidden group-[.active]:hidden block"
-                        src="/ikoner/meny/burger.svg"
-                        alt="Meny"
-                      />
-                      <img
-                        class="group-active:block group-[.active]:hidden hidden"
-                        src="/ikoner/meny/burger-white.svg"
-                        alt="Meny"
-                      />
-                      <span class="font-bold group-[.active]:hidden"
-                        >${texts.menu}</span
-                      >
-                      <img
-                        class="group-[.active]:group-active:hidden group-[.active]:block hidden"
-                        src="/ikoner/meny/menu-close.svg"
-                        alt="Meny"
-                      />
-                      <img
-                        class="group-[.active]:group-active:block hidden"
-                        src="/ikoner/meny/menu-close-white.svg"
-                        alt="Meny"
-                      />
-                      <span class="font-bold group-[.active]:block hidden"
-                        >${texts.close}</span
-                      >
-                    </button>
+                    ${ToggleIconButton({
+                      id: 'menu-button',
+                      Icon: BurgerIcon,
+                      idleText: texts.menu,
+                      toggledText: texts.close,
+                      onclick: (el) => {
+                        el.classList.toggle('active');
+                      },
+                    })}
+                    ${Search({ texts })}
                   </div>
                 `
           }
@@ -141,6 +123,3 @@ export function Header({
     </div>
   `;
 }
-// <!-- {{> breadcrumbs}} -->
-// <!-- ${Breadcrumbs} -->
-// <!-- {{> breadcrumbs}} -->
