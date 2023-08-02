@@ -116,10 +116,6 @@ app.use('/', async (req, res) => {
         isNorwegian: true,
         breadcrumbs: req.decorator.breadcrumbs,
         utilsBackground: req.decorator.utilsBackground,
-        openSearch: (el) => {
-          el.classList.toggle('active');
-          document.getElementById('sok-dropdown')?.classList.toggle('active');
-        },
       }),
       footer: Footer({
         texts: data.texts,

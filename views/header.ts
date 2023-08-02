@@ -4,8 +4,8 @@ import { Texts } from '../texts';
 import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
 import { ToggleIconButton } from './components/icon-button';
-import { SearchIcon } from './icons/search';
 import { BurgerIcon } from './icons/burger';
+import Search from './search';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -17,7 +17,6 @@ export function Header({
   innlogget,
   breadcrumbs,
   utilsBackground,
-  openSearch,
 }: {
   isNorwegian: boolean;
   mainMenu: MainMenu;
@@ -26,7 +25,6 @@ export function Header({
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
-  openSearch: (el: Element) => void;
 }) {
   return html`
     <div id="header-withmenu">
@@ -82,15 +80,7 @@ export function Header({
                         el.classList.toggle('active');
                       },
                     })}
-                    ${ToggleIconButton({
-                      id: 'search-button',
-                      icon: SearchIcon({
-                        className: 'group-[.active]:hidden block',
-                      }),
-                      idleText: texts.search,
-                      toggledText: texts.close,
-                      onclick: openSearch,
-                    })}
+                    ${Search({ texts })}
                   </div>
                 `
           }
@@ -128,13 +118,6 @@ export function Header({
           </div>
         </div>
       </header>
-      <!-- Search -->
-      <div id="sok-dropdown" class="absolute top-[79px] z-30 w-full hidden" >
-        <div class="max-w-[1337px] w-full mx-auto flex justify-end">
-        <div class="h-80 bg-white max-w-[700px] w-full rounded-b-medium">
-        </div>
-        </div>
-      </div>
       ${Breadcrumbs({
         breadcrumbs,
         utilsBackground,
