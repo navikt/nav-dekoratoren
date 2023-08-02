@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import tsconfigPaths from 'vite-tsconfig-paths'
 import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
-import commonjs from "@rollup/plugin-commonjs";
 
 export default defineConfig({
     plugins: [tsconfigPaths()],
@@ -12,7 +11,7 @@ export default defineConfig({
         manifest: true,
         rollupOptions: {
             plugins: [
-                // minifyLiterals(),
+                minifyLiterals(),
             ],
             input: {
                 main: 'client/main.ts',

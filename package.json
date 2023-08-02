@@ -38,7 +38,6 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.3",
     "@types/cors": "^2.8.13",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",

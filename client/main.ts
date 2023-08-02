@@ -5,19 +5,6 @@ import { FeedbackSuccess } from "../views/feedback";
 import { Breadcrumbs } from "../views/breadcrumbs";
 import { getContentData } from "./utils";
 
-const modules = import.meta.glob('../views/*.client.ts')
-
-for (const path in modules) {
-  modules[path]().then((mod: any) => {
-    // Add each to window
-      for (const [k, v] of Object.entries(mod)) {
-        window[k as string] = v
-      }
-
-      window[path as any] = mod['default']
-  })
-}
-
 window.addEventListener("message", (e) => {
   if (e.data.source === "decoratorClient" && e.data.event === "ready") {
     window.postMessage({ source: "decorator", event: "ready" });
