@@ -99,7 +99,7 @@ export const getData = async (params: Params) => {
 };
 
 export function getDataSubset(params: Params, datakey: DataKeys) {
-    return getData(params).then((data) => data[datakey]);
+  return getData(params).then((data) => data[datakey]);
 }
 
 export type GetDataResponse = Awaited<ReturnType<typeof getData>>;
