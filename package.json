@@ -12,9 +12,7 @@
     "dev": "concurrently \"vite\" \"nodemon --ext ts --watch views/ --watch server.ts --exec ts-node -r tsconfig-paths/register server\" \"npm run tailwind\"",
     "build": "vite build",
     "serve": "NODE_ENV=production && ts-node -r tsconfig-paths/register server",
-    "prepare": "husky install",
-    "lint": "eslint . --cache --fix --ext .ts,.tsx",
-    "pretest": "npm run lint"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -45,7 +43,6 @@
     "common-tags": "^1.8.2",
     "concurrently": "^8.2.0",
     "cypress": "^12.17.2",
-    "eslint": "latest",
     "husky": "^8.0.0",
     "nodemon": "^3.0.1",
     "rollup-plugin-minify-html-literals-v3": "^1.3.3",
@@ -58,7 +55,6 @@
   },
   "packageManager": "yarn@3.6.1",
   "lint-staged": {
-    "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
   }
 }
