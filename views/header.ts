@@ -1,12 +1,11 @@
 import { Breadcrumb, UtilsBackground } from "../params";
-import { HeaderMenuLinksData, MainMenu, html } from "@/utils";
+import { HeaderMenuLinksData, MainMenu, html } from "../utils";
 import { Texts } from "../texts";
 import { Breadcrumbs } from "./breadcrumbs";
 import { HeaderMenuLinks } from "./header-menu-links";
 import { ToggleIconButton } from "./components/icon-button";
 import { SearchIcon } from "./icons/search";
 import { BurgerIcon } from "./icons/burger";
-import { openSearch } from "./header.client";
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -90,7 +89,8 @@ export function Header({
                       toggledText: texts.close,
                       onclick: (el) => {
                         el.classList.toggle('active');
-                        openSearch();
+                        // @ts-ignore
+                        window.openSearch();
                       },
                     })}
                   </div>
@@ -144,4 +144,3 @@ export function Header({
     </div>
   `;
 }
-
