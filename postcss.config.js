@@ -25,7 +25,6 @@ module.exports = {
     prefixer({
       transform(prefix, selector, prefixedSelector, filePath, rule) {
         if ([":root", ":host"].includes(selector)) {
-          console.log(selector);
           return "#header-withmenu, #footer-withmenu";
         }
 

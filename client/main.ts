@@ -54,20 +54,6 @@ window.addEventListener("message", (e) => {
   }
 });
 
-const formElement = document.getElementById("breadcrumbs-form");
-
-formElement?.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const data = new FormData(formElement as HTMLFormElement);
-
-  window.postMessage({
-    source: "decoratorClient",
-    event: "params",
-    payload: { breadcrumbs: JSON.parse(data.get("breadcrumbs") as string) },
-  });
-});
-
 const menuButton = document.getElementById("menu-button");
 const menuBackground = document.getElementById("menu-background");
 
