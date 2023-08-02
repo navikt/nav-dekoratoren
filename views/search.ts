@@ -7,9 +7,7 @@ export default function Search({ texts }: { texts: Texts }) {
   return html`
     ${ToggleIconButton({
       id: 'search-button',
-      icon: SearchIcon({
-        className: 'group-[.active]:hidden block',
-      }),
+      Icon: SearchIcon,
       idleText: texts.search,
       toggledText: texts.close,
       onclick: (el) => {

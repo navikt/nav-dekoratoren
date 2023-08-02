@@ -71,9 +71,7 @@ export function Header({
                   <div class="flex items-center">
                     ${ToggleIconButton({
                       id: 'menu-button',
-                      icon: BurgerIcon({
-                        className: 'group-[.active]:hidden block',
-                      }),
+                      Icon: BurgerIcon,
                       idleText: texts.menu,
                       toggledText: texts.close,
                       onclick: (el) => {

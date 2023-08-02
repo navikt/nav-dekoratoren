@@ -4,15 +4,13 @@ import { CloseIcon } from '../icons/close';
 export function ToggleIconButton({
   idleText,
   toggledText,
-  className = '',
   onclick,
-  icon,
+  Icon,
   id,
 }: {
   idleText: string;
   toggledText: string;
-  icon: string;
-  className?: string;
+  Icon: ({ className }: { className: string }) => string;
   id?: string;
   onclick?: (e: Element) => void;
 }) {
@@ -23,7 +21,9 @@ export function ToggleIconButton({
       onclick="(${onclick})(this)"
     >
       <!-- It gets the color from the group, so this works -->
-      ${icon}
+      ${Icon({
+        className: 'group-[.active]:hidden block',
+      })}
       <span class="font-bold group-[.active]:hidden">${idleText}</span>
       ${CloseIcon({
         className: 'group-[.active]:block hidden',
