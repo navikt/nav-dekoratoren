@@ -3,7 +3,7 @@ import "./main.css";
 import { Context, UtilsBackground } from "../params";
 import { FeedbackSuccess } from "../views/feedback";
 import { Breadcrumbs } from "../views/breadcrumbs";
-import { getContentData } from "./utils";
+import getContent from "./get-content";
 import { HeaderMenuLinks } from "@/views/header-menu-links";
 
 window.addEventListener("message", (e) => {
@@ -51,7 +51,6 @@ menuButton?.addEventListener("click", () => {
 });
 
 menuBackground?.addEventListener("click", () => {
-  console.log("click");
   const menu = document.getElementById("menu");
 
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
@@ -67,7 +66,7 @@ document
       const headerMenuLinksEl = document.getElementById("header-menu-links");
       if (headerMenuLinksEl) {
         headerMenuLinksEl.innerHTML = HeaderMenuLinks({
-          headerMenuLinks: await getContentData("headerMenuLinks", {
+          headerMenuLinks: await getContent("headerMenuLinks", {
             context: contextLink.getAttribute("data-context") as Context,
           }),
         });
@@ -92,7 +91,6 @@ function attachAmplitudeLinks() {
   const amplitudeLinks = document.querySelectorAll(".amplitude-link");
 
   document.body.addEventListener("click", (e) => {
-    console.log("click");
     if ((e.target as Element).classList.contains("amplitude-link")) {
       alert("Found an ampltidude link");
     }
