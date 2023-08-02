@@ -1,10 +1,10 @@
-import { Breadcrumb } from "../params";
+import { Breadcrumb, UtilsBackground } from "../params";
 import { html } from "../utils";
 
-export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
+export function Breadcrumbs({ utilsBackground, breadcrumbs }: { breadcrumbs: Breadcrumb[], utilsBackground: UtilsBackground }) {
   return html`
-    <nav class="max-w-[1344px] w-full mx-auto py-3" id="breadcrumbs-wrapper">
-      <ol class="flex items-center" id="breadcrumbs-list">
+  <nav class="${`py-3 ${utilsBackground}`}" data-background="${utilsBackground}" id="breadcrumbs-wrapper">
+      <ol class="flex items-center max-w-[1344px] w-full mx-auto" id="breadcrumbs-list">
         <li>
           <a class="flex gap-1 items-center amplitude-link" href="#">
             <svg

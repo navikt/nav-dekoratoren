@@ -1,6 +1,6 @@
 import "vite/modulepreload-polyfill";
 import "./main.css";
-import type { Context } from "../params";
+import { Context, UtilsBackground } from "../params";
 import { FeedbackSuccess } from "../views/feedback";
 import { Breadcrumbs } from "../views/breadcrumbs";
 import { getContentData } from "./utils";
@@ -39,6 +39,9 @@ window.addEventListener("message", (e) => {
       if (breadcrumbsWrapperEl) {
         breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
           breadcrumbs: e.data.payload.breadcrumbs,
+          utilsBackground: breadcrumbsWrapperEl.getAttribute(
+            "data-background",
+          ) as UtilsBackground,
         });
       }
     }

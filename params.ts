@@ -30,7 +30,10 @@ export const breadcrumbSchema = z.object({
 
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 
-const background = z.enum(["white", "gray", "transparent"]);
+const utilsBackground = z.enum(["white", "gray", "transparent"]);
+
+export type UtilsBackground = z.infer<typeof utilsBackground>;
+
 
 const paramsSchema = z.object({
   context: contextSchema.default("privatperson"),
@@ -50,7 +53,7 @@ const paramsSchema = z.object({
     )
     .default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),
-  utilsBackground: background.default("transparent"),
+  utilsBackground: utilsBackground.default("transparent"),
   feedback: z.boolean().default(false),
   chatbot: z.boolean().default(true),
   chatbotVisible: z.boolean().default(false),

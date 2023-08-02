@@ -105,3 +105,15 @@ a {
   font-weight: bold;
   border-color: #3386e0;
 }
+
+#breadcrumbs-wrapper.white {
+  background-color: #f1f1f1;
+}
+
+#breadcrumbs-wrapper.gray {
+  background-color: var(--a-bg-subtle);
+}
+
+#breadcrumbs-wrapper.transparent {
+    background-color: transparent;
+}

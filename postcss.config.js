@@ -5,6 +5,7 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
     "views/**/*.ts",
     "views/*.ts",
     "server.ts",
+    "params.ts",
     "public/ikoner/**/*.svg",
     "client/**/*.ts",
   ],
@@ -25,7 +26,7 @@ module.exports = {
       transform(prefix, selector, prefixedSelector, filePath, rule) {
         if ([":root", ":host"].includes(selector)) {
           console.log(selector);
-          return ".decorator-header, .decorator-footer";
+          return "#header-withmenu, #footer-withmenu";
         }
 
         return selector;
