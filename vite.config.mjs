@@ -13,11 +13,9 @@ export default defineConfig({
         plugins: [
             minifyLiterals()
         ],
-        treeshake: {
-            manualPureFunctions: ['html']
+        input: {
+            main: 'client/main.ts',
         },
-      // Add tsconfig
-      input: "client/main.ts",
     },
   },
 });

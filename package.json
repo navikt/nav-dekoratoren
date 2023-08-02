@@ -9,9 +9,10 @@
     "cypress:open:reference": "IS_OLD=true cypress open",
     "cypress:run": "cypress run",
     "cypress:run:reference": "IS_OLD=true cypress run",
-    "dev": "concurrently \"vite\" \"nodemon --ext ts --watch views/ --watch server.ts --exec ts-node -r tsconfig-paths/register server\" \"npm run tailwind\"",
+    "dev": "concurrently \"vite\" \"npm run dev-server\" \"npm run tailwind\"",
+    "dev-server": "nodemon --ext ts --watch views/ --watch server.ts --exec ts-node --project tsconfig.node.json -r tsconfig-paths/register server.ts",
     "build": "vite build",
-    "serve": "NODE_ENV=production && ts-node -r tsconfig-paths/register server",
+    "serve": " NODE_ENV=production ts-node --project tsconfig.node.json -r tsconfig-paths/register server",
     "prepare": "husky install"
   },
   "keywords": [],

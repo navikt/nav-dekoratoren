@@ -4,7 +4,7 @@ import { WebSocketServer } from "ws";
 import { parseParams } from "./params";
 import cors from "cors";
 import { DataKeys, getData } from "./utils";
-import { Index } from "./views";
+import { Index } from "./views/index";
 import { Footer } from "./views/footer";
 import { HeaderMenuLinks } from "./views/header-menu-links";
 import { Header } from "./views/header";
@@ -68,6 +68,7 @@ app.use("/", async (req, res) => {
   const entryPointPath = "client/main.ts";
 
   const scripts = () => {
+
     const script = (src: string) =>
       `<script type="module" src="${src}"></script>`;
 

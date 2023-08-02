@@ -4,7 +4,14 @@ import { Context, UtilsBackground } from "../params";
 import { FeedbackSuccess } from "../views/feedback";
 import { Breadcrumbs } from "../views/breadcrumbs";
 import { getContentData } from "./utils";
-import { HeaderMenuLinks } from "@/views/header-menu-links";
+
+const modules = import.meta.glob('../views/*.client.ts')
+
+for (const path in modules) {
+  modules[path]().then((mod) => {
+    console.log(path, mod)
+  })
+}
 
 window.addEventListener("message", (e) => {
   if (e.data.source === "decoratorClient" && e.data.event === "ready") {
@@ -44,8 +51,10 @@ function purgeActive(el: HTMLElement) {
   el.classList.remove("active");
 }
 
+// Can probably be done direclty
 menuButton?.addEventListener("click", () => {
   const menu = document.getElementById("menu");
+  menu?.classList.toggle("active");
   menuBackground?.classList.toggle("active");
 });
 

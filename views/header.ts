@@ -5,8 +5,8 @@ import { Breadcrumbs } from "./breadcrumbs";
 import { HeaderMenuLinks } from "./header-menu-links";
 import { ToggleIconButton } from "./components/icon-button";
 import { SearchIcon } from "./icons/search";
-import { formatParams } from "@/client/utils";
 import { BurgerIcon } from "./icons/burger";
+import { openSearch } from "./header.client";
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -78,7 +78,6 @@ export function Header({
                       idleText: texts.menu,
                       toggledText: texts.close,
                       onclick: (el) => {
-                      console.log('el', el)
                         el.classList.toggle('active');
                       },
                     })}
@@ -91,6 +90,7 @@ export function Header({
                       toggledText: texts.close,
                       onclick: (el) => {
                         el.classList.toggle('active');
+                        openSearch();
                       },
                     })}
                   </div>
@@ -130,6 +130,13 @@ export function Header({
           </div>
         </div>
       </header>
+      <!-- Search -->
+      <div class="absolute top-[79px] z-30 w-full" id="sok-dropdown">
+        <div class="max-w-[1337px] w-full mx-auto flex justify-end">
+        <div class="h-80 bg-white max-w-[700px] w-full rounded-b-medium">
+        </div>
+        </div>
+      </div>
       ${Breadcrumbs({
         breadcrumbs,
         utilsBackground,
@@ -137,6 +144,4 @@ export function Header({
     </div>
   `;
 }
-// <!-- {{> breadcrumbs}} -->
-// <!-- ${Breadcrumbs} -->
-// <!-- {{> breadcrumbs}} -->
+
