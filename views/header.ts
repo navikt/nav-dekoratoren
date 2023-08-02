@@ -1,4 +1,4 @@
-import { Breadcrumb, UtilsBackground } from '../params';
+import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
 import { HeaderMenuLinksData, MainMenu, html } from '../utils';
 import { Texts } from '../texts';
 import { Breadcrumbs } from './breadcrumbs';
@@ -6,6 +6,7 @@ import { HeaderMenuLinks } from './header-menu-links';
 import { ToggleIconButton } from './components/icon-button';
 import { BurgerIcon } from './icons/burger';
 import Search from './search';
+import LanguageSelector from './language-selector';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -17,6 +18,7 @@ export function Header({
   innlogget,
   breadcrumbs,
   utilsBackground,
+  availableLanguages,
 }: {
   isNorwegian: boolean;
   mainMenu: MainMenu;
@@ -25,6 +27,7 @@ export function Header({
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
+  availableLanguages: AvailableLanguage[];
 }) {
   return html`
     <div id="header-withmenu">
@@ -120,6 +123,7 @@ export function Header({
         breadcrumbs,
         utilsBackground,
       })}
+      ${LanguageSelector({ availableLanguages })}
     </div>
   `;
 }

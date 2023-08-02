@@ -34,6 +34,14 @@ const utilsBackground = z.enum(['white', 'gray', 'transparent']);
 
 export type UtilsBackground = z.infer<typeof utilsBackground>;
 
+export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
+
+const availableLanguageSchema = z.object({
+  locale: languageSchema,
+  url: z.string().url().optional(),
+  handleInApp: z.boolean().default(false),
+});
+
 const paramsSchema = z.object({
   context: contextSchema.default('privatperson'),
   simple: z.boolean().default(false),
@@ -43,14 +51,7 @@ const paramsSchema = z.object({
   redirectToApp: z.boolean().default(false),
   level: authLevelSchema.default('Level3'),
   language: languageSchema.default('nb'),
-  availableLanguages: z
-    .array(
-      z.object({
-        locale: languageSchema,
-        url: z.string().url().optional(),
-      }),
-    )
-    .default([]),
+  availableLanguages: z.array(availableLanguageSchema).default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),
   utilsBackground: utilsBackground.default('transparent'),
   feedback: z.boolean().default(false),

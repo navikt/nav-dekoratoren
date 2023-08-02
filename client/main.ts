@@ -1,11 +1,17 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import { Breadcrumb, Context, UtilsBackground } from '../params';
+import {
+  AvailableLanguage,
+  Breadcrumb,
+  Context,
+  UtilsBackground,
+} from '../params';
 import { FeedbackSuccess } from '../views/feedback';
 import { Breadcrumbs } from '../views/breadcrumbs';
 import SearchHit from '../views/search-hit';
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
+import LanguageSelector from '@/views/language-selector';
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -48,12 +54,38 @@ window.addEventListener('message', (e) => {
           .forEach((br) => {
             document
               .getElementById('breadcrumbs-wrapper')
-              ?.querySelector(`a[href="${br.url}"]`)
+              ?.querySelector(`a[href="${br.url}"]`) // TODO: denne selectoren er ikke god
               ?.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.postMessage({
                   source: 'decorator',
                   event: 'breadcrumbClick',
+                  payload: { yes: 'wat' },
+                });
+              });
+          });
+      }
+    }
+    if (e.data.payload.availableLanguages) {
+      const availableLanguages: AvailableLanguage[] =
+        e.data.payload.availableLanguages;
+      const el = document.getElementById('language-selector');
+      if (el) {
+        el.outerHTML = LanguageSelector({
+          availableLanguages,
+        });
+
+        availableLanguages
+          .filter((br) => br.handleInApp)
+          .forEach((br) => {
+            document
+              .getElementById('language-selector')
+              ?.querySelector(`[data-locale="${br.locale}"]`)
+              ?.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.postMessage({
+                  source: 'decorator',
+                  event: 'languageSelect',
                   payload: { yes: 'wat' },
                 });
               });

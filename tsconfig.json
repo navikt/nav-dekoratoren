@@ -14,13 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["vite/client"],
+    "types": ["vite/client", "cypress", "@testing-library/cypress"],
     "paths": {
       "@/*": ["./*"]
     }
   },
   "include": ["./", "./views/**/*.ts"],
   "exlude": ["node_modules", "dist"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "types": ["cypress", "@testing-library/cypress"]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

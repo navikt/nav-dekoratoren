@@ -124,6 +124,7 @@ app.use('/', async (req, res) => {
         isNorwegian: true,
         breadcrumbs: req.decorator.breadcrumbs,
         utilsBackground: req.decorator.utilsBackground,
+        availableLanguages: req.decorator.availableLanguages,
       }),
       footer: Footer({
         texts: data.texts,
