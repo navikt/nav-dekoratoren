@@ -57,40 +57,23 @@ menuBackground?.addEventListener("click", () => {
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 });
 
-const contextLinks = document.querySelectorAll(".context-link");
+document
+  .querySelectorAll(".context-link")
+  .forEach((contextLink, _, contextLinks) =>
+    contextLink.addEventListener("click", async (_) => {
+      contextLinks.forEach((el) => el.classList.remove("active"));
+      contextLink.classList.add("active");
 
-function removeClassFromElements(
-  elements: NodeListOf<Element>,
-  className: string,
-) {
-  for (const element of elements) {
-    element.classList.remove(className);
-  }
-}
-
-for (const contextLink of contextLinks) {
-  contextLink.addEventListener("click", async (e) => {
-    const targetContext = contextLink.getAttribute("data-context");
-
-    const newParams = {
-      context: targetContext as Context,
-    };
-
-    const newHeaderMenuLinks = await getContentData("headerMenuLinks", {
-      context: targetContext as Context,
-    });
-
-    const html = HeaderMenuLinks({ headerMenuLinks: newHeaderMenuLinks });
-
-    removeClassFromElements(contextLinks, "active");
-    contextLink.classList.add("active");
-
-    const headerMenuLinksEl = document.getElementById("header-menu-links");
-    if (headerMenuLinksEl) {
-      headerMenuLinksEl.innerHTML = html;
-    }
-  });
-}
+      const headerMenuLinksEl = document.getElementById("header-menu-links");
+      if (headerMenuLinksEl) {
+        headerMenuLinksEl.innerHTML = HeaderMenuLinks({
+          headerMenuLinks: await getContentData("headerMenuLinks", {
+            context: contextLink.getAttribute("data-context") as Context,
+          }),
+        });
+      }
+    }),
+  );
 
 // @TODO:  Create a wrapper function around fetch that handles passing search params
 
