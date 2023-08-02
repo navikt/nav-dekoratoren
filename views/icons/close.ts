@@ -1,10 +1,6 @@
-import { html } from "../../utils";
+import { html } from '../../utils';
 
-export function CloseIcon({
-    className = "",
-}: {
-    className?: string;
-    }) {
+export function CloseIcon({ className = '' }: { className?: string }) {
   return html`
     <svg
       width="24px"

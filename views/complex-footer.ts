@@ -1,6 +1,6 @@
-import { FooterLinks, Personvern } from "@/utils";
-import { Texts } from "../texts";
-import { html } from "../utils";
+import { FooterLinks, Personvern } from '@/utils';
+import { Texts } from '../texts';
+import { html } from '../utils';
 
 export function ComplexFooter({
   texts,

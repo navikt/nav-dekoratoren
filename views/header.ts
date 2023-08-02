@@ -1,34 +1,34 @@
-import { Breadcrumb, UtilsBackground } from "../params";
-import { HeaderMenuLinksData, MainMenu, html } from "../utils";
-import { Texts } from "../texts";
-import { Breadcrumbs } from "./breadcrumbs";
-import { HeaderMenuLinks } from "./header-menu-links";
-import { ToggleIconButton } from "./components/icon-button";
-import { SearchIcon } from "./icons/search";
-import { BurgerIcon } from "./icons/burger";
+import { Breadcrumb, UtilsBackground } from '../params';
+import { HeaderMenuLinksData, MainMenu, html } from '../utils';
+import { Texts } from '../texts';
+import { Breadcrumbs } from './breadcrumbs';
+import { HeaderMenuLinks } from './header-menu-links';
+import { ToggleIconButton } from './components/icon-button';
+import { SearchIcon } from './icons/search';
+import { BurgerIcon } from './icons/burger';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
 export function Header({
-    isNorwegian,
-    mainMenu,
-    headerMenuLinks,
-    texts,
-    innlogget,
-    breadcrumbs,
-    utilsBackground,
-    openSearch,
+  isNorwegian,
+  mainMenu,
+  headerMenuLinks,
+  texts,
+  innlogget,
+  breadcrumbs,
+  utilsBackground,
+  openSearch,
 }: {
-    isNorwegian: boolean;
-    mainMenu: MainMenu;
-    texts: Texts;
-    headerMenuLinks: HeaderMenuLinksData;
-    innlogget: boolean;
-    breadcrumbs: Breadcrumb[];
-    utilsBackground: UtilsBackground;
-    openSearch: (el: Element) => void;
+  isNorwegian: boolean;
+  mainMenu: MainMenu;
+  texts: Texts;
+  headerMenuLinks: HeaderMenuLinksData;
+  innlogget: boolean;
+  breadcrumbs: Breadcrumb[];
+  utilsBackground: UtilsBackground;
+  openSearch: (el: Element) => void;
 }) {
-    return html`
+  return html`
     <div id="header-withmenu">
       <div
         id="menu-background"
@@ -48,9 +48,10 @@ export function Header({
               id="arbeidsflate"
               class="flex h-full items-center gap-4 ml-[40px]"
             >
-              ${isNorwegian &&
-        mainMenu.map(
-            ({ displayName, styles }) => html`
+              ${
+                isNorwegian &&
+                mainMenu.map(
+                  ({ displayName, styles }) => html`
                     <button
                       class="context-link h-full flex items-center border-b-4 ${styles}"
                       href="?context=${displayName.toLowerCase()}"
@@ -58,40 +59,41 @@ export function Header({
                     >
                       ${displayName}
                     </button>
-                  `
-        )
-        }
+                  `,
+                )
+              }
             </div>
           </div>
           <!-- Menu button -->
           <!-- Show different buttons based on auth state -->
-          ${innlogget
-            ? html` Du er innlogget `
-            : html`
+          ${
+            innlogget
+              ? html` Du er innlogget `
+              : html`
                   <div class="flex items-center">
                     ${ToggleIconButton({
-                id: "menu-button",
-                icon: BurgerIcon({
-                    className: "group-[.active]:hidden block",
-                }),
-                idleText: texts.menu,
-                toggledText: texts.close,
-                onclick: (el) => {
-                    el.classList.toggle('active');
-                },
-            })}
+                      id: 'menu-button',
+                      icon: BurgerIcon({
+                        className: 'group-[.active]:hidden block',
+                      }),
+                      idleText: texts.menu,
+                      toggledText: texts.close,
+                      onclick: (el) => {
+                        el.classList.toggle('active');
+                      },
+                    })}
                     ${ToggleIconButton({
-                id: "search-button",
-                icon: SearchIcon({
-                    className: "group-[.active]:hidden block",
-                }),
-                idleText: texts.search,
-                toggledText: texts.close,
-                onclick: openSearch,
-            })}
+                      id: 'search-button',
+                      icon: SearchIcon({
+                        className: 'group-[.active]:hidden block',
+                      }),
+                      idleText: texts.search,
+                      toggledText: texts.close,
+                      onclick: openSearch,
+                    })}
                   </div>
                 `
-        }
+          }
         <div
           id="menu"
           class="absolute top-[80px] mx-auto left-1/2 transform -translate-x-1/2 w-full bg-white max-w-[1440px] rounded-b-small hidden  px-8 py-8"
@@ -109,8 +111,8 @@ export function Header({
           <div>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
-            headerMenuLinks,
-        })}
+              headerMenuLinks,
+            })}
             </div>
             <ul>
               <li>
@@ -134,9 +136,9 @@ export function Header({
         </div>
       </div>
       ${Breadcrumbs({
-            breadcrumbs,
-            utilsBackground,
-        })}
+        breadcrumbs,
+        utilsBackground,
+      })}
     </div>
   `;
 }

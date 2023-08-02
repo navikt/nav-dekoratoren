@@ -1,15 +1,15 @@
-const prefixer = require("postcss-prefix-selector");
+const prefixer = require('postcss-prefix-selector');
 
-const purgecss = require("@fullhuman/postcss-purgecss")({
+const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
-    "views/**/*.ts",
-    "views/*.ts",
-    "server.ts",
-    "params.ts",
-    "public/ikoner/**/*.svg",
-    "client/**/*.ts",
+    'views/**/*.ts',
+    'views/*.ts',
+    'server.ts',
+    'params.ts',
+    'public/ikoner/**/*.svg',
+    'client/**/*.ts',
   ],
-  css: ["client/main.css"],
+  css: ['client/main.css'],
   defaultExtractor: (content) => {
     // Added ":" to regex to match tailwind modifiers
     return content.match(/[A-Za-z0-9_:\-\[\.{1}?\]]+/g) || [];
@@ -20,12 +20,12 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
 /** @type {import('postcss-load-config').Config} */
 module.exports = {
   plugins: [
-    require("tailwindcss"),
-    require("autoprefixer"),
+    require('tailwindcss'),
+    require('autoprefixer'),
     prefixer({
       transform(prefix, selector, prefixedSelector, filePath, rule) {
-        if ([":root", ":host"].includes(selector)) {
-          return "#header-withmenu, #footer-withmenu";
+        if ([':root', ':host'].includes(selector)) {
+          return '#header-withmenu, #footer-withmenu';
         }
 
         return selector;

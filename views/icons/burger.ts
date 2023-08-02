@@ -1,12 +1,8 @@
-import { html } from "@/utils";
+import { html } from '@/utils';
 
 // @TODO: Should probably create a generic type for the className
 
-export function BurgerIcon({
-    className
-}: {
-    className: string
-}) {
+export function BurgerIcon({ className }: { className: string }) {
   return html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

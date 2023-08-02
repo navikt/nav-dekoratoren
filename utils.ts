@@ -1,5 +1,5 @@
-import { Context, Params } from "./params";
-import { Texts, texts } from "./texts";
+import { Context, Params } from './params';
+import { Texts, texts } from './texts';
 
 function getContextKey(context: Context) {
   return capitalizeFirstLetter(context);
@@ -9,8 +9,13 @@ export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-type TemplateStringValues = string | string[] | boolean | ((e: Element) => void) | NamedNodeMap |
-    undefined;
+type TemplateStringValues =
+  | string
+  | string[]
+  | boolean
+  | ((e: Element) => void)
+  | NamedNodeMap
+  | undefined;
 
 export const html = (
   strings: TemplateStringsArray,
@@ -20,10 +25,10 @@ export const html = (
     { raw: strings },
     ...values.map((item) =>
       Array.isArray(item)
-        ? item.join("")
+        ? item.join('')
         : // Check for boolean
         item === false
-        ? ""
+        ? ''
         : item,
     ),
   );
@@ -40,44 +45,44 @@ export const getData = async (params: Params) => {
   }
 
   const get = (node: Node, path: string): Node | undefined => {
-    if (path.includes(".")) {
+    if (path.includes('.')) {
       return path
-        .split(".")
+        .split('.')
         .reduce<Node>((prev, curr) => get(prev, curr)!, node);
     }
     return node.children.find(({ displayName }) => displayName === path);
   };
 
   const menu = {
-    children: await fetch("https://www.nav.no/dekoratoren/api/meny").then(
+    children: await fetch('https://www.nav.no/dekoratoren/api/meny').then(
       (response) => response.json(),
     ),
-    displayName: "",
+    displayName: '',
   };
 
   const contextKey = getContextKey(params.context);
 
   const key: { [key: string]: string } = {
-    en: "en.Footer.Columns",
-    se: "se.Footer.Columns",
+    en: 'en.Footer.Columns',
+    se: 'se.Footer.Columns',
     nb: `no.Footer.Columns.${contextKey}`,
-    "": "no.Footer.Columns.Privatperson",
+    '': 'no.Footer.Columns.Privatperson',
   };
 
   const menuLinksKey: { [key: string]: string } = {
-    en: "en.Header.Main menu",
-    se: "se.Header.Main menu",
+    en: 'en.Header.Main menu',
+    se: 'se.Header.Main menu',
     nb: `no.Header.Main menu.${contextKey}`,
-    "": "no.Header.Main menu",
+    '': 'no.Header.Main menu',
   };
 
   const footerLinks = get(menu, key[params.language])?.children;
-  const mainMenu = get(menu, "no.Header.Main menu")?.children;
-  const personvern = get(menu, "no.Footer.Personvern")?.children;
+  const mainMenu = get(menu, 'no.Header.Main menu')?.children;
+  const personvern = get(menu, 'no.Footer.Personvern')?.children;
   const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
 
   if (!mainMenu || !footerLinks || !personvern || !headerMenuLinks) {
-    throw new Error("Main menu or footer links not found");
+    throw new Error('Main menu or footer links not found');
   }
 
   return {
@@ -86,13 +91,13 @@ export const getData = async (params: Params) => {
       return {
         styles:
           contextLink.displayName.toLowerCase() === params.context
-            ? "active"
-            : "",
+            ? 'active'
+            : '',
         context: contextLink.displayName.toLowerCase(),
         ...contextLink,
       };
     }),
-    isNorwegian: params.language === "nb",
+    isNorwegian: params.language === 'nb',
     personvern,
     headerMenuLinks,
     texts: texts[params.language],
@@ -106,7 +111,7 @@ export function getDataSubset(params: Params, datakey: DataKeys) {
 export type GetDataResponse = Awaited<ReturnType<typeof getData>>;
 export type DataKeys = keyof GetDataResponse;
 // These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
-export type MainMenu = GetDataResponse["mainMenu"];
-export type FooterLinks = GetDataResponse["footerLinks"];
-export type Personvern = GetDataResponse["personvern"];
-export type HeaderMenuLinksData = GetDataResponse["headerMenuLinks"];
+export type MainMenu = GetDataResponse['mainMenu'];
+export type FooterLinks = GetDataResponse['footerLinks'];
+export type Personvern = GetDataResponse['personvern'];
+export type HeaderMenuLinksData = GetDataResponse['headerMenuLinks'];

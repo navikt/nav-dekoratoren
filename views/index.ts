@@ -1,4 +1,4 @@
-import { html } from "../utils";
+import { html } from '../utils';
 
 export function Index({
   language,

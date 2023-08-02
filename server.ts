@@ -32,7 +32,7 @@ app.use('/footer', async (req, res) => {
       footerLinks: data.footerLinks,
       feedback: req.decorator.feedback,
       texts: data.texts,
-    })
+    }),
   );
 });
 
@@ -42,7 +42,7 @@ app.use('/header', async (req, res) => {
   return res.status(200).send(
     HeaderMenuLinks({
       headerMenuLinks: data.headerMenuLinks,
-    })
+    }),
   );
 });
 
@@ -93,7 +93,7 @@ app.use('/', async (req, res) => {
       return [
         ...resources.css.map(
           (href: string) =>
-            `<link type="text/css" rel="stylesheet" href="${host}/${href}"></link>`
+            `<link type="text/css" rel="stylesheet" href="${host}/${href}"></link>`,
         ),
       ].join('');
     } else {
@@ -128,7 +128,7 @@ app.use('/', async (req, res) => {
         simple: req.decorator.simple,
         feedback: req.decorator.feedback,
       }),
-    })
+    }),
   );
 });
 
@@ -139,8 +139,8 @@ if (!isProd) {
 
   server.on('upgrade', (request, socket, head) =>
     wss.handleUpgrade(request, socket, head, (ws) =>
-      ws.emit('connection', ws, request)
-    )
+      ws.emit('connection', ws, request),
+    ),
   );
 }
 

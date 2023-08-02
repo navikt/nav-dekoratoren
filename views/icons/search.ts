@@ -1,10 +1,6 @@
-import { html } from "../../utils";
+import { html } from '../../utils';
 
-export function SearchIcon({
-    className = "",
-}: {
-    className?: string;
-    }) {
+export function SearchIcon({ className = '' }: { className?: string }) {
   return html`
     <svg
       class="${className}"

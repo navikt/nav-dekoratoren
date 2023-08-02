@@ -1,16 +1,16 @@
-import { Params } from "../params";
-import { FooterLinks, Personvern } from "@/utils";
-import { Texts } from "../texts";
-import { html } from "../utils";
-import { ComplexFooter } from "./complex-footer";
-import { Feedback } from "./feedback";
-import { SimpleFooter } from "./simple-footer";
+import { Params } from '../params';
+import { FooterLinks, Personvern } from '@/utils';
+import { Texts } from '../texts';
+import { html } from '../utils';
+import { ComplexFooter } from './complex-footer';
+import { Feedback } from './feedback';
+import { SimpleFooter } from './simple-footer';
 
 export type FooterProps = {
   texts: Texts;
   personvern: Personvern;
   footerLinks: FooterLinks;
-} & Pick<Params, "simple" | "feedback">;
+} & Pick<Params, 'simple' | 'feedback'>;
 
 function getFooter(props: FooterProps) {
   if (props.simple) {

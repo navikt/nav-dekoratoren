@@ -1,53 +1,53 @@
-name: "Build and deploy app"
+name: 'Build and deploy app'
 on:
   workflow_dispatch:
   push:
     branches:
-      - "main"
+      - 'main'
 env:
-  "IMAGE": "ghcr.io/${{ github.repository }}:${{ github.sha }}"
+  'IMAGE': 'ghcr.io/${{ github.repository }}:${{ github.sha }}'
 jobs:
-  "build":
-    name: "build"
-    runs-on: "ubuntu-latest"
+  'build':
+    name: 'build'
+    runs-on: 'ubuntu-latest'
     permissions:
-        contents: read
-        id-token: write
-        packages: write
+      contents: read
+      id-token: write
+      packages: write
     steps:
-      - uses: "actions/checkout@v3"
-      - uses: "actions/setup-node@v3"
+      - uses: 'actions/checkout@v3'
+      - uses: 'actions/setup-node@v3'
         with:
-          node-version: "18"
-          registry-url: "https://npm.pkg.github.com"
-      - name: "Install dependencies"
-        run: "yarn --immutable"
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+      - name: 'Install dependencies'
+        run: 'yarn --immutable'
         env:
-            NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: "Build app"
-        run: "yarn build"
-      - name: "Login to GitHub Docker Registry"
-        uses: "docker/login-action@v1"
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: 'Build app'
+        run: 'yarn build'
+      - name: 'Login to GitHub Docker Registry'
+        uses: 'docker/login-action@v1'
         with:
-          "registry": "ghcr.io"
-          "username": "${{ github.actor }}"
-          "password": "${{ secrets.GITHUB_TOKEN }}"
-      - name: "Build and push Docker"
-        uses: "docker/build-push-action@v2"
+          'registry': 'ghcr.io'
+          'username': '${{ github.actor }}'
+          'password': '${{ secrets.GITHUB_TOKEN }}'
+      - name: 'Build and push Docker'
+        uses: 'docker/build-push-action@v2'
         with:
           context: .
           file: Dockerfile
-          tags: "${{ env.IMAGE }}"
-          push: "true"
-  "deploy":
-    name: "Deploy app"
-    needs: "build"
-    runs-on: "ubuntu-latest"
+          tags: '${{ env.IMAGE }}'
+          push: 'true'
+  'deploy':
+    name: 'Deploy app'
+    needs: 'build'
+    runs-on: 'ubuntu-latest'
     steps:
-      - uses: "actions/checkout@v3"
-      - name: "Deploy app"
-        uses: "nais/deploy/actions/deploy@v1"
+      - uses: 'actions/checkout@v3'
+      - name: 'Deploy app'
+        uses: 'nais/deploy/actions/deploy@v1'
         env:
-          "APIKEY": "${{ secrets.NAIS_DEPLOY_APIKEY }}"
-          "CLUSTER": "dev-gcp"
-          "RESOURCE": "nais.yml"
+          'APIKEY': '${{ secrets.NAIS_DEPLOY_APIKEY }}'
+          'CLUSTER': 'dev-gcp'
+          'RESOURCE': 'nais.yml'

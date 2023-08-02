@@ -1,4 +1,4 @@
-import z from "zod";
+import z from 'zod';
 
 declare global {
   namespace Express {
@@ -12,12 +12,12 @@ declare global {
   }
 }
 
-const authLevelSchema = z.enum(["Level3", "Level4"]);
-const languageSchema = z.enum(["nb", "nn", "en", "se", "pl", "uk", "ru"]);
+const authLevelSchema = z.enum(['Level3', 'Level4']);
+const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 const contextSchema = z.enum([
-  "privatperson",
-  "arbeidsgiver",
-  "samarbeidspartner",
+  'privatperson',
+  'arbeidsgiver',
+  'samarbeidspartner',
 ]);
 
 export type Context = z.infer<typeof contextSchema>;
@@ -30,20 +30,19 @@ export const breadcrumbSchema = z.object({
 
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 
-const utilsBackground = z.enum(["white", "gray", "transparent"]);
+const utilsBackground = z.enum(['white', 'gray', 'transparent']);
 
 export type UtilsBackground = z.infer<typeof utilsBackground>;
 
-
 const paramsSchema = z.object({
-  context: contextSchema.default("privatperson"),
+  context: contextSchema.default('privatperson'),
   simple: z.boolean().default(false),
   simpleHeader: z.boolean().default(false),
   simpleFooter: z.boolean().default(false),
   enforceLogin: z.boolean().default(false),
   redirectToApp: z.boolean().default(false),
-  level: authLevelSchema.default("Level3"),
-  language: languageSchema.default("nb"),
+  level: authLevelSchema.default('Level3'),
+  language: languageSchema.default('nb'),
   availableLanguages: z
     .array(
       z.object({
@@ -53,7 +52,7 @@ const paramsSchema = z.object({
     )
     .default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),
-  utilsBackground: utilsBackground.default("transparent"),
+  utilsBackground: utilsBackground.default('transparent'),
   feedback: z.boolean().default(false),
   chatbot: z.boolean().default(true),
   chatbotVisible: z.boolean().default(false),
@@ -80,7 +79,7 @@ export const parseParams = (params: any) => {
 };
 
 function parseBooleanParam(param: string | undefined): boolean {
-  return param === "true" ? true : false;
+  return param === 'true' ? true : false;
 }
 
 // Make into string that can be put i URL
