@@ -1,5 +1,5 @@
 import http from 'http';
-import express from 'express';
+import express, { Request } from 'express';
 import { WebSocketServer } from 'ws';
 import { parseParams } from './params';
 import cors from 'cors';
@@ -19,6 +19,14 @@ const app = express();
 app.use(cors());
 app.use(express.static(isProd ? 'dist' : 'public'));
 app.use(decoratorParams);
+
+app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
+  res.send(
+    await fetch(
+      `https://www.nav.no/dekoratoren/api/sok?ord=${req.params.ord}`,
+    ).then((res) => res.json()),
+  );
+});
 
 app.use('/footer', async (req, res) => {
   const params = req.decorator;

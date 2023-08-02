@@ -3,8 +3,27 @@ import './main.css';
 import { Breadcrumb, Context, UtilsBackground } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
 import { Breadcrumbs } from '../views/breadcrumbs';
+import SearchHit from '../views/search-hit';
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
+
+document.getElementById('search-input')?.addEventListener('input', (e) => {
+  const { value } = e.target as HTMLInputElement;
+  if (value.length > 2) {
+    console.log(value);
+    fetch(`/dekoratoren/api/sok?ord=${value}`)
+      .then((res) => res.json())
+      .then((json) => json.hits)
+      .then((hits) => {
+        const searchHitsEl = document.getElementById('search-hits');
+        if (searchHitsEl) {
+          searchHitsEl.innerHTML = hits
+            .map((hit) => SearchHit({ ...hit }))
+            .join('');
+        }
+      });
+  }
+});
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {

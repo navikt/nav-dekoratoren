@@ -15,10 +15,9 @@ export default function Search({ texts }: { texts: Texts }) {
         document.getElementById('sok-dropdown')?.classList.toggle('active');
       },
     })}
-    <div id="sok-dropdown" class="absolute top-[79px] z-30 w-full hidden">
-      <div class="max-w-[1337px] w-full mx-auto flex justify-start">
-        <div class="h-80 bg-white max-w-[700px] w-full rounded-b-medium"></div>
-      </div>
+    <div id="sok-dropdown" class="absolute top-[79px] hidden bg-white">
+      <input id="search-input" type="text" class="border" />
+      <ul id="search-hits"></ul>
     </div>
   `;
 }
