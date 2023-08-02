@@ -6,27 +6,6 @@ import { Breadcrumbs } from "../views/breadcrumbs";
 import { getContentData } from "./utils";
 import { HeaderMenuLinks } from "@/views/header-menu-links";
 
-const swapHeaderAndFooter = (lang: string) => {
-  const params = new URL(
-    document.getElementById("decorator-env")?.getAttribute("data-src") ?? "",
-  ).searchParams;
-
-  fetch(`http://localhost:3000?${params.toString()}`)
-    .then((res) => res.text())
-    .then((html) => {
-      const doc = document.createElement("html");
-      doc.innerHTML = html;
-      const header = doc.querySelector("header");
-      const footer = doc.querySelector("footer");
-      footer && document.getElementById("decorator-footer")?.append(footer);
-      header && document.getElementById("decorator-header")?.append(header);
-    });
-};
-
-if (document.getElementById("decorator-footer")?.innerHTML === "") {
-  swapHeaderAndFooter("nb");
-}
-
 window.addEventListener("message", (e) => {
   if (e.data.source === "decoratorClient" && e.data.event === "ready") {
     window.postMessage({ source: "decorator", event: "ready" });
