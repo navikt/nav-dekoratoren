@@ -1,5 +1,21 @@
-import { Params, formatParams } from "@/params";
+import { type Params } from "@/params";
 import type { DataKeys, GetDataResponse } from "@/utils";
+
+function formatParams(params: Partial<Params>) {
+  const result = new URLSearchParams();
+
+  for (const [k, v] of Object.entries(params)) {
+    if (Array.isArray(v)) {
+      // it's an array, so we need to stringify it
+      result.append(k, JSON.stringify(v));
+    } else {
+      result.append(k, v.toString());
+    }
+  }
+
+  return result;
+}
+
 
 const cache: Record<string, GetDataResponse[DataKeys]> = {};
 

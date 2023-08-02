@@ -1,6 +1,6 @@
 import "vite/modulepreload-polyfill";
 import "./main.css";
-import { Context } from "../params";
+import type { Context } from "../params";
 import { FeedbackSuccess } from "../views/feedback";
 import { Breadcrumbs } from "../views/breadcrumbs";
 import { getContentData } from "./utils";
