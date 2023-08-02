@@ -1,7 +1,7 @@
 import { type Params } from "@/params";
 import type { DataKeys, GetDataResponse } from "@/utils";
 
-function formatParams(params: Partial<Params>) {
+export function formatParams(params: Partial<Params>) {
   const result = new URLSearchParams();
 
   for (const [k, v] of Object.entries(params)) {

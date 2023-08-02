@@ -9,7 +9,8 @@ export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-type TemplateStringValues = string | string[] | boolean;
+type TemplateStringValues = string | string[] | boolean | ((e: Element) => void) | NamedNodeMap |
+    undefined;
 
 export const html = (
   strings: TemplateStringsArray,

@@ -46,8 +46,7 @@ function purgeActive(el: HTMLElement) {
 
 menuButton?.addEventListener("click", () => {
   const menu = document.getElementById("menu");
-
-  [menuButton, menuBackground, menu].forEach((el) => el && toggleActive(el));
+  menuBackground?.classList.toggle("active");
 });
 
 menuBackground?.addEventListener("click", () => {
