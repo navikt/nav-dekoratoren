@@ -11,9 +11,11 @@ export default defineConfig({
     manifest: true,
     rollupOptions: {
       plugins: [minifyLiterals()],
-      input: {
-        main: 'client/main.ts',
+      treeshake: {
+        manualPureFunctions: ['html'],
       },
+      // Add tsconfig
+      input: 'client/main.ts',
     },
   },
 });

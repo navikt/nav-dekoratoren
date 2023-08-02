@@ -1,6 +1,6 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import { Context, UtilsBackground } from '../params';
+import { Breadcrumb, Context, UtilsBackground } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
 import { Breadcrumbs } from '../views/breadcrumbs';
 import getContent from './get-content';
@@ -12,16 +12,33 @@ window.addEventListener('message', (e) => {
   }
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
     if (e.data.payload.breadcrumbs) {
+      const breadcrumbs: Breadcrumb[] = e.data.payload.breadcrumbs;
       const breadcrumbsWrapperEl = document.getElementById(
         'breadcrumbs-wrapper',
       );
       if (breadcrumbsWrapperEl) {
         breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
-          breadcrumbs: e.data.payload.breadcrumbs,
+          breadcrumbs,
           utilsBackground: breadcrumbsWrapperEl.getAttribute(
             'data-background',
           ) as UtilsBackground,
         });
+
+        breadcrumbs
+          .filter((br) => br.handleInApp)
+          .forEach((br) => {
+            document
+              .getElementById('breadcrumbs-wrapper')
+              ?.querySelector(`a[href="${br.url}"]`)
+              ?.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.postMessage({
+                  source: 'decorator',
+                  event: 'breadcrumbClick',
+                  payload: { yes: 'wat' },
+                });
+              });
+          });
       }
     }
   }
