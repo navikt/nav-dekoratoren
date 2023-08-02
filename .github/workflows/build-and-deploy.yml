@@ -11,9 +11,9 @@ jobs:
     name: "build"
     runs-on: "ubuntu-latest"
     permissions:
-        contents: read
-        id-token: write
-        packages: write
+      contents: read
+      id-token: write
+      packages: write
     steps:
       - uses: "actions/checkout@v3"
       - uses: "actions/setup-node@v3"
@@ -23,7 +23,7 @@ jobs:
       - name: "Install dependencies"
         run: "yarn --immutable"
         env:
-            NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: "Build app"
         run: "yarn build"
       - name: "Login to GitHub Docker Registry"

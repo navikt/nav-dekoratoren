@@ -34,7 +34,6 @@ const utilsBackground = z.enum(["white", "gray", "transparent"]);
 
 export type UtilsBackground = z.infer<typeof utilsBackground>;
 
-
 const paramsSchema = z.object({
   context: contextSchema.default("privatperson"),
   simple: z.boolean().default(false),

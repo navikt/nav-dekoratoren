@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import tsconfigPaths from 'vite-tsconfig-paths'
-import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
+import tsconfigPaths from "vite-tsconfig-paths";
+import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
@@ -10,12 +10,10 @@ export default defineConfig({
   build: {
     manifest: true,
     rollupOptions: {
-        plugins: [
-            minifyLiterals()
-        ],
-        treeshake: {
-            manualPureFunctions: ['html']
-        },
+      plugins: [minifyLiterals()],
+      treeshake: {
+        manualPureFunctions: ["html"],
+      },
       // Add tsconfig
       input: "client/main.ts",
     },

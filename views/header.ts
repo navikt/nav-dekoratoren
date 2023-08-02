@@ -13,7 +13,7 @@ export function Header({
   texts,
   innlogget,
   breadcrumbs,
-  utilsBackground
+  utilsBackground,
 }: {
   isNorwegian: boolean;
   mainMenu: MainMenu;
@@ -21,7 +21,7 @@ export function Header({
   headerMenuLinks: HeaderMenuLinksData;
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground
+  utilsBackground: UtilsBackground;
 }) {
   return html`
     <div id="header-withmenu">
@@ -135,8 +135,8 @@ export function Header({
         </div>
       </header>
       ${Breadcrumbs({
-          breadcrumbs,
-          utilsBackground
+        breadcrumbs,
+        utilsBackground,
       })}
     </div>
   `;

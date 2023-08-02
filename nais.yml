@@ -6,7 +6,7 @@ metadata:
   labels:
     team: personbruker
 spec:
-  image: {{ image }}
+  image: { { image } }
   port: 3000
   accessPolicy:
     outbound:
