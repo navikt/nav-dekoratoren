@@ -38,8 +38,10 @@ window.addEventListener("message", (e) => {
       );
       if (breadcrumbsWrapperEl) {
         breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
-            breadcrumbs: e.data.payload.breadcrumbs,
-            utilsBackground: breadcrumbsWrapperEl.getAttribute("data-background") as UtilsBackground,
+          breadcrumbs: e.data.payload.breadcrumbs,
+          utilsBackground: breadcrumbsWrapperEl.getAttribute(
+            "data-background",
+          ) as UtilsBackground,
         });
       }
     }
