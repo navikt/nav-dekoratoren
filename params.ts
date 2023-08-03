@@ -25,7 +25,7 @@ export type Context = z.infer<typeof contextSchema>;
 export const breadcrumbSchema = z.object({
   title: z.string(),
   url: z.string(),
-  handleInApp: z.boolean().default(false),
+  handleInApp: z.boolean().default(false).optional(),
 });
 
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
@@ -39,7 +39,7 @@ export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 const availableLanguageSchema = z.object({
   locale: languageSchema,
   url: z.string().url().optional(),
-  handleInApp: z.boolean().default(false),
+  handleInApp: z.boolean().default(false).optional(),
 });
 
 const paramsSchema = z.object({

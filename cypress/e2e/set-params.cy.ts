@@ -1,24 +1,10 @@
+import { Params } from '@/params';
+
 describe('Setting parameters', () => {
   it('Breadcrumbs is set and handled in app', () => {
-    const breadcrumbs = [
-      {
-        url: '/a',
-        title: 'Ditt NAV',
-        handleInApp: true,
-      },
-      {
-        url: '/b',
-        title: 'Kontakt oss',
-      },
-      {
-        url: '/c',
-        title: 'NAV Oslo',
-      },
-    ];
-
     cy.visit('/');
 
-    cy.findByText('Ditt NAV', { timeout: 7000 }).should('not.exist');
+    cy.findByText('Ditt NAV').should('not.exist');
 
     const obj = {
       callback: (payload: any) => {},
@@ -34,12 +20,26 @@ describe('Setting parameters', () => {
             obj.callback(payload);
           }
         });
-        window.postMessage({
-          source: 'decoratorClient',
-          event: 'params',
-          payload: { breadcrumbs },
-        });
       })
+      .then(() =>
+        setParams({
+          breadcrumbs: [
+            {
+              url: '/a',
+              title: 'Ditt NAV',
+              handleInApp: true,
+            },
+            {
+              url: '/b',
+              title: 'Kontakt oss',
+            },
+            {
+              url: '/c',
+              title: 'NAV Oslo',
+            },
+          ],
+        }),
+      )
       .then(() => {
         cy.findByText('Ditt NAV').should('exist');
 
@@ -52,22 +52,9 @@ describe('Setting parameters', () => {
   });
 
   it('Available languages is set and handled in app', () => {
-    const availableLanguages = [
-      {
-        locale: 'nb',
-        url: 'https://www.nav.no/no/person',
-        handleInApp: true,
-      },
-      {
-        locale: 'en',
-        url: 'https://www.nav.no/en/person',
-        handleInApp: true,
-      },
-    ];
-
     cy.visit('/');
 
-    cy.findByText('nb', { timeout: 7000 }).should('not.exist');
+    cy.findByText('nb').should('not.exist');
 
     const obj = {
       callback: (payload: any) => {},
@@ -83,12 +70,15 @@ describe('Setting parameters', () => {
             obj.callback(payload);
           }
         });
-        window.postMessage({
-          source: 'decoratorClient',
-          event: 'params',
-          payload: { availableLanguages },
-        });
       })
+      .then(() =>
+        setParams({
+          availableLanguages: [
+            { locale: 'nb', handleInApp: true },
+            { locale: 'en' },
+          ],
+        }),
+      )
       .then(() => {
         cy.findByText('nb').should('exist');
 
@@ -99,4 +89,33 @@ describe('Setting parameters', () => {
           });
       });
   });
+
+  it('Context', () => {
+    cy.visit('/');
+
+    cy.findByText('Privatperson', {
+      selector: '.context-link',
+    }).should('have.class', 'active');
+    cy.findByText('Arbeidsgiver', {
+      selector: '.context-link',
+    }).should('not.have.class', 'active');
+
+    setParams({ context: 'arbeidsgiver' }).then(() => {
+      cy.findByText('Privatperson', {
+        selector: '.context-link',
+      }).should('not.have.class', 'active');
+      cy.findByText('Arbeidsgiver', {
+        selector: '.context-link',
+      }).should('have.class', 'active');
+    });
+  });
 });
+
+const setParams = (params: Partial<Params>): Cypress.Chainable =>
+  cy.window().then((window) => {
+    window.postMessage({
+      source: 'decoratorClient',
+      event: 'params',
+      payload: params,
+    });
+  });

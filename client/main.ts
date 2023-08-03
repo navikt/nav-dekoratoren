@@ -92,8 +92,42 @@ window.addEventListener('message', (e) => {
           });
       }
     }
+    if (e.data.payload.context) {
+      setActiveContext(e.data.payload.context);
+    }
   }
 });
+
+document
+  .querySelectorAll('.context-link')
+  .forEach((contextLink) =>
+    contextLink.addEventListener('click', (_) =>
+      setActiveContext(contextLink.getAttribute('data-context')),
+    ),
+  );
+
+async function setActiveContext(context: any) {
+  if (['privatperson', 'arbeidsgiver', 'samarbeidspartner'].includes(context)) {
+    document
+      .querySelectorAll('.context-link')
+      .forEach((el) =>
+        el.getAttribute('data-context') === context
+          ? el.classList.add('active')
+          : el.classList.remove('active'),
+      );
+
+    const headerMenuLinksEl = document.getElementById('header-menu-links');
+    if (headerMenuLinksEl) {
+      headerMenuLinksEl.innerHTML = HeaderMenuLinks({
+        headerMenuLinks: await getContent('headerMenuLinks', {
+          context,
+        }),
+      });
+    }
+  } else {
+    console.warn('Unrecognized context', context);
+  }
+}
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient') {
@@ -124,24 +158,6 @@ menuBackground?.addEventListener('click', () => {
 
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 });
-
-document
-  .querySelectorAll('.context-link')
-  .forEach((contextLink, _, contextLinks) =>
-    contextLink.addEventListener('click', async (_) => {
-      contextLinks.forEach((el) => el.classList.remove('active'));
-      contextLink.classList.add('active');
-
-      const headerMenuLinksEl = document.getElementById('header-menu-links');
-      if (headerMenuLinksEl) {
-        headerMenuLinksEl.innerHTML = HeaderMenuLinks({
-          headerMenuLinks: await getContent('headerMenuLinks', {
-            context: contextLink.getAttribute('data-context') as Context,
-          }),
-        });
-      }
-    }),
-  );
 
 // @TODO:  Create a wrapper function around fetch that handles passing search params
 
