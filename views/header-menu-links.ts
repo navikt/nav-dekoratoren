@@ -38,7 +38,7 @@ export function HeaderMenuLinks({
                     </div>
                     <a
                       class="text-text-action group-hover:underline"
-                      href="${(child as any).path}"
+                      href="${child.path}"
                       >${child.displayName}</a
                     >
                   </li>

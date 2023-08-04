@@ -42,6 +42,7 @@ export const getData = async (params: Params) => {
   interface Node {
     children: Node[];
     displayName: string;
+    path?: string;
   }
 
   const get = (node: Node, path: string): Node | undefined => {

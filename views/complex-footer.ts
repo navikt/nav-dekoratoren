@@ -43,7 +43,7 @@ export function ComplexFooter({
                     ${link.children.map(
                       (child) => html`
                         <li class="footer-link-item">
-                          <a class="footer-link" href="${(child as any).path}"
+                          <a class="footer-link" href="${child.path}"
                             >${child.displayName}</a
                           >
                         </li>
@@ -58,7 +58,7 @@ export function ComplexFooter({
                 ${personvern.map(
                   (link) => html`
                     <li class="footer-link-item">
-                      <a class="footer-link" href="${(link as any).path}"
+                      <a class="footer-link" href="${link.path}"
                         >${link.displayName}</a
                       >
                     </li>

@@ -46,7 +46,7 @@ export function SimpleFooter({
           ${personvern.map(
             (link) => html`
               <li>
-                <a class="simple-footer__link" href="${(link as any).path}"
+                <a class="simple-footer__link" href="${link.path}"
                   >${link.displayName}</a
                 >
               </li>
