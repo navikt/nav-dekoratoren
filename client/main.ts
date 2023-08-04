@@ -162,8 +162,6 @@ menuBackground?.addEventListener('click', () => {
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 });
 
-// @TODO:  Create a wrapper function around fetch that handles passing search params
-
 const buttons = document.querySelectorAll('.feedback-content button');
 
 buttons.forEach((button) => {
