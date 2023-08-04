@@ -1,5 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import { parseParams } from './params';
+import { Params, parseParams } from './params';
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Express {
+    export interface Request {
+      decorator: Params;
+    }
+  }
+}
 
 export function decoratorParams(
   req: Request,
