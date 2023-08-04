@@ -1,7 +1,6 @@
 import http from 'http';
 import express, { Request } from 'express';
 import { WebSocketServer } from 'ws';
-import { parseParams } from './params';
 import cors from 'cors';
 import { DataKeys, getData } from './utils';
 import { Index } from './views/index';
@@ -75,13 +74,20 @@ app.get('/data/:key', async (req, res) => {
 app.use('/', async (req, res) => {
   const entryPointPath = 'client/main.ts';
 
-  const scripts = () => {
+  const getResources = async () =>
+    (
+      (await import('./dist/manifest.json', { assert: { type: 'json' } }))
+        .default as {
+        [entryPointPath]: { file: string; css: string[] };
+      }
+    )[entryPointPath];
+
+  const scripts = async () => {
     const script = (src: string) =>
       `<script type="module" src="${src}"></script>`;
 
     if (isProd) {
-      const resources: { file: string; css: string[] } =
-        require('./dist/manifest.json')[entryPointPath];
+      const resources = await getResources();
       return script(`${host}/${resources.file}`);
     } else {
       return [
@@ -92,12 +98,9 @@ app.use('/', async (req, res) => {
         .join('');
     }
   };
-  const links = () => {
-    const entryPointPath = 'client/main.ts';
-
+  const links = async () => {
     if (isProd) {
-      const resources: { file: string; css: string[] } =
-        require('./dist/manifest.json')[entryPointPath];
+      const resources = await getResources();
       return [
         ...resources.css.map(
           (href: string) =>
@@ -113,8 +116,8 @@ app.use('/', async (req, res) => {
 
   res.status(200).send(
     Index({
-      scripts: scripts(),
-      links: links(),
+      scripts: await scripts(),
+      links: await links(),
       language: req.decorator.language,
       header: Header({
         texts: data.texts,
