@@ -1,11 +1,6 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import {
-  AvailableLanguage,
-  Breadcrumb,
-  Context,
-  UtilsBackground,
-} from '../params';
+import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
 import { Breadcrumbs } from '../views/breadcrumbs';
 import SearchHit from '../views/search-hit';
@@ -24,7 +19,13 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
         const searchHitsEl = document.getElementById('search-hits');
         if (searchHitsEl) {
           searchHitsEl.innerHTML = hits
-            .map((hit: any) => SearchHit({ ...hit }))
+            .map(
+              (hit: {
+                displayName: string;
+                hightlight: string;
+                href: string;
+              }) => SearchHit({ ...hit }),
+            )
             .join('');
         }
       });
@@ -101,13 +102,16 @@ window.addEventListener('message', (e) => {
 document
   .querySelectorAll('.context-link')
   .forEach((contextLink) =>
-    contextLink.addEventListener('click', (_) =>
+    contextLink.addEventListener('click', () =>
       setActiveContext(contextLink.getAttribute('data-context')),
     ),
   );
 
-async function setActiveContext(context: any) {
-  if (['privatperson', 'arbeidsgiver', 'samarbeidspartner'].includes(context)) {
+async function setActiveContext(context: string | null) {
+  if (
+    context &&
+    ['privatperson', 'arbeidsgiver', 'samarbeidspartner'].includes(context)
+  ) {
     document
       .querySelectorAll('.context-link')
       .forEach((el) =>
@@ -120,7 +124,10 @@ async function setActiveContext(context: any) {
     if (headerMenuLinksEl) {
       headerMenuLinksEl.innerHTML = HeaderMenuLinks({
         headerMenuLinks: await getContent('headerMenuLinks', {
-          context,
+          context: context as
+            | 'privatperson'
+            | 'arbeidsgiver'
+            | 'samarbeidspartner',
         }),
       });
     }
@@ -137,10 +144,6 @@ window.addEventListener('message', (e) => {
 
 const menuButton = document.getElementById('menu-button');
 const menuBackground = document.getElementById('menu-background');
-
-function toggleActive(el: HTMLElement) {
-  el.classList.toggle('active');
-}
 
 function purgeActive(el: HTMLElement) {
   el.classList.remove('active');
@@ -173,8 +176,6 @@ buttons.forEach((button) => {
 });
 
 function attachAmplitudeLinks() {
-  const amplitudeLinks = document.querySelectorAll('.amplitude-link');
-
   document.body.addEventListener('click', (e) => {
     if ((e.target as Element).classList.contains('amplitude-link')) {
       alert('Found an ampltidude link');

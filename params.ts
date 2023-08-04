@@ -1,17 +1,5 @@
 import z from 'zod';
 
-declare global {
-  namespace Express {
-    export interface Request {
-      decorator: Params;
-    }
-    // export interface Response {
-    //     components: ReturnType<typeof GetComponents>;
-    //     sendView: (view: ViewKey, data?: any) => void
-    // }
-  }
-}
-
 const authLevelSchema = z.enum(['Level3', 'Level4']);
 const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 const contextSchema = z.enum([
@@ -65,6 +53,7 @@ const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseParams = (params: any) => {
   return paramsSchema.safeParse({
     ...params,
@@ -83,20 +72,8 @@ function parseBooleanParam(param: string | undefined): boolean {
   return param === 'true' ? true : false;
 }
 
-// Make into string that can be put i URL
 export function parseParamsClient(params: URLSearchParams) {
-  const result: any = {};
-
-  for (const [k, v] of Object.entries(params)) {
-    if (Array.isArray(v)) {
-      // it's an array, so we need to stringify it
-      result[k] = JSON.stringify(v);
-    } else {
-      result[k] = v.toString();
-    }
-  }
-
-  return result as Params;
+  return Object.entries(params).map(([k, v]) =>
+    Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v.toString()],
+  );
 }
-
-// function
