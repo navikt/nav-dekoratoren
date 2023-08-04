@@ -1,77 +1,95 @@
-import http from 'http';
-import express, { Request } from 'express';
-import { WebSocketServer } from 'ws';
-import cors from 'cors';
+import { Router } from '@stricjs/router';
+import { stream, CORS } from '@stricjs/utils';
+
 import { DataKeys, getData } from './utils';
 import { Index } from './views/index';
 import { Footer } from './views/footer';
 import { HeaderMenuLinks } from './views/header-menu-links';
 import { Header } from './views/header';
-import { decoratorParams } from './middlewares';
+import { Params, parseParams } from './params';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = 3000;
 const host = process.env.HOST ?? `http://localhost:${port}`;
 
-const app = express();
+const router = new Router();
+const cors = new CORS();
 
-app.use(cors());
-app.use(express.static(isProd ? 'dist' : 'public'));
-app.use(decoratorParams);
+router.get(isProd ? '/dist/*' : '/public/*', stream('.'));
 
-app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
-  res.send(
-    await fetch(
-      `https://www.nav.no/dekoratoren/api/sok?ord=${req.params.ord}`,
-    ).then((res) => res.json()),
-  );
+router.get('/dekoratoren/api/sok', async (req: Request) => {
+  const { searchParams } = new URL(req.url);
+
+  const ord = searchParams.get('ord');
+  if (!ord) {
+    return new Response('Missing query parameter "ord"', {
+      status: 400,
+      headers: {
+        ...cors.headers,
+      },
+    });
+  }
+
+  return await fetch(`https://www.nav.no/dekoratoren/api/sok?ord=${ord}`);
 });
 
-app.use('/footer', async (req, res) => {
-  const params = req.decorator;
-  // Maybe make into middleware
+router.get('/footer', async (req) => {
+  const params = parseDecoratorParams(req);
   const data = await getData(params);
 
-  return res.status(200).send(
+  return new Response(
     Footer({
-      simple: req.decorator.simple,
+      simple: params.simple,
       personvern: data.personvern,
       footerLinks: data.footerLinks,
-      feedback: req.decorator.feedback,
+      feedback: params.feedback,
       texts: data.texts,
     }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'text/html;charset=utf-8', ...cors.headers },
+    },
   );
 });
 
-app.use('/header', async (req, res) => {
-  const params = req.decorator;
+router.get('/header', async (req) => {
+  const params = parseDecoratorParams(req);
   const data = await getData(params);
-  return res.status(200).send(
+
+  return new Response(
     HeaderMenuLinks({
       headerMenuLinks: data.headerMenuLinks,
     }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'text/html;charset=utf-8', ...cors.headers },
+    },
   );
 });
 
-app.get('/data/:key', async (req, res) => {
-  const { params } = req;
-  const dataKey = params.key as DataKeys;
+router.get('/data/:key', async (req) => {
+  const dataKey = req.params.key as DataKeys;
 
   if (!dataKey) {
-    return res.status(400).send('Missing key');
+    return new Response('Missing key', { status: 400 });
   }
 
-  const data = await getData(req.decorator);
+  const decoratorParams = parseDecoratorParams(req);
+  const data = await getData(decoratorParams);
+
   const subset = data[dataKey];
 
   if (!subset) {
-    res.status(404).send('Data not found with key:' + dataKey);
+    return new Response('Data not found with key:' + dataKey, {
+      status: 400,
+      headers: { ...cors.headers },
+    });
   }
 
-  res.send(subset);
+  return Response.json(subset, { status: 200 });
 });
 
-app.use('/', async (req, res) => {
+router.get('/', async (req) => {
   const entryPointPath = 'client/main.ts';
 
   const getResources = async () =>
@@ -112,46 +130,56 @@ app.use('/', async (req, res) => {
     }
   };
 
-  const data = await getData(req.decorator);
+  const params = parseDecoratorParams(req);
+  const data = await getData(params);
 
-  res.status(200).send(
+  return new Response(
     Index({
       scripts: await scripts(),
       links: await links(),
-      language: req.decorator.language,
+      language: params.language,
       header: Header({
         texts: data.texts,
         mainMenu: data.mainMenu,
         headerMenuLinks: data.headerMenuLinks,
         innlogget: false,
         isNorwegian: true,
-        breadcrumbs: req.decorator.breadcrumbs,
-        utilsBackground: req.decorator.utilsBackground,
-        availableLanguages: req.decorator.availableLanguages,
+        breadcrumbs: params.breadcrumbs,
+        utilsBackground: params.utilsBackground,
+        availableLanguages: params.availableLanguages,
       }),
       footer: Footer({
         texts: data.texts,
         personvern: data.personvern,
         footerLinks: data.footerLinks,
-        simple: req.decorator.simple,
-        feedback: req.decorator.feedback,
+        simple: params.simple,
+        feedback: params.feedback,
       }),
     }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'text/html;charset=utf-8', ...cors.headers },
+    },
   );
 });
 
-const server = http.createServer(app);
+router.use(
+  404,
+  (req) =>
+    new Response(`Unable to find: ${req.url}`, {
+      status: 404,
+      headers: { ...cors.headers },
+    }),
+);
 
-if (!isProd) {
-  const wss = new WebSocketServer({ noServer: true });
+export function parseDecoratorParams(req: Request): Params {
+  const result = parseParams(req.query);
 
-  server.on('upgrade', (request, socket, head) =>
-    wss.handleUpgrade(request, socket, head, (ws) =>
-      ws.emit('connection', ws, request),
-    ),
-  );
+  if (result.success) {
+    return result.data;
+  } else {
+    throw new Error(result.error.message);
+  }
 }
 
-server.listen(port, function () {
-  console.log(`Listening on http://localhost:${port}`);
-});
+export default router;

@@ -5,7 +5,6 @@ import { ComplexFooter } from './views/complex-footer';
 import { Footer } from './views/footer';
 import { Breadcrumbs } from './views/breadcrumbs';
 import { Index } from './views';
-import { Response } from 'express';
 
 // Maybe move GetComponents here, i don't really like the abstraction right now
 export const views = {
