@@ -1,4 +1,4 @@
-FROM node:18
+FROM oven/bun:0.7.2
 
 WORKDIR /app
 
@@ -13,4 +13,4 @@ EXPOSE 3000
 
 ENV NODE_ENV=production
 
-CMD [ "yarn", "serve" ]
+CMD bun server.ts

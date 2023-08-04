@@ -9,7 +9,10 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": [
+      "bun-types"
+    ]
   },
   "include": ["vite.config.mjs"]
 }
