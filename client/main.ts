@@ -24,7 +24,7 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
         const searchHitsEl = document.getElementById('search-hits');
         if (searchHitsEl) {
           searchHitsEl.innerHTML = hits
-            .map((hit) => SearchHit({ ...hit }))
+            .map((hit: any) => SearchHit({ ...hit }))
             .join('');
         }
       });
@@ -180,7 +180,9 @@ function attachAmplitudeLinks() {
       alert('Found an ampltidude link');
     }
     if (
-      (e.target as Element).parentNode?.classList.contains('amplitude-link')
+      ((e.target as Element).parentNode as Element)?.classList.contains(
+        'amplitude-link',
+      )
     ) {
       alert('Found an ampltidude link');
     }
