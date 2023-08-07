@@ -5,7 +5,7 @@ Set up a [Github PAT](https://docs.github.com/en/authentication/keeping-your-acc
 Then run (install instructions for bun: https://bun.sh/):
 
 ```bash
-bun
+bun install
 ```
 
 ## Development
