@@ -12,9 +12,10 @@
     "cypress:run:reference": "IS_OLD=true cypress run",
     "dev": "concurrently \"vite\" \"npm run dev-server\" \"npm run tailwind\"",
     "dev-server": "bun --watch --tsconfig-override tsconfig.node.json server.ts",
-    "build": "vite build --debug",
+    "build": "vite build",
     "serve": "NODE_ENV=production bun --tsconfig-override tsconfig.node.json server.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "benchmarking": "bun run ./benchmarking/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/mustache-express": "^1.2.2",
+    "@types/node": "^20.4.8",
     "@types/ws": "^8.5.5",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
