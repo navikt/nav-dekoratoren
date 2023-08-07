@@ -7,6 +7,8 @@ import SearchHit from '../views/search-hit';
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
 import LanguageSelector from '@/views/language-selector';
+import { MenuItems } from '@/views/menu-items';
+import { texts } from '@/texts';
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -142,22 +144,28 @@ window.addEventListener('message', (e) => {
   }
 });
 
-const menuButton = document.getElementById('menu-button');
 const menuBackground = document.getElementById('menu-background');
 
 function purgeActive(el: HTMLElement) {
   el.classList.remove('active');
 }
 
-// Can probably be done direclty
-menuButton?.addEventListener('click', () => {
-  const menu = document.getElementById('menu');
-  menu?.classList.toggle('active');
-  menuBackground?.classList.toggle('active');
-});
+function handleMenuButton() {
+  // Can probably be done direclty
+  const menuButton = document.getElementById('menu-button');
 
+  menuButton?.addEventListener('click', () => {
+    const menu = document.getElementById('menu');
+    menuButton?.classList.toggle('active');
+    menu?.classList.toggle('active');
+    menuBackground?.classList.toggle('active');
+  });
+}
+
+// when they click the background
 menuBackground?.addEventListener('click', () => {
   const menu = document.getElementById('menu');
+  const menuButton = document.getElementById('menu-button');
 
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 });
@@ -189,3 +197,47 @@ function attachAmplitudeLinks() {
 }
 
 attachAmplitudeLinks();
+
+function handleLogin() {
+  document
+    .getElementById('login-button')
+    ?.addEventListener('click', async () => {
+      const response = (await (await fetch('/api/auth')).json()) as {
+        authenticated: boolean;
+        name: string;
+        level: string;
+      };
+
+      const menuItems = document.getElementById('menu-items');
+      // Store a snapshot if user logs out
+
+      if (menuItems) {
+        const snapshot = menuItems.outerHTML;
+
+        const myPageMenu = await getContent('myPageMenu', {});
+
+        const newMenuItems = MenuItems({
+          innlogget: response.authenticated,
+          name: response.name,
+          myPageMenu: myPageMenu,
+          // For testing
+          texts: texts['no'],
+        });
+
+        menuItems.outerHTML = newMenuItems;
+
+        handleMenuButton();
+
+        document
+          .getElementById('logout-button')
+          ?.addEventListener('click', () => {
+            document.getElementById('menu-items').outerHTML = snapshot;
+            handleLogin();
+            handleMenuButton();
+          });
+      }
+    });
+}
+
+handleMenuButton();
+handleLogin();

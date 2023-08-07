@@ -66,14 +66,14 @@ export const getData = async (params: Params) => {
   const key: { [key: string]: string } = {
     en: 'en.Footer.Columns',
     se: 'se.Footer.Columns',
-    nb: `no.Footer.Columns.${contextKey}`,
+    no: `no.Footer.Columns.${contextKey}`,
     '': 'no.Footer.Columns.Privatperson',
   };
 
   const menuLinksKey: { [key: string]: string } = {
     en: 'en.Header.Main menu',
     se: 'se.Header.Main menu',
-    nb: `no.Header.Main menu.${contextKey}`,
+    no: `no.Header.Main menu.${contextKey}`,
     '': 'no.Header.Main menu',
   };
 
@@ -81,8 +81,16 @@ export const getData = async (params: Params) => {
   const mainMenu = get(menu, 'no.Header.Main menu')?.children;
   const personvern = get(menu, 'no.Footer.Personvern')?.children;
   const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
+  const myPageMenu = get(menu, `${params.language}.Header.My page menu`)
+    ?.children;
 
-  if (!mainMenu || !footerLinks || !personvern || !headerMenuLinks) {
+  if (
+    !mainMenu ||
+    !footerLinks ||
+    !personvern ||
+    !headerMenuLinks ||
+    !myPageMenu
+  ) {
     throw new Error('Main menu or footer links not found');
   }
 
@@ -98,9 +106,10 @@ export const getData = async (params: Params) => {
         ...contextLink,
       };
     }),
-    isNorwegian: params.language === 'nb',
+    isNorwegian: params.language === 'no',
     personvern,
     headerMenuLinks,
+    myPageMenu,
     texts: texts[params.language],
   };
 };
@@ -116,3 +125,4 @@ export type MainMenu = GetDataResponse['mainMenu'];
 export type FooterLinks = GetDataResponse['footerLinks'];
 export type Personvern = GetDataResponse['personvern'];
 export type HeaderMenuLinksData = GetDataResponse['headerMenuLinks'];
+export type MyPageMenu = GetDataResponse['myPageMenu'];

@@ -1,12 +1,10 @@
 import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
-import { HeaderMenuLinksData, MainMenu, html } from '../utils';
+import { HeaderMenuLinksData, MainMenu, MyPageMenu, html } from '../utils';
 import { Texts } from '../texts';
 import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
-import { ToggleIconButton } from './components/icon-button';
-import { BurgerIcon } from './icons/burger';
-import Search from './search';
 import LanguageSelector from './language-selector';
+import { MenuItems } from './menu-items';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -19,6 +17,7 @@ export function Header({
   breadcrumbs,
   utilsBackground,
   availableLanguages,
+  myPageMenu,
 }: {
   isNorwegian: boolean;
   mainMenu: MainMenu;
@@ -28,6 +27,8 @@ export function Header({
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
+  // Should maybe just pass components as string
+  myPageMenu: MyPageMenu;
 }) {
   return html`
     <div id="header-withmenu">
@@ -67,24 +68,11 @@ export function Header({
           </div>
           <!-- Menu button -->
           <!-- Show different buttons based on auth state -->
-          ${
-            innlogget
-              ? html` Du er innlogget `
-              : html`
-                  <div class="flex items-center">
-                    ${ToggleIconButton({
-                      id: 'menu-button',
-                      Icon: BurgerIcon,
-                      idleText: texts.menu,
-                      toggledText: texts.close,
-                      onclick: (el) => {
-                        el.classList.toggle('active');
-                      },
-                    })}
-                    ${Search({ texts })}
-                  </div>
-                `
-          }
+          ${MenuItems({
+            innlogget,
+            texts,
+            myPageMenu,
+          })}
         <div
           id="menu"
           class="absolute top-[80px] mx-auto left-1/2 transform -translate-x-1/2 w-full bg-white max-w-[1440px] rounded-b-small hidden  px-8 py-8"

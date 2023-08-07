@@ -4,7 +4,6 @@ export function Index({
   language,
   scripts,
   links,
-
   header,
   footer,
 }: {

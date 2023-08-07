@@ -6,10 +6,11 @@ const nb = {
   close: 'Lukk',
   did_you_find: 'Fant du det du lette etter?',
   search: 'Søk',
+  login: 'Logg inn',
 };
 
 export const texts = {
-  nb,
+  no: nb,
   en: {
     share_screen: 'Share screen with your counsellor',
     to_top: 'To the top',
@@ -17,6 +18,7 @@ export const texts = {
     close: 'Close',
     did_you_find: 'Fant du det du lette etter?',
     search: 'Search',
+    login: 'Log in',
   },
   se: {
     share_screen: 'Del skjerm med veileder',
@@ -25,6 +27,7 @@ export const texts = {
     close: 'Lukk',
     did_you_find: 'Fant du det du lette etter?',
     search: 'Søk',
+    login: 'Logg inn',
   },
   nn: nb,
   pl: nb,

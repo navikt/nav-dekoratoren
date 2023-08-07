@@ -1,7 +1,7 @@
 import z from 'zod';
 
 const authLevelSchema = z.enum(['Level3', 'Level4']);
-const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
+const languageSchema = z.enum(['no', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 const contextSchema = z.enum([
   'privatperson',
   'arbeidsgiver',
@@ -38,7 +38,7 @@ const paramsSchema = z.object({
   enforceLogin: z.boolean().default(false),
   redirectToApp: z.boolean().default(false),
   level: authLevelSchema.default('Level3'),
-  language: languageSchema.default('nb'),
+  language: languageSchema.default('no'),
   availableLanguages: z.array(availableLanguageSchema).default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),
   utilsBackground: utilsBackground.default('transparent'),

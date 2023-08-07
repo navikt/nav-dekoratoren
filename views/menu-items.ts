@@ -1,0 +1,52 @@
+// Should probably have a better name. Here i'm reffering to the buttons on the right
+//
+
+import { IconButton, ToggleIconButton } from './components/icon-button';
+import { BurgerIcon } from './icons/burger';
+import Search from './search';
+import { LoginIcon } from './icons/login';
+import { MyPageMenu, html } from '@/utils';
+import { Texts } from '@/texts';
+import { LoggedInMenu } from './logged-in-menu';
+
+export function MenuItems({
+  innlogget,
+  name,
+  texts,
+  myPageMenu,
+}: {
+  innlogget: boolean;
+  name?: string;
+  texts: Texts;
+  myPageMenu: MyPageMenu;
+}) {
+  // @TODO: More granular rendering to avoid reattaching event listeners
+  return html`
+    <div
+      id="menu-items"
+      class="${`group h-full flex items-center ${innlogget && 'loggedin'}`}"
+    >
+      <div class="group-[.loggedin]:order-2 flex">
+        ${ToggleIconButton({
+          id: 'menu-button',
+          Icon: BurgerIcon,
+          idleText: texts.menu,
+          toggledText: texts.close,
+          onclick: (el) => {
+            el.classList.toggle('active');
+          },
+        })}
+        ${Search({ texts })}
+      </div>
+      ${innlogget
+        ? LoggedInMenu({ name: name as string, myPageMenu })
+        : html`
+            ${IconButton({
+              id: 'login-button',
+              Icon: LoginIcon,
+              text: texts.login,
+            })}
+          `}
+    </div>
+  `;
+}
