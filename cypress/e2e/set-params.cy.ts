@@ -7,7 +7,7 @@ describe('Setting parameters', () => {
     cy.findByText('Ditt NAV').should('not.exist');
 
     const obj = {
-      callback: (payload: any) => {},
+      callback: () => {},
     };
 
     const spy = cy.spy(obj, 'callback');
@@ -15,9 +15,9 @@ describe('Setting parameters', () => {
     cy.window()
       .then((window) => {
         window.addEventListener('message', (message) => {
-          const { source, event, payload } = message.data;
+          const { source, event } = message.data;
           if (source === 'decorator' && event === 'breadcrumbClick') {
-            obj.callback(payload);
+            obj.callback();
           }
         });
       })
@@ -57,7 +57,7 @@ describe('Setting parameters', () => {
     cy.findByText('nb').should('not.exist');
 
     const obj = {
-      callback: (payload: any) => {},
+      callback: () => {},
     };
 
     const spy = cy.spy(obj, 'callback');
@@ -65,9 +65,9 @@ describe('Setting parameters', () => {
     cy.window()
       .then((window) => {
         window.addEventListener('message', (message) => {
-          const { source, event, payload } = message.data;
+          const { source, event } = message.data;
           if (source === 'decorator' && event === 'languageSelect') {
-            obj.callback(payload);
+            obj.callback();
           }
         });
       })
@@ -88,6 +88,32 @@ describe('Setting parameters', () => {
             expect(spy).to.have.been.called;
           });
       });
+  });
+
+  it('utilsBackground', () => {
+    cy.visit('/');
+
+    cy.get('.decorator-utils-container').should(
+      'have.css',
+      'background-color',
+      'rgba(0, 0, 0, 0)',
+    );
+
+    setParams({ utilsBackground: 'gray' }).then(() => {
+      cy.get('.decorator-utils-container').should(
+        'have.css',
+        'background-color',
+        'rgb(241, 241, 241)',
+      );
+    });
+
+    setParams({ utilsBackground: 'white' }).then(() => {
+      cy.get('.decorator-utils-container').should(
+        'have.css',
+        'background-color',
+        'rgb(255, 255, 255)',
+      );
+    });
   });
 
   it('Context', () => {

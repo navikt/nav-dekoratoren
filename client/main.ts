@@ -1,6 +1,6 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
+import { AvailableLanguage, Breadcrumb } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
 import { Breadcrumbs } from '../views/breadcrumbs';
 import SearchHit from '../views/search-hit';
@@ -43,12 +43,7 @@ window.addEventListener('message', (e) => {
         'breadcrumbs-wrapper',
       );
       if (breadcrumbsWrapperEl) {
-        breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
-          breadcrumbs,
-          utilsBackground: breadcrumbsWrapperEl.getAttribute(
-            'data-background',
-          ) as UtilsBackground,
-        });
+        breadcrumbsWrapperEl.outerHTML = Breadcrumbs({ breadcrumbs });
 
         breadcrumbs
           .filter((br) => br.handleInApp)
@@ -65,6 +60,20 @@ window.addEventListener('message', (e) => {
                 });
               });
           });
+      }
+    }
+    if (e.data.payload.utilsBackground) {
+      const utilsContainer = document.querySelector(
+        '.decorator-utils-container',
+      );
+      if (utilsContainer) {
+        ['gray', 'white'].forEach((bg) =>
+          utilsContainer.classList.remove(`decorator-utils-container_${bg}}`),
+        );
+        const bg = e.data.payload.utilsBackground;
+        if (['gray', 'white'].includes(bg)) {
+          utilsContainer.classList.add(`decorator-utils-container_${bg}`);
+        }
       }
     }
     if (e.data.payload.availableLanguages) {
