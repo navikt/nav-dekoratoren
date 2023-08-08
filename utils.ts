@@ -1,4 +1,4 @@
-import { Context, Params } from './params';
+import { Context, Language, Params } from './params';
 import { Texts, texts } from './texts';
 
 function getContextKey(context: Context) {
@@ -38,6 +38,21 @@ export type PropsWithTextAndParams<T> = T & {
   params: Params;
 };
 
+export type ContentLangKey = 'no' | 'en' | 'se';
+
+// To match params.language to content keys
+export const getLangKey = (lang: Language): ContentLangKey => {
+  return {
+    nb: 'no',
+    nn: 'no',
+    en: 'en',
+    se: 'se',
+    pl: 'no',
+    uk: 'no',
+    ru: 'no',
+  }[lang] as ContentLangKey;
+};
+
 export const getData = async (params: Params) => {
   interface Node {
     children: Node[];
@@ -62,27 +77,28 @@ export const getData = async (params: Params) => {
   };
 
   const contextKey = getContextKey(params.context);
+  const languageKey = getLangKey(params.language);
 
-  const key: { [key: string]: string } = {
+  const key: Record<ContentLangKey, string> = {
     en: 'en.Footer.Columns',
     se: 'se.Footer.Columns',
     no: `no.Footer.Columns.${contextKey}`,
-    '': 'no.Footer.Columns.Privatperson',
+    // Denne treffes vell aldri?
+    // '': 'no.Footer.Columns.Privatperson',
   };
 
-  const menuLinksKey: { [key: string]: string } = {
+  const menuLinksKey: Record<ContentLangKey, string> = {
     en: 'en.Header.Main menu',
     se: 'se.Header.Main menu',
     no: `no.Header.Main menu.${contextKey}`,
-    '': 'no.Header.Main menu',
+    // '': 'no.Header.Main menu',
   };
 
-  const footerLinks = get(menu, key[params.language])?.children;
+  const footerLinks = get(menu, key[languageKey])?.children;
   const mainMenu = get(menu, 'no.Header.Main menu')?.children;
   const personvern = get(menu, 'no.Footer.Personvern')?.children;
-  const headerMenuLinks = get(menu, menuLinksKey[params.language])?.children;
-  const myPageMenu = get(menu, `${params.language}.Header.My page menu`)
-    ?.children;
+  const headerMenuLinks = get(menu, menuLinksKey[languageKey])?.children;
+  const myPageMenu = get(menu, `${languageKey}.Header.My page menu`)?.children;
 
   if (
     !mainMenu ||
@@ -106,11 +122,11 @@ export const getData = async (params: Params) => {
         ...contextLink,
       };
     }),
-    isNorwegian: params.language === 'no',
+    isNorwegian: params.language === 'nb',
     personvern,
     headerMenuLinks,
     myPageMenu,
-    texts: texts[params.language],
+    texts: texts[languageKey],
   };
 };
 

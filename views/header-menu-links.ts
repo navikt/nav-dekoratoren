@@ -9,7 +9,7 @@ export function HeaderMenuLinks({
   className?: string;
 }) {
   return html`
-    <ul class="grid grid-cols-4 gap ${className}">
+    <ul class="grid gap ${className ? className : 'grid-cols-4'}">
       ${headerMenuLinks.map(
         (link) => html`
           <li>
