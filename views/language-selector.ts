@@ -1,6 +1,25 @@
 import { AvailableLanguage } from '@/params';
 import { html } from '../utils';
 
+export const addEventListeners = () =>
+  document
+    .getElementById('language-selector')
+    ?.querySelectorAll('li[data-locale][data-handle-in-app]')
+    ?.forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.postMessage({
+          source: 'decorator',
+          event: 'languageSelect',
+          payload: {
+            locale: el.getAttribute('data-locale'),
+            url: el.getAttribute('data-url'),
+            handleInApp: true,
+          },
+        });
+      });
+    });
+
 export default function LanguageSelector({
   availableLanguages,
 }: {
@@ -12,8 +31,14 @@ export default function LanguageSelector({
       html`
         <ul>
           ${availableLanguages.map(
-            (lang) =>
-              html`<li data-locale="${lang.locale}">${lang.locale}</li>`,
+            ({ locale, url, handleInApp }) =>
+              html`<li
+                data-locale="${locale}"
+                data-url="${url}"
+                ${handleInApp === true && 'data-handle-in-app="true"'}
+              >
+                ${locale}
+              </li>`,
           )}
         </ul>
       `}

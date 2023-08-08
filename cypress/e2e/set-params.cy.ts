@@ -136,6 +136,93 @@ describe('Setting parameters', () => {
       });
   });
 
+  it('Available languages handled correctly when set on server', () => {
+    cy.visit(
+      `/?availableLanguages=${JSON.stringify([
+        { locale: 'nb', url: 'http://example.org', handleInApp: true },
+        { locale: 'en' },
+      ])}`,
+    );
+
+    const obj = {
+      callback: console.log,
+    };
+
+    const spy = cy.spy(obj, 'callback');
+
+    cy.window()
+      .then((window) => {
+        window.addEventListener('message', (message) => {
+          const { source, event, payload } = message.data;
+          if (source === 'decorator' && event === 'languageSelect') {
+            obj.callback(payload);
+          }
+        });
+      })
+      .then(() => {
+        cy.findByText('nb').should('exist');
+
+        cy.findByText('en')
+          .click()
+          .then(() => {
+            expect(spy).to.not.be.called;
+          });
+
+        cy.findByText('nb')
+          .click()
+          .then(() => {
+            expect(spy).to.be.calledWith({
+              locale: 'nb',
+              url: 'http://example.org',
+              handleInApp: true,
+            });
+          });
+      });
+  });
+
+  it('Available languages is set and handled in app', () => {
+    cy.visit('/');
+
+    cy.findByText('nb').should('not.exist');
+
+    const obj = {
+      callback: console.log,
+    };
+
+    const spy = cy.spy(obj, 'callback');
+
+    cy.window()
+      .then((window) => {
+        window.addEventListener('message', (message) => {
+          const { source, event, payload } = message.data;
+          if (source === 'decorator' && event === 'languageSelect') {
+            obj.callback(payload);
+          }
+        });
+      })
+      .then(() =>
+        setParams({
+          availableLanguages: [
+            { locale: 'nb', url: 'example.org', handleInApp: true },
+            { locale: 'en' },
+          ],
+        }),
+      )
+      .then(() => {
+        cy.findByText('nb').should('exist');
+
+        cy.findByText('nb')
+          .click()
+          .then(() => {
+            expect(spy).to.be.calledWith({
+              locale: 'nb',
+              url: 'example.org',
+              handleInApp: true,
+            });
+          });
+      });
+  });
+
   it('utilsBackground', () => {
     cy.visit('/');
 

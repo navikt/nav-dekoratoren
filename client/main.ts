@@ -1,6 +1,5 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import { AvailableLanguage, Breadcrumb } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
 import {
   Breadcrumbs,
@@ -9,7 +8,9 @@ import {
 import SearchHit from '../views/search-hit';
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
-import LanguageSelector from '@/views/language-selector';
+import LanguageSelector, {
+  addEventListeners as addLanguageSelectorEventListeners,
+} from '@/views/language-selector';
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -36,6 +37,7 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
 });
 
 addBreadcrumbEventListeners();
+addLanguageSelectorEventListeners();
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -43,12 +45,13 @@ window.addEventListener('message', (e) => {
   }
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
     if (e.data.payload.breadcrumbs) {
-      const breadcrumbs: Breadcrumb[] = e.data.payload.breadcrumbs;
       const breadcrumbsWrapperEl = document.getElementById(
         'breadcrumbs-wrapper',
       );
       if (breadcrumbsWrapperEl) {
-        breadcrumbsWrapperEl.outerHTML = Breadcrumbs({ breadcrumbs });
+        breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
+          breadcrumbs: e.data.payload.breadcrumbs,
+        });
         addBreadcrumbEventListeners();
       }
     }
@@ -67,29 +70,12 @@ window.addEventListener('message', (e) => {
       }
     }
     if (e.data.payload.availableLanguages) {
-      const availableLanguages: AvailableLanguage[] =
-        e.data.payload.availableLanguages;
       const el = document.getElementById('language-selector');
       if (el) {
         el.outerHTML = LanguageSelector({
-          availableLanguages,
+          availableLanguages: e.data.payload.availableLanguages,
         });
-
-        availableLanguages
-          .filter((br) => br.handleInApp)
-          .forEach((br) => {
-            document
-              .getElementById('language-selector')
-              ?.querySelector(`[data-locale="${br.locale}"]`)
-              ?.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.postMessage({
-                  source: 'decorator',
-                  event: 'languageSelect',
-                  payload: br,
-                });
-              });
-          });
+        addLanguageSelectorEventListeners();
       }
     }
     if (e.data.payload.context) {
