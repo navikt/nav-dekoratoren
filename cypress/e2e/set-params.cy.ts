@@ -92,13 +92,14 @@ describe('Setting parameters', () => {
           });
       });
   });
+
   it('Available languages is set and handled in app', () => {
     cy.visit('/');
 
     cy.findByText('nb').should('not.exist');
 
     const obj = {
-      callback: () => {},
+      callback: console.log,
     };
 
     const spy = cy.spy(obj, 'callback');
@@ -106,16 +107,16 @@ describe('Setting parameters', () => {
     cy.window()
       .then((window) => {
         window.addEventListener('message', (message) => {
-          const { source, event } = message.data;
+          const { source, event, payload } = message.data;
           if (source === 'decorator' && event === 'languageSelect') {
-            obj.callback();
+            obj.callback(payload);
           }
         });
       })
       .then(() =>
         setParams({
           availableLanguages: [
-            { locale: 'nb', handleInApp: true },
+            { locale: 'nb', url: 'example.org', handleInApp: true },
             { locale: 'en' },
           ],
         }),
@@ -126,7 +127,11 @@ describe('Setting parameters', () => {
         cy.findByText('nb')
           .click()
           .then(() => {
-            expect(spy).to.have.been.called;
+            expect(spy).to.be.calledWith({
+              locale: 'nb',
+              url: 'example.org',
+              handleInApp: true,
+            });
           });
       });
   });

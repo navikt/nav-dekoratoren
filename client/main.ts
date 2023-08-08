@@ -86,7 +86,7 @@ window.addEventListener('message', (e) => {
                 window.postMessage({
                   source: 'decorator',
                   event: 'languageSelect',
-                  payload: { yes: 'wat' },
+                  payload: br,
                 });
               });
           });
