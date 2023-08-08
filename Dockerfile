@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json /app/
 COPY *.ts /app/
-COPY tsconfig.node.json /app/
+COPY tsconfig.node.json /app/tsconfig.json
 COPY views /app/views
 COPY dist /app/dist
 COPY node_modules /app/node_modules
