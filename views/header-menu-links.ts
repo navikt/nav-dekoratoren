@@ -3,11 +3,13 @@ import { html } from '../utils';
 
 export function HeaderMenuLinks({
   headerMenuLinks,
+  className,
 }: {
   headerMenuLinks: HeaderMenuLinksData;
+  className?: string;
 }) {
   return html`
-    <ul class="grid grid-cols-4 gap-4">
+    <ul class="grid grid-cols-4 gap ${className}">
       ${headerMenuLinks.map(
         (link) => html`
           <li>
