@@ -7,7 +7,7 @@ describe('Setting parameters', () => {
     cy.findByText('Ditt NAV').should('not.exist');
 
     const obj = {
-      callback: () => {},
+      callback: console.log,
     };
 
     const spy = cy.spy(obj, 'callback');
@@ -15,9 +15,9 @@ describe('Setting parameters', () => {
     cy.window()
       .then((window) => {
         window.addEventListener('message', (message) => {
-          const { source, event } = message.data;
+          const { source, event, payload } = message.data;
           if (source === 'decorator' && event === 'breadcrumbClick') {
-            obj.callback();
+            obj.callback(payload);
           }
         });
       })
@@ -46,11 +46,52 @@ describe('Setting parameters', () => {
         cy.findByText('Ditt NAV')
           .click()
           .then(() => {
-            expect(spy).to.have.been.called;
+            expect(spy).to.be.calledWith({
+              url: '/a',
+              title: 'Ditt NAV',
+              handleInApp: true,
+            });
           });
       });
   });
 
+  it('Breadcrumbs handled in app works when set on server', () => {
+    cy.visit(
+      `/?breadcrumbs=${JSON.stringify([
+        { url: '/wat', title: 'Ditt NAV', handleInApp: true },
+        { url: '/b', title: 'Kontakt oss' },
+      ])}`,
+    );
+
+    const obj = {
+      callback: console.log,
+    };
+
+    const spy = cy.spy(obj, 'callback');
+
+    cy.window()
+      .then((window) => {
+        window.addEventListener('message', (message) => {
+          const { source, event, payload } = message.data;
+          if (source === 'decorator' && event === 'breadcrumbClick') {
+            obj.callback(payload);
+          }
+        });
+      })
+      .then(() => {
+        cy.findByText('Ditt NAV').should('exist');
+
+        cy.findByText('Ditt NAV')
+          .click()
+          .then(() => {
+            expect(spy).to.be.calledWith({
+              url: '/wat',
+              title: 'Ditt NAV',
+              handleInApp: true,
+            });
+          });
+      });
+  });
   it('Available languages is set and handled in app', () => {
     cy.visit('/');
 

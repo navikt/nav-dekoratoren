@@ -2,7 +2,10 @@ import 'vite/modulepreload-polyfill';
 import './main.css';
 import { AvailableLanguage, Breadcrumb } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
-import { Breadcrumbs } from '../views/breadcrumbs';
+import {
+  Breadcrumbs,
+  addEventListeners as addBreadcrumbEventListeners,
+} from '../views/breadcrumbs';
 import SearchHit from '../views/search-hit';
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
@@ -32,6 +35,8 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
   }
 });
 
+addBreadcrumbEventListeners();
+
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
     window.postMessage({ source: 'decorator', event: 'ready' });
@@ -44,22 +49,7 @@ window.addEventListener('message', (e) => {
       );
       if (breadcrumbsWrapperEl) {
         breadcrumbsWrapperEl.outerHTML = Breadcrumbs({ breadcrumbs });
-
-        breadcrumbs
-          .filter((br) => br.handleInApp)
-          .forEach((br) => {
-            document
-              .getElementById('breadcrumbs-wrapper')
-              ?.querySelector(`a[href="${br.url}"]`) // TODO: denne selectoren er ikke god
-              ?.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.postMessage({
-                  source: 'decorator',
-                  event: 'breadcrumbClick',
-                  payload: { yes: 'wat' },
-                });
-              });
-          });
+        addBreadcrumbEventListeners();
       }
     }
     if (e.data.payload.utilsBackground) {
