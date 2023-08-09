@@ -1,19 +1,30 @@
-import { Breadcrumb, UtilsBackground } from '../params';
+import { Breadcrumb } from '../params';
 import { html } from '../utils';
 
-export function Breadcrumbs({
-  utilsBackground,
-  breadcrumbs,
-}: {
-  breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground;
-}) {
+export const addEventListeners = () =>
+  document
+    .getElementById('breadcrumbs-wrapper')
+    ?.querySelectorAll('a[data-handle-in-app]')
+    .forEach((el) =>
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        window.postMessage({
+          source: 'decorator',
+          event: 'breadcrumbClick',
+          payload: {
+            url: el.getAttribute('href'),
+            title: el.innerHTML,
+            handleInApp:
+              el.getAttribute('data-handle-in-app') === 'true' ? true : false,
+          },
+        });
+      }),
+    );
+
+export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return html`
-    <nav
-      class="${`py-3 ${utilsBackground}`}"
-      data-background="${utilsBackground}"
-      id="breadcrumbs-wrapper"
-    >
+    <nav class="py-3" id="breadcrumbs-wrapper">
       <ol
         class="flex items-center max-w-[1344px] w-full mx-auto"
         id="breadcrumbs-list"
@@ -41,7 +52,7 @@ export function Breadcrumbs({
           </a>
         </li>
         ${breadcrumbs.map(
-          ({ title, url }, index) => html`
+          ({ title, url, handleInApp }, index) => html`
             <li class="flex items-center before:content-chevronRightIcon">
               ${index === breadcrumbs.length - 1
                 ? title
@@ -49,6 +60,7 @@ export function Breadcrumbs({
                     <a
                       class="text-blue-500 underline amplitude-link"
                       href="${url}"
+                      ${handleInApp === true && 'data-handle-in-app="true"'}
                       >${title}</a
                     >
                   `}

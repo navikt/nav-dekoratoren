@@ -107,11 +107,17 @@ export function Header({
           </div>
         </div>
       </header>
-      ${Breadcrumbs({
-        breadcrumbs,
-        utilsBackground,
-      })}
-      ${LanguageSelector({ availableLanguages })}
+      <div class="decorator-utils-container ${(function () {
+        switch (utilsBackground) {
+          case 'white':
+            return 'decorator-utils-container_white';
+          case 'gray':
+            return 'decorator-utils-container_gray';
+        }
+      })()}">
+        ${Breadcrumbs({ breadcrumbs })}
+        ${LanguageSelector({ availableLanguages })}
+      </div>
     </div>
   `;
 }

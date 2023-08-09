@@ -1,6 +1,4 @@
-import http from 'http';
 import express, { Request } from 'express';
-import { WebSocketServer } from 'ws';
 import cors from 'cors';
 import { DataKeys, getData } from './utils';
 import { Index } from './views/index';
@@ -53,127 +51,107 @@ const getResources = async () => {
   };
 };
 
-async function bootstrap() {
-  const resources = await getResources();
-  const app = express();
+const resources = await getResources();
+const app = express();
 
-  app.use(cors());
-  app.use(express.static(isProd ? 'dist' : 'public'));
-  app.use(decoratorParams);
+app.use(cors());
+app.use(express.static(isProd ? 'dist' : 'public'));
+app.use(decoratorParams);
 
-  app.use('/api/auth', mockAuthHandler);
-  app.get('/api/oauth2/session', mockSessionHandler);
-  app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
+app.use('/api/auth', mockAuthHandler);
+app.get('/api/oauth2/session', mockSessionHandler);
+app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
 
-  app.use(
-    '/dekoratoren/api/sok',
-    async (req: Request<{ ord: string }>, res) => {
-      res.send(
-        await fetch(
-          `https://www.nav.no/dekoratoren/api/sok?ord=${req.params.ord}`,
-        ).then((res) => res.json()),
-      );
-    },
+app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
+  res.send(
+    await fetch(
+      `https://www.nav.no/dekoratoren/api/sok?ord=${req.params.ord}`,
+    ).then((res) => res.json()),
   );
+});
 
-  app.use('/footer', async (req, res) => {
-    const params = req.decorator;
-    // Maybe make into middleware
-    const data = await getData(params);
+app.use('/footer', async (req, res) => {
+  const params = req.decorator;
+  // Maybe make into middleware
+  const data = await getData(params);
 
-    return res.status(200).send(
-      Footer({
-        simple: req.decorator.simple,
-        personvern: data.personvern,
-        footerLinks: data.footerLinks,
-        feedback: req.decorator.feedback,
-        texts: data.texts,
-      }),
-    );
+  return res.status(200).send(
+    Footer({
+      simple: req.decorator.simple,
+      personvern: data.personvern,
+      footerLinks: data.footerLinks,
+      feedback: req.decorator.feedback,
+      texts: data.texts,
+    }),
+  );
+});
+
+app.use('/inspect-data', async (req, res) => {
+  const data = await getData(req.decorator);
+  const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
+  res.json({
+    data,
+    raw: await raw.json(),
   });
+});
 
-  app.use('/inspect-data', async (req, res) => {
-    const data = await getData(req.decorator);
-    const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
-    res.json({
-      data,
-      raw: await raw.json(),
-    });
-  });
+app.use('/header', async (req, res) => {
+  const params = req.decorator;
+  const data = await getData(params);
+  return res.status(200).send(
+    HeaderMenuLinks({
+      headerMenuLinks: data.headerMenuLinks,
+    }),
+  );
+});
 
-  app.use('/header', async (req, res) => {
-    const params = req.decorator;
-    const data = await getData(params);
-    return res.status(200).send(
-      HeaderMenuLinks({
-        headerMenuLinks: data.headerMenuLinks,
-      }),
-    );
-  });
+app.get('/data/:key', async (req, res) => {
+  const { params } = req;
+  const dataKey = params.key as DataKeys;
 
-  app.get('/data/:key', async (req, res) => {
-    const { params } = req;
-    const dataKey = params.key as DataKeys;
-
-    if (!dataKey) {
-      return res.status(400).send('Missing key');
-    }
-
-    const data = await getData(req.decorator);
-    const subset = data[dataKey];
-
-    if (!subset) {
-      res.status(404).send('Data not found with key:' + dataKey);
-    }
-
-    res.send(subset);
-  });
-
-  app.use('/', async (req, res) => {
-    const data = await getData(req.decorator);
-
-    res.status(200).send(
-      Index({
-        scripts: resources.scripts,
-        links: resources.styles,
-        language: req.decorator.language,
-        header: Header({
-          texts: data.texts,
-          mainMenu: data.mainMenu,
-          headerMenuLinks: data.headerMenuLinks,
-          innlogget: false,
-          isNorwegian: true,
-          breadcrumbs: req.decorator.breadcrumbs,
-          utilsBackground: req.decorator.utilsBackground,
-          availableLanguages: req.decorator.availableLanguages,
-          myPageMenu: data.myPageMenu,
-        }),
-        footer: Footer({
-          texts: data.texts,
-          personvern: data.personvern,
-          footerLinks: data.footerLinks,
-          simple: req.decorator.simple,
-          feedback: req.decorator.feedback,
-        }),
-      }),
-    );
-  });
-
-  const server = http.createServer(app);
-
-  if (!isProd) {
-    const wss = new WebSocketServer({ noServer: true });
-
-    server.on('upgrade', (request, socket, head) =>
-      wss.handleUpgrade(request, socket, head, (ws) =>
-        ws.emit('connection', ws, request),
-      ),
-    );
+  if (!dataKey) {
+    return res.status(400).send('Missing key');
   }
 
-  server.listen(port, function () {
-    console.log(`Listening on http://localhost:${port}`);
-  });
-}
+  const data = await getData(req.decorator);
+  const subset = data[dataKey];
 
-bootstrap();
+  if (!subset) {
+    res.status(404).send('Data not found with key:' + dataKey);
+  }
+
+  res.send(subset);
+});
+
+app.use('/', async (req, res) => {
+  const data = await getData(req.decorator);
+
+  res.status(200).send(
+    Index({
+      scripts: resources.scripts,
+      links: resources.styles,
+      language: req.decorator.language,
+      header: Header({
+        texts: data.texts,
+        mainMenu: data.mainMenu,
+        headerMenuLinks: data.headerMenuLinks,
+        innlogget: false,
+        isNorwegian: true,
+        breadcrumbs: req.decorator.breadcrumbs,
+        utilsBackground: req.decorator.utilsBackground,
+        availableLanguages: req.decorator.availableLanguages,
+      }),
+      footer: Footer({
+        texts: data.texts,
+        personvern: data.personvern,
+        footerLinks: data.footerLinks,
+        simple: req.decorator.simple,
+        feedback: req.decorator.feedback,
+      }),
+    }),
+  );
+});
+
+app.listen(port, function () {
+  console.log(`Listening on http://localhost:${port}`);
+});

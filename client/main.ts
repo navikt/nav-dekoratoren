@@ -1,14 +1,18 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
 import { FeedbackSuccess } from '../views/feedback';
-import { Breadcrumbs } from '../views/breadcrumbs';
+import {
+  Breadcrumbs,
+  addEventListeners as addBreadcrumbEventListeners,
+} from '../views/breadcrumbs';
 import SearchHit from '../views/search-hit';
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
-import LanguageSelector from '@/views/language-selector';
 import { MenuItems } from '@/views/menu-items';
 import { texts } from '@/texts';
+import LanguageSelector, {
+  addEventListeners as addLanguageSelectorEventListeners,
+} from '@/views/language-selector';
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -34,65 +38,46 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
   }
 });
 
+addBreadcrumbEventListeners();
+addLanguageSelectorEventListeners();
+
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
     window.postMessage({ source: 'decorator', event: 'ready' });
   }
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
     if (e.data.payload.breadcrumbs) {
-      const breadcrumbs: Breadcrumb[] = e.data.payload.breadcrumbs;
       const breadcrumbsWrapperEl = document.getElementById(
         'breadcrumbs-wrapper',
       );
       if (breadcrumbsWrapperEl) {
         breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
-          breadcrumbs,
-          utilsBackground: breadcrumbsWrapperEl.getAttribute(
-            'data-background',
-          ) as UtilsBackground,
+          breadcrumbs: e.data.payload.breadcrumbs,
         });
-
-        breadcrumbs
-          .filter((br) => br.handleInApp)
-          .forEach((br) => {
-            document
-              .getElementById('breadcrumbs-wrapper')
-              ?.querySelector(`a[href="${br.url}"]`) // TODO: denne selectoren er ikke god
-              ?.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.postMessage({
-                  source: 'decorator',
-                  event: 'breadcrumbClick',
-                  payload: { yes: 'wat' },
-                });
-              });
-          });
+        addBreadcrumbEventListeners();
+      }
+    }
+    if (e.data.payload.utilsBackground) {
+      const utilsContainer = document.querySelector(
+        '.decorator-utils-container',
+      );
+      if (utilsContainer) {
+        ['gray', 'white'].forEach((bg) =>
+          utilsContainer.classList.remove(`decorator-utils-container_${bg}}`),
+        );
+        const bg = e.data.payload.utilsBackground;
+        if (['gray', 'white'].includes(bg)) {
+          utilsContainer.classList.add(`decorator-utils-container_${bg}`);
+        }
       }
     }
     if (e.data.payload.availableLanguages) {
-      const availableLanguages: AvailableLanguage[] =
-        e.data.payload.availableLanguages;
       const el = document.getElementById('language-selector');
       if (el) {
         el.outerHTML = LanguageSelector({
-          availableLanguages,
+          availableLanguages: e.data.payload.availableLanguages,
         });
-
-        availableLanguages
-          .filter((br) => br.handleInApp)
-          .forEach((br) => {
-            document
-              .getElementById('language-selector')
-              ?.querySelector(`[data-locale="${br.locale}"]`)
-              ?.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.postMessage({
-                  source: 'decorator',
-                  event: 'languageSelect',
-                  payload: { yes: 'wat' },
-                });
-              });
-          });
+        addLanguageSelectorEventListeners();
       }
     }
     if (e.data.payload.context) {

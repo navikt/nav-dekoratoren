@@ -106,18 +106,14 @@ a {
   border-color: #3386e0;
 }
 
-#breadcrumbs-wrapper.white {
-  background-color: #f1f1f1;
+#sok-dropdown.active {
+  display: block;
 }
 
-#breadcrumbs-wrapper.gray {
+.decorator-utils-container_gray {
   background-color: var(--a-bg-subtle);
 }
 
-#breadcrumbs-wrapper.transparent {
-  background-color: transparent;
-}
-
-#sok-dropdown.active {
-  display: block;
+.decorator-utils-container_white {
+  background-color: var(--a-bg-default);
 }
