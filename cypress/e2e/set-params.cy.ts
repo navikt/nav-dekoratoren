@@ -124,15 +124,20 @@ describe('Setting parameters', () => {
       .then(() => {
         cy.findByText('nb').should('exist');
 
-        cy.findByText('nb')
+        cy.findByText('Språk/Language')
           .click()
-          .then(() => {
-            expect(spy).to.be.calledWith({
-              locale: 'nb',
-              url: 'example.org',
-              handleInApp: true,
-            });
-          });
+          .then(() =>
+            cy
+              .findByText('nb')
+              .click()
+              .then(() => {
+                expect(spy).to.be.calledWith({
+                  locale: 'nb',
+                  url: 'example.org',
+                  handleInApp: true,
+                });
+              }),
+          );
       });
   });
 
@@ -162,20 +167,24 @@ describe('Setting parameters', () => {
       .then(() => {
         cy.findByText('nb').should('exist');
 
-        cy.findByText('en')
+        cy.findByText('Språk/Language')
           .click()
           .then(() => {
-            expect(spy).to.not.be.called;
-          });
+            cy.findByText('en')
+              .click()
+              .then(() => {
+                expect(spy).to.not.be.called;
+              });
 
-        cy.findByText('nb')
-          .click()
-          .then(() => {
-            expect(spy).to.be.calledWith({
-              locale: 'nb',
-              url: 'http://example.org',
-              handleInApp: true,
-            });
+            cy.findByText('nb')
+              .click()
+              .then(() => {
+                expect(spy).to.be.calledWith({
+                  locale: 'nb',
+                  url: 'http://example.org',
+                  handleInApp: true,
+                });
+              });
           });
       });
   });
@@ -211,15 +220,20 @@ describe('Setting parameters', () => {
       .then(() => {
         cy.findByText('nb').should('exist');
 
-        cy.findByText('nb')
+        cy.findByText('Språk/Language')
           .click()
-          .then(() => {
-            expect(spy).to.be.calledWith({
-              locale: 'nb',
-              url: 'example.org',
-              handleInApp: true,
-            });
-          });
+          .then(() =>
+            cy
+              .findByText('nb')
+              .click()
+              .then(() => {
+                expect(spy).to.be.calledWith({
+                  locale: 'nb',
+                  url: 'example.org',
+                  handleInApp: true,
+                });
+              }),
+          );
       });
   });
 
