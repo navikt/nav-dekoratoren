@@ -13,27 +13,57 @@ import { texts } from '@/texts';
 import LanguageSelector, {
   addEventListeners as addLanguageSelectorEventListeners,
 } from '@/views/language-selector';
+import { SearchShowMore } from '@/views/search-show-more';
+
+/**
+ * Conditionally set the innerHTML of an element. To avoid conditionals everywhere.
+ * you also avoid having to make a var for the element just to do checking and setting content.
+ */
+
+function replaceElement({
+  selector,
+  html,
+  contentKey = 'innerHTML',
+}: {
+  selector: string;
+  html: string;
+  contentKey?: 'innerHTML' | 'outerHTML';
+}) {
+  return new Promise((resolve) => {
+    const el = document.querySelector(selector);
+
+    if (el) {
+      el[contentKey] = html;
+      resolve(el);
+    }
+
+    resolve(undefined);
+  });
+}
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
   if (value.length > 2) {
-    console.log(value);
     fetch(`/dekoratoren/api/sok?ord=${value}`)
       .then((res) => res.json())
-      .then((json) => json.hits)
-      .then((hits) => {
-        const searchHitsEl = document.getElementById('search-hits');
-        if (searchHitsEl) {
-          searchHitsEl.innerHTML = hits
+      .then(({ hits, total }) => {
+        replaceElement({
+          selector: '#search-hits > ul',
+          html: hits
             .map(
-              (hit: {
-                displayName: string;
-                hightlight: string;
-                href: string;
-              }) => SearchHit({ ...hit }),
+              (hit: { displayName: string; highlight: string; href: string }) =>
+                SearchHit({ ...hit }),
             )
-            .join('');
-        }
+            .join(''),
+        });
+
+        replaceElement({
+          selector: '#show-more',
+          html: SearchShowMore({
+            word: value,
+            total,
+          }),
+        });
       });
   }
 });
@@ -45,18 +75,18 @@ window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
     window.postMessage({ source: 'decorator', event: 'ready' });
   }
+  // Maybe have a map of functions where the name of the function is the event name, then you can just loop through and call if it's present on the payload.
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
     if (e.data.payload.breadcrumbs) {
-      const breadcrumbsWrapperEl = document.getElementById(
-        'breadcrumbs-wrapper',
-      );
-      if (breadcrumbsWrapperEl) {
-        breadcrumbsWrapperEl.outerHTML = Breadcrumbs({
+      replaceElement({
+        selector: '#breadcrumbs-wrapper',
+        html: Breadcrumbs({
           breadcrumbs: e.data.payload.breadcrumbs,
-        });
-        addBreadcrumbEventListeners();
-      }
+        }),
+        contentKey: 'outerHTML',
+      }).then(addBreadcrumbEventListeners);
     }
+
     if (e.data.payload.utilsBackground) {
       const utilsContainer = document.querySelector(
         '.decorator-utils-container',
@@ -107,17 +137,17 @@ async function setActiveContext(context: string | null) {
           : el.classList.remove('active'),
       );
 
-    const headerMenuLinksEl = document.getElementById('header-menu-links');
-    if (headerMenuLinksEl) {
-      headerMenuLinksEl.innerHTML = HeaderMenuLinks({
+    replaceElement({
+      selector: '#header-menu-links',
+      html: HeaderMenuLinks({
         headerMenuLinks: await getContent('headerMenuLinks', {
           context: context as
             | 'privatperson'
             | 'arbeidsgiver'
             | 'samarbeidspartner',
         }),
-      });
-    }
+      }),
+    });
   } else {
     console.warn('Unrecognized context', context);
   }

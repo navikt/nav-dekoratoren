@@ -2,17 +2,19 @@ import { html } from '../utils';
 
 export default function SearchHit({
   displayName,
-  hightlight,
+  highlight,
   href,
 }: {
   displayName: string;
-  hightlight: string;
+  highlight: string;
   href: string;
 }) {
-  return html`<li>
+  return html`<li
+    class="py-4 pl-2 pr-4 hover:bg-gray-300 border-b border-b-gray-300"
+  >
     <a href="${href}">
-      <h2>${displayName}</h2>
-      <p>${hightlight}</p>
+      <h2 class="text-xl font-semibold">${displayName}</h2>
+      <p>${highlight}</p>
     </a>
   </li>`;
 }

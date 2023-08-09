@@ -1,16 +1,16 @@
 import express, { Request } from 'express';
 import cors from 'cors';
-import { DataKeys, getData } from './utils';
-import { Index } from './views/index';
-import { Footer } from './views/footer';
-import { HeaderMenuLinks } from './views/header-menu-links';
-import { Header } from './views/header';
-import { decoratorParams } from './middlewares';
-import { mockAuthHandler } from './mock/authMock';
+import { DataKeys, getData } from '@/utils';
+import { Index } from '@/views/index';
+import { Footer } from '@/views/footer';
+import { HeaderMenuLinks } from '@/views/header-menu-links';
+import { Header } from '@/views/header';
+import { decoratorParams } from '@/server/middlewares';
+import { mockAuthHandler } from '@/server/mock/authMock';
 import {
   mockSessionHandler,
   refreshMockSessionHandler,
-} from './mock/sessionMock';
+} from '@/server/mock/sessionMock';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = 3000;
@@ -22,7 +22,7 @@ const script = (src: string) => `<script type="module" src="${src}"></script>`;
 
 const getResources = async () => {
   const resources = (
-    (await import('./dist/manifest.json', { assert: { type: 'json' } }))
+    (await import('../dist/manifest.json', { assert: { type: 'json' } }))
       .default as {
       [entryPointPath]: { file: string; css: string[] };
     }
@@ -62,12 +62,30 @@ app.use('/api/auth', mockAuthHandler);
 app.get('/api/oauth2/session', mockSessionHandler);
 app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
 
+type SearchHit = {
+  displayName: string;
+  highlight: string;
+  href: string;
+};
+
+type SearchResponse = {
+  c: number;
+  isMore: boolean;
+  s: number;
+  word: string;
+  total: number;
+  hits: SearchHit[];
+};
+
 app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
-  res.send(
-    await fetch(
-      `https://www.nav.no/dekoratoren/api/sok?ord=${req.params.ord}`,
-    ).then((res) => res.json()),
-  );
+  const results = (await (
+    await fetch(`https://www.nav.no/dekoratoren/api/sok?ord=${req.query.ord}`)
+  ).json()) as SearchResponse;
+
+  res.json({
+    hits: results.hits.slice(0, 5),
+    total: results.total,
+  });
 });
 
 app.use('/footer', async (req, res) => {
