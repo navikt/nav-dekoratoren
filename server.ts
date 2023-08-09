@@ -6,6 +6,11 @@ import { Footer } from './views/footer';
 import { HeaderMenuLinks } from './views/header-menu-links';
 import { Header } from './views/header';
 import { decoratorParams } from './middlewares';
+import { mockAuthHandler } from './mock/authMock';
+import {
+  mockSessionHandler,
+  refreshMockSessionHandler,
+} from './mock/sessionMock';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = 3000;
@@ -53,6 +58,10 @@ app.use(cors());
 app.use(express.static(isProd ? 'dist' : 'public'));
 app.use(decoratorParams);
 
+app.use('/api/auth', mockAuthHandler);
+app.get('/api/oauth2/session', mockSessionHandler);
+app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
+
 app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
   res.send(
     await fetch(
@@ -75,6 +84,15 @@ app.use('/footer', async (req, res) => {
       texts: data.texts,
     }),
   );
+});
+
+app.use('/inspect-data', async (req, res) => {
+  const data = await getData(req.decorator);
+  const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
+  res.json({
+    data,
+    raw: await raw.json(),
+  });
 });
 
 app.use('/header', async (req, res) => {

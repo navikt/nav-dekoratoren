@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-useless-escape */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const prefixer = require('postcss-prefix-selector');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({

@@ -9,6 +9,7 @@ const contextSchema = z.enum([
 ]);
 
 export type Context = z.infer<typeof contextSchema>;
+export type Language = z.infer<typeof languageSchema>;
 
 export const breadcrumbSchema = z.object({
   title: z.string(),
