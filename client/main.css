@@ -101,7 +101,7 @@ a {
   border-color: transparent;
 }
 
-.context-link.active {
+.context-link.lenkeActive {
   font-weight: bold;
   border-color: #3386e0;
 }

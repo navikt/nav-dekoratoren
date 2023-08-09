@@ -20,6 +20,7 @@ export function decoratorParams(
   if (result.success) {
     req.decorator = result.data;
   } else {
+    console.error(result.error);
     res.status(400).send(result.error);
   }
 
