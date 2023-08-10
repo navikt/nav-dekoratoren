@@ -1,8 +1,8 @@
 import { MyPageMenu, html } from '@/utils';
 import { IconButton } from './components/icon-button';
 import { LoginIcon } from './icons/login';
-import { VarslerIcon } from '@/varsler';
-import { ProfileIcon } from '@/profile';
+import { VarslerIcon } from '@/views/icons/varsler';
+import { ProfileIcon } from '@/views/icons/profile';
 import { HeaderMenuLinks } from './header-menu-links';
 
 export function LoggedInMenu({
