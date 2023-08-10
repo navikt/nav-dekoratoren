@@ -133,8 +133,8 @@ async function setActiveContext(context: string | null) {
       .querySelectorAll('.context-link')
       .forEach((el) =>
         el.getAttribute('data-context') === context
-          ? el.classList.add('active')
-          : el.classList.remove('active'),
+          ? el.classList.add('lenkeActive')
+          : el.classList.remove('lenkeActive'),
       );
 
     replaceElement({

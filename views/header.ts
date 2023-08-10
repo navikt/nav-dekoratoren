@@ -53,9 +53,11 @@ export function Header({
               ${
                 isNorwegian &&
                 mainMenu.map(
-                  ({ displayName, styles }) => html`
+                  ({ displayName, isActive }) => html`
                     <button
-                      class="context-link h-full flex items-center border-b-4 ${styles}"
+                      class="context-link h-full flex items-center border-b-4 ${isActive
+                        ? 'lenkeActive'
+                        : ''}"
                       href="?context=${displayName.toLowerCase()}"
                       data-context="${displayName.toLowerCase()}"
                     >

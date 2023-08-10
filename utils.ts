@@ -114,10 +114,7 @@ export const getData = async (params: Params) => {
     footerLinks,
     mainMenu: mainMenu.map((contextLink) => {
       return {
-        styles:
-          contextLink.displayName.toLowerCase() === params.context
-            ? 'active'
-            : '',
+        isActive: contextLink.displayName.toLowerCase() === params.context,
         context: contextLink.displayName.toLowerCase(),
         ...contextLink,
       };

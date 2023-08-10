@@ -27,7 +27,7 @@ export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const availableLanguageSchema = z.object({
   locale: languageSchema,
-  url: z.string().url().optional(),
+  url: z.string().optional(),
   handleInApp: z.boolean().default(false).optional(),
 });
 

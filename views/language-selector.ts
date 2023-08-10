@@ -45,14 +45,26 @@ export const addEventListeners = () => {
     });
 };
 
+const languageLabels = {
+  nb: 'Norsk (bokmål)',
+  nn: 'Norsk (nynorsk)',
+  en: 'English',
+  se: 'Sámegiel',
+  pl: 'Polski',
+  uk: 'Українська',
+  ru: 'Русский',
+};
+
 export default function LanguageSelector({
   availableLanguages,
 }: {
   availableLanguages: AvailableLanguage[];
 }) {
   return html`
-    <div id="language-selector">
-      <button class="decorator-language-selector-button">Språk/Language</button>
+    <div id="language-selector" class="sprakvelger">
+      <button class="decorator-language-selector-button">
+        <span lang="nb">Språk</span>/<span lang="en">Language</span>
+      </button>
       <div class="decorator-language-selector-menu hidden">
         ${availableLanguages.length > 0 &&
         html`
@@ -64,7 +76,7 @@ export default function LanguageSelector({
                   data-url="${url}"
                   ${handleInApp === true && 'data-handle-in-app="true"'}
                 >
-                  ${locale}
+                  ${languageLabels[locale]}
                 </li>`,
             )}
           </ul>

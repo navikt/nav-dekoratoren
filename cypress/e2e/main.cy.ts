@@ -1,5 +1,3 @@
-import { Params } from '../../params';
-
 describe('Setting parameters', () => {
   it('Breadcrumbs is set', () => {
     const breadcrumbs = [
@@ -9,18 +7,14 @@ describe('Setting parameters', () => {
       },
       {
         url: 'https://www.nav.no/person/kontakt-oss',
-        title: 'Kontakt oss',
+        title: 'Kontakt NAV',
       },
     ];
 
-    cy.visit(
-      '/?breadcrumbs=' + encodeURIComponent(JSON.stringify(breadcrumbs)),
-    );
+    cy.visit('/?breadcrumbs=' + JSON.stringify(breadcrumbs));
 
-    cy.get('#breadcrumbs-list').should('exist');
-    // Verify that the breadcrumbs are rendered
-    cy.get('#breadcrumbs-list').should('contain', 'Ditt NAV');
-    cy.get('#breadcrumbs-list').should('contain', 'Kontakt oss');
+    cy.findByText('Ditt NAV').should('exist');
+    cy.findByText('Kontakt NAV').should('exist');
   });
 
   it('Language is set', () => {
@@ -36,12 +30,12 @@ describe('Setting parameters', () => {
   it('Simple', () => {
     cy.visit('/?simple=true');
 
-    cy.get('#footer-withmenu').children().should('have.class', 'simple-footer');
+    cy.findByText('Til toppen').should('not.exist');
   });
 
   it('Should show feedback box in footer', () => {
     cy.visit('/?feedback=true');
 
-    cy.get('#footer-withmenu').children().should('have.id', 'feedback');
+    cy.findByText('Fant du det du lette etter?').should('exist');
   });
 });
