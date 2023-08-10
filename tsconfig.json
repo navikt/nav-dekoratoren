@@ -25,5 +25,5 @@
   },
   "include": ["./", "./views/**/*.ts"],
   "exlude": ["node_modules", "dist"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./server/tsconfig.json" }]
 }
