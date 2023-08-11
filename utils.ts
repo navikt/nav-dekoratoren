@@ -15,7 +15,8 @@ type TemplateStringValues =
   | boolean
   | ((e: Element) => void)
   | NamedNodeMap
-  | undefined;
+  | undefined
+  | null;
 
 export const html = (
   strings: TemplateStringsArray,
@@ -27,7 +28,7 @@ export const html = (
       Array.isArray(item)
         ? item.join('')
         : // Check for boolean
-        item === false
+        [false, undefined, null].some((value) => item === value)
         ? ''
         : item,
     ),

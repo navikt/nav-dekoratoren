@@ -151,7 +151,7 @@ describe('Setting parameters', () => {
   it('Available languages is set and handled in app', () => {
     cy.visit('/');
 
-    cy.findByText('Norsk (bokmål)').should('not.exist');
+    cy.findByText('Språk').should('not.exist');
 
     const obj = {
       callback: console.log,
@@ -177,8 +177,6 @@ describe('Setting parameters', () => {
         }),
       )
       .then(() => {
-        cy.findByText('Norsk (bokmål)').should('exist');
-
         cy.findByText('Språk')
           .click()
           .then(() =>
@@ -196,8 +194,6 @@ describe('Setting parameters', () => {
   it('Available languages is set and handled in app (nb)', () => {
     cy.visit('/');
 
-    cy.findByText('Norsk (bokmål)').should('not.exist');
-
     const obj = {
       callback: console.log,
     };
@@ -222,8 +218,6 @@ describe('Setting parameters', () => {
         }),
       )
       .then(() => {
-        cy.findByText('Norsk (bokmål)').should('exist');
-
         cy.findByText('Språk')
           .click()
           .then(() =>
@@ -269,8 +263,6 @@ describe('Setting parameters', () => {
         });
       })
       .then(() => {
-        cy.findByText('Norsk (bokmål)').should('exist');
-
         cy.findByText('Språk')
           .click()
           .then(() => {
@@ -312,8 +304,6 @@ describe('Setting parameters', () => {
         });
       })
       .then(() => {
-        cy.findByText('Norsk (bokmål)').should('exist');
-
         cy.findByText('Språk')
           .click()
           .then(() => {

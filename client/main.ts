@@ -10,9 +10,8 @@ import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
 import { MenuItems } from '@/views/menu-items';
 import { texts } from '@/texts';
-import LanguageSelector, {
-  addEventListeners as addLanguageSelectorEventListeners,
-} from '@/views/language-selector';
+import RenderLanguageSelector from '@/views/language-selector';
+import '@/views/language-selector.client';
 import { SearchShowMore } from '@/views/search-show-more';
 
 /**
@@ -69,7 +68,6 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
 });
 
 addBreadcrumbEventListeners();
-addLanguageSelectorEventListeners();
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -102,12 +100,21 @@ window.addEventListener('message', (e) => {
       }
     }
     if (e.data.payload.availableLanguages) {
-      const el = document.getElementById('language-selector');
+      const el = document.querySelector('language-selector');
       if (el) {
-        el.outerHTML = LanguageSelector({
-          availableLanguages: e.data.payload.availableLanguages,
-        });
-        addLanguageSelectorEventListeners();
+        el.availableLanguages = e.data.payload.availableLanguages;
+      } else {
+        // Her appender vi en language selector om den ikke er i DOMen allerede
+        // TODO: dette kan garantert gjøres ryddigere!
+        const container = document.querySelector('.decorator-utils-container');
+        if (container) {
+          const temp = document.createElement('div');
+          temp.innerHTML =
+            RenderLanguageSelector({
+              availableLanguages: e.data.payload.availableLanguages,
+            }) ?? '';
+          container.append(...temp.childNodes);
+        }
       }
     }
     if (e.data.payload.context) {
@@ -152,12 +159,6 @@ async function setActiveContext(context: string | null) {
     console.warn('Unrecognized context', context);
   }
 }
-
-window.addEventListener('message', (e) => {
-  if (e.data.source === 'decoratorClient') {
-    console.log('message:', e.data);
-  }
-});
 
 const menuBackground = document.getElementById('menu-background');
 

@@ -158,6 +158,7 @@ app.use('/', async (req, res) => {
         breadcrumbs: req.decorator.breadcrumbs,
         utilsBackground: req.decorator.utilsBackground,
         availableLanguages: req.decorator.availableLanguages,
+        myPageMenu: data.myPageMenu,
       }),
       footer: Footer({
         texts: data.texts,

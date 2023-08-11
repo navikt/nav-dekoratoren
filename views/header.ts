@@ -109,14 +109,21 @@ export function Header({
           </div>
         </div>
       </header>
-      <div class="decorator-utils-container ${(function () {
-        switch (utilsBackground) {
-          case 'white':
-            return 'decorator-utils-container_white';
-          case 'gray':
-            return 'decorator-utils-container_gray';
-        }
-      })()}">
+      <div class="${[
+        'decorator-utils-container',
+        (function () {
+          switch (utilsBackground) {
+            case 'white':
+              return 'decorator-utils-container_white';
+            case 'gray':
+              return 'decorator-utils-container_gray';
+            default:
+              return '';
+          }
+        })(),
+      ]
+        .filter(Boolean)
+        .join(' ')}">
         ${Breadcrumbs({ breadcrumbs })}
         ${LanguageSelector({ availableLanguages })}
       </div>
