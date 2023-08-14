@@ -2,7 +2,13 @@ import { html } from '@/utils';
 
 // @TODO: Should probably create a generic type for the className
 
-export function BurgerIcon({ className }: { className: string }) {
+export function BurgerIcon({
+  className,
+  slot,
+}: {
+  className?: string;
+  slot?: string;
+}) {
   return html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -16,6 +22,7 @@ export function BurgerIcon({ className }: { className: string }) {
     aria-labelledby="menuBurger_:R2kti:"
     role="img"
     class="${className}"
+    slot="${slot}"
   >
     <title id="menuBurger_:R2kti:">Meny-ikon</title>
     <path class="menuBurger__line-1" d="M2 4h20"></path>

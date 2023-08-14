@@ -1,6 +1,6 @@
 import { Texts } from '../texts';
 import { html } from '../utils';
-import { Button } from './components';
+import { Button } from './components/button';
 
 export function Feedback({ texts }: { texts: Texts }) {
   return html`
