@@ -1,7 +1,7 @@
 // Should probably have a better name. Here i'm reffering to the buttons on the right
 //
 
-import { IconButton, ToggleIconButton } from './components/icon-button';
+import { IconButton } from './components/icon-button';
 import { BurgerIcon } from './icons/burger';
 import Search from './search';
 import { LoginIcon } from './icons/login';
@@ -27,15 +27,13 @@ export function MenuItems({
       class="${`group h-full flex items-center ${innlogget && 'loggedin'}`}"
     >
       <div class="group-[.loggedin]:order-2 flex">
-        ${ToggleIconButton({
-          id: 'menu-button',
-          Icon: BurgerIcon,
-          idleText: texts.menu,
-          toggledText: texts.close,
-          onclick: (el) => {
-            el.classList.toggle('active');
-          },
-        })}
+        <toggle-icon-button id="menu-button">
+          ${BurgerIcon({
+            slot: 'icon',
+          })}
+          <span slot="idleText">Meny</span>
+          <span slot="openedText">Lukk</span>
+        </toggle-icon-button>
         ${Search({ texts })}
       </div>
       ${innlogget

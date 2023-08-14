@@ -27,7 +27,6 @@ export class ToggleIconButton extends HTMLElement {
       shadowRoot.appendChild(template.content.cloneNode(true));
 
       shadowRoot.addEventListener('click', () => {
-        console.log('click');
         shadowRoot.querySelector('button')?.classList.toggle('active');
       });
     }

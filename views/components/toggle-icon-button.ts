@@ -21,6 +21,8 @@ export default function () {
             background-color: rgba(0, 0, 0, 0);
             border-color: rgba(255, 255, 255, 0);
             font-family: 'Source Sans 3';
+            border: 2px solid transparent;
+            outline: 2px solid transparent;
         }
 
         .opened, .idle {
@@ -31,7 +33,7 @@ export default function () {
 
         .opened ::slotted(span), .idle ::slotted(span) {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .opened {
@@ -42,9 +44,24 @@ export default function () {
             display: flex;
          }
 
+
         .button.active .idle {
             display: none;
          }
+
+         .button:hover {
+             border-color: rgba(0, 103, 197, 1);
+             background-color: var(--a-blue-100);
+         }
+
+        .button:active {
+            color: white;
+            background-color: var(--a-surface-action-active);
+            border: 1px solid white;
+            margin: 1px;
+            outline: 3px solid var(--a-blue-800);
+        }
+
 
         </style>
         <button
@@ -63,77 +80,4 @@ export default function () {
         </button>
         </template>
     `;
-}
-
-export function ToggleIconButton({
-  idleText,
-  toggledText,
-  onclick,
-  Icon,
-  id,
-}: {
-  idleText: string;
-  toggledText: string;
-  Icon: ({ className }: { className: string }) => string;
-  id?: string;
-  onclick?: (e: Element) => void;
-}) {
-  return html`
-    <button
-      id="${id}"
-      class="group flex gap-2 text-blue-500 min-w-[95px] rounded-[3px] py-3
-      px-2 pr-4 pl-1 border-2 border-transparent hover:border-blue-500
-      hover:bg-blue-100 active:bg-surface-action-active active:text-white
-      ring-[3px] ring-transparent active:ring-blue-800 active:border
-      active:border-white"
-      ${onclick ? html`onclick='(${onclick})(this)'` : ''}
-    >
-      ${Icon({
-        className: 'group-[.active]:hidden block',
-      })}
-      <span class="font-bold group-[.active]:hidden">${idleText}</span>
-      ${CloseIcon({
-        className: 'group-[.active]:block hidden',
-      })}
-      <span
-        class="font-bold group-[.active]:block
-      hidden"
-        >${toggledText}</span
-      >
-    </button>
-  `;
-}
-
-// Button without a toggle state
-export function IconButton({
-  Icon,
-  id,
-  onclick,
-  text,
-  className,
-}: {
-  Icon: ({ className }: { className: string }) => string;
-  id?: string;
-  onclick?: (e: Element) => void;
-  text: string;
-  className?: string;
-}) {
-  return html`
-    <button
-      id="${id}"
-      class="group flex gap-2 text-blue-500 min-w-[95px] flex-nowrap
-      rounded-[3px] py-3 px-2 pr-4 pl-1 border-2 border-transparent
-      hover:border-blue-500 hover:bg-blue-100 active:bg-surface-action-active
-      active:text-white ring-[3px] ring-transparent active:ring-blue-800
-      active:border active:border-white ${className}"
-      ${onclick ? `onclick="(${onclick})(this)"` : ''}
-    >
-      ${Icon({
-        className: 'group-[.active]:hidden block',
-      })}
-      <span class="font-bold whitespace-nowrap group-[.active]:hidden"
-        >${text}</span
-      >
-    </button>
-  `;
 }
