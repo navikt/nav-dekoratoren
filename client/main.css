@@ -106,6 +106,35 @@ a {
   padding: 32px;
 }
 
+#menu-items {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu-items-universal-links {
+  order: 1;
+  display: flex;
+}
+
+#menu-items:has(.loggedin) #menu-items-universal-links {
+  order: 2;
+}
+
+#login-button {
+  order: 2;
+}
+
+#logged-in-menu {
+  background-color: rgba(230, 240, 255, 1);
+  height: 100%;
+  order: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--a-spacing-2);
+}
+
 /* @TODO: Maybe better scoped name */
 .link {
   /* color is text-text-action, replace later */
@@ -113,6 +142,15 @@ a {
   text-decoration-line: underline;
   padding-top: 0.5rem /* 8px */;
   padding-bottom: 0.75rem /* 12px */;
+  display: inline-block;
+}
+
+/* Used for til min forside etc */
+.big-link {
+  color: rgba(0, 103, 197, 1);
+  text-decoration-line: underline;
+  padding-top: var(--a-spacing-2);
+  padding-bottom: var(--a-spacing-3);
   display: inline-block;
 }
 
@@ -197,6 +235,29 @@ a {
   pointer-events: auto;
 }
 
+#my-page-menu {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 100%;
+  display: none;
+}
+
+#my-page-menu-content {
+  width: 100%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding: var(--a-spacing-8);
+}
+
+#my-page-menu.active {
+  display: block;
+}
+
 /* HEADER MENU LINKS */
 .header-menu-links {
   display: grid;
@@ -244,10 +305,56 @@ a {
   text-decoration-line: underline;
 }
 
-/* .group:hover .group-hover\:translate-x-2 { */ /*     --tw-translate-x: 0.5rem/* 8px */
-*/ /*     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); */
-    /* } */
+#sok-dropdown {
+  position: absolute;
+  top: 79px;
+  background-color: white;
+  transform: translateX(-50%);
+  padding: 8px 48px 16px 48px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  max-width: 700px;
+  width: 100%;
+  display: none;
+}
+
+#sok-dropdown-content {
+  display: grid;
+  gap: 8px;
+}
+
 #sok-dropdown.active {
+  display: block;
+}
+
+#search-input {
+  border-width: 2px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-color: var(--a-blue-500);
+  padding: 12px;
+  max-width: 600px;
+  width: 100%;
+}
+
+#search-input:focus-visible {
+  outline: none;
+}
+
+#search-hits ul {
+  margin-top: var(--a-spacing-4);
+}
+
+#search-hits #show-more {
+  margin-top: var(--a-spacing-4);
+}
+
+/* Blue background button  */
+
+.big-label {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
   display: block;
 }
 
@@ -262,4 +369,68 @@ a {
 /*  Can probably be removed */
 .decorator-utils-container_transparent {
   background-color: transparent;
+}
+
+/* Buttons */
+
+.icon-button {
+  display: flex;
+  gap: 0.5rem;
+  color: rgba(0, 103, 197, 1);
+  min-width: 95px;
+  white-space: nowrap;
+  border-radius: 3px;
+  padding-top: 0.75rem /* 12px */;
+  padding-bottom: 0.75rem /* 12px */;
+  padding-right: 1rem /* 16px */;
+  padding-left: 0.25rem /* 4px */;
+  border: 2px solid transparent; /* border-2 border-transparent */
+  transition:
+    border-color 0.2s,
+    background-color 0.2s; /* approximation for hover & active transition */
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(255, 255, 255, 0);
+}
+
+.blue-bg-icon {
+  background-color: var(--a-blue-500);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  color: white;
+  border-left: none;
+}
+
+.icon-button:hover {
+  border-color: rgba(0, 103, 197, 1);
+  background-color: var(--a-blue-100);
+}
+
+.icon-button:active {
+  background-color: rgba(0, 91, 130, 1);
+  color: white;
+  border-color: white;
+  outline: 3px solid #1e40af;
+}
+
+.icon-button-span {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/*  Utils  */
+.flex {
+  display: flex;
+}
+
+.mb-4 {
+  margin-bottom: var(--a-spacing-4);
+}
+
+.text-medium-semibold {
+  font-size: var(--a-font-size-medium);
+  font-weight: var(--a-font-weight-bold);
+}
+
+.space-between {
+  justify-content: space-between;
 }

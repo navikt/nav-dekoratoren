@@ -13,8 +13,6 @@ export default function () {
             border-radius: 3px;
             padding-top: 0.75rem/* 12px */;
             padding-bottom: 0.75rem/* 12px */;
-            padding-left: 0.5rem/* 8px */;
-            padding-right: 0.5rem/* 8px */;
             padding-right: 1rem/* 16px */;
             padding-left: 0.25rem/* 4px */;
             border-width: 2px;
@@ -62,6 +60,10 @@ export default function () {
             outline: 3px solid var(--a-blue-800);
         }
 
+        .button:active .close-icon {
+            /* display: block; */
+        }
+
 
         </style>
         <button
@@ -72,9 +74,7 @@ export default function () {
             <slot name="idleText"></slot>
           </div>
           <div class="opened">
-          ${CloseIcon({
-            className: 'group-[.active]:block hidden',
-          })}
+          ${CloseIcon({})}
             <slot name="openedText"></slot>
           <div>
         </button>

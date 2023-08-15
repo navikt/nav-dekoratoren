@@ -22,11 +22,8 @@ export function MenuItems({
 }) {
   // @TODO: More granular rendering to avoid reattaching event listeners
   return html`
-    <div
-      id="menu-items"
-      class="${`group h-full flex items-center ${innlogget && 'loggedin'}`}"
-    >
-      <div class="group-[.loggedin]:order-2 flex">
+    <div id="menu-items" class="${innlogget && 'loggedin'}">
+      <div id="menu-items-universal-links">
         <toggle-icon-button id="menu-button">
           ${BurgerIcon({
             slot: 'icon',
@@ -48,3 +45,4 @@ export function MenuItems({
     </div>
   `;
 }
+// class="group-[.loggedin]:order-2 flex"

@@ -3,13 +3,15 @@ import { html } from '../utils';
 
 export function HeaderMenuLinks({
   cols = '4',
+  className = '',
   headerMenuLinks,
 }: {
   headerMenuLinks: HeaderMenuLinksData;
+  className?: string;
   cols?: '4' | '3';
 }) {
   return html`
-    <ul class="header-menu-links cols-${cols}">
+    <ul class="header-menu-links cols-${cols} ${className}">
       ${headerMenuLinks.map(
         (link) => html`
           <li>
