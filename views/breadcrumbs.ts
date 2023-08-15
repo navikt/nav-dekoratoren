@@ -25,14 +25,10 @@ export const addEventListeners = () =>
 export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return html`
     <nav class="py-3" id="breadcrumbs-wrapper">
-      <ol
-        class="flex items-center max-w-[1344px] w-full mx-auto"
-        id="breadcrumbs-list"
-      >
+      <ol id="breadcrumbs-list">
         <li>
-          <a class="flex gap-1 items-center amplitude-link" href="#">
+          <a class="amplitude-link" href="#">
             <svg
-              class="text-3xl"
               width="1em"
               height="1em"
               viewBox="0 0 24 24"
@@ -48,17 +44,17 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
                 fill="currentColor"
               ></path>
             </svg>
-            <span class="text-blue-500 underline">nav.no</span>
+            <span>nav.no</span>
           </a>
         </li>
         ${breadcrumbs.map(
           ({ title, url, handleInApp }, index) => html`
-            <li class="flex items-center before:content-chevronRightIcon">
+            <li class="list-item">
               ${index === breadcrumbs.length - 1
                 ? title
                 : html`
                     <a
-                      class="text-blue-500 underline amplitude-link"
+                      class="amplitude-link"
                       href="${url}"
                       ${handleInApp === true && 'data-handle-in-app="true"'}
                       >${title}</a

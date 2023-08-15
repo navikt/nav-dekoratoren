@@ -349,6 +349,26 @@ a {
   margin-top: var(--a-spacing-4);
 }
 
+.search-hit {
+  padding-top: 1rem /* 16px */;
+  padding-bottom: 1rem /* 16px */;
+  padding-left: 0.5rem /* 8px */;
+  padding-right: 1rem /* 16px */;
+
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(207, 207, 207, 1);
+}
+
+.search-hit:hover {
+  background-color: rgba(207, 207, 207, 1);
+}
+
+.search-hit h2 {
+  font-size: 1.25rem /* 20px */;
+  line-height: 1.75rem /* 28px */;
+  font-weight: 600;
+}
+
 /* Blue background button  */
 
 .big-label {
@@ -371,6 +391,70 @@ a {
   background-color: transparent;
 }
 
+/* Breadcrumbs */
+#breadcrumbs-wrapper #breadcrumbs-list {
+  display: flex;
+  align-items: center;
+  max-width: 1344px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#breadcrumbs-list a {
+  display: flex;
+  gap: var(--a-spacing-1);
+}
+#breadcrumbs-list a span {
+  text-decoration: underline;
+  color: var(--a-blue-500);
+}
+
+#breadcrumbs-list a svg {
+  font-size: 30px;
+}
+
+#breadcrumbs-list .list-item {
+  display: flex;
+  align-items: center;
+}
+
+#breadcrumbs-list .list-item::before {
+  content: url("data:image/svg+xml,%3Csvg width='1.25em' height='1.25em' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' focusable='false' role='img'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.47 5.97a.75.75 0 0 1 1.06 0l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06L14.44 12 9.47 7.03a.75.75 0 0 1 0-1.06Z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.show-more a {
+  text-decoration: underline;
+  color: var(--a-surface-action);
+}
+
+#feedback {
+  border-top-width: 2px;
+  border-color: rgba(207, 207, 207, 1);
+  padding-top: 1rem /* 16px */;
+  padding-bottom: 1rem /* 16px */;
+}
+
+.feedback-content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 48rem /* 768px */;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedback-content h2 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.basic-link {
+  color: var(--a-surface-action);
+  text-decoration: underline;
+}
+
 /* Buttons */
 
 .icon-button {
@@ -385,9 +469,6 @@ a {
   padding-right: 1rem /* 16px */;
   padding-left: 0.25rem /* 4px */;
   border: 2px solid transparent; /* border-2 border-transparent */
-  transition:
-    border-color 0.2s,
-    background-color 0.2s; /* approximation for hover & active transition */
   background-color: rgba(0, 0, 0, 0);
   border-color: rgba(255, 255, 255, 0);
 }
@@ -426,6 +507,16 @@ a {
   margin-bottom: var(--a-spacing-4);
 }
 
+.mx-4 {
+  margin-left: var(--a-spacing-4);
+  margin-right: var(--a-spacing-4);
+}
+
+.my-1 {
+  margin-top: var(--a-spacing-1);
+  margin-bottom: var(--a-spacing-1);
+}
+
 .text-medium-semibold {
   font-size: var(--a-font-size-medium);
   font-weight: var(--a-font-weight-bold);
@@ -433,4 +524,8 @@ a {
 
 .space-between {
   justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
 }

@@ -8,13 +8,9 @@ export function SearchShowMore({
   total: number;
 }) {
   return html`
-    <div>
+    <div class="show-more">
       <div>Viser 5 av ${total.toString()} resultater.</div>
-      <a
-        href="https://www.nav.no/sok?ord=${word}"
-        class="underline text-text-action"
-        >Se alle treff ("${word}")</a
-      >
+      <a href="https://www.nav.no/sok?ord=${word}">Se alle treff ("${word}")</a>
     </div>
   `;
 }
