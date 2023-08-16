@@ -9,11 +9,9 @@ export default function SearchHit({
   highlight: string;
   href: string;
 }) {
-  return html`<li
-    class="py-4 pl-2 pr-4 hover:bg-gray-300 border-b border-b-gray-300"
-  >
+  return html`<li>
     <a href="${href}">
-      <h2 class="text-xl font-semibold">${displayName}</h2>
+      <h2>${displayName}</h2>
       <p>${highlight}</p>
     </a>
   </li>`;

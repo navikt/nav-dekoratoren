@@ -1,6 +1,12 @@
 import { html } from '../../utils';
 
-export function SearchIcon({ className = '' }: { className?: string }) {
+export function SearchIcon({
+  className = '',
+  slot,
+}: {
+  className?: string;
+  slot?: string;
+}) {
   return html`
     <svg
       class="${className}"
@@ -15,6 +21,7 @@ export function SearchIcon({ className = '' }: { className?: string }) {
       focusable="false"
       aria-labelledby="menuSearch_:R2oti:"
       role="img"
+      slot="${slot}"
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
       <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>

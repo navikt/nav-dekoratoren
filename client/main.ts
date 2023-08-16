@@ -11,7 +11,10 @@ import { HeaderMenuLinks } from '@/views/header-menu-links';
 import { MenuItems } from '@/views/menu-items';
 import { texts } from '@/texts';
 import RenderLanguageSelector from '@/views/language-selector';
+
 import '@/views/language-selector.client';
+import '@/views/components/toggle-icon-button.client';
+
 import { SearchShowMore } from '@/views/search-show-more';
 
 /**

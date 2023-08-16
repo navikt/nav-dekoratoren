@@ -5,8 +5,16 @@ import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from './language-selector';
 import { MenuItems } from './menu-items';
+import { BurgerIcon } from './icons/burger';
 
 export type HeaderProps = Parameters<typeof Header>[0];
+
+const utilsBackgroundClasses = {
+  white: 'decorator-utils-container_white',
+  gray: 'decorator-utils-container_gray',
+  transparent: 'decorator-utils-container_transparent',
+  '': '',
+} as const;
 
 export function Header({
   isNorwegian,
@@ -34,30 +42,25 @@ export function Header({
     <div id="header-withmenu">
       <div
         id="menu-background"
-        class="fixed top-0 left-0 right-0 bottom-0 bg-modal-background z-10 opacity-0 pointer-events-none transition duration-[350ms] transition-ease-in"
       ></div>
       <header
         id="hovedmeny"
-        class="relative header h-[80px] bg-white border-gray-300 border-b z-20"
       >
         <div
-          class="max-w-[1344px] w-full mx-auto flex justify-between items-center h-full"
+          class="hovedmeny-wrapper"
         >
-          <div class="flex items-center h-full w-full">
+          <div class="hovedmeny-content">
             <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
             <!-- Context links -->
             <div
               id="arbeidsflate"
-              class="flex h-full items-center gap-4 ml-[40px]"
             >
               ${
                 isNorwegian &&
                 mainMenu.map(
                   ({ displayName, isActive }) => html`
                     <button
-                      class="context-link h-full flex items-center border-b-4 ${isActive
-                        ? 'lenkeActive'
-                        : ''}"
+                      class="context-link ${isActive ? 'lenkeActive' : ''}"
                       href="?context=${displayName.toLowerCase()}"
                       data-context="${displayName.toLowerCase()}"
                     >
@@ -77,18 +80,15 @@ export function Header({
           })}
         <div
           id="menu"
-          class="absolute top-[80px] mx-auto left-1/2 transform -translate-x-1/2 w-full bg-white max-w-[1440px] rounded-b-small hidden  px-8 py-8"
         >
-          <div class="mb-4">
-            <h2 class="text-heading-medium font-semibold">
+            <h2>
               Hva kan vi hjelpe deg med?
             </h2>
             <a
-              class="text-text-action underline pt-2 pb-3 inline-block"
+              class="link"
               href="#"
               >Til forsiden</a
             >
-          </div>
           <div>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
@@ -109,24 +109,19 @@ export function Header({
           </div>
         </div>
       </header>
-      <div class="${[
-        'decorator-utils-container',
-        (function () {
-          switch (utilsBackground) {
-            case 'white':
-              return 'decorator-utils-container_white';
-            case 'gray':
-              return 'decorator-utils-container_gray';
-            default:
-              return '';
-          }
-        })(),
-      ]
-        .filter(Boolean)
-        .join(' ')}">
+      <div class="decorator-utils-container ${
+        utilsBackgroundClasses[utilsBackground]
+      }">
         ${Breadcrumbs({ breadcrumbs })}
         ${LanguageSelector({ availableLanguages })}
       </div>
+      <toggle-icon-button>
+      ${BurgerIcon({
+        slot: 'icon',
+      })}
+      <span slot="idleText">Åpne meny</span>
+      <span slot="openedText">Lukk meny</span>
+      </toggle-icon-button>
     </div>
   `;
 }

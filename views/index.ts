@@ -1,4 +1,5 @@
 import { html } from '../utils';
+import { WebcomponentTemplates } from './components';
 
 export function Index({
   language,
@@ -26,7 +27,7 @@ export function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${links}</div>
-        ${header}
+        ${WebcomponentTemplates()} ${header}
         <main>main</main>
         ${footer}
         <div id="scripts" style="display:none">${scripts}</div>

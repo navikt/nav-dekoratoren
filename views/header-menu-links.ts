@@ -2,25 +2,25 @@ import { HeaderMenuLinksData } from '@/utils';
 import { html } from '../utils';
 
 export function HeaderMenuLinks({
+  cols = '4',
+  className = '',
   headerMenuLinks,
-  className,
 }: {
   headerMenuLinks: HeaderMenuLinksData;
   className?: string;
+  cols?: '4' | '3';
 }) {
   return html`
-    <ul class="grid gap ${className ? className : 'grid-cols-4'}">
+    <ul class="header-menu-links cols-${cols} ${className}">
       ${headerMenuLinks.map(
         (link) => html`
           <li>
-            <h3 class="text-heading-small font-bold">${link.displayName}</h3>
+            <h3>${link.displayName}</h3>
             <ul>
               ${link.children.map(
                 (child) => html`
-                  <li class="group flex items-start py-2">
-                    <div
-                      class="text-text-action mr-4 transition group-hover:translate-x-2"
-                    >
+                  <li class="header-menu-link">
+                    <div class="header-menu-link-inner">
                       <svg
                         width="24px"
                         height="24px"
@@ -38,11 +38,7 @@ export function HeaderMenuLinks({
                         ></path>
                       </svg>
                     </div>
-                    <a
-                      class="text-text-action group-hover:underline"
-                      href="${child.path}"
-                      >${child.displayName}</a
-                    >
+                    <a href="${child.path}">${child.displayName}</a>
                   </li>
                 `,
               )}
