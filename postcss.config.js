@@ -3,6 +3,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const prefixer = require('postcss-prefix-selector');
 const customMedia = require('postcss-custom-media');
+const postcssGlobalData = require('@csstools/postcss-global-data');
+const literalsPlugin = require('./literals-plugin');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
@@ -24,10 +26,10 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 /** @type {import('postcss-load-config').Config} */
 module.exports = {
   plugins: [
-    require('tailwindcss'),
-    customMedia({
-      lol: '',
+    postcssGlobalData({
+      files: ['./client/custom-media-queries.css'],
     }),
+    customMedia({}),
     require('autoprefixer'),
     prefixer({
       transform(prefix, selector, prefixedSelector, filePath, rule) {
@@ -39,5 +41,6 @@ module.exports = {
       },
     }),
     // purgecss,
+    literalsPlugin(),
   ],
 };

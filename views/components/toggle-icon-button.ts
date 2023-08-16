@@ -30,7 +30,7 @@ export default function () {
         }
 
         /* Should find a better soluion for this */
-        @media (max-width: 600px) {
+        @media (--breakpoint-lg) {
             .opened, .idle {
                 background-color: red;
             }

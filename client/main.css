@@ -11,12 +11,9 @@ body {
 
 :root {
   --primary-font: 'Source Sans 3';
-  --breakpoint-lg: 1024px;
 }
 
 /* workaround for aksel */
-
-@custom-media --breakpoint-lg (max-width: 1024px);
 
 /* Resets */
 button {
