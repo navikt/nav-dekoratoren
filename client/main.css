@@ -1,8 +1,8 @@
 @import '@navikt/ds-tokens';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
 
 html,
 body {
@@ -11,6 +11,26 @@ body {
 
 :root {
   --primary-font: 'Source Sans 3';
+  --breakpoint-lg: 1024px;
+}
+
+/* workaround for aksel */
+
+@custom-media --breakpoint-lg (max-width: 1024px);
+
+/* Resets */
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
@@ -181,8 +201,7 @@ a {
   position: relative;
   height: 80px;
   background-color: rgba(255, 255, 255, 1);
-  border-color: rgba(207, 207, 207, 1);
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgba(207, 207, 207, 1);
   z-index: 20;
 }
 
@@ -203,26 +222,30 @@ a {
   align-items: center;
   height: 100%;
   width: 100%;
+  padding-left: var(--a-spacing-5);
 }
 
 .context-link {
   height: 100%;
   display: flex;
   align-items: center;
-  border-bottom-width: 4px;
-  border-color: transparent;
+  border-bottom: 4px solid transparent;
+  padding: 0 1rem;
+}
+
+.context-link:hover {
+  border-color: var(--a-gray-300);
 }
 
 .context-link.lenkeActive {
   font-weight: bold;
-  border-color: #3386e0;
+  border-color: var(--a-text-action);
 }
 
-#hovedmeny #arbeidsflate {
+#arbeidsflate {
   display: flex;
   height: 100%;
   align-items: center;
-  gap: 1rem /* 16px */;
   margin-left: 40px;
 }
 
@@ -281,6 +304,11 @@ a {
   align-items: flex-start;
   padding-top: 0.5rem /* 8px */;
   padding-bottom: 0.5rem /* 8px */;
+}
+
+.header-menu-link svg {
+  fill: var(--a-text-action);
+  stroke: var(--a-text-action);
 }
 
 .header-menu-link-inner {
@@ -396,7 +424,7 @@ a {
   display: flex;
   align-items: center;
   max-width: 1344px;
-  width: 100%;
+  /* width: 100%; */
   margin-left: auto;
   margin-right: auto;
 }
@@ -496,6 +524,23 @@ a {
 .icon-button-span {
   font-weight: 600;
   white-space: nowrap;
+}
+
+/*  Breakpoints  */
+@media (--breakpoint-lg) {
+  #arbeidsflate {
+    display: none;
+  }
+
+  /* Search button moves to mobile menu */
+
+  #search-button {
+    display: none;
+  }
+
+  #hovedmeny {
+    height: 72px;
+  }
 }
 
 /*  Utils  */

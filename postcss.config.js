@@ -2,6 +2,7 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const prefixer = require('postcss-prefix-selector');
+const customMedia = require('postcss-custom-media');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
@@ -24,6 +25,9 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 module.exports = {
   plugins: [
     require('tailwindcss'),
+    customMedia({
+      lol: '',
+    }),
     require('autoprefixer'),
     prefixer({
       transform(prefix, selector, prefixedSelector, filePath, rule) {

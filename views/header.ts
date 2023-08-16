@@ -5,7 +5,6 @@ import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from './language-selector';
 import { MenuItems } from './menu-items';
-import { BurgerIcon } from './icons/burger';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -115,13 +114,6 @@ export function Header({
         ${Breadcrumbs({ breadcrumbs })}
         ${LanguageSelector({ availableLanguages })}
       </div>
-      <toggle-icon-button>
-      ${BurgerIcon({
-        slot: 'icon',
-      })}
-      <span slot="idleText">Åpne meny</span>
-      <span slot="openedText">Lukk meny</span>
-      </toggle-icon-button>
     </div>
   `;
 }

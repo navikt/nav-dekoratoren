@@ -22,18 +22,20 @@ export function HeaderMenuLinks({
                   <li class="header-menu-link">
                     <div class="header-menu-link-inner">
                       <svg
-                        width="24px"
-                        height="24px"
+                        width="1em"
+                        height="1em"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                         focusable="false"
                         role="img"
+                        class="chevron__mKXRo"
+                        aria-hidden="true"
                       >
                         <path
                           fill-rule="evenodd"
                           clip-rule="evenodd"
-                          d="M9.47 5.97a.75.75 0 0 1 1.06 0l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06L14.44 12 9.47 7.03a.75.75 0 0 1 0-1.06Z"
+                          d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
                           fill="currentColor"
                         ></path>
                       </svg>
