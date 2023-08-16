@@ -6,6 +6,7 @@ export default function () {
         <template id="toggle-icon-button-template">
         <style>
         .button {
+            cursor: pointer;
             display: flex;
             gap: 0.5rem/* 8px */;
             color: rgba(0, 103, 197, 1);
