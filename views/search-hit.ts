@@ -9,7 +9,7 @@ export default function SearchHit({
   highlight: string;
   href: string;
 }) {
-  return html`<li>
+  return html`<li class="search-hit">
     <a href="${href}">
       <h2>${displayName}</h2>
       <p>${highlight}</p>

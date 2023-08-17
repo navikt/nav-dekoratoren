@@ -386,8 +386,7 @@ a {
   padding-left: 0.5rem /* 8px */;
   padding-right: 1rem /* 16px */;
 
-  border-bottom-width: 1px;
-  border-bottom-color: rgba(207, 207, 207, 1);
+  border-bottom: 1px solid rgba(207, 207, 207, 1);
 }
 
 .search-hit:hover {
@@ -570,6 +569,7 @@ a {
   #menu-content {
     height: calc(100vh - 73px);
     overflow-y: auto;
+    padding: var(--a-spacing-4);
   }
 
   #menu.active {
@@ -589,13 +589,13 @@ a {
   .header-menu-links h3 {
     font-size: var(--a-font-size-heading-medium);
     margin: 0;
-    padding: var(--a-spacing-4);
+    padding: var(--a-spacing-4) 0px;
     padding-bottom: var(--a-spacing-1);
   }
 
   .header-menu-link {
     justify-content: space-between;
-    padding: var(--a-spacing-4);
+    padding: var(--a-spacing-4) 0px;
   }
 
   .header-menu-link a {

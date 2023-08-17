@@ -185,6 +185,13 @@ function handleMenuButton() {
   });
 }
 
+const [inlineSearch] = document.getElementsByTagName('inline-search');
+console.log(inlineSearch);
+
+inlineSearch.addEventListener('started-search', () => {
+  console.log('Started searching');
+});
+
 // when they click the background
 menuBackground?.addEventListener('click', () => {
   const menu = document.getElementById('menu');

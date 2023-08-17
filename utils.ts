@@ -9,6 +9,15 @@ export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+// For when you know it is defined to avoid annoying null checks
+export function asDefined<T>(value: T | undefined): NonNullable<T> {
+  if (!value) {
+    throw new Error('Value is undefined');
+  }
+
+  return value as NonNullable<T>;
+}
+
 type TemplateStringValues =
   | string
   | string[]
@@ -134,7 +143,6 @@ export function getDataSubset(params: Params, datakey: DataKeys) {
 
 export type GetDataResponse = Awaited<ReturnType<typeof getData>>;
 export type DataKeys = keyof GetDataResponse;
-// These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
 export type MainMenu = GetDataResponse['mainMenu'];
 export type FooterLinks = GetDataResponse['footerLinks'];
 export type Personvern = GetDataResponse['personvern'];

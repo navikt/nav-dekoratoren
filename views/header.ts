@@ -91,7 +91,6 @@ export function Header({
             >
           </div>
           <div id="menu-content">
-            <h1>Hello world</h1>
             <inline-search></inline-search>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
