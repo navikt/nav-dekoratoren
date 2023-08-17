@@ -30,9 +30,17 @@ export default function () {
         }
 
         /* Should find a better soluion for this */
-        @media (--breakpoint-lg) {
+        @media (max-width: 1024px) {
             .opened, .idle {
-                background-color: red;
+                flex-direction: column;
+                align-items: center;
+                gap: 0px;
+            }
+
+            .button {
+                min-width: 0px;
+                justify-content: center;
+                align-items: center;
             }
         }
 

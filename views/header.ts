@@ -80,6 +80,7 @@ export function Header({
         <div
           id="menu"
         >
+         <div class="menu-top">
             <h2>
               Hva kan vi hjelpe deg med?
             </h2>
@@ -88,7 +89,10 @@ export function Header({
               href="#"
               >Til forsiden</a
             >
-          <div>
+          </div>
+          <div id="menu-content">
+            <h1>Hello world</h1>
+            <inline-search></inline-search>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
               headerMenuLinks,

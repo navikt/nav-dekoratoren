@@ -33,3 +33,13 @@ export default function Search({ texts }: { texts: Texts }) {
     </div>
   `;
 }
+
+export function InlineSearchTemplate() {
+  return html` <template id="inline-search-template">
+    <style></style>
+    <div class="inline-search">
+      <input id="inline-search-input" class="decorator-input" type="text" />
+      <h2>Inline search</h2>
+    </div>
+  </template>`;
+}

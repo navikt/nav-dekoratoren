@@ -5,15 +5,19 @@ import {
   Breadcrumbs,
   addEventListeners as addBreadcrumbEventListeners,
 } from '../views/breadcrumbs';
+
 import SearchHit from '../views/search-hit';
+
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
 import { MenuItems } from '@/views/menu-items';
 import { texts } from '@/texts';
 import RenderLanguageSelector from '@/views/language-selector';
 
+// Maybe create a file that does this
 import '@/views/language-selector.client';
 import '@/views/components/toggle-icon-button.client';
+import '@/views/search.client';
 
 import { SearchShowMore } from '@/views/search-show-more';
 

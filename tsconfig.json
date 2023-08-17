@@ -17,7 +17,7 @@
     "types": [
         "vite/client",
         "cypress",
-        "@testing-library/cypress",
+        "@testing-library/cypress"
     ],
     "paths": {
       "@/*": ["./*"]

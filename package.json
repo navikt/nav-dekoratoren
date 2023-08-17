@@ -20,6 +20,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/generator": "^7.22.10",
+    "@babel/traverse": "^7.22.10",
+    "@babel/types": "^7.22.10",
     "@csstools/postcss-global-data": "^2.0.1",
     "@navikt/ds-tokens": "^4.11.2",
     "cors": "^2.8.5",

@@ -6,7 +6,7 @@
 
 html,
 body {
-  height: 100%;
+  height: auto;
 }
 
 :root {
@@ -121,6 +121,12 @@ a {
   border-bottom-left-radius: 2px;
   display: none;
   padding: 32px;
+  box-sizing: border-box;
+}
+
+#menu h2 {
+  font-size: 1.5rem /* 24px */;
+  font-weight: 600;
 }
 
 #menu-items {
@@ -169,11 +175,6 @@ a {
   padding-top: var(--a-spacing-2);
   padding-bottom: var(--a-spacing-3);
   display: inline-block;
-}
-
-#menu h2 {
-  font-size: 1.5rem /* 24px */;
-  font-weight: 600;
 }
 
 #menu-background {
@@ -308,6 +309,10 @@ a {
   stroke: var(--a-text-action);
 }
 
+.header-menu-link a {
+  order: 2;
+}
+
 .header-menu-link-inner {
   color: rgba(0, 103, 197, 1);
   margin-right: 1rem /* 16px */;
@@ -316,6 +321,7 @@ a {
     backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+  order: 1;
 }
 
 .header-menu-link:is(:hover, :focus) .header-menu-link-inner {
@@ -537,6 +543,69 @@ a {
 
   #hovedmeny {
     height: 72px;
+    position: sticky;
+    top: 0px;
+  }
+
+  .icon-button {
+    flex-direction: column;
+    min-width: none;
+    gap: 0px;
+    align-items: center;
+  }
+
+  #my-page-menu,
+  #menu {
+    top: 73px;
+  }
+
+  #menu {
+    padding: 0;
+    left: -100%;
+    display: block;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #menu-content {
+    height: calc(100vh - 73px);
+    overflow-y: auto;
+  }
+
+  #menu.active {
+    transform: translateX(100%);
+  }
+
+  .menu-top {
+    display: none;
+  }
+
+  .header-menu-links.cols-4,
+  .header-menu-links.cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Maybe should be global? */
+  .header-menu-links h3 {
+    font-size: var(--a-font-size-heading-medium);
+    margin: 0;
+    padding: var(--a-spacing-4);
+    padding-bottom: var(--a-spacing-1);
+  }
+
+  .header-menu-link {
+    justify-content: space-between;
+    padding: var(--a-spacing-4);
+  }
+
+  .header-menu-link a {
+    order: 1;
+    font-weight: var(--a-font-weight-bold);
+    font-size: var(--a-font-size-heading-small);
+  }
+
+  .header-menu-link-inner {
+    order: 2;
   }
 }
 
@@ -570,4 +639,9 @@ a {
 
 .text-center {
   text-align: center;
+}
+
+/* Inputs */
+inline-search {
+  background-color: purple;
 }
