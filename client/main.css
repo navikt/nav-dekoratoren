@@ -546,7 +546,8 @@ a {
 }
 
 /* Inputs */
-#inline-search {
+#inline-search,
+.header-menu-link.mobile {
   display: none;
 }
 
@@ -596,6 +597,26 @@ a {
     height: calc(100vh - 73px);
     overflow-y: auto;
     padding: var(--a-spacing-4);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    background-color: white;
+  }
+
+  /* For when nestin is possible */
+
+  #sub-menu-content {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    background-color: red;
+  }
+
+  #menu-content.sub-menu-active {
+    transform: translateX(-100%);
   }
 
   #menu.active {
@@ -624,6 +645,10 @@ a {
     padding: var(--a-spacing-4) 0px;
   }
 
+  .header-menu-link.mobile {
+    display: none;
+  }
+
   .header-menu-link a {
     order: 1;
     font-weight: var(--a-font-weight-bold);
@@ -632,6 +657,14 @@ a {
 
   .header-menu-link-inner {
     order: 2;
+  }
+
+  #header-menu-links .flatten {
+    display: none;
+  }
+
+  .header-menu-link.mobile {
+    display: flex;
   }
 }
 

@@ -1,6 +1,4 @@
 // Should probably have a better name. Here i'm reffering to the buttons on the right
-//
-
 import { IconButton } from './components/icon-button';
 import { BurgerIcon } from './icons/burger';
 import Search from './search';
@@ -9,7 +7,8 @@ import { MyPageMenu, html } from '@/utils';
 import { Texts } from '@/texts';
 import { LoggedInMenu } from './logged-in-menu';
 
-export function MenuItems({
+// Header menu items
+export function HeaderNavbarItems({
   innlogget,
   name,
   texts,

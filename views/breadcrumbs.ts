@@ -63,13 +63,6 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
             </li>
           `,
         )}
-        <!-- {{#breadcrumbs}} -->
-        <!-- <li class="flex items-center before:content-chevronRightIcon"> -->
-        <!--   {{^last}} -->
-        <!--   <a class="text-blue-500 underline" href="{{ url }}">{{ title }}</a> -->
-        <!--   {{/last}} {{#last}} {{ title }} {{/last}} -->
-        <!-- </li> -->
-        <!-- {{/breadcrumbs}} -->
       </ol>
     </nav>
   `;

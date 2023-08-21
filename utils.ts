@@ -68,6 +68,7 @@ export const getData = async (params: Params) => {
     children: Node[];
     displayName: string;
     path?: string;
+    flatten: boolean;
   }
 
   const get = (node: Node, path: string): Node | undefined => {
@@ -119,6 +120,8 @@ export const getData = async (params: Params) => {
   ) {
     throw new Error('Main menu or footer links not found');
   }
+
+  console.log(headerMenuLinks);
 
   return {
     footerLinks,

@@ -1,10 +1,10 @@
-import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
+import type { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
 import { HeaderMenuLinksData, MainMenu, MyPageMenu, html } from '../utils';
 import { Texts } from '../texts';
 import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from './language-selector';
-import { MenuItems } from './menu-items';
+import { HeaderNavbarItems } from './header-navbar-items';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -34,7 +34,6 @@ export function Header({
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
-  // Should maybe just pass components as string
   myPageMenu: MyPageMenu;
 }) {
   return html`
@@ -70,9 +69,7 @@ export function Header({
               }
             </div>
           </div>
-          <!-- Menu button -->
-          <!-- Show different buttons based on auth state -->
-          ${MenuItems({
+          ${HeaderNavbarItems({
             innlogget,
             texts,
             myPageMenu,
@@ -90,11 +87,13 @@ export function Header({
               >Til forsiden</a
             >
           </div>
-            <decorator-loader id="search-loader"></decorator-loader>
+            <div id="sub-menu-content">
+            </div>
             <div id="menu-content">
             <div id="inline-search">
-            <inline-search></inline-search>
+                <inline-search></inline-search>
             </div>
+            <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
               headerMenuLinks,

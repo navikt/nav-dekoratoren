@@ -7,8 +7,12 @@ import {
 } from '../views/breadcrumbs';
 
 import getContent from './get-content';
-import { HeaderMenuLinks } from '@/views/header-menu-links';
-import { MenuItems } from '@/views/menu-items';
+
+import {
+  AddSnarveierListener,
+  HeaderMenuLinks,
+} from '@/views/header-menu-links';
+import { HeaderNavbarItems } from '@/views/header-navbar-items';
 import { texts } from '@/texts';
 import RenderLanguageSelector from '@/views/language-selector';
 
@@ -21,32 +25,13 @@ import '@/views/loader.client';
 import { SearchShowMore } from '@/views/search-show-more';
 import { html } from '@/utils';
 import { SearchEvent } from '@/views/search.client';
+import { replaceElement } from './utils';
 
-/**
- * Conditionally set the innerHTML of an element. To avoid conditionals everywhere.
- * you also avoid having to make a var for the element just to do checking and setting content.
- */
+const breakpoints = {
+  lg: 1024, // See custom-media-queries.css
+} as const;
 
-function replaceElement({
-  selector,
-  html,
-  contentKey = 'innerHTML',
-}: {
-  selector: string;
-  html: string;
-  contentKey?: 'innerHTML' | 'outerHTML';
-}) {
-  return new Promise((resolve) => {
-    const el = document.querySelector(selector);
-
-    if (el) {
-      el[contentKey] = html;
-      resolve(el);
-    }
-
-    resolve(undefined);
-  });
-}
+AddSnarveierListener();
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -115,6 +100,7 @@ window.addEventListener('message', (e) => {
         }
       }
     }
+
     if (e.data.payload.availableLanguages) {
       const el = document.querySelector('language-selector');
       if (el) {
@@ -122,7 +108,9 @@ window.addEventListener('message', (e) => {
       } else {
         // Her appender vi en language selector om den ikke er i DOMen allerede
         // TODO: dette kan garantert gjøres ryddigere!
+        //
         const container = document.querySelector('.decorator-utils-container');
+
         if (container) {
           const temp = document.createElement('div');
           temp.innerHTML =
@@ -182,6 +170,8 @@ function purgeActive(el: HTMLElement) {
   el.classList.remove('active');
 }
 
+let isMenuOpen = false;
+
 function handleMenuButton() {
   // Can probably be done direclty
   const menuButton = document.getElementById('menu-button');
@@ -191,9 +181,21 @@ function handleMenuButton() {
     menuButton?.classList.toggle('active');
     menu?.classList.toggle('active');
     menuBackground?.classList.toggle('active');
+
+    const isMobile = window.innerWidth < breakpoints.lg;
+    isMenuOpen = !isMenuOpen;
+
+    if (!isMobile) return;
+
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   });
 }
 
+// Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
 
 const searchEventHandlers: Record<SearchEvent, () => void> = {
@@ -216,20 +218,6 @@ const searchEventHandlers: Record<SearchEvent, () => void> = {
 for (const [event, handler] of Object.entries(searchEventHandlers)) {
   inlineSearch.addEventListener(event, handler);
 }
-
-// inlineSearch.addEventListener('started-typing', () => {
-//   document.querySelector('#header-menu-links')?.classList.add('is-searching');
-// });
-//
-// inlineSearch.addEventListener('is-searching', () => {
-//     document.querySelector('#search-loader')?.classList.add('active');
-// });
-//
-// inlineSearch.
-//
-// inlineSearch.addEventListener('stopped-search', () => {
-//     document.querySelector('#header-menu-links')?.classList.remove('is-searching');
-// });
 
 // when they click the background
 menuBackground?.addEventListener('click', () => {
@@ -285,7 +273,7 @@ function handleLogin() {
 
         const myPageMenu = await getContent('myPageMenu', {});
 
-        const newMenuItems = MenuItems({
+        const newMenuItems = HeaderNavbarItems({
           innlogget: response.authenticated,
           name: response.name,
           myPageMenu: myPageMenu,
