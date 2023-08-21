@@ -6,8 +6,6 @@ import {
   addEventListeners as addBreadcrumbEventListeners,
 } from '../views/breadcrumbs';
 
-import SearchHit from '../views/search-hit';
-
 import getContent from './get-content';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
 import { MenuItems } from '@/views/menu-items';
@@ -18,8 +16,11 @@ import RenderLanguageSelector from '@/views/language-selector';
 import '@/views/language-selector.client';
 import '@/views/components/toggle-icon-button.client';
 import '@/views/search.client';
+import '@/views/loader.client';
 
 import { SearchShowMore } from '@/views/search-show-more';
+import { html } from '@/utils';
+import { SearchEvent } from '@/views/search.client';
 
 /**
  * Conditionally set the innerHTML of an element. To avoid conditionals everywhere.
@@ -57,8 +58,16 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
           selector: '#search-hits > ul',
           html: hits
             .map(
-              (hit: { displayName: string; highlight: string; href: string }) =>
-                SearchHit({ ...hit }),
+              (hit: {
+                displayName: string;
+                highlight: string;
+                href: string;
+              }) => html`
+                <search-hit href="${hit.href}">
+                  <h2 slot="title">${hit.displayName}</h2>
+                  <p slot="description">${hit.highlight}</p>
+                </search-hit>
+              `,
             )
             .join(''),
         });
@@ -186,11 +195,41 @@ function handleMenuButton() {
 }
 
 const [inlineSearch] = document.getElementsByTagName('inline-search');
-console.log(inlineSearch);
 
-inlineSearch.addEventListener('started-search', () => {
-  console.log('Started searching');
-});
+const searchEventHandlers: Record<SearchEvent, () => void> = {
+  'started-typing': () => {
+    document.querySelector('#header-menu-links')?.classList.add('is-searching');
+  },
+  'is-searching': () => {
+    document.querySelector('#search-loader')?.classList.add('active');
+  },
+  'stopped-searching': () => {
+    document
+      .querySelector('#header-menu-links')
+      ?.classList.remove('is-searching');
+  },
+  'finished-searching': () => {
+    document.querySelector('#search-loader')?.classList.remove('active');
+  },
+};
+
+for (const [event, handler] of Object.entries(searchEventHandlers)) {
+  inlineSearch.addEventListener(event, handler);
+}
+
+// inlineSearch.addEventListener('started-typing', () => {
+//   document.querySelector('#header-menu-links')?.classList.add('is-searching');
+// });
+//
+// inlineSearch.addEventListener('is-searching', () => {
+//     document.querySelector('#search-loader')?.classList.add('active');
+// });
+//
+// inlineSearch.
+//
+// inlineSearch.addEventListener('stopped-search', () => {
+//     document.querySelector('#header-menu-links')?.classList.remove('is-searching');
+// });
 
 // when they click the background
 menuBackground?.addEventListener('click', () => {

@@ -1,7 +1,14 @@
 import { asDefined, html } from '@/utils';
 // import SearchHit from './search-hit';
+//
+const events = {
+  'started-typing': new Event('started-typing'),
+  'is-searching': new Event('is-searching'),
+  'finished-searching': new Event('finished-searching'),
+  'stopped-searching': new Event('stopped-searching'),
+};
 
-export const StartedSearchEvent = new Event('started-search');
+export type SearchEvent = keyof typeof events;
 
 export class InlineSearch extends HTMLElement {
   constructor() {
@@ -11,13 +18,7 @@ export class InlineSearch extends HTMLElement {
     ) as HTMLTemplateElement;
 
     if (template && template.content) {
-      const sheet = new CSSStyleSheet();
-      sheet.replaceSync('@import url("client/main.css")');
-
-      // Import main
-
       const shadowRoot = this.attachShadow({ mode: 'open' });
-      shadowRoot.adoptedStyleSheets = [sheet];
       shadowRoot.appendChild(template.content.cloneNode(true));
 
       // Find input
@@ -33,20 +34,37 @@ export class InlineSearch extends HTMLElement {
 
         if (value.length > 0) {
           closeIconButton.style.display = 'block';
+          this.dispatchEvent(events['started-typing']);
         } else {
           closeIconButton.style.display = 'none';
         }
 
         if (value.length > 2) {
+          this.dispatchEvent(events['is-searching']);
+
+          shadowRoot
+            .querySelector('#inline-search-hits')
+            ?.classList.add('is-searching');
+
           fetch(`/dekoratoren/api/sok?ord=${value}`)
             .then((res) => res.json())
-            .then(({ hits, total }) => {
-              console.log(total);
+            .then(({ hits }) => {
+              // total
+              //Stop showing loader
+              this.dispatchEvent(events['finished-searching']);
+
               const searchHits = asDefined(
+                shadowRoot.querySelector('#inline-search-hits'),
+              ) as HTMLElement;
+
+              const searchHitsList = asDefined(
                 shadowRoot.querySelector('#inline-search-hits > ul'),
               ) as HTMLElement;
 
-              searchHits.innerHTML = hits
+              searchHits.classList.remove('is-searching');
+              console.log(hits);
+
+              searchHitsList.innerHTML = hits
                 .map(
                   (hit: {
                     displayName: string;
@@ -62,16 +80,6 @@ export class InlineSearch extends HTMLElement {
                 .join('');
             });
         }
-
-        this.dispatchEvent(StartedSearchEvent);
-
-        console.log(value);
-        // const event = new CustomEvent('search', {
-        //   detail: {
-        //     value,
-        //   },
-        // });
-        // this.dispatchEvent(event);
       });
     }
   }

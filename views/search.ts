@@ -123,6 +123,13 @@ export function InlineSearchTemplate() {
         width: 32px;
         height: 32px;
       }
+
+      #inline-search-hits {
+      }
+
+      #inline-search-hits.is-searching {
+        display: none;
+      }
     </style>
     <div class="inline-search">
       <label for="inline-search-input" class="big-label">Søk på nav.no</label>
@@ -176,7 +183,7 @@ export function SearchHitTemplate() {
         gap: 6px;
       }
 
-      .search-hit-top svg {
+      .search-hit svg {
         display: none;
       }
 
@@ -190,7 +197,7 @@ export function SearchHitTemplate() {
           gap: 6px;
         }
 
-        .search-hit-top svg {
+        .search-hit svg {
           display: block;
         }
       }

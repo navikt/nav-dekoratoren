@@ -90,8 +90,11 @@ export function Header({
               >Til forsiden</a
             >
           </div>
-          <div id="menu-content">
+            <decorator-loader id="search-loader"></decorator-loader>
+            <div id="menu-content">
+            <div id="inline-search">
             <inline-search></inline-search>
+            </div>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
               headerMenuLinks,
