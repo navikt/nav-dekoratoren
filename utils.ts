@@ -9,6 +9,23 @@ export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+// type AttributeKey = keyof HTMLElement['attributes'];
+
+type Props = Record<string, string | boolean | number | null | undefined>;
+
+// Conditionally add props to an element
+export function spreadProps(props: Props) {
+  const result = [];
+
+  for (const [key, value] of Object.entries(props)) {
+    if (value) {
+      result.push(`${key}="${value}"`);
+    }
+  }
+
+  return result;
+}
+
 // For when you know it is defined to avoid annoying null checks
 export function asDefined<T>(value: T | undefined): NonNullable<T> {
   if (!value) {
@@ -63,14 +80,15 @@ export const getLangKey = (lang: Language): ContentLangKey => {
   }[lang] as ContentLangKey;
 };
 
-export const getData = async (params: Params) => {
-  interface Node {
-    children: Node[];
-    displayName: string;
-    path?: string;
-    flatten: boolean;
-  }
+type Node = {
+  children: Node[];
+  displayName: string;
+  path?: string;
+  flatten: boolean;
+  id: string;
+};
 
+export const getData = async (params: Params) => {
   const get = (node: Node, path: string): Node | undefined => {
     if (path.includes('.')) {
       return path

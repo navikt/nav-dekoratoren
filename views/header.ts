@@ -5,6 +5,7 @@ import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from './language-selector';
 import { HeaderNavbarItems } from './header-navbar-items';
+import { BackChevron } from './icons/back-chevron';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -49,7 +50,6 @@ export function Header({
         >
           <div class="hovedmeny-content">
             <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
-            <!-- Context links -->
             <div
               id="arbeidsflate"
             >
@@ -88,6 +88,11 @@ export function Header({
             >
           </div>
             <div id="sub-menu-content">
+            <div id="mobil-lukk">
+            ${BackChevron()}
+            <span>Tilbake til oversikt</span>
+            </div>
+            <ul></ul>
             </div>
             <div id="menu-content">
             <div id="inline-search">

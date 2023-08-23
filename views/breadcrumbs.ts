@@ -54,7 +54,7 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
                 ? title
                 : html`
                     <a
-                      class="amplitude-link"
+                      class="amplitude-link basic-link"
                       href="${url}"
                       ${handleInApp === true && 'data-handle-in-app="true"'}
                       >${title}</a

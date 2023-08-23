@@ -309,6 +309,29 @@ a {
   font-weight: 600;
 }
 
+.header-menu-links .nested {
+  /* background-color: red; */
+}
+
+.header-menu-links .nested-link {
+  display: none;
+}
+
+@media (--breakpoint-lg) {
+  .header-menu-links .nested-link {
+    display: flex;
+  }
+
+  /* Hide direct */
+  .header-menu-links .nested > h3 {
+    display: none;
+  }
+
+  .header-menu-links .nested > ul {
+    display: none;
+  }
+}
+
 .header-menu-link {
   display: flex;
   align-items: flex-start;
@@ -347,6 +370,8 @@ a {
 .header-menu-link:is(:hover, :focus) a {
   text-decoration-line: underline;
 }
+
+/* Conext link inside header menu */
 
 #sok-dropdown {
   position: absolute;
@@ -443,6 +468,7 @@ a {
   display: flex;
   align-items: center;
   max-width: 1344px;
+  list-style: none;
   /* width: 100%; */
   margin-left: auto;
   margin-right: auto;
@@ -467,6 +493,7 @@ a {
 }
 
 #breadcrumbs-list .list-item::before {
+  place-self: center;
   content: url("data:image/svg+xml,%3Csvg width='1.25em' height='1.25em' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' focusable='false' role='img'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.47 5.97a.75.75 0 0 1 1.06 0l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06L14.44 12 9.47 7.03a.75.75 0 0 1 0-1.06Z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E");
 }
 
@@ -596,11 +623,15 @@ a {
   #menu-content {
     height: calc(100vh - 73px);
     overflow-y: auto;
-    padding: var(--a-spacing-4);
     box-sizing: border-box;
     position: relative;
     z-index: 2;
     background-color: white;
+  }
+
+  #menu-content,
+  #sub-menu-content {
+    padding: var(--a-spacing-4);
   }
 
   /* For when nestin is possible */
@@ -612,7 +643,19 @@ a {
     left: 0px;
     top: 0px;
     right: 0px;
-    background-color: red;
+    background-color: white;
+  }
+
+  #sub-menu-content #mobil-lukk {
+    color: var(--a-text-action);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-1);
+    padding: var(--a-spacing-2);
+    padding-left: 0;
+    text-decoration: underline;
+    margin-bottom: var(--a-spacing-4);
   }
 
   #menu-content.sub-menu-active {
@@ -633,7 +676,8 @@ a {
   }
 
   /* Maybe should be global? */
-  .header-menu-links h3 {
+  .header-menu-links h3,
+  #sub-menu-content h3 {
     font-size: var(--a-font-size-heading-medium);
     margin: 0;
     padding: var(--a-spacing-4) 0px;
@@ -659,9 +703,15 @@ a {
     order: 2;
   }
 
-  #header-menu-links .flatten {
-    display: none;
+  /* For context links inside the menu */
+  .header-menu-context-link {
+    font-weight: var(--a-font-weight-bold);
+    font-size: var(--a-font-size-heading-small);
   }
+
+  /* #header-menu-links .flatten { */
+  /*   display: none; */
+  /* } */
 
   .header-menu-link.mobile {
     display: flex;
