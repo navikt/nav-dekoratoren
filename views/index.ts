@@ -24,6 +24,8 @@ export function Index({
           href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
           rel="stylesheet"
         />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
         <div id="styles" style="display:none">${links}</div>

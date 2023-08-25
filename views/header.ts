@@ -1,11 +1,11 @@
-import { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
+import type { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
 import { HeaderMenuLinksData, MainMenu, MyPageMenu, html } from '../utils';
 import { Texts } from '../texts';
 import { Breadcrumbs } from './breadcrumbs';
 import { HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from './language-selector';
-import { MenuItems } from './menu-items';
-import { BurgerIcon } from './icons/burger';
+import { HeaderNavbarItems } from './header-navbar-items';
+import { BackChevron } from './icons/back-chevron';
 
 export type HeaderProps = Parameters<typeof Header>[0];
 
@@ -35,7 +35,6 @@ export function Header({
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
-  // Should maybe just pass components as string
   myPageMenu: MyPageMenu;
 }) {
   return html`
@@ -51,7 +50,6 @@ export function Header({
         >
           <div class="hovedmeny-content">
             <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
-            <!-- Context links -->
             <div
               id="arbeidsflate"
             >
@@ -71,9 +69,7 @@ export function Header({
               }
             </div>
           </div>
-          <!-- Menu button -->
-          <!-- Show different buttons based on auth state -->
-          ${MenuItems({
+          ${HeaderNavbarItems({
             innlogget,
             texts,
             myPageMenu,
@@ -81,6 +77,7 @@ export function Header({
         <div
           id="menu"
         >
+         <div class="menu-top">
             <h2>
               Hva kan vi hjelpe deg med?
             </h2>
@@ -89,7 +86,19 @@ export function Header({
               href="#"
               >Til forsiden</a
             >
-          <div>
+          </div>
+            <div id="sub-menu-content">
+            <div id="mobil-lukk">
+            ${BackChevron()}
+            <span>Tilbake til oversikt</span>
+            </div>
+            <ul></ul>
+            </div>
+            <div id="menu-content">
+            <div id="inline-search">
+                <inline-search></inline-search>
+            </div>
+            <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
               headerMenuLinks,
@@ -115,13 +124,6 @@ export function Header({
         ${Breadcrumbs({ breadcrumbs })}
         ${LanguageSelector({ availableLanguages })}
       </div>
-      <toggle-icon-button>
-      ${BurgerIcon({
-        slot: 'icon',
-      })}
-      <span slot="idleText">Åpne meny</span>
-      <span slot="openedText">Lukk meny</span>
-      </toggle-icon-button>
     </div>
   `;
 }

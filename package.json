@@ -5,12 +5,11 @@
   "scripts": {
     "prettier": "prettier",
     "lint": "eslint",
-    "tailwind": "npx tailwindcss -i ./client/main.css -o ./public/dist.css --watch",
     "cypress:open": "cypress open",
     "cypress:open:reference": "IS_OLD=true cypress open",
     "cypress:run": "cypress run",
     "cypress:run:reference": "IS_OLD=true cypress run",
-    "dev": "concurrently \"vite\" \"npm run dev-server\" \"npm run tailwind\"",
+    "dev": "concurrently \"vite\" \"npm run dev-server\"",
     "dev-server": "bun --watch --tsconfig-override server/tsconfig.json server/server.ts",
     "build": "vite build",
     "serve": "NODE_ENV=production bun --tsconfig-override server/tsconfig.json server/server.ts",
@@ -21,9 +20,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@navikt/ds-tokens": "^4.7.2",
+    "@babel/core": "^7.22.10",
+    "@babel/generator": "^7.22.10",
+    "@babel/traverse": "^7.22.10",
+    "@babel/types": "^7.22.10",
+    "@csstools/postcss-global-data": "^2.0.1",
+    "@navikt/ds-tokens": "^4.11.2",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nanoid": "^4.0.2"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
@@ -41,6 +46,7 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.27",
+    "postcss-custom-media": "^10.0.0",
     "postcss-prefix-selector": "^1.16.0",
     "prettier": "^3.0.0",
     "rollup-plugin-minify-html-literals-v3": "^1.3.3",

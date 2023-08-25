@@ -9,6 +9,32 @@ export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+// type AttributeKey = keyof HTMLElement['attributes'];
+
+type Props = Record<string, string | boolean | number | null | undefined>;
+
+// Conditionally add props to an element
+export function spreadProps(props: Props) {
+  const result = [];
+
+  for (const [key, value] of Object.entries(props)) {
+    if (value) {
+      result.push(`${key}="${value}"`);
+    }
+  }
+
+  return result;
+}
+
+// For when you know it is defined to avoid annoying null checks
+export function asDefined<T>(value: T | undefined): NonNullable<T> {
+  if (!value) {
+    throw new Error('Value is undefined');
+  }
+
+  return value as NonNullable<T>;
+}
+
 type TemplateStringValues =
   | string
   | string[]
@@ -54,13 +80,15 @@ export const getLangKey = (lang: Language): ContentLangKey => {
   }[lang] as ContentLangKey;
 };
 
-export const getData = async (params: Params) => {
-  interface Node {
-    children: Node[];
-    displayName: string;
-    path?: string;
-  }
+type Node = {
+  children: Node[];
+  displayName: string;
+  path?: string;
+  flatten: boolean;
+  id: string;
+};
 
+export const getData = async (params: Params) => {
   const get = (node: Node, path: string): Node | undefined => {
     if (path.includes('.')) {
       return path
@@ -111,6 +139,8 @@ export const getData = async (params: Params) => {
     throw new Error('Main menu or footer links not found');
   }
 
+  console.log(headerMenuLinks);
+
   return {
     footerLinks,
     mainMenu: mainMenu.map((contextLink) => {
@@ -134,7 +164,6 @@ export function getDataSubset(params: Params, datakey: DataKeys) {
 
 export type GetDataResponse = Awaited<ReturnType<typeof getData>>;
 export type DataKeys = keyof GetDataResponse;
-// These types are the same for now, but if we change later i want it to be reflected which is why i'm doing this.
 export type MainMenu = GetDataResponse['mainMenu'];
 export type FooterLinks = GetDataResponse['footerLinks'];
 export type Personvern = GetDataResponse['personvern'];

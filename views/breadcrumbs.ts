@@ -54,7 +54,7 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
                 ? title
                 : html`
                     <a
-                      class="amplitude-link"
+                      class="amplitude-link basic-link"
                       href="${url}"
                       ${handleInApp === true && 'data-handle-in-app="true"'}
                       >${title}</a
@@ -63,13 +63,6 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
             </li>
           `,
         )}
-        <!-- {{#breadcrumbs}} -->
-        <!-- <li class="flex items-center before:content-chevronRightIcon"> -->
-        <!--   {{^last}} -->
-        <!--   <a class="text-blue-500 underline" href="{{ url }}">{{ title }}</a> -->
-        <!--   {{/last}} {{#last}} {{ title }} {{/last}} -->
-        <!-- </li> -->
-        <!-- {{/breadcrumbs}} -->
       </ol>
     </nav>
   `;

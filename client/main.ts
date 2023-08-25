@@ -5,43 +5,33 @@ import {
   Breadcrumbs,
   addEventListeners as addBreadcrumbEventListeners,
 } from '../views/breadcrumbs';
-import SearchHit from '../views/search-hit';
+
 import getContent from './get-content';
-import { HeaderMenuLinks } from '@/views/header-menu-links';
-import { MenuItems } from '@/views/menu-items';
+
+import {
+  AddSnarveierListener,
+  HeaderMenuLinks,
+} from '@/views/header-menu-links';
+import { HeaderNavbarItems } from '@/views/header-navbar-items';
 import { texts } from '@/texts';
 import RenderLanguageSelector from '@/views/language-selector';
 
+// Maybe create a file that does this
 import '@/views/language-selector.client';
 import '@/views/components/toggle-icon-button.client';
+import '@/views/search.client';
+import '@/views/loader.client';
 
 import { SearchShowMore } from '@/views/search-show-more';
+import { html } from '@/utils';
+import { SearchEvent } from '@/views/search.client';
+import { replaceElement } from './utils';
 
-/**
- * Conditionally set the innerHTML of an element. To avoid conditionals everywhere.
- * you also avoid having to make a var for the element just to do checking and setting content.
- */
+const breakpoints = {
+  lg: 1024, // See custom-media-queries.css
+} as const;
 
-function replaceElement({
-  selector,
-  html,
-  contentKey = 'innerHTML',
-}: {
-  selector: string;
-  html: string;
-  contentKey?: 'innerHTML' | 'outerHTML';
-}) {
-  return new Promise((resolve) => {
-    const el = document.querySelector(selector);
-
-    if (el) {
-      el[contentKey] = html;
-      resolve(el);
-    }
-
-    resolve(undefined);
-  });
-}
+AddSnarveierListener();
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -53,8 +43,16 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
           selector: '#search-hits > ul',
           html: hits
             .map(
-              (hit: { displayName: string; highlight: string; href: string }) =>
-                SearchHit({ ...hit }),
+              (hit: {
+                displayName: string;
+                highlight: string;
+                href: string;
+              }) => html`
+                <search-hit href="${hit.href}">
+                  <h2 slot="title">${hit.displayName}</h2>
+                  <p slot="description">${hit.highlight}</p>
+                </search-hit>
+              `,
             )
             .join(''),
         });
@@ -102,6 +100,7 @@ window.addEventListener('message', (e) => {
         }
       }
     }
+
     if (e.data.payload.availableLanguages) {
       const el = document.querySelector('language-selector');
       if (el) {
@@ -109,7 +108,9 @@ window.addEventListener('message', (e) => {
       } else {
         // Her appender vi en language selector om den ikke er i DOMen allerede
         // TODO: dette kan garantert gjøres ryddigere!
+        //
         const container = document.querySelector('.decorator-utils-container');
+
         if (container) {
           const temp = document.createElement('div');
           temp.innerHTML =
@@ -169,6 +170,8 @@ function purgeActive(el: HTMLElement) {
   el.classList.remove('active');
 }
 
+let isMenuOpen = false;
+
 function handleMenuButton() {
   // Can probably be done direclty
   const menuButton = document.getElementById('menu-button');
@@ -178,7 +181,42 @@ function handleMenuButton() {
     menuButton?.classList.toggle('active');
     menu?.classList.toggle('active');
     menuBackground?.classList.toggle('active');
+
+    const isMobile = window.innerWidth < breakpoints.lg;
+    isMenuOpen = !isMenuOpen;
+
+    if (!isMobile) return;
+
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   });
+}
+
+// Handles mobile search
+const [inlineSearch] = document.getElementsByTagName('inline-search');
+
+const searchEventHandlers: Record<SearchEvent, () => void> = {
+  'started-typing': () => {
+    document.querySelector('#header-menu-links')?.classList.add('is-searching');
+  },
+  'is-searching': () => {
+    document.querySelector('#search-loader')?.classList.add('active');
+  },
+  'stopped-searching': () => {
+    document
+      .querySelector('#header-menu-links')
+      ?.classList.remove('is-searching');
+  },
+  'finished-searching': () => {
+    document.querySelector('#search-loader')?.classList.remove('active');
+  },
+};
+
+for (const [event, handler] of Object.entries(searchEventHandlers)) {
+  inlineSearch.addEventListener(event, handler);
 }
 
 // when they click the background
@@ -235,7 +273,7 @@ function handleLogin() {
 
         const myPageMenu = await getContent('myPageMenu', {});
 
-        const newMenuItems = MenuItems({
+        const newMenuItems = HeaderNavbarItems({
           innlogget: response.authenticated,
           name: response.name,
           myPageMenu: myPageMenu,

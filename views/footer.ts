@@ -1,7 +1,6 @@
-import { Params } from '../params';
-import { FooterLinks, Personvern } from '@/utils';
+import type { Params } from '../params';
+import { FooterLinks, Personvern, html } from '@/utils';
 import { Texts } from '../texts';
-import { html } from '../utils';
 import { ComplexFooter } from './complex-footer';
 import { Feedback } from './feedback';
 import { SimpleFooter } from './simple-footer';

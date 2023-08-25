@@ -1,16 +1,33 @@
 @import '@navikt/ds-tokens';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
 
 html,
 body {
-  height: 100%;
+  height: auto;
 }
 
 :root {
   --primary-font: 'Source Sans 3';
+}
+
+/* workaround for aksel */
+
+/* Resets */
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
@@ -104,6 +121,12 @@ a {
   border-bottom-left-radius: 2px;
   display: none;
   padding: 32px;
+  box-sizing: border-box;
+}
+
+#menu h2 {
+  font-size: 1.5rem /* 24px */;
+  font-weight: 600;
 }
 
 #menu-items {
@@ -154,11 +177,6 @@ a {
   display: inline-block;
 }
 
-#menu h2 {
-  font-size: 1.5rem /* 24px */;
-  font-weight: 600;
-}
-
 #menu-background {
   position: fixed;
   top: 0;
@@ -181,8 +199,7 @@ a {
   position: relative;
   height: 80px;
   background-color: rgba(255, 255, 255, 1);
-  border-color: rgba(207, 207, 207, 1);
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgba(207, 207, 207, 1);
   z-index: 20;
 }
 
@@ -203,26 +220,30 @@ a {
   align-items: center;
   height: 100%;
   width: 100%;
+  padding-left: var(--a-spacing-5);
 }
 
 .context-link {
   height: 100%;
   display: flex;
   align-items: center;
-  border-bottom-width: 4px;
-  border-color: transparent;
+  border-bottom: 4px solid transparent;
+  padding: 0 1rem;
+}
+
+.context-link:hover {
+  border-color: var(--a-gray-300);
 }
 
 .context-link.lenkeActive {
   font-weight: bold;
-  border-color: #3386e0;
+  border-color: var(--a-text-action);
 }
 
-#hovedmeny #arbeidsflate {
+#arbeidsflate {
   display: flex;
   height: 100%;
   align-items: center;
-  gap: 1rem /* 16px */;
   margin-left: 40px;
 }
 
@@ -258,9 +279,21 @@ a {
   display: block;
 }
 
+#search-loader {
+  display: none;
+}
+
+#search-loader.active {
+  display: block;
+}
+
 /* HEADER MENU LINKS */
 .header-menu-links {
   display: grid;
+}
+
+#header-menu-links.is-searching {
+  display: none;
 }
 
 .header-menu-links.cols-4 {
@@ -276,11 +309,43 @@ a {
   font-weight: 600;
 }
 
+.header-menu-links .nested {
+  /* background-color: red; */
+}
+
+.header-menu-links .nested-link {
+  display: none;
+}
+
+@media (--breakpoint-lg) {
+  .header-menu-links .nested-link {
+    display: flex;
+  }
+
+  /* Hide direct */
+  .header-menu-links .nested > h3 {
+    display: none;
+  }
+
+  .header-menu-links .nested > ul {
+    display: none;
+  }
+}
+
 .header-menu-link {
   display: flex;
   align-items: flex-start;
   padding-top: 0.5rem /* 8px */;
   padding-bottom: 0.5rem /* 8px */;
+}
+
+.header-menu-link svg {
+  fill: var(--a-text-action);
+  stroke: var(--a-text-action);
+}
+
+.header-menu-link a {
+  order: 2;
 }
 
 .header-menu-link-inner {
@@ -291,6 +356,7 @@ a {
     backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+  order: 1;
 }
 
 .header-menu-link:is(:hover, :focus) .header-menu-link-inner {
@@ -304,6 +370,8 @@ a {
 .header-menu-link:is(:hover, :focus) a {
   text-decoration-line: underline;
 }
+
+/* Conext link inside header menu */
 
 #sok-dropdown {
   position: absolute;
@@ -327,14 +395,19 @@ a {
   display: block;
 }
 
+/* Some duplication happening here with the search page */
 #search-input {
-  border-width: 2px;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-color: var(--a-blue-500);
-  padding: 12px;
-  max-width: 600px;
+  background-color: white;
+  border: 2px solid var(--a-blue-500);
+  padding: 0.7rem 1rem;
+  border-radius: 3px;
+  box-sizing: border-box;
   width: 100%;
+  min-height: 48px;
+  font-size: 18px;
+  line-height: 24px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 #search-input:focus-visible {
@@ -355,8 +428,7 @@ a {
   padding-left: 0.5rem /* 8px */;
   padding-right: 1rem /* 16px */;
 
-  border-bottom-width: 1px;
-  border-bottom-color: rgba(207, 207, 207, 1);
+  border-bottom: 1px solid rgba(207, 207, 207, 1);
 }
 
 .search-hit:hover {
@@ -396,7 +468,8 @@ a {
   display: flex;
   align-items: center;
   max-width: 1344px;
-  width: 100%;
+  list-style: none;
+  /* width: 100%; */
   margin-left: auto;
   margin-right: auto;
 }
@@ -420,6 +493,7 @@ a {
 }
 
 #breadcrumbs-list .list-item::before {
+  place-self: center;
   content: url("data:image/svg+xml,%3Csvg width='1.25em' height='1.25em' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' focusable='false' role='img'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.47 5.97a.75.75 0 0 1 1.06 0l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06L14.44 12 9.47 7.03a.75.75 0 0 1 0-1.06Z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E");
 }
 
@@ -496,6 +570,152 @@ a {
 .icon-button-span {
   font-weight: 600;
   white-space: nowrap;
+}
+
+/* Inputs */
+#inline-search,
+.header-menu-link.mobile {
+  display: none;
+}
+
+/*  Breakpoints  */
+@media (--breakpoint-lg) {
+  #arbeidsflate {
+    display: none;
+  }
+
+  #inline-search {
+    display: block;
+  }
+
+  /* Search button moves to mobile menu */
+
+  #search-button {
+    display: none;
+  }
+
+  #hovedmeny {
+    height: 72px;
+    position: sticky;
+    top: 0px;
+  }
+
+  .icon-button {
+    flex-direction: column;
+    min-width: none;
+    gap: 0px;
+    align-items: center;
+  }
+
+  #my-page-menu,
+  #menu {
+    top: 73px;
+  }
+
+  #menu {
+    padding: 0;
+    left: -100%;
+    display: block;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #menu-content {
+    height: calc(100vh - 73px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    background-color: white;
+  }
+
+  #menu-content,
+  #sub-menu-content {
+    padding: var(--a-spacing-4);
+  }
+
+  /* For when nestin is possible */
+
+  #sub-menu-content {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    background-color: white;
+  }
+
+  #sub-menu-content #mobil-lukk {
+    color: var(--a-text-action);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-1);
+    padding: var(--a-spacing-2);
+    padding-left: 0;
+    text-decoration: underline;
+    margin-bottom: var(--a-spacing-4);
+  }
+
+  #menu-content.sub-menu-active {
+    transform: translateX(-100%);
+  }
+
+  #menu.active {
+    transform: translateX(100%);
+  }
+
+  .menu-top {
+    display: none;
+  }
+
+  .header-menu-links.cols-4,
+  .header-menu-links.cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Maybe should be global? */
+  .header-menu-links h3,
+  #sub-menu-content h3 {
+    font-size: var(--a-font-size-heading-medium);
+    margin: 0;
+    padding: var(--a-spacing-4) 0px;
+    padding-bottom: var(--a-spacing-1);
+  }
+
+  .header-menu-link {
+    justify-content: space-between;
+    padding: var(--a-spacing-4) 0px;
+  }
+
+  .header-menu-link.mobile {
+    display: none;
+  }
+
+  .header-menu-link a {
+    order: 1;
+    font-weight: var(--a-font-weight-bold);
+    font-size: var(--a-font-size-heading-small);
+  }
+
+  .header-menu-link-inner {
+    order: 2;
+  }
+
+  /* For context links inside the menu */
+  .header-menu-context-link {
+    font-weight: var(--a-font-weight-bold);
+    font-size: var(--a-font-size-heading-small);
+  }
+
+  /* #header-menu-links .flatten { */
+  /*   display: none; */
+  /* } */
+
+  .header-menu-link.mobile {
+    display: flex;
+  }
 }
 
 /*  Utils  */

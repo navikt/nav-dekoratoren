@@ -29,6 +29,20 @@ export default function () {
             gap: 6px;
         }
 
+        /* Should find a better soluion for this */
+        @media (max-width: 1024px) {
+            .opened, .idle {
+                flex-direction: column;
+                align-items: center;
+                gap: 0px;
+            }
+
+            .button {
+                min-width: 0px;
+                justify-content: center;
+                align-items: center;
+            }
+        }
 
         .opened ::slotted(span), .idle ::slotted(span) {
             font-weight: 600;
@@ -68,7 +82,7 @@ export default function () {
 
         </style>
         <button
-          class="button"
+          class="button toggle-icon-button"
         >
           <div class="idle">
             <slot name="icon"></slot>
