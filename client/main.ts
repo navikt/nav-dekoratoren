@@ -10,6 +10,7 @@ import getContent from './get-content';
 
 import {
   AddSnarveierListener,
+  HeaderMenuLinkCols,
   HeaderMenuLinks,
 } from '@/views/header-menu-links';
 import { HeaderNavbarItems } from '@/views/header-navbar-items';
@@ -21,17 +22,25 @@ import '@/views/language-selector.client';
 import '@/views/components/toggle-icon-button.client';
 import '@/views/search.client';
 import '@/views/loader.client';
+import '@/views/decorator-lens.client';
 
 import { SearchShowMore } from '@/views/search-show-more';
 import { html } from '@/utils';
 import { SearchEvent } from '@/views/search.client';
-import { replaceElement } from './utils';
+import { hasClass, replaceElement } from './utils';
+import { Context } from '@/params';
+import { attachLensListener } from '@/views/decorator-lens.client';
 
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
 
+const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
+
+// Initialize
 AddSnarveierListener();
+addBreadcrumbEventListeners();
+attachLensListener();
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -68,7 +77,7 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
   }
 });
 
-addBreadcrumbEventListeners();
+// Listen for f5 input
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -131,15 +140,27 @@ document
   .querySelectorAll('.context-link')
   .forEach((contextLink) =>
     contextLink.addEventListener('click', () =>
-      setActiveContext(contextLink.getAttribute('data-context')),
+      setActiveContext(contextLink.getAttribute('data-context') as Context),
     ),
   );
 
-async function setActiveContext(context: string | null) {
-  if (
-    context &&
-    ['privatperson', 'arbeidsgiver', 'samarbeidspartner'].includes(context)
-  ) {
+// For inside menu.
+document.body.addEventListener('click', (e) => {
+  e.preventDefault();
+  const target = hasClass({
+    element: e.target as HTMLElement,
+    className: 'context-menu-link-wrapper',
+  });
+
+  if (target) {
+    // alert('Found a context menu link wrapper')
+    const newContext = target.getAttribute('data-context') as Context;
+    setActiveContext(newContext);
+  }
+});
+
+async function setActiveContext(context: Context | null) {
+  if (context && CONTEXTS.includes(context)) {
     document
       .querySelectorAll('.context-link')
       .forEach((el) =>
@@ -148,15 +169,17 @@ async function setActiveContext(context: string | null) {
           : el.classList.remove('lenkeActive'),
       );
 
+    const headerMenuLinks = await getContent('headerMenuLinks', {
+      context,
+    });
+
     replaceElement({
       selector: '#header-menu-links',
       html: HeaderMenuLinks({
         headerMenuLinks: await getContent('headerMenuLinks', {
-          context: context as
-            | 'privatperson'
-            | 'arbeidsgiver'
-            | 'samarbeidspartner',
+          context,
         }),
+        cols: headerMenuLinks.length as HeaderMenuLinkCols,
       }),
     });
   } else {
@@ -195,6 +218,14 @@ function handleMenuButton() {
   });
 }
 
+// Keeping this for later when fixing opening menus and such
+// function dismissMenu() {
+//     const menu = document.getElementById('menu');
+//     const menuButton = document.getElementById('menu-button');
+//
+//     [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
+// }
+
 // Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
 
@@ -227,6 +258,7 @@ menuBackground?.addEventListener('click', () => {
   [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 });
 
+// Feedback
 const buttons = document.querySelectorAll('.feedback-content button');
 
 buttons.forEach((button) => {

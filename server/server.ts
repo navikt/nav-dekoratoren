@@ -11,6 +11,8 @@ import {
   mockSessionHandler,
   refreshMockSessionHandler,
 } from '@/server/mock/sessionMock';
+import { DecoratorEnv } from '@/views/decorator-env';
+import { DecoratorLens } from '@/decorator-lens';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = 3000;
@@ -143,6 +145,7 @@ app.get('/data/:key', async (req, res) => {
 
 app.use('/', async (req, res) => {
   const data = await getData(req.decorator);
+  const fullUrl = req.protocol + '://' + req.get('host');
 
   res.status(200).send(
     Index({
@@ -166,6 +169,15 @@ app.use('/', async (req, res) => {
         footerLinks: data.footerLinks,
         simple: req.decorator.simple,
         feedback: req.decorator.feedback,
+      }),
+      env: DecoratorEnv({
+        origin: fullUrl,
+        env: req.decorator,
+      }),
+      lens: DecoratorLens({
+        origin: fullUrl,
+        env: req.decorator,
+        query: req.query,
       }),
     }),
   );

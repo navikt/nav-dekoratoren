@@ -1,7 +1,7 @@
 import { type Params } from '@/params';
 import type { DataKeys, GetDataResponse } from '@/utils';
 
-function formatParams(params: Partial<Params>) {
+export function formatParams(params: Partial<Params>) {
   return new URLSearchParams(
     Object.entries(params).map(([k, v]) =>
       Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v.toString()],

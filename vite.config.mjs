@@ -11,7 +11,7 @@ export default defineConfig({
     origin: 'http://localhost:5173',
   },
   build: {
-      minify: false,
+      minify: true,
 
     manifest: true,
     rollupOptions: {
