@@ -81,7 +81,11 @@ function ContextLink({
   className?: string;
 }) {
   return html`
-    <a href="${context}" data-context="${context}">
+    <a
+      class="context-menu-link-wrapper"
+      href="${context}"
+      data-context="${context}"
+    >
       <li class="context-menu-link ${className}" id="${id}">
         <div class="context-menu-link-inner">
           ${ForwardChevron({

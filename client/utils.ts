@@ -29,17 +29,17 @@ export function hasClass({
 }: {
   element: HTMLElement | null;
   className: string;
-}): boolean {
+}): HTMLElement | null {
   let currentElement: HTMLElement | null = element;
 
   while (currentElement) {
     if (currentElement.classList.contains(className)) {
-      return true;
+      return currentElement;
     }
     currentElement = currentElement.parentElement;
   }
 
-  return false;
+  return null;
 }
 
 export function hasId({

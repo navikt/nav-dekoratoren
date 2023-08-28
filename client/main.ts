@@ -27,7 +27,7 @@ import '@/views/decorator-lens.client';
 import { SearchShowMore } from '@/views/search-show-more';
 import { html } from '@/utils';
 import { SearchEvent } from '@/views/search.client';
-import { replaceElement } from './utils';
+import { hasClass, replaceElement } from './utils';
 import { Context } from '@/params';
 import { attachLensListener } from '@/views/decorator-lens.client';
 
@@ -143,6 +143,21 @@ document
       setActiveContext(contextLink.getAttribute('data-context') as Context),
     ),
   );
+
+// For inside menu.
+document.body.addEventListener('click', (e) => {
+  e.preventDefault();
+  const target = hasClass({
+    element: e.target as HTMLElement,
+    className: 'context-menu-link-wrapper',
+  });
+
+  if (target) {
+    // alert('Found a context menu link wrapper')
+    const newContext = target.getAttribute('data-context') as Context;
+    setActiveContext(newContext);
+  }
+});
 
 async function setActiveContext(context: Context | null) {
   if (context && CONTEXTS.includes(context)) {
