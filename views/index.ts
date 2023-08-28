@@ -7,12 +7,16 @@ export function Index({
   links,
   header,
   footer,
+  env,
+  lens,
 }: {
   language: string;
   scripts: string;
   links: string;
   header: string;
   footer: string;
+  env: string;
+  lens: string;
 }) {
   return html`
     <!doctype html>
@@ -31,7 +35,7 @@ export function Index({
         <div id="styles" style="display:none">${links}</div>
         ${WebcomponentTemplates()} ${header}
         <main>main</main>
-        ${footer}
+        ${footer} ${env} ${lens}
         <div id="scripts" style="display:none">${scripts}</div>
       </body>
     </html>

@@ -18,3 +18,45 @@ export function replaceElement({
     resolve(undefined);
   });
 }
+
+/**
+ * Used to check if an element or it's parents has a class. Usefull when using event listeners where you don't directly attach to the element
+ */
+// @TODO: These two can probably be conssolidated somehow.
+export function hasClass({
+  element,
+  className,
+}: {
+  element: HTMLElement | null;
+  className: string;
+}): boolean {
+  let currentElement: HTMLElement | null = element;
+
+  while (currentElement) {
+    if (currentElement.classList.contains(className)) {
+      return true;
+    }
+    currentElement = currentElement.parentElement;
+  }
+
+  return false;
+}
+
+export function hasId({
+  element,
+  id,
+}: {
+  element: HTMLElement | null;
+  id: string;
+}): boolean {
+  let currentElement: HTMLElement | null = element;
+
+  while (currentElement) {
+    if (currentElement.id.includes(id)) {
+      return true;
+    }
+    currentElement = currentElement.parentElement;
+  }
+
+  return false;
+}

@@ -298,6 +298,10 @@ a {
   display: none;
 }
 
+.header-menu-links.cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .header-menu-links.cols-4 {
   grid-template-columns: repeat(4, 1fr);
 }
@@ -744,6 +748,7 @@ a {
     display: none;
   }
 
+  .header-menu-links.cols-5,
   .header-menu-links.cols-4,
   .header-menu-links.cols-3 {
     grid-template-columns: 1fr;
@@ -826,4 +831,12 @@ a {
 
 .text-center {
   text-align: center;
+}
+
+decorator-lens {
+  display: none;
+}
+
+decorator-lens.active {
+  display: block;
 }

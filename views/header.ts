@@ -2,7 +2,7 @@ import type { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
 import { HeaderMenuLinksData, MainMenu, MyPageMenu, html } from '../utils';
 import { Texts } from '../texts';
 import { Breadcrumbs } from './breadcrumbs';
-import { HeaderMenuLinks } from './header-menu-links';
+import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from './language-selector';
 import { HeaderNavbarItems } from './header-navbar-items';
 import { BackChevron } from './icons/back-chevron';
@@ -102,6 +102,7 @@ export function Header({
             <div id="header-menu-links">
             ${HeaderMenuLinks({
               headerMenuLinks,
+              cols: headerMenuLinks.length as HeaderMenuLinkCols,
             })}
             </div>
           </div>

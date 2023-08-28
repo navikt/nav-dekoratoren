@@ -103,6 +103,9 @@ export const getData = async (params: Params) => {
       (response) => response.json(),
     ),
     displayName: '',
+    // TS complains, can be fixed by adding a type to the node
+    flatten: false,
+    id: '',
   };
 
   const contextKey = getContextKey(params.context);
@@ -138,8 +141,6 @@ export const getData = async (params: Params) => {
   ) {
     throw new Error('Main menu or footer links not found');
   }
-
-  console.log(headerMenuLinks);
 
   return {
     footerLinks,
