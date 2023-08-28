@@ -61,8 +61,33 @@ function Link({
   `;
 }
 
+function ContextLink({
+  path,
+  displayName,
+  id,
+  className,
+}: {
+  path?: string;
+  displayName?: string;
+  id?: string;
+  className?: string;
+}) {
+  return html`
+    <a href="${path}">
+      <li class="context-menu-link ${className}" id="${id}">
+        <div class="context-menu-link-inner">
+          ${ForwardChevron({
+            className: 'chevron',
+          })}
+        </div>
+        <span>${displayName}</span>
+      </li>
+    </a>
+  `;
+}
+
 export function HeaderMenuLinks({
-  cols = '4',
+  cols = '3',
   className = '',
   headerMenuLinks,
 }: {
@@ -94,6 +119,19 @@ export function HeaderMenuLinks({
         path: '#',
         className: 'mobile',
       })}
+      <li>
+        <ul id="menu-context-links">
+          ${ContextLink({
+            displayName: 'Privatperson',
+          })}
+          ${ContextLink({
+            displayName: 'Arbeidsgiver',
+          })}
+          ${ContextLink({
+            displayName: 'Samarbeidspartner',
+          })}
+        </ul>
+      </li>
     </ul>
   `;
 }

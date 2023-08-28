@@ -104,17 +104,6 @@ export function Header({
               headerMenuLinks,
             })}
             </div>
-            <ul>
-              <li>
-                <a href="/minside">Min side</a>
-              </li>
-              <li>
-                <a href="/no/bedrift">Arbeidsgiver</a>
-              </li>
-              <li>
-                <a href="/no/samarbeidspartner">Samarbeidspartner</a>
-              </li>
-            </ul>
           </div>
         </div>
       </header>
