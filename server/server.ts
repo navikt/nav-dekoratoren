@@ -13,9 +13,10 @@ import {
 } from '@/server/mock/sessionMock';
 import { DecoratorEnv } from '@/views/decorator-env';
 import { DecoratorLens } from '@/decorator-lens';
+import { isAliveHandler, isReadyHandler } from './common';
 
 const isProd = process.env.NODE_ENV === 'production';
-const port = 3000;
+const port = isProd ? 3000 : 8089;
 const host = process.env.HOST ?? `http://localhost:${port}`;
 
 const entryPointPath = 'client/main.ts';
@@ -60,6 +61,8 @@ app.use(cors());
 app.use(express.static(isProd ? 'dist' : 'public'));
 app.use(decoratorParams);
 
+app.use('/api/isReady', isReadyHandler);
+app.use('/api/isAlive', isAliveHandler);
 app.use('/api/auth', mockAuthHandler);
 app.get('/api/oauth2/session', mockSessionHandler);
 app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);

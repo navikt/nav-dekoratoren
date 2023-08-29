@@ -8,6 +8,14 @@ metadata:
 spec:
   image: {{image}}
   port: 3000
+  ingresses:
+    - https://decorator-next.ekstern.dev.nav.no
+  liveness:
+    path: /api/isAlive
+    initialDelay: 10
+  readiness:
+    path: /api/isReady
+    initialDelay: 10
   accessPolicy:
     outbound:
       external:
@@ -24,5 +32,3 @@ spec:
   env:
     - name: HOST
       value: https://decorator-next.ekstern.dev.nav.no
-  ingresses:
-    - https://decorator-next.ekstern.dev.nav.no
