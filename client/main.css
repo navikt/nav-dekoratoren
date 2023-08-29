@@ -817,7 +817,7 @@ a {
 #driftsmeldinger a {
   display: flex;
   align-items: center;
-  gap: var(--a-spacing-1);
+  gap: var(--a-spacing-4);
 }
 
 #driftsmeldinger a p {

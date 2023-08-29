@@ -7,7 +7,8 @@ export async function fetchDriftsMeldinger() {
   const driftsmeldinger = (await data.json()) as Driftsmelding[];
 
   const header = document.querySelector('.siteheader');
-  if (header) {
+
+  if (header && driftsmeldinger) {
     header.insertAdjacentHTML(
       'afterend',
       Driftsmeldinger({
