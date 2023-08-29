@@ -16,7 +16,8 @@ import { DecoratorLens } from '@/decorator-lens';
 import { isAliveHandler, isReadyHandler } from './common';
 
 const isProd = process.env.NODE_ENV === 'production';
-const port = isProd ? 3000 : 8089;
+const isLocal = process.env.NODE_ENV === 'local';
+const port = isLocal ? 8089 : 3000;
 const host = process.env.HOST ?? `http://localhost:${port}`;
 
 const entryPointPath = 'client/main.ts';
