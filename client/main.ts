@@ -30,6 +30,7 @@ import { SearchEvent } from '@/views/search.client';
 import { hasClass, replaceElement } from './utils';
 import { Context } from '@/params';
 import { attachLensListener } from '@/views/decorator-lens.client';
+import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
 
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
@@ -41,6 +42,7 @@ const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 AddSnarveierListener();
 addBreadcrumbEventListeners();
 attachLensListener();
+fetchDriftsMeldinger();
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -146,13 +148,13 @@ document
 
 // For inside menu.
 document.body.addEventListener('click', (e) => {
-  e.preventDefault();
   const target = hasClass({
     element: e.target as HTMLElement,
     className: 'context-menu-link-wrapper',
   });
 
   if (target) {
+    e.preventDefault();
     // alert('Found a context menu link wrapper')
     const newContext = target.getAttribute('data-context') as Context;
     setActiveContext(newContext);

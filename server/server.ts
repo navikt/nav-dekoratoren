@@ -14,20 +14,15 @@ import {
 import { DecoratorEnv } from '@/views/decorator-env';
 import { DecoratorLens } from '@/decorator-lens';
 
-import { env } from './env/server';
+import { driftsmeldingerHandler } from './api/driftsmeldinger';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = 3000;
 const host = process.env.HOST ?? `http://localhost:${port}`;
 
-const API_XP_SERVICES_URL =
-  process.env.API_XP_SERVICES_URL ?? 'https://www.nav.no';
-
 const entryPointPath = 'client/main.ts';
 
 const script = (src: string) => `<script type="module" src="${src}"></script>`;
-
-console.log(env.API_XP_SERVICES_URL);
 
 const getResources = async () => {
   const resources = (
@@ -97,15 +92,7 @@ app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
   });
 });
 
-const driftsmeldingerServiceUrl = `${API_XP_SERVICES_URL}/no.nav.navno/driftsmeldinger`;
-
-app.use('/dekoratoren/api/driftsmeldinger', async (req, res) => {
-  const response = await fetch(driftsmeldingerServiceUrl);
-  // const response=await fetch(driftsmeldingerServiceUrl);
-  // const data=await response.json();
-  // res.json(data);
-  res.status(200).send(await response.text());
-});
+app.use('/dekoratoren/api/driftsmeldinger', driftsmeldingerHandler);
 
 app.use('/footer', async (req, res) => {
   const params = req.decorator;

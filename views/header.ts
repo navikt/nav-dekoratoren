@@ -43,7 +43,7 @@ export function Header({
         id="menu-background"
       ></div>
       <header
-        id="hovedmeny"
+        class="siteheader"
       >
         <div
           class="hovedmeny-wrapper"

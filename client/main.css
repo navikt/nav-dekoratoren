@@ -197,7 +197,7 @@ a {
   transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#hovedmeny {
+.siteheader {
   position: relative;
   height: 79px;
   background-color: rgba(255, 255, 255, 1);
@@ -205,7 +205,7 @@ a {
   z-index: 20;
 }
 
-#hovedmeny .hovedmeny-wrapper {
+.siteheader .hovedmeny-wrapper {
   max-width: 1344px;
   width: 100%;
   margin: 0 auto;
@@ -690,7 +690,7 @@ a {
     display: none;
   }
 
-  #hovedmeny {
+  .siteheader {
     height: 72px;
     position: sticky;
     top: 0px;
@@ -799,6 +799,31 @@ a {
   #sub-menu-content #mobil-lukk {
     display: flex;
   }
+}
+
+/* #driftsmeldinger h1 { */
+/*     margin: 0 */
+/* } */
+
+#driftsmeldinger {
+  /* background-color: red; */
+  background-color: var(--a-deepblue-600);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#driftsmeldinger a {
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-1);
+}
+
+#driftsmeldinger a p {
+  /* Seems to be global, can probably be specified at a higher level */
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /*  Utils  */
