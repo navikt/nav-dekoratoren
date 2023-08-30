@@ -60,3 +60,11 @@ export function hasId({
 
   return false;
 }
+
+export function setAriaExpanded(el: HTMLElement) {
+  if (!el.getAttribute('aria-expanded')) {
+    el.setAttribute('aria-expanded', 'true');
+  } else {
+    el.removeAttribute('aria-expanded');
+  }
+}

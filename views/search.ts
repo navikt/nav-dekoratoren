@@ -3,18 +3,27 @@ import { Texts } from '../texts';
 import { IconButton } from './components/icon-button';
 import { SearchIcon } from './icons/search';
 import { CloseIcon } from './icons/close';
+import { setAriaExpanded } from '@/client/utils';
 
-// All of this can probably be made into a web componetn
+export function handleSearchButtonClick() {
+  const searchButton = document.getElementById('search-button');
+
+  searchButton?.addEventListener('click', () => {
+    setAriaExpanded(searchButton);
+    searchButton?.classList.toggle('active');
+    document.getElementById('sok-dropdown')?.classList.toggle('active');
+    document.getElementById('menu-background')?.classList.toggle('active');
+  });
+}
 
 export default function Search({ texts }: { texts: Texts }) {
   return html`
-    <search-button id="search-button">
+    <button id="search-button" class="icon-button">
       ${SearchIcon({
-        slot: 'icon',
+        className: 'searchIcon menuSearch',
       })}
-      <span slot="idleText">${texts.search}</span>
-      <span slot="openedText">${texts.close}</span>
-    </search-button>
+      <span class="icon-button-span"> ${texts.search} </span>
+    </button>
     <div id="sok-dropdown">
       <div id="sok-dropdown-content">
         <label for="search-input" class="big-label">Søk på nav.no</label>

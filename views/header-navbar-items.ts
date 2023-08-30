@@ -23,13 +23,12 @@ export function HeaderNavbarItems({
   return html`
     <div id="menu-items" class="${innlogget && 'loggedin'}">
       <div id="menu-items-universal-links">
-        <toggle-icon-button id="menu-button">
+        <button id="menu-button" class="icon-button">
           ${BurgerIcon({
-            slot: 'icon',
+            className: 'menuBurger',
           })}
-          <span slot="idleText">Meny</span>
-          <span slot="openedText">Lukk</span>
-        </toggle-icon-button>
+          <span class="icon-button-span"> ${texts.menu} </span>
+        </button>
         ${Search({ texts })}
       </div>
       ${innlogget

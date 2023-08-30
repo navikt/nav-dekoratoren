@@ -27,10 +27,11 @@ import '@/views/decorator-lens.client';
 import { SearchShowMore } from '@/views/search-show-more';
 import { html } from '@/utils';
 import { SearchEvent } from '@/views/search.client';
-import { hasClass, replaceElement } from './utils';
+import { hasClass, replaceElement, setAriaExpanded } from './utils';
 import { Context } from '@/params';
 import { attachLensListener } from '@/views/decorator-lens.client';
 import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
+import { handleSearchButtonClick } from '@/views/search';
 
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
@@ -43,6 +44,7 @@ AddSnarveierListener();
 addBreadcrumbEventListeners();
 attachLensListener();
 fetchDriftsMeldinger();
+handleSearchButtonClick();
 
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
@@ -202,6 +204,7 @@ function handleMenuButton() {
   const menuButton = document.getElementById('menu-button');
 
   menuButton?.addEventListener('click', () => {
+    setAriaExpanded(menuButton);
     const menu = document.getElementById('menu');
     menuButton?.classList.toggle('active');
     menu?.classList.toggle('active');
