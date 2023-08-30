@@ -88,7 +88,7 @@ type Node = {
   id: string;
 };
 
-export const getData = async (params: Params) => {
+export const buildDataStructure = async (params: Params) => {
   const get = (node: Node, path: string): Node | undefined => {
     if (path.includes('.')) {
       return path
@@ -160,10 +160,10 @@ export const getData = async (params: Params) => {
 };
 
 export function getDataSubset(params: Params, datakey: DataKeys) {
-  return getData(params).then((data) => data[datakey]);
+  return buildDataStructure(params).then((data) => data[datakey]);
 }
 
-export type GetDataResponse = Awaited<ReturnType<typeof getData>>;
+export type GetDataResponse = Awaited<ReturnType<typeof buildDataStructure>>;
 export type DataKeys = keyof GetDataResponse;
 export type MainMenu = GetDataResponse['mainMenu'];
 export type FooterLinks = GetDataResponse['footerLinks'];

@@ -1,6 +1,6 @@
 import express, { Request } from 'express';
 import cors from 'cors';
-import { DataKeys, getData } from '@/utils';
+import { DataKeys, buildDataStructure } from '@/utils';
 import { Index } from '@/views/index';
 import { Footer } from '@/views/footer';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
@@ -98,23 +98,23 @@ app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
 app.use('/dekoratoren/api/driftsmeldinger', driftsmeldingerHandler);
 
 app.use('/footer', async (req, res) => {
-  const params = req.decorator;
+  const params = req.decoratorParams;
   // Maybe make into middleware
-  const data = await getData(params);
+  const data = await buildDataStructure(params);
 
   return res.status(200).send(
     Footer({
-      simple: req.decorator.simple,
+      simple: req.decoratorParams.simple,
       personvern: data.personvern,
       footerLinks: data.footerLinks,
-      feedback: req.decorator.feedback,
+      feedback: req.decoratorParams.feedback,
       texts: data.texts,
     }),
   );
 });
 
 app.use('/inspect-data', async (req, res) => {
-  const data = await getData(req.decorator);
+  const data = await buildDataStructure(req.decoratorParams);
   const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
   res.json({
     data,
@@ -123,8 +123,8 @@ app.use('/inspect-data', async (req, res) => {
 });
 
 app.use('/header', async (req, res) => {
-  const params = req.decorator;
-  const data = await getData(params);
+  const params = req.decoratorParams;
+  const data = await buildDataStructure(params);
   return res.status(200).send(
     HeaderMenuLinks({
       headerMenuLinks: data.headerMenuLinks,
@@ -140,7 +140,7 @@ app.get('/data/:key', async (req, res) => {
     return res.status(400).send('Missing key');
   }
 
-  const data = await getData(req.decorator);
+  const data = await buildDataStructure(req.decoratorParams);
   const subset = data[dataKey];
 
   if (!subset) {
@@ -151,39 +151,39 @@ app.get('/data/:key', async (req, res) => {
 });
 
 app.use('/', async (req, res) => {
-  const data = await getData(req.decorator);
+  const data = await buildDataStructure(req.decoratorParams);
   const fullUrl = req.protocol + '://' + req.get('host');
 
   res.status(200).send(
     Index({
       scripts: resources.scripts,
       links: resources.styles,
-      language: req.decorator.language,
+      language: req.decoratorParams.language,
       header: Header({
         texts: data.texts,
         mainMenu: data.mainMenu,
         headerMenuLinks: data.headerMenuLinks,
         innlogget: false,
         isNorwegian: true,
-        breadcrumbs: req.decorator.breadcrumbs,
-        utilsBackground: req.decorator.utilsBackground,
-        availableLanguages: req.decorator.availableLanguages,
+        breadcrumbs: req.decoratorParams.breadcrumbs,
+        utilsBackground: req.decoratorParams.utilsBackground,
+        availableLanguages: req.decoratorParams.availableLanguages,
         myPageMenu: data.myPageMenu,
       }),
       footer: Footer({
         texts: data.texts,
         personvern: data.personvern,
         footerLinks: data.footerLinks,
-        simple: req.decorator.simple,
-        feedback: req.decorator.feedback,
+        simple: req.decoratorParams.simple,
+        feedback: req.decoratorParams.feedback,
       }),
       env: DecoratorEnv({
         origin: fullUrl,
-        env: req.decorator,
+        env: req.decoratorParams,
       }),
       lens: DecoratorLens({
         origin: fullUrl,
-        env: req.decorator,
+        env: req.decoratorParams,
         query: req.query,
       }),
     }),
