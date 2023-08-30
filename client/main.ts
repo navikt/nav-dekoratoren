@@ -202,6 +202,13 @@ function handleMenuButton() {
   const menuButton = document.getElementById('menu-button');
 
   menuButton?.addEventListener('click', () => {
+    // Set aria expanded
+    if (!menuButton.getAttribute('aria-expanded')) {
+      menuButton.setAttribute('aria-expanded', 'true');
+    } else {
+      menuButton.removeAttribute('aria-expanded');
+    }
+
     const menu = document.getElementById('menu');
     menuButton?.classList.toggle('active');
     menu?.classList.toggle('active');
