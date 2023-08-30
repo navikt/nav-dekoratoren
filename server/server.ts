@@ -15,6 +15,8 @@ import { DecoratorEnv } from '@/views/decorator-env';
 import { DecoratorLens } from '@/decorator-lens';
 import { isAliveHandler, isReadyHandler } from './common';
 
+import { driftsmeldingerHandler } from './api/driftsmeldinger';
+
 const isProd = process.env.NODE_ENV === 'production';
 const isLocal = process.env.NODE_ENV === 'local';
 const port = isLocal ? 8089 : 3000;
@@ -93,6 +95,8 @@ app.use('/dekoratoren/api/sok', async (req: Request<{ ord: string }>, res) => {
     total: results.total,
   });
 });
+
+app.use('/dekoratoren/api/driftsmeldinger', driftsmeldingerHandler);
 
 app.use('/footer', async (req, res) => {
   const params = req.decorator;
