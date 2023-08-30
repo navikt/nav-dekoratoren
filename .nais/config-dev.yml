@@ -32,3 +32,5 @@ spec:
   env:
     - name: HOST
       value: https://decorator-next.ekstern.dev.nav.no
+    - name: PORT
+      value: 3000

@@ -18,8 +18,7 @@ import { isAliveHandler, isReadyHandler } from './common';
 import { driftsmeldingerHandler } from './api/driftsmeldinger';
 
 const isProd = process.env.NODE_ENV === 'production';
-const isLocal = process.env.NODE_ENV === 'local';
-const port = isLocal ? 8089 : 3000;
+const port = process.env.PORT;
 const host = process.env.HOST ?? `http://localhost:${port}`;
 
 const entryPointPath = 'client/main.ts';
