@@ -29,7 +29,7 @@ export type HeaderProps = {
 } & Pick<Params, 'simple'>;
 
 export function getHeader(props: HeaderProps) {
-  if (props.simple) {
+  if (!props.simple) {
     return ComplexHeader(props);
   }
   return SimpleHeader(props);

@@ -73,6 +73,7 @@ export function setAriaExpanded(el: HTMLElement) {
 
 export function hydrateParams(): Params {
   const params = document.querySelector('#decorator-params');
+  console.log('params', params);
   if (params) {
     return JSON.parse(params.innerHTML);
   }

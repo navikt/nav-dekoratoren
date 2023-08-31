@@ -2,9 +2,9 @@ import { html } from '@/utils';
 import { Breadcrumbs } from '@/views/breadcrumbs';
 import { HeaderMenuLinkCols, HeaderMenuLinks } from '@/views/header-menu-links';
 import LanguageSelector from '@/views/language-selector';
-import { HeaderNavbarItems } from '@/views/header-navbar-items';
 import { BackChevron } from '@/views/icons/back-chevron';
-import { HeaderProps } from '.';
+import { HeaderProps, utilsBackgroundClasses } from '.';
+import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
 
 export function ComplexHeader({
   isNorwegian,
@@ -49,7 +49,7 @@ export function ComplexHeader({
               }
             </div>
           </div>
-          ${HeaderNavbarItems({
+          ${ComplexHeaderNavbarItems({
             innlogget,
             texts,
             myPageMenu,

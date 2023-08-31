@@ -13,7 +13,7 @@ import {
   HeaderMenuLinkCols,
   HeaderMenuLinks,
 } from '@/views/header-menu-links';
-import { HeaderNavbarItems } from '@/views/header-navbar-items';
+import { getHeaderNavbarItems } from '@/views/header/navbar-items';
 import { texts } from '@/texts';
 import RenderLanguageSelector from '@/views/language-selector';
 
@@ -252,8 +252,9 @@ function handleMenuButton() {
 
 // Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
+console.log(window.decoratorParams.simple);
 
-if (!window.decoratorParams.simple) {
+if (window.decoratorParams.simple === false) {
   const searchEventHandlers: Record<SearchEvent, () => void> = {
     'started-typing': () => {
       document
@@ -319,6 +320,7 @@ function handleLogin() {
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
+      console.log('Login button');
       const response = (await (await fetch('/api/auth')).json()) as {
         authenticated: boolean;
         name: string;
@@ -333,13 +335,16 @@ function handleLogin() {
 
         const myPageMenu = await getContent('myPageMenu', {});
 
-        const newMenuItems = HeaderNavbarItems({
-          innlogget: response.authenticated,
-          name: response.name,
-          myPageMenu: myPageMenu,
-          // For testing
-          texts: texts['no'],
-        });
+        const newMenuItems = getHeaderNavbarItems(
+          {
+            innlogget: response.authenticated,
+            name: response.name,
+            myPageMenu: myPageMenu,
+            // For testing
+            texts: texts['no'],
+          },
+          window.decoratorParams.simple,
+        );
 
         menuItems.outerHTML = newMenuItems;
 

@@ -1,14 +1,14 @@
 // Should probably have a better name. Here i'm reffering to the buttons on the right
-import { IconButton } from './components/icon-button';
-import { BurgerIcon } from './icons/burger';
-import Search from './search';
-import { LoginIcon } from './icons/login';
+import { IconButton } from '@/views/components/icon-button';
+import { BurgerIcon } from '@/views/icons/burger';
+import Search from '@/views/search';
+import { LoginIcon } from '@/views/icons/login';
 import { MyPageMenu, html } from '@/utils';
 import { Texts } from '@/texts';
-import { LoggedInMenu } from './logged-in-menu';
+import { LoggedInMenu } from '@/views/logged-in-menu';
 
 // Header menu items
-export function HeaderNavbarItems({
+export function ComplexHeaderNavbarItems({
   innlogget,
   name,
   texts,
