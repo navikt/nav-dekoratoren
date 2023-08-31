@@ -225,6 +225,12 @@ a {
   padding-left: var(--a-spacing-12);
 }
 
+@media (--breakpoint-lg) {
+  .hovedmeny-wrapper .hovedmeny-content {
+    padding-left: var(--a-spacing-4);
+  }
+}
+
 .context-link {
   height: 100%;
   display: flex;

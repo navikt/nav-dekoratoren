@@ -1,3 +1,5 @@
+import { type Params } from '@/params';
+
 export function replaceElement({
   selector,
   html,
@@ -67,4 +69,13 @@ export function setAriaExpanded(el: HTMLElement) {
   } else {
     el.removeAttribute('aria-expanded');
   }
+}
+
+export function hydrateParams(): Params {
+  const params = document.querySelector('#decorator-params');
+  if (params) {
+    return JSON.parse(params.innerHTML);
+  }
+
+  throw new Error('Could not find params');
 }

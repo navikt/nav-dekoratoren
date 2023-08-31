@@ -1,22 +1,12 @@
-import type { AvailableLanguage, Breadcrumb, UtilsBackground } from '../params';
-import { HeaderMenuLinksData, MainMenu, MyPageMenu, html } from '../utils';
-import { Texts } from '../texts';
-import { Breadcrumbs } from './breadcrumbs';
-import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
-import LanguageSelector from './language-selector';
-import { HeaderNavbarItems } from './header-navbar-items';
-import { BackChevron } from './icons/back-chevron';
+import { html } from '@/utils';
+import { Breadcrumbs } from '@/views/breadcrumbs';
+import { HeaderMenuLinkCols, HeaderMenuLinks } from '@/views/header-menu-links';
+import LanguageSelector from '@/views/language-selector';
+import { HeaderNavbarItems } from '@/views/header-navbar-items';
+import { BackChevron } from '@/views/icons/back-chevron';
+import { HeaderProps } from '.';
 
-export type HeaderProps = Parameters<typeof Header>[0];
-
-const utilsBackgroundClasses = {
-  white: 'decorator-utils-container_white',
-  gray: 'decorator-utils-container_gray',
-  transparent: 'decorator-utils-container_transparent',
-  '': '',
-} as const;
-
-export function Header({
+export function ComplexHeader({
   isNorwegian,
   mainMenu,
   headerMenuLinks,
@@ -26,17 +16,7 @@ export function Header({
   utilsBackground,
   availableLanguages,
   myPageMenu,
-}: {
-  isNorwegian: boolean;
-  mainMenu: MainMenu;
-  texts: Texts;
-  headerMenuLinks: HeaderMenuLinksData;
-  innlogget: boolean;
-  breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground;
-  availableLanguages: AvailableLanguage[];
-  myPageMenu: MyPageMenu;
-}) {
+}: HeaderProps) {
   return html`
     <div id="header-withmenu">
       <div
