@@ -32,8 +32,9 @@ export const driftsmeldingerHandler: RequestHandler = async (req, res) => {
 };
 
 export const searchHandler: RequestHandler = async (req, res) => {
+  const sokServiceUrl = `${env.API_XP_SERVICES_URL}/navno.nav.no.search/search2/sok`;
   const results = (await (
-    await fetch(`https://www.nav.no/dekoratoren/api/sok?ord=${req.query.ord}`)
+    await fetch(`${sokServiceUrl}?ord=${req.query.ord}`)
   ).json()) as SearchResponse;
 
   res.json({

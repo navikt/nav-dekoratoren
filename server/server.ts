@@ -36,7 +36,7 @@ app.get('/api/oauth2/session', mockSessionHandler);
 app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
 
 // Service handlers
-app.use('/dekoratoren/api/sok', searchHandler);
+app.use('/api/sok', searchHandler);
 app.use('/dekoratoren/api/driftsmeldinger', driftsmeldingerHandler);
 
 // Data handlers

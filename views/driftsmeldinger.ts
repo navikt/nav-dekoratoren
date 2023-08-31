@@ -1,4 +1,4 @@
-import { Driftsmelding } from '@/server/api/driftsmeldinger';
+import { Driftsmelding } from '@/server/handlers/serviceHandlers';
 import { html } from '@/utils';
 import { WarningIcon } from '@/views/icons/warning';
 

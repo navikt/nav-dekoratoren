@@ -52,7 +52,7 @@ handleSearchButtonClick();
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
   if (value.length > 2) {
-    fetch(`/dekoratoren/api/sok?ord=${value}`)
+    fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?ord=${value}`)
       .then((res) => res.json())
       .then(({ hits, total }) => {
         replaceElement({

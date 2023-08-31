@@ -46,7 +46,9 @@ export class InlineSearch extends HTMLElement {
             .querySelector('#inline-search-hits')
             ?.classList.add('is-searching');
 
-          fetch(`/dekoratoren/api/sok?ord=${value}`)
+          fetch(
+            `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?ord=${value}`,
+          )
             .then((res) => res.json())
             .then(({ hits }) => {
               // total
