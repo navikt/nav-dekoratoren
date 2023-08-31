@@ -10,9 +10,7 @@
     "paths": {
       "@/*": ["../*"]
     },
-    "types": [
-      "bun-types"
-    ]
+    "types": ["bun-types"]
   },
   "include": ["vite.config.mjs"]
 }

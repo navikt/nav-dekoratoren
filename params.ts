@@ -8,21 +8,17 @@ const contextSchema = z.enum([
   'samarbeidspartner',
 ]);
 
-export type Context = z.infer<typeof contextSchema>;
-export type Language = z.infer<typeof languageSchema>;
-
 export const breadcrumbSchema = z.object({
   title: z.string(),
   url: z.string(),
   handleInApp: z.boolean().default(false).optional(),
 });
-
-export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
-
 const utilsBackground = z.enum(['white', 'gray', 'transparent']);
 
+export type Context = z.infer<typeof contextSchema>;
+export type Language = z.infer<typeof languageSchema>;
+export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 export type UtilsBackground = z.infer<typeof utilsBackground>;
-
 export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const availableLanguageSchema = z.object({
@@ -55,7 +51,7 @@ const paramsSchema = z.object({
 export type Params = z.infer<typeof paramsSchema>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const parseParams = (params: any) => {
+export const validateParams = (params: any) => {
   return paramsSchema.safeParse({
     ...params,
     simple: parseBooleanParam(params.simple),
@@ -71,10 +67,4 @@ export const parseParams = (params: any) => {
 
 function parseBooleanParam(param: string | undefined): boolean {
   return param === 'true' ? true : false;
-}
-
-export function parseParamsClient(params: URLSearchParams) {
-  return Object.entries(params).map(([k, v]) =>
-    Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v.toString()],
-  );
 }

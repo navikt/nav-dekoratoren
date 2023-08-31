@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import { Params, parseParams } from '@/params';
+import { Params, validateParams } from '@/params';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     export interface Request {
-      decorator: Params;
+      decoratorParams: Params;
     }
   }
 }
@@ -15,13 +15,12 @@ export function decoratorParams(
   res: Response,
   next: NextFunction,
 ) {
-  const result = parseParams(req.query);
-
-  if (result.success) {
-    req.decorator = result.data;
+  const validParams = validateParams(req.query);
+  if (validParams.success) {
+    req.decoratorParams = validParams.data;
   } else {
-    console.error(result.error);
-    res.status(400).send(result.error);
+    console.error(validParams.error);
+    res.status(400).send(validParams.error);
   }
 
   next();
