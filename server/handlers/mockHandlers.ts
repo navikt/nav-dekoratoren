@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 
 const TOKEN_MOCK_SECONDS = 60 * 60;
 const SESSION_MOCK_SECONDS = 60 * 60 * 6;
 
-export const mockAuthHandler = (req: Request, res: Response) => {
+export const mockAuthHandler: RequestHandler = (req, res) => {
   const mockAuth = {
     authenticated: true,
     name: 'LOKAL MOCK',
@@ -136,11 +136,11 @@ const getMockSession = () => {
   };
 };
 
-export const refreshMockSessionHandler = (req: Request, res: Response) => {
+export const refreshMockSessionHandler: RequestHandler = (req, res) => {
   refreshToken();
   res.json(getMockSession());
 };
 
-export const mockSessionHandler = (req: Request, res: Response) => {
+export const mockSessionHandler: RequestHandler = (req, res) => {
   res.json(getMockSession());
 };

@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import { buildDataStructure, DataKeys } from '@/utils';
 
-export const inspectData = async (req: Request, res: Response) => {
+export const inspectData: RequestHandler = async (req, res) => {
   const data = await buildDataStructure(req.decoratorParams);
   const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
   res.json({
@@ -10,7 +10,7 @@ export const inspectData = async (req: Request, res: Response) => {
   });
 };
 
-export const dataHandlers = async (req: Request, res: Response) => {
+export const dataHandlers: RequestHandler = async (req, res) => {
   const { params } = req;
   const dataKey = params.key as DataKeys;
 

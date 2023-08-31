@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 
 import { buildDataStructure } from '@/utils';
 import { DecoratorEnv } from '@/views/decorator-env';
@@ -48,7 +48,7 @@ const getResources = async () => {
 
 const resources = await getResources();
 
-export const headerHandler = async (req: Request, res: Response) => {
+export const headerHandler: RequestHandler = async (req, res) => {
   const params = req.decoratorParams;
   const data = await buildDataStructure(params);
   return res.status(200).send(
@@ -58,7 +58,7 @@ export const headerHandler = async (req: Request, res: Response) => {
   );
 };
 
-export const footerHandler = async (req: Request, res: Response) => {
+export const footerHandler: RequestHandler = async (req, res) => {
   const params = req.decoratorParams;
   // Maybe make into middleware
   const data = await buildDataStructure(params);
@@ -74,7 +74,7 @@ export const footerHandler = async (req: Request, res: Response) => {
   );
 };
 
-export const indexHandler = async (req: Request, res: Response) => {
+export const indexHandler: RequestHandler = async (req, res) => {
   const data = await buildDataStructure(req.decoratorParams);
   const fullUrl = req.protocol + '://' + req.get('host');
 

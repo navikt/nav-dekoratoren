@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 
 import { env } from '@/server/env/server';
 
@@ -25,16 +25,13 @@ export type Driftsmelding = {
   urlscope: string[];
 };
 
-export const driftsmeldingerHandler = async (req: Request, res: Response) => {
+export const driftsmeldingerHandler: RequestHandler = async (req, res) => {
   const response = await fetch(driftsmeldingerServiceUrl);
   const driftsmeldinger = await response.json();
   res.send(driftsmeldinger);
 };
 
-export const searchHandler = async (
-  req: Request<{ ord: string }>,
-  res: Response,
-) => {
+export const searchHandler: RequestHandler = async (req, res) => {
   const results = (await (
     await fetch(`https://www.nav.no/dekoratoren/api/sok?ord=${req.query.ord}`)
   ).json()) as SearchResponse;
