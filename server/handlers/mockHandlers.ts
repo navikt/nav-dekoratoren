@@ -3,6 +3,16 @@ import { Request, Response } from 'express';
 const TOKEN_MOCK_SECONDS = 60 * 60;
 const SESSION_MOCK_SECONDS = 60 * 60 * 6;
 
+export const mockAuthHandler = (req: Request, res: Response) => {
+  const mockAuth = {
+    authenticated: true,
+    name: 'LOKAL MOCK',
+    securityLevel: '4',
+  };
+
+  res.json(mockAuth);
+};
+
 export type APISessionData = {
   session: {
     created_at: string;

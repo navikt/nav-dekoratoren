@@ -16,9 +16,6 @@ export function decoratorParams(
   next: NextFunction,
 ) {
   const validParams = validateParams(req.query);
-  // console.log(validParams);
-  console.log('decoratorParams');
-
   if (validParams.success) {
     req.decoratorParams = validParams.data;
   } else {
