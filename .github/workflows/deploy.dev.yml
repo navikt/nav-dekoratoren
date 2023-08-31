@@ -19,6 +19,13 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: '0.7.2'
+      - name: Define app environmment
+        run: |
+            cat > .env <<EOF
+            ENV=production
+            API_XP_SERVICES_URL=https://www.nav.no/_/service
+            PORT=3000
+            EOF
       - name: Install dependencies
         run: bun install --immutable
         env:

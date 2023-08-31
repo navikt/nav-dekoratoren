@@ -2,6 +2,7 @@ FROM oven/bun:0.8.1
 
 WORKDIR /app
 
+COPY .env /app/
 COPY package.json /app/
 COPY *.ts /app/
 COPY tsconfig.json /app/
