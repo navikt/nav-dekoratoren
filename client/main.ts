@@ -32,12 +32,15 @@ import { Context } from '@/params';
 import { attachLensListener } from '@/views/decorator-lens.client';
 import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
 import { handleSearchButtonClick } from '@/views/search';
+import { initLoggedInMenu } from '@/views/logged-in-menu';
 
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
+
+// Client side environment variables, mocking for now.
 
 // Initialize
 AddSnarveierListener();
@@ -319,6 +322,8 @@ function handleLogin() {
         });
 
         menuItems.outerHTML = newMenuItems;
+
+        initLoggedInMenu();
 
         handleMenuButton();
 
