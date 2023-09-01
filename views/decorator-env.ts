@@ -14,8 +14,8 @@ export function DecoratorEnv({
       id="decorator-env"
       data-src="${origin}?${formatParams(env).toString()}"
     ></div>
-    <script type="application/javascript" id="decorator-params">
-      ${JSON.stringify(env)};
+    <script type="application/json" id="decorator-params">
+      ${JSON.stringify(env)}
     </script>
   `;
 }
