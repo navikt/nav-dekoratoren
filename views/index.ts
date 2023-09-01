@@ -1,5 +1,9 @@
 import { html } from '../utils';
 import { WebcomponentTemplates } from './components';
+import { partytownSnippet } from '@builder.io/partytown/integration';
+
+const snippetText = partytownSnippet();
+console.log('snippetText', snippetText);
 
 export function Index({
   language,
@@ -30,6 +34,17 @@ export function Index({
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script>
+          partytown = {
+            forward: ['dataLayer.push'],
+          };
+        </script>
+        <script>
+          ${snippetText};
+        </script>
+        <script type="text/partytown">
+          console.log("Hello")
+        </script>
       </head>
       <body>
         <div id="styles" style="display:none">${links}</div>

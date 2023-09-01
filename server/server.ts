@@ -23,9 +23,12 @@ const isProd = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
 const app = express();
 
+const staticFolder = isProd ? 'dist' : 'public';
+console.log(`Serving static files from ${staticFolder}`);
+
 // Setup middleware
 app.use(cors());
-app.use(express.static(isProd ? 'dist' : 'public'));
+app.use(express.static(staticFolder));
 app.use(decoratorParams);
 
 // Liveness and mock handlers
