@@ -93,6 +93,7 @@ export const indexHandler: RequestHandler = async (req, res) => {
         utilsBackground: req.decoratorParams.utilsBackground,
         availableLanguages: req.decoratorParams.availableLanguages,
         myPageMenu: data.myPageMenu,
+        simple: req.decoratorParams.simple,
       }),
       footer: Footer({
         texts: data.texts,

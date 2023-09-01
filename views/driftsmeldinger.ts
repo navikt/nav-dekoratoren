@@ -8,7 +8,7 @@ export async function fetchDriftsMeldinger() {
 
   const header = document.querySelector('.siteheader');
 
-  if (header && driftsmeldinger) {
+  if (header && driftsmeldinger.length > 0) {
     header.insertAdjacentHTML(
       'afterend',
       Driftsmeldinger({

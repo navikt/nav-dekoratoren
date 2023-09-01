@@ -93,3 +93,16 @@ export function LoggedInMenu({
     </div>
   `;
 }
+
+export function SimpleLoggedInMenu({ name }: { name: string }) {
+  return html`
+    <div id="simple-logged-in-menu">
+      <p><b>Logget inn:</b> ${name}</p>
+      ${IconButton({
+        id: 'logout-button',
+        Icon: LoginIcon,
+        text: 'Logg ut',
+      })}
+    </div>
+  `;
+}
