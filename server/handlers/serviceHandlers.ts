@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 
 import { env } from '@/server/env/server';
+import { getCachedRequestHandler } from './helpers/menuHelper';
 
 type SearchHit = {
   displayName: string;
@@ -42,3 +43,5 @@ export const searchHandler: RequestHandler = async (req, res) => {
     total: results.total,
   });
 };
+
+export const menuHandler: RequestHandler = getCachedRequestHandler();

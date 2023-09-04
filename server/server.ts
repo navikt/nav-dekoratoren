@@ -6,6 +6,7 @@ import { isAliveHandler, isReadyHandler } from './handlers/livenessHandlers';
 import {
   driftsmeldingerHandler,
   searchHandler,
+  menuHandler,
 } from './handlers/serviceHandlers';
 import { dataHandlers, inspectData } from './handlers/dataHandlers';
 import {
@@ -18,7 +19,6 @@ import {
   headerHandler,
   indexHandler,
 } from './handlers/domHandlers';
-import { menuHandler } from './handlers/helpers/menuHelper';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;

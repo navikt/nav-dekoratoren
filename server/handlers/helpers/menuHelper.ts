@@ -5,14 +5,9 @@ import NodeCache from 'node-cache';
 
 const cacheKey = 'navno-menu';
 
-type RevalidateCacheFunc = (cache: NodeCache) => Promise<unknown>;
-
 // Returns a RequestHandler with a cached response. The cache is periodically revalidated
 // with the supplied function
-const getCachedRequestHandler = (
-  revalidateCacheFunc: RevalidateCacheFunc,
-  cacheKey: string,
-): RequestHandler => {
+export const getCachedRequestHandler = (): RequestHandler => {
   const cache = new NodeCache({
     stdTTL: 10,
     deleteOnExpire: false,
@@ -27,7 +22,7 @@ const getCachedRequestHandler = (
 
     isFetching = true;
 
-    revalidateCacheFunc(cache).finally(() => {
+    revalidateMenuCache(cache).finally(() => {
       isFetching = false;
     });
   };
@@ -52,8 +47,9 @@ const getCachedRequestHandler = (
   };
 };
 
-const revalidateMenuCache = async (cache: NodeCache) => {
+export const revalidateMenuCache = async (cache: NodeCache) => {
   const menuServiceUrl = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
+  console.log(menuServiceUrl);
   return fetch(menuServiceUrl)
     .then((response) => {
       if (response.status === 200) {
@@ -79,8 +75,3 @@ const revalidateMenuCache = async (cache: NodeCache) => {
       }
     });
 };
-
-export const menuHandler: RequestHandler = getCachedRequestHandler(
-  revalidateMenuCache,
-  cacheKey,
-);
