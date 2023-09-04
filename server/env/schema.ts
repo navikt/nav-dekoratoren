@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 export const serverSchema = z.object({
-  API_XP_SERVICES_URL: z.string().url(),
-  DECORATOR_BASE_URL: z.string().url(),
+  ENONICXP_SERVICES: z.string().url(),
+  VITE_DECORATOR_BASE_URL: z.string().url(),
 });
 
 export const serverEnv = {
-  API_XP_SERVICES_URL: process.env.API_XP_SERVICES_URL,
-  DECORATOR_BASE_URL: process.env.DECORATOR_BASE_URL,
+  ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
+  VITE_DECORATOR_BASE_URL: process.env.VITE_DECORATOR_BASE_URL,
 };

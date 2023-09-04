@@ -3,7 +3,9 @@ import { buildDataStructure, DataKeys } from '@/utils';
 
 export const inspectData: RequestHandler = async (req, res) => {
   const data = await buildDataStructure(req.decoratorParams);
-  const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
+  const raw = await fetch(
+    `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/menu`,
+  );
   res.json({
     data,
     raw: await raw.json(),

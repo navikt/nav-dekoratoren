@@ -18,6 +18,7 @@ import {
   headerHandler,
   indexHandler,
 } from './handlers/domHandlers';
+import { menuHandler } from './handlers/helpers/menuHelper';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
@@ -37,7 +38,8 @@ app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
 
 // Service handlers
 app.use('/api/sok', searchHandler);
-app.use('/dekoratoren/api/driftsmeldinger', driftsmeldingerHandler);
+app.use('/api/menu', menuHandler);
+app.use('/api/driftsmeldinger', driftsmeldingerHandler);
 
 // Data handlers
 app.use('/data/inspect-data', inspectData);

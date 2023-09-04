@@ -24,7 +24,7 @@ jobs:
             cat > .env <<EOF
             ENV=production
             VITE_DECORATOR_BASE_URL=https://decorator-next.ekstern.dev.nav.no
-            API_XP_SERVICES_URL=https://www.nav.no/_/service
+            ENONICXP_SERVICES=https://www.nav.no/_/service
             PORT=3000
             EOF
       - name: Install dependencies

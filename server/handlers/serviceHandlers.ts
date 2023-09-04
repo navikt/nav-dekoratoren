@@ -17,8 +17,6 @@ type SearchResponse = {
   hits: SearchHit[];
 };
 
-const driftsmeldingerServiceUrl = `${env.API_XP_SERVICES_URL}/no.nav.navno/driftsmeldinger`;
-
 export type Driftsmelding = {
   heading: string;
   url: string;
@@ -26,13 +24,15 @@ export type Driftsmelding = {
 };
 
 export const driftsmeldingerHandler: RequestHandler = async (req, res) => {
+  console.log(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`);
+  const driftsmeldingerServiceUrl = `${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`;
   const response = await fetch(driftsmeldingerServiceUrl);
   const driftsmeldinger = await response.json();
   res.send(driftsmeldinger);
 };
 
 export const searchHandler: RequestHandler = async (req, res) => {
-  const sokServiceUrl = `${env.API_XP_SERVICES_URL}/navno.nav.no.search/search2/sok`;
+  const sokServiceUrl = `${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`;
   const results = (await (
     await fetch(`${sokServiceUrl}?ord=${req.query.ord}`)
   ).json()) as SearchResponse;

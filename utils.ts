@@ -1,4 +1,5 @@
 import { Context, Language, Params } from './params';
+import { env } from './server/env/server';
 import { Texts, texts } from './texts';
 
 function getContextKey(context: Context) {
@@ -99,7 +100,7 @@ export const buildDataStructure = async (params: Params) => {
   };
 
   const menu = {
-    children: await fetch('https://www.nav.no/dekoratoren/api/meny').then(
+    children: await fetch(`${env.VITE_DECORATOR_BASE_URL}/api/menu`).then(
       (response) => response.json(),
     ),
     displayName: '',

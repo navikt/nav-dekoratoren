@@ -3,7 +3,9 @@ import { html } from '@/utils';
 import { WarningIcon } from '@/views/icons/warning';
 
 export async function fetchDriftsMeldinger() {
-  const data = await fetch('/dekoratoren/api/driftsmeldinger');
+  const data = await fetch(
+    `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/driftsmeldinger`,
+  );
   const driftsmeldinger = (await data.json()) as Driftsmelding[];
 
   const header = document.querySelector('.siteheader');
