@@ -4,7 +4,9 @@ import { buildDataStructure, DataKeys } from '@/utils';
 export const inspectData: RequestHandler = async (req, res) => {
   const data = await buildDataStructure(req.decoratorParams);
   try {
-    const raw = await fetch(`/api/menu`);
+    const raw = await fetch(
+      `https://decorator-next.ekstern.dev.nav.no/api/menu`,
+    );
     res.json({
       data,
       raw: await raw.json(),
@@ -15,7 +17,6 @@ export const inspectData: RequestHandler = async (req, res) => {
 };
 
 export const dataHandlers: RequestHandler = async (req, res) => {
-  console.log(`${process.env.VITE_DECORATOR_BASE_URL}/api/menu`);
   const { params } = req;
   const dataKey = params.key as DataKeys;
 
