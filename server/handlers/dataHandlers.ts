@@ -2,10 +2,9 @@ import { RequestHandler } from 'express';
 import { buildDataStructure, DataKeys } from '@/utils';
 
 export const inspectData: RequestHandler = async (req, res) => {
+  `${process.env.VITE_DECORATOR_BASE_URL}/api/menu`;
   const data = await buildDataStructure(req.decoratorParams);
-  const raw = await fetch(
-    `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/menu`,
-  );
+  const raw = await fetch(`${process.env.VITE_DECORATOR_BASE_URL}/api/menu`);
   res.json({
     data,
     raw: await raw.json(),
@@ -13,6 +12,7 @@ export const inspectData: RequestHandler = async (req, res) => {
 };
 
 export const dataHandlers: RequestHandler = async (req, res) => {
+  console.log(`${process.env.VITE_DECORATOR_BASE_URL}/api/menu`);
   const { params } = req;
   const dataKey = params.key as DataKeys;
 
