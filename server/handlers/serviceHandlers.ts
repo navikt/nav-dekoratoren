@@ -33,7 +33,7 @@ export const driftsmeldingerHandler: RequestHandler = async (req, res) => {
 };
 
 export const searchHandler: RequestHandler = async (req, res) => {
-  const sokServiceUrl = `${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`;
+  const sokServiceUrl = `https://www.nav.no/dekoratoren/api/sok`;
   const results = (await (
     await fetch(`${sokServiceUrl}?ord=${req.query.ord}`)
   ).json()) as SearchResponse;

@@ -14,9 +14,7 @@ export default function getContent<TKey extends DataKeys>(
   params: Partial<Params>,
 ): Promise<GetDataResponse[TKey]> {
   const url = new URL(
-    `${import.meta.env.VITE_DECORATOR_BASE_URL}/data/${key}?${formatParams(
-      params,
-    )}`,
+    `/data/${key}?${formatParams(params)}`,
     window.location.origin,
   );
 
