@@ -4,11 +4,16 @@ import { buildDataStructure, DataKeys } from '@/utils';
 export const inspectData: RequestHandler = async (req, res) => {
   `${process.env.VITE_DECORATOR_BASE_URL}/api/menu`;
   const data = await buildDataStructure(req.decoratorParams);
-  const raw = await fetch(`${process.env.VITE_DECORATOR_BASE_URL}/api/menu`);
-  res.json({
-    data,
-    raw: await raw.json(),
-  });
+  try {
+    console.log(`Fetch menu: ${process.env.VITE_DECORATOR_BASE_URL}/api/menu`);
+    const raw = await fetch(`${process.env.VITE_DECORATOR_BASE_URL}/api/menu`);
+    res.json({
+      data,
+      raw: await raw.json(),
+    });
+  } catch (e) {
+    console.error(`Failed to fetch menu: ${e}`);
+  }
 };
 
 export const dataHandlers: RequestHandler = async (req, res) => {
