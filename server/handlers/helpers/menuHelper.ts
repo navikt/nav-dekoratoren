@@ -49,7 +49,6 @@ export const getCachedRequestHandler = (): RequestHandler => {
 
 export const revalidateMenuCache = async (cache: NodeCache) => {
   const menuServiceUrl = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
-  console.log(menuServiceUrl);
   return fetch(menuServiceUrl)
     .then((response) => {
       if (response.status === 200) {

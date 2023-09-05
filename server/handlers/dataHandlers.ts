@@ -1,10 +1,11 @@
 import { RequestHandler } from 'express';
 import { buildDataStructure, DataKeys } from '@/utils';
+import { env } from '../env/server';
 
 export const inspectData: RequestHandler = async (req, res) => {
   const data = await buildDataStructure(req.decoratorParams);
   try {
-    const raw = await fetch(`https://www.nav.no/dekoratoren/api/meny`);
+    const raw = await fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`);
     res.json({
       data,
       raw: await raw.json(),

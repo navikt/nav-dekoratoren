@@ -2,6 +2,7 @@ node_modules/
 public/dist.css
 *.log
 dist/
+.DS_Store
 
 # yarn 3
 .pnp.*

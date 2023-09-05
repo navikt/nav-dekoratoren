@@ -252,7 +252,6 @@ function handleMenuButton() {
 
 // Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
-console.log(window.decoratorParams.simple);
 
 if (window.decoratorParams.simple === false) {
   const searchEventHandlers: Record<SearchEvent, () => void> = {
@@ -321,7 +320,9 @@ function handleLogin() {
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
       console.log('Login button');
-      const response = (await (await fetch('/api/auth')).json()) as {
+      const response = (await (
+        await fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/auth`)
+      ).json()) as {
         authenticated: boolean;
         name: string;
         level: string;

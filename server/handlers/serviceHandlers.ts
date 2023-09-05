@@ -25,7 +25,6 @@ export type Driftsmelding = {
 };
 
 export const driftsmeldingerHandler: RequestHandler = async (req, res) => {
-  console.log(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`);
   const driftsmeldingerServiceUrl = `${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`;
   const response = await fetch(driftsmeldingerServiceUrl);
   const driftsmeldinger = await response.json();
@@ -33,7 +32,7 @@ export const driftsmeldingerHandler: RequestHandler = async (req, res) => {
 };
 
 export const searchHandler: RequestHandler = async (req, res) => {
-  const sokServiceUrl = `https://www.nav.no/dekoratoren/api/sok`;
+  const sokServiceUrl = `${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`;
   const results = (await (
     await fetch(`${sokServiceUrl}?ord=${req.query.ord}`)
   ).json()) as SearchResponse;
