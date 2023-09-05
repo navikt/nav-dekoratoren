@@ -39,6 +39,12 @@ import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
 import { handleSearchButtonClick } from '@/views/search';
 import { initLoggedInMenu } from '@/views/logged-in-menu';
 
+type Auth = {
+  authenticated: boolean;
+  name: string;
+  securityLevel: string;
+};
+
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
@@ -315,53 +321,71 @@ function attachAmplitudeLinks() {
 
 attachAmplitudeLinks();
 
+async function populateLoggedInMenu(authObject: Auth) {
+  const menuItems = document.getElementById('menu-items');
+  // Store a snapshot if user logs out
+
+  if (menuItems) {
+    const snapshot = menuItems.outerHTML;
+
+    const myPageMenu = await getContent('myPageMenu', {});
+
+    const newMenuItems = getHeaderNavbarItems(
+      {
+        innlogget: authObject.authenticated,
+        name: authObject.name,
+        myPageMenu: myPageMenu,
+        // For testing
+        texts: texts['no'],
+      },
+      window.decoratorParams.simple,
+    );
+
+    menuItems.outerHTML = newMenuItems;
+
+    initLoggedInMenu();
+
+    handleMenuButton();
+
+    document.getElementById('logout-button')?.addEventListener('click', () => {
+      document.getElementById('menu-items').outerHTML = snapshot;
+      handleLogin();
+      handleMenuButton();
+    });
+  }
+}
+
+async function checkAuth() {
+  const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
+  const sessionUrl = `${import.meta.env.VITE_LOGIN_API}/oauth2/session`;
+
+  try {
+    const fetchResponse = await fetch(authUrl);
+    const response = await fetchResponse.json();
+
+    if (!response.authenticated) {
+      return;
+    }
+
+    const sessionResponse = await fetch(sessionUrl);
+    const session = await sessionResponse.json();
+    console.log(session);
+    populateLoggedInMenu(response);
+  } catch (error) {
+    throw new Error(`Error fetching auth: ${error}`);
+  }
+}
+
+checkAuth();
+
 function handleLogin() {
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
       console.log('Login button');
-      console.log(import.meta.env);
-      const response = (await (
-        await fetch(`${import.meta.env.VITE_DECORATOR_API}/auth`)
-      ).json()) as {
-        authenticated: boolean;
-        name: string;
-        level: string;
-      };
-
-      const menuItems = document.getElementById('menu-items');
-      // Store a snapshot if user logs out
-
-      if (menuItems) {
-        const snapshot = menuItems.outerHTML;
-
-        const myPageMenu = await getContent('myPageMenu', {});
-
-        const newMenuItems = getHeaderNavbarItems(
-          {
-            innlogget: response.authenticated,
-            name: response.name,
-            myPageMenu: myPageMenu,
-            // For testing
-            texts: texts['no'],
-          },
-          window.decoratorParams.simple,
-        );
-
-        menuItems.outerHTML = newMenuItems;
-
-        initLoggedInMenu();
-
-        handleMenuButton();
-
-        document
-          .getElementById('logout-button')
-          ?.addEventListener('click', () => {
-            document.getElementById('menu-items').outerHTML = snapshot;
-            handleLogin();
-            handleMenuButton();
-          });
-      }
+      window.location.href = `${
+        import.meta.env.VITE_LOGIN_API
+      }/oauth2/login?redirect=${window.location.href}`;
     });
 }
 
