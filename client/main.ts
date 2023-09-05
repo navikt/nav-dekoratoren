@@ -13,7 +13,7 @@ import {
   HeaderMenuLinkCols,
   HeaderMenuLinks,
 } from '@/views/header-menu-links';
-import { HeaderNavbarItems } from '@/views/header-navbar-items';
+import { getHeaderNavbarItems } from '@/views/header/navbar-items';
 import { texts } from '@/texts';
 import RenderLanguageSelector from '@/views/language-selector';
 
@@ -27,8 +27,13 @@ import '@/views/decorator-lens.client';
 import { SearchShowMore } from '@/views/search-show-more';
 import { html } from '@/utils';
 import { SearchEvent } from '@/views/search.client';
-import { hasClass, replaceElement, setAriaExpanded } from './utils';
-import { Context } from '@/params';
+import {
+  hasClass,
+  hydrateParams,
+  replaceElement,
+  setAriaExpanded,
+} from './utils';
+import type { Context, Params } from '@/params';
 import { attachLensListener } from '@/views/decorator-lens.client';
 import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
 import { handleSearchButtonClick } from '@/views/search';
@@ -40,6 +45,16 @@ const breakpoints = {
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
+// Basic setup for development with the decorator-params script tag.
+declare global {
+  interface Window {
+    decoratorParams: Params;
+  }
+}
+
+window.decoratorParams = hydrateParams();
+console.log(window.decoratorParams);
+
 // Client side environment variables, mocking for now.
 
 // Initialize
@@ -49,6 +64,7 @@ attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
 
+// Get the params this version of the decorator was initialized with
 document.getElementById('search-input')?.addEventListener('input', (e) => {
   const { value } = e.target as HTMLInputElement;
   if (value.length > 2) {
@@ -236,26 +252,31 @@ function handleMenuButton() {
 
 // Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
+console.log(window.decoratorParams.simple);
 
-const searchEventHandlers: Record<SearchEvent, () => void> = {
-  'started-typing': () => {
-    document.querySelector('#header-menu-links')?.classList.add('is-searching');
-  },
-  'is-searching': () => {
-    document.querySelector('#search-loader')?.classList.add('active');
-  },
-  'stopped-searching': () => {
-    document
-      .querySelector('#header-menu-links')
-      ?.classList.remove('is-searching');
-  },
-  'finished-searching': () => {
-    document.querySelector('#search-loader')?.classList.remove('active');
-  },
-};
+if (window.decoratorParams.simple === false) {
+  const searchEventHandlers: Record<SearchEvent, () => void> = {
+    'started-typing': () => {
+      document
+        .querySelector('#header-menu-links')
+        ?.classList.add('is-searching');
+    },
+    'is-searching': () => {
+      document.querySelector('#search-loader')?.classList.add('active');
+    },
+    'stopped-searching': () => {
+      document
+        .querySelector('#header-menu-links')
+        ?.classList.remove('is-searching');
+    },
+    'finished-searching': () => {
+      document.querySelector('#search-loader')?.classList.remove('active');
+    },
+  };
 
-for (const [event, handler] of Object.entries(searchEventHandlers)) {
-  inlineSearch.addEventListener(event, handler);
+  for (const [event, handler] of Object.entries(searchEventHandlers)) {
+    inlineSearch.addEventListener(event, handler);
+  }
 }
 
 // when they click the background
@@ -299,6 +320,7 @@ function handleLogin() {
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
+      console.log('Login button');
       const response = (await (await fetch('/api/auth')).json()) as {
         authenticated: boolean;
         name: string;
@@ -313,13 +335,16 @@ function handleLogin() {
 
         const myPageMenu = await getContent('myPageMenu', {});
 
-        const newMenuItems = HeaderNavbarItems({
-          innlogget: response.authenticated,
-          name: response.name,
-          myPageMenu: myPageMenu,
-          // For testing
-          texts: texts['no'],
-        });
+        const newMenuItems = getHeaderNavbarItems(
+          {
+            innlogget: response.authenticated,
+            name: response.name,
+            myPageMenu: myPageMenu,
+            // For testing
+            texts: texts['no'],
+          },
+          window.decoratorParams.simple,
+        );
 
         menuItems.outerHTML = newMenuItems;
 
