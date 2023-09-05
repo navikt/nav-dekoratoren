@@ -320,8 +320,9 @@ function handleLogin() {
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
       console.log('Login button');
+      console.log(import.meta.env);
       const response = (await (
-        await fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/auth`)
+        await fetch(`${import.meta.env.VITE_DECORATOR_API}/auth`)
       ).json()) as {
         authenticated: boolean;
         name: string;
