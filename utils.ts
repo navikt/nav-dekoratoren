@@ -1,5 +1,4 @@
 import { Context, Language, Params } from './params';
-import { env } from './server/env/server';
 import { Texts, texts } from './texts';
 
 function getContextKey(context: Context) {
@@ -99,12 +98,8 @@ export const buildDataStructure = async (params: Params) => {
     return node.children.find(({ displayName }) => displayName === path);
   };
 
-  console.log(`buildDataStructure: ${env.VITE_DECORATOR_BASE_URL}/api/menu`);
-
   const menu = {
-    children: await fetch(`${env.VITE_DECORATOR_BASE_URL}/api/menu`).then(
-      (response) => response.json(),
-    ),
+    children: await fetch(`/api/menu`).then((response) => response.json()),
     displayName: '',
     // TS complains, can be fixed by adding a type to the node
     flatten: false,
