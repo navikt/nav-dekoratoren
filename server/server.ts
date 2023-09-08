@@ -11,6 +11,8 @@ import {
 import { dataHandlers, inspectData } from './handlers/dataHandlers';
 import {
   mockAuthHandler,
+  mockLoginHandler,
+  mockLogoutHandler,
   mockSessionHandler,
   refreshMockSessionHandler,
 } from '@/server/handlers/mockHandlers';
@@ -35,6 +37,9 @@ app.use('/api/isAlive', isAliveHandler);
 app.use('/api/auth', mockAuthHandler);
 app.get('/api/oauth2/session', mockSessionHandler);
 app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
+
+app.get('/oauth2/login', mockLoginHandler);
+app.get('/oauth2/logout', mockLogoutHandler);
 
 // Service handlers
 app.use('/api/sok', searchHandler);

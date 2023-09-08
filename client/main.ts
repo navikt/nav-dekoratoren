@@ -357,7 +357,7 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 async function checkAuth() {
   const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
-  const sessionUrl = `${import.meta.env.VITE_LOGIN_API}/oauth2/session`;
+  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
 
   try {
     const fetchResponse = await fetch(authUrl);
@@ -383,9 +383,9 @@ function handleLogin() {
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
       console.log('Login button');
-      window.location.href = `${
-        import.meta.env.VITE_LOGIN_API
-      }/oauth2/login?redirect=${window.location.href}`;
+      window.location.href = `${import.meta.env.VITE_LOGIN_URL}?redirect=${
+        window.location.href
+      }`;
     });
 }
 
