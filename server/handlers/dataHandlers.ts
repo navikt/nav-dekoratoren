@@ -1,13 +1,18 @@
 import { RequestHandler } from 'express';
 import { buildDataStructure, DataKeys } from '@/utils';
+import { env } from '../env/server';
 
 export const inspectData: RequestHandler = async (req, res) => {
   const data = await buildDataStructure(req.decoratorParams);
-  const raw = await fetch('https://www.nav.no/dekoratoren/api/meny');
-  res.json({
-    data,
-    raw: await raw.json(),
-  });
+  try {
+    const raw = await fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`);
+    res.json({
+      data,
+      raw: await raw.json(),
+    });
+  } catch (e) {
+    console.error(`Failed to fetch menu: ${e}`);
+  }
 };
 
 export const dataHandlers: RequestHandler = async (req, res) => {

@@ -13,7 +13,6 @@ export default function getContent<TKey extends DataKeys>(
   key: TKey,
   params: Partial<Params>,
 ): Promise<GetDataResponse[TKey]> {
-  console.log('getContent', params);
   const url = new URL(
     `/data/${key}?${formatParams(params)}`,
     window.location.origin,

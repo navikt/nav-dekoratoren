@@ -144,3 +144,11 @@ export const refreshMockSessionHandler: RequestHandler = (req, res) => {
 export const mockSessionHandler: RequestHandler = (req, res) => {
   res.json(getMockSession());
 };
+export const mockLoginHandler: RequestHandler = (req, res) => {
+  const { redirect } = req.query;
+
+  res.redirect(redirect as string);
+};
+export const mockLogoutHandler: RequestHandler = (req, res) => {
+  res.json(getMockSession());
+};

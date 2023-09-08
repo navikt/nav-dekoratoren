@@ -20,6 +20,7 @@ spec:
     outbound:
       external:
         - host: www.nav.no
+        - host: www.intern.dev.nav.no
   replicas:
     min: 1
     max: 2

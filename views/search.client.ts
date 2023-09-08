@@ -42,11 +42,13 @@ export class InlineSearch extends HTMLElement {
         if (value.length > 2) {
           this.dispatchEvent(events['is-searching']);
 
+          console.log('do search');
+
           shadowRoot
             .querySelector('#inline-search-hits')
             ?.classList.add('is-searching');
 
-          fetch(`/dekoratoren/api/sok?ord=${value}`)
+          fetch(`/api/sok?ord=${value}`)
             .then((res) => res.json())
             .then(({ hits }) => {
               // total

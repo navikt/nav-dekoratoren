@@ -99,9 +99,9 @@ export const buildDataStructure = async (params: Params) => {
   };
 
   const menu = {
-    children: await fetch('https://www.nav.no/dekoratoren/api/meny').then(
-      (response) => response.json(),
-    ),
+    children: await fetch(
+      `${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`,
+    ).then((response) => response.json()),
     displayName: '',
     // TS complains, can be fixed by adding a type to the node
     flatten: false,
