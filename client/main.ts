@@ -369,7 +369,9 @@ async function checkAuth() {
       return;
     }
 
-    const sessionResponse = await fetch(sessionUrl);
+    const sessionResponse = await fetch(sessionUrl, {
+      credentials: 'include',
+    });
     const session = await sessionResponse.json();
     console.log(session);
     populateLoggedInMenu(response);
