@@ -349,7 +349,7 @@ async function populateLoggedInMenu(authObject: Auth) {
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       document.getElementById('menu-items').outerHTML = snapshot;
-      window.location.href = `${import.meta.env.VITE_LOGIN_URL}`;
+      window.location.href = `${import.meta.env.VITE_LOGOUT_URL}`;
     });
   }
 }
