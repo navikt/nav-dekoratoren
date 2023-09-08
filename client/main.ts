@@ -360,7 +360,9 @@ async function checkAuth() {
   const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
 
   try {
-    const fetchResponse = await fetch(authUrl);
+    const fetchResponse = await fetch(authUrl, {
+      credentials: 'include',
+    });
     const response = await fetchResponse.json();
 
     if (!response.authenticated) {
