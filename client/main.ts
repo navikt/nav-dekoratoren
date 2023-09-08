@@ -349,8 +349,7 @@ async function populateLoggedInMenu(authObject: Auth) {
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       document.getElementById('menu-items').outerHTML = snapshot;
-      handleLogin();
-      handleMenuButton();
+      window.location.href = `${import.meta.env.VITE_LOGIN_URL}`;
     });
   }
 }
