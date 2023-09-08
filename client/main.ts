@@ -379,13 +379,13 @@ async function checkAuth() {
 checkAuth();
 
 function handleLogin() {
+  const loginLevel = window.decoratorParams.level || 'Level4';
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
-      console.log('Login button');
       window.location.href = `${import.meta.env.VITE_LOGIN_URL}?redirect=${
         window.location.href
-      }`;
+      }&level=${loginLevel}`;
     });
 }
 
