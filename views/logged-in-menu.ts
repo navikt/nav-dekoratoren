@@ -4,7 +4,7 @@ import { LoginIcon } from './icons/login';
 import { VarslerIcon } from '@/views/icons/varsler';
 import { ProfileIcon } from '@/views/icons/profile';
 import { HeaderMenuLinks } from './header-menu-links';
-import { VarslerEmptyView } from './varsler';
+import { VarslerEmptyView, VarslerUlest } from './varsler';
 import { texts } from '@/texts';
 // import { Texts } from '@/texts';
 
@@ -53,11 +53,17 @@ export function LoggedInMenu({
 }) {
   return html`
     <div id="logged-in-menu">
-      ${IconButton({
-        id: 'varsler-button',
-        Icon: VarslerIcon,
-        text: 'Varsler',
-      })}
+      <div class="varsler-button-wrapper">
+        ${IconButton({
+          id: 'varsler-button',
+          Icon: () => html`
+            <div class="varsler-icon-wrapper">
+              ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
+            </div>
+          `,
+          text: 'Varsler',
+        })}
+      </div>
       ${IconButton({
         id: 'profile-button',
         Icon: ProfileIcon,

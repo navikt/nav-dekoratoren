@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import varslerMock from './helpers/varsler-mock.json';
 
 import { env } from '@/server/env/server';
 import { getCachedRequestHandler } from './helpers/menuHelper';
@@ -41,6 +42,15 @@ export const searchHandler: RequestHandler = async (req, res) => {
     hits: results.hits.slice(0, 5),
     total: results.total,
   });
+};
+
+export const varslerHandler: RequestHandler = async (req, res) => {
+  const trimmed = {
+    beskjeder: varslerMock.beskjeder.slice(0, 2),
+    oppgaver: varslerMock.oppgaver.slice(0, 2),
+  };
+  res.send(trimmed);
+  // read from file
 };
 
 export const menuHandler: RequestHandler = getCachedRequestHandler();

@@ -9,7 +9,7 @@ import {
 import getContent from './get-content';
 
 import {
-  AddSnarveierListener,
+  initMobileSubMenus,
   HeaderMenuLinkCols,
   HeaderMenuLinks,
 } from '@/views/header-menu-links';
@@ -26,6 +26,7 @@ import '@/views/decorator-lens.client';
 
 import { SearchShowMore } from '@/views/search-show-more';
 import { html } from '@/utils';
+import * as api from './api';
 import { SearchEvent } from '@/views/search.client';
 import {
   hasClass,
@@ -38,12 +39,7 @@ import { attachLensListener } from '@/views/decorator-lens.client';
 import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
 import { handleSearchButtonClick } from '@/views/search';
 import { initLoggedInMenu } from '@/views/logged-in-menu';
-
-type Auth = {
-  authenticated: boolean;
-  name: string;
-  securityLevel: string;
-};
+import { fetchVarsler } from '@/views/varsler';
 
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
@@ -62,13 +58,25 @@ window.decoratorParams = hydrateParams();
 console.log(window.decoratorParams);
 
 // Client side environment variables, mocking for now.
+const listeners: Array<() => void> = [
+  initMobileSubMenus,
+  addBreadcrumbEventListeners,
+  attachLensListener,
+  handleSearchButtonClick,
+];
 
-// Initialize
-AddSnarveierListener();
-addBreadcrumbEventListeners();
-attachLensListener();
-fetchDriftsMeldinger();
-handleSearchButtonClick();
+listeners.forEach((listener) => listener());
+
+const lazyLoaders: Array<() => Promise<void>> = [
+  fetchDriftsMeldinger,
+  fetchVarsler,
+];
+
+lazyLoaders.forEach((loader) => loader());
+
+// Lazy loading relevant data
+// fetchDriftsMeldinger();
+// fetchVarsler();
 
 // Get the params this version of the decorator was initialized with
 document.getElementById('search-input')?.addEventListener('input', (e) => {
@@ -321,15 +329,13 @@ function attachAmplitudeLinks() {
 
 attachAmplitudeLinks();
 
-async function populateLoggedInMenu(authObject: Auth) {
+async function populateLoggedInMenu(authObject: api.Auth) {
   const menuItems = document.getElementById('menu-items');
   // Store a snapshot if user logs out
 
   if (menuItems) {
     const snapshot = menuItems.outerHTML;
-
     const myPageMenu = await getContent('myPageMenu', {});
-
     const newMenuItems = getHeaderNavbarItems(
       {
         innlogget: authObject.authenticated,
@@ -344,7 +350,6 @@ async function populateLoggedInMenu(authObject: Auth) {
     menuItems.outerHTML = newMenuItems;
 
     initLoggedInMenu();
-
     handleMenuButton();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
@@ -354,32 +359,20 @@ async function populateLoggedInMenu(authObject: Auth) {
   }
 }
 
-async function checkAuth() {
-  const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
+api.checkAuth({
+  onSuccess: async (response) => {
+    await populateLoggedInMenu(response);
+    const varsler = await fetchVarsler();
 
-  try {
-    const fetchResponse = await fetch(authUrl, {
-      credentials: 'include',
-    });
-    const response = await fetchResponse.json();
-
-    if (!response.authenticated) {
-      return;
+    if (varsler) {
+      const varslerUlest = document.querySelector('.varsler-ulest');
+      console.log('varslerUlest', varslerUlest);
+      varslerUlest?.classList.add('active');
     }
 
-    const sessionResponse = await fetch(sessionUrl, {
-      credentials: 'include',
-    });
-    const session = await sessionResponse.json();
-    console.log(session);
-    populateLoggedInMenu(response);
-  } catch (error) {
-    throw new Error(`Error fetching auth: ${error}`);
-  }
-}
-
-checkAuth();
+    console.log('On success', response);
+  },
+});
 
 function handleLogin() {
   const loginLevel = window.decoratorParams.level || 'Level4';

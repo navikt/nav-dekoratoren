@@ -874,7 +874,8 @@ a {
   margin: 0px;
 }
 
-#varsler-empty {
+#varsler-empty,
+#varsler-populated {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -896,6 +897,26 @@ a {
 #varsler-empty a {
   margin: var(--a-spacing-6) 0px;
   text-decoration: underline;
+}
+
+.varsler-icon-wrapper {
+  position: relative;
+}
+
+.varsler-ulest {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--a-icon-danger);
+  position: absolute;
+  bottom: 3px;
+  right: -4px;
+  display: none;
+}
+
+/* Shown when notifications have been checked */
+.varsler-ulest.active {
+  display: block;
 }
 
 /*  Utils  */

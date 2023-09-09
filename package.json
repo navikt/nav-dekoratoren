@@ -10,6 +10,7 @@
     "cypress:run": "cypress run",
     "cypress:run:reference": "IS_OLD=true cypress run",
     "dev": "concurrently \"vite\" \"npm run dev-server\"",
+    "dev-server-ts": "ts-node server/server.ts",
     "dev-server": "bun --watch --tsconfig-override server/tsconfig.json server/server.ts",
     "build": "vite build",
     "serve": "NODE_ENV=production bun --tsconfig-override server/tsconfig.json server/server.ts",

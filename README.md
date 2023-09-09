@@ -8,6 +8,14 @@ Then run (install instructions for bun: https://bun.sh/):
 bun install
 ```
 
+Make sure NODE_AUTH_TOKEN is in your path
+
+## Setup
+
+To properly be able to make calls to enonic, you need to add these entries to your hosts file.
+
+https://github.com/navikt/nav-enonicxp#etchosts
+
 ## Development
 
 Run `bun run dev` to start development server.

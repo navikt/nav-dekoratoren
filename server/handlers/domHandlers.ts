@@ -7,11 +7,12 @@ import { Footer } from '@/views/footer';
 import { Header } from '@/views/header';
 import { HeaderMenuLinks } from '@/views/header-menu-links';
 import { Index } from '@/views/index';
+import { env } from '../env/server';
 
 const entryPointPath = 'client/main.ts';
 const isProd = process.env.NODE_ENV === 'production';
-const port = process.env.PORT;
-const host = process.env.HOST ?? `http://localhost:${port}`;
+
+const host = env.HOST ?? `http://localhost:${env.PORT}`;
 
 const script = (src: string) => `<script type="module" src="${src}"></script>`;
 
@@ -22,6 +23,8 @@ const getResources = async () => {
       [entryPointPath]: { file: string; css: string[] };
     }
   )[entryPointPath];
+
+  console.log(resources);
 
   if (isProd) {
     return {

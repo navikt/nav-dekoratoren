@@ -6,7 +6,7 @@ import { ForwardChevron } from './icons/forward-chevron';
 import { Context } from '@/params';
 
 // Discuss better way to solve this
-export function AddSnarveierListener() {
+export function initMobileSubMenus() {
   document.addEventListener(
     'click',
     (e) => {
