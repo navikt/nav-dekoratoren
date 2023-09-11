@@ -21,6 +21,7 @@ import {
   headerHandler,
   indexHandler,
 } from './handlers/domHandlers';
+import assetsHandler from './handlers/assetsHandler';
 
 const isProd = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
@@ -53,6 +54,7 @@ app.get('/data/:key', dataHandlers);
 // DOM handlers
 app.use('/footer', footerHandler);
 app.use('/header', headerHandler);
+app.use(assetsHandler);
 app.use('/', indexHandler);
 
 app.listen(port, function () {
