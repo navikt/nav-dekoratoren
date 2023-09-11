@@ -56,5 +56,8 @@ app.use('/header', headerHandler);
 app.use('/', indexHandler);
 
 app.listen(port, function () {
-  console.log(`Listening on http://localhost:${port}`);
+  console.log(`
+  Decorator server started:
+  Environment: ${process.env.NODE_ENV}
+  Listening on http://localhost:${port}`);
 });
