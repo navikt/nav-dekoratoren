@@ -6,6 +6,7 @@ import { ProfileIcon } from '@/views/icons/profile';
 import { HeaderMenuLinks } from './header-menu-links';
 import { VarslerEmptyView, VarslerUlest } from './varsler';
 import { texts } from '@/texts';
+import { selectors } from './selectors';
 // import { Texts } from '@/texts';
 
 // Fetch varsler and such
@@ -76,7 +77,7 @@ export function LoggedInMenu({
       })}
       <div id="loggedin-menu-wrapper">
         <div id="loggedin-menu-content">
-          <div id="varsler-menu-content" class="dropdown">
+          <div id="${selectors.ids.VARSLER_MENU_CONTENT}" class="dropdown">
             <!-- Placeholder for now -->
             ${VarslerEmptyView({
               texts: texts['no'],

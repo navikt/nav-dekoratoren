@@ -11,6 +11,7 @@ const nb = {
   varsler_tom_liste: 'Du har ingen nye varsler',
   varsler_tom_liste_ingress: 'Vi varsler deg når noe skjer',
   varsler_vis_alle: 'Tidligere varsler',
+  varsler_beskjeder_tittel: 'Beskjeder',
 };
 
 export const texts = {
@@ -27,6 +28,7 @@ export const texts = {
     varsler_tom_liste: 'You have no new notifications',
     varsler_tom_liste_ingress: 'Du har ingen nye varsler',
     varsler_vis_alle: 'Previous notifications',
+    varsler_beskjeder_tittel: 'Beskjeder',
   },
   se: {
     share_screen: 'Del skjerm med veileder',
@@ -40,6 +42,7 @@ export const texts = {
     varsler_tom_liste: 'Du har ingen nye varsler',
     varsler_tom_liste_ingress: 'Du har ingen nye varsler',
     varsler_vis_alle: 'Tidligere varsler',
+    varsler_beskjeder_tittel: 'Beskjeder',
   },
   nn: nb,
   pl: nb,

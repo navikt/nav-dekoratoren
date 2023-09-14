@@ -1,3 +1,5 @@
+import { LoginLevel } from '@/params';
+
 export type Auth = {
   authenticated: boolean;
   name: string;
@@ -34,4 +36,10 @@ export async function checkAuth({
     onError && onError(error as Error);
     throw new Error(`Error fetching auth: ${error}`);
   }
+}
+
+export function makeLoginUrl(loginLevel: LoginLevel): string {
+  return `${import.meta.env.VITE_LOGIN_URL}?redirect=${
+    window.location.href
+  }&level=${loginLevel}`;
 }

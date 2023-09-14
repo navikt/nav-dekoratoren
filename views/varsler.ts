@@ -1,6 +1,8 @@
 import { environment } from '@/client/environment';
 import { Texts } from '@/texts';
 import { html } from '@/utils';
+import { BeskjedIcon } from './icons/varsler';
+import { ForwardChevron } from './icons/forward-chevron';
 
 export type VarselType = 'beskjeder' | 'innboks';
 
@@ -20,6 +22,19 @@ export type VarslerData = {
   oppgaver: Varsler[];
   beskjeder: Varsler[];
 };
+
+function formatVarselDate(tidspunkt: string): string {
+  const date = new Date(tidspunkt);
+  const options = {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  } as const;
+  return date.toLocaleDateString('nb-NO', options).replace(':', '.');
+}
 
 export async function fetchVarsler() {
   const response = await fetch(
@@ -54,8 +69,50 @@ export function VarslerUlest() {
   return html` <div class="varsler-ulest"></div> `;
 }
 
-export function VarslerPopulated() {
-  return html` <div id="varsler-populated"></div> `;
+export function VarslerPopulated({
+  texts,
+  varslerData,
+}: {
+  texts: Texts;
+  varslerData: VarslerData;
+}) {
+  const { beskjeder } = varslerData;
+
+  return html`
+    <div id="varsler-populated">
+      <div id="varsler-populated-beskjeder">
+        <p class="title">${texts.varsler_beskjeder_tittel}</p>
+        <ul>
+          ${beskjeder.map((beskjed) => {
+            return Varsel({
+              title: beskjed.tekst,
+              timestamp: formatVarselDate(beskjed.tidspunkt),
+              icon: BeskjedIcon(),
+            });
+          })}
+        </ul>
+        <div></div>
+      </div>
+    </div>
+  `;
 }
 
-export function VarselBlockRenderer() {}
+export function Varsel({
+  title,
+  timestamp,
+  icon,
+}: {
+  title: string;
+  timestamp: string;
+  icon?: string;
+}) {
+  return html`
+    <li>
+      <a class="varsel-beskjed">
+        <h3>${title}</h3>
+        <p>${timestamp}</p>
+        <div class="meta-og-knapp">${icon} ${ForwardChevron()}</div>
+      </a>
+    </li>
+  `;
+}

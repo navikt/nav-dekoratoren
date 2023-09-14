@@ -39,7 +39,8 @@ import { attachLensListener } from '@/views/decorator-lens.client';
 import { fetchDriftsMeldinger } from '@/views/driftsmeldinger';
 import { handleSearchButtonClick } from '@/views/search';
 import { initLoggedInMenu } from '@/views/logged-in-menu';
-import { fetchVarsler } from '@/views/varsler';
+import { VarslerPopulated, fetchVarsler } from '@/views/varsler';
+import { selectors } from '@/views/selectors';
 
 const breakpoints = {
   lg: 1024, // See custom-media-queries.css
@@ -362,12 +363,19 @@ async function populateLoggedInMenu(authObject: api.Auth) {
 api.checkAuth({
   onSuccess: async (response) => {
     await populateLoggedInMenu(response);
+
     const varsler = await fetchVarsler();
 
     if (varsler) {
       const varslerUlest = document.querySelector('.varsler-ulest');
-      console.log('varslerUlest', varslerUlest);
       varslerUlest?.classList.add('active');
+
+      // Choose which view to render
+
+      selectors.ids.VARSLER_MENU_CONTENT.element.innerHTML = VarslerPopulated({
+        texts: texts['no'],
+        varslerData: varsler,
+      });
     }
 
     console.log('On success', response);
@@ -376,12 +384,11 @@ api.checkAuth({
 
 function handleLogin() {
   const loginLevel = window.decoratorParams.level || 'Level4';
+
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
-      window.location.href = `${import.meta.env.VITE_LOGIN_URL}?redirect=${
-        window.location.href
-      }&level=${loginLevel}`;
+      window.location.href = api.makeLoginUrl(loginLevel);
     });
 }
 

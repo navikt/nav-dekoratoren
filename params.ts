@@ -1,6 +1,9 @@
 import z from 'zod';
 
 const authLevelSchema = z.enum(['Level3', 'Level4']);
+
+export type LoginLevel = z.infer<typeof authLevelSchema>;
+
 const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 const contextSchema = z.enum([
   'privatperson',
