@@ -22,45 +22,49 @@ import {
   headerHandler,
   indexHandler,
 } from './handlers/domHandlers';
+import assetsHandler from './handlers/assetsHandler';
+import { env } from './env/server';
 
-try {
-  const isProd = process.env.NODE_ENV === 'production';
-  const port = process.env.PORT || 3000;
-  const app = express();
+const isProd = env.NODE_ENV === 'production';
+const port = env.PORT || 8089;
+const app = express();
 
-  // Setup middleware
-  app.use(cors());
-  app.use(express.static(isProd ? 'dist' : 'public'));
-  app.use(decoratorParams);
+console.log(port);
 
-  // Liveness and mock handlers
-  app.use('/api/isReady', isReadyHandler);
-  app.use('/api/isAlive', isAliveHandler);
-  app.use('/api/auth', mockAuthHandler);
-  app.get('/api/oauth2/session', mockSessionHandler);
-  app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
+// Setup middleware
+app.use(cors());
+app.use(express.static(isProd ? 'dist' : 'public'));
+app.use(decoratorParams);
 
-  app.get('/oauth2/login', mockLoginHandler);
-  app.get('/oauth2/logout', mockLogoutHandler);
+// Liveness and mock handlers
+app.use('/api/isReady', isReadyHandler);
+app.use('/api/isAlive', isAliveHandler);
+app.use('/api/auth', mockAuthHandler);
+app.get('/api/oauth2/session', mockSessionHandler);
+app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
 
-  // Service handlers
-  app.use('/api/sok', searchHandler);
-  app.use('/api/menu', menuHandler);
-  app.use('/api/varsler', varslerHandler);
-  app.use('/api/driftsmeldinger', driftsmeldingerHandler);
+app.get('/oauth2/login', mockLoginHandler);
+app.get('/oauth2/logout', mockLogoutHandler);
 
-  // Data handlers
-  app.use('/data/inspect-data', inspectData);
-  app.get('/data/:key', dataHandlers);
+// Service handlers
+app.use('/api/sok', searchHandler);
+app.use('/api/menu', menuHandler);
+app.use('/api/varsler', varslerHandler);
+app.use('/api/driftsmeldinger', driftsmeldingerHandler);
 
-  // DOM handlers
-  app.use('/footer', footerHandler);
-  app.use('/header', headerHandler);
-  app.use('/', indexHandler);
+// Data handlers
+app.use('/data/inspect-data', inspectData);
+app.get('/data/:key', dataHandlers);
 
-  app.listen(8089, function () {
-    console.log(`Listening on http://localhost:${port}`);
-  });
-} catch (error) {
-  console.log(error);
-}
+// DOM handlers
+app.use('/footer', footerHandler);
+app.use('/header', headerHandler);
+app.use(assetsHandler);
+app.use('/', indexHandler);
+
+app.listen(port, function () {
+  console.log(`
+  Decorator server started:
+  Environment: ${process.env.NODE_ENV}
+  Listening on http://localhost:${port}`);
+});
