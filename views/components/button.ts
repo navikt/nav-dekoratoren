@@ -16,3 +16,6 @@ export function Button({
     </button>
   `;
 }
+
+/* */
+export function LinkButton() {}

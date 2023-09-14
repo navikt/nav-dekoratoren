@@ -930,7 +930,7 @@ a {
   margin-top: 0px;
 }
 
-.varsel-beskjed {
+.varsel {
   border: 1px solid var(--a-border-subtle);
   display: block;
   border-radius: var(--a-spacing-2);
@@ -941,22 +941,22 @@ a {
   cursor: pointer;
 }
 
-.varsel-beskjed:hover {
+.varsel:hover {
   background-color: var(--a-surface-hover);
 }
 
-.varsel-beskjed h3 {
+.varsel h3 {
   margin: 0;
   font-size: 18px;
 }
 
-.varsel-beskjed p {
+.varsel p {
   margin: 0;
   color: #707070;
   font-size: 16px;
 }
 
-.varsel-beskjed .meta-og-knapp {
+.varsel .meta-og-knapp {
   margin-top: var(--a-spacing-2);
   display: flex;
   justify-content: space-between;
@@ -964,8 +964,23 @@ a {
   color: #707070;
 }
 
-.varsel-beskjed svg {
+.varsel .meta-og-knapp .meta {
+  display: flex;
+  gap: var(--a-spacing-2);
+}
+
+.varsel svg {
   display: block;
+}
+
+.varsel-notice {
+  border-radius: var(--a-border-radius-small);
+  padding: 0px var(--a-spacing-1);
+  min-height: 1.25rem;
+  /* Should maybe be it's own tag class */
+  background-color: var(--ac-tag-neutral-bg, var(--a-surface-neutral-subtle));
+  color: var(--ac-tag-neutral-text, var(--a-text-default));
+  font-size: 16px;
 }
 
 #varsler-populated-beskjeder {

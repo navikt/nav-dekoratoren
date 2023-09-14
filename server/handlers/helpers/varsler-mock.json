@@ -19,8 +19,10 @@
             "tekst": "Andre",
             "link": null,
             "type": "beskjed",
-            "eksternVarslingSendt": false,
-            "eksternVarslingKanaler": []
+            "eksternVarslingSendt": true,
+            "eksternVarslingKanaler": [
+                "EPOST"
+            ]
         },
         {
             "eventId": "1cbc93d5-372f-4685-bcab-f331b585e27b",

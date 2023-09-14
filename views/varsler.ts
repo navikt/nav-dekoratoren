@@ -4,7 +4,10 @@ import { html } from '@/utils';
 import { BeskjedIcon } from './icons/varsler';
 import { ForwardChevron } from './icons/forward-chevron';
 
+import classes from './varsler.module.css';
+
 export type VarselType = 'beskjeder' | 'innboks';
+type VarslingKanal = 'SMS' | 'EPOST';
 
 export type Varsler = {
   type: VarselType;
@@ -13,7 +16,7 @@ export type Varsler = {
   tekst: string;
   link: string;
   isMasked: boolean;
-  eksternVarslingKanaler: string[];
+  eksternVarslingKanaler: VarslingKanal[];
 };
 
 //154939
@@ -22,19 +25,6 @@ export type VarslerData = {
   oppgaver: Varsler[];
   beskjeder: Varsler[];
 };
-
-function formatVarselDate(tidspunkt: string): string {
-  const date = new Date(tidspunkt);
-  const options = {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  } as const;
-  return date.toLocaleDateString('nb-NO', options).replace(':', '.');
-}
 
 export async function fetchVarsler() {
   const response = await fetch(
@@ -84,11 +74,7 @@ export function VarslerPopulated({
         <p class="title">${texts.varsler_beskjeder_tittel}</p>
         <ul>
           ${beskjeder.map((beskjed) => {
-            return Varsel({
-              title: beskjed.tekst,
-              timestamp: formatVarselDate(beskjed.tidspunkt),
-              icon: BeskjedIcon(),
-            });
+            return Varsel(makeBeskjed(beskjed, texts));
           })}
         </ul>
         <div></div>
@@ -97,22 +83,62 @@ export function VarslerPopulated({
   `;
 }
 
-export function Varsel({
-  title,
-  timestamp,
-  icon,
-}: {
+function formatVarselDate(tidspunkt: string): string {
+  const date = new Date(tidspunkt);
+  const options = {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  } as const;
+  return date.toLocaleDateString('nb-NO', options).replace(':', '.');
+}
+
+function makeVarsel(varsel: Varsler, texts: Texts): Omit<VarselProps, 'icon'> {
+  return {
+    title: varsel.tekst,
+    timestamp: formatVarselDate(varsel.tidspunkt),
+    notices: varsel.eksternVarslingKanaler.map((kanal) => {
+      return texts[`varslet_${kanal}`];
+    }),
+  };
+}
+
+const makeBeskjed = (varsel: Varsler, texts: Texts): VarselProps => ({
+  ...makeVarsel(varsel, texts),
+  icon: BeskjedIcon(),
+});
+
+// oppgave
+// const makeOppgave = (varsel: Varsler, texts: Texts): VarselProps => ({
+//     ...makeVarsel(varsel, texts),
+//     icon: BeskjedIcon(),
+// })
+
+type VarselProps = {
   title: string;
   timestamp: string;
-  icon?: string;
-}) {
+  icon: string;
+  notices: string[];
+};
+
+export function Varsel({ title, timestamp, icon, notices }: VarselProps) {
   return html`
     <li>
-      <a class="varsel-beskjed">
-        <h3>${title}</h3>
+      <a class="varsel">
+        <h3 class="${classes.testStyle}">${title}</h3>
         <p>${timestamp}</p>
-        <div class="meta-og-knapp">${icon} ${ForwardChevron()}</div>
+        <div class="meta-og-knapp">
+          <div class="meta">${icon} ${notices.map(VarselNotice)}</div>
+          ${ForwardChevron()}
+        </div>
       </a>
     </li>
   `;
+}
+
+function VarselNotice(notice: string) {
+  return html`<span class="varsel-notice">${notice}</span>`;
 }

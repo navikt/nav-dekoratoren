@@ -40,6 +40,7 @@ module.exports = {
         return selector;
       },
     }),
+    // require("postcss-modules")()
     // purgecss,
     // literalsPlugin(),
   ],
