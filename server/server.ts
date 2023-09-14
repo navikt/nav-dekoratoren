@@ -22,10 +22,13 @@ import {
   indexHandler,
 } from './handlers/domHandlers';
 import assetsHandler from './handlers/assetsHandler';
+import { env } from './env/server';
 
-const isProd = process.env.NODE_ENV === 'production';
-const port = process.env.PORT || 3000;
+const isProd = env.NODE_ENV === 'production';
+const port = env.PORT || 8089;
 const app = express();
+
+console.log(port);
 
 // Setup middleware
 app.use(cors());
