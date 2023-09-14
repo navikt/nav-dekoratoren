@@ -8,6 +8,11 @@ Then run (install instructions for bun: https://bun.sh/):
 bun install
 ```
 
+## Setting up enonic
+
+Enonic is the CMS for nav.no. To communicate with the deployed dev instance enonic, you must be connected to nais-device and `team-personbruker-prod`. An another option is to replace ENONICXP_SERVICES with `https://www.nav.no/dekoratoren/`.
+et another option is to set up enonic locally, but this is quite an exhaustive process. For more information visit the repo https://github.com/navikt/nav-enonicxp.
+
 ## Development
 
 Run `bun run dev` to start development server.
