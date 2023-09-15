@@ -29,7 +29,7 @@ export function ComplexHeader({
           class="hovedmeny-wrapper"
         >
           <div class="hovedmeny-content">
-            <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
             <div
               id="arbeidsflate"
             >

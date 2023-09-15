@@ -11,7 +11,7 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const validateParams = (params: any) => {
+export const validateParams = (params: any) => {
   const parseBooleanParam = (param?: string): boolean =>
     param === 'true' ? true : false;
 

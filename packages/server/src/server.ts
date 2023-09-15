@@ -1,66 +1,141 @@
-import express from 'express';
-import cors from 'cors';
+import { Elysia } from 'elysia';
+import { cors } from '@elysiajs/cors';
+import { staticPlugin } from '@elysiajs/static';
+import { html } from '@elysiajs/html';
 
-import { decoratorParams } from './middlewares';
-import { isAliveHandler, isReadyHandler } from './handlers/livenessHandlers';
-import {
-  driftsmeldingerHandler,
-  searchHandler,
-  menuHandler,
-} from './handlers/serviceHandlers';
-import { dataHandlers, inspectData } from './handlers/dataHandlers';
-import {
-  mockAuthHandler,
-  mockLoginHandler,
-  mockLogoutHandler,
-  mockSessionHandler,
-  refreshMockSessionHandler,
-} from './handlers/mockHandlers';
-import {
-  footerHandler,
-  headerHandler,
-  indexHandler,
-} from './handlers/domHandlers';
+import { DecoratorEnv } from './views/decorator-env';
+import { DecoratorLens } from './views/decorator-lens';
+import { Footer } from './views/footer';
+import { Header } from 'decorator-shared/views/header';
+import { validateParams } from './middlewares';
+import mockAuth from './mockAuth';
 import { env } from './env/server';
+import buildDataStructure, {
+  getHeaderMenuLinks,
+  getMyPageMenu,
+} from './buildDataStructure';
+import { Index } from './views';
 
 const port = env.PORT || 8089;
-const app = express();
 
-console.log(port);
+const app = new Elysia()
+  .use(cors())
+  .use(staticPlugin())
+  .use(html())
+  .use(mockAuth)
+  .get('/api/isReady', () => 'OK')
+  .get('/api/isAlive', () => 'OK')
+  .get('/api/driftsmeldinger', () =>
+    fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`).then((res) =>
+      res.json(),
+    ),
+  )
+  .get('/api/sok', ({ query }) =>
+    fetch(
+      `${`${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`}?ord=${
+        query.ord
+      }`,
+    )
+      .then((res) => res.json())
+      .then((results) => ({
+        hits: results.hits.slice(0, 5),
+        total: results.total,
+      })),
+  )
+  .derive((context) => {
+    const validParams = validateParams(context.query);
+    if (!validParams.success) {
+      console.error(validParams.error);
+      throw new Error(validParams.error.toString());
+    }
+    return {
+      data: validParams.data,
+    };
+  })
+  .get('/data/myPageMenu', ({ data }) => getMyPageMenu(data.language))
+  .get('/data/headerMenuLinks', ({ data }) =>
+    getHeaderMenuLinks({ language: data.language, context: data.context }),
+  )
+  .get('/', async ({ data, query, request }) => {
+    const dataStructure = await buildDataStructure(data);
+    const resources = await getResources();
 
-// Setup middleware
-app.use(cors());
-app.use(express.static('public'));
-app.use(decoratorParams);
+    return Index({
+      scripts: resources.scripts,
+      links: resources.styles,
+      language: data.language,
+      header: Header({
+        texts: dataStructure.texts,
+        mainMenu: dataStructure.mainMenu,
+        headerMenuLinks: dataStructure.headerMenuLinks,
+        innlogget: false,
+        isNorwegian: true,
+        breadcrumbs: data.breadcrumbs,
+        utilsBackground: data.utilsBackground,
+        availableLanguages: data.availableLanguages,
+        myPageMenu: dataStructure.myPageMenu,
+        simple: data.simple,
+      }),
+      footer: Footer({
+        texts: dataStructure.texts,
+        personvern: dataStructure.personvern,
+        footerLinks: dataStructure.footerLinks,
+        simple: data.simple,
+        feedback: data.feedback,
+      }),
+      env: DecoratorEnv({
+        origin: request.url,
+        env: data,
+      }),
+      lens: DecoratorLens({
+        origin: request.url,
+        env: data,
+        query,
+      }),
+    });
+  })
+  .listen(port);
 
-// Liveness and mock handlers
-app.use('/api/isReady', isReadyHandler);
-app.use('/api/isAlive', isAliveHandler);
-app.use('/api/auth', mockAuthHandler);
-app.get('/api/oauth2/session', mockSessionHandler);
-app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
+console.log(
+  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`,
+);
 
-app.get('/oauth2/login', mockLoginHandler);
-app.get('/oauth2/logout', mockLogoutHandler);
+const getResources = async () => {
+  const entryPointPath = 'src/main.ts';
 
-// Service handlers
-app.use('/api/sok', searchHandler);
-app.use('/api/menu', menuHandler);
-app.use('/api/driftsmeldinger', driftsmeldingerHandler);
+  const host = process.env.HOST ?? `http://localhost:${port}`;
+  const script = (src: string) =>
+    `<script type="module" src="${src}"></script>`;
 
-// Data handlers
-app.use('/data/inspect-data', inspectData);
-app.get('/data/:key', dataHandlers);
+  const resources = (
+    (
+      await import('decorator-client/dist/manifest.json', {
+        assert: { type: 'json' },
+      })
+    ).default as {
+      [entryPointPath]: { file: string; css: string[] };
+    }
+  )[entryPointPath];
 
-// DOM handlers
-app.use('/footer', footerHandler);
-app.use('/header', headerHandler);
-//app.use(assetsHandler);
-app.use('/', indexHandler);
+  if (process.env.NODE_ENV === 'production') {
+    return {
+      scripts: script(`${host}/${resources.file}`),
+      styles: [
+        ...resources.css.map(
+          (href: string) =>
+            `<link type="text/css" rel="stylesheet" href="${host}/${href}"></link>`,
+        ),
+      ].join(''),
+    };
+  }
 
-app.listen(port, function () {
-  console.log(`
-  Decorator server started:
-  Environment: ${process.env.NODE_ENV}
-  Listening on http://localhost:${port}`);
-});
+  return {
+    styles: '',
+    scripts: [
+      'http://localhost:5173/@vite/client',
+      `http://localhost:5173/${entryPointPath}`,
+    ]
+      .map(script)
+      .join(''),
+  };
+};

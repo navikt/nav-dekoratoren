@@ -1,6 +1,5 @@
 import { Params, formatParams } from 'decorator-shared/params';
 import html from 'decorator-shared/html';
-import { Request } from 'express';
 
 export function DecoratorLens({
   origin,
@@ -8,7 +7,7 @@ export function DecoratorLens({
   query,
 }: {
   origin: string;
-  query: Request['query'];
+  query: Partial<Params>;
   env: Partial<Params>;
 }) {
   return html`

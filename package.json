@@ -30,5 +30,8 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
+  },
+  "dependencies": {
+    "@elysiajs/html": "^0.6.5"
   }
 }

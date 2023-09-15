@@ -12,29 +12,27 @@ function capitalizeFirstLetter(text: string) {
 
 type ContentLangKey = 'no' | 'en' | 'se';
 
+// To match params.language to content keys
+const getLangKey = (lang: Language): ContentLangKey => {
+  return {
+    nb: 'no',
+    nn: 'no',
+    en: 'en',
+    se: 'se',
+    pl: 'no',
+    uk: 'no',
+    ru: 'no',
+  }[lang] as ContentLangKey;
+};
+
+const get = (node: Node, path: string): Node | undefined => {
+  if (path.includes('.')) {
+    return path.split('.').reduce<Node>((prev, curr) => get(prev, curr)!, node);
+  }
+  return node.children.find(({ displayName }) => displayName === path);
+};
+
 export default async (params: Params) => {
-  // To match params.language to content keys
-  const getLangKey = (lang: Language): ContentLangKey => {
-    return {
-      nb: 'no',
-      nn: 'no',
-      en: 'en',
-      se: 'se',
-      pl: 'no',
-      uk: 'no',
-      ru: 'no',
-    }[lang] as ContentLangKey;
-  };
-
-  const get = (node: Node, path: string): Node | undefined => {
-    if (path.includes('.')) {
-      return path
-        .split('.')
-        .reduce<Node>((prev, curr) => get(prev, curr)!, node);
-    }
-    return node.children.find(({ displayName }) => displayName === path);
-  };
-
   const menu = {
     children: await fetch(
       `${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`,
@@ -92,4 +90,41 @@ export default async (params: Params) => {
     myPageMenu,
     texts: texts[languageKey],
   };
+};
+
+export const getMyPageMenu = async (language) => {
+  const menu = {
+    children: await fetch(
+      `${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`,
+    ).then((response) => response.json()),
+    displayName: '',
+    // TS complains, can be fixed by adding a type to the node
+    flatten: false,
+    id: '',
+  };
+
+  return get(menu, `${getLangKey(language)}.Header.My page menu`)?.children;
+};
+
+export const getHeaderMenuLinks = async ({ language, context }) => {
+  const menu = {
+    children: await fetch(
+      `${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`,
+    ).then((response) => response.json()),
+    displayName: '',
+    // TS complains, can be fixed by adding a type to the node
+    flatten: false,
+    id: '',
+  };
+
+  const contextKey = getContextKey(context);
+
+  const menuLinksKey: Record<ContentLangKey, string> = {
+    en: 'en.Header.Main menu',
+    se: 'se.Header.Main menu',
+    no: `no.Header.Main menu.${contextKey}`,
+    // '': 'no.Header.Main menu',
+  };
+
+  return get(menu, menuLinksKey[getLangKey(language)])?.children;
 };
