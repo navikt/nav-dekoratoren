@@ -1,3 +1,49 @@
-.testStyle {
-  color: var(--a-blue-500);
+.varsel {
+  border: 1px solid var(--a-border-subtle);
+  display: block;
+  border-radius: var(--a-spacing-2);
+  padding: var(--a-spacing-4);
+  margin: var(--a-spacing-2) 0px;
+  background-color: white;
+  transition: background-color 0.1s linear;
+  cursor: pointer;
+}
+
+.maskert {
+}
+.maskert:hover {
+  background-color: var(--a-surface-hover);
+}
+
+.timestamp {
+  margin: 0;
+  color: #707070;
+  font-size: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.metaOgKnapp {
+  margin-top: var(--a-spacing-3);
+  display: flex;
+  justify-content: space-between;
+  color: #707070;
+}
+
+.meta {
+  display: flex;
+  gap: var(--a-spacing-2);
+}
+
+.varselNotice {
+  border-radius: var(--a-border-radius-small);
+  padding: 0px var(--a-spacing-1);
+  min-height: 1.25rem;
+  /* Should maybe be it's own tag class */
+  background-color: var(--ac-tag-neutral-bg, var(--a-surface-neutral-subtle));
+  color: var(--ac-tag-neutral-text, var(--a-text-default));
+  font-size: 16px;
 }

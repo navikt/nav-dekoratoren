@@ -156,8 +156,8 @@ export const mockLogoutHandler: RequestHandler = (req, res) => {
 
 export const mockVarslerHandler: RequestHandler = (req, res) => {
   const trimmed = {
-    beskjeder: varslerMock.beskjeder.slice(0, 2),
-    oppgaver: varslerMock.oppgaver.slice(0, 2),
+    beskjeder: varslerMock.beskjeder.slice(0, 6),
+    oppgaver: varslerMock.oppgaver.slice(0, 3),
   };
   res.send(trimmed);
 };
