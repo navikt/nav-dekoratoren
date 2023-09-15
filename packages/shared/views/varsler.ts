@@ -2,6 +2,8 @@ import { Texts } from '../texts';
 import { BeskjedIcon, OppgaveIcon } from './icons/varsler';
 import { ForwardChevron } from './icons/forward-chevron';
 
+// @todo:  test in prod
+
 import classes from './varsler.module.css';
 import html from '../html';
 import { LinkButton } from './components/link-button';
