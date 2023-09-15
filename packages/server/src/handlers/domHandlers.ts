@@ -5,7 +5,7 @@ import { DecoratorEnv } from '../views/decorator-env';
 import { DecoratorLens } from '../views/decorator-lens';
 import { Footer } from '../views/footer';
 import { Header } from 'decorator-shared/views/header';
-import { HeaderMenuLinks } from 'decorator-shared/views/header-menu-links';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { Index } from '../views/index';
 
 const entryPointPath = 'src/main.ts';

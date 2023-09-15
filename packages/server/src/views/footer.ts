@@ -3,7 +3,7 @@ import { Node } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/texts';
 import { ComplexFooter } from './complex-footer';
-import { Feedback } from 'decorator-shared/views/feedback';
+import { Button } from 'decorator-shared/views/components/button';
 import { SimpleFooter } from './simple-footer';
 
 export type FooterProps = {
@@ -17,6 +17,20 @@ function getFooter(props: FooterProps) {
     return SimpleFooter(props);
   }
   return ComplexFooter(props);
+}
+
+function Feedback({ texts }: { texts: Texts }) {
+  return html`
+    <div id="feedback">
+      <div class="feedback-content">
+        <h2>${texts.did_you_find}</h2>
+        <div class="mx-4">
+          ${Button({ text: 'Ja' })} ${Button({ text: 'Nei' })}
+        </div>
+      </div>
+      <script></script>
+    </div>
+  `;
 }
 
 export function Footer(props: FooterProps) {

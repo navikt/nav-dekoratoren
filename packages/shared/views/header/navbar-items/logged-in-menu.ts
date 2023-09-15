@@ -1,11 +1,11 @@
-import { Node } from '../types';
+import { Node } from '../../../types';
 import html from 'decorator-shared/html';
-import { IconButton } from './components/icon-button';
-import { LoginIcon } from './icons/login';
+import { IconButton } from '../../components/icon-button';
+import { LoginIcon } from '../../icons/login';
 import { VarslerIcon } from 'decorator-shared/views/icons/varsler';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
-import { HeaderMenuLinks } from './header-menu-links';
-import { VarslerEmptyView } from './varsler';
+import { HeaderMenuLinks } from '../header-menu-links';
+import { VarslerEmptyView } from '../../varsler';
 import { texts } from 'decorator-shared/texts';
 
 export function LoggedInMenu({

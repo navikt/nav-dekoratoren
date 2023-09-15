@@ -1,6 +1,6 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
-import { FeedbackSuccess } from 'decorator-shared/views/feedback';
+
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 
 import getContent from './get-content';
@@ -8,7 +8,7 @@ import getContent from './get-content';
 import {
   HeaderMenuLinkCols,
   HeaderMenuLinks,
-} from 'decorator-shared/views/header-menu-links';
+} from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import { texts } from 'decorator-shared/texts';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
@@ -21,7 +21,7 @@ import './views/loader.client';
 import './views/decorator-lens.client';
 import { AddSnarveierListener } from './views/header-menu-links.client';
 
-import { SearchShowMore } from 'decorator-shared/views/search-show-more';
+import { SearchShowMore } from './views/search-show-more';
 import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search.client';
 import {
@@ -315,7 +315,18 @@ buttons.forEach((button) => {
   button.addEventListener('click', async () => {
     const feedbackContent = document.querySelector('.feedback-content');
     if (feedbackContent) {
-      feedbackContent.innerHTML = FeedbackSuccess();
+      feedbackContent.innerHTML = html`
+        <div class="text-center">
+          <h2>Takk!</h2>
+          <p class="my-1">
+            Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål
+            eller trenger du hjelp?
+          </p>
+          <a class="basic-link my-1" href="/kontaktoss"
+            >Ring, chat eller skriv til oss</a
+          >
+        </div>
+      `;
     }
   });
 });

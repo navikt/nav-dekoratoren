@@ -1,9 +1,6 @@
 import html from 'decorator-shared/html';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import {
-  HeaderMenuLinkCols,
-  HeaderMenuLinks,
-} from 'decorator-shared/views/header-menu-links';
+import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from 'decorator-shared/views/language-selector';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
 import { HeaderProps, utilsBackgroundClasses } from './index.js';
