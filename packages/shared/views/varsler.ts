@@ -25,8 +25,6 @@ export type Varsler = {
   eksternVarslingKanaler: VarslingKanal[];
 };
 
-//154939
-
 export type VarslerData = {
   oppgaver: Varsler[];
   beskjeder: Varsler[];
@@ -148,12 +146,6 @@ const makeOppgave = (varsel: Varsler, texts: Texts): VarselProps => {
     icon: OppgaveIcon(),
   };
 };
-
-// oppgave
-// const makeOppgave = (varsel: Varsler, texts: Texts): VarselProps => ({
-//     ...makeVarsel(varsel, texts),
-//     icon: BeskjedIcon(),
-// })
 
 type VarselProps = {
   title: string;
