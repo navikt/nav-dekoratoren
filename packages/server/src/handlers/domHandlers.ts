@@ -1,9 +1,9 @@
 import { RequestHandler } from 'express';
 
 import buildDataStructure from '../buildDataStructure';
-import { DecoratorEnv } from 'decorator-shared/views/decorator-env';
-import { DecoratorLens } from 'decorator-shared/views/decorator-lens';
-import { Footer } from 'decorator-shared/views/footer';
+import { DecoratorEnv } from '../views/decorator-env';
+import { DecoratorLens } from '../views/decorator-lens';
+import { Footer } from '../views/footer';
 import { Header } from 'decorator-shared/views/header';
 import { HeaderMenuLinks } from 'decorator-shared/views/header-menu-links';
 import { Index } from '../views/index';

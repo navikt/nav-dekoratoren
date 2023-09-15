@@ -1,4 +1,4 @@
-import { Node } from 'decorator-shared/utils';
+import { Node } from '../types';
 import html from 'decorator-shared/html';
 import { IconButton } from './components/icon-button';
 import { LoginIcon } from './icons/login';

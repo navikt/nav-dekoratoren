@@ -1,4 +1,4 @@
-import { Params, formatParams } from '../params';
+import { Params, formatParams } from 'decorator-shared/params';
 import html from 'decorator-shared/html';
 import { Request } from 'express';
 

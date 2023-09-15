@@ -1,6 +1,6 @@
-import { Node } from 'decorator-shared/utils';
-import { Texts } from '../texts';
-import html from '../html';
+import { Node } from 'decorator-shared/types';
+import { Texts } from 'decorator-shared/texts';
+import html from 'decorator-shared/html';
 
 export function SimpleFooter({
   personvern,

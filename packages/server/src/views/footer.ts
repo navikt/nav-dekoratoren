@@ -1,10 +1,10 @@
-import type { Params } from '../params';
-import { Node } from '../types';
+import type { Params } from 'decorator-shared/params';
+import { Node } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
-import { Texts } from '../texts';
-import { ComplexFooter } from './complex-footer.js';
-import { Feedback } from './feedback.js';
-import { SimpleFooter } from './simple-footer.js';
+import { Texts } from 'decorator-shared/texts';
+import { ComplexFooter } from './complex-footer';
+import { Feedback } from 'decorator-shared/views/feedback';
+import { SimpleFooter } from './simple-footer';
 
 export type FooterProps = {
   texts: Texts;
