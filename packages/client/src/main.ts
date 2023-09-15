@@ -14,16 +14,16 @@ import { texts } from 'decorator-shared/texts';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
 
 // Maybe create a file that does this
-import './views/language-selector.client';
-import './views/components/toggle-icon-button.client';
-import './views/search.client';
-import './views/loader.client';
-import './views/decorator-lens.client';
-import { AddSnarveierListener } from './views/header-menu-links.client';
+import './views/language-selector';
+import './views/toggle-icon-button';
+import './views/search';
+import './views/loader';
+import './views/decorator-lens';
+import { AddSnarveierListener } from './views/header-menu-links';
 
 import { SearchShowMore } from './views/search-show-more';
 import html from 'decorator-shared/html';
-import { SearchEvent } from './views/search.client';
+import { SearchEvent } from './views/search';
 import {
   hasClass,
   hydrateParams,
@@ -31,10 +31,10 @@ import {
   setAriaExpanded,
 } from './utils';
 import type { Context, Params } from 'decorator-shared/params';
-import { attachLensListener } from './views/decorator-lens.client';
-import { fetchDriftsMeldinger } from './views/driftsmeldinger.client';
-import { handleSearchButtonClick } from './views/search.client';
-import { initLoggedInMenu } from './views/logged-in-menu.client';
+import { attachLensListener } from './views/decorator-lens';
+import { fetchDriftsMeldinger } from './views/driftsmeldinger';
+import { handleSearchButtonClick } from './views/search';
+import { initLoggedInMenu } from './views/logged-in-menu';
 
 type Auth = {
   authenticated: boolean;
