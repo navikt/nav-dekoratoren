@@ -1,17 +1,15 @@
-FROM oven/bun:0.8.1
+FROM oven/bun:1.0.1
 
 WORKDIR /app
 
-COPY .env /app/
 COPY package.json /app/
 COPY *.ts /app/
-COPY tsconfig.json /app/
-COPY server /app/server
-COPY views /app/views
-COPY client /app/client
+COPY packages/server /app/packages/server
+COPY packages/client /app/packages/client
+COPY packages/shared /app/packages/shared
 COPY dist /app/dist
 COPY node_modules /app/node_modules
 
-EXPOSE 3000
+EXPOSE 8089
 
 CMD NODE_ENV=production bun run serve
