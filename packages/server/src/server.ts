@@ -7,7 +7,7 @@ import { DecoratorEnv } from './views/decorator-env';
 import { DecoratorLens } from './views/decorator-lens';
 import { Footer } from './views/footer';
 import { Header } from 'decorator-shared/views/header';
-import { validateParams } from './middlewares';
+import { validateParams } from './validateParams';
 import mockAuth from './mockAuth';
 import { env } from './env/server';
 import buildDataStructure, {
