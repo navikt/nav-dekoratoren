@@ -7,8 +7,6 @@
     "dev": "concurrently \"bun run --cwd packages/client dev\" \"bun run --cwd packages/server dev\"",
     "build": "bun run --cwd packages/client build && cp -r packages/client/dist/assets packages/server/public/",
     "serve": "bun run --cwd packages/server serve",
-    "prettier": "prettier",
-    "lint": "eslint",
     "prepare": "husky install",
     "benchmarking": "bun run ./benchmarking/index.ts",
     "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb"
