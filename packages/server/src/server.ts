@@ -14,6 +14,7 @@ import {
   mockLoginHandler,
   mockLogoutHandler,
   mockSessionHandler,
+  mockVarslerHandler,
   refreshMockSessionHandler,
 } from './handlers/mockHandlers';
 import {
@@ -39,6 +40,7 @@ app.use('/api/isAlive', isAliveHandler);
 app.use('/api/auth', mockAuthHandler);
 app.get('/api/oauth2/session', mockSessionHandler);
 app.get('/api/oauth2/session/refresh', refreshMockSessionHandler);
+app.get('/api/varsler', mockVarslerHandler);
 
 app.get('/oauth2/login', mockLoginHandler);
 app.get('/oauth2/logout', mockLogoutHandler);

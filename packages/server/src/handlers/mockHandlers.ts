@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import varslerMock from './varsler-mock.json';
 
 const TOKEN_MOCK_SECONDS = 60 * 60;
 const SESSION_MOCK_SECONDS = 60 * 60 * 6;
@@ -151,4 +152,12 @@ export const mockLoginHandler: RequestHandler = (req, res) => {
 };
 export const mockLogoutHandler: RequestHandler = (req, res) => {
   res.json(getMockSession());
+};
+
+export const mockVarslerHandler: RequestHandler = (req, res) => {
+  const trimmed = {
+    beskjeder: varslerMock.beskjeder.slice(0, 2),
+    oppgaver: varslerMock.oppgaver.slice(0, 2),
+  };
+  res.send(trimmed);
 };

@@ -11,6 +11,7 @@ import {
 } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import { texts } from 'decorator-shared/texts';
+import * as api from './api';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
 
 // Maybe create a file that does this
@@ -35,6 +36,7 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
+import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
 
 type Auth = {
   authenticated: boolean;
@@ -368,10 +370,11 @@ async function populateLoggedInMenu(authObject: Auth) {
       window.decoratorParams.simple,
     );
 
+    console.log(menuItems);
+
     menuItems.outerHTML = newMenuItems;
 
     initLoggedInMenu();
-
     handleMenuButton();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
@@ -381,32 +384,33 @@ async function populateLoggedInMenu(authObject: Auth) {
   }
 }
 
-async function checkAuth() {
-  const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
+api.checkAuth({
+  onSuccess: async (response) => {
+    await populateLoggedInMenu(response);
 
-  try {
-    const fetchResponse = await fetch(authUrl, {
-      credentials: 'include',
-    });
-    const response = await fetchResponse.json();
+    const varsler = await fetchVarsler();
 
-    if (!response.authenticated) {
-      return;
+    if (varsler) {
+      const varslerUlest = document.querySelector('.varsler-ulest');
+      varslerUlest?.classList.add('active');
+
+      // Choose which view to render
+
+      const varslerMenuContent = document.querySelector(
+        '#varsler-menu-content',
+      );
+
+      if (varslerMenuContent) {
+        varslerMenuContent.innerHTML = VarslerPopulated({
+          texts: texts['no'],
+          varslerData: varsler,
+        });
+      }
     }
 
-    const sessionResponse = await fetch(sessionUrl, {
-      credentials: 'include',
-    });
-    const session = await sessionResponse.json();
-    console.log(session);
-    populateLoggedInMenu(response);
-  } catch (error) {
-    throw new Error(`Error fetching auth: ${error}`);
-  }
-}
-
-checkAuth();
+    console.log('On success', response);
+  },
+});
 
 function handleLogin() {
   const loginLevel = window.decoratorParams.level || 'Level4';

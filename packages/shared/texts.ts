@@ -1,4 +1,5 @@
 // To get types to stop complaining for now
+// To get types to stop complaining for now
 const nb = {
   share_screen: 'Del skjerm med veileder',
   to_top: 'Til toppen',
@@ -11,6 +12,9 @@ const nb = {
   varsler_tom_liste: 'Du har ingen nye varsler',
   varsler_tom_liste_ingress: 'Vi varsler deg når noe skjer',
   varsler_vis_alle: 'Tidligere varsler',
+  varsler_beskjeder_tittel: 'Beskjeder',
+  varslet_EPOST: 'Varslet på e-post',
+  varslet_SMS: 'Varslet på SMS',
 };
 
 export const texts = {
@@ -27,6 +31,9 @@ export const texts = {
     varsler_tom_liste: 'You have no new notifications',
     varsler_tom_liste_ingress: 'Du har ingen nye varsler',
     varsler_vis_alle: 'Previous notifications',
+    varsler_beskjeder_tittel: 'Beskjeder',
+    varslet_EPOST: 'Notified by e-mail',
+    varslet_SMS: 'Notified by SMS',
   },
   se: {
     share_screen: 'Del skjerm med veileder',
@@ -40,6 +47,9 @@ export const texts = {
     varsler_tom_liste: 'Du har ingen nye varsler',
     varsler_tom_liste_ingress: 'Du har ingen nye varsler',
     varsler_vis_alle: 'Tidligere varsler',
+    varsler_beskjeder_tittel: 'Beskjeder',
+    varslet_EPOST: 'Varslet på e-post',
+    varslet_SMS: 'Varslet på sms',
   },
   nn: nb,
   pl: nb,
