@@ -1,5 +1,5 @@
 // Should probably have a better name. Here i'm reffering to the buttons on the right
-import { IconButton } from 'decorator-shared/views/components/icon-button';
+import { IconButton } from '../../components/icon-button';
 import { LoginIcon } from 'decorator-shared/views/icons/login';
 import { html } from 'decorator-shared/utils';
 import { Texts } from 'decorator-shared/texts';

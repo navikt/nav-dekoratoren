@@ -1,5 +1,5 @@
-import { html } from '../../utils';
-import { CloseIcon } from '../icons/close.js';
+import { html } from 'decorator-shared/utils';
+import { CloseIcon } from 'decorator-shared/views/icons/close';
 
 export default function () {
   return html`

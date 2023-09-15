@@ -1,10 +1,7 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
 import { FeedbackSuccess } from 'decorator-shared/views/feedback';
-import {
-  Breadcrumbs,
-  addEventListeners as addBreadcrumbEventListeners,
-} from 'decorator-shared/views/breadcrumbs';
+import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 
 import getContent from './get-content';
 
@@ -60,6 +57,27 @@ declare global {
 
 window.decoratorParams = hydrateParams();
 console.log(window.decoratorParams);
+
+const addBreadcrumbEventListeners = () =>
+  document
+    .getElementById('breadcrumbs-wrapper')
+    ?.querySelectorAll('a[data-handle-in-app]')
+    .forEach((el) =>
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        window.postMessage({
+          source: 'decorator',
+          event: 'breadcrumbClick',
+          payload: {
+            url: el.getAttribute('href'),
+            title: el.innerHTML,
+            handleInApp:
+              el.getAttribute('data-handle-in-app') === 'true' ? true : false,
+          },
+        });
+      }),
+    );
 
 // Client side environment variables, mocking for now.
 

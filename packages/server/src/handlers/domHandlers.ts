@@ -6,7 +6,7 @@ import { DecoratorLens } from 'decorator-shared/views/decorator-lens';
 import { Footer } from 'decorator-shared/views/footer';
 import { Header } from 'decorator-shared/views/header';
 import { HeaderMenuLinks } from 'decorator-shared/views/header-menu-links';
-import { Index } from 'decorator-shared/views/index';
+import { Index } from '../views/index';
 
 const entryPointPath = 'src/main.ts';
 const isProd = process.env.NODE_ENV === 'production';

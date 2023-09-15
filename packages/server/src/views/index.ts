@@ -1,5 +1,5 @@
-import { html } from '../utils';
-import { WebcomponentTemplates } from './components/index.js';
+import { html } from 'decorator-shared/utils';
+import { WebcomponentTemplates } from './web-component-templates';
 
 export function Index({
   language,

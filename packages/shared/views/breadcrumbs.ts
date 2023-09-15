@@ -1,27 +1,6 @@
 import { Breadcrumb } from '../params';
 import { html } from '../utils';
 
-export const addEventListeners = () =>
-  document
-    .getElementById('breadcrumbs-wrapper')
-    ?.querySelectorAll('a[data-handle-in-app]')
-    .forEach((el) =>
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        window.postMessage({
-          source: 'decorator',
-          event: 'breadcrumbClick',
-          payload: {
-            url: el.getAttribute('href'),
-            title: el.innerHTML,
-            handleInApp:
-              el.getAttribute('data-handle-in-app') === 'true' ? true : false,
-          },
-        });
-      }),
-    );
-
 export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return html`
     <nav class="py-3" id="breadcrumbs-wrapper">

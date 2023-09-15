@@ -1,7 +1,7 @@
 // Should probably have a better name. Here i'm reffering to the buttons on the right
-import { IconButton } from 'decorator-shared/views/components/icon-button';
-import { BurgerIcon } from 'decorator-shared/views/icons/burger';
-import Search from 'decorator-shared/views/search';
+import { IconButton } from '../../components/icon-button';
+import { BurgerIcon } from '../../icons/burger';
+import Search from '../../search';
 import { LoginIcon } from 'decorator-shared/views/icons/login';
 import { MyPageMenu, html } from 'decorator-shared/utils';
 import { Texts } from 'decorator-shared/texts';

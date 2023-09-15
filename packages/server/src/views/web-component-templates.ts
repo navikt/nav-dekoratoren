@@ -1,7 +1,7 @@
 import { html } from 'decorator-shared/utils';
 
-import ToggleIconButton from './toggle-icon-button.js';
-import { InlineSearchTemplate, SearchHitTemplate } from '../search.js';
+import ToggleIconButton from './toggle-icon-button';
+import { InlineSearchTemplate, SearchHitTemplate } from './search';
 
 // For reusable components that use "slot" functionality
 

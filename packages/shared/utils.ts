@@ -159,10 +159,6 @@ export const buildDataStructure = async (params: Params) => {
   };
 };
 
-export function getDataSubset(params: Params, datakey: DataKeys) {
-  return buildDataStructure(params).then((data) => data[datakey]);
-}
-
 export type GetDataResponse = Awaited<ReturnType<typeof buildDataStructure>>;
 export type DataKeys = keyof GetDataResponse;
 export type MainMenu = GetDataResponse['mainMenu'];

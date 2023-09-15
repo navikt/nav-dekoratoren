@@ -1,7 +1,6 @@
 declare global {
   interface HTMLElementTagNameMap {
     'toggle-icon-button': ToggleIconButton;
-    'search-button': SearchButton;
   }
 }
 
