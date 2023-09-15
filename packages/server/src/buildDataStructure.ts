@@ -1,6 +1,6 @@
 import { Context, Language, Params } from 'decorator-shared/params';
 import { texts } from 'decorator-shared/texts';
-import { Node } from 'decorator-shared/utils';
+import { Node } from 'decorator-shared/types';
 
 function getContextKey(context: Context) {
   return capitalizeFirstLetter(context);

@@ -1,4 +1,4 @@
-import { Node } from 'decorator-shared/utils';
+import { Node } from '../types';
 import { Texts } from '../texts';
 import html from '../html';
 

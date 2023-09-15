@@ -1,4 +1,4 @@
-import { Node } from 'decorator-shared/utils';
+import { Node } from '../../types';
 import { ComplexHeader } from './complex-header.js';
 import { SimpleHeader } from './simple-header.js';
 import { Texts } from 'decorator-shared/texts';

@@ -1,6 +1,6 @@
 import { ComplexHeaderNavbarItems } from './complex-header-navbar-items.js';
 import { Texts } from 'decorator-shared/texts';
-import { Node } from 'decorator-shared/utils';
+import { Node } from '../../../types';
 import { SimpleHeaderNavbarItems } from './simple-header-navbar-items.js';
 
 // Can maybe have a discriminated union here

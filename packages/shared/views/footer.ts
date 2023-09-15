@@ -1,5 +1,5 @@
 import type { Params } from '../params';
-import { Node } from 'decorator-shared/utils';
+import { Node } from '../types';
 import html from 'decorator-shared/html';
 import { Texts } from '../texts';
 import { ComplexFooter } from './complex-footer.js';
