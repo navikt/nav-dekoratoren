@@ -1,4 +1,4 @@
-import { Params } from '@/params';
+import { Params } from 'decorator-shared/params';
 
 describe('Setting parameters', () => {
   let ready = false;

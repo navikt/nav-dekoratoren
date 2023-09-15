@@ -9,10 +9,6 @@
     "serve": "bun run --cwd packages/server serve",
     "prettier": "prettier",
     "lint": "eslint",
-    "cypress:open": "cypress open",
-    "cypress:open:reference": "IS_OLD=true cypress open",
-    "cypress:run": "cypress run",
-    "cypress:run:reference": "IS_OLD=true cypress run",
     "prepare": "husky install",
     "benchmarking": "bun run ./benchmarking/index.ts",
     "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb"
@@ -21,23 +17,17 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/client",
-    "packages/server",
-    "packages/shared"
+    "packages/*"
   ],
   "devDependencies": {
-    "@testing-library/cypress": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "concurrently": "^8.2.0",
-    "cypress": "^12.17.2",
     "eslint": "latest",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.6",
-    "zod": "^3.21.4"
+    "tsconfig-paths": "^4.2.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",

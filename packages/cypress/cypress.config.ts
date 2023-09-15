@@ -7,6 +7,6 @@ export default defineConfig({
     screenshotsFolder: false,
     baseUrl: process.env.IS_OLD
       ? 'http://localhost:8088'
-      : 'http://localhost:3000',
+      : 'http://localhost:8089',
   },
 });

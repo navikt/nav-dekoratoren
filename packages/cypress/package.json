@@ -1,0 +1,18 @@
+{
+  "name": "decorator-cypress",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:open:reference": "IS_OLD=true cypress open",
+    "cypress:run": "cypress run",
+    "cypress:run:reference": "IS_OLD=true cypress run"
+  },
+  "dependencies": {
+    "decorator-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^9.0.0",
+    "cypress": "^12.17.2"
+  }
+}
