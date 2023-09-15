@@ -1,6 +1,6 @@
 import { Node } from '../../types';
 import html from '../../html';
-import { ForwardChevron } from '../icons/forward-chevron.js';
+import { ForwardChevron } from '../icons/forward-chevron';
 import { Context } from '../../params';
 
 function Link({

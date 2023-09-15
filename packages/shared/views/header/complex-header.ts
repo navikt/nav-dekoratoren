@@ -3,8 +3,8 @@ import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from 'decorator-shared/views/language-selector';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import { HeaderProps, utilsBackgroundClasses } from './index.js';
-import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items.js';
+import { HeaderProps, utilsBackgroundClasses } from './index';
+import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
 
 export function ComplexHeader({
   isNorwegian,

@@ -1,7 +1,7 @@
-import { ComplexHeaderNavbarItems } from './complex-header-navbar-items.js';
+import { ComplexHeaderNavbarItems } from './complex-header-navbar-items';
 import { Texts } from 'decorator-shared/texts';
 import { Node } from '../../../types';
-import { SimpleHeaderNavbarItems } from './simple-header-navbar-items.js';
+import { SimpleHeaderNavbarItems } from './simple-header-navbar-items';
 
 // Can maybe have a discriminated union here
 export type HeaderNavbarItemsProps = {

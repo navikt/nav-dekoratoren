@@ -1,6 +1,6 @@
 import { Node } from '../../types';
-import { ComplexHeader } from './complex-header.js';
-import { SimpleHeader } from './simple-header.js';
+import { ComplexHeader } from './complex-header';
+import { SimpleHeader } from './simple-header';
 import { Texts } from 'decorator-shared/texts';
 import {
   AvailableLanguage,

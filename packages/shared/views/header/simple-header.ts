@@ -7,8 +7,8 @@ import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/texts';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import LanguageSelector from 'decorator-shared/views/language-selector';
-import { utilsBackgroundClasses } from './index.js';
-import { SimpleHeaderNavbarItems } from './navbar-items/simple-header-navbar-items.js';
+import { utilsBackgroundClasses } from './index';
+import { SimpleHeaderNavbarItems } from './navbar-items/simple-header-navbar-items';
 
 export function SimpleHeader({
   availableLanguages,
