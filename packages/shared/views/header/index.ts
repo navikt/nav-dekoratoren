@@ -1,8 +1,4 @@
-import {
-  HeaderMenuLinksData,
-  MainMenu,
-  MyPageMenu,
-} from 'decorator-shared/utils';
+import { Node } from 'decorator-shared/utils';
 import { ComplexHeader } from './complex-header.js';
 import { SimpleHeader } from './simple-header.js';
 import { Texts } from 'decorator-shared/texts';
@@ -22,14 +18,14 @@ export const utilsBackgroundClasses = {
 
 export type HeaderProps = {
   isNorwegian: boolean;
-  mainMenu: MainMenu;
+  mainMenu: Node[];
   texts: Texts;
-  headerMenuLinks: HeaderMenuLinksData;
+  headerMenuLinks: Node[];
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
-  myPageMenu: MyPageMenu;
+  myPageMenu: Node[];
 } & Pick<Params, 'simple'>;
 
 export function getHeader(props: HeaderProps) {

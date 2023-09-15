@@ -1,13 +1,13 @@
-import { Personvern } from 'decorator-shared/utils';
+import { Node } from 'decorator-shared/utils';
 import { Texts } from '../texts';
-import { html } from '../utils';
+import html from '../html';
 
 export function SimpleFooter({
   personvern,
   texts,
 }: {
   texts: Texts;
-  personvern: Personvern;
+  personvern: Node[];
 }) {
   return html`
     <footer class="simple-footer">

@@ -3,7 +3,7 @@ import type {
   Breadcrumb,
   UtilsBackground,
 } from 'decorator-shared/params';
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/texts';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import LanguageSelector from 'decorator-shared/views/language-selector';

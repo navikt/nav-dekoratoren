@@ -1,5 +1,6 @@
 import type { Params } from '../params';
-import { FooterLinks, Personvern, html } from 'decorator-shared/utils';
+import { Node } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { Texts } from '../texts';
 import { ComplexFooter } from './complex-footer.js';
 import { Feedback } from './feedback.js';
@@ -7,8 +8,8 @@ import { SimpleFooter } from './simple-footer.js';
 
 export type FooterProps = {
   texts: Texts;
-  personvern: Personvern;
-  footerLinks: FooterLinks;
+  personvern: Node[];
+  footerLinks: Node[];
 } & Pick<Params, 'simple' | 'feedback'>;
 
 function getFooter(props: FooterProps) {

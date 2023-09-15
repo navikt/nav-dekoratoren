@@ -1,5 +1,5 @@
 import { Texts } from 'decorator-shared/texts';
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 
 export function VarslerEmptyView({ texts }: { texts: Texts }) {
   return html`

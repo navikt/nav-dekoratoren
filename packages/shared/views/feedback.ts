@@ -1,5 +1,5 @@
 import { Texts } from '../texts';
-import { html } from '../utils';
+import html from '../html';
 import { Button } from './components/button.js';
 
 export function Feedback({ texts }: { texts: Texts }) {

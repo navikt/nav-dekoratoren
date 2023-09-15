@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { buildDataStructure, DataKeys } from 'decorator-shared/utils';
+import buildDataStructure from '../buildDataStructure';
 import { env } from '../env/server';
 
 export const inspectData: RequestHandler = async (req, res) => {
@@ -17,7 +17,7 @@ export const inspectData: RequestHandler = async (req, res) => {
 
 export const dataHandlers: RequestHandler = async (req, res) => {
   const { params } = req;
-  const dataKey = params.key as DataKeys;
+  const dataKey = params.key;
 
   if (!dataKey) {
     return res.status(400).send('Missing key');

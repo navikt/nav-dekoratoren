@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 
 import ToggleIconButton from './toggle-icon-button';
 import { InlineSearchTemplate, SearchHitTemplate } from './search';

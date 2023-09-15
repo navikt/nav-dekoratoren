@@ -1,4 +1,5 @@
-import { HeaderMenuLinksData, html } from '../utils';
+import { Node } from '../types';
+import html from '../html';
 import { ForwardChevron } from './icons/forward-chevron.js';
 import { Context } from '../params';
 
@@ -57,7 +58,7 @@ export function HeaderMenuLinks({
   className = '',
   headerMenuLinks,
 }: {
-  headerMenuLinks: HeaderMenuLinksData;
+  headerMenuLinks: Node[];
   className?: string;
   cols?: HeaderMenuLinkCols;
 }) {

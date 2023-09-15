@@ -22,7 +22,7 @@ import './views/decorator-lens.client';
 import { AddSnarveierListener } from './views/header-menu-links.client';
 
 import { SearchShowMore } from 'decorator-shared/views/search-show-more';
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search.client';
 import {
   hasClass,
@@ -223,9 +223,7 @@ async function setActiveContext(context: Context | null) {
     replaceElement({
       selector: '#header-menu-links',
       html: HeaderMenuLinks({
-        headerMenuLinks: await getContent('headerMenuLinks', {
-          context,
-        }),
+        headerMenuLinks,
         cols: headerMenuLinks.length as HeaderMenuLinkCols,
       }),
     });
@@ -352,7 +350,7 @@ async function populateLoggedInMenu(authObject: Auth) {
       {
         innlogget: authObject.authenticated,
         name: authObject.name,
-        myPageMenu: myPageMenu,
+        myPageMenu,
         // For testing
         texts: texts['no'],
       },

@@ -1,4 +1,5 @@
-import { MyPageMenu, html } from 'decorator-shared/utils';
+import { Node } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { IconButton } from './components/icon-button';
 import { LoginIcon } from './icons/login';
 import { VarslerIcon } from 'decorator-shared/views/icons/varsler';
@@ -12,7 +13,7 @@ export function LoggedInMenu({
   myPageMenu,
 }: {
   name: string;
-  myPageMenu: MyPageMenu;
+  myPageMenu: Node[];
 }) {
   return html`
     <div id="logged-in-menu">

@@ -1,5 +1,5 @@
 import { type Params } from 'decorator-shared/params';
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 
 declare global {
   interface HTMLElementTagNameMap {

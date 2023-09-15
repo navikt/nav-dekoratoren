@@ -1,4 +1,4 @@
-import { asDefined, html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { setAriaExpanded } from '../utils';
 // import SearchHit from './search-hit';
 //
@@ -8,6 +8,15 @@ const events = {
   'finished-searching': new Event('finished-searching'),
   'stopped-searching': new Event('stopped-searching'),
 };
+
+// For when you know it is defined to avoid annoying null checks
+export function asDefined<T>(value: T | undefined): NonNullable<T> {
+  if (!value) {
+    throw new Error('Value is undefined');
+  }
+
+  return value as NonNullable<T>;
+}
 
 export function handleSearchButtonClick() {
   const searchButton = document.getElementById('search-button');

@@ -1,5 +1,5 @@
 import { AvailableLanguage } from 'decorator-shared/params';
-import { html } from '../utils';
+import html from '../html';
 
 export default ({
   availableLanguages,

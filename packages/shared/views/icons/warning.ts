@@ -1,4 +1,4 @@
-import { html } from '../../utils';
+import html from '../../html';
 
 export function WarningIcon() {
   return html`

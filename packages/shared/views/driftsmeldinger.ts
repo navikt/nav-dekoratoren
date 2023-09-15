@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { WarningIcon } from 'decorator-shared/views/icons/warning';
 
 export type Driftsmelding = {

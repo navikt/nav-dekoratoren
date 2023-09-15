@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 
 export class Loader extends HTMLElement {
   constructor() {

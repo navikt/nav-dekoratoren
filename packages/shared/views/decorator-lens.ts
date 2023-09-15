@@ -1,5 +1,5 @@
 import { Params, formatParams } from '../params';
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { Request } from 'express';
 
 export function DecoratorLens({

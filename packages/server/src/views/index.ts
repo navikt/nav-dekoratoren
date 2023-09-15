@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
 
 export function Index({

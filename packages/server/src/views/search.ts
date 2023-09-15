@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
 import { CloseIcon } from 'decorator-shared/views/icons/close';
 

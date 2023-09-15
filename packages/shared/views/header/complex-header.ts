@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import {
   HeaderMenuLinkCols,

@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-import { buildDataStructure } from 'decorator-shared/utils';
+import buildDataStructure from '../buildDataStructure';
 import { DecoratorEnv } from 'decorator-shared/views/decorator-env';
 import { DecoratorLens } from 'decorator-shared/views/decorator-lens';
 import { Footer } from 'decorator-shared/views/footer';

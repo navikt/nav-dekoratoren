@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 import { CloseIcon } from 'decorator-shared/views/icons/close';
 
 export default function () {

@@ -1,4 +1,4 @@
-import { html } from '../../utils';
+import html from '../../html';
 
 export function CloseIcon({ className = '' }: { className?: string }) {
   return html`

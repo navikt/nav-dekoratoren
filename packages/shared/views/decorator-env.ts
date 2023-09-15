@@ -1,5 +1,5 @@
 import { Params, formatParams } from 'decorator-shared/params';
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 
 export function DecoratorEnv({
   origin,

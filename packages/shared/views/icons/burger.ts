@@ -1,4 +1,4 @@
-import { html } from 'decorator-shared/utils';
+import html from 'decorator-shared/html';
 
 // @TODO: Should probably create a generic type for the className
 

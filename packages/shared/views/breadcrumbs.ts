@@ -1,5 +1,5 @@
 import { Breadcrumb } from '../params';
-import { html } from '../utils';
+import html from '../html';
 
 export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return html`
