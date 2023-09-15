@@ -8,41 +8,41 @@ export function formatParams(params: Partial<Params>) {
   );
 }
 
-const authLevelSchema = z.enum(['Level3', 'Level4']);
-const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 const contextSchema = z.enum([
   'privatperson',
   'arbeidsgiver',
   'samarbeidspartner',
 ]);
-
-export const breadcrumbSchema = z.object({
-  title: z.string(),
-  url: z.string(),
-  handleInApp: z.boolean().default(false).optional(),
-});
-const utilsBackground = z.enum(['white', 'gray', 'transparent']);
-
 export type Context = z.infer<typeof contextSchema>;
+
+const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 export type Language = z.infer<typeof languageSchema>;
-export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
-export type UtilsBackground = z.infer<typeof utilsBackground>;
-export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const availableLanguageSchema = z.object({
   locale: languageSchema,
   url: z.string().optional(),
   handleInApp: z.boolean().default(false).optional(),
 });
+export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
-const paramsSchema = z.object({
+const breadcrumbSchema = z.object({
+  title: z.string(),
+  url: z.string(),
+  handleInApp: z.boolean().default(false).optional(),
+});
+export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
+
+const utilsBackground = z.enum(['white', 'gray', 'transparent']);
+export type UtilsBackground = z.infer<typeof utilsBackground>;
+
+export const paramsSchema = z.object({
   context: contextSchema.default('privatperson'),
   simple: z.boolean().default(false),
   simpleHeader: z.boolean().default(false),
   simpleFooter: z.boolean().default(false),
   enforceLogin: z.boolean().default(false),
   redirectToApp: z.boolean().default(false),
-  level: authLevelSchema.default('Level3'),
+  level: z.enum(['Level3', 'Level4']).default('Level3'),
   language: languageSchema.default('nb'),
   availableLanguages: z.array(availableLanguageSchema).default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),
@@ -57,22 +57,3 @@ const paramsSchema = z.object({
 });
 
 export type Params = z.infer<typeof paramsSchema>;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const validateParams = (params: any) => {
-  return paramsSchema.safeParse({
-    ...params,
-    simple: parseBooleanParam(params.simple),
-    feedback: parseBooleanParam(params.feedback),
-    breadcrumbs: params.breadcrumbs
-      ? JSON.parse(params.breadcrumbs)
-      : params.breadcrumbs,
-    availableLanguages: params.availableLanguages
-      ? JSON.parse(params.availableLanguages)
-      : params.availableLanguages,
-  });
-};
-
-function parseBooleanParam(param: string | undefined): boolean {
-  return param === 'true' ? true : false;
-}
