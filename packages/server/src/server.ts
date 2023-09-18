@@ -6,8 +6,7 @@ import { html } from '@elysiajs/html';
 import { validateParams } from './validateParams';
 import mockAuth from './mockAuth';
 import { env } from './env/server';
-import { getHeaderMenuLinks } from './buildDataStructure';
-import getMyPageMenu from './my-page-menu';
+import { getHeaderMenuLinks, getMyPageMenu } from './content';
 
 import renderIndex from './render-index';
 
@@ -53,13 +52,21 @@ const app = new Elysia()
       .then((menu) => getMyPageMenu(menu, data.language)),
   )
   .get('/data/headerMenuLinks', ({ data }) =>
-    getHeaderMenuLinks({ language: data.language, context: data.context }),
+    fetch(`${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`)
+      .then((response) => response.json())
+      .then((menu) =>
+        getHeaderMenuLinks({
+          menu,
+          language: data.language,
+          context: data.context,
+        }),
+      ),
   )
   .get('/', async ({ data, query, request }) => {
     const menu = await fetch(
       `${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`,
     ).then((response) => response.json());
-    return renderIndex({ menu, data, url: request.url, query, port });
+    return renderIndex({ menu, data, url: request.url, query });
   })
   .listen(port);
 

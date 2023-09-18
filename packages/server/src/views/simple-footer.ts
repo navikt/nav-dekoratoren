@@ -7,7 +7,7 @@ export function SimpleFooter({
   texts,
 }: {
   texts: Texts;
-  personvern: Node[];
+  personvern?: Node[];
 }) {
   return html`
     <footer class="simple-footer">
@@ -43,7 +43,7 @@ export function SimpleFooter({
       </style>
       <div class="simple-footer__content">
         <ul class="simple-footer__link-list">
-          ${personvern.map(
+          ${personvern?.map(
             (link) => html`
               <li>
                 <a class="simple-footer__link" href="${link.path}"
