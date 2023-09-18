@@ -2,7 +2,7 @@ import { Context, Language, Params } from 'decorator-shared/params';
 import { texts } from 'decorator-shared/texts';
 import { Node } from 'decorator-shared/types';
 
-function getContextKey(context: Context) {
+export function getContextKey(context: Context) {
   return capitalizeFirstLetter(context);
 }
 
@@ -10,7 +10,7 @@ function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-type ContentLangKey = 'no' | 'en' | 'se';
+export type ContentLangKey = 'no' | 'en' | 'se';
 
 export const getLangKey = (lang: Language): ContentLangKey => {
   switch (lang) {
@@ -88,20 +88,6 @@ export default async (params: Params) => {
     myPageMenu,
     texts: texts[languageKey],
   };
-};
-
-export const getMyPageMenu = async (language) => {
-  const menu = {
-    children: await fetch(
-      `${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`,
-    ).then((response) => response.json()),
-    displayName: '',
-    // TS complains, can be fixed by adding a type to the node
-    flatten: false,
-    id: '',
-  };
-
-  return get(menu, `${getLangKey(language)}.Header.My page menu`)?.children;
 };
 
 export const getHeaderMenuLinks = async ({ language, context }) => {
