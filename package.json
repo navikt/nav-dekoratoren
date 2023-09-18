@@ -19,7 +19,6 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@happy-dom/global-registrator": "^12.0.1",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "concurrently": "^8.2.0",
