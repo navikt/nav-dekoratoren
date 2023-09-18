@@ -245,6 +245,7 @@ let isMenuOpen = false;
 function handleMenuButton() {
   // Can probably be done direclty
   const menuButton = document.getElementById('menu-button');
+  const profileButton = document.getElementById('profile-button');
 
   menuButton?.addEventListener('click', () => {
     setAriaExpanded(menuButton);
@@ -252,6 +253,10 @@ function handleMenuButton() {
     menuButton?.classList.toggle('active');
     menu?.classList.toggle('active');
     menuBackground?.classList.toggle('active');
+
+    if (profileButton) {
+      purgeActive(profileButton);
+    }
 
     const isMobile = window.innerWidth < breakpoints.lg;
     isMenuOpen = !isMenuOpen;
@@ -306,8 +311,23 @@ if (window.decoratorParams.simple === false) {
 menuBackground?.addEventListener('click', () => {
   const menu = document.getElementById('menu');
   const menuButton = document.getElementById('menu-button');
+  const profileButton = document.getElementById('profile-button');
 
-  [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
+  const dropdowns = document.querySelectorAll('.dropdown');
+  const loggedInMenuWrapper = document.getElementById('loggedin-menu-wrapper');
+
+  if (menuBackground.classList.contains('active')) {
+    profileButton?.classList.remove('active');
+  }
+
+  [
+    menuButton,
+    menuBackground,
+    menu,
+    profileButton,
+    loggedInMenuWrapper,
+    ...dropdowns,
+  ].forEach((el) => el && purgeActive(el));
 });
 
 // Feedback

@@ -7,15 +7,12 @@ import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
 import { VarslerEmptyView, VarslerUlest } from '../../varsler';
 import { texts } from 'decorator-shared/texts';
+import { DropdownButton } from '../../components/dropdown-button';
 
 // ${IconButton({
-//   id: 'varsler-button',
-//   Icon: () => html`
-//     <div class="varsler-icon-wrapper">
-//       ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
-//     </div>
-//   `,
-//   text: 'Varsler',
+//   id: 'profile-button',
+//   Icon: ProfileIcon,
+//   text: name,
 // })}
 export function LoggedInMenu({
   name,
@@ -34,9 +31,11 @@ export function LoggedInMenu({
           <span slot="text">Varsler</span>
         </toggle-icon-button>
       </div>
-      ${IconButton({
+      ${DropdownButton({
         id: 'profile-button',
-        Icon: ProfileIcon,
+        icon: ProfileIcon({
+          className: '',
+        }),
         text: name,
       })}
       ${IconButton({
@@ -44,6 +43,7 @@ export function LoggedInMenu({
         Icon: LoginIcon,
         text: 'Logg ut',
       })}
+
       <div id="loggedin-menu-wrapper">
         <div id="loggedin-menu-content">
           <div id="varsler-menu-content" class="dropdown">
