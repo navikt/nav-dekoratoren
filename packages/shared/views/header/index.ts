@@ -18,14 +18,14 @@ export const utilsBackgroundClasses = {
 
 export type HeaderProps = {
   isNorwegian: boolean;
-  mainMenu: Node[];
+  mainMenu?: Node[];
   texts: Texts;
-  headerMenuLinks: Node[];
+  headerMenuLinks?: Node[];
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
-  myPageMenu: Node[];
+  myPageMenu?: Node[];
 } & Pick<Params, 'simple'>;
 
 export function getHeader(props: HeaderProps) {

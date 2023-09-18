@@ -1,0 +1,3210 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders norwegian index 1`] = `
+"
+    <!doctype html>
+    <html lang="nb">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
+          rel="stylesheet"
+        />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body>
+        <div id="styles" style="display:none"></div>
+        
+    
+        <template id="toggle-icon-button-template">
+        <style>
+        .button {
+            cursor: pointer;
+            display: flex;
+            gap: 0.5rem/* 8px */;
+            color: rgba(0, 103, 197, 1);
+            min-width: 95px;
+            border-radius: 3px;
+            padding-top: 0.75rem/* 12px */;
+            padding-bottom: 0.75rem/* 12px */;
+            padding-right: 1rem/* 16px */;
+            padding-left: 0.25rem/* 4px */;
+            border-width: 2px;
+            background-color: rgba(0, 0, 0, 0);
+            border-color: rgba(255, 255, 255, 0);
+            font-family: 'Source Sans 3';
+            border: 2px solid transparent;
+            outline: 2px solid transparent;
+        }
+
+        .opened, .idle {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* Should find a better soluion for this */
+        @media (max-width: 1024px) {
+            .opened, .idle {
+                flex-direction: column;
+                align-items: center;
+                gap: 0px;
+            }
+
+            .button {
+                min-width: 0px;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .opened ::slotted(span), .idle ::slotted(span) {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .opened {
+            display: none;
+        }
+
+        .button.active .opened {
+            display: flex;
+         }
+
+
+        .button.active .idle {
+            display: none;
+         }
+
+         .button:hover {
+             border-color: rgba(0, 103, 197, 1);
+             background-color: var(--a-blue-100);
+         }
+
+        .button:active {
+            color: white;
+            background-color: var(--a-surface-action-active);
+            border: 1px solid white;
+            margin: 1px;
+            outline: 3px solid var(--a-blue-800);
+        }
+
+        .button:active .close-icon {
+            /* display: block; */
+        }
+
+
+        </style>
+        <button
+          class="button toggle-icon-button"
+        >
+          <div class="idle">
+            <slot name="icon"></slot>
+            <slot name="idleText"></slot>
+          </div>
+          <div class="opened">
+          
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      class=""
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94 6.53 5.47Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+            <slot name="openedText"></slot>
+          <div>
+        </button>
+        </template>
+     <template id="search-hit-template">
+    <style>
+      p,
+      h2 {
+        margin: 0;
+        padding: 0;
+        margin-block-start: 0;
+      }
+
+      .search-hit ::slotted(p),
+      .search-hit ::slotted(h2) {
+        margin: 0;
+      }
+
+      .search-hit {
+        list-style-type: none;
+        padding-top: 1rem /* 16px */;
+        padding-bottom: 1rem /* 16px */;
+        padding-left: 0.5rem /* 8px */;
+        padding-right: 1rem /* 16px */;
+        border-bottom: 1px solid rgba(207, 207, 207, 1);
+      }
+
+      .search-hit-top {
+        display: flex;
+        justify-content: start;
+        gap: 6px;
+      }
+
+      .search-hit svg {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .search-hit {
+          padding-left: 0;
+        }
+
+        .search-hit a {
+          display: flex;
+          gap: 6px;
+        }
+
+        .search-hit svg {
+          display: block;
+        }
+      }
+
+      .search-hit a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .search-hit:hover {
+        background-color: rgba(207, 207, 207, 1);
+      }
+
+      .search-hit ::slotted(h2) {
+        font-size: 1.25rem /* 20px */;
+        line-height: 1.75rem /* 28px */;
+        font-weight: 600;
+      }
+    </style>
+    <li class="search-hit">
+      <a>
+        <div>
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            role="img"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <slot name="title"></slot>
+          <slot name="description"></slot>
+        </div>
+      </a>
+    </li>
+  </template>  <template id="inline-search-template">
+    <style>
+      .inline-search {
+        width: 100%;
+        position: relative;
+      }
+
+      .inline-search input {
+        background-color: white;
+        border: 2px solid var(--a-blue-500);
+        padding: 0.7rem 1rem;
+        border-radius: 3px;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 48px;
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .inline-search-input-container {
+        width: 100%;
+        position: relative;
+      }
+
+      .inline-search ul {
+        padding-left: 0px;
+      }
+
+      button {
+        background: blue;
+      }
+
+      label {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 600;
+        margin-bottom: var(--a-spacing-2);
+        display: inline-block;
+      }
+
+      .close-icon-button,
+      .search-icon-button {
+        position: absolute;
+        color: var(--a-blue-500);
+        height: 100%;
+        border: 3px solid transparent;
+        background: none;
+        box-sizing: border-box;
+        border-radius: 6px;
+        width: 50px;
+      }
+
+      .close-icon-button:hover,
+      .search-icon-button:hover {
+        color: var(--a-blue-500);
+        border: 3px solid var(--a-blue-500);
+        background-color: var(--a-blue-100);
+      }
+
+      /* .close-icon, .search-icon { */
+      /*     position: absolute; */
+      /*     color: var(--a-blue-500); */
+      /* } */
+
+      .search-icon-button {
+        top: 0px;
+        right: 0px;
+        width: 66px;
+      }
+
+      .close-icon-button {
+        top: 0px;
+        right: 74px;
+        display: none;
+      }
+
+      .search-icon {
+        top: 12px;
+        right: 24px;
+      }
+
+      .close-icon {
+        top: 8px;
+        right: 64px;
+        width: 32px;
+        height: 32px;
+      }
+
+      #inline-search-hits {
+      }
+
+      #inline-search-hits.is-searching {
+        display: none;
+      }
+    </style>
+    <div class="inline-search">
+      <label for="inline-search-input" class="big-label">Søk på nav.no</label>
+      <div class="inline-search-input-container">
+        <input id="inline-search-input" class="decorator-input" type="text" />
+        <button class="search-icon-button">
+          
+    <svg
+      class="search-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
+      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+    </svg>
+  
+        </button>
+        <button class="close-icon-button">
+          
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      class="close-icon"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94 6.53 5.47Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </button>
+      </div>
+      <div id="inline-search-hits">
+        <ul></ul>
+      </div>
+    </div>
+  </template>
+
+    <!-- Composing markup using predefined templates -->
+    <template id="search-icon-button-template"></template>
+   
+    <div id="header-withmenu">
+      <div
+        id="menu-background"
+      ></div>
+      <header
+        class="siteheader"
+      >
+        <div
+          class="hovedmeny-wrapper"
+        >
+          <div class="hovedmeny-content">
+            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <div
+              id="arbeidsflate"
+            >
+              
+                    <button
+                      class="context-link lenkeActive"
+                      href="?context=privatperson"
+                      data-context="privatperson"
+                    >
+                      Privatperson
+                    </button>
+                  
+                    <button
+                      class="context-link "
+                      href="?context=arbeidsgiver"
+                      data-context="arbeidsgiver"
+                    >
+                      Arbeidsgiver
+                    </button>
+                  
+                    <button
+                      class="context-link "
+                      href="?context=samarbeidspartner"
+                      data-context="samarbeidspartner"
+                    >
+                      Samarbeidspartner
+                    </button>
+                  
+            </div>
+          </div>
+          
+    <div id="menu-items" class="">
+      <div id="menu-items-universal-links">
+        <button id="menu-button" class="icon-button">
+          <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    aria-hidden="true"
+    focusable="false"
+    aria-labelledby="menuBurger_:R2kti:"
+    role="img"
+    class="menuBurger"
+    slot=""
+  >
+    <title id="menuBurger_:R2kti:">Meny-ikon</title>
+    <path class="menuBurger__line-1" d="M2 4h20"></path>
+    <path class="menuBurger__line-2" d="M2 12h20"></path>
+    <path class="menuBurger__line-3" d="M2 20h20"></path>
+  </svg>
+          <span class="icon-button-span"> Meny </span>
+        </button>
+        
+    <button id="search-button" class="icon-button">
+      
+    <svg
+      class="searchIcon menuSearch"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
+      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="icon-button-span"> Søk </span>
+    </button>
+    <div id="sok-dropdown">
+      <div id="sok-dropdown-content">
+        <label for="search-input" class="big-label">Søk på nav.no</label>
+        <div class="flex">
+          <input id="search-input" type="text" />
+          
+    <button
+      id=""
+      class="icon-button blue-bg-icon"
+      
+    >
+      
+    <svg
+      class=""
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
+      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="icon-button-span">Søk</span>
+    </button>
+  
+        </div>
+      </div>
+      <div id="search-hits">
+        <ul></ul>
+        <div id="show-more"></div>
+      </div>
+    </div>
+  
+      </div>
+      
+            
+    <button
+      id="login-button"
+      class="icon-button "
+      
+    >
+      <svg
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    focusable="false"
+    role="img"
+    aria-labelledby="decorator-login-icon"
+    aria-hidden="true"
+    class=""
+  >
+    <title id="decorator-login-icon">Logginn-ikon</title>
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M19 4h-5V2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5v-2h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-8.293 2.293L16.414 12l-5.707 5.707-1.414-1.414L12.586 13H2v-2h10.586L9.293 7.707l1.414-1.414Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+      <span class="icon-button-span">Logg inn</span>
+    </button>
+  
+          
+    </div>
+  
+        <div
+          id="menu"
+        >
+         <div class="menu-top">
+            <h2>
+              Hva kan vi hjelpe deg med?
+            </h2>
+            <a
+              class="link"
+              href="#"
+              >Til forsiden</a
+            >
+          </div>
+            <div id="sub-menu-content">
+            <div id="mobil-lukk">
+            
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m6.586 12 7.707-7.707 1.414 1.414L9.414 12l6.293 6.293-1.414 1.414L6.586 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+            <span>Tilbake til oversikt</span>
+            </div>
+            <ul></ul>
+            </div>
+            <div id="menu-content">
+            <div id="inline-search">
+                <inline-search></inline-search>
+            </div>
+            <decorator-loader id="search-loader"></decorator-loader>
+            <div id="header-menu-links">
+            
+    <ul class="header-menu-links cols-3 ">
+      
+          <li id="79173ea3-74cd-4d7a-a81f-a43915022c4e" class="flatten">
+            <h3>Områder</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/arbeid">Arbeid</a>
+    </li>
+  
+    <li class="header-menu-link " id="c0379053-4fdf-4151-8974-5d475449ebd2">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/helse">Helse og sykdom</a>
+    </li>
+  
+    <li class="header-menu-link " id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/familie">Familie og barn</a>
+    </li>
+  
+    <li class="header-menu-link " id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/pensjon">Pensjon</a>
+    </li>
+  
+    <li class="header-menu-link " id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/sosiale-tjenester">Sosiale tjenester og veiledning</a>
+    </li>
+  
+    <li class="header-menu-link " id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/hjelpemidler">Hjelpemidler og tilrettelegging</a>
+    </li>
+  
+            </ul>
+            
+          </li>
+        
+          <li id="c73650df-2e69-41e3-ae15-96ed90de4b0b" class="nested">
+            <h3>Snarveier</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/soknader">Søknad og skjema</a>
+    </li>
+  
+    <li class="header-menu-link " id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/ettersende">Ettersendelse</a>
+    </li>
+  
+    <li class="header-menu-link " id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/klage">Klage</a>
+    </li>
+  
+    <li class="header-menu-link " id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/tjenester">Pengestøtter og tjenester fra A til Å</a>
+    </li>
+  
+    <li class="header-menu-link " id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/saksbehandlingstider">Saksbehandlingstider</a>
+    </li>
+  
+    <li class="header-menu-link " id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger">Utbetalinger</a>
+    </li>
+  
+    <li class="header-menu-link " id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/satser">Satser</a>
+    </li>
+  
+    <li class="header-menu-link " id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det">Meldekort</a>
+    </li>
+  
+    <li class="header-menu-link " id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav">Kurs fra NAV</a>
+    </li>
+  
+    <li class="header-menu-link " id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene">Feiltolkning av EØS-reglene</a>
+    </li>
+  
+            </ul>
+            
+    <li class="header-menu-link nested-link" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="">Snarveier</a>
+    </li>
+  
+          </li>
+        
+      
+    <li class="header-menu-link mobile" id="">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="#">Logg inn på min side</a>
+    </li>
+  
+      <li>
+        <ul id="menu-context-links">
+          
+    <a
+      class="context-menu-link-wrapper"
+      href="privatperson"
+      data-context="privatperson"
+    >
+      <li class="context-menu-link " id="">
+        <div class="context-menu-link-inner">
+          
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      class="chevron"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </div>
+        <span>Privat</span>
+      </li>
+    </a>
+  
+          
+    <a
+      class="context-menu-link-wrapper"
+      href="arbeidsgiver"
+      data-context="arbeidsgiver"
+    >
+      <li class="context-menu-link " id="">
+        <div class="context-menu-link-inner">
+          
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      class="chevron"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </div>
+        <span>Arbeidsgiver</span>
+      </li>
+    </a>
+  
+          
+    <a
+      class="context-menu-link-wrapper"
+      href="samarbeidspartner"
+      data-context="samarbeidspartner"
+    >
+      <li class="context-menu-link " id="">
+        <div class="context-menu-link-inner">
+          
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      class="chevron"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </div>
+        <span>Samarbeidspartner</span>
+      </li>
+    </a>
+  
+        </ul>
+      </li>
+    </ul>
+  
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="decorator-utils-container decorator-utils-container_transparent">
+        
+    <nav class="py-3" id="breadcrumbs-wrapper">
+      <ol id="breadcrumbs-list">
+        <li>
+          <a class="amplitude-link" href="#">
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              role="img"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <span>nav.no</span>
+          </a>
+        </li>
+        
+      </ol>
+    </nav>
+  
+        
+      </div>
+    </div>
+  
+        <main>main</main>
+        
+    <div id="footer-withmenu" class="bg-white">
+       
+    <footer class="footer">
+      <div class="footer-content">
+        <a class="to-top-link" href="#">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            role="img"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.53 3.47a.75.75 0 0 0-1.06 0l-6.5 6.5a.75.75 0 1 0 1.06 1.06l5.22-5.22V20.5a.75.75 0 0 0 1.5 0V5.81l5.22 5.22a.75.75 0 1 0 1.06-1.06l-6.5-6.5Z"
+              fill="currentColor"
+            ></path></svg
+          >Til toppen</a
+        >
+
+        <div class="footer-links">
+          <ul class="footer-link-list">
+            
+                <li>
+                  <h2 class="footer-link-heading">Kontakt</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/person/kontakt-oss/nb"
+                            >Kontakt oss</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
+                            >NAV i ditt fylke</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
+                            >Kurs fra NAV</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/person/kontakt-oss/tilbakemeldinger"
+                            >Klage, tilbakemelding, ros</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+                <li>
+                  <h2 class="footer-link-heading">Nyheter og presse</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/samarbeidspartner/presse"
+                            >Nyheter, pressemeldinger og pressekontakt</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+                <li>
+                  <h2 class="footer-link-heading">NAV og samfunn</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
+                            >Statistikk, analyse og FoU</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="https://lovdata.no/nav/"
+                            >Lover og regler (lovdata.no)</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/om-nav"
+                            >Om NAV</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+                <li>
+                  <h2 class="footer-link-heading">Andre språk</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/en"
+                            >English</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/se"
+                            >Sámegiella</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+            <li>
+              <ul>
+                
+                    <li class="footer-link-item">
+                      <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
+                    </li>
+                  
+                    <li class="footer-link-item">
+                      <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
+                    </li>
+                  
+                <li class="footer-link-item">
+                  <a class="footer-link" href="#">
+                    Del skjerm med veileder<svg
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      focusable="false"
+                      role="img"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="20"
+            fill="none"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M63.48.52h-6.66s-.459 0-.621.406l-3.685 11.287L48.832.926c-.163-.405-.624-.405-.624-.405H35.404a.514.514 0 0 0-.51.507v3.833c0-3.04-3.233-4.34-5.127-4.34-4.24 0-7.078 2.794-7.962 7.043-.048-2.819-.282-3.829-1.041-4.863-.349-.507-.852-.932-1.4-1.285-1.13-.662-2.145-.895-4.324-.895h-2.56s-.462 0-.625.405L9.526 6.7V1.028A.512.512 0 0 0 9.02.521H3.097s-.457 0-.624.405L.053 6.93s-.242.6.31.6H2.64v11.44c0 .284.223.51.508.51h5.87a.509.509 0 0 0 .508-.51V7.53h2.289c1.313 0 1.59.036 2.101.274.308.117.585.352.737.623.31.583.387 1.283.387 3.348v7.195c0 .284.228.51.51.51h5.626s.636 0 .887-.63l1.247-3.083c1.658 2.324 4.387 3.712 7.779 3.712h.741s.64 0 .893-.628l2.172-5.381v5.5a.51.51 0 0 0 .51.51h5.743s.634 0 .888-.63c0 0 2.297-5.705 2.306-5.748h.004c.088-.475-.511-.475-.511-.475h-2.05V2.836l6.45 16.015c.251.628.886.628.886.628h6.786s.638 0 .89-.628l7.151-17.716c.247-.614-.469-.614-.469-.614ZM34.893 12.628h-3.858a2.784 2.784 0 1 1 0-5.57h1.079a2.788 2.788 0 0 1 2.78 2.787v2.783Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <p>Arbeids- og velferdsetaten</p>
+        </div>
+      </div>
+    </footer>
+  
+    </div>
+   
+    <div
+      id="decorator-env"
+      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+    ></div>
+    <script type="application/json" id="decorator-params">
+      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+    </script>
+   
+    <div>
+      
+    <template id="decorator-lens-template">
+      <style>
+        #decorator-lens-wrapper {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 60vh;
+            background-color: rgba(30, 30, 30, 0.9);
+            color: white;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        #decorator-lens-wrapper
+      </style>
+      <div id="decorator-lens" data-src=""></div>
+      <script type="application/json" id="active-params">
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+      </script>
+      <script type="application/json" id="explicit-params">
+        {}
+      </script>
+      <div id="decorator-lens-wrapper"></div>
+    </template>
+  
+      <div
+        id="decorator-lens"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+      ></div>
+      <div id="decorator-lens-implicit"></div>
+      <div
+        id="decorator-lens-explicit"
+        data-src=""
+      ></div>
+      <decorator-lens></decorator-lens>
+    </div>
+  
+        <div id="scripts" style="display:none"><script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script></div>
+      </body>
+    </html>
+  "
+`;
+
+exports[`renders english index 1`] = `
+"
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
+          rel="stylesheet"
+        />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body>
+        <div id="styles" style="display:none"></div>
+        
+    
+        <template id="toggle-icon-button-template">
+        <style>
+        .button {
+            cursor: pointer;
+            display: flex;
+            gap: 0.5rem/* 8px */;
+            color: rgba(0, 103, 197, 1);
+            min-width: 95px;
+            border-radius: 3px;
+            padding-top: 0.75rem/* 12px */;
+            padding-bottom: 0.75rem/* 12px */;
+            padding-right: 1rem/* 16px */;
+            padding-left: 0.25rem/* 4px */;
+            border-width: 2px;
+            background-color: rgba(0, 0, 0, 0);
+            border-color: rgba(255, 255, 255, 0);
+            font-family: 'Source Sans 3';
+            border: 2px solid transparent;
+            outline: 2px solid transparent;
+        }
+
+        .opened, .idle {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* Should find a better soluion for this */
+        @media (max-width: 1024px) {
+            .opened, .idle {
+                flex-direction: column;
+                align-items: center;
+                gap: 0px;
+            }
+
+            .button {
+                min-width: 0px;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .opened ::slotted(span), .idle ::slotted(span) {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .opened {
+            display: none;
+        }
+
+        .button.active .opened {
+            display: flex;
+         }
+
+
+        .button.active .idle {
+            display: none;
+         }
+
+         .button:hover {
+             border-color: rgba(0, 103, 197, 1);
+             background-color: var(--a-blue-100);
+         }
+
+        .button:active {
+            color: white;
+            background-color: var(--a-surface-action-active);
+            border: 1px solid white;
+            margin: 1px;
+            outline: 3px solid var(--a-blue-800);
+        }
+
+        .button:active .close-icon {
+            /* display: block; */
+        }
+
+
+        </style>
+        <button
+          class="button toggle-icon-button"
+        >
+          <div class="idle">
+            <slot name="icon"></slot>
+            <slot name="idleText"></slot>
+          </div>
+          <div class="opened">
+          
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      class=""
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94 6.53 5.47Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+            <slot name="openedText"></slot>
+          <div>
+        </button>
+        </template>
+     <template id="search-hit-template">
+    <style>
+      p,
+      h2 {
+        margin: 0;
+        padding: 0;
+        margin-block-start: 0;
+      }
+
+      .search-hit ::slotted(p),
+      .search-hit ::slotted(h2) {
+        margin: 0;
+      }
+
+      .search-hit {
+        list-style-type: none;
+        padding-top: 1rem /* 16px */;
+        padding-bottom: 1rem /* 16px */;
+        padding-left: 0.5rem /* 8px */;
+        padding-right: 1rem /* 16px */;
+        border-bottom: 1px solid rgba(207, 207, 207, 1);
+      }
+
+      .search-hit-top {
+        display: flex;
+        justify-content: start;
+        gap: 6px;
+      }
+
+      .search-hit svg {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .search-hit {
+          padding-left: 0;
+        }
+
+        .search-hit a {
+          display: flex;
+          gap: 6px;
+        }
+
+        .search-hit svg {
+          display: block;
+        }
+      }
+
+      .search-hit a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .search-hit:hover {
+        background-color: rgba(207, 207, 207, 1);
+      }
+
+      .search-hit ::slotted(h2) {
+        font-size: 1.25rem /* 20px */;
+        line-height: 1.75rem /* 28px */;
+        font-weight: 600;
+      }
+    </style>
+    <li class="search-hit">
+      <a>
+        <div>
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            role="img"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <slot name="title"></slot>
+          <slot name="description"></slot>
+        </div>
+      </a>
+    </li>
+  </template>  <template id="inline-search-template">
+    <style>
+      .inline-search {
+        width: 100%;
+        position: relative;
+      }
+
+      .inline-search input {
+        background-color: white;
+        border: 2px solid var(--a-blue-500);
+        padding: 0.7rem 1rem;
+        border-radius: 3px;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 48px;
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .inline-search-input-container {
+        width: 100%;
+        position: relative;
+      }
+
+      .inline-search ul {
+        padding-left: 0px;
+      }
+
+      button {
+        background: blue;
+      }
+
+      label {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 600;
+        margin-bottom: var(--a-spacing-2);
+        display: inline-block;
+      }
+
+      .close-icon-button,
+      .search-icon-button {
+        position: absolute;
+        color: var(--a-blue-500);
+        height: 100%;
+        border: 3px solid transparent;
+        background: none;
+        box-sizing: border-box;
+        border-radius: 6px;
+        width: 50px;
+      }
+
+      .close-icon-button:hover,
+      .search-icon-button:hover {
+        color: var(--a-blue-500);
+        border: 3px solid var(--a-blue-500);
+        background-color: var(--a-blue-100);
+      }
+
+      /* .close-icon, .search-icon { */
+      /*     position: absolute; */
+      /*     color: var(--a-blue-500); */
+      /* } */
+
+      .search-icon-button {
+        top: 0px;
+        right: 0px;
+        width: 66px;
+      }
+
+      .close-icon-button {
+        top: 0px;
+        right: 74px;
+        display: none;
+      }
+
+      .search-icon {
+        top: 12px;
+        right: 24px;
+      }
+
+      .close-icon {
+        top: 8px;
+        right: 64px;
+        width: 32px;
+        height: 32px;
+      }
+
+      #inline-search-hits {
+      }
+
+      #inline-search-hits.is-searching {
+        display: none;
+      }
+    </style>
+    <div class="inline-search">
+      <label for="inline-search-input" class="big-label">Søk på nav.no</label>
+      <div class="inline-search-input-container">
+        <input id="inline-search-input" class="decorator-input" type="text" />
+        <button class="search-icon-button">
+          
+    <svg
+      class="search-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
+      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+    </svg>
+  
+        </button>
+        <button class="close-icon-button">
+          
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      class="close-icon"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94 6.53 5.47Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </button>
+      </div>
+      <div id="inline-search-hits">
+        <ul></ul>
+      </div>
+    </div>
+  </template>
+
+    <!-- Composing markup using predefined templates -->
+    <template id="search-icon-button-template"></template>
+   
+    <div id="header-withmenu">
+      <div
+        id="menu-background"
+      ></div>
+      <header
+        class="siteheader"
+      >
+        <div
+          class="hovedmeny-wrapper"
+        >
+          <div class="hovedmeny-content">
+            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <div
+              id="arbeidsflate"
+            >
+              
+                    <button
+                      class="context-link lenkeActive"
+                      href="?context=privatperson"
+                      data-context="privatperson"
+                    >
+                      Privatperson
+                    </button>
+                  
+                    <button
+                      class="context-link "
+                      href="?context=arbeidsgiver"
+                      data-context="arbeidsgiver"
+                    >
+                      Arbeidsgiver
+                    </button>
+                  
+                    <button
+                      class="context-link "
+                      href="?context=samarbeidspartner"
+                      data-context="samarbeidspartner"
+                    >
+                      Samarbeidspartner
+                    </button>
+                  
+            </div>
+          </div>
+          
+    <div id="menu-items" class="">
+      <div id="menu-items-universal-links">
+        <button id="menu-button" class="icon-button">
+          <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    aria-hidden="true"
+    focusable="false"
+    aria-labelledby="menuBurger_:R2kti:"
+    role="img"
+    class="menuBurger"
+    slot=""
+  >
+    <title id="menuBurger_:R2kti:">Meny-ikon</title>
+    <path class="menuBurger__line-1" d="M2 4h20"></path>
+    <path class="menuBurger__line-2" d="M2 12h20"></path>
+    <path class="menuBurger__line-3" d="M2 20h20"></path>
+  </svg>
+          <span class="icon-button-span"> Menu </span>
+        </button>
+        
+    <button id="search-button" class="icon-button">
+      
+    <svg
+      class="searchIcon menuSearch"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
+      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="icon-button-span"> Search </span>
+    </button>
+    <div id="sok-dropdown">
+      <div id="sok-dropdown-content">
+        <label for="search-input" class="big-label">Søk på nav.no</label>
+        <div class="flex">
+          <input id="search-input" type="text" />
+          
+    <button
+      id=""
+      class="icon-button blue-bg-icon"
+      
+    >
+      
+    <svg
+      class=""
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
+      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
+      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="icon-button-span">Søk</span>
+    </button>
+  
+        </div>
+      </div>
+      <div id="search-hits">
+        <ul></ul>
+        <div id="show-more"></div>
+      </div>
+    </div>
+  
+      </div>
+      
+            
+    <button
+      id="login-button"
+      class="icon-button "
+      
+    >
+      <svg
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    focusable="false"
+    role="img"
+    aria-labelledby="decorator-login-icon"
+    aria-hidden="true"
+    class=""
+  >
+    <title id="decorator-login-icon">Logginn-ikon</title>
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M19 4h-5V2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5v-2h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-8.293 2.293L16.414 12l-5.707 5.707-1.414-1.414L12.586 13H2v-2h10.586L9.293 7.707l1.414-1.414Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+      <span class="icon-button-span">Log in</span>
+    </button>
+  
+          
+    </div>
+  
+        <div
+          id="menu"
+        >
+         <div class="menu-top">
+            <h2>
+              Hva kan vi hjelpe deg med?
+            </h2>
+            <a
+              class="link"
+              href="#"
+              >Til forsiden</a
+            >
+          </div>
+            <div id="sub-menu-content">
+            <div id="mobil-lukk">
+            
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m6.586 12 7.707-7.707 1.414 1.414L9.414 12l6.293 6.293-1.414 1.414L6.586 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+            <span>Tilbake til oversikt</span>
+            </div>
+            <ul></ul>
+            </div>
+            <div id="menu-content">
+            <div id="inline-search">
+                <inline-search></inline-search>
+            </div>
+            <decorator-loader id="search-loader"></decorator-loader>
+            <div id="header-menu-links">
+            
+    <ul class="header-menu-links cols-6 ">
+      
+          <li id="4034ae9f-981a-4ea4-9311-eade71ae098b" class="nested">
+            <h3>Work and stay in Norway</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/work-and-stay-in-norway/work-in-norway">Work in Norway</a>
+    </li>
+  
+    <li class="header-menu-link " id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf">Employee on the Norwegian continental shelf</a>
+    </li>
+  
+    <li class="header-menu-link " id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/work-and-stay-in-norway/foreign-students-in-norway">Foreign students in Norway</a>
+    </li>
+  
+    <li class="header-menu-link " id="117d0621-476c-42d6-9789-26f898250225">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/work-and-stay-in-norway/tourists-in-norway">Tourists in Norway</a>
+    </li>
+  
+            </ul>
+            
+    <li class="header-menu-link nested-link" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/work-and-stay-in-norway">Work and stay in Norway</a>
+    </li>
+  
+          </li>
+        
+          <li id="f855f440-9267-4b2c-8f27-6b9eec6b2e68" class="nested">
+            <h3>Benefits and services</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits">Information about NAV's services and benefits</a>
+    </li>
+  
+    <li class="header-menu-link " id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="https://www.nav.no/arbeid/en/dagpenger-og-eos">Unemployment benefits</a>
+    </li>
+  
+    <li class="header-menu-link " id="f30dd799-91aa-4c50-a470-969f5087d34c">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/benefits-and-services/family-related-benefits">Family related benefits</a>
+    </li>
+  
+    <li class="header-menu-link " id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway">Pensions and pension applications from outside Norway</a>
+    </li>
+  
+    <li class="header-menu-link " id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it">Employment status form - how do you use it?</a>
+    </li>
+  
+            </ul>
+            
+    <li class="header-menu-link nested-link" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/benefits-and-services">Benefits and services</a>
+    </li>
+  
+          </li>
+        
+          <li id="91930e1e-d372-43fc-b2b4-696454f71a71" class="nested">
+            <h3>Rules and regulations</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="09581eac-105d-453f-b019-ebffe6465ffc">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme">Membership of the National Insurance Scheme</a>
+    </li>
+  
+    <li class="header-menu-link " id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/rules-and-regulations/national-insurance-coverage">National insurance coverage</a>
+    </li>
+  
+    <li class="header-menu-link " id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift">National insurance contributions</a>
+    </li>
+  
+    <li class="header-menu-link " id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/klagerettigheter/en">Appeals</a>
+    </li>
+  
+    <li class="header-menu-link " id="280069da-b8f9-4871-b681-ccc339146a3a">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/rules-and-regulations/working-abroad">Working abroad</a>
+    </li>
+  
+    <li class="header-menu-link " id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/rules-and-regulations/staying-abroad">Staying abroad</a>
+    </li>
+  
+            </ul>
+            
+    <li class="header-menu-link nested-link" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/rules-and-regulations">Rules and regulations</a>
+    </li>
+  
+          </li>
+        
+          <li id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8" class="nested">
+            <h3>Employers</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/employers/recruit-in-norway">Recruit in Norway?</a>
+    </li>
+  
+    <li class="header-menu-link " id="d4750660-17c2-43de-960f-7ad6907674fa">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/employers/rekruttere-eu-eos/en">Recruiting from the EU/EEA</a>
+    </li>
+  
+    <li class="header-menu-link " id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/employers/nav-state-register-of-employers-and-employees">What is the NAV State Register of Employers and Employees (Aa-registeret)</a>
+    </li>
+  
+    <li class="header-menu-link " id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/arbeidsgiver/inntektsmelding/en">Income report</a>
+    </li>
+  
+            </ul>
+            
+    <li class="header-menu-link nested-link" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/employers">Employers</a>
+    </li>
+  
+          </li>
+        
+          <li id="750d0be4-5351-48d7-99e1-b367a403ae19" class="nested">
+            <h3>About NAV</h3>
+            <ul>
+              
+    <li class="header-menu-link " id="b94f13b1-3010-432d-954f-43a90ea122ce">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/kontaktoss/en">Contact us</a>
+    </li>
+  
+    <li class="header-menu-link " id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/utbetalingsdatoer/en">Payment dates</a>
+    </li>
+  
+    <li class="header-menu-link " id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/saksbehandlingstider/en">Case processing times</a>
+    </li>
+  
+    <li class="header-menu-link " id="954fdb02-3d1f-404f-a042-9bf71142021f">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/satser/en">Rates</a>
+    </li>
+  
+    <li class="header-menu-link " id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/about-nav/what-is-nav">What is NAV?</a>
+    </li>
+  
+    <li class="header-menu-link " id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/endringer/en">Notify us of any changes</a>
+    </li>
+  
+    <li class="header-menu-link " id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/soknader/en/person">Forms and applications</a>
+    </li>
+  
+    <li class="header-menu-link " id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/about-nav/search-tips">Search tips</a>
+    </li>
+  
+            </ul>
+            
+    <li class="header-menu-link nested-link" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="/en/home/about-nav">About NAV</a>
+    </li>
+  
+          </li>
+        
+      
+    <li class="header-menu-link mobile" id="">
+      <div class="header-menu-link-inner">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+      <a href="#">Logg inn på min side</a>
+    </li>
+  
+      <li>
+        <ul id="menu-context-links">
+          
+    <a
+      class="context-menu-link-wrapper"
+      href="privatperson"
+      data-context="privatperson"
+    >
+      <li class="context-menu-link " id="">
+        <div class="context-menu-link-inner">
+          
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      class="chevron"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </div>
+        <span>Privat</span>
+      </li>
+    </a>
+  
+          
+    <a
+      class="context-menu-link-wrapper"
+      href="arbeidsgiver"
+      data-context="arbeidsgiver"
+    >
+      <li class="context-menu-link " id="">
+        <div class="context-menu-link-inner">
+          
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      class="chevron"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </div>
+        <span>Arbeidsgiver</span>
+      </li>
+    </a>
+  
+          
+    <a
+      class="context-menu-link-wrapper"
+      href="samarbeidspartner"
+      data-context="samarbeidspartner"
+    >
+      <li class="context-menu-link " id="">
+        <div class="context-menu-link-inner">
+          
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      aria-hidden="true"
+      class="chevron"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+        </div>
+        <span>Samarbeidspartner</span>
+      </li>
+    </a>
+  
+        </ul>
+      </li>
+    </ul>
+  
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="decorator-utils-container decorator-utils-container_transparent">
+        
+    <nav class="py-3" id="breadcrumbs-wrapper">
+      <ol id="breadcrumbs-list">
+        <li>
+          <a class="amplitude-link" href="#">
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              role="img"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <span>nav.no</span>
+          </a>
+        </li>
+        
+      </ol>
+    </nav>
+  
+        
+      </div>
+    </div>
+  
+        <main>main</main>
+        
+    <div id="footer-withmenu" class="bg-white">
+       
+    <footer class="footer">
+      <div class="footer-content">
+        <a class="to-top-link" href="#">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            role="img"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.53 3.47a.75.75 0 0 0-1.06 0l-6.5 6.5a.75.75 0 1 0 1.06 1.06l5.22-5.22V20.5a.75.75 0 0 0 1.5 0V5.81l5.22 5.22a.75.75 0 1 0 1.06-1.06l-6.5-6.5Z"
+              fill="currentColor"
+            ></path></svg
+          >To the top</a
+        >
+
+        <div class="footer-links">
+          <ul class="footer-link-list">
+            
+                <li>
+                  <h2 class="footer-link-heading">Contact</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/redirects/footer-contactus-en"
+                            >Contact us</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
+                            >Your local NAV office</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"
+                            >Complaints, feedback, praise</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+                <li>
+                  <h2 class="footer-link-heading">NAV and society</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
+                            >Statistics, analysis and R&D</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/samarbeidspartner/presse"
+                            >Public Relations</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="https://lovdata.no/nav/"
+                            >Rules and regulations (lovdata.no)</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/hva-er-nav/en"
+                            >About NAV</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"
+                            >Work with us</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+                <li>
+                  <h2 class="footer-link-heading">Other languages</h2>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no"
+                            >Norwegian</a
+                          >
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/se"
+                            >Sámegiella</a
+                          >
+                        </li>
+                      
+                  </ul>
+                </li>
+              
+            <li>
+              <ul>
+                
+                    <li class="footer-link-item">
+                      <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
+                    </li>
+                  
+                    <li class="footer-link-item">
+                      <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
+                    </li>
+                  
+                <li class="footer-link-item">
+                  <a class="footer-link" href="#">
+                    Share screen with your counsellor<svg
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      focusable="false"
+                      role="img"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="20"
+            fill="none"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M63.48.52h-6.66s-.459 0-.621.406l-3.685 11.287L48.832.926c-.163-.405-.624-.405-.624-.405H35.404a.514.514 0 0 0-.51.507v3.833c0-3.04-3.233-4.34-5.127-4.34-4.24 0-7.078 2.794-7.962 7.043-.048-2.819-.282-3.829-1.041-4.863-.349-.507-.852-.932-1.4-1.285-1.13-.662-2.145-.895-4.324-.895h-2.56s-.462 0-.625.405L9.526 6.7V1.028A.512.512 0 0 0 9.02.521H3.097s-.457 0-.624.405L.053 6.93s-.242.6.31.6H2.64v11.44c0 .284.223.51.508.51h5.87a.509.509 0 0 0 .508-.51V7.53h2.289c1.313 0 1.59.036 2.101.274.308.117.585.352.737.623.31.583.387 1.283.387 3.348v7.195c0 .284.228.51.51.51h5.626s.636 0 .887-.63l1.247-3.083c1.658 2.324 4.387 3.712 7.779 3.712h.741s.64 0 .893-.628l2.172-5.381v5.5a.51.51 0 0 0 .51.51h5.743s.634 0 .888-.63c0 0 2.297-5.705 2.306-5.748h.004c.088-.475-.511-.475-.511-.475h-2.05V2.836l6.45 16.015c.251.628.886.628.886.628h6.786s.638 0 .89-.628l7.151-17.716c.247-.614-.469-.614-.469-.614ZM34.893 12.628h-3.858a2.784 2.784 0 1 1 0-5.57h1.079a2.788 2.788 0 0 1 2.78 2.787v2.783Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <p>Arbeids- og velferdsetaten</p>
+        </div>
+      </div>
+    </footer>
+  
+    </div>
+   
+    <div
+      id="decorator-env"
+      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+    ></div>
+    <script type="application/json" id="decorator-params">
+      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+    </script>
+   
+    <div>
+      
+    <template id="decorator-lens-template">
+      <style>
+        #decorator-lens-wrapper {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 60vh;
+            background-color: rgba(30, 30, 30, 0.9);
+            color: white;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        #decorator-lens-wrapper
+      </style>
+      <div id="decorator-lens" data-src=""></div>
+      <script type="application/json" id="active-params">
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+      </script>
+      <script type="application/json" id="explicit-params">
+        {}
+      </script>
+      <div id="decorator-lens-wrapper"></div>
+    </template>
+  
+      <div
+        id="decorator-lens"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+      ></div>
+      <div id="decorator-lens-implicit"></div>
+      <div
+        id="decorator-lens-explicit"
+        data-src=""
+      ></div>
+      <decorator-lens></decorator-lens>
+    </div>
+  
+        <div id="scripts" style="display:none"><script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script></div>
+      </body>
+    </html>
+  "
+`;

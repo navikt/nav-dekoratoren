@@ -8,8 +8,8 @@ import { SimpleFooter } from './simple-footer';
 
 export type FooterProps = {
   texts: Texts;
-  personvern: Node[];
-  footerLinks: Node[];
+  personvern?: Node[];
+  footerLinks?: Node[];
 } & Pick<Params, 'simple' | 'feedback'>;
 
 function getFooter(props: FooterProps) {

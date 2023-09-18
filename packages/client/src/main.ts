@@ -363,7 +363,7 @@ async function populateLoggedInMenu(authObject: Auth) {
         name: authObject.name,
         myPageMenu,
         // For testing
-        texts: texts['no'],
+        texts: texts['nb'],
       },
       window.decoratorParams.simple,
     );
