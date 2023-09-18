@@ -45,3 +45,20 @@ export function makeLoginUrl(loginLevel: LoginLevel): string {
     window.location.href
   }&level=${loginLevel}`;
 }
+
+export function inaktiver(eventId: { eventId: string }) {
+  return fetch(
+    `${import.meta.env.VITE_VARSEL_API_URL}/varsler/beskjed/inaktiver`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(eventId),
+      credentials: 'include',
+      keepalive: true,
+    },
+  ).catch((e) =>
+    console.info(
+      `Error posting done event for varsler [eventId: ${eventId?.eventId} - error: ${e}]`,
+    ),
+  );
+}

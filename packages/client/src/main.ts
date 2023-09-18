@@ -37,6 +37,7 @@ import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
 import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
+import { attachArkiverListener } from './views/varsler';
 
 type Auth = {
   authenticated: boolean;
@@ -426,6 +427,9 @@ api.checkAuth({
           varslerData: varsler,
         });
       }
+
+      // Attach arkiver listener
+      attachArkiverListener();
     }
 
     console.log('On success', response);

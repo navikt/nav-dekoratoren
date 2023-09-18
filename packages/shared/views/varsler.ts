@@ -11,10 +11,6 @@ import { LinkButton } from './components/link-button';
 export type VarselType = 'beskjeder' | 'innboks';
 type VarslingKanal = 'SMS' | 'EPOST';
 
-const environment = {
-  MIN_SIDE_URL: 'https:/www.nav.no/minside',
-};
-
 export type Varsler = {
   type: VarselType;
   tidspunkt: string;
@@ -52,7 +48,7 @@ export function VarslerEmptyView({ texts }: { texts: Texts }) {
       <img src="/kattIngenVarsler.svg" alt="Ingen varsler" />
       <h1>${texts.varsler_tom_liste}</h1>
       <p>${texts.varsler_tom_liste_ingress}</p>
-      <a href="${environment.MIN_SIDE_URL}/tidligere-varsler"
+      <a href="${import.meta.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
         >${texts.varsler_vis_alle}</a
       >
     </div>
@@ -90,6 +86,14 @@ export function VarslerPopulated({
           })}
         </ul>
       </div>
+      <div class="${classes.tidligereVarslerContainer}">
+        <a
+          class="${classes.tidligereVarsler}"
+          href="${import.meta.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+        >
+          Tidligere varsler
+        </a>
+      </div>
     </div>
   `;
 }
@@ -114,12 +118,15 @@ function makeVarsel(
   const cta = varsel.isMasked
     ? ForwardChevron()
     : LinkButton({
+        className: 'arkiver-varsel',
         text: texts.arkiver,
+        attrs: `data-event-id="${varsel.eventId}"`,
       });
 
   return {
     timestamp: formatVarselDate(varsel.tidspunkt),
     cta,
+    id: varsel.eventId,
     notices: varsel.eksternVarslingKanaler.map((kanal) => {
       return texts[`varslet_${kanal}`];
     }),
@@ -153,6 +160,7 @@ type VarselProps = {
   icon: string;
   notices: string[];
   cta: string;
+  id?: string;
   extraClasses?: string;
 };
 
@@ -162,10 +170,11 @@ export function Varsel({
   icon,
   notices,
   cta,
+  id,
   extraClasses = '',
 }: VarselProps) {
   return html`
-    <li>
+    <li id="${id}">
       <a class="${classes.varsel} ${extraClasses}">
         <h3 class="${classes.title}">${title}</h3>
         <p class="${classes.timestamp}">${timestamp}</p>

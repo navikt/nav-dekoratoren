@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, Router } from 'express';
 import varslerMock from './varsler-mock.json';
 
 const TOKEN_MOCK_SECONDS = 60 * 60;
@@ -154,10 +154,16 @@ export const mockLogoutHandler: RequestHandler = (req, res) => {
   res.json(getMockSession());
 };
 
-export const mockVarslerHandler: RequestHandler = (req, res) => {
+export const mockVarslerHandler = Router();
+
+mockVarslerHandler.get('/', (req, res) => {
   const trimmed = {
     beskjeder: varslerMock.beskjeder.slice(0, 6),
     oppgaver: varslerMock.oppgaver.slice(0, 3),
   };
   res.send(trimmed);
-};
+});
+
+mockVarslerHandler.post('/beskjed/inaktiver', (req, res) => {
+  res.status(200).send('OK');
+});

@@ -47,3 +47,16 @@
   color: var(--ac-tag-neutral-text, var(--a-text-default));
   font-size: 16px;
 }
+
+.tidligereVarslerContainer {
+  display: block;
+  text-align: left;
+  width: 100%;
+  margin: var(--a-spacing-4) 0px;
+  margin-bottom: 0px;
+}
+
+.tidligereVarsler {
+  text-align: left;
+  text-decoration: underline;
+}
