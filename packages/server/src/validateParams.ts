@@ -1,4 +1,3 @@
-import { NextFunction, Request, Response } from 'express';
 import { Params, paramsSchema } from 'decorator-shared/params';
 
 declare global {
@@ -27,19 +26,3 @@ export const validateParams = (params: any) => {
       : params.availableLanguages,
   });
 };
-
-export function decoratorParams(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
-  const validParams = validateParams(req.query);
-  if (validParams.success) {
-    req.decoratorParams = validParams.data;
-  } else {
-    console.error(validParams.error);
-    res.status(400).send(validParams.error);
-  }
-
-  next();
-}

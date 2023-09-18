@@ -9,13 +9,10 @@
   "dependencies": {
     "@elysiajs/cors": "^0.6.0",
     "@elysiajs/static": "^0.6.0",
-    "cors": "^2.8.5",
     "elysia": "^0.6.23",
-    "node-cache": "^5.1.2",
     "decorator-client": "workspace:*"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.13",
     "bun-types": "^0.7.2"
   }
 }
