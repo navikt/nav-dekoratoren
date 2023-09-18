@@ -8,6 +8,15 @@ import { HeaderMenuLinks } from '../header-menu-links';
 import { VarslerEmptyView, VarslerUlest } from '../../varsler';
 import { texts } from 'decorator-shared/texts';
 
+// ${IconButton({
+//   id: 'varsler-button',
+//   Icon: () => html`
+//     <div class="varsler-icon-wrapper">
+//       ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
+//     </div>
+//   `,
+//   text: 'Varsler',
+// })}
 export function LoggedInMenu({
   name,
   myPageMenu,
@@ -18,15 +27,12 @@ export function LoggedInMenu({
   return html`
     <div id="logged-in-menu">
       <div class="varsler-button-wrapper">
-        ${IconButton({
-          id: 'varsler-button',
-          Icon: () => html`
-            <div class="varsler-icon-wrapper">
-              ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
-            </div>
-          `,
-          text: 'Varsler',
-        })}
+        <toggle-icon-button id="varsler-button">
+          <div class="varsler-icon-wrapper" slot="icon">
+            ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
+          </div>
+          <span slot="text">Varsler</span>
+        </toggle-icon-button>
       </div>
       ${IconButton({
         id: 'profile-button',
