@@ -1,11 +1,12 @@
 import { expect, test, describe } from 'bun:test';
-import content from './content-test-data.json';
-import { getHeaderMenuLinks, getMyPageMenu } from './content';
+import testData from './content-test-data.json';
+import ContentService from './content-service';
+
+const contentService = new ContentService(() => Promise.resolve(testData));
 
 describe('getHeaderMenuLinks', () => {
-  test('returns norwegian privatperson menu', () => {
-    const headerMenuLinks = getHeaderMenuLinks({
-      menu: content,
+  test('returns norwegian privatperson menu', async () => {
+    const headerMenuLinks = await contentService.getHeaderMenuLinks({
       language: 'nb',
       context: 'privatperson',
     });
@@ -14,9 +15,8 @@ describe('getHeaderMenuLinks', () => {
     expect(headerMenuLinks?.at(0)?.displayName).toBe('Områder');
   });
 
-  test('returns norwegian arbeidsgiver menu', () => {
-    const headerMenuLinks = getHeaderMenuLinks({
-      menu: content,
+  test('returns norwegian arbeidsgiver menu', async () => {
+    const headerMenuLinks = await contentService.getHeaderMenuLinks({
       language: 'nb',
       context: 'arbeidsgiver',
     });
@@ -25,9 +25,8 @@ describe('getHeaderMenuLinks', () => {
     expect(headerMenuLinks?.at(0)?.displayName).toBe('Sykdom, skade og fravær');
   });
 
-  test('returns english menu', () => {
-    const headerMenuLinks = getHeaderMenuLinks({
-      menu: content,
+  test('returns english menu', async () => {
+    const headerMenuLinks = await contentService.getHeaderMenuLinks({
       language: 'en',
       context: 'privatperson',
     });
@@ -38,15 +37,23 @@ describe('getHeaderMenuLinks', () => {
 });
 
 describe('myPageMenu', () => {
-  test('returns norwegian menu', () => {
-    expect(getMyPageMenu(content, 'nb')?.at(0)?.displayName).toBe(
-      'Din oversikt',
-    );
+  test('returns norwegian menu', async () => {
+    expect(
+      (
+        await contentService.getMyPageMenu({
+          language: 'nb',
+        })
+      )?.at(0)?.displayName,
+    ).toBe('Din oversikt');
   });
 
-  test('returns english menu', () => {
-    expect(getMyPageMenu(content, 'en')?.at(0)?.displayName).toBe(
-      'Your overview',
-    );
+  test('returns english menu', async () => {
+    expect(
+      (
+        await contentService.getMyPageMenu({
+          language: 'en',
+        })
+      )?.at(0)?.displayName,
+    ).toBe('Your overview');
   });
 });

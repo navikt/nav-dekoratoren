@@ -1,11 +1,14 @@
 import { expect, test } from 'bun:test';
 import menu from './content-test-data.json';
 import renderIndex from './render-index';
+import ContentService from './content-service';
 
-test('renders norwegian index', () => {
+const contentService = new ContentService(() => Promise.resolve(menu));
+
+test('renders norwegian index', async () => {
   expect(
-    renderIndex({
-      menu,
+    await renderIndex({
+      contentService,
       data: {
         context: 'privatperson',
         simple: false,
@@ -32,10 +35,10 @@ test('renders norwegian index', () => {
   ).toMatchSnapshot();
 });
 
-test('renders english index', () => {
+test('renders english index', async () => {
   expect(
-    renderIndex({
-      menu,
+    await renderIndex({
+      contentService,
       data: {
         context: 'privatperson',
         simple: false,
