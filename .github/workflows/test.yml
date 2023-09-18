@@ -24,7 +24,7 @@ jobs:
         run: bun install --immutable
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: Run tests
-        run: bun test
       - name: Build app
         run: bun run build
+      - name: Run tests
+        run: bun test
