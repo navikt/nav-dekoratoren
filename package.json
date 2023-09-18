@@ -6,7 +6,7 @@
   "scripts": {
     "test": "bun run --cwd packages/server test",
     "dev": "concurrently \"bun run --cwd packages/client dev\" \"bun run --cwd packages/server dev\"",
-    "build": "bun run --cwd packages/client build && cp -r packages/client/dist/assets packages/server/public/",
+    "build": "bun run --cwd packages/client build && cp -r packages/client/dist/assets packages/server/public/ && bun run --cwd packages/server build",
     "serve": "bun run --cwd packages/server serve",
     "prepare": "husky install",
     "benchmarking": "bun run ./benchmarking/index.ts",
@@ -32,8 +32,5 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
-  },
-  "dependencies": {
-    "@elysiajs/html": "^0.6.5"
   }
 }
