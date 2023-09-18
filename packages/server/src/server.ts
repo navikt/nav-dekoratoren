@@ -10,10 +10,8 @@ import { Header } from 'decorator-shared/views/header';
 import { validateParams } from './validateParams';
 import mockAuth from './mockAuth';
 import { env } from './env/server';
-import buildDataStructure, {
-  getHeaderMenuLinks,
-  getMyPageMenu,
-} from './buildDataStructure';
+import buildDataStructure, { getHeaderMenuLinks } from './buildDataStructure';
+import getMyPageMenu from './my-page-menu';
 import { Index } from './views';
 
 const port = env.PORT || 8089;
@@ -52,7 +50,11 @@ const app = new Elysia()
       data: validParams.data,
     };
   })
-  .get('/data/myPageMenu', ({ data }) => getMyPageMenu(data.language))
+  .get('/data/myPageMenu', ({ data }) =>
+    fetch(`${process.env.ENONICXP_SERVICES}/no.nav.navno/menu`)
+      .then((response) => response.json())
+      .then((menu) => getMyPageMenu(menu, data.language)),
+  )
   .get('/data/headerMenuLinks', ({ data }) =>
     getHeaderMenuLinks({ language: data.language, context: data.context }),
   )

@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
+    "test": "bun run --cwd packages/server test",
     "dev": "concurrently \"bun run --cwd packages/client dev\" \"bun run --cwd packages/server dev\"",
     "build": "bun run --cwd packages/client build && cp -r packages/client/dist/assets packages/server/public/",
     "serve": "bun run --cwd packages/server serve",

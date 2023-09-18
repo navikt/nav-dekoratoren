@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/server.ts",
-    "serve": "NODE_ENV=production bun  src/server.ts"
+    "serve": "NODE_ENV=production bun  src/server.ts",
+    "test": "bun test"
   },
   "dependencies": {
     "@elysiajs/cors": "^0.6.0",

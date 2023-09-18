@@ -12,20 +12,18 @@ function capitalizeFirstLetter(text: string) {
 
 type ContentLangKey = 'no' | 'en' | 'se';
 
-// To match params.language to content keys
-const getLangKey = (lang: Language): ContentLangKey => {
-  return {
-    nb: 'no',
-    nn: 'no',
-    en: 'en',
-    se: 'se',
-    pl: 'no',
-    uk: 'no',
-    ru: 'no',
-  }[lang] as ContentLangKey;
+export const getLangKey = (lang: Language): ContentLangKey => {
+  switch (lang) {
+    case 'en':
+      return 'en';
+    case 'se':
+      return 'se';
+    default:
+      return 'no';
+  }
 };
 
-const get = (node: Node, path: string): Node | undefined => {
+export const get = (node: Node, path: string): Node | undefined => {
   if (path.includes('.')) {
     return path.split('.').reduce<Node>((prev, curr) => get(prev, curr)!, node);
   }
