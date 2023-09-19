@@ -1,4 +1,4 @@
-import { Link, Node } from 'decorator-shared/types';
+import { Link, LinkGroup, Node } from 'decorator-shared/types';
 import { Context, Language } from 'decorator-shared/params';
 import { texts } from 'decorator-shared/texts';
 import html from 'decorator-shared/html';
@@ -75,7 +75,7 @@ export default class ContentService {
   }: {
     language: Language;
     context: Context;
-  }) {
+  }): Promise<LinkGroup[]> {
     return [
       ...(get(
         await this.fetchMenu(),

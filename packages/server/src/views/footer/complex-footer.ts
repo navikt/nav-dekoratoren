@@ -6,7 +6,7 @@ export function ComplexFooter({
   links,
 }: {
   texts: { to_top: string };
-  links?: LinkGroup[];
+  links: LinkGroup[];
 }) {
   return html`
     <footer class="footer">
@@ -33,7 +33,7 @@ export function ComplexFooter({
 
         <div class="footer-links">
           <ul class="footer-link-list">
-            ${links?.map(
+            ${links.map(
               ({ heading, children }) => html`
                 <li>
                   ${heading &&
