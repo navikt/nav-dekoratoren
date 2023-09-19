@@ -386,7 +386,7 @@ async function populateLoggedInMenu(authObject: Auth) {
         name: authObject.name,
         myPageMenu,
         // For testing
-        texts: texts['no'],
+        texts: texts['nb'],
       },
       window.decoratorParams.simple,
     );
@@ -423,7 +423,7 @@ api.checkAuth({
 
       if (varslerMenuContent) {
         varslerMenuContent.innerHTML = VarslerPopulated({
-          texts: texts['no'],
+          texts: texts['nb'],
           varslerData: varsler,
         });
       }
@@ -431,8 +431,6 @@ api.checkAuth({
       // Attach arkiver listener
       attachArkiverListener();
     }
-
-    console.log('On success', response);
   },
 });
 

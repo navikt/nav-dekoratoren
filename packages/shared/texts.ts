@@ -24,7 +24,7 @@ const nb = {
 };
 
 export const texts = {
-  no: nb,
+  nb,
   en: {
     share_screen: 'Share screen with your counsellor',
     to_top: 'To the top',

@@ -1,18 +1,7 @@
-import { RequestHandler, Router } from 'express';
-import varslerMock from './varsler-mock.json';
+import { Elysia } from 'elysia';
 
 const TOKEN_MOCK_SECONDS = 60 * 60;
 const SESSION_MOCK_SECONDS = 60 * 60 * 6;
-
-export const mockAuthHandler: RequestHandler = (req, res) => {
-  const mockAuth = {
-    authenticated: true,
-    name: 'LOKAL MOCK',
-    securityLevel: '4',
-  };
-
-  res.json(mockAuth);
-};
 
 export type APISessionData = {
   session: {
@@ -137,33 +126,21 @@ const getMockSession = () => {
   };
 };
 
-export const refreshMockSessionHandler: RequestHandler = (req, res) => {
-  refreshToken();
-  res.json(getMockSession());
-};
+const mockAuthHandler = new Elysia()
+  .get('/api/auth', () => ({
+    authenticated: true,
+    name: 'LOKAL MOCK',
+    securityLevel: '4',
+  }))
+  .get('/api/oauth2/session', () => getMockSession())
+  .get('/api/oauth2/session/refresh', () => {
+    refreshToken();
+    return getMockSession();
+  })
+  .get(
+    '/oauth2/login',
+    ({ query, set }) => (set.redirect = query.redirect as string),
+  )
+  .get('/oauth2/logout', () => getMockSession());
 
-export const mockSessionHandler: RequestHandler = (req, res) => {
-  res.json(getMockSession());
-};
-export const mockLoginHandler: RequestHandler = (req, res) => {
-  const { redirect } = req.query;
-
-  res.redirect(redirect as string);
-};
-export const mockLogoutHandler: RequestHandler = (req, res) => {
-  res.json(getMockSession());
-};
-
-export const mockVarslerHandler = Router();
-
-mockVarslerHandler.get('/', (req, res) => {
-  const trimmed = {
-    beskjeder: varslerMock.beskjeder.slice(0, 6),
-    oppgaver: varslerMock.oppgaver.slice(0, 3),
-  };
-  res.send(trimmed);
-});
-
-mockVarslerHandler.post('/beskjed/inaktiver', (req, res) => {
-  res.status(200).send('OK');
-});
+export default mockAuthHandler;

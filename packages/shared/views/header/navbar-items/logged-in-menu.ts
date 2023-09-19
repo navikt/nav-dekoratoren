@@ -49,7 +49,7 @@ export function LoggedInMenu({
           <div id="varsler-menu-content" class="dropdown">
             <!-- Placeholder for now -->
             ${VarslerEmptyView({
-              texts: texts['no'],
+              texts: texts['nb'],
             })}
             <!-- Loaded on client -->
           </div>

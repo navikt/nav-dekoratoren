@@ -8,8 +8,8 @@ export function ComplexFooter({
   personvern,
 }: {
   texts: Texts;
-  footerLinks: Node[];
-  personvern: Node[];
+  footerLinks?: Node[];
+  personvern?: Node[];
 }) {
   return html`
     <footer class="footer">
@@ -35,7 +35,7 @@ export function ComplexFooter({
 
         <div class="footer-links">
           <ul class="footer-link-list">
-            ${footerLinks.map(
+            ${footerLinks?.map(
               (link) => html`
                 <li>
                   <h2 class="footer-link-heading">${link.displayName}</h2>
@@ -55,7 +55,7 @@ export function ComplexFooter({
             )}
             <li>
               <ul>
-                ${personvern.map(
+                ${personvern?.map(
                   ({ path, displayName }) => html`
                     <li class="footer-link-item">
                       <a class="footer-link" href="${path}">${displayName}</a>
