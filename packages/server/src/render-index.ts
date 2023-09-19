@@ -38,14 +38,15 @@ export default async ({
       simple: data.simple,
     }),
     feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
-    footer: data.simple
-      ? SimpleFooter({
-          links: await contentService.getSimpleFooterLinks(data),
-        })
-      : ComplexFooter({
-          texts: localTexts,
-          links: await contentService.getComplexFooterLinks(data),
-        }),
+    footer:
+      data.simple || data.simpleFooter
+        ? SimpleFooter({
+            links: await contentService.getSimpleFooterLinks(data),
+          })
+        : ComplexFooter({
+            texts: localTexts,
+            links: await contentService.getComplexFooterLinks(data),
+          }),
     env: DecoratorEnv({
       origin,
       env: data,
