@@ -1,14 +1,12 @@
-import { Node } from 'decorator-shared/types';
+import { LinkGroup } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 
 export function ComplexFooter({
   texts,
-  footerLinks,
-  personvern,
+  links,
 }: {
-  texts: { to_top: string; share_screen: string };
-  footerLinks?: Node[];
-  personvern?: Node[];
+  texts: { to_top: string };
+  links?: LinkGroup[];
 }) {
   return html`
     <footer class="footer">
@@ -35,17 +33,16 @@ export function ComplexFooter({
 
         <div class="footer-links">
           <ul class="footer-link-list">
-            ${footerLinks?.map(
-              (link) => html`
+            ${links?.map(
+              ({ heading, children }) => html`
                 <li>
-                  <h2 class="footer-link-heading">${link.displayName}</h2>
+                  ${heading &&
+                  html`<h2 class="footer-link-heading">${heading}</h2>`}
                   <ul>
-                    ${link.children.map(
-                      (child) => html`
+                    ${children.map(
+                      ({ content, url }) => html`
                         <li class="footer-link-item">
-                          <a class="footer-link" href="${child.path}"
-                            >${child.displayName}</a
-                          >
+                          <a class="footer-link" href="${url}">${content}</a>
                         </li>
                       `,
                     )}
@@ -53,37 +50,6 @@ export function ComplexFooter({
                 </li>
               `,
             )}
-            <li>
-              <ul>
-                ${personvern?.map(
-                  ({ path, displayName }) => html`
-                    <li class="footer-link-item">
-                      <a class="footer-link" href="${path}">${displayName}</a>
-                    </li>
-                  `,
-                )}
-                <li class="footer-link-item">
-                  <a class="footer-link" href="#">
-                    ${texts.share_screen}<svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      focusable="false"
-                      role="img"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </li>
           </ul>
         </div>
 

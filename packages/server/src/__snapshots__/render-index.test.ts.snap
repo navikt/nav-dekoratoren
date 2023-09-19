@@ -1189,9 +1189,7 @@ exports[`renders norwegian index 1`] = `
     </div>
   
         <main>main</main>
-        
-    <div id="footer-withmenu" class="bg-white">
-       
+        <div id="footer-withmenu" class="bg-white"> 
     <footer class="footer">
       <div class="footer-content">
         <a class="to-top-link" href="#">
@@ -1222,27 +1220,19 @@ exports[`renders norwegian index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/person/kontakt-oss/nb"
-                            >Kontakt oss</a
-                          >
+                          <a class="footer-link" href="/person/kontakt-oss/nb">Kontakt oss</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
-                            >NAV i ditt fylke</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke">NAV i ditt fylke</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
-                            >Kurs fra NAV</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav">Kurs fra NAV</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/person/kontakt-oss/tilbakemeldinger"
-                            >Klage, tilbakemelding, ros</a
-                          >
+                          <a class="footer-link" href="/person/kontakt-oss/tilbakemeldinger">Klage, tilbakemelding, ros</a>
                         </li>
                       
                   </ul>
@@ -1253,9 +1243,7 @@ exports[`renders norwegian index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/samarbeidspartner/presse"
-                            >Nyheter, pressemeldinger og pressekontakt</a
-                          >
+                          <a class="footer-link" href="/samarbeidspartner/presse">Nyheter, pressemeldinger og pressekontakt</a>
                         </li>
                       
                   </ul>
@@ -1266,21 +1254,15 @@ exports[`renders norwegian index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
-                            >Statistikk, analyse og FoU</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou">Statistikk, analyse og FoU</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="https://lovdata.no/nav/"
-                            >Lover og regler (lovdata.no)</a
-                          >
+                          <a class="footer-link" href="https://lovdata.no/nav/">Lover og regler (lovdata.no)</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/om-nav"
-                            >Om NAV</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/om-nav">Om NAV</a>
                         </li>
                       
                   </ul>
@@ -1291,53 +1273,50 @@ exports[`renders norwegian index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/en"
-                            >English</a
-                          >
+                          <a class="footer-link" href="/en">English</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/se"
-                            >Sámegiella</a
-                          >
+                          <a class="footer-link" href="/se">Sámegiella</a>
                         </li>
                       
                   </ul>
                 </li>
               
-            <li>
-              <ul>
-                
-                    <li class="footer-link-item">
-                      <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
-                    </li>
+                <li>
                   
-                    <li class="footer-link-item">
-                      <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
-                    </li>
-                  
-                <li class="footer-link-item">
-                  <a class="footer-link" href="#">
-                    Del skjerm med veileder<svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      focusable="false"
-                      role="img"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </a>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="#">Del skjerm med veileder<svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            role="img"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
+              fill="currentColor"
+            ></path>
+          </svg></a>
+                        </li>
+                      
+                  </ul>
                 </li>
-              </ul>
-            </li>
+              
           </ul>
         </div>
 
@@ -1359,9 +1338,8 @@ exports[`renders norwegian index 1`] = `
         </div>
       </div>
     </footer>
-  
-    </div>
-   
+  </div>
+        
     <div
       id="decorator-env"
       data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
@@ -2990,9 +2968,7 @@ exports[`renders english index 1`] = `
     </div>
   
         <main>main</main>
-        
-    <div id="footer-withmenu" class="bg-white">
-       
+        <div id="footer-withmenu" class="bg-white"> 
     <footer class="footer">
       <div class="footer-content">
         <a class="to-top-link" href="#">
@@ -3023,21 +2999,15 @@ exports[`renders english index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/redirects/footer-contactus-en"
-                            >Contact us</a
-                          >
+                          <a class="footer-link" href="/redirects/footer-contactus-en">Contact us</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
-                            >Your local NAV office</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke">Your local NAV office</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"
-                            >Complaints, feedback, praise</a
-                          >
+                          <a class="footer-link" href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger">Complaints, feedback, praise</a>
                         </li>
                       
                   </ul>
@@ -3048,33 +3018,23 @@ exports[`renders english index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
-                            >Statistics, analysis and R&D</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou">Statistics, analysis and R&D</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/samarbeidspartner/presse"
-                            >Public Relations</a
-                          >
+                          <a class="footer-link" href="/samarbeidspartner/presse">Public Relations</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="https://lovdata.no/nav/"
-                            >Rules and regulations (lovdata.no)</a
-                          >
+                          <a class="footer-link" href="https://lovdata.no/nav/">Rules and regulations (lovdata.no)</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/hva-er-nav/en"
-                            >About NAV</a
-                          >
+                          <a class="footer-link" href="/hva-er-nav/en">About NAV</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"
-                            >Work with us</a
-                          >
+                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav">Work with us</a>
                         </li>
                       
                   </ul>
@@ -3085,53 +3045,50 @@ exports[`renders english index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no"
-                            >Norwegian</a
-                          >
+                          <a class="footer-link" href="/no">Norwegian</a>
                         </li>
                       
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/se"
-                            >Sámegiella</a
-                          >
+                          <a class="footer-link" href="/se">Sámegiella</a>
                         </li>
                       
                   </ul>
                 </li>
               
-            <li>
-              <ul>
-                
-                    <li class="footer-link-item">
-                      <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Privacy and cookies</a>
-                    </li>
+                <li>
                   
-                    <li class="footer-link-item">
-                      <a class="footer-link" href="/tilgjengelighet/en">Accessibility</a>
-                    </li>
-                  
-                <li class="footer-link-item">
-                  <a class="footer-link" href="#">
-                    Share screen with your counsellor<svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      focusable="false"
-                      role="img"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </a>
+                  <ul>
+                    
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Privacy and cookies</a>
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="/tilgjengelighet/en">Accessibility</a>
+                        </li>
+                      
+                        <li class="footer-link-item">
+                          <a class="footer-link" href="#">Share screen with your counsellor<svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            role="img"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
+              fill="currentColor"
+            ></path>
+          </svg></a>
+                        </li>
+                      
+                  </ul>
                 </li>
-              </ul>
-            </li>
+              
           </ul>
         </div>
 
@@ -3153,9 +3110,8 @@ exports[`renders english index 1`] = `
         </div>
       </div>
     </footer>
-  
-    </div>
-   
+  </div>
+        
     <div
       id="decorator-env"
       data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"

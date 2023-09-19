@@ -1,12 +1,25 @@
 import { Header } from 'decorator-shared/views/header';
 import { Index } from './views';
-import { Footer } from './views/footer';
+import { Feedback } from './views/feedback';
 import { DecoratorEnv } from './views/decorator-env';
 import { DecoratorLens } from './views/decorator-lens';
-
 import { texts } from 'decorator-shared/texts';
+import ContentService from './content-service';
+import { Params } from 'decorator-shared/params';
+import { SimpleFooter } from './views/footer/simple-footer';
+import { ComplexFooter } from './views/footer/complex-footer';
 
-export default async ({ contentService, data, url: origin, query }) => {
+export default async ({
+  contentService,
+  data,
+  url: origin,
+  query,
+}: {
+  contentService: ContentService;
+  data: Params;
+  url: string;
+  query: Record<string, unknown>;
+}) => {
   const { language } = data;
   const localTexts = texts[language];
 
@@ -24,14 +37,15 @@ export default async ({ contentService, data, url: origin, query }) => {
       myPageMenu: await contentService.getMyPageMenu(data),
       simple: data.simple,
     }),
-    footer: Footer({
-      texts: localTexts,
-      personvern: await contentService.getPersonvern(data),
-      footerLinks: await contentService.getFooterLinks(data),
-      simple: data.simple,
-      feedback: data.feedback,
-      language: data.language,
-    }),
+    feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
+    footer: data.simple
+      ? SimpleFooter({
+          links: await contentService.getSimpleFooterLinks(data),
+        })
+      : ComplexFooter({
+          texts: localTexts,
+          links: await contentService.getComplexFooterLinks(data),
+        }),
     env: DecoratorEnv({
       origin,
       env: data,

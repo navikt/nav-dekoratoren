@@ -11,3 +11,8 @@ export type Link = {
   content: string;
   url: string;
 };
+
+export type LinkGroup = {
+  heading?: string;
+  children: Link[];
+};
