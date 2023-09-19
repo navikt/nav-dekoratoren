@@ -1209,9 +1209,10 @@ exports[`renders norwegian index 1`] = `
               clip-rule="evenodd"
               d="M12.53 3.47a.75.75 0 0 0-1.06 0l-6.5 6.5a.75.75 0 1 0 1.06 1.06l5.22-5.22V20.5a.75.75 0 0 0 1.5 0V5.81l5.22 5.22a.75.75 0 1 0 1.06-1.06l-6.5-6.5Z"
               fill="currentColor"
-            ></path></svg
-          >Til toppen</a
-        >
+            ></path>
+          </svg>
+          Til toppen
+        </a>
 
         <div class="footer-links">
           <ul class="footer-link-list">
@@ -3009,9 +3010,10 @@ exports[`renders english index 1`] = `
               clip-rule="evenodd"
               d="M12.53 3.47a.75.75 0 0 0-1.06 0l-6.5 6.5a.75.75 0 1 0 1.06 1.06l5.22-5.22V20.5a.75.75 0 0 0 1.5 0V5.81l5.22 5.22a.75.75 0 1 0 1.06-1.06l-6.5-6.5Z"
               fill="currentColor"
-            ></path></svg
-          >To the top</a
-        >
+            ></path>
+          </svg>
+          To the top
+        </a>
 
         <div class="footer-links">
           <ul class="footer-link-list">
@@ -3101,11 +3103,11 @@ exports[`renders english index 1`] = `
               <ul>
                 
                     <li class="footer-link-item">
-                      <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
+                      <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Privacy and cookies</a>
                     </li>
                   
                     <li class="footer-link-item">
-                      <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
+                      <a class="footer-link" href="/tilgjengelighet/en">Accessibility</a>
                     </li>
                   
                 <li class="footer-link-item">

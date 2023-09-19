@@ -6,3 +6,8 @@ export type Node = {
   id: string;
   isActive?: boolean;
 };
+
+export type Link = {
+  content: string;
+  url: string;
+};

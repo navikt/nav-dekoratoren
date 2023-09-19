@@ -39,8 +39,11 @@ export default class ContentService {
     }));
   }
 
-  async getPersonvern() {
-    return get(await this.fetchMenu(), 'no.Footer.Personvern');
+  async getPersonvern({ language }) {
+    return get(
+      await this.fetchMenu(),
+      `${getLangKey(language)}.Footer.Personvern`,
+    );
   }
 
   async getFooterLinks({

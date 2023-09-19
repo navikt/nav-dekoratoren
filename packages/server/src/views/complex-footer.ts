@@ -1,5 +1,4 @@
 import { Node } from 'decorator-shared/types';
-import { Texts } from 'decorator-shared/texts';
 import html from 'decorator-shared/html';
 
 export function ComplexFooter({
@@ -7,7 +6,7 @@ export function ComplexFooter({
   footerLinks,
   personvern,
 }: {
-  texts: Texts;
+  texts: { to_top: string; share_screen: string };
   footerLinks?: Node[];
   personvern?: Node[];
 }) {
@@ -29,9 +28,10 @@ export function ComplexFooter({
               clip-rule="evenodd"
               d="M12.53 3.47a.75.75 0 0 0-1.06 0l-6.5 6.5a.75.75 0 1 0 1.06 1.06l5.22-5.22V20.5a.75.75 0 0 0 1.5 0V5.81l5.22 5.22a.75.75 0 1 0 1.06-1.06l-6.5-6.5Z"
               fill="currentColor"
-            ></path></svg
-          >${texts.to_top}</a
-        >
+            ></path>
+          </svg>
+          ${texts.to_top}
+        </a>
 
         <div class="footer-links">
           <ul class="footer-link-list">

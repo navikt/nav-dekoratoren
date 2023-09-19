@@ -26,10 +26,11 @@ export default async ({ contentService, data, url: origin, query }) => {
     }),
     footer: Footer({
       texts: localTexts,
-      personvern: await contentService.getPersonvern(),
+      personvern: await contentService.getPersonvern(data),
       footerLinks: await contentService.getFooterLinks(data),
       simple: data.simple,
       feedback: data.feedback,
+      language: data.language,
     }),
     env: DecoratorEnv({
       origin,

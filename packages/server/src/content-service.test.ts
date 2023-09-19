@@ -57,3 +57,19 @@ describe('myPageMenu', () => {
     ).toBe('Your overview');
   });
 });
+
+describe('personvern', () => {
+  test('returns norwegian', async () => {
+    expect(
+      (await contentService.getPersonvern({ language: 'nb' }))?.at(0)
+        ?.displayName,
+    ).toBe('Personvern og informasjonskapsler');
+  });
+
+  test('returns english', async () => {
+    expect(
+      (await contentService.getPersonvern({ language: 'en' }))?.at(0)
+        ?.displayName,
+    ).toBe('Privacy and cookies');
+  });
+});
