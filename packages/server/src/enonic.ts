@@ -11,7 +11,7 @@ export const fetchDriftsmeldinger = () =>
     res.json(),
   );
 
-export const fetchSearch = (ord) =>
+export const fetchSearch = (ord: string) =>
   fetch(
     `${`${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`}?ord=${ord}`,
   ).then((res) => res.json());

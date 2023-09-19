@@ -1,6 +1,7 @@
 {
   "name": "decorator-server",
   "version": "0.0.1",
+  "module": "src/server.ts",
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/server.ts",
@@ -16,6 +17,6 @@
     "decorator-client": "workspace:*"
   },
   "devDependencies": {
-    "bun-types": "^0.7.2"
+    "bun-types": "1.0.2"
   }
 }
