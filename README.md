@@ -11,3 +11,7 @@ bun install
 ## Development
 
 Run `bun run dev` to start development server.
+
+### Updating snapshots
+
+To update snapshots when you've made changes to the markup that is produced. Run: `bun test --update-snapshots`
