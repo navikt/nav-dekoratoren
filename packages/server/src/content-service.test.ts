@@ -57,3 +57,27 @@ describe('myPageMenu', () => {
     ).toBe('Your overview');
   });
 });
+
+describe('getSimpleFooterLinks', () => {
+  test('has share screen link', async () => {
+    expect(
+      (await contentService.getSimpleFooterLinks({ language: 'nb' }))
+        ?.at(2)
+        ?.content.startsWith('Del skjerm med veileder'),
+    ).toBeTrue();
+  });
+
+  test('returns norwegian', async () => {
+    expect(
+      (await contentService.getSimpleFooterLinks({ language: 'nb' }))?.at(0)
+        ?.content,
+    ).toBe('Personvern og informasjonskapsler');
+  });
+
+  test('returns english', async () => {
+    expect(
+      (await contentService.getSimpleFooterLinks({ language: 'en' }))?.at(0)
+        ?.content,
+    ).toBe('Privacy and cookies');
+  });
+});

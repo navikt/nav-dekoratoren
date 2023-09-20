@@ -107,6 +107,28 @@ a {
   text-underline-offset: 0.15em;
 }
 
+.simple-footer {
+  border-top: 2px solid #0067c5;
+  background-color: white;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+  color: #0067c5;
+}
+
+.simple-footer .footer-link-list {
+  flex-direction: row;
+}
+
+.simple-footer .footer-link-list :last-child {
+  margin-left: auto;
+}
+
+.simple-footer .footer-link {
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+  text-decoration: underline;
+}
+
 /* HEADER AND MENU */
 #menu {
   position: absolute;
