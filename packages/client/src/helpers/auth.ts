@@ -44,3 +44,14 @@ export async function fethRenew() {
     throw new Error(`Error fetching auth: ${error}`);
   }
 }
+
+export function getSecondsToExpiration(expiration: string) {
+  const now = new Date().getTime();
+  const expires = new Date(expiration).getTime();
+  return Math.ceil((expires - now) / 1000);
+}
+
+export function fakeExpirationTime(seconds: number) {
+  const fakeTokenEndsAt = new Date(Date.now() + seconds * 1000).toISOString();
+  return fakeTokenEndsAt;
+}
