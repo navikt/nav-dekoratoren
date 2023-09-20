@@ -1,5 +1,6 @@
 import { Breadcrumb } from '../params';
 import html from '../html';
+import { LinkButton } from './components/link-button';
 
 export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return html`
@@ -44,5 +45,6 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
         )}
       </ol>
     </nav>
+    ${LinkButton({ text: 'wat' })}
   `;
 }
