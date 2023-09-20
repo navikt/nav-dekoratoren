@@ -1191,6 +1191,7 @@ exports[`renders norwegian index 1`] = `
         <main>main</main>
         
     <div id="footer-withmenu" class="bg-white">
+      
        
     <footer class="footer">
       <div class="footer-content">
@@ -1363,10 +1364,10 @@ exports[`renders norwegian index 1`] = `
    
     <div
       id="decorator-env"
-      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
     ></div>
     <script type="application/json" id="decorator-params">
-      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
     </script>
    
     <div>
@@ -1390,7 +1391,7 @@ exports[`renders norwegian index 1`] = `
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
       </script>
       <script type="application/json" id="explicit-params">
         {}
@@ -1400,7 +1401,7 @@ exports[`renders norwegian index 1`] = `
   
       <div
         id="decorator-lens"
-        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
@@ -2991,6 +2992,7 @@ exports[`renders english index 1`] = `
         <main>main</main>
         
     <div id="footer-withmenu" class="bg-white">
+      
        
     <footer class="footer">
       <div class="footer-content">
@@ -3156,10 +3158,10 @@ exports[`renders english index 1`] = `
    
     <div
       id="decorator-env"
-      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
     ></div>
     <script type="application/json" id="decorator-params">
-      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
     </script>
    
     <div>
@@ -3183,7 +3185,7 @@ exports[`renders english index 1`] = `
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false}
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
       </script>
       <script type="application/json" id="explicit-params">
         {}
@@ -3193,7 +3195,7 @@ exports[`renders english index 1`] = `
   
       <div
         id="decorator-lens"
-        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
