@@ -8,8 +8,6 @@ export const validateParams = (params: any) => {
   return paramsSchema.safeParse({
     ...params,
     simple: parseBooleanParam(params.simple),
-    simpleFooter: parseBooleanParam(params.simpleFooter),
-    simpleHeader: parseBooleanParam(params.simpleHeader),
     feedback: parseBooleanParam(params.feedback),
     breadcrumbs: params.breadcrumbs
       ? JSON.parse(params.breadcrumbs)
