@@ -1,7 +1,7 @@
 import { Node } from '../../types';
 import { ComplexHeader } from './complex-header';
 import { SimpleHeader } from './simple-header';
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import {
   AvailableLanguage,
   Breadcrumb,

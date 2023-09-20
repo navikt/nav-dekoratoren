@@ -5,7 +5,7 @@ import Search from '../../search';
 import { LoginIcon } from 'decorator-shared/views/icons/login';
 import { Node } from '../../../types';
 import html from 'decorator-shared/html';
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import { LoggedInMenu } from './logged-in-menu';
 
 // Header menu items
@@ -33,7 +33,11 @@ export function ComplexHeaderNavbarItems({
         ${Search({ texts })}
       </div>
       ${innlogget
-        ? LoggedInMenu({ name: name as string, myPageMenu })
+        ? LoggedInMenu({
+            name: name as string,
+            myPageMenu,
+            texts,
+          })
         : html`
             ${IconButton({
               id: 'login-button',

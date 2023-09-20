@@ -1,5 +1,6 @@
-// To get types to stop complaining for now
-// To get types to stop complaining for now
+import { Language } from 'decorator-shared/params';
+import { Texts } from 'decorator-shared/types';
+
 const nb = {
   share_screen: 'Del skjerm med veileder',
   to_top: 'Til toppen',
@@ -23,7 +24,7 @@ const nb = {
   varsler_oppgaver_tittel: 'Oppgaver',
 };
 
-export const texts = {
+export const texts: Record<Language, Texts> = {
   nb,
   en: {
     share_screen: 'Share screen with your counsellor',
@@ -52,6 +53,4 @@ export const texts = {
   pl: nb,
   uk: nb,
   ru: nb,
-} as const;
-
-export type Texts = (typeof texts)[keyof typeof texts];
+};

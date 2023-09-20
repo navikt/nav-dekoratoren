@@ -1,5 +1,5 @@
 import { ComplexHeaderNavbarItems } from './complex-header-navbar-items';
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import { Node } from '../../../types';
 import { SimpleHeaderNavbarItems } from './simple-header-navbar-items';
 
