@@ -13,6 +13,7 @@ exports[`renders norwegian index 1`] = `
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/assets/styles.css" />
       </head>
       <body>
         <div id="styles" style="display:none"></div>
@@ -1181,6 +1182,11 @@ exports[`renders norwegian index 1`] = `
         
       </ol>
     </nav>
+    
+    <button class=" " >
+      <span class=""> wat </span>
+    </button>
+  
   
         
       </div>
@@ -1412,6 +1418,7 @@ exports[`renders english index 1`] = `
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/assets/styles.css" />
       </head>
       <body>
         <div id="styles" style="display:none"></div>
@@ -2964,6 +2971,11 @@ exports[`renders english index 1`] = `
         
       </ol>
     </nav>
+    
+    <button class=" " >
+      <span class=""> wat </span>
+    </button>
+  
   
         
       </div>
