@@ -2,7 +2,6 @@ node_modules/
 public/dist.css
 *.log
 dist/
-build/
 .DS_Store
 
 # yarn 3

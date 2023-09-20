@@ -19,15 +19,4 @@ export default defineConfig({
       input: 'src/main.ts',
     },
   },
-  css: {
-    modules: {
-      getJSON(id, exportTokens) {
-        fs.mkdirSync('./build', { recursive: true });
-        fs.writeFileSync(
-          `./build/${id.match(/([^/]+?)(\?|$)/)[1]}.json`,
-          JSON.stringify(exportTokens),
-        );
-      },
-    },
-  },
 });
