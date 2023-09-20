@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import { IconButton } from 'decorator-shared/views/components/icon-button';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
 

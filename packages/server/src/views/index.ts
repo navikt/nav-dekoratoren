@@ -42,6 +42,7 @@ export function Index({
   footer,
   env,
   lens,
+  decoratorData,
 }: {
   language: Language;
   header: string;
@@ -49,6 +50,7 @@ export function Index({
   footer: string;
   env: string;
   lens: string;
+  decoratorData: string;
 }) {
   return html`
     <!doctype html>
@@ -70,7 +72,9 @@ export function Index({
         <main>main</main>
         <div id="footer-withmenu" class="bg-white">${feedback} ${footer}</div>
         ${env} ${lens}
-        <div id="scripts" style="display:none">${Scripts()}</div>
+        <div id="scripts" style="display:none">
+          ${Scripts()}${decoratorData}
+        </div>
       </body>
     </html>
   `;
