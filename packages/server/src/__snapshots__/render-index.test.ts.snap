@@ -1213,7 +1213,7 @@ exports[`renders norwegian index 1`] = `
         <div class="footer-links">
           <ul class="footer-link-list">
             
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">Kontakt</h2>
                   <ul>
                     
@@ -1236,7 +1236,7 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">Nyheter og presse</h2>
                   <ul>
                     
@@ -1247,7 +1247,7 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">NAV og samfunn</h2>
                   <ul>
                     
@@ -1266,7 +1266,7 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">Andre språk</h2>
                   <ul>
                     
@@ -1281,7 +1281,7 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   
                   <ul>
                     
@@ -2996,7 +2996,7 @@ exports[`renders english index 1`] = `
         <div class="footer-links">
           <ul class="footer-link-list">
             
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">Contact</h2>
                   <ul>
                     
@@ -3015,7 +3015,7 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">NAV and society</h2>
                   <ul>
                     
@@ -3042,7 +3042,7 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   <h2 class="footer-link-heading">Other languages</h2>
                   <ul>
                     
@@ -3057,7 +3057,7 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-                <li>
+                <li class="footer-link-group">
                   
                   <ul>
                     
