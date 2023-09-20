@@ -2,7 +2,7 @@
 import { IconButton } from '../../components/icon-button';
 import { LoginIcon } from 'decorator-shared/views/icons/login';
 import html from 'decorator-shared/html';
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import { SimpleLoggedInMenu } from './logged-in-menu';
 
 // Header menu items

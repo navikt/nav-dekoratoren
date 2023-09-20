@@ -4,7 +4,7 @@ import type {
   UtilsBackground,
 } from 'decorator-shared/params';
 import html from 'decorator-shared/html';
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import LanguageSelector from 'decorator-shared/views/language-selector';
 import { utilsBackgroundClasses } from './index';

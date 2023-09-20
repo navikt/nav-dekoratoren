@@ -1,4 +1,4 @@
-import { Texts } from '../texts';
+import { Texts } from '../types';
 import { BeskjedIcon, OppgaveIcon } from './icons/varsler';
 import { ForwardChevron } from './icons/forward-chevron';
 

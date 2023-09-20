@@ -1,4 +1,4 @@
-import { Node } from '../../../types';
+import { Node, Texts } from '../../../types';
 import html from 'decorator-shared/html';
 import { IconButton } from '../../components/icon-button';
 import { LoginIcon } from '../../icons/login';
@@ -6,7 +6,6 @@ import { VarslerIcon } from 'decorator-shared/views/icons/varsler';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
 import { VarslerEmptyView, VarslerUlest } from '../../varsler';
-import { texts } from 'decorator-shared/texts';
 import { DropdownButton } from '../../components/dropdown-button';
 
 // ${IconButton({
@@ -17,9 +16,11 @@ import { DropdownButton } from '../../components/dropdown-button';
 export function LoggedInMenu({
   name,
   myPageMenu,
+  texts,
 }: {
   name: string;
   myPageMenu: Node[];
+  texts: Texts;
 }) {
   return html`
     <div id="logged-in-menu">
@@ -49,7 +50,7 @@ export function LoggedInMenu({
           <div id="varsler-menu-content" class="dropdown">
             <!-- Placeholder for now -->
             ${VarslerEmptyView({
-              texts: texts['nb'],
+              texts,
             })}
             <!-- Loaded on client -->
           </div>
