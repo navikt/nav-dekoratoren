@@ -82,18 +82,16 @@ a {
   gap: 2rem;
 }
 
+.footer-link-group {
+  break-inside: avoid;
+}
+
 .footer-link-heading {
-  break-inside: avoid-column;
   color: #99c4dd;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
-}
-
-.footer-link-item {
-  break-before: avoid-column;
-  break-inside: avoid-column;
 }
 
 .footer-link {

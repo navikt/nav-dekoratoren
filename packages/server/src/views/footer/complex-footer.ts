@@ -35,7 +35,7 @@ export function ComplexFooter({
           <ul class="footer-link-list">
             ${links.map(
               ({ heading, children }) => html`
-                <li>
+                <li class="footer-link-group">
                   ${heading &&
                   html`<h2 class="footer-link-heading">${heading}</h2>`}
                   <ul>
