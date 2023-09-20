@@ -5,4 +5,4 @@ npm run serve &
 
 sleep 2
 
-bombardier -c 2 -n 5000 http://localhost:3000
+bombardier -c 2 -n 5000 http://localhost:8089
