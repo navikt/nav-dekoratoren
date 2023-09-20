@@ -1183,8 +1183,8 @@ exports[`renders norwegian index 1`] = `
       </ol>
     </nav>
     
-    <button class=" " >
-      <span class=""> wat </span>
+    <button class="_linkButton_16t2e_1 " >
+      <span class="_text_16t2e_11"> wat </span>
     </button>
   
   
@@ -2972,8 +2972,8 @@ exports[`renders english index 1`] = `
       </ol>
     </nav>
     
-    <button class=" " >
-      <span class=""> wat </span>
+    <button class="_linkButton_16t2e_1 " >
+      <span class="_text_16t2e_11"> wat </span>
     </button>
   
   

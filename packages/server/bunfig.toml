@@ -1,1 +1,4 @@
 preload = ["./plugin.ts"]
+
+[test]
+preload = ["./plugin.ts"]

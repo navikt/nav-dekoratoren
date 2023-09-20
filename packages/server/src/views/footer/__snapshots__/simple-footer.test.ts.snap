@@ -2,7 +2,7 @@
 
 exports[`renders simple footer 1`] = `
 "
-  <footer class=" simple-footer">
+  <footer class="_simpleFooter_1hpt9_1 simple-footer">
     <ul class="footer-link-list">
       
           <li>
