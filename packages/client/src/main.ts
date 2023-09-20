@@ -31,7 +31,7 @@ import {
   replaceElement,
   setAriaExpanded,
 } from './utils';
-import type { Context, Params } from 'decorator-shared/params';
+import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
@@ -59,7 +59,6 @@ declare global {
 }
 
 window.decoratorParams = hydrateParams();
-console.log(window.decoratorParams);
 
 const addBreadcrumbEventListeners = () =>
   document
@@ -390,8 +389,6 @@ async function populateLoggedInMenu(authObject: Auth) {
       },
       window.decoratorParams.simple,
     );
-
-    console.log(menuItems);
 
     menuItems.outerHTML = newMenuItems;
 

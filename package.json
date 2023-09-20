@@ -10,6 +10,7 @@
     "serve": "bun run --cwd packages/server serve",
     "prepare": "husky install",
     "benchmarking": "bun run ./benchmarking/index.ts",
+    "partytown": "partytown copylib packages/server/public/~partytown",
     "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb"
   },
   "keywords": [],
@@ -19,6 +20,8 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@builder.io/partytown": "^0.8.1",
+    "@types/amplitude-js": "^8.16.2",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "concurrently": "^8.2.0",
@@ -31,5 +34,9 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
+  },
+  "dependencies": {
+    "@amplitude/analytics-browser": "^2.3.1",
+    "amplitude-js": "^8.21.9"
   }
 }

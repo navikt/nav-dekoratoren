@@ -2,8 +2,10 @@ import html from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
 import clientManifest from 'decorator-client/dist/manifest.json';
 import { Language } from 'decorator-shared/params';
+import { Partytown } from './partytown';
 
 const entryPointPath = 'src/main.ts';
+const entryPointPathAnalytics = 'src/amplitude.ts';
 
 const Links = () =>
   process.env.NODE_ENV === 'production'
@@ -17,19 +19,33 @@ const Links = () =>
       ].join('')
     : '';
 
+// This can be calcualted once at startup
 const Scripts = () => {
   const script = (src: string) =>
     `<script type="module" src="${src}"></script>`;
 
+  const partytownScript = (src: string) =>
+    `<script type="text/partytown" src="${src}"></script>"`;
+
+  console.log(clientManifest);
+
   return process.env.NODE_ENV === 'production'
-    ? script(
-        `${process.env.HOST ?? ``}/public/${
-          clientManifest[entryPointPath].file
-        }`,
-      )
+    ? [
+        script(
+          `${process.env.HOST ?? ``}/public/${
+            clientManifest[entryPointPath].file
+          }`,
+        ),
+        partytownScript(
+          `${process.env.HOST ?? ``}/public/${
+            clientManifest[entryPointPathAnalytics].file
+          }`,
+        ),
+      ].join('')
     : [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
+        `http://localhost:5173/${entryPointPathAnalytics}`,
       ]
         .map(script)
         .join('');
@@ -62,6 +78,7 @@ export function Index({
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        ${Partytown()}
       </head>
       <body>
         <div id="styles" style="display:none">${Links()}</div>
