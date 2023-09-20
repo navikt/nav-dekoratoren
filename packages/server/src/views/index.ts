@@ -71,8 +71,9 @@ export function Index({
         <main>main</main>
         <div id="footer-withmenu" class="bg-white">${feedback} ${footer}</div>
         ${env} ${lens}
-        <div id="scripts" style="display:none">${Scripts()}</div>
-        ${decoratorData}
+        <div id="scripts" style="display:none">
+          ${Scripts()}${decoratorData}
+        </div>
       </body>
     </html>
   `;
