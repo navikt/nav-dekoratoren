@@ -64,7 +64,7 @@ export function Index({
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/public/styles.css" />
+        <link rel="stylesheet" href="/public/assets/styles.css" />
       </head>
       <body>
         <div id="styles" style="display:none">${Links()}</div>

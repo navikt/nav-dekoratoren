@@ -5,7 +5,11 @@ import postcss from 'postcss';
 plugin({
   name: 'css-modules',
   setup(build) {
-    fs.unlinkSync('./public/styles.css');
+    const dir = './public/assets';
+    const fileName = `${dir}/styles.css`;
+
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(fileName, '');
 
     build.onLoad({ filter: /\.module\.css$/ }, async ({ path }) => {
       const val = await postcss([
@@ -15,7 +19,7 @@ plugin({
         }),
       ]).process(fs.readFileSync(path, 'utf8'), { from: path });
 
-      fs.appendFileSync('./public/styles.css', val.css);
+      fs.appendFileSync(fileName, val.css);
 
       return {
         exports: {
