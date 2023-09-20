@@ -35,6 +35,9 @@ export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 const utilsBackground = z.enum(['white', 'gray', 'transparent']);
 export type UtilsBackground = z.infer<typeof utilsBackground>;
 
+const loginLevel = z.enum(['Level3', 'Level4']);
+export type LoginLevel = z.infer<typeof loginLevel>;
+
 export const paramsSchema = z.object({
   context: contextSchema.default('privatperson'),
   simple: z.boolean().default(false),
@@ -42,7 +45,7 @@ export const paramsSchema = z.object({
   simpleFooter: z.boolean().default(false),
   enforceLogin: z.boolean().default(false),
   redirectToApp: z.boolean().default(false),
-  level: z.enum(['Level3', 'Level4']).default('Level3'),
+  level: loginLevel.default('Level3'),
   language: languageSchema.default('nb'),
   availableLanguages: z.array(availableLanguageSchema).default([]),
   breadcrumbs: z.array(breadcrumbSchema).default([]),

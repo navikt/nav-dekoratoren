@@ -5,9 +5,15 @@ import { LoginIcon } from '../../icons/login';
 import { VarslerIcon } from 'decorator-shared/views/icons/varsler';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
-import { VarslerEmptyView } from '../../varsler';
+import { VarslerEmptyView, VarslerUlest } from '../../varsler';
 import { texts } from 'decorator-shared/texts';
+import { DropdownButton } from '../../components/dropdown-button';
 
+// ${IconButton({
+//   id: 'profile-button',
+//   Icon: ProfileIcon,
+//   text: name,
+// })}
 export function LoggedInMenu({
   name,
   myPageMenu,
@@ -17,14 +23,19 @@ export function LoggedInMenu({
 }) {
   return html`
     <div id="logged-in-menu">
-      ${IconButton({
-        id: 'varsler-button',
-        Icon: VarslerIcon,
-        text: 'Varsler',
-      })}
-      ${IconButton({
+      <div class="varsler-button-wrapper">
+        <toggle-icon-button id="varsler-button">
+          <div class="varsler-icon-wrapper" slot="icon">
+            ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
+          </div>
+          <span slot="text">Varsler</span>
+        </toggle-icon-button>
+      </div>
+      ${DropdownButton({
         id: 'profile-button',
-        Icon: ProfileIcon,
+        icon: ProfileIcon({
+          className: '',
+        }),
         text: name,
       })}
       ${IconButton({
@@ -32,6 +43,7 @@ export function LoggedInMenu({
         Icon: LoginIcon,
         text: 'Logg ut',
       })}
+
       <div id="loggedin-menu-wrapper">
         <div id="loggedin-menu-content">
           <div id="varsler-menu-content" class="dropdown">

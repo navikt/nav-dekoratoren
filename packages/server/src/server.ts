@@ -10,6 +10,7 @@ import ContentService from './content-service';
 
 import renderIndex from './render-index';
 import { fetchDriftsmeldinger, fetchMenu, fetchSearch } from './enonic';
+import mockVarslerHandler from './mockVarsler';
 
 const contentService = new ContentService(fetchMenu);
 
@@ -20,6 +21,7 @@ const app = new Elysia()
   .use(staticPlugin())
   .use(html())
   .use(mockAuth)
+  .use(mockVarslerHandler)
   .get('/api/isReady', () => 'OK')
   .get('/api/isAlive', () => 'OK')
   .get('/api/driftsmeldinger', () => fetchDriftsmeldinger())
