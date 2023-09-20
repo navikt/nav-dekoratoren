@@ -1,5 +1,5 @@
 import { Texts } from 'decorator-shared/texts';
-import { fetchSession, AuthData } from '../helpers/auth';
+import { fetchSession, AuthData, fethRenew } from '../helpers/auth';
 
 export function logoutWarningController(
   hasLogoutWarning: boolean,
@@ -11,6 +11,7 @@ export function logoutWarningController(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let timeoutHandler: number;
   let auth: AuthData;
+  let silenceWarning: boolean = false;
   const logoutWarningDialog = document.getElementById(
     'logout-warning',
   ) as HTMLDialogElement | null;
@@ -33,12 +34,18 @@ export function logoutWarningController(
     }
   }
 
-  function renewToken() {
-    console.log('renewToken');
+  async function renewToken() {
+    const result = await fethRenew();
+    if (result.session && result.tokens) {
+      auth = { ...result }; // Spread to avoid referencing.
+    }
   }
 
   function silenceSessionWarning() {
-    console.log('silenceSessionWarning');
+    if (logoutWarningDialog) {
+      logoutWarningDialog.close();
+    }
+    silenceWarning = true;
   }
 
   function fakeTokenExpiration(seconds: number) {
@@ -99,13 +106,14 @@ export function logoutWarningController(
     confirmButton.setAttribute('data-type', type);
     cancelButton.setAttribute('data-type', type);
 
-    if (!logoutWarningDialog.open) {
+    if (!logoutWarningDialog.open && !silenceWarning) {
       console.log('showing modal');
       logoutWarningDialog.showModal();
     }
   }
 
   function checkSessionLocally() {
+    console.log('checking session locally');
     timeoutHandler = setTimeout(() => {
       checkSessionLocally();
     }, 1000);

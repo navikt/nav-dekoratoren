@@ -30,3 +30,17 @@ export async function fetchSession() {
     throw new Error(`Error fetching auth: ${error}`);
   }
 }
+
+export async function fethRenew() {
+  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/renew`;
+
+  try {
+    const sessionResponse = await fetch(sessionUrl, {
+      credentials: 'include',
+    });
+
+    return await sessionResponse.json();
+  } catch (error) {
+    throw new Error(`Error fetching auth: ${error}`);
+  }
+}
