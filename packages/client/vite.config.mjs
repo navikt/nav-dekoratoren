@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
-import fs from 'fs';
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
