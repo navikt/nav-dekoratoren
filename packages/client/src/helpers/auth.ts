@@ -32,7 +32,7 @@ export async function fetchSession() {
 }
 
 export async function fethRenew() {
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/renew`;
+  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session/refresh`;
 
   try {
     const sessionResponse = await fetch(sessionUrl, {

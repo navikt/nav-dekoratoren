@@ -7,7 +7,7 @@ import {
   fakeExpirationTime,
 } from '../helpers/auth';
 
-export function logoutWarningController(
+export async function logoutWarningController(
   hasLogoutWarning: boolean,
   texts: Texts,
 ) {
@@ -183,6 +183,6 @@ export function logoutWarningController(
 
   startEventListeners();
   setupDebugFunctionality();
-  getUpdatedSessionRemote();
+  await getUpdatedSessionRemote();
   periodicalLocalSessionCheck();
 }
