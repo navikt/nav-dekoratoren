@@ -30,6 +30,7 @@ export default async ({ contentService, data, url: origin, query }) => {
       footerLinks: await contentService.getFooterLinks(data),
       simple: data.simple,
       feedback: data.feedback,
+      logoutWarning: data.logoutWarning,
     }),
     env: DecoratorEnv({
       origin,

@@ -987,3 +987,13 @@ decorator-lens.active {
 [aria-expanded='true'] .menuSearch__line-4 {
   transform: translate3d(-3px, -3px, 0);
 }
+
+/* Modal */
+
+.modal-window {
+  background-color: white;
+  border-radius: 4px;
+  padding: var(--a-spacing-8);
+  max-width: 600px;
+  margin: 0 auto;
+}

@@ -10,13 +10,24 @@ export type FooterProps = {
   texts: Texts;
   personvern?: Node[];
   footerLinks?: Node[];
-} & Pick<Params, 'simple' | 'feedback'>;
+} & Pick<Params, 'simple' | 'feedback' | 'logoutWarning'>;
 
 function getFooter(props: FooterProps) {
   if (props.simple) {
     return SimpleFooter(props);
   }
   return ComplexFooter(props);
+}
+
+function LogoutWarning() {
+  return html`<dialog id="logout-warning">
+    <div class="modal-window">
+      <h1 id="logout-warning-title">Du blir snart logget ut automatisk</h1>
+      <p id="logout-warning-body">Vil du fortsatt være innlogget?</p>
+      <button id="logout-warning-confirm">Ja</button>
+      <button id="logout-warning-cancel">Logg ut</button>
+    </div>
+  </dialog>`;
 }
 
 function Feedback({ texts }: { texts: Texts }) {
@@ -39,7 +50,8 @@ export function Footer(props: FooterProps) {
   // Remember to look in the footer for the proper structure
   return html`
     <div id="footer-withmenu" class="bg-white">
-      ${props.feedback && Feedback({ texts: props.texts })} ${footer}
+      ${props.feedback && Feedback({ texts: props.texts })}
+      ${props.logoutWarning && LogoutWarning()} ${footer}
     </div>
   `;
 }

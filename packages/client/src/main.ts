@@ -35,6 +35,7 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
+import { logoutWarningController } from './controllers/logout-warning';
 
 type Auth = {
   authenticated: boolean;
@@ -52,6 +53,10 @@ const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 declare global {
   interface Window {
     decoratorParams: Params;
+    loginDebug: {
+      expireToken: (seconds: number) => void;
+      expireSession: (seconds: number) => void;
+    };
   }
 }
 
@@ -87,6 +92,7 @@ addBreadcrumbEventListeners();
 attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
+logoutWarningController(window.decoratorParams.logoutWarning, texts['nb']);
 
 // Get the params this version of the decorator was initialized with
 document.getElementById('search-input')?.addEventListener('input', (e) => {
@@ -383,7 +389,6 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 async function checkAuth() {
   const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
 
   try {
     const fetchResponse = await fetch(authUrl, {
@@ -395,11 +400,6 @@ async function checkAuth() {
       return;
     }
 
-    const sessionResponse = await fetch(sessionUrl, {
-      credentials: 'include',
-    });
-    const session = await sessionResponse.json();
-    console.log(session);
     populateLoggedInMenu(response);
   } catch (error) {
     throw new Error(`Error fetching auth: ${error}`);

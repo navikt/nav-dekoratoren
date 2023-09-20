@@ -18,6 +18,7 @@ export const validateParams = (params: any) => {
     ...params,
     simple: parseBooleanParam(params.simple),
     feedback: parseBooleanParam(params.feedback),
+    logoutWarning: parseBooleanParam(params.logoutWarning),
     breadcrumbs: params.breadcrumbs
       ? JSON.parse(params.breadcrumbs)
       : params.breadcrumbs,
