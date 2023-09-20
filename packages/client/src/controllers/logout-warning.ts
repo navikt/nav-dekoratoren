@@ -26,13 +26,6 @@ export function logoutWarningController(
   const TOKEN_WARNING_THRESHOLD = 5 * 60; // 5 minutes
   const SESSION_WARNING_THRESHOLD = 5 * 60; // 5 minutes
 
-  // OK Listen for tab change
-  // 2. Recheck session
-  // 3. Get token and session from login service
-  // 3. Debug functionality
-  // 4. Texts for token and session
-  // 5. Timeout handler
-
   async function getUpdatedSessionRemote() {
     const result = await fetchSession();
     if (result.session && result.tokens) {
@@ -97,7 +90,6 @@ export function logoutWarningController(
       confirmButton.innerHTML = texts.yes;
       cancelButton.innerHTML = texts.logout;
     } else {
-      console.log(texts);
       title.innerHTML = texts.session_warning_title(minutes?.toString() || '');
       body.innerHTML = texts.session_warning_body;
       confirmButton.innerHTML = texts.ok;
@@ -142,6 +134,10 @@ export function logoutWarningController(
       );
       updateDialogUI('session', minutesToSessionExpiration);
       return;
+    }
+
+    if (logoutWarningDialog.open) {
+      logoutWarningDialog.close();
     }
   }
 

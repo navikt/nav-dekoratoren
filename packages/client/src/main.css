@@ -555,6 +555,40 @@ a {
 }
 
 /* Blue background button  */
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.button {
+  align-items: center;
+  background: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+
+.button-main {
+  background-color: rgb(0, 103, 197);
+}
+
+.button-main.big-label {
+  color: rgb(255, 255, 255);
+}
+
+.button-secondary {
+  background-color: rgb(204, 225, 255);
+}
+
+.button-secondary.big-label {
+  color: rgb(0, 103, 197);
+}
 
 .big-label {
   font-size: 1.125rem;
@@ -990,10 +1024,41 @@ decorator-lens.active {
 
 /* Modal */
 
+.modal {
+  animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
+  border-radius: 8px;
+  padding: 2.5rem;
+}
+
 .modal-window {
-  background-color: white;
-  border-radius: 4px;
-  padding: var(--a-spacing-8);
-  max-width: 600px;
   margin: 0 auto;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.modal-body {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+@keyframes modalAnimationFadein {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, calc(5% + 4px), 0);
+    transform: translate3d(0, calc(5% + 4px), 0);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: none;
+    transform: none;
+  }
 }

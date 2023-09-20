@@ -92,7 +92,10 @@ addBreadcrumbEventListeners();
 attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
-logoutWarningController(window.decoratorParams.logoutWarning, texts['nb']);
+
+if (window.decoratorParams.logoutWarning) {
+  logoutWarningController(window.decoratorParams.logoutWarning, texts['nb']);
+}
 
 // Get the params this version of the decorator was initialized with
 document.getElementById('search-input')?.addEventListener('input', (e) => {
