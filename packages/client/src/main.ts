@@ -10,7 +10,6 @@ import {
   HeaderMenuLinks,
 } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
-import { texts } from 'decorator-shared/texts';
 import * as api from './api';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
 
@@ -57,6 +56,11 @@ declare global {
     decoratorParams: Params;
   }
 }
+
+const decoratorData = JSON.parse(
+  document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
+);
+const { texts } = decoratorData;
 
 window.decoratorParams = hydrateParams();
 
@@ -384,8 +388,7 @@ async function populateLoggedInMenu(authObject: Auth) {
         innlogget: authObject.authenticated,
         name: authObject.name,
         myPageMenu,
-        // For testing
-        texts: texts['nb'],
+        texts,
       },
       window.decoratorParams.simple,
     );
@@ -420,7 +423,7 @@ api.checkAuth({
 
       if (varslerMenuContent) {
         varslerMenuContent.innerHTML = VarslerPopulated({
-          texts: texts['nb'],
+          texts,
           varslerData: varsler,
         });
       }

@@ -2,13 +2,13 @@ import { Header } from 'decorator-shared/views/header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
 import { DecoratorEnv } from './views/decorator-env';
-// import { DecoratorLens } from './views/decorator-lens';
-import { texts } from 'decorator-shared/texts';
+import { DecoratorLens } from './views/decorator-lens';
+import { DecoratorData } from './views/decorator-data';
+import { texts } from './texts';
 import ContentService from './content-service';
 import { Params } from 'decorator-shared/params';
 import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
-import { DecoratorLens } from './views/decorator-lens';
 
 export default async ({
   contentService,
@@ -56,6 +56,9 @@ export default async ({
       origin,
       env: data,
       query,
+    }),
+    decoratorData: DecoratorData({
+      texts: localTexts,
     }),
   });
 };

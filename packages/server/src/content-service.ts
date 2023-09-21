@@ -1,6 +1,6 @@
 import { Link, LinkGroup, Node } from 'decorator-shared/types';
 import { Context, Language } from 'decorator-shared/params';
-import { texts } from 'decorator-shared/texts';
+import { texts } from './texts';
 import html from 'decorator-shared/html';
 
 export default class ContentService {
