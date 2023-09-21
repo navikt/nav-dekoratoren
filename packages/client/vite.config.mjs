@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
 import path from 'path'
-import { partytownRollup, partytownVite } from '@builder.io/partytown/utils';
+import { partytownRollup } from '@builder.io/partytown/utils';
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
@@ -10,10 +10,9 @@ export default defineConfig({
     origin: 'http://localhost:5173',
   },
   build: {
-    minify: false,
+    minify: true,
     manifest: true,
     rollupOptions: {
-
       plugins: [
           minifyLiterals(),
           partytownRollup({
