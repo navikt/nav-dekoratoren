@@ -4,8 +4,6 @@ import amplitude from 'amplitude-js';
 
 type EventData = Record<string, any>;
 
-console.log('Ampltiude file');
-
 declare global {
   interface Window {
     dekoratorenAmplitude: typeof logEventFromApp;

@@ -27,8 +27,6 @@ const Scripts = () => {
   const partytownScript = (src: string) =>
     `<script type="text/partytown" src="${src}"></script>"`;
 
-  console.log(clientManifest);
-
   return process.env.NODE_ENV === 'production'
     ? [
         script(
