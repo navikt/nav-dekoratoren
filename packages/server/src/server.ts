@@ -73,86 +73,79 @@ Bun.serve({
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
-    if (files.includes(url.pathname)) {
-      return new Response(Bun.file(`.${url.pathname}`));
-    } else {
-      switch (url.pathname) {
-        case '/api/auth':
-          return new Response(
-            JSON.stringify({
+    const getResponse = async (request: Request) => {
+      if (files.includes(url.pathname)) {
+        return Bun.file(`.${url.pathname}`);
+      } else {
+        switch (url.pathname) {
+          case '/api/auth':
+            return {
               authenticated: true,
               name: 'LOKAL MOCK',
               securityLevel: '4',
-            }),
-            { headers: { 'content-type': 'application/json' } },
-          );
-        case '/api/oauth2/session':
-          return new Response(JSON.stringify(getMockSession()), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/api/oauth2/session/refresh':
-          refreshToken();
-          return new Response(JSON.stringify(getMockSession()), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/oauth2/login':
-          return new Response('', {
-            headers: {
-              Location: url.searchParams.get('redirect') ?? '',
-            },
-            status: 302,
-          });
-        case '/oauth2/logout':
-          return new Response(JSON.stringify(getMockSession()), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/api/varsler':
-          return new Response(
-            JSON.stringify({
+            };
+          case '/api/oauth2/session':
+            return getMockSession();
+          case '/api/oauth2/session/refresh':
+            refreshToken();
+            return getMockSession();
+          case '/oauth2/login':
+            return new Response('', {
+              headers: {
+                Location: url.searchParams.get('redirect') ?? '',
+              },
+              status: 302,
+            });
+          case '/oauth2/logout':
+            return getMockSession();
+          case '/api/varsler':
+            return {
               beskjeder: varslerMock.beskjeder.slice(0, 6),
               oppgaver: varslerMock.oppgaver.slice(0, 3),
-            }),
-            { headers: { 'content-type': 'application/json' } },
-          );
-        case '/api/varsler/beskjed/inaktiver':
-          return new Response(await request.json(), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/api/isReady':
-          return new Response('OK');
-        case '/api/isAlive':
-          return new Response('OK');
-        case '/api/driftsmeldinger':
-          return new Response(await fetchDriftsmeldinger(), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/api/sok':
-          return new Response(
-            JSON.stringify(
-              await fetchSearch(url.searchParams.get('ord') as string).then(
-                (results) => ({
-                  hits: results.hits.slice(0, 5),
-                  total: results.total,
-                }),
-              ),
-            ),
-            { headers: { 'content-type': 'application/json' } },
-          );
-        case '/data/myPageMenu':
-          return new Response(JSON.stringify(await myPageMenu(request)), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/data/headerMenuLinks':
-          return new Response(JSON.stringify(await headerMenuLinks(request)), {
-            headers: { 'content-type': 'application/json' },
-          });
-        case '/':
-          return new Response(await index(request), {
-            headers: { 'content-type': 'text/html' },
-          });
-        default:
-          return new Response('Not found', { status: 404 });
+            };
+          case '/api/varsler/beskjed/inaktiver':
+            return await request.json();
+          case '/api/isReady':
+            return 'OK';
+          case '/api/isAlive':
+            return 'OK';
+          case '/api/driftsmeldinger':
+            return await fetchDriftsmeldinger();
+          case '/api/sok':
+            return await fetchSearch(
+              url.searchParams.get('ord') as string,
+            ).then((results) => ({
+              hits: results.hits.slice(0, 5),
+              total: results.total,
+            }));
+          case '/data/myPageMenu':
+            return await myPageMenu(request);
+          case '/data/headerMenuLinks':
+            return await headerMenuLinks(request);
+          case '/':
+            return new Response(await index(request), {
+              headers: { 'content-type': 'text/html; charset=utf-8' },
+            });
+          default:
+            return new Response('Not found', { status: 404 });
+        }
       }
+    };
+
+    const response = await getResponse(request);
+
+    switch (response.constructor.name) {
+      case 'Response':
+        return response as Response;
+      case 'String':
+      case 'Blob':
+        return new Response(response as string | Blob);
+      case 'Object':
+      case 'Array':
+      default:
+        return new Response(JSON.stringify(response), {
+          headers: { 'content-type': 'application/json; charset=utf-8' },
+        });
     }
   },
 });
