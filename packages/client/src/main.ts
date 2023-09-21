@@ -1,5 +1,6 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
+import 'decorator-server/src/views/footer/footer.module.css';
 
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 
