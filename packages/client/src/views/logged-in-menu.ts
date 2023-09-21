@@ -18,6 +18,7 @@ export function initLoggedInMenu() {
   };
 
   profileButton?.addEventListener('click', () => {
+    profileButton.classList.toggle('active');
     toggleContainer();
     hideDropdowns();
 

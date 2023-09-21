@@ -25,7 +25,7 @@ services:
         depends_on:
             - oidc-provider
         environment:
-            REDIRECT_URL: 'http://localhost:3000'
+            REDIRECT_URL: 'http://localhost:8089'
             AUTO_REDIRECT_TO_FRONTEND: 'true'
     mocks:
         container_name: mocks

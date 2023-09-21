@@ -1,13 +1,4 @@
-import { Params, paramsSchema } from 'decorator-shared/params';
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace Express {
-    export interface Request {
-      decoratorParams: Params;
-    }
-  }
-}
+import { paramsSchema } from 'decorator-shared/params';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateParams = (params: any) => {

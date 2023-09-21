@@ -38,15 +38,19 @@ const Scripts = () => {
 export function Index({
   language,
   header,
+  feedback,
   footer,
   env,
   lens,
+  decoratorData,
 }: {
   language: Language;
   header: string;
+  feedback: string;
   footer: string;
   env: string;
   lens: string;
+  decoratorData: string;
 }) {
   return html`
     <!doctype html>
@@ -65,8 +69,11 @@ export function Index({
         <div id="styles" style="display:none">${Links()}</div>
         ${WebcomponentTemplates()} ${header}
         <main>main</main>
-        ${footer} ${env} ${lens}
-        <div id="scripts" style="display:none">${Scripts()}</div>
+        <div id="footer-withmenu" class="bg-white">${feedback} ${footer}</div>
+        ${env} ${lens}
+        <div id="scripts" style="display:none">
+          ${Scripts()}${decoratorData}
+        </div>
       </body>
     </html>
   `;

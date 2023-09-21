@@ -10,7 +10,7 @@ import {
   HeaderMenuLinks,
 } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
-import { texts } from 'decorator-shared/texts';
+import * as api from './api';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
 
 // Maybe create a file that does this
@@ -35,6 +35,8 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
+import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
+import { attachArkiverListener } from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
 
 type Auth = {
@@ -59,6 +61,11 @@ declare global {
     };
   }
 }
+
+const decoratorData = JSON.parse(
+  document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
+);
+const { texts } = decoratorData;
 
 window.decoratorParams = hydrateParams();
 console.log(window.decoratorParams);
@@ -252,6 +259,7 @@ let isMenuOpen = false;
 function handleMenuButton() {
   // Can probably be done direclty
   const menuButton = document.getElementById('menu-button');
+  const profileButton = document.getElementById('profile-button');
 
   menuButton?.addEventListener('click', () => {
     setAriaExpanded(menuButton);
@@ -259,6 +267,10 @@ function handleMenuButton() {
     menuButton?.classList.toggle('active');
     menu?.classList.toggle('active');
     menuBackground?.classList.toggle('active');
+
+    if (profileButton) {
+      purgeActive(profileButton);
+    }
 
     const isMobile = window.innerWidth < breakpoints.lg;
     isMenuOpen = !isMenuOpen;
@@ -313,8 +325,23 @@ if (window.decoratorParams.simple === false) {
 menuBackground?.addEventListener('click', () => {
   const menu = document.getElementById('menu');
   const menuButton = document.getElementById('menu-button');
+  const profileButton = document.getElementById('profile-button');
 
-  [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
+  const dropdowns = document.querySelectorAll('.dropdown');
+  const loggedInMenuWrapper = document.getElementById('loggedin-menu-wrapper');
+
+  if (menuBackground.classList.contains('active')) {
+    profileButton?.classList.remove('active');
+  }
+
+  [
+    menuButton,
+    menuBackground,
+    menu,
+    profileButton,
+    loggedInMenuWrapper,
+    ...dropdowns,
+  ].forEach((el) => el && purgeActive(el));
 });
 
 // Feedback
@@ -371,16 +398,16 @@ async function populateLoggedInMenu(authObject: Auth) {
         innlogget: authObject.authenticated,
         name: authObject.name,
         myPageMenu,
-        // For testing
-        texts: texts['nb'],
+        texts,
       },
       window.decoratorParams.simple,
     );
 
+    console.log(menuItems);
+
     menuItems.outerHTML = newMenuItems;
 
     initLoggedInMenu();
-
     handleMenuButton();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
@@ -390,26 +417,34 @@ async function populateLoggedInMenu(authObject: Auth) {
   }
 }
 
-async function checkAuth() {
-  const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
+api.checkAuth({
+  onSuccess: async (response) => {
+    await populateLoggedInMenu(response);
 
-  try {
-    const fetchResponse = await fetch(authUrl, {
-      credentials: 'include',
-    });
-    const response = await fetchResponse.json();
+    const varsler = await fetchVarsler();
 
-    if (!response.authenticated) {
-      return;
+    if (varsler) {
+      const varslerUlest = document.querySelector('.varsler-ulest');
+      varslerUlest?.classList.add('active');
+
+      // Choose which view to render
+
+      const varslerMenuContent = document.querySelector(
+        '#varsler-menu-content',
+      );
+
+      if (varslerMenuContent) {
+        varslerMenuContent.innerHTML = VarslerPopulated({
+          texts,
+          varslerData: varsler,
+        });
+      }
+
+      // Attach arkiver listener
+      attachArkiverListener();
     }
-
-    populateLoggedInMenu(response);
-  } catch (error) {
-    throw new Error(`Error fetching auth: ${error}`);
-  }
-}
-
-checkAuth();
+  },
+});
 
 function handleLogin() {
   const loginLevel = window.decoratorParams.level || 'Level4';
