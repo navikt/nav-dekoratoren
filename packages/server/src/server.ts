@@ -12,8 +12,6 @@ import varslerMock from './varsler-mock.json';
 
 const contentService = new ContentService(fetchMenu);
 
-const port = env.PORT || 8089;
-
 const getFiles = async (dir: string): Promise<string[]> => {
   const files = await readdir(dir);
   return Promise.all(
@@ -30,12 +28,16 @@ const files = (await getFiles('./public')).map((file) =>
   file.replace('./', '/'),
 );
 
-const validParams = (query: { [k: string]: string }) => {
+const validParams = (request: Request) => {
+  const url = new URL(request.url);
+  const query = Object.fromEntries(url.searchParams);
+
   const validParams = validateParams(query);
   if (!validParams.success) {
     console.error(validParams.error);
     throw new Error(validParams.error.toString());
   }
+
   return validParams.data;
 };
 
@@ -45,7 +47,7 @@ const index = async (request: Request) => {
 
   return renderIndex({
     contentService,
-    data: validParams(query),
+    data: validParams(request),
     url: url.toString(),
     query,
   });
@@ -53,22 +55,19 @@ const index = async (request: Request) => {
 
 const myPageMenu = async (request: Request) =>
   contentService.getMyPageMenu({
-    language: validParams(Object.fromEntries(new URL(request.url).searchParams))
-      .language,
+    language: validParams(request).language,
   });
 
 const headerMenuLinks = async (request: Request) => {
-  const data = validParams(
-    Object.fromEntries(new URL(request.url).searchParams),
-  );
+  const data = validParams(request);
   return contentService.getHeaderMenuLinks({
     language: data.language,
     context: data.context,
   });
 };
 
-Bun.serve({
-  port,
+const server = Bun.serve({
+  port: env.PORT || 8089,
   development: process.env.NODE_ENV === 'development',
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
@@ -104,24 +103,24 @@ Bun.serve({
               oppgaver: varslerMock.oppgaver.slice(0, 3),
             };
           case '/api/varsler/beskjed/inaktiver':
-            return await request.json();
+            return request.json();
           case '/api/isReady':
             return 'OK';
           case '/api/isAlive':
             return 'OK';
           case '/api/driftsmeldinger':
-            return await fetchDriftsmeldinger();
+            return fetchDriftsmeldinger();
           case '/api/sok':
-            return await fetchSearch(
-              url.searchParams.get('ord') as string,
-            ).then((results) => ({
-              hits: results.hits.slice(0, 5),
-              total: results.total,
-            }));
+            return fetchSearch(url.searchParams.get('ord') ?? '').then(
+              (results) => ({
+                hits: results.hits.slice(0, 5),
+                total: results.total,
+              }),
+            );
           case '/data/myPageMenu':
-            return await myPageMenu(request);
+            return myPageMenu(request);
           case '/data/headerMenuLinks':
-            return await headerMenuLinks(request);
+            return headerMenuLinks(request);
           case '/':
             return new Response(await index(request), {
               headers: { 'content-type': 'text/html; charset=utf-8' },
@@ -150,4 +149,6 @@ Bun.serve({
   },
 });
 
-console.log(`decorator-next is running at http://localhost:${port}`);
+console.log(
+  `decorator-next is running at http://${server.hostname}:${server.port}`,
+);
