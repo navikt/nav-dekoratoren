@@ -1,4 +1,4 @@
-import { Texts } from 'decorator-shared/texts';
+import { Texts } from 'decorator-shared/types';
 import {
   fetchSession,
   AuthData,
@@ -80,7 +80,10 @@ export async function logoutWarningController(
       confirmButton.innerHTML = texts.yes;
       cancelButton.innerHTML = texts.logout;
     } else {
-      title.innerHTML = texts.session_warning_title(minutes?.toString() || '');
+      title.innerHTML = texts.session_warning_title.replace(
+        '$1',
+        minutes?.toString() || '',
+      );
       body.innerHTML = texts.session_warning_body;
       confirmButton.innerHTML = texts.ok;
       cancelButton.innerHTML = texts.logout;

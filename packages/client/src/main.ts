@@ -101,7 +101,7 @@ fetchDriftsMeldinger();
 handleSearchButtonClick();
 
 if (window.decoratorParams.logoutWarning) {
-  logoutWarningController(window.decoratorParams.logoutWarning, texts['nb']);
+  logoutWarningController(window.decoratorParams.logoutWarning, texts);
 }
 
 // Get the params this version of the decorator was initialized with

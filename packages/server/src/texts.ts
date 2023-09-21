@@ -9,6 +9,7 @@ const nb = {
   did_you_find: 'Fant du det du lette etter?',
   search: 'Søk',
   login: 'Logg inn',
+  logout: 'Logg ut',
   varsler: 'Varsler',
   varsler_tom_liste: 'Du har ingen nye varsler',
   varsler_tom_liste_ingress: 'Vi varsler deg når noe skjer',
@@ -22,6 +23,12 @@ const nb = {
     'Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.',
   arkiver: 'Arkiver',
   varsler_oppgaver_tittel: 'Oppgaver',
+  token_warning_title: 'Du blir snart logget ut automatisk',
+  token_warning_body: 'Vil du fortsatt være innlogget?',
+  session_warning_title: 'Du blir logget ut automatisk om ca $1 minutter',
+  session_warning_body: 'Avslutt det du jobber med og logg inn igjen.',
+  yes: 'Ja',
+  ok: 'OK',
 };
 
 export const texts: Record<Language, Texts> = {
@@ -34,6 +41,7 @@ export const texts: Record<Language, Texts> = {
     did_you_find: 'Fant du det du lette etter?',
     search: 'Search',
     login: 'Log in',
+    logout: 'Log out',
     varsler: 'Notifications',
     varsler_tom_liste: 'You have no new notifications',
     varsler_tom_liste_ingress: 'Du har ingen nye varsler',
@@ -47,6 +55,13 @@ export const texts: Record<Language, Texts> = {
       'You have a task, please log in with a higher security level to see the task.',
     arkiver: 'Archive',
     varsler_oppgaver_tittel: 'Tasks',
+    token_warning_title: 'You will soon be logged out automatically',
+    token_warning_body: 'Would you like to stay logged in?',
+    session_warning_title:
+      'You will be logged out automatically in about $1 minutes',
+    session_warning_body: 'Avslutt det du jobber med og logg inn igjen.',
+    yes: 'Yes',
+    ok: 'OK',
   },
   se: nb,
   nn: nb,

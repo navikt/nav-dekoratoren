@@ -39,6 +39,7 @@ export function Index({
   language,
   header,
   feedback,
+  logoutWarning,
   footer,
   env,
   lens,
@@ -48,6 +49,7 @@ export function Index({
   header: string;
   feedback: string;
   footer: string;
+  logoutWarning: string;
   env: string;
   lens: string;
   decoratorData: string;
@@ -69,7 +71,9 @@ export function Index({
         <div id="styles" style="display:none">${Links()}</div>
         ${WebcomponentTemplates()} ${header}
         <main>main</main>
-        <div id="footer-withmenu" class="bg-white">${feedback} ${footer}</div>
+        <div id="footer-withmenu" class="bg-white">
+          ${logoutWarning} ${feedback} ${footer}
+        </div>
         ${env} ${lens}
         <div id="scripts" style="display:none">
           ${Scripts()}${decoratorData}
