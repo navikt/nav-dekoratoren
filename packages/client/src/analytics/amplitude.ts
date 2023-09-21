@@ -1,4 +1,6 @@
 import amplitude from 'amplitude-js';
+import { Params } from 'decorator-shared/params';
+import { Auth } from '../api';
 // import { Params } from 'store/reducers/environment-duck';
 // import { InnloggingsstatusState } from '../../store/reducers/innloggingsstatus-duck';
 
@@ -59,21 +61,18 @@ const logEventFromApp = (params?: {
   }
 };
 
-export const logPageView = (
-  params: Params,
-  authState: InnloggingsstatusState,
-) => {
+export const logPageView = (params: Params, authState: Auth) => {
   return logAmplitudeEvent('besøk', {
     sidetittel: document.title,
-    innlogging: authState.data.securityLevel ?? false,
+    innlogging: authState.securityLevel ?? false,
     parametre: {
       ...params,
-      BREADCRUMBS: !!(params?.BREADCRUMBS && params.BREADCRUMBS.length > 0),
-      ...(params.AVAILABLE_LANGUAGES && {
-        AVAILABLE_LANGUAGES: params.AVAILABLE_LANGUAGES.map(
-          (lang) => lang.locale,
-        ),
-      }),
+      // BREADCRUMBS: !!(params?.BREADCRUMBS && params.BREADCRUMBS.length > 0),
+      // ...(params.AVAILABLE_LANGUAGES && {
+      //   AVAILABLE_LANGUAGES: params.AVAILABLE_LANGUAGES.map(
+      //     (lang) => lang.locale,
+      //   ),
+      // }),
     },
   });
 };
