@@ -37,6 +37,7 @@ import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
 import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
 import { attachArkiverListener } from './views/varsler';
+import { logoutWarningController } from './controllers/logout-warning';
 
 type Auth = {
   authenticated: boolean;
@@ -54,6 +55,10 @@ const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 declare global {
   interface Window {
     decoratorParams: Params;
+    loginDebug: {
+      expireToken: (seconds: number) => void;
+      expireSession: (seconds: number) => void;
+    };
   }
 }
 
@@ -93,6 +98,10 @@ addBreadcrumbEventListeners();
 attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
+
+if (window.decoratorParams.logoutWarning) {
+  logoutWarningController(window.decoratorParams.logoutWarning, texts);
+}
 
 // Get the params this version of the decorator was initialized with
 document.getElementById('search-input')?.addEventListener('input', (e) => {

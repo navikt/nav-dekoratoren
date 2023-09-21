@@ -57,6 +57,7 @@ export const paramsSchema = z.object({
   shareScreen: z.boolean().default(false),
   logoutUrl: z.string().url().optional(),
   maskHotjar: z.boolean().default(false),
+  logoutWarning: z.boolean().default(false),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
