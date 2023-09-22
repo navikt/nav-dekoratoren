@@ -7,11 +7,13 @@ export type Driftsmelding = {
   urlscope: string[];
 };
 
+export type DriftsmeldingerProps = {
+  driftsmeldinger: Driftsmelding[];
+};
+
 export function Driftsmeldinger({
   driftsmeldinger = [],
-}: {
-  driftsmeldinger: Driftsmelding[];
-}) {
+}: DriftsmeldingerProps) {
   // Unsure if this should be hardcoded
   return html` <section id="driftsmeldinger">
     ${driftsmeldinger.map(
