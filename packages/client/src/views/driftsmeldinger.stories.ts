@@ -2,8 +2,7 @@ import type { StoryObj, Meta } from '@storybook/html';
 import type { DriftsmeldingerProps } from './driftsmeldinger';
 import { Driftsmeldinger } from './driftsmeldinger';
 
-// More on how to set up stories at: https://storybook.js.org/docs/html/writing-stories/introduction#default-export
-const meta = {
+const meta: Meta<DriftsmeldingerProps> = {
   title: 'driftsmeldinger',
   tags: ['autodocs'],
   render: (args) => {
@@ -14,19 +13,24 @@ const meta = {
       default: 'dark',
     },
   },
-} satisfies Meta<DriftsmeldingerProps>;
+};
 
 export default meta;
 type Story = StoryObj<DriftsmeldingerProps>;
 
-export const Default: Story = {
+const driftsmelding = {
+  heading: 'Ustabile tjenester søndag 15. januar',
+  url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
+};
+
+export const Single: Story = {
   args: {
-    driftsmeldinger: [
-      {
-        heading: 'heading',
-        url: 'example.com',
-        urlscope: ['person'],
-      },
-    ],
+    driftsmeldinger: [driftsmelding],
+  },
+};
+
+export const Multiple: Story = {
+  args: {
+    driftsmeldinger: [driftsmelding, driftsmelding, driftsmelding],
   },
 };
