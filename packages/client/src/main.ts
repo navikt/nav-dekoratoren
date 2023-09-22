@@ -464,23 +464,22 @@ handleLogin();
 const main = document.querySelector('main');
 
 if (main) {
-  main.insertAdjacentHTML(
-    'beforeend',
-    LenkeMedSporing({
-      href: 'https://www.nav.no',
-      children: 'Lenke med sporing',
-    }),
-  );
+  // main.insertAdjacentHTML(
+  //   'beforeend',
+  //   LenkeMedSporing({
+  //     href: 'https://www.nav.no',
+  //     children: 'Lenke med sporing',
+  //   }),
+  // );
 
   main.insertAdjacentHTML(
     'beforeend',
     LenkeMedSporing({
-      href: 'https://www.nav.no',
-      children: 'Lenke med sporing',
+      href: 'https://www.nav.no!',
+      children: 'Lenke med sporing!',
       withChevron: true,
       analyticsEventArgs: {
         eventName: 'decorator_next/test',
-
         category: AnalyticsCategory.Footer,
         action: `kontakt/oss`,
         label: 'Lenke',

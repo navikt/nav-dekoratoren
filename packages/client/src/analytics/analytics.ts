@@ -1,8 +1,6 @@
 import { initAmplitude, logAmplitudeEvent } from './amplitude';
 // import { initTaskAnalytics } from './task-analytics/ta';
 
-console.log('Index file');
-
 export enum MenuValue {
   PRIVATPERSON = 'privatperson',
   ARBEIDSGIVER = 'arbeidsgiver',
@@ -28,7 +26,6 @@ export type AnalyticsEventArgs = {
 };
 
 export const initAnalytics = () => {
-  console.log('Inited analytics');
   initAmplitude();
 };
 
@@ -62,7 +59,6 @@ export const analyticsEvent = (props: AnalyticsEventArgs) => {
 initAnalytics();
 
 const amplitudeTest = document.querySelector('#amplitude-test');
-console.log(amplitudeTest);
 
 amplitudeTest?.addEventListener('click', () => {
   logAmplitudeEvent(
@@ -73,5 +69,4 @@ amplitudeTest?.addEventListener('click', () => {
     },
     'decorator_next',
   );
-  console.log('Clicked the button');
 });
