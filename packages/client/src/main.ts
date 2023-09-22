@@ -35,8 +35,11 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
-import { attachArkiverListener } from './views/varsler';
+import {
+  VarslerPopulated,
+  fetchVarsler,
+  attachArkiverListener,
+} from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
 
 type Auth = {
