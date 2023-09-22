@@ -8,11 +8,6 @@ const meta: Meta<DriftsmeldingerProps> = {
   render: (args) => {
     return Driftsmeldinger(args);
   },
-  parameters: {
-    backgrounds: {
-      default: 'dark',
-    },
-  },
 };
 
 export default meta;
