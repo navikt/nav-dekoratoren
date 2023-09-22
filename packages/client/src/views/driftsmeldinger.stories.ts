@@ -21,6 +21,7 @@ type Story = StoryObj<DriftsmeldingerProps>;
 const driftsmelding = {
   heading: 'Ustabile tjenester søndag 15. januar',
   url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
+  urlscope: [],
 };
 
 export const Single: Story = {
