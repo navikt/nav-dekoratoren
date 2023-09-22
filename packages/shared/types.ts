@@ -37,3 +37,9 @@ export type Texts = {
   arkiver: string;
   varsler_oppgaver_tittel: string;
 };
+
+export type Driftsmelding = {
+  heading: string;
+  url: string;
+  urlscope: string[];
+};

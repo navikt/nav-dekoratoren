@@ -2,7 +2,10 @@ import { expect, test, describe } from 'bun:test';
 import testData from './content-test-data.json';
 import ContentService from './content-service';
 
-const contentService = new ContentService(() => Promise.resolve(testData));
+const contentService = new ContentService(
+  () => Promise.resolve(testData),
+  () => Promise.resolve([]),
+);
 
 describe('getHeaderMenuLinks', () => {
   test('returns norwegian privatperson menu', async () => {
