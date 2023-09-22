@@ -1,4 +1,4 @@
-import { readdir, stat } from 'node:fs/promises';
+import { readdirSync, statSync } from 'node:fs';
 
 import { validateParams } from './validateParams';
 import { getMockSession, refreshToken } from './mockAuth';
@@ -13,19 +13,13 @@ const requestHandler = async (
   contentService: ContentService,
   searchService: SearchService,
 ) => {
-  const getFiles = async (dir: string): Promise<string[]> => {
-    const files = await readdir(dir);
-    return Promise.all(
-      files.map(async (name) => {
-        const file = dir + '/' + name;
-        const stats = await stat(file);
+  const getFilePaths = (dir: string): string[] =>
+    readdirSync(dir).flatMap((name) => {
+      const file = dir + '/' + name;
+      return statSync(file).isDirectory() ? getFilePaths(file) : file;
+    });
 
-        return stats.isDirectory() ? await getFiles(file) : file;
-      }),
-    ).then((all) => all.flat());
-  };
-
-  const files = (await getFiles('./public')).map((file) =>
+  const filePaths = getFilePaths('./public').map((file) =>
     file.replace('./', '/'),
   );
 
@@ -85,7 +79,7 @@ const requestHandler = async (
 
   const handlers = new HandlerBuilder()
     .use(
-      files.map((path) => ({
+      filePaths.map((path) => ({
         method: 'GET',
         path,
         handler: ({ url }) => new Response(Bun.file(`.${url.pathname}`)),
