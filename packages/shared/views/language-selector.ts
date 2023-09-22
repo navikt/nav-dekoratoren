@@ -1,4 +1,4 @@
-import { AvailableLanguage } from 'decorator-shared/params';
+import { type AvailableLanguage } from 'decorator-shared/params';
 import html from '../html';
 
 export default ({
