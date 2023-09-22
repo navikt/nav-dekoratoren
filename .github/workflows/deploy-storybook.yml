@@ -6,6 +6,11 @@ on:
       - main
       - storybook
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
 jobs:
