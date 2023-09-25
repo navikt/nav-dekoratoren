@@ -1,11 +1,6 @@
 import html from 'decorator-shared/html';
+import { Driftsmelding } from 'decorator-shared/types';
 import { WarningIcon } from 'decorator-shared/views/icons/warning';
-
-export type Driftsmelding = {
-  heading: string;
-  url: string;
-  urlscope: string[];
-};
 
 export type DriftsmeldingerProps = {
   driftsmeldinger: Driftsmelding[];

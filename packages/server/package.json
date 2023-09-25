@@ -10,10 +10,6 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@elysiajs/html": "^0.6.6",
-    "@elysiajs/cors": "^0.6.0",
-    "@elysiajs/static": "^0.6.0",
-    "elysia": "^0.6.23",
     "decorator-client": "workspace:*"
   },
   "devDependencies": {

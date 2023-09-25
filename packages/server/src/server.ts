@@ -1,65 +1,35 @@
-import { Elysia } from 'elysia';
-import { cors } from '@elysiajs/cors';
-import { staticPlugin } from '@elysiajs/static';
-import { html } from '@elysiajs/html';
-
-import { validateParams } from './validateParams';
-import mockAuth from './mockAuth';
+import { fetchDriftsmeldinger, fetchMenu, fetchSearch } from './enonic';
+import { readdirSync, statSync } from 'node:fs';
 import { env } from './env/server';
 import ContentService from './content-service';
+import requestHandler from './request-handler';
+import SearchService from './search-service';
+import menu from './content-test-data.json';
 
-import renderIndex from './render-index';
-import { fetchDriftsmeldinger, fetchMenu, fetchSearch } from './enonic';
-import mockVarslerHandler from './mockVarsler';
+const getFilePaths = (dir: string): string[] =>
+  readdirSync(dir).flatMap((name) => {
+    const file = dir + '/' + name;
+    return statSync(file).isDirectory() ? getFilePaths(file) : file;
+  });
 
-const contentService = new ContentService(fetchMenu);
-
-const port = env.PORT || 8089;
-
-const app = new Elysia()
-  .use(cors())
-  .use(staticPlugin())
-  .use(html())
-  .use(mockAuth)
-  .use(mockVarslerHandler)
-  .get('/api/isReady', () => 'OK')
-  .get('/api/isAlive', () => 'OK')
-  .get('/api/driftsmeldinger', () => fetchDriftsmeldinger())
-  .get('/api/sok', ({ query }) =>
-    fetchSearch(query.ord as string).then((results) => ({
-      hits: results.hits.slice(0, 5),
-      total: results.total,
-    })),
-  )
-  .derive((context) => {
-    const validParams = validateParams(context.query);
-    if (!validParams.success) {
-      console.error(validParams.error);
-      throw new Error(validParams.error.toString());
-    }
-    return {
-      data: validParams.data,
-    };
-  })
-  .get('/data/myPageMenu', ({ data }) =>
-    contentService.getMyPageMenu({ language: data.language }),
-  )
-  .get('/data/headerMenuLinks', ({ data }) =>
-    contentService.getHeaderMenuLinks({
-      language: data.language,
-      context: data.context,
-    }),
-  )
-  .get('/', async ({ data, query, request }) =>
-    renderIndex({
-      contentService,
-      data,
-      url: request.url,
-      query,
-    }),
-  )
-  .listen(port);
+const server = Bun.serve({
+  port: env.PORT || 8089,
+  development: process.env.NODE_ENV === 'development',
+  fetch: await requestHandler(
+    new ContentService(
+      process.env.NODE_ENV === 'production'
+        ? fetchMenu
+        : () => Promise.resolve(menu),
+      fetchDriftsmeldinger,
+    ),
+    new SearchService(fetchSearch),
+    {
+      getFilePaths,
+      getFile: Bun.file,
+    },
+  ),
+});
 
 console.log(
-  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`,
+  `decorator-next is running at http://${server.hostname}:${server.port}`,
 );
