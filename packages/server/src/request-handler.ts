@@ -1,5 +1,3 @@
-import { readdirSync, statSync } from 'node:fs';
-
 import { validateParams } from './validateParams';
 import { getMockSession, refreshToken } from './mockAuth';
 import ContentService from './content-service';
@@ -9,19 +7,19 @@ import renderIndex from './render-index';
 import varslerMock from './varsler-mock.json';
 import SearchService from './search-service';
 
+type FileSystemService = {
+  getFile: (path: string) => Blob;
+  getFilePaths: (dir: string) => string[];
+};
+
 const requestHandler = async (
   contentService: ContentService,
   searchService: SearchService,
+  fileSystemService: FileSystemService,
 ) => {
-  const getFilePaths = (dir: string): string[] =>
-    readdirSync(dir).flatMap((name) => {
-      const file = dir + '/' + name;
-      return statSync(file).isDirectory() ? getFilePaths(file) : file;
-    });
-
-  const filePaths = getFilePaths('./public').map((file) =>
-    file.replace('./', '/'),
-  );
+  const filePaths = fileSystemService
+    .getFilePaths('./public')
+    .map((file) => file.replace('./', '/'));
 
   const validParams = (query: Record<string, string>) => {
     const validParams = validateParams(query);
@@ -82,7 +80,8 @@ const requestHandler = async (
       filePaths.map((path) => ({
         method: 'GET',
         path,
-        handler: ({ url }) => new Response(Bun.file(`.${url.pathname}`)),
+        handler: ({ url }) =>
+          new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
     .get('/api/auth', () =>

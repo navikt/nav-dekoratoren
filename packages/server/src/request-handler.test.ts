@@ -17,6 +17,10 @@ const fetch = await requestHandler(
       ]),
   ),
   new SearchService(() => Promise.resolve({ hits: [], total: 0 })),
+  {
+    getFilePaths: () => ['./public/yep.svg'],
+    getFile: () => Bun.file('./yep.svg'),
+  },
 );
 
 test('is alive', async () => {
@@ -87,7 +91,7 @@ describe('varsler', () => {
 describe('files', () => {
   test('hit', async () => {
     const response = await fetch(
-      new Request('http://localhost/public/ikoner/circle.svg'),
+      new Request('http://localhost/public/yep.svg'),
     );
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('image/svg+xml');
@@ -95,7 +99,7 @@ describe('files', () => {
 
   test('miss', async () => {
     const response = await fetch(
-      new Request('http://localhost/public/nope.jpg'),
+      new Request('http://localhost/public/nope.svg'),
     );
     expect(response.status).toBe(404);
   });

@@ -1,9 +1,16 @@
 import { fetchDriftsmeldinger, fetchMenu, fetchSearch } from './enonic';
+import { readdirSync, statSync } from 'node:fs';
 import { env } from './env/server';
 import ContentService from './content-service';
 import requestHandler from './request-handler';
 import SearchService from './search-service';
 import menu from './content-test-data.json';
+
+const getFilePaths = (dir: string): string[] =>
+  readdirSync(dir).flatMap((name) => {
+    const file = dir + '/' + name;
+    return statSync(file).isDirectory() ? getFilePaths(file) : file;
+  });
 
 const server = Bun.serve({
   port: env.PORT || 8089,
@@ -16,6 +23,10 @@ const server = Bun.serve({
       fetchDriftsmeldinger,
     ),
     new SearchService(fetchSearch),
+    {
+      getFilePaths,
+      getFile: Bun.file,
+    },
   ),
 });
 
