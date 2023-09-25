@@ -2,11 +2,13 @@ import html from 'decorator-shared/html';
 import { Driftsmelding } from 'decorator-shared/types';
 import { WarningIcon } from 'decorator-shared/views/icons/warning';
 
+export type DriftsmeldingerProps = {
+  driftsmeldinger: Driftsmelding[];
+};
+
 export function Driftsmeldinger({
   driftsmeldinger = [],
-}: {
-  driftsmeldinger: Driftsmelding[];
-}) {
+}: DriftsmeldingerProps) {
   // Unsure if this should be hardcoded
   return html` <section id="driftsmeldinger">
     ${driftsmeldinger.map(
