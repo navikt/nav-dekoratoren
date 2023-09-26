@@ -8,22 +8,24 @@ import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 import { LinkButton } from 'decorator-shared/views/components/link-button';
 import { BeskjedIcon, OppgaveIcon } from 'decorator-shared/views/icons/varsler';
 
-export type VarselType = 'beskjed' | 'innboks' | 'oppgave';
 type VarslingKanal = 'SMS' | 'EPOST';
 
-export type Varsler = {
-  varselId: string;
-  type: VarselType;
+type Varsler = {
   tidspunkt: string;
   eventId: string;
-  tekst: string | null;
   link: string | null;
-  isMasked: boolean;
-  eksternVarslingSendt: boolean;
   eksternVarslingKanaler: VarslingKanal[];
-};
+} & (
+  | {
+      isMasked: true;
+    }
+  | {
+      isMasked: false;
+      tekst: string;
+    }
+);
 
-export type VarslerData = {
+type VarslerData = {
   oppgaver: Varsler[];
   beskjeder: Varsler[];
 };
