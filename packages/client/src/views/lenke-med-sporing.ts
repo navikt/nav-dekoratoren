@@ -36,7 +36,6 @@ export class LenkeMedSporingElement extends HTMLElement {
     const eventArgs = rawEventArgs
       ? (JSON.parse(rawEventArgs || '{}') as AnalyticsEventArgs)
       : null;
-    console.log(eventArgs);
 
     a.setAttribute('role', this.getAttribute('role') || '');
     a.setAttribute('id', this.getAttribute('id') || '');
@@ -66,7 +65,7 @@ export class LenkeMedSporingElement extends HTMLElement {
           ${withLock
             ? Lock({ height: '18px', width: '18px' })
             : withChevron
-            ? Next({})
+            ? Next()
             : ''}
         </div>
         ${children}

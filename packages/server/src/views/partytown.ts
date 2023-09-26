@@ -15,8 +15,5 @@ export function Partytown() {
     <script>
       ${snippetText};
     </script>
-    <script type="text/partytown">
-      console.log("Hello")
-    </script>
   `;
 }
