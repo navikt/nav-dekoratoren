@@ -1,4 +1,3 @@
-import { Texts } from 'decorator-shared/types';
 import * as api from '../api';
 
 // @todo:  test in prod
@@ -45,8 +44,18 @@ export async function fetchVarsler() {
   return varsler;
 }
 
+type VarslerPopulatedTexts = {
+  varsler_oppgaver_tittel: string;
+  varsler_beskjeder_tittel: string;
+  beskjed_maskert_tekst: string;
+  oppgave_maskert_tekst: string;
+  arkiver: string;
+  varslet_EPOST: string;
+  varslet_SMS: string;
+};
+
 export type VarslerPopulatedProps = {
-  texts: Texts;
+  texts: VarslerPopulatedTexts;
   varslerData: VarslerData;
 };
 
@@ -101,7 +110,7 @@ function formatVarselDate(tidspunkt: string): string {
 
 function makeVarsel(
   varsel: Varsler,
-  texts: Texts,
+  texts: VarslerPopulatedTexts,
 ): Omit<VarselProps, 'icon' | 'title'> {
   const cta = varsel.isMasked
     ? ForwardChevron()
@@ -122,7 +131,10 @@ function makeVarsel(
   };
 }
 
-const makeBeskjed = (varsel: Varsler, texts: Texts): VarselProps => {
+const makeBeskjed = (
+  varsel: Varsler,
+  texts: VarslerPopulatedTexts,
+): VarselProps => {
   const text = varsel.isMasked ? texts.beskjed_maskert_tekst : varsel.tekst;
 
   return {
@@ -132,7 +144,10 @@ const makeBeskjed = (varsel: Varsler, texts: Texts): VarselProps => {
   };
 };
 
-const makeOppgave = (varsel: Varsler, texts: Texts): VarselProps => {
+const makeOppgave = (
+  varsel: Varsler,
+  texts: VarslerPopulatedTexts,
+): VarselProps => {
   const text = varsel.isMasked ? texts.oppgave_maskert_tekst : varsel.tekst;
 
   return {
