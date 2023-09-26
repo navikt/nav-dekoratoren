@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "storybook": "bun run --cwd packages/client storybook",
-    "build-storybook": "bun run --cwd packages/client build-storybook",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "test": "bun run --cwd packages/server test",
     "dev": "concurrently \"bun run --cwd packages/client dev\" \"bun run --cwd packages/server dev\"",
     "build": "bun run --cwd packages/client build && cp -r packages/client/dist/assets packages/server/public/ && bun run --cwd packages/server build",
@@ -31,13 +31,20 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
   },
   "dependencies": {
-    "amplitude-js": "^8.21.9"
+    "amplitude-js": "^8.21.9",
+    "@storybook/addon-essentials": "^7.4.3",
+    "@storybook/blocks": "^7.4.3",
+    "@storybook/html": "^7.4.3",
+    "@storybook/html-vite": "^7.4.3",
+    "storybook": "^7.4.3"
   }
 }
