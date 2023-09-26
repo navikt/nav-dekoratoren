@@ -1,13 +1,12 @@
 import { LinkGroup } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 
-export function ComplexFooter({
-  texts,
-  links,
-}: {
+export type ComplexFooterProps = {
   texts: { to_top: string };
   links: LinkGroup[];
-}) {
+};
+
+export function ComplexFooter({ texts, links }: ComplexFooterProps) {
   return html`
     <footer class="footer">
       <div class="footer-content">
