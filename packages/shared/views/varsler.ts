@@ -1,7 +1,14 @@
 import html from '../html';
-import { Texts } from '../types';
 
-export function VarslerEmptyView({ texts }: { texts: Texts }) {
+export type VarslerEmptyProps = {
+  texts: {
+    varsler_tom_liste: string;
+    varsler_tom_liste_ingress: string;
+    varsler_vis_alle: string;
+  };
+};
+
+export function VarslerEmptyView({ texts }: VarslerEmptyProps) {
   return html`
     <div id="varsler-empty">
       <img src="/public/kattIngenVarsler.svg" alt="Ingen varsler" />
