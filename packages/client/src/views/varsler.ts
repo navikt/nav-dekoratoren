@@ -9,16 +9,18 @@ import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 import { LinkButton } from 'decorator-shared/views/components/link-button';
 import { BeskjedIcon, OppgaveIcon } from 'decorator-shared/views/icons/varsler';
 
-export type VarselType = 'beskjeder' | 'innboks';
+export type VarselType = 'beskjed' | 'innboks' | 'oppgave';
 type VarslingKanal = 'SMS' | 'EPOST';
 
 export type Varsler = {
+  varselId: string;
   type: VarselType;
   tidspunkt: string;
   eventId: string;
-  tekst: string;
-  link: string;
+  tekst: string | null;
+  link: string | null;
   isMasked: boolean;
+  eksternVarslingSendt: boolean;
   eksternVarslingKanaler: VarslingKanal[];
 };
 
@@ -43,13 +45,15 @@ export async function fetchVarsler() {
   return varsler;
 }
 
+export type VarslerPopulatedProps = {
+  texts: Texts;
+  varslerData: VarslerData;
+};
+
 export function VarslerPopulated({
   texts,
   varslerData,
-}: {
-  texts: Texts;
-  varslerData: VarslerData;
-}) {
+}: VarslerPopulatedProps) {
   const { beskjeder, oppgaver } = varslerData;
 
   return html`
@@ -123,7 +127,7 @@ const makeBeskjed = (varsel: Varsler, texts: Texts): VarselProps => {
 
   return {
     ...makeVarsel(varsel, texts),
-    title: text,
+    title: text ?? '',
     icon: BeskjedIcon(),
   };
 };
@@ -133,7 +137,7 @@ const makeOppgave = (varsel: Varsler, texts: Texts): VarselProps => {
 
   return {
     ...makeVarsel(varsel, texts),
-    title: text,
+    title: text ?? '',
     icon: OppgaveIcon(),
   };
 };
@@ -148,7 +152,7 @@ type VarselProps = {
   extraClasses?: string;
 };
 
-export function Varsel({
+function Varsel({
   title,
   timestamp,
   icon,
