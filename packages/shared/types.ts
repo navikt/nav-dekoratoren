@@ -44,3 +44,9 @@ export type Texts = {
   yes: string;
   ok: string;
 };
+
+export type Driftsmelding = {
+  heading: string;
+  url: string;
+  urlscope: string[];
+};
