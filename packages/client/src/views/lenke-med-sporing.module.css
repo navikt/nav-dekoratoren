@@ -1,0 +1,78 @@
+.dekoratorLenke {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0.375rem 0;
+  text-decoration: none;
+  cursor: pointer;
+
+  /* @media #{sv.$screen-desktop-small-down} { */
+  /*     padding: 0.25rem 0; */
+  /* } */
+}
+
+.dekoratorLenke:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
+}
+
+.dekoratorLenke svg {
+  width: 1em;
+  height: 1em;
+  fill: var(--a-text-action);
+  stroke: var(--a-text-action);
+  vertical-align: middle;
+  position: relative;
+  top: -0.125em;
+}
+
+.dekoratorLenke:focus {
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  background-color: var(--a-border-focus);
+  box-shadow: 0 0 0 2px var(--a-border-focus);
+}
+
+.dekoratorLenke:focus svg path {
+  fill: white;
+  stroke: white;
+}
+
+.lenkeMedSporing {
+  text-decoration: underline;
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+  color: rgba(0, 103, 197, 1);
+}
+
+.lenkeMedSporing:hover {
+  text-decoration: none;
+}
+
+.ikonContainer {
+  min-width: 1.75rem;
+}
+
+.chevronlenke {
+  text-decoration: none;
+}
+
+.chevronlenke:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
+}
+
+.chevronlenke:hover .chevron {
+  left: 0.33em;
+}
+
+.chevron {
+  position: relative;
+  transition: left 250ms;
+  top: -1px;
+  left: -2px;
+}

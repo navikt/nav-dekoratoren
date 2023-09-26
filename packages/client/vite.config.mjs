@@ -22,7 +22,7 @@ export default defineConfig({
       treeshake: 'smallest',
       input: [
           'src/main.ts',
-          'src/amplitude.ts'
+          'src/analytics/analytics.ts'
       ],
 
     },

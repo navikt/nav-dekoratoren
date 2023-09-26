@@ -19,6 +19,7 @@ type TemplateStringValues =
   | boolean
   | ((e: Element) => void)
   | NamedNodeMap
+  | number
   | undefined
   | null;
 
