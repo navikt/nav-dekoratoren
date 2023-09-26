@@ -1,10 +1,17 @@
-import { Link, LinkGroup, Node } from 'decorator-shared/types';
+import { Driftsmelding, Link, LinkGroup, Node } from 'decorator-shared/types';
 import { Context, Language } from 'decorator-shared/params';
 import { texts } from './texts';
 import html from 'decorator-shared/html';
 
 export default class ContentService {
-  constructor(private fetchMenu: () => Promise<Node[]>) {}
+  constructor(
+    private fetchMenu: () => Promise<Node[]>,
+    private fetchDriftsmeldinger: () => Promise<Driftsmelding[]>,
+  ) {}
+
+  async getDriftsmeldinger() {
+    return this.fetchDriftsmeldinger();
+  }
 
   async getHeaderMenuLinks({
     language,

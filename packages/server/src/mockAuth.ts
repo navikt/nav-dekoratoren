@@ -1,5 +1,3 @@
-import { Elysia } from 'elysia';
-
 const TOKEN_MOCK_SECONDS = 60 * 60;
 const SESSION_MOCK_SECONDS = 60 * 60 * 6;
 
@@ -24,7 +22,7 @@ export type APISessionData = {
 
 let mockAuth: APISessionData | null = null;
 
-const createMockSession = () => {
+export const createMockSession = () => {
   const now = new Date();
 
   const sessionExpires = new Date(now.getTime() + SESSION_MOCK_SECONDS * 1000);
@@ -65,7 +63,7 @@ const isTokenExpired = (auth: any) => {
   return tokenExpires.getTime() < now.getTime();
 };
 
-const refreshToken = () => {
+export const refreshToken = () => {
   if (!mockAuth) {
     createMockSession();
     throw new Error('Mock session not created');
@@ -84,7 +82,7 @@ const refreshToken = () => {
   );
 };
 
-const getMockSession = () => {
+export const getMockSession = () => {
   if (!mockAuth) {
     createMockSession();
   }
@@ -125,22 +123,3 @@ const getMockSession = () => {
     },
   };
 };
-
-const mockAuthHandler = new Elysia()
-  .get('/api/auth', () => ({
-    authenticated: true,
-    name: 'LOKAL MOCK',
-    securityLevel: '4',
-  }))
-  .get('/api/oauth2/session', () => getMockSession())
-  .get('/api/oauth2/session/refresh', () => {
-    refreshToken();
-    return getMockSession();
-  })
-  .get(
-    '/oauth2/login',
-    ({ query, set }) => (set.redirect = query.redirect as string),
-  )
-  .get('/oauth2/logout', () => getMockSession());
-
-export default mockAuthHandler;
