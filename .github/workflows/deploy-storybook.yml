@@ -35,7 +35,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./packages/client/storybook-static
+          path: ./storybook-static
 
   deploy:
     runs-on: ubuntu-latest

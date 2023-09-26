@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/html';
 import html from 'decorator-shared/html';
-import '../src/main.css';
+import '../packages/client/src/main.css';
 
 const preview: Preview = {
   decorators: [
@@ -17,6 +17,7 @@ const preview: Preview = {
     },
   ],
   parameters: {
+    layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
