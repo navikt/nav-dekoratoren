@@ -1,7 +1,4 @@
 import * as api from '../api';
-
-// @todo:  test in prod
-
 import classes from './varsler.module.css';
 import html from 'decorator-shared/html';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
@@ -10,7 +7,7 @@ import { BeskjedIcon, OppgaveIcon } from 'decorator-shared/views/icons/varsler';
 
 type VarslingKanal = 'SMS' | 'EPOST';
 
-type Varsler = {
+type Varsel = {
   tidspunkt: string;
   eventId: string;
   link: string | null;
@@ -26,8 +23,8 @@ type Varsler = {
 );
 
 type VarslerData = {
-  oppgaver: Varsler[];
-  beskjeder: Varsler[];
+  oppgaver: Varsel[];
+  beskjeder: Varsel[];
 };
 
 export async function fetchVarsler() {
@@ -46,18 +43,16 @@ export async function fetchVarsler() {
   return varsler;
 }
 
-type VarslerPopulatedTexts = {
-  varsler_oppgaver_tittel: string;
-  varsler_beskjeder_tittel: string;
-  beskjed_maskert_tekst: string;
-  oppgave_maskert_tekst: string;
-  arkiver: string;
-  varslet_EPOST: string;
-  varslet_SMS: string;
-};
-
 export type VarslerPopulatedProps = {
-  texts: VarslerPopulatedTexts;
+  texts: {
+    varsler_oppgaver_tittel: string;
+    varsler_beskjeder_tittel: string;
+    beskjed_maskert_tekst: string;
+    oppgave_maskert_tekst: string;
+    arkiver: string;
+    varslet_EPOST: string;
+    varslet_SMS: string;
+  };
   varslerData: VarslerData;
 };
 
@@ -72,17 +67,31 @@ export function VarslerPopulated({
       <div id="varsler-populated-oppgaver">
         <p class="title">${texts.varsler_oppgaver_tittel}</p>
         <ul>
-          ${oppgaver.map((oppgave) => {
-            return Varsel(makeOppgave(oppgave, texts));
-          })}
+          ${oppgaver.map((oppgave) =>
+            Varsel({
+              title: oppgave.isMasked
+                ? texts.oppgave_maskert_tekst
+                : oppgave.tekst,
+              icon: OppgaveIcon(),
+              varsel: oppgave,
+              texts,
+            }),
+          )}
         </ul>
       </div>
       <div id="varsler-populated-beskjeder">
         <p class="title">${texts.varsler_beskjeder_tittel}</p>
         <ul>
-          ${beskjeder.map((beskjed) => {
-            return Varsel(makeBeskjed(beskjed, texts));
-          })}
+          ${beskjeder.map((beskjed) =>
+            Varsel({
+              title: beskjed.isMasked
+                ? texts.beskjed_maskert_tekst
+                : beskjed.tekst,
+              icon: BeskjedIcon(),
+              varsel: beskjed,
+              texts,
+            }),
+          )}
         </ul>
       </div>
       <div class="${classes.tidligereVarslerContainer}">
@@ -110,92 +119,53 @@ function formatVarselDate(tidspunkt: string): string {
   return date.toLocaleDateString('nb-NO', options).replace(':', '.');
 }
 
-function makeVarsel(
-  varsel: Varsler,
-  texts: VarslerPopulatedTexts,
-): Omit<VarselProps, 'icon' | 'title'> {
-  const cta = varsel.isMasked
-    ? ForwardChevron()
-    : LinkButton({
-        className: 'arkiver-varsel',
-        text: texts.arkiver,
-        attrs: `data-event-id="${varsel.eventId}"`,
-      });
-
-  return {
-    timestamp: formatVarselDate(varsel.tidspunkt),
-    cta,
-    id: varsel.eventId,
-    notices: varsel.eksternVarslingKanaler.map((kanal) => {
-      return texts[`varslet_${kanal}`];
-    }),
-    extraClasses: varsel.isMasked ? classes.maskert : '',
-  };
-}
-
-const makeBeskjed = (
-  varsel: Varsler,
-  texts: VarslerPopulatedTexts,
-): VarselProps => {
-  const text = varsel.isMasked ? texts.beskjed_maskert_tekst : varsel.tekst;
-
-  return {
-    ...makeVarsel(varsel, texts),
-    title: text ?? '',
-    icon: BeskjedIcon(),
-  };
-};
-
-const makeOppgave = (
-  varsel: Varsler,
-  texts: VarslerPopulatedTexts,
-): VarselProps => {
-  const text = varsel.isMasked ? texts.oppgave_maskert_tekst : varsel.tekst;
-
-  return {
-    ...makeVarsel(varsel, texts),
-    title: text ?? '',
-    icon: OppgaveIcon(),
-  };
-};
-
-type VarselProps = {
-  title: string;
-  timestamp: string;
-  icon: string;
-  notices: string[];
-  cta: string;
-  id?: string;
-  extraClasses?: string;
-};
-
 function Varsel({
   title,
-  timestamp,
   icon,
-  notices,
-  cta,
-  id,
-  extraClasses = '',
-}: VarselProps) {
+  varsel,
+  texts,
+}: {
+  title: string;
+  icon: string;
+  varsel: Varsel;
+  texts: {
+    arkiver: string;
+    varslet_EPOST: string;
+    varslet_SMS: string;
+  };
+}) {
   return html`
-    <li id="${id}">
-      <a class="${classes.varsel} ${extraClasses}">
+    <li id="${varsel.eventId}">
+      <a
+        class="${[classes.varsel, varsel.isMasked ? classes.maskert : '']
+          .filter(Boolean)
+          .join(' ')}"
+      >
         <h3 class="${classes.title}">${title}</h3>
-        <p class="${classes.timestamp}">${timestamp}</p>
+        <p class="${classes.timestamp}">
+          ${formatVarselDate(varsel.tidspunkt)}
+        </p>
         <div class="${classes.metaOgKnapp}">
           <div class="${classes.meta}">
-            ${icon} ${notices.map(VarselNotice)}
+            ${icon}
+            ${varsel.eksternVarslingKanaler.map(
+              (kanal) =>
+                html`<span class="${classes.varselNotice}"
+                  >${texts[`varslet_${kanal}`]}</span
+                >`,
+            )}
           </div>
-          ${cta}
+          ${varsel.isMasked
+            ? ForwardChevron()
+            : LinkButton({
+                className: 'arkiver-varsel',
+                text: texts.arkiver,
+                attrs: `data-event-id="${varsel.eventId}"`,
+              })}
         </div>
       </a>
     </li>
   `;
-}
-
-function VarselNotice(notice: string) {
-  return html`<span class="${classes.varselNotice}">${notice}</span>`;
 }
 
 export function attachArkiverListener() {
