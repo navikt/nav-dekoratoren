@@ -14,12 +14,29 @@ type Story = StoryObj<VarslerPopulatedProps>;
 export const Default: Story = {
   args: {
     varslerData: {
+      oppgaver: [
+        {
+          eventId: '22ee1247-e8fc-4329-8a41-bee3623d151e',
+          tidspunkt: '2023-02-03T14:52:09.623+01:00',
+          isMasked: true,
+          link: 'http://nav.no',
+          eksternVarslingKanaler: [],
+          type: 'oppgave',
+        },
+        {
+          eventId: '92cd953b-2172-4c86-9c7d-5ca1eb21dda3',
+          tidspunkt: '2023-05-11T10:42:38.247492+02:00',
+          isMasked: true,
+          link: 'http://nav.no',
+          eksternVarslingKanaler: [],
+          type: 'oppgave',
+        },
+      ],
       beskjeder: [
         {
           eventId: 'ff3d01cb-7300-4ce5-aa5b-1c4e1427c052',
           tidspunkt: '2023-07-04T11:41:18.259801+02:00',
           isMasked: true,
-          link: 'http://nav.no',
           eksternVarslingKanaler: [],
           type: 'beskjed',
         },
@@ -39,23 +56,6 @@ export const Default: Story = {
           link: 'http://nav.no',
           eksternVarslingKanaler: [],
           type: 'beskjed',
-        },
-      ],
-      oppgaver: [
-        {
-          eventId: '22ee1247-e8fc-4329-8a41-bee3623d151e',
-          tidspunkt: '2023-02-03T14:52:09.623+01:00',
-          isMasked: true,
-          eksternVarslingKanaler: [],
-          type: 'oppgave',
-        },
-        {
-          eventId: '92cd953b-2172-4c86-9c7d-5ca1eb21dda3',
-          tidspunkt: '2023-05-11T10:42:38.247492+02:00',
-          isMasked: true,
-          link: 'http://nav.no',
-          eksternVarslingKanaler: [],
-          type: 'oppgave',
         },
       ],
     },

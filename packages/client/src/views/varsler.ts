@@ -18,7 +18,7 @@ export function attachArkiverListener() {
 
       // Remove the varsel from the dom
       if (resp) {
-        const listItem = document.getElementById(eventId as string);
+        const listItem = document.querySelector(`[data-event-id='${eventId}'`);
         listItem?.remove();
       }
     });

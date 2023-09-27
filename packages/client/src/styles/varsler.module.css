@@ -1,66 +1,93 @@
-.varsel {
-  border: 1px solid var(--a-border-subtle);
-  display: block;
-  border-radius: var(--a-spacing-2);
+.varslerPopulated {
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-6);
   padding: var(--a-spacing-4);
-  margin: var(--a-spacing-2) 0px;
-  background-color: white;
+}
+
+.sectionHeading {
+  font-size: var(--a-font-size-large);
+  font-weight: var(--a-font-weight-regular);
+  line-height: var(--a-font-line-height-large);
+  margin: 0 0 var(--a-spacing-4) 0;
+}
+
+.tidligereVarsler {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  color: var(--a-text-default);
+  cursor: pointer;
+}
+
+.tidligereVarsler:hover {
+  text-decoration: none;
+}
+
+.varselList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-2);
+}
+
+.varsel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-3);
+  border: 1px solid var(--a-border-subtle);
+  border-radius: var(--a-border-radius-large);
+  padding: var(--a-spacing-4);
+  background-color: var(--a-surface-default);
   transition: background-color 0.1s linear;
   position: relative;
 }
 
-.maskert:hover {
+.varsel:not(.isArchivable):hover {
   background-color: var(--a-surface-hover);
 }
 
-.timestamp {
-  margin: 0;
-  color: #707070;
-  font-size: 16px;
-}
-
 .title {
-  margin: 0;
-  font-size: 18px;
+  line-height: var(--a-font-line-height-large);
+  font-weight: var(--a-font-weight-bold);
 }
 
-.title::after {
+.varsel.isArchivable .title {
+  font-weight: var(--a-font-weight-normal);
+  margin-bottom: var(--a-spacing-1);
+}
+
+.varsel:not(.isArchivable) .title::after {
   content: '';
   position: absolute;
   inset: 0;
 }
 
+.time {
+  color: var(--a-text-subtle);
+  font-size: var(--a-font-size-medium);
+  line-height: var(--a-font-line-height-large);
+}
+
 .metaOgKnapp {
-  margin-top: var(--a-spacing-3);
   display: flex;
   justify-content: space-between;
-  color: #707070;
 }
 
 .meta {
   display: flex;
   gap: var(--a-spacing-2);
+  align-items: center;
 }
 
 .varselNotice {
   border-radius: var(--a-border-radius-small);
-  padding: 0px var(--a-spacing-1);
-  min-height: 1.25rem;
-  /* Should maybe be it's own tag class */
-  background-color: var(--ac-tag-neutral-bg, var(--a-surface-neutral-subtle));
-  color: var(--ac-tag-neutral-text, var(--a-text-default));
-  font-size: 16px;
+  padding: 0 var(--a-spacing-1);
+  background-color: var(--a-surface-neutral-subtle);
+  color: var(--a-text-default);
+  font-size: var(--a-font-size-medium);
+  line-height: var(--a-font-line-height-large);
 }
 
-.tidligereVarslerContainer {
-  display: block;
-  text-align: left;
-  width: 100%;
-  margin: var(--a-spacing-4) 0px;
-  margin-bottom: 0px;
-}
-
-.tidligereVarsler {
-  text-align: left;
-  text-decoration: underline;
+.forwardChevron {
+  font-size: var(--a-font-size-xlarge);
+  color: var(--a-text-subtle);
 }

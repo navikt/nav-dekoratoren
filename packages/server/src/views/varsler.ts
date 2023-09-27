@@ -1,4 +1,4 @@
-import classes from 'decorator-client/src/styles/varsler.module.css';
+import cls from 'decorator-client/src/styles/varsler.module.css';
 import html from 'decorator-shared/html';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 import { LinkButton } from 'decorator-shared/views/components/link-button';
@@ -13,11 +13,11 @@ export type Varsel = {
 } & (
   | {
       type: 'oppgave';
-      link?: string;
+      link: string;
     }
   | {
       type: 'beskjed';
-      link: string;
+      link?: string;
     }
 ) &
   (
@@ -55,13 +55,13 @@ export function VarslerPopulated({
   const { beskjeder, oppgaver } = varslerData;
 
   return html`
-    <div id="varsler-populated">
-      <div id="varsler-populated-oppgaver">
-        <h2 class="title">${texts.varsler_oppgaver_tittel}</h2>
-        <ul>
+    <div class="${cls.varslerPopulated}">
+      <div>
+        <h2 class="${cls.sectionHeading}">${texts.varsler_oppgaver_tittel}</h2>
+        <ul class="${cls.varselList}">
           ${oppgaver.map(
             (oppgave) =>
-              html`<li id="${oppgave.eventId}">
+              html`<li data-event-id="${oppgave.eventId}">
                 ${Varsel({
                   title: oppgave.isMasked
                     ? texts.oppgave_maskert_tekst
@@ -74,12 +74,12 @@ export function VarslerPopulated({
           )}
         </ul>
       </div>
-      <div id="varsler-populated-beskjeder">
-        <h2 class="title">${texts.varsler_beskjeder_tittel}</h2>
-        <ul>
+      <div>
+        <h2 class="${cls.sectionHeading}">${texts.varsler_beskjeder_tittel}</h2>
+        <ul class="${cls.varselList}">
           ${beskjeder.map(
             (beskjed) =>
-              html`<li id="${beskjed.eventId}">
+              html`<li data-event-id="${beskjed.eventId}">
                 ${Varsel({
                   title: beskjed.isMasked
                     ? texts.beskjed_maskert_tekst
@@ -92,9 +92,9 @@ export function VarslerPopulated({
           )}
         </ul>
       </div>
-      <div class="${classes.tidligereVarslerContainer}">
+      <div>
         <a
-          class="${classes.tidligereVarsler}"
+          class="${cls.tidligereVarsler}"
           href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
         >
           Tidligere varsler
@@ -132,31 +132,36 @@ function Varsel({
     varslet_SMS: string;
   };
 }) {
+  const isArchivable = varsel.type !== 'oppgave' && !varsel.link;
   return html`
     <div
-      class="${[classes.varsel, varsel.isMasked ? classes.maskert : '']
+      class="${[cls.varsel, isArchivable ? cls.isArchivable : '']
         .filter(Boolean)
         .join(' ')}"
     >
-      <a href="${varsel.link}" class="${classes.title}"><h3>${title}</h3></a>
-      <p class="${classes.timestamp}">${formatVarselDate(varsel.tidspunkt)}</p>
-      <div class="${classes.metaOgKnapp}">
-        <div class="${classes.meta}">
+      <div>
+        ${isArchivable
+          ? html`<div class="${cls.title}">${title}</div>`
+          : html`<a href="${varsel.link}" class="${cls.title}">${title}</a>`}
+        <div class="${cls.time}">${formatVarselDate(varsel.tidspunkt)}</div>
+      </div>
+      <div class="${cls.metaOgKnapp}">
+        <div class="${cls.meta}">
           ${icon}
           ${varsel.eksternVarslingKanaler.map(
             (kanal) =>
-              html`<span class="${classes.varselNotice}"
+              html`<span class="${cls.varselNotice}"
                 >${texts[`varslet_${kanal}`]}</span
               >`,
           )}
         </div>
-        ${varsel.type === 'oppgave' && !varsel.link
+        ${isArchivable
           ? LinkButton({
               className: 'arkiver-varsel',
               text: texts.arkiver,
               attrs: `data-event-id="${varsel.eventId}"`,
             })
-          : ForwardChevron()}
+          : ForwardChevron({ className: cls.forwardChevron })}
       </div>
     </div>
   `;

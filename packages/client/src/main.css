@@ -969,14 +969,6 @@ a {
   margin-top: 0px;
 }
 
-.varsel svg {
-  display: block;
-}
-
-#varsler-populated-beskjeder {
-  width: 100%;
-}
-
 /*  Utils  */
 .flex {
   display: flex;
