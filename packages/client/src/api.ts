@@ -6,8 +6,6 @@ export type Auth = {
   securityLevel: string;
 };
 
-console.log(import.meta.env.VITE_DECORATOR_API);
-
 export async function checkAuth({
   onSuccess,
   onError,

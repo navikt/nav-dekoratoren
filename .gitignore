@@ -3,6 +3,7 @@ public/dist.css
 *.log
 dist/
 .DS_Store
+storybook-static/
 
 # yarn 3
 .pnp.*

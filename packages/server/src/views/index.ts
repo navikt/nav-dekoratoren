@@ -2,8 +2,10 @@ import html from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
 import clientManifest from 'decorator-client/dist/manifest.json';
 import { Language } from 'decorator-shared/params';
+import { Partytown } from './partytown';
 
 const entryPointPath = 'src/main.ts';
+const entryPointPathAnalytics = 'src/amplitude.ts';
 
 const Links = () =>
   process.env.NODE_ENV === 'production'
@@ -17,19 +19,31 @@ const Links = () =>
       ].join('')
     : '';
 
+// This can be calcualted once at startup
 const Scripts = () => {
   const script = (src: string) =>
     `<script type="module" src="${src}"></script>`;
 
+  const partytownScript = (src: string) =>
+    `<script type="text/partytown" src="${src}"></script>"`;
+
   return process.env.NODE_ENV === 'production'
-    ? script(
-        `${process.env.HOST ?? ``}/public/${
-          clientManifest[entryPointPath].file
-        }`,
-      )
+    ? [
+        script(
+          `${process.env.HOST ?? ``}/public/${
+            clientManifest[entryPointPath].file
+          }`,
+        ),
+        partytownScript(
+          `${process.env.HOST ?? ``}/public/${
+            clientManifest[entryPointPathAnalytics].file
+          }`,
+        ),
+      ].join('')
     : [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
+        `http://localhost:5173/${entryPointPathAnalytics}`,
       ]
         .map(script)
         .join('');
@@ -39,6 +53,7 @@ export function Index({
   language,
   header,
   feedback,
+  logoutWarning,
   footer,
   env,
   lens,
@@ -48,6 +63,7 @@ export function Index({
   header: string;
   feedback: string;
   footer: string;
+  logoutWarning: string;
   env: string;
   lens: string;
   decoratorData: string;
@@ -65,12 +81,15 @@ export function Index({
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="/public/assets/styles.css" />
+        ${Partytown()}
       </head>
       <body>
         <div id="styles" style="display:none">${Links()}</div>
         ${WebcomponentTemplates()} ${header}
         <main>main</main>
-        <div id="footer-withmenu" class="bg-white">${feedback} ${footer}</div>
+        <div id="footer-withmenu" class="bg-white">
+          ${logoutWarning} ${feedback} ${footer}
+        </div>
         ${env} ${lens}
         <div id="scripts" style="display:none">
           ${Scripts()}${decoratorData}

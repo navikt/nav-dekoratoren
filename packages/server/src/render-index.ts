@@ -9,6 +9,7 @@ import ContentService from './content-service';
 import { Params } from 'decorator-shared/params';
 import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
+import { LogoutWarning } from './views/logoutWarning';
 
 export default async ({
   contentService,
@@ -39,6 +40,7 @@ export default async ({
       simple: data.simple,
     }),
     feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
+    logoutWarning: data.logoutWarning ? LogoutWarning() : '',
     footer:
       data.simple || data.simpleFooter
         ? SimpleFooter({

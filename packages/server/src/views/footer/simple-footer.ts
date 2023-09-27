@@ -2,7 +2,9 @@ import { Link } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 import classes from './simple-footer.module.css';
 
-export const SimpleFooter = ({ links }: { links: Link[] }) => html`
+export type SimpleFooterProps = { links: Link[] };
+
+export const SimpleFooter = ({ links }: SimpleFooterProps) => html`
   <footer class="${classes.simpleFooter} simple-footer">
     <ul class="footer-link-list">
       ${links.map(
