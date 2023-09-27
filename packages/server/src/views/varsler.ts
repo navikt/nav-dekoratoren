@@ -9,17 +9,26 @@ type VarslingKanal = 'SMS' | 'EPOST';
 export type Varsel = {
   tidspunkt: string;
   eventId: string;
-  link: string | null;
   eksternVarslingKanaler: VarslingKanal[];
 } & (
   | {
-      isMasked: true;
+      type: 'oppgave';
+      link?: string;
     }
   | {
-      isMasked: false;
-      tekst: string;
+      type: 'beskjed';
+      link: string;
     }
-);
+) &
+  (
+    | {
+        isMasked: true;
+      }
+    | {
+        isMasked: false;
+        tekst: string;
+      }
+  );
 
 type VarslerData = {
   oppgaver: Varsel[];
@@ -141,13 +150,13 @@ function Varsel({
               >`,
           )}
         </div>
-        ${varsel.isMasked
-          ? ForwardChevron()
-          : LinkButton({
+        ${varsel.type === 'oppgave' && !varsel.link
+          ? LinkButton({
               className: 'arkiver-varsel',
               text: texts.arkiver,
               attrs: `data-event-id="${varsel.eventId}"`,
-            })}
+            })
+          : ForwardChevron()}
       </div>
     </div>
   `;

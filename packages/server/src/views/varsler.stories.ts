@@ -21,6 +21,7 @@ export const Default: Story = {
           isMasked: true,
           link: 'http://nav.no',
           eksternVarslingKanaler: [],
+          type: 'beskjed',
         },
         {
           eventId: '76afdab2-9309-444e-85a0-3ad72775109b',
@@ -28,6 +29,7 @@ export const Default: Story = {
           isMasked: true,
           link: 'http://nav.no',
           eksternVarslingKanaler: ['EPOST'],
+          type: 'beskjed',
         },
         {
           eventId: '1cbc93d5-372f-4685-bcab-f331b585e27b',
@@ -36,6 +38,7 @@ export const Default: Story = {
           tekst: 'Uten link',
           link: 'http://nav.no',
           eksternVarslingKanaler: [],
+          type: 'beskjed',
         },
       ],
       oppgaver: [
@@ -43,8 +46,8 @@ export const Default: Story = {
           eventId: '22ee1247-e8fc-4329-8a41-bee3623d151e',
           tidspunkt: '2023-02-03T14:52:09.623+01:00',
           isMasked: true,
-          link: 'http://nav.no',
           eksternVarslingKanaler: [],
+          type: 'oppgave',
         },
         {
           eventId: '92cd953b-2172-4c86-9c7d-5ca1eb21dda3',
@@ -52,6 +55,7 @@ export const Default: Story = {
           isMasked: true,
           link: 'http://nav.no',
           eksternVarslingKanaler: [],
+          type: 'oppgave',
         },
       ],
     },
