@@ -21,17 +21,20 @@ import './views/toggle-icon-button';
 import './views/search';
 import './views/loader';
 import './views/decorator-lens';
+
 import { AddSnarveierListener } from './views/header-menu-links';
 
 import { SearchShowMore } from './views/search-show-more';
 import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search';
+
 import {
   hasClass,
   hydrateParams,
   replaceElement,
   setAriaExpanded,
 } from './utils';
+
 import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
@@ -41,7 +44,9 @@ import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
 import { attachArkiverListener } from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
 import { LenkeMedSporing } from './views/lenke-med-sporing';
-import { AnalyticsCategory } from './analytics/analytics';
+
+import { type AnalyticsEventArgs } from './analytics/analytics';
+// import { AnalyticsCategory } from './analytics/analytics';
 
 type Auth = {
   authenticated: boolean;
@@ -63,6 +68,7 @@ declare global {
       expireToken: (seconds: number) => void;
       expireSession: (seconds: number) => void;
     };
+    analyticsEvent: (props: AnalyticsEventArgs) => void;
   }
 }
 
@@ -463,6 +469,14 @@ handleLogin();
 
 const main = document.querySelector('main');
 
+document.querySelector('#amplitude-test')?.addEventListener('click', () => {
+  console.log('Hello');
+
+  (window as any).analyticsEventTest({
+    body: 'It is working',
+  });
+});
+
 if (main) {
   // main.insertAdjacentHTML(
   //   'beforeend',
@@ -480,7 +494,7 @@ if (main) {
       withChevron: true,
       analyticsEventArgs: {
         eventName: 'decorator_next/test',
-        category: AnalyticsCategory.Footer,
+        // category: AnalyticsCategory.Footer,
         action: `kontakt/oss`,
         label: 'Lenke',
       },

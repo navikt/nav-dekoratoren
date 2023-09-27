@@ -1,31 +1,9 @@
 import { initAmplitude, logAmplitudeEvent } from './amplitude';
+import { AnalyticsEventArgs } from './constants';
 // import { initTaskAnalytics } from './task-analytics/ta';
 
-export enum MenuValue {
-  PRIVATPERSON = 'privatperson',
-  ARBEIDSGIVER = 'arbeidsgiver',
-  SAMARBEIDSPARTNER = 'samarbeidspartner',
-  IKKEBESTEMT = 'IKKEBESTEMT',
-}
-
-export enum AnalyticsCategory {
-  Header = 'dekorator-header',
-  Footer = 'dekorator-footer',
-  Meny = 'dekorator-meny',
-}
-
-export type AnalyticsEventArgs = {
-  eventName?: string;
-  category: AnalyticsCategory;
-  action: string;
-  context?: MenuValue;
-  destination?: string;
-  label?: string;
-  komponent?: string;
-  lenkegruppe?: string;
-};
-
 export const initAnalytics = () => {
+  console.log('Init analytics');
   initAmplitude();
 };
 
@@ -56,17 +34,7 @@ export const analyticsEvent = (props: AnalyticsEventArgs) => {
   );
 };
 
+// Connects to partytown forwarding
+window.analyticsEvent = analyticsEvent;
+
 initAnalytics();
-
-const amplitudeTest = document.querySelector('#amplitude-test');
-
-amplitudeTest?.addEventListener('click', () => {
-  logAmplitudeEvent(
-    'decorator_next 🚀',
-    {
-      destinasjon: 'test',
-      kategori: 'test',
-    },
-    'decorator_next',
-  );
-});
