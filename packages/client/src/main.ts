@@ -1,5 +1,6 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
+import.meta.glob('./styles/*.css', { eager: true });
 
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 
