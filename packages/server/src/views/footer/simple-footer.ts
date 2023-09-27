@@ -1,7 +1,6 @@
 import { Link } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 import classes from 'decorator-client/src/styles/simple-footer.module.css';
-import './wat.css';
 
 export type SimpleFooterProps = { links: Link[] };
 

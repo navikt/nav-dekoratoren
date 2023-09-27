@@ -4,7 +4,7 @@
   "module": "src/server.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --hot src/server.ts",
+    "dev": "bun --watch src/server.ts",
     "serve": "NODE_ENV=production bun  src/server.ts",
     "build": "NODE_ENV=production bun build ./src/server.ts --outdir ./dist --target bun",
     "test": "bun test"
