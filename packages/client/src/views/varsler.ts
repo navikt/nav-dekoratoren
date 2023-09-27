@@ -5,22 +5,15 @@ export const fetchVarsler = () =>
     credentials: 'include',
   }).then((response) => response.text());
 
-export function attachArkiverListener() {
-  const arkiverButtons = document.querySelectorAll('.arkiver-varsel');
-
-  arkiverButtons.forEach((button) => {
-    const eventId = button.getAttribute('data-event-id');
-
-    button.addEventListener('click', async () => {
-      const resp = await api.inaktiver({
-        eventId: eventId as string,
-      });
-
-      // Remove the varsel from the dom
-      if (resp) {
-        const listItem = document.querySelector(`[data-event-id='${eventId}'`);
-        listItem?.remove();
-      }
-    });
-  });
+class DismissableNotificaton extends HTMLElement {
+  connectedCallback() {
+    const eventId = this.getAttribute('data-event-id');
+    if (eventId) {
+      this.querySelector('button')?.addEventListener('click', () =>
+        api.inaktiver({ eventId }).then(() => this.parentElement?.remove()),
+      );
+    }
+  }
 }
+
+customElements.define('dismissable-notification', DismissableNotificaton);

@@ -41,7 +41,7 @@
   position: relative;
 }
 
-.varsel:not(.isArchivable):hover {
+.varsel:not(.isDismissable):hover {
   background-color: var(--a-surface-hover);
 }
 
@@ -50,12 +50,12 @@
   font-weight: var(--a-font-weight-bold);
 }
 
-.varsel.isArchivable .title {
+.varsel.isDismissable .title {
   font-weight: var(--a-font-weight-normal);
   margin-bottom: var(--a-spacing-1);
 }
 
-.varsel:not(.isArchivable) .title::after {
+.varsel:not(.isDismissable) .title::after {
   content: '';
   position: absolute;
   inset: 0;

@@ -38,7 +38,7 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { fetchVarsler, attachArkiverListener } from './views/varsler';
+import { fetchVarsler } from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
 import { LenkeMedSporing } from './views/lenke-med-sporing';
 import { AnalyticsCategory } from './analytics/analytics';
@@ -437,9 +437,6 @@ api.checkAuth({
       if (varslerMenuContent) {
         varslerMenuContent.innerHTML = varsler;
       }
-
-      // Attach arkiver listener
-      attachArkiverListener();
     }
   },
 });

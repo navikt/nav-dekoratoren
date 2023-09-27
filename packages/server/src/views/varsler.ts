@@ -61,7 +61,7 @@ export function VarslerPopulated({
         <ul class="${cls.varselList}">
           ${oppgaver.map(
             (oppgave) =>
-              html`<li data-event-id="${oppgave.eventId}">
+              html`<li>
                 ${Varsel({
                   title: oppgave.isMasked
                     ? texts.oppgave_maskert_tekst
@@ -79,7 +79,7 @@ export function VarslerPopulated({
         <ul class="${cls.varselList}">
           ${beskjeder.map(
             (beskjed) =>
-              html`<li data-event-id="${beskjed.eventId}">
+              html`<li>
                 ${Varsel({
                   title: beskjed.isMasked
                     ? texts.beskjed_maskert_tekst
@@ -132,37 +132,53 @@ function Varsel({
     varslet_SMS: string;
   };
 }) {
-  const isArchivable = varsel.type !== 'oppgave' && !varsel.link;
-  return html`
-    <div
-      class="${[cls.varsel, isArchivable ? cls.isArchivable : '']
-        .filter(Boolean)
-        .join(' ')}"
-    >
-      <div>
-        ${isArchivable
-          ? html`<div class="${cls.title}">${title}</div>`
-          : html`<a href="${varsel.link}" class="${cls.title}">${title}</a>`}
-        <div class="${cls.time}">${formatVarselDate(varsel.tidspunkt)}</div>
-      </div>
-      <div class="${cls.metaOgKnapp}">
-        <div class="${cls.meta}">
-          ${icon}
-          ${varsel.eksternVarslingKanaler.map(
-            (kanal) =>
-              html`<span class="${cls.varselNotice}"
-                >${texts[`varslet_${kanal}`]}</span
-              >`,
-          )}
+  if (varsel.type !== 'oppgave' && !varsel.link) {
+    return html`
+      <dismissable-notification
+        class="${[cls.varsel, cls.isDismissable].join(' ')}"
+        data-event-id="${varsel.eventId}"
+      >
+        <div>
+          <div class="${cls.title}">${title}</div>
+          <div class="${cls.time}">${formatVarselDate(varsel.tidspunkt)}</div>
         </div>
-        ${isArchivable
-          ? LinkButton({
-              className: 'arkiver-varsel',
-              text: texts.arkiver,
-              attrs: `data-event-id="${varsel.eventId}"`,
-            })
-          : ForwardChevron({ className: cls.forwardChevron })}
+        <div class="${cls.metaOgKnapp}">
+          <div class="${cls.meta}">
+            ${icon}
+            ${varsel.eksternVarslingKanaler.map(
+              (kanal) =>
+                html`<span class="${cls.varselNotice}"
+                  >${texts[`varslet_${kanal}`]}</span
+                >`,
+            )}
+          </div>
+          ${LinkButton({
+            className: 'arkiver-varsel',
+            text: texts.arkiver,
+          })}
+        </div>
+      </dismissable-notification>
+    `;
+  } else {
+    return html`
+      <div class="${cls.varsel}">
+        <div>
+          <a href="${varsel.link}" class="${cls.title}">${title}</a>
+          <div class="${cls.time}">${formatVarselDate(varsel.tidspunkt)}</div>
+        </div>
+        <div class="${cls.metaOgKnapp}">
+          <div class="${cls.meta}">
+            ${icon}
+            ${varsel.eksternVarslingKanaler.map(
+              (kanal) =>
+                html`<span class="${cls.varselNotice}"
+                  >${texts[`varslet_${kanal}`]}</span
+                >`,
+            )}
+          </div>
+          ${ForwardChevron({ className: cls.forwardChevron })}
+        </div>
       </div>
-    </div>
-  `;
+    `;
+  }
 }
