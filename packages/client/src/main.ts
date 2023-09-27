@@ -35,11 +35,7 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import {
-  VarslerPopulated,
-  fetchVarsler,
-  attachArkiverListener,
-} from './views/varsler';
+import { fetchVarsler, attachArkiverListener } from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
 
 type Auth = {
@@ -434,10 +430,7 @@ api.checkAuth({
       );
 
       if (varslerMenuContent) {
-        varslerMenuContent.innerHTML = VarslerPopulated({
-          texts,
-          varslerData: varsler,
-        });
+        varslerMenuContent.innerHTML = varsler;
       }
 
       // Attach arkiver listener

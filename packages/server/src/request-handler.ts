@@ -6,6 +6,7 @@ import renderIndex from './render-index';
 
 import varslerMock from './varsler-mock.json';
 import SearchService from './search-service';
+import { Varsel, VarslerPopulated } from './views/varsler';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -109,11 +110,23 @@ const requestHandler = async (
     .get('/oauth2/logout', () => jsonResponse(getMockSession()))
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
-    .get('/api/varsler', () =>
-      jsonResponse({
-        beskjeder: varslerMock.beskjeder.slice(0, 6),
-        oppgaver: varslerMock.oppgaver.slice(0, 3),
-      }),
+    .get(
+      '/api/varsler',
+      ({ query }) =>
+        new Response(
+          VarslerPopulated({
+            texts: contentService.getTexts({
+              language: validParams(query).language,
+            }),
+            varslerData: {
+              beskjeder: varslerMock.beskjeder.slice(0, 6) as Varsel[],
+              oppgaver: varslerMock.oppgaver.slice(0, 3) as Varsel[],
+            },
+          }),
+          {
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          },
+        ),
     )
     .post('/api/varsler/beskjed/inaktiver', async ({ request }) =>
       jsonResponse(request.json()),

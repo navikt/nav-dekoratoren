@@ -1,4 +1,3 @@
-import * as api from '../api';
 import classes from './varsler.module.css';
 import html from 'decorator-shared/html';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
@@ -7,7 +6,7 @@ import { BeskjedIcon, OppgaveIcon } from 'decorator-shared/views/icons/varsler';
 
 type VarslingKanal = 'SMS' | 'EPOST';
 
-type Varsel = {
+export type Varsel = {
   tidspunkt: string;
   eventId: string;
   link: string | null;
@@ -26,11 +25,6 @@ type VarslerData = {
   oppgaver: Varsel[];
   beskjeder: Varsel[];
 };
-
-export const fetchVarsler = () =>
-  fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/varsler`, {
-    credentials: 'include',
-  }).then((response) => response.text());
 
 export type VarslerPopulatedProps = {
   texts: {
@@ -92,7 +86,7 @@ export function VarslerPopulated({
       <div class="${classes.tidligereVarslerContainer}">
         <a
           class="${classes.tidligereVarsler}"
-          href="${import.meta.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+          href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
         >
           Tidligere varsler
         </a>
@@ -157,24 +151,4 @@ function Varsel({
       </div>
     </div>
   `;
-}
-
-export function attachArkiverListener() {
-  const arkiverButtons = document.querySelectorAll('.arkiver-varsel');
-
-  arkiverButtons.forEach((button) => {
-    const eventId = button.getAttribute('data-event-id');
-
-    button.addEventListener('click', async () => {
-      const resp = await api.inaktiver({
-        eventId: eventId as string,
-      });
-
-      // Remove the varsel from the dom
-      if (resp) {
-        const listItem = document.getElementById(eventId as string);
-        listItem?.remove();
-      }
-    });
-  });
 }

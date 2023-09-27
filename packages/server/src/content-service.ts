@@ -48,6 +48,10 @@ export default class ContentService {
     }));
   }
 
+  getTexts({ language }: { language: Language }) {
+    return texts[language];
+  }
+
   async getSimpleFooterLinks({ language }: { language: Language }) {
     return [
       ...(get(
