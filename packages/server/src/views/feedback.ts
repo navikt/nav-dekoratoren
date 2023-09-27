@@ -1,23 +1,26 @@
 import html from 'decorator-shared/html';
 
-export function Feedback({ texts }: { texts: { did_you_find: string } }) {
+import classes from 'decorator-client/src/styles/feedback.module.css';
+import { Texts } from 'decorator-shared/types';
+
+export function Feedback({ texts }: { texts: Texts }) {
   return html`
-    <div id="feedback">
-      <div class="feedback-content">
-        <h2>${texts.did_you_find}</h2>
+    <div class="${classes.feedback}">
+      <div class="${classes.feedbackContent}">
+        <h2 class="${classes.feedbackTitle}">${texts.did_you_find}</h2>
         <div class="mx-4">
           <div class="button-wrapper small-gap">
             <button
               class="button button-outline wide big-label"
               id="feedback-yes"
             >
-              Ja
+              ${texts.yes}
             </button>
             <button
               class="button button-outline wide big-label"
               id="feedback-no"
             >
-              Nei
+              ${texts.no}
             </button>
           </div>
         </div>

@@ -3,6 +3,9 @@ import { Texts } from 'decorator-shared/types';
 import { IconButton } from 'decorator-shared/views/components/icon-button';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
 
+// @fix typescript error
+import utilClasses from 'decorator-client/src/styles/utils.module.css';
+
 export default function Search({ texts }: { texts: Texts }) {
   return html`
     <button id="search-button" class="icon-button">
@@ -13,12 +16,14 @@ export default function Search({ texts }: { texts: Texts }) {
     </button>
     <div id="sok-dropdown">
       <div id="sok-dropdown-content">
-        <label for="search-input" class="big-label">Søk på nav.no</label>
+        <label for="search-input" class="${utilClasses.bigLabel}"
+          >${texts.sok_knapp_sokefelt}</label
+        >
         <div class="flex">
           <input id="search-input" type="text" />
           ${IconButton({
             Icon: SearchIcon,
-            text: 'Søk',
+            text: texts.search,
             className: 'blue-bg-icon',
           })}
         </div>

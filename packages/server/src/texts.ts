@@ -8,6 +8,7 @@ const nb = {
   close: 'Lukk',
   did_you_find: 'Fant du det du lette etter?',
   search: 'Søk',
+  sok_knapp_sokefelt: 'Søk på nav.no',
   login: 'Logg inn',
   logout: 'Logg ut',
   varsler: 'Varsler',
@@ -28,8 +29,15 @@ const nb = {
   session_warning_title: 'Du blir logget ut automatisk om ca $1 minutter',
   session_warning_body: 'Avslutt det du jobber med og logg inn igjen.',
   yes: 'Ja',
+  no: 'Nei',
   ok: 'OK',
+  hensikt_med_tilbakemelding:
+    'Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?',
+  hensikt_med_tilbakemelding_lenke: 'Ring, chat eller skriv til oss',
+  send_undersokelse_takk: 'Takk!',
 };
+
+export type LangBaseKeys = keyof typeof nb;
 
 export const texts: Record<Language, Texts> = {
   nb,
@@ -40,6 +48,7 @@ export const texts: Record<Language, Texts> = {
     close: 'Close',
     did_you_find: 'Fant du det du lette etter?',
     search: 'Search',
+    sok_knapp_sokefelt: 'Search nav.no',
     login: 'Log in',
     logout: 'Log out',
     varsler: 'Notifications',
@@ -61,7 +70,12 @@ export const texts: Record<Language, Texts> = {
       'You will be logged out automatically in about $1 minutes',
     session_warning_body: 'Avslutt det du jobber med og logg inn igjen.',
     yes: 'Yes',
+    no: 'No',
     ok: 'OK',
+    hensikt_med_tilbakemelding:
+      'Unfortunately you will not get a reply to your feedback. Do you have questions or need help?',
+    hensikt_med_tilbakemelding_lenke: 'Call, chat or write to us',
+    send_undersokelse_takk: 'Thanks!',
   },
   se: nb,
   nn: nb,

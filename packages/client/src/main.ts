@@ -28,10 +28,12 @@ import { AddSnarveierListener } from './views/header-menu-links';
 import { SearchShowMore } from './views/search-show-more';
 import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search';
+import { FeedbackSuccess } from './views/feedback-success';
 
 import {
   hasClass,
   hydrateParams,
+  hydrateTexts,
   replaceElement,
   setAriaExpanded,
 } from './utils';
@@ -50,6 +52,10 @@ import {
   AnalyticsCategory,
   type AnalyticsEventArgs,
 } from './analytics/constants';
+
+// CSS modules classes
+import feedbackClasses from './styles/feedback.module.css';
+
 // import { AnalyticsCategory } from './analytics/analytics';
 
 type Auth = {
@@ -77,11 +83,7 @@ declare global {
   }
 }
 
-const decoratorData = JSON.parse(
-  document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
-);
-const { texts } = decoratorData;
-
+const texts = hydrateTexts();
 window.decoratorParams = hydrateParams();
 
 const addBreadcrumbEventListeners = () =>
@@ -357,24 +359,22 @@ menuBackground?.addEventListener('click', () => {
 });
 
 // Feedback
-const buttons = document.querySelectorAll('.feedback-content button');
+const buttons = document.querySelectorAll(
+  `.${feedbackClasses.feedbackContent} button`,
+);
+
+console.log(buttons);
 
 buttons.forEach((button) => {
   button.addEventListener('click', async () => {
-    const feedbackContent = document.querySelector('.feedback-content');
+    const feedbackContent = document.querySelector(
+      `.${feedbackClasses.feedbackContent}`,
+    );
+
     if (feedbackContent) {
-      feedbackContent.innerHTML = html`
-        <div class="text-center">
-          <h2>Takk!</h2>
-          <p class="my-1">
-            Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål
-            eller trenger du hjelp?
-          </p>
-          <a class="basic-link my-1" href="/kontaktoss"
-            >Ring, chat eller skriv til oss</a
-          >
-        </div>
-      `;
+      feedbackContent.innerHTML = FeedbackSuccess({
+        texts,
+      });
     }
   });
 });

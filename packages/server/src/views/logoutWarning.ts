@@ -1,5 +1,7 @@
 import html from 'decorator-shared/html';
 
+import utilClasses from 'decorator-client/src/styles/utils.module.css';
+
 export function LogoutWarning() {
   return html`<dialog class="modal" id="logout-warning">
     <div class="modal-window">
@@ -11,13 +13,13 @@ export function LogoutWarning() {
       </p>
       <div class="button-wrapper">
         <button
-          class="button button-main big-label"
+          class="button button-main ${utilClasses.bigLabel}"
           id="logout-warning-confirm"
         >
           Ja
         </button>
         <button
-          class="button button-secondary big-label"
+          class="button button-secondary ${utilClasses.bigLabel}"
           id="logout-warning-cancel"
         >
           Logg ut
