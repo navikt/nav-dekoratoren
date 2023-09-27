@@ -2,19 +2,19 @@
 
 exports[`renders simple footer 1`] = `
 "
-  <footer class="simple-footer">
-    <ul class="footer-link-list">
+  <footer class="_simpleFooter_78ygw_1">
+    <ul class="_footerLinkList_78ygw_9">
       
           <li>
-            <a class="footer-link" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
+            <a class="_footerLink_78ygw_9" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
           </li>
         
           <li>
-            <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
+            <a class="_footerLink_78ygw_9" href="/tilgjengelighet">Tilgjengelighet</a>
           </li>
         
           <li>
-            <a class="footer-link" href="#">Del skjerm<svg
+            <a class="_footerLink_78ygw_9" href="#">Del skjerm<svg
         width="1em"
         height="1em"
         viewBox="0 0 24 24"
