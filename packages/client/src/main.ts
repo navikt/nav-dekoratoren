@@ -38,7 +38,7 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { fetchVarsler } from './views/varsler';
+import { fetchNotifications } from './views/notifications';
 import { logoutWarningController } from './controllers/logout-warning';
 import { LenkeMedSporing } from './views/lenke-med-sporing';
 import { AnalyticsCategory } from './analytics/analytics';
@@ -422,20 +422,22 @@ api.checkAuth({
   onSuccess: async (response) => {
     await populateLoggedInMenu(response);
 
-    const varsler = await fetchVarsler();
+    const notifications = await fetchNotifications();
 
-    if (varsler) {
-      const varslerUlest = document.querySelector('.varsler-ulest');
-      varslerUlest?.classList.add('active');
+    if (notifications) {
+      const notificationsUlest = document.querySelector(
+        '.notifications-unread',
+      );
+      notificationsUlest?.classList.add('active');
 
       // Choose which view to render
 
-      const varslerMenuContent = document.querySelector(
-        '#varsler-menu-content',
+      const notificationsMenuContent = document.querySelector(
+        '#notifications-menu-content',
       );
 
-      if (varslerMenuContent) {
-        varslerMenuContent.innerHTML = varsler;
+      if (notificationsMenuContent) {
+        notificationsMenuContent.innerHTML = notifications;
       }
     }
   },

@@ -64,11 +64,11 @@ test('driftsmeldinger', async () => {
   ]);
 });
 
-describe('varsler', () => {
-  test('inaktiver varsel on POST', async () => {
+describe('notifications', () => {
+  test('archive notification on POST', async () => {
     const response = await fetch(
       new Request({
-        url: 'http://localhost/api/varsler/beskjed/inaktiver',
+        url: 'http://localhost/api/notifications/message/archive',
         method: 'POST',
         body: JSON.stringify('eventId'),
       }),
@@ -80,9 +80,9 @@ describe('varsler', () => {
     expect(await response.json()).toEqual('eventId');
   });
 
-  test('inaktiver varsel gives 404 on GET', async () => {
+  test('archive notification gives 404 on GET', async () => {
     const response = await fetch(
-      new Request('http://localhost/api/varsler/beskjed/inaktiver'),
+      new Request('http://localhost/api/notifications/message/archive'),
     );
     expect(response.status).toBe(404);
   });

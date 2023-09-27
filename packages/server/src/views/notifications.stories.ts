@@ -1,19 +1,19 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import type { VarslerPopulatedProps } from './varsler';
-import { VarslerPopulated } from './varsler';
+import type { NotificationsPopulatedProps } from './notifications';
+import { NotificationsPopulated } from './notifications';
 
-const meta: Meta<VarslerPopulatedProps> = {
-  title: 'varsler',
+const meta: Meta<NotificationsPopulatedProps> = {
+  title: 'notifications',
   tags: ['autodocs'],
-  render: VarslerPopulated,
+  render: NotificationsPopulated,
 };
 
 export default meta;
-type Story = StoryObj<VarslerPopulatedProps>;
+type Story = StoryObj<NotificationsPopulatedProps>;
 
 export const Default: Story = {
   args: {
-    varslerData: {
+    notificationsData: {
       oppgaver: [
         {
           eventId: '22ee1247-e8fc-4329-8a41-bee3623d151e',
@@ -60,15 +60,15 @@ export const Default: Story = {
       ],
     },
     texts: {
-      varsler_beskjeder_tittel: 'Beskjeder',
-      varslet_EPOST: 'Varslet på e-post',
-      varslet_SMS: 'Varslet på SMS',
-      beskjed_maskert_tekst:
+      notifications_messages_title: 'Beskjeder',
+      notified_EPOST: 'Varslet på e-post',
+      notified_SMS: 'Varslet på SMS',
+      masked_message_text:
         'Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.',
-      oppgave_maskert_tekst:
+      masked_task_text:
         'Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.',
-      arkiver: 'Arkiver',
-      varsler_oppgaver_tittel: 'Oppgaver',
+      archive: 'Arkiver',
+      notifications_tasks_title: 'Oppgaver',
     },
   },
 };

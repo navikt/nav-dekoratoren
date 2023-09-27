@@ -2,7 +2,7 @@ import html from 'decorator-shared/html';
 
 // @TODO: Should probably create a generic type for the className
 
-export function VarslerIcon({ className }: { className: string }) {
+export function NotificationsIcon({ className }: { className: string }) {
   return html`<svg
     width="24px"
     height="24px"
@@ -23,7 +23,7 @@ export function VarslerIcon({ className }: { className: string }) {
   </svg>`;
 }
 
-export function BeskjedIcon() {
+export function MessageIcon() {
   return html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="24px"
@@ -40,7 +40,7 @@ export function BeskjedIcon() {
   </svg>`;
 }
 
-export function OppgaveIcon() {
+export function TaskIcon() {
   return html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

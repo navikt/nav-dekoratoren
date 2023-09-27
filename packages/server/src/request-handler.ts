@@ -4,9 +4,9 @@ import ContentService from './content-service';
 
 import renderIndex from './render-index';
 
-import varslerMock from './varsler-mock.json';
+import notificationsMock from './notifications-mock.json';
 import SearchService from './search-service';
-import { Varsel, VarslerPopulated } from './views/varsler';
+import { Notification, NotificationsPopulated } from './views/notifications';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -111,16 +111,22 @@ const requestHandler = async (
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
     .get(
-      '/api/varsler',
+      '/api/notifications',
       ({ query }) =>
         new Response(
-          VarslerPopulated({
+          NotificationsPopulated({
             texts: contentService.getTexts({
               language: validParams(query).language,
             }),
-            varslerData: {
-              beskjeder: varslerMock.beskjeder.slice(0, 6) as Varsel[],
-              oppgaver: varslerMock.oppgaver.slice(0, 3) as Varsel[],
+            notificationsData: {
+              beskjeder: notificationsMock.beskjeder.slice(
+                0,
+                6,
+              ) as Notification[],
+              oppgaver: notificationsMock.oppgaver.slice(
+                0,
+                3,
+              ) as Notification[],
             },
           }),
           {
@@ -128,7 +134,7 @@ const requestHandler = async (
           },
         ),
     )
-    .post('/api/varsler/beskjed/inaktiver', async ({ request }) =>
+    .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
     )
     .get('/api/driftsmeldinger', () =>
