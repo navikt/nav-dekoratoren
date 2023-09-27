@@ -1,4 +1,4 @@
-import classes from './varsler.module.css';
+import classes from 'decorator-client/src/styles/varsler.module.css';
 import html from 'decorator-shared/html';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 import { LinkButton } from 'decorator-shared/views/components/link-button';
