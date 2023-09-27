@@ -1,0 +1,31 @@
+.simpleFooter {
+  border-top: 2px solid #0067c5;
+  background-color: white;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+  color: #0067c5;
+}
+
+.simpleFooter .footerLinkList {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+}
+
+.simpleFooter .footerLinkList :last-child {
+  margin-left: auto;
+}
+
+.simpleFooter .footerLink {
+  color: inherit;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0;
+  text-decoration-color: #99c4dd;
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+  text-decoration: underline;
+}

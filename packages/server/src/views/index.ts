@@ -5,7 +5,7 @@ import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 
 const entryPointPath = 'src/main.ts';
-const entryPointPathAnalytics = 'src/amplitude.ts';
+const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
 const Links = () =>
   process.env.NODE_ENV === 'production'
@@ -85,7 +85,11 @@ export function Index({
       <body>
         <div id="styles" style="display:none">${Links()}</div>
         ${WebcomponentTemplates()} ${header}
-        <main>main</main>
+        <main>
+          <button class="button button-main" id="amplitude-test">
+            Test amplitude!
+          </button>
+        </main>
         <div id="footer-withmenu" class="bg-white">
           ${logoutWarning} ${feedback} ${footer}
         </div>

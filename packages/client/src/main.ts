@@ -1,9 +1,12 @@
 import 'vite/modulepreload-polyfill';
 import './main.css';
+import.meta.glob('./styles/*.css', { eager: true });
 
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 
 import getContent from './get-content';
+
+import './views/lenke-med-sporing';
 
 import {
   HeaderMenuLinkCols,
@@ -37,6 +40,8 @@ import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
 import { fetchVarsler, attachArkiverListener } from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
+import { LenkeMedSporing } from './views/lenke-med-sporing';
+import { AnalyticsCategory } from './analytics/analytics';
 
 type Auth = {
   authenticated: boolean;
@@ -452,3 +457,30 @@ function handleLogin() {
 
 handleMenuButton();
 handleLogin();
+
+const main = document.querySelector('main');
+
+if (main) {
+  // main.insertAdjacentHTML(
+  //   'beforeend',
+  //   LenkeMedSporing({
+  //     href: 'https://www.nav.no',
+  //     children: 'Lenke med sporing',
+  //   }),
+  // );
+
+  main.insertAdjacentHTML(
+    'beforeend',
+    LenkeMedSporing({
+      href: 'https://www.nav.no!',
+      children: 'Lenke med sporing!',
+      withChevron: true,
+      analyticsEventArgs: {
+        eventName: 'decorator_next/test',
+        category: AnalyticsCategory.Footer,
+        action: `kontakt/oss`,
+        label: 'Lenke',
+      },
+    }),
+  );
+}
