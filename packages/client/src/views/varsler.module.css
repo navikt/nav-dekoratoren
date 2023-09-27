@@ -6,11 +6,9 @@
   margin: var(--a-spacing-2) 0px;
   background-color: white;
   transition: background-color 0.1s linear;
-  cursor: pointer;
+  position: relative;
 }
 
-.maskert {
-}
 .maskert:hover {
   background-color: var(--a-surface-hover);
 }
@@ -24,6 +22,12 @@
 .title {
   margin: 0;
   font-size: 18px;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 .metaOgKnapp {

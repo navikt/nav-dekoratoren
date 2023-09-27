@@ -65,32 +65,38 @@ export function VarslerPopulated({
   return html`
     <div id="varsler-populated">
       <div id="varsler-populated-oppgaver">
-        <p class="title">${texts.varsler_oppgaver_tittel}</p>
+        <h2 class="title">${texts.varsler_oppgaver_tittel}</h2>
         <ul>
-          ${oppgaver.map((oppgave) =>
-            Varsel({
-              title: oppgave.isMasked
-                ? texts.oppgave_maskert_tekst
-                : oppgave.tekst,
-              icon: OppgaveIcon(),
-              varsel: oppgave,
-              texts,
-            }),
+          ${oppgaver.map(
+            (oppgave) =>
+              html`<li>
+                ${Varsel({
+                  title: oppgave.isMasked
+                    ? texts.oppgave_maskert_tekst
+                    : oppgave.tekst,
+                  icon: OppgaveIcon(),
+                  varsel: oppgave,
+                  texts,
+                })}
+              </li>`,
           )}
         </ul>
       </div>
       <div id="varsler-populated-beskjeder">
-        <p class="title">${texts.varsler_beskjeder_tittel}</p>
+        <h2 class="title">${texts.varsler_beskjeder_tittel}</h2>
         <ul>
-          ${beskjeder.map((beskjed) =>
-            Varsel({
-              title: beskjed.isMasked
-                ? texts.beskjed_maskert_tekst
-                : beskjed.tekst,
-              icon: BeskjedIcon(),
-              varsel: beskjed,
-              texts,
-            }),
+          ${beskjeder.map(
+            (beskjed) =>
+              html`<li>
+                ${Varsel({
+                  title: beskjed.isMasked
+                    ? texts.beskjed_maskert_tekst
+                    : beskjed.tekst,
+                  icon: BeskjedIcon(),
+                  varsel: beskjed,
+                  texts,
+                })}
+              </li>`,
           )}
         </ul>
       </div>
@@ -135,36 +141,32 @@ function Varsel({
   };
 }) {
   return html`
-    <li id="${varsel.eventId}">
-      <a
-        class="${[classes.varsel, varsel.isMasked ? classes.maskert : '']
-          .filter(Boolean)
-          .join(' ')}"
-      >
-        <h3 class="${classes.title}">${title}</h3>
-        <p class="${classes.timestamp}">
-          ${formatVarselDate(varsel.tidspunkt)}
-        </p>
-        <div class="${classes.metaOgKnapp}">
-          <div class="${classes.meta}">
-            ${icon}
-            ${varsel.eksternVarslingKanaler.map(
-              (kanal) =>
-                html`<span class="${classes.varselNotice}"
-                  >${texts[`varslet_${kanal}`]}</span
-                >`,
-            )}
-          </div>
-          ${varsel.isMasked
-            ? ForwardChevron()
-            : LinkButton({
-                className: 'arkiver-varsel',
-                text: texts.arkiver,
-                attrs: `data-event-id="${varsel.eventId}"`,
-              })}
+    <div
+      class="${[classes.varsel, varsel.isMasked ? classes.maskert : '']
+        .filter(Boolean)
+        .join(' ')}"
+    >
+      <a href="${varsel.link}" class="${classes.title}"><h3>${title}</h3></a>
+      <p class="${classes.timestamp}">${formatVarselDate(varsel.tidspunkt)}</p>
+      <div class="${classes.metaOgKnapp}">
+        <div class="${classes.meta}">
+          ${icon}
+          ${varsel.eksternVarslingKanaler.map(
+            (kanal) =>
+              html`<span class="${classes.varselNotice}"
+                >${texts[`varslet_${kanal}`]}</span
+              >`,
+          )}
         </div>
-      </a>
-    </li>
+        ${varsel.isMasked
+          ? ForwardChevron()
+          : LinkButton({
+              className: 'arkiver-varsel',
+              text: texts.arkiver,
+              attrs: `data-event-id="${varsel.eventId}"`,
+            })}
+      </div>
+    </div>
   `;
 }
 
