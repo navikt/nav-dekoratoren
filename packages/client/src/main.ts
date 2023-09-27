@@ -45,7 +45,10 @@ import { attachArkiverListener } from './views/varsler';
 import { logoutWarningController } from './controllers/logout-warning';
 import { LenkeMedSporing } from './views/lenke-med-sporing';
 
-import { type AnalyticsEventArgs } from './analytics/analytics';
+import {
+  AnalyticsCategory,
+  type AnalyticsEventArgs,
+} from './analytics/constants';
 // import { AnalyticsCategory } from './analytics/analytics';
 
 type Auth = {
@@ -69,6 +72,7 @@ declare global {
       expireSession: (seconds: number) => void;
     };
     analyticsEvent: (props: AnalyticsEventArgs) => void;
+    logPageView: (params: Params, authState: Auth) => Promise<unknown>;
   }
 }
 
@@ -148,8 +152,6 @@ document.getElementById('search-input')?.addEventListener('input', (e) => {
       });
   }
 });
-
-// Listen for f5 input
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -426,6 +428,8 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 api.checkAuth({
   onSuccess: async (response) => {
+    window.logPageView(window.decoratorParams, response);
+
     await populateLoggedInMenu(response);
 
     const varsler = await fetchVarsler();
@@ -478,14 +482,6 @@ document.querySelector('#amplitude-test')?.addEventListener('click', () => {
 });
 
 if (main) {
-  // main.insertAdjacentHTML(
-  //   'beforeend',
-  //   LenkeMedSporing({
-  //     href: 'https://www.nav.no',
-  //     children: 'Lenke med sporing',
-  //   }),
-  // );
-
   main.insertAdjacentHTML(
     'beforeend',
     LenkeMedSporing({
@@ -494,7 +490,7 @@ if (main) {
       withChevron: true,
       analyticsEventArgs: {
         eventName: 'decorator_next/test',
-        // category: AnalyticsCategory.Footer,
+        category: AnalyticsCategory.Footer,
         action: `kontakt/oss`,
         label: 'Lenke',
       },

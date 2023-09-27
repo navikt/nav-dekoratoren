@@ -1,4 +1,4 @@
-import { initAmplitude, logAmplitudeEvent } from './amplitude';
+import { initAmplitude, logAmplitudeEvent, logPageView } from './amplitude';
 import { AnalyticsEventArgs } from './constants';
 // import { initTaskAnalytics } from './task-analytics/ta';
 
@@ -36,5 +36,6 @@ export const analyticsEvent = (props: AnalyticsEventArgs) => {
 
 // Connects to partytown forwarding
 window.analyticsEvent = analyticsEvent;
+window.logPageView = logPageView;
 
 initAnalytics();
