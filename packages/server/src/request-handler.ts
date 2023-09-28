@@ -6,7 +6,11 @@ import renderIndex from './render-index';
 
 import notificationsMock from './notifications-mock.json';
 import SearchService from './search-service';
-import { Notification, NotificationsPopulated } from './views/notifications';
+import {
+  Notification,
+  NotificationsPopulated,
+} from './views/notifications/notifications';
+import { texts } from './texts';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -115,9 +119,7 @@ const requestHandler = async (
       ({ query }) =>
         new Response(
           NotificationsPopulated({
-            texts: contentService.getTexts({
-              language: validParams(query).language,
-            }),
+            texts: texts[validParams(query).language],
             notificationsData: {
               beskjeder: notificationsMock.beskjeder.slice(
                 0,

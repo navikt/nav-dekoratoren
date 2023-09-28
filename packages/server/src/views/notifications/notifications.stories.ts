@@ -69,6 +69,7 @@ export const Default: Story = {
         'Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.',
       archive: 'Arkiver',
       notifications_tasks_title: 'Oppgaver',
+      earlier_notifications: 'Tidligere varslinger',
     },
   },
 };

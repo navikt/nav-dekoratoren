@@ -1,11 +1,11 @@
 import cls from 'decorator-client/src/styles/notifications.module.css';
 import html from 'decorator-shared/html';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
-import { LinkButton } from 'decorator-shared/views/components/link-button';
 import {
   MessageIcon,
   TaskIcon,
 } from 'decorator-shared/views/icons/notifications';
+import { ArchivableNotification } from './archivable-notification';
 
 type NotificationChannel = 'SMS' | 'EPOST';
 
@@ -139,34 +139,15 @@ function Notification({
   };
 }) {
   if (notification.type !== 'oppgave' && !notification.link) {
-    return html`
-      <archivable-notification
-        class="${[cls.notification, cls.isArchivable].join(' ')}"
-        data-event-id="${notification.eventId}"
-      >
-        <div>
-          <div class="${cls.title}">${title}</div>
-          <div class="${cls.time}">
-            ${formatNotificationDate(notification.tidspunkt)}
-          </div>
-        </div>
-        <div class="${cls.bottom}">
-          <div class="${cls.meta}">
-            ${icon}
-            ${notification.eksternVarslingKanaler.map(
-              (kanal) =>
-                html`<span class="${cls.notificationNotice}"
-                  >${texts[`notified_${kanal}`]}</span
-                >`,
-            )}
-          </div>
-          ${LinkButton({
-            className: 'archive-notification',
-            text: texts.archive,
-          })}
-        </div>
-      </archivable-notification>
-    `;
+    return ArchivableNotification({
+      text: title,
+      date: formatNotificationDate(notification.tidspunkt),
+      icon,
+      tags: notification.eksternVarslingKanaler.map(
+        (channel) => texts[`notified_${channel}`],
+      ),
+      texts,
+    });
   } else {
     return html`
       <div class="${cls.notification}">
