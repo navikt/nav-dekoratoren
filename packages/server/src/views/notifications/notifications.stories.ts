@@ -3,7 +3,7 @@ import type { NotificationsPopulatedProps } from './notifications';
 import { NotificationsPopulated } from './notifications';
 
 const meta: Meta<NotificationsPopulatedProps> = {
-  title: 'notifications',
+  title: 'notifications/list',
   tags: ['autodocs'],
   render: NotificationsPopulated,
 };

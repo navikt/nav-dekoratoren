@@ -1,11 +1,11 @@
 import cls from 'decorator-client/src/styles/notifications.module.css';
 import html from 'decorator-shared/html';
-import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 import {
   MessageIcon,
   TaskIcon,
 } from 'decorator-shared/views/icons/notifications';
 import { ArchivableNotification } from './archivable-notification';
+import { Notification } from './notification';
 
 type NotificationChannel = 'SMS' | 'EPOST';
 
@@ -72,7 +72,7 @@ export function NotificationsPopulated({
             .map(
               (task) =>
                 html`<li>
-                  ${Notification({
+                  ${Notification2({
                     title: task.isMasked ? texts.masked_task_text : task.tekst,
                     icon: TaskIcon(),
                     notification: task,
@@ -94,7 +94,7 @@ export function NotificationsPopulated({
             .map(
               (message) =>
                 html`<li>
-                  ${Notification({
+                  ${Notification2({
                     title: message.isMasked
                       ? texts.masked_message_text
                       : message.tekst,
@@ -118,7 +118,7 @@ export function NotificationsPopulated({
   `;
 }
 
-function Notification({
+function Notification2({
   title,
   icon,
   notification: notification,
@@ -144,28 +144,14 @@ function Notification({
       texts,
     });
   } else {
-    return html`
-      <div class="${cls.notification}">
-        <div>
-          <a href="${notification.link}" class="${cls.title}">${title}</a>
-          <local-time
-            datetime="${notification.tidspunkt}"
-            class="${cls.time}"
-          />
-        </div>
-        <div class="${cls.bottom}">
-          <div class="${cls.meta}">
-            ${icon}
-            ${notification.eksternVarslingKanaler.map(
-              (channel) =>
-                html`<span class="${cls.notificationNotice}"
-                  >${texts[`notified_${channel}`]}</span
-                >`,
-            )}
-          </div>
-          ${ForwardChevron({ className: cls.forwardChevron })}
-        </div>
-      </div>
-    `;
+    return Notification({
+      text: title,
+      link: notification.link as string,
+      date: notification.tidspunkt,
+      icon,
+      tags: notification.eksternVarslingKanaler.map(
+        (channel) => texts[`notified_${channel}`],
+      ),
+    });
   }
 }
