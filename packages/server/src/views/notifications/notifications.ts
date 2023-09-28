@@ -65,17 +65,21 @@ export function NotificationsPopulated({
           ${texts.notifications_tasks_title}
         </h2>
         <ul class="${cls.notificationList}">
-          ${oppgaver.map(
-            (task) =>
-              html`<li>
-                ${Notification({
-                  title: task.isMasked ? texts.masked_task_text : task.tekst,
-                  icon: TaskIcon(),
-                  notification: task,
-                  texts,
-                })}
-              </li>`,
-          )}
+          ${oppgaver
+            .sort((a, b) =>
+              new Date(a.tidspunkt) > new Date(b.tidspunkt) ? -1 : 1,
+            )
+            .map(
+              (task) =>
+                html`<li>
+                  ${Notification({
+                    title: task.isMasked ? texts.masked_task_text : task.tekst,
+                    icon: TaskIcon(),
+                    notification: task,
+                    texts,
+                  })}
+                </li>`,
+            )}
         </ul>
       </div>
       <div>
@@ -83,19 +87,23 @@ export function NotificationsPopulated({
           ${texts.notifications_messages_title}
         </h2>
         <ul class="${cls.notificationList}">
-          ${beskjeder.map(
-            (message) =>
-              html`<li>
-                ${Notification({
-                  title: message.isMasked
-                    ? texts.masked_message_text
-                    : message.tekst,
-                  icon: MessageIcon(),
-                  notification: message,
-                  texts,
-                })}
-              </li>`,
-          )}
+          ${beskjeder
+            .sort((a, b) =>
+              new Date(a.tidspunkt) > new Date(b.tidspunkt) ? -1 : 1,
+            )
+            .map(
+              (message) =>
+                html`<li>
+                  ${Notification({
+                    title: message.isMasked
+                      ? texts.masked_message_text
+                      : message.tekst,
+                    icon: MessageIcon(),
+                    notification: message,
+                    texts,
+                  })}
+                </li>`,
+            )}
         </ul>
       </div>
       <div>
