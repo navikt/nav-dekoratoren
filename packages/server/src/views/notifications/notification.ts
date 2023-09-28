@@ -10,8 +10,6 @@ export type NotificationProps = {
   tags: string[];
 };
 
-console.log(cls.chevron);
-
 export const Notification = ({
   text,
   link,

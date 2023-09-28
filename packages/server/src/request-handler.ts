@@ -4,23 +4,28 @@ import ContentService from './content-service';
 
 import renderIndex from './render-index';
 
-import notificationsMock from './notifications-mock.json';
 import SearchService from './search-service';
 import {
-  Notification,
-  NotificationsPopulated,
+  NotificationList,
+  Notifications,
 } from './views/notifications/notifications';
 import { texts } from './texts';
+import { Texts } from 'decorator-shared/types';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
   getFilePaths: (dir: string) => string[];
 };
 
+type NotificationsService = {
+  getNotifications: (texts: Texts) => Promise<NotificationList[]>;
+};
+
 const requestHandler = async (
   contentService: ContentService,
   searchService: SearchService,
   fileSystemService: FileSystemService,
+  notificationsService: NotificationsService,
 ) => {
   const filePaths = fileSystemService
     .getFilePaths('./public')
@@ -116,20 +121,13 @@ const requestHandler = async (
     .get('/api/isReady', () => new Response('OK'))
     .get(
       '/api/notifications',
-      ({ query }) =>
+      async ({ query }) =>
         new Response(
-          NotificationsPopulated({
+          Notifications({
             texts: texts[validParams(query).language],
-            notificationsData: {
-              beskjeder: notificationsMock.beskjeder.slice(
-                0,
-                6,
-              ) as Notification[],
-              oppgaver: notificationsMock.oppgaver.slice(
-                0,
-                3,
-              ) as Notification[],
-            },
+            notificationLists: await notificationsService.getNotifications(
+              texts[validParams(query).language],
+            ),
           }),
           {
             headers: { 'content-type': 'text/html; charset=utf-8' },
