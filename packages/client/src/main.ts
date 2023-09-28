@@ -22,17 +22,13 @@ import './views/toggle-icon-button';
 import './views/search';
 import './views/loader';
 import './views/decorator-lens';
+import './views/local-time';
 import { AddSnarveierListener } from './views/header-menu-links';
 
 import { SearchShowMore } from './views/search-show-more';
 import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search';
-import {
-  hasClass,
-  hydrateParams,
-  replaceElement,
-  setAriaExpanded,
-} from './utils';
+import { hasClass, replaceElement, setAriaExpanded } from './utils';
 import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
@@ -42,6 +38,7 @@ import { fetchNotifications } from './views/notifications';
 import { logoutWarningController } from './controllers/logout-warning';
 import { LenkeMedSporing } from './views/lenke-med-sporing';
 import { AnalyticsCategory } from './analytics/analytics';
+import { Texts } from 'decorator-shared/types';
 
 type Auth = {
   authenticated: boolean;
@@ -55,10 +52,12 @@ const breakpoints = {
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
-// Basic setup for development with the decorator-params script tag.
 declare global {
   interface Window {
-    decoratorParams: Params;
+    __DECORATOR_DATA__: {
+      texts: Texts;
+      params: Params;
+    };
     loginDebug: {
       expireToken: (seconds: number) => void;
       expireSession: (seconds: number) => void;
@@ -66,12 +65,9 @@ declare global {
   }
 }
 
-const decoratorData = JSON.parse(
-  document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
+window.__DECORATOR_DATA__ = JSON.parse(
+  document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
 );
-const { texts } = decoratorData;
-
-window.decoratorParams = hydrateParams();
 
 const addBreadcrumbEventListeners = () =>
   document
@@ -103,8 +99,11 @@ attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
 
-if (window.decoratorParams.logoutWarning) {
-  logoutWarningController(window.decoratorParams.logoutWarning, texts);
+if (window.__DECORATOR_DATA__.params.logoutWarning) {
+  logoutWarningController(
+    window.__DECORATOR_DATA__.params.logoutWarning,
+    window.__DECORATOR_DATA__.texts,
+  );
 }
 
 // Get the params this version of the decorator was initialized with
@@ -299,7 +298,7 @@ function handleMenuButton() {
 // Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
 
-if (window.decoratorParams.simple === false) {
+if (window.__DECORATOR_DATA__.params.simple === false) {
   const searchEventHandlers: Record<SearchEvent, () => void> = {
     'started-typing': () => {
       document
@@ -401,9 +400,9 @@ async function populateLoggedInMenu(authObject: Auth) {
         innlogget: authObject.authenticated,
         name: authObject.name,
         myPageMenu,
-        texts,
+        texts: window.__DECORATOR_DATA__.texts,
       },
-      window.decoratorParams.simple,
+      window.__DECORATOR_DATA__.params.simple,
     );
 
     menuItems.outerHTML = newMenuItems;
@@ -444,7 +443,7 @@ api.checkAuth({
 });
 
 function handleLogin() {
-  const loginLevel = window.decoratorParams.level || 'Level4';
+  const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {

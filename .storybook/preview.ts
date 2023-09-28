@@ -1,6 +1,22 @@
 import type { Preview } from '@storybook/html';
 import html from 'decorator-shared/html';
-import '../packages/client/src/main.css';
+import { Params } from 'decorator-shared/params';
+import 'decorator-client/src/main.css';
+import 'decorator-client/src/views/local-time';
+
+declare global {
+  interface Window {
+    __DECORATOR_DATA__: {
+      params: Partial<Params>;
+    };
+  }
+}
+
+window.__DECORATOR_DATA__ = {
+  params: {
+    language: 'nb',
+  },
+};
 
 const preview: Preview = {
   decorators: [

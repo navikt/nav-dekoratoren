@@ -118,19 +118,6 @@ export function NotificationsPopulated({
   `;
 }
 
-function formatNotificationDate(tidspunkt: string): string {
-  const date = new Date(tidspunkt);
-  const options = {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  } as const;
-  return date.toLocaleDateString('nb-NO', options).replace(':', '.');
-}
-
 function Notification({
   title,
   icon,
@@ -149,7 +136,7 @@ function Notification({
   if (notification.type !== 'oppgave' && !notification.link) {
     return ArchivableNotification({
       text: title,
-      date: formatNotificationDate(notification.tidspunkt),
+      date: notification.tidspunkt,
       icon,
       tags: notification.eksternVarslingKanaler.map(
         (channel) => texts[`notified_${channel}`],
@@ -161,9 +148,10 @@ function Notification({
       <div class="${cls.notification}">
         <div>
           <a href="${notification.link}" class="${cls.title}">${title}</a>
-          <div class="${cls.time}">
-            ${formatNotificationDate(notification.tidspunkt)}
-          </div>
+          <local-time
+            datetime="${notification.tidspunkt}"
+            class="${cls.time}"
+          />
         </div>
         <div class="${cls.bottom}">
           <div class="${cls.meta}">

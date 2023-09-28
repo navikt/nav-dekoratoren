@@ -15,7 +15,7 @@ type Story = StoryObj<ArchivableNotificationProps>;
 export const Default: Story = {
   args: {
     text: 'Beskjed uten lenke',
-    date: '13. september 2023 12.55',
+    date: '2023-08-08T13:24:23.75234+02:00',
     icon: MessageIcon(),
     tags: ['Varslet på e-post'],
     texts: {

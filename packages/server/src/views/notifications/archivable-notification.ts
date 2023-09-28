@@ -21,7 +21,7 @@ export const ArchivableNotification = ({
   html`<archivable-notification class="${cls.notification}">
     <div>
       <div>${text}</div>
-      <div class="${cls.date}">${date}</div>
+      <local-time datetime="${date}" class="${cls.date}" />
     </div>
     <div class="${cls.bottom}">
       ${icon}${tags.map((tag) => html`<div class="${cls.tag}">${tag}</div>`)}

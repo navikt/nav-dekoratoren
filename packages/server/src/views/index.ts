@@ -55,7 +55,6 @@ export function Index({
   feedback,
   logoutWarning,
   footer,
-  env,
   lens,
   decoratorData,
 }: {
@@ -64,7 +63,6 @@ export function Index({
   feedback: string;
   footer: string;
   logoutWarning: string;
-  env: string;
   lens: string;
   decoratorData: string;
 }) {
@@ -93,7 +91,7 @@ export function Index({
         <div id="footer-withmenu" class="bg-white">
           ${logoutWarning} ${feedback} ${footer}
         </div>
-        ${env} ${lens}
+        ${lens}
         <div id="scripts" style="display:none">
           ${Scripts()}${decoratorData}
         </div>

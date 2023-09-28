@@ -46,6 +46,7 @@
 }
 
 .title {
+  display: block;
   line-height: var(--a-font-line-height-large);
   font-weight: var(--a-font-weight-bold);
 }
