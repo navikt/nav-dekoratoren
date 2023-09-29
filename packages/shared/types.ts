@@ -1,5 +1,12 @@
 import { LangBaseKeys } from 'decorator-server/src/texts';
 
+export enum MenuValue {
+  PRIVATPERSON = 'privatperson',
+  ARBEIDSGIVER = 'arbeidsgiver',
+  SAMARBEIDSPARTNER = 'samarbeidspartner',
+  IKKEBESTEMT = 'IKKEBESTEMT',
+}
+
 export type Node = {
   children: Node[];
   displayName: string;

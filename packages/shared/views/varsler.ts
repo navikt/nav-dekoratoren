@@ -130,6 +130,7 @@ function makeVarsel(
     notices: varsel.eksternVarslingKanaler.map((kanal) => {
       return texts[`varslet_${kanal}`];
     }),
+    href: '',
     extraClasses: varsel.isMasked ? classes.maskert : '',
   };
 }
@@ -161,6 +162,7 @@ type VarselProps = {
   notices: string[];
   cta: string;
   id?: string;
+  href: string;
   extraClasses?: string;
 };
 
@@ -170,12 +172,13 @@ export function Varsel({
   icon,
   notices,
   cta,
+  href,
   id,
   extraClasses = '',
 }: VarselProps) {
   return html`
     <li id="${id}">
-      <a class="${classes.varsel} ${extraClasses}">
+      <a class="${classes.varsel} ${extraClasses}" href="${href}">
         <h3 class="${classes.title}">${title}</h3>
         <p class="${classes.timestamp}">${timestamp}</p>
         <div class="${classes.metaOgKnapp}">
@@ -187,6 +190,15 @@ export function Varsel({
       </a>
     </li>
   `;
+}
+
+export function makeAmplitudeEvent(kind: VarselType, href: string) {
+  return {
+    komponent:
+      kind.toLowerCase() == 'beskjed' ? 'varsel-beskjed' : 'varsel-oppgave',
+    kategori: 'varselbjelle',
+    destinasjon: href,
+  };
 }
 
 function VarselNotice(notice: string) {

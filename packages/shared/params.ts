@@ -12,7 +12,9 @@ const contextSchema = z.enum([
   'privatperson',
   'arbeidsgiver',
   'samarbeidspartner',
+  'ikkebestemt',
 ]);
+
 export type Context = z.infer<typeof contextSchema>;
 
 const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
@@ -45,6 +47,8 @@ export const paramsSchema = z.object({
   simpleFooter: z.boolean().default(false),
   enforceLogin: z.boolean().default(false),
   redirectToApp: z.boolean().default(false),
+  // Should maybe not be this
+  redirectToUrl: z.string().default(''),
   level: loginLevel.default('Level3'),
   language: languageSchema.default('nb'),
   availableLanguages: z.array(availableLanguageSchema).default([]),
@@ -61,3 +65,12 @@ export const paramsSchema = z.object({
 });
 
 export type Params = z.infer<typeof paramsSchema>;
+
+export const environmentSchema = z.object({
+  MIN_SIDE_URL: z.string(),
+  MINSIDE_ARBEIDSGIVER_URL: z.string(),
+  LOGIN_URL: z.string(),
+  params: paramsSchema,
+});
+
+export type Environment = z.infer<typeof environmentSchema>;

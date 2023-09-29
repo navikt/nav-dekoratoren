@@ -1,11 +1,6 @@
 // Split this up to avoid amplitude being pulled in when using these
 
-export enum MenuValue {
-  PRIVATPERSON = 'privatperson',
-  ARBEIDSGIVER = 'arbeidsgiver',
-  SAMARBEIDSPARTNER = 'samarbeidspartner',
-  IKKEBESTEMT = 'IKKEBESTEMT',
-}
+import { MenuValue } from 'decorator-shared/types';
 
 export enum AnalyticsCategory {
   Header = 'dekorator-header',

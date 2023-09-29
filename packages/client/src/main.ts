@@ -368,8 +368,6 @@ const buttons = document.querySelectorAll(
   `.${feedbackClasses.feedbackContent} button`,
 );
 
-console.log(buttons);
-
 buttons.forEach((button) => {
   button.addEventListener('click', async () => {
     const feedbackContent = document.querySelector(
