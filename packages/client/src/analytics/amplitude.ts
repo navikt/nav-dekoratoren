@@ -83,6 +83,11 @@ export const logAmplitudeEvent = (
   eventData: EventData = {},
   origin = 'decorator-next',
 ) => {
+  console.table({
+    eventName,
+    eventData,
+    origin,
+  });
   return new Promise((resolve) => {
     amplitude.getInstance().logEvent(
       eventName,

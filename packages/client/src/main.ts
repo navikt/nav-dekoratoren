@@ -83,7 +83,7 @@ declare global {
     logAmplitudeEvent: (
       eventName: string,
       eventData: Record<string, any>,
-      origin: string,
+      origin?: string,
     ) => void;
   }
 }
@@ -376,9 +376,16 @@ buttons.forEach((button) => {
       `.${feedbackClasses.feedbackContent}`,
     );
 
+    const answer = button.getAttribute('data-answer');
+
     if (feedbackContent) {
       feedbackContent.innerHTML = FeedbackSuccess({
         texts,
+      });
+
+      window.logAmplitudeEvent('tilbakemelding', {
+        kilde: 'footer',
+        svar: answer,
       });
     }
   });

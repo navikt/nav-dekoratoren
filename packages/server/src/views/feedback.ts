@@ -14,14 +14,14 @@ export function Feedback({ texts }: { texts: Texts }) {
               class="button button-outline wide big-label"
               id="feedback-yes"
               ,
-              data-answer="yes"
+              data-answer="${texts.yes}"
             >
               ${texts.yes}
             </button>
             <button
               class="button button-outline wide big-label"
               id="feedback-no"
-              data-answer="no"
+              data-answer="${texts.no}"
             >
               ${texts.no}
             </button>
