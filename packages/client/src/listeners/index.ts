@@ -4,6 +4,7 @@ import { addBreadcrumbEventListeners } from './breadcrumbs-listener';
 import { addSearchInputListener } from './search-listener';
 import { addSnarveierListener } from './sub-menu-listener';
 import { addFeedbackListener } from './feedback-listener';
+import { analyticsEvents } from '../analytics/constants';
 
 export function attachArkiverListener() {
   const arkiverButtons = document.querySelectorAll('.arkiver-varsel');
@@ -20,6 +21,8 @@ export function attachArkiverListener() {
       if (resp) {
         const listItem = document.getElementById(eventId as string);
         listItem?.remove();
+
+        window.logAmplitudeEvent(...analyticsEvents.akrivertBeskjed);
       }
     });
   });

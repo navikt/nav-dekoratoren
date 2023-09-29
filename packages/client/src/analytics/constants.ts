@@ -6,7 +6,21 @@ export enum AnalyticsCategory {
   Header = 'dekorator-header',
   Footer = 'dekorator-footer',
   Meny = 'dekorator-meny',
+  Varsler = 'varsler',
 }
+
+// type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
+// type AnalyticsEvents = Record<string, AnalyticsEvent>;
+
+export const analyticsEvents = {
+  akrivertBeskjed: [
+    'arkivert-beskjed',
+    {
+      komponent: 'varsler-beskjed-arkiverbar',
+      category: AnalyticsCategory.Varsler,
+    },
+  ],
+} as const;
 
 export type AnalyticsEventArgs = {
   eventName?: string;
