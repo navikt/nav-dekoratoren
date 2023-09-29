@@ -42,7 +42,12 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { VarslerPopulated, fetchVarsler } from './views/varsler';
+import {
+  VarselType,
+  VarslerPopulated,
+  fetchVarsler,
+  makeVarselAmplitudeEvent,
+} from './views/varsler';
 
 import { logoutWarningController } from './controllers/logout-warning';
 
@@ -372,6 +377,25 @@ api.checkAuth({
         varslerMenuContent.innerHTML = VarslerPopulated({
           texts,
           varslerData: varsler,
+        });
+
+        const varslerIds = [
+          ...varsler.oppgaver.map((o) => o.eventId),
+          ...varsler.beskjeder.map((b) => b.eventId),
+        ];
+
+        const varslerEls = varslerIds.map((id) => document.getElementById(id));
+
+        varslerEls.forEach((el) => {
+          el?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const kind = el.getAttribute('data-kind');
+            const href = el.getAttribute('href');
+            window.logAmplitudeEvent(
+              'navigere',
+              makeVarselAmplitudeEvent(kind as VarselType, href as string),
+            );
+          });
         });
       }
 

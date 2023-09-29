@@ -130,6 +130,7 @@ function makeVarsel(
     notices: varsel.eksternVarslingKanaler.map((kanal) => {
       return texts[`varslet_${kanal}`];
     }),
+    kind: varsel.type,
     extraClasses: varsel.isMasked ? classes.maskert : '',
   };
 }
@@ -178,6 +179,7 @@ type VarselProps = {
   cta: string;
   id?: string;
   href: string;
+  kind?: string;
   extraClasses?: string;
 };
 
@@ -188,11 +190,12 @@ export function Varsel({
   notices,
   cta,
   href,
+  kind,
   id,
   extraClasses = '',
 }: VarselProps) {
   return html`
-    <li id="${id}">
+    <li id="${id}" data-kind="${kind}" data-href="${href}">
       <a class="${classes.varsel} ${extraClasses}" href="${href}">
         <h3 class="${classes.title}">${title}</h3>
         <p class="${classes.timestamp}">${timestamp}</p>
@@ -207,7 +210,7 @@ export function Varsel({
   `;
 }
 
-export function makeAmplitudeEvent(kind: VarselType, href: string) {
+export function makeVarselAmplitudeEvent(kind: VarselType, href: string) {
   return {
     komponent:
       kind.toLowerCase() == 'beskjed' ? 'varsel-beskjed' : 'varsel-oppgave',
