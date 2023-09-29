@@ -1,5 +1,4 @@
 import html from 'decorator-shared/html';
-import { setAriaExpanded } from '../utils';
 // import SearchHit from './search-hit';
 //
 const events = {
@@ -16,17 +15,6 @@ export function asDefined<T>(value: T | undefined): NonNullable<T> {
   }
 
   return value as NonNullable<T>;
-}
-
-export function handleSearchButtonClick() {
-  const searchButton = document.getElementById('search-button');
-
-  searchButton?.addEventListener('click', () => {
-    setAriaExpanded(searchButton);
-    searchButton?.classList.toggle('active');
-    document.getElementById('sok-dropdown')?.classList.toggle('active');
-    document.getElementById('menu-background')?.classList.toggle('active');
-  });
 }
 
 export type SearchEvent = keyof typeof events;

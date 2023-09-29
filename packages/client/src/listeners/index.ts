@@ -1,7 +1,10 @@
 import { WithTexts } from 'decorator-shared/types';
 import * as api from '../api';
 import { addBreadcrumbEventListeners } from './breadcrumbs-listener';
-import { addSearchInputListener } from './search-listener';
+import {
+  addSearchInputListener,
+  handleSearchButtonClick,
+} from './search-listener';
 import { addSnarveierListener } from './sub-menu-listener';
 import { addFeedbackListener } from './feedback-listener';
 import { analyticsEvents } from '../analytics/constants';
@@ -35,4 +38,9 @@ export function onLoadListeners(params: WithTexts) {
   addSnarveierListener();
   addSearchInputListener();
   addFeedbackListener(params);
+}
+
+export function afterAuthListeners() {
+  handleSearchButtonClick();
+  addSearchInputListener();
 }

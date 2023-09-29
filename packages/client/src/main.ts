@@ -40,7 +40,6 @@ import {
 } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
-import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
 import {
   VarselType,
@@ -53,12 +52,14 @@ import { logoutWarningController } from './controllers/logout-warning';
 
 import {
   addBreadcrumbEventListeners,
+  afterAuthListeners,
   attachArkiverListener,
   onLoadListeners,
 } from './listeners';
 
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
+import { handleSearchButtonClick } from './listeners/search-listener';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -401,6 +402,7 @@ api.checkAuth({
 
       // Attach arkiver listener
       attachArkiverListener();
+      afterAuthListeners();
     }
   },
 });
