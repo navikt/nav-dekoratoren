@@ -33,3 +33,7 @@ export type Driftsmelding = {
   url: string;
   urlscope: string[];
 };
+
+export type WithTexts<T = object> = T & {
+  texts: Texts;
+};

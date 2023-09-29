@@ -23,12 +23,7 @@ import './views/search';
 import './views/loader';
 import './views/decorator-lens';
 
-import { AddSnarveierListener } from './views/header-menu-links';
-
-import { SearchShowMore } from './views/search-show-more';
-import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search';
-import { FeedbackSuccess } from './views/feedback-success';
 
 import {
   hasClass,
@@ -50,17 +45,15 @@ import { initLoggedInMenu } from './views/logged-in-menu';
 import { VarslerPopulated, fetchVarsler } from './views/varsler';
 
 import { logoutWarningController } from './controllers/logout-warning';
-import { LenkeMedSporing } from './views/lenke-med-sporing';
-
-import { attachArkiverListener } from './listeners';
 
 import {
-  AnalyticsCategory,
-  type AnalyticsEventArgs,
-} from './analytics/constants';
+  addBreadcrumbEventListeners,
+  attachArkiverListener,
+  onLoadListeners,
+} from './listeners';
 
-// CSS modules classes
-import feedbackClasses from './styles/feedback.module.css';
+import { type AnalyticsEventArgs } from './analytics/constants';
+import { Texts } from 'decorator-shared/types';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -81,6 +74,7 @@ declare global {
   interface Window {
     decoratorEnvironment: Environment;
     decoratorParams: Params;
+    texts: Texts;
     loginDebug: {
       expireToken: (seconds: number) => void;
       expireSession: (seconds: number) => void;
@@ -97,6 +91,7 @@ declare global {
 
 const texts = hydrateTexts();
 
+window.texts = texts;
 window.decoratorEnvironment = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
   LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
@@ -106,32 +101,13 @@ window.decoratorEnvironment = {
 
 window.decoratorParams = hydrateParams();
 
-const addBreadcrumbEventListeners = () =>
-  document
-    .getElementById('breadcrumbs-wrapper')
-    ?.querySelectorAll('a[data-handle-in-app]')
-    .forEach((el) =>
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        window.postMessage({
-          source: 'decorator',
-          event: 'breadcrumbClick',
-          payload: {
-            url: el.getAttribute('href'),
-            title: el.innerHTML,
-            handleInApp:
-              el.getAttribute('data-handle-in-app') === 'true' ? true : false,
-          },
-        });
-      }),
-    );
-
 // Client side environment variables, mocking for now.
 
 // Initialize
-AddSnarveierListener();
-addBreadcrumbEventListeners();
+onLoadListeners({
+  texts,
+});
+
 attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
@@ -139,42 +115,7 @@ handleSearchButtonClick();
 if (window.decoratorParams.logoutWarning) {
   logoutWarningController(window.decoratorParams.logoutWarning, texts);
 }
-
 // Get the params this version of the decorator was initialized with
-document.getElementById('search-input')?.addEventListener('input', (e) => {
-  const { value } = e.target as HTMLInputElement;
-  if (value.length > 2) {
-    fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?ord=${value}`)
-      .then((res) => res.json())
-      .then(({ hits, total }) => {
-        replaceElement({
-          selector: '#search-hits > ul',
-          html: hits
-            .map(
-              (hit: {
-                displayName: string;
-                highlight: string;
-                href: string;
-              }) => html`
-                <search-hit href="${hit.href}">
-                  <h2 slot="title">${hit.displayName}</h2>
-                  <p slot="description">${hit.highlight}</p>
-                </search-hit>
-              `,
-            )
-            .join(''),
-        });
-
-        replaceElement({
-          selector: '#show-more',
-          html: SearchShowMore({
-            word: value,
-            total,
-          }),
-        });
-      });
-  }
-});
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -378,49 +319,6 @@ menuBackground?.addEventListener('click', () => {
   ].forEach((el) => el && purgeActive(el));
 });
 
-// Feedback
-const buttons = document.querySelectorAll(
-  `.${feedbackClasses.feedbackContent} button`,
-);
-
-buttons.forEach((button) => {
-  button.addEventListener('click', async () => {
-    const feedbackContent = document.querySelector(
-      `.${feedbackClasses.feedbackContent}`,
-    );
-
-    const answer = button.getAttribute('data-answer');
-
-    if (feedbackContent) {
-      feedbackContent.innerHTML = FeedbackSuccess({
-        texts,
-      });
-
-      window.logAmplitudeEvent('tilbakemelding', {
-        kilde: 'footer',
-        svar: answer,
-      });
-    }
-  });
-});
-
-function attachAmplitudeLinks() {
-  document.body.addEventListener('click', (e) => {
-    if ((e.target as Element).classList.contains('amplitude-link')) {
-      alert('Found an ampltidude link');
-    }
-    if (
-      ((e.target as Element).parentNode as Element)?.classList.contains(
-        'amplitude-link',
-      )
-    ) {
-      alert('Found an ampltidude link');
-    }
-  });
-}
-
-attachAmplitudeLinks();
-
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.getElementById('menu-items');
   // Store a snapshot if user logs out
@@ -497,29 +395,29 @@ function handleLogin() {
 handleMenuButton();
 handleLogin();
 
-const main = document.querySelector('main');
-
-document.querySelector('#amplitude-test')?.addEventListener('click', () => {
-  console.log('Hello');
-
-  (window as any).analyticsEventTest({
-    body: 'It is working',
-  });
-});
-
-if (main) {
-  main.insertAdjacentHTML(
-    'beforeend',
-    LenkeMedSporing({
-      href: 'https://www.nav.no!',
-      children: 'Lenke med sporing!',
-      withChevron: true,
-      analyticsEventArgs: {
-        eventName: 'decorator_next/test',
-        category: AnalyticsCategory.Footer,
-        action: `kontakt/oss`,
-        label: 'Lenke',
-      },
-    }),
-  );
-}
+// const main = document.querySelector('main');
+//
+// document.querySelector('#amplitude-test')?.addEventListener('click', () => {
+//   console.log('Hello');
+//
+//   (window as any).analyticsEventTest({
+//     body: 'It is working',
+//   });
+// });
+//
+// if (main) {
+//   main.insertAdjacentHTML(
+//     'beforeend',
+//     LenkeMedSporing({
+//       href: 'https://www.nav.no!',
+//       children: 'Lenke med sporing!',
+//       withChevron: true,
+//       analyticsEventArgs: {
+//         eventName: 'decorator_next/test',
+//         category: AnalyticsCategory.Footer,
+//         action: `kontakt/oss`,
+//         label: 'Lenke',
+//       },
+//     }),
+//   );
+// }

@@ -1,7 +1,7 @@
 import { hasClass, hasId, replaceElement } from '../utils';
 
 // Discuss better way to solve this
-export function AddSnarveierListener() {
+export function addSnarveierListener() {
   document.addEventListener(
     'click',
     (e) => {
