@@ -80,6 +80,11 @@ declare global {
     };
     analyticsEvent: (props: AnalyticsEventArgs) => void;
     logPageView: (params: Params, authState: Auth) => Promise<unknown>;
+    logAmplitudeEvent: (
+      eventName: string,
+      eventData: Record<string, any>,
+      origin: string,
+    ) => void;
   }
 }
 

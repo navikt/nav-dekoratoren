@@ -37,5 +37,6 @@ export const analyticsEvent = (props: AnalyticsEventArgs) => {
 // Connects to partytown forwarding
 window.analyticsEvent = analyticsEvent;
 window.logPageView = logPageView;
+window.logAmplitudeEvent = logAmplitudeEvent;
 
 initAnalytics();

@@ -13,12 +13,15 @@ export function Feedback({ texts }: { texts: Texts }) {
             <button
               class="button button-outline wide big-label"
               id="feedback-yes"
+              ,
+              data-answer="yes"
             >
               ${texts.yes}
             </button>
             <button
               class="button button-outline wide big-label"
               id="feedback-no"
+              data-answer="no"
             >
               ${texts.no}
             </button>
