@@ -5,7 +5,10 @@ import { LoginIcon } from '../../icons/login';
 import { VarslerIcon } from 'decorator-shared/views/icons/varsler';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
-import { VarslerEmptyView, VarslerUlest } from '../../varsler';
+import {
+  VarslerEmptyView,
+  VarslerUlest,
+} from 'decorator-client/src/views/varsler';
 import { DropdownButton } from '../../components/dropdown-button';
 
 // ${IconButton({

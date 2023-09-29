@@ -1,4 +1,4 @@
-import { Context, Environment } from 'decorator-shared/params';
+import { Context, Environment, Params } from 'decorator-shared/params';
 
 export const verifyWindowObj = () => {
   return typeof window !== 'undefined';
@@ -10,9 +10,11 @@ export const erNavDekoratoren = (): boolean => {
 
 const getRedirectUrlLogin = (
   environment: Environment,
+  params: Params,
   arbeidsflate: Context,
 ) => {
-  const { MIN_SIDE_URL, MINSIDE_ARBEIDSGIVER_URL, params } = environment;
+  const { MIN_SIDE_URL, MIN_SIDE_ARBEIDSGIVER_URL } = environment;
+  console.log(MIN_SIDE_URL, MIN_SIDE_ARBEIDSGIVER_URL);
 
   const { redirectToUrl, redirectToApp } = params;
 
@@ -31,7 +33,7 @@ const getRedirectUrlLogin = (
   }
 
   if (arbeidsflate === 'arbeidsgiver') {
-    return MINSIDE_ARBEIDSGIVER_URL;
+    return MIN_SIDE_ARBEIDSGIVER_URL;
   }
 
   return MIN_SIDE_URL;
@@ -39,13 +41,14 @@ const getRedirectUrlLogin = (
 
 export const getLoginUrl = (
   environment: Environment,
+  params: Params,
   arbeidsflate: Context,
   overrideLevel?: string,
 ) => {
-  const { LOGIN_URL, params } = environment;
+  const { LOGIN_URL } = environment;
   const { level } = params;
 
-  const redirectUrl = getRedirectUrlLogin(environment, arbeidsflate);
+  const redirectUrl = getRedirectUrlLogin(environment, params, arbeidsflate);
 
   return `${LOGIN_URL}?redirect=${redirectUrl}&level=${overrideLevel || level}`;
 };

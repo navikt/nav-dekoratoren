@@ -68,9 +68,9 @@ export type Params = z.infer<typeof paramsSchema>;
 
 export const environmentSchema = z.object({
   MIN_SIDE_URL: z.string(),
-  MINSIDE_ARBEIDSGIVER_URL: z.string(),
+  MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
   LOGIN_URL: z.string(),
-  params: paramsSchema,
+  LOGOUT_URL: z.string(),
 });
 
 export type Environment = z.infer<typeof environmentSchema>;

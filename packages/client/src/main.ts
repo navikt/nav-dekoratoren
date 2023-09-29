@@ -38,15 +38,21 @@ import {
   setAriaExpanded,
 } from './utils';
 
-import { type Context, type Params } from 'decorator-shared/params';
+import {
+  Environment,
+  type Context,
+  type Params,
+} from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
-import { attachArkiverListener } from './views/varsler';
+import { VarslerPopulated, fetchVarsler } from './views/varsler';
+
 import { logoutWarningController } from './controllers/logout-warning';
 import { LenkeMedSporing } from './views/lenke-med-sporing';
+
+import { attachArkiverListener } from './listeners';
 
 import {
   AnalyticsCategory,
@@ -73,6 +79,7 @@ const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 // Basic setup for development with the decorator-params script tag.
 declare global {
   interface Window {
+    decoratorEnvironment: Environment;
     decoratorParams: Params;
     loginDebug: {
       expireToken: (seconds: number) => void;
@@ -89,6 +96,14 @@ declare global {
 }
 
 const texts = hydrateTexts();
+
+window.decoratorEnvironment = {
+  MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
+  LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
+  LOGOUT_URL: import.meta.env.VITE_LOGOUT_URL,
+  MIN_SIDE_ARBEIDSGIVER_URL: import.meta.env.VITE_MIN_SIDE_ARBEIDSGIVER_URL,
+};
+
 window.decoratorParams = hydrateParams();
 
 const addBreadcrumbEventListeners = () =>
