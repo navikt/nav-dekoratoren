@@ -1,4 +1,4 @@
-import { SearchResult } from './types';
+import { SearchResult } from 'decorator-shared/types';
 
 export default class SearchService {
   constructor(private fetchSearch: (query: string) => Promise<SearchResult>) {}
