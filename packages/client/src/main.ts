@@ -66,6 +66,7 @@ import { handleSearchButtonClick } from './listeners/search-listener';
 import {
   LenkeMedSporing,
   LenkeMedSporingChevron,
+  LenkeMedSporingLock,
 } from './views/lenke-med-sporing';
 import html from 'decorator-shared/html';
 
@@ -462,13 +463,22 @@ if (main) {
     },
   });
 
-  console.log(lenke2);
+  const lenke3 = LenkeMedSporingLock({
+    href: 'https://www.nav.no!',
+    children: 'Annen lenke',
+    analyticsEventArgs: {
+      eventName: 'decorator_next/test',
+      category: AnalyticsCategory.Footer,
+      action: 'kontakt/oss',
+      label: 'Lenke',
+    },
+  });
 
   main.insertAdjacentHTML(
     'beforeend',
     html`<div style="background-color: gray;">
       <h2>Lenke med sporing</h2>
-      <div>${lenke} ${lenke2}</div>
+      <div>${lenke} ${lenke2} ${lenke3}</div>
     </div> `,
   );
 }

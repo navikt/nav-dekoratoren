@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-// import { Lock } from 'decorator-shared/views/icons/lock';
+import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 
 import classes from '../styles/lenke-med-sporing.module.css';
@@ -127,19 +127,33 @@ export function LenkeMedSporing(props: LenkeMedSporingProps) {
   `;
 }
 
-// data-with-chevron="${props.withChevron}"
-// data-with-lock="${props.withLock}"
+// @note: these two can maybe be simplified
 export function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
   const className = props.className || '';
 
   return LenkeMedSporing({
     ...props,
     className: `${className} ${classes.chevronlenke}`,
-    classNameOverride: '',
     children: `
             <div class="${classes.ikonContainer}">
                 ${Next({
                   className: classes.chevron,
+                })}
+            </div>${props.children}`,
+  });
+}
+
+export function LenkeMedSporingLock(props: LenkeMedSporingProps) {
+  const className = props.className || '';
+
+  return LenkeMedSporing({
+    ...props,
+    className: `${className} ${classes.chevronlenke}`,
+    children: `
+            <div class="${classes.ikonContainer}">
+                ${Lock({
+                  width: '18px',
+                  height: '18px',
                 })}
             </div>${props.children}`,
   });
