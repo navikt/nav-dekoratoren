@@ -17,7 +17,7 @@ bun install
 
 ## Development
 
-Run `bun run dev` to start development server.
+Run `bun run dev` to start development server. The application is then available at http://localhost:8089.
 
 ### Updating snapshots
 
