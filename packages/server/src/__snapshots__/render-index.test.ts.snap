@@ -323,7 +323,7 @@ exports[`renders norwegian index 1`] = `
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class=""
+      <label for="inline-search-input" class="_bigLabel_1msoa_5"
         >Søk på nav.no</label
       >
       <div class="inline-search-input-container">
@@ -454,7 +454,7 @@ exports[`renders norwegian index 1`] = `
           <span class="icon-button-span"> Meny </span>
         </button>
         
-    <button class=" ">
+    <button class="_iconButton_1b2de_1 _searchButton_1g2nd_1">
       
     <svg
       class="searchIcon menuSearch"
@@ -479,15 +479,15 @@ exports[`renders norwegian index 1`] = `
       <path class="menuSearch__line-4" d="m15 15 7 7"></path>
     </svg>
   
-      <span class=""> Søk </span>
+      <span class="_iconButtonSpan_1b2de_29"> Søk </span>
     </button>
-    <div class="">
-      <div class="">
-        <label for="" class=""
+    <div class="_sokDropdown_1g2nd_4">
+      <div class="_sokDropdownContent_1g2nd_21">
+        <label for="_searchInput_1g2nd_26" class="_bigLabel_1msoa_5"
           >Søk på nav.no</label
         >
         <div class="flex">
-          <input class="" type="text" />
+          <input class="_searchInput_1g2nd_26" type="text" />
           
     <button
       id=""
@@ -1744,7 +1744,7 @@ exports[`renders english index 1`] = `
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class=""
+      <label for="inline-search-input" class="_bigLabel_1msoa_5"
         >Søk på nav.no</label
       >
       <div class="inline-search-input-container">
@@ -1875,7 +1875,7 @@ exports[`renders english index 1`] = `
           <span class="icon-button-span"> Menu </span>
         </button>
         
-    <button class=" ">
+    <button class="_iconButton_1b2de_1 _searchButton_1g2nd_1">
       
     <svg
       class="searchIcon menuSearch"
@@ -1900,15 +1900,15 @@ exports[`renders english index 1`] = `
       <path class="menuSearch__line-4" d="m15 15 7 7"></path>
     </svg>
   
-      <span class=""> Search </span>
+      <span class="_iconButtonSpan_1b2de_29"> Search </span>
     </button>
-    <div class="">
-      <div class="">
-        <label for="" class=""
+    <div class="_sokDropdown_1g2nd_4">
+      <div class="_sokDropdownContent_1g2nd_21">
+        <label for="_searchInput_1g2nd_26" class="_bigLabel_1msoa_5"
           >Search nav.no</label
         >
         <div class="flex">
-          <input class="" type="text" />
+          <input class="_searchInput_1g2nd_26" type="text" />
           
     <button
       id=""
