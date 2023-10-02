@@ -1,4 +1,5 @@
 import { type Params } from 'decorator-shared/params';
+import { Texts } from 'decorator-shared/types';
 
 export function replaceElement({
   selector,
@@ -79,4 +80,13 @@ export function hydrateParams(): Params {
   }
 
   throw new Error('Could not find params');
+}
+
+export function hydrateTexts(): Texts {
+  const decoratorData = JSON.parse(
+    document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
+  );
+
+  const { texts } = decoratorData;
+  return texts as Texts;
 }

@@ -548,7 +548,6 @@ a {
   padding-bottom: 1rem /* 16px */;
   padding-left: 0.5rem /* 8px */;
   padding-right: 1rem /* 16px */;
-
   border-bottom: 1px solid rgba(207, 207, 207, 1);
 }
 
@@ -567,6 +566,10 @@ a {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+
+.button-wrapper.small-gap {
+  gap: var(--a-spacing-2);
 }
 
 .button {
@@ -596,6 +599,20 @@ a {
 
 .button-secondary.big-label {
   color: rgb(0, 103, 197);
+}
+
+.button-outline {
+  background-color: white;
+  border: 2px solid var(--a-blue-500);
+  color: var(--a-blue-500);
+}
+
+.button-outline.wide {
+  min-width: 109px;
+}
+
+.button-outline:hover {
+  background-color: var(--a-blue-100);
 }
 
 .big-label {
@@ -655,28 +672,6 @@ a {
 .show-more a {
   text-decoration: underline;
   color: var(--a-surface-action);
-}
-
-#feedback {
-  border-top-width: 2px;
-  border-color: rgba(207, 207, 207, 1);
-  padding-top: 1rem /* 16px */;
-  padding-bottom: 1rem /* 16px */;
-}
-
-.feedback-content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  max-width: 48rem /* 768px */;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedback-content h2 {
-  font-size: 20px;
-  line-height: 28px;
 }
 
 .basic-link {

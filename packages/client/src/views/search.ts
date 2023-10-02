@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import { setAriaExpanded } from '../utils';
+import { SearchResult } from 'decorator-shared/types';
 // import SearchHit from './search-hit';
 //
 const events = {
@@ -16,17 +16,6 @@ export function asDefined<T>(value: T | undefined): NonNullable<T> {
   }
 
   return value as NonNullable<T>;
-}
-
-export function handleSearchButtonClick() {
-  const searchButton = document.getElementById('search-button');
-
-  searchButton?.addEventListener('click', () => {
-    setAriaExpanded(searchButton);
-    searchButton?.classList.toggle('active');
-    document.getElementById('sok-dropdown')?.classList.toggle('active');
-    document.getElementById('menu-background')?.classList.toggle('active');
-  });
 }
 
 export type SearchEvent = keyof typeof events;
@@ -70,7 +59,7 @@ export class InlineSearch extends HTMLElement {
             ?.classList.add('is-searching');
 
           fetch(`/api/sok?ord=${value}`)
-            .then((res) => res.json())
+            .then((res) => res.json() as Promise<SearchResult>)
             .then(({ hits }) => {
               // total
               //Stop showing loader
@@ -89,12 +78,15 @@ export class InlineSearch extends HTMLElement {
 
               searchHitsList.innerHTML = hits
                 .map(
-                  (hit: {
-                    displayName: string;
-                    highlight: string;
-                    href: string;
-                  }) => html`
-                    <search-hit href="${hit.href}">
+                  (
+                    hit: {
+                      displayName: string;
+                      highlight: string;
+                      href: string;
+                    },
+                    index,
+                  ) => html`
+                    <search-hit href="${hit.href}" data-index="${index}">
                       <h2 slot="title">${hit.displayName}</h2>
                       <p slot="description">${hit.highlight}</p>
                     </search-hit>
@@ -116,8 +108,21 @@ export class SearchHit extends HTMLElement {
     ) as HTMLTemplateElement;
     const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.appendChild(template.content.cloneNode(true));
+
+    const index = this.getAttribute('data-index')
+      ? parseInt(this.getAttribute('data-index') as string)
+      : 0;
     const href = this.getAttribute('href');
-    shadowRoot.querySelector('a')?.setAttribute('href', href as string);
+    const link = shadowRoot.querySelector('a');
+
+    link?.setAttribute('href', href as string);
+    link?.addEventListener('click', () => {
+      window.logAmplitudeEvent('resultat-klikk', {
+        destinasjon: '[redacted]',
+        sokeord: '[redacted]',
+        treffnr: index + 1,
+      });
+    });
   }
 }
 

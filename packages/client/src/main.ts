@@ -22,27 +22,46 @@ import './views/toggle-icon-button';
 import './views/search';
 import './views/loader';
 import './views/decorator-lens';
-import { AddSnarveierListener } from './views/header-menu-links';
 
-import { SearchShowMore } from './views/search-show-more';
-import html from 'decorator-shared/html';
 import { SearchEvent } from './views/search';
+
 import {
   hasClass,
   hydrateParams,
+  hydrateTexts,
   replaceElement,
   setAriaExpanded,
 } from './utils';
-import { type Context, type Params } from 'decorator-shared/params';
+
+import {
+  Environment,
+  type Context,
+  type Params,
+} from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
-import { handleSearchButtonClick } from './views/search';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { VarslerPopulated, fetchVarsler } from 'decorator-shared/views/varsler';
-import { attachArkiverListener } from './views/varsler';
+import {
+  VarselType,
+  VarslerPopulated,
+  fetchVarsler,
+  makeVarselAmplitudeEvent,
+} from './views/varsler';
+
 import { logoutWarningController } from './controllers/logout-warning';
-import { LenkeMedSporing } from './views/lenke-med-sporing';
-import { AnalyticsCategory } from './analytics/analytics';
+
+import {
+  addBreadcrumbEventListeners,
+  afterAuthListeners,
+  attachArkiverListener,
+  onLoadListeners,
+} from './listeners';
+
+import { type AnalyticsEventArgs } from './analytics/constants';
+import { Texts } from 'decorator-shared/types';
+import { handleSearchButtonClick } from './listeners/search-listener';
+
+// import { AnalyticsCategory } from './analytics/analytics';
 
 type Auth = {
   authenticated: boolean;
@@ -59,47 +78,42 @@ const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 // Basic setup for development with the decorator-params script tag.
 declare global {
   interface Window {
+    decoratorEnvironment: Environment;
     decoratorParams: Params;
+    texts: Texts;
     loginDebug: {
       expireToken: (seconds: number) => void;
       expireSession: (seconds: number) => void;
     };
+    analyticsEvent: (props: AnalyticsEventArgs) => void;
+    logPageView: (params: Params, authState: Auth) => Promise<unknown>;
+    logAmplitudeEvent: (
+      eventName: string,
+      eventData: Record<string, any>,
+      origin?: string,
+    ) => void;
   }
 }
 
-const decoratorData = JSON.parse(
-  document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
-);
-const { texts } = decoratorData;
+const texts = hydrateTexts();
+
+window.texts = texts;
+window.decoratorEnvironment = {
+  MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
+  LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
+  LOGOUT_URL: import.meta.env.VITE_LOGOUT_URL,
+  MIN_SIDE_ARBEIDSGIVER_URL: import.meta.env.VITE_MIN_SIDE_ARBEIDSGIVER_URL,
+};
 
 window.decoratorParams = hydrateParams();
-
-const addBreadcrumbEventListeners = () =>
-  document
-    .getElementById('breadcrumbs-wrapper')
-    ?.querySelectorAll('a[data-handle-in-app]')
-    .forEach((el) =>
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        window.postMessage({
-          source: 'decorator',
-          event: 'breadcrumbClick',
-          payload: {
-            url: el.getAttribute('href'),
-            title: el.innerHTML,
-            handleInApp:
-              el.getAttribute('data-handle-in-app') === 'true' ? true : false,
-          },
-        });
-      }),
-    );
 
 // Client side environment variables, mocking for now.
 
 // Initialize
-AddSnarveierListener();
-addBreadcrumbEventListeners();
+onLoadListeners({
+  texts,
+});
+
 attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
@@ -107,44 +121,7 @@ handleSearchButtonClick();
 if (window.decoratorParams.logoutWarning) {
   logoutWarningController(window.decoratorParams.logoutWarning, texts);
 }
-
 // Get the params this version of the decorator was initialized with
-document.getElementById('search-input')?.addEventListener('input', (e) => {
-  const { value } = e.target as HTMLInputElement;
-  if (value.length > 2) {
-    fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?ord=${value}`)
-      .then((res) => res.json())
-      .then(({ hits, total }) => {
-        replaceElement({
-          selector: '#search-hits > ul',
-          html: hits
-            .map(
-              (hit: {
-                displayName: string;
-                highlight: string;
-                href: string;
-              }) => html`
-                <search-hit href="${hit.href}">
-                  <h2 slot="title">${hit.displayName}</h2>
-                  <p slot="description">${hit.highlight}</p>
-                </search-hit>
-              `,
-            )
-            .join(''),
-        });
-
-        replaceElement({
-          selector: '#show-more',
-          html: SearchShowMore({
-            word: value,
-            total,
-          }),
-        });
-      });
-  }
-});
-
-// Listen for f5 input
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -348,46 +325,6 @@ menuBackground?.addEventListener('click', () => {
   ].forEach((el) => el && purgeActive(el));
 });
 
-// Feedback
-const buttons = document.querySelectorAll('.feedback-content button');
-
-buttons.forEach((button) => {
-  button.addEventListener('click', async () => {
-    const feedbackContent = document.querySelector('.feedback-content');
-    if (feedbackContent) {
-      feedbackContent.innerHTML = html`
-        <div class="text-center">
-          <h2>Takk!</h2>
-          <p class="my-1">
-            Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål
-            eller trenger du hjelp?
-          </p>
-          <a class="basic-link my-1" href="/kontaktoss"
-            >Ring, chat eller skriv til oss</a
-          >
-        </div>
-      `;
-    }
-  });
-});
-
-function attachAmplitudeLinks() {
-  document.body.addEventListener('click', (e) => {
-    if ((e.target as Element).classList.contains('amplitude-link')) {
-      alert('Found an ampltidude link');
-    }
-    if (
-      ((e.target as Element).parentNode as Element)?.classList.contains(
-        'amplitude-link',
-      )
-    ) {
-      alert('Found an ampltidude link');
-    }
-  });
-}
-
-attachAmplitudeLinks();
-
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.getElementById('menu-items');
   // Store a snapshot if user logs out
@@ -421,6 +358,8 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 api.checkAuth({
   onSuccess: async (response) => {
+    window.logPageView(window.decoratorParams, response);
+
     await populateLoggedInMenu(response);
 
     const varsler = await fetchVarsler();
@@ -440,10 +379,30 @@ api.checkAuth({
           texts,
           varslerData: varsler,
         });
+
+        const varslerIds = [
+          ...varsler.oppgaver.map((o) => o.eventId),
+          ...varsler.beskjeder.map((b) => b.eventId),
+        ];
+
+        const varslerEls = varslerIds.map((id) => document.getElementById(id));
+
+        varslerEls.forEach((el) => {
+          el?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const kind = el.getAttribute('data-kind');
+            const href = el.getAttribute('href');
+            window.logAmplitudeEvent(
+              'navigere',
+              makeVarselAmplitudeEvent(kind as VarselType, href as string),
+            );
+          });
+        });
       }
 
       // Attach arkiver listener
       attachArkiverListener();
+      afterAuthListeners();
     }
   },
 });
@@ -462,29 +421,29 @@ function handleLogin() {
 handleMenuButton();
 handleLogin();
 
-const main = document.querySelector('main');
-
-if (main) {
-  // main.insertAdjacentHTML(
-  //   'beforeend',
-  //   LenkeMedSporing({
-  //     href: 'https://www.nav.no',
-  //     children: 'Lenke med sporing',
-  //   }),
-  // );
-
-  main.insertAdjacentHTML(
-    'beforeend',
-    LenkeMedSporing({
-      href: 'https://www.nav.no!',
-      children: 'Lenke med sporing!',
-      withChevron: true,
-      analyticsEventArgs: {
-        eventName: 'decorator_next/test',
-        category: AnalyticsCategory.Footer,
-        action: `kontakt/oss`,
-        label: 'Lenke',
-      },
-    }),
-  );
-}
+// const main = document.querySelector('main');
+//
+// document.querySelector('#amplitude-test')?.addEventListener('click', () => {
+//   console.log('Hello');
+//
+//   (window as any).analyticsEventTest({
+//     body: 'It is working',
+//   });
+// });
+//
+// if (main) {
+//   main.insertAdjacentHTML(
+//     'beforeend',
+//     LenkeMedSporing({
+//       href: 'https://www.nav.no!',
+//       children: 'Lenke med sporing!',
+//       withChevron: true,
+//       analyticsEventArgs: {
+//         eventName: 'decorator_next/test',
+//         category: AnalyticsCategory.Footer,
+//         action: `kontakt/oss`,
+//         label: 'Lenke',
+//       },
+//     }),
+//   );
+// }

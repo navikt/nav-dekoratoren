@@ -3,22 +3,29 @@ import { Texts } from 'decorator-shared/types';
 import { IconButton } from 'decorator-shared/views/components/icon-button';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
 
+// @fix typescript error
+import utilClasses from 'decorator-client/src/styles/utils.module.css';
+import buttonStyles from 'decorator-client/src/styles/buttons.module.css';
+import classes from 'decorator-client/src/styles/search.module.css';
+
 export default function Search({ texts }: { texts: Texts }) {
   return html`
-    <button id="search-button" class="icon-button">
+    <button class="${buttonStyles.iconButton} ${classes.searchButton}">
       ${SearchIcon({
         className: 'searchIcon menuSearch',
       })}
-      <span class="icon-button-span"> ${texts.search} </span>
+      <span class="${buttonStyles.iconButtonSpan}"> ${texts.search} </span>
     </button>
-    <div id="sok-dropdown">
-      <div id="sok-dropdown-content">
-        <label for="search-input" class="big-label">Søk på nav.no</label>
+    <div class="${classes.sokDropdown}">
+      <div class="${classes.sokDropdownContent}">
+        <label for="${classes.searchInput}" class="${utilClasses.bigLabel}"
+          >${texts.sok_knapp_sokefelt}</label
+        >
         <div class="flex">
-          <input id="search-input" type="text" />
+          <input class="${classes.searchInput}" type="text" />
           ${IconButton({
             Icon: SearchIcon,
-            text: 'Søk',
+            text: texts.search,
             className: 'blue-bg-icon',
           })}
         </div>

@@ -23,6 +23,7 @@ export async function checkAuth({
     const response = await fetchResponse.json();
 
     if (!response.authenticated) {
+      onSuccess && onSuccess(response);
       return;
     }
 

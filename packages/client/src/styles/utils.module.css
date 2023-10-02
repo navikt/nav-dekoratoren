@@ -1,0 +1,10 @@
+.textCenter {
+  text-align: center;
+}
+
+.bigLabel {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  display: block;
+}

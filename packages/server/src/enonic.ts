@@ -1,6 +1,6 @@
 import { Node } from 'decorator-shared/types';
 import { env } from './env/server';
-import { SearchResult } from './types';
+import { SearchResult } from 'decorator-shared/types';
 
 export const fetchMenu: () => Promise<Node[]> = () =>
   fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`).then((response) =>
