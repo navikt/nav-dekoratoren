@@ -1,16 +1,18 @@
 import html from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
-import clientManifest from 'decorator-client/dist/manifest.json';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 
 const entryPointPath = 'src/main.ts';
 const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
-const Links = () =>
+const getManifest = async () =>
+  (await import('decorator-client/dist/manifest.json')).default;
+
+const Links = async () =>
   process.env.NODE_ENV === 'production'
     ? [
-        ...clientManifest[entryPointPath].css.map(
+        ...(await getManifest())[entryPointPath].css.map(
           (href: string) =>
             `<link type="text/css" rel="stylesheet" href="${
               process.env.HOST ?? ``
@@ -20,7 +22,7 @@ const Links = () =>
     : '';
 
 // This can be calcualted once at startup
-const Scripts = () => {
+const Scripts = async () => {
   const script = (src: string) =>
     `<script type="module" src="${src}"></script>`;
 
@@ -31,12 +33,12 @@ const Scripts = () => {
     ? [
         script(
           `${process.env.HOST ?? ``}/public/${
-            clientManifest[entryPointPath].file
+            (await getManifest())[entryPointPath].file
           }`,
         ),
         partytownScript(
           `${process.env.HOST ?? ``}/public/${
-            clientManifest[entryPointPathAnalytics].file
+            (await getManifest())[entryPointPathAnalytics].file
           }`,
         ),
       ].join('')
@@ -49,7 +51,7 @@ const Scripts = () => {
         .join('');
 };
 
-export function Index({
+export async function Index({
   language,
   header,
   feedback,
@@ -81,7 +83,7 @@ export function Index({
         ${Partytown()}
       </head>
       <body>
-        <div id="styles" style="display:none">${Links()}</div>
+        <div id="styles" style="display:none">${await Links()}</div>
         ${WebcomponentTemplates()} ${header}
         <main>
           <button class="button button-main" id="amplitude-test">
@@ -93,7 +95,7 @@ export function Index({
         </div>
         ${lens}
         <div id="scripts" style="display:none">
-          ${Scripts()}${decoratorData}
+          ${await Scripts()}${decoratorData}
         </div>
       </body>
     </html>
