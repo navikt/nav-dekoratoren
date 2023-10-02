@@ -1,8 +1,8 @@
 import html from 'decorator-shared/html';
-import { Lock } from 'decorator-shared/views/icons/lock';
+// import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 
-import classes from './lenke-med-sporing.module.css';
+import classes from '../styles/lenke-med-sporing.module.css';
 import type { AnalyticsEventArgs } from '../analytics/constants';
 
 // @TODO Split up visual itnto seperate components
@@ -17,9 +17,6 @@ export class LenkeMedSporingElement extends HTMLElement {
     a.className = classes.lenkeMedSporing;
 
     const attrs = [
-      'data-with-chevron',
-      'data-with-lock',
-      'data-children',
       'data-class-name',
       'data-class-name-override',
       // Standard
@@ -29,8 +26,10 @@ export class LenkeMedSporingElement extends HTMLElement {
       'lang',
     ];
     const data = attrs.map((attr) => this.getAttribute(attr) || '');
-    const [withChevron, withLock, children, className, classNameOverride] =
-      data;
+    const children = this.querySelector('#children')?.innerHTML || '';
+    this.innerHTML = '';
+    a.innerHTML = children;
+    const [className, classNameOverride] = data;
     const rawEventArgs = this.getAttribute('data-analytics-event-args');
     const eventArgs = rawEventArgs
       ? (JSON.parse(rawEventArgs || '{}') as AnalyticsEventArgs)
@@ -47,29 +46,37 @@ export class LenkeMedSporingElement extends HTMLElement {
       }
     });
 
-    a.classList.add(classNameOverride || classes.dekoratorLenke);
+    if (className) {
+      a.className = className;
+      // a.classList.add(className || '');
+    }
+
+    if (classNameOverride) {
+      console.log('This is hit');
+      a.classList.add(classNameOverride);
+    } else {
+      console.log('This is not hit');
+      a.classList.add(classes.dekoratorLenke);
+    }
+
     a.classList.add(classes.lenkeMedSporing);
 
-    if (className) {
-      a.classList.add(className || '');
-    }
+    // if (withChevron) {
+    //   a.classList.add(classes.chevronLenke);
+    // }
 
-    if (withChevron) {
-      a.classList.add(classes.chevronLenke);
-    }
-
-    if (withChevron || withLock) {
-      a.innerHTML = html`
-        <div class="${classes.ikonContainer}">
-          ${withLock
-            ? Lock({ height: '18px', width: '18px' })
-            : withChevron
-            ? Next()
-            : ''}
-        </div>
-        ${children}
-      `;
-    }
+    // if (withChevron || withLock) {
+    //   a.innerHTML = html`
+    //     <div class="${classes.ikonContainer}">
+    //       ${withLock
+    //         ? Lock({ height: '18px', width: '18px' })
+    //         : withChevron
+    //         ? Next()
+    //         : ''}
+    //     </div>
+    //     ${children}
+    //   `;
+    // }
 
     this.appendChild(a);
   }
@@ -91,8 +98,8 @@ type LenkeMedSporingProps = {
   analyticsEventArgs?: AnalyticsEventArgs;
   classNameOverride?: string;
   className?: string;
-  withChevron?: boolean;
-  withLock?: boolean;
+  // withChevron?: boolean;
+  // withLock?: boolean;
   // @todo: definer en global funksjon her som kan kalles
   closeMenusOnClick?: boolean;
   tabIndex?: number;
@@ -100,6 +107,10 @@ type LenkeMedSporingProps = {
 };
 
 export function LenkeMedSporing(props: LenkeMedSporingProps) {
+  const className = props.className || '';
+  const classNameOverride = props.classNameOverride || '';
+  // Added this here so that the JSON string is not malformed
+  // prettier-ignore
   return html`
     <lenke-med-sporing
       role="${props.role}"
@@ -107,13 +118,29 @@ export function LenkeMedSporing(props: LenkeMedSporingProps) {
       id="${props.id}"
       tabindex="${props.tabIndex}"
       lang="${props.lang}"
-      data-with-chevron="${props.withChevron}"
-      data-analytics-event-args="${JSON.stringify(props.analyticsEventArgs)}"
-      data-with-lock="${props.withLock}"
-      data-children="${props.children}"
-      data-class-name-override="${props.classNameOverride}"
-      data-class-name="${props.className}"
+      data-analytics-event-args='${JSON.stringify(props.analyticsEventArgs)}'
+      data-class-name-override="${classNameOverride}"
+      data-class-name="${className}"
     >
+    <div id="children">${props.children}</div>
     </lenke-med-sporing>
   `;
+}
+
+// data-with-chevron="${props.withChevron}"
+// data-with-lock="${props.withLock}"
+export function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
+  const className = props.className || '';
+
+  return LenkeMedSporing({
+    ...props,
+    className: `${className} ${classes.chevronlenke}`,
+    classNameOverride: '',
+    children: `
+            <div class="${classes.ikonContainer}">
+                ${Next({
+                  className: classes.chevron,
+                })}
+            </div>${props.children}`,
+  });
 }

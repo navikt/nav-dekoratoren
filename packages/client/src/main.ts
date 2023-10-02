@@ -57,9 +57,17 @@ import {
   onLoadListeners,
 } from './listeners';
 
-import { type AnalyticsEventArgs } from './analytics/constants';
+import {
+  AnalyticsCategory,
+  type AnalyticsEventArgs,
+} from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
+import {
+  LenkeMedSporing,
+  LenkeMedSporingChevron,
+} from './views/lenke-med-sporing';
+import html from 'decorator-shared/html';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -421,29 +429,46 @@ function handleLogin() {
 handleMenuButton();
 handleLogin();
 
-// const main = document.querySelector('main');
-//
-// document.querySelector('#amplitude-test')?.addEventListener('click', () => {
-//   console.log('Hello');
-//
-//   (window as any).analyticsEventTest({
-//     body: 'It is working',
-//   });
-// });
-//
-// if (main) {
-//   main.insertAdjacentHTML(
-//     'beforeend',
-//     LenkeMedSporing({
-//       href: 'https://www.nav.no!',
-//       children: 'Lenke med sporing!',
-//       withChevron: true,
-//       analyticsEventArgs: {
-//         eventName: 'decorator_next/test',
-//         category: AnalyticsCategory.Footer,
-//         action: `kontakt/oss`,
-//         label: 'Lenke',
-//       },
-//     }),
-//   );
-// }
+const main = document.querySelector('main');
+
+document.querySelector('#amplitude-test')?.addEventListener('click', () => {
+  console.log('Hello');
+
+  (window as any).analyticsEventTest({
+    body: 'It is working',
+  });
+});
+
+if (main) {
+  const lenke = LenkeMedSporing({
+    href: 'https://www.nav.no!',
+    children: 'Lenke med sporing!',
+    analyticsEventArgs: {
+      eventName: 'decorator_next/test',
+      category: AnalyticsCategory.Footer,
+      action: 'kontakt/oss',
+      label: 'Lenke',
+    },
+  });
+
+  const lenke2 = LenkeMedSporingChevron({
+    href: 'https://www.nav.no!',
+    children: 'Annen lenke',
+    analyticsEventArgs: {
+      eventName: 'decorator_next/test',
+      category: AnalyticsCategory.Footer,
+      action: 'kontakt/oss',
+      label: 'Lenke',
+    },
+  });
+
+  console.log(lenke2);
+
+  main.insertAdjacentHTML(
+    'beforeend',
+    html`<div style="background-color: gray;">
+      <h2>Lenke med sporing</h2>
+      <div>${lenke} ${lenke2}</div>
+    </div> `,
+  );
+}
