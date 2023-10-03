@@ -14,3 +14,4 @@ storybook-static/
 !.yarn/sdks
 !.yarn/versions
 .eslintcache
+.DS_Store
