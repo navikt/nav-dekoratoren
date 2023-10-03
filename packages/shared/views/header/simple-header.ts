@@ -29,7 +29,7 @@ export function SimpleHeader({
       <header class="siteheader">
         <div class="hovedmeny-wrapper">
           <div class="hovedmeny-content">
-            <img src="/ikoner/meny/nav-logo-black.svg" alt="NAV" />
+            <img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV" />
           </div>
           ${SimpleHeaderNavbarItems({
             innlogget,
