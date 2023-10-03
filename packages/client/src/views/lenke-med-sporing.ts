@@ -27,8 +27,10 @@ export class LenkeMedSporingElement extends HTMLElement {
     ];
     const data = attrs.map((attr) => this.getAttribute(attr) || '');
     const children = this.querySelector('#children')?.innerHTML || '';
+
     this.innerHTML = '';
     a.innerHTML = children;
+
     const [className, classNameOverride] = data;
     const rawEventArgs = this.getAttribute('data-analytics-event-args');
     const eventArgs = rawEventArgs

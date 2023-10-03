@@ -3,6 +3,10 @@ import html from '../../html';
 import { ForwardChevron } from '../icons/forward-chevron';
 import { Context } from '../../params';
 
+import classes from 'decorator-client/src/styles/header.module.css';
+import contextMenuLinkClasses from 'decorator-client/src/styles/context-menu-link.module.css';
+import clsx from 'clsx';
+
 function Link({
   path,
   displayName,
@@ -15,8 +19,8 @@ function Link({
   className?: string;
 }) {
   return html`
-    <li class="header-menu-link ${className}" id="${id}">
-      <div class="header-menu-link-inner">${ForwardChevron()}</div>
+    <li class="${clsx([classes.menuLink, className])}" id="${id}">
+      <div class="${classes.menuLinkInner}">${ForwardChevron()}</div>
       <a href="${path}">${displayName}</a>
     </li>
   `;
@@ -39,10 +43,13 @@ function ContextLink({
       href="${context}"
       data-context="${context}"
     >
-      <li class="context-menu-link ${className}" id="${id}">
-        <div class="context-menu-link-inner">
+      <li
+        class="${clsx([contextMenuLinkClasses.contextMenuLink, className])}"
+        id="${id}"
+      >
+        <div class="${contextMenuLinkClasses.inner}">
           ${ForwardChevron({
-            className: 'chevron',
+            className: contextMenuLinkClasses.chevron,
           })}
         </div>
         <span>${displayName}</span>

@@ -1,0 +1,55 @@
+.contextMenuLink {
+  display: flex;
+  align-items: center;
+  color: var(--a-text-action);
+  padding: var(--a-spacing-5);
+  padding-left: var(--a-spacing-2);
+  cursor: pointer;
+}
+
+.contextMenuLink .chevron {
+  fill: var(--a-text-action);
+  stroke: var(--a-text-action);
+  margin-top: -4px;
+}
+
+.contextMenuLink span {
+  order: 2;
+  font-size: 1.2rem; /* var(--a-font-size-heading-small); */
+  font-weight: bold;
+}
+
+.inner {
+  color: rgba(0, 103, 197, 1);
+  margin-right: var(--a-spacing-2);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  order: 1;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.contextMenuLink:hover {
+  background-color: var(--a-blue-500);
+  color: white;
+  border-radius: 4px;
+}
+
+.contextMenuLink:is(:hover, :focus) .inner {
+  color: white;
+  stroke: white;
+}
+
+.contextMenuLink:is(:hover, :focus) .chevron {
+  fill: white;
+  stroke: white;
+}
+
+.contextMenuLink:is(:hover, :focus) .inner {
+  transform: translateX(8px);
+}
+
+.contextMenuLink:is(:hover, :focus) span {
+  text-decoration-line: underline;
+  text-underline-offset: var(--a-spacing-1);
+}

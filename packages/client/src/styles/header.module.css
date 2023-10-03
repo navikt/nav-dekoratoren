@@ -1,0 +1,33 @@
+.menuLink {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.5rem /* 8px */;
+  padding-bottom: 0.5rem /* 8px */;
+}
+
+.menuLink svg {
+  fill: var(--a-text-action);
+  stroke: var(--a-text-action);
+}
+
+.menuLink a {
+  order: 2;
+  color: var(--a-text-action);
+}
+
+.menuLink:is(:hover, :focus) .menuLinkInner {
+  transform: translateX(8px);
+}
+
+.menuLink:is(:hover, :focus) a {
+  text-decoration-line: underline;
+}
+
+.menuLinkInner {
+  color: rgba(0, 103, 197, 1);
+  margin-right: 16px;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.headerMenuLinks {
+}

@@ -12,6 +12,10 @@ plugin({
         }),
       ]).process(await Bun.file(path).text(), { from: path });
 
+      // get the file name
+      console.log(path);
+      console.log(val.messages);
+
       return {
         exports: {
           default: val.messages.find(
