@@ -15,6 +15,10 @@
   color: var(--a-text-action);
 }
 
+.menuLink.mobile {
+  display: none;
+}
+
 .menuLink:is(:hover, :focus) .menuLinkInner {
   transform: translateX(8px);
 }
@@ -30,4 +34,46 @@
 }
 
 .headerMenuLinks {
+  display: grid;
+}
+
+.headerMenuLinks.isSearching {
+  display: none;
+}
+
+.headerMenuLinks:global(.cols-5) {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.headerMenuLinks:global(.cols-4) {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.headerMenuLinks:global(.cols-3) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* @TODO: define typography helpers */
+.headerMenuLinks h3 {
+  font-size: 1.25rem /* 20px */;
+  font-weight: 600;
+}
+
+.nestedLink {
+  display: none;
+}
+
+@media (--breakpoint-lg) {
+  .headerMenuLinks .nestedLink {
+    display: flex;
+  }
+
+  /* Hide direct */
+  .headerMenuLinks .nested > h3 {
+    display: none;
+  }
+
+  .headerMenuLinks .nested > ul {
+    display: none;
+  }
 }

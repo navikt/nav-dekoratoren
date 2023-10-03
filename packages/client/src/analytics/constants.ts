@@ -2,12 +2,11 @@
 
 import { MenuValue } from 'decorator-shared/types';
 
-export enum AnalyticsCategory {
-  Header = 'dekorator-header',
-  Footer = 'dekorator-footer',
-  Meny = 'dekorator-meny',
-  Varsler = 'varsler',
-}
+export type AnalyticsCategory =
+  | 'dekorator-header'
+  | 'dekorator-footer'
+  | 'dekorator-meny'
+  | 'varsler';
 
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;
@@ -17,10 +16,12 @@ export const analyticsEvents = {
     'arkivert-beskjed',
     {
       komponent: 'varsler-beskjed-arkiverbar',
-      category: AnalyticsCategory.Varsler,
+      category: 'varsler' satisfies AnalyticsCategory,
     },
   ],
 } as const;
+
+export type Lenkegruppe = 'innlogget meny';
 
 export type AnalyticsEventArgs = {
   eventName?: string;
@@ -30,5 +31,5 @@ export type AnalyticsEventArgs = {
   destination?: string;
   label?: string;
   komponent?: string;
-  lenkegruppe?: string;
+  lenkegruppe?: Lenkegruppe;
 };

@@ -14,6 +14,7 @@ export type Node = {
   flatten?: boolean;
   id: string;
   isActive?: boolean;
+  isMyPageMenu?: boolean;
 };
 
 export type Link = {

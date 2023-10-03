@@ -57,17 +57,10 @@ import {
   onLoadListeners,
 } from './listeners';
 
-import {
-  AnalyticsCategory,
-  type AnalyticsEventArgs,
-} from './analytics/constants';
+import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
-import {
-  LenkeMedSporing,
-  LenkeMedSporingChevron,
-  LenkeMedSporingLock,
-} from './views/lenke-med-sporing';
+import { LenkeMedSporing } from './views/lenke-med-sporing-helpers';
 import html from 'decorator-shared/html';
 
 // import { AnalyticsCategory } from './analytics/analytics';
@@ -446,29 +439,29 @@ if (main) {
     children: 'Lenke med sporing!',
     analyticsEventArgs: {
       eventName: 'decorator_next/test',
-      category: AnalyticsCategory.Footer,
+      category: 'dekorator-footer',
       action: 'kontakt/oss',
       label: 'Lenke',
     },
   });
 
-  const lenke2 = LenkeMedSporingChevron({
+  const lenke2 = LenkeMedSporing({
     href: 'https://www.nav.no!',
     children: 'Annen lenke',
     analyticsEventArgs: {
       eventName: 'decorator_next/test',
-      category: AnalyticsCategory.Footer,
+      category: 'dekorator-footer',
       action: 'kontakt/oss',
       label: 'Lenke',
     },
   });
 
-  const lenke3 = LenkeMedSporingLock({
+  const lenke3 = LenkeMedSporing({
     href: 'https://www.nav.no!',
     children: 'Annen lenke',
     analyticsEventArgs: {
       eventName: 'decorator_next/test',
-      category: AnalyticsCategory.Footer,
+      category: 'dekorator-footer',
       action: 'kontakt/oss',
       label: 'Lenke',
     },

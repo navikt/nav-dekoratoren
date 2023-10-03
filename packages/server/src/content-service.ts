@@ -3,6 +3,7 @@ import { Context, Language } from 'decorator-shared/params';
 import { texts } from './texts';
 import html from 'decorator-shared/html';
 
+// @TODO: Inlined async calls to fetchMenu causes it to be called many times on startup. Refactor to reduce calls made.
 export default class ContentService {
   constructor(
     private fetchMenu: () => Promise<Node[]>,

@@ -5,23 +5,33 @@ import { Context } from '../../params';
 
 import classes from 'decorator-client/src/styles/header.module.css';
 import contextMenuLinkClasses from 'decorator-client/src/styles/context-menu-link.module.css';
+import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
 import clsx from 'clsx';
+import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
 
 function Link({
   path,
   displayName,
   id,
   className,
+  analyticsEventArgs,
 }: {
   path?: string;
   displayName?: string;
+  analyticsEventArgs?: AnalyticsEventArgs;
   id?: string;
-  className?: string;
+  className?: clsx.ClassValue;
 }) {
   return html`
     <li class="${clsx([classes.menuLink, className])}" id="${id}">
-      <div class="${classes.menuLinkInner}">${ForwardChevron()}</div>
-      <a href="${path}">${displayName}</a>
+      ${LenkeMedSporing(
+        {
+          href: path as string,
+          children: displayName as string,
+          analyticsEventArgs,
+        },
+        'chevron',
+      )}
     </li>
   `;
 }
@@ -35,7 +45,7 @@ function ContextLink({
   context: Context;
   displayName?: string;
   id?: string;
-  className?: string;
+  className?: clsx.ClassValue;
 }) {
   return html`
     <a
@@ -71,20 +81,41 @@ export function HeaderMenuLinks({
 }) {
   // Add one for the conext links
   return html`
-    <ul class="header-menu-links cols-${(cols + 1).toString()} ${className}">
+    <ul
+      class="${clsx([
+        classes.headerMenuLinks,
+        `cols-${(cols + 1).toString()}`,
+        className,
+      ])}"
+    >
       ${headerMenuLinks.map(
         (link) => html`
-          <li id="${link.id}" class="${link.flatten ? 'flatten' : 'nested'}">
+          <li
+            id="${link.id}"
+            class="${link.flatten ? classes.flatten : classes.nested}"
+          >
             <h3>${link.displayName}</h3>
             <ul>
-              ${link.children.map((child) => Link(child))}
+              ${link.children.map((child) =>
+                Link({
+                  ...child,
+                  analyticsEventArgs: {
+                    category: 'dekorator-meny',
+                    action: `${link.displayName}/${child.displayName}`,
+                    label: child.path,
+                    ...(child.isMyPageMenu && {
+                      lenkegruppe: 'innlogget meny',
+                    }),
+                  },
+                }),
+              )}
             </ul>
             ${!link.flatten &&
             Link({
               id: `${link.id}_link`,
               displayName: link.displayName,
               path: link.path,
-              className: 'nested-link',
+              className: classes.nestedLink,
             })}
           </li>
         `,
@@ -92,8 +123,9 @@ export function HeaderMenuLinks({
       ${Link({
         displayName: 'Logg inn på min side',
         path: '#',
-        className: 'mobile',
+        className: classes.mobile,
       })}
+
       <li>
         <ul id="menu-context-links">
           ${ContextLink({
