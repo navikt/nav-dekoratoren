@@ -1,3 +1,10 @@
+export enum MenuValue {
+  PRIVATPERSON = 'privatperson',
+  ARBEIDSGIVER = 'arbeidsgiver',
+  SAMARBEIDSPARTNER = 'samarbeidspartner',
+  IKKEBESTEMT = 'IKKEBESTEMT',
+}
+
 export type Node = {
   children: Node[];
   displayName: string;
@@ -44,10 +51,36 @@ export type Texts = {
   session_warning_body: string;
   yes: string;
   ok: string;
+  no: string;
+  sok_knapp_sokefelt: string;
+  hensikt_med_tilbakemelding: string;
+  hensikt_med_tilbakemelding_lenke: string;
+  send_undersokelse_takk: string;
 };
 
 export type Driftsmelding = {
   heading: string;
   url: string;
   urlscope: string[];
+};
+
+export type WithTexts<T = object> = T & {
+  texts: Texts;
+};
+
+export type SearchHit = {
+  audience: string[];
+  createdTime: string;
+  modifiedTime: string;
+  displayName: string;
+  highlight: string;
+  href: string;
+  language: string;
+  hideModifiedDate: boolean;
+  hidePublishDate: boolean;
+};
+
+export type SearchResult = {
+  hits: SearchHit[];
+  total: number;
 };

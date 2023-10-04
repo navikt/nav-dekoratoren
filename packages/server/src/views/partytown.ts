@@ -9,7 +9,8 @@ export function Partytown() {
   return html`
     <script>
       partytown = {
-        forward: ['dataLayer.push'],
+        debug: true,
+        forward: ['analyticsEventTest'],
       };
     </script>
     <script>

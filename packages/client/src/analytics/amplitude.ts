@@ -62,17 +62,18 @@ const logEventFromApp = (params?: {
 };
 
 export const logPageView = (params: Params, authState: Auth) => {
+  console.log('Logging page view', params, authState);
   return logAmplitudeEvent('besøk', {
     sidetittel: document.title,
     innlogging: authState.securityLevel ?? false,
     parametre: {
       ...params,
-      // BREADCRUMBS: !!(params?.BREADCRUMBS && params.BREADCRUMBS.length > 0),
-      // ...(params.AVAILABLE_LANGUAGES && {
-      //   AVAILABLE_LANGUAGES: params.AVAILABLE_LANGUAGES.map(
-      //     (lang) => lang.locale,
-      //   ),
-      // }),
+      BREADCRUMBS: !!(params?.breadcrumbs && params.breadcrumbs.length > 0),
+      ...(params.availableLanguages && {
+        availableLanguages: params.availableLanguages.map(
+          (lang) => lang.locale,
+        ),
+      }),
     },
   });
 };
@@ -80,8 +81,13 @@ export const logPageView = (params: Params, authState: Auth) => {
 export const logAmplitudeEvent = (
   eventName: string,
   eventData: EventData = {},
-  origin = 'dekoratøren',
+  origin = 'decorator-next',
 ) => {
+  console.table({
+    eventName,
+    eventData,
+    origin,
+  });
   return new Promise((resolve) => {
     amplitude.getInstance().logEvent(
       eventName,

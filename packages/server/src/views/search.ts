@@ -2,6 +2,9 @@ import html from 'decorator-shared/html';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
 import { CloseIcon } from 'decorator-shared/views/icons/close';
 
+import utilClasses from 'decorator-client/src/styles/utils.module.css';
+
+// @TODO: Texts må inn her
 export function InlineSearchTemplate() {
   return html` <template id="inline-search-template">
     <style>
@@ -99,7 +102,9 @@ export function InlineSearchTemplate() {
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class="big-label">Søk på nav.no</label>
+      <label for="inline-search-input" class="${utilClasses.bigLabel}"
+        >Søk på nav.no</label
+      >
       <div class="inline-search-input-container">
         <input id="inline-search-input" class="decorator-input" type="text" />
         <button class="search-icon-button">

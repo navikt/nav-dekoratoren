@@ -1,12 +1,11 @@
 import html from 'decorator-shared/html';
-import {
-  analyticsEvent,
-  type AnalyticsEventArgs,
-} from '../analytics/analytics';
 import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 
 import classes from './lenke-med-sporing.module.css';
+import type { AnalyticsEventArgs } from '../analytics/constants';
+
+// @TODO Split up visual itnto seperate components
 
 export class LenkeMedSporingElement extends HTMLElement {
   constructor() {
@@ -44,7 +43,7 @@ export class LenkeMedSporingElement extends HTMLElement {
 
     a.addEventListener('click', () => {
       if (eventArgs) {
-        analyticsEvent(eventArgs);
+        window.analyticsEvent(eventArgs);
       }
     });
 
@@ -109,8 +108,8 @@ export function LenkeMedSporing(props: LenkeMedSporingProps) {
       tabindex="${props.tabIndex}"
       lang="${props.lang}"
       data-with-chevron="${props.withChevron}"
-      data-with-lock="${props.withLock}"
       data-analytics-event-args="${JSON.stringify(props.analyticsEventArgs)}"
+      data-with-lock="${props.withLock}"
       data-children="${props.children}"
       data-class-name-override="${props.classNameOverride}"
       data-class-name="${props.className}"
