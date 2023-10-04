@@ -1,12 +1,13 @@
 import { Link } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
+import cls from 'decorator-shared/utilities.module.css';
 import classes from 'decorator-client/src/styles/simple-footer.module.css';
 
 export type SimpleFooterProps = { links: Link[] };
 
 export const SimpleFooter = ({ links }: SimpleFooterProps) => html`
   <footer class="${classes.simpleFooter}">
-    <ul class="${classes.footerLinkList}">
+    <ul class="${classes.footerLinkList} ${cls.contentContainer}">
       ${links.map(
         ({ content, url }) => html`
           <li>

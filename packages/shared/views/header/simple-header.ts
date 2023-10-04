@@ -4,6 +4,7 @@ import type {
   UtilsBackground,
 } from 'decorator-shared/params';
 import html from 'decorator-shared/html';
+import cls from 'decorator-shared/utilities.module.css';
 import { Texts } from 'decorator-shared/types';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import LanguageSelector from 'decorator-shared/views/language-selector';
@@ -27,7 +28,7 @@ export function SimpleHeader({
     <div id="header-withmenu">
       <div id="menu-background"></div>
       <header class="siteheader">
-        <div class="hovedmeny-wrapper">
+        <div class="hovedmeny-wrapper ${cls.contentContainer}">
           <div class="hovedmeny-content">
             <img src="/ikoner/meny/nav-logo-black.svg" alt="NAV" />
           </div>

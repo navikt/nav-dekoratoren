@@ -1,4 +1,5 @@
 import { LinkGroup } from 'decorator-shared/types';
+import cls from 'decorator-shared/utilities.module.css';
 import html from 'decorator-shared/html';
 
 export type ComplexFooterProps = {
@@ -9,7 +10,7 @@ export type ComplexFooterProps = {
 export function ComplexFooter({ texts, links }: ComplexFooterProps) {
   return html`
     <footer class="footer">
-      <div class="footer-content">
+      <div class="footer-content ${cls.contentContainer}">
         <a class="to-top-link" href="#">
           <svg
             width="1em"
