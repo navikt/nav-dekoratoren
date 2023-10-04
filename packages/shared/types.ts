@@ -1,3 +1,10 @@
+export enum MenuValue {
+  PRIVATPERSON = 'privatperson',
+  ARBEIDSGIVER = 'arbeidsgiver',
+  SAMARBEIDSPARTNER = 'samarbeidspartner',
+  IKKEBESTEMT = 'IKKEBESTEMT',
+}
+
 export type Node = {
   children: Node[];
   displayName: string;
@@ -26,27 +33,54 @@ export type Texts = {
   search: string;
   login: string;
   logout: string;
-  varsler: string;
-  varsler_tom_liste: string;
-  varsler_tom_liste_ingress: string;
-  varsler_vis_alle: string;
-  varsler_beskjeder_tittel: string;
-  varslet_EPOST: string;
-  varslet_SMS: string;
-  beskjed_maskert_tekst: string;
-  oppgave_maskert_tekst: string;
-  arkiver: string;
-  varsler_oppgaver_tittel: string;
+  notifications: string;
+  notifications_empty_list: string;
+  notifications_empty_list_description: string;
+  notifications_show_all: string;
+  notifications_messages_title: string;
+  notified_EPOST: string;
+  notified_SMS: string;
+  earlier_notifications: string;
+  masked_message_text: string;
+  masked_task_text: string;
+  archive: string;
+  notifications_tasks_title: string;
   token_warning_title: string;
   token_warning_body: string;
   session_warning_title: string;
   session_warning_body: string;
   yes: string;
   ok: string;
+  no: string;
+  sok_knapp_sokefelt: string;
+  hensikt_med_tilbakemelding: string;
+  hensikt_med_tilbakemelding_lenke: string;
+  send_undersokelse_takk: string;
 };
 
 export type Driftsmelding = {
   heading: string;
   url: string;
   urlscope: string[];
+};
+
+export type WithTexts<T = object> = T & {
+  texts: Texts;
+};
+
+export type SearchHit = {
+  audience: string[];
+  createdTime: string;
+  modifiedTime: string;
+  displayName: string;
+  highlight: string;
+  href: string;
+  language: string;
+  hideModifiedDate: boolean;
+  hidePublishDate: boolean;
+};
+
+export type SearchResult = {
+  hits: SearchHit[];
+  total: number;
 };

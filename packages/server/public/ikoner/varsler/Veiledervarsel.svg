@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 93" aria-hidden="true" aria-labelledby="veileder-varsel"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 93" aria-hidden="true" aria-labelledby="veileder-notification"
     role="img" focusable="false">
-    <title id="veileder-varsel"></title>
+    <title id="veileder-notification"></title>
     <path fill="#e7e5e2" d="M14 50.7C15 52.3 17.9 81 26.5 81S39 51.8 39 50.3c-13.2-7.6-25 .4-25 .4z" />
     <path fill="#5c4378"
         d="M38.7 50.2c6 2.9 15.3 10.9 15.3 18.3V93H0V68.5c0-7.1 8.5-14.8 14.5-18-.3.2-.5.3-.5.3 1 1.7 3.8 9.2 12.4 9.2C35 60 39 51.9 39 50.4c-.1-.1-.2-.2-.3-.2z" />

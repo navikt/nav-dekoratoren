@@ -1,7 +1,7 @@
-// Fetch varsler and such
+// Fetch notifications and such
 export function initLoggedInMenu() {
   const profileButton = document.getElementById('profile-button');
-  const dropdownIds = ['my-page-menu-content', 'varsler-menu-content'];
+  const dropdownIds = ['my-page-menu-content', 'notifications-menu-content'];
 
   // @TODO: needs some minor polishing to get switching between menus to work
   const toggleContainer = () => {
@@ -25,12 +25,14 @@ export function initLoggedInMenu() {
     document.getElementById('my-page-menu-content')?.classList.toggle('active');
   });
 
-  const varslerButton = document.getElementById('varsler-button');
+  const notificationsButton = document.getElementById('notifications-button');
 
-  varslerButton?.addEventListener('click', () => {
+  notificationsButton?.addEventListener('click', () => {
     toggleContainer();
     hideDropdowns();
 
-    document.getElementById('varsler-menu-content')?.classList.toggle('active');
+    document
+      .getElementById('notifications-menu-content')
+      ?.classList.toggle('active');
   });
 }

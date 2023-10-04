@@ -1,9 +1,10 @@
 import { Breadcrumb } from '../params';
+import cls from '../utilities.module.css';
 import html from '../html';
 
 export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return html`
-    <nav class="py-3" id="breadcrumbs-wrapper">
+    <nav class="${cls.contentContainer}" id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
           <a class="amplitude-link" href="#">

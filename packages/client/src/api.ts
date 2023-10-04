@@ -23,6 +23,7 @@ export async function checkAuth({
     const response = await fetchResponse.json();
 
     if (!response.authenticated) {
+      onSuccess && onSuccess(response);
       return;
     }
 
@@ -44,9 +45,9 @@ export function makeLoginUrl(loginLevel: LoginLevel): string {
   }&level=${loginLevel}`;
 }
 
-export function inaktiver(eventId: { eventId: string }) {
+export function archive(eventId: { eventId: string }) {
   return fetch(
-    `${import.meta.env.VITE_VARSEL_API_URL}/varsler/beskjed/inaktiver`,
+    `${import.meta.env.VITE_VARSEL_API_URL}/notifications/message/archive`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,7 +57,7 @@ export function inaktiver(eventId: { eventId: string }) {
     },
   ).catch((e) =>
     console.info(
-      `Error posting done event for varsler [eventId: ${eventId?.eventId} - error: ${e}]`,
+      `Error posting done event for notifications [eventId: ${eventId?.eventId} - error: ${e}]`,
     ),
   );
 }
