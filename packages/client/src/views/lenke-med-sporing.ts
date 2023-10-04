@@ -1,6 +1,7 @@
 import classes from '../styles/lenke-med-sporing.module.css';
 
 import type { AnalyticsEventArgs } from '../analytics/constants';
+import clsx from 'clsx';
 
 export class LenkeMedSporingElement extends HTMLElement {
   constructor() {
@@ -9,7 +10,6 @@ export class LenkeMedSporingElement extends HTMLElement {
     const a = document.createElement('a');
     a.innerHTML = this.getAttribute('data-children') || '';
     a.href = this.getAttribute('href') || '';
-    a.className = classes.lenkeMedSporing;
 
     const attrs = [
       'data-class-name',
@@ -37,26 +37,17 @@ export class LenkeMedSporingElement extends HTMLElement {
     a.setAttribute('tabindex', this.getAttribute('tabindex') || '');
     a.setAttribute('lang', this.getAttribute('lang') || '');
 
+    a.className = clsx(
+      classNameOverride || classes.dekoratorLenke,
+      className,
+      classes.lenkeMedSporing,
+    );
+
     a.addEventListener('click', () => {
       if (eventArgs) {
         window.analyticsEvent(eventArgs);
       }
     });
-
-    if (className) {
-      a.className = className;
-      // a.classList.add(className || '');
-    }
-
-    if (classNameOverride) {
-      console.log('This is hit');
-      a.classList.add(classNameOverride);
-    } else {
-      console.log('This is not hit');
-      a.classList.add(classes.dekoratorLenke);
-    }
-
-    a.classList.add(classes.lenkeMedSporing);
 
     // if (withChevron) {
     //   a.classList.add(classes.chevronLenke);

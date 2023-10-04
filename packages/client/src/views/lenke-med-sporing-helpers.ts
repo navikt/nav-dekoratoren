@@ -65,6 +65,7 @@ export function LenkeMedSporingLock(props: LenkeMedSporingProps) {
 
   return LenkeMedSporingBase({
     ...props,
+    // todo fix this
     className: `${className} ${classes.chevronlenke}`,
     children: `
             <div class="${classes.ikonContainer}">

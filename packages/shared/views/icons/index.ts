@@ -1,5 +1,4 @@
 export * from './share-screen';
-export * from './varsler';
 export * from './warning';
 export * from './lock';
 export * from './next';
@@ -11,3 +10,4 @@ export * from './close';
 export * from './login';
 export * from './profile';
 export * from './search';
+export * from './arrow-up';

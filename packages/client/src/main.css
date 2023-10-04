@@ -102,16 +102,16 @@ a {
   margin-bottom: 0.5rem;
 }
 
-.footer-link {
-  color: inherit;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  padding: 0.5rem 0;
-  text-decoration-color: #99c4dd;
-  text-decoration-thickness: 0.0625em;
-  text-underline-offset: 0.15em;
-}
+/* .footer-link { */
+/*   color: inherit; */
+/*   display: flex; */
+/*   gap: 0.5rem; */
+/*   align-items: center; */
+/*   padding: 0.5rem 0; */
+/*   text-decoration-color: #99c4dd; */
+/*   text-decoration-thickness: 0.0625em; */
+/*   text-underline-offset: 0.15em; */
+/* } */
 
 .complex-footer-org {
   display: grid;

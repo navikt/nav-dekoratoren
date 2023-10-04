@@ -18,7 +18,7 @@ export type Node = {
 export type Link = {
   content: string;
   url: string;
-};
+} & Pick<Node, 'path'>;
 
 export type LinkGroup = {
   heading?: string;
