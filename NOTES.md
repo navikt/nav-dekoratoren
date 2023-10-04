@@ -13,7 +13,11 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 
 ---
 
-## Forslag til ting å fikse
+## Forbedringer av README
+
+- Beskrive NODE_AUTH_TOKEN
+
+## Forslag til fiksing av markup og styling
 
 ### Generelt
 
@@ -24,10 +28,10 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 - Bytte ut ID-selectors med klasser
 - Unngå element- og pseudo-selectors (p :last-child)
 - Logical, short- & long-hand properties.
-- Wrapper "component" som håndterer padding, maksbredde og sentrering?
 - Gjøre SVGer til komponent
 - Linting av duplikatregler
 - Rydde opp i referanser fra shared til client
+- Validere HTML
 
 ### Header
 
@@ -42,12 +46,10 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 
 ### Brødsmulesti
 
-- Maksbredde på brødsmulesti
 - Alignment og farge på ikon i brødsmulesti
 
 ### Footer
 
-- Maksbredde på footer (simple)
 - Ingen hover på lenker i footer
 - Del skjerm med veileder bør være button, ikke `<a href="#">`
 - Avstand mellom logo og tekst i footer
