@@ -5,6 +5,7 @@ import ContentService from './content-service';
 import requestHandler from './request-handler';
 import SearchService from './search-service';
 import menu from './content-test-data.json';
+import notificationsService from './notifications-service';
 
 const getFilePaths = (dir: string): string[] =>
   readdirSync(dir).flatMap((name) => {
@@ -27,6 +28,7 @@ const server = Bun.serve({
       getFilePaths,
       getFile: Bun.file,
     },
+    notificationsService(),
   ),
 });
 

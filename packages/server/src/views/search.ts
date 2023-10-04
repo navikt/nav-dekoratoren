@@ -18,7 +18,6 @@ export function InlineSearchTemplate() {
         border: 2px solid var(--a-blue-500);
         padding: 0.7rem 1rem;
         border-radius: 3px;
-        box-sizing: border-box;
         width: 100%;
         min-height: 48px;
         font-size: 18px;
@@ -53,7 +52,6 @@ export function InlineSearchTemplate() {
         height: 100%;
         border: 3px solid transparent;
         background: none;
-        box-sizing: border-box;
         border-radius: 6px;
         width: 50px;
       }

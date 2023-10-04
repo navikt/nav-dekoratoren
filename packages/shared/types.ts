@@ -1,5 +1,3 @@
-import { LangBaseKeys } from 'decorator-server/src/texts';
-
 export enum MenuValue {
   PRIVATPERSON = 'privatperson',
   ARBEIDSGIVER = 'arbeidsgiver',
@@ -27,7 +25,39 @@ export type LinkGroup = {
   children: Link[];
 };
 
-export type Texts = Record<LangBaseKeys, string>;
+export type Texts = {
+  share_screen: string;
+  to_top: string;
+  menu: string;
+  close: string;
+  did_you_find: string;
+  search: string;
+  login: string;
+  logout: string;
+  notifications: string;
+  notifications_empty_list: string;
+  notifications_empty_list_description: string;
+  notifications_show_all: string;
+  notifications_messages_title: string;
+  notified_EPOST: string;
+  notified_SMS: string;
+  earlier_notifications: string;
+  masked_message_text: string;
+  masked_task_text: string;
+  archive: string;
+  notifications_tasks_title: string;
+  token_warning_title: string;
+  token_warning_body: string;
+  session_warning_title: string;
+  session_warning_body: string;
+  yes: string;
+  ok: string;
+  no: string;
+  sok_knapp_sokefelt: string;
+  hensikt_med_tilbakemelding: string;
+  hensikt_med_tilbakemelding_lenke: string;
+  send_undersokelse_takk: string;
+};
 
 export type Driftsmelding = {
   heading: string;

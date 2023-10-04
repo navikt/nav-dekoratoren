@@ -1,8 +1,2 @@
 #!/bin/sh
-
-npm run build
-npm run serve &
-
-sleep 2
-
-bombardier -c 2 -n 5000 http://localhost:8089
+bombardier -c 10 -n 5000 http://localhost:8089

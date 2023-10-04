@@ -22,16 +22,11 @@ import './views/toggle-icon-button';
 import './views/search';
 import './views/loader';
 import './views/decorator-lens';
+import './views/local-time';
 
 import { SearchEvent } from './views/search';
 
-import {
-  hasClass,
-  hydrateParams,
-  hydrateTexts,
-  replaceElement,
-  setAriaExpanded,
-} from './utils';
+import { hasClass, replaceElement, setAriaExpanded } from './utils';
 
 import {
   Environment,
@@ -41,19 +36,13 @@ import {
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import {
-  VarselType,
-  VarslerPopulated,
-  fetchVarsler,
-  makeVarselAmplitudeEvent,
-} from './views/varsler';
+import { fetchNotifications } from './views/notifications';
 
 import { logoutWarningController } from './controllers/logout-warning';
 
 import {
   addBreadcrumbEventListeners,
   afterAuthListeners,
-  attachArkiverListener,
   onLoadListeners,
 } from './listeners';
 
@@ -77,12 +66,13 @@ const breakpoints = {
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
-// Basic setup for development with the decorator-params script tag.
 declare global {
   interface Window {
-    decoratorEnvironment: Environment;
-    decoratorParams: Params;
-    texts: Texts;
+    __DECORATOR_DATA__: {
+      texts: Texts;
+      params: Params;
+      env: Environment;
+    };
     loginDebug: {
       expireToken: (seconds: number) => void;
       expireSession: (seconds: number) => void;
@@ -97,31 +87,30 @@ declare global {
   }
 }
 
-const texts = hydrateTexts();
+window.__DECORATOR_DATA__ = JSON.parse(
+  document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
+);
 
-window.texts = texts;
-window.decoratorEnvironment = {
+window.__DECORATOR_DATA__.env = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
   LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
   LOGOUT_URL: import.meta.env.VITE_LOGOUT_URL,
   MIN_SIDE_ARBEIDSGIVER_URL: import.meta.env.VITE_MIN_SIDE_ARBEIDSGIVER_URL,
 };
 
-window.decoratorParams = hydrateParams();
-
-// Client side environment variables, mocking for now.
-
-// Initialize
 onLoadListeners({
-  texts,
+  texts: window.__DECORATOR_DATA__.texts,
 });
 
 attachLensListener();
 fetchDriftsMeldinger();
 handleSearchButtonClick();
 
-if (window.decoratorParams.logoutWarning) {
-  logoutWarningController(window.decoratorParams.logoutWarning, texts);
+if (window.__DECORATOR_DATA__.params.logoutWarning) {
+  logoutWarningController(
+    window.__DECORATOR_DATA__.params.logoutWarning,
+    window.__DECORATOR_DATA__.texts,
+  );
 }
 // Get the params this version of the decorator was initialized with
 
@@ -279,7 +268,7 @@ function handleMenuButton() {
 // Handles mobile search
 const [inlineSearch] = document.getElementsByTagName('inline-search');
 
-if (window.decoratorParams.simple === false) {
+if (window.__DECORATOR_DATA__.params.simple === false) {
   const searchEventHandlers: Record<SearchEvent, () => void> = {
     'started-typing': () => {
       document
@@ -341,9 +330,9 @@ async function populateLoggedInMenu(authObject: Auth) {
         innlogget: authObject.authenticated,
         name: authObject.name,
         myPageMenu,
-        texts,
+        texts: window.__DECORATOR_DATA__.texts,
       },
-      window.decoratorParams.simple,
+      window.__DECORATOR_DATA__.params.simple,
     );
 
     menuItems.outerHTML = newMenuItems;
@@ -360,57 +349,36 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 api.checkAuth({
   onSuccess: async (response) => {
-    window.logPageView(window.decoratorParams, response);
+    window.logPageView(window.__DECORATOR_DATA__.params, response);
 
     await populateLoggedInMenu(response);
 
-    const varsler = await fetchVarsler();
+    const notifications = await fetchNotifications();
 
-    if (varsler) {
-      const varslerUlest = document.querySelector('.varsler-ulest');
-      varslerUlest?.classList.add('active');
+    if (notifications) {
+      const notificationsUlest = document.querySelector(
+        '.notifications-unread',
+      );
+      notificationsUlest?.classList.add('active');
 
       // Choose which view to render
 
-      const varslerMenuContent = document.querySelector(
-        '#varsler-menu-content',
+      const notificationsMenuContent = document.querySelector(
+        '#notifications-menu-content',
       );
 
-      if (varslerMenuContent) {
-        varslerMenuContent.innerHTML = VarslerPopulated({
-          texts,
-          varslerData: varsler,
-        });
-
-        const varslerIds = [
-          ...varsler.oppgaver.map((o) => o.eventId),
-          ...varsler.beskjeder.map((b) => b.eventId),
-        ];
-
-        const varslerEls = varslerIds.map((id) => document.getElementById(id));
-
-        varslerEls.forEach((el) => {
-          el?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const kind = el.getAttribute('data-kind');
-            const href = el.getAttribute('href');
-            window.logAmplitudeEvent(
-              'navigere',
-              makeVarselAmplitudeEvent(kind as VarselType, href as string),
-            );
-          });
-        });
+      if (notificationsMenuContent) {
+        notificationsMenuContent.innerHTML = notifications;
       }
 
       // Attach arkiver listener
-      attachArkiverListener();
       afterAuthListeners();
     }
   },
 });
 
 function handleLogin() {
-  const loginLevel = window.decoratorParams.level || 'Level4';
+  const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {

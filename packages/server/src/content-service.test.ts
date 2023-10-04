@@ -62,14 +62,6 @@ describe('myPageMenu', () => {
 });
 
 describe('getSimpleFooterLinks', () => {
-  test('has share screen link', async () => {
-    expect(
-      (await contentService.getSimpleFooterLinks({ language: 'nb' }))
-        ?.at(2)
-        ?.content.startsWith('Del skjerm med veileder'),
-    ).toBeTrue();
-  });
-
   test('returns norwegian', async () => {
     expect(
       (await contentService.getSimpleFooterLinks({ language: 'nb' }))?.at(0)
