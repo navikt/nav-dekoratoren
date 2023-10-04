@@ -1,7 +1,6 @@
 import { Header } from 'decorator-shared/views/header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
-import { DecoratorEnv } from './views/decorator-env';
 import { DecoratorLens } from './views/decorator-lens';
 import { DecoratorData } from './views/decorator-data';
 import { texts } from './texts';
@@ -50,10 +49,6 @@ export default async ({
             texts: localTexts,
             links: await contentService.getComplexFooterLinks(data),
           }),
-    env: DecoratorEnv({
-      origin,
-      env: data,
-    }),
     lens: DecoratorLens({
       origin,
       env: data,
@@ -61,6 +56,7 @@ export default async ({
     }),
     decoratorData: DecoratorData({
       texts: localTexts,
+      params: data,
     }),
   });
 };

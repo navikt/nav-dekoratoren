@@ -1360,14 +1360,6 @@ exports[`renders norwegian index 1`] = `
   
         </div>
         
-    <div
-      id="decorator-env"
-      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
-    ></div>
-    <script type="application/json" id="decorator-params">
-      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
-    </script>
-   
     <div>
       
     <template id="decorator-lens-template">
@@ -1411,8 +1403,8 @@ exports[`renders norwegian index 1`] = `
   
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="module" src="http://localhost:5173/src/analytics/analytics.ts"></script>
-  <script type="application/json" id="__DECORATOR__DATA__">
-    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","varsler":"Varsler","varsler_tom_liste":"Du har ingen nye varsler","varsler_tom_liste_ingress":"Vi varsler deg når noe skjer","varsler_vis_alle":"Tidligere varsler","varsler_beskjeder_tittel":"Beskjeder","varslet_EPOST":"Varslet på e-post","varslet_SMS":"Varslet på SMS","beskjed_maskert_tekst":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","oppgave_maskert_tekst":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","arkiver":"Arkiver","varsler_oppgaver_tittel":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!"}}
+  <script type="application/json" id="__DECORATOR_DATA__">
+    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
   </script>
 
         </div>
@@ -3158,14 +3150,6 @@ exports[`renders english index 1`] = `
   
         </div>
         
-    <div
-      id="decorator-env"
-      data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
-    ></div>
-    <script type="application/json" id="decorator-params">
-      {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
-    </script>
-   
     <div>
       
     <template id="decorator-lens-template">
@@ -3209,8 +3193,8 @@ exports[`renders english index 1`] = `
   
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="module" src="http://localhost:5173/src/analytics/analytics.ts"></script>
-  <script type="application/json" id="__DECORATOR__DATA__">
-    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","varsler":"Notifications","varsler_tom_liste":"You have no new notifications","varsler_tom_liste_ingress":"Du har ingen nye varsler","varsler_vis_alle":"Previous notifications","varsler_beskjeder_tittel":"Beskjeder","varslet_EPOST":"Notified by e-mail","varslet_SMS":"Notified by SMS","beskjed_maskert_tekst":"You have a message, please log in with a higher security level to read the message.","oppgave_maskert_tekst":"You have a task, please log in with a higher security level to see the task.","arkiver":"Archive","varsler_oppgaver_tittel":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!"}}
+  <script type="application/json" id="__DECORATOR_DATA__">
+    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
   </script>
 
         </div>

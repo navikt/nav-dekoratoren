@@ -4,18 +4,28 @@ import ContentService from './content-service';
 
 import renderIndex from './render-index';
 
-import varslerMock from './varsler-mock.json';
 import SearchService from './search-service';
+import {
+  NotificationList,
+  Notifications,
+} from './views/notifications/notifications';
+import { texts } from './texts';
+import { Texts } from 'decorator-shared/types';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
   getFilePaths: (dir: string) => string[];
 };
 
+type NotificationsService = {
+  getNotifications: (texts: Texts) => Promise<NotificationList[]>;
+};
+
 const requestHandler = async (
   contentService: ContentService,
   searchService: SearchService,
   fileSystemService: FileSystemService,
+  notificationsService: NotificationsService,
 ) => {
   const filePaths = fileSystemService
     .getFilePaths('./public')
@@ -109,13 +119,22 @@ const requestHandler = async (
     .get('/oauth2/logout', () => jsonResponse(getMockSession()))
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
-    .get('/api/varsler', () =>
-      jsonResponse({
-        beskjeder: varslerMock.beskjeder.slice(0, 6),
-        oppgaver: varslerMock.oppgaver.slice(0, 3),
-      }),
+    .get(
+      '/api/notifications',
+      async ({ query }) =>
+        new Response(
+          Notifications({
+            texts: texts[validParams(query).language],
+            notificationLists: await notificationsService.getNotifications(
+              texts[validParams(query).language],
+            ),
+          }),
+          {
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          },
+        ),
     )
-    .post('/api/varsler/beskjed/inaktiver', async ({ request }) =>
+    .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
     )
     .get('/api/driftsmeldinger', () =>

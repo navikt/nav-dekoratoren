@@ -2,13 +2,10 @@ import { Node, Texts } from '../../../types';
 import html from 'decorator-shared/html';
 import { IconButton } from '../../components/icon-button';
 import { LoginIcon } from '../../icons/login';
-import { VarslerIcon } from 'decorator-shared/views/icons/varsler';
+import { NotificationsIcon } from 'decorator-shared/views/icons/notifications';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
-import {
-  VarslerEmptyView,
-  VarslerUlest,
-} from 'decorator-client/src/views/varsler';
+import { NotificationsEmpty } from '../../notifications/empty';
 import { DropdownButton } from '../../components/dropdown-button';
 
 // ${IconButton({
@@ -27,12 +24,13 @@ export function LoggedInMenu({
 }) {
   return html`
     <div id="logged-in-menu">
-      <div class="varsler-button-wrapper">
-        <toggle-icon-button id="varsler-button">
-          <div class="varsler-icon-wrapper" slot="icon">
-            ${VarslerIcon({ className: 'varsler-icon' })} ${VarslerUlest()}
+      <div class="notifications-button-wrapper">
+        <toggle-icon-button id="notifications-button">
+          <div class="notifications-icon-wrapper" slot="icon">
+            ${NotificationsIcon({ className: 'notifications-icon' })}
+            <div class="notifications-unread"></div>
           </div>
-          <span slot="text">Varsler</span>
+          <span slot="text">${texts.notifications}</span>
         </toggle-icon-button>
       </div>
       ${DropdownButton({
@@ -50,9 +48,9 @@ export function LoggedInMenu({
 
       <div id="loggedin-menu-wrapper">
         <div id="loggedin-menu-content">
-          <div id="varsler-menu-content" class="dropdown">
+          <div id="notifications-menu-content" class="dropdown">
             <!-- Placeholder for now -->
-            ${VarslerEmptyView({
+            ${NotificationsEmpty({
               texts,
             })}
             <!-- Loaded on client -->

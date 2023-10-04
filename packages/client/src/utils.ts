@@ -1,6 +1,3 @@
-import { type Params } from 'decorator-shared/params';
-import { Texts } from 'decorator-shared/types';
-
 export function replaceElement({
   selector,
   html,
@@ -70,23 +67,4 @@ export function setAriaExpanded(el: HTMLElement) {
   } else {
     el.removeAttribute('aria-expanded');
   }
-}
-
-export function hydrateParams(): Params {
-  const params = document.querySelector('#decorator-params');
-  console.log('params', params);
-  if (params) {
-    return JSON.parse(params.innerHTML);
-  }
-
-  throw new Error('Could not find params');
-}
-
-export function hydrateTexts(): Texts {
-  const decoratorData = JSON.parse(
-    document.getElementById('__DECORATOR__DATA__')?.innerHTML ?? '',
-  );
-
-  const { texts } = decoratorData;
-  return texts as Texts;
 }

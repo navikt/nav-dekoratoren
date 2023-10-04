@@ -308,7 +308,7 @@ a {
   pointer-events: auto;
 }
 
-#varsler-menu-content {
+#notifications-menu-content {
   max-width: 570px;
   max-height: 80vh;
   overflow-y: scroll;
@@ -319,11 +319,11 @@ a {
   padding-top: var(--a-spacing-2);
 }
 
-#loggedin-menu-content #varsler-menu-content {
+#loggedin-menu-content #notifications-menu-content {
   padding-top: var(--a-spacing-3);
 }
 
-#varsler-menu-content.active {
+#notifications-menu-content.active {
   display: block;
 }
 
@@ -914,8 +914,8 @@ a {
   margin: 0px;
 }
 
-#varsler-empty,
-#varsler-populated {
+#notifications-empty,
+#notifications-populated {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -923,7 +923,7 @@ a {
   width: 100%;
 }
 
-#varsler-empty h1 {
+#notifications-empty h1 {
   margin: 0;
   font-size: var(--a-font-size-heading-small);
   letter-spacing: -0.001em;
@@ -931,20 +931,20 @@ a {
   margin-top: var(--a-spacing-6);
 }
 
-#varsler-empty p {
+#notifications-empty p {
   margin: 0;
 }
 
-#varsler-empty a {
+#notifications-empty a {
   margin: var(--a-spacing-6) 0px;
   text-decoration: underline;
 }
 
-.varsler-icon-wrapper {
+.notifications-icon-wrapper {
   position: relative;
 }
 
-.varsler-ulest {
+.notifications-unread {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -956,20 +956,12 @@ a {
 }
 
 /* Shown when notifications have been checked */
-.varsler-ulest.active {
+.notifications-unread.active {
   display: block;
 }
 
-#varsler-populated .title {
+#notifications-populated .title {
   margin-top: 0px;
-}
-
-.varsel svg {
-  display: block;
-}
-
-#varsler-populated-beskjeder {
-  width: 100%;
 }
 
 /*  Utils  */

@@ -2,6 +2,9 @@
   "name": "decorator-shared",
   "version": "0.0.1",
   "type": "module",
+  "scripts": {
+    "test": "bun test"
+  },
   "dependencies": {
     "zod": "^3.22.2"
   }
