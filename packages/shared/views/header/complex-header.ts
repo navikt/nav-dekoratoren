@@ -1,4 +1,5 @@
 import html from 'decorator-shared/html';
+import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from 'decorator-shared/views/language-selector';
@@ -26,7 +27,7 @@ export function ComplexHeader({
         class="siteheader"
       >
         <div
-          class="hovedmeny-wrapper"
+          class="hovedmeny-wrapper ${cls.contentContainer}"
         >
           <div class="hovedmeny-content">
             <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
@@ -55,7 +56,7 @@ export function ComplexHeader({
             myPageMenu,
           })}
         <div
-          id="menu"
+          id="menu" class="${cls.contentContainer}"
         >
          <div class="menu-top">
             <h2>

@@ -1,7 +1,6 @@
 import { Header } from 'decorator-shared/views/header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
-import { DecoratorEnv } from './views/decorator-env';
 import { DecoratorLens } from './views/decorator-lens';
 import { DecoratorData } from './views/decorator-data';
 import { texts } from './texts';
@@ -53,18 +52,14 @@ export default async ({
     logoutWarning: data.logoutWarning ? LogoutWarning() : '',
     footer:
       data.simple || data.simpleFooter
-        ? // TS kalrer ikke å inferre ordentlig her
-          SimpleFooter({
+        ? SimpleFooter({
             links: footerLinks as Link[],
+            texts: localTexts,
           })
         : ComplexFooter({
             texts: localTexts,
             links: footerLinks as LinkGroup[],
           }),
-    env: DecoratorEnv({
-      origin,
-      env: data,
-    }),
     lens: DecoratorLens({
       origin,
       env: data,
@@ -72,6 +67,7 @@ export default async ({
     }),
     decoratorData: DecoratorData({
       texts: localTexts,
+      params: data,
     }),
   });
 };

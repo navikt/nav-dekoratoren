@@ -1,0 +1,61 @@
+{
+  "oppgaver": [
+    {
+      "eventId": "a436b112-f26a-444e-997c-ae6cb977250e",
+      "varselId": "a436b112-f26a-444e-997c-ae6cb977250e",
+      "tidspunkt": "2023-07-04T11:41:02.280367+02:00",
+      "isMasked": true,
+      "tekst": null,
+      "link": null,
+      "type": "oppgave",
+      "eksternVarslingSendt": false,
+      "eksternVarslingKanaler": []
+    },
+    {
+      "eventId": "bde50745-e9a3-4663-9ff8-09d4f9956432",
+      "varselId": "bde50745-e9a3-4663-9ff8-09d4f9956432",
+      "tidspunkt": "2023-02-03T09:44:00.570436+01:00",
+      "isMasked": true,
+      "tekst": null,
+      "link": null,
+      "type": "oppgave",
+      "eksternVarslingSendt": false,
+      "eksternVarslingKanaler": []
+    }
+  ],
+  "beskjeder": [
+    {
+      "eventId": "ff3d01cb-7300-4ce5-aa5b-1c4e1427c052",
+      "varselId": "ff3d01cb-7300-4ce5-aa5b-1c4e1427c052",
+      "tidspunkt": "2023-07-04T11:41:18.259801+02:00",
+      "isMasked": true,
+      "tekst": null,
+      "link": null,
+      "type": "beskjed",
+      "eksternVarslingSendt": false,
+      "eksternVarslingKanaler": []
+    },
+    {
+      "eventId": "253188a4-d14f-4bd5-9601-4edd1dec8101",
+      "varselId": "253188a4-d14f-4bd5-9601-4edd1dec8101",
+      "tidspunkt": "2023-09-13T12:55:49.279752+02:00",
+      "isMasked": false,
+      "tekst": "Beskjed uten link",
+      "link": null,
+      "type": "beskjed",
+      "eksternVarslingSendt": true,
+      "eksternVarslingKanaler": ["EPOST"]
+    },
+    {
+      "eventId": "306db3d1-e67e-4262-b949-9839230f60c7",
+      "varselId": "306db3d1-e67e-4262-b949-9839230f60c7",
+      "tidspunkt": "2023-09-13T12:55:51.811822+02:00",
+      "isMasked": false,
+      "tekst": "Beskjed uten link 2",
+      "link": null,
+      "type": "beskjed",
+      "eksternVarslingSendt": true,
+      "eksternVarslingKanaler": ["SMS"]
+    }
+  ]
+}

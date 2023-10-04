@@ -1,0 +1,10 @@
+.contentContainer {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--a-spacing-4);
+}
+@media (min-width: 1024px) {
+  .contentContainer {
+    padding-inline: var(--a-spacing-10);
+  }
+}

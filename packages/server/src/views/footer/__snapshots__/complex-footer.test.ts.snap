@@ -3,7 +3,7 @@
 exports[`renders complex footer 1`] = `
 "
     <footer class="footer">
-      <div class="footer-content">
+      <div class="footer-content _contentContainer_1av57_1">
         <a class="to-top-link" href="#">
           <svg
             width="1em"

@@ -1,9 +1,5 @@
 import { Driftsmelding, Link, LinkGroup, Node } from 'decorator-shared/types';
 import { Context, Language, Params } from 'decorator-shared/params';
-import { texts } from './texts';
-import html from 'decorator-shared/html';
-
-import { ShareScreenIcon } from 'decorator-shared/views/icons';
 
 type LanguageParam = {
   language: Language;
@@ -48,11 +44,6 @@ const extractor = {
       ...(get(root, `${getLangKey(options.language)}.Footer.Personvern`)?.map(
         nodeToLink,
       ) ?? []),
-      {
-        content: html`${texts[options.language]
-          .share_screen}${ShareScreenIcon()}`,
-        url: '#',
-      },
     ];
   },
   complexFooterLinks(

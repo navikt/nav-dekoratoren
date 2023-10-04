@@ -4,6 +4,16 @@
 /* @tailwind components; */
 /* @tailwind utilities; */
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+:after,
+:before {
+  box-sizing: inherit;
+}
+
 html,
 body {
   height: auto;
@@ -57,8 +67,6 @@ a {
 }
 
 .footer-content {
-  max-width: 1344px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
@@ -105,23 +113,23 @@ a {
   text-underline-offset: 0.15em;
 }
 
+.complex-footer-org {
+  display: grid;
+  gap: var(--a-spacing-2);
+}
+
 /* HEADER AND MENU */
 #menu {
   position: absolute;
   top: 79px;
-  margin: 0 auto;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   background-color: white;
-  max-width: 1440px;
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
   display: none;
-  padding: 32px;
-  padding-left: var(--a-spacing-12);
-  padding-top: var(--a-spacing-6);
-  box-sizing: border-box;
+  padding-block: var(--a-spacing-6);
 }
 
 #menu h2 {
@@ -222,11 +230,6 @@ a {
 }
 
 .siteheader .hovedmeny-wrapper {
-  max-width: 1344px;
-  width: 100%;
-  margin: 0 auto;
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -237,8 +240,6 @@ a {
   display: flex;
   align-items: center;
   height: 100%;
-  width: 100%;
-  padding-left: var(--a-spacing-12);
 }
 
 @media (--breakpoint-lg) {
@@ -308,22 +309,21 @@ a {
   pointer-events: auto;
 }
 
-#varsler-menu-content {
+#notifications-menu-content {
   max-width: 570px;
   max-height: 80vh;
   overflow-y: scroll;
   width: 100%;
-  box-sizing: border-box;
   display: none;
   background-color: #f7f7f7;
   padding-top: var(--a-spacing-2);
 }
 
-#loggedin-menu-content #varsler-menu-content {
+#loggedin-menu-content #notifications-menu-content {
   padding-top: var(--a-spacing-3);
 }
 
-#varsler-menu-content.active {
+#notifications-menu-content.active {
   display: block;
 }
 
@@ -522,7 +522,6 @@ a {
   border: 2px solid var(--a-blue-500);
   padding: 0.7rem 1rem;
   border-radius: 3px;
-  box-sizing: border-box;
   width: 100%;
   min-height: 48px;
   font-size: 18px;
@@ -639,11 +638,9 @@ a {
 #breadcrumbs-wrapper #breadcrumbs-list {
   display: flex;
   align-items: center;
-  max-width: 1344px;
   list-style: none;
-  /* width: 100%; */
-  margin-left: auto;
-  margin-right: auto;
+  padding: var(--a-spacing-3) 0;
+  margin-block: 0;
 }
 
 #breadcrumbs-list a {
@@ -808,7 +805,6 @@ a {
   #menu-content {
     height: calc(100vh - 73px);
     overflow-y: auto;
-    box-sizing: border-box;
     position: relative;
     z-index: 2;
     background-color: white;
@@ -914,8 +910,8 @@ a {
   margin: 0px;
 }
 
-#varsler-empty,
-#varsler-populated {
+#notifications-empty,
+#notifications-populated {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -923,7 +919,7 @@ a {
   width: 100%;
 }
 
-#varsler-empty h1 {
+#notifications-empty h1 {
   margin: 0;
   font-size: var(--a-font-size-heading-small);
   letter-spacing: -0.001em;
@@ -931,20 +927,20 @@ a {
   margin-top: var(--a-spacing-6);
 }
 
-#varsler-empty p {
+#notifications-empty p {
   margin: 0;
 }
 
-#varsler-empty a {
+#notifications-empty a {
   margin: var(--a-spacing-6) 0px;
   text-decoration: underline;
 }
 
-.varsler-icon-wrapper {
+.notifications-icon-wrapper {
   position: relative;
 }
 
-.varsler-ulest {
+.notifications-unread {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -956,20 +952,12 @@ a {
 }
 
 /* Shown when notifications have been checked */
-.varsler-ulest.active {
+.notifications-unread.active {
   display: block;
 }
 
-#varsler-populated .title {
+#notifications-populated .title {
   margin-top: 0px;
-}
-
-.varsel svg {
-  display: block;
-}
-
-#varsler-populated-beskjeder {
-  width: 100%;
 }
 
 /*  Utils  */
