@@ -32,6 +32,7 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 - Linting av duplikatregler
 - Rydde opp i referanser fra shared til client
 - Validere HTML
+- Vurdere PostCSS-plugin for nesting av media queries
 
 ### Header
 
