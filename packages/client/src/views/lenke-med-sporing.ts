@@ -14,22 +14,32 @@ export class LenkeMedSporingElement extends HTMLElement {
     const attrs = [
       'data-class-name',
       'data-class-name-override',
+      'data-container-class-name',
+      'data-default-style',
       // Standard
       'role',
       'id',
       'tabindex',
       'lang',
     ];
+
     const data = attrs.map((attr) => this.getAttribute(attr) || '');
     const children = this.querySelector('#children')?.innerHTML || '';
 
     this.innerHTML = '';
     a.innerHTML = children;
 
-    const [className, classNameOverride] = data;
+    const [
+      className,
+      classNameOverride,
+      containerClassName,
+      defaultStyleEnabled,
+    ] = data;
+    this.className = containerClassName;
+
     const rawEventArgs = this.getAttribute('data-analytics-event-args');
     const eventArgs = rawEventArgs
-      ? (JSON.parse(rawEventArgs || '{}') as AnalyticsEventArgs)
+      ? (JSON.parse(rawEventArgs) as AnalyticsEventArgs)
       : null;
 
     a.setAttribute('role', this.getAttribute('role') || '');
@@ -37,34 +47,24 @@ export class LenkeMedSporingElement extends HTMLElement {
     a.setAttribute('tabindex', this.getAttribute('tabindex') || '');
     a.setAttribute('lang', this.getAttribute('lang') || '');
 
-    a.className = clsx(
-      classNameOverride || classes.dekoratorLenke,
-      className,
-      classes.lenkeMedSporing,
-    );
+    const extraAttrsVal = this.getAttribute('data-extra-attrs');
+    const extraAttrs = extraAttrsVal
+      ? (JSON.parse(extraAttrsVal) as [string, string][])
+      : [];
+
+    for (const [key, value] of extraAttrs) {
+      a.setAttribute(key, value);
+    }
+
+    a.className = clsx(classNameOverride || classes.dekoratorLenke, className, {
+      [classes.lenkeMedSporing]: defaultStyleEnabled,
+    });
 
     a.addEventListener('click', () => {
       if (eventArgs) {
         window.analyticsEvent(eventArgs);
       }
     });
-
-    // if (withChevron) {
-    //   a.classList.add(classes.chevronLenke);
-    // }
-
-    // if (withChevron || withLock) {
-    //   a.innerHTML = html`
-    //     <div class="${classes.ikonContainer}">
-    //       ${withLock
-    //         ? Lock({ height: '18px', width: '18px' })
-    //         : withChevron
-    //         ? Next()
-    //         : ''}
-    //     </div>
-    //     ${children}
-    //   `;
-    // }
 
     this.appendChild(a);
   }

@@ -1,6 +1,6 @@
 // Split this up to avoid amplitude being pulled in when using these
 
-import { MenuValue } from 'decorator-shared/types';
+import { Context } from 'decorator-shared/params';
 
 export type AnalyticsCategory =
   | 'dekorator-header'
@@ -27,7 +27,7 @@ export type AnalyticsEventArgs = {
   eventName?: string;
   category: AnalyticsCategory;
   action: string;
-  context?: MenuValue;
+  context?: Context;
   destination?: string;
   label?: string;
   komponent?: string;

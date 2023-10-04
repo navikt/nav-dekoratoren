@@ -7,14 +7,19 @@ import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
 import { HeaderProps, utilsBackgroundClasses } from './index';
 import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
 
+import classes from 'decorator-client/src/styles/header.module.css';
+import clsx from 'clsx';
+import { HeaderContextLenke } from './lenke';
+
 export function ComplexHeader({
   isNorwegian,
-  mainMenu,
+  contextLinks,
   headerMenuLinks,
   texts,
   innlogget,
   breadcrumbs,
   utilsBackground,
+  context: activeContext,
   availableLanguages,
   myPageMenu,
 }: HeaderProps) {
@@ -34,18 +39,23 @@ export function ComplexHeader({
             <div
               id="arbeidsflate"
             >
+
               ${
                 isNorwegian &&
-                mainMenu.map(
-                  ({ displayName, isActive }) => html`
-                    <button
-                      class="context-link ${isActive ? 'lenkeActive' : ''}"
-                      href="?context=${displayName.toLowerCase()}"
-                      data-context="${displayName.toLowerCase()}"
-                    >
-                      ${displayName}
-                    </button>
-                  `,
+                contextLinks?.map((link) =>
+                  HeaderContextLenke({
+                    link: link,
+                    text: texts[link.lenkeTekstId],
+                    activeContext: activeContext,
+                    classNameOverride: clsx([
+                      classes.headerContextLink,
+                      {
+                        [classes.lenkeActive]: link.context === activeContext,
+                      },
+                    ]),
+                    containerClassName: classes.headerContextLinkContainer,
+                    attrs: [['data-context', link.context.toLowerCase()]],
+                  }),
                 )
               }
             </div>
@@ -98,3 +108,22 @@ export function ComplexHeader({
     </div>
   `;
 }
+
+// ${
+//         isNorwegian &&
+//         contextLinks?.map(
+//           ({ context, lenkeTekstId, url }) => html`
+//             <button
+//               class="${clsx([
+//                 classes.headerContextLink,
+//               ], {
+//               [classes.lenkeActive]: context === activeContext,
+//               })}"
+//               href="${url}"
+//               data-context="${context.toLowerCase()}"
+//             >
+//               ${texts[lenkeTekstId]}
+//             </button>
+//           `,
+//         )
+//       }

@@ -5,9 +5,11 @@ import { Texts } from 'decorator-shared/types';
 import {
   AvailableLanguage,
   Breadcrumb,
+  Context,
   Params,
   UtilsBackground,
 } from 'decorator-shared/params';
+import { ContextLink } from '../../context';
 
 export const utilsBackgroundClasses = {
   white: 'decorator-utils-container_white',
@@ -19,6 +21,8 @@ export const utilsBackgroundClasses = {
 export type HeaderProps = {
   isNorwegian: boolean;
   mainMenu?: Node[];
+  contextLinks: ContextLink[];
+  context: Context;
   texts: Texts;
   headerMenuLinks?: Node[];
   innlogget: boolean;

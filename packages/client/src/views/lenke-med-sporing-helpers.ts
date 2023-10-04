@@ -18,12 +18,19 @@ type LenkeMedSporingProps = {
   analyticsEventArgs?: AnalyticsEventArgs;
   classNameOverride?: string;
   className?: string;
+  // not optimal solution, see if we can use extends 'a' instead
+  containerClassName?: string;
   closeMenusOnClick?: boolean;
   tabIndex?: number;
   lang?: string;
+  extraAttrs?: [string, string][];
+  defaultStyle?: boolean;
 };
 
-export function LenkeMedSporingBase(props: LenkeMedSporingProps) {
+export function LenkeMedSporingBase({
+  defaultStyle = true,
+  ...props
+}: LenkeMedSporingProps) {
   const className = props.className || '';
   const classNameOverride = props.classNameOverride || '';
   // Added this here so that the JSON string is not malformed
@@ -37,7 +44,10 @@ export function LenkeMedSporingBase(props: LenkeMedSporingProps) {
       lang="${props.lang}"
       data-analytics-event-args='${JSON.stringify(props.analyticsEventArgs)}'
       data-class-name-override="${classNameOverride}"
+      data-container-class-name="${props.containerClassName}"
       data-class-name="${className}"
+      data-extra-attrs='${JSON.stringify(props.extraAttrs)}'
+      ${defaultStyle ? 'data-default-style="true"' : ''}
     >
     <div id="children">${props.children}</div>
     </lenke-med-sporing>

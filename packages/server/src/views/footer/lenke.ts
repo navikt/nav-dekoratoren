@@ -9,6 +9,7 @@ export function FooterLenke({
   classNameOverride?: string;
 }) {
   const { content, url } = link;
+
   return LenkeMedSporing({
     href: url,
     children: content,

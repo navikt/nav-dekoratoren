@@ -63,6 +63,28 @@
   display: none;
 }
 
+.headerContextLink {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 4px solid transparent;
+  padding: 0 1rem;
+  text-decoration: none;
+}
+
+.headerContextLink:hover {
+  border-color: var(--a-gray-300);
+}
+
+.headerContextLink.lenkeActive {
+  font-weight: bold;
+  border-color: var(--a-text-action);
+}
+
+.headerContextLinkContainer {
+  height: 100%;
+}
+
 @media (--breakpoint-lg) {
   .headerMenuLinks .nestedLink {
     display: flex;
