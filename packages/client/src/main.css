@@ -113,6 +113,11 @@ a {
   text-underline-offset: 0.15em;
 }
 
+.complex-footer-org {
+  display: grid;
+  gap: var(--a-spacing-2);
+}
+
 /* HEADER AND MENU */
 #menu {
   position: absolute;

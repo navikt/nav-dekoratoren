@@ -51,6 +51,3 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 ### Footer
 
 - Ingen hover på lenker i footer
-- Del skjerm med veileder bør være button, ikke `<a href="#">`
-- Avstand mellom logo og tekst i footer
-- Revurdere flex + gap for vertikal avstand

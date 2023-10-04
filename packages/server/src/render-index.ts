@@ -44,6 +44,7 @@ export default async ({
       data.simple || data.simpleFooter
         ? SimpleFooter({
             links: await contentService.getSimpleFooterLinks(data),
+            texts: localTexts,
           })
         : ComplexFooter({
             texts: localTexts,

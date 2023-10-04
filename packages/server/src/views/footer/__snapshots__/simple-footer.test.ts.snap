@@ -2,19 +2,14 @@
 
 exports[`renders simple footer 1`] = `
 "
-  <footer class="_simpleFooter_t7b4a_1">
-    <ul class="_footerLinkList_t7b4a_9">
+  <footer class="_simpleFooter_1ivox_1">
+    <div class="_footerLinkList_1ivox_8 _contentContainer_1av57_1">
       
-          <li>
-            <a class="_footerLink_t7b4a_9" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
-          </li>
+          <a class="_footerLink_1ivox_8" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
         
-          <li>
-            <a class="_footerLink_t7b4a_9" href="/tilgjengelighet">Tilgjengelighet</a>
-          </li>
+          <a class="_footerLink_1ivox_8" href="/tilgjengelighet">Tilgjengelighet</a>
         
-          <li>
-            <a class="_footerLink_t7b4a_9" href="#">Del skjerm<svg
+          <a class="_footerLink_1ivox_8" href="#">Del skjerm<svg
         width="1em"
         height="1em"
         viewBox="0 0 24 24"
@@ -30,9 +25,8 @@ exports[`renders simple footer 1`] = `
           fill="currentColor"
         ></path>
       </svg></a>
-          </li>
         
-    </ul>
+    </div>
   </footer>
 "
 `;

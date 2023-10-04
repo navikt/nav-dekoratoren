@@ -1,15 +1,16 @@
 import { LinkGroup } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
 import html from 'decorator-shared/html';
+import { ScreenshareButton } from './screenshare-button';
 
 export type ComplexFooterProps = {
-  texts: { to_top: string };
+  texts: { to_top: string; share_screen: string };
   links: LinkGroup[];
 };
 
 export function ComplexFooter({ texts, links }: ComplexFooterProps) {
   return html`
-    <footer class="footer">
+    <footer class="footer" data-theme="dark">
       <div class="footer-content ${cls.contentContainer}">
         <a class="to-top-link" href="#">
           <svg
@@ -50,10 +51,11 @@ export function ComplexFooter({ texts, links }: ComplexFooterProps) {
                 </li>
               `,
             )}
+            <li>${ScreenshareButton(texts.share_screen)}</li>
           </ul>
         </div>
 
-        <div>
+        <div class="complex-footer-org">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="64"
@@ -67,7 +69,7 @@ export function ComplexFooter({ texts, links }: ComplexFooterProps) {
               clip-rule="evenodd"
             />
           </svg>
-          <p>Arbeids- og velferdsetaten</p>
+          <span>Arbeids- og velferdsetaten</span>
         </div>
       </div>
     </footer>
