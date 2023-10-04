@@ -1,4 +1,4 @@
-import html from '../html';
+import html from '../../html';
 
 export type NotificationsEmptyProps = {
   texts: {
@@ -8,7 +8,7 @@ export type NotificationsEmptyProps = {
   };
 };
 
-export function NotificationsEmptyView({ texts }: NotificationsEmptyProps) {
+export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
   return html`
     <div id="notifications-empty">
       <img src="/public/kattIngenNotifications.svg" alt="" />
@@ -19,8 +19,4 @@ export function NotificationsEmptyView({ texts }: NotificationsEmptyProps) {
       >
     </div>
   `;
-}
-
-export function NotificationsUnread() {
-  return html` <div class="notifications-unread"></div> `;
 }

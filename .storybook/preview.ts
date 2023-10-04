@@ -3,6 +3,7 @@ import html from 'decorator-shared/html';
 import { Params } from 'decorator-shared/params';
 import 'decorator-client/src/main.css';
 import 'decorator-client/src/views/local-time';
+import 'decorator-client/src/views/loader';
 
 declare global {
   interface Window {

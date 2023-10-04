@@ -5,10 +5,7 @@ import { LoginIcon } from '../../icons/login';
 import { NotificationsIcon } from 'decorator-shared/views/icons/notifications';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
-import {
-  NotificationsEmptyView,
-  NotificationsUnread,
-} from '../../notifications';
+import { NotificationsEmpty } from '../../notifications/empty';
 import { DropdownButton } from '../../components/dropdown-button';
 
 // ${IconButton({
@@ -31,7 +28,7 @@ export function LoggedInMenu({
         <toggle-icon-button id="notifications-button">
           <div class="notifications-icon-wrapper" slot="icon">
             ${NotificationsIcon({ className: 'notifications-icon' })}
-            ${NotificationsUnread()}
+            <div class="notifications-unread"></div>
           </div>
           <span slot="text">${texts.notifications}</span>
         </toggle-icon-button>
@@ -53,7 +50,7 @@ export function LoggedInMenu({
         <div id="loggedin-menu-content">
           <div id="notifications-menu-content" class="dropdown">
             <!-- Placeholder for now -->
-            ${NotificationsEmptyView({
+            ${NotificationsEmpty({
               texts,
             })}
             <!-- Loaded on client -->

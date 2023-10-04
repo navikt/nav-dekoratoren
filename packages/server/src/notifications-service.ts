@@ -30,7 +30,7 @@ type Beskjed = {
   eksternVarslingKanaler: string[];
 };
 
-const getNotifications: (texts: Texts) => Promise<NotificationList[]> = (
+const getNotifications: (texts: Texts) => Promise<NotificationList[]> = async (
   texts,
 ) => {
   const kanalToTag = (kanal: string) => {
@@ -65,6 +65,8 @@ const getNotifications: (texts: Texts) => Promise<NotificationList[]> = (
     isArchivable: !beskjed.link,
     link: beskjed.link ?? '',
   });
+
+  await new Promise((r) => setTimeout(r, 3000));
 
   return Promise.resolve([
     {
