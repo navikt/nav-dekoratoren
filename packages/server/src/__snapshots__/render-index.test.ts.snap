@@ -1207,7 +1207,7 @@ exports[`renders norwegian index 1`] = `
         </main>
         <div id="footer-withmenu" class="bg-white">
             
-    <footer class="footer">
+    <footer class="footer" data-theme="dark">
       <div class="footer-content _contentContainer_1av57_1">
         <a class="to-top-link" href="#">
           <svg
@@ -1312,9 +1312,11 @@ exports[`renders norwegian index 1`] = `
                           <a class="footer-link" href="/tilgjengelighet">Tilgjengelighet</a>
                         </li>
                       
-<<<<<<< HEAD
-                        <li class="footer-link-item">
-                          <a class="footer-link" href="#">Del skjerm med veileder
+                  </ul>
+                </li>
+              
+            <li><button type="button" class="_screenshareButton_1ggeo_1">
+    Del skjerm med veileder
     <svg
       width="1em"
       height="1em"
@@ -1331,18 +1333,11 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       ></path>
     </svg>
-  </a>
-                        </li>
-                      
-=======
->>>>>>> main
-                  </ul>
-                </li>
-              
+  </button></li>
           </ul>
         </div>
 
-        <div>
+        <div class="complex-footer-org">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="64"
@@ -1356,7 +1351,7 @@ exports[`renders norwegian index 1`] = `
               clip-rule="evenodd"
             />
           </svg>
-          <p>Arbeids- og velferdsetaten</p>
+          <span>Arbeids- og velferdsetaten</span>
         </div>
       </div>
     </footer>
@@ -3007,7 +3002,7 @@ exports[`renders english index 1`] = `
         </main>
         <div id="footer-withmenu" class="bg-white">
             
-    <footer class="footer">
+    <footer class="footer" data-theme="dark">
       <div class="footer-content _contentContainer_1av57_1">
         <a class="to-top-link" href="#">
           <svg
@@ -3105,9 +3100,11 @@ exports[`renders english index 1`] = `
                           <a class="footer-link" href="/tilgjengelighet/en">Accessibility</a>
                         </li>
                       
-<<<<<<< HEAD
-                        <li class="footer-link-item">
-                          <a class="footer-link" href="#">Share screen with your counsellor
+                  </ul>
+                </li>
+              
+            <li><button type="button" class="_screenshareButton_1ggeo_1">
+    Share screen with your counsellor
     <svg
       width="1em"
       height="1em"
@@ -3124,18 +3121,11 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       ></path>
     </svg>
-  </a>
-                        </li>
-                      
-=======
->>>>>>> main
-                  </ul>
-                </li>
-              
+  </button></li>
           </ul>
         </div>
 
-        <div>
+        <div class="complex-footer-org">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="64"
@@ -3149,7 +3139,7 @@ exports[`renders english index 1`] = `
               clip-rule="evenodd"
             />
           </svg>
-          <p>Arbeids- og velferdsetaten</p>
+          <span>Arbeids- og velferdsetaten</span>
         </div>
       </div>
     </footer>
