@@ -101,6 +101,7 @@ test('renders complex footer', async () => {
     ComplexFooter({
       texts: {
         to_top: 'Til toppen',
+        share_screen: 'Del skjerm med veileder',
       },
       links,
     }),
