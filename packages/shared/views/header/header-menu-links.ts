@@ -16,7 +16,7 @@ function Link({
 }) {
   return html`
     <li class="header-menu-link ${className}" id="${id}">
-      <div class="header-menu-link-inner">${ForwardChevron()}</div>
+      ${ForwardChevron({ className: 'header-menu-link-icon' })}
       <a href="${path}">${displayName}</a>
     </li>
   `;
@@ -34,20 +34,18 @@ function ContextLink({
   className?: string;
 }) {
   return html`
-    <a
-      class="context-menu-link-wrapper"
-      href="${context}"
-      data-context="${context}"
-    >
-      <li class="context-menu-link ${className}" id="${id}">
-        <div class="context-menu-link-inner">
-          ${ForwardChevron({
-            className: 'chevron',
-          })}
-        </div>
+    <li class="context-menu-link-wrapper" id="${id}">
+      <a
+        class="context-menu-link  ${className}"
+        href="${context}"
+        data-context="${context}"
+      >
+        ${ForwardChevron({
+          className: 'context-menu-link-icon',
+        })}
         <span>${displayName}</span>
-      </li>
-    </a>
+      </a>
+    </li>
   `;
 }
 

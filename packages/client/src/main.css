@@ -398,32 +398,35 @@ a {
 .header-menu-link {
   display: flex;
   align-items: flex-start;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   padding-top: 0.5rem /* 8px */;
   padding-bottom: 0.5rem /* 8px */;
+  color: var(--a-text-action);
 }
 
-.header-menu-link svg {
-  fill: var(--a-text-action);
-  stroke: var(--a-text-action);
+@media (min-width: 1024px) {
+  .header-menu-link {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 }
 
-.header-menu-link a {
-  order: 2;
+.header-menu-link-icon {
+  stroke: currentColor;
 }
 
-.header-menu-link-inner {
-  color: rgba(0, 103, 197, 1);
-  margin-right: 1rem /* 16px */;
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-  order: 1;
-}
-
-.header-menu-link:is(:hover, :focus) .header-menu-link-inner {
-  transform: translateX(8px);
+@media (min-width: 768px) {
+  .header-menu-link-icon {
+    margin-inline-end: 1rem /* 16px */;
+    transform: translateY(2px);
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  .header-menu-link:is(:hover, :focus) .header-menu-link-icon {
+    transform: translateY(2px) translateX(8px);
+  }
 }
 
 .header-menu-link a {
@@ -435,6 +438,7 @@ a {
 }
 
 /* Context menu link */
+
 /* Styling should be consoliated */
 .context-menu-link {
   display: flex;
@@ -443,12 +447,8 @@ a {
   padding: var(--a-spacing-5);
   padding-left: var(--a-spacing-2);
   cursor: pointer;
-}
-
-.context-menu-link .chevron {
-  fill: var(--a-text-action);
-  stroke: var(--a-text-action);
-  margin-top: -4px;
+  color: var(--a-text-action);
+  border-radius: var(--a-border-radius-medium);
 }
 
 .context-menu-link span {
@@ -457,33 +457,20 @@ a {
   font-weight: bold;
 }
 
-.context-menu-link-inner {
-  color: rgba(0, 103, 197, 1);
+.context-menu-link-icon {
   margin-right: var(--a-spacing-2);
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  order: 1;
+  stroke: currentColor;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
-  height: 100%;
   align-items: center;
 }
 
-.context-menu-link:hover {
+.context-menu-link:is(:hover, :focus) {
   background-color: var(--a-blue-500);
-  color: white;
-  border-radius: 4px;
+  color: var(--a-text-on-action);
 }
 
-.context-menu-link:is(:hover, :focus) .context-menu-link-inner {
-  color: white;
-  stroke: white;
-}
-
-.context-menu-link:is(:hover, :focus) .chevron {
-  fill: white;
-  stroke: white;
-}
-
-.context-menu-link:is(:hover, :focus) .context-menu-link-inner {
+.context-menu-link:is(:hover, :focus) .context-menu-link-icon {
   transform: translateX(8px);
 }
 
@@ -492,7 +479,7 @@ a {
   text-underline-offset: var(--a-spacing-1);
 }
 
-/* Conext link inside header menu */
+/* Context link inside header menu */
 
 #sok-dropdown {
   position: absolute;
