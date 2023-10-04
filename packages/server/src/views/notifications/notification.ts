@@ -8,6 +8,7 @@ export type NotificationProps = {
   date: string;
   icon: string;
   tags: string[];
+  amplitudeKomponent: string;
 };
 
 export const Notification = ({
@@ -16,8 +17,12 @@ export const Notification = ({
   date,
   icon,
   tags,
+  amplitudeKomponent,
 }: NotificationProps) =>
-  html`<div class="${cls.notification}">
+  html`<link-notification
+    class="${cls.notification}"
+    data-amplitude-komponent="${amplitudeKomponent}"
+  >
     <div>
       <a href="${link}" class="${cls.text}">${text}</a>
       <local-time datetime="${date}" class="${cls.date}" />
@@ -26,4 +31,4 @@ export const Notification = ({
       ${icon}${tags.map((tag) => html`<div class="${cls.tag}">${tag}</div>`)}
       ${ForwardChevron({ className: cls.chevron })}
     </div>
-  </div>`;
+  </link-notification>`;

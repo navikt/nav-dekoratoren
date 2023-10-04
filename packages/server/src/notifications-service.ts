@@ -53,6 +53,8 @@ const getNotifications: (texts: Texts) => Promise<NotificationList[]> = async (
       .filter(Boolean) as string[],
     isArchivable: false,
     link: oppgave.link ?? '',
+    id: oppgave.eventId,
+    amplitudeKomponent: 'varsel-oppgave',
   });
 
   const beskjedToNotification = (beskjed: Beskjed) => ({
@@ -64,6 +66,8 @@ const getNotifications: (texts: Texts) => Promise<NotificationList[]> = async (
       .filter(Boolean) as string[],
     isArchivable: !beskjed.link,
     link: beskjed.link ?? '',
+    id: beskjed.eventId,
+    amplitudeKomponent: 'varsel-beskjed',
   });
 
   await new Promise((r) => setTimeout(r, 3000));

@@ -11,10 +11,12 @@ type Notification = {
 } & (
   | {
       isArchivable: true;
+      id: string;
     }
   | {
       isArchivable: false;
       link: string;
+      amplitudeKomponent: string;
     }
 );
 

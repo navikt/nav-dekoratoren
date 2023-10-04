@@ -368,6 +368,7 @@ api.checkAuth({
       if (notificationsMenuContent) {
         notificationsMenuContent.innerHTML = notifications;
       }
+
       // Attach arkiver listener
       afterAuthListeners();
     }
