@@ -104,10 +104,12 @@ a {
 
 .footer-link {
   color: inherit;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  display: inline-block;
   padding: 0.5rem 0;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
   text-decoration-color: #99c4dd;
   text-decoration-thickness: 0.0625em;
   text-underline-offset: 0.15em;
