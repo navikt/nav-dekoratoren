@@ -49,20 +49,16 @@ function ContextLink({
   `;
 }
 
-export type HeaderMenuLinkCols = 3 | 4 | 5;
-
 export function HeaderMenuLinks({
-  cols = 3,
   className = '',
   headerMenuLinks,
 }: {
   headerMenuLinks: Node[];
   className?: string;
-  cols?: HeaderMenuLinkCols;
 }) {
   // Add one for the conext links
   return html`
-    <ul class="header-menu-links cols-${(cols + 1).toString()} ${className}">
+    <ul class="header-menu-links ${className}">
       ${headerMenuLinks.map(
         (link) => html`
           <li id="${link.id}" class="${link.flatten ? 'flatten' : 'nested'}">

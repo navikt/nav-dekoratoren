@@ -43,10 +43,6 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 
 - Bytte ut nested list med div på gruppenivå?
 
-### Brødsmulesti
-
-- Alignment og farge på ikon i brødsmulesti
-
 ### Footer
 
 - Ingen hover på lenker i footer
