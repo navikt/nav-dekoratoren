@@ -68,6 +68,8 @@ export async function Index({
   lens: Template;
   decoratorData: Template;
 }) {
+  const links = await Links();
+  const scripts = await Scripts();
   return html`
     <!doctype html>
     <html lang="${language}">
@@ -83,7 +85,7 @@ export async function Index({
         ${Partytown()}
       </head>
       <body>
-        <div id="styles" style="display:none">${await Links()}</div>
+        <div id="styles" style="display:none">${() => links}</div>
         ${WebcomponentTemplates()} ${header}
         <main>
           <button class="button button-main" id="amplitude-test">
@@ -95,7 +97,7 @@ export async function Index({
         </div>
         ${lens}
         <div id="scripts" style="display:none">
-          ${await Scripts()}${decoratorData}
+          ${() => scripts}${decoratorData}
         </div>
       </body>
     </html>

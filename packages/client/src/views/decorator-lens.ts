@@ -72,7 +72,7 @@ export class DecoratorLens extends HTMLElement {
             })}
           </ul>
         </div>
-      `;
+      `();
     }
   }
 }

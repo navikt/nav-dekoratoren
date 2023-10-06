@@ -15,12 +15,12 @@ export function DecoratorLens({
       ${DecoratorLensTemplate({ env, query })}
       <div
         id="decorator-lens"
-        data-src="${origin}?${formatParams(env).toString()}"
+        data-src="${origin}?${() => formatParams(env).toString()}"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
         id="decorator-lens-explicit"
-        data-src="${formatParams(query).toString()}"
+        data-src="${() => formatParams(query).toString()}"
       ></div>
       <decorator-lens></decorator-lens>
     </div>
@@ -54,10 +54,10 @@ export function DecoratorLensTemplate({
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        ${JSON.stringify(env)}
+        ${() => JSON.stringify(env)}
       </script>
       <script type="application/json" id="explicit-params">
-        ${JSON.stringify(query)}
+        ${() => JSON.stringify(query)}
       </script>
       <div id="decorator-lens-wrapper"></div>
     </template>

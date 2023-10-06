@@ -6,7 +6,7 @@ export function spreadProps(props: Props) {
 
   for (const [key, value] of Object.entries(props)) {
     if (value) {
-      result.push(`${key}="${value}"`);
+      result.push(html`${key}="${value}"`);
     }
   }
 
@@ -63,6 +63,8 @@ function escapeHtml(string: string) {
 type TemplateStringValues =
   | string
   | string[]
+  | Template
+  | Template[]
   | boolean
   | ((e: Element) => void)
   | NamedNodeMap
@@ -70,18 +72,18 @@ type TemplateStringValues =
   | undefined
   | null;
 
-export type Template = {
-  strings: TemplateStringsArray;
-  values: TemplateStringValues[];
-};
+export type Template = () => string;
 
-const html = (
-  strings: TemplateStringsArray,
-  ...values: TemplateStringValues[]
-): Template => ({
-  strings,
-  values,
-});
+const html =
+  (
+    strings: TemplateStringsArray,
+    ...values: TemplateStringValues[]
+  ): (() => string) =>
+  () =>
+    render({
+      strings,
+      values,
+    });
 
 export default html;
 
@@ -93,7 +95,14 @@ const renderValue = (item: TemplateStringValues): string =>
     ? ''
     : typeof item === 'string'
     ? escapeHtml(item)
-    : render(item as Template);
+    : typeof item === 'function'
+    ? item()
+    : '';
 
-export const render = ({ strings, values }: Template): string =>
-  String.raw({ raw: strings }, ...values.map(renderValue));
+const render = ({
+  strings,
+  values,
+}: {
+  strings: TemplateStringsArray;
+  values: TemplateStringValues[];
+}): string => String.raw({ raw: strings }, ...values.map(renderValue));

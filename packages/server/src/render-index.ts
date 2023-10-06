@@ -1,4 +1,3 @@
-import { render } from 'decorator-shared/html';
 import { Header } from 'decorator-shared/views/header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
@@ -35,7 +34,7 @@ export default async ({
       simpleFooter: data.simpleFooter,
     });
 
-  return render(
+  return (
     await Index({
       language,
       header: Header({
@@ -71,6 +70,6 @@ export default async ({
         texts: localTexts,
         params: data,
       }),
-    }),
-  );
+    })
+  )();
 };

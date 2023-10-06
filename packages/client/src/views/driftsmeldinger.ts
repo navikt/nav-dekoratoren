@@ -35,7 +35,7 @@ export async function fetchDriftsMeldinger() {
       'afterend',
       Driftsmeldinger({
         driftsmeldinger,
-      }),
+      })(),
     );
   }
 }

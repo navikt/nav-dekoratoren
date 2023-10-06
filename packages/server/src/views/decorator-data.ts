@@ -10,6 +10,6 @@ export const DecoratorData = ({
   params: Params;
 }) => html`
   <script type="application/json" id="__DECORATOR_DATA__">
-    ${JSON.stringify({ texts, params })}
+    ${() => JSON.stringify({ texts, params })}
   </script>
 `;

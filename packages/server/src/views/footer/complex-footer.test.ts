@@ -1,6 +1,5 @@
 import { expect, test } from 'bun:test';
 import { ComplexFooter } from './complex-footer';
-import { render } from 'decorator-shared/html';
 
 const links = [
   {
@@ -79,14 +78,12 @@ const links = [
 
 test('renders complex footer', async () => {
   expect(
-    render(
-      ComplexFooter({
-        texts: {
-          to_top: 'Til toppen',
-          share_screen: 'Del skjerm med veileder',
-        },
-        links,
-      }),
-    ),
+    ComplexFooter({
+      texts: {
+        to_top: 'Til toppen',
+        share_screen: 'Del skjerm med veileder',
+      },
+      links,
+    })(),
   ).toMatchSnapshot();
 });

@@ -2173,7 +2173,7 @@ exports[`renders english index 1`] = `
       ></path>
     </svg>
   </div>
-      <a href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits">Information about NAV's services and benefits</a>
+      <a href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits">Information about NAV&#x27;s services and benefits</a>
     </li>
   
     <li class="header-menu-link " id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
@@ -3051,7 +3051,7 @@ exports[`renders english index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
-                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou">Statistics, analysis and R&D</a>
+                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou">Statistics, analysis and R&amp;D</a>
                         </li>
                       
                         <li class="footer-link-item">

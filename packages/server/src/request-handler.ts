@@ -1,4 +1,3 @@
-import { render } from 'decorator-shared/html';
 import { validateParams } from './validateParams';
 import { getMockSession, refreshToken } from './mockAuth';
 import ContentService from './content-service';
@@ -124,14 +123,12 @@ const requestHandler = async (
       '/api/notifications',
       async ({ query }) =>
         new Response(
-          render(
-            Notifications({
-              texts: texts[validParams(query).language],
-              notificationLists: await notificationsService.getNotifications(
-                texts[validParams(query).language],
-              ),
-            }),
-          ),
+          Notifications({
+            texts: texts[validParams(query).language],
+            notificationLists: await notificationsService.getNotifications(
+              texts[validParams(query).language],
+            ),
+          })(),
           {
             headers: { 'content-type': 'text/html; charset=utf-8' },
           },

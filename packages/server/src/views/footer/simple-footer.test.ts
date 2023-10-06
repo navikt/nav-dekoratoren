@@ -1,5 +1,4 @@
 import { expect, test } from 'bun:test';
-import { render } from 'decorator-shared/html';
 import { SimpleFooter } from './simple-footer';
 
 const links = [
@@ -15,13 +14,11 @@ const links = [
 
 test('renders simple footer', async () => {
   expect(
-    render(
-      SimpleFooter({
-        links,
-        texts: {
-          share_screen: 'Del skjerm med veileder',
-        },
-      }),
-    ),
+    SimpleFooter({
+      links,
+      texts: {
+        share_screen: 'Del skjerm med veileder',
+      },
+    })(),
   ).toMatchSnapshot();
 });

@@ -14,7 +14,7 @@ export function Partytown() {
       };
     </script>
     <script>
-      ${snippetText};
+      ${() => snippetText};
     </script>
   `;
 }

@@ -19,7 +19,7 @@ export function addFeedbackListener({ texts }: { texts: Texts }) {
       if (feedbackContent) {
         feedbackContent.innerHTML = FeedbackSuccess({
           texts,
-        });
+        })();
 
         window.logAmplitudeEvent('tilbakemelding', {
           kilde: 'footer',

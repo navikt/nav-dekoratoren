@@ -68,7 +68,7 @@ export class LenkeMedSporingElement extends HTMLElement {
             : ''}
         </div>
         ${children}
-      `;
+      `();
     }
 
     this.appendChild(a);

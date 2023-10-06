@@ -333,7 +333,7 @@ async function populateLoggedInMenu(authObject: Auth) {
       window.__DECORATOR_DATA__.params.simple,
     );
 
-    menuItems.outerHTML = newMenuItems;
+    menuItems.outerHTML = newMenuItems();
 
     initLoggedInMenu();
     handleMenuButton();
