@@ -56,6 +56,7 @@ export type Texts = {
   hensikt_med_tilbakemelding: string;
   hensikt_med_tilbakemelding_lenke: string;
   send_undersokelse_takk: string;
+  loading_notifications: string;
 };
 
 export type Driftsmelding = {

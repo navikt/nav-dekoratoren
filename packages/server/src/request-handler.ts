@@ -1,3 +1,4 @@
+import { NotificationsEmpty } from 'decorator-shared/views/notifications/empty';
 import { validateParams } from './validateParams';
 import { getMockSession, refreshToken } from './mockAuth';
 import ContentService from './content-service';
@@ -18,7 +19,7 @@ type FileSystemService = {
 };
 
 type NotificationsService = {
-  getNotifications: (texts: Texts) => Promise<NotificationList[]>;
+  getNotifications: (texts: Texts) => Promise<NotificationList[] | undefined>;
 };
 
 const requestHandler = async (
@@ -119,21 +120,25 @@ const requestHandler = async (
     .get('/oauth2/logout', () => jsonResponse(getMockSession()))
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
-    .get(
-      '/api/notifications',
-      async ({ query }) =>
-        new Response(
-          Notifications({
-            texts: texts[validParams(query).language],
-            notificationLists: await notificationsService.getNotifications(
-              texts[validParams(query).language],
-            ),
-          }),
-          {
-            headers: { 'content-type': 'text/html; charset=utf-8' },
-          },
-        ),
-    )
+    .get('/api/notifications', async ({ query }) => {
+      const notificationLists = await notificationsService.getNotifications(
+        texts[validParams(query).language],
+      );
+
+      const localTexts = texts[validParams(query).language];
+
+      return new Response(
+        notificationLists
+          ? Notifications({
+              texts: localTexts,
+              notificationLists,
+            })
+          : NotificationsEmpty({ texts: localTexts }),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
+      );
+    })
     .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
     )

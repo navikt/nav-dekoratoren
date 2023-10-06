@@ -36,6 +36,7 @@ const nb = {
     'Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?',
   hensikt_med_tilbakemelding_lenke: 'Ring, chat eller skriv til oss',
   send_undersokelse_takk: 'Takk!',
+  loading_notifications: 'Laster varslinger',
 };
 
 export type LangBaseKeys = keyof typeof nb;
@@ -78,6 +79,7 @@ export const texts: Record<Language, Texts> = {
       'Unfortunately you will not get a reply to your feedback. Do you have questions or need help?',
     hensikt_med_tilbakemelding_lenke: 'Call, chat or write to us',
     send_undersokelse_takk: 'Thanks!',
+    loading_notifications: 'Loading notifications',
   },
   se: nb,
   nn: nb,
