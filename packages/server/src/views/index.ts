@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
@@ -61,12 +61,12 @@ export async function Index({
   decoratorData,
 }: {
   language: Language;
-  header: string;
-  feedback: string;
-  footer: string;
-  logoutWarning: string;
-  lens: string;
-  decoratorData: string;
+  header: Template;
+  feedback?: Template;
+  footer: Template;
+  logoutWarning?: Template;
+  lens: Template;
+  decoratorData: Template;
 }) {
   return html`
     <!doctype html>
