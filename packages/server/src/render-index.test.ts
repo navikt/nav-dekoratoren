@@ -3,7 +3,10 @@ import menu from './content-test-data.json';
 import renderIndex from './render-index';
 import ContentService from './content-service';
 
-const contentService = new ContentService(() => Promise.resolve(menu));
+const contentService = new ContentService(
+  () => Promise.resolve(menu),
+  () => Promise.resolve([]),
+);
 
 test('renders norwegian index', async () => {
   expect(

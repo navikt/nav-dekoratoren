@@ -1,5 +1,5 @@
 import { Params, formatParams } from 'decorator-shared/params';
-import html from 'decorator-shared/html';
+import html, { json, unsafeHtml } from 'decorator-shared/html';
 
 export function DecoratorLens({
   origin,
@@ -15,12 +15,12 @@ export function DecoratorLens({
       ${DecoratorLensTemplate({ env, query })}
       <div
         id="decorator-lens"
-        data-src="${origin}?${() => formatParams(env).toString()}"
+        data-src="${origin}?${unsafeHtml(formatParams(env).toString())}"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
         id="decorator-lens-explicit"
-        data-src="${() => formatParams(query).toString()}"
+        data-src="${unsafeHtml(formatParams(query).toString())}"
       ></div>
       <decorator-lens></decorator-lens>
     </div>
@@ -54,10 +54,10 @@ export function DecoratorLensTemplate({
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        ${() => JSON.stringify(env)}
+        ${json(env)}
       </script>
       <script type="application/json" id="explicit-params">
-        ${() => JSON.stringify(query)}
+        ${json(query)}
       </script>
       <div id="decorator-lens-wrapper"></div>
     </template>

@@ -71,5 +71,5 @@ export default async ({
         params: data,
       }),
     })
-  )();
+  ).render();
 };

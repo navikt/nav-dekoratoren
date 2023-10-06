@@ -13,7 +13,7 @@ export function replaceElement({
     const el = document.querySelector(selector);
 
     if (el) {
-      el[contentKey] = html();
+      el[contentKey] = html.render();
       resolve(el);
     }
 

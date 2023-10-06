@@ -29,7 +29,7 @@ export function addSearchInputListener() {
                         <h2 slot="title">${hit.displayName}</h2>
                         <p slot="description">${hit.highlight}</p>
                       </search-hit>
-                    `(),
+                    `.render(),
                 )
                 .join(''),
             });

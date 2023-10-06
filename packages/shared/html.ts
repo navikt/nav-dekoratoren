@@ -72,18 +72,24 @@ type TemplateStringValues =
   | undefined
   | null;
 
-export type Template = () => string;
+export type Template = {
+  render: () => string;
+};
 
-const html =
-  (
-    strings: TemplateStringsArray,
-    ...values: TemplateStringValues[]
-  ): (() => string) =>
-  () =>
-    render({
-      strings,
-      values,
-    });
+const html = (
+  strings: TemplateStringsArray,
+  ...values: TemplateStringValues[]
+): Template => ({
+  render: () => String.raw({ raw: strings }, ...values.map(renderValue)),
+});
+
+export const json = (value: JSON): Template => ({
+  render: () => JSON.stringify(value),
+});
+
+export const unsafeHtml = (htmlString: string) => ({
+  render: () => htmlString,
+});
 
 export default html;
 
@@ -95,14 +101,6 @@ const renderValue = (item: TemplateStringValues): string =>
     ? ''
     : typeof item === 'string'
     ? escapeHtml(item)
-    : typeof item === 'function'
-    ? item()
+    : typeof item === 'object' && 'render' in item
+    ? item.render()
     : '';
-
-const render = ({
-  strings,
-  values,
-}: {
-  strings: TemplateStringsArray;
-  values: TemplateStringValues[];
-}): string => String.raw({ raw: strings }, ...values.map(renderValue));

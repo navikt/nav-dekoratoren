@@ -84,6 +84,6 @@ test('renders complex footer', async () => {
         share_screen: 'Del skjerm med veileder',
       },
       links,
-    })(),
+    }).render(),
   ).toMatchSnapshot();
 });

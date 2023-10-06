@@ -19,6 +19,6 @@ test('renders simple footer', async () => {
       texts: {
         share_screen: 'Del skjerm med veileder',
       },
-    })(),
+    }).render(),
   ).toMatchSnapshot();
 });
