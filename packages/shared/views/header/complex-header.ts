@@ -30,7 +30,7 @@ export function ComplexHeader({
           class="hovedmeny-wrapper ${cls.contentContainer}"
         >
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
             <div
               id="arbeidsflate"
             >

@@ -30,7 +30,9 @@ export function SimpleHeader({
       <header class="siteheader">
         <div class="hovedmeny-wrapper ${cls.contentContainer}">
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV" />
+            <a href="https://www.nav.no/"
+              ><img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV"
+            /></a>
           </div>
           ${SimpleHeaderNavbarItems({
             innlogget,
