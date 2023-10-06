@@ -127,6 +127,10 @@ const requestHandler = async (
 
       const localTexts = texts[validParams(query).language];
 
+      if (Math.random() > 0.8) {
+        return new Response('server error', { status: 500 });
+      }
+
       return new Response(
         notificationLists
           ? Notifications({

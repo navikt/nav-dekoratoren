@@ -70,7 +70,7 @@ const getNotifications: (
     amplitudeKomponent: 'varsel-beskjed',
   });
 
-  await new Promise((r) => setTimeout(r, 3000));
+  await new Promise((r) => setTimeout(r, 1000));
 
   return Math.random() > 0.5
     ? Promise.resolve([

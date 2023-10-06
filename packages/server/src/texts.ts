@@ -37,6 +37,7 @@ const nb = {
   hensikt_med_tilbakemelding_lenke: 'Ring, chat eller skriv til oss',
   send_undersokelse_takk: 'Takk!',
   loading_notifications: 'Laster varslinger',
+  notifications_error: 'Feil ved lasting av varsler',
 };
 
 export type LangBaseKeys = keyof typeof nb;
@@ -80,6 +81,7 @@ export const texts: Record<Language, Texts> = {
     hensikt_med_tilbakemelding_lenke: 'Call, chat or write to us',
     send_undersokelse_takk: 'Thanks!',
     loading_notifications: 'Loading notifications',
+    notifications_error: 'Error loading notifications',
   },
   se: nb,
   nn: nb,
