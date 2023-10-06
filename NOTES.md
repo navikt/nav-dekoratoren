@@ -41,9 +41,7 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 
 ### Åpen meny
 
-- Feil rekkefølge på ul, a og li i kontekst/rolle-meny (mobil)
-- Unødvendig div rundt chevron i åpen meny (mobil)
-- Alignment på ikoner i åpen meny
+- Bytte ut nested list med div på gruppenivå?
 
 ### Brødsmulesti
 
