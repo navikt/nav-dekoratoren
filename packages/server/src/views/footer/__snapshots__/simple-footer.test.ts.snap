@@ -6,11 +6,52 @@ exports[`renders simple footer 1`] = `
     <div class="_simpleFooterContent_yutxt_7 _contentContainer_1av57_1">
       <div class="_footerLinkList_yutxt_19">
         
-            <a class="_footerLink_yutxt_19" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
-          
-            <a class="_footerLink_yutxt_19" href="/tilgjengelighet">Tilgjengelighet</a>
-          
-            <a class="_footerLink_yutxt_19" href="#">Del skjerm<svg
+    <lenke-med-sporing
+      role=""
+      href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
+      data-class-name-override="_footerLink_yutxt_19"
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      data-default-style="true"
+    >
+    <div id="children">Personvern og informasjonskapsler</div>
+    </lenke-med-sporing>
+  
+    <lenke-med-sporing
+      role=""
+      href="/tilgjengelighet"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
+      data-class-name-override="_footerLink_yutxt_19"
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      data-default-style="true"
+    >
+    <div id="children">Tilgjengelighet</div>
+    </lenke-med-sporing>
+  
+    <lenke-med-sporing
+      role=""
+      href="#"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/#","label":"#"}'
+      data-class-name-override="_footerLink_yutxt_19"
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      data-default-style="true"
+    >
+    <div id="children">Del skjerm<svg
         width="1em"
         height="1em"
         viewBox="0 0 24 24"
@@ -25,8 +66,9 @@ exports[`renders simple footer 1`] = `
           d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
           fill="currentColor"
         ></path>
-      </svg></a>
-          
+      </svg></div>
+    </lenke-med-sporing>
+  
       </div>
       <button type="button" class="_screenshareButton_1ggeo_1">
     Del skjerm med veileder
