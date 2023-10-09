@@ -9,9 +9,9 @@ import { addFeedbackListener } from './feedback-listener';
 export { addBreadcrumbEventListeners } from './breadcrumbs-listener';
 
 export function onLoadListeners(params: WithTexts) {
-  addBreadcrumbEventListeners();
   addSnarveierListener();
   addSearchInputListener();
+  addBreadcrumbEventListeners(params);
   addFeedbackListener(params);
 }
 
