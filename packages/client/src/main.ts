@@ -156,7 +156,7 @@ window.addEventListener('message', (e) => {
           temp.innerHTML =
             RenderLanguageSelector({
               availableLanguages: e.data.payload.availableLanguages,
-            }) ?? '';
+            })?.render() ?? '';
           container.append(...temp.childNodes);
         }
       }
@@ -331,7 +331,7 @@ async function populateLoggedInMenu(authObject: Auth) {
       window.__DECORATOR_DATA__.params.simple,
     );
 
-    menuItems.outerHTML = newMenuItems;
+    menuItems.outerHTML = newMenuItems.render();
 
     initLoggedInMenu();
     handleMenuButton();

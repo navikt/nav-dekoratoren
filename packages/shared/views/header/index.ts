@@ -28,7 +28,7 @@ export type HeaderProps = {
   myPageMenu?: Node[];
 } & Pick<Params, 'simple'>;
 
-export function getHeader(props: HeaderProps) {
+function getHeader(props: HeaderProps) {
   if (!props.simple) {
     return ComplexHeader(props);
   }

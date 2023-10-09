@@ -136,13 +136,14 @@ const requestHandler = async (
           ? Notifications({
               texts: localTexts,
               notificationLists,
-            })
-          : NotificationsEmpty({ texts: localTexts }),
+            }).render()
+          : NotificationsEmpty({ texts: localTexts }).render(),
         {
           headers: { 'content-type': 'text/html; charset=utf-8' },
         },
       );
     })
+
     .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
     )
