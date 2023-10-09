@@ -11,6 +11,8 @@ import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
 import { LogoutWarning } from './views/logoutWarning';
 import { Link, LinkGroup } from 'decorator-shared/types';
+import { makeContextLinks } from 'decorator-shared/context';
+import { env } from './env/server';
 
 export default async ({
   contentService,
@@ -35,6 +37,8 @@ export default async ({
       simpleFooter: data.simpleFooter,
     });
 
+  const contextLinks = makeContextLinks(env.XP_BASE_URL);
+
   return (
     await Index({
       language,
@@ -53,6 +57,8 @@ export default async ({
               myPageMenu,
               texts: localTexts,
               innlogget: false,
+              contextLinks,
+              context: data.context,
               isNorwegian: true,
               breadcrumbs: data.breadcrumbs,
               utilsBackground: data.utilsBackground,

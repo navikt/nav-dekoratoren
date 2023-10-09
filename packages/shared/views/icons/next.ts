@@ -1,6 +1,6 @@
 import html from '../../html';
 
-export const Next = () => {
+export const Next = ({ className }: { className?: string }) => {
   return html`
     <svg
       width="24px"
@@ -9,6 +9,7 @@ export const Next = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
+      class="${className}"
     >
       <path
         fillRule="evenodd"

@@ -1,0 +1,31 @@
+.complexFooter {
+}
+
+.simpleFooterContent {
+}
+
+.footerLinkList {
+  @media (min-width: 768px) {
+  }
+}
+
+.simpleFooter .footerLinkList .screenshareButton {
+  @media (min-width: 768px) {
+    margin-left: auto;
+  }
+}
+
+.footerLink {
+  color: inherit;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0;
+  text-decoration-color: #99c4dd;
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
+
+  @media (min-width: 768px) {
+    padding-block: var(--a-spacing-1);
+  }
+}

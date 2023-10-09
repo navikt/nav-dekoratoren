@@ -12,12 +12,13 @@ export type Node = {
   flatten?: boolean;
   id: string;
   isActive?: boolean;
+  isMyPageMenu?: boolean;
 };
 
 export type Link = {
   content: string;
   url: string;
-};
+} & Pick<Node, 'path'>;
 
 export type LinkGroup = {
   heading?: string;
@@ -56,6 +57,12 @@ export type Texts = {
   hensikt_med_tilbakemelding: string;
   hensikt_med_tilbakemelding_lenke: string;
   send_undersokelse_takk: string;
+  rolle_privatperson: string;
+  rolle_arbeidsgiver: string;
+  rolle_samarbeidspartner: string;
+  meny_bunnlenke_minside_stikkord: string;
+  meny_bunnlenke_arbeidsgiver_stikkord: string;
+  meny_bunnlenke_samarbeidspartner_stikkord: string;
   loading_notifications: string;
   notifications_error: string;
 };
@@ -66,6 +73,7 @@ export type Driftsmelding = {
   urlscope: string[];
 };
 
+export type TextKey = keyof Texts;
 export type WithTexts<T = object> = T & {
   texts: Texts;
 };

@@ -70,6 +70,7 @@ export async function Index({
 }) {
   const links = await Links();
   const scripts = await Scripts();
+
   return html`
     <!doctype html>
     <html lang="${language}">

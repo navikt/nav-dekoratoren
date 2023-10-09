@@ -8,10 +8,7 @@ import getContent from './get-content';
 
 import './views/lenke-med-sporing';
 
-import {
-  HeaderMenuLinkCols,
-  HeaderMenuLinks,
-} from 'decorator-shared/views/header/header-menu-links';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
@@ -47,6 +44,9 @@ import {
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
+// CSS classes
+import headerClasses from './styles/header.module.css';
+import { erNavDekoratoren } from './helpers/urls';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -60,7 +60,12 @@ const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
 
-const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
+const CONTEXTS = [
+  'privatperson',
+  'arbeidsgiver',
+  'samarbeidspartner',
+  'ikkebestemt',
+] as const;
 
 declare global {
   interface Window {
@@ -92,6 +97,7 @@ window.__DECORATOR_DATA__.env = {
   LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
   LOGOUT_URL: import.meta.env.VITE_LOGOUT_URL,
   MIN_SIDE_ARBEIDSGIVER_URL: import.meta.env.VITE_MIN_SIDE_ARBEIDSGIVER_URL,
+  XP_BASE_URL: import.meta.env.VITE_XP_BASE_URL,
 };
 
 onLoadListeners({
@@ -168,12 +174,16 @@ window.addEventListener('message', (e) => {
 });
 
 document
-  .querySelectorAll('.context-link')
-  .forEach((contextLink) =>
-    contextLink.addEventListener('click', () =>
-      setActiveContext(contextLink.getAttribute('data-context') as Context),
-    ),
-  );
+  .querySelectorAll(`.${headerClasses.headerContextLink}`)
+  .forEach((contextLink) => {
+    contextLink.addEventListener('click', (e) => {
+      if (erNavDekoratoren()) {
+        e.preventDefault();
+      }
+
+      setActiveContext(contextLink.getAttribute('data-context') as Context);
+    });
+  });
 
 // For inside menu.
 document.body.addEventListener('click', (e) => {
@@ -193,11 +203,11 @@ document.body.addEventListener('click', (e) => {
 async function setActiveContext(context: Context | null) {
   if (context && CONTEXTS.includes(context)) {
     document
-      .querySelectorAll('.context-link')
+      .querySelectorAll(`.${headerClasses.headerContextLink}`)
       .forEach((el) =>
         el.getAttribute('data-context') === context
-          ? el.classList.add('lenkeActive')
-          : el.classList.remove('lenkeActive'),
+          ? el.classList.add(headerClasses.lenkeActive)
+          : el.classList.remove(headerClasses.lenkeActive),
       );
 
     const headerMenuLinks = await getContent('headerMenuLinks', {
@@ -391,30 +401,3 @@ function handleLogin() {
 
 handleMenuButton();
 handleLogin();
-
-// const main = document.querySelector('main');
-//
-// document.querySelector('#amplitude-test')?.addEventListener('click', () => {
-//   console.log('Hello');
-//
-//   (window as any).analyticsEventTest({
-//     body: 'It is working',
-//   });
-// });
-//
-// if (main) {
-//   main.insertAdjacentHTML(
-//     'beforeend',
-//     LenkeMedSporing({
-//       href: 'https://www.nav.no!',
-//       children: 'Lenke med sporing!',
-//       withChevron: true,
-//       analyticsEventArgs: {
-//         eventName: 'decorator_next/test',
-//         category: AnalyticsCategory.Footer,
-//         action: `kontakt/oss`,
-//         label: 'Lenke',
-//       },
-//     }),
-//   );
-// }

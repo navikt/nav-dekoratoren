@@ -2,6 +2,7 @@ import html from 'decorator-shared/html';
 import {
   AvailableLanguage,
   Breadcrumb,
+  Context,
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Node, Texts } from 'decorator-shared/types';
@@ -29,16 +30,24 @@ export type ComplexHeaderProps = {
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
   myPageMenu?: Node[];
+  contextLinks: ContextLink[];
+  context: Context;
 };
+
+import classes from 'decorator-client/src/styles/header.module.css';
+import clsx from 'clsx';
+import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
+import { ContextLink } from 'decorator-shared/context';
 
 export function ComplexHeader({
   isNorwegian,
-  mainMenu,
+  contextLinks,
   headerMenuLinks,
   texts,
   innlogget,
   breadcrumbs,
   utilsBackground,
+  context: activeContext,
   availableLanguages,
   myPageMenu,
 }: ComplexHeaderProps) {
@@ -57,18 +66,23 @@ export function ComplexHeader({
             <div
               id="arbeidsflate"
             >
+
               ${
                 isNorwegian &&
-                mainMenu.map(
-                  ({ displayName, isActive }) => html`
-                    <button
-                      class="context-link ${isActive ? 'lenkeActive' : ''}"
-                      href="?context=${displayName.toLowerCase()}"
-                      data-context="${displayName.toLowerCase()}"
-                    >
-                      ${displayName}
-                    </button>
-                  `,
+                contextLinks?.map((link) =>
+                  HeaderContextLenke({
+                    link: link,
+                    text: texts[link.lenkeTekstId],
+                    activeContext: activeContext,
+                    classNameOverride: clsx([
+                      classes.headerContextLink,
+                      {
+                        [classes.lenkeActive]: link.context === activeContext,
+                      },
+                    ]),
+                    containerClassName: classes.headerContextLinkContainer,
+                    attrs: [['data-context', link.context.toLowerCase()]],
+                  }),
                 )
               }
             </div>
@@ -105,7 +119,8 @@ export function ComplexHeader({
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
-              headerMenuLinks,
+              headerMenuLinks: headerMenuLinks as Node[],
+              className: 'cols-3',
             })}
             </div>
           </div>
@@ -119,3 +134,22 @@ export function ComplexHeader({
       </div>
   `;
 }
+
+// ${
+//         isNorwegian &&
+//         contextLinks?.map(
+//           ({ context, lenkeTekstId, url }) => html`
+//             <button
+//               class="${clsx([
+//                 classes.headerContextLink,
+//               ], {
+//               [classes.lenkeActive]: context === activeContext,
+//               })}"
+//               href="${url}"
+//               data-context="${context.toLowerCase()}"
+//             >
+//               ${texts[lenkeTekstId]}
+//             </button>
+//           `,
+//         )
+//       }

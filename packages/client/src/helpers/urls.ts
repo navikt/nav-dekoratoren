@@ -5,7 +5,10 @@ export const verifyWindowObj = () => {
 };
 
 export const erNavDekoratoren = (): boolean => {
-  return verifyWindowObj() && window.location.href.includes('dekoratoren');
+  return (
+    (verifyWindowObj() && window.location.href.includes('dekoratoren')) ||
+    window.location.href.includes('localhost')
+  );
 };
 
 const getRedirectUrlLogin = (

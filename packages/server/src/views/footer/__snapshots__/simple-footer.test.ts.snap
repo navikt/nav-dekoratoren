@@ -6,10 +6,38 @@ exports[`renders simple footer 1`] = `
     <div class="_simpleFooterContent_yutxt_7 _contentContainer_1av57_1">
       <div class="_footerLinkList_yutxt_19">
         
-            <a class="_footerLink_yutxt_19" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
-          
-            <a class="_footerLink_yutxt_19" href="/tilgjengelighet">Tilgjengelighet</a>
-          
+    <lenke-med-sporing
+      role=""
+      href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
+      data-class-name-override="_footerLink_yutxt_19"
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      data-default-style=&quot;true&quot;
+    >
+    <div id="children">Personvern og informasjonskapsler</div>
+    </lenke-med-sporing>
+  
+    <lenke-med-sporing
+      role=""
+      href="/tilgjengelighet"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
+      data-class-name-override="_footerLink_yutxt_19"
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      data-default-style=&quot;true&quot;
+    >
+    <div id="children">Tilgjengelighet</div>
+    </lenke-med-sporing>
+  
       </div>
       <button type="button" class="_screenshareButton_1ggeo_1">
     Del skjerm med veileder
