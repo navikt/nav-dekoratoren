@@ -410,17 +410,6 @@ a {
   }
 }
 
-.header-menu-link-icon {
-  stroke: currentColor;
-}
-
-@media (min-width: 768px) {
-  .header-menu-link-icon {
-    margin-inline-end: 1rem /* 16px */;
-    transform: translateY(2px);
-  }
-}
-
 .header-menu-link a {
   color: var(--a-text-action);
 }
