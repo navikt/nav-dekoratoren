@@ -109,13 +109,17 @@ export function ComplexHeader({
         >
          <div class="menu-top">
             <h2>
-              Hva kan vi hjelpe deg med?
+            ${texts.how_can_we_help}
             </h2>
-            <a
-              class="link"
-              href="#"
-              >Til forsiden</a
-            >
+            ${LenkeMedSporing({
+              href: '#',
+              analyticsEventArgs: {
+                category: 'dekorator-meny',
+                action: 'hovedmeny/forsidelenke',
+              },
+              attachContext: true,
+              children: html`${texts.til_forsiden}`,
+            })}
           </div>
             <div id="sub-menu-content">
             <div id="mobil-lukk">

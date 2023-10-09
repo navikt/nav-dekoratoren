@@ -16,6 +16,7 @@ export class LenkeMedSporingElement extends HTMLElement {
       'data-class-name-override',
       'data-container-class-name',
       'data-default-style',
+      'data-attach-context',
       // Standard
       'role',
       'id',
@@ -34,6 +35,7 @@ export class LenkeMedSporingElement extends HTMLElement {
       classNameOverride,
       containerClassName,
       defaultStyleEnabled,
+      attachContext,
     ] = data;
     this.className = containerClassName;
 
@@ -62,7 +64,13 @@ export class LenkeMedSporingElement extends HTMLElement {
 
     a.addEventListener('click', () => {
       if (eventArgs) {
-        window.analyticsEvent(eventArgs);
+        const payload = {
+          ...eventArgs,
+          ...(attachContext && {
+            context: window.__DECORATOR_DATA__.params.context,
+          }),
+        };
+        window.analyticsEvent(payload);
       }
     });
 

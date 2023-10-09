@@ -3,7 +3,8 @@ import { partytownSnippet } from '@builder.io/partytown/integration';
 
 const snippetText = partytownSnippet({
   lib: '/public/~partytown/',
-  forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
+  debug: true,
+  // forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
 });
 
 export function Partytown() {

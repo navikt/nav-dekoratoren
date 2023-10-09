@@ -202,6 +202,9 @@ document.body.addEventListener('click', (e) => {
 
 async function setActiveContext(context: Context | null) {
   if (context && CONTEXTS.includes(context)) {
+    window.__DECORATOR_DATA__.params.context = context;
+    console.log(window.__DECORATOR_DATA__.params.context);
+
     document
       .querySelectorAll(`.${headerClasses.headerContextLink}`)
       .forEach((el) =>

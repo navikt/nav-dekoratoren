@@ -8,7 +8,11 @@ export type AnalyticsCategory =
   | 'dekorator-meny'
   | 'varsler';
 
-export type AnalyticsActions = 'navlogo' | 'lenke' | 'lenkegruppe';
+export type AnalyticsActions =
+  | 'navlogo'
+  | 'lenke'
+  | 'lenkegruppe'
+  | 'hovedmeny/forsidelenke';
 
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;

@@ -29,26 +29,34 @@ const Scripts = async () => {
   const partytownScript = (src: string) =>
     `<script type="text/partytown" src="${src}"></script>"`;
 
+  const manifest = await getManifest();
+
   return process.env.NODE_ENV === 'production'
     ? [
         script(
-          `${process.env.HOST ?? ``}/public/${
-            (await getManifest())[entryPointPath].file
-          }`,
+          `${process.env.HOST ?? ``}/public/${manifest[entryPointPath].file}`,
         ),
         partytownScript(
           `${process.env.HOST ?? ``}/public/${
-            (await getManifest())[entryPointPathAnalytics].file
+            manifest[entryPointPathAnalytics].file
           }`,
         ),
       ].join('')
     : [
-        'http://localhost:5173/@vite/client',
-        `http://localhost:5173/${entryPointPath}`,
-        `http://localhost:5173/${entryPointPathAnalytics}`,
-      ]
-        .map(script)
-        .join('');
+        [
+          'http://localhost:5173/@vite/client',
+          `http://localhost:5173/${entryPointPath}`,
+        ]
+          .map(script)
+          .join(''),
+        [
+          `${process.env.HOST ?? ``}/public/${
+            manifest[entryPointPathAnalytics].file
+          }`,
+        ]
+          .map(partytownScript)
+          .join(''),
+      ].join('');
 };
 
 export async function Index({

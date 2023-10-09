@@ -47,6 +47,8 @@ const nb = {
     'Helsepersonell, tiltaksarrangører, fylker og kommuner',
   loading_notifications: 'Laster varslinger',
   notifications_error: 'Feil ved lasting av varsler',
+  til_forsiden: 'Til forsiden',
+  how_can_we_help: 'Hva kan vi hjelpe deg med?',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -100,6 +102,8 @@ export const texts: Record<Language, Texts> = {
       'Health personnel, intervention organizers, counties and municipalities',
     loading_notifications: 'Loading notifications',
     notifications_error: 'Error loading notifications',
+    til_forsiden: 'To the frontpage',
+    how_can_we_help: 'What can we help you with?',
   },
   se: nb,
   nn: nb,
