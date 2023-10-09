@@ -37,7 +37,7 @@ test('renders simple footer', async () => {
     SimpleFooter({
       links,
       texts: {
-        share_screen: 'Del skjerm',
+        share_screen: 'Del skjerm med veileder',
       },
     }),
   ).toMatchSnapshot();
