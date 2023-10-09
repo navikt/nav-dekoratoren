@@ -38,12 +38,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Kontakt oss</div>
     </lenke-med-sporing>
@@ -58,12 +58,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">NAV i ditt fylke</div>
     </lenke-med-sporing>
@@ -78,12 +78,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Kurs fra NAV</div>
     </lenke-med-sporing>
@@ -98,12 +98,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Klage, tilbakemelding, ros</div>
     </lenke-med-sporing>
@@ -125,12 +125,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Nyheter, pressemeldinger og pressekontakt</div>
     </lenke-med-sporing>
@@ -152,12 +152,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Statistikk, analyse og FoU</div>
     </lenke-med-sporing>
@@ -172,12 +172,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Lover og regler (lovdata.no)</div>
     </lenke-med-sporing>
@@ -192,12 +192,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Om NAV</div>
     </lenke-med-sporing>
@@ -219,12 +219,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">English</div>
     </lenke-med-sporing>
@@ -239,12 +239,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Sámegiella</div>
     </lenke-med-sporing>
@@ -266,12 +266,12 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Personvern og informasjonskapsler</div>
     </lenke-med-sporing>
@@ -286,56 +286,18 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      data-default-style="true"
+      data-default-style=&quot;true&quot;
     >
     <div id="children">Tilgjengelighet</div>
     </lenke-med-sporing>
   
                         </li>
                       
-<<<<<<< HEAD
-                        <li class="footer-link-item">
-                          
-    <lenke-med-sporing
-      role=""
-      href="#"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/#","label":"#"}'
-      data-class-name-override="_footerLink_1thla_7"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      data-default-style="true"
-    >
-    <div id="children">Del skjerm<svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            focusable="false"
-            role="img"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M2.25 4.5c0-.69.56-1.25 1.25-1.25h17c.69 0 1.25.56 1.25 1.25v11c0 .69-.56 1.25-1.25 1.25h-7.75v2.5H19a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1 0-1.5h5.25v-2.5H3.5c-.69 0-1.25-.56-1.25-1.25v-11Zm1.5.25v10.5h16.5V4.75H3.75Z"
-              fill="currentColor"
-            ></path>
-          </svg></div>
-    </lenke-med-sporing>
-  
-                        </li>
-                      
-=======
->>>>>>> main
                   </ul>
                 </li>
               
