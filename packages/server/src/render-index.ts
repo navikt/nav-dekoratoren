@@ -9,6 +9,7 @@ import { Params } from 'decorator-shared/params';
 import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
 import { LogoutWarning } from './views/logoutWarning';
+import { Link, LinkGroup } from 'decorator-shared/types';
 
 export default async ({
   contentService,
@@ -24,18 +25,27 @@ export default async ({
   const { language } = data;
   const localTexts = texts[language];
 
+  // Passing directly for clarity
+  const { mainMenu, headerMenuLinks, myPageMenu, footerLinks } =
+    await contentService.getFirstLoad({
+      language,
+      context: data.context,
+      simple: data.simple,
+      simpleFooter: data.simpleFooter,
+    });
+
   return Index({
     language,
     header: Header({
+      mainMenu,
+      headerMenuLinks,
+      myPageMenu,
       texts: localTexts,
-      mainMenu: await contentService.getMainMenu(data),
-      headerMenuLinks: await contentService.getHeaderMenuLinks(data),
       innlogget: false,
       isNorwegian: true,
       breadcrumbs: data.breadcrumbs,
       utilsBackground: data.utilsBackground,
       availableLanguages: data.availableLanguages,
-      myPageMenu: await contentService.getMyPageMenu(data),
       simple: data.simple,
     }),
     feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
@@ -43,12 +53,12 @@ export default async ({
     footer:
       data.simple || data.simpleFooter
         ? SimpleFooter({
-            links: await contentService.getSimpleFooterLinks(data),
+            links: footerLinks as Link[],
             texts: localTexts,
           })
         : ComplexFooter({
             texts: localTexts,
-            links: await contentService.getComplexFooterLinks(data),
+            links: footerLinks as LinkGroup[],
           }),
     lens: DecoratorLens({
       origin,

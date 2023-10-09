@@ -28,27 +28,12 @@ Let's wait to see how much of an issue it is before spending a lot of time solvi
 - Bytte ut ID-selectors med klasser
 - Unngå element- og pseudo-selectors (p :last-child)
 - Logical, short- & long-hand properties.
-- Gjøre SVGer til komponent
+- Gjøre alle ikoner og logo til komponenter og samkjøre oppsett
 - Linting av duplikatregler
 - Rydde opp i referanser fra shared til client
 - Validere HTML
 - Vurdere PostCSS-plugin for nesting av media queries
 
-### Header
-
-- Logo mangler lenke i header (simple)
-- Søk ikke ferdig
-
 ### Åpen meny
 
-- Feil rekkefølge på ul, a og li i kontekst/rolle-meny (mobil)
-- Unødvendig div rundt chevron i åpen meny (mobil)
-- Alignment på ikoner i åpen meny
-
-### Brødsmulesti
-
-- Alignment og farge på ikon i brødsmulesti
-
-### Footer
-
-- Ingen hover på lenker i footer
+- Bytte ut nested list med div på gruppenivå?

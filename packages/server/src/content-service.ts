@@ -1,70 +1,58 @@
 import { Driftsmelding, Link, LinkGroup, Node } from 'decorator-shared/types';
-import { Context, Language } from 'decorator-shared/params';
+import { Context, Language, Params } from 'decorator-shared/params';
 
-export default class ContentService {
-  constructor(
-    private fetchMenu: () => Promise<Node[]>,
-    private fetchDriftsmeldinger: () => Promise<Driftsmelding[]>,
-  ) {}
+type LanguageParam = {
+  language: Language;
+};
 
-  async getDriftsmeldinger() {
-    return this.fetchDriftsmeldinger();
-  }
+type ContextParam = {
+  context: Context;
+};
 
-  async getHeaderMenuLinks({
-    language,
-    context,
-  }: {
-    language: Language;
-    context: Context;
-  }) {
+type ExtractHeaderMenuLinkOptions = LanguageParam & ContextParam;
+type ExtractMyPageMenuOptions = LanguageParam;
+type ExtractMainMenuOptions = ContextParam;
+type ExtractSimpleFooter = LanguageParam;
+type ExtractComplexFooterLinks = LanguageParam & ContextParam;
+
+const extractor = {
+  headerMenuLinks(root: Node[], options: ExtractHeaderMenuLinkOptions) {
     return get(
-      await this.fetchMenu(),
+      root,
       ((language) => {
         switch (language) {
           case 'en':
           case 'se':
             return `${language}.Header.Main menu`;
           default:
-            return `no.Header.Main menu.${getContextKey(context)}`;
+            return `no.Header.Main menu.${getContextKey(options.context)}`;
         }
-      })(language),
+      })(options.language),
     );
-  }
-
-  async getMyPageMenu({ language }: { language: Language }) {
-    return get(
-      await this.fetchMenu(),
-      `${getLangKey(language)}.Header.My page menu`,
-    );
-  }
-
-  async getMainMenu({ context }: { context: Context }) {
-    return get(await this.fetchMenu(), 'no.Header.Main menu')?.map((link) => ({
+  },
+  myPageMenu(root: Node[], options: ExtractMyPageMenuOptions) {
+    return get(root, `${getLangKey(options.language)}.Header.My page menu`);
+  },
+  mainMenu(root: Node[], options: ExtractMainMenuOptions) {
+    return get(root, 'no.Header.Main menu')?.map((link) => ({
       ...link,
-      isActive: link.displayName.toLowerCase() === context,
+      isActive: link.displayName.toLowerCase() === options.context,
     }));
-  }
-
-  async getSimpleFooterLinks({ language }: { language: Language }) {
+  },
+  simpleFooter(root: Node[], options: ExtractSimpleFooter) {
     return [
-      ...(get(
-        await this.fetchMenu(),
-        `${getLangKey(language)}.Footer.Personvern`,
-      )?.map(nodeToLink) ?? []),
+      ...(get(root, `${getLangKey(options.language)}.Footer.Personvern`)?.map(
+        nodeToLink,
+      ) ?? []),
     ];
-  }
-
-  async getComplexFooterLinks({
-    language,
-    context,
-  }: {
-    language: Language;
-    context: Context;
-  }): Promise<LinkGroup[]> {
+  },
+  complexFooterLinks(
+    root: Node[],
+    { language, context }: ExtractComplexFooterLinks,
+  ) {
     return [
       ...(get(
-        await this.fetchMenu(),
+        root,
         ((language) => {
           switch (language) {
             case 'en':
@@ -79,9 +67,73 @@ export default class ContentService {
         children: children.map(nodeToLink),
       })) ?? []),
       {
-        children: await this.getSimpleFooterLinks({ language }),
+        children: extractor.simpleFooter(root, { language }),
       },
     ];
+  },
+};
+
+export default class ContentService {
+  constructor(
+    private fetchMenu: () => Promise<Node[]>,
+    private fetchDriftsmeldinger: () => Promise<Driftsmelding[]>,
+  ) {}
+
+  async getDriftsmeldinger() {
+    return this.fetchDriftsmeldinger();
+  }
+
+  async getHeaderMenuLinks(options: ExtractHeaderMenuLinkOptions) {
+    return extractor.headerMenuLinks(await this.fetchMenu(), options);
+  }
+
+  async getMyPageMenu({ language }: { language: Language }) {
+    return extractor.myPageMenu(await this.fetchMenu(), { language });
+  }
+
+  async getMainMenu({ context }: { context: Context }) {
+    return extractor.mainMenu(await this.fetchMenu(), { context });
+  }
+
+  async getSimpleFooterLinks({ language }: { language: Language }) {
+    return extractor.simpleFooter(await this.fetchMenu(), { language });
+  }
+
+  async getComplexFooterLinks({
+    language,
+    context,
+  }: {
+    language: Language;
+    context: Context;
+  }): Promise<LinkGroup[]> {
+    return extractor.complexFooterLinks(await this.fetchMenu(), {
+      language,
+      context,
+    });
+  }
+
+  async getFirstLoad(
+    options: Pick<Params, 'context' | 'language' | 'simple' | 'simpleFooter'>,
+  ) {
+    const root = await this.fetchMenu();
+
+    const base = {
+      mainMenu: extractor.mainMenu(root, options),
+      headerMenuLinks: extractor.headerMenuLinks(root, options),
+      myPageMenu: extractor.myPageMenu(root, options),
+    };
+
+    if (options.simple) {
+      return {
+        ...base,
+        footerLinks: extractor.simpleFooter(root, options),
+      };
+    }
+
+    return {
+      ...base,
+      footerLinks: extractor.complexFooterLinks(root, options),
+    };
   }
 }
 
@@ -95,6 +147,7 @@ function getContextKey(context: Context) {
 }
 
 type ContentLangKey = 'no' | 'en' | 'se';
+
 const getLangKey = (lang: Language): ContentLangKey => {
   switch (lang) {
     case 'en':

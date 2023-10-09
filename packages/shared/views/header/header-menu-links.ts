@@ -15,9 +15,12 @@ function Link({
   className?: string;
 }) {
   return html`
-    <li class="header-menu-link ${className}" id="${id}">
-      <div class="header-menu-link-inner">${ForwardChevron()}</div>
-      <a href="${path}">${displayName}</a>
+    <li class="header-menu-link-wrapper ${className}" id="${id}">
+      <a class="header-menu-link" href="${path}">${displayName}</a>
+      ${path === '' &&
+      ForwardChevron({
+        className: 'context-menu-link-icon',
+      })}
     </li>
   `;
 }
@@ -34,37 +37,30 @@ function ContextLink({
   className?: string;
 }) {
   return html`
-    <a
-      class="context-menu-link-wrapper"
-      href="${context}"
-      data-context="${context}"
-    >
-      <li class="context-menu-link ${className}" id="${id}">
-        <div class="context-menu-link-inner">
-          ${ForwardChevron({
-            className: 'chevron',
-          })}
-        </div>
+    <li class="context-menu-link-wrapper" id="${id}">
+      <a
+        class="context-menu-link  ${className}"
+        href="${context}"
+        data-context="${context}"
+      >
         <span>${displayName}</span>
-      </li>
-    </a>
+      </a>
+    </li>
   `;
 }
 
-export type HeaderMenuLinkCols = 3 | 4 | 5;
-
-export function HeaderMenuLinks({
-  cols = 3,
-  className = '',
-  headerMenuLinks,
-}: {
+export type HeaderMenuLinksProps = {
   headerMenuLinks: Node[];
   className?: string;
-  cols?: HeaderMenuLinkCols;
-}) {
+};
+
+export function HeaderMenuLinks({
+  className = '',
+  headerMenuLinks,
+}: HeaderMenuLinksProps) {
   // Add one for the conext links
   return html`
-    <ul class="header-menu-links cols-${(cols + 1).toString()} ${className}">
+    <ul class="header-menu-links ${className}">
       ${headerMenuLinks.map(
         (link) => html`
           <li id="${link.id}" class="${link.flatten ? 'flatten' : 'nested'}">
