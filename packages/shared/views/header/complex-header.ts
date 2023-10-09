@@ -19,7 +19,6 @@ export function ComplexHeader({
   myPageMenu,
 }: HeaderProps) {
   return html`
-    <div id="header-withmenu">
       <div
         id="menu-background"
       ></div>
@@ -94,6 +93,5 @@ export function ComplexHeader({
         ${Breadcrumbs({ breadcrumbs })}
         ${LanguageSelector({ availableLanguages })}
       </div>
-    </div>
   `;
 }

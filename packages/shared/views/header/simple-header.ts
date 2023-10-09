@@ -25,30 +25,28 @@ export function SimpleHeader({
   utilsBackground: UtilsBackground;
 }) {
   return html`
-    <div id="header-withmenu">
-      <div id="menu-background"></div>
-      <header class="siteheader">
-        <div class="hovedmeny-wrapper ${cls.contentContainer}">
-          <div class="hovedmeny-content">
-            <a href="https://www.nav.no/"
-              ><img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV"
-            /></a>
-          </div>
-          ${SimpleHeaderNavbarItems({
-            innlogget,
-            texts,
-            name: '',
-          })}
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper ${cls.contentContainer}">
+        <div class="hovedmeny-content">
+          <a href="https://www.nav.no/"
+            ><img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV"
+          /></a>
         </div>
-      </header>
-      <div
-        class="decorator-utils-container ${utilsBackgroundClasses[
-          utilsBackground
-        ]}"
-      >
-        <!-- ${Breadcrumbs({ breadcrumbs })} -->
-        ${LanguageSelector({ availableLanguages })}
+        ${SimpleHeaderNavbarItems({
+          innlogget,
+          texts,
+          name: '',
+        })}
       </div>
+    </header>
+    <div
+      class="decorator-utils-container ${utilsBackgroundClasses[
+        utilsBackground
+      ]}"
+    >
+      <!-- ${Breadcrumbs({ breadcrumbs })} -->
+      ${LanguageSelector({ availableLanguages })}
     </div>
   `;
 }

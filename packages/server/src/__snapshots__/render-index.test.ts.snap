@@ -382,8 +382,8 @@ exports[`renders norwegian index 1`] = `
 
     <!-- Composing markup using predefined templates -->
     <template id="search-icon-button-template"></template>
-   
-    <div id="header-withmenu">
+  
+        <div id="header-withmenu">
       <div
         id="menu-background"
       ></div>
@@ -809,8 +809,7 @@ exports[`renders norwegian index 1`] = `
   
         
       </div>
-    </div>
-  
+  </div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
@@ -1404,8 +1403,8 @@ exports[`renders english index 1`] = `
 
     <!-- Composing markup using predefined templates -->
     <template id="search-icon-button-template"></template>
-   
-    <div id="header-withmenu">
+  
+        <div id="header-withmenu">
       <div
         id="menu-background"
       ></div>
@@ -1911,8 +1910,7 @@ exports[`renders english index 1`] = `
   
         
       </div>
-    </div>
-  
+  </div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!

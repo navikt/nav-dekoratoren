@@ -86,7 +86,8 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        ${WebcomponentTemplates()} ${header}
+        ${WebcomponentTemplates()}
+        <div id="header-withmenu">${header}</div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
