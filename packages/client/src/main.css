@@ -787,12 +787,6 @@ a {
     display: none;
   }
 
-  .header-menu-links.cols-5,
-  .header-menu-links.cols-4,
-  .header-menu-links.cols-3 {
-    grid-template-columns: 1fr;
-  }
-
   /* Maybe should be global? */
   .header-menu-links h3,
   #sub-menu-content h3 {
