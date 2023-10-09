@@ -11,7 +11,7 @@ export { addBreadcrumbEventListeners } from './breadcrumbs-listener';
 export function onLoadListeners(params: WithTexts) {
   addSnarveierListener();
   addSearchInputListener();
-  addBreadcrumbEventListeners(params);
+  addBreadcrumbEventListeners();
   addFeedbackListener(params);
 }
 
