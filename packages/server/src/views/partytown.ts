@@ -3,7 +3,9 @@ import { partytownSnippet } from '@builder.io/partytown/integration';
 
 const snippetText = partytownSnippet({
   lib: '/public/~partytown/',
-  forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
+  logSetters: true,
+  debug: true,
+  // forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
 });
 
 export function Partytown() {
@@ -11,6 +13,7 @@ export function Partytown() {
     <script>
       partytown = {
         debug: true,
+        lib: '/public/~partytown/',
         // Metoder som skal videresendes til partytown
         forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
       };
