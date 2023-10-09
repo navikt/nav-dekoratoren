@@ -29,16 +29,18 @@ const Scripts = async () => {
   const partytownScript = (src: string) =>
     `<script type="text/partytown" src="${src}"></script>"`;
 
-  const manifest = await getManifest();
+  // const manifest = await getManifest();
 
   return process.env.NODE_ENV === 'production'
     ? [
         script(
-          `${process.env.HOST ?? ``}/public/${manifest[entryPointPath].file}`,
+          `${process.env.HOST ?? ``}/public/${
+            (await getManifest())[entryPointPath].file
+          }`,
         ),
         partytownScript(
           `${process.env.HOST ?? ``}/public/${
-            manifest[entryPointPathAnalytics].file
+            (await getManifest())[entryPointPathAnalytics].file
           }`,
         ),
       ].join('')
@@ -51,7 +53,7 @@ const Scripts = async () => {
           .join(''),
         [
           `${process.env.HOST ?? ``}/public/${
-            manifest[entryPointPathAnalytics].file
+            (await getManifest())[entryPointPathAnalytics].file
           }`,
         ]
           .map(partytownScript)
