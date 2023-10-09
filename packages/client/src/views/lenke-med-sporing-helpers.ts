@@ -25,10 +25,12 @@ type LenkeMedSporingProps = {
   lang?: string;
   extraAttrs?: [string, string][];
   defaultStyle?: boolean;
+  attachContext?: boolean;
 };
 
 export function LenkeMedSporingBase({
   defaultStyle = true,
+  attachContext = false,
   ...props
 }: LenkeMedSporingProps) {
   const className = props.className || '';
@@ -47,6 +49,7 @@ export function LenkeMedSporingBase({
       data-container-class-name="${props.containerClassName}"
       data-class-name="${className}"
       data-extra-attrs='${JSON.stringify(props.extraAttrs)}'
+      ${attachContext ? 'data-attach-context="true"' : ''}
       ${defaultStyle ? 'data-default-style="true"' : ''}
     >
     <div id="children">${props.children}</div>
