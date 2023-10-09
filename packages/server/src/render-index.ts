@@ -1,4 +1,4 @@
-import { Header } from './header';
+import { Header } from './views/header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
 import { DecoratorLens } from './views/decorator-lens';
