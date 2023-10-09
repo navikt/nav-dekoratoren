@@ -70,5 +70,7 @@ for (let i = 0; i < count; i++) {
 const secondsUsed = Bun.nanoseconds() / 1000000000;
 const used = process.memoryUsage().heapUsed / (1024 * 1024);
 
+console.log(process.memoryUsage());
+
 console.log(`Memory used: ${used} MB`);
 console.log(`Seconds used: ${secondsUsed} seconds`);

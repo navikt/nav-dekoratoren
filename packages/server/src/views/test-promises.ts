@@ -58,9 +58,9 @@ const Scripts = async () => {
 
 const count = 1000 * 1000;
 
-function test() {
-  Scripts();
-  Links();
+async function test() {
+  await Scripts();
+  await Links();
 }
 
 for (let i = 0; i < count; i++) {
@@ -69,6 +69,8 @@ for (let i = 0; i < count; i++) {
 
 const secondsUsed = Bun.nanoseconds() / 1000000000;
 const used = process.memoryUsage().heapUsed / (1024 * 1024);
+
+console.log(process.memoryUsage());
 
 console.log(`Memory used: ${used} MB`);
 console.log(`Seconds used: ${secondsUsed} seconds`);
