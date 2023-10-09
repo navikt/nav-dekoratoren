@@ -8,10 +8,7 @@ import getContent from './get-content';
 
 import './views/lenke-med-sporing';
 
-import {
-  HeaderMenuLinkCols,
-  HeaderMenuLinks,
-} from 'decorator-shared/views/header/header-menu-links';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
 import RenderLanguageSelector from 'decorator-shared/views/language-selector';
@@ -47,8 +44,6 @@ import {
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
-import { LenkeMedSporing } from './views/lenke-med-sporing-helpers';
-import html from 'decorator-shared/html';
 // CSS classes
 import headerClasses from './styles/header.module.css';
 import { erNavDekoratoren } from './helpers/urls';
@@ -406,54 +401,3 @@ function handleLogin() {
 
 handleMenuButton();
 handleLogin();
-
-const main = document.querySelector('main');
-
-document.querySelector('#amplitude-test')?.addEventListener('click', () => {
-  (window as any).analyticsEventTest({
-    body: 'It is working',
-  });
-});
-
-if (main) {
-  const lenke = LenkeMedSporing({
-    href: 'https://www.nav.no!',
-    children: 'Lenke med sporing!',
-    analyticsEventArgs: {
-      eventName: 'decorator_next/test',
-      category: 'dekorator-footer',
-      action: 'kontakt/oss',
-      label: 'Lenke',
-    },
-  });
-
-  const lenke2 = LenkeMedSporing({
-    href: 'https://www.nav.no!',
-    children: 'Annen lenke',
-    analyticsEventArgs: {
-      eventName: 'decorator_next/test',
-      category: 'dekorator-footer',
-      action: 'kontakt/oss',
-      label: 'Lenke',
-    },
-  });
-
-  const lenke3 = LenkeMedSporing({
-    href: 'https://www.nav.no!',
-    children: 'Annen lenke',
-    analyticsEventArgs: {
-      eventName: 'decorator_next/test',
-      category: 'dekorator-footer',
-      action: 'kontakt/oss',
-      label: 'Lenke',
-    },
-  });
-
-  main.insertAdjacentHTML(
-    'beforeend',
-    html`<div style="background-color: gray;">
-      <h2>Lenke med sporing</h2>
-      <div>${lenke} ${lenke2} ${lenke3}</div>
-    </div> `,
-  );
-}
