@@ -11,6 +11,7 @@ import {
 } from './views/notifications/notifications';
 import { texts } from './texts';
 import { Texts } from 'decorator-shared/types';
+import UnleashService from './unleash-service';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -26,6 +27,7 @@ const requestHandler = async (
   searchService: SearchService,
   fileSystemService: FileSystemService,
   notificationsService: NotificationsService,
+  unleashService: UnleashService,
 ) => {
   const filePaths = fileSystemService
     .getFilePaths('./public')
@@ -165,6 +167,7 @@ const requestHandler = async (
         new Response(
           await renderIndex({
             contentService,
+            unleashService,
             data: validParams(query),
             url: url.toString(),
             query,

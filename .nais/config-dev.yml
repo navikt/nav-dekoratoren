@@ -35,3 +35,5 @@ spec:
       value: https://decorator-next.ekstern.dev.nav.no
     - name: PORT
       value: '8089'
+  envFrom:
+    - secret: nav-dekoratoren-unleash-api-token

@@ -2,13 +2,16 @@ import { LinkGroup } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
 import html from 'decorator-shared/html';
 import { ScreenshareButton } from './screenshare-button';
+import { Features } from '../../unleash-service';
 
 export type ComplexFooterProps = {
   texts: { to_top: string; share_screen: string };
   links: LinkGroup[];
+  features: Features;
 };
 
-export function ComplexFooter({ texts, links }: ComplexFooterProps) {
+export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
+  const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
   return html`
     <footer class="footer" data-theme="dark">
       <div class="footer-content ${cls.contentContainer}">
@@ -51,7 +54,8 @@ export function ComplexFooter({ texts, links }: ComplexFooterProps) {
                 </li>
               `,
             )}
-            <li>${ScreenshareButton(texts.share_screen)}</li>
+            ${isScreensharingEnabled &&
+            `<li>${ScreenshareButton(texts.share_screen)}</li>`}
           </ul>
         </div>
 
