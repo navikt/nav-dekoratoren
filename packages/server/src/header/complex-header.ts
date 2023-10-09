@@ -1,11 +1,11 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import { HeaderMenuLinks } from './header-menu-links';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import LanguageSelector from 'decorator-shared/views/language-selector';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import { HeaderProps, utilsBackgroundClasses } from './index';
-import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
+import { HeaderProps, utilsBackgroundClasses } from '.';
+import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 
 export function ComplexHeader({
   isNorwegian,
