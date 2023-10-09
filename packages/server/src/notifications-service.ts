@@ -30,9 +30,9 @@ type Beskjed = {
   eksternVarslingKanaler: string[];
 };
 
-const getNotifications: (texts: Texts) => Promise<NotificationList[]> = async (
-  texts,
-) => {
+const getNotifications: (
+  texts: Texts,
+) => Promise<NotificationList[] | undefined> = async (texts) => {
   const kanalToTag = (kanal: string) => {
     switch (kanal) {
       case 'SMS':
@@ -70,18 +70,20 @@ const getNotifications: (texts: Texts) => Promise<NotificationList[]> = async (
     amplitudeKomponent: 'varsel-beskjed',
   });
 
-  // await new Promise((r) => setTimeout(r, 3000));
+  await new Promise((r) => setTimeout(r, 1000));
 
-  return Promise.resolve([
-    {
-      heading: texts.notifications_tasks_title,
-      notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
-    },
-    {
-      heading: texts.notifications_messages_title,
-      notifications: notificationsMock.beskjeder.map(beskjedToNotification),
-    },
-  ]);
+  return Math.random() > 0.5
+    ? Promise.resolve([
+        {
+          heading: texts.notifications_tasks_title,
+          notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
+        },
+        {
+          heading: texts.notifications_messages_title,
+          notifications: notificationsMock.beskjeder.map(beskjedToNotification),
+        },
+      ])
+    : Promise.resolve(undefined);
 };
 
 export default () => ({

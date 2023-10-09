@@ -14,7 +14,7 @@ export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
       <img src="/public/kattIngenNotifications.svg" alt="" />
       <h1>${texts.notifications_empty_list}</h1>
       <p>${texts.notifications_empty_list_description}</p>
-      <a href="${import.meta.env.VITE_MIN_SIDE_URL}/all-notifications"
+      <a href="${process.env.VITE_MIN_SIDE_URL}/all-notifications"
         >${texts.notifications_show_all}</a
       >
     </div>
