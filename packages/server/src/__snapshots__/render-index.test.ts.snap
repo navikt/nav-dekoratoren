@@ -394,7 +394,7 @@ exports[`renders norwegian index 1`] = `
           class="hovedmeny-wrapper _contentContainer_1av57_1"
         >
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
             <div
               id="arbeidsflate"
             >
@@ -607,154 +607,40 @@ exports[`renders norwegian index 1`] = `
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             
-    <ul class="header-menu-links cols-3 ">
+    <ul class="header-menu-links ">
       
           <li id="79173ea3-74cd-4d7a-a81f-a43915022c4e" class="flatten">
             <h3>Områder</h3>
             <ul>
               
-    <li class="header-menu-link " id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+      <a class="header-menu-link" href="/arbeid">Arbeid</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/arbeid">Arbeid</a>
     </li>
   
-    <li class="header-menu-link " id="c0379053-4fdf-4151-8974-5d475449ebd2">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="c0379053-4fdf-4151-8974-5d475449ebd2">
+      <a class="header-menu-link" href="/helse">Helse og sykdom</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/helse">Helse og sykdom</a>
     </li>
   
-    <li class="header-menu-link " id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+      <a class="header-menu-link" href="/familie">Familie og barn</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/familie">Familie og barn</a>
     </li>
   
-    <li class="header-menu-link " id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+      <a class="header-menu-link" href="/pensjon">Pensjon</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/pensjon">Pensjon</a>
     </li>
   
-    <li class="header-menu-link " id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+      <a class="header-menu-link" href="/sosiale-tjenester">Sosiale tjenester og veiledning</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/sosiale-tjenester">Sosiale tjenester og veiledning</a>
     </li>
   
-    <li class="header-menu-link " id="77c95b52-c6df-4d21-96f9-980b29bc4528">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+      <a class="header-menu-link" href="/hjelpemidler">Hjelpemidler og tilrettelegging</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/hjelpemidler">Hjelpemidler og tilrettelegging</a>
     </li>
   
             </ul>
@@ -765,250 +651,61 @@ exports[`renders norwegian index 1`] = `
             <h3>Snarveier</h3>
             <ul>
               
-    <li class="header-menu-link " id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+      <a class="header-menu-link" href="/soknader">Søknad og skjema</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/soknader">Søknad og skjema</a>
     </li>
   
-    <li class="header-menu-link " id="a0f95de4-92a5-44f4-a361-65f7452fee06">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+      <a class="header-menu-link" href="/ettersende">Ettersendelse</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/ettersende">Ettersendelse</a>
     </li>
   
-    <li class="header-menu-link " id="de30686a-5d55-4188-a735-bd0f5e6abab2">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+      <a class="header-menu-link" href="/klage">Klage</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/klage">Klage</a>
     </li>
   
-    <li class="header-menu-link " id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+      <a class="header-menu-link" href="/tjenester">Pengestøtter og tjenester fra A til Å</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/tjenester">Pengestøtter og tjenester fra A til Å</a>
     </li>
   
-    <li class="header-menu-link " id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+      <a class="header-menu-link" href="/saksbehandlingstider">Saksbehandlingstider</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/saksbehandlingstider">Saksbehandlingstider</a>
     </li>
   
-    <li class="header-menu-link " id="b3a2b780-1243-41b1-bd63-e47f014762a4">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+      <a class="header-menu-link" href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger">Utbetalinger</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger">Utbetalinger</a>
     </li>
   
-    <li class="header-menu-link " id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+      <a class="header-menu-link" href="/satser">Satser</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/satser">Satser</a>
     </li>
   
-    <li class="header-menu-link " id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+      <a class="header-menu-link" href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det">Meldekort</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det">Meldekort</a>
     </li>
   
-    <li class="header-menu-link " id="e0b328f5-f509-4fd8-879d-79679b3b1667">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+      <a class="header-menu-link" href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav">Kurs fra NAV</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav">Kurs fra NAV</a>
     </li>
   
-    <li class="header-menu-link " id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+      <a class="header-menu-link" href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene">Feiltolkning av EØS-reglene</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene">Feiltolkning av EØS-reglene</a>
     </li>
   
             </ul>
             
-    <li class="header-menu-link nested-link" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
-      <div class="header-menu-link-inner">
+    <li class="header-menu-link-wrapper nested-link" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+      <a class="header-menu-link" href="">Snarveier</a>
+      
     <svg
       width="1em"
       height="1em"
@@ -1018,7 +715,7 @@ exports[`renders norwegian index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      
+      class="context-menu-link-icon"
     >
       <path
         fill-rule="evenodd"
@@ -1027,137 +724,51 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       ></path>
     </svg>
-  </div>
-      <a href="">Snarveier</a>
+  
     </li>
   
           </li>
         
       
-    <li class="header-menu-link mobile" id="">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper mobile" id="">
+      <a class="header-menu-link" href="#">Logg inn på min side</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="#">Logg inn på min side</a>
     </li>
   
       <li>
         <ul id="menu-context-links">
           
-    <a
-      class="context-menu-link-wrapper"
-      href="privatperson"
-      data-context="privatperson"
-    >
-      <li class="context-menu-link " id="">
-        <div class="context-menu-link-inner">
-          
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
-      class="chevron"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-        </div>
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="privatperson"
+        data-context="privatperson"
+      >
         <span>Privat</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
-    <a
-      class="context-menu-link-wrapper"
-      href="arbeidsgiver"
-      data-context="arbeidsgiver"
-    >
-      <li class="context-menu-link " id="">
-        <div class="context-menu-link-inner">
-          
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
-      class="chevron"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-        </div>
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="arbeidsgiver"
+        data-context="arbeidsgiver"
+      >
         <span>Arbeidsgiver</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
-    <a
-      class="context-menu-link-wrapper"
-      href="samarbeidspartner"
-      data-context="samarbeidspartner"
-    >
-      <li class="context-menu-link " id="">
-        <div class="context-menu-link-inner">
-          
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
-      class="chevron"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-        </div>
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="samarbeidspartner"
+        data-context="samarbeidspartner"
+      >
         <span>Samarbeidspartner</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
         </ul>
       </li>
@@ -1805,7 +1416,7 @@ exports[`renders english index 1`] = `
           class="hovedmeny-wrapper _contentContainer_1av57_1"
         >
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
             <div
               id="arbeidsflate"
             >
@@ -2018,132 +1629,37 @@ exports[`renders english index 1`] = `
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             
-    <ul class="header-menu-links cols-6 ">
+    <ul class="header-menu-links ">
       
           <li id="4034ae9f-981a-4ea4-9311-eade71ae098b" class="nested">
             <h3>Work and stay in Norway</h3>
             <ul>
               
-    <li class="header-menu-link " id="7d765f26-ce01-4f2f-b644-42ae75fad947">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/work-in-norway">Work in Norway</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/work-and-stay-in-norway/work-in-norway">Work in Norway</a>
     </li>
   
-    <li class="header-menu-link " id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf">Employee on the Norwegian continental shelf</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf">Employee on the Norwegian continental shelf</a>
     </li>
   
-    <li class="header-menu-link " id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/foreign-students-in-norway">Foreign students in Norway</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/work-and-stay-in-norway/foreign-students-in-norway">Foreign students in Norway</a>
     </li>
   
-    <li class="header-menu-link " id="117d0621-476c-42d6-9789-26f898250225">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="117d0621-476c-42d6-9789-26f898250225">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/tourists-in-norway">Tourists in Norway</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/work-and-stay-in-norway/tourists-in-norway">Tourists in Norway</a>
     </li>
   
             </ul>
             
-    <li class="header-menu-link nested-link" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper nested-link" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway">Work and stay in Norway</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/work-and-stay-in-norway">Work and stay in Norway</a>
     </li>
   
           </li>
@@ -2152,150 +1668,36 @@ exports[`renders english index 1`] = `
             <h3>Benefits and services</h3>
             <ul>
               
-    <li class="header-menu-link " id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits">Information about NAV&#x27;s services and benefits</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits">Information about NAV&#x27;s services and benefits</a>
     </li>
   
-    <li class="header-menu-link " id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+      <a class="header-menu-link" href="https://www.nav.no/arbeid/en/dagpenger-og-eos">Unemployment benefits</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="https://www.nav.no/arbeid/en/dagpenger-og-eos">Unemployment benefits</a>
     </li>
   
-    <li class="header-menu-link " id="f30dd799-91aa-4c50-a470-969f5087d34c">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="f30dd799-91aa-4c50-a470-969f5087d34c">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/family-related-benefits">Family related benefits</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/benefits-and-services/family-related-benefits">Family related benefits</a>
     </li>
   
-    <li class="header-menu-link " id="7369c78c-ecde-4704-acbe-08d42366bbd2">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway">Pensions and pension applications from outside Norway</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway">Pensions and pension applications from outside Norway</a>
     </li>
   
-    <li class="header-menu-link " id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it">Employment status form - how do you use it?</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it">Employment status form - how do you use it?</a>
     </li>
   
             </ul>
             
-    <li class="header-menu-link nested-link" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper nested-link" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+      <a class="header-menu-link" href="/en/home/benefits-and-services">Benefits and services</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/benefits-and-services">Benefits and services</a>
     </li>
   
           </li>
@@ -2304,174 +1706,41 @@ exports[`renders english index 1`] = `
             <h3>Rules and regulations</h3>
             <ul>
               
-    <li class="header-menu-link " id="09581eac-105d-453f-b019-ebffe6465ffc">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="09581eac-105d-453f-b019-ebffe6465ffc">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme">Membership of the National Insurance Scheme</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme">Membership of the National Insurance Scheme</a>
     </li>
   
-    <li class="header-menu-link " id="da84b18a-6070-4862-94a7-15c9517cf3c8">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/national-insurance-coverage">National insurance coverage</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/rules-and-regulations/national-insurance-coverage">National insurance coverage</a>
     </li>
   
-    <li class="header-menu-link " id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+      <a class="header-menu-link" href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift">National insurance contributions</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift">National insurance contributions</a>
     </li>
   
-    <li class="header-menu-link " id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+      <a class="header-menu-link" href="/klagerettigheter/en">Appeals</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/klagerettigheter/en">Appeals</a>
     </li>
   
-    <li class="header-menu-link " id="280069da-b8f9-4871-b681-ccc339146a3a">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="280069da-b8f9-4871-b681-ccc339146a3a">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/working-abroad">Working abroad</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/rules-and-regulations/working-abroad">Working abroad</a>
     </li>
   
-    <li class="header-menu-link " id="eee9266f-aace-46ad-91a9-7c042864c9e1">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/staying-abroad">Staying abroad</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/rules-and-regulations/staying-abroad">Staying abroad</a>
     </li>
   
             </ul>
             
-    <li class="header-menu-link nested-link" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper nested-link" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations">Rules and regulations</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/rules-and-regulations">Rules and regulations</a>
     </li>
   
           </li>
@@ -2480,126 +1749,31 @@ exports[`renders english index 1`] = `
             <h3>Employers</h3>
             <ul>
               
-    <li class="header-menu-link " id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+      <a class="header-menu-link" href="/en/home/employers/recruit-in-norway">Recruit in Norway?</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/employers/recruit-in-norway">Recruit in Norway?</a>
     </li>
   
-    <li class="header-menu-link " id="d4750660-17c2-43de-960f-7ad6907674fa">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="d4750660-17c2-43de-960f-7ad6907674fa">
+      <a class="header-menu-link" href="/employers/rekruttere-eu-eos/en">Recruiting from the EU/EEA</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/employers/rekruttere-eu-eos/en">Recruiting from the EU/EEA</a>
     </li>
   
-    <li class="header-menu-link " id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+      <a class="header-menu-link" href="/en/home/employers/nav-state-register-of-employers-and-employees">What is the NAV State Register of Employers and Employees (Aa-registeret)</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/employers/nav-state-register-of-employers-and-employees">What is the NAV State Register of Employers and Employees (Aa-registeret)</a>
     </li>
   
-    <li class="header-menu-link " id="cf749f0c-144f-4f51-b327-49d37c447ce1">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+      <a class="header-menu-link" href="/arbeidsgiver/inntektsmelding/en">Income report</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/arbeidsgiver/inntektsmelding/en">Income report</a>
     </li>
   
             </ul>
             
-    <li class="header-menu-link nested-link" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper nested-link" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+      <a class="header-menu-link" href="/en/home/employers">Employers</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/employers">Employers</a>
     </li>
   
           </li>
@@ -2608,351 +1782,95 @@ exports[`renders english index 1`] = `
             <h3>About NAV</h3>
             <ul>
               
-    <li class="header-menu-link " id="b94f13b1-3010-432d-954f-43a90ea122ce">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="b94f13b1-3010-432d-954f-43a90ea122ce">
+      <a class="header-menu-link" href="/kontaktoss/en">Contact us</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/kontaktoss/en">Contact us</a>
     </li>
   
-    <li class="header-menu-link " id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+      <a class="header-menu-link" href="/utbetalingsdatoer/en">Payment dates</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/utbetalingsdatoer/en">Payment dates</a>
     </li>
   
-    <li class="header-menu-link " id="93b4dccb-fe84-42a3-8989-660fb2df8584">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+      <a class="header-menu-link" href="/saksbehandlingstider/en">Case processing times</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/saksbehandlingstider/en">Case processing times</a>
     </li>
   
-    <li class="header-menu-link " id="954fdb02-3d1f-404f-a042-9bf71142021f">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="954fdb02-3d1f-404f-a042-9bf71142021f">
+      <a class="header-menu-link" href="/satser/en">Rates</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/satser/en">Rates</a>
     </li>
   
-    <li class="header-menu-link " id="35022d2c-a54e-4dc0-a594-66de8e53d613">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+      <a class="header-menu-link" href="/en/home/about-nav/what-is-nav">What is NAV?</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/about-nav/what-is-nav">What is NAV?</a>
     </li>
   
-    <li class="header-menu-link " id="473b8664-0820-4af1-a62c-e15c2d00dcea">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+      <a class="header-menu-link" href="/endringer/en">Notify us of any changes</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/endringer/en">Notify us of any changes</a>
     </li>
   
-    <li class="header-menu-link " id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+      <a class="header-menu-link" href="/soknader/en/person">Forms and applications</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/soknader/en/person">Forms and applications</a>
     </li>
   
-    <li class="header-menu-link " id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper " id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+      <a class="header-menu-link" href="/en/home/about-nav/search-tips">Search tips</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/about-nav/search-tips">Search tips</a>
     </li>
   
             </ul>
             
-    <li class="header-menu-link nested-link" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper nested-link" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+      <a class="header-menu-link" href="/en/home/about-nav">About NAV</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="/en/home/about-nav">About NAV</a>
     </li>
   
           </li>
         
       
-    <li class="header-menu-link mobile" id="">
-      <div class="header-menu-link-inner">
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+    <li class="header-menu-link-wrapper mobile" id="">
+      <a class="header-menu-link" href="#">Logg inn på min side</a>
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  </div>
-      <a href="#">Logg inn på min side</a>
     </li>
   
       <li>
         <ul id="menu-context-links">
           
-    <a
-      class="context-menu-link-wrapper"
-      href="privatperson"
-      data-context="privatperson"
-    >
-      <li class="context-menu-link " id="">
-        <div class="context-menu-link-inner">
-          
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
-      class="chevron"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-        </div>
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="privatperson"
+        data-context="privatperson"
+      >
         <span>Privat</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
-    <a
-      class="context-menu-link-wrapper"
-      href="arbeidsgiver"
-      data-context="arbeidsgiver"
-    >
-      <li class="context-menu-link " id="">
-        <div class="context-menu-link-inner">
-          
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
-      class="chevron"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-        </div>
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="arbeidsgiver"
+        data-context="arbeidsgiver"
+      >
         <span>Arbeidsgiver</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
-    <a
-      class="context-menu-link-wrapper"
-      href="samarbeidspartner"
-      data-context="samarbeidspartner"
-    >
-      <li class="context-menu-link " id="">
-        <div class="context-menu-link-inner">
-          
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
-      class="chevron"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-        </div>
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="samarbeidspartner"
+        data-context="samarbeidspartner"
+      >
         <span>Samarbeidspartner</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
         </ul>
       </li>
