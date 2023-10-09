@@ -6,8 +6,6 @@ export function addBreadcrumbEventListeners() {
       el.addEventListener('click', (e) => {
         e.preventDefault();
 
-        console.log(el.getAttribute('data-handle-in-app'));
-
         window.postMessage({
           source: 'decorator',
           event: 'breadcrumbClick',
