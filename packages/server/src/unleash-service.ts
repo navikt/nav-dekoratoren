@@ -24,8 +24,6 @@ export default class UnleashService {
     this.unleashInstance = null;
     this.mock = config.mock || false;
 
-    console.log(config.env);
-
     if (this.mock) {
       return;
     }

@@ -1,5 +1,8 @@
 import { expect, test } from 'bun:test';
 import { ComplexFooter } from './complex-footer';
+import UnleashService from '../../unleash-service';
+
+const unleashService = new UnleashService({ mock: true, env: 'development' });
 
 const links = [
   {
@@ -84,6 +87,7 @@ test('renders complex footer', async () => {
         share_screen: 'Del skjerm med veileder',
       },
       links,
+      features: unleashService.getFeatures(),
     }).render(),
   ).toMatchSnapshot();
 });

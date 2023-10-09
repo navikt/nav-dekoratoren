@@ -2,9 +2,9 @@
 
 exports[`renders simple footer 1`] = `
 "
-  <footer class="_simpleFooter_yutxt_1">
-    <div class="_simpleFooterContent_yutxt_7 _contentContainer_1av57_1">
-      <div class="_footerLinkList_yutxt_19">
+  <footer class="">
+    <div class=" ">
+      <div class="">
         
     <lenke-med-sporing
       role=""
@@ -13,7 +13,7 @@ exports[`renders simple footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
-      data-class-name-override="_footerLink_yutxt_19"
+      data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
@@ -29,7 +29,7 @@ exports[`renders simple footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
-      data-class-name-override="_footerLink_yutxt_19"
+      data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
@@ -39,7 +39,7 @@ exports[`renders simple footer 1`] = `
     </lenke-med-sporing>
   
       </div>
-      <button type="button" class="_screenshareButton_1ggeo_1">
+      <button type="button" class="">
     Del skjerm med veileder
     <svg
       width="1em"
