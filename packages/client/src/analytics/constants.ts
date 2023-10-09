@@ -1,13 +1,12 @@
 // Split this up to avoid amplitude being pulled in when using these
 
-import { MenuValue } from 'decorator-shared/types';
+import { Context } from 'decorator-shared/params';
 
-export enum AnalyticsCategory {
-  Header = 'dekorator-header',
-  Footer = 'dekorator-footer',
-  Meny = 'dekorator-meny',
-  Varsler = 'varsler',
-}
+export type AnalyticsCategory =
+  | 'dekorator-header'
+  | 'dekorator-footer'
+  | 'dekorator-meny'
+  | 'varsler';
 
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;
@@ -17,18 +16,20 @@ export const analyticsEvents = {
     'arkivert-beskjed',
     {
       komponent: 'varsler-beskjed-arkiverbar',
-      category: AnalyticsCategory.Varsler,
+      category: 'varsler' satisfies AnalyticsCategory,
     },
   ],
 } as const;
+
+export type Lenkegruppe = 'innlogget meny';
 
 export type AnalyticsEventArgs = {
   eventName?: string;
   category: AnalyticsCategory;
   action: string;
-  context?: MenuValue;
+  context?: Context;
   destination?: string;
   label?: string;
   komponent?: string;
-  lenkegruppe?: string;
+  lenkegruppe?: Lenkegruppe;
 };

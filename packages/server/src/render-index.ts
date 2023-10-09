@@ -1,4 +1,5 @@
-import { Header } from 'decorator-shared/views/header';
+import { SimpleHeader } from './views/header/simple-header';
+import { ComplexHeader } from './views/header/complex-header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
 import { DecoratorLens } from './views/decorator-lens';
@@ -11,6 +12,8 @@ import { ComplexFooter } from './views/footer/complex-footer';
 import { LogoutWarning } from './views/logoutWarning';
 import { Link, LinkGroup } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
+import { makeContextLinks } from 'decorator-shared/context';
+import { env } from './env/server';
 
 export default async ({
   contentService,
@@ -39,42 +42,56 @@ export default async ({
       simpleFooter: data.simpleFooter,
     });
 
-  return Index({
-    language,
-    header: Header({
-      mainMenu,
-      headerMenuLinks,
-      myPageMenu,
-      texts: localTexts,
-      innlogget: false,
-      isNorwegian: true,
-      breadcrumbs: data.breadcrumbs,
-      utilsBackground: data.utilsBackground,
-      availableLanguages: data.availableLanguages,
-      simple: data.simple,
-    }),
-    feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
-    logoutWarning: data.logoutWarning ? LogoutWarning() : '',
-    footer:
-      data.simple || data.simpleFooter
-        ? SimpleFooter({
-            links: footerLinks as Link[],
-            texts: localTexts,
-            features,
-          })
-        : ComplexFooter({
-            texts: localTexts,
-            links: footerLinks as LinkGroup[],
-            features,
-          }),
-    lens: DecoratorLens({
-      origin,
-      env: data,
-      query,
-    }),
-    decoratorData: DecoratorData({
-      texts: localTexts,
-      params: data,
-    }),
-  });
+  const contextLinks = makeContextLinks(env.XP_BASE_URL);
+
+  return (
+    await Index({
+      language,
+      header:
+        data.simple || data.simpleHeader
+          ? SimpleHeader({
+              texts: localTexts,
+              innlogget: false,
+              breadcrumbs: data.breadcrumbs,
+              utilsBackground: data.utilsBackground,
+              availableLanguages: data.availableLanguages,
+            })
+          : ComplexHeader({
+              mainMenu,
+              headerMenuLinks,
+              myPageMenu,
+              texts: localTexts,
+              innlogget: false,
+              contextLinks,
+              context: data.context,
+              isNorwegian: true,
+              breadcrumbs: data.breadcrumbs,
+              utilsBackground: data.utilsBackground,
+              availableLanguages: data.availableLanguages,
+            }),
+      feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
+      logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
+      footer:
+        data.simple || data.simpleFooter
+          ? SimpleFooter({
+              links: footerLinks as Link[],
+              texts: localTexts,
+              features,
+            })
+          : ComplexFooter({
+              texts: localTexts,
+              links: footerLinks as LinkGroup[],
+              features,
+            }),
+      lens: DecoratorLens({
+        origin,
+        env: data,
+        query,
+      }),
+      decoratorData: DecoratorData({
+        texts: localTexts,
+        params: data,
+      }),
+    })
+  ).render();
 };

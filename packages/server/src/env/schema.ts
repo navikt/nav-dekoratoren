@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const serverSchema = z.object({
   ENONICXP_SERVICES: z.string().url(),
+  XP_BASE_URL: z.string().url(),
   PORT: z.number(),
   NODE_ENV: z.string(),
 });
@@ -20,6 +21,7 @@ function portToNumber(port: string | undefined) {
 
 export const serverEnv = {
   ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
+  XP_BASE_URL: process.env.XP_BASE_URL,
   PORT: portToNumber(process.env.PORT),
   NODE_ENV: process.env.NODE_ENV,
 };

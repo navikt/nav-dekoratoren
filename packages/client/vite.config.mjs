@@ -24,7 +24,6 @@ export default defineConfig({
           'src/main.ts',
           'src/analytics/analytics.ts'
       ],
-
     },
   },
 });

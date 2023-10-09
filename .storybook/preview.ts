@@ -23,8 +23,9 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       const story = Story();
-      if (typeof story === 'string') {
-        return html`<div id="header-withmenu">${story}</div>`;
+
+      if (typeof story === 'object' && 'render' in story) {
+        return html`<div id="header-withmenu">${story}</div>`.render();
       } else {
         const wrapper = document.createElement('div');
         wrapper.setAttribute('id', 'header-withmenu');

@@ -4,7 +4,10 @@ import renderIndex from './render-index';
 import ContentService from './content-service';
 import UnleashService from './unleash-service';
 
-const contentService = new ContentService(() => Promise.resolve(menu));
+const contentService = new ContentService(
+  () => Promise.resolve(menu),
+  () => Promise.resolve([]),
+);
 const unleashService = new UnleashService({ mock: true, env: 'development' });
 
 test('renders norwegian index', async () => {

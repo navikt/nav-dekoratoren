@@ -7,7 +7,7 @@ export const initAnalytics = () => {
   initAmplitude();
 };
 
-export const analyticsEvent = (props: AnalyticsEventArgs) => {
+export function analyticsEvent(props: AnalyticsEventArgs) {
   const {
     context,
     eventName,
@@ -32,7 +32,7 @@ export const analyticsEvent = (props: AnalyticsEventArgs) => {
     },
     'decorator_next',
   );
-};
+}
 
 // Connects to partytown forwarding
 window.analyticsEvent = analyticsEvent;

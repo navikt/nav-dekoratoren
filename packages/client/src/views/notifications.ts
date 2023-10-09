@@ -1,11 +1,6 @@
 import { analyticsEvents } from '../analytics/constants';
 import * as api from '../api';
 
-export const fetchNotifications = () =>
-  fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/notifications`, {
-    credentials: 'include',
-  }).then((response) => response.text());
-
 class ArchivableNotificaton extends HTMLElement {
   connectedCallback() {
     const id = this.getAttribute('data-id');
