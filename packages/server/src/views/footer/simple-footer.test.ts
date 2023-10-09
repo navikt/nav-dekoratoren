@@ -33,5 +33,12 @@ const links = [
 ];
 
 test('renders simple footer', async () => {
-  expect(SimpleFooter({ links })).toMatchSnapshot();
+  expect(
+    SimpleFooter({
+      links,
+      texts: {
+        share_screen: 'Del skjerm',
+      },
+    }),
+  ).toMatchSnapshot();
 });
