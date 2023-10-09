@@ -128,7 +128,7 @@ const requestHandler = async (
             notificationLists: await notificationsService.getNotifications(
               texts[validParams(query).language],
             ),
-          }),
+          }).render(),
           {
             headers: { 'content-type': 'text/html; charset=utf-8' },
           },

@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html, { unsafeHtml } from 'decorator-shared/html';
 import { partytownSnippet } from '@builder.io/partytown/integration';
 
 const snippetText = partytownSnippet({
@@ -14,7 +14,7 @@ export function Partytown() {
       };
     </script>
     <script>
-      ${snippetText};
+      ${unsafeHtml(snippetText)};
     </script>
   `;
 }

@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html, { Template, unsafeHtml } from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
@@ -61,13 +61,15 @@ export async function Index({
   decoratorData,
 }: {
   language: Language;
-  header: string;
-  feedback: string;
-  footer: string;
-  logoutWarning: string;
-  lens: string;
-  decoratorData: string;
+  header: Template;
+  feedback?: Template;
+  footer: Template;
+  logoutWarning?: Template;
+  lens: Template;
+  decoratorData: Template;
 }) {
+  const links = await Links();
+  const scripts = await Scripts();
   return html`
     <!doctype html>
     <html lang="${language}">
@@ -83,7 +85,7 @@ export async function Index({
         ${Partytown()}
       </head>
       <body>
-        <div id="styles" style="display:none">${await Links()}</div>
+        <div id="styles" style="display:none">${unsafeHtml(links)}</div>
         ${WebcomponentTemplates()} ${header}
         <main>
           <button class="button button-main" id="amplitude-test">
@@ -95,7 +97,7 @@ export async function Index({
         </div>
         ${lens}
         <div id="scripts" style="display:none">
-          ${await Scripts()}${decoratorData}
+          ${unsafeHtml(scripts)}${decoratorData}
         </div>
       </body>
     </html>

@@ -34,40 +34,42 @@ export default async ({
       simpleFooter: data.simpleFooter,
     });
 
-  return Index({
-    language,
-    header: Header({
-      mainMenu,
-      headerMenuLinks,
-      myPageMenu,
-      texts: localTexts,
-      innlogget: false,
-      isNorwegian: true,
-      breadcrumbs: data.breadcrumbs,
-      utilsBackground: data.utilsBackground,
-      availableLanguages: data.availableLanguages,
-      simple: data.simple,
-    }),
-    feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
-    logoutWarning: data.logoutWarning ? LogoutWarning() : '',
-    footer:
-      data.simple || data.simpleFooter
-        ? SimpleFooter({
-            links: footerLinks as Link[],
-            texts: localTexts,
-          })
-        : ComplexFooter({
-            texts: localTexts,
-            links: footerLinks as LinkGroup[],
-          }),
-    lens: DecoratorLens({
-      origin,
-      env: data,
-      query,
-    }),
-    decoratorData: DecoratorData({
-      texts: localTexts,
-      params: data,
-    }),
-  });
+  return (
+    await Index({
+      language,
+      header: Header({
+        mainMenu,
+        headerMenuLinks,
+        myPageMenu,
+        texts: localTexts,
+        innlogget: false,
+        isNorwegian: true,
+        breadcrumbs: data.breadcrumbs,
+        utilsBackground: data.utilsBackground,
+        availableLanguages: data.availableLanguages,
+        simple: data.simple,
+      }),
+      feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
+      logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
+      footer:
+        data.simple || data.simpleFooter
+          ? SimpleFooter({
+              links: footerLinks as Link[],
+              texts: localTexts,
+            })
+          : ComplexFooter({
+              texts: localTexts,
+              links: footerLinks as LinkGroup[],
+            }),
+      lens: DecoratorLens({
+        origin,
+        env: data,
+        query,
+      }),
+      decoratorData: DecoratorData({
+        texts: localTexts,
+        params: data,
+      }),
+    })
+  ).render();
 };
