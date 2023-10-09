@@ -3,6 +3,8 @@ import content from './content-test-data.json';
 import requestHandler from './request-handler';
 import ContentService from './content-service';
 import SearchService from './search-service';
+import UnleashService from './unleash-service';
+import notificationsService from './notifications-service';
 
 const fetch = await requestHandler(
   new ContentService(
@@ -21,6 +23,8 @@ const fetch = await requestHandler(
     getFilePaths: () => ['./public/yep.svg'],
     getFile: () => Bun.file('./yep.svg'),
   },
+  notificationsService(),
+  new UnleashService({ mock: true, env: 'development' }),
 );
 
 test('is alive', async () => {

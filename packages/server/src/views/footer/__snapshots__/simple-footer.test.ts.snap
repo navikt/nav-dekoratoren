@@ -2,9 +2,9 @@
 
 exports[`renders simple footer 1`] = `
 "
-  <footer class="">
-    <div class=" ">
-      <div class="">
+  <footer class="simpleFooter">
+    <div class="simpleFooterContent contentContainer">
+      <div class="footerLinkList">
         
     <lenke-med-sporing
       role=""
@@ -13,7 +13,7 @@ exports[`renders simple footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
-      data-class-name-override=""
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
@@ -29,7 +29,7 @@ exports[`renders simple footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
-      data-class-name-override=""
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
@@ -39,7 +39,7 @@ exports[`renders simple footer 1`] = `
     </lenke-med-sporing>
   
       </div>
-      <button type="button" class="">
+      <button type="button" class="screenshareButton">
     Del skjerm med veileder
     <svg
       width="1em"
