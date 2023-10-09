@@ -1,7 +1,9 @@
+import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
 import html from 'decorator-shared/html';
 import type {
   AvailableLanguage,
   Breadcrumb,
+  Context,
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
@@ -23,21 +25,32 @@ export function SimpleHeader({
   utilsBackground,
   innlogget,
   texts,
+  activeContext,
 }: {
   texts: Texts;
   innlogget: boolean;
   availableLanguages: AvailableLanguage[];
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
+  activeContext: Context;
 }) {
   return html`
     <div id="menu-background"></div>
     <header class="siteheader">
       <div class="hovedmeny-wrapper ${cls.contentContainer}">
         <div class="hovedmeny-content">
-          <a href="https://www.nav.no/"
-            ><img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV"
-          /></a>
+          ${LenkeMedSporing({
+            href: '/',
+            analyticsEventArgs: {
+              context: activeContext,
+              category: 'dekorator-header',
+              action: 'navlogo',
+            },
+            children: html`<img
+              src="/public/ikoner/meny/nav-logo-black.svg"
+              alt="NAV"
+            />`,
+          })}
         </div>
         ${SimpleHeaderNavbarItems({
           innlogget,
