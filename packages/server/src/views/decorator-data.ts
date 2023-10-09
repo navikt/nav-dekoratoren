@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html, { json } from 'decorator-shared/html';
 import { Params } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 
@@ -10,6 +10,6 @@ export const DecoratorData = ({
   params: Params;
 }) => html`
   <script type="application/json" id="__DECORATOR_DATA__">
-    ${JSON.stringify({ texts, params })}
+    ${json({ texts, params })}
   </script>
 `;

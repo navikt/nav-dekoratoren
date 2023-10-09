@@ -63,6 +63,8 @@ export type Texts = {
   meny_bunnlenke_minside_stikkord: string;
   meny_bunnlenke_arbeidsgiver_stikkord: string;
   meny_bunnlenke_samarbeidspartner_stikkord: string;
+  loading_notifications: string;
+  notifications_error: string;
 };
 
 export type Driftsmelding = {

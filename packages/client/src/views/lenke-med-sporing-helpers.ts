@@ -1,6 +1,6 @@
 // Puttet i sin egen fil slik at det kan brukes på server og i shared
 
-import html from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import { AnalyticsEventArgs } from '../analytics/constants';
 import classes from '../styles/lenke-med-sporing.module.css';
 import { Lock } from 'decorator-shared/views/icons/lock';
@@ -14,7 +14,7 @@ type LenkeMedSporingProps = {
   /*
    * Markup that can be injected
    */
-  children: string;
+  children: Template;
   analyticsEventArgs?: AnalyticsEventArgs;
   classNameOverride?: string;
   className?: string;
@@ -61,12 +61,12 @@ export function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
   return LenkeMedSporingBase({
     ...props,
     className: `${className} ${classes.chevronlenke}`,
-    children: `
-            <div class="${classes.ikonContainer}">
-                ${Next({
-                  className: classes.chevron,
-                })}
-            </div>${props.children}`,
+    children: html` <div class="${classes.ikonContainer}">
+        ${Next({
+          className: classes.chevron,
+        })}
+      </div>
+      ${props.children}`,
   });
 }
 
@@ -77,13 +77,13 @@ export function LenkeMedSporingLock(props: LenkeMedSporingProps) {
     ...props,
     // todo fix this
     className: `${className} ${classes.chevronlenke}`,
-    children: `
-            <div class="${classes.ikonContainer}">
-                ${Lock({
-                  width: '18px',
-                  height: '18px',
-                })}
-            </div>${props.children}`,
+    children: html` <div class="${classes.ikonContainer}">
+        ${Lock({
+          width: '18px',
+          height: '18px',
+        })}
+      </div>
+      ${props.children}`,
   });
 }
 

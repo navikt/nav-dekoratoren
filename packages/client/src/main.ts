@@ -36,8 +36,6 @@ import {
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { initLoggedInMenu } from './views/logged-in-menu';
-import { fetchNotifications } from './views/notifications';
-
 import { logoutWarningController } from './controllers/logout-warning';
 
 import {
@@ -169,7 +167,7 @@ window.addEventListener('message', (e) => {
           temp.innerHTML =
             RenderLanguageSelector({
               availableLanguages: e.data.payload.availableLanguages,
-            }) ?? '';
+            })?.render() ?? '';
           container.append(...temp.childNodes);
         }
       }
@@ -348,7 +346,7 @@ async function populateLoggedInMenu(authObject: Auth) {
       window.__DECORATOR_DATA__.params.simple,
     );
 
-    menuItems.outerHTML = newMenuItems;
+    menuItems.outerHTML = newMenuItems.render();
 
     initLoggedInMenu();
     handleMenuButton();
@@ -366,27 +364,32 @@ api.checkAuth({
 
     await populateLoggedInMenu(response);
 
-    const notifications = await fetchNotifications();
-
-    if (notifications) {
+    const notificationsResponse = await fetch(
+      `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/notifications`,
+      {
+        credentials: 'include',
+      },
+    );
+    if (notificationsResponse.status === 200) {
       const notificationsUlest = document.querySelector(
         '.notifications-unread',
       );
       notificationsUlest?.classList.add('active');
-
-      // Choose which view to render
-
-      const notificationsMenuContent = document.querySelector(
-        '#notifications-menu-content',
-      );
-
-      if (notificationsMenuContent) {
-        notificationsMenuContent.innerHTML = notifications;
-      }
-
-      // Attach arkiver listener
-      afterAuthListeners();
     }
+
+    const notificationsMenuContent = document.querySelector(
+      '#notifications-menu-content',
+    );
+
+    if (notificationsMenuContent) {
+      notificationsMenuContent.innerHTML =
+        notificationsResponse.status === 200
+          ? await notificationsResponse.text()
+          : window.__DECORATOR_DATA__.texts.notifications_error;
+    }
+
+    // Attach arkiver listener
+    afterAuthListeners();
   },
 });
 

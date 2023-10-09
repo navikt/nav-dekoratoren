@@ -1,4 +1,4 @@
-import { Node } from '../../types';
+import { Node } from 'decorator-shared/types';
 import { ComplexHeader } from './complex-header';
 import { SimpleHeader } from './simple-header';
 import { Texts } from 'decorator-shared/types';
@@ -9,7 +9,7 @@ import {
   Params,
   UtilsBackground,
 } from 'decorator-shared/params';
-import { ContextLink } from '../../context';
+import { ContextLink } from 'decorator-shared/context';
 
 export const utilsBackgroundClasses = {
   white: 'decorator-utils-container_white',
@@ -32,7 +32,7 @@ export type HeaderProps = {
   myPageMenu?: Node[];
 } & Pick<Params, 'simple'>;
 
-export function getHeader(props: HeaderProps) {
+function getHeader(props: HeaderProps) {
   if (!props.simple) {
     return ComplexHeader(props);
   }

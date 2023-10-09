@@ -1,15 +1,16 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import LanguageSelector from 'decorator-shared/views/language-selector';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import { HeaderProps, utilsBackgroundClasses } from './index';
-import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
+import { HeaderProps, utilsBackgroundClasses } from '.';
+import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 
 import classes from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
-import { HeaderContextLenke } from './lenke';
+import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
+import { Node } from 'decorator-shared/types';
 
 export function ComplexHeader({
   isNorwegian,
@@ -24,7 +25,6 @@ export function ComplexHeader({
   myPageMenu,
 }: HeaderProps) {
   return html`
-    <div id="header-withmenu">
       <div
         id="menu-background"
       ></div>
@@ -35,7 +35,7 @@ export function ComplexHeader({
           class="hovedmeny-wrapper ${cls.contentContainer}"
         >
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
             <div
               id="arbeidsflate"
             >
@@ -92,8 +92,8 @@ export function ComplexHeader({
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             ${HeaderMenuLinks({
-              headerMenuLinks,
-              cols: headerMenuLinks.length as HeaderMenuLinkCols,
+              headerMenuLinks: headerMenuLinks as Node[],
+              className: 'cols-3',
             })}
             </div>
           </div>
@@ -105,7 +105,6 @@ export function ComplexHeader({
         ${Breadcrumbs({ breadcrumbs })}
         ${LanguageSelector({ availableLanguages })}
       </div>
-    </div>
   `;
 }
 

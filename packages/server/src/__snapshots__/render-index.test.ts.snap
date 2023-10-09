@@ -383,8 +383,8 @@ exports[`renders norwegian index 1`] = `
 
     <!-- Composing markup using predefined templates -->
     <template id="search-icon-button-template"></template>
-   
-    <div id="header-withmenu">
+  
+        <div id="header-withmenu">
       <div
         id="menu-background"
       ></div>
@@ -395,7 +395,7 @@ exports[`renders norwegian index 1`] = `
           class="hovedmeny-wrapper _contentContainer_1av57_1"
         >
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
             <div
               id="arbeidsflate"
             >
@@ -633,9 +633,13 @@ exports[`renders norwegian index 1`] = `
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             
+<<<<<<< HEAD
     <ul
       class="_headerMenuLinks_19vx3_36 cols-3"
     >
+=======
+    <ul class="header-menu-links ">
+>>>>>>> main
       
           <li
             id="79173ea3-74cd-4d7a-a81f-a43915022c4e"
@@ -644,6 +648,7 @@ exports[`renders norwegian index 1`] = `
             <h3>Områder</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
       
     <lenke-med-sporing
@@ -882,6 +887,36 @@ exports[`renders norwegian index 1`] = `
             </div>Hjelpemidler og tilrettelegging</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+      <a class="header-menu-link" href="/arbeid">Arbeid</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="c0379053-4fdf-4151-8974-5d475449ebd2">
+      <a class="header-menu-link" href="/helse">Helse og sykdom</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+      <a class="header-menu-link" href="/familie">Familie og barn</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+      <a class="header-menu-link" href="/pensjon">Pensjon</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+      <a class="header-menu-link" href="/sosiale-tjenester">Sosiale tjenester og veiledning</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+      <a class="header-menu-link" href="/hjelpemidler">Hjelpemidler og tilrettelegging</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
@@ -895,6 +930,7 @@ exports[`renders norwegian index 1`] = `
             <h3>Snarveier</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
       
     <lenke-med-sporing
@@ -1293,10 +1329,61 @@ exports[`renders norwegian index 1`] = `
             </div>Feiltolkning av EØS-reglene</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+      <a class="header-menu-link" href="/soknader">Søknad og skjema</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+      <a class="header-menu-link" href="/ettersende">Ettersendelse</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+      <a class="header-menu-link" href="/klage">Klage</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+      <a class="header-menu-link" href="/tjenester">Pengestøtter og tjenester fra A til Å</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+      <a class="header-menu-link" href="/saksbehandlingstider">Saksbehandlingstider</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+      <a class="header-menu-link" href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger">Utbetalinger</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+      <a class="header-menu-link" href="/satser">Satser</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+      <a class="header-menu-link" href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det">Meldekort</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+      <a class="header-menu-link" href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav">Kurs fra NAV</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+      <a class="header-menu-link" href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene">Feiltolkning av EØS-reglene</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
             
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _nestedLink_19vx3_62" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
       
     <lenke-med-sporing
@@ -1315,6 +1402,11 @@ exports[`renders norwegian index 1`] = `
     <div id="children">
             <div class="_ikonContainer_1wt3v_51">
                 
+=======
+    <li class="header-menu-link-wrapper nested-link" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+      <a class="header-menu-link" href="">Snarveier</a>
+      
+>>>>>>> main
     <svg
       width="24px"
       height="24px"
@@ -1322,7 +1414,12 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
+<<<<<<< HEAD
       class="_chevron_1wt3v_55"
+=======
+      aria-hidden="true"
+      class="context-menu-link-icon"
+>>>>>>> main
     >
       <path
         fillRule="evenodd"
@@ -1332,14 +1429,18 @@ exports[`renders norwegian index 1`] = `
       />
     </svg>
   
+<<<<<<< HEAD
             </div>Snarveier</div>
     </lenke-med-sporing>
   
+=======
+>>>>>>> main
     </li>
   
           </li>
         
       
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _mobile_19vx3_18" id="">
       
     <lenke-med-sporing
@@ -1378,12 +1479,18 @@ exports[`renders norwegian index 1`] = `
             </div>Logg inn på min side</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper mobile" id="">
+      <a class="header-menu-link" href="#">Logg inn på min side</a>
+      
+>>>>>>> main
     </li>
   
 
       <li>
         <ul id="menu-context-links">
           
+<<<<<<< HEAD
     <a
       class="context-menu-link-wrapper"
       href="privatperson"
@@ -1415,11 +1522,20 @@ exports[`renders norwegian index 1`] = `
     </svg>
   
         </div>
+=======
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="privatperson"
+        data-context="privatperson"
+      >
+>>>>>>> main
         <span>Privat</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
+<<<<<<< HEAD
     <a
       class="context-menu-link-wrapper"
       href="arbeidsgiver"
@@ -1451,11 +1567,20 @@ exports[`renders norwegian index 1`] = `
     </svg>
   
         </div>
+=======
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="arbeidsgiver"
+        data-context="arbeidsgiver"
+      >
+>>>>>>> main
         <span>Arbeidsgiver</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
+<<<<<<< HEAD
     <a
       class="context-menu-link-wrapper"
       href="samarbeidspartner"
@@ -1487,9 +1612,17 @@ exports[`renders norwegian index 1`] = `
     </svg>
   
         </div>
+=======
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="samarbeidspartner"
+        data-context="samarbeidspartner"
+      >
+>>>>>>> main
         <span>Samarbeidspartner</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
         </ul>
       </li>
@@ -1530,8 +1663,7 @@ exports[`renders norwegian index 1`] = `
   
         
       </div>
-    </div>
-  
+  </div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
@@ -1913,7 +2045,11 @@ exports[`renders norwegian index 1`] = `
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="module" src="http://localhost:5173/src/analytics/analytics.ts"></script>
   <script type="application/json" id="__DECORATOR_DATA__">
+<<<<<<< HEAD
     {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","rolle_privatperson":"Privat","rolle_arbeidsgiver":"Arbeidsgiver","rolle_samarbeidspartner":"Samarbeidspartner","meny_bunnlenke_minside_stikkord":"Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester","meny_bunnlenke_arbeidsgiver_stikkord":"Dine sykmeldte, rekruttering, digitale skjemaer","meny_bunnlenke_samarbeidspartner_stikkord":"Helsepersonell, tiltaksarrangører, fylker og kommuner"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+=======
+    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","loading_notifications":"Laster varslinger","notifications_error":"Feil ved lasting av varsler"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+>>>>>>> main
   </script>
 
         </div>
@@ -2305,8 +2441,8 @@ exports[`renders english index 1`] = `
 
     <!-- Composing markup using predefined templates -->
     <template id="search-icon-button-template"></template>
-   
-    <div id="header-withmenu">
+  
+        <div id="header-withmenu">
       <div
         id="menu-background"
       ></div>
@@ -2317,7 +2453,7 @@ exports[`renders english index 1`] = `
           class="hovedmeny-wrapper _contentContainer_1av57_1"
         >
           <div class="hovedmeny-content">
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
             <div
               id="arbeidsflate"
             >
@@ -2555,9 +2691,13 @@ exports[`renders english index 1`] = `
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
             
+<<<<<<< HEAD
     <ul
       class="_headerMenuLinks_19vx3_36 cols-6"
     >
+=======
+    <ul class="header-menu-links ">
+>>>>>>> main
       
           <li
             id="4034ae9f-981a-4ea4-9311-eade71ae098b"
@@ -2566,6 +2706,7 @@ exports[`renders english index 1`] = `
             <h3>Work and stay in Norway</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
       
     <lenke-med-sporing
@@ -2724,10 +2865,31 @@ exports[`renders english index 1`] = `
             </div>Tourists in Norway</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/work-in-norway">Work in Norway</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf">Employee on the Norwegian continental shelf</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/foreign-students-in-norway">Foreign students in Norway</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="117d0621-476c-42d6-9789-26f898250225">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway/tourists-in-norway">Tourists in Norway</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
             
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _nestedLink_19vx3_62" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
       
     <lenke-med-sporing
@@ -2766,6 +2928,11 @@ exports[`renders english index 1`] = `
             </div>Work and stay in Norway</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper nested-link" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+      <a class="header-menu-link" href="/en/home/work-and-stay-in-norway">Work and stay in Norway</a>
+      
+>>>>>>> main
     </li>
   
           </li>
@@ -2777,6 +2944,7 @@ exports[`renders english index 1`] = `
             <h3>Benefits and services</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
       
     <lenke-med-sporing
@@ -2975,10 +3143,36 @@ exports[`renders english index 1`] = `
             </div>Employment status form - how do you use it?</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits">Information about NAV&#x27;s services and benefits</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+      <a class="header-menu-link" href="https://www.nav.no/arbeid/en/dagpenger-og-eos">Unemployment benefits</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="f30dd799-91aa-4c50-a470-969f5087d34c">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/family-related-benefits">Family related benefits</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway">Pensions and pension applications from outside Norway</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+      <a class="header-menu-link" href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it">Employment status form - how do you use it?</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
             
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _nestedLink_19vx3_62" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
       
     <lenke-med-sporing
@@ -3017,6 +3211,11 @@ exports[`renders english index 1`] = `
             </div>Benefits and services</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper nested-link" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+      <a class="header-menu-link" href="/en/home/benefits-and-services">Benefits and services</a>
+      
+>>>>>>> main
     </li>
   
           </li>
@@ -3028,6 +3227,7 @@ exports[`renders english index 1`] = `
             <h3>Rules and regulations</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="09581eac-105d-453f-b019-ebffe6465ffc">
       
     <lenke-med-sporing
@@ -3266,10 +3466,41 @@ exports[`renders english index 1`] = `
             </div>Staying abroad</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="09581eac-105d-453f-b019-ebffe6465ffc">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme">Membership of the National Insurance Scheme</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/national-insurance-coverage">National insurance coverage</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+      <a class="header-menu-link" href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift">National insurance contributions</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+      <a class="header-menu-link" href="/klagerettigheter/en">Appeals</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="280069da-b8f9-4871-b681-ccc339146a3a">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/working-abroad">Working abroad</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations/staying-abroad">Staying abroad</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
             
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _nestedLink_19vx3_62" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
       
     <lenke-med-sporing
@@ -3308,6 +3539,11 @@ exports[`renders english index 1`] = `
             </div>Rules and regulations</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper nested-link" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+      <a class="header-menu-link" href="/en/home/rules-and-regulations">Rules and regulations</a>
+      
+>>>>>>> main
     </li>
   
           </li>
@@ -3319,6 +3555,7 @@ exports[`renders english index 1`] = `
             <h3>Employers</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
       
     <lenke-med-sporing
@@ -3477,10 +3714,31 @@ exports[`renders english index 1`] = `
             </div>Income report</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+      <a class="header-menu-link" href="/en/home/employers/recruit-in-norway">Recruit in Norway?</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="d4750660-17c2-43de-960f-7ad6907674fa">
+      <a class="header-menu-link" href="/employers/rekruttere-eu-eos/en">Recruiting from the EU/EEA</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+      <a class="header-menu-link" href="/en/home/employers/nav-state-register-of-employers-and-employees">What is the NAV State Register of Employers and Employees (Aa-registeret)</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+      <a class="header-menu-link" href="/arbeidsgiver/inntektsmelding/en">Income report</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
             
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _nestedLink_19vx3_62" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
       
     <lenke-med-sporing
@@ -3519,6 +3777,11 @@ exports[`renders english index 1`] = `
             </div>Employers</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper nested-link" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+      <a class="header-menu-link" href="/en/home/employers">Employers</a>
+      
+>>>>>>> main
     </li>
   
           </li>
@@ -3530,6 +3793,7 @@ exports[`renders english index 1`] = `
             <h3>About NAV</h3>
             <ul>
               
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1" id="b94f13b1-3010-432d-954f-43a90ea122ce">
       
     <lenke-med-sporing
@@ -3848,10 +4112,51 @@ exports[`renders english index 1`] = `
             </div>Search tips</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper " id="b94f13b1-3010-432d-954f-43a90ea122ce">
+      <a class="header-menu-link" href="/kontaktoss/en">Contact us</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+      <a class="header-menu-link" href="/utbetalingsdatoer/en">Payment dates</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+      <a class="header-menu-link" href="/saksbehandlingstider/en">Case processing times</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="954fdb02-3d1f-404f-a042-9bf71142021f">
+      <a class="header-menu-link" href="/satser/en">Rates</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+      <a class="header-menu-link" href="/en/home/about-nav/what-is-nav">What is NAV?</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+      <a class="header-menu-link" href="/endringer/en">Notify us of any changes</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+      <a class="header-menu-link" href="/soknader/en/person">Forms and applications</a>
+      
+    </li>
+  
+    <li class="header-menu-link-wrapper " id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+      <a class="header-menu-link" href="/en/home/about-nav/search-tips">Search tips</a>
+      
+>>>>>>> main
     </li>
   
             </ul>
             
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _nestedLink_19vx3_62" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
       
     <lenke-med-sporing
@@ -3890,11 +4195,17 @@ exports[`renders english index 1`] = `
             </div>About NAV</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper nested-link" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+      <a class="header-menu-link" href="/en/home/about-nav">About NAV</a>
+      
+>>>>>>> main
     </li>
   
           </li>
         
       
+<<<<<<< HEAD
     <li class="_menuLink_19vx3_1 _mobile_19vx3_18" id="">
       
     <lenke-med-sporing
@@ -3933,12 +4244,18 @@ exports[`renders english index 1`] = `
             </div>Logg inn på min side</div>
     </lenke-med-sporing>
   
+=======
+    <li class="header-menu-link-wrapper mobile" id="">
+      <a class="header-menu-link" href="#">Logg inn på min side</a>
+      
+>>>>>>> main
     </li>
   
 
       <li>
         <ul id="menu-context-links">
           
+<<<<<<< HEAD
     <a
       class="context-menu-link-wrapper"
       href="privatperson"
@@ -3970,11 +4287,20 @@ exports[`renders english index 1`] = `
     </svg>
   
         </div>
+=======
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="privatperson"
+        data-context="privatperson"
+      >
+>>>>>>> main
         <span>Privat</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
+<<<<<<< HEAD
     <a
       class="context-menu-link-wrapper"
       href="arbeidsgiver"
@@ -4006,11 +4332,20 @@ exports[`renders english index 1`] = `
     </svg>
   
         </div>
+=======
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="arbeidsgiver"
+        data-context="arbeidsgiver"
+      >
+>>>>>>> main
         <span>Arbeidsgiver</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
           
+<<<<<<< HEAD
     <a
       class="context-menu-link-wrapper"
       href="samarbeidspartner"
@@ -4042,9 +4377,17 @@ exports[`renders english index 1`] = `
     </svg>
   
         </div>
+=======
+    <li class="context-menu-link-wrapper" id="">
+      <a
+        class="context-menu-link  "
+        href="samarbeidspartner"
+        data-context="samarbeidspartner"
+      >
+>>>>>>> main
         <span>Samarbeidspartner</span>
-      </li>
-    </a>
+      </a>
+    </li>
   
         </ul>
       </li>
@@ -4085,8 +4428,7 @@ exports[`renders english index 1`] = `
   
         
       </div>
-    </div>
-  
+  </div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
@@ -4190,6 +4532,7 @@ exports[`renders english index 1`] = `
                   <ul>
                     
                         <li class="footer-link-item">
+<<<<<<< HEAD
                           
     <lenke-med-sporing
       role=""
@@ -4207,6 +4550,9 @@ exports[`renders english index 1`] = `
     <div id="children">Statistics, analysis and R&D</div>
     </lenke-med-sporing>
   
+=======
+                          <a class="footer-link" href="/no/nav-og-samfunn/statistikk-analyse-og-fou">Statistics, analysis and R&amp;D</a>
+>>>>>>> main
                         </li>
                       
                         <li class="footer-link-item">
@@ -4461,7 +4807,11 @@ exports[`renders english index 1`] = `
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="module" src="http://localhost:5173/src/analytics/analytics.ts"></script>
   <script type="application/json" id="__DECORATOR_DATA__">
+<<<<<<< HEAD
     {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","rolle_privatperson":"Private","rolle_arbeidsgiver":"Employer","rolle_samarbeidspartner":"Collaborator","meny_bunnlenke_minside_stikkord":"Your cases, payments, messages, report cards, activity plan, personal information and more services","meny_bunnlenke_arbeidsgiver_stikkord":"Your sick leave, recruitment, digital forms","meny_bunnlenke_samarbeidspartner_stikkord":"Health personnel, intervention organizers, counties and municipalities"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+=======
+    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","loading_notifications":"Loading notifications","notifications_error":"Error loading notifications"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+>>>>>>> main
   </script>
 
         </div>

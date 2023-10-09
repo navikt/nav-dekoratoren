@@ -1,4 +1,4 @@
-import { Header } from 'decorator-shared/views/header';
+import { Header } from './header';
 import { Index } from './views';
 import { Feedback } from './views/feedback';
 import { DecoratorLens } from './views/decorator-lens';
@@ -38,7 +38,7 @@ export default async ({
 
   const contextLinks = makeContextLinks(env.XP_BASE_URL);
 
-  return Index({
+  return await Index({
     language,
     header: Header({
       mainMenu,
@@ -54,8 +54,8 @@ export default async ({
       availableLanguages: data.availableLanguages,
       simple: data.simple,
     }),
-    feedback: data.feedback ? Feedback({ texts: localTexts }) : '',
-    logoutWarning: data.logoutWarning ? LogoutWarning() : '',
+    feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
+    logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
     footer:
       data.simple || data.simpleFooter
         ? SimpleFooter({

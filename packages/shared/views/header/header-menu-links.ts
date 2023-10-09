@@ -27,7 +27,8 @@ function Link({
       ${LenkeMedSporing(
         {
           href: path as string,
-          children: displayName as string,
+          // don't really like that we have to do this
+          children: html`${displayName}`,
           analyticsEventArgs,
         },
         'chevron',
@@ -49,7 +50,7 @@ function ContextLink({
 }) {
   return html`
     <a
-      class="context-menu-link-wrapper"
+      class="${contextMenuLinkClasses.wrapper}"
       href="${context}"
       data-context="${context}"
     >
@@ -68,26 +69,18 @@ function ContextLink({
   `;
 }
 
-export type HeaderMenuLinkCols = 3 | 4 | 5;
-
-export function HeaderMenuLinks({
-  cols = 3,
-  className = '',
-  headerMenuLinks,
-}: {
+export type HeaderMenuLinksProps = {
   headerMenuLinks: Node[];
   className?: string;
-  cols?: HeaderMenuLinkCols;
-}) {
+};
+
+export function HeaderMenuLinks({
+  className = '',
+  headerMenuLinks,
+}: HeaderMenuLinksProps) {
   // Add one for the conext links
   return html`
-    <ul
-      class="${clsx([
-        classes.headerMenuLinks,
-        `cols-${(cols + 1).toString()}`,
-        className,
-      ])}"
-    >
+    <ul class="${classes.headerMenuLinks} ${className}">
       ${headerMenuLinks.map(
         (link) => html`
           <li

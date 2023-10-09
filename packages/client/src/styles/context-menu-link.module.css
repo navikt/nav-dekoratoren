@@ -1,3 +1,8 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
 .contextMenuLink {
   display: flex;
   align-items: center;
@@ -5,6 +10,7 @@
   padding: var(--a-spacing-5);
   padding-left: var(--a-spacing-2);
   cursor: pointer;
+  width: 100%;
 }
 
 .contextMenuLink .chevron {

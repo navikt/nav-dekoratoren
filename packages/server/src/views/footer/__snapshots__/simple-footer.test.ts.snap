@@ -6,6 +6,7 @@ exports[`renders simple footer 1`] = `
     <div class="_simpleFooterContent_yutxt_7 _contentContainer_1av57_1">
       <div class="_footerLinkList_yutxt_19">
         
+<<<<<<< HEAD
     <lenke-med-sporing
       role=""
       href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
@@ -69,6 +70,12 @@ exports[`renders simple footer 1`] = `
       </svg></div>
     </lenke-med-sporing>
   
+=======
+            <a class="_footerLink_yutxt_19" href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten">Personvern og informasjonskapsler</a>
+          
+            <a class="_footerLink_yutxt_19" href="/tilgjengelighet">Tilgjengelighet</a>
+          
+>>>>>>> main
       </div>
       <button type="button" class="_screenshareButton_1ggeo_1">
     Del skjerm med veileder

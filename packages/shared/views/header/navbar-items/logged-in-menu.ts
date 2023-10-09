@@ -5,8 +5,8 @@ import { LoginIcon } from '../../icons/login';
 import { NotificationsIcon } from 'decorator-shared/views/icons/notifications';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
-import { NotificationsEmpty } from '../../notifications/empty';
 import { DropdownButton } from '../../components/dropdown-button';
+import { LoadingNotifications } from '../../notifications/loading';
 
 // ${IconButton({
 //   id: 'profile-button',
@@ -50,7 +50,7 @@ export function LoggedInMenu({
         <div id="loggedin-menu-content">
           <div id="notifications-menu-content" class="dropdown">
             <!-- Placeholder for now -->
-            ${NotificationsEmpty({
+            ${LoadingNotifications({
               texts,
             })}
             <!-- Loaded on client -->

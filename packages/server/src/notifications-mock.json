@@ -40,7 +40,7 @@
       "varselId": "253188a4-d14f-4bd5-9601-4edd1dec8101",
       "tidspunkt": "2023-09-13T12:55:49.279752+02:00",
       "isMasked": false,
-      "tekst": "Beskjed uten link",
+      "tekst": "<div onclick=\"alert('xss')\">Beskjed uten link</div>",
       "link": null,
       "type": "beskjed",
       "eksternVarslingSendt": true,

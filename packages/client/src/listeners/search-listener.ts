@@ -23,12 +23,13 @@ export function addSearchInputListener() {
                     displayName: string;
                     highlight: string;
                     href: string;
-                  }) => html`
-                    <search-hit href="${hit.href}">
-                      <h2 slot="title">${hit.displayName}</h2>
-                      <p slot="description">${hit.highlight}</p>
-                    </search-hit>
-                  `,
+                  }) =>
+                    html`
+                      <search-hit href="${hit.href}">
+                        <h2 slot="title">${hit.displayName}</h2>
+                        <p slot="description">${hit.highlight}</p>
+                      </search-hit>
+                    `.render(),
                 )
                 .join(''),
             });

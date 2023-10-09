@@ -298,6 +298,7 @@ exports[`renders complex footer 1`] = `
   
                         </li>
                       
+<<<<<<< HEAD
                         <li class="footer-link-item">
                           
     <lenke-med-sporing
@@ -333,6 +334,8 @@ exports[`renders complex footer 1`] = `
   
                         </li>
                       
+=======
+>>>>>>> main
                   </ul>
                 </li>
               

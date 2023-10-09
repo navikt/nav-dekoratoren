@@ -45,6 +45,8 @@ const nb = {
     'Dine sykmeldte, rekruttering, digitale skjemaer',
   meny_bunnlenke_samarbeidspartner_stikkord:
     'Helsepersonell, tiltaksarrangører, fylker og kommuner',
+  loading_notifications: 'Laster varslinger',
+  notifications_error: 'Feil ved lasting av varsler',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -96,6 +98,8 @@ export const texts: Record<Language, Texts> = {
       'Your sick leave, recruitment, digital forms',
     meny_bunnlenke_samarbeidspartner_stikkord:
       'Health personnel, intervention organizers, counties and municipalities',
+    loading_notifications: 'Loading notifications',
+    notifications_error: 'Error loading notifications',
   },
   se: nb,
   nn: nb,
