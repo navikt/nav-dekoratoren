@@ -1,15 +1,21 @@
+import html from 'decorator-shared/html';
 import type {
   AvailableLanguage,
   Breadcrumb,
   UtilsBackground,
 } from 'decorator-shared/params';
-import html from 'decorator-shared/html';
-import cls from 'decorator-shared/utilities.module.css';
 import { Texts } from 'decorator-shared/types';
+import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import LanguageSelector from 'decorator-shared/views/language-selector';
-import { utilsBackgroundClasses } from '.';
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
+import LanguageSelector from 'decorator-shared/views/language-selector';
+
+const utilsBackgroundClasses = {
+  white: 'decorator-utils-container_white',
+  gray: 'decorator-utils-container_gray',
+  transparent: 'decorator-utils-container_transparent',
+  '': '',
+};
 
 export function SimpleHeader({
   availableLanguages,

@@ -1,5 +1,5 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import type { HeaderProps as ComplexHeaderProps } from '.';
+import type { ComplexHeaderProps } from './complex-header';
 import { ComplexHeader } from './complex-header';
 
 const meta: Meta<ComplexHeaderProps> = {

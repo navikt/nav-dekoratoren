@@ -1,11 +1,35 @@
 import html from 'decorator-shared/html';
+import {
+  AvailableLanguage,
+  Breadcrumb,
+  UtilsBackground,
+} from 'decorator-shared/params';
+import { Node, Texts } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
-import LanguageSelector from 'decorator-shared/views/language-selector';
-import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import { HeaderProps, utilsBackgroundClasses } from '.';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
+import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
+import LanguageSelector from 'decorator-shared/views/language-selector';
+
+const utilsBackgroundClasses = {
+  white: 'decorator-utils-container_white',
+  gray: 'decorator-utils-container_gray',
+  transparent: 'decorator-utils-container_transparent',
+  '': '',
+};
+
+export type ComplexHeaderProps = {
+  isNorwegian: boolean;
+  mainMenu?: Node[];
+  texts: Texts;
+  headerMenuLinks?: Node[];
+  innlogget: boolean;
+  breadcrumbs: Breadcrumb[];
+  utilsBackground: UtilsBackground;
+  availableLanguages: AvailableLanguage[];
+  myPageMenu?: Node[];
+};
 
 export function ComplexHeader({
   isNorwegian,
@@ -17,7 +41,7 @@ export function ComplexHeader({
   utilsBackground,
   availableLanguages,
   myPageMenu,
-}: HeaderProps) {
+}: ComplexHeaderProps) {
   return html`
       <div
         id="menu-background"
