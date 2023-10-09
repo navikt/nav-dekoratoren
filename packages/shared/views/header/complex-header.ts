@@ -1,7 +1,7 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import { HeaderMenuLinkCols, HeaderMenuLinks } from './header-menu-links';
+import { HeaderMenuLinks } from './header-menu-links';
 import LanguageSelector from 'decorator-shared/views/language-selector';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
 import { HeaderProps, utilsBackgroundClasses } from './index';
@@ -83,7 +83,6 @@ export function ComplexHeader({
             <div id="header-menu-links">
             ${HeaderMenuLinks({
               headerMenuLinks,
-              cols: headerMenuLinks.length as HeaderMenuLinkCols,
             })}
             </div>
           </div>

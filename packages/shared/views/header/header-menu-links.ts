@@ -49,13 +49,15 @@ function ContextLink({
   `;
 }
 
+export type HeaderMenuLinksProps = {
+  headerMenuLinks: Node[];
+  className?: string;
+};
+
 export function HeaderMenuLinks({
   className = '',
   headerMenuLinks,
-}: {
-  headerMenuLinks: Node[];
-  className?: string;
-}) {
+}: HeaderMenuLinksProps) {
   // Add one for the conext links
   return html`
     <ul class="header-menu-links ${className}">
