@@ -39,13 +39,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Kontakt oss
     </a>
@@ -61,13 +61,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     NAV i ditt fylke
     </a>
@@ -83,13 +83,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Kurs fra NAV
     </a>
@@ -105,13 +105,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Klage, tilbakemelding, ros
     </a>
@@ -134,13 +134,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Nyheter, pressemeldinger og pressekontakt
     </a>
@@ -163,13 +163,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Statistikk, analyse og FoU
     </a>
@@ -185,13 +185,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Lover og regler (lovdata.no)
     </a>
@@ -207,13 +207,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Om NAV
     </a>
@@ -236,13 +236,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     English
     </a>
@@ -258,13 +258,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Sámegiella
     </a>
@@ -287,13 +287,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Personvern og informasjonskapsler
     </a>
@@ -309,13 +309,13 @@ exports[`renders complex footer 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Tilgjengelighet
     </a>

@@ -397,13 +397,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}'
+      data-analytics-event-args='{"context":"privatperson","category":"dekorator-header","action":"navlogo"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     <img
               src="/public/ikoner/meny/nav-logo-red.svg"
@@ -420,11 +420,11 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}'
+      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
       data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
-      data-extra-attrs='[[&quot;data-context&quot;,&quot;privatperson&quot;]]'
+      data-extra-attrs='[["data-context","privatperson"]]'
       
       
     >
@@ -438,11 +438,11 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}'
+      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
-      data-extra-attrs='[[&quot;data-context&quot;,&quot;arbeidsgiver&quot;]]'
+      data-extra-attrs='[["data-context","arbeidsgiver"]]'
       
       
     >
@@ -456,11 +456,11 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}'
+      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
-      data-extra-attrs='[[&quot;data-context&quot;,&quot;samarbeidspartner&quot;]]'
+      data-extra-attrs='[["data-context","samarbeidspartner"]]'
       
       
     >
@@ -616,13 +616,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;hovedmeny/forsidelenke&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"hovedmeny/forsidelenke"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
-      data-attach-context=&quot;true&quot;
-      data-default-style=&quot;true&quot;
+      data-extra-attrs='undefined'
+      data-attach-context="true"
+      data-default-style="true"
     >
     Til forsiden
     </a>
@@ -679,13 +679,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Arbeid&quot;,&quot;label&quot;:&quot;/arbeid&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Arbeid","label":"/arbeid"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -721,13 +721,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Helse og sykdom&quot;,&quot;label&quot;:&quot;/helse&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Helse og sykdom","label":"/helse"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -763,13 +763,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Familie og barn&quot;,&quot;label&quot;:&quot;/familie&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Familie og barn","label":"/familie"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -805,13 +805,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Pensjon&quot;,&quot;label&quot;:&quot;/pensjon&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Pensjon","label":"/pensjon"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -847,13 +847,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Sosiale tjenester og veiledning&quot;,&quot;label&quot;:&quot;/sosiale-tjenester&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Sosiale tjenester og veiledning","label":"/sosiale-tjenester"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -889,13 +889,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Hjelpemidler og tilrettelegging&quot;,&quot;label&quot;:&quot;/hjelpemidler&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Hjelpemidler og tilrettelegging","label":"/hjelpemidler"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -942,13 +942,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Søknad og skjema&quot;,&quot;label&quot;:&quot;/soknader&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Søknad og skjema","label":"/soknader"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -984,13 +984,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Ettersendelse&quot;,&quot;label&quot;:&quot;/ettersende&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Ettersendelse","label":"/ettersende"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1026,13 +1026,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Klage&quot;,&quot;label&quot;:&quot;/klage&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Klage","label":"/klage"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1068,13 +1068,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Pengestøtter og tjenester fra A til Å&quot;,&quot;label&quot;:&quot;/tjenester&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Pengestøtter og tjenester fra A til Å","label":"/tjenester"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1110,13 +1110,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Saksbehandlingstider&quot;,&quot;label&quot;:&quot;/saksbehandlingstider&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Saksbehandlingstider","label":"/saksbehandlingstider"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1152,13 +1152,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Utbetalinger&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Utbetalinger","label":"/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1194,13 +1194,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Satser&quot;,&quot;label&quot;:&quot;/satser&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Satser","label":"/satser"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1236,13 +1236,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Meldekort&quot;,&quot;label&quot;:&quot;/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Meldekort","label":"/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1278,13 +1278,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Kurs fra NAV&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Kurs fra NAV","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1320,13 +1320,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Feiltolkning av EØS-reglene&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Feiltolkning av EØS-reglene","label":"/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1364,13 +1364,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1409,13 +1409,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -1664,13 +1664,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Kontakt oss
     </a>
@@ -1686,13 +1686,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     NAV i ditt fylke
     </a>
@@ -1708,13 +1708,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Kurs fra NAV
     </a>
@@ -1730,13 +1730,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Klage, tilbakemelding, ros
     </a>
@@ -1759,13 +1759,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Nyheter, pressemeldinger og pressekontakt
     </a>
@@ -1788,13 +1788,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Statistikk, analyse og FoU
     </a>
@@ -1810,13 +1810,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Lover og regler (lovdata.no)
     </a>
@@ -1832,13 +1832,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Om NAV
     </a>
@@ -1861,13 +1861,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     English
     </a>
@@ -1883,13 +1883,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Sámegiella
     </a>
@@ -1912,13 +1912,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Personvern og informasjonskapsler
     </a>
@@ -1934,13 +1934,13 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Tilgjengelighet
     </a>
@@ -2431,13 +2431,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}'
+      data-analytics-event-args='{"context":"privatperson","category":"dekorator-header","action":"navlogo"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     <img
               src="/public/ikoner/meny/nav-logo-red.svg"
@@ -2454,11 +2454,11 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}'
+      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
       data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
-      data-extra-attrs='[[&quot;data-context&quot;,&quot;privatperson&quot;]]'
+      data-extra-attrs='[["data-context","privatperson"]]'
       
       
     >
@@ -2472,11 +2472,11 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}'
+      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
-      data-extra-attrs='[[&quot;data-context&quot;,&quot;arbeidsgiver&quot;]]'
+      data-extra-attrs='[["data-context","arbeidsgiver"]]'
       
       
     >
@@ -2490,11 +2490,11 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}'
+      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
-      data-extra-attrs='[[&quot;data-context&quot;,&quot;samarbeidspartner&quot;]]'
+      data-extra-attrs='[["data-context","samarbeidspartner"]]'
       
       
     >
@@ -2650,13 +2650,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;hovedmeny/forsidelenke&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"hovedmeny/forsidelenke"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
-      data-attach-context=&quot;true&quot;
-      data-default-style=&quot;true&quot;
+      data-extra-attrs='undefined'
+      data-attach-context="true"
+      data-default-style="true"
     >
     To the frontpage
     </a>
@@ -2713,13 +2713,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Work in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/work-in-norway&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Work in Norway","label":"/en/home/work-and-stay-in-norway/work-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -2755,13 +2755,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Employee on the Norwegian continental shelf&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Employee on the Norwegian continental shelf","label":"/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -2797,13 +2797,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Foreign students in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/foreign-students-in-norway&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Foreign students in Norway","label":"/en/home/work-and-stay-in-norway/foreign-students-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -2839,13 +2839,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Tourists in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/tourists-in-norway&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Tourists in Norway","label":"/en/home/work-and-stay-in-norway/tourists-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -2883,13 +2883,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -2934,13 +2934,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Information about NAV&#x27;s services and benefits&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/information-about-nav-s-services-and-benefits&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Information about NAV's services and benefits","label":"/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -2976,13 +2976,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Unemployment benefits&quot;,&quot;label&quot;:&quot;https://www.nav.no/arbeid/en/dagpenger-og-eos&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Unemployment benefits","label":"https://www.nav.no/arbeid/en/dagpenger-og-eos"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3018,13 +3018,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Family related benefits&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/family-related-benefits&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Family related benefits","label":"/en/home/benefits-and-services/family-related-benefits"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3060,13 +3060,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Pensions and pension applications from outside Norway&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Pensions and pension applications from outside Norway","label":"/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3102,13 +3102,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Employment status form - how do you use it?&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/employment-status-form-how-do-you-use-it&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Employment status form - how do you use it?","label":"/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3146,13 +3146,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3197,13 +3197,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Membership of the National Insurance Scheme&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Membership of the National Insurance Scheme","label":"/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3239,13 +3239,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/National insurance coverage&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/national-insurance-coverage&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance coverage","label":"/en/home/rules-and-regulations/national-insurance-coverage"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3281,13 +3281,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/National insurance contributions&quot;,&quot;label&quot;:&quot;/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance contributions","label":"/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3323,13 +3323,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Appeals&quot;,&quot;label&quot;:&quot;/klagerettigheter/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Appeals","label":"/klagerettigheter/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3365,13 +3365,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Working abroad&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/working-abroad&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Working abroad","label":"/en/home/rules-and-regulations/working-abroad"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3407,13 +3407,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Staying abroad&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/staying-abroad&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Staying abroad","label":"/en/home/rules-and-regulations/staying-abroad"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3451,13 +3451,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3502,13 +3502,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Recruit in Norway?&quot;,&quot;label&quot;:&quot;/en/home/employers/recruit-in-norway&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruit in Norway?","label":"/en/home/employers/recruit-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3544,13 +3544,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Recruiting from the EU/EEA&quot;,&quot;label&quot;:&quot;/employers/rekruttere-eu-eos/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruiting from the EU/EEA","label":"/employers/rekruttere-eu-eos/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3586,13 +3586,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)&quot;,&quot;label&quot;:&quot;/en/home/employers/nav-state-register-of-employers-and-employees&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)","label":"/en/home/employers/nav-state-register-of-employers-and-employees"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3628,13 +3628,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Income report&quot;,&quot;label&quot;:&quot;/arbeidsgiver/inntektsmelding/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Income report","label":"/arbeidsgiver/inntektsmelding/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3672,13 +3672,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3723,13 +3723,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Contact us&quot;,&quot;label&quot;:&quot;/kontaktoss/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Contact us","label":"/kontaktoss/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3765,13 +3765,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Payment dates&quot;,&quot;label&quot;:&quot;/utbetalingsdatoer/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Payment dates","label":"/utbetalingsdatoer/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3807,13 +3807,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Case processing times&quot;,&quot;label&quot;:&quot;/saksbehandlingstider/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Case processing times","label":"/saksbehandlingstider/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3849,13 +3849,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Rates&quot;,&quot;label&quot;:&quot;/satser/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Rates","label":"/satser/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3891,13 +3891,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/What is NAV?&quot;,&quot;label&quot;:&quot;/en/home/about-nav/what-is-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/What is NAV?","label":"/en/home/about-nav/what-is-nav"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3933,13 +3933,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Notify us of any changes&quot;,&quot;label&quot;:&quot;/endringer/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Notify us of any changes","label":"/endringer/en"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -3975,13 +3975,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Forms and applications&quot;,&quot;label&quot;:&quot;/soknader/en/person&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Forms and applications","label":"/soknader/en/person"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -4017,13 +4017,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Search tips&quot;,&quot;label&quot;:&quot;/en/home/about-nav/search-tips&quot;}'
+      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Search tips","label":"/en/home/about-nav/search-tips"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -4061,13 +4061,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -4106,13 +4106,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args=''
+      data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
      <div class="_ikonContainer_1wt3v_51">
         
@@ -4361,13 +4361,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//redirects/footer-contactus-en&quot;,&quot;label&quot;:&quot;/redirects/footer-contactus-en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//redirects/footer-contactus-en","label":"/redirects/footer-contactus-en"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Contact us
     </a>
@@ -4383,13 +4383,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Your local NAV office
     </a>
@@ -4405,13 +4405,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger&quot;,&quot;label&quot;:&quot;https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger","label":"https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Complaints, feedback, praise
     </a>
@@ -4434,13 +4434,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Statistics, analysis and R&amp;D
     </a>
@@ -4456,13 +4456,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Public Relations
     </a>
@@ -4478,13 +4478,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Rules and regulations (lovdata.no)
     </a>
@@ -4500,13 +4500,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//hva-er-nav/en&quot;,&quot;label&quot;:&quot;/hva-er-nav/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//hva-er-nav/en","label":"/hva-er-nav/en"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     About NAV
     </a>
@@ -4522,13 +4522,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/sok-jobb-i-nav&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav","label":"/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Work with us
     </a>
@@ -4551,13 +4551,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no&quot;,&quot;label&quot;:&quot;/no&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no","label":"/no"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Norwegian
     </a>
@@ -4573,13 +4573,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Sámegiella
     </a>
@@ -4602,13 +4602,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Privacy and cookies
     </a>
@@ -4624,13 +4624,13 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet/en&quot;,&quot;label&quot;:&quot;/tilgjengelighet/en&quot;}'
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet/en","label":"/tilgjengelighet/en"}'
       data-class-name-override="_footerLink_1thla_7"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
     Accessibility
     </a>
