@@ -58,12 +58,7 @@ const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
 
-const CONTEXTS = [
-  'privatperson',
-  'arbeidsgiver',
-  'samarbeidspartner',
-  'ikkebestemt',
-] as const;
+const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
 declare global {
   interface Window {

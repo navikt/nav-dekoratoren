@@ -12,7 +12,6 @@ const contextSchema = z.enum([
   'privatperson',
   'arbeidsgiver',
   'samarbeidspartner',
-  'ikkebestemt',
 ]);
 
 export type Context = z.infer<typeof contextSchema>;
