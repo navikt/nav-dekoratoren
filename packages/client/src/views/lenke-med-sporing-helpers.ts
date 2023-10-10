@@ -6,8 +6,7 @@ import classes from '../styles/lenke-med-sporing.module.css';
 import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 
-//
-type LenkeMedSporingProps = {
+export type LenkeMedSporingProps = {
   role?: string;
   href: string;
   id?: string;
@@ -97,7 +96,7 @@ const variants = {
   standard: LenkeMedSporingBase,
 };
 
-type VariantKey = keyof typeof variants;
+export type VariantKey = keyof typeof variants;
 
 export function LenkeMedSporing(
   props: LenkeMedSporingProps,
