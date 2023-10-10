@@ -397,12 +397,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      
+      data-attach-context=&quot;true&quot;
       data-default-style=&quot;true&quot;
     >
     <img
@@ -420,12 +420,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}'
+      data-analytics-event-args='{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}'
       data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[[&quot;data-context&quot;,&quot;privatperson&quot;]]'
-      
+      data-attach-context=&quot;true&quot;
       
     >
     Privat
@@ -438,12 +438,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}'
+      data-analytics-event-args='{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[[&quot;data-context&quot;,&quot;arbeidsgiver&quot;]]'
-      
+      data-attach-context=&quot;true&quot;
       
     >
     Arbeidsgiver
@@ -456,12 +456,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}'
+      data-analytics-event-args='{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[[&quot;data-context&quot;,&quot;samarbeidspartner&quot;]]'
-      
+      data-attach-context=&quot;true&quot;
       
     >
     Samarbeidspartner
@@ -2431,12 +2431,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}'
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
-      
+      data-attach-context=&quot;true&quot;
       data-default-style=&quot;true&quot;
     >
     <img
@@ -2454,12 +2454,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}'
+      data-analytics-event-args='{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}'
       data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[[&quot;data-context&quot;,&quot;privatperson&quot;]]'
-      
+      data-attach-context=&quot;true&quot;
       
     >
     Private
@@ -2472,12 +2472,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}'
+      data-analytics-event-args='{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[[&quot;data-context&quot;,&quot;arbeidsgiver&quot;]]'
-      
+      data-attach-context=&quot;true&quot;
       
     >
     Employer
@@ -2490,12 +2490,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;context&quot;:&quot;privatperson&quot;,&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}'
+      data-analytics-event-args='{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[[&quot;data-context&quot;,&quot;samarbeidspartner&quot;]]'
-      
+      data-attach-context=&quot;true&quot;
       
     >
     Collaborator
