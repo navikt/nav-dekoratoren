@@ -50,11 +50,7 @@ export class LanguageSelector extends HTMLElement {
     this.appendChild(this.menu);
 
     const handleClickOutside = (e: Event) => {
-      if (
-        !e
-          .composedPath()
-          .some((el) => el === document.getElementById('language-selector'))
-      ) {
+      if (!this.contains(e.target as Node)) {
         this.menu.classList.add('hidden');
         window.removeEventListener('click', handleClickOutside);
       }
