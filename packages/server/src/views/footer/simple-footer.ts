@@ -14,7 +14,11 @@ export type SimpleFooterProps = {
   features: Features;
 };
 
-export const SimpleFooter = ({ links, texts }: SimpleFooterProps) => html`
+export const SimpleFooter = ({
+  links,
+  texts,
+  features,
+}: SimpleFooterProps) => html`
   <footer class="${classes.simpleFooter}">
     <div class="${classes.simpleFooterContent} ${cls.contentContainer}">
       <div class="${classes.footerLinkList}">
@@ -25,7 +29,8 @@ export const SimpleFooter = ({ links, texts }: SimpleFooterProps) => html`
           }),
         )}
       </div>
-      ${ScreenshareButton(texts.share_screen)}
+      ${features['dekoratoren.skjermdeling'] &&
+      ScreenshareButton(texts.share_screen)}
     </div>
   </footer>
 `;

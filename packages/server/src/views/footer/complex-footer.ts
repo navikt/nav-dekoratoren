@@ -11,12 +11,12 @@ import { Features } from '../../unleash-service';
 export type ComplexFooterProps = {
   texts: Pick<Texts, 'share_screen' | 'to_top'>;
   links: LinkGroup[];
-  features?: Features;
+  features: Features;
 };
 
 // <a class="footer-link" href="${url}">${content}</a>
-export function ComplexFooter({ texts, links }: ComplexFooterProps) {
-  // const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
+export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
+  const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
   return html`
     <footer class="footer" data-theme="dark">
       <div class="footer-content ${cls.contentContainer}">
@@ -44,7 +44,8 @@ export function ComplexFooter({ texts, links }: ComplexFooterProps) {
                 </li>
               `,
             )}
-            <li>${ScreenshareButton(texts.share_screen)}</li>
+            ${isScreensharingEnabled &&
+            html`<li>${ScreenshareButton(texts.share_screen)}</li>`}
           </ul>
         </div>
 
