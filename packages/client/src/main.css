@@ -566,19 +566,6 @@ a {
   display: block;
 }
 
-.decorator-utils-container_gray {
-  background-color: var(--a-bg-subtle);
-}
-
-.decorator-utils-container_white {
-  background-color: var(--a-bg-default);
-}
-
-/*  Can probably be removed */
-.decorator-utils-container_transparent {
-  background-color: transparent;
-}
-
 /* Breadcrumbs */
 #breadcrumbs-wrapper #breadcrumbs-list {
   display: flex;

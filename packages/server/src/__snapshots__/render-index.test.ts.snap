@@ -1553,10 +1553,10 @@ exports[`renders norwegian index 1`] = `
       </header>
     
   <div
-    class="decorator-utils-container decorator-utils-container_transparent"
+    class="decorator-utils-container _contentContainer_1av57_1"
   >
     
-    <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
+    <nav id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
           <a class="amplitude-link" href="#">
@@ -4189,10 +4189,10 @@ exports[`renders english index 1`] = `
       </header>
     
   <div
-    class="decorator-utils-container decorator-utils-container_transparent"
+    class="decorator-utils-container _contentContainer_1av57_1"
   >
     
-    <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
+    <nav id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
           <a class="amplitude-link" href="#">

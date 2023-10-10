@@ -1,0 +1,7 @@
+.white {
+  background-color: var(--a-bg-default);
+}
+
+.gray {
+  background-color: var(--a-bg-subtle);
+}

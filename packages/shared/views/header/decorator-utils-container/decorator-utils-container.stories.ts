@@ -13,6 +13,9 @@ const meta: Meta<DecoratorUtilsContainerProps> = {
       control: 'radio',
     },
   },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
 };
 
 export default meta;
