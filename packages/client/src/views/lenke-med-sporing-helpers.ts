@@ -5,6 +5,7 @@ import { AnalyticsEventArgs } from '../analytics/constants';
 import classes from '../styles/lenke-med-sporing.module.css';
 import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
+console.log('here', classes);
 
 //
 export type LenkeMedSporingProps = {

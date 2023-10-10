@@ -4,6 +4,7 @@ import {
   LenkeMedSporingProps,
   VariantKey,
 } from './lenke-med-sporing-helpers';
+import './lenke-med-sporing';
 import html from 'decorator-shared/html';
 
 type Args = {
@@ -15,11 +16,18 @@ const meta: Meta<Args> = {
   title: 'lenke-med-sporing',
   tags: ['autodocs'],
   render: (args) => {
-    return LenkeMedSporing(args.data, args.variant).render();
+    return LenkeMedSporing(args.data, args.variant);
+  },
+  argTypes: {
+    variant: {
+      options: ['standard', 'chevron', 'lock'],
+      control: {
+        type: 'select',
+      },
+    },
   },
 };
 
-export default meta;
 type Story = StoryObj<Args>;
 
 const shared = {
@@ -40,5 +48,17 @@ export const Standard: Story = {
 };
 
 export const Chevron: Story = {
-  args: {},
+  args: {
+    data: shared,
+    variant: 'chevron',
+  },
 };
+
+export const Lock: Story = {
+  args: {
+    data: shared,
+    variant: 'lock',
+  },
+};
+
+export default meta;

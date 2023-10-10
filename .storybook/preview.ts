@@ -1,6 +1,9 @@
 import type { Preview } from '@storybook/html';
 import html from 'decorator-shared/html';
 import { Params } from 'decorator-shared/params';
+
+import.meta.glob('../packages/client/src/styles/*.css', { eager: true });
+
 import 'decorator-client/src/main.css';
 import 'decorator-client/src/views/local-time';
 import 'decorator-client/src/views/loader';
