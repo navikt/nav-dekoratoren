@@ -45,7 +45,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
               `,
             )}
             ${isScreensharingEnabled &&
-            `<li>${ScreenshareButton(texts.share_screen)}</li>`}
+            html`<li>${ScreenshareButton(texts.share_screen)}</li>`}
           </ul>
         </div>
 
