@@ -1551,8 +1551,11 @@ exports[`renders norwegian index 1`] = `
           </div>
         </div>
       </header>
-      <div class="decorator-utils-container decorator-utils-container_transparent">
-        
+    
+  <div
+    class="decorator-utils-container decorator-utils-container_transparent"
+  >
+    
     <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
@@ -1579,9 +1582,9 @@ exports[`renders norwegian index 1`] = `
         
       </ol>
     </nav>
-  
-        
-      </div>
+   
+  </div>
+
   </div>
         <main>
           <button class="button button-main" id="amplitude-test">
@@ -4184,8 +4187,11 @@ exports[`renders english index 1`] = `
           </div>
         </div>
       </header>
-      <div class="decorator-utils-container decorator-utils-container_transparent">
-        
+    
+  <div
+    class="decorator-utils-container decorator-utils-container_transparent"
+  >
+    
     <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
@@ -4212,9 +4218,9 @@ exports[`renders english index 1`] = `
         
       </ol>
     </nav>
-  
-        
-      </div>
+   
+  </div>
+
   </div>
         <main>
           <button class="button button-main" id="amplitude-test">
