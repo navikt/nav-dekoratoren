@@ -1580,7 +1580,8 @@ exports[`renders norwegian index 1`] = `
       <ol id="breadcrumbs-list">
         <li>
           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/"
       id=""
@@ -1594,7 +1595,7 @@ exports[`renders norwegian index 1`] = `
       
       
     >
-    <div id="children">
+    
               
     <svg
       width="1em"
@@ -1614,8 +1615,8 @@ exports[`renders norwegian index 1`] = `
     </svg>
   
               <span>nav.no</span>
-            </div>
-    </lenke-med-sporing>
+            
+    </a>
   
         </li>
         
@@ -4282,7 +4283,8 @@ exports[`renders english index 1`] = `
       <ol id="breadcrumbs-list">
         <li>
           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/"
       id=""
@@ -4296,7 +4298,7 @@ exports[`renders english index 1`] = `
       
       
     >
-    <div id="children">
+    
               
     <svg
       width="1em"
@@ -4316,8 +4318,8 @@ exports[`renders english index 1`] = `
     </svg>
   
               <span>nav.no</span>
-            </div>
-    </lenke-med-sporing>
+            
+    </a>
   
         </li>
         
