@@ -101,6 +101,62 @@ export async function Index({
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
           </button>
+          <button
+            onclick="(() => {
+                window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    breadcrumbs: [
+                      {
+                        title: 'Arbeid og opphold i Norge',
+                        url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
+                      },
+                      {
+                        title: 'Medlemskap i folketrygden',
+                      },
+                    ],
+                  },
+                })
+              })()"
+          >
+            Set breadcrumbs
+          </button>
+          <button
+            onclick="(() => {
+              window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    availableLanguages: [
+                      {
+                        locale: 'nb',
+                        url: 'https://www.nav.no/person/kontakt-oss',
+                      },
+                      {
+                        locale: 'en',
+                        url: 'https://www.nav.no/person/kontakt-oss/en/',
+                      },
+                    ],
+                  },
+                })
+              })()"
+          >
+            Set available languages
+          </button>
+          <button
+            onclick="(() => {
+              window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    utilsBackground: 'white',
+                  },
+                })
+              })()"
+          >
+            Set utils background
+          </button>
         </main>
         <div id="footer-withmenu" class="bg-white">
           ${logoutWarning} ${feedback} ${footer}

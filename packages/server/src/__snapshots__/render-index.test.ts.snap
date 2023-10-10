@@ -385,16 +385,10 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-      <div
-        id="menu-background"
-      ></div>
-      <header
-        class="siteheader"
-      >
-        <div
-          class="hovedmeny-wrapper _contentContainer_1av57_1"
-        >
-          <div class="hovedmeny-content">
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper _contentContainer_1av57_1">
+        <div class="hovedmeny-content">
           
     <a
       is="lenke-med-sporing"
@@ -417,11 +411,8 @@ exports[`renders norwegian index 1`] = `
             />
     </a>
   
-            <div
-              id="arbeidsflate"
-            >
-
-              
+          <div id="arbeidsflate">
+            
     <a
       is="lenke-med-sporing"
       role=""
@@ -476,9 +467,9 @@ exports[`renders norwegian index 1`] = `
     Samarbeidspartner
     </a>
   
-            </div>
           </div>
-          
+        </div>
+        
     <div id="menu-items" class="">
       <div id="menu-items-universal-links">
         <button id="menu-button" class="icon-button">
@@ -614,13 +605,9 @@ exports[`renders norwegian index 1`] = `
           
     </div>
   
-        <div
-          id="menu" class="_contentContainer_1av57_1"
-        >
-         <div class="menu-top">
-            <h2>
-            Hva kan vi hjelpe deg med?
-            </h2>
+        <div id="menu" class="_contentContainer_1av57_1">
+          <div class="menu-top">
+            <h2>Hva kan vi hjelpe deg med?</h2>
             
     <a
       is="lenke-med-sporing"
@@ -641,9 +628,9 @@ exports[`renders norwegian index 1`] = `
     </a>
   
           </div>
-            <div id="sub-menu-content">
+          <div id="sub-menu-content">
             <div id="mobil-lukk">
-            
+              
     <svg
       width="1em"
       height="1em"
@@ -663,17 +650,17 @@ exports[`renders norwegian index 1`] = `
       ></path>
     </svg>
   
-            <span>Tilbake til oversikt</span>
+              <span>Tilbake til oversikt</span>
             </div>
             <ul></ul>
-            </div>
-            <div id="menu-content">
+          </div>
+          <div id="menu-content">
             <div id="inline-search">
-                <inline-search></inline-search>
+              <inline-search></inline-search>
             </div>
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
-            
+              
     <ul class="_headerMenuLinks_19vx3_36 cols-3">
       
           <li
@@ -1573,62 +1560,69 @@ exports[`renders norwegian index 1`] = `
             </div>
           </div>
         </div>
-      </header>
-      <div class="decorator-utils-container decorator-utils-container_transparent">
-        
-    <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
-      <ol id="breadcrumbs-list">
-        <li>
-          
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;komponent&quot;:&quot;brødsmule&quot;,&quot;action&quot;:&quot;nav.no&quot;}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      
-    >
-    
-              
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-              <span>nav.no</span>
-            
-    </a>
-  
-        </li>
-        
-      </ol>
-    </nav>
-  
-        
       </div>
+    </header>
+    
   </div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
+          </button>
+          <button
+            onclick="(() => {
+                window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    breadcrumbs: [
+                      {
+                        title: 'Arbeid og opphold i Norge',
+                        url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
+                      },
+                      {
+                        title: 'Medlemskap i folketrygden',
+                      },
+                    ],
+                  },
+                })
+              })()"
+          >
+            Set breadcrumbs
+          </button>
+          <button
+            onclick="(() => {
+              window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    availableLanguages: [
+                      {
+                        locale: 'nb',
+                        url: 'https://www.nav.no/person/kontakt-oss',
+                      },
+                      {
+                        locale: 'en',
+                        url: 'https://www.nav.no/person/kontakt-oss/en/',
+                      },
+                    ],
+                  },
+                })
+              })()"
+          >
+            Set available languages
+          </button>
+          <button
+            onclick="(() => {
+              window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    utilsBackground: 'white',
+                  },
+                })
+              })()"
+          >
+            Set utils background
           </button>
         </main>
         <div id="footer-withmenu" class="bg-white">
@@ -2425,16 +2419,10 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-      <div
-        id="menu-background"
-      ></div>
-      <header
-        class="siteheader"
-      >
-        <div
-          class="hovedmeny-wrapper _contentContainer_1av57_1"
-        >
-          <div class="hovedmeny-content">
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper _contentContainer_1av57_1">
+        <div class="hovedmeny-content">
           
     <a
       is="lenke-med-sporing"
@@ -2457,11 +2445,8 @@ exports[`renders english index 1`] = `
             />
     </a>
   
-            <div
-              id="arbeidsflate"
-            >
-
-              
+          <div id="arbeidsflate">
+            
     <a
       is="lenke-med-sporing"
       role=""
@@ -2516,9 +2501,9 @@ exports[`renders english index 1`] = `
     Collaborator
     </a>
   
-            </div>
           </div>
-          
+        </div>
+        
     <div id="menu-items" class="">
       <div id="menu-items-universal-links">
         <button id="menu-button" class="icon-button">
@@ -2654,13 +2639,9 @@ exports[`renders english index 1`] = `
           
     </div>
   
-        <div
-          id="menu" class="_contentContainer_1av57_1"
-        >
-         <div class="menu-top">
-            <h2>
-            What can we help you with?
-            </h2>
+        <div id="menu" class="_contentContainer_1av57_1">
+          <div class="menu-top">
+            <h2>What can we help you with?</h2>
             
     <a
       is="lenke-med-sporing"
@@ -2681,9 +2662,9 @@ exports[`renders english index 1`] = `
     </a>
   
           </div>
-            <div id="sub-menu-content">
+          <div id="sub-menu-content">
             <div id="mobil-lukk">
-            
+              
     <svg
       width="1em"
       height="1em"
@@ -2703,17 +2684,17 @@ exports[`renders english index 1`] = `
       ></path>
     </svg>
   
-            <span>Tilbake til oversikt</span>
+              <span>Tilbake til oversikt</span>
             </div>
             <ul></ul>
-            </div>
-            <div id="menu-content">
+          </div>
+          <div id="menu-content">
             <div id="inline-search">
-                <inline-search></inline-search>
+              <inline-search></inline-search>
             </div>
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
-            
+              
     <ul class="_headerMenuLinks_19vx3_36 cols-3">
       
           <li
@@ -4276,62 +4257,69 @@ exports[`renders english index 1`] = `
             </div>
           </div>
         </div>
-      </header>
-      <div class="decorator-utils-container decorator-utils-container_transparent">
-        
-    <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
-      <ol id="breadcrumbs-list">
-        <li>
-          
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;komponent&quot;:&quot;brødsmule&quot;,&quot;action&quot;:&quot;nav.no&quot;}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      
-    >
-    
-              
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-              <span>nav.no</span>
-            
-    </a>
-  
-        </li>
-        
-      </ol>
-    </nav>
-  
-        
       </div>
+    </header>
+    
   </div>
         <main>
           <button class="button button-main" id="amplitude-test">
             Test amplitude!
+          </button>
+          <button
+            onclick="(() => {
+                window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    breadcrumbs: [
+                      {
+                        title: 'Arbeid og opphold i Norge',
+                        url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
+                      },
+                      {
+                        title: 'Medlemskap i folketrygden',
+                      },
+                    ],
+                  },
+                })
+              })()"
+          >
+            Set breadcrumbs
+          </button>
+          <button
+            onclick="(() => {
+              window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    availableLanguages: [
+                      {
+                        locale: 'nb',
+                        url: 'https://www.nav.no/person/kontakt-oss',
+                      },
+                      {
+                        locale: 'en',
+                        url: 'https://www.nav.no/person/kontakt-oss/en/',
+                      },
+                    ],
+                  },
+                })
+              })()"
+          >
+            Set available languages
+          </button>
+          <button
+            onclick="(() => {
+              window.postMessage({
+                  source: 'decoratorClient',
+                  event: 'params',
+                  payload: {
+                    utilsBackground: 'white',
+                  },
+                })
+              })()"
+          >
+            Set utils background
           </button>
         </main>
         <div id="footer-withmenu" class="bg-white">

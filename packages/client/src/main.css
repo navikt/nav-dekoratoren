@@ -566,53 +566,6 @@ a {
   display: block;
 }
 
-.decorator-utils-container_gray {
-  background-color: var(--a-bg-subtle);
-}
-
-.decorator-utils-container_white {
-  background-color: var(--a-bg-default);
-}
-
-/*  Can probably be removed */
-.decorator-utils-container_transparent {
-  background-color: transparent;
-}
-
-/* Breadcrumbs */
-#breadcrumbs-wrapper #breadcrumbs-list {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: var(--a-spacing-3) 0;
-  margin-block: 0;
-}
-
-#breadcrumbs-list a {
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-1);
-  color: var(--a-text-action);
-}
-#breadcrumbs-list a span {
-  text-decoration: underline;
-}
-
-#breadcrumbs-list a svg {
-  font-size: 28px;
-  color: var(--a-text-default);
-}
-
-#breadcrumbs-list .list-item {
-  display: flex;
-  align-items: center;
-}
-
-#breadcrumbs-list .list-item::before {
-  place-self: center;
-  content: url("data:image/svg+xml,%3Csvg width='1.25em' height='1.25em' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' focusable='false' role='img'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.47 5.97a.75.75 0 0 1 1.06 0l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06L14.44 12 9.47 7.03a.75.75 0 0 1 0-1.06Z' fill='currentColor'%3E%3C/path%3E%3C/svg%3E");
-}
-
 .show-more a {
   text-decoration: underline;
   color: var(--a-surface-action);
