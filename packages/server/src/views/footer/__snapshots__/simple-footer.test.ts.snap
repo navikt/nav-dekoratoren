@@ -17,6 +17,7 @@ exports[`renders simple footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Personvern og informasjonskapsler</div>
@@ -33,6 +34,7 @@ exports[`renders simple footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Tilgjengelighet</div>
