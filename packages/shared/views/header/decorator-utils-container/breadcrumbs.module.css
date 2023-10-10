@@ -1,0 +1,30 @@
+.list {
+  list-style: none;
+  padding: var(--a-spacing-3) 0;
+  margin-block: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-2);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-1);
+  color: var(--a-text-action);
+}
+
+.span {
+  text-decoration: underline;
+}
+
+.svg {
+  font-size: 28px;
+  color: var(--a-text-default);
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-2);
+}

@@ -1,5 +1,7 @@
 import { Breadcrumb } from '../../../params';
 import html from '../../../html';
+import cls from './breadcrumbs.module.css';
+import { ForwardChevron } from '../../icons';
 
 export type BreadcrumbsProps = { breadcrumbs: Breadcrumb[] };
 
@@ -7,10 +9,11 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
   breadcrumbs.length > 0
     ? html`
         <nav id="breadcrumbs-wrapper">
-          <ol id="breadcrumbs-list">
+          <ol class="${cls.list}">
             <li>
-              <a class="amplitude-link" href="#">
+              <a class="amplitude-link ${cls.link}" href="#">
                 <svg
+                  class="${cls.svg}"
                   width="1em"
                   height="1em"
                   viewBox="0 0 24 24"
@@ -18,6 +21,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                   xmlns="http://www.w3.org/2000/svg"
                   focusable="false"
                   role="img"
+                  alt=""
                 >
                   <path
                     fill-rule="evenodd"
@@ -26,17 +30,18 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                     fill="currentColor"
                   ></path>
                 </svg>
-                <span>nav.no</span>
+                <span class="${cls.span}">nav.no</span>
               </a>
             </li>
             ${breadcrumbs.map(
               ({ title, url, handleInApp }, index) => html`
-                <li class="list-item">
+                <li class="${cls.listItem}">
+                  ${ForwardChevron()}
                   ${index === breadcrumbs.length - 1
                     ? title
                     : html`
                         <a
-                          class="amplitude-link basic-link"
+                          class="amplitude-link basic-link ${cls.link}"
                           href="${url}"
                           ${handleInApp === true && 'data-handle-in-app="true"'}
                           >${title}</a
