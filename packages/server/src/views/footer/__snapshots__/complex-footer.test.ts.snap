@@ -32,7 +32,8 @@ exports[`renders complex footer 1`] = `
                     
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/person/kontakt-oss/nb"
       id=""
@@ -46,14 +47,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Kontakt oss</div>
-    </lenke-med-sporing>
+    Kontakt oss
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
       id=""
@@ -67,14 +69,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">NAV i ditt fylke</div>
-    </lenke-med-sporing>
+    NAV i ditt fylke
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
       id=""
@@ -88,14 +91,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Kurs fra NAV</div>
-    </lenke-med-sporing>
+    Kurs fra NAV
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/person/kontakt-oss/tilbakemeldinger"
       id=""
@@ -109,8 +113,8 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Klage, tilbakemelding, ros</div>
-    </lenke-med-sporing>
+    Klage, tilbakemelding, ros
+    </a>
   
                         </li>
                       
@@ -123,7 +127,8 @@ exports[`renders complex footer 1`] = `
                     
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/samarbeidspartner/presse"
       id=""
@@ -137,8 +142,8 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Nyheter, pressemeldinger og pressekontakt</div>
-    </lenke-med-sporing>
+    Nyheter, pressemeldinger og pressekontakt
+    </a>
   
                         </li>
                       
@@ -151,7 +156,8 @@ exports[`renders complex footer 1`] = `
                     
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
       id=""
@@ -165,14 +171,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Statistikk, analyse og FoU</div>
-    </lenke-med-sporing>
+    Statistikk, analyse og FoU
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="https://lovdata.no/nav/"
       id=""
@@ -186,14 +193,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Lover og regler (lovdata.no)</div>
-    </lenke-med-sporing>
+    Lover og regler (lovdata.no)
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/om-nav/om-nav"
       id=""
@@ -207,8 +215,8 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Om NAV</div>
-    </lenke-med-sporing>
+    Om NAV
+    </a>
   
                         </li>
                       
@@ -221,7 +229,8 @@ exports[`renders complex footer 1`] = `
                     
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/en"
       id=""
@@ -235,14 +244,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">English</div>
-    </lenke-med-sporing>
+    English
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/se"
       id=""
@@ -256,8 +266,8 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Sámegiella</div>
-    </lenke-med-sporing>
+    Sámegiella
+    </a>
   
                         </li>
                       
@@ -270,7 +280,8 @@ exports[`renders complex footer 1`] = `
                     
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
       id=""
@@ -284,14 +295,15 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Personvern og informasjonskapsler</div>
-    </lenke-med-sporing>
+    Personvern og informasjonskapsler
+    </a>
   
                         </li>
                       
                         <li class="footer-link-item">
                           
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/tilgjengelighet"
       id=""
@@ -305,8 +317,8 @@ exports[`renders complex footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Tilgjengelighet</div>
-    </lenke-med-sporing>
+    Tilgjengelighet
+    </a>
   
                         </li>
                       
