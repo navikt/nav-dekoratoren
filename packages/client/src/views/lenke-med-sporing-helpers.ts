@@ -1,13 +1,12 @@
 // Puttet i sin egen fil slik at det kan brukes på server og i shared
 
-import html, { Template } from 'decorator-shared/html';
+import html, { Template, json } from 'decorator-shared/html';
 import { AnalyticsEventArgs } from '../analytics/constants';
 import classes from '../styles/lenke-med-sporing.module.css';
 import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 
-//
-type LenkeMedSporingProps = {
+export type LenkeMedSporingProps = {
   role?: string;
   href: string;
   id?: string;
@@ -45,13 +44,13 @@ export function LenkeMedSporingBase({
       id="${props.id}"
       tabindex="${props.tabIndex}"
       lang="${props.lang}"
-      data-analytics-event-args='${JSON.stringify(props.analyticsEventArgs)}'
+      data-analytics-event-args='${json(props.analyticsEventArgs)}'
       data-class-name-override="${classNameOverride}"
       data-container-class-name="${props.containerClassName}"
       data-class-name="${className}"
-      data-extra-attrs='${JSON.stringify(props.extraAttrs)}'
-      ${attachContext ? 'data-attach-context="true"' : ''}
-      ${defaultStyle ? 'data-default-style="true"' : ''}
+      data-extra-attrs='${json(props.extraAttrs)}'
+      ${attachContext ? html`data-attach-context="true"` : ''}
+      ${defaultStyle ? html`data-default-style="true"` : ''}
     >
     ${props.children}
     </a>
@@ -97,7 +96,7 @@ const variants = {
   standard: LenkeMedSporingBase,
 };
 
-type VariantKey = keyof typeof variants;
+export type VariantKey = keyof typeof variants;
 
 export function LenkeMedSporing(
   props: LenkeMedSporingProps,

@@ -781,30 +781,6 @@ a {
   }
 }
 
-#driftsmeldinger {
-  background-color: var(--a-deepblue-600);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--a-spacing-2) 0px;
-}
-
-#driftsmeldinger a {
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-2);
-  padding: 10px;
-  padding-left: 0px;
-}
-
-#driftsmeldinger a p {
-  /* Seems to be global, can probably be specified at a higher level */
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  margin: 0px;
-}
-
 #notifications-empty,
 #notifications-populated {
   display: flex;
