@@ -1,11 +1,18 @@
 import type { StoryObj, Meta } from '@storybook/html';
 import type { DecoratorUtilsContainerProps } from '.';
 import { DecoratorUtilsContainer } from '.';
+import { utilsBackgrounds } from '../../../params';
 
 const meta: Meta<DecoratorUtilsContainerProps> = {
   title: 'header/decorator-utils-container',
   tags: ['autodocs'],
   render: DecoratorUtilsContainer,
+  argTypes: {
+    utilsBackground: {
+      options: utilsBackgrounds,
+      control: 'radio',
+    },
+  },
 };
 
 export default meta;

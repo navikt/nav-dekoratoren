@@ -35,6 +35,7 @@ const breadcrumbSchema = z.object({
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 
 const utilsBackground = z.enum(['white', 'gray', 'transparent']);
+export const utilsBackgrounds = utilsBackground.options;
 export type UtilsBackground = z.infer<typeof utilsBackground>;
 
 const loginLevel = z.enum(['Level3', 'Level4']);
