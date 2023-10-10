@@ -58,9 +58,13 @@ export class LenkeMedSporingElement extends HTMLElement {
       a.setAttribute(key, value);
     }
 
-    a.className = clsx(classNameOverride || classes.dekoratorLenke, className, {
-      [classes.lenkeMedSporing]: defaultStyleEnabled,
-    });
+    a.className = clsx(
+      classNameOverride || (defaultStyleEnabled && classes.dekoratorLenke),
+      className,
+      {
+        [classes.lenkeMedSporing]: defaultStyleEnabled,
+      },
+    );
 
     a.addEventListener('click', () => {
       if (eventArgs) {
