@@ -20,6 +20,7 @@ export const DecoratorUtilsContainer = ({
     class="${clsx([
       'decorator-utils-container',
       utils.contentContainer,
+      cls.decoratorUtilsContainer,
       {
         [cls.white]: utilsBackground === 'white',
         [cls.gray]: utilsBackground === 'gray',
