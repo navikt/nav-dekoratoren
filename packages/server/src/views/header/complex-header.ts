@@ -11,7 +11,7 @@ import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import LanguageSelector from 'decorator-shared/views/language-selector';
+import { LanguageSelector } from 'decorator-shared/views/language-selector';
 
 const utilsBackgroundClasses = {
   white: 'decorator-utils-container_white',

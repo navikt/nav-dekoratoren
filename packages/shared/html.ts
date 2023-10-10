@@ -83,7 +83,7 @@ const html = (
   render: () => String.raw({ raw: strings }, ...values.map(renderValue)),
 });
 
-export const json = (value: JSON): Template => ({
+export const json = (value: any): Template => ({
   render: () => JSON.stringify(value),
 });
 

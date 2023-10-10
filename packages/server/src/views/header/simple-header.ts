@@ -10,7 +10,7 @@ import { Texts } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
-import LanguageSelector from 'decorator-shared/views/language-selector';
+import { LanguageSelector } from 'decorator-shared/views/language-selector';
 
 const utilsBackgroundClasses = {
   white: 'decorator-utils-container_white',

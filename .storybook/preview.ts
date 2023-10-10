@@ -4,6 +4,7 @@ import { Params } from 'decorator-shared/params';
 import 'decorator-client/src/main.css';
 import 'decorator-client/src/views/local-time';
 import 'decorator-client/src/views/loader';
+import 'decorator-client/src/views/language-selector';
 
 declare global {
   interface Window {
@@ -24,7 +25,9 @@ const preview: Preview = {
     (Story) => {
       const story = Story();
 
-      if (typeof story === 'object' && 'render' in story) {
+      if (story === null) {
+        return '';
+      } else if (typeof story === 'object' && 'render' in story) {
         return html`<div id="header-withmenu">${story}</div>`.render();
       } else {
         const wrapper = document.createElement('div');

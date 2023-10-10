@@ -11,7 +11,7 @@ import './views/lenke-med-sporing';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
-import RenderLanguageSelector from 'decorator-shared/views/language-selector';
+import { LanguageSelector } from 'decorator-shared/views/language-selector';
 
 // Maybe create a file that does this
 import './views/language-selector';
@@ -160,7 +160,7 @@ window.addEventListener('message', (e) => {
         if (container) {
           const temp = document.createElement('div');
           temp.innerHTML =
-            RenderLanguageSelector({
+            LanguageSelector({
               availableLanguages: e.data.payload.availableLanguages,
             })?.render() ?? '';
           container.append(...temp.childNodes);

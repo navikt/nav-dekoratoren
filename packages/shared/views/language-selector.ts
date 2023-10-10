@@ -1,11 +1,13 @@
 import { type AvailableLanguage } from 'decorator-shared/params';
-import html from '../html';
+import html, { json } from '../html';
 
-export default ({
-  availableLanguages,
-}: {
+export type LanguageSelectorProps = {
   availableLanguages: AvailableLanguage[];
-}) =>
+};
+
+export const LanguageSelector = ({
+  availableLanguages,
+}: LanguageSelectorProps) =>
   availableLanguages.length > 0
     ? html`
         <language-selector id="language-selector" class="sprakvelger">
@@ -13,7 +15,7 @@ export default ({
             <span lang="nb">Språk</span>/<span lang="en">Language</span>
           </button>
           <script type="application/json">
-            ${JSON.stringify(availableLanguages)}
+            ${json(availableLanguages)}
           </script>
         </language-selector>
       `
