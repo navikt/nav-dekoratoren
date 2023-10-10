@@ -2,7 +2,6 @@ import { Unleash, initialize } from 'unleash-client';
 
 type Config = {
   mock?: boolean;
-  env: string;
 };
 
 export type Features = {
@@ -15,7 +14,7 @@ export default class UnleashService {
   supportedFeatures: { [key: string]: boolean };
   mock: boolean;
 
-  constructor(config: Config = { env: 'production' }) {
+  constructor({ mock }: Config) {
     const { UNLEASH_SERVER_API_TOKEN, UNLEASH_SERVER_API_URL } = process.env;
     // Important: If the Unleash Next service goes down, we don't want
     // screen sharing or the chatbot to automatically be disabled.
@@ -26,7 +25,7 @@ export default class UnleashService {
       'dekoratoren.chatbotscript': true,
     };
     this.unleashInstance = null;
-    this.mock = config.mock || false;
+    this.mock = mock || false;
 
     if (this.mock) {
       return;
@@ -53,6 +52,7 @@ export default class UnleashService {
   getFeatures(): Features {
     const features = Object.keys(this.supportedFeatures).reduce(
       (acc, feature: string) => {
+        if (this.mock) return { ...acc, [feature]: true };
         const isEnabled = this.unleashInstance?.isSynchronized()
           ? this.unleashInstance.isEnabled(feature)
           : this.supportedFeatures[feature];

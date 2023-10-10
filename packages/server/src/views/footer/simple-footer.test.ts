@@ -2,7 +2,7 @@ import { expect, test } from 'bun:test';
 import { SimpleFooter } from './simple-footer';
 import UnleashService from '../../unleash-service';
 
-const unleashService = new UnleashService({ mock: true, env: 'production' });
+const unleashService = new UnleashService({ mock: true });
 
 const links = [
   {
