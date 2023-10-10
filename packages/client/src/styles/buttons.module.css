@@ -31,6 +31,6 @@
   white-space: nowrap;
 }
 
-.icon-button:global(.active) :global(.chevron) {
+.iconButton:global(.active) :global(.chevron) {
   transform: rotate(180deg);
 }
