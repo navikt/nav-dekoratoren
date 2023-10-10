@@ -45,16 +45,10 @@ export function ComplexHeader({
   myPageMenu,
 }: ComplexHeaderProps) {
   return html`
-      <div
-        id="menu-background"
-      ></div>
-      <header
-        class="siteheader"
-      >
-        <div
-          class="hovedmeny-wrapper ${cls.contentContainer}"
-        >
-          <div class="hovedmeny-content">
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper ${cls.contentContainer}">
+        <div class="hovedmeny-content">
           ${LenkeMedSporing({
             href: '/',
             analyticsEventArgs: {
@@ -67,42 +61,33 @@ export function ComplexHeader({
               alt="NAV"
             />`,
           })}
-            <div
-              id="arbeidsflate"
-            >
-
-              ${
-                isNorwegian &&
-                contextLinks?.map((link) =>
-                  HeaderContextLenke({
-                    link: link,
-                    text: texts[link.lenkeTekstId],
-                    activeContext: activeContext,
-                    classNameOverride: clsx([
-                      classes.headerContextLink,
-                      {
-                        [classes.lenkeActive]: link.context === activeContext,
-                      },
-                    ]),
-                    containerClassName: classes.headerContextLinkContainer,
-                    attrs: [['data-context', link.context.toLowerCase()]],
-                  }),
-                )
-              }
-            </div>
+          <div id="arbeidsflate">
+            ${isNorwegian &&
+            contextLinks?.map((link) =>
+              HeaderContextLenke({
+                link: link,
+                text: texts[link.lenkeTekstId],
+                activeContext: activeContext,
+                classNameOverride: clsx([
+                  classes.headerContextLink,
+                  {
+                    [classes.lenkeActive]: link.context === activeContext,
+                  },
+                ]),
+                containerClassName: classes.headerContextLinkContainer,
+                attrs: [['data-context', link.context.toLowerCase()]],
+              }),
+            )}
           </div>
-          ${ComplexHeaderNavbarItems({
-            innlogget,
-            texts,
-            myPageMenu,
-          })}
-        <div
-          id="menu" class="${cls.contentContainer}"
-        >
-         <div class="menu-top">
-            <h2>
-            ${texts.how_can_we_help}
-            </h2>
+        </div>
+        ${ComplexHeaderNavbarItems({
+          innlogget,
+          texts,
+          myPageMenu,
+        })}
+        <div id="menu" class="${cls.contentContainer}">
+          <div class="menu-top">
+            <h2>${texts.how_can_we_help}</h2>
             ${LenkeMedSporing({
               href: '#',
               analyticsEventArgs: {
@@ -113,27 +98,28 @@ export function ComplexHeader({
               children: html`${texts.til_forsiden}`,
             })}
           </div>
-            <div id="sub-menu-content">
+          <div id="sub-menu-content">
             <div id="mobil-lukk">
-            ${BackChevron()}
-            <span>Tilbake til oversikt</span>
+              ${BackChevron()}
+              <span>Tilbake til oversikt</span>
             </div>
             <ul></ul>
-            </div>
-            <div id="menu-content">
+          </div>
+          <div id="menu-content">
             <div id="inline-search">
-                <inline-search></inline-search>
+              <inline-search></inline-search>
             </div>
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
-            ${HeaderMenuLinks({
-              headerMenuLinks: headerMenuLinks as Node[],
-              className: 'cols-3',
-            })}
+              ${HeaderMenuLinks({
+                headerMenuLinks: headerMenuLinks as Node[],
+                className: 'cols-3',
+              })}
             </div>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
     ${DecoratorUtilsContainer({
       utilsBackground,
       breadcrumbs,

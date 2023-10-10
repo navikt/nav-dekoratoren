@@ -385,16 +385,10 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-      <div
-        id="menu-background"
-      ></div>
-      <header
-        class="siteheader"
-      >
-        <div
-          class="hovedmeny-wrapper _contentContainer_1av57_1"
-        >
-          <div class="hovedmeny-content">
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper _contentContainer_1av57_1">
+        <div class="hovedmeny-content">
           
     <lenke-med-sporing
       role=""
@@ -416,11 +410,8 @@ exports[`renders norwegian index 1`] = `
             /></div>
     </lenke-med-sporing>
   
-            <div
-              id="arbeidsflate"
-            >
-
-              
+          <div id="arbeidsflate">
+            
     <lenke-med-sporing
       role=""
       href="https://www.nav.no"
@@ -472,9 +463,9 @@ exports[`renders norwegian index 1`] = `
     <div id="children">Samarbeidspartner</div>
     </lenke-med-sporing>
   
-            </div>
           </div>
-          
+        </div>
+        
     <div id="menu-items" class="">
       <div id="menu-items-universal-links">
         <button id="menu-button" class="icon-button">
@@ -610,13 +601,9 @@ exports[`renders norwegian index 1`] = `
           
     </div>
   
-        <div
-          id="menu" class="_contentContainer_1av57_1"
-        >
-         <div class="menu-top">
-            <h2>
-            Hva kan vi hjelpe deg med?
-            </h2>
+        <div id="menu" class="_contentContainer_1av57_1">
+          <div class="menu-top">
+            <h2>Hva kan vi hjelpe deg med?</h2>
             
     <lenke-med-sporing
       role=""
@@ -636,9 +623,9 @@ exports[`renders norwegian index 1`] = `
     </lenke-med-sporing>
   
           </div>
-            <div id="sub-menu-content">
+          <div id="sub-menu-content">
             <div id="mobil-lukk">
-            
+              
     <svg
       width="1em"
       height="1em"
@@ -658,17 +645,17 @@ exports[`renders norwegian index 1`] = `
       ></path>
     </svg>
   
-            <span>Tilbake til oversikt</span>
+              <span>Tilbake til oversikt</span>
             </div>
             <ul></ul>
-            </div>
-            <div id="menu-content">
+          </div>
+          <div id="menu-content">
             <div id="inline-search">
-                <inline-search></inline-search>
+              <inline-search></inline-search>
             </div>
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
-            
+              
     <ul class="_headerMenuLinks_19vx3_36 cols-3">
       
           <li
@@ -1550,7 +1537,8 @@ exports[`renders norwegian index 1`] = `
             </div>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
     
   </div>
         <main>
@@ -2396,16 +2384,10 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-      <div
-        id="menu-background"
-      ></div>
-      <header
-        class="siteheader"
-      >
-        <div
-          class="hovedmeny-wrapper _contentContainer_1av57_1"
-        >
-          <div class="hovedmeny-content">
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper _contentContainer_1av57_1">
+        <div class="hovedmeny-content">
           
     <lenke-med-sporing
       role=""
@@ -2427,11 +2409,8 @@ exports[`renders english index 1`] = `
             /></div>
     </lenke-med-sporing>
   
-            <div
-              id="arbeidsflate"
-            >
-
-              
+          <div id="arbeidsflate">
+            
     <lenke-med-sporing
       role=""
       href="https://www.nav.no"
@@ -2483,9 +2462,9 @@ exports[`renders english index 1`] = `
     <div id="children">Collaborator</div>
     </lenke-med-sporing>
   
-            </div>
           </div>
-          
+        </div>
+        
     <div id="menu-items" class="">
       <div id="menu-items-universal-links">
         <button id="menu-button" class="icon-button">
@@ -2621,13 +2600,9 @@ exports[`renders english index 1`] = `
           
     </div>
   
-        <div
-          id="menu" class="_contentContainer_1av57_1"
-        >
-         <div class="menu-top">
-            <h2>
-            What can we help you with?
-            </h2>
+        <div id="menu" class="_contentContainer_1av57_1">
+          <div class="menu-top">
+            <h2>What can we help you with?</h2>
             
     <lenke-med-sporing
       role=""
@@ -2647,9 +2622,9 @@ exports[`renders english index 1`] = `
     </lenke-med-sporing>
   
           </div>
-            <div id="sub-menu-content">
+          <div id="sub-menu-content">
             <div id="mobil-lukk">
-            
+              
     <svg
       width="1em"
       height="1em"
@@ -2669,17 +2644,17 @@ exports[`renders english index 1`] = `
       ></path>
     </svg>
   
-            <span>Tilbake til oversikt</span>
+              <span>Tilbake til oversikt</span>
             </div>
             <ul></ul>
-            </div>
-            <div id="menu-content">
+          </div>
+          <div id="menu-content">
             <div id="inline-search">
-                <inline-search></inline-search>
+              <inline-search></inline-search>
             </div>
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
-            
+              
     <ul class="_headerMenuLinks_19vx3_36 cols-3">
       
           <li
@@ -4209,7 +4184,8 @@ exports[`renders english index 1`] = `
             </div>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
     
   </div>
         <main>
