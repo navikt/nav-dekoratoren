@@ -43,6 +43,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Kontakt oss</div>
@@ -63,6 +64,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">NAV i ditt fylke</div>
@@ -83,6 +85,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Kurs fra NAV</div>
@@ -103,6 +106,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Klage, tilbakemelding, ros</div>
@@ -130,6 +134,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Nyheter, pressemeldinger og pressekontakt</div>
@@ -157,6 +162,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Statistikk, analyse og FoU</div>
@@ -177,6 +183,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Lover og regler (lovdata.no)</div>
@@ -197,6 +204,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Om NAV</div>
@@ -224,6 +232,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">English</div>
@@ -244,6 +253,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Sámegiella</div>
@@ -271,6 +281,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Personvern og informasjonskapsler</div>
@@ -291,6 +302,7 @@ exports[`renders complex footer 1`] = `
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs=''
+      
       data-default-style=&quot;true&quot;
     >
     <div id="children">Tilgjengelighet</div>

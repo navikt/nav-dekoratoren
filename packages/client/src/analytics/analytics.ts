@@ -7,7 +7,8 @@ export const initAnalytics = () => {
   initAmplitude();
 };
 
-export function analyticsEvent(props: AnalyticsEventArgs) {
+// Connects to partytown forwarding
+window.analyticsEvent = function (props: AnalyticsEventArgs) {
   const {
     context,
     eventName,
@@ -32,10 +33,7 @@ export function analyticsEvent(props: AnalyticsEventArgs) {
     },
     'decorator_next',
   );
-}
-
-// Connects to partytown forwarding
-window.analyticsEvent = analyticsEvent;
+};
 window.logPageView = logPageView;
 window.logAmplitudeEvent = logAmplitudeEvent;
 

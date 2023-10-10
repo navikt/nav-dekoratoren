@@ -29,7 +29,7 @@ export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const breadcrumbSchema = z.object({
   title: z.string(),
-  url: z.string(),
+  url: z.string().optional(),
   handleInApp: z.boolean().default(false).optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;

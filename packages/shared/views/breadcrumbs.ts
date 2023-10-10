@@ -2,7 +2,9 @@ import { Breadcrumb } from '../params';
 import cls from '../utilities.module.css';
 import html from '../html';
 
-export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
+export type BreadcrumbsProps = { breadcrumbs: Breadcrumb[] };
+
+export function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return html`
     <nav class="${cls.contentContainer}" id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">

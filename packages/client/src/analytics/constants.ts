@@ -8,6 +8,12 @@ export type AnalyticsCategory =
   | 'dekorator-meny'
   | 'varsler';
 
+export type AnalyticsActions =
+  | 'navlogo'
+  | 'lenke'
+  | 'lenkegruppe'
+  | 'hovedmeny/forsidelenke';
+
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;
 
@@ -26,7 +32,7 @@ export type Lenkegruppe = 'innlogget meny';
 export type AnalyticsEventArgs = {
   eventName?: string;
   category: AnalyticsCategory;
-  action: string;
+  action: AnalyticsActions;
   context?: Context;
   destination?: string;
   label?: string;

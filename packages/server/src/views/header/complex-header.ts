@@ -11,7 +11,7 @@ import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import LanguageSelector from 'decorator-shared/views/language-selector';
+import { LanguageSelector } from 'decorator-shared/views/language-selector';
 
 const utilsBackgroundClasses = {
   white: 'decorator-utils-container_white',
@@ -38,6 +38,7 @@ import classes from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
 import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
+import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
 
 export function ComplexHeader({
   isNorwegian,
@@ -62,7 +63,18 @@ export function ComplexHeader({
           class="hovedmeny-wrapper ${cls.contentContainer}"
         >
           <div class="hovedmeny-content">
-            <a href="https://www.nav.no/"><img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" /></a>
+          ${LenkeMedSporing({
+            href: '/',
+            analyticsEventArgs: {
+              context: activeContext,
+              category: 'dekorator-header',
+              action: 'navlogo',
+            },
+            children: html`<img
+              src="/public/ikoner/meny/nav-logo-red.svg"
+              alt="NAV"
+            />`,
+          })}
             <div
               id="arbeidsflate"
             >
@@ -97,13 +109,17 @@ export function ComplexHeader({
         >
          <div class="menu-top">
             <h2>
-              Hva kan vi hjelpe deg med?
+            ${texts.how_can_we_help}
             </h2>
-            <a
-              class="link"
-              href="#"
-              >Til forsiden</a
-            >
+            ${LenkeMedSporing({
+              href: '#',
+              analyticsEventArgs: {
+                category: 'dekorator-meny',
+                action: 'hovedmeny/forsidelenke',
+              },
+              attachContext: true,
+              children: html`${texts.til_forsiden}`,
+            })}
           </div>
             <div id="sub-menu-content">
             <div id="mobil-lukk">
