@@ -397,12 +397,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","category":"dekorator-header","action":"navlogo"}'
+      data-analytics-event-args='{"category":"dekorator-header","action":"navlogo"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
-      
+      data-attach-context="true"
       data-default-style="true"
     >
     <img
@@ -420,12 +420,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
+      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
       data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
-      
+      data-attach-context="true"
       
     >
     Privat
@@ -438,12 +438,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
+      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
-      
+      data-attach-context="true"
       
     >
     Arbeidsgiver
@@ -456,12 +456,12 @@ exports[`renders norwegian index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
+      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
-      
+      data-attach-context="true"
       
     >
     Samarbeidspartner
@@ -2431,12 +2431,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","category":"dekorator-header","action":"navlogo"}'
+      data-analytics-event-args='{"category":"dekorator-header","action":"navlogo"}'
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
-      
+      data-attach-context="true"
       data-default-style="true"
     >
     <img
@@ -2454,12 +2454,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
+      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
       data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
-      
+      data-attach-context="true"
       
     >
     Private
@@ -2472,12 +2472,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
+      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
-      
+      data-attach-context="true"
       
     >
     Employer
@@ -2490,12 +2490,12 @@ exports[`renders english index 1`] = `
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{"context":"privatperson","action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
+      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
       data-class-name-override="_headerContextLink_19vx3_66"
       data-container-class-name="_headerContextLinkContainer_19vx3_84"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
-      
+      data-attach-context="true"
       
     >
     Collaborator

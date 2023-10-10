@@ -58,12 +58,7 @@ const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
 
-const CONTEXTS = [
-  'privatperson',
-  'arbeidsgiver',
-  'samarbeidspartner',
-  'ikkebestemt',
-] as const;
+const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
 declare global {
   interface Window {
@@ -212,8 +207,7 @@ document.body.addEventListener('click', (e) => {
 
 async function setActiveContext(context: Context | null) {
   if (context && CONTEXTS.includes(context)) {
-    window.__DECORATOR_DATA__.params.context = context;
-    console.log(window.__DECORATOR_DATA__.params.context);
+    updateDecoratorParams({ context });
 
     document
       .querySelectorAll(`.${headerClasses.headerContextLink}`)
