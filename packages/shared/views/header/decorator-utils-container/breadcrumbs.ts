@@ -28,7 +28,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                   action: 'nav.no',
                 },
                 children: html`
-                  ${HomeIcon()}
+                  ${HomeIcon({ className: cls.svg })}
                   <span class="${cls.span}">nav.no</span>
                 `,
                 defaultStyle: false,
@@ -57,7 +57,6 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                         ],
                         className: cls.link,
                       })}
-                  }
                 </li>
               `,
             )}

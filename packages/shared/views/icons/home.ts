@@ -1,6 +1,6 @@
 import html from '../../html';
 
-export function HomeIcon() {
+export function HomeIcon({ className }: { className?: string }) {
   return html`
     <svg
       width="1em"
@@ -10,6 +10,7 @@ export function HomeIcon() {
       xmlns="http://www.w3.org/2000/svg"
       focusable="false"
       role="img"
+      ${className ? html`class="${className}"` : ''}
     >
       <path
         fill-rule="evenodd"

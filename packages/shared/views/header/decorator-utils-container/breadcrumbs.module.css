@@ -18,9 +18,11 @@
   text-decoration: underline;
 }
 
-.svg {
+.svg.svg {
   font-size: 28px;
   color: var(--a-text-default);
+  stroke: none;
+  margin-right: var(--a-spacing-2);
 }
 
 .listItem {
