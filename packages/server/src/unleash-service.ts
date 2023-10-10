@@ -53,7 +53,7 @@ export default class UnleashService {
   getFeatures(): Features {
     const features = Object.keys(this.supportedFeatures).reduce(
       (acc, feature: string) => {
-        const isEnabled = this.unleashInstance
+        const isEnabled = this.unleashInstance?.isSynchronized()
           ? this.unleashInstance.isEnabled(feature)
           : this.supportedFeatures[feature];
         return { ...acc, [feature]: isEnabled };
