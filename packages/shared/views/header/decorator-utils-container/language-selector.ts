@@ -1,5 +1,5 @@
 import { type AvailableLanguage } from 'decorator-shared/params';
-import html, { json } from '../html';
+import html, { json } from '../../../html';
 
 export type LanguageSelectorProps = {
   availableLanguages: AvailableLanguage[];

@@ -7,18 +7,9 @@ import {
 } from 'decorator-shared/params';
 import { Node, Texts } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import { LanguageSelector } from 'decorator-shared/views/language-selector';
-
-const utilsBackgroundClasses = {
-  white: 'decorator-utils-container_white',
-  gray: 'decorator-utils-container_gray',
-  transparent: 'decorator-utils-container_transparent',
-  '': '',
-};
 
 export type ComplexHeaderProps = {
   isNorwegian: boolean;
@@ -39,6 +30,7 @@ import clsx from 'clsx';
 import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 export function ComplexHeader({
   isNorwegian,
@@ -142,30 +134,10 @@ export function ComplexHeader({
           </div>
         </div>
       </header>
-      <div class="decorator-utils-container ${
-        utilsBackgroundClasses[utilsBackground]
-      }">
-        ${Breadcrumbs({ breadcrumbs })}
-        ${LanguageSelector({ availableLanguages })}
-      </div>
+    ${DecoratorUtilsContainer({
+      utilsBackground,
+      breadcrumbs,
+      availableLanguages,
+    })}
   `;
 }
-
-// ${
-//         isNorwegian &&
-//         contextLinks?.map(
-//           ({ context, lenkeTekstId, url }) => html`
-//             <button
-//               class="${clsx([
-//                 classes.headerContextLink,
-//               ], {
-//               [classes.lenkeActive]: context === activeContext,
-//               })}"
-//               href="${url}"
-//               data-context="${context.toLowerCase()}"
-//             >
-//               ${texts[lenkeTekstId]}
-//             </button>
-//           `,
-//         )
-//       }

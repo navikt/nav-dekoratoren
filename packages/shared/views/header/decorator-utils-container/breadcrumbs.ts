@@ -1,6 +1,6 @@
-import { Breadcrumb } from '../params';
-import cls from '../utilities.module.css';
-import html from '../html';
+import { Breadcrumb } from '../../../params';
+import cls from '../../../utilities.module.css';
+import html from '../../../html';
 
 export type BreadcrumbsProps = { breadcrumbs: Breadcrumb[] };
 

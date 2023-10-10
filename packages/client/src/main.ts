@@ -2,7 +2,7 @@ import 'vite/modulepreload-polyfill';
 import './main.css';
 import.meta.glob('./styles/*.css', { eager: true });
 
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
+import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
 
 import getContent from './get-content';
 
@@ -11,7 +11,7 @@ import './views/lenke-med-sporing';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
-import { LanguageSelector } from 'decorator-shared/views/language-selector';
+import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
 
 // Maybe create a file that does this
 import './views/language-selector';

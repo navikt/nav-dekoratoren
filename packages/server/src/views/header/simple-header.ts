@@ -8,16 +8,8 @@ import type {
 } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
-import { LanguageSelector } from 'decorator-shared/views/language-selector';
-
-const utilsBackgroundClasses = {
-  white: 'decorator-utils-container_white',
-  gray: 'decorator-utils-container_gray',
-  transparent: 'decorator-utils-container_transparent',
-  '': '',
-};
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 export type SimpleHeaderProps = {
   texts: Texts;
@@ -61,13 +53,10 @@ export function SimpleHeader({
         })}
       </div>
     </header>
-    <div
-      class="decorator-utils-container ${utilsBackgroundClasses[
-        utilsBackground
-      ]}"
-    >
-      <!-- ${Breadcrumbs({ breadcrumbs })} -->
-      ${LanguageSelector({ availableLanguages })}
-    </div>
+    ${DecoratorUtilsContainer({
+      utilsBackground,
+      breadcrumbs,
+      availableLanguages,
+    })}
   `;
 }
