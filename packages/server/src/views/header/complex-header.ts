@@ -7,18 +7,9 @@ import {
 } from 'decorator-shared/params';
 import { Node, Texts } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
-import { LanguageSelector } from 'decorator-shared/views/language-selector';
-
-const utilsBackgroundClasses = {
-  white: 'decorator-utils-container_white',
-  gray: 'decorator-utils-container_gray',
-  transparent: 'decorator-utils-container_transparent',
-  '': '',
-};
 
 export type ComplexHeaderProps = {
   isNorwegian: boolean;
@@ -39,6 +30,7 @@ import clsx from 'clsx';
 import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 export function ComplexHeader({
   isNorwegian,
@@ -48,69 +40,53 @@ export function ComplexHeader({
   innlogget,
   breadcrumbs,
   utilsBackground,
-  context: activeContext,
+  context,
   availableLanguages,
   myPageMenu,
 }: ComplexHeaderProps) {
   return html`
-      <div
-        id="menu-background"
-      ></div>
-      <header
-        class="siteheader"
-      >
-        <div
-          class="hovedmeny-wrapper ${cls.contentContainer}"
-        >
-          <div class="hovedmeny-content">
+    <div id="menu-background"></div>
+    <header class="siteheader">
+      <div class="hovedmeny-wrapper ${cls.contentContainer}">
+        <div class="hovedmeny-content">
           ${LenkeMedSporing({
             href: '/',
             analyticsEventArgs: {
-              context: activeContext,
               category: 'dekorator-header',
               action: 'navlogo',
             },
+            attachContext: true,
             children: html`<img
               src="/public/ikoner/meny/nav-logo-red.svg"
               alt="NAV"
             />`,
           })}
-            <div
-              id="arbeidsflate"
-            >
-
-              ${
-                isNorwegian &&
-                contextLinks?.map((link) =>
-                  HeaderContextLenke({
-                    link: link,
-                    text: texts[link.lenkeTekstId],
-                    activeContext: activeContext,
-                    classNameOverride: clsx([
-                      classes.headerContextLink,
-                      {
-                        [classes.lenkeActive]: link.context === activeContext,
-                      },
-                    ]),
-                    containerClassName: classes.headerContextLinkContainer,
-                    attrs: [['data-context', link.context.toLowerCase()]],
-                  }),
-                )
-              }
-            </div>
+          <div id="arbeidsflate">
+            ${isNorwegian &&
+            contextLinks?.map((link) =>
+              HeaderContextLenke({
+                link: link,
+                text: texts[link.lenkeTekstId],
+                classNameOverride: clsx([
+                  classes.headerContextLink,
+                  {
+                    [classes.lenkeActive]: link.context === context,
+                  },
+                ]),
+                containerClassName: classes.headerContextLinkContainer,
+                attrs: [['data-context', link.context.toLowerCase()]],
+              }),
+            )}
           </div>
-          ${ComplexHeaderNavbarItems({
-            innlogget,
-            texts,
-            myPageMenu,
-          })}
-        <div
-          id="menu" class="${cls.contentContainer}"
-        >
-         <div class="menu-top">
-            <h2>
-            ${texts.how_can_we_help}
-            </h2>
+        </div>
+        ${ComplexHeaderNavbarItems({
+          innlogget,
+          texts,
+          myPageMenu,
+        })}
+        <div id="menu" class="${cls.contentContainer}">
+          <div class="menu-top">
+            <h2>${texts.how_can_we_help}</h2>
             ${LenkeMedSporing({
               href: '#',
               analyticsEventArgs: {
@@ -121,51 +97,32 @@ export function ComplexHeader({
               children: html`${texts.til_forsiden}`,
             })}
           </div>
-            <div id="sub-menu-content">
+          <div id="sub-menu-content">
             <div id="mobil-lukk">
-            ${BackChevron()}
-            <span>Tilbake til oversikt</span>
+              ${BackChevron()}
+              <span>Tilbake til oversikt</span>
             </div>
             <ul></ul>
-            </div>
-            <div id="menu-content">
+          </div>
+          <div id="menu-content">
             <div id="inline-search">
-                <inline-search></inline-search>
+              <inline-search></inline-search>
             </div>
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
-            ${HeaderMenuLinks({
-              headerMenuLinks: headerMenuLinks as Node[],
-              className: 'cols-3',
-            })}
+              ${HeaderMenuLinks({
+                headerMenuLinks: headerMenuLinks as Node[],
+                className: 'cols-3',
+              })}
             </div>
           </div>
         </div>
-      </header>
-      <div class="decorator-utils-container ${
-        utilsBackgroundClasses[utilsBackground]
-      }">
-        ${Breadcrumbs({ breadcrumbs })}
-        ${LanguageSelector({ availableLanguages })}
       </div>
+    </header>
+    ${DecoratorUtilsContainer({
+      utilsBackground,
+      breadcrumbs,
+      availableLanguages,
+    })}
   `;
 }
-
-// ${
-//         isNorwegian &&
-//         contextLinks?.map(
-//           ({ context, lenkeTekstId, url }) => html`
-//             <button
-//               class="${clsx([
-//                 classes.headerContextLink,
-//               ], {
-//               [classes.lenkeActive]: context === activeContext,
-//               })}"
-//               href="${url}"
-//               data-context="${context.toLowerCase()}"
-//             >
-//               ${texts[lenkeTekstId]}
-//             </button>
-//           `,
-//         )
-//       }

@@ -6,39 +6,41 @@ exports[`renders simple footer 1`] = `
     <div class="simpleFooterContent contentContainer">
       <div class="footerLinkList">
         
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}'
-      data-class-name-override="footerLink"
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
+      data-class-name-override="_footerLink_yutxt_19"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
-    <div id="children">Personvern og informasjonskapsler</div>
-    </lenke-med-sporing>
+    Personvern og informasjonskapsler
+    </a>
   
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/tilgjengelighet"
       id=""
       tabindex=""
       lang=""
-      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}'
-      data-class-name-override="footerLink"
+      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
+      data-class-name-override="_footerLink_yutxt_19"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs=''
+      data-extra-attrs='undefined'
       
-      data-default-style=&quot;true&quot;
+      data-default-style="true"
     >
-    <div id="children">Tilgjengelighet</div>
-    </lenke-med-sporing>
+    Tilgjengelighet
+    </a>
   
       </div>
       <button type="button" class="screenshareButton">

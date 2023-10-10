@@ -55,7 +55,6 @@ export default async ({
               breadcrumbs: data.breadcrumbs,
               utilsBackground: data.utilsBackground,
               availableLanguages: data.availableLanguages,
-              activeContext: data.context,
             })
           : ComplexHeader({
               mainMenu,

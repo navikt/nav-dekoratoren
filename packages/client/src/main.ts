@@ -2,8 +2,6 @@ import 'vite/modulepreload-polyfill';
 import './main.css';
 import.meta.glob('./styles/*.css', { eager: true });
 
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-
 import getContent from './get-content';
 
 import './views/lenke-med-sporing';
@@ -11,7 +9,7 @@ import './views/lenke-med-sporing';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
-import { LanguageSelector } from 'decorator-shared/views/language-selector';
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 // Maybe create a file that does this
 import './views/language-selector';
@@ -60,12 +58,7 @@ const breakpoints = {
   lg: 1024, // See custom-media-queries.css
 } as const;
 
-const CONTEXTS = [
-  'privatperson',
-  'arbeidsgiver',
-  'samarbeidspartner',
-  'ikkebestemt',
-] as const;
+const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
 declare global {
   interface Window {
@@ -100,6 +93,15 @@ window.__DECORATOR_DATA__.env = {
   XP_BASE_URL: import.meta.env.VITE_XP_BASE_URL,
 };
 
+const updateDecoratorParams = (params: Partial<Params>): Params => {
+  window.__DECORATOR_DATA__.params = {
+    ...window.__DECORATOR_DATA__.params,
+    ...params,
+  };
+
+  return window.__DECORATOR_DATA__.params;
+};
+
 onLoadListeners({
   texts: window.__DECORATOR_DATA__.texts,
 });
@@ -114,59 +116,62 @@ if (window.__DECORATOR_DATA__.params.logoutWarning) {
     window.__DECORATOR_DATA__.texts,
   );
 }
-// Get the params this version of the decorator was initialized with
 
 window.addEventListener('message', (e) => {
   if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
     window.postMessage({ source: 'decorator', event: 'ready' });
   }
-  // Maybe have a map of functions where the name of the function is the event name, then you can just loop through and call if it's present on the payload.
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
-    if (e.data.payload.breadcrumbs) {
-      replaceElement({
-        selector: '#breadcrumbs-wrapper',
-        html: Breadcrumbs({
+    if (
+      e.data.payload.breadcrumbs ||
+      e.data.payload.availableLanguages ||
+      e.data.payload.utilsBackground
+    ) {
+      if (e.data.payload.breadcrumbs) {
+        updateDecoratorParams({
           breadcrumbs: e.data.payload.breadcrumbs,
-        }),
-        contentKey: 'outerHTML',
-      }).then(addBreadcrumbEventListeners);
-    }
+        });
+      }
+      if (e.data.payload.availableLanguages) {
+        updateDecoratorParams({
+          availableLanguages: e.data.payload.availableLanguages,
+        });
+      }
+      if (e.data.payload.utilsBackground) {
+        updateDecoratorParams({
+          utilsBackground: e.data.payload.utilsBackground,
+        });
+      }
 
-    if (e.data.payload.utilsBackground) {
-      const utilsContainer = document.querySelector(
-        '.decorator-utils-container',
-      );
-      if (utilsContainer) {
-        ['gray', 'white'].forEach((bg) =>
-          utilsContainer.classList.remove(`decorator-utils-container_${bg}}`),
+      const {
+        utilsBackground,
+        breadcrumbs = [],
+        availableLanguages = [],
+      } = window.__DECORATOR_DATA__.params;
+
+      const getUtilsContainer = () => {
+        const utilsContainer = document.querySelector(
+          '.decorator-utils-container',
         );
-        const bg = e.data.payload.utilsBackground;
-        if (['gray', 'white'].includes(bg)) {
-          utilsContainer.classList.add(`decorator-utils-container_${bg}`);
+        if (utilsContainer) {
+          return utilsContainer;
+        } else {
+          const newUtilsContainer = document.createElement('div');
+          document.querySelector('header.siteheader')?.after(newUtilsContainer);
+          return newUtilsContainer;
         }
-      }
+      };
+
+      getUtilsContainer().outerHTML =
+        DecoratorUtilsContainer({
+          utilsBackground,
+          breadcrumbs,
+          availableLanguages,
+        })?.render() ?? '';
+
+      addBreadcrumbEventListeners();
     }
 
-    if (e.data.payload.availableLanguages) {
-      const el = document.querySelector('language-selector');
-      if (el) {
-        el.availableLanguages = e.data.payload.availableLanguages;
-      } else {
-        // Her appender vi en language selector om den ikke er i DOMen allerede
-        // TODO: dette kan garantert gjøres ryddigere!
-        //
-        const container = document.querySelector('.decorator-utils-container');
-
-        if (container) {
-          const temp = document.createElement('div');
-          temp.innerHTML =
-            LanguageSelector({
-              availableLanguages: e.data.payload.availableLanguages,
-            })?.render() ?? '';
-          container.append(...temp.childNodes);
-        }
-      }
-    }
     if (e.data.payload.context) {
       setActiveContext(e.data.payload.context);
     }
@@ -202,8 +207,7 @@ document.body.addEventListener('click', (e) => {
 
 async function setActiveContext(context: Context | null) {
   if (context && CONTEXTS.includes(context)) {
-    window.__DECORATOR_DATA__.params.context = context;
-    console.log(window.__DECORATOR_DATA__.params.context);
+    updateDecoratorParams({ context });
 
     document
       .querySelectorAll(`.${headerClasses.headerContextLink}`)
