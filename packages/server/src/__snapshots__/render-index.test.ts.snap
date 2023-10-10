@@ -387,7 +387,7 @@ exports[`renders norwegian index 1`] = `
         <div id="header-withmenu">
     <div id="menu-background"></div>
     <header class="siteheader">
-      <div class="hovedmeny-wrapper _contentContainer_1av57_1">
+      <div class="hovedmeny-wrapper contentContainer">
         <div class="hovedmeny-content">
           
     <a
@@ -421,8 +421,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
-      data-container-class-name="_headerContextLinkContainer_19vx3_84"
+      data-class-name-override="headerContextLink lenkeActive"
+      data-container-class-name="headerContextLinkContainer"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -439,8 +439,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_19vx3_66"
-      data-container-class-name="_headerContextLinkContainer_19vx3_84"
+      data-class-name-override="headerContextLink"
+      data-container-class-name="headerContextLinkContainer"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -457,8 +457,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_19vx3_66"
-      data-container-class-name="_headerContextLinkContainer_19vx3_84"
+      data-class-name-override="headerContextLink"
+      data-container-class-name="headerContextLinkContainer"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -605,7 +605,7 @@ exports[`renders norwegian index 1`] = `
           
     </div>
   
-        <div id="menu" class="_contentContainer_1av57_1">
+        <div id="menu" class="contentContainer">
           <div class="menu-top">
             <h2>Hva kan vi hjelpe deg med?</h2>
             
@@ -661,7 +661,7 @@ exports[`renders norwegian index 1`] = `
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
               
-    <ul class="_headerMenuLinks_19vx3_36 cols-3">
+    <ul class="headerMenuLinks cols-3">
       
           <li
             id="79173ea3-74cd-4d7a-a81f-a43915022c4e"
@@ -682,12 +682,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Arbeid","label":"/arbeid"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -724,12 +724,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Helse og sykdom","label":"/helse"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -766,12 +766,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Familie og barn","label":"/familie"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -808,12 +808,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Pensjon","label":"/pensjon"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -850,12 +850,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Sosiale tjenester og veiledning","label":"/sosiale-tjenester"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -892,12 +892,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Hjelpemidler og tilrettelegging","label":"/hjelpemidler"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -945,12 +945,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Søknad og skjema","label":"/soknader"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -987,12 +987,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Ettersendelse","label":"/ettersende"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1029,12 +1029,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Klage","label":"/klage"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1071,12 +1071,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Pengestøtter og tjenester fra A til Å","label":"/tjenester"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1113,12 +1113,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Saksbehandlingstider","label":"/saksbehandlingstider"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1155,12 +1155,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Utbetalinger","label":"/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1197,12 +1197,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Satser","label":"/satser"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1239,12 +1239,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Meldekort","label":"/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1281,12 +1281,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Kurs fra NAV","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1323,12 +1323,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Feiltolkning av EØS-reglene","label":"/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1367,12 +1367,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1412,12 +1412,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -1665,7 +1665,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1687,7 +1687,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1709,7 +1709,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1731,7 +1731,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1760,7 +1760,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1789,7 +1789,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1811,7 +1811,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1833,7 +1833,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1862,7 +1862,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1884,7 +1884,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1913,7 +1913,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -1935,7 +1935,7 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -2421,7 +2421,7 @@ exports[`renders english index 1`] = `
         <div id="header-withmenu">
     <div id="menu-background"></div>
     <header class="siteheader">
-      <div class="hovedmeny-wrapper _contentContainer_1av57_1">
+      <div class="hovedmeny-wrapper contentContainer">
         <div class="hovedmeny-content">
           
     <a
@@ -2455,8 +2455,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_19vx3_66 _lenkeActive_19vx3_79"
-      data-container-class-name="_headerContextLinkContainer_19vx3_84"
+      data-class-name-override="headerContextLink lenkeActive"
+      data-container-class-name="headerContextLinkContainer"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -2473,8 +2473,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_19vx3_66"
-      data-container-class-name="_headerContextLinkContainer_19vx3_84"
+      data-class-name-override="headerContextLink"
+      data-container-class-name="headerContextLinkContainer"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -2491,8 +2491,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_19vx3_66"
-      data-container-class-name="_headerContextLinkContainer_19vx3_84"
+      data-class-name-override="headerContextLink"
+      data-container-class-name="headerContextLinkContainer"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -2639,7 +2639,7 @@ exports[`renders english index 1`] = `
           
     </div>
   
-        <div id="menu" class="_contentContainer_1av57_1">
+        <div id="menu" class="contentContainer">
           <div class="menu-top">
             <h2>What can we help you with?</h2>
             
@@ -2695,7 +2695,7 @@ exports[`renders english index 1`] = `
             <decorator-loader id="search-loader"></decorator-loader>
             <div id="header-menu-links">
               
-    <ul class="_headerMenuLinks_19vx3_36 cols-3">
+    <ul class="headerMenuLinks cols-3">
       
           <li
             id="4034ae9f-981a-4ea4-9311-eade71ae098b"
@@ -2716,12 +2716,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Work in Norway","label":"/en/home/work-and-stay-in-norway/work-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -2758,12 +2758,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Employee on the Norwegian continental shelf","label":"/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -2800,12 +2800,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Foreign students in Norway","label":"/en/home/work-and-stay-in-norway/foreign-students-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -2842,12 +2842,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Tourists in Norway","label":"/en/home/work-and-stay-in-norway/tourists-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -2886,12 +2886,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -2937,12 +2937,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Information about NAV's services and benefits","label":"/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -2979,12 +2979,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Unemployment benefits","label":"https://www.nav.no/arbeid/en/dagpenger-og-eos"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3021,12 +3021,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Family related benefits","label":"/en/home/benefits-and-services/family-related-benefits"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3063,12 +3063,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Pensions and pension applications from outside Norway","label":"/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3105,12 +3105,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Employment status form - how do you use it?","label":"/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3149,12 +3149,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3200,12 +3200,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Membership of the National Insurance Scheme","label":"/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3242,12 +3242,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance coverage","label":"/en/home/rules-and-regulations/national-insurance-coverage"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3284,12 +3284,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance contributions","label":"/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3326,12 +3326,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Appeals","label":"/klagerettigheter/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3368,12 +3368,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Working abroad","label":"/en/home/rules-and-regulations/working-abroad"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3410,12 +3410,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Staying abroad","label":"/en/home/rules-and-regulations/staying-abroad"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3454,12 +3454,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3505,12 +3505,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruit in Norway?","label":"/en/home/employers/recruit-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3547,12 +3547,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruiting from the EU/EEA","label":"/employers/rekruttere-eu-eos/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3589,12 +3589,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)","label":"/en/home/employers/nav-state-register-of-employers-and-employees"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3631,12 +3631,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Income report","label":"/arbeidsgiver/inntektsmelding/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3675,12 +3675,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3726,12 +3726,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Contact us","label":"/kontaktoss/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3768,12 +3768,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Payment dates","label":"/utbetalingsdatoer/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3810,12 +3810,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Case processing times","label":"/saksbehandlingstider/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3852,12 +3852,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Rates","label":"/satser/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3894,12 +3894,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/What is NAV?","label":"/en/home/about-nav/what-is-nav"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3936,12 +3936,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Notify us of any changes","label":"/endringer/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -3978,12 +3978,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Forms and applications","label":"/soknader/en/person"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -4020,12 +4020,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Search tips","label":"/en/home/about-nav/search-tips"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -4064,12 +4064,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -4109,12 +4109,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" _chevronlenke_1wt3v_55"
+      data-class-name=" chevronlenke"
       data-extra-attrs='undefined'
       
       data-default-style="true"
     >
-     <div class="_ikonContainer_1wt3v_51">
+     <div class="ikonContainer">
         
     <svg
       width="24px"
@@ -4362,7 +4362,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//redirects/footer-contactus-en","label":"/redirects/footer-contactus-en"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4384,7 +4384,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4406,7 +4406,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger","label":"https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4435,7 +4435,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4457,7 +4457,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4479,7 +4479,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4501,7 +4501,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//hva-er-nav/en","label":"/hva-er-nav/en"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4523,7 +4523,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav","label":"/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4552,7 +4552,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no","label":"/no"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4574,7 +4574,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4603,7 +4603,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -4625,7 +4625,7 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet/en","label":"/tilgjengelighet/en"}'
-      data-class-name-override="_footerLink_1thla_7"
+      data-class-name-override="footerLink"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
