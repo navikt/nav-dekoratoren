@@ -49,7 +49,6 @@ export class LenkeMedSporingElement extends HTMLAnchorElement {
     );
 
     this.addEventListener('click', () => {
-      console.log('clicking');
       if (eventArgs) {
         const payload = {
           ...eventArgs,
