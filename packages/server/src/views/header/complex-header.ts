@@ -40,7 +40,7 @@ export function ComplexHeader({
   innlogget,
   breadcrumbs,
   utilsBackground,
-  context: activeContext,
+  context,
   availableLanguages,
   myPageMenu,
 }: ComplexHeaderProps) {
@@ -52,10 +52,10 @@ export function ComplexHeader({
           ${LenkeMedSporing({
             href: '/',
             analyticsEventArgs: {
-              context: activeContext,
               category: 'dekorator-header',
               action: 'navlogo',
             },
+            attachContext: true,
             children: html`<img
               src="/public/ikoner/meny/nav-logo-red.svg"
               alt="NAV"
@@ -67,11 +67,10 @@ export function ComplexHeader({
               HeaderContextLenke({
                 link: link,
                 text: texts[link.lenkeTekstId],
-                activeContext: activeContext,
                 classNameOverride: clsx([
                   classes.headerContextLink,
                   {
-                    [classes.lenkeActive]: link.context === activeContext,
+                    [classes.lenkeActive]: link.context === context,
                   },
                 ]),
                 containerClassName: classes.headerContextLinkContainer,
