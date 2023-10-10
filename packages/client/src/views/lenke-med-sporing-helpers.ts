@@ -38,7 +38,8 @@ export function LenkeMedSporingBase({
   // Added this here so that the JSON string is not malformed
   // prettier-ignore
   return html`
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role="${props.role}"
       href="${props.href}"
       id="${props.id}"
@@ -52,8 +53,8 @@ export function LenkeMedSporingBase({
       ${attachContext ? 'data-attach-context="true"' : ''}
       ${defaultStyle ? 'data-default-style="true"' : ''}
     >
-    <div id="children">${props.children}</div>
-    </lenke-med-sporing>
+    ${props.children}
+    </a>
   `;
 }
 

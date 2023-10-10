@@ -6,7 +6,8 @@ exports[`renders simple footer 1`] = `
     <div class="_simpleFooterContent_yutxt_7 _contentContainer_1av57_1">
       <div class="_footerLinkList_yutxt_19">
         
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
       id=""
@@ -20,10 +21,11 @@ exports[`renders simple footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Personvern og informasjonskapsler</div>
-    </lenke-med-sporing>
+    Personvern og informasjonskapsler
+    </a>
   
-    <lenke-med-sporing
+    <a
+      is="lenke-med-sporing"
       role=""
       href="/tilgjengelighet"
       id=""
@@ -37,8 +39,8 @@ exports[`renders simple footer 1`] = `
       
       data-default-style=&quot;true&quot;
     >
-    <div id="children">Tilgjengelighet</div>
-    </lenke-med-sporing>
+    Tilgjengelighet
+    </a>
   
       </div>
       <button type="button" class="_screenshareButton_1ggeo_1">
