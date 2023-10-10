@@ -19,6 +19,15 @@ const utilsBackgroundClasses = {
   '': '',
 };
 
+export type SimpleHeaderProps = {
+  texts: Texts;
+  innlogget: boolean;
+  availableLanguages: AvailableLanguage[];
+  breadcrumbs: Breadcrumb[];
+  utilsBackground: UtilsBackground;
+  activeContext: Context;
+};
+
 export function SimpleHeader({
   availableLanguages,
   breadcrumbs,
@@ -26,14 +35,7 @@ export function SimpleHeader({
   innlogget,
   texts,
   activeContext,
-}: {
-  texts: Texts;
-  innlogget: boolean;
-  availableLanguages: AvailableLanguage[];
-  breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground;
-  activeContext: Context;
-}) {
+}: SimpleHeaderProps) {
   return html`
     <div id="menu-background"></div>
     <header class="siteheader">
