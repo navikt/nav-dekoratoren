@@ -16,6 +16,9 @@ const meta: Meta<DecoratorUtilsContainerProps> = {
   parameters: {
     backgrounds: { default: 'dark' },
   },
+  args: {
+    utilsBackground: 'gray',
+  },
 };
 
 export default meta;
@@ -44,7 +47,6 @@ const availableLanguages: AvailableLanguage[] = [
 
 export const Default: Story = {
   args: {
-    utilsBackground: 'gray',
     breadcrumbs,
     availableLanguages,
   },
@@ -52,7 +54,6 @@ export const Default: Story = {
 
 export const NoAvailableLanguages: Story = {
   args: {
-    utilsBackground: 'gray',
     breadcrumbs,
     availableLanguages: [],
   },
@@ -60,14 +61,12 @@ export const NoAvailableLanguages: Story = {
 
 export const NoBreadcrumbs: Story = {
   args: {
-    utilsBackground: 'gray',
     breadcrumbs: [],
     availableLanguages,
   },
 };
 export const Empty: Story = {
   args: {
-    utilsBackground: 'gray',
     breadcrumbs: [],
     availableLanguages: [],
   },
