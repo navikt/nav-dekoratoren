@@ -1579,25 +1579,45 @@ exports[`renders norwegian index 1`] = `
     <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
-          <a class="amplitude-link" href="#">
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              focusable="false"
-              role="img"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-            <span>nav.no</span>
-          </a>
+          
+    <a
+      is="lenke-med-sporing"
+      role=""
+      href="/"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;komponent&quot;:&quot;brødsmule&quot;,&quot;action&quot;:&quot;nav.no&quot;}'
+      data-class-name-override=""
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      
+      
+    >
+    
+              
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+              <span>nav.no</span>
+            
+    </a>
+  
         </li>
         
       </ol>
@@ -4262,25 +4282,45 @@ exports[`renders english index 1`] = `
     <nav class="_contentContainer_1av57_1" id="breadcrumbs-wrapper">
       <ol id="breadcrumbs-list">
         <li>
-          <a class="amplitude-link" href="#">
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              focusable="false"
-              role="img"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-            <span>nav.no</span>
-          </a>
+          
+    <a
+      is="lenke-med-sporing"
+      role=""
+      href="/"
+      id=""
+      tabindex=""
+      lang=""
+      data-analytics-event-args='{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;komponent&quot;:&quot;brødsmule&quot;,&quot;action&quot;:&quot;nav.no&quot;}'
+      data-class-name-override=""
+      data-container-class-name=""
+      data-class-name=""
+      data-extra-attrs=''
+      
+      
+    >
+    
+              
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M11.47 2.47a.75.75 0 0 1 1.06 0l7 7c.141.14.22.331.22.53v11a.75.75 0 0 1-.75.75h-5a.75.75 0 0 1-.75-.75v-4.25h-2.5V21a.75.75 0 0 1-.75.75H5a.75.75 0 0 1-.75-.75V10a.75.75 0 0 1 .22-.53l7-7Zm-5.72 7.84v9.94h3.5V16a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75v4.25h3.5v-9.94L12 4.06l-6.25 6.25Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  
+              <span>nav.no</span>
+            
+    </a>
+  
         </li>
         
       </ol>

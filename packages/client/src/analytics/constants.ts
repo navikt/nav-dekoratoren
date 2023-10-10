@@ -12,7 +12,9 @@ export type AnalyticsActions =
   | 'navlogo'
   | 'lenke'
   | 'lenkegruppe'
-  | 'hovedmeny/forsidelenke';
+  | 'hovedmeny/forsidelenke'
+  | '[redacted]'
+  | 'nav.no';
 
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;
