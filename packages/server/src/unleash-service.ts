@@ -12,15 +12,19 @@ export type Features = {
 
 export default class UnleashService {
   unleashInstance: Unleash | null;
-  expectedFeatures: string[];
+  supportedFeatures: { [key: string]: boolean };
   mock: boolean;
 
   constructor(config: Config = { env: 'production' }) {
     const { UNLEASH_SERVER_API_TOKEN, UNLEASH_SERVER_API_URL } = process.env;
-    this.expectedFeatures = [
-      'dekoratoren.skjermdeling',
-      'dekoratoren.chatbotscript',
-    ];
+    // Important: If the Unleash Next service goes down, we don't want
+    // screen sharing or the chatbot to automatically be disabled.
+    // However, future toggles may want to default to false, so assign
+    // this below:
+    this.supportedFeatures = {
+      'dekoratoren.skjermdeling': true,
+      'dekoratoren.chatbotscript': true,
+    };
     this.unleashInstance = null;
     this.mock = config.mock || false;
 
@@ -46,32 +50,16 @@ export default class UnleashService {
     }
   }
 
-  private getDefaultFeatures() {
-    return this.expectedFeatures.reduce((acc, feature: string) => {
-      return { ...acc, [feature]: true };
-    }, {}) as Features;
-  }
-
   getFeatures(): Features {
-    if (this.mock) {
-      return this.getDefaultFeatures();
-    }
-
-    // Important: If the Unleash Next service goes down, we don't want
-    // screen sharing or the chatbot to automatically be disabled,
-    // so default these features to true by defaulting the feature set.
-    if (!this.unleashInstance) {
-      console.error(
-        'Unleash has not been initialized, so unable to get features',
-      );
-      return this.getDefaultFeatures();
-    }
-
-    const features = this.expectedFeatures.reduce((acc, feature: string) => {
-      const isEnabled =
-        this.unleashInstance && this.unleashInstance.isEnabled(feature);
-      return { ...acc, [feature]: isEnabled };
-    }, {}) as Features;
+    const features = Object.keys(this.supportedFeatures).reduce(
+      (acc, feature: string) => {
+        const isEnabled = this.unleashInstance
+          ? this.unleashInstance.isEnabled(feature)
+          : this.supportedFeatures[feature];
+        return { ...acc, [feature]: isEnabled };
+      },
+      {},
+    ) as Features;
 
     return features;
   }
