@@ -32,7 +32,6 @@ const modules: ts.ModuleDeclaration[] = [];
 
 for (const filePath of paths) {
   const result = await process(path.resolve(root, filePath));
-  //
   const tokenProperties = Object.keys(result.tokens).map((token) =>
     ts.factory.createPropertySignature(
       undefined,
@@ -62,15 +61,12 @@ for (const filePath of paths) {
     ts.factory.createIdentifier('classes'),
   );
 
-  // declare const variable wit htype of classes
-  // declare module '...'
   const tsModule = ts.factory.createModuleDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.DeclareKeyword)],
     ts.factory.createStringLiteral(`*${result.path}`),
     ts.factory.createModuleBlock([classesDeclaration, exportClassesStatement]),
   );
 
-  // Add to the source file
   modules.push(tsModule);
 }
 
