@@ -7,28 +7,15 @@ export class LenkeMedSporingElement extends HTMLAnchorElement {
   constructor() {
     super();
 
-    // const a = document.createElement('a');
-    // a.innerHTML = this.getAttribute('data-children') || '';
-    // a.href = this.getAttribute('href') || '';
-
     const attrs = [
       'data-class-name',
       'data-class-name-override',
       'data-container-class-name',
       'data-default-style',
       'data-attach-context',
-      // Standard
-      'role',
-      'id',
-      'tabindex',
-      'lang',
     ];
 
     const data = attrs.map((attr) => this.getAttribute(attr) || '');
-    // const children = this.querySelector('#children')?.innerHTML || '';
-
-    // this.innerHTML = '';
-    // a.innerHTML = children;
 
     const [
       className,
@@ -72,8 +59,6 @@ export class LenkeMedSporingElement extends HTMLAnchorElement {
         window.analyticsEvent(payload);
       }
     });
-
-    // this.appendChild(a);
   }
 }
 
