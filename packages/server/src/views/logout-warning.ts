@@ -1,6 +1,6 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/logout-warning.module.css';
-import utilClasses from 'decorator-client/src/styles/utils.module.css';
+import { Button } from 'decorator-shared/views/components/button';
 
 export type LogoutWarningProps = unknown;
 
@@ -13,19 +13,19 @@ export function LogoutWarning() {
       <p id="logout-warning-body" class="${cls.modalBody}">
         Vil du fortsatt være innlogget?
       </p>
-      <div class="button-wrapper">
-        <button
-          class="button button-main ${utilClasses.bigLabel}"
-          id="logout-warning-confirm"
-        >
-          Ja
-        </button>
-        <button
-          class="button button-secondary ${utilClasses.bigLabel}"
-          id="logout-warning-cancel"
-        >
-          Logg ut
-        </button>
+      <div class="${cls.buttonWrapper}">
+        ${Button({
+          text: 'Ja',
+          variant: 'primary',
+          bigLabel: true,
+          id: 'logout-warning-confirm',
+        })}
+        ${Button({
+          text: 'Logg ut',
+          variant: 'secondary',
+          bigLabel: true,
+          id: 'logout-warning-cancel',
+        })}
       </div>
     </div>
   </dialog>`;

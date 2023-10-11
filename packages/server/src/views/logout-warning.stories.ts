@@ -4,7 +4,6 @@ import { LogoutWarning } from './logout-warning';
 
 const meta: Meta<LogoutWarningProps> = {
   title: 'logout-warning',
-  tags: ['autodocs'],
   render: () => {
     setTimeout(() => {
       // @ts-expect-error: document in server-package
@@ -18,6 +17,4 @@ const meta: Meta<LogoutWarningProps> = {
 export default meta;
 type Story = StoryObj<LogoutWarningProps>;
 
-export const Default: Story = {
-  args: {},
-};
+export const Default: Story = {};
