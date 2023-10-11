@@ -345,11 +345,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -385,10 +385,10 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background" class="_menuBackground_t7kl7_100"></div>
-    <header class="_siteheader_t7kl7_1">
-      <div class="_hovedmenyWrapper_t7kl7_9 _contentContainer_1av57_1">
-        <div class="_hovedmenyContent_t7kl7_24">
+    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
+    <header class="_siteheader_f99wf_1">
+      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
+        <div class="_hovedmenyContent_f99wf_27">
           
     <a
       is="lenke-med-sporing"
@@ -401,7 +401,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
@@ -411,7 +411,7 @@ exports[`renders norwegian index 1`] = `
             />
     </a>
   
-          <div class="_arbeidsflate_t7kl7_36">
+          <div class="_arbeidsflate_f99wf_39">
             
     <a
       is="lenke-med-sporing"
@@ -421,8 +421,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_t7kl7_192 _lenkeActive_t7kl7_206"
-      data-container-class-name="_headerContextLinkContainer_t7kl7_211"
+      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -439,8 +439,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_t7kl7_192"
-      data-container-class-name="_headerContextLinkContainer_t7kl7_211"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -457,8 +457,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_t7kl7_192"
-      data-container-class-name="_headerContextLinkContainer_t7kl7_211"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -498,10 +498,10 @@ exports[`renders norwegian index 1`] = `
   
         
     
-    <button id="" class="_iconButton_1vnms_1 _searchButton_1hxtm_46">
+    <button id="" class="_iconButton_1vnms_1 _searchButton_xj5ie_46">
       
     <svg
-      class="_menuSearch_1dtu8_2"
+      class="_menuSearch_xj5ie_67"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -516,11 +516,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Søk</span>
@@ -528,15 +528,15 @@ exports[`renders norwegian index 1`] = `
       
     </button>
   
-    <div class="_sokDropdown_1hxtm_1">
-      <div class="_sokDropdownContent_1hxtm_18">
-        <label for="_searchInput_1hxtm_23" class="_bigLabel_1p9d8_1"
+    <div class="_sokDropdown_xj5ie_1">
+      <div class="_sokDropdownContent_xj5ie_18">
+        <label for="_searchInput_xj5ie_23" class="_bigLabel_1p9d8_1"
           >Søk på nav.no</label
         >
-        <div class="_searchInputWrapper_1hxtm_41">
-          <input class="_searchInput_1hxtm_23" type="text" />
+        <div class="_searchInputWrapper_xj5ie_41">
+          <input class="_searchInput_xj5ie_23" type="text" />
           
-    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_1hxtm_51">
+    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_xj5ie_51">
       
     <svg
       class=""
@@ -554,11 +554,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Søk</span>
@@ -569,7 +569,7 @@ exports[`renders norwegian index 1`] = `
         </div>
       </div>
       <div id="search-hits">
-        <ul class="_searchHitList_1hxtm_59"></ul>
+        <ul class="_searchHitList_xj5ie_59"></ul>
         <div id="show-more"></div>
       </div>
     </div>
@@ -604,7 +604,7 @@ exports[`renders norwegian index 1`] = `
   
     </div>
   
-        <div id="menu" class="_contentContainer_1av57_1 _menu_t7kl7_49">
+        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
           
   <div class="_menuTop_zy4o8_1">
     <h2>Hva kan vi hjelpe deg med?</h2>
@@ -620,7 +620,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
@@ -635,16 +635,16 @@ exports[`renders norwegian index 1`] = `
     <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_t7kl7_159 cols-3">
+    <ul class="_headerMenuLinks_f99wf_162 cols-3">
       
           <li
             id="79173ea3-74cd-4d7a-a81f-a43915022c4e"
-            class=""
+            class="_flatten_f99wf_9"
           >
             <h3>Områder</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+    <li class="_menuLink_f99wf_121" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
       
     <a
       is="lenke-med-sporing"
@@ -657,7 +657,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -686,7 +686,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="c0379053-4fdf-4151-8974-5d475449ebd2">
+    <li class="_menuLink_f99wf_121" id="c0379053-4fdf-4151-8974-5d475449ebd2">
       
     <a
       is="lenke-med-sporing"
@@ -699,7 +699,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -728,7 +728,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+    <li class="_menuLink_f99wf_121" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
       
     <a
       is="lenke-med-sporing"
@@ -741,7 +741,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -770,7 +770,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+    <li class="_menuLink_f99wf_121" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
       
     <a
       is="lenke-med-sporing"
@@ -783,7 +783,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -812,7 +812,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+    <li class="_menuLink_f99wf_121" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
       
     <a
       is="lenke-med-sporing"
@@ -825,7 +825,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -854,7 +854,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+    <li class="_menuLink_f99wf_121" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
       
     <a
       is="lenke-med-sporing"
@@ -867,7 +867,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -902,12 +902,12 @@ exports[`renders norwegian index 1`] = `
         
           <li
             id="c73650df-2e69-41e3-ae15-96ed90de4b0b"
-            class="_nested_t7kl7_188"
+            class="_nested_f99wf_191"
           >
             <h3>Snarveier</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+    <li class="_menuLink_f99wf_121" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
       
     <a
       is="lenke-med-sporing"
@@ -920,7 +920,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -949,7 +949,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+    <li class="_menuLink_f99wf_121" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
       
     <a
       is="lenke-med-sporing"
@@ -962,7 +962,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -991,7 +991,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+    <li class="_menuLink_f99wf_121" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
       
     <a
       is="lenke-med-sporing"
@@ -1004,7 +1004,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1033,7 +1033,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+    <li class="_menuLink_f99wf_121" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
       
     <a
       is="lenke-med-sporing"
@@ -1046,7 +1046,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1075,7 +1075,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+    <li class="_menuLink_f99wf_121" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
       
     <a
       is="lenke-med-sporing"
@@ -1088,7 +1088,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1117,7 +1117,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+    <li class="_menuLink_f99wf_121" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
       
     <a
       is="lenke-med-sporing"
@@ -1130,7 +1130,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1159,7 +1159,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+    <li class="_menuLink_f99wf_121" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
       
     <a
       is="lenke-med-sporing"
@@ -1172,7 +1172,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1201,7 +1201,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+    <li class="_menuLink_f99wf_121" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
       
     <a
       is="lenke-med-sporing"
@@ -1214,7 +1214,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1243,7 +1243,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+    <li class="_menuLink_f99wf_121" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
       
     <a
       is="lenke-med-sporing"
@@ -1256,7 +1256,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1285,7 +1285,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+    <li class="_menuLink_f99wf_121" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
       
     <a
       is="lenke-med-sporing"
@@ -1298,7 +1298,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1329,7 +1329,7 @@ exports[`renders norwegian index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_t7kl7_118 _nestedLink_t7kl7_188" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
       
     <a
       is="lenke-med-sporing"
@@ -1342,7 +1342,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1374,7 +1374,7 @@ exports[`renders norwegian index 1`] = `
           </li>
         
       
-    <li class="_menuLink_t7kl7_118 _mobile_t7kl7_141" id="">
+    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
       
     <a
       is="lenke-med-sporing"
@@ -1387,7 +1387,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1418,7 +1418,7 @@ exports[`renders norwegian index 1`] = `
   
 
       <li>
-        <ul class="_menuContextLinks_t7kl7_49">
+        <ul class="_menuContextLinks_f99wf_52">
           
     <a
       class="_wrapper_wmu45_1"
@@ -1653,7 +1653,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1675,7 +1675,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1697,7 +1697,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1719,7 +1719,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1750,7 +1750,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1781,7 +1781,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1803,7 +1803,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1825,7 +1825,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1856,7 +1856,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1878,7 +1878,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1907,7 +1907,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1929,7 +1929,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1993,7 +1993,7 @@ exports[`renders norwegian index 1`] = `
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}
       </script>
       <script type="application/json" id="explicit-params">
         {}
@@ -2003,7 +2003,7 @@ exports[`renders norwegian index 1`] = `
   
       <div
         id="decorator-lens"
-        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false&redirectToUrl=https%3A%2F%2Fwww.nav.no"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
@@ -2016,7 +2016,7 @@ exports[`renders norwegian index 1`] = `
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"
   <script type="application/json" id="__DECORATOR_DATA__">
-    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","logged_in":"Logget inn","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","rolle_privatperson":"Privat","rolle_arbeidsgiver":"Arbeidsgiver","rolle_samarbeidspartner":"Samarbeidspartner","meny_bunnlenke_minside_stikkord":"Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester","meny_bunnlenke_arbeidsgiver_stikkord":"Dine sykmeldte, rekruttering, digitale skjemaer","meny_bunnlenke_samarbeidspartner_stikkord":"Helsepersonell, tiltaksarrangører, fylker og kommuner","loading_notifications":"Laster varslinger","notifications_error":"Feil ved lasting av varsler","til_forsiden":"Til forsiden","how_can_we_help":"Hva kan vi hjelpe deg med?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","logged_in":"Logget inn","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","rolle_privatperson":"Privat","rolle_arbeidsgiver":"Arbeidsgiver","rolle_samarbeidspartner":"Samarbeidspartner","meny_bunnlenke_minside_stikkord":"Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester","meny_bunnlenke_arbeidsgiver_stikkord":"Dine sykmeldte, rekruttering, digitale skjemaer","meny_bunnlenke_samarbeidspartner_stikkord":"Helsepersonell, tiltaksarrangører, fylker og kommuner","loading_notifications":"Laster varslinger","notifications_error":"Feil ved lasting av varsler","til_forsiden":"Til forsiden","how_can_we_help":"Hva kan vi hjelpe deg med?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}}
   </script>
 
         </div>
@@ -2370,11 +2370,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -2410,10 +2410,10 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background" class="_menuBackground_t7kl7_100"></div>
-    <header class="_siteheader_t7kl7_1">
-      <div class="_hovedmenyWrapper_t7kl7_9 _contentContainer_1av57_1">
-        <div class="_hovedmenyContent_t7kl7_24">
+    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
+    <header class="_siteheader_f99wf_1">
+      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
+        <div class="_hovedmenyContent_f99wf_27">
           
     <a
       is="lenke-med-sporing"
@@ -2426,7 +2426,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
@@ -2436,7 +2436,7 @@ exports[`renders english index 1`] = `
             />
     </a>
   
-          <div class="_arbeidsflate_t7kl7_36">
+          <div class="_arbeidsflate_f99wf_39">
             
     <a
       is="lenke-med-sporing"
@@ -2446,8 +2446,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_t7kl7_192 _lenkeActive_t7kl7_206"
-      data-container-class-name="_headerContextLinkContainer_t7kl7_211"
+      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -2464,8 +2464,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_t7kl7_192"
-      data-container-class-name="_headerContextLinkContainer_t7kl7_211"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -2482,8 +2482,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_t7kl7_192"
-      data-container-class-name="_headerContextLinkContainer_t7kl7_211"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -2523,10 +2523,10 @@ exports[`renders english index 1`] = `
   
         
     
-    <button id="" class="_iconButton_1vnms_1 _searchButton_1hxtm_46">
+    <button id="" class="_iconButton_1vnms_1 _searchButton_xj5ie_46">
       
     <svg
-      class="_menuSearch_1dtu8_2"
+      class="_menuSearch_xj5ie_67"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -2541,11 +2541,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Search</span>
@@ -2553,15 +2553,15 @@ exports[`renders english index 1`] = `
       
     </button>
   
-    <div class="_sokDropdown_1hxtm_1">
-      <div class="_sokDropdownContent_1hxtm_18">
-        <label for="_searchInput_1hxtm_23" class="_bigLabel_1p9d8_1"
+    <div class="_sokDropdown_xj5ie_1">
+      <div class="_sokDropdownContent_xj5ie_18">
+        <label for="_searchInput_xj5ie_23" class="_bigLabel_1p9d8_1"
           >Search nav.no</label
         >
-        <div class="_searchInputWrapper_1hxtm_41">
-          <input class="_searchInput_1hxtm_23" type="text" />
+        <div class="_searchInputWrapper_xj5ie_41">
+          <input class="_searchInput_xj5ie_23" type="text" />
           
-    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_1hxtm_51">
+    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_xj5ie_51">
       
     <svg
       class=""
@@ -2579,11 +2579,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Search</span>
@@ -2594,7 +2594,7 @@ exports[`renders english index 1`] = `
         </div>
       </div>
       <div id="search-hits">
-        <ul class="_searchHitList_1hxtm_59"></ul>
+        <ul class="_searchHitList_xj5ie_59"></ul>
         <div id="show-more"></div>
       </div>
     </div>
@@ -2629,7 +2629,7 @@ exports[`renders english index 1`] = `
   
     </div>
   
-        <div id="menu" class="_contentContainer_1av57_1 _menu_t7kl7_49">
+        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
           
   <div class="_menuTop_zy4o8_1">
     <h2>What can we help you with?</h2>
@@ -2645,7 +2645,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
@@ -2660,16 +2660,16 @@ exports[`renders english index 1`] = `
     <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_t7kl7_159 cols-3">
+    <ul class="_headerMenuLinks_f99wf_162 cols-3">
       
           <li
             id="4034ae9f-981a-4ea4-9311-eade71ae098b"
-            class="_nested_t7kl7_188"
+            class="_nested_f99wf_191"
           >
             <h3>Work and stay in Norway</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+    <li class="_menuLink_f99wf_121" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
       
     <a
       is="lenke-med-sporing"
@@ -2682,7 +2682,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2711,7 +2711,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+    <li class="_menuLink_f99wf_121" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
       
     <a
       is="lenke-med-sporing"
@@ -2724,7 +2724,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2753,7 +2753,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+    <li class="_menuLink_f99wf_121" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
       
     <a
       is="lenke-med-sporing"
@@ -2766,7 +2766,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2795,7 +2795,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="117d0621-476c-42d6-9789-26f898250225">
+    <li class="_menuLink_f99wf_121" id="117d0621-476c-42d6-9789-26f898250225">
       
     <a
       is="lenke-med-sporing"
@@ -2808,7 +2808,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2839,7 +2839,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_t7kl7_118 _nestedLink_t7kl7_188" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
       
     <a
       is="lenke-med-sporing"
@@ -2852,7 +2852,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2885,12 +2885,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="f855f440-9267-4b2c-8f27-6b9eec6b2e68"
-            class="_nested_t7kl7_188"
+            class="_nested_f99wf_191"
           >
             <h3>Benefits and services</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+    <li class="_menuLink_f99wf_121" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
       
     <a
       is="lenke-med-sporing"
@@ -2903,7 +2903,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2932,7 +2932,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+    <li class="_menuLink_f99wf_121" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
       
     <a
       is="lenke-med-sporing"
@@ -2945,7 +2945,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -2974,7 +2974,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="f30dd799-91aa-4c50-a470-969f5087d34c">
+    <li class="_menuLink_f99wf_121" id="f30dd799-91aa-4c50-a470-969f5087d34c">
       
     <a
       is="lenke-med-sporing"
@@ -2987,7 +2987,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3016,7 +3016,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+    <li class="_menuLink_f99wf_121" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
       
     <a
       is="lenke-med-sporing"
@@ -3029,7 +3029,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3058,7 +3058,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+    <li class="_menuLink_f99wf_121" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
       
     <a
       is="lenke-med-sporing"
@@ -3071,7 +3071,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3102,7 +3102,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_t7kl7_118 _nestedLink_t7kl7_188" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
       
     <a
       is="lenke-med-sporing"
@@ -3115,7 +3115,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3148,12 +3148,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="91930e1e-d372-43fc-b2b4-696454f71a71"
-            class="_nested_t7kl7_188"
+            class="_nested_f99wf_191"
           >
             <h3>Rules and regulations</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="09581eac-105d-453f-b019-ebffe6465ffc">
+    <li class="_menuLink_f99wf_121" id="09581eac-105d-453f-b019-ebffe6465ffc">
       
     <a
       is="lenke-med-sporing"
@@ -3166,7 +3166,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3195,7 +3195,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+    <li class="_menuLink_f99wf_121" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
       
     <a
       is="lenke-med-sporing"
@@ -3208,7 +3208,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3237,7 +3237,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+    <li class="_menuLink_f99wf_121" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
       
     <a
       is="lenke-med-sporing"
@@ -3250,7 +3250,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3279,7 +3279,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+    <li class="_menuLink_f99wf_121" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
       
     <a
       is="lenke-med-sporing"
@@ -3292,7 +3292,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3321,7 +3321,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="280069da-b8f9-4871-b681-ccc339146a3a">
+    <li class="_menuLink_f99wf_121" id="280069da-b8f9-4871-b681-ccc339146a3a">
       
     <a
       is="lenke-med-sporing"
@@ -3334,7 +3334,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3363,7 +3363,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+    <li class="_menuLink_f99wf_121" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
       
     <a
       is="lenke-med-sporing"
@@ -3376,7 +3376,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3407,7 +3407,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_t7kl7_118 _nestedLink_t7kl7_188" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
       
     <a
       is="lenke-med-sporing"
@@ -3420,7 +3420,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3453,12 +3453,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8"
-            class="_nested_t7kl7_188"
+            class="_nested_f99wf_191"
           >
             <h3>Employers</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+    <li class="_menuLink_f99wf_121" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
       
     <a
       is="lenke-med-sporing"
@@ -3471,7 +3471,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3500,7 +3500,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="d4750660-17c2-43de-960f-7ad6907674fa">
+    <li class="_menuLink_f99wf_121" id="d4750660-17c2-43de-960f-7ad6907674fa">
       
     <a
       is="lenke-med-sporing"
@@ -3513,7 +3513,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3542,7 +3542,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+    <li class="_menuLink_f99wf_121" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
       
     <a
       is="lenke-med-sporing"
@@ -3555,7 +3555,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3584,7 +3584,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+    <li class="_menuLink_f99wf_121" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
       
     <a
       is="lenke-med-sporing"
@@ -3597,7 +3597,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3628,7 +3628,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_t7kl7_118 _nestedLink_t7kl7_188" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
       
     <a
       is="lenke-med-sporing"
@@ -3641,7 +3641,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3674,12 +3674,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="750d0be4-5351-48d7-99e1-b367a403ae19"
-            class="_nested_t7kl7_188"
+            class="_nested_f99wf_191"
           >
             <h3>About NAV</h3>
-            <ul class="_menuLinkList_t7kl7_118">
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="_menuLink_t7kl7_118" id="b94f13b1-3010-432d-954f-43a90ea122ce">
+    <li class="_menuLink_f99wf_121" id="b94f13b1-3010-432d-954f-43a90ea122ce">
       
     <a
       is="lenke-med-sporing"
@@ -3692,7 +3692,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3721,7 +3721,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+    <li class="_menuLink_f99wf_121" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
       
     <a
       is="lenke-med-sporing"
@@ -3734,7 +3734,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3763,7 +3763,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+    <li class="_menuLink_f99wf_121" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
       
     <a
       is="lenke-med-sporing"
@@ -3776,7 +3776,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3805,7 +3805,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="954fdb02-3d1f-404f-a042-9bf71142021f">
+    <li class="_menuLink_f99wf_121" id="954fdb02-3d1f-404f-a042-9bf71142021f">
       
     <a
       is="lenke-med-sporing"
@@ -3818,7 +3818,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3847,7 +3847,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+    <li class="_menuLink_f99wf_121" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
       
     <a
       is="lenke-med-sporing"
@@ -3860,7 +3860,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3889,7 +3889,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+    <li class="_menuLink_f99wf_121" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
       
     <a
       is="lenke-med-sporing"
@@ -3902,7 +3902,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3931,7 +3931,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+    <li class="_menuLink_f99wf_121" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
       
     <a
       is="lenke-med-sporing"
@@ -3944,7 +3944,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -3973,7 +3973,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_t7kl7_118" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+    <li class="_menuLink_f99wf_121" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
       
     <a
       is="lenke-med-sporing"
@@ -3986,7 +3986,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4017,7 +4017,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_t7kl7_118 _nestedLink_t7kl7_188" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
       
     <a
       is="lenke-med-sporing"
@@ -4030,7 +4030,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4062,7 +4062,7 @@ exports[`renders english index 1`] = `
           </li>
         
       
-    <li class="_menuLink_t7kl7_118 _mobile_t7kl7_141" id="">
+    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
       
     <a
       is="lenke-med-sporing"
@@ -4075,7 +4075,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=" _chevronlenke_1wt3v_55"
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4106,7 +4106,7 @@ exports[`renders english index 1`] = `
   
 
       <li>
-        <ul class="_menuContextLinks_t7kl7_49">
+        <ul class="_menuContextLinks_f99wf_52">
           
     <a
       class="_wrapper_wmu45_1"
@@ -4341,7 +4341,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4363,7 +4363,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4385,7 +4385,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4416,7 +4416,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4438,7 +4438,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4460,7 +4460,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4482,7 +4482,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4504,7 +4504,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4535,7 +4535,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4557,7 +4557,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4586,7 +4586,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4608,7 +4608,7 @@ exports[`renders english index 1`] = `
       data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4672,7 +4672,7 @@ exports[`renders english index 1`] = `
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}
       </script>
       <script type="application/json" id="explicit-params">
         {}
@@ -4682,7 +4682,7 @@ exports[`renders english index 1`] = `
   
       <div
         id="decorator-lens"
-        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false&redirectToUrl=https%3A%2F%2Fwww.nav.no"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
@@ -4695,7 +4695,7 @@ exports[`renders english index 1`] = `
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"
   <script type="application/json" id="__DECORATOR_DATA__">
-    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","logged_in":"Logged in","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","rolle_privatperson":"Private","rolle_arbeidsgiver":"Employer","rolle_samarbeidspartner":"Collaborator","meny_bunnlenke_minside_stikkord":"Your cases, payments, messages, report cards, activity plan, personal information and more services","meny_bunnlenke_arbeidsgiver_stikkord":"Your sick leave, recruitment, digital forms","meny_bunnlenke_samarbeidspartner_stikkord":"Health personnel, intervention organizers, counties and municipalities","loading_notifications":"Loading notifications","notifications_error":"Error loading notifications","til_forsiden":"To the frontpage","how_can_we_help":"What can we help you with?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","logged_in":"Logged in","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","rolle_privatperson":"Private","rolle_arbeidsgiver":"Employer","rolle_samarbeidspartner":"Collaborator","meny_bunnlenke_minside_stikkord":"Your cases, payments, messages, report cards, activity plan, personal information and more services","meny_bunnlenke_arbeidsgiver_stikkord":"Your sick leave, recruitment, digital forms","meny_bunnlenke_samarbeidspartner_stikkord":"Health personnel, intervention organizers, counties and municipalities","loading_notifications":"Loading notifications","notifications_error":"Error loading notifications","til_forsiden":"To the frontpage","how_can_we_help":"What can we help you with?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}}
   </script>
 
         </div>
