@@ -41,6 +41,10 @@
   outline: none;
 }
 
+.searchInputWrapper {
+  display: flex;
+}
+
 @media (--breakpoint-lg) {
   .searchButton {
     display: none;

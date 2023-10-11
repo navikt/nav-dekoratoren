@@ -562,17 +562,3 @@ a {
 .notifications-unread.active {
   display: block;
 }
-
-/*  Utils  */
-.flex {
-  display: flex;
-}
-
-.mb-4 {
-  margin-bottom: var(--a-spacing-4);
-}
-
-.my-1 {
-  margin-top: var(--a-spacing-1);
-  margin-bottom: var(--a-spacing-1);
-}

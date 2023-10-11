@@ -493,7 +493,7 @@ exports[`renders norwegian index 1`] = `
           <span class="icon-button-span"> Meny </span>
         </button>
         
-    <button class="_iconButton_1b2de_1 _searchButton_1g2nd_1">
+    <button class="_iconButton_1b2de_1 _searchButton_1q24s_1">
       
     <svg
       class="searchIcon _menuSearch_1dtu8_2"
@@ -520,13 +520,13 @@ exports[`renders norwegian index 1`] = `
   
       <span class="_iconButtonSpan_1b2de_29"> Søk </span>
     </button>
-    <div class="_sokDropdown_1g2nd_4">
-      <div class="_sokDropdownContent_1g2nd_21">
-        <label for="_searchInput_1g2nd_26" class="_bigLabel_1p9d8_1"
+    <div class="_sokDropdown_1q24s_4">
+      <div class="_sokDropdownContent_1q24s_21">
+        <label for="_searchInput_1q24s_26" class="_bigLabel_1p9d8_1"
           >Søk på nav.no</label
         >
-        <div class="flex">
-          <input class="_searchInput_1g2nd_26" type="text" />
+        <div class="_searchInputWrapper_1q24s_44">
+          <input class="_searchInput_1q24s_26" type="text" />
           
     <button
       id=""
@@ -2530,7 +2530,7 @@ exports[`renders english index 1`] = `
           <span class="icon-button-span"> Menu </span>
         </button>
         
-    <button class="_iconButton_1b2de_1 _searchButton_1g2nd_1">
+    <button class="_iconButton_1b2de_1 _searchButton_1q24s_1">
       
     <svg
       class="searchIcon _menuSearch_1dtu8_2"
@@ -2557,13 +2557,13 @@ exports[`renders english index 1`] = `
   
       <span class="_iconButtonSpan_1b2de_29"> Search </span>
     </button>
-    <div class="_sokDropdown_1g2nd_4">
-      <div class="_sokDropdownContent_1g2nd_21">
-        <label for="_searchInput_1g2nd_26" class="_bigLabel_1p9d8_1"
+    <div class="_sokDropdown_1q24s_4">
+      <div class="_sokDropdownContent_1q24s_21">
+        <label for="_searchInput_1q24s_26" class="_bigLabel_1p9d8_1"
           >Search nav.no</label
         >
-        <div class="flex">
-          <input class="_searchInput_1g2nd_26" type="text" />
+        <div class="_searchInputWrapper_1q24s_44">
+          <input class="_searchInput_1q24s_26" type="text" />
           
     <button
       id=""

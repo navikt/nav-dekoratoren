@@ -22,7 +22,7 @@ export default function Search({ texts }: { texts: Texts }) {
         <label for="${classes.searchInput}" class="${utilClasses.bigLabel}"
           >${texts.sok_knapp_sokefelt}</label
         >
-        <div class="flex">
+        <div class="${classes.searchInputWrapper}">
           <input class="${classes.searchInput}" type="text" />
           ${IconButton({
             Icon: SearchIcon,
