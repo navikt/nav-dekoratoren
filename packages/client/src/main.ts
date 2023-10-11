@@ -163,7 +163,9 @@ window.addEventListener('message', (e) => {
           return utilsContainer;
         } else {
           const newUtilsContainer = document.createElement('div');
-          document.querySelector('header.siteheader')?.after(newUtilsContainer);
+          document
+            .querySelector(`.${headerClasses.siteheader}`)
+            ?.after(newUtilsContainer);
           return newUtilsContainer;
         }
       };

@@ -45,9 +45,9 @@ export function ComplexHeader({
 }: ComplexHeaderProps) {
   return html`
     <div id="menu-background" class="${classes.menuBackground}"></div>
-    <header class="siteheader">
-      <div class="hovedmeny-wrapper ${utilsCls.contentContainer}">
-        <div class="hovedmeny-content">
+    <header class="${classes.siteheader}">
+      <div class="${classes.hovedmenyWrapper} ${utilsCls.contentContainer}">
+        <div class="${classes.hovedmenyContent}">
           ${LenkeMedSporing({
             href: '/',
             analyticsEventArgs: {
