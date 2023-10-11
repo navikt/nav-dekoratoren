@@ -1,0 +1,24 @@
+.notificationsEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.notificationsEmpty h1 {
+  margin: 0;
+  font-size: var(--a-font-size-heading-small);
+  letter-spacing: -0.001em;
+  line-height: var(--a-font-line-height-heading-small);
+  margin-top: var(--a-spacing-6);
+}
+
+.notificationsEmpty p {
+  margin: 0;
+}
+
+.notificationsEmpty a {
+  margin: var(--a-spacing-6) 0px;
+  text-decoration: underline;
+}

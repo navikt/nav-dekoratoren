@@ -516,33 +516,3 @@ a {
     display: flex;
   }
 }
-
-#notifications-empty,
-#notifications-populated {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-#notifications-empty h1 {
-  margin: 0;
-  font-size: var(--a-font-size-heading-small);
-  letter-spacing: -0.001em;
-  line-height: var(--a-font-line-height-heading-small);
-  margin-top: var(--a-spacing-6);
-}
-
-#notifications-empty p {
-  margin: 0;
-}
-
-#notifications-empty a {
-  margin: var(--a-spacing-6) 0px;
-  text-decoration: underline;
-}
-
-.notifications-icon-wrapper {
-  position: relative;
-}

@@ -20,7 +20,7 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
     <div class="${cls.loggedInMenu}">
       <div>
         <toggle-icon-button id="notifications-button">
-          <div class="notifications-icon-wrapper" slot="icon">
+          <div class="${cls.notificationsIconWrapper}" slot="icon">
             ${NotificationsIcon({ className: 'notifications-icon' })}
             <div class="${cls.notificationsUnread}"></div>
           </div>
