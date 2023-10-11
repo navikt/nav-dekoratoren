@@ -48,7 +48,7 @@ export function LenkeMedSporingBase({
       data-class-name-override="${classNameOverride}"
       data-container-class-name="${props.containerClassName}"
       data-class-name="${className}"
-      data-extra-attrs='${json(props.extraAttrs)}'
+      data-extra-attrs='${props.extraAttrs ? json(props.extraAttrs): ''}'
       ${attachContext ? html`data-attach-context="true"` : ''}
       ${defaultStyle ? html`data-default-style="true"` : ''}
     >
