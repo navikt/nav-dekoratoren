@@ -1,12 +1,12 @@
 import cls from 'decorator-client/src/styles/notifications.module.css';
-import html from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import { ArchivableNotification } from './archivable-notification';
 import { Notification } from './notification';
 
 type Notification = {
   text: string;
   date: string;
-  icon: string;
+  icon: Template;
   tags: string[];
 } & (
   | {

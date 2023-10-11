@@ -15,6 +15,7 @@ export type AnalyticsActions =
   | 'hovedmeny/forsidelenke'
   | '[redacted]'
   | 'nav.no'
+  | 'arbeidsflate-valg'
   | `${string}/${string}`
   ;
 
