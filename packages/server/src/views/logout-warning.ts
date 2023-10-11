@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import cls from './logout-warning.module.css';
+import cls from 'decorator-client/src/styles/logout-warning.module.css';
 import utilClasses from 'decorator-client/src/styles/utils.module.css';
 
 export type LogoutWarningProps = unknown;
