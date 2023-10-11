@@ -33,6 +33,19 @@
   }
 }
 
+.arbeidsflate {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-left: 40px;
+}
+
+@media (--breakpoint-lg) {
+  .arbeidsflate {
+    display: none;
+  }
+}
+
 .menu {
   display: none;
   position: absolute;

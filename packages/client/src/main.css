@@ -117,13 +117,6 @@ a {
   gap: var(--a-spacing-2);
 }
 
-#arbeidsflate {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin-left: 40px;
-}
-
 #sok-dropdown {
   position: absolute;
   top: 79px;
@@ -200,16 +193,4 @@ a {
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-2);
-}
-
-/*  Breakpoints  */
-@media (--breakpoint-lg) {
-  #arbeidsflate {
-    display: none;
-  }
-
-  /* Search button moves to mobile menu */
-  #search-button {
-    display: none;
-  }
 }

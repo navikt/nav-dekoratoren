@@ -60,7 +60,7 @@ export function ComplexHeader({
               alt="NAV"
             />`,
           })}
-          <div id="arbeidsflate">
+          <div class="${classes.arbeidsflate}">
             ${isNorwegian &&
             contextLinks?.map((link) =>
               HeaderContextLenke({
