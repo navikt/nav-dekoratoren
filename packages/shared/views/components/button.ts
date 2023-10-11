@@ -8,6 +8,8 @@ export type ButtonProps = {
   bigLabel?: boolean;
   wide?: boolean;
   className?: string;
+  id?: string;
+  data?: Record<string, string>;
 };
 
 export const Button = ({
@@ -16,8 +18,14 @@ export const Button = ({
   bigLabel,
   wide,
   className,
+  id,
+  data,
 }: ButtonProps) => html`
   <button
+    ${id ? html`id="${id}"` : ''}
+    ${data
+      ? Object.entries(data).map(([key, value]) => html`data-${key}="${value}"`)
+      : ''}
     class="${clsx(
       cls.button,
       {
