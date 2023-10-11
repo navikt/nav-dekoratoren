@@ -2,6 +2,7 @@ import html, { Template, unsafeHtml } from 'decorator-shared/html';
 import { WebcomponentTemplates } from './web-component-templates';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
+import { Button } from 'decorator-shared/views/components/button';
 
 const entryPointPath = 'src/main.ts';
 const entryPointPathAnalytics = 'src/analytics/analytics.ts';
@@ -98,9 +99,11 @@ export async function Index({
         ${WebcomponentTemplates()}
         <div id="header-withmenu">${header}</div>
         <main>
-          <button class="button button-main" id="amplitude-test">
-            Test amplitude!
-          </button>
+          ${Button({
+            text: 'Test amplitude!',
+            variant: 'primary',
+            id: 'amplitude-test',
+          })}
           <button
             onclick="(() => {
                 window.postMessage({

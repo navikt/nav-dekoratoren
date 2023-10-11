@@ -1,4 +1,5 @@
 import html from '../../html';
+import cls from './empty.module.css';
 
 export type NotificationsEmptyProps = {
   texts: {
@@ -10,7 +11,7 @@ export type NotificationsEmptyProps = {
 
 export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
   return html`
-    <div id="notifications-empty">
+    <div class="${cls.notificationsEmpty}">
       <img src="/public/kattIngenNotifications.svg" alt="" />
       <h1>${texts.notifications_empty_list}</h1>
       <p>${texts.notifications_empty_list_description}</p>

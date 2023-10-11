@@ -6,14 +6,16 @@ export function replaceElement({
   contentKey = 'innerHTML',
 }: {
   selector: string;
-  html: Template;
+  html: Template | Template[];
   contentKey?: 'innerHTML' | 'outerHTML';
 }) {
   return new Promise((resolve) => {
     const el = document.querySelector(selector);
 
     if (el) {
-      el[contentKey] = html.render();
+      el[contentKey] = Array.isArray(html)
+        ? html.map((h) => h.render()).join('')
+        : html.render();
       resolve(el);
     }
 
