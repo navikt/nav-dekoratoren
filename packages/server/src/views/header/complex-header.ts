@@ -9,7 +9,6 @@ import { Node, Texts } from 'decorator-shared/types';
 import cls from 'decorator-shared/utilities.module.css';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
-import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
 
 export type ComplexHeaderProps = {
   isNorwegian: boolean;
@@ -96,13 +95,6 @@ export function ComplexHeader({
               attachContext: true,
               children: html`${texts.til_forsiden}`,
             })}
-          </div>
-          <div id="sub-menu-content">
-            <div id="mobil-lukk">
-              ${BackChevron()}
-              <span>Tilbake til oversikt</span>
-            </div>
-            <ul></ul>
           </div>
           <div id="menu-content">
             <div id="inline-search">
