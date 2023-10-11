@@ -681,7 +681,3 @@ a {
   font-size: var(--a-font-size-medium);
   font-weight: var(--a-font-weight-bold);
 }
-
-.space-between {
-  justify-content: space-between;
-}

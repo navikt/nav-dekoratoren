@@ -62,8 +62,6 @@ export function LoggedInMenu({
             </div>
             ${HeaderMenuLinks({
               headerMenuLinks: myPageMenu,
-              className: 'space-between',
-              cols: 3,
             })}
           </div>
         </div>
