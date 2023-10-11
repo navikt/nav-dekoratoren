@@ -1,12 +1,11 @@
 import html from '../../html';
 
-export function SearchIcon({
-  className = '',
-  slot,
-}: {
+export type SearchProps = {
   className?: string;
   slot?: string;
-}) {
+};
+
+export function SearchIcon({ className = '', slot }: SearchProps) {
   return html`
     <svg
       class="${className}"
