@@ -7,7 +7,6 @@ import getContent from './get-content';
 import './views/lenke-med-sporing';
 
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
-import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
@@ -42,9 +41,16 @@ import {
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
-// CSS classes
+// CSS classe
 import headerClasses from './styles/header.module.css';
+import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
+import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
+import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
+import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
+
+import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
+import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -157,7 +163,9 @@ window.addEventListener('message', (e) => {
           return utilsContainer;
         } else {
           const newUtilsContainer = document.createElement('div');
-          document.querySelector('header.siteheader')?.after(newUtilsContainer);
+          document
+            .querySelector(`.${headerClasses.siteheader}`)
+            ?.after(newUtilsContainer);
           return newUtilsContainer;
         }
       };
@@ -249,12 +257,12 @@ function handleMenuButton() {
   menuButton?.addEventListener('click', () => {
     setAriaExpanded(menuButton);
     const menu = document.getElementById('menu');
-    menuButton?.classList.toggle('active');
-    menu?.classList.toggle('active');
-    menuBackground?.classList.toggle('active');
+    menuButton?.classList.toggle(iconButtonClasses.active);
+    menu?.classList.toggle(headerClasses.active);
+    menuBackground?.classList.toggle(headerClasses.active);
 
     if (profileButton) {
-      purgeActive(profileButton);
+      profileButton.classList.remove(iconButtonClasses.active);
     }
 
     const isMobile = window.innerWidth < breakpoints.lg;
@@ -289,7 +297,9 @@ if (window.__DECORATOR_DATA__.params.simple === false) {
         ?.classList.add('is-searching');
     },
     'is-searching': () => {
-      document.querySelector('#search-loader')?.classList.add('active');
+      document
+        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
+        ?.classList.add(complexHeaderMenuClasses.active);
     },
     'stopped-searching': () => {
       document
@@ -297,7 +307,9 @@ if (window.__DECORATOR_DATA__.params.simple === false) {
         ?.classList.remove('is-searching');
     },
     'finished-searching': () => {
-      document.querySelector('#search-loader')?.classList.remove('active');
+      document
+        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
+        ?.classList.remove(complexHeaderMenuClasses.active);
     },
   };
 
@@ -315,40 +327,33 @@ menuBackground?.addEventListener('click', () => {
   const dropdowns = document.querySelectorAll('.dropdown');
   const loggedInMenuWrapper = document.getElementById('loggedin-menu-wrapper');
 
-  if (menuBackground.classList.contains('active')) {
-    profileButton?.classList.remove('active');
-  }
-
-  [
-    menuButton,
-    menuBackground,
-    menu,
-    profileButton,
-    loggedInMenuWrapper,
-    ...dropdowns,
-  ].forEach((el) => el && purgeActive(el));
+  profileButton?.classList.remove(iconButtonClasses.active);
+  [menuButton, menuBackground, menu, loggedInMenuWrapper, ...dropdowns].forEach(
+    (el) => el && purgeActive(el),
+  );
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-  const menuItems = document.getElementById('menu-items');
+  const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
   // Store a snapshot if user logs out
 
   if (menuItems) {
     const snapshot = menuItems.outerHTML;
 
-    const myPageMenu = await getContent('myPageMenu', {});
+    const template = window.__DECORATOR_DATA__.params.simple
+      ? SimpleHeaderNavbarItems({
+          innlogget: authObject.authenticated,
+          name: authObject.name,
+          texts: window.__DECORATOR_DATA__.texts,
+        })
+      : ComplexHeaderNavbarItems({
+          innlogget: authObject.authenticated,
+          name: authObject.name,
+          myPageMenu: await getContent('myPageMenu', {}),
+          texts: window.__DECORATOR_DATA__.texts,
+        });
 
-    const newMenuItems = getHeaderNavbarItems(
-      {
-        innlogget: authObject.authenticated,
-        name: authObject.name,
-        myPageMenu,
-        texts: window.__DECORATOR_DATA__.texts,
-      },
-      window.__DECORATOR_DATA__.params.simple,
-    );
-
-    menuItems.outerHTML = newMenuItems.render();
+    menuItems.outerHTML = template.render();
 
     initLoggedInMenu();
     handleMenuButton();
@@ -373,10 +378,10 @@ api.checkAuth({
       },
     );
     if (notificationsResponse.status === 200) {
-      const notificationsUlest = document.querySelector(
-        '.notifications-unread',
+      const notificationsUnread = document.querySelector(
+        `.${loggedInMenuClasses.notificationsUnread}`,
       );
-      notificationsUlest?.classList.add('active');
+      notificationsUnread?.classList.add(loggedInMenuClasses.active);
     }
 
     const notificationsMenuContent = document.querySelector(

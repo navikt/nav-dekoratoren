@@ -1,4 +1,8 @@
 .iconButton {
+  background: none;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
   display: flex;
   gap: 0.5rem;
   color: rgba(0, 103, 197, 1);
@@ -31,6 +35,15 @@
   white-space: nowrap;
 }
 
-.iconButton:global(.active) :global(.chevron) {
+.iconButton.active .chevron {
   transform: rotate(180deg);
+}
+
+@media (--breakpoint-lg) {
+  .iconButton {
+    flex-direction: column;
+    min-width: none;
+    gap: 0px;
+    align-items: center;
+  }
 }

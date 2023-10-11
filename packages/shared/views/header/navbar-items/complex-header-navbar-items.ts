@@ -1,4 +1,3 @@
-// Should probably have a better name. Here i'm reffering to the buttons on the right
 import { IconButton } from '../../components/icon-button';
 import { BurgerIcon } from '../../icons/burger';
 import Search from '../../search';
@@ -7,29 +6,29 @@ import { Node } from '../../../types';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import { LoggedInMenu } from './logged-in-menu';
+import cls from './menu-items.module.css';
 
-// Header menu items
+export type ComplexHeaderNavbarItemsProps = {
+  innlogget: boolean;
+  name?: string;
+  texts: Texts;
+  myPageMenu: Node[];
+};
+
 export function ComplexHeaderNavbarItems({
   innlogget,
   name,
   texts,
   myPageMenu,
-}: {
-  innlogget: boolean;
-  name?: string;
-  texts: Texts;
-  myPageMenu: Node[];
-}) {
-  // @TODO: More granular rendering to avoid reattaching event listeners
+}: ComplexHeaderNavbarItemsProps) {
   return html`
-    <div id="menu-items" class="${innlogget && 'loggedin'}">
-      <div id="menu-items-universal-links">
-        <button id="menu-button" class="icon-button">
-          ${BurgerIcon({
-            className: 'menuBurger',
-          })}
-          <span class="icon-button-span"> ${texts.menu} </span>
-        </button>
+    <div class="${cls.menuItems}">
+      <div class="${cls.menuItemsUniversalLinks}">
+        ${IconButton({
+          id: 'menu-button',
+          Icon: BurgerIcon(),
+          text: texts.menu,
+        })}
         ${Search({ texts })}
       </div>
       ${innlogget
@@ -38,14 +37,11 @@ export function ComplexHeaderNavbarItems({
             myPageMenu,
             texts,
           })
-        : html`
-            ${IconButton({
-              id: 'login-button',
-              Icon: LoginIcon,
-              text: texts.login,
-            })}
-          `}
+        : IconButton({
+            id: 'login-button',
+            Icon: LoginIcon({}),
+            text: texts.login,
+          })}
     </div>
   `;
 }
-// class="group-[.loggedin]:order-2 flex"
