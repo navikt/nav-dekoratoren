@@ -2,6 +2,8 @@ import html from 'decorator-shared/html';
 
 import utilClasses from 'decorator-client/src/styles/utils.module.css';
 
+export type LogoutWarningProps = unknown;
+
 export function LogoutWarning() {
   return html`<dialog class="modal" id="logout-warning">
     <div class="modal-window">
