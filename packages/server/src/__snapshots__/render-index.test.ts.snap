@@ -1565,9 +1565,15 @@ exports[`renders norwegian index 1`] = `
     
   </div>
         <main>
-          <button class="button button-main" id="amplitude-test">
-            Test amplitude!
-          </button>
+          
+  <button
+    id="amplitude-test"
+    
+    class="_button_1imqv_1 _primary_1imqv_14"
+  >
+    Test amplitude!
+  </button>
+
           <button
             onclick="(() => {
                 window.postMessage({
@@ -4262,9 +4268,15 @@ exports[`renders english index 1`] = `
     
   </div>
         <main>
-          <button class="button button-main" id="amplitude-test">
-            Test amplitude!
-          </button>
+          
+  <button
+    id="amplitude-test"
+    
+    class="_button_1imqv_1 _primary_1imqv_14"
+  >
+    Test amplitude!
+  </button>
+
           <button
             onclick="(() => {
                 window.postMessage({
