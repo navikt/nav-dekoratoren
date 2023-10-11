@@ -55,3 +55,9 @@
   color: white;
   border-left: none;
 }
+
+.searchHitList {
+  list-style: none;
+  margin-block: 0;
+  padding-left: 0;
+}

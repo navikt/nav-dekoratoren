@@ -29,7 +29,7 @@ export function ComplexFooter({ texts, links }: ComplexFooterProps) {
                   html`<h2 class="${classes.footerLinkHeading}">
                     ${heading}
                   </h2>`}
-                  <ul>
+                  <ul class="${classes.footerInnerLinkList}">
                     ${children.map(
                       (link) => html`
                         <li>

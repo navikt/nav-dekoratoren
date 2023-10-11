@@ -88,7 +88,7 @@ export function HeaderMenuLinks({
             class="${link.flatten ? classes.flatten : classes.nested}"
           >
             <h3>${link.displayName}</h3>
-            <ul>
+            <ul class="${classes.menuLinkList}">
               ${link.children.map((child) =>
                 Link({
                   ...child,

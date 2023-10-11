@@ -31,7 +31,7 @@ export default function Search({ texts }: { texts: Texts }) {
         </div>
       </div>
       <div id="search-hits">
-        <ul></ul>
+        <ul class="${classes.searchHitList}"></ul>
         <div id="show-more"></div>
       </div>
     </div>

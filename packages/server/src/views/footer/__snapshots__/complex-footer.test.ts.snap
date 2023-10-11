@@ -2,9 +2,9 @@
 
 exports[`renders complex footer 1`] = `
 "
-    <footer class="_footer_1xvrq_1" data-theme="dark">
-      <div class="_footerContent_1xvrq_38 _contentContainer_1av57_1">
-        <a class="_toTopLink_1xvrq_44" href="#">
+    <footer class="_footer_1vx5s_1" data-theme="dark">
+      <div class="_footerContent_1vx5s_38 _contentContainer_1av57_1">
+        <a class="_toTopLink_1vx5s_44" href="#">
           
     <svg
       width="1em"
@@ -25,14 +25,14 @@ exports[`renders complex footer 1`] = `
    Til toppen
         </a>
 
-        <div class="_footerLinks_1xvrq_53">
-          <ul class="_footerLinkList_1xvrq_1">
+        <div class="_footerLinks_1vx5s_53">
+          <ul class="_footerLinkList_1vx5s_1">
             
-                <li class="_footerLinkGroup_1xvrq_63">
-                  <h2 class="_footerLinkHeading_1xvrq_67">
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
                     Kontakt
                   </h2>
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
                         <li>
                           
@@ -44,7 +44,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -66,7 +66,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -88,7 +88,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -110,7 +110,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -125,11 +125,11 @@ exports[`renders complex footer 1`] = `
                   </ul>
                 </li>
               
-                <li class="_footerLinkGroup_1xvrq_63">
-                  <h2 class="_footerLinkHeading_1xvrq_67">
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
                     Nyheter og presse
                   </h2>
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
                         <li>
                           
@@ -141,7 +141,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -156,11 +156,11 @@ exports[`renders complex footer 1`] = `
                   </ul>
                 </li>
               
-                <li class="_footerLinkGroup_1xvrq_63">
-                  <h2 class="_footerLinkHeading_1xvrq_67">
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
                     NAV og samfunn
                   </h2>
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
                         <li>
                           
@@ -172,7 +172,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -194,7 +194,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -216,7 +216,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -231,11 +231,11 @@ exports[`renders complex footer 1`] = `
                   </ul>
                 </li>
               
-                <li class="_footerLinkGroup_1xvrq_63">
-                  <h2 class="_footerLinkHeading_1xvrq_67">
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
                     Andre språk
                   </h2>
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
                         <li>
                           
@@ -247,7 +247,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -269,7 +269,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -284,9 +284,9 @@ exports[`renders complex footer 1`] = `
                   </ul>
                 </li>
               
-                <li class="_footerLinkGroup_1xvrq_63">
+                <li class="_footerLinkGroup_1vx5s_71">
                   
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
                         <li>
                           
@@ -298,7 +298,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -320,7 +320,7 @@ exports[`renders complex footer 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
-      data-class-name-override="_footerLink_1xvrq_1"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
       data-extra-attrs='undefined'
@@ -335,7 +335,7 @@ exports[`renders complex footer 1`] = `
                   </ul>
                 </li>
               
-            <li><button type="button" class="_screenshareButton_1ggeo_1">
+            <li><button type="button" class="_screenshareButton_tarl4_1">
     Del skjerm med veileder
     <svg
       width="1em"
@@ -357,7 +357,7 @@ exports[`renders complex footer 1`] = `
           </ul>
         </div>
 
-        <div class="_complexFooterOrg_1xvrq_27">
+        <div class="_complexFooterOrg_1vx5s_27">
           <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>

@@ -10,48 +10,13 @@ html {
   box-sizing: inherit;
 }
 
-html,
 body {
-  height: auto;
-}
-
-:root {
-  --primary-font: 'Source Sans 3';
-}
-
-/* workaround for aksel */
-
-/* Resets */
-button {
-  border: none;
-  background: none;
-  padding: 0;
   margin: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
 }
 
-a {
-  text-decoration: none;
-}
-
-body {
+#header-withmenu,
+#footer-withmenu {
   font-family: 'Source Sans 3', sans-serif;
   line-height: 1.333;
   font-size: 1.125rem;
-  margin: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  background-color: var(--a-bg-subtle);
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: inherit;
 }
