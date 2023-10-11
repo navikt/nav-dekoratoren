@@ -18,21 +18,18 @@ export function addSearchInputListener() {
             console.log(hits);
             replaceElement({
               selector: '#search-hits > ul',
-              html: hits
-                .map(
-                  (hit: {
-                    displayName: string;
-                    highlight: string;
-                    href: string;
-                  }) =>
-                    html`
-                      <search-hit href="${hit.href}">
-                        <h2 slot="title">${hit.displayName}</h2>
-                        <p slot="description">${hit.highlight}</p>
-                      </search-hit>
-                    `.render(),
-                )
-                .join(''),
+              html: hits.map(
+                (hit: {
+                  displayName: string;
+                  highlight: string;
+                  href: string;
+                }) => html`
+                  <search-hit href="${hit.href}">
+                    <h2 slot="title">${hit.displayName}</h2>
+                    <p slot="description">${hit.highlight}</p>
+                  </search-hit>
+                `,
+              ),
             });
 
             replaceElement({
