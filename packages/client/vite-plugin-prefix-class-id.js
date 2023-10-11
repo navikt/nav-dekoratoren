@@ -1,7 +1,6 @@
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import generate from '@babel/generator';
-console.log(traverse);
 
 const prefixClassAndId = (code) => {
   const ast = parse(code, { sourceType: 'module', plugins: ['jsx'] });

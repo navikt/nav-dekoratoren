@@ -2,6 +2,7 @@ import classes from '../styles/lenke-med-sporing.module.css';
 
 import type { AnalyticsEventArgs } from '../analytics/constants';
 import clsx from 'clsx';
+import { tryParse } from 'decorator-shared/json';
 
 export class LenkeMedSporingElement extends HTMLAnchorElement {
   constructor() {
@@ -27,14 +28,11 @@ export class LenkeMedSporingElement extends HTMLAnchorElement {
     this.className = containerClassName;
 
     const rawEventArgs = this.getAttribute('data-analytics-event-args');
-    const eventArgs = rawEventArgs
-      ? (JSON.parse(rawEventArgs) as AnalyticsEventArgs)
-      : null;
+    const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
 
     const extraAttrsVal = this.getAttribute('data-extra-attrs');
-    const extraAttrs = extraAttrsVal
-      ? (JSON.parse(extraAttrsVal) as [string, string][])
-      : [];
+
+    const extraAttrs = tryParse<[string, string][], []>(extraAttrsVal, []);
 
     for (const [key, value] of extraAttrs) {
       this.setAttribute(key, value);
