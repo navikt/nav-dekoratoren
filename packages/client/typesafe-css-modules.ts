@@ -1,17 +1,23 @@
 import postcss from 'postcss';
+import postcssModules from 'postcss-modules';
 import fs from 'fs';
 import path from 'path';
+import ts from 'typescript';
+import { HmrContext } from 'vite';
+//
+// Directoryes to write file to
+const targets = ['./', '../server/', '../shared/'];
 
-const FILE_NAME = 'packages/client/css-modules.d.ts';
-import * as ts from 'typescript';
+const FILE_NAME = './css-modules.d.ts';
 
-async function process(path: string) {
+async function processFile(path: string) {
+  const file = fs.readFileSync(path, 'utf-8');
   const val = await postcss([
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('postcss-modules')({
+    postcssModules({
       getJSON: () => {},
     }),
-  ]).process(await Bun.file(path).text(), { from: path });
+  ]).process(file.toString(), { from: path });
 
   const tokens = val.messages.find(
     ({ type, plugin }) => type === 'export' && plugin === 'postcss-modules',
@@ -23,16 +29,10 @@ async function process(path: string) {
   };
 }
 
-const root = path.resolve(__dirname, './src/styles');
-const paths = fs
-  .readdirSync(root)
-  .filter((path) => path.endsWith('.module.css'));
+type ProcessedFile = Awaited<ReturnType<typeof processFile>>;
 
-const modules: ts.ModuleDeclaration[] = [];
-
-for (const filePath of paths) {
-  const result = await process(path.resolve(root, filePath));
-  const tokenProperties = Object.keys(result.tokens).map((token) =>
+function createTSModule(file: ProcessedFile) {
+  const tokenProperties = Object.keys(file.tokens).map((token) =>
     ts.factory.createPropertySignature(
       undefined,
       token,
@@ -63,18 +63,58 @@ for (const filePath of paths) {
 
   const tsModule = ts.factory.createModuleDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.DeclareKeyword)],
-    ts.factory.createStringLiteral(`*${result.path}`),
+    ts.factory.createStringLiteral(`*${file.path}`),
     ts.factory.createModuleBlock([classesDeclaration, exportClassesStatement]),
   );
 
-  modules.push(tsModule);
+  return tsModule;
 }
 
-const printer = ts.createPrinter();
-const sourceFile = ts.createSourceFile(FILE_NAME, '', ts.ScriptTarget.ES2015);
+function createOutput(modules: ts.ModuleDeclaration[]) {
+  const printer = ts.createPrinter();
+  const sourceFile = ts.createSourceFile(FILE_NAME, '', ts.ScriptTarget.ES2015);
 
-const output = modules
-  .map((mod) => printer.printNode(ts.EmitHint.Unspecified, mod, sourceFile))
-  .join('\n\n');
+  const output = modules
+    .map((mod) => printer.printNode(ts.EmitHint.Unspecified, mod, sourceFile))
+    .join('\n\n');
 
-Bun.write(FILE_NAME, output);
+  return output;
+}
+
+export async function processAll() {
+  const root = path.resolve(__dirname, './src/styles');
+  const paths = fs
+    .readdirSync(root)
+    .filter((path) => path.endsWith('.module.css'))
+    .map((p) => path.resolve(`${root}/${p}`));
+
+  const processedFiles = await Promise.all(
+    paths.map(async (f) => await processFile(f)),
+  );
+  const modules: ts.ModuleDeclaration[] = processedFiles.map(createTSModule); //;
+  const output = createOutput(modules);
+
+  for (const target of targets) {
+    fs.writeFileSync(path.resolve(target, FILE_NAME), output);
+  }
+}
+
+// @NOTE: Can be made more efficient by only processing the file that changed and checking the source file. Perf gains not worth it for now.
+export const typedCssModulesPlugin = () => {
+  // let config: ResolvedConfig
+
+  return {
+    name: 'typed-css-modules',
+    configResolved() {
+      //resolvedConfig: ResolvedConfig
+      // config = resolvedConfig
+      processAll();
+    },
+    handleHotUpdate(context: HmrContext) {
+      const { file } = context;
+      if (file.includes('module.css')) {
+        processAll();
+      }
+    },
+  };
+};
