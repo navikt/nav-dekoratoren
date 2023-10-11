@@ -65,7 +65,7 @@ export function ComplexHeader({
             contextLinks?.map((link) =>
               HeaderContextLenke({
                 link: link,
-                text: texts[link.lenkeTekstId],
+                text: html`${texts[link.lenkeTekstId]}`,
                 classNameOverride: clsx([
                   classes.headerContextLink,
                   {
@@ -81,7 +81,7 @@ export function ComplexHeader({
         ${ComplexHeaderNavbarItems({
           innlogget,
           texts,
-          myPageMenu,
+          myPageMenu: myPageMenu as Node[],
         })}
         <div id="menu" class="${utilsCls.contentContainer} ${classes.menu}">
           ${ComplexHeaderMenu({ headerMenuLinks, texts })}

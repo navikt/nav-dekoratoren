@@ -20,7 +20,8 @@ function Link({
   displayName?: string;
   analyticsEventArgs?: AnalyticsEventArgs;
   id?: string;
-  className?: clsx.ClassValue;
+  // fix this
+  className?: any;
 }) {
   return html`
     <li class="${clsx([classes.menuLink, className])}" id="${id}">
@@ -46,7 +47,8 @@ function ContextLink({
   context: Context;
   displayName?: string;
   id?: string;
-  className?: clsx.ClassValue;
+  // fix this
+  className?: any;
 }) {
   return html`
     <a

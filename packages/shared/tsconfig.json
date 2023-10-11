@@ -10,6 +10,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
-    "types": ["bun-types"]
+    "types": []
   }
 }

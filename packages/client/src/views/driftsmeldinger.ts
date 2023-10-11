@@ -5,6 +5,7 @@ import { WarningIcon } from 'decorator-shared/views/icons/warning';
 import cls from '../styles/driftsmeldinger.module.css';
 import headerClasses from '../styles/header.module.css';
 
+
 export type DriftsmeldingerProps = {
   driftsmeldinger: Driftsmelding[];
 };

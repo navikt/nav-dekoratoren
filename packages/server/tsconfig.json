@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "bundler",
@@ -8,6 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
     "types": ["bun-types", "decorator-shared/module.d.ts"]
-  }
+  },
+    "exclude": ["**/*.stories.ts"]
 }

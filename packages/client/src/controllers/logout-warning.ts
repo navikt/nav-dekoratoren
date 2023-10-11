@@ -15,7 +15,7 @@ export async function logoutWarningController(
     return;
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let timeoutHandler: number;
+  let timeoutHandler: NodeJS.Timeout;
   let auth: AuthData;
   let silenceWarning: boolean = false;
 
