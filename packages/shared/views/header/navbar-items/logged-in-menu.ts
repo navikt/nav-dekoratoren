@@ -7,24 +7,18 @@ import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
 import { DropdownButton } from '../../components/dropdown-button';
 import { LoadingNotifications } from '../../notifications/loading';
+import cls from './logged-in-menu.module.css';
 
-// ${IconButton({
-//   id: 'profile-button',
-//   Icon: ProfileIcon,
-//   text: name,
-// })}
-export function LoggedInMenu({
-  name,
-  myPageMenu,
-  texts,
-}: {
+export type LoggedInMenuProps = {
   name: string;
   myPageMenu: Node[];
   texts: Texts;
-}) {
+};
+
+export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
   return html`
-    <div id="logged-in-menu">
-      <div class="notifications-button-wrapper">
+    <div class="${cls.loggedInMenu}">
+      <div>
         <toggle-icon-button id="notifications-button">
           <div class="notifications-icon-wrapper" slot="icon">
             ${NotificationsIcon({ className: 'notifications-icon' })}
@@ -46,19 +40,25 @@ export function LoggedInMenu({
         text: 'Logg ut',
       })}
 
-      <div id="loggedin-menu-wrapper">
-        <div id="loggedin-menu-content">
-          <div id="notifications-menu-content" class="dropdown">
+      <div id="loggedin-menu-wrapper" class="${cls.loggedinMenuWrapper}">
+        <div class="${cls.loggedinMenuContent}">
+          <div
+            id="notifications-menu-content"
+            class="${cls.dropdown} ${cls.notificationsMenuContent}"
+          >
             <!-- Placeholder for now -->
             ${LoadingNotifications({
               texts,
             })}
             <!-- Loaded on client -->
           </div>
-          <div id="my-page-menu-content" class="dropdown">
-            <div class="mb-4">
-              <h2 class="text-medium-semibold">Min side</h2>
-              <a class="link" href="#">Til Min side</a>
+          <div
+            id="my-page-menu-content"
+            class="${cls.dropdown} ${cls.myPageMenuContent}"
+          >
+            <div>
+              <h2 class="${cls.myPageMenuHeading}">Min side</h2>
+              <a class="${cls.link}" href="#">Til Min side</a>
             </div>
             ${HeaderMenuLinks({
               headerMenuLinks: myPageMenu,
@@ -70,9 +70,11 @@ export function LoggedInMenu({
   `;
 }
 
-export function SimpleLoggedInMenu({ name }: { name: string }) {
+export type SimpleLoggedInMenuProps = { name: string };
+
+export function SimpleLoggedInMenu({ name }: SimpleLoggedInMenuProps) {
   return html`
-    <div id="simple-logged-in-menu">
+    <div class="${cls.simpleLoggedInMenu}">
       <p><b>Logget inn:</b> ${name}</p>
       ${IconButton({
         id: 'logout-button',
