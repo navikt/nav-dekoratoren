@@ -1,0 +1,4 @@
+.showMore a {
+  text-decoration: underline;
+  color: var(--a-surface-action);
+}

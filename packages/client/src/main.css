@@ -81,8 +81,3 @@ a {
   line-height: 1.75rem /* 28px */;
   font-weight: 600;
 }
-
-.show-more a {
-  text-decoration: underline;
-  color: var(--a-surface-action);
-}
