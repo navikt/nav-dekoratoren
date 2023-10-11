@@ -483,15 +483,12 @@ exports[`renders norwegian index 1`] = `
     stroke-width="2"
     aria-hidden="true"
     focusable="false"
-    aria-labelledby="menuBurger_:R2kti:"
     role="img"
-    class="menuBurger"
-    slot=""
+    class="_menuBurger_j7vrk_2"
   >
-    <title id="menuBurger_:R2kti:">Meny-ikon</title>
-    <path class="menuBurger__line-1" d="M2 4h20"></path>
-    <path class="menuBurger__line-2" d="M2 12h20"></path>
-    <path class="menuBurger__line-3" d="M2 20h20"></path>
+    <path class="_menuBurger__line_1_j7vrk_13" d="M2 4h20"></path>
+    <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
+    <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
           <span class="icon-button-span"> Meny </span>
         </button>
@@ -2523,15 +2520,12 @@ exports[`renders english index 1`] = `
     stroke-width="2"
     aria-hidden="true"
     focusable="false"
-    aria-labelledby="menuBurger_:R2kti:"
     role="img"
-    class="menuBurger"
-    slot=""
+    class="_menuBurger_j7vrk_2"
   >
-    <title id="menuBurger_:R2kti:">Meny-ikon</title>
-    <path class="menuBurger__line-1" d="M2 4h20"></path>
-    <path class="menuBurger__line-2" d="M2 12h20"></path>
-    <path class="menuBurger__line-3" d="M2 20h20"></path>
+    <path class="_menuBurger__line_1_j7vrk_13" d="M2 4h20"></path>
+    <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
+    <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
           <span class="icon-button-span"> Menu </span>
         </button>

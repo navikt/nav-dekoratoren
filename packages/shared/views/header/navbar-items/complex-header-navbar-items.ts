@@ -25,9 +25,7 @@ export function ComplexHeaderNavbarItems({
     <div id="menu-items" class="${innlogget && 'loggedin'}">
       <div id="menu-items-universal-links">
         <button id="menu-button" class="icon-button">
-          ${BurgerIcon({
-            className: 'menuBurger',
-          })}
+          ${BurgerIcon()}
           <span class="icon-button-span"> ${texts.menu} </span>
         </button>
         ${Search({ texts })}

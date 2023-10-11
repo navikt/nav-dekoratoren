@@ -1,15 +1,8 @@
 import html from 'decorator-shared/html';
+import cls from './burger.module.css';
 
-// @TODO: Should probably create a generic type for the className
-
-export function BurgerIcon({
-  className,
-  slot,
-}: {
-  className?: string;
-  slot?: string;
-}) {
-  return html`<svg
+export const BurgerIcon = () =>
+  html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -19,14 +12,10 @@ export function BurgerIcon({
     stroke-width="2"
     aria-hidden="true"
     focusable="false"
-    aria-labelledby="menuBurger_:R2kti:"
     role="img"
-    class="${className}"
-    slot="${slot}"
+    class="${cls.menuBurger}"
   >
-    <title id="menuBurger_:R2kti:">Meny-ikon</title>
-    <path class="menuBurger__line-1" d="M2 4h20"></path>
-    <path class="menuBurger__line-2" d="M2 12h20"></path>
-    <path class="menuBurger__line-3" d="M2 20h20"></path>
+    <path class="${cls.menuBurger__line_1}" d="M2 4h20"></path>
+    <path class="${cls.menuBurger__line_2}" d="M2 12h20"></path>
+    <path class="${cls.menuBurger__line_3}" d="M2 20h20"></path>
   </svg>`;
-}
