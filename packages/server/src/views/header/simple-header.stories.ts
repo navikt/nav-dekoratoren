@@ -18,7 +18,6 @@ export const Default: Story = {
     breadcrumbs: [],
     utilsBackground: 'transparent',
     innlogget: false,
-    activeContext: 'privatperson',
     texts: texts['nb'],
   },
 };

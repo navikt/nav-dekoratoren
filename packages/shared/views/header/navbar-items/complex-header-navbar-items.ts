@@ -1,4 +1,3 @@
-// Should probably have a better name. Here i'm reffering to the buttons on the right
 import { IconButton } from '../../components/icon-button';
 import { BurgerIcon } from '../../icons/burger';
 import Search from '../../search';
@@ -7,26 +6,27 @@ import { Node } from '../../../types';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import { LoggedInMenu } from './logged-in-menu';
+import cls from './menu-items.module.css';
 
-// Header menu items
+export type ComplexHeaderNavbarItemsProps = {
+  innlogget: boolean;
+  name?: string;
+  texts: Texts;
+  myPageMenu: Node[];
+};
+
 export function ComplexHeaderNavbarItems({
   innlogget,
   name,
   texts,
   myPageMenu,
-}: {
-  innlogget: boolean;
-  name?: string;
-  texts: Texts;
-  myPageMenu: Node[];
-}) {
-  // @TODO: More granular rendering to avoid reattaching event listeners
+}: ComplexHeaderNavbarItemsProps) {
   return html`
-    <div id="menu-items" class="${innlogget && 'loggedin'}">
-      <div id="menu-items-universal-links">
+    <div class="${cls.menuItems}">
+      <div class="${cls.menuItemsUniversalLinks}">
         <button id="menu-button" class="icon-button">
           ${BurgerIcon()}
-          <span class="icon-button-span"> ${texts.menu} </span>
+          <span class="icon-button-span">${texts.menu}</span>
         </button>
         ${Search({ texts })}
       </div>
@@ -36,14 +36,11 @@ export function ComplexHeaderNavbarItems({
             myPageMenu,
             texts,
           })
-        : html`
-            ${IconButton({
-              id: 'login-button',
-              Icon: LoginIcon,
-              text: texts.login,
-            })}
-          `}
+        : IconButton({
+            id: 'login-button',
+            Icon: LoginIcon,
+            text: texts.login,
+          })}
     </div>
   `;
 }
-// class="group-[.loggedin]:order-2 flex"

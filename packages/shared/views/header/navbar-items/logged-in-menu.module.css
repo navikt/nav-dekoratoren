@@ -29,7 +29,6 @@
 .loggedInMenu {
   background-color: rgba(230, 240, 255, 1);
   height: 100%;
-  order: 2;
   display: flex;
   align-items: center;
   padding: 0 var(--a-spacing-2);

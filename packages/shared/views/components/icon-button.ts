@@ -1,4 +1,4 @@
-import html from '../../html';
+import html, { Template } from '../../html';
 
 export function IconButton({
   Icon,
@@ -7,7 +7,7 @@ export function IconButton({
   text,
   className,
 }: {
-  Icon: ({ className }: { className: string }) => string;
+  Icon: ({ className }: { className: string }) => Template;
   id?: string;
   onclick?: (e: Element) => void;
   text: string;

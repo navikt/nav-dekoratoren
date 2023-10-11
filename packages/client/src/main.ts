@@ -7,7 +7,6 @@ import getContent from './get-content';
 import './views/lenke-med-sporing';
 
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
-import { getHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items';
 import * as api from './api';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
@@ -44,9 +43,13 @@ import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
 // CSS classe
 import headerClasses from './styles/header.module.css';
+import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
 import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
+
+import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
+import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -336,25 +339,26 @@ menuBackground?.addEventListener('click', () => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-  const menuItems = document.getElementById('menu-items');
+  const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
   // Store a snapshot if user logs out
 
   if (menuItems) {
     const snapshot = menuItems.outerHTML;
 
-    const myPageMenu = await getContent('myPageMenu', {});
+    const template = window.__DECORATOR_DATA__.params.simple
+      ? SimpleHeaderNavbarItems({
+          innlogget: authObject.authenticated,
+          name: authObject.name,
+          texts: window.__DECORATOR_DATA__.texts,
+        })
+      : ComplexHeaderNavbarItems({
+          innlogget: authObject.authenticated,
+          name: authObject.name,
+          myPageMenu: await getContent('myPageMenu', {}),
+          texts: window.__DECORATOR_DATA__.texts,
+        });
 
-    const newMenuItems = getHeaderNavbarItems(
-      {
-        innlogget: authObject.authenticated,
-        name: authObject.name,
-        myPageMenu,
-        texts: window.__DECORATOR_DATA__.texts,
-      },
-      window.__DECORATOR_DATA__.params.simple,
-    );
-
-    menuItems.outerHTML = newMenuItems.render();
+    menuItems.outerHTML = template.render();
 
     initLoggedInMenu();
     handleMenuButton();

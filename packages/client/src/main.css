@@ -140,26 +140,6 @@ a {
   letter-spacing: -0.048px;
 }
 
-#menu-items {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#menu-items-universal-links {
-  order: 1;
-  display: flex;
-}
-
-#menu-items:has(.loggedin) #menu-items-universal-links {
-  order: 2;
-}
-
-#login-button {
-  order: 2;
-}
-
 #menu-background {
   position: fixed;
   top: 0;

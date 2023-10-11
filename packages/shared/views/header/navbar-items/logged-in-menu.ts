@@ -1,13 +1,13 @@
 import { Node, Texts } from '../../../types';
 import html from 'decorator-shared/html';
 import { IconButton } from '../../components/icon-button';
-import { LoginIcon } from '../../icons/login';
 import { NotificationsIcon } from 'decorator-shared/views/icons/notifications';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
 import { DropdownButton } from '../../components/dropdown-button';
 import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
+import { LogoutIcon } from '../../icons/logout';
 
 export type LoggedInMenuProps = {
   name: string;
@@ -36,8 +36,8 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
       })}
       ${IconButton({
         id: 'logout-button',
-        Icon: LoginIcon,
-        text: 'Logg ut',
+        Icon: LogoutIcon,
+        text: texts.logout,
       })}
 
       <div id="loggedin-menu-wrapper" class="${cls.loggedinMenuWrapper}">
@@ -46,11 +46,9 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
             id="notifications-menu-content"
             class="${cls.dropdown} ${cls.notificationsMenuContent}"
           >
-            <!-- Placeholder for now -->
             ${LoadingNotifications({
               texts,
             })}
-            <!-- Loaded on client -->
           </div>
           <div
             id="my-page-menu-content"
@@ -66,21 +64,6 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
           </div>
         </div>
       </div>
-    </div>
-  `;
-}
-
-export type SimpleLoggedInMenuProps = { name: string };
-
-export function SimpleLoggedInMenu({ name }: SimpleLoggedInMenuProps) {
-  return html`
-    <div class="${cls.simpleLoggedInMenu}">
-      <p><b>Logget inn:</b> ${name}</p>
-      ${IconButton({
-        id: 'logout-button',
-        Icon: LoginIcon,
-        text: 'Logg ut',
-      })}
     </div>
   `;
 }
