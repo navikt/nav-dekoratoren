@@ -55,29 +55,3 @@ ul {
 a {
   color: inherit;
 }
-
-#search-hits ul {
-  margin-top: var(--a-spacing-4);
-}
-
-#search-hits #show-more {
-  margin-top: var(--a-spacing-4);
-}
-
-.search-hit {
-  padding-top: 1rem /* 16px */;
-  padding-bottom: 1rem /* 16px */;
-  padding-left: 0.5rem /* 8px */;
-  padding-right: 1rem /* 16px */;
-  border-bottom: 1px solid rgba(207, 207, 207, 1);
-}
-
-.search-hit:hover {
-  background-color: rgba(207, 207, 207, 1);
-}
-
-.search-hit h2 {
-  font-size: 1.25rem /* 20px */;
-  line-height: 1.75rem /* 28px */;
-  font-weight: 600;
-}
