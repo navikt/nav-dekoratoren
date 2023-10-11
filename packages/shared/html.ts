@@ -101,6 +101,6 @@ const renderValue = (item: TemplateStringValues): string =>
     ? ''
     : typeof item === 'string'
     ? escapeHtml(item)
-    : typeof item === 'object' && 'render' in item
+    : item && typeof item === 'object' && 'render' in item
     ? item.render()
     : '';

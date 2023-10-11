@@ -233,7 +233,7 @@ async function setActiveContext(context: Context | null) {
       selector: '#header-menu-links',
       html: HeaderMenuLinks({
         headerMenuLinks,
-        cols: headerMenuLinks.length as HeaderMenuLinkCols,
+        className: `cols-${headerMenuLinks.length}`
       }),
     });
   } else {
@@ -329,7 +329,7 @@ menuBackground?.addEventListener('click', () => {
 
   profileButton?.classList.remove(iconButtonClasses.active);
   [menuButton, menuBackground, menu, loggedInMenuWrapper, ...dropdowns].forEach(
-    (el) => el && purgeActive(el),
+    (el) => el && purgeActive(el as HTMLElement),
   );
 });
 
@@ -359,7 +359,11 @@ async function populateLoggedInMenu(authObject: Auth) {
     handleMenuButton();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
-      document.getElementById('menu-items').outerHTML = snapshot;
+      const menuitems = document.getElementById('menu-items');
+      if (menuitems) {
+        menuitems.outerHTML = snapshot;
+      }
+
       window.location.href = `${import.meta.env.VITE_LOGOUT_URL}`;
     });
   }

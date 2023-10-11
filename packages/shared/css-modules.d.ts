@@ -9,22 +9,31 @@ declare module '*archivable-notification.module.css' {
   export default classes;
 }
 
-declare module '*buttons.module.css' {
-  const classes: {
-    iconButton: string;
-    iconButtonSpan: string;
-  };
-  export default classes;
-}
-
 declare module '*complex-footer.module.css' {
   const classes: {
-    complexFooter: string;
-    simpleFooterContent: string;
     footerLinkList: string;
     simpleFooter: string;
     screenshareButton: string;
     footerLink: string;
+    complexFooterOrg: string;
+    footer: string;
+    footerContent: string;
+    toTopLink: string;
+    footerLinks: string;
+    footerInnerLinkList: string;
+    footerLinkGroup: string;
+    footerLinkHeading: string;
+  };
+  export default classes;
+}
+
+declare module '*complex-header-menu.module.css' {
+  const classes: {
+    menuTop: string;
+    menuContent: string;
+    inlineSearch: string;
+    searchLoader: string;
+    active: string;
   };
   export default classes;
 }
@@ -35,6 +44,14 @@ declare module '*context-menu-link.module.css' {
     contextMenuLink: string;
     chevron: string;
     inner: string;
+  };
+  export default classes;
+}
+
+declare module '*decorator-lens.module.css' {
+  const classes: {
+    decoratorLens: string;
+    active: string;
   };
   export default classes;
 }
@@ -52,12 +69,25 @@ declare module '*feedback.module.css' {
     feedback: string;
     feedbackContent: string;
     feedbackTitle: string;
+    buttonWrapper: string;
+    feedbackSuccess: string;
+    link: string;
   };
   export default classes;
 }
 
 declare module '*header.module.css' {
   const classes: {
+    siteheader: string;
+    flatten: string;
+    hovedmenyWrapper: string;
+    hovedmenyContent: string;
+    arbeidsflate: string;
+    menuContextLinks: string;
+    menu: string;
+    active: string;
+    menuBackground: string;
+    menuLinkList: string;
     menuLink: string;
     mobile: string;
     menuLinkInner: string;
@@ -79,6 +109,18 @@ declare module '*lenke-med-sporing.module.css' {
     ikonContainer: string;
     chevronlenke: string;
     chevron: string;
+  };
+  export default classes;
+}
+
+declare module '*logout-warning.module.css' {
+  const classes: {
+    modal: string;
+    modalAnimationFadein: string;
+    modalWindow: string;
+    modalTitle: string;
+    modalBody: string;
+    buttonWrapper: string;
   };
   export default classes;
 }
@@ -114,10 +156,19 @@ declare module '*screenshare-button.module.css' {
 
 declare module '*search.module.css' {
   const classes: {
-    searchButton: string;
     sokDropdown: string;
     sokDropdownContent: string;
     searchInput: string;
+    searchInputWrapper: string;
+    searchButton: string;
+    blueBgIcon: string;
+    searchHitList: string;
+    menuSearch: string;
+    menuSearch__circle: string;
+    menuSearch__line_1: string;
+    menuSearch__line_2: string;
+    menuSearch__line_3: string;
+    menuSearch__line_4: string;
   };
   export default classes;
 }
@@ -135,7 +186,6 @@ declare module '*simple-footer.module.css' {
 
 declare module '*utils.module.css' {
   const classes: {
-    textCenter: string;
     bigLabel: string;
   };
   export default classes;

@@ -39,7 +39,9 @@ export function ComplexHeaderNavbarItems({
           })
         : IconButton({
             id: 'login-button',
-            Icon: LoginIcon({}),
+            Icon: LoginIcon({
+              className: '',
+            }),
             text: texts.login,
           })}
     </div>

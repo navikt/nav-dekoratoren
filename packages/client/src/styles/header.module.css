@@ -6,6 +6,9 @@
   z-index: 20;
 }
 
+.flatten {
+}
+
 .siteheader .hovedmenyWrapper {
   display: flex;
   justify-content: space-between;

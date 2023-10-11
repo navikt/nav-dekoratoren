@@ -26,7 +26,9 @@ export const SimpleHeaderNavbarItems = (
         `
       : IconButton({
           id: 'login-button',
-          Icon: LoginIcon({}),
+          Icon: LoginIcon({
+            className: '',
+          }),
           text: props.texts.login,
         })}
   </div>
