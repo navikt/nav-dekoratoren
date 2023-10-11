@@ -31,6 +31,15 @@
   white-space: nowrap;
 }
 
-.icon-button:global(.active) :global(.chevron) {
+.iconButton.active .chevron {
   transform: rotate(180deg);
+}
+
+@media (--breakpoint-lg) {
+  .iconButton {
+    flex-direction: column;
+    min-width: none;
+    gap: 0px;
+    align-items: center;
+  }
 }

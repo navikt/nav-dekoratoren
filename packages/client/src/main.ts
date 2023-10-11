@@ -44,6 +44,7 @@ import { handleSearchButtonClick } from './listeners/search-listener';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
+import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
 import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
@@ -259,7 +260,7 @@ function handleMenuButton() {
     menuBackground?.classList.toggle('active');
 
     if (profileButton) {
-      purgeActive(profileButton);
+      profileButton.classList.remove(iconButtonClasses.active);
     }
 
     const isMobile = window.innerWidth < breakpoints.lg;
@@ -324,18 +325,10 @@ menuBackground?.addEventListener('click', () => {
   const dropdowns = document.querySelectorAll('.dropdown');
   const loggedInMenuWrapper = document.getElementById('loggedin-menu-wrapper');
 
-  if (menuBackground.classList.contains('active')) {
-    profileButton?.classList.remove('active');
-  }
-
-  [
-    menuButton,
-    menuBackground,
-    menu,
-    profileButton,
-    loggedInMenuWrapper,
-    ...dropdowns,
-  ].forEach((el) => el && purgeActive(el));
+  profileButton?.classList.remove(iconButtonClasses.active);
+  [menuButton, menuBackground, menu, loggedInMenuWrapper, ...dropdowns].forEach(
+    (el) => el && purgeActive(el),
+  );
 });
 
 async function populateLoggedInMenu(authObject: Auth) {

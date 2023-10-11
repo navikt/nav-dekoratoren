@@ -267,52 +267,6 @@ a {
   color: var(--a-surface-action);
 }
 
-/* Buttons */
-.icon-button {
-  display: flex;
-  gap: 0.5rem;
-  color: rgba(0, 103, 197, 1);
-  min-width: 95px;
-  white-space: nowrap;
-  border-radius: 3px;
-  padding-top: 0.75rem /* 12px */;
-  padding-bottom: 0.75rem /* 12px */;
-  padding-right: 1rem /* 16px */;
-  padding-left: 0.25rem /* 4px */;
-  border: 2px solid transparent; /* border-2 border-transparent */
-  background-color: rgba(0, 0, 0, 0);
-  border-color: rgba(255, 255, 255, 0);
-}
-
-.blue-bg-icon {
-  background-color: var(--a-blue-500);
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  color: white;
-  border-left: none;
-}
-
-.icon-button:hover {
-  border-color: rgba(0, 103, 197, 1);
-  background-color: var(--a-blue-100);
-}
-
-.icon-button:active {
-  background-color: rgba(0, 91, 130, 1);
-  color: white;
-  border-color: white;
-  outline: 3px solid #1e40af;
-}
-
-.icon-button-span {
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.icon-button.active .chevron {
-  transform: rotate(180deg);
-}
-
 #menu-context-links {
   padding-top: 66px;
   display: flex;
@@ -335,13 +289,6 @@ a {
     height: 72px;
     position: sticky;
     top: 0px;
-  }
-
-  .icon-button {
-    flex-direction: column;
-    min-width: none;
-    gap: 0px;
-    align-items: center;
   }
 
   #my-page-menu,

@@ -24,10 +24,11 @@ export function ComplexHeaderNavbarItems({
   return html`
     <div class="${cls.menuItems}">
       <div class="${cls.menuItemsUniversalLinks}">
-        <button id="menu-button" class="icon-button">
-          ${BurgerIcon()}
-          <span class="icon-button-span">${texts.menu}</span>
-        </button>
+        ${IconButton({
+          id: 'menu-button',
+          Icon: BurgerIcon(),
+          text: texts.menu,
+        })}
         ${Search({ texts })}
       </div>
       ${innlogget
@@ -38,7 +39,7 @@ export function ComplexHeaderNavbarItems({
           })
         : IconButton({
             id: 'login-button',
-            Icon: LoginIcon,
+            Icon: LoginIcon({}),
             text: texts.login,
           })}
     </div>

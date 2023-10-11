@@ -1,4 +1,5 @@
 import cls from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
+import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
 
 // Fetch notifications and such
 export function initLoggedInMenu() {
@@ -20,7 +21,7 @@ export function initLoggedInMenu() {
   };
 
   profileButton?.addEventListener('click', () => {
-    profileButton.classList.toggle('active');
+    profileButton.classList.toggle(iconButtonClasses.active);
     toggleContainer();
     hideDropdowns();
 

@@ -1,6 +1,3 @@
-.searchButton {
-}
-
 .sokDropdown {
   position: absolute;
   top: 79px;
@@ -49,4 +46,12 @@
   .searchButton {
     display: none;
   }
+}
+
+.blueBgIcon {
+  background-color: var(--a-blue-500);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  color: white;
+  border-left: none;
 }

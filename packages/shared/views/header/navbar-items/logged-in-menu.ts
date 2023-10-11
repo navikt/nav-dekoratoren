@@ -4,7 +4,6 @@ import { IconButton } from '../../components/icon-button';
 import { NotificationsIcon } from 'decorator-shared/views/icons/notifications';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
-import { DropdownButton } from '../../components/dropdown-button';
 import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
 import { LogoutIcon } from '../../icons/logout';
@@ -27,19 +26,17 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
           <span slot="text">${texts.notifications}</span>
         </toggle-icon-button>
       </div>
-      ${DropdownButton({
+      ${IconButton({
         id: 'profile-button',
-        icon: ProfileIcon({
-          className: '',
-        }),
+        Icon: ProfileIcon({}),
         text: name,
+        chevron: true,
       })}
       ${IconButton({
         id: 'logout-button',
-        Icon: LogoutIcon,
+        Icon: LogoutIcon({}),
         text: texts.logout,
       })}
-
       <div id="loggedin-menu-wrapper" class="${cls.loggedinMenuWrapper}">
         <div class="${cls.loggedinMenuContent}">
           <div

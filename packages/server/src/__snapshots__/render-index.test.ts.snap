@@ -472,8 +472,9 @@ exports[`renders norwegian index 1`] = `
         
     <div class="_menuItems_1q0ba_1">
       <div class="_menuItemsUniversalLinks_1q0ba_8">
-        <button id="menu-button" class="icon-button">
-          <svg
+        
+    <button id="menu-button" class="_iconButton_1kee5_1 ">
+      <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -490,13 +491,17 @@ exports[`renders norwegian index 1`] = `
     <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
     <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
-          <span class="icon-button-span">Meny</span>
-        </button>
+      <span class="_iconButtonSpan_1kee5_29">Meny</span>
+
+      
+    </button>
+  
         
-    <button class="_iconButton_1b2de_1 _searchButton_1q24s_1">
+    
+    <button id="" class="_iconButton_1kee5_1 _searchButton_troj7_46">
       
     <svg
-      class="searchIcon _menuSearch_1dtu8_2"
+      class="_menuSearch_1dtu8_2"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -518,21 +523,20 @@ exports[`renders norwegian index 1`] = `
       <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="_iconButtonSpan_1b2de_29"> Søk </span>
+      <span class="_iconButtonSpan_1kee5_29">Søk</span>
+
+      
     </button>
-    <div class="_sokDropdown_1q24s_4">
-      <div class="_sokDropdownContent_1q24s_21">
-        <label for="_searchInput_1q24s_26" class="_bigLabel_1p9d8_1"
+  
+    <div class="_sokDropdown_troj7_1">
+      <div class="_sokDropdownContent_troj7_18">
+        <label for="_searchInput_troj7_23" class="_bigLabel_1p9d8_1"
           >Søk på nav.no</label
         >
-        <div class="_searchInputWrapper_1q24s_44">
-          <input class="_searchInput_1q24s_26" type="text" />
+        <div class="_searchInputWrapper_troj7_41">
+          <input class="_searchInput_troj7_23" type="text" />
           
-    <button
-      id=""
-      class="icon-button blue-bg-icon"
-      
-    >
+    <button id="" class="_iconButton_1kee5_1 _blueBgIcon_troj7_51">
       
     <svg
       class=""
@@ -557,7 +561,9 @@ exports[`renders norwegian index 1`] = `
       <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="icon-button-span">Søk</span>
+      <span class="_iconButtonSpan_1kee5_29">Søk</span>
+
+      
     </button>
   
         </div>
@@ -570,11 +576,7 @@ exports[`renders norwegian index 1`] = `
   
       </div>
       
-    <button
-      id="login-button"
-      class="icon-button "
-      
-    >
+    <button id="login-button" class="_iconButton_1kee5_1 ">
       <svg
     width="24px"
     height="24px"
@@ -595,7 +597,9 @@ exports[`renders norwegian index 1`] = `
       fill="currentColor"
     ></path>
   </svg>
-      <span class="icon-button-span">Logg inn</span>
+      <span class="_iconButtonSpan_1kee5_29">Logg inn</span>
+
+      
     </button>
   
     </div>
@@ -2483,8 +2487,9 @@ exports[`renders english index 1`] = `
         
     <div class="_menuItems_1q0ba_1">
       <div class="_menuItemsUniversalLinks_1q0ba_8">
-        <button id="menu-button" class="icon-button">
-          <svg
+        
+    <button id="menu-button" class="_iconButton_1kee5_1 ">
+      <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -2501,13 +2506,17 @@ exports[`renders english index 1`] = `
     <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
     <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
-          <span class="icon-button-span">Menu</span>
-        </button>
+      <span class="_iconButtonSpan_1kee5_29">Menu</span>
+
+      
+    </button>
+  
         
-    <button class="_iconButton_1b2de_1 _searchButton_1q24s_1">
+    
+    <button id="" class="_iconButton_1kee5_1 _searchButton_troj7_46">
       
     <svg
-      class="searchIcon _menuSearch_1dtu8_2"
+      class="_menuSearch_1dtu8_2"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -2529,21 +2538,20 @@ exports[`renders english index 1`] = `
       <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="_iconButtonSpan_1b2de_29"> Search </span>
+      <span class="_iconButtonSpan_1kee5_29">Search</span>
+
+      
     </button>
-    <div class="_sokDropdown_1q24s_4">
-      <div class="_sokDropdownContent_1q24s_21">
-        <label for="_searchInput_1q24s_26" class="_bigLabel_1p9d8_1"
+  
+    <div class="_sokDropdown_troj7_1">
+      <div class="_sokDropdownContent_troj7_18">
+        <label for="_searchInput_troj7_23" class="_bigLabel_1p9d8_1"
           >Search nav.no</label
         >
-        <div class="_searchInputWrapper_1q24s_44">
-          <input class="_searchInput_1q24s_26" type="text" />
+        <div class="_searchInputWrapper_troj7_41">
+          <input class="_searchInput_troj7_23" type="text" />
           
-    <button
-      id=""
-      class="icon-button blue-bg-icon"
-      
-    >
+    <button id="" class="_iconButton_1kee5_1 _blueBgIcon_troj7_51">
       
     <svg
       class=""
@@ -2568,7 +2576,9 @@ exports[`renders english index 1`] = `
       <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="icon-button-span">Search</span>
+      <span class="_iconButtonSpan_1kee5_29">Search</span>
+
+      
     </button>
   
         </div>
@@ -2581,11 +2591,7 @@ exports[`renders english index 1`] = `
   
       </div>
       
-    <button
-      id="login-button"
-      class="icon-button "
-      
-    >
+    <button id="login-button" class="_iconButton_1kee5_1 ">
       <svg
     width="24px"
     height="24px"
@@ -2606,7 +2612,9 @@ exports[`renders english index 1`] = `
       fill="currentColor"
     ></path>
   </svg>
-      <span class="icon-button-span">Log in</span>
+      <span class="_iconButtonSpan_1kee5_29">Log in</span>
+
+      
     </button>
   
     </div>

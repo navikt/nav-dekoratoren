@@ -1,28 +1,26 @@
 import html, { Template } from '../../html';
+import { DownChevron } from '../icons/down-chevron';
+import cls from './icon-button.module.css';
 
 export function IconButton({
   Icon,
   id,
-  onclick,
   text,
   className,
+  chevron,
 }: {
-  Icon: ({ className }: { className: string }) => Template;
+  Icon: Template;
   id?: string;
-  onclick?: (e: Element) => void;
   text: string;
   className?: string;
+  chevron?: boolean;
 }) {
   return html`
-    <button
-      id="${id}"
-      class="icon-button ${className}"
-      ${onclick ? `onclick="(${onclick})(this)"` : ''}
-    >
-      ${Icon({
-        className: '',
-      })}
-      <span class="icon-button-span">${text}</span>
+    <button id="${id}" class="${cls.iconButton} ${className}">
+      ${Icon}
+      <span class="${cls.iconButtonSpan}">${text}</span>
+
+      ${chevron && DownChevron({ className: cls.chevron })}
     </button>
   `;
 }

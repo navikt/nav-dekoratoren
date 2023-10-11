@@ -20,13 +20,13 @@ export const SimpleHeaderNavbarItems = (
           <p><b>${props.texts.logged_in}:</b> ${props.name}</p>
           ${IconButton({
             id: 'logout-button',
-            Icon: LogoutIcon,
+            Icon: LogoutIcon({}),
             text: props.texts.logout,
           })}
         `
       : IconButton({
           id: 'login-button',
-          Icon: LoginIcon,
+          Icon: LoginIcon({}),
           text: props.texts.login,
         })}
   </div>
