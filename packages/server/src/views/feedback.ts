@@ -3,7 +3,11 @@ import html from 'decorator-shared/html';
 import classes from 'decorator-client/src/styles/feedback.module.css';
 import { Texts } from 'decorator-shared/types';
 
-export function Feedback({ texts }: { texts: Texts }) {
+export type FeedbackProps = {
+  texts: Texts;
+};
+
+export function Feedback({ texts }: FeedbackProps) {
   return html`
     <div class="${classes.feedback}">
       <div class="${classes.feedbackContent}">
