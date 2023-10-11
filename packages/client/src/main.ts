@@ -45,6 +45,7 @@ import { handleSearchButtonClick } from './listeners/search-listener';
 // CSS classes
 import headerClasses from './styles/header.module.css';
 import { erNavDekoratoren } from './helpers/urls';
+import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -373,10 +374,10 @@ api.checkAuth({
       },
     );
     if (notificationsResponse.status === 200) {
-      const notificationsUlest = document.querySelector(
-        '.notifications-unread',
+      const notificationsUnread = document.querySelector(
+        `.${loggedInMenuClasses.notificationsUnread}`,
       );
-      notificationsUlest?.classList.add('active');
+      notificationsUnread?.classList.add(loggedInMenuClasses.active);
     }
 
     const notificationsMenuContent = document.querySelector(
