@@ -25,6 +25,6 @@ type Story = StoryObj<SearchProps>;
 
 export const Default: Story = {
   args: {
-    className: 'menuSearch',
+    menuSearch: true,
   },
 };

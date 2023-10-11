@@ -12,7 +12,8 @@ export default function Search({ texts }: { texts: Texts }) {
   return html`
     <button class="${buttonStyles.iconButton} ${classes.searchButton}">
       ${SearchIcon({
-        className: 'searchIcon menuSearch',
+        className: 'searchIcon',
+        menuSearch: true,
       })}
       <span class="${buttonStyles.iconButtonSpan}"> ${texts.search} </span>
     </button>
