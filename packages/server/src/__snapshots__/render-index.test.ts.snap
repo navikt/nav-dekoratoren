@@ -345,11 +345,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -499,7 +499,7 @@ exports[`renders norwegian index 1`] = `
     <button class="_iconButton_1b2de_1 _searchButton_1g2nd_1">
       
     <svg
-      class="searchIcon menuSearch"
+      class="searchIcon _menuSearch_1dtu8_2"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -514,11 +514,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1b2de_29"> Søk </span>
@@ -553,11 +553,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
       <span class="icon-button-span">Søk</span>
@@ -2385,11 +2385,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -2539,7 +2539,7 @@ exports[`renders english index 1`] = `
     <button class="_iconButton_1b2de_1 _searchButton_1g2nd_1">
       
     <svg
-      class="searchIcon menuSearch"
+      class="searchIcon _menuSearch_1dtu8_2"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -2554,11 +2554,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1b2de_29"> Search </span>
@@ -2593,11 +2593,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_1dtu8_13" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_1dtu8_17" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_1dtu8_21" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_1dtu8_25" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_1dtu8_29" d="m15 15 7 7"></path>
     </svg>
   
       <span class="icon-button-span">Search</span>
