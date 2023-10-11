@@ -198,15 +198,6 @@ a {
   text-underline-offset: 3px;
 }
 
-/* Used for til min forside etc */
-.big-link {
-  color: rgba(0, 103, 197, 1);
-  text-decoration-line: underline;
-  padding-top: var(--a-spacing-2);
-  padding-bottom: var(--a-spacing-3);
-  display: inline-block;
-}
-
 #menu-background {
   position: fixed;
   top: 0;
@@ -344,96 +335,6 @@ a {
 #header-menu-links.is-searching {
   display: none;
 }
-
-.header-menu-links h3 {
-  font-size: 1.25rem /* 20px */;
-  font-weight: 600;
-  margin-block: 0 var(--a-spacing-2);
-}
-
-.header-menu-links .nested-link {
-  display: none;
-}
-
-/* @media (--breakpoint-lg) { */
-/*   .header-menu-links .nested-link { */
-/*     display: flex; */
-/*   } */
-/**/
-/*   /* Hide direct */
-*/
-/*   .header-menu-links .nested > h3 { */
-/*     display: none; */
-/*   } */
-/**/
-/*   .header-menu-links .nested > ul { */
-/*     display: none; */
-/*   } */
-/* } */
-
-  /* Hide direct */
-  .header-menu-links .nested > h3 {
-  display: none;
-}
-
-.header-menu-links .nested > ul {
-  display: none;
-}
-
-.header-menu-link-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--a-text-action);
-}
-.header-menu-link {
-  padding-top: 0.5rem /* 8px */;
-  padding-bottom: 0.5rem /* 8px */;
-  color: currentColor;
-}
-
-@media (min-width: 1024px) {
-  .header-menu-link-wrapper {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-}
-
-.header-menu-link a {
-  color: var(--a-text-action);
-}
-
-.header-menu-link:is(:hover, :focus) {
-  text-decoration-line: underline;
-}
-
-/* Context menu link */
-
-/* Styling should be consoliated */
-.context-menu-link {
-  display: flex;
-  align-items: center;
-  color: var(--a-text-action);
-  padding: var(--a-spacing-5) var(--a-spacing-4);
-  cursor: pointer;
-  color: var(--a-text-action);
-  border-radius: var(--a-border-radius-medium);
-}
-
-.context-menu-link span {
-  order: 2;
-  font-size: 1.2rem; /* var(--a-font-size-heading-small); */
-  font-weight: bold;
-}
-
-.context-menu-link:is(:hover, :focus) {
-  background-color: var(--a-blue-500);
-  text-decoration-line: underline;
-  text-underline-offset: var(--a-spacing-1);
-  color: var(--a-text-on-action);
-}
-
-/* Context link inside header menu */
 
 #sok-dropdown {
   position: absolute;
@@ -762,10 +663,6 @@ a {
   display: block;
 }
 
-#notifications-populated .title {
-  margin-top: 0px;
-}
-
 /*  Utils  */
 .flex {
   display: flex;
@@ -773,11 +670,6 @@ a {
 
 .mb-4 {
   margin-bottom: var(--a-spacing-4);
-}
-
-.mx-4 {
-  margin-left: var(--a-spacing-4);
-  margin-right: var(--a-spacing-4);
 }
 
 .my-1 {
@@ -792,10 +684,6 @@ a {
 
 .space-between {
   justify-content: space-between;
-}
-
-.text-center {
-  text-align: center;
 }
 
 decorator-lens {
