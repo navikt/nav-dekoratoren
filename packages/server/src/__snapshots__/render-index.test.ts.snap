@@ -322,7 +322,7 @@ exports[`renders norwegian index 1`] = `
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class="_bigLabel_1msoa_5"
+      <label for="inline-search-input" class="_bigLabel_1p9d8_1"
         >Søk på nav.no</label
       >
       <div class="inline-search-input-container">
@@ -522,7 +522,7 @@ exports[`renders norwegian index 1`] = `
     </button>
     <div class="_sokDropdown_1g2nd_4">
       <div class="_sokDropdownContent_1g2nd_21">
-        <label for="_searchInput_1g2nd_26" class="_bigLabel_1msoa_5"
+        <label for="_searchInput_1g2nd_26" class="_bigLabel_1p9d8_1"
           >Søk på nav.no</label
         >
         <div class="flex">
@@ -2359,7 +2359,7 @@ exports[`renders english index 1`] = `
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class="_bigLabel_1msoa_5"
+      <label for="inline-search-input" class="_bigLabel_1p9d8_1"
         >Søk på nav.no</label
       >
       <div class="inline-search-input-container">
@@ -2559,7 +2559,7 @@ exports[`renders english index 1`] = `
     </button>
     <div class="_sokDropdown_1g2nd_4">
       <div class="_sokDropdownContent_1g2nd_21">
-        <label for="_searchInput_1g2nd_26" class="_bigLabel_1msoa_5"
+        <label for="_searchInput_1g2nd_26" class="_bigLabel_1p9d8_1"
           >Search nav.no</label
         >
         <div class="flex">

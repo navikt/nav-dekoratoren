@@ -312,11 +312,6 @@ a {
   color: var(--a-surface-action);
 }
 
-.basic-link {
-  color: var(--a-surface-action);
-  text-decoration: underline;
-}
-
 /* Buttons */
 .icon-button {
   display: flex;
