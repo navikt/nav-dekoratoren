@@ -1,0 +1,35 @@
+.menuTop {
+  display: none;
+}
+
+.menuContent {
+  height: calc(100vh - 73px);
+  overflow-y: auto;
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  padding: var(--a-spacing-4);
+}
+
+@media (min-width: 1024px) {
+  .menuTop {
+    display: block;
+  }
+
+  .menuContent {
+    height: auto;
+    padding: 0;
+  }
+
+  .inlineSearch {
+    display: none;
+  }
+}
+
+.searchLoader {
+  display: none;
+}
+
+.searchLoader.active {
+  display: block;
+}

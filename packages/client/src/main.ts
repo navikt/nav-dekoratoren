@@ -42,8 +42,9 @@ import {
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
 import { handleSearchButtonClick } from './listeners/search-listener';
-// CSS classes
+// CSS classe
 import headerClasses from './styles/header.module.css';
+import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 
@@ -290,7 +291,9 @@ if (window.__DECORATOR_DATA__.params.simple === false) {
         ?.classList.add('is-searching');
     },
     'is-searching': () => {
-      document.querySelector('#search-loader')?.classList.add('active');
+      document
+        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
+        ?.classList.add(complexHeaderMenuClasses.active);
     },
     'stopped-searching': () => {
       document
@@ -298,7 +301,9 @@ if (window.__DECORATOR_DATA__.params.simple === false) {
         ?.classList.remove('is-searching');
     },
     'finished-searching': () => {
-      document.querySelector('#search-loader')?.classList.remove('active');
+      document
+        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
+        ?.classList.remove(complexHeaderMenuClasses.active);
     },
   };
 

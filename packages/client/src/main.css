@@ -216,14 +216,6 @@ a {
   pointer-events: auto;
 }
 
-#search-loader {
-  display: none;
-}
-
-#search-loader.active {
-  display: block;
-}
-
 #sok-dropdown {
   position: absolute;
   top: 79px;
@@ -341,11 +333,6 @@ a {
   transform: rotate(180deg);
 }
 
-/* Inputs */
-#inline-search {
-  display: none;
-}
-
 #menu-context-links {
   padding-top: 66px;
   display: flex;
@@ -353,18 +340,10 @@ a {
   gap: var(--a-spacing-2);
 }
 
-.menu-top a {
-  margin-bottom: var(--a-spacing-4);
-}
-
 /*  Breakpoints  */
 @media (--breakpoint-lg) {
   #arbeidsflate {
     display: none;
-  }
-
-  #inline-search {
-    display: block;
   }
 
   /* Search button moves to mobile menu */
@@ -398,29 +377,7 @@ a {
     transition: all 0.3s ease-in-out;
   }
 
-  #menu-content {
-    height: calc(100vh - 73px);
-    overflow-y: auto;
-    position: relative;
-    z-index: 2;
-    background-color: white;
-  }
-
-  #menu-content {
-    padding: var(--a-spacing-4);
-  }
-
-  /* For when nestin is possible */
-
-  #menu-content.sub-menu-active {
-    transform: translateX(-100%);
-  }
-
   #menu.active {
     transform: translateX(100%);
-  }
-
-  .menu-top {
-    display: none;
   }
 }

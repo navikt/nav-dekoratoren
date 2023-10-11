@@ -603,9 +603,10 @@ exports[`renders norwegian index 1`] = `
     </div>
   
         <div id="menu" class="_contentContainer_1av57_1">
-          <div class="menu-top">
-            <h2>Hva kan vi hjelpe deg med?</h2>
-            
+          
+  <div class="_menuTop_zy4o8_1">
+    <h2>Hva kan vi hjelpe deg med?</h2>
+    
     <a
       is="lenke-med-sporing"
       role=""
@@ -624,14 +625,14 @@ exports[`renders norwegian index 1`] = `
     Til forsiden
     </a>
   
-          </div>
-          <div id="menu-content">
-            <div id="inline-search">
-              <inline-search></inline-search>
-            </div>
-            <decorator-loader id="search-loader"></decorator-loader>
-            <div id="header-menu-links">
-              
+  </div>
+  <div class="_menuContent_zy4o8_5">
+    <div class="_inlineSearch_zy4o8_24">
+      <inline-search></inline-search>
+    </div>
+    <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
+    <div id="header-menu-links">
+      
     <ul class="_headerMenuLinks_19vx3_36 cols-3">
       
           <li
@@ -1528,8 +1529,9 @@ exports[`renders norwegian index 1`] = `
       </li>
     </ul>
   
-            </div>
-          </div>
+    </div>
+  </div>
+
         </div>
       </div>
     </header>
@@ -2614,9 +2616,10 @@ exports[`renders english index 1`] = `
     </div>
   
         <div id="menu" class="_contentContainer_1av57_1">
-          <div class="menu-top">
-            <h2>What can we help you with?</h2>
-            
+          
+  <div class="_menuTop_zy4o8_1">
+    <h2>What can we help you with?</h2>
+    
     <a
       is="lenke-med-sporing"
       role=""
@@ -2635,14 +2638,14 @@ exports[`renders english index 1`] = `
     To the frontpage
     </a>
   
-          </div>
-          <div id="menu-content">
-            <div id="inline-search">
-              <inline-search></inline-search>
-            </div>
-            <decorator-loader id="search-loader"></decorator-loader>
-            <div id="header-menu-links">
-              
+  </div>
+  <div class="_menuContent_zy4o8_5">
+    <div class="_inlineSearch_zy4o8_24">
+      <inline-search></inline-search>
+    </div>
+    <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
+    <div id="header-menu-links">
+      
     <ul class="_headerMenuLinks_19vx3_36 cols-3">
       
           <li
@@ -4202,8 +4205,9 @@ exports[`renders english index 1`] = `
       </li>
     </ul>
   
-            </div>
-          </div>
+    </div>
+  </div>
+
         </div>
       </div>
     </header>
