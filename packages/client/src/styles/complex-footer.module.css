@@ -1,9 +1,3 @@
-.complexFooter {
-}
-
-.simpleFooterContent {
-}
-
 .footerLinkList {
   @media (min-width: 768px) {
   }
@@ -28,4 +22,65 @@
   @media (min-width: 768px) {
     padding-block: var(--a-spacing-1);
   }
+}
+
+.complexFooterOrg {
+  display: grid;
+  gap: var(--a-spacing-2);
+}
+
+.footer {
+  background-color: var(--a-surface-alt-3-strong);
+  color: var(--a-text-on-inverted);
+  padding-block: var(--a-spacing-6) var(--a-spacing-12);
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.toTopLink {
+  font-size: 1.25rem;
+  padding: 1rem 1rem 1rem 0;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  align-self: flex-start;
+}
+
+.footerLinks {
+  columns: 22rem 3;
+}
+
+.footerLinkList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.footerLinkGroup {
+  break-inside: avoid;
+}
+
+.footerLinkHeading {
+  color: var(--a-deepblue-200);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.footerLink {
+  color: inherit;
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--a-deepblue-200);
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
 }

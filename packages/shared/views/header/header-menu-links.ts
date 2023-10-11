@@ -120,7 +120,7 @@ export function HeaderMenuLinks({
       })}
 
       <li>
-        <ul id="menu-context-links">
+        <ul class="${classes.menuContextLinks}">
           ${ContextLink({
             displayName: 'Privat',
             context: 'privatperson',

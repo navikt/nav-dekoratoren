@@ -46,6 +46,13 @@
   }
 }
 
+.menuContextLinks {
+  padding-top: 66px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-2);
+}
+
 .menu {
   display: none;
   position: absolute;

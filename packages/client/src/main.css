@@ -56,107 +56,6 @@ a {
   color: inherit;
 }
 
-.footer {
-  background-color: var(--a-surface-alt-3-strong);
-  color: var(--a-text-on-inverted);
-  padding-block: var(--a-spacing-6) var(--a-spacing-12);
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
-}
-
-.to-top-link {
-  font-size: 1.25rem;
-  padding: 1rem 1rem 1rem 0;
-  display: inline-flex;
-  gap: 0.5rem;
-  align-items: center;
-  align-self: flex-start;
-}
-
-.footer-links {
-  columns: 22rem 3;
-}
-
-.footer-link-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.footer-link-group {
-  break-inside: avoid;
-}
-
-.footer-link-heading {
-  color: var(--a-deepblue-200);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.footer-link {
-  color: inherit;
-  display: inline-block;
-  padding: 0.5rem 0;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--a-deepblue-200);
-  text-decoration-thickness: 0.0625em;
-  text-underline-offset: 0.15em;
-}
-
-.complex-footer-org {
-  display: grid;
-  gap: var(--a-spacing-2);
-}
-
-#sok-dropdown {
-  position: absolute;
-  top: 79px;
-  background-color: white;
-  transform: translateX(-50%);
-  padding: 8px 48px 16px 48px;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  max-width: 700px;
-  width: 100%;
-  display: none;
-}
-
-#sok-dropdown-content {
-  display: grid;
-  gap: 8px;
-}
-
-#sok-dropdown.active {
-  display: block;
-}
-
-/* Some duplication happening here with the search page */
-#search-input {
-  background-color: white;
-  border: 2px solid var(--a-blue-500);
-  padding: 0.7rem 1rem;
-  border-radius: 3px;
-  width: 100%;
-  min-height: 48px;
-  font-size: 18px;
-  line-height: 24px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-#search-input:focus-visible {
-  outline: none;
-}
-
 #search-hits ul {
   margin-top: var(--a-spacing-4);
 }
@@ -186,11 +85,4 @@ a {
 .show-more a {
   text-decoration: underline;
   color: var(--a-surface-action);
-}
-
-#menu-context-links {
-  padding-top: 66px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-2);
 }
