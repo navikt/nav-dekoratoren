@@ -224,23 +224,6 @@ a {
   display: block;
 }
 
-/* HEADER MENU LINKS */
-@media (min-width: 1024px) {
-  .header-menu-links {
-    display: block;
-    columns: 22rem 3;
-    gap: var(--a-spacing-10);
-  }
-  .header-menu-links > li {
-    break-inside: avoid;
-    margin-block-end: 2rem;
-  }
-}
-
-#header-menu-links.is-searching {
-  display: none;
-}
-
 #sok-dropdown {
   position: absolute;
   top: 79px;
@@ -359,8 +342,7 @@ a {
 }
 
 /* Inputs */
-#inline-search,
-.header-menu-link-wrapper.mobile {
+#inline-search {
   display: none;
 }
 
@@ -440,46 +422,5 @@ a {
 
   .menu-top {
     display: none;
-  }
-
-  /* Maybe should be global? */
-  .header-menu-links h3 {
-    font-size: var(--a-font-size-heading-medium);
-    margin: 0;
-    padding: var(--a-spacing-4) 0px;
-    padding-bottom: var(--a-spacing-1);
-  }
-
-  .header-menu-link {
-    justify-content: space-between;
-    padding: var(--a-spacing-4) 0px;
-  }
-
-  .header-menu-link.mobile {
-    display: none;
-  }
-
-  .header-menu-link a {
-    order: 1;
-    font-weight: var(--a-font-weight-bold);
-    font-size: var(--a-font-size-heading-small);
-  }
-
-  .header-menu-link-inner {
-    order: 2;
-  }
-
-  /* For context links inside the menu */
-  .header-menu-context-link {
-    font-weight: var(--a-font-weight-bold);
-    font-size: var(--a-font-size-heading-small);
-  }
-
-  /* #header-menu-links .flatten { */
-  /*   display: none; */
-  /* } */
-
-  .header-menu-link.mobile {
-    display: flex;
   }
 }
