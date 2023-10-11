@@ -1,5 +1,6 @@
 import cls from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
+import headerClasses from '../styles/header.module.css';
 
 // Fetch notifications and such
 export function initLoggedInMenu() {
@@ -11,7 +12,9 @@ export function initLoggedInMenu() {
     document
       .getElementById(`loggedin-menu-wrapper`)
       ?.classList.toggle(cls.active);
-    document.getElementById(`menu-background`)?.classList.toggle(cls.active);
+    document
+      .getElementById(`menu-background`)
+      ?.classList.toggle(headerClasses.active);
   };
 
   const hideDropdowns = () => {

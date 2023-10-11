@@ -44,7 +44,7 @@ export function ComplexHeader({
   myPageMenu,
 }: ComplexHeaderProps) {
   return html`
-    <div id="menu-background"></div>
+    <div id="menu-background" class="${classes.menuBackground}"></div>
     <header class="siteheader">
       <div class="hovedmeny-wrapper ${utilsCls.contentContainer}">
         <div class="hovedmeny-content">
@@ -83,7 +83,7 @@ export function ComplexHeader({
           texts,
           myPageMenu,
         })}
-        <div id="menu" class="${utilsCls.contentContainer}">
+        <div id="menu" class="${utilsCls.contentContainer} ${classes.menu}">
           ${ComplexHeaderMenu({ headerMenuLinks, texts })}
         </div>
       </div>

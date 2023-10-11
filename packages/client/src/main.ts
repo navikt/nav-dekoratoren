@@ -255,9 +255,9 @@ function handleMenuButton() {
   menuButton?.addEventListener('click', () => {
     setAriaExpanded(menuButton);
     const menu = document.getElementById('menu');
-    menuButton?.classList.toggle('active');
-    menu?.classList.toggle('active');
-    menuBackground?.classList.toggle('active');
+    menuButton?.classList.toggle(iconButtonClasses.active);
+    menu?.classList.toggle(headerClasses.active);
+    menuBackground?.classList.toggle(headerClasses.active);
 
     if (profileButton) {
       profileButton.classList.remove(iconButtonClasses.active);

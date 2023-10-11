@@ -3,6 +3,7 @@ import { replaceElement } from '../utils';
 import { SearchShowMore } from '../views/search-show-more';
 
 import searchClasses from '../styles/search.module.css';
+import headerClasses from '../styles/header.module.css';
 
 export function addSearchInputListener() {
   document
@@ -62,6 +63,8 @@ export function handleSearchButtonClick() {
     document
       .querySelector(`.${searchClasses.sokDropdown}`)
       ?.classList.toggle('active');
-    document.getElementById('menu-background')?.classList.toggle('active');
+    document
+      .getElementById('menu-background')
+      ?.classList.toggle(headerClasses.active);
   });
 }

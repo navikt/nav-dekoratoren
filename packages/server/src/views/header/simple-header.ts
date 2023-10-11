@@ -26,7 +26,6 @@ export function SimpleHeader({
   texts,
 }: SimpleHeaderProps) {
   return html`
-    <div id="menu-background"></div>
     <header class="siteheader">
       <div class="hovedmeny-wrapper ${cls.contentContainer}">
         <div class="hovedmeny-content">
