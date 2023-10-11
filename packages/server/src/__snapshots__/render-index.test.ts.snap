@@ -2022,7 +2022,7 @@ exports[`renders norwegian index 1`] = `
         id="decorator-lens-explicit"
         data-src=""
       ></div>
-      <decorator-lens></decorator-lens>
+      <decorator-lens class="_decoratorLens_14jqu_1"></decorator-lens>
     </div>
   
         <div id="scripts" style="display:none">
@@ -4715,7 +4715,7 @@ exports[`renders english index 1`] = `
         id="decorator-lens-explicit"
         data-src=""
       ></div>
-      <decorator-lens></decorator-lens>
+      <decorator-lens class="_decoratorLens_14jqu_1"></decorator-lens>
     </div>
   
         <div id="scripts" style="display:none">

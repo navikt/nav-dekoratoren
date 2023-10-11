@@ -685,11 +685,3 @@ a {
 .space-between {
   justify-content: space-between;
 }
-
-decorator-lens {
-  display: none;
-}
-
-decorator-lens.active {
-  display: block;
-}

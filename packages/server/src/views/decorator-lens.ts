@@ -1,5 +1,6 @@
 import { Params, formatParams } from 'decorator-shared/params';
 import html, { json, unsafeHtml } from 'decorator-shared/html';
+import cls from 'decorator-client/src/styles/decorator-lens.module.css';
 
 export function DecoratorLens({
   origin,
@@ -22,7 +23,7 @@ export function DecoratorLens({
         id="decorator-lens-explicit"
         data-src="${unsafeHtml(formatParams(query).toString())}"
       ></div>
-      <decorator-lens></decorator-lens>
+      <decorator-lens class="${cls.decoratorLens}"></decorator-lens>
     </div>
   `;
 }

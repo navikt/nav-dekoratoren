@@ -1,5 +1,6 @@
 import { type Params } from 'decorator-shared/params';
 import html from 'decorator-shared/html';
+import cls from '../styles/decorator-lens.module.css';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -9,10 +10,9 @@ declare global {
 
 export function attachLensListener() {
   document.body.addEventListener('keydown', (e) => {
-    // Listen for f5
     const lens = document.querySelector('decorator-lens') as DecoratorLens;
     if (e.key === 'F4' && lens) {
-      lens.classList.toggle('active');
+      lens.classList.toggle(cls.active);
     }
   });
 }
