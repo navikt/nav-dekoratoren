@@ -79,14 +79,12 @@ declare module '*feedback.module.css' {
 declare module '*header.module.css' {
   const classes: {
     siteheader: string;
-    flatten: string;
+    wrapperWrapper: string;
     hovedmenyWrapper: string;
     hovedmenyContent: string;
     arbeidsflate: string;
     menuContextLinks: string;
     menu: string;
-    active: string;
-    menuBackground: string;
     menuLinkList: string;
     menuLink: string;
     mobile: string;
@@ -157,8 +155,7 @@ declare module '*screenshare-button.module.css' {
 
 declare module '*search.module.css' {
   const classes: {
-    sokDropdown: string;
-    sokDropdownContent: string;
+    dropdown: string;
     searchInput: string;
     searchInputWrapper: string;
     searchButton: string;

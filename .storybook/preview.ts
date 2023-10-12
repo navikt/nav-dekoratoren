@@ -6,6 +6,8 @@ import 'decorator-client/src/views/local-time';
 import 'decorator-client/src/views/loader';
 import 'decorator-client/src/views/language-selector';
 import 'decorator-client/src/views/search';
+import 'decorator-client/src/views/menu-background';
+import 'decorator-client/src/views/dropdown-menu';
 import { WebcomponentTemplates } from 'decorator-server/src/views/web-component-templates';
 
 declare global {

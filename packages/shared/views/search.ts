@@ -5,6 +5,7 @@ import { SearchIcon } from 'decorator-shared/views/icons/search';
 
 // @fix typescript error
 import utilClasses from 'decorator-client/src/styles/utils.module.css';
+import utilCls from 'decorator-shared/utilities.module.css';
 import classes from 'decorator-client/src/styles/search.module.css';
 import clsx from 'clsx';
 
@@ -18,19 +19,23 @@ export default function Search({ texts }: { texts: Texts }) {
         text: texts.search,
         className: clsx(classes.searchButton, 'dropdown-menu-button'),
       })}
-      <div class="${clsx(classes.sokDropdown, 'dropdown-menu-content')}">
-        <div class="${classes.sokDropdownContent}">
-          <label for="${classes.searchInput}" class="${utilClasses.bigLabel}"
-            >${texts.sok_knapp_sokefelt}</label
-          >
-          <div class="${classes.searchInputWrapper}">
-            <input class="${classes.searchInput}" type="text" />
-            ${IconButton({
-              Icon: SearchIcon({}),
-              text: texts.search,
-              className: classes.blueBgIcon,
-            })}
-          </div>
+      <div
+        class="${clsx(
+          utilCls.contentContainer,
+          classes.dropdown,
+          'dropdown-menu-content',
+        )}"
+      >
+        <label for="${classes.searchInput}" class="${utilClasses.bigLabel}"
+          >${texts.sok_knapp_sokefelt}</label
+        >
+        <div class="${classes.searchInputWrapper}">
+          <input class="${classes.searchInput}" type="text" />
+          ${IconButton({
+            Icon: SearchIcon({}),
+            text: texts.search,
+            className: classes.blueBgIcon,
+          })}
         </div>
         <div id="search-hits">
           <ul class="${classes.searchHitList}"></ul>

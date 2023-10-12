@@ -6,6 +6,7 @@ import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
 import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
+import utilsCls from 'decorator-shared/utilities.module.css';
 import { LogoutIcon } from '../../icons/logout';
 import clsx from 'clsx';
 
@@ -28,7 +29,11 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
           className: 'dropdown-menu-button',
         })}
         <div
-          class="${clsx(cls.notificationsDropdown, 'dropdown-menu-content')}"
+          class="${clsx(
+            utilsCls.contentContainer,
+            cls.notificationsDropdown,
+            'dropdown-menu-content',
+          )}"
         >
           ${LoadingNotifications({
             texts,
@@ -42,7 +47,13 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
           chevron: true,
           className: 'dropdown-menu-button',
         })}
-        <div class="${clsx(cls.myPageMenuDropdown, 'dropdown-menu-content')}">
+        <div
+          class="${clsx(
+            utilsCls.contentContainer,
+            cls.myPageMenuDropdown,
+            'dropdown-menu-content',
+          )}"
+        >
           <div>
             <h2 class="${cls.myPageMenuHeading}">Min side</h2>
             <a class="${cls.link}" href="#">Til Min side</a>
