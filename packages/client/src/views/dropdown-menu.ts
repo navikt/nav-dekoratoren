@@ -1,4 +1,4 @@
-import headerClasses from 'decorator-client/src/styles/header.module.css';
+import cls from './dropdown-menu.module.css';
 
 class DropdownMenu extends HTMLElement {
   content: HTMLElement | null = null;
@@ -21,7 +21,7 @@ class DropdownMenu extends HTMLElement {
       this.dispatchEvent(
         new Event(open ? 'menuopened' : 'menuclosed', { bubbles: true }),
       );
-      this.content?.classList.toggle(headerClasses.active, open);
+      this.classList.toggle(cls.dropdownMenuOpen, open);
       if (!this.button?.getAttribute('aria-expanded')) {
         this.button?.setAttribute('aria-expanded', 'true');
       } else {
@@ -33,7 +33,9 @@ class DropdownMenu extends HTMLElement {
 
   connectedCallback() {
     this.button = this.querySelector('button.dropdown-menu-button');
-    this.content = this.querySelector(`.${headerClasses.menu}`);
+    this.content = this.querySelector('.dropdown-menu-content');
+
+    this.content?.classList.add(cls.dropdownMenuContent);
 
     this.button?.addEventListener('click', () => {
       this.open = !this.#open;

@@ -1,0 +1,7 @@
+.dropdownMenuContent {
+  display: none;
+}
+
+.dropdownMenuOpen > .dropdownMenuContent {
+  display: block;
+}

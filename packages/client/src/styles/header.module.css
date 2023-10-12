@@ -60,7 +60,6 @@
 }
 
 .menu {
-  display: none;
   position: absolute;
   top: 79px;
   left: 50%;
@@ -79,10 +78,6 @@
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.048px;
-}
-
-.menu.active {
-  display: block;
 }
 
 @media (--breakpoint-lg) {

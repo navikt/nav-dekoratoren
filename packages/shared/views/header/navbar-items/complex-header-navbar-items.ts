@@ -37,7 +37,13 @@ export function ComplexHeaderNavbarItems({
             text: texts.menu,
             className: 'dropdown-menu-button',
           })}
-          <div class="${clsx(headerClasses.menu, utilsCls.contentContainer)}">
+          <div
+            class="${clsx(
+              headerClasses.menu,
+              utilsCls.contentContainer,
+              'dropdown-menu-content',
+            )}"
+          >
             ${ComplexHeaderMenu({ headerMenuLinks, texts })}
           </div>
         </dropdown-menu>

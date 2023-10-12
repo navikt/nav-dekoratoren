@@ -29,7 +29,6 @@ import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-import { ComplexHeaderMenu } from './complex-header-menu';
 
 export function ComplexHeader({
   isNorwegian,
@@ -83,9 +82,6 @@ export function ComplexHeader({
           myPageMenu: myPageMenu as Node[],
           headerMenuLinks,
         })}
-        <div id="menu" class="${utilsCls.contentContainer} ${classes.menu}">
-          ${ComplexHeaderMenu({ headerMenuLinks, texts })}
-        </div>
       </div>
     </header>
     ${DecoratorUtilsContainer({

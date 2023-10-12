@@ -42,7 +42,6 @@ import {
 
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
-import { handleSearchButtonClick } from './listeners/search-listener';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
@@ -111,7 +110,6 @@ onLoadListeners({
 
 attachLensListener();
 fetchDriftsMeldinger();
-handleSearchButtonClick();
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
   logoutWarningController(
