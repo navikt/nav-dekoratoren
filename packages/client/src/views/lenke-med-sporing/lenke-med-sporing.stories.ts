@@ -20,7 +20,7 @@ const meta: Meta<Args> = {
   },
   argTypes: {
     variant: {
-      options: ['standard', 'chevron', 'lock'],
+      options: ['standard', 'chevron'],
       control: {
         type: 'select',
       },
@@ -51,13 +51,6 @@ export const Chevron: Story = {
   args: {
     data: shared,
     variant: 'chevron',
-  },
-};
-
-export const Lock: Story = {
-  args: {
-    data: shared,
-    variant: 'lock',
   },
 };
 

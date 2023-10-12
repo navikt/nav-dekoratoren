@@ -3,7 +3,6 @@
 import html, { Template, json } from 'decorator-shared/html';
 import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
 import classes from './lenke-med-sporing.module.css';
-import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 
 export type LenkeMedSporingProps = {
@@ -73,26 +72,8 @@ function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
   });
 }
 
-function LenkeMedSporingLock(props: LenkeMedSporingProps) {
-  const className = props.className || '';
-
-  return LenkeMedSporingBase({
-    ...props,
-    // todo fix this
-    className: `${className} ${classes.chevronlenke}`,
-    children: html` <div class="${classes.ikonContainer}">
-        ${Lock({
-          width: '18px',
-          height: '18px',
-        })}
-      </div>
-      ${props.children}`,
-  });
-}
-
 const variants = {
   chevron: LenkeMedSporingChevron,
-  lock: LenkeMedSporingLock,
   standard: LenkeMedSporingBase,
 };
 
