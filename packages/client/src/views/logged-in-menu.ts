@@ -1,6 +1,5 @@
 import cls from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
-import headerClasses from '../styles/header.module.css';
 
 // Fetch notifications and such
 export function initLoggedInMenu() {
@@ -9,12 +8,17 @@ export function initLoggedInMenu() {
 
   // @TODO: needs some minor polishing to get switching between menus to work
   const toggleContainer = () => {
-    document
-      .getElementById(`loggedin-menu-wrapper`)
-      ?.classList.toggle(cls.active);
-    document
-      .getElementById(`menu-background`)
-      ?.classList.toggle(headerClasses.active);
+    const wrapper = document.getElementById(`loggedin-menu-wrapper`);
+
+    if (wrapper) {
+      wrapper.dispatchEvent(
+        new Event(
+          wrapper.classList.contains(cls.active) ? 'menuclosed' : 'menuopened',
+          { bubbles: true },
+        ),
+      );
+      wrapper.classList.toggle(cls.active);
+    }
   };
 
   const hideDropdowns = () => {

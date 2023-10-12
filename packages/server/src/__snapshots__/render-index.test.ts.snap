@@ -345,11 +345,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -385,10 +385,9 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
-    <header class="_siteheader_f99wf_1">
-      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
-        <div class="_hovedmenyContent_f99wf_27">
+    <header class="_siteheader_3qkzb_1">
+      <div class="_hovedmenyWrapper_3qkzb_12 _contentContainer_1av57_1">
+        <div class="_hovedmenyContent_3qkzb_27">
           
     <a
       is="lenke-med-sporing"
@@ -411,7 +410,7 @@ exports[`renders norwegian index 1`] = `
             />
     </a>
   
-          <div class="_arbeidsflate_f99wf_39">
+          <div class="_arbeidsflate_3qkzb_39">
             
     <a
       is="lenke-med-sporing"
@@ -421,8 +420,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_3qkzb_177 _lenkeActive_3qkzb_191"
+      data-container-class-name="_headerContextLinkContainer_3qkzb_196"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -439,8 +438,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_3qkzb_177"
+      data-container-class-name="_headerContextLinkContainer_3qkzb_196"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -457,8 +456,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_3qkzb_177"
+      data-container-class-name="_headerContextLinkContainer_3qkzb_196"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -498,10 +497,10 @@ exports[`renders norwegian index 1`] = `
   
         
     
-    <button id="" class="_iconButton_1vnms_1 _searchButton_xj5ie_46">
+    <button id="" class="_iconButton_1vnms_1 _searchButton_carrr_46">
       
     <svg
-      class="_menuSearch_xj5ie_67"
+      class="_menuSearch_carrr_66"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -516,11 +515,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Søk</span>
@@ -528,15 +527,15 @@ exports[`renders norwegian index 1`] = `
       
     </button>
   
-    <div class="_sokDropdown_xj5ie_1">
-      <div class="_sokDropdownContent_xj5ie_18">
-        <label for="_searchInput_xj5ie_23" class="_bigLabel_1p9d8_1"
+    <div class="_sokDropdown_carrr_1">
+      <div class="_sokDropdownContent_carrr_18">
+        <label for="_searchInput_carrr_23" class="_bigLabel_1p9d8_1"
           >Søk på nav.no</label
         >
-        <div class="_searchInputWrapper_xj5ie_41">
-          <input class="_searchInput_xj5ie_23" type="text" />
+        <div class="_searchInputWrapper_carrr_41">
+          <input class="_searchInput_carrr_23" type="text" />
           
-    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_xj5ie_51">
+    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_carrr_51">
       
     <svg
       class=""
@@ -554,11 +553,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Søk</span>
@@ -569,7 +568,7 @@ exports[`renders norwegian index 1`] = `
         </div>
       </div>
       <div id="search-hits">
-        <ul class="_searchHitList_xj5ie_59"></ul>
+        <ul class="_searchHitList_carrr_59"></ul>
         <div id="show-more"></div>
       </div>
     </div>
@@ -604,7 +603,7 @@ exports[`renders norwegian index 1`] = `
   
     </div>
   
-        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
+        <div id="menu" class="_contentContainer_1av57_1 _menu_3qkzb_52">
           
   <div class="_menuTop_zy4o8_1">
     <h2>Hva kan vi hjelpe deg med?</h2>
@@ -635,16 +634,16 @@ exports[`renders norwegian index 1`] = `
     <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_f99wf_162 cols-3">
+    <ul class="_headerMenuLinks_3qkzb_144 cols-3">
       
           <li
             id="79173ea3-74cd-4d7a-a81f-a43915022c4e"
-            class="_flatten_f99wf_9"
+            class="_flatten_3qkzb_9"
           >
             <h3>Områder</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+    <li class="_menuLink_3qkzb_103" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
       
     <a
       is="lenke-med-sporing"
@@ -686,7 +685,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="c0379053-4fdf-4151-8974-5d475449ebd2">
+    <li class="_menuLink_3qkzb_103" id="c0379053-4fdf-4151-8974-5d475449ebd2">
       
     <a
       is="lenke-med-sporing"
@@ -728,7 +727,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+    <li class="_menuLink_3qkzb_103" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
       
     <a
       is="lenke-med-sporing"
@@ -770,7 +769,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+    <li class="_menuLink_3qkzb_103" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
       
     <a
       is="lenke-med-sporing"
@@ -812,7 +811,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+    <li class="_menuLink_3qkzb_103" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
       
     <a
       is="lenke-med-sporing"
@@ -854,7 +853,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+    <li class="_menuLink_3qkzb_103" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
       
     <a
       is="lenke-med-sporing"
@@ -902,12 +901,12 @@ exports[`renders norwegian index 1`] = `
         
           <li
             id="c73650df-2e69-41e3-ae15-96ed90de4b0b"
-            class="_nested_f99wf_191"
+            class="_nested_3qkzb_173"
           >
             <h3>Snarveier</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+    <li class="_menuLink_3qkzb_103" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
       
     <a
       is="lenke-med-sporing"
@@ -949,7 +948,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+    <li class="_menuLink_3qkzb_103" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
       
     <a
       is="lenke-med-sporing"
@@ -991,7 +990,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+    <li class="_menuLink_3qkzb_103" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
       
     <a
       is="lenke-med-sporing"
@@ -1033,7 +1032,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+    <li class="_menuLink_3qkzb_103" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
       
     <a
       is="lenke-med-sporing"
@@ -1075,7 +1074,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+    <li class="_menuLink_3qkzb_103" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
       
     <a
       is="lenke-med-sporing"
@@ -1117,7 +1116,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+    <li class="_menuLink_3qkzb_103" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
       
     <a
       is="lenke-med-sporing"
@@ -1159,7 +1158,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+    <li class="_menuLink_3qkzb_103" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
       
     <a
       is="lenke-med-sporing"
@@ -1201,7 +1200,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+    <li class="_menuLink_3qkzb_103" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
       
     <a
       is="lenke-med-sporing"
@@ -1243,7 +1242,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+    <li class="_menuLink_3qkzb_103" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
       
     <a
       is="lenke-med-sporing"
@@ -1285,7 +1284,7 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+    <li class="_menuLink_3qkzb_103" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
       
     <a
       is="lenke-med-sporing"
@@ -1329,7 +1328,7 @@ exports[`renders norwegian index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+    <li class="_menuLink_3qkzb_103 _nestedLink_3qkzb_173" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
       
     <a
       is="lenke-med-sporing"
@@ -1374,7 +1373,7 @@ exports[`renders norwegian index 1`] = `
           </li>
         
       
-    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
+    <li class="_menuLink_3qkzb_103 _mobile_3qkzb_126" id="">
       
     <a
       is="lenke-med-sporing"
@@ -1418,7 +1417,7 @@ exports[`renders norwegian index 1`] = `
   
 
       <li>
-        <ul class="_menuContextLinks_f99wf_52">
+        <ul class="_menuContextLinks_3qkzb_52">
           
     <a
       class="_wrapper_wmu45_1"
@@ -1538,6 +1537,7 @@ exports[`renders norwegian index 1`] = `
       </div>
     </header>
     
+    <menu-background />
   </div>
         <main>
           
@@ -2370,11 +2370,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -2410,10 +2410,9 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
-    <header class="_siteheader_f99wf_1">
-      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
-        <div class="_hovedmenyContent_f99wf_27">
+    <header class="_siteheader_3qkzb_1">
+      <div class="_hovedmenyWrapper_3qkzb_12 _contentContainer_1av57_1">
+        <div class="_hovedmenyContent_3qkzb_27">
           
     <a
       is="lenke-med-sporing"
@@ -2436,7 +2435,7 @@ exports[`renders english index 1`] = `
             />
     </a>
   
-          <div class="_arbeidsflate_f99wf_39">
+          <div class="_arbeidsflate_3qkzb_39">
             
     <a
       is="lenke-med-sporing"
@@ -2446,8 +2445,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_3qkzb_177 _lenkeActive_3qkzb_191"
+      data-container-class-name="_headerContextLinkContainer_3qkzb_196"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -2464,8 +2463,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_3qkzb_177"
+      data-container-class-name="_headerContextLinkContainer_3qkzb_196"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -2482,8 +2481,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_3qkzb_177"
+      data-container-class-name="_headerContextLinkContainer_3qkzb_196"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -2523,10 +2522,10 @@ exports[`renders english index 1`] = `
   
         
     
-    <button id="" class="_iconButton_1vnms_1 _searchButton_xj5ie_46">
+    <button id="" class="_iconButton_1vnms_1 _searchButton_carrr_46">
       
     <svg
-      class="_menuSearch_xj5ie_67"
+      class="_menuSearch_carrr_66"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -2541,11 +2540,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Search</span>
@@ -2553,15 +2552,15 @@ exports[`renders english index 1`] = `
       
     </button>
   
-    <div class="_sokDropdown_xj5ie_1">
-      <div class="_sokDropdownContent_xj5ie_18">
-        <label for="_searchInput_xj5ie_23" class="_bigLabel_1p9d8_1"
+    <div class="_sokDropdown_carrr_1">
+      <div class="_sokDropdownContent_carrr_18">
+        <label for="_searchInput_carrr_23" class="_bigLabel_1p9d8_1"
           >Search nav.no</label
         >
-        <div class="_searchInputWrapper_xj5ie_41">
-          <input class="_searchInput_xj5ie_23" type="text" />
+        <div class="_searchInputWrapper_carrr_41">
+          <input class="_searchInput_carrr_23" type="text" />
           
-    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_xj5ie_51">
+    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_carrr_51">
       
     <svg
       class=""
@@ -2579,11 +2578,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_xj5ie_78" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_xj5ie_82" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_xj5ie_86" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_xj5ie_90" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_xj5ie_94" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
       <span class="_iconButtonSpan_1vnms_33">Search</span>
@@ -2594,7 +2593,7 @@ exports[`renders english index 1`] = `
         </div>
       </div>
       <div id="search-hits">
-        <ul class="_searchHitList_xj5ie_59"></ul>
+        <ul class="_searchHitList_carrr_59"></ul>
         <div id="show-more"></div>
       </div>
     </div>
@@ -2629,7 +2628,7 @@ exports[`renders english index 1`] = `
   
     </div>
   
-        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
+        <div id="menu" class="_contentContainer_1av57_1 _menu_3qkzb_52">
           
   <div class="_menuTop_zy4o8_1">
     <h2>What can we help you with?</h2>
@@ -2660,16 +2659,16 @@ exports[`renders english index 1`] = `
     <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_f99wf_162 cols-3">
+    <ul class="_headerMenuLinks_3qkzb_144 cols-3">
       
           <li
             id="4034ae9f-981a-4ea4-9311-eade71ae098b"
-            class="_nested_f99wf_191"
+            class="_nested_3qkzb_173"
           >
             <h3>Work and stay in Norway</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+    <li class="_menuLink_3qkzb_103" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
       
     <a
       is="lenke-med-sporing"
@@ -2711,7 +2710,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+    <li class="_menuLink_3qkzb_103" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
       
     <a
       is="lenke-med-sporing"
@@ -2753,7 +2752,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+    <li class="_menuLink_3qkzb_103" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
       
     <a
       is="lenke-med-sporing"
@@ -2795,7 +2794,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="117d0621-476c-42d6-9789-26f898250225">
+    <li class="_menuLink_3qkzb_103" id="117d0621-476c-42d6-9789-26f898250225">
       
     <a
       is="lenke-med-sporing"
@@ -2839,7 +2838,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+    <li class="_menuLink_3qkzb_103 _nestedLink_3qkzb_173" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
       
     <a
       is="lenke-med-sporing"
@@ -2885,12 +2884,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="f855f440-9267-4b2c-8f27-6b9eec6b2e68"
-            class="_nested_f99wf_191"
+            class="_nested_3qkzb_173"
           >
             <h3>Benefits and services</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+    <li class="_menuLink_3qkzb_103" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
       
     <a
       is="lenke-med-sporing"
@@ -2932,7 +2931,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+    <li class="_menuLink_3qkzb_103" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
       
     <a
       is="lenke-med-sporing"
@@ -2974,7 +2973,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="f30dd799-91aa-4c50-a470-969f5087d34c">
+    <li class="_menuLink_3qkzb_103" id="f30dd799-91aa-4c50-a470-969f5087d34c">
       
     <a
       is="lenke-med-sporing"
@@ -3016,7 +3015,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+    <li class="_menuLink_3qkzb_103" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
       
     <a
       is="lenke-med-sporing"
@@ -3058,7 +3057,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+    <li class="_menuLink_3qkzb_103" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
       
     <a
       is="lenke-med-sporing"
@@ -3102,7 +3101,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+    <li class="_menuLink_3qkzb_103 _nestedLink_3qkzb_173" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
       
     <a
       is="lenke-med-sporing"
@@ -3148,12 +3147,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="91930e1e-d372-43fc-b2b4-696454f71a71"
-            class="_nested_f99wf_191"
+            class="_nested_3qkzb_173"
           >
             <h3>Rules and regulations</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="09581eac-105d-453f-b019-ebffe6465ffc">
+    <li class="_menuLink_3qkzb_103" id="09581eac-105d-453f-b019-ebffe6465ffc">
       
     <a
       is="lenke-med-sporing"
@@ -3195,7 +3194,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+    <li class="_menuLink_3qkzb_103" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
       
     <a
       is="lenke-med-sporing"
@@ -3237,7 +3236,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+    <li class="_menuLink_3qkzb_103" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
       
     <a
       is="lenke-med-sporing"
@@ -3279,7 +3278,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+    <li class="_menuLink_3qkzb_103" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
       
     <a
       is="lenke-med-sporing"
@@ -3321,7 +3320,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="280069da-b8f9-4871-b681-ccc339146a3a">
+    <li class="_menuLink_3qkzb_103" id="280069da-b8f9-4871-b681-ccc339146a3a">
       
     <a
       is="lenke-med-sporing"
@@ -3363,7 +3362,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+    <li class="_menuLink_3qkzb_103" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
       
     <a
       is="lenke-med-sporing"
@@ -3407,7 +3406,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+    <li class="_menuLink_3qkzb_103 _nestedLink_3qkzb_173" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
       
     <a
       is="lenke-med-sporing"
@@ -3453,12 +3452,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8"
-            class="_nested_f99wf_191"
+            class="_nested_3qkzb_173"
           >
             <h3>Employers</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+    <li class="_menuLink_3qkzb_103" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
       
     <a
       is="lenke-med-sporing"
@@ -3500,7 +3499,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="d4750660-17c2-43de-960f-7ad6907674fa">
+    <li class="_menuLink_3qkzb_103" id="d4750660-17c2-43de-960f-7ad6907674fa">
       
     <a
       is="lenke-med-sporing"
@@ -3542,7 +3541,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+    <li class="_menuLink_3qkzb_103" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
       
     <a
       is="lenke-med-sporing"
@@ -3584,7 +3583,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+    <li class="_menuLink_3qkzb_103" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
       
     <a
       is="lenke-med-sporing"
@@ -3628,7 +3627,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+    <li class="_menuLink_3qkzb_103 _nestedLink_3qkzb_173" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
       
     <a
       is="lenke-med-sporing"
@@ -3674,12 +3673,12 @@ exports[`renders english index 1`] = `
         
           <li
             id="750d0be4-5351-48d7-99e1-b367a403ae19"
-            class="_nested_f99wf_191"
+            class="_nested_3qkzb_173"
           >
             <h3>About NAV</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_3qkzb_103">
               
-    <li class="_menuLink_f99wf_121" id="b94f13b1-3010-432d-954f-43a90ea122ce">
+    <li class="_menuLink_3qkzb_103" id="b94f13b1-3010-432d-954f-43a90ea122ce">
       
     <a
       is="lenke-med-sporing"
@@ -3721,7 +3720,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+    <li class="_menuLink_3qkzb_103" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
       
     <a
       is="lenke-med-sporing"
@@ -3763,7 +3762,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+    <li class="_menuLink_3qkzb_103" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
       
     <a
       is="lenke-med-sporing"
@@ -3805,7 +3804,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="954fdb02-3d1f-404f-a042-9bf71142021f">
+    <li class="_menuLink_3qkzb_103" id="954fdb02-3d1f-404f-a042-9bf71142021f">
       
     <a
       is="lenke-med-sporing"
@@ -3847,7 +3846,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+    <li class="_menuLink_3qkzb_103" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
       
     <a
       is="lenke-med-sporing"
@@ -3889,7 +3888,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+    <li class="_menuLink_3qkzb_103" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
       
     <a
       is="lenke-med-sporing"
@@ -3931,7 +3930,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+    <li class="_menuLink_3qkzb_103" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
       
     <a
       is="lenke-med-sporing"
@@ -3973,7 +3972,7 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+    <li class="_menuLink_3qkzb_103" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
       
     <a
       is="lenke-med-sporing"
@@ -4017,7 +4016,7 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+    <li class="_menuLink_3qkzb_103 _nestedLink_3qkzb_173" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
       
     <a
       is="lenke-med-sporing"
@@ -4062,7 +4061,7 @@ exports[`renders english index 1`] = `
           </li>
         
       
-    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
+    <li class="_menuLink_3qkzb_103 _mobile_3qkzb_126" id="">
       
     <a
       is="lenke-med-sporing"
@@ -4106,7 +4105,7 @@ exports[`renders english index 1`] = `
   
 
       <li>
-        <ul class="_menuContextLinks_f99wf_52">
+        <ul class="_menuContextLinks_3qkzb_52">
           
     <a
       class="_wrapper_wmu45_1"
@@ -4226,6 +4225,7 @@ exports[`renders english index 1`] = `
       </div>
     </header>
     
+    <menu-background />
   </div>
         <main>
           

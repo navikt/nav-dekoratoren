@@ -55,13 +55,17 @@ export function handleSearchButtonClick() {
   ) as HTMLElement;
 
   searchButton?.addEventListener('click', () => {
+    searchButton.dispatchEvent(
+      new Event(
+        searchButton.classList.contains('active') ? 'menuclosed' : 'menuopened',
+        { bubbles: true },
+      ),
+    );
+
     setAriaExpanded(searchButton);
     searchButton?.classList.toggle('active');
     document
       .querySelector(`.${searchClasses.sokDropdown}`)
       ?.classList.toggle('active');
-    document
-      .getElementById('menu-background')
-      ?.classList.toggle(headerClasses.active);
   });
 }

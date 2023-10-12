@@ -17,6 +17,7 @@ import './views/search';
 import './views/loader';
 import './views/decorator-lens';
 import './views/local-time';
+import './views/menu-background';
 
 import { SearchEvent } from './views/search';
 
@@ -241,12 +242,6 @@ async function setActiveContext(context: Context | null) {
   }
 }
 
-const menuBackground = document.getElementById('menu-background');
-
-function purgeActive(el: HTMLElement) {
-  el.classList.remove('active');
-}
-
 let isMenuOpen = false;
 
 function handleMenuButton() {
@@ -255,11 +250,18 @@ function handleMenuButton() {
   const profileButton = document.getElementById('profile-button');
 
   menuButton?.addEventListener('click', () => {
+    menuButton.dispatchEvent(
+      new Event(
+        menuButton.classList.contains(iconButtonClasses.active)
+          ? 'menuclosed'
+          : 'menuopened',
+        { bubbles: true },
+      ),
+    );
     setAriaExpanded(menuButton);
     const menu = document.getElementById('menu');
     menuButton?.classList.toggle(iconButtonClasses.active);
     menu?.classList.toggle(headerClasses.active);
-    menuBackground?.classList.toggle(headerClasses.active);
 
     if (profileButton) {
       profileButton.classList.remove(iconButtonClasses.active);
@@ -317,21 +319,6 @@ if (window.__DECORATOR_DATA__.params.simple === false) {
     inlineSearch.addEventListener(event, handler);
   }
 }
-
-// when they click the background
-menuBackground?.addEventListener('click', () => {
-  const menu = document.getElementById('menu');
-  const menuButton = document.getElementById('menu-button');
-  const profileButton = document.getElementById('profile-button');
-
-  const dropdowns = document.querySelectorAll('.dropdown');
-  const loggedInMenuWrapper = document.getElementById('loggedin-menu-wrapper');
-
-  profileButton?.classList.remove(iconButtonClasses.active);
-  [menuButton, menuBackground, menu, loggedInMenuWrapper, ...dropdowns].forEach(
-    (el) => el && purgeActive(el as HTMLElement),
-  );
-});
 
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);

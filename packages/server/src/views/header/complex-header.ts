@@ -44,7 +44,6 @@ export function ComplexHeader({
   myPageMenu,
 }: ComplexHeaderProps) {
   return html`
-    <div id="menu-background" class="${classes.menuBackground}"></div>
     <header class="${classes.siteheader}">
       <div class="${classes.hovedmenyWrapper} ${utilsCls.contentContainer}">
         <div class="${classes.hovedmenyContent}">
@@ -93,5 +92,6 @@ export function ComplexHeader({
       breadcrumbs,
       availableLanguages,
     })}
+    <menu-background />
   `;
 }
