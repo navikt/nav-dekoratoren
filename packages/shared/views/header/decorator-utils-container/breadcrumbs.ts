@@ -3,10 +3,7 @@ import html from '../../../html';
 import cls from './breadcrumbs.module.css';
 import { ForwardChevron } from '../../icons';
 import { HomeIcon } from '../../icons/home';
-import {
-  LenkeMedSporing,
-  LenkeMedSporingBase,
-} from 'decorator-client/src/views/lenke-med-sporing/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing/lenke-med-sporing-helpers';
 
 const analyticsEventArgs = {
   category: 'dekorator-header',
@@ -40,7 +37,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                   ${ForwardChevron()}
                   ${index === breadcrumbs.length - 1
                     ? title
-                    : LenkeMedSporingBase({
+                    : LenkeMedSporing({
                         href: url as string,
                         analyticsEventArgs: {
                           ...analyticsEventArgs,

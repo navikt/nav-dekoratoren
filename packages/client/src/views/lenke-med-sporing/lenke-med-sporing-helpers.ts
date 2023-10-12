@@ -27,7 +27,7 @@ export type LenkeMedSporingProps = {
   attachContext?: boolean;
 };
 
-export function LenkeMedSporingBase({
+function LenkeMedSporingBase({
   defaultStyle = true,
   attachContext = false,
   ...props
@@ -58,7 +58,7 @@ export function LenkeMedSporingBase({
 }
 
 // @note: these two can maybe be simplified
-export function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
+function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
   const className = props.className || '';
 
   return LenkeMedSporingBase({
@@ -73,7 +73,7 @@ export function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
   });
 }
 
-export function LenkeMedSporingLock(props: LenkeMedSporingProps) {
+function LenkeMedSporingLock(props: LenkeMedSporingProps) {
   const className = props.className || '';
 
   return LenkeMedSporingBase({
