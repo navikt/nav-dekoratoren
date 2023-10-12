@@ -76,7 +76,7 @@ const getNotifications: (
     ? Promise.resolve([
         {
           heading: texts.notifications_tasks_title,
-          notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction)
+          notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
         },
         {
           heading: texts.notifications_messages_title,

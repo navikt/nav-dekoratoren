@@ -11,5 +11,5 @@
     "isolatedModules": false,
     "types": ["bun-types", "decorator-shared/module.d.ts"]
   },
-    "exclude": ["**/*.stories.ts"]
+  "exclude": ["**/*.stories.ts"]
 }

@@ -7,8 +7,6 @@ import SearchService from './search-service';
 import menu from './content-test-data.json';
 import notificationsService from './notifications-service';
 
-
-
 const getFilePaths = (dir: string): string[] =>
   readdirSync(dir).flatMap((name) => {
     const file = dir + '/' + name;

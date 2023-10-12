@@ -62,7 +62,6 @@
   padding-left: 0;
 }
 
-
 @media (prefers-reduced-motion: no-preference) {
   :where(.menuSearch) * {
     transition-property: transform, opacity, stroke-width;

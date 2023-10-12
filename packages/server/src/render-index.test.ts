@@ -32,7 +32,7 @@ test('renders norwegian index', async () => {
         logoutUrl: '/logout',
         maskHotjar: false,
         logoutWarning: false,
-        redirectToUrl: 'https://www.nav.no'
+        redirectToUrl: 'https://www.nav.no',
       },
       url: 'localhost:8089/',
       query: {},
@@ -64,7 +64,7 @@ test('renders english index', async () => {
         logoutUrl: '/logout',
         maskHotjar: false,
         logoutWarning: false,
-        redirectToUrl: 'https://www.nav.no'
+        redirectToUrl: 'https://www.nav.no',
       },
       url: 'localhost:8089/',
       query: {},
