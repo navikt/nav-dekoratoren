@@ -6,7 +6,6 @@ import ts from 'typescript';
 import { HmrContext } from 'vite';
 import * as prettier from "prettier";
 import prettierConfig from '../../.prettierrc.json'
-console.log(prettierConfig)
 
 // Directoryes to write file to
 const targets = ['./', '../server/', '../shared/'];
