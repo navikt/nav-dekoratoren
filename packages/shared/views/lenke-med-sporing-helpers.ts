@@ -1,9 +1,5 @@
-// Puttet i sin egen fil slik at det kan brukes på server og i shared
-
 import html, { Template, json } from 'decorator-shared/html';
 import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
-import classes from './lenke-med-sporing.module.css';
-import { Next } from 'decorator-shared/views/icons/next';
 
 export type LenkeMedSporingProps = {
   role?: string;
@@ -26,7 +22,7 @@ export type LenkeMedSporingProps = {
   attachContext?: boolean;
 };
 
-function LenkeMedSporingBase({
+export function LenkeMedSporing({
   defaultStyle = true,
   attachContext = false,
   ...props
@@ -54,36 +50,4 @@ function LenkeMedSporingBase({
     ${props.children}
     </a>
   `;
-}
-
-// @note: these two can maybe be simplified
-function LenkeMedSporingChevron(props: LenkeMedSporingProps) {
-  const className = props.className || '';
-
-  return LenkeMedSporingBase({
-    ...props,
-    className: `${className} ${classes.chevronlenke}`,
-    children: html` <div class="${classes.ikonContainer}">
-        ${Next({
-          className: classes.chevron,
-        })}
-      </div>
-      ${props.children}`,
-  });
-}
-
-const variants = {
-  chevron: LenkeMedSporingChevron,
-  standard: LenkeMedSporingBase,
-};
-
-export type VariantKey = keyof typeof variants;
-
-export function LenkeMedSporing(
-  props: LenkeMedSporingProps,
-  variantKey?: VariantKey,
-) {
-  const variant = variantKey || 'standard';
-  const Component = variants[variant];
-  return Component(props);
 }

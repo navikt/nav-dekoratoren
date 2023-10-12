@@ -5,9 +5,10 @@ import { Context } from '../../params';
 
 import classes from 'decorator-client/src/styles/header.module.css';
 import contextMenuLinkClasses from 'decorator-client/src/styles/context-menu-link.module.css';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import clsx from 'clsx';
 import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
+import { Next } from '../icons/next';
 
 function Link({
   path,
@@ -20,20 +21,16 @@ function Link({
   displayName?: string;
   analyticsEventArgs?: AnalyticsEventArgs;
   id?: string;
-  // fix this
   className?: any;
 }) {
   return html`
     <li class="${clsx([classes.menuLink, className])}" id="${id}">
-      ${LenkeMedSporing(
-        {
-          href: path as string,
-          // don't really like that we have to do this
-          children: html`${displayName}`,
-          analyticsEventArgs,
-        },
-        'chevron',
-      )}
+      <div class="${classes.menuLinkInner}">${Next({})}</div>
+      ${LenkeMedSporing({
+        href: path as string,
+        children: html`${displayName}`,
+        analyticsEventArgs,
+      })}
     </li>
   `;
 }

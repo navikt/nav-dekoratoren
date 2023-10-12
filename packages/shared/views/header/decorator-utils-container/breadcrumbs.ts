@@ -3,7 +3,7 @@ import html from '../../../html';
 import cls from './breadcrumbs.module.css';
 import { ForwardChevron } from '../../icons';
 import { HomeIcon } from '../../icons/home';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 
 const analyticsEventArgs = {
   category: 'dekorator-header',

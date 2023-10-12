@@ -27,7 +27,7 @@ import classes from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
 import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import { ComplexHeaderMenu } from './complex-header-menu';
 
