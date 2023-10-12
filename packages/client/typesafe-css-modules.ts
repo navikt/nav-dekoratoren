@@ -4,7 +4,10 @@ import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
 import { HmrContext } from 'vite';
-//
+import * as prettier from "prettier";
+import prettierConfig from '../../.prettierrc.json'
+console.log(prettierConfig)
+
 // Directoryes to write file to
 const targets = ['./', '../server/', '../shared/'];
 
@@ -70,7 +73,7 @@ function createTSModule(file: ProcessedFile) {
   return tsModule;
 }
 
-function createOutput(modules: ts.ModuleDeclaration[]) {
+async function createOutput(modules: ts.ModuleDeclaration[]) {
   const printer = ts.createPrinter();
   const sourceFile = ts.createSourceFile(FILE_NAME, '', ts.ScriptTarget.ES2015);
 
@@ -78,7 +81,13 @@ function createOutput(modules: ts.ModuleDeclaration[]) {
     .map((mod) => printer.printNode(ts.EmitHint.Unspecified, mod, sourceFile))
     .join('\n\n');
 
-  return output;
+
+  const formatted = await prettier.format(output, {
+      ...prettierConfig,
+      parser: "typescript"
+  });
+
+  return formatted;
 }
 
 export async function processAll() {
@@ -92,7 +101,7 @@ export async function processAll() {
     paths.map(async (f) => await processFile(f)),
   );
   const modules: ts.ModuleDeclaration[] = processedFiles.map(createTSModule); //;
-  const output = createOutput(modules);
+  const output = await createOutput(modules);
 
   for (const target of targets) {
     fs.writeFileSync(path.resolve(target, FILE_NAME), output);
