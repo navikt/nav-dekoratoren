@@ -1,8 +1,8 @@
 // Puttet i sin egen fil slik at det kan brukes på server og i shared
 
 import html, { Template, json } from 'decorator-shared/html';
-import { AnalyticsEventArgs } from '../analytics/constants';
-import classes from '../styles/lenke-med-sporing.module.css';
+import { AnalyticsEventArgs } from '../../analytics/constants';
+import classes from './lenke-med-sporing.module.css';
 import { Lock } from 'decorator-shared/views/icons/lock';
 import { Next } from 'decorator-shared/views/icons/next';
 

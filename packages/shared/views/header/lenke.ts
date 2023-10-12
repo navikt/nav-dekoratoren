@@ -1,4 +1,4 @@
-import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing/lenke-med-sporing-helpers';
 
 import { ContextLink } from '../../context';
 import { Template } from '../../html';

@@ -6,7 +6,7 @@ import { HomeIcon } from '../../icons/home';
 import {
   LenkeMedSporing,
   LenkeMedSporingBase,
-} from 'decorator-client/src/views/lenke-med-sporing-helpers';
+} from 'decorator-client/src/views/lenke-med-sporing/lenke-med-sporing-helpers';
 
 const analyticsEventArgs = {
   category: 'dekorator-header',
