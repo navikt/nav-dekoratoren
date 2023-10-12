@@ -5,7 +5,6 @@ import 'decorator-client/src/main.css';
 import 'decorator-client/src/views/local-time';
 import 'decorator-client/src/views/loader';
 import 'decorator-client/src/views/language-selector';
-import 'decorator-client/src/views/toggle-icon-button';
 import 'decorator-client/src/views/search';
 import { WebcomponentTemplates } from 'decorator-server/src/views/web-component-templates';
 

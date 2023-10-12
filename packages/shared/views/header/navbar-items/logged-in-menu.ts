@@ -7,6 +7,7 @@ import { HeaderMenuLinks } from '../header-menu-links';
 import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
 import { LogoutIcon } from '../../icons/logout';
+import clsx from 'clsx';
 
 export type LoggedInMenuProps = {
   name: string;
@@ -17,50 +18,45 @@ export type LoggedInMenuProps = {
 export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
   return html`
     <div class="${cls.loggedInMenu}">
-      <div>
-        <toggle-icon-button id="notifications-button">
-          <div class="${cls.notificationsIconWrapper}" slot="icon">
-            ${NotificationsIcon({ className: 'notifications-icon' })}
+      <dropdown-menu>
+        ${IconButton({
+          Icon: html`<div class="${cls.notificationsIconWrapper}" slot="icon">
+            ${NotificationsIcon({})}
             <div class="${cls.notificationsUnread}"></div>
+          </div>`,
+          text: texts.notifications,
+          className: 'dropdown-menu-button',
+        })}
+        <div
+          class="${clsx(cls.notificationsDropdown, 'dropdown-menu-content')}"
+        >
+          ${LoadingNotifications({
+            texts,
+          })}
+        </div>
+      </dropdown-menu>
+      <dropdown-menu>
+        ${IconButton({
+          Icon: ProfileIcon({}),
+          text: name,
+          chevron: true,
+          className: 'dropdown-menu-button',
+        })}
+        <div class="${clsx(cls.myPageMenuDropdown, 'dropdown-menu-content')}">
+          <div>
+            <h2 class="${cls.myPageMenuHeading}">Min side</h2>
+            <a class="${cls.link}" href="#">Til Min side</a>
           </div>
-          <span slot="text">${texts.notifications}</span>
-        </toggle-icon-button>
-      </div>
-      ${IconButton({
-        id: 'profile-button',
-        Icon: ProfileIcon({}),
-        text: name,
-        chevron: true,
-      })}
+          ${HeaderMenuLinks({
+            headerMenuLinks: myPageMenu,
+          })}
+        </div>
+      </dropdown-menu>
       ${IconButton({
         id: 'logout-button',
         Icon: LogoutIcon({}),
         text: texts.logout,
       })}
-      <div id="loggedin-menu-wrapper" class="${cls.loggedinMenuWrapper}">
-        <div class="${cls.loggedinMenuContent}">
-          <div
-            id="notifications-menu-content"
-            class="${cls.dropdown} ${cls.notificationsMenuContent}"
-          >
-            ${LoadingNotifications({
-              texts,
-            })}
-          </div>
-          <div
-            id="my-page-menu-content"
-            class="${cls.dropdown} ${cls.myPageMenuContent}"
-          >
-            <div>
-              <h2 class="${cls.myPageMenuHeading}">Min side</h2>
-              <a class="${cls.link}" href="#">Til Min side</a>
-            </div>
-            ${HeaderMenuLinks({
-              headerMenuLinks: myPageMenu,
-            })}
-          </div>
-        </div>
-      </div>
     </div>
   `;
 }

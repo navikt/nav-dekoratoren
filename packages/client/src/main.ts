@@ -12,7 +12,6 @@ import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator
 
 // Maybe create a file that does this
 import './views/language-selector';
-import './views/toggle-icon-button';
 import './views/search';
 import './views/loader';
 import './views/decorator-lens';
@@ -31,7 +30,6 @@ import {
 } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
-import { initLoggedInMenu } from './views/logged-in-menu';
 import { logoutWarningController } from './controllers/logout-warning';
 
 import {
@@ -298,8 +296,6 @@ async function populateLoggedInMenu(authObject: Auth) {
 
     menuItems.outerHTML = template.render();
 
-    initLoggedInMenu();
-
     document.getElementById('logout-button')?.addEventListener('click', () => {
       const menuitems = document.getElementById('menu-items');
       if (menuitems) {
@@ -331,7 +327,7 @@ api.checkAuth({
     }
 
     const notificationsMenuContent = document.querySelector(
-      '#notifications-menu-content',
+      `.${loggedInMenuClasses.notificationsDropdown}`,
     );
 
     if (notificationsMenuContent) {
