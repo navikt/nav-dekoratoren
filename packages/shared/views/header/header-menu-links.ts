@@ -5,7 +5,7 @@ import { Context } from '../../params';
 
 import classes from 'decorator-client/src/styles/header.module.css';
 import contextMenuLinkClasses from 'decorator-client/src/styles/context-menu-link.module.css';
-import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing/lenke-med-sporing-helpers';
 import clsx from 'clsx';
 import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
 

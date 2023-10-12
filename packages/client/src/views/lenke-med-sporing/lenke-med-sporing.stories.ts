@@ -3,7 +3,7 @@ import {
   LenkeMedSporing,
   LenkeMedSporingProps,
   VariantKey,
-} from './lenke-med-sporing-helpers';
+} from 'decorator-shared/views/lenke-med-sporing/lenke-med-sporing-helpers';
 import './lenke-med-sporing';
 import html from 'decorator-shared/html';
 

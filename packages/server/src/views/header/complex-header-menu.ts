@@ -1,7 +1,7 @@
 import html from 'decorator-shared/html';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import { Node, Texts } from 'decorator-shared/types';
-import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing/lenke-med-sporing-helpers';
 import cls from 'decorator-client/src/styles/complex-header-menu.module.css';
 
 export type ComplexHeaderMenuProps = {
