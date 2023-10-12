@@ -72,7 +72,7 @@ function ContextLink({
 }
 
 export type HeaderMenuLinksProps = {
-  headerMenuLinks: Node[];
+  headerMenuLinks?: Node[];
   className?: string;
 };
 
@@ -83,7 +83,7 @@ export function HeaderMenuLinks({
   // Add one for the conext links
   return html`
     <ul class="${classes.headerMenuLinks} ${className}">
-      ${headerMenuLinks.map(
+      ${headerMenuLinks?.map(
         (link) => html`
           <li
             id="${link.id}"

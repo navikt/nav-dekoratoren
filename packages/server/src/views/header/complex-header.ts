@@ -81,6 +81,7 @@ export function ComplexHeader({
           innlogget,
           texts,
           myPageMenu: myPageMenu as Node[],
+          headerMenuLinks,
         })}
         <div id="menu" class="${utilsCls.contentContainer} ${classes.menu}">
           ${ComplexHeaderMenu({ headerMenuLinks, texts })}

@@ -18,10 +18,11 @@ import './views/loader';
 import './views/decorator-lens';
 import './views/local-time';
 import './views/menu-background';
+import './views/dropdown-menu';
 
 import { SearchEvent } from './views/search';
 
-import { hasClass, replaceElement, setAriaExpanded } from './utils';
+import { hasClass, replaceElement } from './utils';
 
 import {
   Environment,
@@ -45,7 +46,6 @@ import { handleSearchButtonClick } from './listeners/search-listener';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
 import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
@@ -60,10 +60,6 @@ type Auth = {
   name: string;
   securityLevel: string;
 };
-
-const breakpoints = {
-  lg: 1024, // See custom-media-queries.css
-} as const;
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
@@ -242,44 +238,6 @@ async function setActiveContext(context: Context | null) {
   }
 }
 
-let isMenuOpen = false;
-
-function handleMenuButton() {
-  // Can probably be done direclty
-  const menuButton = document.getElementById('menu-button');
-  const profileButton = document.getElementById('profile-button');
-
-  menuButton?.addEventListener('click', () => {
-    menuButton.dispatchEvent(
-      new Event(
-        menuButton.classList.contains(iconButtonClasses.active)
-          ? 'menuclosed'
-          : 'menuopened',
-        { bubbles: true },
-      ),
-    );
-    setAriaExpanded(menuButton);
-    const menu = document.getElementById('menu');
-    menuButton?.classList.toggle(iconButtonClasses.active);
-    menu?.classList.toggle(headerClasses.active);
-
-    if (profileButton) {
-      profileButton.classList.remove(iconButtonClasses.active);
-    }
-
-    const isMobile = window.innerWidth < breakpoints.lg;
-    isMenuOpen = !isMenuOpen;
-
-    if (!isMobile) return;
-
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  });
-}
-
 // Keeping this for later when fixing opening menus and such
 // function dismissMenu() {
 //     const menu = document.getElementById('menu');
@@ -343,7 +301,6 @@ async function populateLoggedInMenu(authObject: Auth) {
     menuItems.outerHTML = template.render();
 
     initLoggedInMenu();
-    handleMenuButton();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       const menuitems = document.getElementById('menu-items');
@@ -402,5 +359,4 @@ function handleLogin() {
     });
 }
 
-handleMenuButton();
 handleLogin();
