@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/notification.module.css';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 
@@ -6,7 +6,7 @@ export type NotificationProps = {
   text: string;
   link: string;
   date: string;
-  icon: string;
+  icon: Template;
   tags: string[];
   amplitudeKomponent: string;
 };

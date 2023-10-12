@@ -1,18 +1,43 @@
+import clsx from 'clsx';
 import html from '../../html';
+import cls from './button.module.css';
 
-export function Button({
-  text,
-  className = '',
-}: {
+export type ButtonProps = {
   text: string;
+  variant: 'primary' | 'secondary' | 'outline';
+  bigLabel?: boolean;
+  wide?: boolean;
   className?: string;
-}) {
-  return html`
-    <button
-      class="${'py-3 px-5 border-small min-w-[109px] font-semibold text-text-action border-2 border-text-action hover:bg-surface-action-subtle-hover ' +
-      className}"
-    >
-      ${text}
-    </button>
-  `;
-}
+  id?: string;
+  data?: Record<string, string>;
+};
+
+export const Button = ({
+  text,
+  variant,
+  bigLabel,
+  wide,
+  className,
+  id,
+  data,
+}: ButtonProps) => html`
+  <button
+    ${id ? html`id="${id}"` : ''}
+    ${data
+      ? Object.entries(data).map(([key, value]) => html`data-${key}="${value}"`)
+      : ''}
+    class="${clsx(
+      cls.button,
+      {
+        [cls.primary]: variant === 'primary',
+        [cls.secondary]: variant === 'secondary',
+        [cls.outline]: variant === 'outline',
+        [cls.bigLabel]: bigLabel,
+        [cls.wide]: wide,
+      },
+      className,
+    )}"
+  >
+    ${text}
+  </button>
+`;

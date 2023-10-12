@@ -322,7 +322,7 @@ exports[`renders norwegian index 1`] = `
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class="bigLabel"
+      <label for="inline-search-input" class="_bigLabel_1p9d8_1"
         >Søk på nav.no</label
       >
       <div class="inline-search-input-container">
@@ -345,11 +345,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -385,10 +385,10 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background"></div>
-    <header class="siteheader">
-      <div class="hovedmeny-wrapper contentContainer">
-        <div class="hovedmeny-content">
+    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
+    <header class="_siteheader_f99wf_1">
+      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
+        <div class="_hovedmenyContent_f99wf_27">
           
     <a
       is="lenke-med-sporing"
@@ -401,7 +401,7 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
@@ -411,7 +411,7 @@ exports[`renders norwegian index 1`] = `
             />
     </a>
   
-          <div id="arbeidsflate">
+          <div class="_arbeidsflate_f99wf_39">
             
     <a
       is="lenke-med-sporing"
@@ -421,8 +421,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="headerContextLink lenkeActive"
-      data-container-class-name="headerContextLinkContainer"
+      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -439,8 +439,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="headerContextLink"
-      data-container-class-name="headerContextLinkContainer"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -457,8 +457,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="headerContextLink"
-      data-container-class-name="headerContextLinkContainer"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -470,10 +470,11 @@ exports[`renders norwegian index 1`] = `
           </div>
         </div>
         
-    <div id="menu-items" class="">
-      <div id="menu-items-universal-links">
-        <button id="menu-button" class="icon-button">
-          <svg
+    <div class="_menuItems_1q0ba_1">
+      <div class="_menuItemsUniversalLinks_1q0ba_8">
+        
+    <button id="menu-button" class="_iconButton_1vnms_1 ">
+      <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -483,23 +484,24 @@ exports[`renders norwegian index 1`] = `
     stroke-width="2"
     aria-hidden="true"
     focusable="false"
-    aria-labelledby="menuBurger_:R2kti:"
     role="img"
-    class="menuBurger"
-    slot=""
+    class="_menuBurger_j7vrk_2"
   >
-    <title id="menuBurger_:R2kti:">Meny-ikon</title>
-    <path class="menuBurger__line-1" d="M2 4h20"></path>
-    <path class="menuBurger__line-2" d="M2 12h20"></path>
-    <path class="menuBurger__line-3" d="M2 20h20"></path>
+    <path class="_menuBurger__line_1_j7vrk_13" d="M2 4h20"></path>
+    <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
+    <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
-          <span class="icon-button-span"> Meny </span>
-        </button>
+      <span class="_iconButtonSpan_1vnms_33">Meny</span>
+
+      
+    </button>
+  
         
-    <button class="iconButton searchButton">
+    
+    <button id="" class="_iconButton_1vnms_1 _searchButton_carrr_46">
       
     <svg
-      class="searchIcon menuSearch"
+      class="_menuSearch_carrr_66"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -514,28 +516,27 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="iconButtonSpan"> Søk </span>
+      <span class="_iconButtonSpan_1vnms_33">Søk</span>
+
+      
     </button>
-    <div class="sokDropdown">
-      <div class="sokDropdownContent">
-        <label for="searchInput" class="bigLabel"
+  
+    <div class="_sokDropdown_carrr_1">
+      <div class="_sokDropdownContent_carrr_18">
+        <label for="_searchInput_carrr_23" class="_bigLabel_1p9d8_1"
           >Søk på nav.no</label
         >
-        <div class="flex">
-          <input class="searchInput" type="text" />
+        <div class="_searchInputWrapper_carrr_41">
+          <input class="_searchInput_carrr_23" type="text" />
           
-    <button
-      id=""
-      class="icon-button blue-bg-icon"
-      
-    >
+    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_carrr_51">
       
     <svg
       class=""
@@ -553,32 +554,29 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="icon-button-span">Søk</span>
+      <span class="_iconButtonSpan_1vnms_33">Søk</span>
+
+      
     </button>
   
         </div>
       </div>
       <div id="search-hits">
-        <ul></ul>
+        <ul class="_searchHitList_carrr_59"></ul>
         <div id="show-more"></div>
       </div>
     </div>
   
       </div>
       
-            
-    <button
-      id="login-button"
-      class="icon-button "
-      
-    >
+    <button id="login-button" class="_iconButton_1vnms_1 ">
       <svg
     width="24px"
     height="24px"
@@ -599,16 +597,18 @@ exports[`renders norwegian index 1`] = `
       fill="currentColor"
     ></path>
   </svg>
-      <span class="icon-button-span">Logg inn</span>
+      <span class="_iconButtonSpan_1vnms_33">Logg inn</span>
+
+      
     </button>
   
-          
     </div>
   
-        <div id="menu" class="contentContainer">
-          <div class="menu-top">
-            <h2>Hva kan vi hjelpe deg med?</h2>
-            
+        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
+          
+  <div class="_menuTop_zy4o8_1">
+    <h2>Hva kan vi hjelpe deg med?</h2>
+    
     <a
       is="lenke-med-sporing"
       role=""
@@ -620,57 +620,49 @@ exports[`renders norwegian index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
     Til forsiden
     </a>
   
-          </div>
-          <div id="sub-menu-content">
-            <div id="mobil-lukk">
-              
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+  </div>
+  <div class="_menuContent_zy4o8_5">
+    <div class="_inlineSearch_zy4o8_24">
+      <inline-search></inline-search>
+    </div>
+    <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
+    <div id="header-menu-links">
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m6.586 12 7.707-7.707 1.414 1.414L9.414 12l6.293 6.293-1.414 1.414L6.586 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-              <span>Tilbake til oversikt</span>
-            </div>
-            <ul></ul>
-          </div>
-          <div id="menu-content">
-            <div id="inline-search">
-              <inline-search></inline-search>
-            </div>
-            <decorator-loader id="search-loader"></decorator-loader>
-            <div id="header-menu-links">
-              
-    <ul class="headerMenuLinks cols-3">
+    <ul class="_headerMenuLinks_f99wf_162 cols-3">
       
           <li
             id="79173ea3-74cd-4d7a-a81f-a43915022c4e"
-            class="flatten"
+            class="_flatten_f99wf_9"
           >
             <h3>Områder</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+    <li class="_menuLink_f99wf_121" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -682,13 +674,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Arbeid","label":"/arbeid"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Arbeid
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="c0379053-4fdf-4151-8974-5d475449ebd2">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -696,7 +693,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -705,14 +702,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Arbeid
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="c0379053-4fdf-4151-8974-5d475449ebd2">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -724,13 +714,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Helse og sykdom","label":"/helse"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Helse og sykdom
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -738,7 +733,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -747,14 +742,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Helse og sykdom
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -766,13 +754,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Familie og barn","label":"/familie"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Familie og barn
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -780,7 +773,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -789,14 +782,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Familie og barn
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -808,13 +794,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Pensjon","label":"/pensjon"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Pensjon
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -822,7 +813,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -831,14 +822,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Pensjon
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -850,13 +834,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Sosiale tjenester og veiledning","label":"/sosiale-tjenester"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Sosiale tjenester og veiledning
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -864,7 +853,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -873,14 +862,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Sosiale tjenester og veiledning
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -892,32 +874,12 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Hjelpemidler og tilrettelegging","label":"/hjelpemidler"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Hjelpemidler og tilrettelegging
+    Hjelpemidler og tilrettelegging
     </a>
   
     </li>
@@ -928,12 +890,30 @@ exports[`renders norwegian index 1`] = `
         
           <li
             id="c73650df-2e69-41e3-ae15-96ed90de4b0b"
-            class="nested"
+            class="_nested_f99wf_191"
           >
             <h3>Snarveier</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+    <li class="_menuLink_f99wf_121" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -945,13 +925,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Søknad og skjema","label":"/soknader"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Søknad og skjema
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -959,7 +944,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -968,14 +953,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Søknad og skjema
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -987,13 +965,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Ettersendelse","label":"/ettersende"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Ettersendelse
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1001,7 +984,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1010,14 +993,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Ettersendelse
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1029,13 +1005,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Klage","label":"/klage"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Klage
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1043,7 +1024,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1052,14 +1033,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Klage
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1071,13 +1045,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Pengestøtter og tjenester fra A til Å","label":"/tjenester"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Pengestøtter og tjenester fra A til Å
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1085,7 +1064,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1094,14 +1073,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Pengestøtter og tjenester fra A til Å
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1113,13 +1085,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Saksbehandlingstider","label":"/saksbehandlingstider"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Saksbehandlingstider
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1127,7 +1104,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1136,14 +1113,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Saksbehandlingstider
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1155,13 +1125,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Utbetalinger","label":"/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Utbetalinger
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1169,7 +1144,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1178,14 +1153,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Utbetalinger
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1197,13 +1165,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Satser","label":"/satser"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Satser
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1211,7 +1184,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1220,14 +1193,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Satser
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1239,13 +1205,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Meldekort","label":"/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Meldekort
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1253,7 +1224,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1262,14 +1233,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Meldekort
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1281,13 +1245,18 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Kurs fra NAV","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Kurs fra NAV
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1295,7 +1264,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1304,14 +1273,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Kurs fra NAV
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1323,13 +1285,20 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Feiltolkning av EØS-reglene","label":"/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Feiltolkning av EØS-reglene
+    </a>
+  
+    </li>
+  
+            </ul>
+            
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1337,7 +1306,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1346,16 +1315,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Feiltolkning av EØS-reglene
-    </a>
-  
-    </li>
-  
-            </ul>
-            
-    <li class="menuLink nestedLink" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1367,13 +1327,21 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
+    Snarveier
+    </a>
+  
+    </li>
+  
+          </li>
         
+      
+    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -1381,7 +1349,7 @@ exports[`renders norwegian index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -1390,17 +1358,7 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Snarveier
-    </a>
-  
-    </li>
-  
-          </li>
-        
-      
-    <li class="menuLink mobile" id="">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -1412,50 +1370,30 @@ exports[`renders norwegian index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Logg inn på min side
+    Logg inn på min side
     </a>
   
     </li>
   
 
       <li>
-        <ul id="menu-context-links">
+        <ul class="_menuContextLinks_f99wf_52">
           
     <a
-      class="wrapper"
+      class="_wrapper_wmu45_1"
       href="privatperson"
       data-context="privatperson"
     >
       <li
-        class="contextMenuLink"
+        class="_contextMenuLink_wmu45_6"
         id=""
       >
-        <div class="inner">
+        <div class="_inner_wmu45_28">
           
     <svg
       width="1em"
@@ -1466,7 +1404,7 @@ exports[`renders norwegian index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      class="chevron"
+      class="_chevron_wmu45_16"
     >
       <path
         fill-rule="evenodd"
@@ -1483,15 +1421,15 @@ exports[`renders norwegian index 1`] = `
   
           
     <a
-      class="wrapper"
+      class="_wrapper_wmu45_1"
       href="arbeidsgiver"
       data-context="arbeidsgiver"
     >
       <li
-        class="contextMenuLink"
+        class="_contextMenuLink_wmu45_6"
         id=""
       >
-        <div class="inner">
+        <div class="_inner_wmu45_28">
           
     <svg
       width="1em"
@@ -1502,7 +1440,7 @@ exports[`renders norwegian index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      class="chevron"
+      class="_chevron_wmu45_16"
     >
       <path
         fill-rule="evenodd"
@@ -1519,15 +1457,15 @@ exports[`renders norwegian index 1`] = `
   
           
     <a
-      class="wrapper"
+      class="_wrapper_wmu45_1"
       href="samarbeidspartner"
       data-context="samarbeidspartner"
     >
       <li
-        class="contextMenuLink"
+        class="_contextMenuLink_wmu45_6"
         id=""
       >
-        <div class="inner">
+        <div class="_inner_wmu45_28">
           
     <svg
       width="1em"
@@ -1538,7 +1476,7 @@ exports[`renders norwegian index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      class="chevron"
+      class="_chevron_wmu45_16"
     >
       <path
         fill-rule="evenodd"
@@ -1557,17 +1495,24 @@ exports[`renders norwegian index 1`] = `
       </li>
     </ul>
   
-            </div>
-          </div>
+    </div>
+  </div>
+
         </div>
       </div>
     </header>
     
   </div>
         <main>
-          <button class="button button-main" id="amplitude-test">
-            Test amplitude!
-          </button>
+          
+  <button
+    id="amplitude-test"
+    
+    class="_button_l508m_1 _primary_l508m_16"
+  >
+    Test amplitude!
+  </button>
+
           <button
             onclick="(() => {
                 window.postMessage({
@@ -1627,9 +1572,10 @@ exports[`renders norwegian index 1`] = `
         </main>
         <div id="footer-withmenu" class="bg-white">
             
-    <footer class="footer" data-theme="dark">
-      <div class="footer-content contentContainer">
-        <a class="to-top-link" href="#"> 
+    <footer class="_footer_1vx5s_1" data-theme="dark">
+      <div class="_footerContent_1vx5s_38 _contentContainer_1av57_1">
+        <a class="_toTopLink_1vx5s_44" href="#">
+          
     <svg
       width="1em"
       height="1em"
@@ -1646,16 +1592,19 @@ exports[`renders norwegian index 1`] = `
         fill="currentColor"
       ></path>
     </svg>
-   Til toppen </a>
+   Til toppen
+        </a>
 
-        <div class="footer-links">
-          <ul class="footer-link-list">
+        <div class="_footerLinks_1vx5s_53">
+          <ul class="_footerLinkList_1vx5s_1">
             
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">Kontakt</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    Kontakt
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1665,10 +1614,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1677,7 +1626,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1687,10 +1636,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1699,7 +1648,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1709,10 +1658,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1721,7 +1670,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1731,10 +1680,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1746,11 +1695,13 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">Nyheter og presse</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    Nyheter og presse
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1760,10 +1711,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1775,11 +1726,13 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">NAV og samfunn</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    NAV og samfunn
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1789,10 +1742,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1801,7 +1754,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1811,10 +1764,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1823,7 +1776,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1833,10 +1786,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1848,11 +1801,13 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">Andre språk</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    Andre språk
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1862,10 +1817,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1874,7 +1829,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1884,10 +1839,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1899,11 +1854,11 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
+                <li class="_footerLinkGroup_1vx5s_71">
                   
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1913,10 +1868,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1925,7 +1880,7 @@ exports[`renders norwegian index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -1935,10 +1890,10 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -1950,7 +1905,7 @@ exports[`renders norwegian index 1`] = `
                   </ul>
                 </li>
               
-            <li><button type="button" class="screenshareButton">
+            <li><button type="button" class="_screenshareButton_tarl4_1">
     Del skjerm med veileder
     <svg
       width="1em"
@@ -1972,7 +1927,7 @@ exports[`renders norwegian index 1`] = `
           </ul>
         </div>
 
-        <div class="complex-footer-org">
+        <div class="_complexFooterOrg_1vx5s_27">
           <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>
@@ -2002,7 +1957,7 @@ exports[`renders norwegian index 1`] = `
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}
       </script>
       <script type="application/json" id="explicit-params">
         {}
@@ -2012,20 +1967,20 @@ exports[`renders norwegian index 1`] = `
   
       <div
         id="decorator-lens"
-        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=nb&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false&redirectToUrl=https%3A%2F%2Fwww.nav.no"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
         id="decorator-lens-explicit"
         data-src=""
       ></div>
-      <decorator-lens></decorator-lens>
+      <decorator-lens class="_decoratorLens_14jqu_1"></decorator-lens>
     </div>
   
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"
   <script type="application/json" id="__DECORATOR_DATA__">
-    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","rolle_privatperson":"Privat","rolle_arbeidsgiver":"Arbeidsgiver","rolle_samarbeidspartner":"Samarbeidspartner","meny_bunnlenke_minside_stikkord":"Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester","meny_bunnlenke_arbeidsgiver_stikkord":"Dine sykmeldte, rekruttering, digitale skjemaer","meny_bunnlenke_samarbeidspartner_stikkord":"Helsepersonell, tiltaksarrangører, fylker og kommuner","loading_notifications":"Laster varslinger","notifications_error":"Feil ved lasting av varsler","til_forsiden":"Til forsiden","how_can_we_help":"Hva kan vi hjelpe deg med?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+    {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","logged_in":"Logget inn","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","rolle_privatperson":"Privat","rolle_arbeidsgiver":"Arbeidsgiver","rolle_samarbeidspartner":"Samarbeidspartner","meny_bunnlenke_minside_stikkord":"Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester","meny_bunnlenke_arbeidsgiver_stikkord":"Dine sykmeldte, rekruttering, digitale skjemaer","meny_bunnlenke_samarbeidspartner_stikkord":"Helsepersonell, tiltaksarrangører, fylker og kommuner","loading_notifications":"Laster varslinger","notifications_error":"Feil ved lasting av varsler","til_forsiden":"Til forsiden","how_can_we_help":"Hva kan vi hjelpe deg med?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}}
   </script>
 
         </div>
@@ -2356,7 +2311,7 @@ exports[`renders english index 1`] = `
       }
     </style>
     <div class="inline-search">
-      <label for="inline-search-input" class="bigLabel"
+      <label for="inline-search-input" class="_bigLabel_1p9d8_1"
         >Søk på nav.no</label
       >
       <div class="inline-search-input-container">
@@ -2379,11 +2334,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -2419,10 +2374,10 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background"></div>
-    <header class="siteheader">
-      <div class="hovedmeny-wrapper contentContainer">
-        <div class="hovedmeny-content">
+    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
+    <header class="_siteheader_f99wf_1">
+      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
+        <div class="_hovedmenyContent_f99wf_27">
           
     <a
       is="lenke-med-sporing"
@@ -2435,7 +2390,7 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
@@ -2445,7 +2400,7 @@ exports[`renders english index 1`] = `
             />
     </a>
   
-          <div id="arbeidsflate">
+          <div class="_arbeidsflate_f99wf_39">
             
     <a
       is="lenke-med-sporing"
@@ -2455,8 +2410,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="headerContextLink lenkeActive"
-      data-container-class-name="headerContextLinkContainer"
+      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -2473,8 +2428,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="headerContextLink"
-      data-container-class-name="headerContextLinkContainer"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -2491,8 +2446,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="headerContextLink"
-      data-container-class-name="headerContextLinkContainer"
+      data-class-name-override="_headerContextLink_f99wf_195"
+      data-container-class-name="_headerContextLinkContainer_f99wf_214"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -2504,10 +2459,11 @@ exports[`renders english index 1`] = `
           </div>
         </div>
         
-    <div id="menu-items" class="">
-      <div id="menu-items-universal-links">
-        <button id="menu-button" class="icon-button">
-          <svg
+    <div class="_menuItems_1q0ba_1">
+      <div class="_menuItemsUniversalLinks_1q0ba_8">
+        
+    <button id="menu-button" class="_iconButton_1vnms_1 ">
+      <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -2517,23 +2473,24 @@ exports[`renders english index 1`] = `
     stroke-width="2"
     aria-hidden="true"
     focusable="false"
-    aria-labelledby="menuBurger_:R2kti:"
     role="img"
-    class="menuBurger"
-    slot=""
+    class="_menuBurger_j7vrk_2"
   >
-    <title id="menuBurger_:R2kti:">Meny-ikon</title>
-    <path class="menuBurger__line-1" d="M2 4h20"></path>
-    <path class="menuBurger__line-2" d="M2 12h20"></path>
-    <path class="menuBurger__line-3" d="M2 20h20"></path>
+    <path class="_menuBurger__line_1_j7vrk_13" d="M2 4h20"></path>
+    <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
+    <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
-          <span class="icon-button-span"> Menu </span>
-        </button>
+      <span class="_iconButtonSpan_1vnms_33">Menu</span>
+
+      
+    </button>
+  
         
-    <button class="iconButton searchButton">
+    
+    <button id="" class="_iconButton_1vnms_1 _searchButton_carrr_46">
       
     <svg
-      class="searchIcon menuSearch"
+      class="_menuSearch_carrr_66"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -2548,28 +2505,27 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="iconButtonSpan"> Search </span>
+      <span class="_iconButtonSpan_1vnms_33">Search</span>
+
+      
     </button>
-    <div class="sokDropdown">
-      <div class="sokDropdownContent">
-        <label for="searchInput" class="bigLabel"
+  
+    <div class="_sokDropdown_carrr_1">
+      <div class="_sokDropdownContent_carrr_18">
+        <label for="_searchInput_carrr_23" class="_bigLabel_1p9d8_1"
           >Search nav.no</label
         >
-        <div class="flex">
-          <input class="searchInput" type="text" />
+        <div class="_searchInputWrapper_carrr_41">
+          <input class="_searchInput_carrr_23" type="text" />
           
-    <button
-      id=""
-      class="icon-button blue-bg-icon"
-      
-    >
+    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_carrr_51">
       
     <svg
       class=""
@@ -2587,32 +2543,29 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="menuSearch__circle" cx="10" cy="10" r="7"></circle>
-      <path class="menuSearch__line-1" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-2" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-3" d="m15 15 7 7"></path>
-      <path class="menuSearch__line-4" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
     </svg>
   
-      <span class="icon-button-span">Search</span>
+      <span class="_iconButtonSpan_1vnms_33">Search</span>
+
+      
     </button>
   
         </div>
       </div>
       <div id="search-hits">
-        <ul></ul>
+        <ul class="_searchHitList_carrr_59"></ul>
         <div id="show-more"></div>
       </div>
     </div>
   
       </div>
       
-            
-    <button
-      id="login-button"
-      class="icon-button "
-      
-    >
+    <button id="login-button" class="_iconButton_1vnms_1 ">
       <svg
     width="24px"
     height="24px"
@@ -2633,16 +2586,18 @@ exports[`renders english index 1`] = `
       fill="currentColor"
     ></path>
   </svg>
-      <span class="icon-button-span">Log in</span>
+      <span class="_iconButtonSpan_1vnms_33">Log in</span>
+
+      
     </button>
   
-          
     </div>
   
-        <div id="menu" class="contentContainer">
-          <div class="menu-top">
-            <h2>What can we help you with?</h2>
-            
+        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
+          
+  <div class="_menuTop_zy4o8_1">
+    <h2>What can we help you with?</h2>
+    
     <a
       is="lenke-med-sporing"
       role=""
@@ -2654,57 +2609,49 @@ exports[`renders english index 1`] = `
       data-class-name-override=""
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       data-attach-context="true"
       data-default-style="true"
     >
     To the frontpage
     </a>
   
-          </div>
-          <div id="sub-menu-content">
-            <div id="mobil-lukk">
-              
-    <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      focusable="false"
-      role="img"
-      aria-hidden="true"
+  </div>
+  <div class="_menuContent_zy4o8_5">
+    <div class="_inlineSearch_zy4o8_24">
+      <inline-search></inline-search>
+    </div>
+    <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
+    <div id="header-menu-links">
       
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="m6.586 12 7.707-7.707 1.414 1.414L9.414 12l6.293 6.293-1.414 1.414L6.586 12Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  
-              <span>Tilbake til oversikt</span>
-            </div>
-            <ul></ul>
-          </div>
-          <div id="menu-content">
-            <div id="inline-search">
-              <inline-search></inline-search>
-            </div>
-            <decorator-loader id="search-loader"></decorator-loader>
-            <div id="header-menu-links">
-              
-    <ul class="headerMenuLinks cols-3">
+    <ul class="_headerMenuLinks_f99wf_162 cols-3">
       
           <li
             id="4034ae9f-981a-4ea4-9311-eade71ae098b"
-            class="nested"
+            class="_nested_f99wf_191"
           >
             <h3>Work and stay in Norway</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+    <li class="_menuLink_f99wf_121" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2716,13 +2663,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Work in Norway","label":"/en/home/work-and-stay-in-norway/work-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Work in Norway
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -2730,7 +2682,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -2739,14 +2691,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Work in Norway
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2758,13 +2703,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Employee on the Norwegian continental shelf","label":"/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Employee on the Norwegian continental shelf
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -2772,7 +2722,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -2781,14 +2731,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Employee on the Norwegian continental shelf
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2800,13 +2743,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Foreign students in Norway","label":"/en/home/work-and-stay-in-norway/foreign-students-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Foreign students in Norway
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="117d0621-476c-42d6-9789-26f898250225">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -2814,7 +2762,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -2823,14 +2771,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Foreign students in Norway
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="117d0621-476c-42d6-9789-26f898250225">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2842,13 +2783,20 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Tourists in Norway","label":"/en/home/work-and-stay-in-norway/tourists-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Tourists in Norway
+    </a>
+  
+    </li>
+  
+            </ul>
+            
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -2856,7 +2804,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -2865,16 +2813,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Tourists in Norway
-    </a>
-  
-    </li>
-  
-            </ul>
-            
-    <li class="menuLink nestedLink" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2886,32 +2825,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Work and stay in Norway
+    Work and stay in Norway
     </a>
   
     </li>
@@ -2920,12 +2839,30 @@ exports[`renders english index 1`] = `
         
           <li
             id="f855f440-9267-4b2c-8f27-6b9eec6b2e68"
-            class="nested"
+            class="_nested_f99wf_191"
           >
             <h3>Benefits and services</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+    <li class="_menuLink_f99wf_121" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2937,13 +2874,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Information about NAV's services and benefits","label":"/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Information about NAV&#x27;s services and benefits
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -2951,7 +2893,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -2960,14 +2902,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Information about NAV&#x27;s services and benefits
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -2979,13 +2914,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Unemployment benefits","label":"https://www.nav.no/arbeid/en/dagpenger-og-eos"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Unemployment benefits
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="f30dd799-91aa-4c50-a470-969f5087d34c">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -2993,7 +2933,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3002,14 +2942,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Unemployment benefits
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="f30dd799-91aa-4c50-a470-969f5087d34c">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3021,13 +2954,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Family related benefits","label":"/en/home/benefits-and-services/family-related-benefits"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Family related benefits
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3035,7 +2973,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3044,14 +2982,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Family related benefits
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3063,13 +2994,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Pensions and pension applications from outside Norway","label":"/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Pensions and pension applications from outside Norway
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3077,7 +3013,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3086,14 +3022,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Pensions and pension applications from outside Norway
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3105,13 +3034,20 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Employment status form - how do you use it?","label":"/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Employment status form - how do you use it?
+    </a>
+  
+    </li>
+  
+            </ul>
+            
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3119,7 +3055,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3128,16 +3064,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Employment status form - how do you use it?
-    </a>
-  
-    </li>
-  
-            </ul>
-            
-    <li class="menuLink nestedLink" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3149,32 +3076,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Benefits and services
+    Benefits and services
     </a>
   
     </li>
@@ -3183,12 +3090,30 @@ exports[`renders english index 1`] = `
         
           <li
             id="91930e1e-d372-43fc-b2b4-696454f71a71"
-            class="nested"
+            class="_nested_f99wf_191"
           >
             <h3>Rules and regulations</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="09581eac-105d-453f-b019-ebffe6465ffc">
+    <li class="_menuLink_f99wf_121" id="09581eac-105d-453f-b019-ebffe6465ffc">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3200,13 +3125,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Membership of the National Insurance Scheme","label":"/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Membership of the National Insurance Scheme
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3214,7 +3144,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3223,14 +3153,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Membership of the National Insurance Scheme
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3242,13 +3165,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance coverage","label":"/en/home/rules-and-regulations/national-insurance-coverage"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    National insurance coverage
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3256,7 +3184,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3265,14 +3193,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      National insurance coverage
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3284,13 +3205,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance contributions","label":"/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    National insurance contributions
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3298,7 +3224,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3307,14 +3233,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      National insurance contributions
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3326,13 +3245,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Appeals","label":"/klagerettigheter/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Appeals
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="280069da-b8f9-4871-b681-ccc339146a3a">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3340,7 +3264,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3349,14 +3273,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Appeals
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="280069da-b8f9-4871-b681-ccc339146a3a">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3368,13 +3285,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Working abroad","label":"/en/home/rules-and-regulations/working-abroad"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Working abroad
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3382,7 +3304,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3391,14 +3313,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Working abroad
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3410,13 +3325,20 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Staying abroad","label":"/en/home/rules-and-regulations/staying-abroad"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Staying abroad
+    </a>
+  
+    </li>
+  
+            </ul>
+            
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3424,7 +3346,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3433,16 +3355,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Staying abroad
-    </a>
-  
-    </li>
-  
-            </ul>
-            
-    <li class="menuLink nestedLink" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3454,32 +3367,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Rules and regulations
+    Rules and regulations
     </a>
   
     </li>
@@ -3488,12 +3381,30 @@ exports[`renders english index 1`] = `
         
           <li
             id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8"
-            class="nested"
+            class="_nested_f99wf_191"
           >
             <h3>Employers</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+    <li class="_menuLink_f99wf_121" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3505,13 +3416,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruit in Norway?","label":"/en/home/employers/recruit-in-norway"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Recruit in Norway?
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="d4750660-17c2-43de-960f-7ad6907674fa">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3519,7 +3435,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3528,14 +3444,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Recruit in Norway?
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="d4750660-17c2-43de-960f-7ad6907674fa">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3547,13 +3456,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruiting from the EU/EEA","label":"/employers/rekruttere-eu-eos/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Recruiting from the EU/EEA
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3561,7 +3475,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3570,14 +3484,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Recruiting from the EU/EEA
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3589,13 +3496,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)","label":"/en/home/employers/nav-state-register-of-employers-and-employees"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    What is the NAV State Register of Employers and Employees (Aa-registeret)
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3603,7 +3515,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3612,14 +3524,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      What is the NAV State Register of Employers and Employees (Aa-registeret)
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3631,13 +3536,20 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Income report","label":"/arbeidsgiver/inntektsmelding/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Income report
+    </a>
+  
+    </li>
+  
+            </ul>
+            
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3645,7 +3557,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3654,16 +3566,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Income report
-    </a>
-  
-    </li>
-  
-            </ul>
-            
-    <li class="menuLink nestedLink" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3675,32 +3578,12 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Employers
+    Employers
     </a>
   
     </li>
@@ -3709,12 +3592,30 @@ exports[`renders english index 1`] = `
         
           <li
             id="750d0be4-5351-48d7-99e1-b367a403ae19"
-            class="nested"
+            class="_nested_f99wf_191"
           >
             <h3>About NAV</h3>
-            <ul>
+            <ul class="_menuLinkList_f99wf_121">
               
-    <li class="menuLink" id="b94f13b1-3010-432d-954f-43a90ea122ce">
+    <li class="_menuLink_f99wf_121" id="b94f13b1-3010-432d-954f-43a90ea122ce">
+      <div class="_menuLinkInner_f99wf_148">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      class=""
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3726,13 +3627,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Contact us","label":"/kontaktoss/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Contact us
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3740,7 +3646,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3749,14 +3655,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Contact us
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3768,13 +3667,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Payment dates","label":"/utbetalingsdatoer/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Payment dates
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3782,7 +3686,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3791,14 +3695,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Payment dates
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3810,13 +3707,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Case processing times","label":"/saksbehandlingstider/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Case processing times
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="954fdb02-3d1f-404f-a042-9bf71142021f">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3824,7 +3726,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3833,14 +3735,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Case processing times
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="954fdb02-3d1f-404f-a042-9bf71142021f">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3852,13 +3747,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Rates","label":"/satser/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Rates
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3866,7 +3766,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3875,14 +3775,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Rates
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3894,13 +3787,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/What is NAV?","label":"/en/home/about-nav/what-is-nav"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    What is NAV?
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3908,7 +3806,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3917,14 +3815,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      What is NAV?
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3936,13 +3827,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Notify us of any changes","label":"/endringer/en"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Notify us of any changes
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3950,7 +3846,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -3959,14 +3855,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Notify us of any changes
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -3978,13 +3867,18 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Forms and applications","label":"/soknader/en/person"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Forms and applications
+    </a>
+  
+    </li>
+  
+    <li class="_menuLink_f99wf_121" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -3992,7 +3886,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -4001,14 +3895,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Forms and applications
-    </a>
-  
-    </li>
-  
-    <li class="menuLink" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -4020,13 +3907,20 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Search tips","label":"/en/home/about-nav/search-tips"}'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
+    Search tips
+    </a>
+  
+    </li>
+  
+            </ul>
+            
+    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -4034,7 +3928,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -4043,16 +3937,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      Search tips
-    </a>
-  
-    </li>
-  
-            </ul>
-            
-    <li class="menuLink nestedLink" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -4064,13 +3949,21 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
+    About NAV
+    </a>
+  
+    </li>
+  
+          </li>
         
+      
+    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
+      <div class="_menuLinkInner_f99wf_148">
     <svg
       width="24px"
       height="24px"
@@ -4078,7 +3971,7 @@ exports[`renders english index 1`] = `
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      class="chevron"
+      class=""
     >
       <path
         fillRule="evenodd"
@@ -4087,17 +3980,7 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       />
     </svg>
-  
-      </div>
-      About NAV
-    </a>
-  
-    </li>
-  
-          </li>
-        
-      
-    <li class="menuLink mobile" id="">
+  </div>
       
     <a
       is="lenke-med-sporing"
@@ -4109,50 +3992,30 @@ exports[`renders english index 1`] = `
       data-analytics-event-args='undefined'
       data-class-name-override=""
       data-container-class-name=""
-      data-class-name=" chevronlenke"
-      data-extra-attrs='undefined'
+      data-class-name=""
+      data-extra-attrs=''
       
       data-default-style="true"
     >
-     <div class="ikonContainer">
-        
-    <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      class="chevron"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="m17.414 12-7.707 7.707-1.414-1.414L14.586 12 8.293 5.707l1.414-1.414L17.414 12Z"
-        fill="currentColor"
-      />
-    </svg>
-  
-      </div>
-      Logg inn på min side
+    Logg inn på min side
     </a>
   
     </li>
   
 
       <li>
-        <ul id="menu-context-links">
+        <ul class="_menuContextLinks_f99wf_52">
           
     <a
-      class="wrapper"
+      class="_wrapper_wmu45_1"
       href="privatperson"
       data-context="privatperson"
     >
       <li
-        class="contextMenuLink"
+        class="_contextMenuLink_wmu45_6"
         id=""
       >
-        <div class="inner">
+        <div class="_inner_wmu45_28">
           
     <svg
       width="1em"
@@ -4163,7 +4026,7 @@ exports[`renders english index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      class="chevron"
+      class="_chevron_wmu45_16"
     >
       <path
         fill-rule="evenodd"
@@ -4180,15 +4043,15 @@ exports[`renders english index 1`] = `
   
           
     <a
-      class="wrapper"
+      class="_wrapper_wmu45_1"
       href="arbeidsgiver"
       data-context="arbeidsgiver"
     >
       <li
-        class="contextMenuLink"
+        class="_contextMenuLink_wmu45_6"
         id=""
       >
-        <div class="inner">
+        <div class="_inner_wmu45_28">
           
     <svg
       width="1em"
@@ -4199,7 +4062,7 @@ exports[`renders english index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      class="chevron"
+      class="_chevron_wmu45_16"
     >
       <path
         fill-rule="evenodd"
@@ -4216,15 +4079,15 @@ exports[`renders english index 1`] = `
   
           
     <a
-      class="wrapper"
+      class="_wrapper_wmu45_1"
       href="samarbeidspartner"
       data-context="samarbeidspartner"
     >
       <li
-        class="contextMenuLink"
+        class="_contextMenuLink_wmu45_6"
         id=""
       >
-        <div class="inner">
+        <div class="_inner_wmu45_28">
           
     <svg
       width="1em"
@@ -4235,7 +4098,7 @@ exports[`renders english index 1`] = `
       focusable="false"
       role="img"
       aria-hidden="true"
-      class="chevron"
+      class="_chevron_wmu45_16"
     >
       <path
         fill-rule="evenodd"
@@ -4254,17 +4117,24 @@ exports[`renders english index 1`] = `
       </li>
     </ul>
   
-            </div>
-          </div>
+    </div>
+  </div>
+
         </div>
       </div>
     </header>
     
   </div>
         <main>
-          <button class="button button-main" id="amplitude-test">
-            Test amplitude!
-          </button>
+          
+  <button
+    id="amplitude-test"
+    
+    class="_button_l508m_1 _primary_l508m_16"
+  >
+    Test amplitude!
+  </button>
+
           <button
             onclick="(() => {
                 window.postMessage({
@@ -4324,9 +4194,10 @@ exports[`renders english index 1`] = `
         </main>
         <div id="footer-withmenu" class="bg-white">
             
-    <footer class="footer" data-theme="dark">
-      <div class="footer-content contentContainer">
-        <a class="to-top-link" href="#"> 
+    <footer class="_footer_1vx5s_1" data-theme="dark">
+      <div class="_footerContent_1vx5s_38 _contentContainer_1av57_1">
+        <a class="_toTopLink_1vx5s_44" href="#">
+          
     <svg
       width="1em"
       height="1em"
@@ -4343,16 +4214,19 @@ exports[`renders english index 1`] = `
         fill="currentColor"
       ></path>
     </svg>
-   To the top </a>
+   To the top
+        </a>
 
-        <div class="footer-links">
-          <ul class="footer-link-list">
+        <div class="_footerLinks_1vx5s_53">
+          <ul class="_footerLinkList_1vx5s_1">
             
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">Contact</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    Contact
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4362,10 +4236,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//redirects/footer-contactus-en","label":"/redirects/footer-contactus-en"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4374,7 +4248,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4384,10 +4258,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4396,7 +4270,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4406,10 +4280,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger","label":"https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4421,11 +4295,13 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">NAV and society</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    NAV and society
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4435,10 +4311,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4447,7 +4323,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4457,10 +4333,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4469,7 +4345,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4479,10 +4355,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4491,7 +4367,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4501,10 +4377,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//hva-er-nav/en","label":"/hva-er-nav/en"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4513,7 +4389,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4523,10 +4399,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav","label":"/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4538,11 +4414,13 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
-                  <h2 class="footer-link-heading">Other languages</h2>
-                  <ul>
+                <li class="_footerLinkGroup_1vx5s_71">
+                  <h2 class="_footerLinkHeading_1vx5s_75">
+                    Other languages
+                  </h2>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4552,10 +4430,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no","label":"/no"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4564,7 +4442,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4574,10 +4452,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4589,11 +4467,11 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-                <li class="footer-link-group">
+                <li class="_footerLinkGroup_1vx5s_71">
                   
-                  <ul>
+                  <ul class="_footerInnerLinkList_1vx5s_66">
                     
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4603,10 +4481,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4615,7 +4493,7 @@ exports[`renders english index 1`] = `
   
                         </li>
                       
-                        <li class="footer-link-item">
+                        <li>
                           
     <a
       is="lenke-med-sporing"
@@ -4625,10 +4503,10 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet/en","label":"/tilgjengelighet/en"}'
-      data-class-name-override="footerLink"
+      data-class-name-override="_footerLink_1vx5s_1"
       data-container-class-name=""
       data-class-name=""
-      data-extra-attrs='undefined'
+      data-extra-attrs=''
       
       data-default-style="true"
     >
@@ -4640,7 +4518,7 @@ exports[`renders english index 1`] = `
                   </ul>
                 </li>
               
-            <li><button type="button" class="screenshareButton">
+            <li><button type="button" class="_screenshareButton_tarl4_1">
     Share screen with your counsellor
     <svg
       width="1em"
@@ -4662,7 +4540,7 @@ exports[`renders english index 1`] = `
           </ul>
         </div>
 
-        <div class="complex-footer-org">
+        <div class="_complexFooterOrg_1vx5s_27">
           <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>
@@ -4692,7 +4570,7 @@ exports[`renders english index 1`] = `
       </style>
       <div id="decorator-lens" data-src=""></div>
       <script type="application/json" id="active-params">
-        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}
+        {"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}
       </script>
       <script type="application/json" id="explicit-params">
         {}
@@ -4702,20 +4580,20 @@ exports[`renders english index 1`] = `
   
       <div
         id="decorator-lens"
-        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false"
+        data-src="localhost:8089/?context=privatperson&simple=false&simpleHeader=false&simpleFooter=false&enforceLogin=false&redirectToApp=false&level=Level3&language=en&availableLanguages=%5B%5D&breadcrumbs=%5B%5D&utilsBackground=transparent&feedback=false&chatbot=true&chatbotVisible=false&urlLookupTable=false&shareScreen=false&logoutUrl=%2Flogout&maskHotjar=false&logoutWarning=false&redirectToUrl=https%3A%2F%2Fwww.nav.no"
       ></div>
       <div id="decorator-lens-implicit"></div>
       <div
         id="decorator-lens-explicit"
         data-src=""
       ></div>
-      <decorator-lens></decorator-lens>
+      <decorator-lens class="_decoratorLens_14jqu_1"></decorator-lens>
     </div>
   
         <div id="scripts" style="display:none">
           <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"
   <script type="application/json" id="__DECORATOR_DATA__">
-    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","rolle_privatperson":"Private","rolle_arbeidsgiver":"Employer","rolle_samarbeidspartner":"Collaborator","meny_bunnlenke_minside_stikkord":"Your cases, payments, messages, report cards, activity plan, personal information and more services","meny_bunnlenke_arbeidsgiver_stikkord":"Your sick leave, recruitment, digital forms","meny_bunnlenke_samarbeidspartner_stikkord":"Health personnel, intervention organizers, counties and municipalities","loading_notifications":"Loading notifications","notifications_error":"Error loading notifications","til_forsiden":"To the frontpage","how_can_we_help":"What can we help you with?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false}}
+    {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","logged_in":"Logged in","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","rolle_privatperson":"Private","rolle_arbeidsgiver":"Employer","rolle_samarbeidspartner":"Collaborator","meny_bunnlenke_minside_stikkord":"Your cases, payments, messages, report cards, activity plan, personal information and more services","meny_bunnlenke_arbeidsgiver_stikkord":"Your sick leave, recruitment, digital forms","meny_bunnlenke_samarbeidspartner_stikkord":"Health personnel, intervention organizers, counties and municipalities","loading_notifications":"Loading notifications","notifications_error":"Error loading notifications","til_forsiden":"To the frontpage","how_can_we_help":"What can we help you with?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}}
   </script>
 
         </div>

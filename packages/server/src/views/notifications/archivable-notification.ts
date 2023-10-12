@@ -1,11 +1,11 @@
-import html from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/archivable-notification.module.css';
 
 export type ArchivableNotificationProps = {
   id: string;
   text: string;
   date: string;
-  icon: string;
+  icon: Template;
   tags: string[];
   texts: {
     archive: string;

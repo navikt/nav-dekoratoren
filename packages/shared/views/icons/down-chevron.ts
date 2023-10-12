@@ -1,6 +1,6 @@
 import html from '../../html';
 
-export function DownChevron({ className }: { className: string }) {
+export function DownChevron({ className }: { className?: string }) {
   return html`
     <svg
       width="24px"

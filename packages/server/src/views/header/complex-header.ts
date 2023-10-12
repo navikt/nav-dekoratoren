@@ -6,10 +6,8 @@ import {
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Node, Texts } from 'decorator-shared/types';
-import cls from 'decorator-shared/utilities.module.css';
-import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
+import utilsCls from 'decorator-shared/utilities.module.css';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
-import { BackChevron } from 'decorator-shared/views/icons/back-chevron';
 
 export type ComplexHeaderProps = {
   isNorwegian: boolean;
@@ -29,8 +27,9 @@ import classes from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
 import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
-import { LenkeMedSporing } from 'decorator-client/src/views/lenke-med-sporing-helpers';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
+import { ComplexHeaderMenu } from './complex-header-menu';
 
 export function ComplexHeader({
   isNorwegian,
@@ -45,10 +44,10 @@ export function ComplexHeader({
   myPageMenu,
 }: ComplexHeaderProps) {
   return html`
-    <div id="menu-background"></div>
-    <header class="siteheader">
-      <div class="hovedmeny-wrapper ${cls.contentContainer}">
-        <div class="hovedmeny-content">
+    <div id="menu-background" class="${classes.menuBackground}"></div>
+    <header class="${classes.siteheader}">
+      <div class="${classes.hovedmenyWrapper} ${utilsCls.contentContainer}">
+        <div class="${classes.hovedmenyContent}">
           ${LenkeMedSporing({
             href: '/',
             analyticsEventArgs: {
@@ -61,12 +60,12 @@ export function ComplexHeader({
               alt="NAV"
             />`,
           })}
-          <div id="arbeidsflate">
+          <div class="${classes.arbeidsflate}">
             ${isNorwegian &&
             contextLinks?.map((link) =>
               HeaderContextLenke({
                 link: link,
-                text: texts[link.lenkeTekstId],
+                text: html`${texts[link.lenkeTekstId]}`,
                 classNameOverride: clsx([
                   classes.headerContextLink,
                   {
@@ -82,40 +81,10 @@ export function ComplexHeader({
         ${ComplexHeaderNavbarItems({
           innlogget,
           texts,
-          myPageMenu,
+          myPageMenu: myPageMenu as Node[],
         })}
-        <div id="menu" class="${cls.contentContainer}">
-          <div class="menu-top">
-            <h2>${texts.how_can_we_help}</h2>
-            ${LenkeMedSporing({
-              href: '#',
-              analyticsEventArgs: {
-                category: 'dekorator-meny',
-                action: 'hovedmeny/forsidelenke',
-              },
-              attachContext: true,
-              children: html`${texts.til_forsiden}`,
-            })}
-          </div>
-          <div id="sub-menu-content">
-            <div id="mobil-lukk">
-              ${BackChevron()}
-              <span>Tilbake til oversikt</span>
-            </div>
-            <ul></ul>
-          </div>
-          <div id="menu-content">
-            <div id="inline-search">
-              <inline-search></inline-search>
-            </div>
-            <decorator-loader id="search-loader"></decorator-loader>
-            <div id="header-menu-links">
-              ${HeaderMenuLinks({
-                headerMenuLinks: headerMenuLinks as Node[],
-                className: 'cols-3',
-              })}
-            </div>
-          </div>
+        <div id="menu" class="${utilsCls.contentContainer} ${classes.menu}">
+          ${ComplexHeaderMenu({ headerMenuLinks, texts })}
         </div>
       </div>
     </header>

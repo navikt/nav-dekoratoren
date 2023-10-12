@@ -5,33 +5,33 @@ import { SearchIcon } from 'decorator-shared/views/icons/search';
 
 // @fix typescript error
 import utilClasses from 'decorator-client/src/styles/utils.module.css';
-import buttonStyles from 'decorator-client/src/styles/buttons.module.css';
 import classes from 'decorator-client/src/styles/search.module.css';
 
 export default function Search({ texts }: { texts: Texts }) {
   return html`
-    <button class="${buttonStyles.iconButton} ${classes.searchButton}">
-      ${SearchIcon({
-        className: 'searchIcon menuSearch',
-      })}
-      <span class="${buttonStyles.iconButtonSpan}"> ${texts.search} </span>
-    </button>
+    ${IconButton({
+      Icon: SearchIcon({
+        menuSearch: true,
+      }),
+      text: texts.search,
+      className: classes.searchButton,
+    })}
     <div class="${classes.sokDropdown}">
       <div class="${classes.sokDropdownContent}">
         <label for="${classes.searchInput}" class="${utilClasses.bigLabel}"
           >${texts.sok_knapp_sokefelt}</label
         >
-        <div class="flex">
+        <div class="${classes.searchInputWrapper}">
           <input class="${classes.searchInput}" type="text" />
           ${IconButton({
-            Icon: SearchIcon,
+            Icon: SearchIcon({}),
             text: texts.search,
-            className: 'blue-bg-icon',
+            className: classes.blueBgIcon,
           })}
         </div>
       </div>
       <div id="search-hits">
-        <ul></ul>
+        <ul class="${classes.searchHitList}"></ul>
         <div id="show-more"></div>
       </div>
     </div>

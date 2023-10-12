@@ -34,6 +34,7 @@ export type Texts = {
   search: string;
   login: string;
   logout: string;
+  logged_in: string;
   notifications: string;
   notifications_empty_list: string;
   notifications_empty_list_description: string;

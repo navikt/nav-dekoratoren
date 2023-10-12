@@ -9,7 +9,7 @@ import ContentService from './content-service';
 import { Params } from 'decorator-shared/params';
 import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
-import { LogoutWarning } from './views/logoutWarning';
+import { LogoutWarning } from './views/logout-warning';
 import { Link, LinkGroup } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
 import { makeContextLinks } from 'decorator-shared/context';

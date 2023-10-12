@@ -60,6 +60,8 @@ function escapeHtml(string: string) {
   return lastIndex !== index ? html + str.slice(lastIndex, index) : html;
 }
 
+interface Element {}
+
 type TemplateStringValues =
   | string
   | string[]
@@ -67,7 +69,6 @@ type TemplateStringValues =
   | Template[]
   | boolean
   | ((e: Element) => void)
-  | NamedNodeMap
   | number
   | undefined
   | null;
@@ -101,6 +102,6 @@ const renderValue = (item: TemplateStringValues): string =>
     ? ''
     : typeof item === 'string'
     ? escapeHtml(item)
-    : typeof item === 'object' && 'render' in item
+    : item && typeof item === 'object' && 'render' in item
     ? item.render()
     : '';

@@ -8,7 +8,7 @@ const contentService = new ContentService(
   () => Promise.resolve(menu),
   () => Promise.resolve([]),
 );
-const unleashService = new UnleashService({ mock: true, env: 'development' });
+const unleashService = new UnleashService({ mock: true });
 
 test('renders norwegian index', async () => {
   expect(
@@ -35,6 +35,7 @@ test('renders norwegian index', async () => {
         logoutUrl: '/logout',
         maskHotjar: false,
         logoutWarning: false,
+        redirectToUrl: 'https://www.nav.no',
       },
       url: 'localhost:8089/',
       query: {},
@@ -67,6 +68,7 @@ test('renders english index', async () => {
         logoutUrl: '/logout',
         maskHotjar: false,
         logoutWarning: false,
+        redirectToUrl: 'https://www.nav.no',
       },
       url: 'localhost:8089/',
       query: {},

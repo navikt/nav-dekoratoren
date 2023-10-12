@@ -3,6 +3,7 @@ import { Driftsmelding } from 'decorator-shared/types';
 import { WarningIcon } from 'decorator-shared/views/icons/warning';
 
 import cls from '../styles/driftsmeldinger.module.css';
+import headerClasses from '../styles/header.module.css';
 
 export type DriftsmeldingerProps = {
   driftsmeldinger: Driftsmelding[];
@@ -33,7 +34,7 @@ export async function fetchDriftsMeldinger() {
   );
   const driftsmeldinger = (await data.json()) as Driftsmelding[];
 
-  const header = document.querySelector('.siteheader');
+  const header = document.querySelector(`.${headerClasses.siteheader}`);
 
   if (header && driftsmeldinger.length > 0) {
     header.insertAdjacentHTML(

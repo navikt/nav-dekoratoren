@@ -14,25 +14,29 @@ export type ComplexFooterProps = {
   features: Features;
 };
 
-// <a class="footer-link" href="${url}">${content}</a>
 export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
   const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
-  return html`
-    <footer class="footer" data-theme="dark">
-      <div class="footer-content ${cls.contentContainer}">
-        <a class="to-top-link" href="#"> ${ArrowUp()} ${texts.to_top} </a>
 
-        <div class="footer-links">
-          <ul class="footer-link-list">
+  return html`
+    <footer class="${classes.footer}" data-theme="dark">
+      <div class="${classes.footerContent} ${cls.contentContainer}">
+        <a class="${classes.toTopLink}" href="#">
+          ${ArrowUp()} ${texts.to_top}
+        </a>
+
+        <div class="${classes.footerLinks}">
+          <ul class="${classes.footerLinkList}">
             ${links.map(
               ({ heading, children }) => html`
-                <li class="footer-link-group">
+                <li class="${classes.footerLinkGroup}">
                   ${heading &&
-                  html`<h2 class="footer-link-heading">${heading}</h2>`}
-                  <ul>
+                  html`<h2 class="${classes.footerLinkHeading}">
+                    ${heading}
+                  </h2>`}
+                  <ul class="${classes.footerInnerLinkList}">
                     ${children.map(
                       (link) => html`
-                        <li class="footer-link-item">
+                        <li>
                           ${FooterLenke({
                             link,
                             classNameOverride: classes.footerLink,
@@ -49,7 +53,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
           </ul>
         </div>
 
-        <div class="complex-footer-org">
+        <div class="${classes.complexFooterOrg}">
           <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>

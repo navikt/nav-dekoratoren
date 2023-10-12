@@ -2,8 +2,8 @@ import { ComplexHeaderNavbarItems } from './complex-header-navbar-items';
 import { Texts } from 'decorator-shared/types';
 import { Node } from '../../../types';
 import { SimpleHeaderNavbarItems } from './simple-header-navbar-items';
+import html from '../../../html';
 
-// Can maybe have a discriminated union here
 export type HeaderNavbarItemsProps = {
   innlogget: boolean;
   texts: Texts;
@@ -11,7 +11,7 @@ export type HeaderNavbarItemsProps = {
   name?: string;
 };
 
-export function getHeaderNavbarItems(
+export function HeaderNavbarItems(
   props: HeaderNavbarItemsProps,
   simple: boolean,
 ) {
@@ -19,4 +19,6 @@ export function getHeaderNavbarItems(
     return ComplexHeaderNavbarItems(props);
   }
   return SimpleHeaderNavbarItems(props);
+
+  return html``;
 }

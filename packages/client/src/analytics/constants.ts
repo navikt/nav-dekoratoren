@@ -14,7 +14,9 @@ export type AnalyticsActions =
   | 'lenkegruppe'
   | 'hovedmeny/forsidelenke'
   | '[redacted]'
-  | 'nav.no';
+  | 'nav.no'
+  | 'arbeidsflate-valg'
+  | `${string}/${string}`;
 
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;

@@ -1,6 +1,3 @@
-.searchButton {
-}
-
 .sokDropdown {
   position: absolute;
   top: 79px;
@@ -41,8 +38,58 @@
   outline: none;
 }
 
+.searchInputWrapper {
+  display: flex;
+}
+
 @media (--breakpoint-lg) {
   .searchButton {
     display: none;
   }
+}
+
+.blueBgIcon {
+  background-color: var(--a-blue-500);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  color: white;
+  border-left: none;
+}
+
+.searchHitList {
+  list-style: none;
+  margin-block: 0;
+  padding-left: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(.menuSearch) * {
+    transition-property: transform, opacity, stroke-width;
+    transition-duration: 260ms;
+    transition-timing-function: cubic-bezier(0.2, 0, 0.6, 1.3);
+  }
+}
+
+:where(.menuSearch) * {
+  transform-origin: center;
+}
+
+[aria-expanded='true'] .menuSearch__circle {
+  transform: scale(0.01);
+}
+
+[aria-expanded='true'] .menuSearch__line_1 {
+  transform: rotate(180deg) translate3d(-3px, -3px, 0);
+}
+
+[aria-expanded='true'] .menuSearch__line_2 {
+  transform: rotate(90deg) translate3d(-3px, -3px, 0);
+}
+
+[aria-expanded='true'] .menuSearch__line_3 {
+  transform: rotate(-90deg) translate3d(-3px, -3px, 0);
+}
+
+[aria-expanded='true'] .menuSearch__line_4 {
+  transform: translate3d(-3px, -3px, 0);
 }

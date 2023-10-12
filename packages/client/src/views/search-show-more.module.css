@@ -1,0 +1,8 @@
+.showMore {
+  margin-top: var(--a-spacing-4);
+}
+
+.showMore a {
+  text-decoration: underline;
+  color: var(--a-surface-action);
+}

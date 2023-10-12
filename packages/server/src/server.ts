@@ -30,7 +30,7 @@ const server = Bun.serve({
       getFile: Bun.file,
     },
     notificationsService(),
-    new UnleashService({ env: env.NODE_ENV }),
+    new UnleashService({}),
   ),
 });
 
