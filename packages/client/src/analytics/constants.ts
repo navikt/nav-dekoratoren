@@ -16,9 +16,7 @@ export type AnalyticsActions =
   | '[redacted]'
   | 'nav.no'
   | 'arbeidsflate-valg'
-  | `${string}/${string}`
-  ;
-
+  | `${string}/${string}`;
 
 // type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;

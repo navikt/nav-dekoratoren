@@ -233,7 +233,7 @@ async function setActiveContext(context: Context | null) {
       selector: '#header-menu-links',
       html: HeaderMenuLinks({
         headerMenuLinks,
-        className: `cols-${headerMenuLinks.length}`
+        className: `cols-${headerMenuLinks.length}`,
       }),
     });
   } else {
