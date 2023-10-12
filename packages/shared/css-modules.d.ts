@@ -100,17 +100,6 @@ declare module '*header.module.css' {
   export default classes;
 }
 
-declare module '*lenke-med-sporing.module.css' {
-  const classes: {
-    dekoratorLenke: string;
-    lenkeMedSporing: string;
-    ikonContainer: string;
-    chevronlenke: string;
-    chevron: string;
-  };
-  export default classes;
-}
-
 declare module '*logout-warning.module.css' {
   const classes: {
     modal: string;
@@ -131,6 +120,13 @@ declare module '*notification.module.css' {
     bottom: string;
     tag: string;
     chevron: string;
+  };
+  export default classes;
+}
+
+declare module '*notifications-empty.module.css' {
+  const classes: {
+    notificationsEmpty: string;
   };
   export default classes;
 }

@@ -1,6 +1,6 @@
-import classes from '../styles/lenke-med-sporing.module.css';
+import classes from './lenke-med-sporing.module.css';
 
-import type { AnalyticsEventArgs } from '../analytics/constants';
+import type { AnalyticsEventArgs } from '../../analytics/constants';
 import clsx from 'clsx';
 import { tryParse } from 'decorator-shared/json';
 
