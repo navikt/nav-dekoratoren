@@ -9,6 +9,7 @@ import cls from './logged-in-menu.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import { LogoutIcon } from '../../icons/logout';
 import clsx from 'clsx';
+import dropdownClasses from 'decorator-client/src/styles/dropdown-menu.module.css';
 
 export type LoggedInMenuProps = {
   name: string;
@@ -26,13 +27,12 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
             <div class="${cls.notificationsUnread}"></div>
           </div>`,
           text: texts.notifications,
-          className: 'dropdown-menu-button',
         })}
         <div
           class="${clsx(
             utilsCls.contentContainer,
             cls.notificationsDropdown,
-            'dropdown-menu-content',
+            dropdownClasses.dropdownMenuContent,
           )}"
         >
           ${LoadingNotifications({
@@ -45,13 +45,12 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
           Icon: ProfileIcon({}),
           text: name,
           chevron: true,
-          className: 'dropdown-menu-button',
         })}
         <div
           class="${clsx(
             utilsCls.contentContainer,
             cls.myPageMenuDropdown,
-            'dropdown-menu-content',
+            dropdownClasses.dropdownMenuContent,
           )}"
         >
           <div>

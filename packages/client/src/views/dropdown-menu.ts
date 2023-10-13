@@ -1,7 +1,6 @@
-import cls from './dropdown-menu.module.css';
+import cls from '../styles/dropdown-menu.module.css';
 
 class DropdownMenu extends HTMLElement {
-  content: HTMLElement | null = null;
   button: HTMLElement | null = null;
   #open: boolean = false;
 
@@ -32,10 +31,7 @@ class DropdownMenu extends HTMLElement {
   }
 
   connectedCallback() {
-    this.button = this.querySelector('button.dropdown-menu-button');
-    this.content = this.querySelector('.dropdown-menu-content');
-
-    this.content?.classList.add(cls.dropdownMenuContent);
+    this.button = this.querySelector(':scope > button');
 
     this.button?.addEventListener('click', () => {
       this.open = !this.#open;

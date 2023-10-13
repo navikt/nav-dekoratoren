@@ -11,6 +11,7 @@ import { ComplexHeaderMenu } from 'decorator-server/src/views/header/complex-hea
 import headerClasses from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
 import utilsCls from 'decorator-shared/utilities.module.css';
+import dropdownClasses from 'decorator-client/src/styles/dropdown-menu.module.css';
 
 export type ComplexHeaderNavbarItemsProps = {
   innlogget: boolean;
@@ -35,13 +36,12 @@ export function ComplexHeaderNavbarItems({
             id: 'menu-button',
             Icon: BurgerIcon(),
             text: texts.menu,
-            className: 'dropdown-menu-button',
           })}
           <div
             class="${clsx(
               headerClasses.menu,
               utilsCls.contentContainer,
-              'dropdown-menu-content',
+              dropdownClasses.dropdownMenuContent,
             )}"
           >
             ${ComplexHeaderMenu({ headerMenuLinks, texts })}

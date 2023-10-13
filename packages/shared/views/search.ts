@@ -7,6 +7,7 @@ import { SearchIcon } from 'decorator-shared/views/icons/search';
 import utilClasses from 'decorator-client/src/styles/utils.module.css';
 import utilCls from 'decorator-shared/utilities.module.css';
 import classes from 'decorator-client/src/styles/search.module.css';
+import dropdownClasses from 'decorator-client/src/styles/dropdown-menu.module.css';
 import clsx from 'clsx';
 
 export default function Search({ texts }: { texts: Texts }) {
@@ -17,13 +18,13 @@ export default function Search({ texts }: { texts: Texts }) {
           menuSearch: true,
         }),
         text: texts.search,
-        className: clsx(classes.searchButton, 'dropdown-menu-button'),
+        className: classes.searchButton,
       })}
       <div
         class="${clsx(
           utilCls.contentContainer,
           classes.dropdown,
-          'dropdown-menu-content',
+          dropdownClasses.dropdownMenuContent,
         )}"
       >
         <label for="${classes.searchInput}" class="${utilClasses.bigLabel}"
