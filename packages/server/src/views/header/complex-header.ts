@@ -53,7 +53,7 @@ export function ComplexHeader({
               category: 'dekorator-header',
               action: 'navlogo',
             },
-            attachContext: true,
+            dataAttachContext: true,
             children: html`<img
               src="/public/ikoner/meny/nav-logo-red.svg"
               alt="NAV"
@@ -68,7 +68,7 @@ export function ComplexHeader({
                 className: clsx(classes.headerContextLink, {
                   [classes.lenkeActive]: context === currentContext,
                 }),
-                attachContext: true,
+                dataAttachContext: true,
                 analyticsEventArgs: {
                   action: 'arbeidsflate-valg',
                   category: 'dekorator-header',

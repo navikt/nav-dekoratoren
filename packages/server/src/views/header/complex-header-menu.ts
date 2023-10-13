@@ -21,7 +21,7 @@ export const ComplexHeaderMenu = ({
         category: 'dekorator-meny',
         action: 'hovedmeny/forsidelenke',
       },
-      attachContext: true,
+      dataAttachContext: true,
       children: texts.til_forsiden,
     })}
   </div>

@@ -38,12 +38,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/person/kontakt-oss/nb"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/person/kontakt-oss/nb" class="_footerLink_1vx5s_1"
   >
     Kontakt oss
   </a>
@@ -54,12 +50,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
   >
     NAV i ditt fylke
   </a>
@@ -70,12 +62,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav" class="_footerLink_1vx5s_1"
   >
     Kurs fra NAV
   </a>
@@ -86,12 +74,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/person/kontakt-oss/tilbakemeldinger"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/person/kontakt-oss/tilbakemeldinger" class="_footerLink_1vx5s_1"
   >
     Klage, tilbakemelding, ros
   </a>
@@ -111,12 +95,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/samarbeidspartner/presse"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
   >
     Nyheter, pressemeldinger og pressekontakt
   </a>
@@ -136,12 +116,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
   >
     Statistikk, analyse og FoU
   </a>
@@ -152,12 +128,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="https://lovdata.no/nav/"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
   >
     Lover og regler (lovdata.no)
   </a>
@@ -168,12 +140,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/om-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/om-nav" class="_footerLink_1vx5s_1"
   >
     Om NAV
   </a>
@@ -193,12 +161,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/en" class="_footerLink_1vx5s_1"
   >
     English
   </a>
@@ -209,12 +173,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/se"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/se" class="_footerLink_1vx5s_1"
   >
     Sámegiella
   </a>
@@ -232,12 +192,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
   >
     Personvern og informasjonskapsler
   </a>
@@ -248,12 +204,8 @@ exports[`renders complex footer 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/tilgjengelighet"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/tilgjengelighet" class="_footerLink_1vx5s_1"
   >
     Tilgjengelighet
   </a>

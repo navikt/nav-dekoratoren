@@ -392,12 +392,8 @@ exports[`renders norwegian index 1`] = `
           
   <a
     is="lenke-med-sporing"
-    href="/"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}"
-    data-attach-context="true"
-    
-    
-    
+    href="/" data-attach-context
   >
     <img
               src="/public/ikoner/meny/nav-logo-red.svg"
@@ -409,36 +405,24 @@ exports[`renders norwegian index 1`] = `
             
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no"
     data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
-    data-attach-context="true"
-    class="_headerContextLink_1a5fw_195 _lenkeActive_1a5fw_209"
-    data-context="privatperson"
-    
+    href="https://www.nav.no" class="_headerContextLink_1a5fw_195 _lenkeActive_1a5fw_209" data-attach-context data-context="privatperson"
   >
     Privat
   </a>
 
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no/no/bedrift"
     data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
-    data-attach-context="true"
-    class="_headerContextLink_1a5fw_195"
-    data-context="arbeidsgiver"
-    
+    href="https://www.nav.no/no/bedrift" class="_headerContextLink_1a5fw_195" data-attach-context data-context="arbeidsgiver"
   >
     Arbeidsgiver
   </a>
 
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no/no/samarbeidspartner"
     data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
-    data-attach-context="true"
-    class="_headerContextLink_1a5fw_195"
-    data-context="samarbeidspartner"
-    
+    href="https://www.nav.no/no/samarbeidspartner" class="_headerContextLink_1a5fw_195" data-attach-context data-context="samarbeidspartner"
   >
     Samarbeidspartner
   </a>
@@ -587,12 +571,8 @@ exports[`renders norwegian index 1`] = `
     
   <a
     is="lenke-med-sporing"
-    href="#"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;hovedmeny/forsidelenke&quot;}"
-    data-attach-context="true"
-    
-    
-    
+    href="#" data-attach-context
   >
     Til forsiden
   </a>
@@ -636,12 +616,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/arbeid"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Arbeid&quot;,&quot;label&quot;:&quot;/arbeid&quot;}"
-    
-    
-    
-    
+    href="/arbeid"
   >
     Arbeid
   </a>
@@ -670,12 +646,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/helse"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Helse og sykdom&quot;,&quot;label&quot;:&quot;/helse&quot;}"
-    
-    
-    
-    
+    href="/helse"
   >
     Helse og sykdom
   </a>
@@ -704,12 +676,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/familie"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Familie og barn&quot;,&quot;label&quot;:&quot;/familie&quot;}"
-    
-    
-    
-    
+    href="/familie"
   >
     Familie og barn
   </a>
@@ -738,12 +706,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/pensjon"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Pensjon&quot;,&quot;label&quot;:&quot;/pensjon&quot;}"
-    
-    
-    
-    
+    href="/pensjon"
   >
     Pensjon
   </a>
@@ -772,12 +736,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/sosiale-tjenester"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Sosiale tjenester og veiledning&quot;,&quot;label&quot;:&quot;/sosiale-tjenester&quot;}"
-    
-    
-    
-    
+    href="/sosiale-tjenester"
   >
     Sosiale tjenester og veiledning
   </a>
@@ -806,12 +766,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/hjelpemidler"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Hjelpemidler og tilrettelegging&quot;,&quot;label&quot;:&quot;/hjelpemidler&quot;}"
-    
-    
-    
-    
+    href="/hjelpemidler"
   >
     Hjelpemidler og tilrettelegging
   </a>
@@ -851,12 +807,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/soknader"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Søknad og skjema&quot;,&quot;label&quot;:&quot;/soknader&quot;}"
-    
-    
-    
-    
+    href="/soknader"
   >
     Søknad og skjema
   </a>
@@ -885,12 +837,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/ettersende"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Ettersendelse&quot;,&quot;label&quot;:&quot;/ettersende&quot;}"
-    
-    
-    
-    
+    href="/ettersende"
   >
     Ettersendelse
   </a>
@@ -919,12 +867,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/klage"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Klage&quot;,&quot;label&quot;:&quot;/klage&quot;}"
-    
-    
-    
-    
+    href="/klage"
   >
     Klage
   </a>
@@ -953,12 +897,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/tjenester"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Pengestøtter og tjenester fra A til Å&quot;,&quot;label&quot;:&quot;/tjenester&quot;}"
-    
-    
-    
-    
+    href="/tjenester"
   >
     Pengestøtter og tjenester fra A til Å
   </a>
@@ -987,12 +927,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/saksbehandlingstider"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Saksbehandlingstider&quot;,&quot;label&quot;:&quot;/saksbehandlingstider&quot;}"
-    
-    
-    
-    
+    href="/saksbehandlingstider"
   >
     Saksbehandlingstider
   </a>
@@ -1021,12 +957,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Utbetalinger&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger&quot;}"
-    
-    
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"
   >
     Utbetalinger
   </a>
@@ -1055,12 +987,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/satser"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Satser&quot;,&quot;label&quot;:&quot;/satser&quot;}"
-    
-    
-    
-    
+    href="/satser"
   >
     Satser
   </a>
@@ -1089,12 +1017,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Meldekort&quot;,&quot;label&quot;:&quot;/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det&quot;}"
-    
-    
-    
-    
+    href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"
   >
     Meldekort
   </a>
@@ -1123,12 +1047,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Kurs fra NAV&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
-    
-    
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
   >
     Kurs fra NAV
   </a>
@@ -1157,12 +1077,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Feiltolkning av EØS-reglene&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene&quot;}"
-    
-    
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"
   >
     Feiltolkning av EØS-reglene
   </a>
@@ -1193,12 +1109,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href=""
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href=""
   >
     Snarveier
   </a>
@@ -1230,12 +1142,8 @@ exports[`renders norwegian index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="#"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="#"
   >
     Logg inn på min side
   </a>
@@ -1470,12 +1378,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/person/kontakt-oss/nb"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/person/kontakt-oss/nb" class="_footerLink_1vx5s_1"
   >
     Kontakt oss
   </a>
@@ -1486,12 +1390,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
   >
     NAV i ditt fylke
   </a>
@@ -1502,12 +1402,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav" class="_footerLink_1vx5s_1"
   >
     Kurs fra NAV
   </a>
@@ -1518,12 +1414,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/person/kontakt-oss/tilbakemeldinger"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/person/kontakt-oss/tilbakemeldinger" class="_footerLink_1vx5s_1"
   >
     Klage, tilbakemelding, ros
   </a>
@@ -1543,12 +1435,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/samarbeidspartner/presse"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
   >
     Nyheter, pressemeldinger og pressekontakt
   </a>
@@ -1568,12 +1456,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
   >
     Statistikk, analyse og FoU
   </a>
@@ -1584,12 +1468,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="https://lovdata.no/nav/"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
   >
     Lover og regler (lovdata.no)
   </a>
@@ -1600,12 +1480,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/om-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/om-nav" class="_footerLink_1vx5s_1"
   >
     Om NAV
   </a>
@@ -1625,12 +1501,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/en" class="_footerLink_1vx5s_1"
   >
     English
   </a>
@@ -1641,12 +1513,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/se"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/se" class="_footerLink_1vx5s_1"
   >
     Sámegiella
   </a>
@@ -1664,12 +1532,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
   >
     Personvern og informasjonskapsler
   </a>
@@ -1680,12 +1544,8 @@ exports[`renders norwegian index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/tilgjengelighet"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/tilgjengelighet" class="_footerLink_1vx5s_1"
   >
     Tilgjengelighet
   </a>
@@ -2171,12 +2031,8 @@ exports[`renders english index 1`] = `
           
   <a
     is="lenke-med-sporing"
-    href="/"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}"
-    data-attach-context="true"
-    
-    
-    
+    href="/" data-attach-context
   >
     <img
               src="/public/ikoner/meny/nav-logo-red.svg"
@@ -2188,36 +2044,24 @@ exports[`renders english index 1`] = `
             
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no"
     data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
-    data-attach-context="true"
-    class="_headerContextLink_1a5fw_195 _lenkeActive_1a5fw_209"
-    data-context="privatperson"
-    
+    href="https://www.nav.no" class="_headerContextLink_1a5fw_195 _lenkeActive_1a5fw_209" data-attach-context data-context="privatperson"
   >
     Private
   </a>
 
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no/no/bedrift"
     data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
-    data-attach-context="true"
-    class="_headerContextLink_1a5fw_195"
-    data-context="arbeidsgiver"
-    
+    href="https://www.nav.no/no/bedrift" class="_headerContextLink_1a5fw_195" data-attach-context data-context="arbeidsgiver"
   >
     Employer
   </a>
 
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no/no/samarbeidspartner"
     data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
-    data-attach-context="true"
-    class="_headerContextLink_1a5fw_195"
-    data-context="samarbeidspartner"
-    
+    href="https://www.nav.no/no/samarbeidspartner" class="_headerContextLink_1a5fw_195" data-attach-context data-context="samarbeidspartner"
   >
     Collaborator
   </a>
@@ -2366,12 +2210,8 @@ exports[`renders english index 1`] = `
     
   <a
     is="lenke-med-sporing"
-    href="#"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;hovedmeny/forsidelenke&quot;}"
-    data-attach-context="true"
-    
-    
-    
+    href="#" data-attach-context
   >
     To the frontpage
   </a>
@@ -2415,12 +2255,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/work-and-stay-in-norway/work-in-norway"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Work in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/work-in-norway&quot;}"
-    
-    
-    
-    
+    href="/en/home/work-and-stay-in-norway/work-in-norway"
   >
     Work in Norway
   </a>
@@ -2449,12 +2285,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Employee on the Norwegian continental shelf&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf&quot;}"
-    
-    
-    
-    
+    href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"
   >
     Employee on the Norwegian continental shelf
   </a>
@@ -2483,12 +2315,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/work-and-stay-in-norway/foreign-students-in-norway"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Foreign students in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/foreign-students-in-norway&quot;}"
-    
-    
-    
-    
+    href="/en/home/work-and-stay-in-norway/foreign-students-in-norway"
   >
     Foreign students in Norway
   </a>
@@ -2517,12 +2345,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/work-and-stay-in-norway/tourists-in-norway"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Tourists in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/tourists-in-norway&quot;}"
-    
-    
-    
-    
+    href="/en/home/work-and-stay-in-norway/tourists-in-norway"
   >
     Tourists in Norway
   </a>
@@ -2553,12 +2377,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/work-and-stay-in-norway"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="/en/home/work-and-stay-in-norway"
   >
     Work and stay in Norway
   </a>
@@ -2596,12 +2416,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Information about NAV&#x27;s services and benefits&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/information-about-nav-s-services-and-benefits&quot;}"
-    
-    
-    
-    
+    href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"
   >
     Information about NAV&#x27;s services and benefits
   </a>
@@ -2630,12 +2446,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no/arbeid/en/dagpenger-og-eos"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Unemployment benefits&quot;,&quot;label&quot;:&quot;https://www.nav.no/arbeid/en/dagpenger-og-eos&quot;}"
-    
-    
-    
-    
+    href="https://www.nav.no/arbeid/en/dagpenger-og-eos"
   >
     Unemployment benefits
   </a>
@@ -2664,12 +2476,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/benefits-and-services/family-related-benefits"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Family related benefits&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/family-related-benefits&quot;}"
-    
-    
-    
-    
+    href="/en/home/benefits-and-services/family-related-benefits"
   >
     Family related benefits
   </a>
@@ -2698,12 +2506,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Pensions and pension applications from outside Norway&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway&quot;}"
-    
-    
-    
-    
+    href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"
   >
     Pensions and pension applications from outside Norway
   </a>
@@ -2732,12 +2536,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Employment status form - how do you use it?&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/employment-status-form-how-do-you-use-it&quot;}"
-    
-    
-    
-    
+    href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"
   >
     Employment status form - how do you use it?
   </a>
@@ -2768,12 +2568,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/benefits-and-services"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="/en/home/benefits-and-services"
   >
     Benefits and services
   </a>
@@ -2811,12 +2607,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Membership of the National Insurance Scheme&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme&quot;}"
-    
-    
-    
-    
+    href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"
   >
     Membership of the National Insurance Scheme
   </a>
@@ -2845,12 +2637,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/rules-and-regulations/national-insurance-coverage"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/National insurance coverage&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/national-insurance-coverage&quot;}"
-    
-    
-    
-    
+    href="/en/home/rules-and-regulations/national-insurance-coverage"
   >
     National insurance coverage
   </a>
@@ -2879,12 +2667,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/National insurance contributions&quot;,&quot;label&quot;:&quot;/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift&quot;}"
-    
-    
-    
-    
+    href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"
   >
     National insurance contributions
   </a>
@@ -2913,12 +2697,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/klagerettigheter/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Appeals&quot;,&quot;label&quot;:&quot;/klagerettigheter/en&quot;}"
-    
-    
-    
-    
+    href="/klagerettigheter/en"
   >
     Appeals
   </a>
@@ -2947,12 +2727,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/rules-and-regulations/working-abroad"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Working abroad&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/working-abroad&quot;}"
-    
-    
-    
-    
+    href="/en/home/rules-and-regulations/working-abroad"
   >
     Working abroad
   </a>
@@ -2981,12 +2757,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/rules-and-regulations/staying-abroad"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Staying abroad&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/staying-abroad&quot;}"
-    
-    
-    
-    
+    href="/en/home/rules-and-regulations/staying-abroad"
   >
     Staying abroad
   </a>
@@ -3017,12 +2789,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/rules-and-regulations"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="/en/home/rules-and-regulations"
   >
     Rules and regulations
   </a>
@@ -3060,12 +2828,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/employers/recruit-in-norway"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Recruit in Norway?&quot;,&quot;label&quot;:&quot;/en/home/employers/recruit-in-norway&quot;}"
-    
-    
-    
-    
+    href="/en/home/employers/recruit-in-norway"
   >
     Recruit in Norway?
   </a>
@@ -3094,12 +2858,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/employers/rekruttere-eu-eos/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Recruiting from the EU/EEA&quot;,&quot;label&quot;:&quot;/employers/rekruttere-eu-eos/en&quot;}"
-    
-    
-    
-    
+    href="/employers/rekruttere-eu-eos/en"
   >
     Recruiting from the EU/EEA
   </a>
@@ -3128,12 +2888,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/employers/nav-state-register-of-employers-and-employees"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)&quot;,&quot;label&quot;:&quot;/en/home/employers/nav-state-register-of-employers-and-employees&quot;}"
-    
-    
-    
-    
+    href="/en/home/employers/nav-state-register-of-employers-and-employees"
   >
     What is the NAV State Register of Employers and Employees (Aa-registeret)
   </a>
@@ -3162,12 +2918,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/arbeidsgiver/inntektsmelding/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Income report&quot;,&quot;label&quot;:&quot;/arbeidsgiver/inntektsmelding/en&quot;}"
-    
-    
-    
-    
+    href="/arbeidsgiver/inntektsmelding/en"
   >
     Income report
   </a>
@@ -3198,12 +2950,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/employers"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="/en/home/employers"
   >
     Employers
   </a>
@@ -3241,12 +2989,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/kontaktoss/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Contact us&quot;,&quot;label&quot;:&quot;/kontaktoss/en&quot;}"
-    
-    
-    
-    
+    href="/kontaktoss/en"
   >
     Contact us
   </a>
@@ -3275,12 +3019,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/utbetalingsdatoer/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Payment dates&quot;,&quot;label&quot;:&quot;/utbetalingsdatoer/en&quot;}"
-    
-    
-    
-    
+    href="/utbetalingsdatoer/en"
   >
     Payment dates
   </a>
@@ -3309,12 +3049,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/saksbehandlingstider/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Case processing times&quot;,&quot;label&quot;:&quot;/saksbehandlingstider/en&quot;}"
-    
-    
-    
-    
+    href="/saksbehandlingstider/en"
   >
     Case processing times
   </a>
@@ -3343,12 +3079,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/satser/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Rates&quot;,&quot;label&quot;:&quot;/satser/en&quot;}"
-    
-    
-    
-    
+    href="/satser/en"
   >
     Rates
   </a>
@@ -3377,12 +3109,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/about-nav/what-is-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/What is NAV?&quot;,&quot;label&quot;:&quot;/en/home/about-nav/what-is-nav&quot;}"
-    
-    
-    
-    
+    href="/en/home/about-nav/what-is-nav"
   >
     What is NAV?
   </a>
@@ -3411,12 +3139,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/endringer/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Notify us of any changes&quot;,&quot;label&quot;:&quot;/endringer/en&quot;}"
-    
-    
-    
-    
+    href="/endringer/en"
   >
     Notify us of any changes
   </a>
@@ -3445,12 +3169,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/soknader/en/person"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Forms and applications&quot;,&quot;label&quot;:&quot;/soknader/en/person&quot;}"
-    
-    
-    
-    
+    href="/soknader/en/person"
   >
     Forms and applications
   </a>
@@ -3479,12 +3199,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/about-nav/search-tips"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Search tips&quot;,&quot;label&quot;:&quot;/en/home/about-nav/search-tips&quot;}"
-    
-    
-    
-    
+    href="/en/home/about-nav/search-tips"
   >
     Search tips
   </a>
@@ -3515,12 +3231,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="/en/home/about-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="/en/home/about-nav"
   >
     About NAV
   </a>
@@ -3552,12 +3264,8 @@ exports[`renders english index 1`] = `
       
   <a
     is="lenke-med-sporing"
-    href="#"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
-    
-    
-    
-    
+    href="#"
   >
     Logg inn på min side
   </a>
@@ -3792,12 +3500,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/redirects/footer-contactus-en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//redirects/footer-contactus-en&quot;,&quot;label&quot;:&quot;/redirects/footer-contactus-en&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/redirects/footer-contactus-en" class="_footerLink_1vx5s_1"
   >
     Contact us
   </a>
@@ -3808,12 +3512,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
   >
     Your local NAV office
   </a>
@@ -3824,12 +3524,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger&quot;,&quot;label&quot;:&quot;https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger" class="_footerLink_1vx5s_1"
   >
     Complaints, feedback, praise
   </a>
@@ -3849,12 +3545,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
   >
     Statistics, analysis and R&amp;D
   </a>
@@ -3865,12 +3557,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/samarbeidspartner/presse"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
   >
     Public Relations
   </a>
@@ -3881,12 +3569,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="https://lovdata.no/nav/"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
   >
     Rules and regulations (lovdata.no)
   </a>
@@ -3897,12 +3581,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/hva-er-nav/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//hva-er-nav/en&quot;,&quot;label&quot;:&quot;/hva-er-nav/en&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/hva-er-nav/en" class="_footerLink_1vx5s_1"
   >
     About NAV
   </a>
@@ -3913,12 +3593,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/sok-jobb-i-nav&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav" class="_footerLink_1vx5s_1"
   >
     Work with us
   </a>
@@ -3938,12 +3614,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no&quot;,&quot;label&quot;:&quot;/no&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no" class="_footerLink_1vx5s_1"
   >
     Norwegian
   </a>
@@ -3954,12 +3626,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/se"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/se" class="_footerLink_1vx5s_1"
   >
     Sámegiella
   </a>
@@ -3977,12 +3645,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
   >
     Privacy and cookies
   </a>
@@ -3993,12 +3657,8 @@ exports[`renders english index 1`] = `
                           
   <a
     is="lenke-med-sporing"
-    href="/tilgjengelighet/en"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet/en&quot;,&quot;label&quot;:&quot;/tilgjengelighet/en&quot;}"
-    
-    class="_footerLink_1vx5s_1"
-    
-    
+    href="/tilgjengelighet/en" class="_footerLink_1vx5s_1"
   >
     Accessibility
   </a>

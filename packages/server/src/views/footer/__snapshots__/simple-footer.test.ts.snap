@@ -8,24 +8,16 @@ exports[`renders simple footer 1`] = `
         
   <a
     is="lenke-med-sporing"
-    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
-    
-    class="_footerLink_yutxt_19"
-    
-    
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_yutxt_19"
   >
     Personvern og informasjonskapsler
   </a>
 
   <a
     is="lenke-med-sporing"
-    href="/tilgjengelighet"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
-    
-    class="_footerLink_yutxt_19"
-    
-    
+    href="/tilgjengelighet" class="_footerLink_yutxt_19"
   >
     Tilgjengelighet
   </a>
