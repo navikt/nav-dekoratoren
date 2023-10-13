@@ -350,11 +350,11 @@ exports[`renders norwegian index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_pjpn1_59" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_pjpn1_63" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_pjpn1_67" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_pjpn1_71" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_pjpn1_75" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -390,11 +390,11 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
-    <header class="_siteheader_f99wf_1">
-      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
-        <div class="_hovedmenyContent_f99wf_27">
-          
+    <header class="_siteheader_phmvu_1">
+      <div class="_wrapperWrapper_phmvu_9">
+        <div class="_hovedmenyWrapper_phmvu_16 _contentContainer_zsniq_2">
+          <div class="_hovedmenyContent_phmvu_23">
+            
     <a
       is="lenke-med-sporing"
       role=""
@@ -411,13 +411,13 @@ exports[`renders norwegian index 1`] = `
       data-default-style="true"
     >
     <img
-              src="/public/ikoner/meny/nav-logo-red.svg"
-              alt="NAV"
-            />
+                src="/public/ikoner/meny/nav-logo-red.svg"
+                alt="NAV"
+              />
     </a>
   
-          <div class="_arbeidsflate_f99wf_39">
-            
+            <div class="_arbeidsflate_phmvu_35">
+              
     <a
       is="lenke-med-sporing"
       role=""
@@ -426,8 +426,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_phmvu_141 _lenkeActive_phmvu_155"
+      data-container-class-name="_headerContextLinkContainer_phmvu_160"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -444,8 +444,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_phmvu_141"
+      data-container-class-name="_headerContextLinkContainer_phmvu_160"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -462,8 +462,8 @@ exports[`renders norwegian index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_phmvu_141"
+      data-container-class-name="_headerContextLinkContainer_phmvu_160"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -472,13 +472,14 @@ exports[`renders norwegian index 1`] = `
     Samarbeidspartner
     </a>
   
+            </div>
           </div>
-        </div>
-        
+          
     <div class="_menuItems_1q0ba_1">
       <div class="_menuItemsUniversalLinks_1q0ba_8">
-        
-    <button id="menu-button" class="_iconButton_1vnms_1 ">
+        <dropdown-menu>
+    
+    <button id="menu-button" class="_iconButton_w2940_1 ">
       <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -496,121 +497,15 @@ exports[`renders norwegian index 1`] = `
     <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
     <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
-      <span class="_iconButtonSpan_1vnms_33">Meny</span>
+      <span class="_iconButtonSpan_w2940_33">Meny</span>
 
       
     </button>
   
-        
-    
-    <button id="" class="_iconButton_1vnms_1 _searchButton_carrr_46">
-      
-    <svg
-      class="_menuSearch_carrr_66"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      stroke-width="2"
-      aria-hidden="true"
-      focusable="false"
-      aria-labelledby="menuSearch_:R2oti:"
-      role="img"
-      slot=""
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _menu_phmvu_48"
     >
-      <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
-    </svg>
-  
-      <span class="_iconButtonSpan_1vnms_33">Søk</span>
-
       
-    </button>
-  
-    <div class="_sokDropdown_carrr_1">
-      <div class="_sokDropdownContent_carrr_18">
-        <label for="_searchInput_carrr_23" class="_bigLabel_1p9d8_1"
-          >Søk på nav.no</label
-        >
-        <div class="_searchInputWrapper_carrr_41">
-          <input class="_searchInput_carrr_23" type="text" />
-          
-    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_carrr_51">
-      
-    <svg
-      class=""
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      stroke-width="2"
-      aria-hidden="true"
-      focusable="false"
-      aria-labelledby="menuSearch_:R2oti:"
-      role="img"
-      slot=""
-    >
-      <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
-    </svg>
-  
-      <span class="_iconButtonSpan_1vnms_33">Søk</span>
-
-      
-    </button>
-  
-        </div>
-      </div>
-      <div id="search-hits">
-        <ul class="_searchHitList_carrr_59"></ul>
-        <div id="show-more"></div>
-      </div>
-    </div>
-  
-      </div>
-      
-    <button id="login-button" class="_iconButton_1vnms_1 ">
-      <svg
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    focusable="false"
-    role="img"
-    aria-labelledby="decorator-login-icon"
-    aria-hidden="true"
-    class=""
-  >
-    <title id="decorator-login-icon">Logginn-ikon</title>
-    <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      d="M19 4h-5V2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5v-2h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-8.293 2.293L16.414 12l-5.707 5.707-1.414-1.414L12.586 13H2v-2h10.586L9.293 7.707l1.414-1.414Z"
-      fill="currentColor"
-    ></path>
-  </svg>
-      <span class="_iconButtonSpan_1vnms_33">Logg inn</span>
-
-      
-    </button>
-  
-    </div>
-  
-        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
-          
   <div class="_menuTop_zy4o8_1">
     <h2>Hva kan vi hjelpe deg med?</h2>
     
@@ -640,17 +535,14 @@ exports[`renders norwegian index 1`] = `
     <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_f99wf_162 cols-3">
+    <ul class="_headerMenuLinks_phmvu_108 cols-3">
       
-          <li
-            id="79173ea3-74cd-4d7a-a81f-a43915022c4e"
-            class="_flatten_f99wf_9"
-          >
+          <li id="79173ea3-74cd-4d7a-a81f-a43915022c4e" class="">
             <h3>Områder</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -689,8 +581,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="c0379053-4fdf-4151-8974-5d475449ebd2">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="c0379053-4fdf-4151-8974-5d475449ebd2">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -729,8 +621,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -769,8 +661,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -809,8 +701,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -849,8 +741,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -893,15 +785,12 @@ exports[`renders norwegian index 1`] = `
             
           </li>
         
-          <li
-            id="c73650df-2e69-41e3-ae15-96ed90de4b0b"
-            class="_nested_f99wf_191"
-          >
+          <li id="c73650df-2e69-41e3-ae15-96ed90de4b0b" class="_nested_phmvu_137">
             <h3>Snarveier</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -940,8 +829,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -980,8 +869,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1020,8 +909,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1060,8 +949,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1100,8 +989,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1140,8 +1029,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1180,8 +1069,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1220,8 +1109,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1260,8 +1149,8 @@ exports[`renders norwegian index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1302,8 +1191,8 @@ exports[`renders norwegian index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1345,8 +1234,8 @@ exports[`renders norwegian index 1`] = `
           </li>
         
       
-    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _mobile_phmvu_90" id="">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -1387,7 +1276,7 @@ exports[`renders norwegian index 1`] = `
   
 
       <li>
-        <ul class="_menuContextLinks_f99wf_52">
+        <ul class="_menuContextLinks_phmvu_48">
           
     <a
       class="_wrapper_wmu45_1"
@@ -1503,10 +1392,123 @@ exports[`renders norwegian index 1`] = `
     </div>
   </div>
 
+    </div>
+  </dropdown-menu>
+        <dropdown-menu>
+    
+    <button id="" class="_iconButton_w2940_1 _searchButton_pjpn1_28">
+      
+    <svg
+      class="_menuSearch_pjpn1_48"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="_menuSearch__circle_pjpn1_59" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_pjpn1_63" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_pjpn1_67" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_pjpn1_71" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_pjpn1_75" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="_iconButtonSpan_w2940_33">Søk</span>
+
+      
+    </button>
+  
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _dropdown_pjpn1_1"
+    >
+      <label
+        for="_searchInput_pjpn1_5"
+        class="_bigLabel_1p9d8_1"
+        >Søk på nav.no</label
+      >
+      <div class="_searchInputWrapper_pjpn1_23">
+        <input class="_searchInput_pjpn1_5" type="text" />
+        
+    <button id="" class="_iconButton_w2940_1 _blueBgIcon_pjpn1_33">
+      
+    <svg
+      class=""
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="_menuSearch__circle_pjpn1_59" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_pjpn1_63" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_pjpn1_67" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_pjpn1_71" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_pjpn1_75" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="_iconButtonSpan_w2940_33">Søk</span>
+
+      
+    </button>
+  
+      </div>
+      <div id="search-hits">
+        <ul class="_searchHitList_pjpn1_41"></ul>
+        <div id="show-more"></div>
+      </div>
+    </div>
+  </dropdown-menu>
+      </div>
+      
+    <button id="login-button" class="_iconButton_w2940_1 ">
+      <svg
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    focusable="false"
+    role="img"
+    aria-labelledby="decorator-login-icon"
+    aria-hidden="true"
+    class=""
+  >
+    <title id="decorator-login-icon">Logginn-ikon</title>
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M19 4h-5V2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5v-2h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-8.293 2.293L16.414 12l-5.707 5.707-1.414-1.414L12.586 13H2v-2h10.586L9.293 7.707l1.414-1.414Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+      <span class="_iconButtonSpan_w2940_33">Logg inn</span>
+
+      
+    </button>
+  
+    </div>
+  
         </div>
       </div>
     </header>
     
+    <menu-background />
   </div>
         <main>
           
@@ -1578,7 +1580,7 @@ exports[`renders norwegian index 1`] = `
         <div id="footer-withmenu" class="bg-white">
             
     <footer class="_footer_1vx5s_1" data-theme="dark">
-      <div class="_footerContent_1vx5s_38 _contentContainer_1av57_1">
+      <div class="_footerContent_1vx5s_38 _contentContainer_zsniq_2">
         <a class="_toTopLink_1vx5s_44" href="#">
           
     <svg
@@ -2351,11 +2353,11 @@ exports[`renders english index 1`] = `
       slot=""
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
+      <circle class="_menuSearch__circle_pjpn1_59" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_pjpn1_63" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_pjpn1_67" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_pjpn1_71" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_pjpn1_75" d="m15 15 7 7"></path>
     </svg>
   
         </button>
@@ -2391,11 +2393,11 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <div id="menu-background" class="_menuBackground_f99wf_103"></div>
-    <header class="_siteheader_f99wf_1">
-      <div class="_hovedmenyWrapper_f99wf_12 _contentContainer_1av57_1">
-        <div class="_hovedmenyContent_f99wf_27">
-          
+    <header class="_siteheader_phmvu_1">
+      <div class="_wrapperWrapper_phmvu_9">
+        <div class="_hovedmenyWrapper_phmvu_16 _contentContainer_zsniq_2">
+          <div class="_hovedmenyContent_phmvu_23">
+            
     <a
       is="lenke-med-sporing"
       role=""
@@ -2412,13 +2414,13 @@ exports[`renders english index 1`] = `
       data-default-style="true"
     >
     <img
-              src="/public/ikoner/meny/nav-logo-red.svg"
-              alt="NAV"
-            />
+                src="/public/ikoner/meny/nav-logo-red.svg"
+                alt="NAV"
+              />
     </a>
   
-          <div class="_arbeidsflate_f99wf_39">
-            
+            <div class="_arbeidsflate_phmvu_35">
+              
     <a
       is="lenke-med-sporing"
       role=""
@@ -2427,8 +2429,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_f99wf_195 _lenkeActive_f99wf_209"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_phmvu_141 _lenkeActive_phmvu_155"
+      data-container-class-name="_headerContextLinkContainer_phmvu_160"
       data-class-name=""
       data-extra-attrs='[["data-context","privatperson"]]'
       data-attach-context="true"
@@ -2445,8 +2447,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_phmvu_141"
+      data-container-class-name="_headerContextLinkContainer_phmvu_160"
       data-class-name=""
       data-extra-attrs='[["data-context","arbeidsgiver"]]'
       data-attach-context="true"
@@ -2463,8 +2465,8 @@ exports[`renders english index 1`] = `
       tabindex=""
       lang=""
       data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_f99wf_195"
-      data-container-class-name="_headerContextLinkContainer_f99wf_214"
+      data-class-name-override="_headerContextLink_phmvu_141"
+      data-container-class-name="_headerContextLinkContainer_phmvu_160"
       data-class-name=""
       data-extra-attrs='[["data-context","samarbeidspartner"]]'
       data-attach-context="true"
@@ -2473,13 +2475,14 @@ exports[`renders english index 1`] = `
     Collaborator
     </a>
   
+            </div>
           </div>
-        </div>
-        
+          
     <div class="_menuItems_1q0ba_1">
       <div class="_menuItemsUniversalLinks_1q0ba_8">
-        
-    <button id="menu-button" class="_iconButton_1vnms_1 ">
+        <dropdown-menu>
+    
+    <button id="menu-button" class="_iconButton_w2940_1 ">
       <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -2497,121 +2500,15 @@ exports[`renders english index 1`] = `
     <path class="_menuBurger__line_2_j7vrk_17" d="M2 12h20"></path>
     <path class="_menuBurger__line_3_j7vrk_21" d="M2 20h20"></path>
   </svg>
-      <span class="_iconButtonSpan_1vnms_33">Menu</span>
+      <span class="_iconButtonSpan_w2940_33">Menu</span>
 
       
     </button>
   
-        
-    
-    <button id="" class="_iconButton_1vnms_1 _searchButton_carrr_46">
-      
-    <svg
-      class="_menuSearch_carrr_66"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      stroke-width="2"
-      aria-hidden="true"
-      focusable="false"
-      aria-labelledby="menuSearch_:R2oti:"
-      role="img"
-      slot=""
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _menu_phmvu_48"
     >
-      <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
-    </svg>
-  
-      <span class="_iconButtonSpan_1vnms_33">Search</span>
-
       
-    </button>
-  
-    <div class="_sokDropdown_carrr_1">
-      <div class="_sokDropdownContent_carrr_18">
-        <label for="_searchInput_carrr_23" class="_bigLabel_1p9d8_1"
-          >Search nav.no</label
-        >
-        <div class="_searchInputWrapper_carrr_41">
-          <input class="_searchInput_carrr_23" type="text" />
-          
-    <button id="" class="_iconButton_1vnms_1 _blueBgIcon_carrr_51">
-      
-    <svg
-      class=""
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      stroke-width="2"
-      aria-hidden="true"
-      focusable="false"
-      aria-labelledby="menuSearch_:R2oti:"
-      role="img"
-      slot=""
-    >
-      <title id="menuSearch_:R2oti:">Søke-ikon</title>
-      <circle class="_menuSearch__circle_carrr_77" cx="10" cy="10" r="7"></circle>
-      <path class="_menuSearch__line_1_carrr_81" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_2_carrr_85" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_3_carrr_89" d="m15 15 7 7"></path>
-      <path class="_menuSearch__line_4_carrr_93" d="m15 15 7 7"></path>
-    </svg>
-  
-      <span class="_iconButtonSpan_1vnms_33">Search</span>
-
-      
-    </button>
-  
-        </div>
-      </div>
-      <div id="search-hits">
-        <ul class="_searchHitList_carrr_59"></ul>
-        <div id="show-more"></div>
-      </div>
-    </div>
-  
-      </div>
-      
-    <button id="login-button" class="_iconButton_1vnms_1 ">
-      <svg
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    focusable="false"
-    role="img"
-    aria-labelledby="decorator-login-icon"
-    aria-hidden="true"
-    class=""
-  >
-    <title id="decorator-login-icon">Logginn-ikon</title>
-    <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      d="M19 4h-5V2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5v-2h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-8.293 2.293L16.414 12l-5.707 5.707-1.414-1.414L12.586 13H2v-2h10.586L9.293 7.707l1.414-1.414Z"
-      fill="currentColor"
-    ></path>
-  </svg>
-      <span class="_iconButtonSpan_1vnms_33">Log in</span>
-
-      
-    </button>
-  
-    </div>
-  
-        <div id="menu" class="_contentContainer_1av57_1 _menu_f99wf_52">
-          
   <div class="_menuTop_zy4o8_1">
     <h2>What can we help you with?</h2>
     
@@ -2641,17 +2538,14 @@ exports[`renders english index 1`] = `
     <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_f99wf_162 cols-3">
+    <ul class="_headerMenuLinks_phmvu_108 cols-3">
       
-          <li
-            id="4034ae9f-981a-4ea4-9311-eade71ae098b"
-            class="_nested_f99wf_191"
-          >
+          <li id="4034ae9f-981a-4ea4-9311-eade71ae098b" class="_nested_phmvu_137">
             <h3>Work and stay in Norway</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2690,8 +2584,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2730,8 +2624,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2770,8 +2664,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="117d0621-476c-42d6-9789-26f898250225">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="117d0621-476c-42d6-9789-26f898250225">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2812,8 +2706,8 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2854,15 +2748,12 @@ exports[`renders english index 1`] = `
   
           </li>
         
-          <li
-            id="f855f440-9267-4b2c-8f27-6b9eec6b2e68"
-            class="_nested_f99wf_191"
-          >
+          <li id="f855f440-9267-4b2c-8f27-6b9eec6b2e68" class="_nested_phmvu_137">
             <h3>Benefits and services</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2901,8 +2792,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2941,8 +2832,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="f30dd799-91aa-4c50-a470-969f5087d34c">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="f30dd799-91aa-4c50-a470-969f5087d34c">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -2981,8 +2872,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3021,8 +2912,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3063,8 +2954,8 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3105,15 +2996,12 @@ exports[`renders english index 1`] = `
   
           </li>
         
-          <li
-            id="91930e1e-d372-43fc-b2b4-696454f71a71"
-            class="_nested_f99wf_191"
-          >
+          <li id="91930e1e-d372-43fc-b2b4-696454f71a71" class="_nested_phmvu_137">
             <h3>Rules and regulations</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="09581eac-105d-453f-b019-ebffe6465ffc">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="09581eac-105d-453f-b019-ebffe6465ffc">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3152,8 +3040,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3192,8 +3080,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3232,8 +3120,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3272,8 +3160,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="280069da-b8f9-4871-b681-ccc339146a3a">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="280069da-b8f9-4871-b681-ccc339146a3a">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3312,8 +3200,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3354,8 +3242,8 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3396,15 +3284,12 @@ exports[`renders english index 1`] = `
   
           </li>
         
-          <li
-            id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8"
-            class="_nested_f99wf_191"
-          >
+          <li id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8" class="_nested_phmvu_137">
             <h3>Employers</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3443,8 +3328,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="d4750660-17c2-43de-960f-7ad6907674fa">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="d4750660-17c2-43de-960f-7ad6907674fa">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3483,8 +3368,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3523,8 +3408,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3565,8 +3450,8 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3607,15 +3492,12 @@ exports[`renders english index 1`] = `
   
           </li>
         
-          <li
-            id="750d0be4-5351-48d7-99e1-b367a403ae19"
-            class="_nested_f99wf_191"
-          >
+          <li id="750d0be4-5351-48d7-99e1-b367a403ae19" class="_nested_phmvu_137">
             <h3>About NAV</h3>
-            <ul class="_menuLinkList_f99wf_121">
+            <ul class="_menuLinkList_phmvu_67">
               
-    <li class="_menuLink_f99wf_121" id="b94f13b1-3010-432d-954f-43a90ea122ce">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="b94f13b1-3010-432d-954f-43a90ea122ce">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3654,8 +3536,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3694,8 +3576,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3734,8 +3616,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="954fdb02-3d1f-404f-a042-9bf71142021f">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="954fdb02-3d1f-404f-a042-9bf71142021f">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3774,8 +3656,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3814,8 +3696,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3854,8 +3736,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3894,8 +3776,8 @@ exports[`renders english index 1`] = `
   
     </li>
   
-    <li class="_menuLink_f99wf_121" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3936,8 +3818,8 @@ exports[`renders english index 1`] = `
   
             </ul>
             
-    <li class="_menuLink_f99wf_121 _nestedLink_f99wf_191" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -3979,8 +3861,8 @@ exports[`renders english index 1`] = `
           </li>
         
       
-    <li class="_menuLink_f99wf_121 _mobile_f99wf_144" id="">
-      <div class="_menuLinkInner_f99wf_148">
+    <li class="_menuLink_phmvu_67 _mobile_phmvu_90" id="">
+      <div class="_menuLinkInner_phmvu_94">
     <svg
       width="24px"
       height="24px"
@@ -4021,7 +3903,7 @@ exports[`renders english index 1`] = `
   
 
       <li>
-        <ul class="_menuContextLinks_f99wf_52">
+        <ul class="_menuContextLinks_phmvu_48">
           
     <a
       class="_wrapper_wmu45_1"
@@ -4137,10 +4019,123 @@ exports[`renders english index 1`] = `
     </div>
   </div>
 
+    </div>
+  </dropdown-menu>
+        <dropdown-menu>
+    
+    <button id="" class="_iconButton_w2940_1 _searchButton_pjpn1_28">
+      
+    <svg
+      class="_menuSearch_pjpn1_48"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="_menuSearch__circle_pjpn1_59" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_pjpn1_63" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_pjpn1_67" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_pjpn1_71" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_pjpn1_75" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="_iconButtonSpan_w2940_33">Search</span>
+
+      
+    </button>
+  
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _dropdown_pjpn1_1"
+    >
+      <label
+        for="_searchInput_pjpn1_5"
+        class="_bigLabel_1p9d8_1"
+        >Search nav.no</label
+      >
+      <div class="_searchInputWrapper_pjpn1_23">
+        <input class="_searchInput_pjpn1_5" type="text" />
+        
+    <button id="" class="_iconButton_w2940_1 _blueBgIcon_pjpn1_33">
+      
+    <svg
+      class=""
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+      focusable="false"
+      aria-labelledby="menuSearch_:R2oti:"
+      role="img"
+      slot=""
+    >
+      <title id="menuSearch_:R2oti:">Søke-ikon</title>
+      <circle class="_menuSearch__circle_pjpn1_59" cx="10" cy="10" r="7"></circle>
+      <path class="_menuSearch__line_1_pjpn1_63" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_2_pjpn1_67" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_3_pjpn1_71" d="m15 15 7 7"></path>
+      <path class="_menuSearch__line_4_pjpn1_75" d="m15 15 7 7"></path>
+    </svg>
+  
+      <span class="_iconButtonSpan_w2940_33">Search</span>
+
+      
+    </button>
+  
+      </div>
+      <div id="search-hits">
+        <ul class="_searchHitList_pjpn1_41"></ul>
+        <div id="show-more"></div>
+      </div>
+    </div>
+  </dropdown-menu>
+      </div>
+      
+    <button id="login-button" class="_iconButton_w2940_1 ">
+      <svg
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    focusable="false"
+    role="img"
+    aria-labelledby="decorator-login-icon"
+    aria-hidden="true"
+    class=""
+  >
+    <title id="decorator-login-icon">Logginn-ikon</title>
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M19 4h-5V2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5v-2h5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-8.293 2.293L16.414 12l-5.707 5.707-1.414-1.414L12.586 13H2v-2h10.586L9.293 7.707l1.414-1.414Z"
+      fill="currentColor"
+    ></path>
+  </svg>
+      <span class="_iconButtonSpan_w2940_33">Log in</span>
+
+      
+    </button>
+  
+    </div>
+  
         </div>
       </div>
     </header>
     
+    <menu-background />
   </div>
         <main>
           
@@ -4212,7 +4207,7 @@ exports[`renders english index 1`] = `
         <div id="footer-withmenu" class="bg-white">
             
     <footer class="_footer_1vx5s_1" data-theme="dark">
-      <div class="_footerContent_1vx5s_38 _contentContainer_1av57_1">
+      <div class="_footerContent_1vx5s_38 _contentContainer_zsniq_2">
         <a class="_toTopLink_1vx5s_44" href="#">
           
     <svg

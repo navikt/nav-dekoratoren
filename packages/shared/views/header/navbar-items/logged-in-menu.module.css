@@ -1,29 +1,9 @@
-.loggedinMenuWrapper {
-  position: absolute;
-  top: 79px;
-  right: 0;
-  width: 100%;
-  display: none;
-  pointer-events: none;
+.notificationsDropdown {
+  max-width: 570px;
 }
 
-.loggedinMenuWrapper.active {
-  display: block;
-}
-
-.loggedinMenuContent {
-  max-width: 1450px;
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.loggedinMenuContent .dropdown {
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  padding: var(--a-spacing-8);
-  pointer-events: auto;
+.myPageMenuDropdown {
+  max-width: 1024px;
 }
 
 .loggedInMenu {
@@ -39,36 +19,6 @@
   font-weight: var(--a-font-weight-bold);
 }
 
-.simpleLoggedInMenu {
-  height: 100%;
-  padding: 0 var(--a-spacing-2);
-  display: flex;
-  align-items: center;
-}
-
-.simpleLoggedInMenu p {
-  white-space: nowrap;
-  margin: 0 var(--a-spacing-4);
-}
-
-@media (--breakpoint-md) {
-  .simpleLoggedInMenu p {
-    display: none;
-  }
-}
-
-.myPageMenuContent {
-  gap: var(--a-spacing-4);
-  width: 100%;
-  max-width: 1024px;
-  display: none;
-  background-color: white;
-}
-
-.myPageMenuContent.active {
-  display: grid;
-}
-
 .link {
   color: var(--a-text-action);
   text-decoration-line: underline;
@@ -76,24 +26,6 @@
   padding-bottom: 0.75rem /* 12px */;
   display: inline-block;
   text-underline-offset: 3px;
-}
-
-.notificationsMenuContent {
-  max-width: 570px;
-  max-height: 80vh;
-  overflow-y: scroll;
-  width: 100%;
-  display: none;
-  background-color: #f7f7f7;
-  padding-top: var(--a-spacing-2);
-}
-
-.loggedinMenuContent .notificationsMenuContent {
-  padding-top: var(--a-spacing-3);
-}
-
-.notificationsMenuContent.active {
-  display: block;
 }
 
 .notificationsUnread {
@@ -107,10 +39,23 @@
   display: none;
 }
 
-.notificationsUnread.active {
+.notificationsUnread {
   display: block;
 }
 
 .notificationsIconWrapper {
   position: relative;
+  display: flex;
+}
+
+[aria-expanded='true'] .notificationsIcon {
+  display: none;
+}
+
+.closeIcon {
+  display: none;
+}
+
+[aria-expanded='true'] .closeIcon {
+  display: block;
 }

@@ -69,7 +69,7 @@ function ContextLink({
 }
 
 export type HeaderMenuLinksProps = {
-  headerMenuLinks: Node[];
+  headerMenuLinks?: Node[];
   className?: string;
 };
 
@@ -80,12 +80,9 @@ export function HeaderMenuLinks({
   // Add one for the conext links
   return html`
     <ul class="${classes.headerMenuLinks} ${className}">
-      ${headerMenuLinks.map(
+      ${headerMenuLinks?.map(
         (link) => html`
-          <li
-            id="${link.id}"
-            class="${link.flatten ? classes.flatten : classes.nested}"
-          >
+          <li id="${link.id}" class="${link.flatten ? '' : classes.nested}">
             <h3>${link.displayName}</h3>
             <ul class="${classes.menuLinkList}">
               ${link.children.map((child) =>

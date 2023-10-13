@@ -21,6 +21,7 @@ export type ComplexHeaderProps = {
   myPageMenu?: Node[];
   contextLinks: ContextLink[];
   context: Context;
+  name?: string;
 };
 
 import classes from 'decorator-client/src/styles/header.module.css';
@@ -29,7 +30,6 @@ import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-import { ComplexHeaderMenu } from './complex-header-menu';
 
 export function ComplexHeader({
   isNorwegian,
@@ -42,49 +42,50 @@ export function ComplexHeader({
   context,
   availableLanguages,
   myPageMenu,
+  name,
 }: ComplexHeaderProps) {
   return html`
-    <div id="menu-background" class="${classes.menuBackground}"></div>
     <header class="${classes.siteheader}">
-      <div class="${classes.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <div class="${classes.hovedmenyContent}">
-          ${LenkeMedSporing({
-            href: '/',
-            analyticsEventArgs: {
-              category: 'dekorator-header',
-              action: 'navlogo',
-            },
-            attachContext: true,
-            children: html`<img
-              src="/public/ikoner/meny/nav-logo-red.svg"
-              alt="NAV"
-            />`,
-          })}
-          <div class="${classes.arbeidsflate}">
-            ${isNorwegian &&
-            contextLinks?.map((link) =>
-              HeaderContextLenke({
-                link: link,
-                text: html`${texts[link.lenkeTekstId]}`,
-                classNameOverride: clsx([
-                  classes.headerContextLink,
-                  {
-                    [classes.lenkeActive]: link.context === context,
-                  },
-                ]),
-                containerClassName: classes.headerContextLinkContainer,
-                attrs: [['data-context', link.context.toLowerCase()]],
-              }),
-            )}
+      <div class="${classes.wrapperWrapper}">
+        <div class="${classes.hovedmenyWrapper} ${utilsCls.contentContainer}">
+          <div class="${classes.hovedmenyContent}">
+            ${LenkeMedSporing({
+              href: '/',
+              analyticsEventArgs: {
+                category: 'dekorator-header',
+                action: 'navlogo',
+              },
+              attachContext: true,
+              children: html`<img
+                src="/public/ikoner/meny/nav-logo-red.svg"
+                alt="NAV"
+              />`,
+            })}
+            <div class="${classes.arbeidsflate}">
+              ${isNorwegian &&
+              contextLinks?.map((link) =>
+                HeaderContextLenke({
+                  link: link,
+                  text: html`${texts[link.lenkeTekstId]}`,
+                  classNameOverride: clsx([
+                    classes.headerContextLink,
+                    {
+                      [classes.lenkeActive]: link.context === context,
+                    },
+                  ]),
+                  containerClassName: classes.headerContextLinkContainer,
+                  attrs: [['data-context', link.context.toLowerCase()]],
+                }),
+              )}
+            </div>
           </div>
-        </div>
-        ${ComplexHeaderNavbarItems({
-          innlogget,
-          texts,
-          myPageMenu: myPageMenu as Node[],
-        })}
-        <div id="menu" class="${utilsCls.contentContainer} ${classes.menu}">
-          ${ComplexHeaderMenu({ headerMenuLinks, texts })}
+          ${ComplexHeaderNavbarItems({
+            innlogget,
+            texts,
+            myPageMenu: myPageMenu as Node[],
+            headerMenuLinks,
+            name,
+          })}
         </div>
       </div>
     </header>
@@ -93,5 +94,6 @@ export function ComplexHeader({
       breadcrumbs,
       availableLanguages,
     })}
+    <menu-background />
   `;
 }

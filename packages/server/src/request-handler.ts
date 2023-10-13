@@ -96,9 +96,7 @@ const requestHandler = async (
         method: 'GET',
         path,
         handler: ({ url }) =>
-          // This gives a type error, don't know why
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+          // @ts-expect-error Blob type inconsistency
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
