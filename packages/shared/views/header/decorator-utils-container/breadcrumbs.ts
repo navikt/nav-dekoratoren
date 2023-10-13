@@ -28,7 +28,6 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                   ${HomeIcon({ className: cls.svg })}
                   <span class="${cls.span}">nav.no</span>
                 `,
-                defaultStyle: false,
               })}
             </li>
             ${breadcrumbs.map(
@@ -45,13 +44,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                           action: '[redacted]',
                         },
                         children: html`${title}`,
-                        defaultStyle: false,
-                        extraAttrs: [
-                          [
-                            'data-handle-in-app',
-                            handleInApp ? 'true' : 'false',
-                          ],
-                        ],
+                        dataHandleInApp: handleInApp,
                         className: cls.link,
                       })}
                 </li>

@@ -25,7 +25,7 @@ export const SimpleFooter = ({
         ${links.map((link) =>
           FooterLenke({
             link,
-            classNameOverride: classes.footerLink,
+            className: classes.footerLink,
           }),
         )}
       </div>

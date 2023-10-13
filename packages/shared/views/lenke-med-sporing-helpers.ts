@@ -8,27 +8,26 @@ export type LenkeMedSporingProps = {
   /*
    * Markup that can be injected
    */
-  children: Template;
+  children: Template | string;
   analyticsEventArgs?: AnalyticsEventArgs;
-  classNameOverride?: string;
   className?: string;
   // not optimal solution, see if we can use extends 'a' instead
   containerClassName?: string;
   closeMenusOnClick?: boolean;
   tabIndex?: number;
   lang?: string;
-  extraAttrs?: [string, string][];
-  defaultStyle?: boolean;
   attachContext?: boolean;
+  dataContext?: string;
+  dataHandleInApp?: boolean;
 };
 
 export function LenkeMedSporing({
-  defaultStyle = true,
   attachContext = false,
+  className,
+  dataContext,
+  dataHandleInApp,
   ...props
 }: LenkeMedSporingProps) {
-  const className = props.className || '';
-  const classNameOverride = props.classNameOverride || '';
   // Added this here so that the JSON string is not malformed
   // prettier-ignore
   return html`
@@ -40,12 +39,10 @@ export function LenkeMedSporing({
       tabindex="${props.tabIndex}"
       lang="${props.lang}"
       data-analytics-event-args='${json(props.analyticsEventArgs)}'
-      data-class-name-override="${classNameOverride}"
-      data-container-class-name="${props.containerClassName}"
-      data-class-name="${className}"
-      data-extra-attrs='${props.extraAttrs ? json(props.extraAttrs): ''}'
+      class="${className}"
+      ${dataHandleInApp ? html`data-handle-in-app="true"` : ''}
+      ${dataContext ? html`data-context="${dataContext}"` : ''}
       ${attachContext ? html`data-attach-context="true"` : ''}
-      ${defaultStyle ? html`data-default-style="true"` : ''}
     >
     ${props.children}
     </a>

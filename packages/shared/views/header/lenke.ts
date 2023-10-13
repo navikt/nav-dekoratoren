@@ -6,28 +6,24 @@ import { Template } from '../../html';
 export function HeaderContextLenke({
   link,
   text,
-  classNameOverride,
-  containerClassName,
-  attrs,
+  className,
+  dataContext,
 }: {
   link: ContextLink;
   text: Template;
-  classNameOverride?: string;
-  containerClassName?: string;
-  attrs?: [string, string][];
+  className?: string;
+  dataContext: string;
 }) {
   return LenkeMedSporing({
     href: link.url,
     children: text,
-    classNameOverride: classNameOverride,
-    containerClassName: containerClassName,
+    className,
     attachContext: true,
     analyticsEventArgs: {
       action: 'arbeidsflate-valg',
       category: 'dekorator-header',
       label: link.context,
     },
-    extraAttrs: attrs,
-    defaultStyle: false,
+    dataContext,
   });
 }

@@ -39,7 +39,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
                         <li>
                           ${FooterLenke({
                             link,
-                            classNameOverride: classes.footerLink,
+                            className: classes.footerLink,
                           })}
                         </li>
                       `,

@@ -4,17 +4,17 @@ import { Link } from 'decorator-shared/types';
 
 export function FooterLenke({
   link,
-  classNameOverride,
+  className,
 }: {
   link: Link;
-  classNameOverride?: string;
+  className?: string;
 }) {
   const { content, url } = link;
 
   return LenkeMedSporing({
     href: url,
     children: html`${content}`,
-    classNameOverride,
+    className,
     analyticsEventArgs: {
       category: 'dekorator-footer',
       action: `kontakt/${url}`,

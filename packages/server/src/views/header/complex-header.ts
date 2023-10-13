@@ -64,16 +64,16 @@ export function ComplexHeader({
             ${isNorwegian &&
             contextLinks?.map((link) =>
               HeaderContextLenke({
-                link: link,
+                link,
                 text: html`${texts[link.lenkeTekstId]}`,
-                classNameOverride: clsx([
+                className: clsx(
+                  classes.headerContextLinkContainer,
                   classes.headerContextLink,
                   {
                     [classes.lenkeActive]: link.context === context,
                   },
-                ]),
-                containerClassName: classes.headerContextLinkContainer,
-                attrs: [['data-context', link.context.toLowerCase()]],
+                ),
+                dataContext: link.context.toLowerCase(),
               }),
             )}
           </div>

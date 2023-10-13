@@ -4,7 +4,7 @@ import.meta.glob('./styles/*.css', { eager: true });
 
 import getContent from './get-content';
 
-import './views/lenke-med-sporing/lenke-med-sporing';
+import './views/lenke-med-sporing';
 
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import * as api from './api';
