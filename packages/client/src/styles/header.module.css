@@ -211,10 +211,6 @@
   border-color: var(--a-text-action);
 }
 
-.headerContextLinkContainer {
-  height: 100%;
-}
-
 @media (--breakpoint-lg) {
   .headerMenuLinks .nestedLink {
     display: flex;

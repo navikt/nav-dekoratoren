@@ -96,7 +96,6 @@ declare module '*header.module.css' {
     nestedLink: string;
     headerContextLink: string;
     lenkeActive: string;
-    headerContextLinkContainer: string;
     nested: string;
   };
   export default classes;

@@ -25,7 +25,6 @@ export type ComplexHeaderProps = {
 
 import classes from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
-import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
@@ -39,7 +38,7 @@ export function ComplexHeader({
   innlogget,
   breadcrumbs,
   utilsBackground,
-  context,
+  context: currentContext,
   availableLanguages,
   myPageMenu,
 }: ComplexHeaderProps) {
@@ -62,18 +61,20 @@ export function ComplexHeader({
           })}
           <div class="${classes.arbeidsflate}">
             ${isNorwegian &&
-            contextLinks?.map((link) =>
-              HeaderContextLenke({
-                link,
-                text: html`${texts[link.lenkeTekstId]}`,
-                className: clsx(
-                  classes.headerContextLinkContainer,
-                  classes.headerContextLink,
-                  {
-                    [classes.lenkeActive]: link.context === context,
-                  },
-                ),
-                dataContext: link.context.toLowerCase(),
+            contextLinks?.map(({ url, lenkeTekstId, context }) =>
+              LenkeMedSporing({
+                href: url,
+                children: texts[lenkeTekstId],
+                className: clsx(classes.headerContextLink, {
+                  [classes.lenkeActive]: context === currentContext,
+                }),
+                attachContext: true,
+                analyticsEventArgs: {
+                  action: 'arbeidsflate-valg',
+                  category: 'dekorator-header',
+                  label: context,
+                },
+                dataContext: context.toLowerCase(),
               }),
             )}
           </div>
