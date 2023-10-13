@@ -1,19 +1,20 @@
 import html, { unsafeHtml } from 'decorator-shared/html';
 import { partytownSnippet } from '@builder.io/partytown/integration';
 
-const snippetText = partytownSnippet({
-  lib: '/public/~partytown/',
-  debug: true,
-  // forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
-});
+const snippetText = partytownSnippet();
 
 export function Partytown() {
   return html`
     <script>
       partytown = {
         debug: true,
-        // Metoder som skal videresendes til partytown
-        forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
+        lib: '/public/~partytown/',
+        forward: [
+            'analyticsEvent',
+            'logAmplitudeEvent',
+            'logPageView',
+            'startTaskAnalyticsSurvey',
+        ],
       };
     </script>
     <script>

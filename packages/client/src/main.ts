@@ -5,9 +5,9 @@ import.meta.glob('./styles/*.css', { eager: true });
 import getContent from './get-content';
 
 import './views/lenke-med-sporing/lenke-med-sporing';
-
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import * as api from './api';
+
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 // Maybe create a file that does this
@@ -24,7 +24,6 @@ import { SearchEvent } from './views/search';
 import { hasClass, replaceElement } from './utils';
 
 import {
-  Environment,
   type Context,
   type Params,
 } from 'decorator-shared/params';
@@ -39,7 +38,7 @@ import {
 } from './listeners';
 
 import { type AnalyticsEventArgs } from './analytics/constants';
-import { Texts } from 'decorator-shared/types';
+import { AppState, Texts } from 'decorator-shared/types';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
@@ -60,13 +59,10 @@ type Auth = {
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
+
 declare global {
   interface Window {
-    __DECORATOR_DATA__: {
-      texts: Texts;
-      params: Params;
-      env: Environment;
-    };
+    __DECORATOR_DATA__: AppState;
     loginDebug: {
       expireToken: (seconds: number) => void;
       expireSession: (seconds: number) => void;
@@ -78,6 +74,10 @@ declare global {
       eventData: Record<string, any>,
       origin?: string,
     ) => void;
+    startTaskAnalyticsSurvey: (state: AppState) => void;
+    // For task analytics, should have better types?
+    TA: any;
+    dataLayer: any;
   }
 }
 
@@ -91,6 +91,7 @@ window.__DECORATOR_DATA__.env = {
   LOGOUT_URL: import.meta.env.VITE_LOGOUT_URL,
   MIN_SIDE_ARBEIDSGIVER_URL: import.meta.env.VITE_MIN_SIDE_ARBEIDSGIVER_URL,
   XP_BASE_URL: import.meta.env.VITE_XP_BASE_URL,
+  APP_URL: import.meta.env.VITE_APP_URL,
 };
 
 const updateDecoratorParams = (params: Partial<Params>): Params => {
@@ -310,6 +311,7 @@ async function populateLoggedInMenu(authObject: Auth) {
 api.checkAuth({
   onSuccess: async (response) => {
     window.logPageView(window.__DECORATOR_DATA__.params, response);
+    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
     await populateLoggedInMenu(response);
 

@@ -3,6 +3,7 @@ import menu from './content-test-data.json';
 import renderIndex from './render-index';
 import ContentService from './content-service';
 import UnleashService from './unleash-service';
+import { Params } from 'decorator-shared/params';
 
 const contentService = new ContentService(
   () => Promise.resolve(menu),
@@ -10,9 +11,7 @@ const contentService = new ContentService(
 );
 const unleashService = new UnleashService({ mock: true });
 
-test('renders norwegian index', async () => {
-  expect(
-    await renderIndex({
+const base = {
       contentService,
       unleashService,
       data: {
@@ -39,11 +38,36 @@ test('renders norwegian index', async () => {
       },
       url: 'localhost:8089/',
       query: {},
-    }),
-  ).toMatchSnapshot();
+    }
+
+type BaseParams = typeof base.data
+
+function makeParamsConfig(override: Partial<Params>) {
+    return {
+        ...base,
+        data: {
+            ...base.data,
+            ...override,
+        }
+    } as typeof base & { data: Params }
+}
+
+
+
+test('renders norwegian index', async () => {
+  const index = await renderIndex(makeParamsConfig({ language: 'nb' }))
+  expect(index).toMatchSnapshot();
+  expect(index).toContain('lang="nb"')
 });
 
 test('renders english index', async () => {
+  const index = await renderIndex(makeParamsConfig({ language: 'en' }))
+
+  expect(index).toMatchSnapshot();
+  expect(index).toContain('lang="en"')
+});
+
+test('It masks the document from hotjar', async () => {
   expect(
     await renderIndex({
       contentService,
@@ -66,12 +90,12 @@ test('renders english index', async () => {
         urlLookupTable: false,
         shareScreen: false,
         logoutUrl: '/logout',
-        maskHotjar: false,
+        maskHotjar: true,
         logoutWarning: false,
         redirectToUrl: 'https://www.nav.no',
       },
       url: 'localhost:8089/',
       query: {},
     }),
-  ).toMatchSnapshot();
-});
+  ).toContain('data-hj-supress');
+})

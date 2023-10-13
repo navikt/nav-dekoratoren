@@ -15,6 +15,7 @@ export default class UnleashService {
   mock: boolean;
 
   constructor({ mock }: Config) {
+    // @TODO: Here we should use server/env/schema
     const { UNLEASH_SERVER_API_TOKEN, UNLEASH_SERVER_API_URL } = process.env;
     // Important: If the Unleash Next service goes down, we don't want
     // screen sharing or the chatbot to automatically be disabled.

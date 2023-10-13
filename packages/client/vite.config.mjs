@@ -12,7 +12,7 @@ export default defineConfig({
   },
   logLevel: 'info',
   build: {
-    minify: false,
+    minify: true,
     manifest: true,
     rollupOptions: {
       plugins: [

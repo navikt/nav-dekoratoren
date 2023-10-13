@@ -7,6 +7,7 @@ import SearchService from './search-service';
 import menu from './content-test-data.json';
 import notificationsService from './notifications-service';
 import UnleashService from './unleash-service';
+import TaConfigService from './task-analytics-service';
 
 const getFilePaths = (dir: string): string[] =>
   readdirSync(dir).flatMap((name) => {
@@ -19,9 +20,7 @@ const server = Bun.serve({
   development: process.env.NODE_ENV === 'development',
   fetch: await requestHandler(
     new ContentService(
-      process.env.NODE_ENV === 'production'
-        ? fetchMenu
-        : () => Promise.resolve(menu),
+      () => Promise.resolve(menu),
       fetchDriftsmeldinger,
     ),
     new SearchService(fetchSearch),
@@ -31,6 +30,7 @@ const server = Bun.serve({
     },
     notificationsService(),
     new UnleashService({}),
+    new TaConfigService(),
   ),
 });
 

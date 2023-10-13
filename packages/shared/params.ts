@@ -1,13 +1,5 @@
 import z from 'zod';
 
-export function formatParams(params: Partial<Params>) {
-  return new URLSearchParams(
-    Object.entries(params).map(([k, v]) =>
-      Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v.toString()],
-    ),
-  );
-}
-
 const contextSchema = z.enum([
   'privatperson',
   'arbeidsgiver',
@@ -72,6 +64,7 @@ export const environmentSchema = z.object({
   LOGIN_URL: z.string(),
   LOGOUT_URL: z.string(),
   XP_BASE_URL: z.string(),
+  APP_URL: z.string(),
 });
 
 export type Environment = z.infer<typeof environmentSchema>;

@@ -13,6 +13,7 @@ import {
 import { texts } from './texts';
 import { Texts } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
+import TaConfigService from './task-analytics-service';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -29,6 +30,7 @@ const requestHandler = async (
   fileSystemService: FileSystemService,
   notificationsService: NotificationsService,
   unleashService: UnleashService,
+  taConfigService: TaConfigService,
 ) => {
   const filePaths = fileSystemService
     .getFilePaths('./public')
@@ -105,6 +107,7 @@ const requestHandler = async (
         securityLevel: '4',
       }),
     )
+    .get('/api/ta', () => jsonResponse(taConfigService.getTaConfig()))
     .get('/api/oauth2/session', () => jsonResponse(getMockSession()))
     .get('/api/oauth2/session/refresh', () => {
       refreshToken();
