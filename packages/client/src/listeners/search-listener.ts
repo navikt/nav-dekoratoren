@@ -3,7 +3,6 @@ import { replaceElement } from '../utils';
 import { SearchShowMore } from '../views/search-show-more';
 
 import searchClasses from '../styles/search.module.css';
-import headerClasses from '../styles/header.module.css';
 
 export function addSearchInputListener() {
   document
@@ -45,23 +44,4 @@ export function addSearchInputListener() {
           });
       }
     });
-}
-
-import { setAriaExpanded } from '../utils';
-
-export function handleSearchButtonClick() {
-  const searchButton = document.querySelector(
-    `.${searchClasses.searchButton}`,
-  ) as HTMLElement;
-
-  searchButton?.addEventListener('click', () => {
-    setAriaExpanded(searchButton);
-    searchButton?.classList.toggle('active');
-    document
-      .querySelector(`.${searchClasses.sokDropdown}`)
-      ?.classList.toggle('active');
-    document
-      .getElementById('menu-background')
-      ?.classList.toggle(headerClasses.active);
-  });
 }

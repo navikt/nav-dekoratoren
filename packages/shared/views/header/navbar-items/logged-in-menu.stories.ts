@@ -1,15 +1,11 @@
 import type { StoryObj, Meta } from '@storybook/html';
 import type { LoggedInMenuProps } from './logged-in-menu';
 import { LoggedInMenu } from './logged-in-menu';
-import { initLoggedInMenu } from 'decorator-client/src/views/logged-in-menu';
 
 const meta: Meta<LoggedInMenuProps> = {
   title: 'header/logged-in-menu',
   tags: ['autodocs'],
-  render: (args) => {
-    setTimeout(initLoggedInMenu, 1000);
-    return LoggedInMenu(args);
-  },
+  render: LoggedInMenu,
 };
 
 export default meta;

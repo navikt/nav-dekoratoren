@@ -32,7 +32,7 @@ export const ComplexHeaderMenu = ({
     <decorator-loader class="${cls.searchLoader}"></decorator-loader>
     <div id="header-menu-links">
       ${HeaderMenuLinks({
-        headerMenuLinks: headerMenuLinks as Node[],
+        headerMenuLinks,
         className: 'cols-3',
       })}
     </div>

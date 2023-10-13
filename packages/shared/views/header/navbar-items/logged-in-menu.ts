@@ -7,6 +7,7 @@ import { HeaderMenuLinks } from '../header-menu-links';
 import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
 import { LogoutIcon } from '../../icons/logout';
+import { DropdownMenu } from '../../dropdown-menu';
 
 export type LoggedInMenuProps = {
   name: string;
@@ -17,50 +18,39 @@ export type LoggedInMenuProps = {
 export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
   return html`
     <div class="${cls.loggedInMenu}">
-      <div>
-        <toggle-icon-button id="notifications-button">
-          <div class="${cls.notificationsIconWrapper}" slot="icon">
-            ${NotificationsIcon({ className: 'notifications-icon' })}
+      ${DropdownMenu({
+        button: IconButton({
+          Icon: html`<div class="${cls.notificationsIconWrapper}" slot="icon">
+            ${NotificationsIcon({})}
             <div class="${cls.notificationsUnread}"></div>
+          </div>`,
+          text: texts.notifications,
+        }),
+        dropdownClass: cls.notificationsDropdown,
+        dropdownContent: LoadingNotifications({
+          texts,
+        }),
+      })}
+      ${DropdownMenu({
+        button: IconButton({
+          Icon: ProfileIcon({}),
+          text: name,
+          chevron: true,
+        }),
+        dropdownClass: cls.myPageMenuDropdown,
+        dropdownContent: html`<div>
+            <h2 class="${cls.myPageMenuHeading}">Min side</h2>
+            <a class="${cls.link}" href="#">Til Min side</a>
           </div>
-          <span slot="text">${texts.notifications}</span>
-        </toggle-icon-button>
-      </div>
-      ${IconButton({
-        id: 'profile-button',
-        Icon: ProfileIcon({}),
-        text: name,
-        chevron: true,
+          ${HeaderMenuLinks({
+            headerMenuLinks: myPageMenu,
+          })}`,
       })}
       ${IconButton({
         id: 'logout-button',
         Icon: LogoutIcon({}),
         text: texts.logout,
       })}
-      <div id="loggedin-menu-wrapper" class="${cls.loggedinMenuWrapper}">
-        <div class="${cls.loggedinMenuContent}">
-          <div
-            id="notifications-menu-content"
-            class="${cls.dropdown} ${cls.notificationsMenuContent}"
-          >
-            ${LoadingNotifications({
-              texts,
-            })}
-          </div>
-          <div
-            id="my-page-menu-content"
-            class="${cls.dropdown} ${cls.myPageMenuContent}"
-          >
-            <div>
-              <h2 class="${cls.myPageMenuHeading}">Min side</h2>
-              <a class="${cls.link}" href="#">Til Min side</a>
-            </div>
-            ${HeaderMenuLinks({
-              headerMenuLinks: myPageMenu,
-            })}
-          </div>
-        </div>
-      </div>
     </div>
   `;
 }

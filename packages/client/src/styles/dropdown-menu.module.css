@@ -1,0 +1,13 @@
+.dropdownMenuContent {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  border-bottom-left-radius: var(--a-border-radius-medium);
+  border-bottom-right-radius: var(--a-border-radius-medium);
+  background-color: var(--a-surface-default);
+}
+
+.dropdownMenuOpen > .dropdownMenuContent {
+  display: block;
+}
