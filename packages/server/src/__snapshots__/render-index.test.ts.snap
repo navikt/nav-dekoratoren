@@ -473,8 +473,8 @@ exports[`renders norwegian index 1`] = `
     <div class="_menuItems_1q0ba_1">
       <div class="_menuItemsUniversalLinks_1q0ba_8">
         <dropdown-menu>
-          
-    <button id="menu-button" class="_iconButton_1vnms_1 dropdown-menu-button">
+    
+    <button id="menu-button" class="_iconButton_1vnms_1 ">
       <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -497,10 +497,10 @@ exports[`renders norwegian index 1`] = `
       
     </button>
   
-          <div
-            class="_menu_phmvu_48 _contentContainer_zsniq_2 dropdown-menu-content"
-          >
-            
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _menu_phmvu_48"
+    >
+      
   <div class="_menuTop_zy4o8_1">
     <h2>Hva kan vi hjelpe deg med?</h2>
     
@@ -1387,12 +1387,11 @@ exports[`renders norwegian index 1`] = `
     </div>
   </div>
 
-          </div>
-        </dropdown-menu>
-        
-    <dropdown-menu>
-      
-    <button id="" class="_iconButton_1vnms_1 _searchButton_pjpn1_28 dropdown-menu-button">
+    </div>
+  </dropdown-menu>
+        <dropdown-menu>
+    
+    <button id="" class="_iconButton_1vnms_1 _searchButton_pjpn1_28">
       
     <svg
       class="_menuSearch_pjpn1_48"
@@ -1422,15 +1421,17 @@ exports[`renders norwegian index 1`] = `
       
     </button>
   
-      <div
-        class="_contentContainer_zsniq_2 _dropdown_pjpn1_1 dropdown-menu-content"
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _dropdown_pjpn1_1"
+    >
+      <label
+        for="_searchInput_pjpn1_5"
+        class="_bigLabel_1p9d8_1"
+        >Søk på nav.no</label
       >
-        <label for="_searchInput_pjpn1_5" class="_bigLabel_1p9d8_1"
-          >Søk på nav.no</label
-        >
-        <div class="_searchInputWrapper_pjpn1_23">
-          <input class="_searchInput_pjpn1_5" type="text" />
-          
+      <div class="_searchInputWrapper_pjpn1_23">
+        <input class="_searchInput_pjpn1_5" type="text" />
+        
     <button id="" class="_iconButton_1vnms_1 _blueBgIcon_pjpn1_33">
       
     <svg
@@ -1461,14 +1462,13 @@ exports[`renders norwegian index 1`] = `
       
     </button>
   
-        </div>
-        <div id="search-hits">
-          <ul class="_searchHitList_pjpn1_41"></ul>
-          <div id="show-more"></div>
-        </div>
       </div>
-    </dropdown-menu>
-  
+      <div id="search-hits">
+        <ul class="_searchHitList_pjpn1_41"></ul>
+        <div id="show-more"></div>
+      </div>
+    </div>
+  </dropdown-menu>
       </div>
       
     <button id="login-button" class="_iconButton_1vnms_1 ">
@@ -2464,8 +2464,8 @@ exports[`renders english index 1`] = `
     <div class="_menuItems_1q0ba_1">
       <div class="_menuItemsUniversalLinks_1q0ba_8">
         <dropdown-menu>
-          
-    <button id="menu-button" class="_iconButton_1vnms_1 dropdown-menu-button">
+    
+    <button id="menu-button" class="_iconButton_1vnms_1 ">
       <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -2488,10 +2488,10 @@ exports[`renders english index 1`] = `
       
     </button>
   
-          <div
-            class="_menu_phmvu_48 _contentContainer_zsniq_2 dropdown-menu-content"
-          >
-            
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _menu_phmvu_48"
+    >
+      
   <div class="_menuTop_zy4o8_1">
     <h2>What can we help you with?</h2>
     
@@ -4002,12 +4002,11 @@ exports[`renders english index 1`] = `
     </div>
   </div>
 
-          </div>
-        </dropdown-menu>
-        
-    <dropdown-menu>
-      
-    <button id="" class="_iconButton_1vnms_1 _searchButton_pjpn1_28 dropdown-menu-button">
+    </div>
+  </dropdown-menu>
+        <dropdown-menu>
+    
+    <button id="" class="_iconButton_1vnms_1 _searchButton_pjpn1_28">
       
     <svg
       class="_menuSearch_pjpn1_48"
@@ -4037,15 +4036,17 @@ exports[`renders english index 1`] = `
       
     </button>
   
-      <div
-        class="_contentContainer_zsniq_2 _dropdown_pjpn1_1 dropdown-menu-content"
+    <div
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _dropdown_pjpn1_1"
+    >
+      <label
+        for="_searchInput_pjpn1_5"
+        class="_bigLabel_1p9d8_1"
+        >Search nav.no</label
       >
-        <label for="_searchInput_pjpn1_5" class="_bigLabel_1p9d8_1"
-          >Search nav.no</label
-        >
-        <div class="_searchInputWrapper_pjpn1_23">
-          <input class="_searchInput_pjpn1_5" type="text" />
-          
+      <div class="_searchInputWrapper_pjpn1_23">
+        <input class="_searchInput_pjpn1_5" type="text" />
+        
     <button id="" class="_iconButton_1vnms_1 _blueBgIcon_pjpn1_33">
       
     <svg
@@ -4076,14 +4077,13 @@ exports[`renders english index 1`] = `
       
     </button>
   
-        </div>
-        <div id="search-hits">
-          <ul class="_searchHitList_pjpn1_41"></ul>
-          <div id="show-more"></div>
-        </div>
       </div>
-    </dropdown-menu>
-  
+      <div id="search-hits">
+        <ul class="_searchHitList_pjpn1_41"></ul>
+        <div id="show-more"></div>
+      </div>
+    </div>
+  </dropdown-menu>
       </div>
       
     <button id="login-button" class="_iconButton_1vnms_1 ">
