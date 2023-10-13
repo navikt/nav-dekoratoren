@@ -3,7 +3,9 @@ import content from './content-test-data.json';
 import requestHandler from './request-handler';
 import ContentService from './content-service';
 import SearchService from './search-service';
-import NotificationService from './notifications-service';
+import UnleashService from './unleash-service';
+import notificationsService from './notifications-service';
+import { SearchResult } from 'decorator-shared/types';
 
 const fetch = await requestHandler(
   new ContentService(
@@ -22,7 +24,8 @@ const fetch = await requestHandler(
     getFilePaths: () => ['./public/yep.svg'],
     getFile: () => Bun.file('./yep.svg'),
   },
-  NotificationService(),
+  notificationsService(),
+  new UnleashService({ mock: true }),
 );
 
 test('is alive', async () => {
@@ -46,7 +49,7 @@ test('search', async () => {
   expect(response.headers.get('content-type')).toBe(
     'application/json; charset=utf-8',
   );
-  expect((await response.json()).hits.length).toBe(0);
+  expect(((await response.json()) as SearchResult).hits.length).toBe(0);
 });
 
 test('driftsmeldinger', async () => {
@@ -69,8 +72,7 @@ test('driftsmeldinger', async () => {
 describe('notifications', () => {
   test('archive notification on POST', async () => {
     const response = await fetch(
-      new Request({
-        url: 'http://localhost/api/notifications/message/archive',
+      new Request('http://localhost/api/notifications/message/archive', {
         method: 'POST',
         body: JSON.stringify('eventId'),
       }),

@@ -2,16 +2,19 @@ import { expect, test } from 'bun:test';
 import menu from './content-test-data.json';
 import renderIndex from './render-index';
 import ContentService from './content-service';
+import UnleashService from './unleash-service';
 
 const contentService = new ContentService(
   () => Promise.resolve(menu),
   () => Promise.resolve([]),
 );
+const unleashService = new UnleashService({ mock: true });
 
 test('renders norwegian index', async () => {
   expect(
     await renderIndex({
       contentService,
+      unleashService,
       data: {
         context: 'privatperson',
         simple: false,
@@ -44,6 +47,7 @@ test('renders english index', async () => {
   expect(
     await renderIndex({
       contentService,
+      unleashService,
       data: {
         context: 'privatperson',
         simple: false,

@@ -6,13 +6,17 @@ import { ArrowUp } from 'decorator-shared/views/icons';
 
 import classes from 'decorator-client/src/styles/complex-footer.module.css';
 import { FooterLenke } from './lenke';
+import { Features } from '../../unleash-service';
 
 export type ComplexFooterProps = {
   texts: Pick<Texts, 'share_screen' | 'to_top'>;
   links: LinkGroup[];
+  features: Features;
 };
 
-export function ComplexFooter({ texts, links }: ComplexFooterProps) {
+export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
+  const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
+
   return html`
     <footer class="${classes.footer}" data-theme="dark">
       <div class="${classes.footerContent} ${cls.contentContainer}">
@@ -44,7 +48,8 @@ export function ComplexFooter({ texts, links }: ComplexFooterProps) {
                 </li>
               `,
             )}
-            <li>${ScreenshareButton(texts.share_screen)}</li>
+            ${isScreensharingEnabled &&
+            html`<li>${ScreenshareButton(texts.share_screen)}</li>`}
           </ul>
         </div>
 

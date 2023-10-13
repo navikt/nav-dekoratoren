@@ -11,22 +11,27 @@ import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
 import { LogoutWarning } from './views/logout-warning';
 import { Link, LinkGroup } from 'decorator-shared/types';
+import UnleashService from './unleash-service';
 import { makeContextLinks } from 'decorator-shared/context';
 import { env } from './env/server';
 
 export default async ({
   contentService,
+  unleashService,
   data,
   url: origin,
   query,
 }: {
   contentService: ContentService;
+  unleashService: UnleashService;
   data: Params;
   url: string;
   query: Record<string, unknown>;
 }) => {
   const { language } = data;
   const localTexts = texts[language];
+
+  const features = unleashService.getFeatures();
 
   // Passing directly for clarity
   const { mainMenu, headerMenuLinks, myPageMenu, footerLinks } =
@@ -71,10 +76,12 @@ export default async ({
           ? SimpleFooter({
               links: footerLinks as Link[],
               texts: localTexts,
+              features,
             })
           : ComplexFooter({
               texts: localTexts,
               links: footerLinks as LinkGroup[],
+              features,
             }),
       lens: DecoratorLens({
         origin,
