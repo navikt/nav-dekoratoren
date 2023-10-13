@@ -35,7 +35,7 @@
   white-space: nowrap;
 }
 
-.iconButton.active .chevron {
+[aria-expanded='true'] .chevron {
   transform: rotate(180deg);
 }
 
