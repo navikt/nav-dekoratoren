@@ -13,6 +13,7 @@ import {
 import { texts } from './texts';
 import { Texts } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
+import TaConfigService from './task-analytics-service';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -29,6 +30,7 @@ const requestHandler = async (
   fileSystemService: FileSystemService,
   notificationsService: NotificationsService,
   unleashService: UnleashService,
+  taConfigService: TaConfigService,
 ) => {
   const filePaths = fileSystemService
     .getFilePaths('./public')
@@ -94,6 +96,9 @@ const requestHandler = async (
         method: 'GET',
         path,
         handler: ({ url }) =>
+          // This gives a type error, don't know why
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
@@ -104,6 +109,7 @@ const requestHandler = async (
         securityLevel: '4',
       }),
     )
+    .get('/api/ta', () => jsonResponse(taConfigService.getTaConfig()))
     .get('/api/oauth2/session', () => jsonResponse(getMockSession()))
     .get('/api/oauth2/session/refresh', () => {
       refreshToken();

@@ -1,4 +1,6 @@
-import { formatParams, type Params } from 'decorator-shared/params';
+import { formatParams } from 'decorator-shared/json';
+import { type Params } from 'decorator-shared/params';
+
 
 export default function getContent(key: string, params: Partial<Params>) {
   const url = new URL(

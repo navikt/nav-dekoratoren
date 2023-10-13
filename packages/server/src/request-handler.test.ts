@@ -6,6 +6,7 @@ import SearchService from './search-service';
 import UnleashService from './unleash-service';
 import notificationsService from './notifications-service';
 import { SearchResult } from 'decorator-shared/types';
+import TaConfigService from './task-analytics-service';
 
 const fetch = await requestHandler(
   new ContentService(
@@ -26,6 +27,7 @@ const fetch = await requestHandler(
   },
   notificationsService(),
   new UnleashService({ mock: true }),
+  new TaConfigService()
 );
 
 test('is alive', async () => {

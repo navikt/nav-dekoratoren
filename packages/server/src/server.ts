@@ -7,6 +7,7 @@ import SearchService from './search-service';
 import menu from './content-test-data.json';
 import notificationsService from './notifications-service';
 import UnleashService from './unleash-service';
+import TaConfigService from './task-analytics-service';
 
 const getFilePaths = (dir: string): string[] =>
   readdirSync(dir).flatMap((name) => {
@@ -31,6 +32,7 @@ const server = Bun.serve({
     },
     notificationsService(),
     new UnleashService({}),
+    new TaConfigService(),
   ),
 });
 

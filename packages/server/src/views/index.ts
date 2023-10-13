@@ -7,80 +7,91 @@ import { Button } from 'decorator-shared/views/components/button';
 const entryPointPath = 'src/main.ts';
 const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
+const vendorScripts = {
+    taskAnalytics: 'https://in2.taskanalytics.com/tm.js'
+}
+
 const getManifest = async () =>
-  (await import('decorator-client/dist/manifest.json')).default;
+    (await import('decorator-client/dist/manifest.json')).default;
 
-const Links = async () =>
-  process.env.NODE_ENV === 'production'
-    ? [
-        ...(await getManifest())[entryPointPath].css.map(
-          (href: string) =>
-            `<link type="text/css" rel="stylesheet" href="${
-              process.env.HOST ?? ``
-            }/public/${href}"></link>`,
-        ),
-      ].join('')
-    : '';
 
-// This can be calcualted once at startup
-const Scripts = async () => {
-  const script = (src: string) =>
-    `<script type="module" src="${src}"></script>`;
+const script = (src: string) => `<script type="module" src="${src}"></script>`;
+const partytownScript = (src: string) => `<script type="text/partytown" src="${src}"></script>"`;
+const hostUrl = (src: string) => `${process.env.HOST ?? ``}${src}`
 
-  const partytownScript = (src: string) =>
-    `<script type="text/partytown" src="${src}"></script>"`;
+type Manifest = Awaited<ReturnType<typeof getManifest>>;
+type EnvAssets = Record<'production' | 'dev', string>
 
-  const manifest = await getManifest();
+const getEnvAssets = async () => {
+    const manifest = await getManifest();
+    const env = process.env.NODE_ENV === 'production' ? 'production' : 'dev';
 
-  return process.env.NODE_ENV === 'production'
-    ? [
-        script(
-          `${process.env.HOST ?? ``}/public/${manifest[entryPointPath].file}`,
-        ),
-        partytownScript(
-          `${process.env.HOST ?? ``}/public/${
-            manifest[entryPointPathAnalytics].file
-          }`,
-        ),
-      ].join('')
-    : [
-        [
-          'http://localhost:5173/@vite/client',
-          `http://localhost:5173/${entryPointPath}`,
-        ]
-          .map(script)
-          .join(''),
-        [
-          `${process.env.HOST ?? ``}/public/${
-            manifest[entryPointPathAnalytics].file
-          }`,
-        ]
-          .map(partytownScript)
-          .join(''),
-      ].join('');
-};
+    const css: EnvAssets = {
+        production: manifest[entryPointPath].css.map(
+            (href: string) =>
+                `<link type="text/css" rel="stylesheet" href="${process.env.HOST ?? ``
+                }/public/${href}"></link>`,
+        ).join(''),
+        dev: ''
+    }
+
+    const scripts: EnvAssets = {
+        production: [
+            script(
+                hostUrl(`/public/${manifest[entryPointPath].file}`),
+            ),
+            partytownScript(
+                hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`)
+            ),
+            partytownScript(vendorScripts.taskAnalytics)
+        ].join(''),
+        dev: [
+            [
+                'http://localhost:5173/@vite/client',
+                `http://localhost:5173/${entryPointPath}`,
+            ]
+                .map(script)
+                .join(''),
+            [
+
+                vendorScripts.taskAnalytics,
+                hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
+            ]
+                .map(partytownScript)
+                .join(''),
+        ].join('')
+    }
+
+    return {
+        links: css[env],
+        scripts: scripts[env]
+    }
+}
+
+
+const assets = await getEnvAssets();
+
 
 export async function Index({
-  language,
-  header,
-  feedback,
-  logoutWarning,
-  footer,
-  lens,
-  decoratorData,
+    language,
+    header,
+    feedback,
+    logoutWarning,
+    footer,
+    lens,
+    decoratorData,
 }: {
-  language: Language;
-  header: Template;
-  feedback?: Template;
-  footer: Template;
-  logoutWarning?: Template;
-  lens: Template;
-  decoratorData: Template;
+    language: Language;
+    header: Template;
+    feedback?: Template;
+    footer: Template;
+    logoutWarning?: Template;
+    lens: Template;
+    decoratorData: Template;
 }) {
-  const links = await Links();
-  const scripts = await Scripts();
+    const { links, scripts } = assets;
 
-  return html`
+    return html`
     <!doctype html>
     <html lang="${language}">
       <head>
@@ -100,10 +111,10 @@ export async function Index({
         <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
-            text: 'Test amplitude!',
-            variant: 'primary',
-            id: 'amplitude-test',
-          })}
+        text: 'Test amplitude!',
+        variant: 'primary',
+        id: 'amplitude-test',
+    })}
           <button
             onclick="(() => {
                 window.postMessage({

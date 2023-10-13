@@ -1,3 +1,5 @@
+import { Context, Environment, Language, Params } from './params';
+
 export enum MenuValue {
   PRIVATPERSON = 'privatperson',
   ARBEIDSGIVER = 'arbeidsgiver',
@@ -96,4 +98,28 @@ export type SearchHit = {
 export type SearchResult = {
   hits: SearchHit[];
   total: number;
+};
+
+export type AppState = {
+  texts: Texts;
+  params: Params;
+  env: Environment;
+};
+
+export type TaskAnalyticsUrlRule = {
+  url: string;
+  match: 'exact' | 'startsWith';
+  exclude?: boolean;
+};
+
+export type TaskAnalyticsSurveyConfig = {
+  id: string;
+  selection?: number;
+  duration?: {
+    start?: string;
+    end?: string;
+  };
+  urls?: TaskAnalyticsUrlRule[];
+  audience?: Context[];
+  language?: Language[];
 };
