@@ -43,7 +43,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                           label: '[redacted]',
                           action: '[redacted]',
                         },
-                        children: html`${title}`,
+                        children: title,
                         dataHandleInApp: handleInApp,
                         className: cls.link,
                       })}

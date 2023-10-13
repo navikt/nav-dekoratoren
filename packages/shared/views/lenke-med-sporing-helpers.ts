@@ -1,50 +1,34 @@
-import html, { Template, json } from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
 
 export type LenkeMedSporingProps = {
-  role?: string;
   href: string;
-  id?: string;
-  /*
-   * Markup that can be injected
-   */
-  children: Template | string;
-  analyticsEventArgs?: AnalyticsEventArgs;
-  className?: string;
-  // not optimal solution, see if we can use extends 'a' instead
-  containerClassName?: string;
-  closeMenusOnClick?: boolean;
-  tabIndex?: number;
-  lang?: string;
+  analyticsEventArgs: AnalyticsEventArgs;
   attachContext?: boolean;
+  className?: string;
   dataContext?: string;
   dataHandleInApp?: boolean;
+  children: Template | string;
 };
 
-export function LenkeMedSporing({
-  attachContext = false,
+export const LenkeMedSporing = ({
+  href,
+  analyticsEventArgs,
+  attachContext,
   className,
   dataContext,
   dataHandleInApp,
-  ...props
-}: LenkeMedSporingProps) {
-  // Added this here so that the JSON string is not malformed
-  // prettier-ignore
-  return html`
-    <a
-      is="lenke-med-sporing"
-      role="${props.role}"
-      href="${props.href}"
-      id="${props.id}"
-      tabindex="${props.tabIndex}"
-      lang="${props.lang}"
-      data-analytics-event-args='${json(props.analyticsEventArgs)}'
-      class="${className}"
-      ${dataHandleInApp ? html`data-handle-in-app="true"` : ''}
-      ${dataContext ? html`data-context="${dataContext}"` : ''}
-      ${attachContext ? html`data-attach-context="true"` : ''}
-    >
-    ${props.children}
-    </a>
-  `;
-}
+  children,
+}: LenkeMedSporingProps) => html`
+  <a
+    is="lenke-med-sporing"
+    href="${href}"
+    data-analytics-event-args="${JSON.stringify(analyticsEventArgs)}"
+    ${attachContext ? html`data-attach-context="true"` : ''}
+    ${className ? html`class="${className}"` : ''}
+    ${dataContext ? html`data-context="${dataContext}"` : ''}
+    ${dataHandleInApp ? html`data-handle-in-app="true"` : ''}
+  >
+    ${children}
+  </a>
+`;

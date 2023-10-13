@@ -1,5 +1,4 @@
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import html from 'decorator-shared/html';
 import { Link } from 'decorator-shared/types';
 
 export function FooterLenke({
@@ -13,7 +12,7 @@ export function FooterLenke({
 
   return LenkeMedSporing({
     href: url,
-    children: html`${content}`,
+    children: content,
     className,
     analyticsEventArgs: {
       category: 'dekorator-footer',

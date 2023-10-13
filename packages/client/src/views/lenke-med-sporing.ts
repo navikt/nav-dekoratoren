@@ -10,6 +10,8 @@ export class LenkeMedSporingElement extends HTMLAnchorElement {
     const rawEventArgs = this.getAttribute('data-analytics-event-args');
     const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
 
+    console.log(eventArgs);
+
     this.addEventListener('click', () => {
       if (eventArgs) {
         const payload = {

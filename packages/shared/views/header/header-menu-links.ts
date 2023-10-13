@@ -18,7 +18,7 @@ function Link({
   analyticsEventArgs,
 }: {
   path?: string;
-  displayName?: string;
+  displayName: string;
   analyticsEventArgs?: AnalyticsEventArgs;
   id?: string;
   className?: any;
@@ -28,8 +28,11 @@ function Link({
       <div class="${classes.menuLinkInner}">${Next({})}</div>
       ${LenkeMedSporing({
         href: path as string,
-        children: html`${displayName}`,
-        analyticsEventArgs,
+        children: displayName,
+        analyticsEventArgs: analyticsEventArgs ?? {
+          category: 'dekorator-header',
+          action: '[redacted]',
+        },
       })}
     </li>
   `;

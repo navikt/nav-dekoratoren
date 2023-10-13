@@ -22,7 +22,7 @@ export const ComplexHeaderMenu = ({
         action: 'hovedmeny/forsidelenke',
       },
       attachContext: true,
-      children: html`${texts.til_forsiden}`,
+      children: texts.til_forsiden,
     })}
   </div>
   <div class="${cls.menuContent}">
