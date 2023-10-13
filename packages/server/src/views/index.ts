@@ -8,18 +8,33 @@ const entryPointPath = 'src/main.ts';
 const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
 const vendorScripts = {
-    taskAnalytics: 'https://in2.taskanalytics.com/tm.js'
-}
+    taskAnalytics: 'https://in2.taskanalytics.com/tm.js',
+} as const
+
+// https://github.com/BuilderIO/partytown/issues/241
+// See how this works in production
+const inlineVendorScripts = {
+    hotjar: `(function(h,o,t,j,a,r){
+h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+h._hjSettings={hjid:118350,hjsv:6};
+a=o.getElementsByTagName('head')[0];
+r=o.createElement('script');r.async=1;
+r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`
+} as const
 
 const getManifest = async () =>
     (await import('decorator-client/dist/manifest.json')).default;
 
 
-const script = (src: string) => `<script type="module" src="${src}"></script>`;
-const partytownScript = (src: string) => `<script type="text/partytown" src="${src}"></script>"`;
-const hostUrl = (src: string) => `${process.env.HOST ?? ``}${src}`
+type AssetFormatter = (src: string) => string;
 
-type Manifest = Awaited<ReturnType<typeof getManifest>>;
+const script: AssetFormatter = (src) => `<script type="module" src="${src}"></script>`;
+const partytownScript: AssetFormatter = (src) => `<script type="text/partytown" src="${src}"></script>"`;
+const partytownInlineScript: AssetFormatter = (code) => `<script type="text/partytown">${code}</script>"`;
+const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`
+
 type EnvAssets = Record<'production' | 'dev', string>
 
 const getEnvAssets = async () => {
@@ -43,7 +58,10 @@ const getEnvAssets = async () => {
             partytownScript(
                 hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`)
             ),
-            partytownScript(vendorScripts.taskAnalytics)
+            partytownScript(vendorScripts.taskAnalytics),
+            [
+                inlineVendorScripts.hotjar
+            ].map(partytownInlineScript).join(''),
         ].join(''),
         dev: [
             [
@@ -59,6 +77,9 @@ const getEnvAssets = async () => {
             ]
                 .map(partytownScript)
                 .join(''),
+            [
+                inlineVendorScripts.hotjar
+            ].map(partytownInlineScript).join(''),
         ].join('')
     }
 
@@ -80,6 +101,7 @@ export async function Index({
     footer,
     lens,
     decoratorData,
+    maskDocument = false,
 }: {
     language: Language;
     header: Template;
@@ -88,12 +110,13 @@ export async function Index({
     logoutWarning?: Template;
     lens: Template;
     decoratorData: Template;
+    maskDocument?: boolean;
 }) {
     const { links, scripts } = assets;
 
     return html`
     <!doctype html>
-    <html lang="${language}">
+    <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

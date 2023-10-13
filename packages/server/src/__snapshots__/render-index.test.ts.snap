@@ -3,7 +3,7 @@
 exports[`renders norwegian index 1`] = `
 "
     <!doctype html>
-    <html lang="nb">
+    <html lang="nb" >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,12 +17,17 @@ exports[`renders norwegian index 1`] = `
     <script>
       partytown = {
         debug: true,
-        // Metoder som skal videresendes til partytown
-        forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
+        lib: '/public/~partytown/',
+        forward: [
+            'analyticsEvent',
+            'logAmplitudeEvent',
+            'logPageView',
+            'startTaskAnalyticsSurvey',
+        ],
       };
     </script>
     <script>
-      !(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=Object.assign(w[p]||{},{"lib":"/public/~partytown/","debug":true});c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.8.1 - MIT builder.io */
+      !(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=w[p]||{};c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.8.1 - MIT builder.io */
 !function(t,e,n,i,o,r,a,s,d,c,l,p){function u(){p||(p=1,"/"==(a=(r.lib||"/~partytown/")+(r.debug?"debug/":""))[0]&&(d=e.querySelectorAll('script[type="text/partytown"]'),i!=t?i.dispatchEvent(new CustomEvent("pt1",{detail:t})):(s=setTimeout(f,1e4),e.addEventListener("pt0",w),o?h(1):n.serviceWorker?n.serviceWorker.register(a+(r.swPath||"partytown-sw.js"),{scope:a}).then((function(t){t.active?h():t.installing&&t.installing.addEventListener("statechange",(function(t){"activated"==t.target.state&&h()}))}),console.error):f())))}function h(t){c=e.createElement(t?"script":"iframe"),t||(c.style.display="block",c.style.width="0",c.style.height="0",c.style.border="0",c.style.visibility="hidden",c.setAttribute("aria-hidden",!0)),c.src=a+"partytown-"+(t?"atomics.js?v=0.8.1":"sandbox-sw.html?"+Date.now()),e.querySelector(r.sandboxParent||"body").appendChild(c)}function f(n,o){for(w(),i==t&&(r.forward||[]).map((function(e){delete t[e.split(".")[0]]})),n=0;n<d.length;n++)(o=e.createElement("script")).innerHTML=d[n].innerHTML,o.nonce=r.nonce,e.head.appendChild(o);c&&c.parentNode.removeChild(c)}function w(){clearTimeout(s)}r=t.partytown||{},i==t&&(r.forward||[]).map((function(e){l=t,e.split(".").map((function(e,n,i){l=l[i[n]]=n+1<i.length?"push"==i[n+1]?[]:l[i[n]]||{}:function(){(t._ptf=t._ptf||[]).push(i,arguments)}}))})),"complete"==e.readyState?u():(t.addEventListener("DOMContentLoaded",u),t.addEventListener("load",u))}(window,document,navigator,top,window.crossOriginIsolated);;
     </script>
   
@@ -1978,7 +1983,14 @@ exports[`renders norwegian index 1`] = `
     </div>
   
         <div id="scripts" style="display:none">
-          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"
+          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="https://in2.taskanalytics.com/tm.js"></script>"<script type="text/partytown" src="/public/assets/analytics-7d41b84e.js"></script>"<script type="text/partytown">(function(h,o,t,j,a,r){
+h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+h._hjSettings={hjid:118350,hjsv:6};
+a=o.getElementsByTagName('head')[0];
+r=o.createElement('script');r.async=1;
+r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')</script>"
   <script type="application/json" id="__DECORATOR_DATA__">
     {"texts":{"share_screen":"Del skjerm med veileder","to_top":"Til toppen","menu":"Meny","close":"Lukk","did_you_find":"Fant du det du lette etter?","search":"Søk","sok_knapp_sokefelt":"Søk på nav.no","login":"Logg inn","logout":"Logg ut","logged_in":"Logget inn","notifications":"Varsler","notifications_empty_list":"Du har ingen nye varsler","notifications_empty_list_description":"Vi varsler deg når noe skjer","notifications_show_all":"Tidligere varsler","notifications_messages_title":"Beskjeder","notified_EPOST":"Varslet på e-post","notified_SMS":"Varslet på SMS","earlier_notifications":"Tidligere varsler","masked_message_text":"Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.","masked_task_text":"Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.","archive":"Arkiver","notifications_tasks_title":"Oppgaver","token_warning_title":"Du blir snart logget ut automatisk","token_warning_body":"Vil du fortsatt være innlogget?","session_warning_title":"Du blir logget ut automatisk om ca $1 minutter","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Ja","no":"Nei","ok":"OK","hensikt_med_tilbakemelding":"Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?","hensikt_med_tilbakemelding_lenke":"Ring, chat eller skriv til oss","send_undersokelse_takk":"Takk!","rolle_privatperson":"Privat","rolle_arbeidsgiver":"Arbeidsgiver","rolle_samarbeidspartner":"Samarbeidspartner","meny_bunnlenke_minside_stikkord":"Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester","meny_bunnlenke_arbeidsgiver_stikkord":"Dine sykmeldte, rekruttering, digitale skjemaer","meny_bunnlenke_samarbeidspartner_stikkord":"Helsepersonell, tiltaksarrangører, fylker og kommuner","loading_notifications":"Laster varslinger","notifications_error":"Feil ved lasting av varsler","til_forsiden":"Til forsiden","how_can_we_help":"Hva kan vi hjelpe deg med?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"nb","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}}
   </script>
@@ -1992,7 +2004,7 @@ exports[`renders norwegian index 1`] = `
 exports[`renders english index 1`] = `
 "
     <!doctype html>
-    <html lang="en">
+    <html lang="en" >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -2006,12 +2018,17 @@ exports[`renders english index 1`] = `
     <script>
       partytown = {
         debug: true,
-        // Metoder som skal videresendes til partytown
-        forward: ['analyticsEvent', 'logAmplitudeEvent', 'logPageView'],
+        lib: '/public/~partytown/',
+        forward: [
+            'analyticsEvent',
+            'logAmplitudeEvent',
+            'logPageView',
+            'startTaskAnalyticsSurvey',
+        ],
       };
     </script>
     <script>
-      !(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=Object.assign(w[p]||{},{"lib":"/public/~partytown/","debug":true});c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.8.1 - MIT builder.io */
+      !(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=w[p]||{};c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.8.1 - MIT builder.io */
 !function(t,e,n,i,o,r,a,s,d,c,l,p){function u(){p||(p=1,"/"==(a=(r.lib||"/~partytown/")+(r.debug?"debug/":""))[0]&&(d=e.querySelectorAll('script[type="text/partytown"]'),i!=t?i.dispatchEvent(new CustomEvent("pt1",{detail:t})):(s=setTimeout(f,1e4),e.addEventListener("pt0",w),o?h(1):n.serviceWorker?n.serviceWorker.register(a+(r.swPath||"partytown-sw.js"),{scope:a}).then((function(t){t.active?h():t.installing&&t.installing.addEventListener("statechange",(function(t){"activated"==t.target.state&&h()}))}),console.error):f())))}function h(t){c=e.createElement(t?"script":"iframe"),t||(c.style.display="block",c.style.width="0",c.style.height="0",c.style.border="0",c.style.visibility="hidden",c.setAttribute("aria-hidden",!0)),c.src=a+"partytown-"+(t?"atomics.js?v=0.8.1":"sandbox-sw.html?"+Date.now()),e.querySelector(r.sandboxParent||"body").appendChild(c)}function f(n,o){for(w(),i==t&&(r.forward||[]).map((function(e){delete t[e.split(".")[0]]})),n=0;n<d.length;n++)(o=e.createElement("script")).innerHTML=d[n].innerHTML,o.nonce=r.nonce,e.head.appendChild(o);c&&c.parentNode.removeChild(c)}function w(){clearTimeout(s)}r=t.partytown||{},i==t&&(r.forward||[]).map((function(e){l=t,e.split(".").map((function(e,n,i){l=l[i[n]]=n+1<i.length?"push"==i[n+1]?[]:l[i[n]]||{}:function(){(t._ptf=t._ptf||[]).push(i,arguments)}}))})),"complete"==e.readyState?u():(t.addEventListener("DOMContentLoaded",u),t.addEventListener("load",u))}(window,document,navigator,top,window.crossOriginIsolated);;
     </script>
   
@@ -4591,7 +4608,14 @@ exports[`renders english index 1`] = `
     </div>
   
         <div id="scripts" style="display:none">
-          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"
+          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="https://in2.taskanalytics.com/tm.js"></script>"<script type="text/partytown" src="/public/assets/analytics-7d41b84e.js"></script>"<script type="text/partytown">(function(h,o,t,j,a,r){
+h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+h._hjSettings={hjid:118350,hjsv:6};
+a=o.getElementsByTagName('head')[0];
+r=o.createElement('script');r.async=1;
+r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')</script>"
   <script type="application/json" id="__DECORATOR_DATA__">
     {"texts":{"share_screen":"Share screen with your counsellor","to_top":"To the top","menu":"Menu","close":"Close","did_you_find":"Fant du det du lette etter?","search":"Search","sok_knapp_sokefelt":"Search nav.no","login":"Log in","logout":"Log out","logged_in":"Logged in","notifications":"Notifications","notifications_empty_list":"You have no new notifications","notifications_empty_list_description":"Du har ingen nye varsler","notifications_show_all":"Previous notifications","notifications_messages_title":"Beskjeder","notified_EPOST":"Notified by e-mail","notified_SMS":"Notified by SMS","earlier_notifications":"Earlier notifications","masked_message_text":"You have a message, please log in with a higher security level to read the message.","masked_task_text":"You have a task, please log in with a higher security level to see the task.","archive":"Archive","notifications_tasks_title":"Tasks","token_warning_title":"You will soon be logged out automatically","token_warning_body":"Would you like to stay logged in?","session_warning_title":"You will be logged out automatically in about $1 minutes","session_warning_body":"Avslutt det du jobber med og logg inn igjen.","yes":"Yes","no":"No","ok":"OK","hensikt_med_tilbakemelding":"Unfortunately you will not get a reply to your feedback. Do you have questions or need help?","hensikt_med_tilbakemelding_lenke":"Call, chat or write to us","send_undersokelse_takk":"Thanks!","rolle_privatperson":"Private","rolle_arbeidsgiver":"Employer","rolle_samarbeidspartner":"Collaborator","meny_bunnlenke_minside_stikkord":"Your cases, payments, messages, report cards, activity plan, personal information and more services","meny_bunnlenke_arbeidsgiver_stikkord":"Your sick leave, recruitment, digital forms","meny_bunnlenke_samarbeidspartner_stikkord":"Health personnel, intervention organizers, counties and municipalities","loading_notifications":"Loading notifications","notifications_error":"Error loading notifications","til_forsiden":"To the frontpage","how_can_we_help":"What can we help you with?"},"params":{"context":"privatperson","simple":false,"simpleHeader":false,"simpleFooter":false,"enforceLogin":false,"redirectToApp":false,"level":"Level3","language":"en","availableLanguages":[],"breadcrumbs":[],"utilsBackground":"transparent","feedback":false,"chatbot":true,"chatbotVisible":false,"urlLookupTable":false,"shareScreen":false,"logoutUrl":"/logout","maskHotjar":false,"logoutWarning":false,"redirectToUrl":"https://www.nav.no"}}
   </script>
