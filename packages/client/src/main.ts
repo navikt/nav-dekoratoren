@@ -12,15 +12,16 @@ import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator
 
 // Maybe create a file that does this
 import './views/language-selector';
-import './views/toggle-icon-button';
 import './views/search';
 import './views/loader';
 import './views/decorator-lens';
 import './views/local-time';
+import './views/menu-background';
+import './views/dropdown-menu';
 
 import { SearchEvent } from './views/search';
 
-import { hasClass, replaceElement, setAriaExpanded } from './utils';
+import { hasClass, replaceElement } from './utils';
 
 import {
   Environment,
@@ -29,7 +30,6 @@ import {
 } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
-import { initLoggedInMenu } from './views/logged-in-menu';
 import { logoutWarningController } from './controllers/logout-warning';
 
 import {
@@ -40,11 +40,9 @@ import {
 
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { Texts } from 'decorator-shared/types';
-import { handleSearchButtonClick } from './listeners/search-listener';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import iconButtonClasses from 'decorator-shared/views/components/icon-button.module.css';
 import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
@@ -59,10 +57,6 @@ type Auth = {
   name: string;
   securityLevel: string;
 };
-
-const breakpoints = {
-  lg: 1024, // See custom-media-queries.css
-} as const;
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
@@ -114,7 +108,6 @@ onLoadListeners({
 
 attachLensListener();
 fetchDriftsMeldinger();
-handleSearchButtonClick();
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
   logoutWarningController(
@@ -241,43 +234,6 @@ async function setActiveContext(context: Context | null) {
   }
 }
 
-const menuBackground = document.getElementById('menu-background');
-
-function purgeActive(el: HTMLElement) {
-  el.classList.remove('active');
-}
-
-let isMenuOpen = false;
-
-function handleMenuButton() {
-  // Can probably be done direclty
-  const menuButton = document.getElementById('menu-button');
-  const profileButton = document.getElementById('profile-button');
-
-  menuButton?.addEventListener('click', () => {
-    setAriaExpanded(menuButton);
-    const menu = document.getElementById('menu');
-    menuButton?.classList.toggle(iconButtonClasses.active);
-    menu?.classList.toggle(headerClasses.active);
-    menuBackground?.classList.toggle(headerClasses.active);
-
-    if (profileButton) {
-      profileButton.classList.remove(iconButtonClasses.active);
-    }
-
-    const isMobile = window.innerWidth < breakpoints.lg;
-    isMenuOpen = !isMenuOpen;
-
-    if (!isMobile) return;
-
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  });
-}
-
 // Keeping this for later when fixing opening menus and such
 // function dismissMenu() {
 //     const menu = document.getElementById('menu');
@@ -318,21 +274,6 @@ if (window.__DECORATOR_DATA__.params.simple === false) {
   }
 }
 
-// when they click the background
-menuBackground?.addEventListener('click', () => {
-  const menu = document.getElementById('menu');
-  const menuButton = document.getElementById('menu-button');
-  const profileButton = document.getElementById('profile-button');
-
-  const dropdowns = document.querySelectorAll('.dropdown');
-  const loggedInMenuWrapper = document.getElementById('loggedin-menu-wrapper');
-
-  profileButton?.classList.remove(iconButtonClasses.active);
-  [menuButton, menuBackground, menu, loggedInMenuWrapper, ...dropdowns].forEach(
-    (el) => el && purgeActive(el as HTMLElement),
-  );
-});
-
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
   // Store a snapshot if user logs out
@@ -354,9 +295,6 @@ async function populateLoggedInMenu(authObject: Auth) {
         });
 
     menuItems.outerHTML = template.render();
-
-    initLoggedInMenu();
-    handleMenuButton();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       const menuitems = document.getElementById('menu-items');
@@ -389,7 +327,7 @@ api.checkAuth({
     }
 
     const notificationsMenuContent = document.querySelector(
-      '#notifications-menu-content',
+      `.${loggedInMenuClasses.notificationsDropdown}`,
     );
 
     if (notificationsMenuContent) {
@@ -415,5 +353,4 @@ function handleLogin() {
     });
 }
 
-handleMenuButton();
 handleLogin();

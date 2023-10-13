@@ -2,7 +2,7 @@ import html from 'decorator-shared/html';
 
 // @TODO: Should probably create a generic type for the className
 
-export function NotificationsIcon({ className }: { className: string }) {
+export function NotificationsIcon({ className }: { className?: string }) {
   return html`<svg
     width="24px"
     height="24px"
