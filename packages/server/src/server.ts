@@ -20,7 +20,9 @@ const server = Bun.serve({
   development: process.env.NODE_ENV === 'development',
   fetch: await requestHandler(
     new ContentService(
-      () => Promise.resolve(menu),
+      process.env.NODE_ENV === 'production'
+        ? fetchMenu
+        : () => Promise.resolve(menu),
       fetchDriftsmeldinger,
     ),
     new SearchService(fetchSearch),
