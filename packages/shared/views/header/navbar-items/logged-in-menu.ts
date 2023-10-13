@@ -6,10 +6,8 @@ import { ProfileIcon } from 'decorator-shared/views/icons/profile';
 import { HeaderMenuLinks } from '../header-menu-links';
 import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
-import utilsCls from 'decorator-shared/utilities.module.css';
 import { LogoutIcon } from '../../icons/logout';
-import clsx from 'clsx';
-import dropdownClasses from 'decorator-client/src/styles/dropdown-menu.module.css';
+import { DropdownMenu } from '../../dropdown-menu';
 
 export type LoggedInMenuProps = {
   name: string;
@@ -20,48 +18,34 @@ export type LoggedInMenuProps = {
 export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
   return html`
     <div class="${cls.loggedInMenu}">
-      <dropdown-menu>
-        ${IconButton({
+      ${DropdownMenu({
+        button: IconButton({
           Icon: html`<div class="${cls.notificationsIconWrapper}" slot="icon">
             ${NotificationsIcon({})}
             <div class="${cls.notificationsUnread}"></div>
           </div>`,
           text: texts.notifications,
-        })}
-        <div
-          class="${clsx(
-            utilsCls.contentContainer,
-            cls.notificationsDropdown,
-            dropdownClasses.dropdownMenuContent,
-          )}"
-        >
-          ${LoadingNotifications({
-            texts,
-          })}
-        </div>
-      </dropdown-menu>
-      <dropdown-menu>
-        ${IconButton({
+        }),
+        dropdownClass: cls.notificationsDropdown,
+        dropdownContent: LoadingNotifications({
+          texts,
+        }),
+      })}
+      ${DropdownMenu({
+        button: IconButton({
           Icon: ProfileIcon({}),
           text: name,
           chevron: true,
-        })}
-        <div
-          class="${clsx(
-            utilsCls.contentContainer,
-            cls.myPageMenuDropdown,
-            dropdownClasses.dropdownMenuContent,
-          )}"
-        >
-          <div>
+        }),
+        dropdownClass: cls.myPageMenuDropdown,
+        dropdownContent: html`<div>
             <h2 class="${cls.myPageMenuHeading}">Min side</h2>
             <a class="${cls.link}" href="#">Til Min side</a>
           </div>
           ${HeaderMenuLinks({
             headerMenuLinks: myPageMenu,
-          })}
-        </div>
-      </dropdown-menu>
+          })}`,
+      })}
       ${IconButton({
         id: 'logout-button',
         Icon: LogoutIcon({}),

@@ -1,6 +1,6 @@
 import { IconButton } from '../../components/icon-button';
 import { BurgerIcon } from '../../icons/burger';
-import Search from '../../search';
+import { Search } from '../../search';
 import { LoginIcon } from 'decorator-shared/views/icons/login';
 import { Node } from '../../../types';
 import html from 'decorator-shared/html';
@@ -9,9 +9,7 @@ import { LoggedInMenu } from './logged-in-menu';
 import cls from './menu-items.module.css';
 import { ComplexHeaderMenu } from 'decorator-server/src/views/header/complex-header-menu';
 import headerClasses from 'decorator-client/src/styles/header.module.css';
-import clsx from 'clsx';
-import utilsCls from 'decorator-shared/utilities.module.css';
-import dropdownClasses from 'decorator-client/src/styles/dropdown-menu.module.css';
+import { DropdownMenu } from '../../dropdown-menu';
 
 export type ComplexHeaderNavbarItemsProps = {
   innlogget: boolean;
@@ -31,22 +29,15 @@ export function ComplexHeaderNavbarItems({
   return html`
     <div class="${cls.menuItems}">
       <div class="${cls.menuItemsUniversalLinks}">
-        <dropdown-menu>
-          ${IconButton({
+        ${DropdownMenu({
+          button: IconButton({
             id: 'menu-button',
             Icon: BurgerIcon(),
             text: texts.menu,
-          })}
-          <div
-            class="${clsx(
-              headerClasses.menu,
-              utilsCls.contentContainer,
-              dropdownClasses.dropdownMenuContent,
-            )}"
-          >
-            ${ComplexHeaderMenu({ headerMenuLinks, texts })}
-          </div>
-        </dropdown-menu>
+          }),
+          dropdownClass: headerClasses.menu,
+          dropdownContent: ComplexHeaderMenu({ headerMenuLinks, texts }),
+        })}
         ${Search({ texts })}
       </div>
       ${innlogget
