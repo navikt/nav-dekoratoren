@@ -5,6 +5,7 @@ export const serverSchema = z.object({
   XP_BASE_URL: z.string().url(),
   PORT: z.number(),
   NODE_ENV: z.string(),
+  CDN_URL: z.string().url()
 });
 
 function portToNumber(port: string | undefined) {
@@ -24,4 +25,5 @@ export const serverEnv = {
   XP_BASE_URL: process.env.XP_BASE_URL,
   PORT: portToNumber(process.env.PORT),
   NODE_ENV: process.env.NODE_ENV,
+  CDN_URL: process.env.CDN_URL
 };
