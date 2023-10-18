@@ -1,5 +1,5 @@
 import { CSPDirectives, UNSAFE_EVAL, UNSAFE_INLINE, BLOB, DATA } from 'csp-header';
-import { Handler, jsonResponse } from './lib/handler';
+import { HandlerBuilder, jsonResponse } from './lib/handler';
 
 const navNo = '*.nav.no';
 const cdnNavNo = 'cdn.nav.no';
@@ -64,10 +64,17 @@ const localDirectives = Object.entries(directives).reduce((acc, [key, value]) =>
 export const cspDirectives = process.env.ENV === 'localhost' ? localDirectives : directives;
 
 
-export const cspHandler: Handler = {
-    method: 'GET',
-    path: '/api/csp',
-    handler: () => {
-        return jsonResponse(cspDirectives)
-    }
-}
+export const cspHandler = new HandlerBuilder()
+.get('/api/csp', () => {
+    return jsonResponse(cspDirectives)
+})
+
+
+
+// export const cspHandler: Handler = {
+//     method: 'GET',
+//     path: '/api/csp',
+//     handler: () => {
+//         return jsonResponse(cspDirectives)
+//     }
+// } as const
