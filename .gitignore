@@ -15,3 +15,7 @@ storybook-static/
 !.yarn/versions
 .eslintcache
 .DS_Store
+
+packages/client/css-modules.d.ts
+packages/server/css-modules.d.ts
+packages/shared/css-modules.d.ts

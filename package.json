@@ -47,6 +47,7 @@
     "@types/js-cookie": "^3.0.4",
     "amplitude-js": "^8.21.9",
     "clsx": "^2.0.0",
+    "csp-header": "^5.2.1",
     "js-cookie": "^3.0.5",
     "storybook": "^7.4.3",
     "unleash-client": "^4.1.1"

@@ -14,6 +14,8 @@ import { texts } from './texts';
 import { Texts } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
 import TaConfigService from './task-analytics-service';
+import { HandlerBuilder, jsonResponse } from './lib/handler';
+import { cspHandler } from './csp';
 import { env } from './env/server';
 
 type FileSystemService = {
@@ -58,49 +60,7 @@ const requestHandler = async (
     return validParams.data;
   };
 
-  type HandlerFunction = ({
-    request,
-    url,
-    query,
-  }: {
-    request: Request;
-    url: URL;
-    query: Record<string, string>;
-  }) => Response | Promise<Response>;
 
-  type Handler = {
-    method: string;
-    path: string;
-    handler: HandlerFunction;
-  };
-
-  class HandlerBuilder {
-    handlers: Handler[] = [];
-
-    get(path: string, handler: HandlerFunction): HandlerBuilder {
-      this.handlers.push({ method: 'GET', path, handler });
-      return this;
-    }
-
-    post(path: string, handler: HandlerFunction): HandlerBuilder {
-      this.handlers.push({ method: 'POST', path, handler });
-      return this;
-    }
-
-    use(handlers: Handler[]): HandlerBuilder {
-      this.handlers = [...this.handlers, ...handlers];
-      return this;
-    }
-
-    build() {
-      return this.handlers;
-    }
-  }
-
-  const jsonResponse = async (data: unknown) =>
-    new Response(JSON.stringify(await data), {
-      headers: { 'content-type': 'application/json; charset=utf-8' },
-    });
 
   const handlers = new HandlerBuilder()
     .use(
@@ -204,6 +164,9 @@ const requestHandler = async (
         ))
       }
     )
+    .use([
+        cspHandler,
+    ])
     .build();
 
   return async function fetch(request: Request): Promise<Response> {
