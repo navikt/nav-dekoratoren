@@ -1,13 +1,26 @@
 .dropdownMenuContent {
-  display: none;
   position: absolute;
   top: 100%;
   right: 0;
   border-bottom-left-radius: var(--a-border-radius-medium);
   border-bottom-right-radius: var(--a-border-radius-medium);
   background-color: var(--a-surface-default);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition-duration: 0.4s;
+  transition-property: max-height, visibility, opacity;
+  transition-timing-function: ease-in;
 }
 
 .dropdownMenuOpen > .dropdownMenuContent {
   display: block;
+  max-height: 100rem;
+  opacity: 1;
+  visibility: visible;
+  transition-duration: 0.6s;
+  transition-property: max-height, visibility;
+  transition-timing-function: ease-in-out;
+  z-index: 1;
 }

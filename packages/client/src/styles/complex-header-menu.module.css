@@ -6,7 +6,6 @@
   height: calc(100vh - 73px);
   overflow-y: auto;
   position: relative;
-  z-index: 2;
   background-color: white;
   padding: var(--a-spacing-4);
 }

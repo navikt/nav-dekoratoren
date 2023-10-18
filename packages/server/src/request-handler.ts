@@ -16,6 +16,7 @@ import UnleashService from './unleash-service';
 import TaConfigService from './task-analytics-service';
 import { HandlerBuilder, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
+import { env } from './env/server';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -26,6 +27,16 @@ type NotificationsService = {
   getNotifications: (texts: Texts) => Promise<NotificationList[] | undefined>;
 };
 
+const rewriter = new HTMLRewriter().on('img', {
+    element: (element) => {
+        const src = element.getAttribute('src')
+
+        if (src) {
+            const url = new URL(src, env.CDN_URL)
+            element.setAttribute('src', url.toString())
+        }
+    }
+})
 
 const requestHandler = async (
   contentService: ContentService,
@@ -138,19 +149,20 @@ const requestHandler = async (
     })
     .get(
       '/',
-      async ({ url, query }) =>
-        new Response(
-          await renderIndex({
+      async ({ url, query }) => {
+      const index = await renderIndex({
             contentService,
             unleashService,
             data: validParams(query),
             url: url.toString(),
             query,
-          }),
+          })
+      return rewriter.transform(new Response(index,
           {
             headers: { 'content-type': 'text/html; charset=utf-8' },
           },
-        ),
+        ))
+      }
     )
     .use([
         cspHandler,

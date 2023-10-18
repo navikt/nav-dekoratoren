@@ -503,10 +503,10 @@ exports[`renders norwegian index 1`] = `
     </button>
   
     <div
-      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _menu_phmvu_48"
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _menu_phmvu_48"
     >
       
-  <div class="_menuTop_zy4o8_1">
+  <div class="_menuTop_1l1lr_1">
     <h2>Hva kan vi hjelpe deg med?</h2>
     
     <a
@@ -528,11 +528,11 @@ exports[`renders norwegian index 1`] = `
     </a>
   
   </div>
-  <div class="_menuContent_zy4o8_5">
-    <div class="_inlineSearch_zy4o8_24">
+  <div class="_menuContent_1l1lr_5">
+    <div class="_inlineSearch_1l1lr_23">
       <inline-search></inline-search>
     </div>
-    <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
+    <decorator-loader class="_searchLoader_1l1lr_28"></decorator-loader>
     <div id="header-menu-links">
       
     <ul class="_headerMenuLinks_phmvu_108 cols-3">
@@ -1427,7 +1427,7 @@ exports[`renders norwegian index 1`] = `
     </button>
   
     <div
-      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _dropdown_pjpn1_1"
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _dropdown_pjpn1_1"
     >
       <label
         for="_searchInput_pjpn1_5"
@@ -2506,10 +2506,10 @@ exports[`renders english index 1`] = `
     </button>
   
     <div
-      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _menu_phmvu_48"
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _menu_phmvu_48"
     >
       
-  <div class="_menuTop_zy4o8_1">
+  <div class="_menuTop_1l1lr_1">
     <h2>What can we help you with?</h2>
     
     <a
@@ -2531,11 +2531,11 @@ exports[`renders english index 1`] = `
     </a>
   
   </div>
-  <div class="_menuContent_zy4o8_5">
-    <div class="_inlineSearch_zy4o8_24">
+  <div class="_menuContent_1l1lr_5">
+    <div class="_inlineSearch_1l1lr_23">
       <inline-search></inline-search>
     </div>
-    <decorator-loader class="_searchLoader_zy4o8_29"></decorator-loader>
+    <decorator-loader class="_searchLoader_1l1lr_28"></decorator-loader>
     <div id="header-menu-links">
       
     <ul class="_headerMenuLinks_phmvu_108 cols-3">
@@ -4054,7 +4054,7 @@ exports[`renders english index 1`] = `
     </button>
   
     <div
-      class="_contentContainer_zsniq_2 _dropdownMenuContent_1on18_1 _dropdown_pjpn1_1"
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _dropdown_pjpn1_1"
     >
       <label
         for="_searchInput_pjpn1_5"
