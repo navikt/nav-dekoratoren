@@ -27,6 +27,16 @@ To update snapshots when you've made changes to the markup that is produced. Run
 
 To get partytown to work locally, you need to run `npm run partytown` and build the application once.
 
+---
+
+## Styling
+
+Styling documentation.
+
+_trouble shooting_:
+
+- If you're having trouble with design tokens not being loaded, it may be because your element is not in the scope of the elements defined in postcss.config.js [prefixer configuration](https://github.com/navikt/decorator-next/blob/main/packages/client/postcss.config.js)
+
 ### Resources
 
 - [Typescript documentation for Bun](https://bun.sh/docs/typescript)
