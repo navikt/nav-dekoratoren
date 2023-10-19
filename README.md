@@ -26,3 +26,7 @@ To update snapshots when you've made changes to the markup that is produced. Run
 ### Partytown
 
 To get partytown to work locally, you need to run `npm run partytown` and build the application once.
+
+### Resources
+
+- [Typescript documentation for Bun](https://bun.sh/docs/typescript)

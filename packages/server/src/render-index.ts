@@ -14,6 +14,7 @@ import { Link, LinkGroup } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
 import { makeContextLinks } from 'decorator-shared/context';
 import { env } from './env/server';
+import { SplashPage } from './views/splash-page';
 
 export default async ({
   contentService,
@@ -92,7 +93,8 @@ export default async ({
         texts: localTexts,
         params: data,
       }),
-      maskDocument: data.maskHotjar
+      maskDocument: data.maskHotjar,
+      main: (origin.includes("localhost") || origin.includes("dekoratøren")) ? SplashPage() : undefined
     })
   ).render();
 };
