@@ -23,10 +23,7 @@ import { SearchEvent } from './views/search';
 
 import { hasClass, replaceElement } from './utils';
 
-import {
-  type Context,
-  type Params,
-} from 'decorator-shared/params';
+import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { logoutWarningController } from './controllers/logout-warning';
@@ -58,7 +55,6 @@ type Auth = {
 };
 
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
-
 
 declare global {
   interface Window {

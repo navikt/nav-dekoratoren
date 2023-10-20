@@ -4,8 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
 import { HmrContext } from 'vite';
-import * as prettier from "prettier";
-import prettierConfig from '../../.prettierrc.json'
+import * as prettier from 'prettier';
+import prettierConfig from '../../.prettierrc.json';
 
 // Directoryes to write file to
 const targets = ['./', '../server/', '../shared/'];
@@ -80,10 +80,9 @@ async function createOutput(modules: ts.ModuleDeclaration[]) {
     .map((mod) => printer.printNode(ts.EmitHint.Unspecified, mod, sourceFile))
     .join('\n\n');
 
-
   const formatted = await prettier.format(output, {
-      ...prettierConfig,
-      parser: "typescript"
+    ...prettierConfig,
+    parser: 'typescript',
   });
 
   return formatted;

@@ -1,4 +1,4 @@
-import { Params, } from 'decorator-shared/params';
+import { Params } from 'decorator-shared/params';
 import { formatParams } from 'decorator-shared/json';
 import html, { json, unsafeHtml } from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/decorator-lens.module.css';

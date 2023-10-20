@@ -92,7 +92,7 @@ export default async ({
         texts: localTexts,
         params: data,
       }),
-      maskDocument: data.maskHotjar
+      maskDocument: data.maskHotjar,
     })
   ).render();
 };

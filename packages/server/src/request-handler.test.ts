@@ -27,7 +27,7 @@ const fetch = await requestHandler(
   },
   notificationsService(),
   new UnleashService({ mock: true }),
-  new TaConfigService()
+  new TaConfigService(),
 );
 
 test('is alive', async () => {
