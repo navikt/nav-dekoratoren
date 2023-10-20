@@ -3,10 +3,9 @@ import cls from 'decorator-shared/utilities.module.css';
 import html from 'decorator-shared/html';
 import { ScreenshareButton } from './screenshare-button';
 import { ArrowUp } from 'decorator-shared/views/icons';
-
 import classes from 'decorator-client/src/styles/complex-footer.module.css';
-import { FooterLenke } from './lenke';
 import { Features } from '../../unleash-service';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 
 export type ComplexFooterProps = {
   texts: Pick<Texts, 'share_screen' | 'to_top'>;
@@ -35,11 +34,17 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
                   </h2>`}
                   <ul class="${classes.footerInnerLinkList}">
                     ${children.map(
-                      (link) => html`
+                      ({ url, content }) => html`
                         <li>
-                          ${FooterLenke({
-                            link,
-                            classNameOverride: classes.footerLink,
+                          ${LenkeMedSporing({
+                            href: url,
+                            children: content,
+                            className: classes.footerLink,
+                            analyticsEventArgs: {
+                              category: 'dekorator-footer',
+                              action: `kontakt/${url}`,
+                              label: url,
+                            },
                           })}
                         </li>
                       `,

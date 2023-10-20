@@ -6,42 +6,22 @@ exports[`renders simple footer 1`] = `
     <div class="_simpleFooterContent_yutxt_7 _contentContainer_zsniq_2">
       <div class="_footerLinkList_yutxt_19">
         
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_yutxt_19"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_yutxt_19"
+  >
     Personvern og informasjonskapsler
-    </a>
-  
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/tilgjengelighet"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
-      data-class-name-override="_footerLink_yutxt_19"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  </a>
+
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
+    href="/tilgjengelighet" class="_footerLink_yutxt_19"
+  >
     Tilgjengelighet
-    </a>
-  
+  </a>
+
       </div>
       <button type="button" class="_screenshareButton_tarl4_1">
     Del skjerm med veileder

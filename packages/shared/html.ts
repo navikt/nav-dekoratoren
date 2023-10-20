@@ -84,9 +84,7 @@ const html = (
   render: () => String.raw({ raw: strings }, ...values.map(renderValue)),
 });
 
-export const json = (value: any): Template => ({
-  render: () => JSON.stringify(value),
-});
+export const json = (value: any): Template => unsafeHtml(JSON.stringify(value));
 
 export const unsafeHtml = (htmlString: string) => ({
   render: () => htmlString,
@@ -105,3 +103,35 @@ const renderValue = (item: TemplateStringValues): string =>
     : item && typeof item === 'object' && 'render' in item
     ? item.render()
     : '';
+
+type AttribueValue = number | string | boolean | string[];
+
+const toKebabCase = (str: string) =>
+  str.replace(
+    /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g,
+    (match) => '-' + match.toLowerCase(),
+  );
+
+export const htmlAttributes = (
+  attributes: Record<string, AttribueValue>,
+): Template => {
+  return unsafeHtml(
+    Object.entries(attributes)
+      .filter(([, value]) => value !== undefined && value !== null)
+      .map(
+        ([name, value]: [string, AttribueValue]): [string, AttribueValue] => [
+          name === 'className' ? 'class' : name,
+          value,
+        ],
+      )
+      .map(([name, value]) =>
+        typeof value === 'boolean'
+          ? value
+            ? toKebabCase(name)
+            : ''
+          : `${toKebabCase(name)}="${value}"`,
+      )
+      .filter(Boolean)
+      .join(' '),
+  );
+};

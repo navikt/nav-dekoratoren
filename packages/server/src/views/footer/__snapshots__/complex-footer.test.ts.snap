@@ -36,90 +36,50 @@ exports[`renders complex footer 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/person/kontakt-oss/nb"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}"
+    href="/person/kontakt-oss/nb" class="_footerLink_1vx5s_1"
+  >
     Kontakt oss
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
+  >
     NAV i ditt fylke
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav" class="_footerLink_1vx5s_1"
+  >
     Kurs fra NAV
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/person/kontakt-oss/tilbakemeldinger"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}"
+    href="/person/kontakt-oss/tilbakemeldinger" class="_footerLink_1vx5s_1"
+  >
     Klage, tilbakemelding, ros
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -133,24 +93,14 @@ exports[`renders complex footer 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/samarbeidspartner/presse"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
+    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
+  >
     Nyheter, pressemeldinger og pressekontakt
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -164,68 +114,38 @@ exports[`renders complex footer 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
+  >
     Statistikk, analyse og FoU
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://lovdata.no/nav/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
+    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
+  >
     Lover og regler (lovdata.no)
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/om-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}"
+    href="/no/nav-og-samfunn/om-nav/om-nav" class="_footerLink_1vx5s_1"
+  >
     Om NAV
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -239,46 +159,26 @@ exports[`renders complex footer 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}"
+    href="/en" class="_footerLink_1vx5s_1"
+  >
     English
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/se"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
+    href="/se" class="_footerLink_1vx5s_1"
+  >
     Sámegiella
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -290,46 +190,26 @@ exports[`renders complex footer 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
+  >
     Personvern og informasjonskapsler
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/tilgjengelighet"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
+    href="/tilgjengelighet" class="_footerLink_1vx5s_1"
+  >
     Tilgjengelighet
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>

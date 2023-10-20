@@ -1,6 +1,9 @@
 import { initAmplitude, logAmplitudeEvent, logPageView } from './amplitude';
 import { AnalyticsEventArgs } from './constants';
-import { initTaskAnalytics, startTaskAnalyticsSurvey } from './task-analytics/ta';
+import {
+  initTaskAnalytics,
+  startTaskAnalyticsSurvey,
+} from './task-analytics/ta';
 
 export const initAnalytics = () => {
   initAmplitude();
