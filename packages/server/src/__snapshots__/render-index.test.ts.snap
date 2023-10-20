@@ -390,88 +390,48 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <header class="_siteheader_phmvu_1">
-      <div class="_wrapperWrapper_phmvu_9">
-        <div class="_hovedmenyWrapper_phmvu_16 _contentContainer_zsniq_2">
-          <div class="_hovedmenyContent_phmvu_23">
+    <header class="_siteheader_bxwj3_1">
+      <div class="_wrapperWrapper_bxwj3_9">
+        <div class="_hovedmenyWrapper_bxwj3_16 _contentContainer_zsniq_2">
+          <div class="_hovedmenyContent_bxwj3_23">
             
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-header","action":"navlogo"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      data-attach-context="true"
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}"
+    href="/" data-attach-context
+  >
     <img
                 src="/public/ikoner/meny/nav-logo-red.svg"
                 alt="NAV"
               />
-    </a>
-  
-            <div class="_arbeidsflate_phmvu_35">
+  </a>
+
+            <div class="_arbeidsflate_bxwj3_35">
               
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_phmvu_141 _lenkeActive_phmvu_155"
-      data-container-class-name="_headerContextLinkContainer_phmvu_160"
-      data-class-name=""
-      data-extra-attrs='[["data-context","privatperson"]]'
-      data-attach-context="true"
-      
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
+    href="https://www.nav.no" class="_headerContextLink_bxwj3_141 _lenkeActive_bxwj3_155" data-attach-context data-context="privatperson"
+  >
     Privat
-    </a>
-  
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no/no/bedrift"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_phmvu_141"
-      data-container-class-name="_headerContextLinkContainer_phmvu_160"
-      data-class-name=""
-      data-extra-attrs='[["data-context","arbeidsgiver"]]'
-      data-attach-context="true"
-      
-    >
+  </a>
+
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
+    href="https://www.nav.no/no/bedrift" class="_headerContextLink_bxwj3_141" data-attach-context data-context="arbeidsgiver"
+  >
     Arbeidsgiver
-    </a>
-  
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no/no/samarbeidspartner"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_phmvu_141"
-      data-container-class-name="_headerContextLinkContainer_phmvu_160"
-      data-class-name=""
-      data-extra-attrs='[["data-context","samarbeidspartner"]]'
-      data-attach-context="true"
-      
-    >
+  </a>
+
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
+    href="https://www.nav.no/no/samarbeidspartner" class="_headerContextLink_bxwj3_141" data-attach-context data-context="samarbeidspartner"
+  >
     Samarbeidspartner
-    </a>
-  
+  </a>
+
             </div>
           </div>
           
@@ -503,30 +463,20 @@ exports[`renders norwegian index 1`] = `
     </button>
   
     <div
-      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _menu_phmvu_48"
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _menu_bxwj3_48"
     >
       
   <div class="_menuTop_1l1lr_1">
     <h2>Hva kan vi hjelpe deg med?</h2>
     
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="#"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"hovedmeny/forsidelenke"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      data-attach-context="true"
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;hovedmeny/forsidelenke&quot;}"
+    href="#" data-attach-context
+  >
     Til forsiden
-    </a>
-  
+  </a>
+
   </div>
   <div class="_menuContent_1l1lr_5">
     <div class="_inlineSearch_1l1lr_23">
@@ -535,14 +485,14 @@ exports[`renders norwegian index 1`] = `
     <decorator-loader class="_searchLoader_1l1lr_28"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_phmvu_108 cols-3">
+    <ul class="_headerMenuLinks_bxwj3_108 cols-3">
       
           <li id="79173ea3-74cd-4d7a-a81f-a43915022c4e" class="">
             <h3>Områder</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="433a7fcf-b5d4-47fa-b07b-2b388a968129">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -561,28 +511,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/arbeid"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Arbeid","label":"/arbeid"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Arbeid&quot;,&quot;label&quot;:&quot;/arbeid&quot;}"
+    href="/arbeid"
+  >
     Arbeid
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="c0379053-4fdf-4151-8974-5d475449ebd2">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="c0379053-4fdf-4151-8974-5d475449ebd2">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -601,28 +541,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/helse"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Helse og sykdom","label":"/helse"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Helse og sykdom&quot;,&quot;label&quot;:&quot;/helse&quot;}"
+    href="/helse"
+  >
     Helse og sykdom
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="e79dd1e5-e647-46a7-8387-a9a652ed022f">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -641,28 +571,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/familie"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Familie og barn","label":"/familie"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Familie og barn&quot;,&quot;label&quot;:&quot;/familie&quot;}"
+    href="/familie"
+  >
     Familie og barn
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="721f8cdb-f41b-4250-b7ea-f36f5bb2a558">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -681,28 +601,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/pensjon"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Pensjon","label":"/pensjon"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Pensjon&quot;,&quot;label&quot;:&quot;/pensjon&quot;}"
+    href="/pensjon"
+  >
     Pensjon
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="67047b4c-9aad-403b-b86a-f86c439c5b7d">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -721,28 +631,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/sosiale-tjenester"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Sosiale tjenester og veiledning","label":"/sosiale-tjenester"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Sosiale tjenester og veiledning&quot;,&quot;label&quot;:&quot;/sosiale-tjenester&quot;}"
+    href="/sosiale-tjenester"
+  >
     Sosiale tjenester og veiledning
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="77c95b52-c6df-4d21-96f9-980b29bc4528">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -761,36 +661,26 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/hjelpemidler"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Områder/Hjelpemidler og tilrettelegging","label":"/hjelpemidler"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Områder/Hjelpemidler og tilrettelegging&quot;,&quot;label&quot;:&quot;/hjelpemidler&quot;}"
+    href="/hjelpemidler"
+  >
     Hjelpemidler og tilrettelegging
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
           </li>
         
-          <li id="c73650df-2e69-41e3-ae15-96ed90de4b0b" class="_nested_phmvu_137">
+          <li id="c73650df-2e69-41e3-ae15-96ed90de4b0b" class="_nested_bxwj3_137">
             <h3>Snarveier</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="63294b4d-01e4-497b-b34c-ccdf0df3edf4">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -809,28 +699,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/soknader"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Søknad og skjema","label":"/soknader"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Søknad og skjema&quot;,&quot;label&quot;:&quot;/soknader&quot;}"
+    href="/soknader"
+  >
     Søknad og skjema
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="a0f95de4-92a5-44f4-a361-65f7452fee06">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -849,28 +729,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/ettersende"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Ettersendelse","label":"/ettersende"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Ettersendelse&quot;,&quot;label&quot;:&quot;/ettersende&quot;}"
+    href="/ettersende"
+  >
     Ettersendelse
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="de30686a-5d55-4188-a735-bd0f5e6abab2">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -889,28 +759,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/klage"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Klage","label":"/klage"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Klage&quot;,&quot;label&quot;:&quot;/klage&quot;}"
+    href="/klage"
+  >
     Klage
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="4077b31a-0b92-48da-ac65-ec7f799b0aca">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -929,28 +789,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/tjenester"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Pengestøtter og tjenester fra A til Å","label":"/tjenester"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Pengestøtter og tjenester fra A til Å&quot;,&quot;label&quot;:&quot;/tjenester&quot;}"
+    href="/tjenester"
+  >
     Pengestøtter og tjenester fra A til Å
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="4d10e55b-ed4f-492a-9f07-dc8413f1ff7c">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -969,28 +819,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/saksbehandlingstider"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Saksbehandlingstider","label":"/saksbehandlingstider"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Saksbehandlingstider&quot;,&quot;label&quot;:&quot;/saksbehandlingstider&quot;}"
+    href="/saksbehandlingstider"
+  >
     Saksbehandlingstider
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="b3a2b780-1243-41b1-bd63-e47f014762a4">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1009,28 +849,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Utbetalinger","label":"/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Utbetalinger&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger"
+  >
     Utbetalinger
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="799aa2bd-3010-49f6-bd40-7a96d3ed1e98">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1049,28 +879,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/satser"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Satser","label":"/satser"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Satser&quot;,&quot;label&quot;:&quot;/satser&quot;}"
+    href="/satser"
+  >
     Satser
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="bcd4d2ab-de95-4904-9cf2-476652dd0150">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1089,28 +909,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Meldekort","label":"/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Meldekort&quot;,&quot;label&quot;:&quot;/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det&quot;}"
+    href="/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det"
+  >
     Meldekort
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="e0b328f5-f509-4fd8-879d-79679b3b1667">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1129,28 +939,18 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Kurs fra NAV","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Kurs fra NAV&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
+  >
     Kurs fra NAV
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="0ef10379-91d0-4be6-abb2-75be206b1ad1">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1169,30 +969,20 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Snarveier/Feiltolkning av EØS-reglene","label":"/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Snarveier/Feiltolkning av EØS-reglene&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/feiltolkning-av-eos-reglene"
+  >
     Feiltolkning av EØS-reglene
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
-    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _nestedLink_bxwj3_137" id="c73650df-2e69-41e3-ae15-96ed90de4b0b_link">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1211,31 +1001,21 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href=""
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href=""
+  >
     Snarveier
-    </a>
-  
+  </a>
+
     </li>
   
           </li>
         
       
-    <li class="_menuLink_phmvu_67 _mobile_phmvu_90" id="">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _mobile_bxwj3_90" id="">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -1254,29 +1034,19 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="#"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="#"
+  >
     Logg inn på min side
-    </a>
-  
+  </a>
+
     </li>
   
 
       <li>
-        <ul class="_menuContextLinks_phmvu_48">
+        <ul class="_menuContextLinks_bxwj3_48">
           
     <a
       class="_wrapper_wmu45_1"
@@ -1613,90 +1383,50 @@ exports[`renders norwegian index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/person/kontakt-oss/nb"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/nb","label":"/person/kontakt-oss/nb"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}"
+    href="/person/kontakt-oss/nb" class="_footerLink_1vx5s_1"
+  >
     Kontakt oss
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
+  >
     NAV i ditt fylke
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav","label":"/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav" class="_footerLink_1vx5s_1"
+  >
     Kurs fra NAV
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/person/kontakt-oss/tilbakemeldinger"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//person/kontakt-oss/tilbakemeldinger","label":"/person/kontakt-oss/tilbakemeldinger"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}"
+    href="/person/kontakt-oss/tilbakemeldinger" class="_footerLink_1vx5s_1"
+  >
     Klage, tilbakemelding, ros
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -1710,24 +1440,14 @@ exports[`renders norwegian index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/samarbeidspartner/presse"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
+    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
+  >
     Nyheter, pressemeldinger og pressekontakt
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -1741,68 +1461,38 @@ exports[`renders norwegian index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
+  >
     Statistikk, analyse og FoU
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://lovdata.no/nav/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
+    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
+  >
     Lover og regler (lovdata.no)
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/om-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/om-nav","label":"/no/nav-og-samfunn/om-nav/om-nav"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}"
+    href="/no/nav-og-samfunn/om-nav/om-nav" class="_footerLink_1vx5s_1"
+  >
     Om NAV
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -1816,46 +1506,26 @@ exports[`renders norwegian index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//en","label":"/en"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}"
+    href="/en" class="_footerLink_1vx5s_1"
+  >
     English
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/se"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
+    href="/se" class="_footerLink_1vx5s_1"
+  >
     Sámegiella
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -1867,46 +1537,26 @@ exports[`renders norwegian index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
+  >
     Personvern og informasjonskapsler
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/tilgjengelighet"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet","label":"/tilgjengelighet"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
+    href="/tilgjengelighet" class="_footerLink_1vx5s_1"
+  >
     Tilgjengelighet
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -2393,88 +2043,48 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
-    <header class="_siteheader_phmvu_1">
-      <div class="_wrapperWrapper_phmvu_9">
-        <div class="_hovedmenyWrapper_phmvu_16 _contentContainer_zsniq_2">
-          <div class="_hovedmenyContent_phmvu_23">
+    <header class="_siteheader_bxwj3_1">
+      <div class="_wrapperWrapper_bxwj3_9">
+        <div class="_hovedmenyWrapper_bxwj3_16 _contentContainer_zsniq_2">
+          <div class="_hovedmenyContent_bxwj3_23">
             
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-header","action":"navlogo"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      data-attach-context="true"
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;navlogo&quot;}"
+    href="/" data-attach-context
+  >
     <img
                 src="/public/ikoner/meny/nav-logo-red.svg"
                 alt="NAV"
               />
-    </a>
-  
-            <div class="_arbeidsflate_phmvu_35">
+  </a>
+
+            <div class="_arbeidsflate_bxwj3_35">
               
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"privatperson"}'
-      data-class-name-override="_headerContextLink_phmvu_141 _lenkeActive_phmvu_155"
-      data-container-class-name="_headerContextLinkContainer_phmvu_160"
-      data-class-name=""
-      data-extra-attrs='[["data-context","privatperson"]]'
-      data-attach-context="true"
-      
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
+    href="https://www.nav.no" class="_headerContextLink_bxwj3_141 _lenkeActive_bxwj3_155" data-attach-context data-context="privatperson"
+  >
     Private
-    </a>
-  
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no/no/bedrift"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"arbeidsgiver"}'
-      data-class-name-override="_headerContextLink_phmvu_141"
-      data-container-class-name="_headerContextLinkContainer_phmvu_160"
-      data-class-name=""
-      data-extra-attrs='[["data-context","arbeidsgiver"]]'
-      data-attach-context="true"
-      
-    >
+  </a>
+
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
+    href="https://www.nav.no/no/bedrift" class="_headerContextLink_bxwj3_141" data-attach-context data-context="arbeidsgiver"
+  >
     Employer
-    </a>
-  
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no/no/samarbeidspartner"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"action":"arbeidsflate-valg","category":"dekorator-header","label":"samarbeidspartner"}'
-      data-class-name-override="_headerContextLink_phmvu_141"
-      data-container-class-name="_headerContextLinkContainer_phmvu_160"
-      data-class-name=""
-      data-extra-attrs='[["data-context","samarbeidspartner"]]'
-      data-attach-context="true"
-      
-    >
+  </a>
+
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
+    href="https://www.nav.no/no/samarbeidspartner" class="_headerContextLink_bxwj3_141" data-attach-context data-context="samarbeidspartner"
+  >
     Collaborator
-    </a>
-  
+  </a>
+
             </div>
           </div>
           
@@ -2506,30 +2116,20 @@ exports[`renders english index 1`] = `
     </button>
   
     <div
-      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _menu_phmvu_48"
+      class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _menu_bxwj3_48"
     >
       
   <div class="_menuTop_1l1lr_1">
     <h2>What can we help you with?</h2>
     
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="#"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"hovedmeny/forsidelenke"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      data-attach-context="true"
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;hovedmeny/forsidelenke&quot;}"
+    href="#" data-attach-context
+  >
     To the frontpage
-    </a>
-  
+  </a>
+
   </div>
   <div class="_menuContent_1l1lr_5">
     <div class="_inlineSearch_1l1lr_23">
@@ -2538,14 +2138,14 @@ exports[`renders english index 1`] = `
     <decorator-loader class="_searchLoader_1l1lr_28"></decorator-loader>
     <div id="header-menu-links">
       
-    <ul class="_headerMenuLinks_phmvu_108 cols-3">
+    <ul class="_headerMenuLinks_bxwj3_108 cols-3">
       
-          <li id="4034ae9f-981a-4ea4-9311-eade71ae098b" class="_nested_phmvu_137">
+          <li id="4034ae9f-981a-4ea4-9311-eade71ae098b" class="_nested_bxwj3_137">
             <h3>Work and stay in Norway</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="7d765f26-ce01-4f2f-b644-42ae75fad947">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2564,28 +2164,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/work-and-stay-in-norway/work-in-norway"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Work in Norway","label":"/en/home/work-and-stay-in-norway/work-in-norway"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Work in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/work-in-norway&quot;}"
+    href="/en/home/work-and-stay-in-norway/work-in-norway"
+  >
     Work in Norway
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="a27d8a44-5159-4b23-bfe5-9f11b079cb2b">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2604,28 +2194,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Employee on the Norwegian continental shelf","label":"/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Employee on the Norwegian continental shelf&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf&quot;}"
+    href="/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf"
+  >
     Employee on the Norwegian continental shelf
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2644,28 +2224,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/work-and-stay-in-norway/foreign-students-in-norway"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Foreign students in Norway","label":"/en/home/work-and-stay-in-norway/foreign-students-in-norway"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Foreign students in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/foreign-students-in-norway&quot;}"
+    href="/en/home/work-and-stay-in-norway/foreign-students-in-norway"
+  >
     Foreign students in Norway
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="117d0621-476c-42d6-9789-26f898250225">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="117d0621-476c-42d6-9789-26f898250225">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2684,30 +2254,20 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/work-and-stay-in-norway/tourists-in-norway"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Work and stay in Norway/Tourists in Norway","label":"/en/home/work-and-stay-in-norway/tourists-in-norway"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Work and stay in Norway/Tourists in Norway&quot;,&quot;label&quot;:&quot;/en/home/work-and-stay-in-norway/tourists-in-norway&quot;}"
+    href="/en/home/work-and-stay-in-norway/tourists-in-norway"
+  >
     Tourists in Norway
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
-    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _nestedLink_bxwj3_137" id="4034ae9f-981a-4ea4-9311-eade71ae098b_link">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2726,34 +2286,24 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/work-and-stay-in-norway"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="/en/home/work-and-stay-in-norway"
+  >
     Work and stay in Norway
-    </a>
-  
+  </a>
+
     </li>
   
           </li>
         
-          <li id="f855f440-9267-4b2c-8f27-6b9eec6b2e68" class="_nested_phmvu_137">
+          <li id="f855f440-9267-4b2c-8f27-6b9eec6b2e68" class="_nested_bxwj3_137">
             <h3>Benefits and services</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="2bdcfe94-5b37-462f-b063-3d2b1c56cac6">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2772,28 +2322,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Information about NAV's services and benefits","label":"/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Information about NAV&#x27;s services and benefits&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/information-about-nav-s-services-and-benefits&quot;}"
+    href="/en/home/benefits-and-services/information-about-nav-s-services-and-benefits"
+  >
     Information about NAV&#x27;s services and benefits
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="50a2ecf5-dd14-4839-a05f-b97a2c98620f">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2812,28 +2352,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no/arbeid/en/dagpenger-og-eos"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Unemployment benefits","label":"https://www.nav.no/arbeid/en/dagpenger-og-eos"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Unemployment benefits&quot;,&quot;label&quot;:&quot;https://www.nav.no/arbeid/en/dagpenger-og-eos&quot;}"
+    href="https://www.nav.no/arbeid/en/dagpenger-og-eos"
+  >
     Unemployment benefits
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="f30dd799-91aa-4c50-a470-969f5087d34c">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="f30dd799-91aa-4c50-a470-969f5087d34c">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2852,28 +2382,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/benefits-and-services/family-related-benefits"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Family related benefits","label":"/en/home/benefits-and-services/family-related-benefits"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Family related benefits&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/family-related-benefits&quot;}"
+    href="/en/home/benefits-and-services/family-related-benefits"
+  >
     Family related benefits
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="7369c78c-ecde-4704-acbe-08d42366bbd2">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2892,28 +2412,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Pensions and pension applications from outside Norway","label":"/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Pensions and pension applications from outside Norway&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway&quot;}"
+    href="/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway"
+  >
     Pensions and pension applications from outside Norway
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="33d17dc4-39dd-44c9-82e1-516ed4e583ed">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2932,30 +2442,20 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Benefits and services/Employment status form - how do you use it?","label":"/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Benefits and services/Employment status form - how do you use it?&quot;,&quot;label&quot;:&quot;/en/home/benefits-and-services/employment-status-form-how-do-you-use-it&quot;}"
+    href="/en/home/benefits-and-services/employment-status-form-how-do-you-use-it"
+  >
     Employment status form - how do you use it?
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
-    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _nestedLink_bxwj3_137" id="f855f440-9267-4b2c-8f27-6b9eec6b2e68_link">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -2974,34 +2474,24 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/benefits-and-services"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="/en/home/benefits-and-services"
+  >
     Benefits and services
-    </a>
-  
+  </a>
+
     </li>
   
           </li>
         
-          <li id="91930e1e-d372-43fc-b2b4-696454f71a71" class="_nested_phmvu_137">
+          <li id="91930e1e-d372-43fc-b2b4-696454f71a71" class="_nested_bxwj3_137">
             <h3>Rules and regulations</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="09581eac-105d-453f-b019-ebffe6465ffc">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="09581eac-105d-453f-b019-ebffe6465ffc">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3020,28 +2510,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Membership of the National Insurance Scheme","label":"/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Membership of the National Insurance Scheme&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme&quot;}"
+    href="/en/home/rules-and-regulations/membership-of-the-national-insurance-scheme"
+  >
     Membership of the National Insurance Scheme
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="da84b18a-6070-4862-94a7-15c9517cf3c8">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3060,28 +2540,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/rules-and-regulations/national-insurance-coverage"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance coverage","label":"/en/home/rules-and-regulations/national-insurance-coverage"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/National insurance coverage&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/national-insurance-coverage&quot;}"
+    href="/en/home/rules-and-regulations/national-insurance-coverage"
+  >
     National insurance coverage
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="37f8fcd2-b450-4c35-8070-80e7cc1b77cb">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3100,28 +2570,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/National insurance contributions","label":"/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/National insurance contributions&quot;,&quot;label&quot;:&quot;/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift&quot;}"
+    href="/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/trygdeavgift"
+  >
     National insurance contributions
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3140,28 +2600,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/klagerettigheter/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Appeals","label":"/klagerettigheter/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Appeals&quot;,&quot;label&quot;:&quot;/klagerettigheter/en&quot;}"
+    href="/klagerettigheter/en"
+  >
     Appeals
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="280069da-b8f9-4871-b681-ccc339146a3a">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="280069da-b8f9-4871-b681-ccc339146a3a">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3180,28 +2630,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/rules-and-regulations/working-abroad"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Working abroad","label":"/en/home/rules-and-regulations/working-abroad"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Working abroad&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/working-abroad&quot;}"
+    href="/en/home/rules-and-regulations/working-abroad"
+  >
     Working abroad
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="eee9266f-aace-46ad-91a9-7c042864c9e1">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3220,30 +2660,20 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/rules-and-regulations/staying-abroad"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Rules and regulations/Staying abroad","label":"/en/home/rules-and-regulations/staying-abroad"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Rules and regulations/Staying abroad&quot;,&quot;label&quot;:&quot;/en/home/rules-and-regulations/staying-abroad&quot;}"
+    href="/en/home/rules-and-regulations/staying-abroad"
+  >
     Staying abroad
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
-    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _nestedLink_bxwj3_137" id="91930e1e-d372-43fc-b2b4-696454f71a71_link">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3262,34 +2692,24 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/rules-and-regulations"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="/en/home/rules-and-regulations"
+  >
     Rules and regulations
-    </a>
-  
+  </a>
+
     </li>
   
           </li>
         
-          <li id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8" class="_nested_phmvu_137">
+          <li id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8" class="_nested_bxwj3_137">
             <h3>Employers</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="341c8a41-b5c7-409c-aad1-b5ef351adf95">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3308,28 +2728,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/employers/recruit-in-norway"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruit in Norway?","label":"/en/home/employers/recruit-in-norway"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Recruit in Norway?&quot;,&quot;label&quot;:&quot;/en/home/employers/recruit-in-norway&quot;}"
+    href="/en/home/employers/recruit-in-norway"
+  >
     Recruit in Norway?
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="d4750660-17c2-43de-960f-7ad6907674fa">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="d4750660-17c2-43de-960f-7ad6907674fa">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3348,28 +2758,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/employers/rekruttere-eu-eos/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Recruiting from the EU/EEA","label":"/employers/rekruttere-eu-eos/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Recruiting from the EU/EEA&quot;,&quot;label&quot;:&quot;/employers/rekruttere-eu-eos/en&quot;}"
+    href="/employers/rekruttere-eu-eos/en"
+  >
     Recruiting from the EU/EEA
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="b76014b0-8c04-44e0-99a4-fbcd0aa7a282">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3388,28 +2788,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/employers/nav-state-register-of-employers-and-employees"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)","label":"/en/home/employers/nav-state-register-of-employers-and-employees"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/What is the NAV State Register of Employers and Employees (Aa-registeret)&quot;,&quot;label&quot;:&quot;/en/home/employers/nav-state-register-of-employers-and-employees&quot;}"
+    href="/en/home/employers/nav-state-register-of-employers-and-employees"
+  >
     What is the NAV State Register of Employers and Employees (Aa-registeret)
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="cf749f0c-144f-4f51-b327-49d37c447ce1">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3428,30 +2818,20 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/arbeidsgiver/inntektsmelding/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"Employers/Income report","label":"/arbeidsgiver/inntektsmelding/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;Employers/Income report&quot;,&quot;label&quot;:&quot;/arbeidsgiver/inntektsmelding/en&quot;}"
+    href="/arbeidsgiver/inntektsmelding/en"
+  >
     Income report
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
-    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _nestedLink_bxwj3_137" id="e7dbd656-7c3f-4d29-bc75-489df9b66cc8_link">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3470,34 +2850,24 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/employers"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="/en/home/employers"
+  >
     Employers
-    </a>
-  
+  </a>
+
     </li>
   
           </li>
         
-          <li id="750d0be4-5351-48d7-99e1-b367a403ae19" class="_nested_phmvu_137">
+          <li id="750d0be4-5351-48d7-99e1-b367a403ae19" class="_nested_bxwj3_137">
             <h3>About NAV</h3>
-            <ul class="_menuLinkList_phmvu_67">
+            <ul class="_menuLinkList_bxwj3_67">
               
-    <li class="_menuLink_phmvu_67" id="b94f13b1-3010-432d-954f-43a90ea122ce">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="b94f13b1-3010-432d-954f-43a90ea122ce">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3516,28 +2886,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/kontaktoss/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Contact us","label":"/kontaktoss/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Contact us&quot;,&quot;label&quot;:&quot;/kontaktoss/en&quot;}"
+    href="/kontaktoss/en"
+  >
     Contact us
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="6ea62452-1277-4ec5-941c-9e77f1fa48ce">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3556,28 +2916,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/utbetalingsdatoer/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Payment dates","label":"/utbetalingsdatoer/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Payment dates&quot;,&quot;label&quot;:&quot;/utbetalingsdatoer/en&quot;}"
+    href="/utbetalingsdatoer/en"
+  >
     Payment dates
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="93b4dccb-fe84-42a3-8989-660fb2df8584">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3596,28 +2946,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/saksbehandlingstider/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Case processing times","label":"/saksbehandlingstider/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Case processing times&quot;,&quot;label&quot;:&quot;/saksbehandlingstider/en&quot;}"
+    href="/saksbehandlingstider/en"
+  >
     Case processing times
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="954fdb02-3d1f-404f-a042-9bf71142021f">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="954fdb02-3d1f-404f-a042-9bf71142021f">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3636,28 +2976,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/satser/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Rates","label":"/satser/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Rates&quot;,&quot;label&quot;:&quot;/satser/en&quot;}"
+    href="/satser/en"
+  >
     Rates
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="35022d2c-a54e-4dc0-a594-66de8e53d613">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3676,28 +3006,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/about-nav/what-is-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/What is NAV?","label":"/en/home/about-nav/what-is-nav"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/What is NAV?&quot;,&quot;label&quot;:&quot;/en/home/about-nav/what-is-nav&quot;}"
+    href="/en/home/about-nav/what-is-nav"
+  >
     What is NAV?
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="473b8664-0820-4af1-a62c-e15c2d00dcea">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3716,28 +3036,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/endringer/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Notify us of any changes","label":"/endringer/en"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Notify us of any changes&quot;,&quot;label&quot;:&quot;/endringer/en&quot;}"
+    href="/endringer/en"
+  >
     Notify us of any changes
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="1a9bce8f-e99c-4e54-8290-f8b0acc9add2">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3756,28 +3066,18 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/soknader/en/person"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Forms and applications","label":"/soknader/en/person"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Forms and applications&quot;,&quot;label&quot;:&quot;/soknader/en/person&quot;}"
+    href="/soknader/en/person"
+  >
     Forms and applications
-    </a>
-  
+  </a>
+
     </li>
   
-    <li class="_menuLink_phmvu_67" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67" id="06f5cb05-0433-410f-b1fd-e0ff4180004a">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3796,30 +3096,20 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/about-nav/search-tips"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-meny","action":"About NAV/Search tips","label":"/en/home/about-nav/search-tips"}'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-meny&quot;,&quot;action&quot;:&quot;About NAV/Search tips&quot;,&quot;label&quot;:&quot;/en/home/about-nav/search-tips&quot;}"
+    href="/en/home/about-nav/search-tips"
+  >
     Search tips
-    </a>
-  
+  </a>
+
     </li>
   
             </ul>
             
-    <li class="_menuLink_phmvu_67 _nestedLink_phmvu_137" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _nestedLink_bxwj3_137" id="750d0be4-5351-48d7-99e1-b367a403ae19_link">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3838,31 +3128,21 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/en/home/about-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="/en/home/about-nav"
+  >
     About NAV
-    </a>
-  
+  </a>
+
     </li>
   
           </li>
         
       
-    <li class="_menuLink_phmvu_67 _mobile_phmvu_90" id="">
-      <div class="_menuLinkInner_phmvu_94">
+    <li class="_menuLink_bxwj3_67 _mobile_bxwj3_90" id="">
+      <div class="_menuLinkInner_bxwj3_94">
     <svg
       width="24px"
       height="24px"
@@ -3881,29 +3161,19 @@ exports[`renders english index 1`] = `
     </svg>
   </div>
       
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="#"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='undefined'
-      data-class-name-override=""
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-header&quot;,&quot;action&quot;:&quot;[redacted]&quot;}"
+    href="#"
+  >
     Logg inn på min side
-    </a>
-  
+  </a>
+
     </li>
   
 
       <li>
-        <ul class="_menuContextLinks_phmvu_48">
+        <ul class="_menuContextLinks_bxwj3_48">
           
     <a
       class="_wrapper_wmu45_1"
@@ -4240,68 +3510,38 @@ exports[`renders english index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/redirects/footer-contactus-en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//redirects/footer-contactus-en","label":"/redirects/footer-contactus-en"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//redirects/footer-contactus-en&quot;,&quot;label&quot;:&quot;/redirects/footer-contactus-en&quot;}"
+    href="/redirects/footer-contactus-en" class="_footerLink_1vx5s_1"
+  >
     Contact us
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke","label":"/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
+  >
     Your local NAV office
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger","label":"https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger&quot;,&quot;label&quot;:&quot;https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger&quot;}"
+    href="https://www.nav.no/person/kontakt-oss/en/tilbakemeldinger" class="_footerLink_1vx5s_1"
+  >
     Complaints, feedback, praise
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -4315,112 +3555,62 @@ exports[`renders english index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/statistikk-analyse-og-fou"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou","label":"/no/nav-og-samfunn/statistikk-analyse-og-fou"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
+  >
     Statistics, analysis and R&amp;D
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/samarbeidspartner/presse"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//samarbeidspartner/presse","label":"/samarbeidspartner/presse"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
+    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
+  >
     Public Relations
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="https://lovdata.no/nav/"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt/https://lovdata.no/nav/","label":"https://lovdata.no/nav/"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
+    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
+  >
     Rules and regulations (lovdata.no)
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/hva-er-nav/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//hva-er-nav/en","label":"/hva-er-nav/en"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//hva-er-nav/en&quot;,&quot;label&quot;:&quot;/hva-er-nav/en&quot;}"
+    href="/hva-er-nav/en" class="_footerLink_1vx5s_1"
+  >
     About NAV
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav","label":"/no/nav-og-samfunn/om-nav/sok-jobb-i-nav"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/sok-jobb-i-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/sok-jobb-i-nav&quot;}"
+    href="/no/nav-og-samfunn/om-nav/sok-jobb-i-nav" class="_footerLink_1vx5s_1"
+  >
     Work with us
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -4434,46 +3624,26 @@ exports[`renders english index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no","label":"/no"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no&quot;,&quot;label&quot;:&quot;/no&quot;}"
+    href="/no" class="_footerLink_1vx5s_1"
+  >
     Norwegian
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/se"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//se","label":"/se"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
+    href="/se" class="_footerLink_1vx5s_1"
+  >
     Sámegiella
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>
@@ -4485,46 +3655,26 @@ exports[`renders english index 1`] = `
                     
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten","label":"/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
+  >
     Privacy and cookies
-    </a>
-  
+  </a>
+
                         </li>
                       
                         <li>
                           
-    <a
-      is="lenke-med-sporing"
-      role=""
-      href="/tilgjengelighet/en"
-      id=""
-      tabindex=""
-      lang=""
-      data-analytics-event-args='{"category":"dekorator-footer","action":"kontakt//tilgjengelighet/en","label":"/tilgjengelighet/en"}'
-      data-class-name-override="_footerLink_1vx5s_1"
-      data-container-class-name=""
-      data-class-name=""
-      data-extra-attrs=''
-      
-      data-default-style="true"
-    >
+  <a
+    is="lenke-med-sporing"
+    data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet/en&quot;,&quot;label&quot;:&quot;/tilgjengelighet/en&quot;}"
+    href="/tilgjengelighet/en" class="_footerLink_1vx5s_1"
+  >
     Accessibility
-    </a>
-  
+  </a>
+
                         </li>
                       
                   </ul>

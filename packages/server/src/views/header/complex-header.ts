@@ -26,7 +26,6 @@ export type ComplexHeaderProps = {
 
 import classes from 'decorator-client/src/styles/header.module.css';
 import clsx from 'clsx';
-import { HeaderContextLenke } from 'decorator-shared/views/header/lenke';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
@@ -39,7 +38,7 @@ export function ComplexHeader({
   innlogget,
   breadcrumbs,
   utilsBackground,
-  context,
+  context: currentContext,
   availableLanguages,
   myPageMenu,
   name,
@@ -55,7 +54,7 @@ export function ComplexHeader({
                 category: 'dekorator-header',
                 action: 'navlogo',
               },
-              attachContext: true,
+              dataAttachContext: true,
               children: html`<img
                 src="/public/ikoner/meny/nav-logo-red.svg"
                 alt="NAV"
@@ -63,18 +62,20 @@ export function ComplexHeader({
             })}
             <div class="${classes.arbeidsflate}">
               ${isNorwegian &&
-              contextLinks?.map((link) =>
-                HeaderContextLenke({
-                  link: link,
-                  text: html`${texts[link.lenkeTekstId]}`,
-                  classNameOverride: clsx([
-                    classes.headerContextLink,
-                    {
-                      [classes.lenkeActive]: link.context === context,
-                    },
-                  ]),
-                  containerClassName: classes.headerContextLinkContainer,
-                  attrs: [['data-context', link.context.toLowerCase()]],
+              contextLinks?.map(({ url, lenkeTekstId, context }) =>
+                LenkeMedSporing({
+                  href: url,
+                  children: texts[lenkeTekstId],
+                  className: clsx(classes.headerContextLink, {
+                    [classes.lenkeActive]: context === currentContext,
+                  }),
+                  dataAttachContext: true,
+                  analyticsEventArgs: {
+                    action: 'arbeidsflate-valg',
+                    category: 'dekorator-header',
+                    label: context,
+                  },
+                  dataContext: context.toLowerCase(),
                 }),
               )}
             </div>

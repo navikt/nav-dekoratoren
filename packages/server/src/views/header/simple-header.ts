@@ -36,7 +36,7 @@ export function SimpleHeader({
               category: 'dekorator-header',
               action: 'navlogo',
             },
-            attachContext: true,
+            dataAttachContext: true,
             children: html`<img
               src="/public/ikoner/meny/nav-logo-black.svg"
               alt="NAV"

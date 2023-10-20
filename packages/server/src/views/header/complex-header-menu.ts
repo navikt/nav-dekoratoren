@@ -21,8 +21,8 @@ export const ComplexHeaderMenu = ({
         category: 'dekorator-meny',
         action: 'hovedmeny/forsidelenke',
       },
-      attachContext: true,
-      children: html`${texts.til_forsiden}`,
+      dataAttachContext: true,
+      children: texts.til_forsiden,
     })}
   </div>
   <div class="${cls.menuContent}">
