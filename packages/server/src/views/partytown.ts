@@ -10,10 +10,10 @@ export function Partytown() {
         debug: true,
         lib: '/public/~partytown/',
         forward: [
-            'analyticsEvent',
-            'logAmplitudeEvent',
-            'logPageView',
-            'startTaskAnalyticsSurvey',
+          'analyticsEvent',
+          'logAmplitudeEvent',
+          'logPageView',
+          'startTaskAnalyticsSurvey',
         ],
       };
     </script>

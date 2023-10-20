@@ -28,15 +28,15 @@ type NotificationsService = {
 };
 
 const rewriter = new HTMLRewriter().on('img', {
-    element: (element) => {
-        const src = element.getAttribute('src')
+  element: (element) => {
+    const src = element.getAttribute('src');
 
-        if (src) {
-            const url = new URL(src, env.CDN_URL)
-            element.setAttribute('src', url.toString())
-        }
+    if (src) {
+      const url = new URL(src, env.CDN_URL);
+      element.setAttribute('src', url.toString());
     }
-})
+  },
+});
 
 const requestHandler = async (
   contentService: ContentService,
@@ -59,8 +59,6 @@ const requestHandler = async (
 
     return validParams.data;
   };
-
-
 
   const handlers = new HandlerBuilder()
     .use(
@@ -147,26 +145,21 @@ const requestHandler = async (
         }),
       );
     })
-    .get(
-      '/',
-      async ({ url, query }) => {
+    .get('/', async ({ url, query }) => {
       const index = await renderIndex({
-            contentService,
-            unleashService,
-            data: validParams(query),
-            url: url.toString(),
-            query,
-          })
-      return rewriter.transform(new Response(index,
-          {
-            headers: { 'content-type': 'text/html; charset=utf-8' },
-          },
-        ))
-      }
-    )
-    .use([
-        cspHandler,
-    ])
+        contentService,
+        unleashService,
+        data: validParams(query),
+        url: url.toString(),
+        query,
+      });
+      return rewriter.transform(
+        new Response(index, {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+      );
+    })
+    .use([cspHandler])
     .build();
 
   return async function fetch(request: Request): Promise<Response> {

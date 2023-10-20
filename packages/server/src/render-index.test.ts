@@ -12,59 +12,57 @@ const contentService = new ContentService(
 const unleashService = new UnleashService({ mock: true });
 
 const base = {
-      contentService,
-      unleashService,
-      data: {
-        context: 'privatperson',
-        simple: false,
-        simpleHeader: false,
-        simpleFooter: false,
-        enforceLogin: false,
-        redirectToApp: false,
-        level: 'Level3',
-        language: 'nb',
-        availableLanguages: [],
-        breadcrumbs: [],
-        utilsBackground: 'transparent',
-        feedback: false,
-        chatbot: true,
-        chatbotVisible: false,
-        urlLookupTable: false,
-        shareScreen: false,
-        logoutUrl: '/logout',
-        maskHotjar: false,
-        logoutWarning: false,
-        redirectToUrl: 'https://www.nav.no',
-      },
-      url: 'localhost:8089/',
-      query: {},
-    }
+  contentService,
+  unleashService,
+  data: {
+    context: 'privatperson',
+    simple: false,
+    simpleHeader: false,
+    simpleFooter: false,
+    enforceLogin: false,
+    redirectToApp: false,
+    level: 'Level3',
+    language: 'nb',
+    availableLanguages: [],
+    breadcrumbs: [],
+    utilsBackground: 'transparent',
+    feedback: false,
+    chatbot: true,
+    chatbotVisible: false,
+    urlLookupTable: false,
+    shareScreen: false,
+    logoutUrl: '/logout',
+    maskHotjar: false,
+    logoutWarning: false,
+    redirectToUrl: 'https://www.nav.no',
+  },
+  url: 'localhost:8089/',
+  query: {},
+};
 
-type BaseParams = typeof base.data
+type BaseParams = typeof base.data;
 
 function makeParamsConfig(override: Partial<Params>) {
-    return {
-        ...base,
-        data: {
-            ...base.data,
-            ...override,
-        }
-    } as typeof base & { data: Params }
+  return {
+    ...base,
+    data: {
+      ...base.data,
+      ...override,
+    },
+  } as typeof base & { data: Params };
 }
 
-
-
 test('renders norwegian index', async () => {
-  const index = await renderIndex(makeParamsConfig({ language: 'nb' }))
+  const index = await renderIndex(makeParamsConfig({ language: 'nb' }));
   expect(index).toMatchSnapshot();
-  expect(index).toContain('lang="nb"')
+  expect(index).toContain('lang="nb"');
 });
 
 test('renders english index', async () => {
-  const index = await renderIndex(makeParamsConfig({ language: 'en' }))
+  const index = await renderIndex(makeParamsConfig({ language: 'en' }));
 
   expect(index).toMatchSnapshot();
-  expect(index).toContain('lang="en"')
+  expect(index).toContain('lang="en"');
 });
 
 test('It masks the document from hotjar', async () => {
@@ -98,4 +96,4 @@ test('It masks the document from hotjar', async () => {
       query: {},
     }),
   ).toContain('data-hj-supress');
-})
+});
