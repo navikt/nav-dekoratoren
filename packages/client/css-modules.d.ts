@@ -156,13 +156,20 @@ declare module '*screenshare-button.module.css' {
   export default classes;
 }
 
+declare module '*search-field.module.css' {
+  const classes: {
+    searchInput: string;
+    searchInputWrapper: string;
+    blueBgIcon: string;
+    label: string;
+  };
+  export default classes;
+}
+
 declare module '*search.module.css' {
   const classes: {
     dropdown: string;
-    searchInput: string;
-    searchInputWrapper: string;
     searchButton: string;
-    blueBgIcon: string;
     searchHitList: string;
     menuSearch: string;
     menuSearch__circle: string;

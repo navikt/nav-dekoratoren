@@ -2,9 +2,9 @@ import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import { IconButton } from 'decorator-shared/views/components/icon-button';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
-import utilClasses from 'decorator-client/src/styles/utils.module.css';
 import classes from 'decorator-client/src/styles/search.module.css';
 import { DropdownMenu } from './dropdown-menu';
+import { SearchField } from './search-field';
 
 export const Search = ({ texts }: { texts: Texts }) =>
   DropdownMenu({
@@ -16,19 +16,7 @@ export const Search = ({ texts }: { texts: Texts }) =>
       className: classes.searchButton,
     }),
     dropdownClass: classes.dropdown,
-    dropdownContent: html`<label
-        for="${classes.searchInput}"
-        class="${utilClasses.bigLabel}"
-        >${texts.sok_knapp_sokefelt}</label
-      >
-      <div class="${classes.searchInputWrapper}">
-        <input class="${classes.searchInput}" type="text" />
-        ${IconButton({
-          Icon: SearchIcon({}),
-          text: texts.search,
-          className: classes.blueBgIcon,
-        })}
-      </div>
+    dropdownContent: html`${SearchField({ texts })}
       <div id="search-hits">
         <ul class="${classes.searchHitList}"></ul>
         <div id="show-more"></div>

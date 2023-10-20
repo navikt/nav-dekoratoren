@@ -2,7 +2,7 @@ import html from 'decorator-shared/html';
 import { replaceElement } from '../utils';
 import { SearchShowMore } from '../views/search-show-more';
 
-import searchClasses from '../styles/search.module.css';
+import searchClasses from '../styles/search-field.module.css';
 
 export function addSearchInputListener() {
   document

@@ -56,7 +56,7 @@ export type Texts = {
   yes: string;
   ok: string;
   no: string;
-  sok_knapp_sokefelt: string;
+  search_nav_no: string;
   hensikt_med_tilbakemelding: string;
   hensikt_med_tilbakemelding_lenke: string;
   send_undersokelse_takk: string;
