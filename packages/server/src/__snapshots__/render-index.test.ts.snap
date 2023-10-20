@@ -1635,7 +1635,7 @@ exports[`renders norwegian index 1`] = `
     </div>
   
         <div id="scripts" style="display:none">
-          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="https://in2.taskanalytics.com/tm.js"></script>"<script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"<script type="text/partytown">(function(h,o,t,j,a,r){
+          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="https://in2.taskanalytics.com/tm.js"></script>"<script type="text/partytown" src="/public/assets/analytics-7d41b84e.js"></script>"<script type="text/partytown">(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};
 a=o.getElementsByTagName('head')[0];
@@ -3753,7 +3753,7 @@ exports[`renders english index 1`] = `
     </div>
   
         <div id="scripts" style="display:none">
-          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="https://in2.taskanalytics.com/tm.js"></script>"<script type="text/partytown" src="/public/assets/analytics-b69bd4bf.js"></script>"<script type="text/partytown">(function(h,o,t,j,a,r){
+          <script type="module" src="http://localhost:5173/@vite/client"></script><script type="module" src="http://localhost:5173/src/main.ts"></script><script type="text/partytown" src="https://in2.taskanalytics.com/tm.js"></script>"<script type="text/partytown" src="/public/assets/analytics-7d41b84e.js"></script>"<script type="text/partytown">(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};
 a=o.getElementsByTagName('head')[0];
