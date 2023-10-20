@@ -48,10 +48,7 @@ test('search', async () => {
     new Request('http://localhost/api/sok?ord=test'),
   );
   expect(response.status).toBe(200);
-  expect(response.headers.get('content-type')).toBe(
-    'application/json; charset=utf-8',
-  );
-  expect(((await response.json()) as SearchResult).hits.length).toBe(0);
+  expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
 });
 
 test('driftsmeldinger', async () => {

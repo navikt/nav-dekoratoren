@@ -1199,15 +1199,16 @@ exports[`renders norwegian index 1`] = `
     <div
       class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _dropdown_ot0dt_1"
     >
-      <form class="_searchForm_1ihh9_1">
-    <label class="_label_1ihh9_6" for="search-0.9091923390548378">Søk på nav.no</label>
+      
+      <search-menu><form class="_searchForm_1ihh9_1">
+    <label class="_label_1ihh9_6" for="search-0.3271302839961493">Søk på nav.no</label>
     <div class="_searchWrapper_1ihh9_13">
       <search-input class="_searchWrapperInner_1ihh9_18">
         <input
           class="_searchInput_1ihh9_24"
           type="text"
           name="search"
-          id="search-0.9091923390548378"
+          id="search-0.3271302839961493"
         />
         <button type="button" class="_clear_1ihh9_45">
     <svg
@@ -1254,11 +1255,8 @@ exports[`renders norwegian index 1`] = `
     </svg>
   </button>
     </div>
-  </form>
-      <div id="search-hits">
-        <ul class="_searchHitList_ot0dt_11"></ul>
-        <div id="show-more"></div>
-      </div>
+  </form></search-menu>
+    
     </div>
   </dropdown-menu>
       </div>
@@ -3343,15 +3341,16 @@ exports[`renders english index 1`] = `
     <div
       class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _dropdown_ot0dt_1"
     >
-      <form class="_searchForm_1ihh9_1">
-    <label class="_label_1ihh9_6" for="search-0.18278317760085983">Search nav.no</label>
+      
+      <search-menu><form class="_searchForm_1ihh9_1">
+    <label class="_label_1ihh9_6" for="search-0.7400638486658763">Search nav.no</label>
     <div class="_searchWrapper_1ihh9_13">
       <search-input class="_searchWrapperInner_1ihh9_18">
         <input
           class="_searchInput_1ihh9_24"
           type="text"
           name="search"
-          id="search-0.18278317760085983"
+          id="search-0.7400638486658763"
         />
         <button type="button" class="_clear_1ihh9_45">
     <svg
@@ -3398,11 +3397,8 @@ exports[`renders english index 1`] = `
     </svg>
   </button>
     </div>
-  </form>
-      <div id="search-hits">
-        <ul class="_searchHitList_ot0dt_11"></ul>
-        <div id="show-more"></div>
-      </div>
+  </form></search-menu>
+    
     </div>
   </dropdown-menu>
       </div>

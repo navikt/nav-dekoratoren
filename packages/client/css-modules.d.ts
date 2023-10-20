@@ -170,6 +170,20 @@ declare module '*search-form.module.css' {
   export default classes;
 }
 
+declare module '*search-hits.module.css' {
+  const classes: {
+    searchHitList: string;
+  };
+  export default classes;
+}
+
+declare module '*search-show-more.module.css' {
+  const classes: {
+    showMore: string;
+  };
+  export default classes;
+}
+
 declare module '*search.module.css' {
   const classes: {
     dropdown: string;

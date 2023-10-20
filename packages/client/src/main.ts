@@ -18,6 +18,8 @@ import './views/decorator-lens';
 import './views/local-time';
 import './views/menu-background';
 import './views/dropdown-menu';
+import './views/search-menu';
+import './views/search-input';
 
 import { SearchEvent } from './views/search';
 
@@ -28,14 +30,10 @@ import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { logoutWarningController } from './controllers/logout-warning';
 
-import {
-  addBreadcrumbEventListeners,
-  afterAuthListeners,
-  onLoadListeners,
-} from './listeners';
+import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
 
 import { type AnalyticsEventArgs } from './analytics/constants';
-import { AppState, Texts } from 'decorator-shared/types';
+import { AppState } from 'decorator-shared/types';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
@@ -334,9 +332,6 @@ api.checkAuth({
           ? await notificationsResponse.text()
           : window.__DECORATOR_DATA__.texts.notifications_error;
     }
-
-    // Attach arkiver listener
-    afterAuthListeners();
   },
 });
 

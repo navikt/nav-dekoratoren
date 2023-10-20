@@ -16,9 +16,7 @@ export const Search = ({ texts }: { texts: Texts }) =>
       className: classes.searchButton,
     }),
     dropdownClass: classes.dropdown,
-    dropdownContent: html`${SearchForm({ texts })}
-      <div id="search-hits">
-        <ul class="${classes.searchHitList}"></ul>
-        <div id="show-more"></div>
-      </div>`,
+    dropdownContent: html`
+      <search-menu>${SearchForm({ texts })}</search-menu>
+    `,
   });

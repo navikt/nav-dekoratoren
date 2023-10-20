@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import cls from './search-show-more.module.css';
+import cls from 'decorator-client/src/styles/search-show-more.module.css';
 
 export function SearchShowMore({
   word,
