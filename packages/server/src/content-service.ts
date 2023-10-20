@@ -160,13 +160,16 @@ const getLangKey = (lang: Language): ContentLangKey => {
 };
 
 const get = (menu: Node[], path: string): Node[] | undefined => {
-  const getRecursive = (node: Node, path: string): Node | undefined => {
+  const getRecursive = (
+    node: Node | undefined,
+    path: string,
+  ): Node | undefined => {
     if (path.includes('.')) {
       return path
         .split('.')
-        .reduce<Node>((prev, curr) => getRecursive(prev, curr)!, node);
+        .reduce((prev, curr) => getRecursive(prev, curr)!, node);
     }
-    return node.children.find(({ displayName }) => displayName === path);
+    return node?.children?.find(({ displayName }) => displayName === path);
   };
 
   return getRecursive(

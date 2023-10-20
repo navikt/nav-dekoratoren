@@ -8,6 +8,7 @@ import { LoadingNotifications } from '../../notifications/loading';
 import cls from './logged-in-menu.module.css';
 import { LogoutIcon } from '../../icons/logout';
 import { DropdownMenu } from '../../dropdown-menu';
+import { CloseIcon } from '../../icons';
 
 export type LoggedInMenuProps = {
   name: string;
@@ -21,7 +22,8 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
       ${DropdownMenu({
         button: IconButton({
           Icon: html`<div class="${cls.notificationsIconWrapper}" slot="icon">
-            ${NotificationsIcon({})}
+            ${NotificationsIcon({ className: cls.notificationsIcon })}
+            ${CloseIcon({ className: cls.closeIcon })}
             <div class="${cls.notificationsUnread}"></div>
           </div>`,
           text: texts.notifications,

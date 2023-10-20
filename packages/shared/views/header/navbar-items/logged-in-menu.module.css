@@ -45,4 +45,17 @@
 
 .notificationsIconWrapper {
   position: relative;
+  display: flex;
+}
+
+[aria-expanded='true'] .notificationsIcon {
+  display: none;
+}
+
+.closeIcon {
+  display: none;
+}
+
+[aria-expanded='true'] .closeIcon {
+  display: block;
 }
