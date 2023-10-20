@@ -19,10 +19,10 @@ exports[`renders norwegian index 1`] = `
         debug: true,
         lib: '/public/~partytown/',
         forward: [
-            'analyticsEvent',
-            'logAmplitudeEvent',
-            'logPageView',
-            'startTaskAnalyticsSurvey',
+          'analyticsEvent',
+          'logAmplitudeEvent',
+          'logPageView',
+          'startTaskAnalyticsSurvey',
         ],
       };
     </script>
@@ -1672,10 +1672,10 @@ exports[`renders english index 1`] = `
         debug: true,
         lib: '/public/~partytown/',
         forward: [
-            'analyticsEvent',
-            'logAmplitudeEvent',
-            'logPageView',
-            'startTaskAnalyticsSurvey',
+          'analyticsEvent',
+          'logAmplitudeEvent',
+          'logPageView',
+          'startTaskAnalyticsSurvey',
         ],
       };
     </script>
