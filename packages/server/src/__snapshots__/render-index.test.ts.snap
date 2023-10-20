@@ -1199,15 +1199,37 @@ exports[`renders norwegian index 1`] = `
     <div
       class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _dropdown_ot0dt_1"
     >
-       <form>
-    <label for="_searchInput_7rvth_1" class="_label_7rvth_31">
-      Søk på nav.no
-    </label>
-    <div class="_searchInputWrapper_7rvth_19">
-      <input class="_searchInput_7rvth_1" type="text" />
-      
-    <button id="" class="_iconButton_w2940_1 _blueBgIcon_7rvth_23">
-      
+      <form class="_searchForm_1ihh9_1">
+    <label class="_label_1ihh9_6" for="search-0.9091923390548378">Søk på nav.no</label>
+    <div class="_searchWrapper_1ihh9_13">
+      <search-input class="_searchWrapperInner_1ihh9_18">
+        <input
+          class="_searchInput_1ihh9_24"
+          type="text"
+          name="search"
+          id="search-0.9091923390548378"
+        />
+        <button type="button" class="_clear_1ihh9_45">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      class=""
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94 6.53 5.47Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </button>
+      </search-input>
+      <button class="_submit_1ihh9_77">
     <svg
       class=""
       xmlns="http://www.w3.org/2000/svg"
@@ -1230,12 +1252,7 @@ exports[`renders norwegian index 1`] = `
       <path class="_menuSearch__line_3_ot0dt_41" d="m15 15 7 7"></path>
       <path class="_menuSearch__line_4_ot0dt_45" d="m15 15 7 7"></path>
     </svg>
-  
-      <span class="_iconButtonSpan_w2940_33">Søk</span>
-
-      
-    </button>
-  
+  </button>
     </div>
   </form>
       <div id="search-hits">
@@ -3326,15 +3343,37 @@ exports[`renders english index 1`] = `
     <div
       class="_contentContainer_zsniq_2 _dropdownMenuContent_p3vbs_1 _dropdown_ot0dt_1"
     >
-       <form>
-    <label for="_searchInput_7rvth_1" class="_label_7rvth_31">
-      Search nav.no
-    </label>
-    <div class="_searchInputWrapper_7rvth_19">
-      <input class="_searchInput_7rvth_1" type="text" />
-      
-    <button id="" class="_iconButton_w2940_1 _blueBgIcon_7rvth_23">
-      
+      <form class="_searchForm_1ihh9_1">
+    <label class="_label_1ihh9_6" for="search-0.18278317760085983">Search nav.no</label>
+    <div class="_searchWrapper_1ihh9_13">
+      <search-input class="_searchWrapperInner_1ihh9_18">
+        <input
+          class="_searchInput_1ihh9_24"
+          type="text"
+          name="search"
+          id="search-0.18278317760085983"
+        />
+        <button type="button" class="_clear_1ihh9_45">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      role="img"
+      class=""
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.53 5.47a.75.75 0 0 0-1.06 1.06L10.94 12l-5.47 5.47a.75.75 0 1 0 1.06 1.06L12 13.06l5.47 5.47a.75.75 0 1 0 1.06-1.06L13.06 12l5.47-5.47a.75.75 0 0 0-1.06-1.06L12 10.94 6.53 5.47Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </button>
+      </search-input>
+      <button class="_submit_1ihh9_77">
     <svg
       class=""
       xmlns="http://www.w3.org/2000/svg"
@@ -3357,12 +3396,7 @@ exports[`renders english index 1`] = `
       <path class="_menuSearch__line_3_ot0dt_41" d="m15 15 7 7"></path>
       <path class="_menuSearch__line_4_ot0dt_45" d="m15 15 7 7"></path>
     </svg>
-  
-      <span class="_iconButtonSpan_w2940_33">Search</span>
-
-      
-    </button>
-  
+  </button>
     </div>
   </form>
       <div id="search-hits">
