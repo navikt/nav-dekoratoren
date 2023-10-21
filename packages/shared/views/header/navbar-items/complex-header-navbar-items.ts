@@ -47,7 +47,7 @@ export function ComplexHeaderNavbarItems({
           }),
           dropdownClass: cls.searchDropdown,
           dropdownContent: html`
-            <search-menu class="${cls.searchMenu}">
+            <search-menu class="${cls.searchMenu}" data-auto-focus>
               ${SearchForm({ texts })}
             </search-menu>
           `,

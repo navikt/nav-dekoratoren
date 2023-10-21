@@ -14,6 +14,18 @@ class SearchMenu extends HTMLElement {
     this.form = this.querySelector(`.${cls.searchForm}`);
     this.input = this.querySelector(`.${cls.searchInput}`);
 
+    if (this.getAttribute('data-auto-focus') !== null) {
+      this.closest('dropdown-menu')?.addEventListener('menuopened', () => {
+        this.input?.focus();
+      });
+    }
+
+    this.closest('dropdown-menu')?.addEventListener('menuclosed', () => {
+      if (this.input) {
+        this.input.value = '';
+      }
+    });
+
     this.form?.addEventListener('submit', (e) => {
       e.preventDefault();
 
