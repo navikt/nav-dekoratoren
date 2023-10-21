@@ -20,14 +20,21 @@ class SearchMenu extends HTMLElement {
 
       // TODO: Use proper url
       window.location.assign(
-        `https://www.ekstern.dev.nav.no/sok?ord=${this.input?.value}`,
+        `https://www.ekstern.dev.nav.no/sok?ord=${this.input?.value}}`,
       );
     });
 
     this.input?.addEventListener('input', (e) => {
       const { value } = e.target as HTMLInputElement;
       if (value.length > 2) {
-        fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?ord=${value}`)
+        fetch(
+          `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?${Object.entries({
+            language: window.__DECORATOR_DATA__.params.language,
+            ord: this.input?.value,
+          })
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&')}`,
+        )
           .then((res) => res.text())
           .then((text) => (this.hits.innerHTML = text));
       }

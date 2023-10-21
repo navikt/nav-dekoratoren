@@ -50,6 +50,9 @@ const nb = {
   notifications_error: 'Feil ved lasting av varsler',
   til_forsiden: 'Til forsiden',
   how_can_we_help: 'Hva kan vi hjelpe deg med?',
+  showing: 'Viser',
+  of: 'av',
+  results: 'resultater',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -106,6 +109,9 @@ export const texts: Record<Language, Texts> = {
     notifications_error: 'Error loading notifications',
     til_forsiden: 'To the frontpage',
     how_can_we_help: 'What can we help you with?',
+    showing: 'Showing',
+    of: 'og',
+    results: 'results',
   },
   se: nb,
   nn: nb,

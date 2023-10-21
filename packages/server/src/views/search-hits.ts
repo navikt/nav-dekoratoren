@@ -1,14 +1,15 @@
 import html from 'decorator-shared/html';
-import { SearchResult } from 'decorator-shared/types';
+import { SearchResult, Texts } from 'decorator-shared/types';
 import { SearchShowMore } from './search-show-more';
 import cls from 'decorator-client/src/styles/search-hits.module.css';
 
 export type SearchHitsProps = {
   results: SearchResult;
   word: string;
+  texts: Texts;
 };
 
-export const SearchHits = ({ results, word }: SearchHitsProps) => html`
+export const SearchHits = ({ results, word, texts }: SearchHitsProps) => html`
   <ul class="${cls.searchHitList}">
     ${results.hits.map(
       (hit) => html`
@@ -22,6 +23,7 @@ export const SearchHits = ({ results, word }: SearchHitsProps) => html`
     )}
   </ul>
   ${SearchShowMore({
+    texts,
     word,
     total: results.total,
   })}

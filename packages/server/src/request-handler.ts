@@ -17,9 +17,6 @@ import TaConfigService from './task-analytics-service';
 import { HandlerBuilder, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
 import { env } from './env/server';
-import { SearchHitTemplate } from './views/search';
-import { SearchShowMore } from './views/search-show-more';
-import html from 'decorator-shared/html';
 import { SearchHits } from './views/search-hits';
 
 type FileSystemService = {
@@ -130,13 +127,20 @@ const requestHandler = async (
     .get('/api/driftsmeldinger', () =>
       jsonResponse(contentService.getDriftsmeldinger()),
     )
-    .get('/api/sok', async ({ url }) => {
+    .get('/api/sok', async ({ url, query }) => {
       const word = url.searchParams.get('ord') ?? '';
       const results = await searchService.search(word);
 
-      return new Response(SearchHits({ results, word }).render(), {
-        headers: { 'content-type': 'text/html; charset=utf-8' },
-      });
+      return new Response(
+        SearchHits({
+          results,
+          word,
+          texts: texts[validParams(query).language],
+        }).render(),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
+      );
     })
     .get('/data/myPageMenu', ({ query }) =>
       jsonResponse(
