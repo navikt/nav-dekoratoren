@@ -19,9 +19,19 @@ export const SearchHits = ({
       ? html`<h2 class="${cls.title}">${texts.no_hits_for} (${query})</h2>`
       : html`<ul class="${cls.searchHitList}">
             ${hits.map(
-              (hit) => html`
+              (hit, index) => html`
                 <li>
-                  <a href="${hit.href}" class="${cls.searchHit}">
+                  <a
+                    href="${hit.href}"
+                    class="${cls.searchHit}"
+                    is="lenke-med-sporing"
+                    data-analytics-event-args="${JSON.stringify({
+                      eventName: 'resultat-klikk',
+                      destinasjon: '[redacted]',
+                      sokeord: '[redacted]',
+                      treffnr: index + 1,
+                    })}"
+                  >
                     ${ForwardChevron({ className: cls.chevron })}
                     <div>
                       <h2 class="${cls.title}">${hit.displayName}</h2>
