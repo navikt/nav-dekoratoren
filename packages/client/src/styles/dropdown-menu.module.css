@@ -1,5 +1,7 @@
 .dropdownMenuContent {
   display: none;
+  padding-top: var(--a-spacing-2);
+  padding-bottom: var(--a-spacing-4);
   position: absolute;
   top: 100%;
   right: 0;
