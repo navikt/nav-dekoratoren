@@ -47,7 +47,7 @@ export const Default: Story = {
         },
       ],
     },
-    word: 'arbeid',
+    query: 'arbeid',
     texts: {
       share_screen: 'Del skjerm med veileder',
       to_top: 'Til toppen',
@@ -100,6 +100,7 @@ export const Default: Story = {
       showing: 'Viser',
       of: 'av',
       results: 'resultater',
+      see_all_hits: 'Se alle treff',
     },
   },
 };

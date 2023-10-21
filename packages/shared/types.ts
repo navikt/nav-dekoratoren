@@ -73,6 +73,7 @@ export type Texts = {
   showing: string;
   of: string;
   results: string;
+  see_all_hits: string;
 };
 
 export type Driftsmelding = {

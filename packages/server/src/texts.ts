@@ -53,6 +53,7 @@ const nb = {
   showing: 'Viser',
   of: 'av',
   results: 'resultater',
+  see_all_hits: 'Se alle treff',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -112,6 +113,7 @@ export const texts: Record<Language, Texts> = {
     showing: 'Showing',
     of: 'og',
     results: 'results',
+    see_all_hits: 'See all hits',
   },
   se: nb,
   nn: nb,

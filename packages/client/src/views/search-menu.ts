@@ -27,9 +27,11 @@ class SearchMenu extends HTMLElement {
       const { value } = e.target as HTMLInputElement;
       if (value.length > 2) {
         fetch(
-          `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/sok?${Object.entries({
+          `${
+            import.meta.env.VITE_DECORATOR_BASE_URL
+          }/api/search?${Object.entries({
             language: window.__DECORATOR_DATA__.params.language,
-            ord: this.input?.value,
+            q: this.input?.value,
           })
             .map(([key, value]) => `${key}=${value}`)
             .join('&')}`,

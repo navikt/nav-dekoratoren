@@ -127,14 +127,14 @@ const requestHandler = async (
     .get('/api/driftsmeldinger', () =>
       jsonResponse(contentService.getDriftsmeldinger()),
     )
-    .get('/api/sok', async ({ url, query }) => {
-      const word = url.searchParams.get('ord') ?? '';
-      const results = await searchService.search(word);
+    .get('/api/search', async ({ query }) => {
+      const searchQuery = query.q;
+      const results = await searchService.search(searchQuery);
 
       return new Response(
         SearchHits({
           results,
-          word,
+          query: searchQuery,
           texts: texts[validParams(query).language],
         }).render(),
         {

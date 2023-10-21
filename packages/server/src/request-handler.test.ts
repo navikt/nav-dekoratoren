@@ -44,7 +44,7 @@ test('index', async () => {
 
 test('search', async () => {
   const response = await fetch(
-    new Request('http://localhost/api/sok?ord=test'),
+    new Request('http://localhost/api/search?q=test'),
   );
   expect(response.status).toBe(200);
   expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');

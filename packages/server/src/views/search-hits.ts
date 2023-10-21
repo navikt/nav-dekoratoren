@@ -5,13 +5,13 @@ import { ForwardChevron } from 'decorator-shared/views/icons';
 
 export type SearchHitsProps = {
   results: SearchResult;
-  word: string;
+  query: string;
   texts: Texts;
 };
 
 export const SearchHits = ({
   results: { hits, total },
-  word,
+  query,
   texts,
 }: SearchHitsProps) => html`
   <div class="${cls.searchHits}">
@@ -35,7 +35,9 @@ export const SearchHits = ({
         ${texts.showing} ${Math.min(total, 5).toString()} ${texts.of}
         ${total.toString()} ${texts.results}
       </div>
-      <a href="https://www.nav.no/sok?ord=${word}">Se alle treff ("${word}")</a>
+      <a href="https://www.nav.no/sok?ord=${query}">
+        ${texts.see_all_hits} ("${query}")
+      </a>
     </div>
   </div>
 `;
