@@ -10,6 +10,13 @@ class SearchMenu extends HTMLElement {
     this.hits = document.createElement('div');
   }
 
+  clearSearch() {
+    this.hits.remove();
+    if (this.input) {
+      this.input.value = '';
+    }
+  }
+
   connectedCallback() {
     this.form = this.querySelector(`.${cls.searchForm}`);
     this.input = this.querySelector(`.${cls.searchInput}`);
@@ -20,11 +27,11 @@ class SearchMenu extends HTMLElement {
       });
     }
 
-    this.closest('dropdown-menu')?.addEventListener('menuclosed', () => {
-      if (this.input) {
-        this.input.value = '';
-      }
-    });
+    this.closest('dropdown-menu')?.addEventListener('menuclosed', () =>
+      this.clearSearch(),
+    );
+
+    this.addEventListener('clearsearch', () => this.clearSearch());
 
     this.form?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -53,6 +60,8 @@ class SearchMenu extends HTMLElement {
             this.append(this.hits);
             this.hits.innerHTML = text;
           });
+      } else {
+        this.hits.remove();
       }
     });
   }

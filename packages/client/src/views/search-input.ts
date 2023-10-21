@@ -17,8 +17,8 @@ class SearchInput extends HTMLElement {
 
     this.clearButton?.addEventListener('click', () => {
       this.clearButton?.classList.remove(cls.visible);
+      this.dispatchEvent(new Event('clearsearch', { bubbles: true }));
       if (this.input) {
-        this.input.value = '';
         this.input.focus();
       }
     });
