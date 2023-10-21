@@ -24,11 +24,3 @@
     display: none;
   }
 }
-
-.searchLoader {
-  display: none;
-}
-
-.searchLoader.active {
-  display: block;
-}

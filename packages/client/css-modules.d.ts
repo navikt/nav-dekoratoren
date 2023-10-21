@@ -32,8 +32,6 @@ declare module '*complex-header-menu.module.css' {
     menuTop: string;
     menuContent: string;
     inlineSearch: string;
-    searchLoader: string;
-    active: string;
   };
   export default classes;
 }

@@ -21,8 +21,6 @@ import './views/dropdown-menu';
 import './views/search-menu';
 import './views/search-input';
 
-import { SearchEvent } from './views/search';
-
 import { hasClass, replaceElement } from './utils';
 
 import { type Context, type Params } from 'decorator-shared/params';
@@ -37,7 +35,6 @@ import { AppState } from 'decorator-shared/types';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 
@@ -236,38 +233,6 @@ async function setActiveContext(context: Context | null) {
 //
 //     [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
 // }
-
-// Handles mobile search
-const [inlineSearch] = document.getElementsByTagName('inline-search');
-
-if (window.__DECORATOR_DATA__.params.simple === false) {
-  const searchEventHandlers: Record<SearchEvent, () => void> = {
-    'started-typing': () => {
-      document
-        .querySelector('#header-menu-links')
-        ?.classList.add('is-searching');
-    },
-    'is-searching': () => {
-      document
-        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
-        ?.classList.add(complexHeaderMenuClasses.active);
-    },
-    'stopped-searching': () => {
-      document
-        .querySelector('#header-menu-links')
-        ?.classList.remove('is-searching');
-    },
-    'finished-searching': () => {
-      document
-        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
-        ?.classList.remove(complexHeaderMenuClasses.active);
-    },
-  };
-
-  for (const [event, handler] of Object.entries(searchEventHandlers)) {
-    inlineSearch.addEventListener(event, handler);
-  }
-}
 
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
