@@ -23,4 +23,15 @@ export const fetchDriftsmeldinger = (): Promise<Driftsmelding[]> =>
 export const fetchSearch = (ord: string): Promise<SearchResult> =>
   fetch(
     `${`${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`}?ord=${ord}`,
-  ).then((res) => res.json() as Promise<SearchResult>);
+  )
+    .then((res) => res.json() as Promise<SearchResult>)
+    .then((res) => ({
+      ...res,
+      hits: res.hits.map((hit) => ({
+        ...hit,
+        highlight: hit.highlight
+          ?.replace(/<\/?[^>]+(>|$)/g, '') // Remove html
+          .replace(/\[.*?(\])/g, '') // Remove shortcodes
+          .replace(/(\[|<).*?(\(...\))/g, ''), // Remove incomplete html/shortcodes;
+      })),
+    }));
