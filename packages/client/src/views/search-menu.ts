@@ -1,3 +1,4 @@
+import html from 'decorator-shared/html';
 import cls from '../styles/search-form.module.css';
 
 class SearchMenu extends HTMLElement {
@@ -45,6 +46,11 @@ class SearchMenu extends HTMLElement {
     this.input?.addEventListener('input', (e) => {
       const { value } = e.target as HTMLInputElement;
       if (value.length > 2) {
+        this.append(this.hits);
+        this.hits.innerHTML = html`<decorator-loader
+          title="${window.__DECORATOR_DATA__.texts.loading_preview}"
+        />`.render();
+
         fetch(
           `${
             import.meta.env.VITE_DECORATOR_BASE_URL
@@ -57,7 +63,6 @@ class SearchMenu extends HTMLElement {
         )
           .then((res) => res.text())
           .then((text) => {
-            this.append(this.hits);
             this.hits.innerHTML = text;
           });
       } else {

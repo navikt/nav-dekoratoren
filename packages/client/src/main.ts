@@ -225,14 +225,6 @@ async function setActiveContext(context: Context | null) {
   }
 }
 
-// Keeping this for later when fixing opening menus and such
-// function dismissMenu() {
-//     const menu = document.getElementById('menu');
-//     const menuButton = document.getElementById('menu-button');
-//
-//     [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
-// }
-
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
   // Store a snapshot if user logs out
