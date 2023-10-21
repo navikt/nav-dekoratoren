@@ -15,29 +15,31 @@ export const SearchHits = ({
   texts,
 }: SearchHitsProps) => html`
   <div class="${cls.searchHits}">
-    <ul class="${cls.searchHitList}">
-      ${hits.map(
-        (hit) => html`
-          <li>
-            <a href="${hit.href}" class="${cls.searchHit}">
-              ${ForwardChevron({ className: cls.chevron })}
-              <div>
-                <h2 class="${cls.title}">${hit.displayName}</h2>
-                <div>${hit.highlight}</div>
-              </div>
+    ${total === 0
+      ? html`<h2 class="${cls.title}">${texts.no_hits_for} (${query})</h2>`
+      : html`<ul class="${cls.searchHitList}">
+            ${hits.map(
+              (hit) => html`
+                <li>
+                  <a href="${hit.href}" class="${cls.searchHit}">
+                    ${ForwardChevron({ className: cls.chevron })}
+                    <div>
+                      <h2 class="${cls.title}">${hit.displayName}</h2>
+                      <div>${hit.highlight}</div>
+                    </div>
+                  </a>
+                </li>
+              `,
+            )}
+          </ul>
+          <div>
+            <div>
+              ${texts.showing} ${Math.min(total, 5).toString()} ${texts.of}
+              ${total.toString()} ${texts.results}
+            </div>
+            <a href="https://www.nav.no/sok?ord=${query}">
+              ${texts.see_all_hits} ("${query}")
             </a>
-          </li>
-        `,
-      )}
-    </ul>
-    <div>
-      <div>
-        ${texts.showing} ${Math.min(total, 5).toString()} ${texts.of}
-        ${total.toString()} ${texts.results}
-      </div>
-      <a href="https://www.nav.no/sok?ord=${query}">
-        ${texts.see_all_hits} ("${query}")
-      </a>
-    </div>
+          </div>`}
   </div>
 `;
