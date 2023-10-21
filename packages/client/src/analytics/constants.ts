@@ -9,6 +9,7 @@ export type AnalyticsCategory =
   | 'varsler';
 
 export type AnalyticsActions =
+  | 'søk-dynamisk'
   | 'navlogo'
   | 'lenke'
   | 'lenkegruppe'

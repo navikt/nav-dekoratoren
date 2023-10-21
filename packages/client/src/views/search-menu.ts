@@ -44,23 +44,32 @@ class SearchMenu extends HTMLElement {
       );
     });
 
-    const fetchSearch = (query: string) =>
-      fetch(
-        `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/search?${Object.entries(
-          {
-            language: window.__DECORATOR_DATA__.params.language,
-            q: query,
-          },
-        )
-          .map(([key, value]) => `${key}=${value}`)
-          .join('&')}`,
-      )
+    const fetchSearch = (query: string) => {
+      const url = `${
+        import.meta.env.VITE_DECORATOR_BASE_URL
+      }/api/search?${Object.entries({
+        language: window.__DECORATOR_DATA__.params.language,
+        q: query,
+      })
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&')}`;
+
+      window.analyticsEvent({
+        eventName: 'søk',
+        destination: url,
+        category: 'dekorator-header',
+        label: query,
+        action: 'søk-dynamisk',
+      });
+
+      return fetch(url)
         .then((res) => res.text())
         .then((text) => {
           if (this.input?.value === query) {
             this.hits.innerHTML = text;
           }
         });
+    };
 
     const fetchSearchDebounced = debounce(fetchSearch, 500);
 
