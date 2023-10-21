@@ -128,7 +128,7 @@ const requestHandler = async (
       jsonResponse(contentService.getDriftsmeldinger()),
     )
     .get('/api/search', async ({ query }) => {
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, Math.random() * 500));
 
       const searchQuery = query.q;
       const results = await searchService.search(searchQuery);

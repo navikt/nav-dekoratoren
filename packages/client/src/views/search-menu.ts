@@ -63,7 +63,9 @@ class SearchMenu extends HTMLElement {
         )
           .then((res) => res.text())
           .then((text) => {
-            this.hits.innerHTML = text;
+            if (this.input?.value === value) {
+              this.hits.innerHTML = text;
+            }
           });
       } else {
         this.hits.remove();
