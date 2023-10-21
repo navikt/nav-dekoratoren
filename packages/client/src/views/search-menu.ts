@@ -8,7 +8,6 @@ class SearchMenu extends HTMLElement {
   constructor() {
     super();
     this.hits = document.createElement('div');
-    this.append(this.hits);
   }
 
   connectedCallback() {
@@ -36,7 +35,10 @@ class SearchMenu extends HTMLElement {
             .join('&')}`,
         )
           .then((res) => res.text())
-          .then((text) => (this.hits.innerHTML = text));
+          .then((text) => {
+            this.append(this.hits);
+            this.hits.innerHTML = text;
+          });
       }
     });
   }

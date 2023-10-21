@@ -12,7 +12,6 @@ import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator
 
 // Maybe create a file that does this
 import './views/language-selector';
-import './views/search';
 import './views/loader';
 import './views/decorator-lens';
 import './views/local-time';

@@ -27,7 +27,7 @@ export const ComplexHeaderMenu = ({
     })}
   </div>
   <div class="${cls.menuContent}">
-    <search-menu class="${cls.inlineSearch}">
+    <search-menu class="${cls.searchMenu}">
       ${SearchForm({ texts })}
     </search-menu>
     <div id="header-menu-links">

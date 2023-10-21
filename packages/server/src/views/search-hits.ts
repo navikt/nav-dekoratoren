@@ -1,7 +1,7 @@
 import html from 'decorator-shared/html';
 import { SearchResult, Texts } from 'decorator-shared/types';
-import { SearchShowMore } from './search-show-more';
 import cls from 'decorator-client/src/styles/search-hits.module.css';
+import { ForwardChevron } from 'decorator-shared/views/icons';
 
 export type SearchHitsProps = {
   results: SearchResult;
@@ -9,22 +9,33 @@ export type SearchHitsProps = {
   texts: Texts;
 };
 
-export const SearchHits = ({ results, word, texts }: SearchHitsProps) => html`
-  <ul class="${cls.searchHitList}">
-    ${results.hits.map(
-      (hit) => html`
-        <li>
-          <search-hit>
-            <h2 slot="title">${hit.displayName}</h2>
-            <p slot="description">${hit.highlight}</p>
-          </search-hit>
-        </li>
-      `,
-    )}
-  </ul>
-  ${SearchShowMore({
-    texts,
-    word,
-    total: results.total,
-  })}
+export const SearchHits = ({
+  results: { hits, total },
+  word,
+  texts,
+}: SearchHitsProps) => html`
+  <div class="${cls.searchHits}">
+    <ul class="${cls.searchHitList}">
+      ${hits.map(
+        (hit) => html`
+          <li>
+            <a href="${hit.href}" class="${cls.searchHit}">
+              ${ForwardChevron({ className: cls.chevron })}
+              <div>
+                <h2 class="${cls.title}">${hit.displayName}</h2>
+                <div>${hit.highlight}</div>
+              </div>
+            </a>
+          </li>
+        `,
+      )}
+    </ul>
+    <div>
+      <div>
+        ${texts.showing} ${Math.min(total, 5).toString()} ${texts.of}
+        ${total.toString()} ${texts.results}
+      </div>
+      <a href="https://www.nav.no/sok?ord=${word}">Se alle treff ("${word}")</a>
+    </div>
+  </div>
 `;

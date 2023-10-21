@@ -31,7 +31,7 @@ declare module '*complex-header-menu.module.css' {
   const classes: {
     menuTop: string;
     menuContent: string;
-    inlineSearch: string;
+    searchMenu: string;
   };
   export default classes;
 }
@@ -90,7 +90,6 @@ declare module '*header.module.css' {
     hovedmenyContent: string;
     arbeidsflate: string;
     menuContextLinks: string;
-    menu: string;
     menuLinkList: string;
     menuLink: string;
     mobile: string;
@@ -170,22 +169,17 @@ declare module '*search-form.module.css' {
 
 declare module '*search-hits.module.css' {
   const classes: {
+    searchHits: string;
     searchHitList: string;
-  };
-  export default classes;
-}
-
-declare module '*search-show-more.module.css' {
-  const classes: {
-    showMore: string;
+    searchHit: string;
+    chevron: string;
+    title: string;
   };
   export default classes;
 }
 
 declare module '*search.module.css' {
   const classes: {
-    dropdown: string;
-    searchButton: string;
     searchHitList: string;
     menuSearch: string;
     menuSearch__circle: string;

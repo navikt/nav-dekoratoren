@@ -23,4 +23,4 @@ export const fetchDriftsmeldinger = (): Promise<Driftsmelding[]> =>
 export const fetchSearch = (ord: string): Promise<SearchResult> =>
   fetch(
     `${`${env.ENONICXP_SERVICES}/navno.nav.no.search/search2/sok`}?ord=${ord}`,
-  ).then((res) => res.json()) as Promise<SearchResult>;
+  ).then((res) => res.json() as Promise<SearchResult>);

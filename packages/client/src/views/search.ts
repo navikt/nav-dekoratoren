@@ -1,12 +1,3 @@
-// For when you know it is defined to avoid annoying null checks
-export function asDefined<T>(value: T | undefined): NonNullable<T> {
-  if (!value) {
-    throw new Error('Value is undefined');
-  }
-
-  return value as NonNullable<T>;
-}
-
 export class SearchHit extends HTMLElement {
   constructor() {
     super();

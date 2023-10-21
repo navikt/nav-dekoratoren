@@ -5,7 +5,6 @@ import ContentService from './content-service';
 import SearchService from './search-service';
 import UnleashService from './unleash-service';
 import notificationsService from './notifications-service';
-import { SearchResult } from 'decorator-shared/types';
 import TaConfigService from './task-analytics-service';
 
 const fetch = await requestHandler(

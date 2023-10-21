@@ -1,5 +1,4 @@
 import html, { Template, unsafeHtml } from 'decorator-shared/html';
-import { WebcomponentTemplates } from './web-component-templates';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
@@ -126,7 +125,6 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        ${WebcomponentTemplates()}
         <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
