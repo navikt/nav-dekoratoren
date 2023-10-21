@@ -14,7 +14,8 @@
     "@babel/types": "^7.22.10",
     "@csstools/postcss-global-data": "^2.0.1",
     "@navikt/ds-tokens": "^4.11.2",
-    "decorator-shared": "workspace:*"
+    "decorator-shared": "workspace:*",
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
@@ -28,6 +29,7 @@
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.5",
     "jsdom": "^22.1.0",
-    "@open-wc/testing": "^3.2.0"
+    "@open-wc/testing": "^3.2.0",
+    "@types/lodash.debounce": "^4.0.8"
   }
 }

@@ -1,4 +1,5 @@
 import html from 'decorator-shared/html';
+import debounce from 'lodash.debounce';
 import cls from '../styles/search-form.module.css';
 
 class SearchMenu extends HTMLElement {
@@ -43,6 +44,26 @@ class SearchMenu extends HTMLElement {
       );
     });
 
+    const fetchSearch = (query: string) =>
+      fetch(
+        `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/search?${Object.entries(
+          {
+            language: window.__DECORATOR_DATA__.params.language,
+            q: query,
+          },
+        )
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&')}`,
+      )
+        .then((res) => res.text())
+        .then((text) => {
+          if (this.input?.value === query) {
+            this.hits.innerHTML = text;
+          }
+        });
+
+    const fetchSearchDebounced = debounce(fetchSearch, 500);
+
     this.input?.addEventListener('input', (e) => {
       const { value } = e.target as HTMLInputElement;
       if (value.length > 2) {
@@ -51,22 +72,7 @@ class SearchMenu extends HTMLElement {
           title="${window.__DECORATOR_DATA__.texts.loading_preview}"
         />`.render();
 
-        fetch(
-          `${
-            import.meta.env.VITE_DECORATOR_BASE_URL
-          }/api/search?${Object.entries({
-            language: window.__DECORATOR_DATA__.params.language,
-            q: this.input?.value,
-          })
-            .map(([key, value]) => `${key}=${value}`)
-            .join('&')}`,
-        )
-          .then((res) => res.text())
-          .then((text) => {
-            if (this.input?.value === value) {
-              this.hits.innerHTML = text;
-            }
-          });
+        fetchSearchDebounced(value);
       } else {
         this.hits.remove();
       }
