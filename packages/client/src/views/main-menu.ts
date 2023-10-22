@@ -1,16 +1,10 @@
-import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
-import getContent from '../get-content';
-
 class MainMenu extends HTMLElement {
-  handleActiveContext = async (event: Event) => {
-    const headerMenuLinks = await getContent('headerMenuLinks', {
-      context: (event as CustomEvent).detail.context,
-    });
-
-    this.innerHTML = HeaderMenuLinks({
-      headerMenuLinks,
-      className: `cols-${headerMenuLinks.length}`,
-    }).render();
+  handleActiveContext = (event: Event) => {
+    fetch(`/main-menu?context=${(event as CustomEvent).detail.context}`)
+      .then((response) => response.text())
+      .then((html) => {
+        this.innerHTML = html;
+      });
   };
 
   connectedCallback() {

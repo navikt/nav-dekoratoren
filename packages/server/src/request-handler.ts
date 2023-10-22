@@ -17,6 +17,7 @@ import TaConfigService from './task-analytics-service';
 import { HandlerBuilder, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
 import { env } from './env/server';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -136,13 +137,19 @@ const requestHandler = async (
         }),
       ),
     )
-    .get('/data/headerMenuLinks', ({ query }) => {
+    .get('/main-menu', async ({ query }) => {
       const data = validParams(query);
-      return jsonResponse(
-        contentService.getHeaderMenuLinks({
-          language: data.language,
-          context: data.context,
-        }),
+      return new Response(
+        HeaderMenuLinks({
+          headerMenuLinks: await contentService.getHeaderMenuLinks({
+            language: data.language,
+            context: data.context,
+          }),
+          className: 'cols-3',
+        }).render(),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
       );
     })
     .get('/', async ({ url, query }) => {
