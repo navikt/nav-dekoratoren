@@ -3,7 +3,7 @@ import type { ComplexFooterProps } from './complex-footer';
 import { ComplexFooter } from './complex-footer';
 
 const meta: Meta<ComplexFooterProps> = {
-  title: 'complex-footer',
+  title: 'footer/complex',
   tags: ['autodocs'],
   render: ComplexFooter,
 };

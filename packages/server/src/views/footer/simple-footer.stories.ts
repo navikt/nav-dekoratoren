@@ -3,7 +3,7 @@ import type { SimpleFooterProps } from './simple-footer';
 import { SimpleFooter } from './simple-footer';
 
 const meta: Meta<SimpleFooterProps> = {
-  title: 'simple-footer',
+  title: 'footer/simple',
   tags: ['autodocs'],
   render: SimpleFooter,
 };
