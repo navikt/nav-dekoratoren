@@ -4,16 +4,11 @@ class DropdownMenu extends HTMLElement {
   button: HTMLElement | null = null;
   #open: boolean = false;
 
-  constructor() {
-    super();
-    this.handleWindowClick = this.handleWindowClick.bind(this);
-  }
-
-  handleWindowClick(e: MouseEvent) {
+  handleWindowClick = (e: MouseEvent) => {
     if (!this.contains(e.target as Node)) {
       this.open = false;
     }
-  }
+  };
 
   set open(open: boolean) {
     if (open !== this.#open) {
