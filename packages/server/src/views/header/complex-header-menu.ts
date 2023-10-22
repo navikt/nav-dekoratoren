@@ -30,11 +30,11 @@ export const ComplexHeaderMenu = ({
       <inline-search></inline-search>
     </div>
     <decorator-loader class="${cls.searchLoader}"></decorator-loader>
-    <div id="header-menu-links">
+    <main-menu>
       ${HeaderMenuLinks({
         headerMenuLinks,
         className: 'cols-3',
       })}
-    </div>
+    </main-menu>
   </div>
 `;
