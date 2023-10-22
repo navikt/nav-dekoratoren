@@ -3,14 +3,15 @@ import { erNavDekoratoren } from '../helpers/urls';
 import headerClasses from '../styles/header.module.css';
 
 class ContextLink extends LenkeMedSporingElement {
+  handleActiveContext = (event: Event) =>
+    this.classList.toggle(
+      headerClasses.lenkeActive,
+      this.getAttribute('data-context') ===
+        (event as CustomEvent<{ context: string }>).detail.context,
+    );
+
   connectedCallback() {
-    window.addEventListener('activecontext', (event) => {
-      this.classList.toggle(
-        headerClasses.lenkeActive,
-        this.getAttribute('data-context') ===
-          (event as CustomEvent<{ context: string }>).detail.context,
-      );
-    });
+    window.addEventListener('activecontext', this.handleActiveContext);
 
     this.addEventListener('click', (e) => {
       if (erNavDekoratoren()) {
@@ -26,6 +27,10 @@ class ContextLink extends LenkeMedSporingElement {
         }),
       );
     });
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('activecontext', this.handleActiveContext);
   }
 }
 
