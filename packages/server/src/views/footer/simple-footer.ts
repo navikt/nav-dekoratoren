@@ -1,10 +1,10 @@
 import { Link } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
-import cls from 'decorator-shared/utilities.module.css';
-import classes from 'decorator-client/src/styles/simple-footer.module.css';
 import { ScreenshareButton } from './screenshare-button';
 import { Features } from '../../unleash-service';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
+import cls from 'decorator-client/src/styles/simple-footer.module.css';
+import utilCls from 'decorator-shared/utilities.module.css';
 
 export type SimpleFooterProps = {
   links: Link[];
@@ -19,14 +19,14 @@ export const SimpleFooter = ({
   texts,
   features,
 }: SimpleFooterProps) => html`
-  <footer class="${classes.simpleFooter}">
-    <div class="${classes.simpleFooterContent} ${cls.contentContainer}">
-      <div class="${classes.footerLinkList}">
+  <footer class="${cls.simpleFooter}">
+    <div class="${cls.simpleFooterContent} ${utilCls.contentContainer}">
+      <div class="${cls.footerLinkList}">
         ${links.map(({ url, content }) =>
           LenkeMedSporing({
             href: url,
             children: content,
-            className: classes.footerLink,
+            className: cls.footerLink,
             analyticsEventArgs: {
               category: 'dekorator-footer',
               action: `kontakt/${url}`,

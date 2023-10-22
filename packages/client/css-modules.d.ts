@@ -178,7 +178,6 @@ declare module '*simple-footer.module.css' {
     simpleFooter: string;
     simpleFooterContent: string;
     footerLinkList: string;
-    screenshareButton: string;
     footerLink: string;
   };
   export default classes;

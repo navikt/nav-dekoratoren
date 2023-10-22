@@ -1556,7 +1556,7 @@ exports[`renders norwegian index 1`] = `
                 </ul>
               </li>
             
-          <li><button type="button" class="_screenshareButton_tarl4_1">
+          <li><button type="button" class="_screenshareButton_2smvl_1">
     Del skjerm med veileder
     <svg
       width="1em"
@@ -3669,7 +3669,7 @@ exports[`renders english index 1`] = `
                 </ul>
               </li>
             
-          <li><button type="button" class="_screenshareButton_tarl4_1">
+          <li><button type="button" class="_screenshareButton_2smvl_1">
     Share screen with your counsellor
     <svg
       width="1em"

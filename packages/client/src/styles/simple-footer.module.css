@@ -9,8 +9,10 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--a-spacing-4);
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .simpleFooterContent {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -19,30 +21,38 @@
 .footerLinkList {
   display: flex;
   flex-direction: column;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    gap: 1rem;
-  }
+  align-items: flex-start;
+  gap: var(--a-spacing-2);
 }
 
-.simpleFooter .footerLinkList .screenshareButton {
-  @media (min-width: 768px) {
-    margin-left: auto;
+@media (min-width: 768px) {
+  .footerLinkList {
+    flex-direction: row;
+    gap: var(--a-spacing-8);
   }
 }
 
 .footerLink {
   color: var(--a-text-action);
-  display: flex;
-  gap: var(--a-spacing-2);
-  padding-block: var(--a-spacing-2);
+  padding-block: var(--a-spacing-1);
   text-decoration-color: var(--a-deepblue-200);
   text-decoration-thickness: 0.0625em;
   text-underline-offset: 0.15em;
-  text-decoration: underline;
+}
 
-  @media (min-width: 768px) {
-    padding-block: var(--a-spacing-1);
+.footerLink:hover {
+  text-decoration: none;
+}
+
+.footerLink:focus {
+  text-decoration: none;
+  background-color: var(--a-border-focus);
+  color: var(--a-text-on-action);
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .footerLink {
+    padding-block: var(--a-spacing-2);
   }
 }
