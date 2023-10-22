@@ -6,10 +6,10 @@ import type {
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
-import utilCls from 'decorator-shared/utilities.module.css';
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-import classes from 'decorator-client/src/styles/header.module.css';
+import cls from 'decorator-client/src/styles/header.module.css';
+import utilCls from 'decorator-shared/utilities.module.css';
 
 export type SimpleHeaderProps = {
   texts: Texts;
@@ -27,10 +27,11 @@ export function SimpleHeader({
   texts,
 }: SimpleHeaderProps) {
   return html`
-    <header class="${classes.siteheader}">
-      <div class="${classes.hovedmenyWrapper} ${utilCls.contentContainer}">
-        <div class="${classes.hovedmenyContent}">
+    <header class="${cls.siteheader}">
+      <div class="${cls.hovedmenyWrapper} ${utilCls.contentContainer}">
+        <div class="${cls.hovedmenyContent}">
           ${LenkeMedSporing({
+            className: cls.logo,
             href: '/',
             analyticsEventArgs: {
               category: 'dekorator-header',

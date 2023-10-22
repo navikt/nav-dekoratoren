@@ -85,6 +85,7 @@ declare module '*feedback.module.css' {
 
 declare module '*header.module.css' {
   const classes: {
+    logo: string;
     siteheader: string;
     wrapperWrapper: string;
     hovedmenyWrapper: string;
