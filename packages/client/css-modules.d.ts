@@ -11,18 +11,17 @@ declare module '*archivable-notification.module.css' {
 
 declare module '*complex-footer.module.css' {
   const classes: {
-    footerLinkList: string;
-    simpleFooter: string;
-    screenshareButton: string;
-    footerLink: string;
-    complexFooterOrg: string;
     footer: string;
     footerContent: string;
-    toTopLink: string;
+    link: string;
+    toTop: string;
+    arrowUp: string;
     footerLinks: string;
-    footerInnerLinkList: string;
     footerLinkGroup: string;
     footerLinkHeading: string;
+    footerInnerLinkList: string;
+    footerLink: string;
+    complexFooterOrg: string;
   };
   export default classes;
 }
