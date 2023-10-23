@@ -6,6 +6,7 @@ import SearchService from './search-service';
 import UnleashService from './unleash-service';
 import notificationsService from './notifications-service';
 import TaConfigService from './task-analytics-service';
+import RenderingService from './rendering-service';
 
 const fetch = await requestHandler(
   new ContentService(
@@ -27,6 +28,7 @@ const fetch = await requestHandler(
   notificationsService(),
   new UnleashService({ mock: true }),
   new TaConfigService(),
+  new RenderingService()
 );
 
 test('is alive', async () => {

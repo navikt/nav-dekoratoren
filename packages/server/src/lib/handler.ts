@@ -54,3 +54,9 @@ export const jsonResponse = async (data: unknown) =>
   new Response(JSON.stringify(await data), {
     headers: { 'content-type': 'application/json; charset=utf-8' },
   });
+
+export const htmlResponse =  async (text: string) =>
+    new Response(text, {
+        headers: { 'content-type': 'text/html; charset=utf-8' },
+    });
+

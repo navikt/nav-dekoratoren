@@ -14,11 +14,12 @@ import { texts } from './texts';
 import { Texts } from 'decorator-shared/types';
 import UnleashService from './unleash-service';
 import TaConfigService from './task-analytics-service';
-import { HandlerBuilder, jsonResponse } from './lib/handler';
+import { HandlerBuilder, htmlResponse, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
 import { env } from './env/server';
 import { SearchHits } from './views/search-hits';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
+import RenderingService from './rendering-service';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -47,6 +48,7 @@ const requestHandler = async (
   notificationsService: NotificationsService,
   unleashService: UnleashService,
   taConfigService: TaConfigService,
+  renderingService: RenderingService
 ) => {
   const filePaths = fileSystemService
     .getFilePaths('./public')
@@ -174,6 +176,18 @@ const requestHandler = async (
           headers: { 'content-type': 'text/html; charset=utf-8' },
         }),
       );
+    })
+    .post('/api/render', async ({ request }) => {
+        const { name, params } = await request.json() as any;
+
+        const result = renderingService.render(name, params);
+
+        // For å kunne gi ordentlig error messages
+        if (result.error) {
+            throw new Error(result.error.toString())
+        }
+
+        return htmlResponse(result.view);
     })
     .use([cspHandler])
     .build();

@@ -77,6 +77,8 @@ export type Template = {
   render: () => string;
 };
 
+export type ErrorView = (error: Error) => Template;
+
 const html = (
   strings: TemplateStringsArray,
   ...values: TemplateStringValues[]

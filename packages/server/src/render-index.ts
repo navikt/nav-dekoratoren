@@ -1,7 +1,7 @@
 import { SimpleHeader } from './views/header/simple-header';
 import { ComplexHeader } from './views/header/complex-header';
 import { Index } from './views';
-import { Feedback } from './views/feedback';
+import { Feedback } from './views/feedback/feedback';
 import { DecoratorLens } from './views/decorator-lens';
 import { DecoratorData } from './views/decorator-data';
 import { texts } from './texts';

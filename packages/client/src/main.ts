@@ -39,6 +39,8 @@ import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logg
 
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
+import { ClientRenderer } from './render';
+import html from 'decorator-shared/html';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
