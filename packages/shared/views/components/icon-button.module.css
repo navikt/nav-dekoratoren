@@ -16,15 +16,22 @@
 }
 
 .iconButton:hover {
-  border-color: rgba(0, 103, 197, 1);
   background-color: var(--a-blue-100);
+}
+
+.iconButton:focus-visible {
+  box-shadow: var(--a-shadow-focus);
+  border-color: rgba(0, 103, 197, 1);
+  outline: none;
 }
 
 .iconButton:active {
   background-color: rgba(0, 91, 130, 1);
   color: white;
+}
+
+.iconButton:focus-visible:active {
   border-color: white;
-  outline: 3px solid #1e40af;
 }
 
 .iconButtonSpan {

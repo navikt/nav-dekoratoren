@@ -3,11 +3,9 @@ import type { SimpleFooterProps } from './simple-footer';
 import { SimpleFooter } from './simple-footer';
 
 const meta: Meta<SimpleFooterProps> = {
-  title: 'simple-footer',
+  title: 'footer/simple',
   tags: ['autodocs'],
-  render: (args) => {
-    return SimpleFooter(args);
-  },
+  render: SimpleFooter,
 };
 
 export default meta;
@@ -15,6 +13,10 @@ type Story = StoryObj<SimpleFooterProps>;
 
 export const Default: Story = {
   args: {
+    features: {
+      'dekoratoren.skjermdeling': true,
+      'dekoratoren.chatbotscript': false,
+    },
     texts: {
       share_screen: 'Del skjerm med veileder',
     },

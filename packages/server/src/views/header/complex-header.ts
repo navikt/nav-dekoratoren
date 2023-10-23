@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import html from 'decorator-shared/html';
 import {
   AvailableLanguage,
@@ -6,8 +7,12 @@ import {
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Node, Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-shared/utilities.module.css';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
+import { ContextLink } from 'decorator-shared/context';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
+import cls from 'decorator-client/src/styles/header.module.css';
+import utilsCls from 'decorator-shared/utilities.module.css';
 
 export type ComplexHeaderProps = {
   isNorwegian: boolean;
@@ -24,12 +29,6 @@ export type ComplexHeaderProps = {
   name?: string;
 };
 
-import classes from 'decorator-client/src/styles/header.module.css';
-import clsx from 'clsx';
-import { ContextLink } from 'decorator-shared/context';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-
 export function ComplexHeader({
   isNorwegian,
   contextLinks,
@@ -44,11 +43,12 @@ export function ComplexHeader({
   name,
 }: ComplexHeaderProps) {
   return html`
-    <header class="${classes.siteheader}">
-      <div class="${classes.wrapperWrapper}">
-        <div class="${classes.hovedmenyWrapper} ${utilsCls.contentContainer}">
-          <div class="${classes.hovedmenyContent}">
+    <header class="${cls.siteheader}">
+      <div class="${cls.wrapperWrapper}">
+        <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+          <div class="${cls.hovedmenyContent}">
             ${LenkeMedSporing({
+              className: cls.logo,
               href: '/',
               analyticsEventArgs: {
                 category: 'dekorator-header',
@@ -60,7 +60,7 @@ export function ComplexHeader({
                 alt="NAV"
               />`,
             })}
-            <div class="${classes.arbeidsflate}">
+            <div class="${cls.arbeidsflate}">
               ${isNorwegian &&
               contextLinks?.map(
                 ({ url, lenkeTekstId, context }) =>
@@ -72,8 +72,8 @@ export function ComplexHeader({
                       category: 'dekorator-header',
                       label: context,
                     })}"
-                    class="${clsx(classes.headerContextLink, {
-                      [classes.lenkeActive]: context === currentContext,
+                    class="${clsx(cls.headerContextLink, {
+                      [cls.lenkeActive]: context === currentContext,
                     })}"
                     data-attach-context
                     data-context="${context.toLowerCase()}"

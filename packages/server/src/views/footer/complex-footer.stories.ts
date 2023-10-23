@@ -3,11 +3,9 @@ import type { ComplexFooterProps } from './complex-footer';
 import { ComplexFooter } from './complex-footer';
 
 const meta: Meta<ComplexFooterProps> = {
-  title: 'complex-footer',
+  title: 'footer/complex',
   tags: ['autodocs'],
-  render: (args) => {
-    return ComplexFooter(args);
-  },
+  render: ComplexFooter,
 };
 
 export default meta;
@@ -15,6 +13,10 @@ type Story = StoryObj<ComplexFooterProps>;
 
 export const Default: Story = {
   args: {
+    features: {
+      'dekoratoren.skjermdeling': true,
+      'dekoratoren.chatbotscript': false,
+    },
     texts: {
       to_top: 'Til toppen',
       share_screen: 'Del skjerm med veileder',

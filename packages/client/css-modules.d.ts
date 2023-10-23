@@ -11,18 +11,17 @@ declare module '*archivable-notification.module.css' {
 
 declare module '*complex-footer.module.css' {
   const classes: {
-    footerLinkList: string;
-    simpleFooter: string;
-    screenshareButton: string;
-    footerLink: string;
-    complexFooterOrg: string;
     footer: string;
     footerContent: string;
-    toTopLink: string;
+    link: string;
+    toTop: string;
+    arrowUp: string;
     footerLinks: string;
-    footerInnerLinkList: string;
     footerLinkGroup: string;
     footerLinkHeading: string;
+    footerInnerLinkList: string;
+    footerLink: string;
+    complexFooterOrg: string;
   };
   export default classes;
 }
@@ -84,6 +83,7 @@ declare module '*feedback.module.css' {
 
 declare module '*header.module.css' {
   const classes: {
+    logo: string;
     siteheader: string;
     wrapperWrapper: string;
     hovedmenyWrapper: string;
@@ -183,7 +183,6 @@ declare module '*simple-footer.module.css' {
     simpleFooter: string;
     simpleFooterContent: string;
     footerLinkList: string;
-    screenshareButton: string;
     footerLink: string;
   };
   export default classes;

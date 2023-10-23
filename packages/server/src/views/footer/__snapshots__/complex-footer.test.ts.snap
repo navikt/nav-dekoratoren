@@ -2,9 +2,9 @@
 
 exports[`renders complex footer 1`] = `
 "
-    <footer class="_footer_1vx5s_1" data-theme="dark">
-      <div class="_footerContent_1vx5s_38 _contentContainer_zsniq_2">
-        <a class="_toTopLink_1vx5s_44" href="#">
+    <footer class="_footer_1r342_1" data-theme="dark">
+      <div class="_footerContent_1r342_7 _contentContainer_zsniq_2">
+        <a class="_link_1r342_13 _toTop_1r342_31" href="#">
           
     <svg
       width="1em"
@@ -14,208 +14,202 @@ exports[`renders complex footer 1`] = `
       xmlns="http://www.w3.org/2000/svg"
       focusable="false"
       role="img"
+      aria-hidden="true"
+      class="_arrowUp_1r342_41"
     >
+      <title id="footer-til-toppen-ikon">pil-opp-ikon</title>
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
-        d="M12.53 3.47a.75.75 0 0 0-1.06 0l-6.5 6.5a.75.75 0 1 0 1.06 1.06l5.22-5.22V20.5a.75.75 0 0 0 1.5 0V5.81l5.22 5.22a.75.75 0 1 0 1.06-1.06l-6.5-6.5Z"
+        d="m12 1.586 7.707 7.707-1.414 1.414L13 5.414V22h-2V5.414l-5.293 5.293-1.414-1.414L12 1.586Z"
         fill="currentColor"
       ></path>
     </svg>
    Til toppen
         </a>
 
-        <div class="_footerLinks_1vx5s_53">
-          <ul class="_footerLinkList_1vx5s_1">
-            
-                <li class="_footerLinkGroup_1vx5s_71">
-                  <h2 class="_footerLinkHeading_1vx5s_75">
-                    Kontakt
-                  </h2>
-                  <ul class="_footerInnerLinkList_1vx5s_66">
-                    
-                        <li>
-                          
+        <ul class="_footerLinks_1r342_49">
+          
+              <li class="_footerLinkGroup_1r342_56">
+                <h2 class="_footerLinkHeading_1r342_64">Kontakt</h2>
+                <ul class="_footerInnerLinkList_1r342_73">
+                  
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/nb&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/nb&quot;}"
-    href="/person/kontakt-oss/nb" class="_footerLink_1vx5s_1"
+    href="/person/kontakt-oss/nb" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Kontakt oss
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke&quot;}"
-    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_footerLink_1vx5s_1"
+    href="/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke" class="_link_1r342_13 _footerLink_1r342_49"
   >
     NAV i ditt fylke
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav&quot;}"
-    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav" class="_footerLink_1vx5s_1"
+    href="/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Kurs fra NAV
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//person/kontakt-oss/tilbakemeldinger&quot;,&quot;label&quot;:&quot;/person/kontakt-oss/tilbakemeldinger&quot;}"
-    href="/person/kontakt-oss/tilbakemeldinger" class="_footerLink_1vx5s_1"
+    href="/person/kontakt-oss/tilbakemeldinger" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Klage, tilbakemelding, ros
   </a>
 
-                        </li>
-                      
-                  </ul>
-                </li>
-              
-                <li class="_footerLinkGroup_1vx5s_71">
-                  <h2 class="_footerLinkHeading_1vx5s_75">
-                    Nyheter og presse
-                  </h2>
-                  <ul class="_footerInnerLinkList_1vx5s_66">
+                      </li>
                     
-                        <li>
-                          
+                </ul>
+              </li>
+            
+              <li class="_footerLinkGroup_1r342_56">
+                <h2 class="_footerLinkHeading_1r342_64">Nyheter og presse</h2>
+                <ul class="_footerInnerLinkList_1r342_73">
+                  
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//samarbeidspartner/presse&quot;,&quot;label&quot;:&quot;/samarbeidspartner/presse&quot;}"
-    href="/samarbeidspartner/presse" class="_footerLink_1vx5s_1"
+    href="/samarbeidspartner/presse" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Nyheter, pressemeldinger og pressekontakt
   </a>
 
-                        </li>
-                      
-                  </ul>
-                </li>
-              
-                <li class="_footerLinkGroup_1vx5s_71">
-                  <h2 class="_footerLinkHeading_1vx5s_75">
-                    NAV og samfunn
-                  </h2>
-                  <ul class="_footerInnerLinkList_1vx5s_66">
+                      </li>
                     
-                        <li>
-                          
+                </ul>
+              </li>
+            
+              <li class="_footerLinkGroup_1r342_56">
+                <h2 class="_footerLinkHeading_1r342_64">NAV og samfunn</h2>
+                <ul class="_footerInnerLinkList_1r342_73">
+                  
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/statistikk-analyse-og-fou&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/statistikk-analyse-og-fou&quot;}"
-    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_footerLink_1vx5s_1"
+    href="/no/nav-og-samfunn/statistikk-analyse-og-fou" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Statistikk, analyse og FoU
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt/https://lovdata.no/nav/&quot;,&quot;label&quot;:&quot;https://lovdata.no/nav/&quot;}"
-    href="https://lovdata.no/nav/" class="_footerLink_1vx5s_1"
+    href="https://lovdata.no/nav/" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Lover og regler (lovdata.no)
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/om-nav&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/om-nav&quot;}"
-    href="/no/nav-og-samfunn/om-nav/om-nav" class="_footerLink_1vx5s_1"
+    href="/no/nav-og-samfunn/om-nav/om-nav" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Om NAV
   </a>
 
-                        </li>
-                      
-                  </ul>
-                </li>
-              
-                <li class="_footerLinkGroup_1vx5s_71">
-                  <h2 class="_footerLinkHeading_1vx5s_75">
-                    Andre språk
-                  </h2>
-                  <ul class="_footerInnerLinkList_1vx5s_66">
+                      </li>
                     
-                        <li>
-                          
+                </ul>
+              </li>
+            
+              <li class="_footerLinkGroup_1r342_56">
+                <h2 class="_footerLinkHeading_1r342_64">Andre språk</h2>
+                <ul class="_footerInnerLinkList_1r342_73">
+                  
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//en&quot;,&quot;label&quot;:&quot;/en&quot;}"
-    href="/en" class="_footerLink_1vx5s_1"
+    href="/en" class="_link_1r342_13 _footerLink_1r342_49"
   >
     English
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//se&quot;,&quot;label&quot;:&quot;/se&quot;}"
-    href="/se" class="_footerLink_1vx5s_1"
+    href="/se" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Sámegiella
   </a>
 
-                        </li>
-                      
-                  </ul>
-                </li>
-              
-                <li class="_footerLinkGroup_1vx5s_71">
-                  
-                  <ul class="_footerInnerLinkList_1vx5s_66">
+                      </li>
                     
-                        <li>
-                          
+                </ul>
+              </li>
+            
+              <li class="_footerLinkGroup_1r342_56">
+                
+                <ul class="_footerInnerLinkList_1r342_73">
+                  
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
-    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_1vx5s_1"
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Personvern og informasjonskapsler
   </a>
 
-                        </li>
-                      
-                        <li>
-                          
+                      </li>
+                    
+                      <li>
+                        
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
-    href="/tilgjengelighet" class="_footerLink_1vx5s_1"
+    href="/tilgjengelighet" class="_link_1r342_13 _footerLink_1r342_49"
   >
     Tilgjengelighet
   </a>
 
-                        </li>
-                      
-                  </ul>
-                </li>
-              
-            <li><button type="button" class="_screenshareButton_tarl4_1">
+                      </li>
+                    
+                </ul>
+              </li>
+            
+          <li><button type="button" class="_screenshareButton_2smvl_1">
     Del skjerm med veileder
     <svg
       width="1em"
@@ -234,10 +228,9 @@ exports[`renders complex footer 1`] = `
       ></path>
     </svg>
   </button></li>
-          </ul>
-        </div>
+        </ul>
 
-        <div class="_complexFooterOrg_1vx5s_27">
+        <div class="_complexFooterOrg_1r342_90">
           <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>

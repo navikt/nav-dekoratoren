@@ -11,15 +11,24 @@
   gap: var(--a-spacing-2);
   align-items: center;
   text-decoration: underline;
-  padding-block: var(--a-spacing-2);
-
-  @media (min-width: 768px) {
-    padding-block: var(--a-spacing-1);
-  }
+  padding-block: var(--a-spacing-1);
 }
 
 .screenshareButton:hover {
   text-decoration: none;
+}
+
+.screenshareButton:focus {
+  text-decoration: none;
+  background-color: var(--a-border-focus);
+  color: var(--a-text-on-action);
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .screenshareButton {
+    padding-block: var(--a-spacing-2);
+  }
 }
 
 [data-theme='dark'] .screenshareButton {
@@ -39,6 +48,14 @@
 [data-theme='dark'] .screenshareButton:hover {
   background-color: var(--a-deepblue-500);
   border-color: var(--a-deepblue-300);
+}
+
+[data-theme='dark'] .screenshareButton:focus-visible {
+  box-shadow: 0 0 0 3px var(--a-border-focus-on-inverted);
+}
+
+[data-theme='dark'] .screenshareButton:active {
+  background-color: var(--a-deepblue-600);
 }
 
 .screenshareButton svg {

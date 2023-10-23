@@ -2,14 +2,14 @@
 
 exports[`renders simple footer 1`] = `
 "
-  <footer class="_simpleFooter_yutxt_1">
-    <div class="_simpleFooterContent_yutxt_7 _contentContainer_zsniq_2">
-      <div class="_footerLinkList_yutxt_19">
+  <footer class="_simpleFooter_38gje_1">
+    <div class="_simpleFooterContent_38gje_7 _contentContainer_zsniq_2">
+      <div class="_footerLinkList_38gje_21">
         
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;,&quot;label&quot;:&quot;/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten&quot;}"
-    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_yutxt_19"
+    href="/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten" class="_footerLink_38gje_21"
   >
     Personvern og informasjonskapsler
   </a>
@@ -17,13 +17,13 @@ exports[`renders simple footer 1`] = `
   <a
     is="lenke-med-sporing"
     data-analytics-event-args="{&quot;category&quot;:&quot;dekorator-footer&quot;,&quot;action&quot;:&quot;kontakt//tilgjengelighet&quot;,&quot;label&quot;:&quot;/tilgjengelighet&quot;}"
-    href="/tilgjengelighet" class="_footerLink_yutxt_19"
+    href="/tilgjengelighet" class="_footerLink_38gje_21"
   >
     Tilgjengelighet
   </a>
 
       </div>
-      <button type="button" class="_screenshareButton_tarl4_1">
+      <button type="button" class="_screenshareButton_2smvl_1">
     Del skjerm med veileder
     <svg
       width="1em"
