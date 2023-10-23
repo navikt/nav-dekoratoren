@@ -56,7 +56,7 @@ export type Texts = {
   yes: string;
   ok: string;
   no: string;
-  sok_knapp_sokefelt: string;
+  search_nav_no: string;
   hensikt_med_tilbakemelding: string;
   hensikt_med_tilbakemelding_lenke: string;
   send_undersokelse_takk: string;
@@ -70,6 +70,12 @@ export type Texts = {
   notifications_error: string;
   til_forsiden: string;
   how_can_we_help: string;
+  showing: string;
+  of: string;
+  results: string;
+  see_all_hits: string;
+  no_hits_for: string;
+  loading_preview: string;
 };
 
 export type Driftsmelding = {
@@ -84,15 +90,9 @@ export type WithTexts<T = object> = T & {
 };
 
 export type SearchHit = {
-  audience: string[];
-  createdTime: string;
-  modifiedTime: string;
   displayName: string;
   highlight: string;
   href: string;
-  language: string;
-  hideModifiedDate: boolean;
-  hidePublishDate: boolean;
 };
 
 export type SearchResult = {

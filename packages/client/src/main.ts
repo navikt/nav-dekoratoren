@@ -13,34 +13,28 @@ import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator
 
 // Maybe create a file that does this
 import './views/language-selector';
-import './views/search';
 import './views/loader';
 import './views/decorator-lens';
 import './views/local-time';
 import './views/menu-background';
 import './views/dropdown-menu';
+import './views/search-menu';
+import './views/search-input';
 import './views/main-menu';
 import './views/context-link';
-
-import { SearchEvent } from './views/search';
 
 import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { logoutWarningController } from './controllers/logout-warning';
 
-import {
-  addBreadcrumbEventListeners,
-  afterAuthListeners,
-  onLoadListeners,
-} from './listeners';
+import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
 
 import { type AnalyticsEventArgs } from './analytics/constants';
 import { AppState } from 'decorator-shared/types';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
@@ -192,46 +186,6 @@ window.addEventListener('activecontext', (event) => {
   });
 });
 
-// Keeping this for later when fixing opening menus and such
-// function dismissMenu() {
-//     const menu = document.getElementById('menu');
-//     const menuButton = document.getElementById('menu-button');
-//
-//     [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
-// }
-
-// Handles mobile search
-const [inlineSearch] = document.getElementsByTagName('inline-search');
-
-if (window.__DECORATOR_DATA__.params.simple === false) {
-  const searchEventHandlers: Record<SearchEvent, () => void> = {
-    'started-typing': () => {
-      document
-        .querySelector('#header-menu-links')
-        ?.classList.add('is-searching');
-    },
-    'is-searching': () => {
-      document
-        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
-        ?.classList.add(complexHeaderMenuClasses.active);
-    },
-    'stopped-searching': () => {
-      document
-        .querySelector('#header-menu-links')
-        ?.classList.remove('is-searching');
-    },
-    'finished-searching': () => {
-      document
-        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
-        ?.classList.remove(complexHeaderMenuClasses.active);
-    },
-  };
-
-  for (const [event, handler] of Object.entries(searchEventHandlers)) {
-    inlineSearch.addEventListener(event, handler);
-  }
-}
-
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
   // Store a snapshot if user logs out
@@ -295,9 +249,6 @@ api.checkAuth({
           ? await notificationsResponse.text()
           : window.__DECORATOR_DATA__.texts.notifications_error;
     }
-
-    // Attach arkiver listener
-    afterAuthListeners();
   },
 });
 

@@ -8,3 +8,22 @@
 .menuItemsUniversalLinks {
   display: flex;
 }
+
+.searchDropdown {
+  max-width: 700px;
+}
+
+.searchButton.searchButton {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .searchButton.searchButton {
+    display: flex;
+  }
+}
+
+.searchMenu {
+  display: grid;
+  gap: var(--a-spacing-4);
+}

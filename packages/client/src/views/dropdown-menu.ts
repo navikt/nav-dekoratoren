@@ -12,9 +12,6 @@ class DropdownMenu extends HTMLElement {
 
   set open(open: boolean) {
     if (open !== this.#open) {
-      this.dispatchEvent(
-        new Event(open ? 'menuopened' : 'menuclosed', { bubbles: true }),
-      );
       this.classList.toggle(cls.dropdownMenuOpen, open);
       if (!this.button?.getAttribute('aria-expanded')) {
         this.button?.setAttribute('aria-expanded', 'true');
@@ -22,6 +19,9 @@ class DropdownMenu extends HTMLElement {
         this.button?.removeAttribute('aria-expanded');
       }
       this.#open = open;
+      this.dispatchEvent(
+        new Event(open ? 'menuopened' : 'menuclosed', { bubbles: true }),
+      );
     }
   }
 
