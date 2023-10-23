@@ -408,31 +408,34 @@ exports[`renders norwegian index 1`] = `
   </a>
 
             <div class="_arbeidsflate_bxwj3_35">
-              
-  <a
-    is="lenke-med-sporing"
-    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
-    href="https://www.nav.no" class="_headerContextLink_bxwj3_141 _lenkeActive_bxwj3_155" data-attach-context data-context="privatperson"
-  >
-    Privat
-  </a>
-
-  <a
-    is="lenke-med-sporing"
-    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
-    href="https://www.nav.no/no/bedrift" class="_headerContextLink_bxwj3_141" data-attach-context data-context="arbeidsgiver"
-  >
-    Arbeidsgiver
-  </a>
-
-  <a
-    is="lenke-med-sporing"
-    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
-    href="https://www.nav.no/no/samarbeidspartner" class="_headerContextLink_bxwj3_141" data-attach-context data-context="samarbeidspartner"
-  >
-    Samarbeidspartner
-  </a>
-
+              <a
+                    is="context-link"
+                    href="https://www.nav.no"
+                    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
+                    class="_headerContextLink_bxwj3_141 _lenkeActive_bxwj3_155"
+                    data-attach-context
+                    data-context="privatperson"
+                  >
+                    Privat
+                  </a><a
+                    is="context-link"
+                    href="https://www.nav.no/no/bedrift"
+                    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
+                    class="_headerContextLink_bxwj3_141"
+                    data-attach-context
+                    data-context="arbeidsgiver"
+                  >
+                    Arbeidsgiver
+                  </a><a
+                    is="context-link"
+                    href="https://www.nav.no/no/samarbeidspartner"
+                    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
+                    class="_headerContextLink_bxwj3_141"
+                    data-attach-context
+                    data-context="samarbeidspartner"
+                  >
+                    Samarbeidspartner
+                  </a>
             </div>
           </div>
           
@@ -484,7 +487,7 @@ exports[`renders norwegian index 1`] = `
       <inline-search></inline-search>
     </div>
     <decorator-loader class="_searchLoader_1l1lr_28"></decorator-loader>
-    <div id="header-menu-links">
+    <main-menu>
       
     <ul class="_headerMenuLinks_bxwj3_108 cols-3">
       
@@ -1160,7 +1163,7 @@ exports[`renders norwegian index 1`] = `
       </li>
     </ul>
   
-    </div>
+    </main-menu>
   </div>
 
     </div>
@@ -2075,31 +2078,34 @@ exports[`renders english index 1`] = `
   </a>
 
             <div class="_arbeidsflate_bxwj3_35">
-              
-  <a
-    is="lenke-med-sporing"
-    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
-    href="https://www.nav.no" class="_headerContextLink_bxwj3_141 _lenkeActive_bxwj3_155" data-attach-context data-context="privatperson"
-  >
-    Private
-  </a>
-
-  <a
-    is="lenke-med-sporing"
-    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
-    href="https://www.nav.no/no/bedrift" class="_headerContextLink_bxwj3_141" data-attach-context data-context="arbeidsgiver"
-  >
-    Employer
-  </a>
-
-  <a
-    is="lenke-med-sporing"
-    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
-    href="https://www.nav.no/no/samarbeidspartner" class="_headerContextLink_bxwj3_141" data-attach-context data-context="samarbeidspartner"
-  >
-    Collaborator
-  </a>
-
+              <a
+                    is="context-link"
+                    href="https://www.nav.no"
+                    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;privatperson&quot;}"
+                    class="_headerContextLink_bxwj3_141 _lenkeActive_bxwj3_155"
+                    data-attach-context
+                    data-context="privatperson"
+                  >
+                    Private
+                  </a><a
+                    is="context-link"
+                    href="https://www.nav.no/no/bedrift"
+                    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;arbeidsgiver&quot;}"
+                    class="_headerContextLink_bxwj3_141"
+                    data-attach-context
+                    data-context="arbeidsgiver"
+                  >
+                    Employer
+                  </a><a
+                    is="context-link"
+                    href="https://www.nav.no/no/samarbeidspartner"
+                    data-analytics-event-args="{&quot;action&quot;:&quot;arbeidsflate-valg&quot;,&quot;category&quot;:&quot;dekorator-header&quot;,&quot;label&quot;:&quot;samarbeidspartner&quot;}"
+                    class="_headerContextLink_bxwj3_141"
+                    data-attach-context
+                    data-context="samarbeidspartner"
+                  >
+                    Collaborator
+                  </a>
             </div>
           </div>
           
@@ -2151,7 +2157,7 @@ exports[`renders english index 1`] = `
       <inline-search></inline-search>
     </div>
     <decorator-loader class="_searchLoader_1l1lr_28"></decorator-loader>
-    <div id="header-menu-links">
+    <main-menu>
       
     <ul class="_headerMenuLinks_bxwj3_108 cols-3">
       
@@ -3301,7 +3307,7 @@ exports[`renders english index 1`] = `
       </li>
     </ul>
   
-    </div>
+    </main-menu>
   </div>
 
     </div>
