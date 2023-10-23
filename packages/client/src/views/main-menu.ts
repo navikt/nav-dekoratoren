@@ -1,6 +1,10 @@
 class MainMenu extends HTMLElement {
   handleActiveContext = (event: Event) => {
-    fetch(`/main-menu?context=${(event as CustomEvent).detail.context}`)
+    fetch(
+      `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?context=${
+        (event as CustomEvent).detail.context
+      }`,
+    )
       .then((response) => response.text())
       .then((html) => {
         this.innerHTML = html;
