@@ -70,20 +70,16 @@ const getNotifications: (
     amplitudeKomponent: 'varsel-beskjed',
   });
 
-  await new Promise((r) => setTimeout(r, 1000));
-
-  return Math.random() > 0.5
-    ? Promise.resolve([
-        {
-          heading: texts.notifications_tasks_title,
-          notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
-        },
-        {
-          heading: texts.notifications_messages_title,
-          notifications: notificationsMock.beskjeder.map(beskjedToNotification),
-        },
-      ])
-    : Promise.resolve(undefined);
+  return Promise.resolve([
+    {
+      heading: texts.notifications_tasks_title,
+      notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
+    },
+    {
+      heading: texts.notifications_messages_title,
+      notifications: notificationsMock.beskjeder.map(beskjedToNotification),
+    },
+  ]);
 };
 
 export default () => ({
