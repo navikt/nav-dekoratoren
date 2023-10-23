@@ -113,7 +113,7 @@ export const texts: Record<Language, Texts> = {
     til_forsiden: 'To the frontpage',
     how_can_we_help: 'What can we help you with?',
     showing: 'Showing',
-    of: 'og',
+    of: 'of',
     results: 'results',
     see_all_hits: 'See all hits',
     no_hits_for: 'No hits for',
