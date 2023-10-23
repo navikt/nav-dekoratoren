@@ -30,9 +30,7 @@ declare module '*complex-header-menu.module.css' {
   const classes: {
     menuTop: string;
     menuContent: string;
-    inlineSearch: string;
-    searchLoader: string;
-    active: string;
+    searchMenu: string;
   };
   export default classes;
 }
@@ -92,7 +90,6 @@ declare module '*header.module.css' {
     hovedmenyContent: string;
     arbeidsflate: string;
     menuContextLinks: string;
-    menu: string;
     menuLinkList: string;
     menuLink: string;
     mobile: string;
@@ -156,20 +153,27 @@ declare module '*screenshare-button.module.css' {
   export default classes;
 }
 
-declare module '*search.module.css' {
+declare module '*search-form.module.css' {
   const classes: {
-    dropdown: string;
+    searchForm: string;
+    label: string;
+    searchWrapper: string;
+    searchWrapperInner: string;
     searchInput: string;
-    searchInputWrapper: string;
-    searchButton: string;
-    blueBgIcon: string;
+    clear: string;
+    visible: string;
+    submit: string;
+  };
+  export default classes;
+}
+
+declare module '*search-hits.module.css' {
+  const classes: {
+    searchHits: string;
     searchHitList: string;
-    menuSearch: string;
-    menuSearch__circle: string;
-    menuSearch__line_1: string;
-    menuSearch__line_2: string;
-    menuSearch__line_3: string;
-    menuSearch__line_4: string;
+    searchHit: string;
+    chevron: string;
+    title: string;
   };
   export default classes;
 }
@@ -180,6 +184,14 @@ declare module '*simple-footer.module.css' {
     simpleFooterContent: string;
     footerLinkList: string;
     footerLink: string;
+  };
+  export default classes;
+}
+
+declare module '*splash-page.module.css' {
+  const classes: {
+    splashPage: string;
+    splashAlert: string;
   };
   export default classes;
 }

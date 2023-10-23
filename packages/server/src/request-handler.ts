@@ -17,6 +17,8 @@ import TaConfigService from './task-analytics-service';
 import { HandlerBuilder, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
 import { env } from './env/server';
+import { SearchHits } from './views/search-hits';
+import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -103,10 +105,6 @@ const requestHandler = async (
 
       const localTexts = texts[validParams(query).language];
 
-      if (Math.random() > 0.8) {
-        return new Response('server error', { status: 500 });
-      }
-
       return new Response(
         notificationLists
           ? Notifications({
@@ -126,9 +124,21 @@ const requestHandler = async (
     .get('/api/driftsmeldinger', () =>
       jsonResponse(contentService.getDriftsmeldinger()),
     )
-    .get('/api/sok', async ({ url }) =>
-      jsonResponse(searchService.search(url.searchParams.get('ord') ?? '')),
-    )
+    .get('/api/search', async ({ query }) => {
+      const searchQuery = query.q;
+      const results = await searchService.search(searchQuery);
+
+      return new Response(
+        SearchHits({
+          results,
+          query: searchQuery,
+          texts: texts[validParams(query).language],
+        }).render(),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
+      );
+    })
     .get('/data/myPageMenu', ({ query }) =>
       jsonResponse(
         contentService.getMyPageMenu({
@@ -136,13 +146,19 @@ const requestHandler = async (
         }),
       ),
     )
-    .get('/data/headerMenuLinks', ({ query }) => {
+    .get('/main-menu', async ({ query }) => {
       const data = validParams(query);
-      return jsonResponse(
-        contentService.getHeaderMenuLinks({
-          language: data.language,
-          context: data.context,
-        }),
+      return new Response(
+        HeaderMenuLinks({
+          headerMenuLinks: await contentService.getHeaderMenuLinks({
+            language: data.language,
+            context: data.context,
+          }),
+          className: 'cols-3',
+        }).render(),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
       );
     })
     .get('/', async ({ url, query }) => {

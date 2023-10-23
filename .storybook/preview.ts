@@ -5,10 +5,9 @@ import 'decorator-client/src/main.css';
 import 'decorator-client/src/views/local-time';
 import 'decorator-client/src/views/loader';
 import 'decorator-client/src/views/language-selector';
-import 'decorator-client/src/views/search';
 import 'decorator-client/src/views/menu-background';
 import 'decorator-client/src/views/dropdown-menu';
-import { WebcomponentTemplates } from 'decorator-server/src/views/web-component-templates';
+import 'decorator-client/src/views/search-input';
 
 declare global {
   interface Window {
@@ -32,15 +31,10 @@ const preview: Preview = {
       if (story === null) {
         return '';
       } else if (typeof story === 'object' && 'render' in story) {
-        return html`<div id="header-withmenu">
-          ${WebcomponentTemplates()} ${story}
-        </div>`.render();
+        return html`<div id="header-withmenu">${story}</div>`.render();
       } else {
         const wrapper = document.createElement('div');
         wrapper.setAttribute('id', 'header-withmenu');
-        const templates = document.createElement('div');
-        templates.outerHTML = WebcomponentTemplates().render();
-        wrapper.appendChild(templates);
         wrapper.appendChild(story);
         return wrapper;
       }

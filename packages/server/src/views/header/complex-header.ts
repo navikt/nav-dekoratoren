@@ -62,21 +62,24 @@ export function ComplexHeader({
             })}
             <div class="${cls.arbeidsflate}">
               ${isNorwegian &&
-              contextLinks?.map(({ url, lenkeTekstId, context }) =>
-                LenkeMedSporing({
-                  href: url,
-                  children: texts[lenkeTekstId],
-                  className: clsx(cls.headerContextLink, {
-                    [cls.lenkeActive]: context === currentContext,
-                  }),
-                  dataAttachContext: true,
-                  analyticsEventArgs: {
-                    action: 'arbeidsflate-valg',
-                    category: 'dekorator-header',
-                    label: context,
-                  },
-                  dataContext: context.toLowerCase(),
-                }),
+              contextLinks?.map(
+                ({ url, lenkeTekstId, context }) =>
+                  html`<a
+                    is="context-link"
+                    href="${url}"
+                    data-analytics-event-args="${JSON.stringify({
+                      action: 'arbeidsflate-valg',
+                      category: 'dekorator-header',
+                      label: context,
+                    })}"
+                    class="${clsx(cls.headerContextLink, {
+                      [cls.lenkeActive]: context === currentContext,
+                    })}"
+                    data-attach-context
+                    data-context="${context.toLowerCase()}"
+                  >
+                    ${texts[lenkeTekstId]}
+                  </a>`,
               )}
             </div>
           </div>

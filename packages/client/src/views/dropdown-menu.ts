@@ -4,22 +4,14 @@ class DropdownMenu extends HTMLElement {
   button: HTMLElement | null = null;
   #open: boolean = false;
 
-  constructor() {
-    super();
-    this.handleWindowClick = this.handleWindowClick.bind(this);
-  }
-
-  handleWindowClick(e: MouseEvent) {
+  handleWindowClick = (e: MouseEvent) => {
     if (!this.contains(e.target as Node)) {
       this.open = false;
     }
-  }
+  };
 
   set open(open: boolean) {
     if (open !== this.#open) {
-      this.dispatchEvent(
-        new Event(open ? 'menuopened' : 'menuclosed', { bubbles: true }),
-      );
       this.classList.toggle(cls.dropdownMenuOpen, open);
       if (!this.button?.getAttribute('aria-expanded')) {
         this.button?.setAttribute('aria-expanded', 'true');
@@ -27,6 +19,9 @@ class DropdownMenu extends HTMLElement {
         this.button?.removeAttribute('aria-expanded');
       }
       this.#open = open;
+      this.dispatchEvent(
+        new Event(open ? 'menuopened' : 'menuclosed', { bubbles: true }),
+      );
     }
   }
 

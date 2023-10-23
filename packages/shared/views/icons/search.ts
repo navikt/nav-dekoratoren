@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import html from '../../html';
-import cls from 'decorator-client/src/styles/search.module.css';
+import cls from './search.module.css';
 
 export type SearchProps = {
   className?: string;

@@ -3,6 +3,7 @@ import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links
 import { Node, Texts } from 'decorator-shared/types';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import cls from 'decorator-client/src/styles/complex-header-menu.module.css';
+import { SearchForm } from 'decorator-shared/views/search-form';
 
 export type ComplexHeaderMenuProps = {
   texts: Texts;
@@ -26,15 +27,14 @@ export const ComplexHeaderMenu = ({
     })}
   </div>
   <div class="${cls.menuContent}">
-    <div class="${cls.inlineSearch}">
-      <inline-search></inline-search>
-    </div>
-    <decorator-loader class="${cls.searchLoader}"></decorator-loader>
-    <div id="header-menu-links">
+    <search-menu class="${cls.searchMenu}">
+      ${SearchForm({ texts })}
+    </search-menu>
+    <main-menu>
       ${HeaderMenuLinks({
         headerMenuLinks,
         className: 'cols-3',
       })}
-    </div>
+    </main-menu>
   </div>
 `;

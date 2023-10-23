@@ -217,7 +217,7 @@ export const Default: Story = {
       close: 'Lukk',
       did_you_find: 'Fant du det du lette etter?',
       search: 'Søk',
-      sok_knapp_sokefelt: 'Søk på nav.no',
+      search_nav_no: 'Søk på nav.no',
       login: 'Logg inn',
       logout: 'Logg ut',
       notifications: 'Varsler',

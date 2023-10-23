@@ -1,5 +1,4 @@
 import html, { Template, unsafeHtml } from 'decorator-shared/html';
-import { WebcomponentTemplates } from './web-component-templates';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
@@ -98,6 +97,7 @@ export async function Index({
   lens,
   decoratorData,
   maskDocument = false,
+  main,
 }: {
   language: Language;
   header: Template;
@@ -107,6 +107,7 @@ export async function Index({
   lens: Template;
   decoratorData: Template;
   maskDocument?: boolean;
+  main?: Template;
 }) {
   const { links, scripts } = assets;
 
@@ -126,7 +127,6 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        ${WebcomponentTemplates()}
         <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
@@ -190,6 +190,7 @@ export async function Index({
           >
             Set utils background
           </button>
+          <div>${main}</div>
         </main>
         <div id="footer-withmenu" class="bg-white">
           ${logoutWarning} ${feedback} ${footer}

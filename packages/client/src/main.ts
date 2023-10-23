@@ -1,46 +1,40 @@
 import 'vite/modulepreload-polyfill';
+
 import './main.css';
+
 import.meta.glob('./styles/*.css', { eager: true });
 
 import getContent from './get-content';
 
 import './views/lenke-med-sporing';
-import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 import * as api from './api';
 
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 // Maybe create a file that does this
 import './views/language-selector';
-import './views/search';
 import './views/loader';
 import './views/decorator-lens';
 import './views/local-time';
 import './views/menu-background';
 import './views/dropdown-menu';
-
-import { SearchEvent } from './views/search';
-
-import { hasClass, replaceElement } from './utils';
+import './views/search-menu';
+import './views/search-input';
+import './views/main-menu';
+import './views/context-link';
 
 import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { logoutWarningController } from './controllers/logout-warning';
 
-import {
-  addBreadcrumbEventListeners,
-  afterAuthListeners,
-  onLoadListeners,
-} from './listeners';
+import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
 
 import { type AnalyticsEventArgs } from './analytics/constants';
-import { AppState, Texts } from 'decorator-shared/types';
+import { AppState } from 'decorator-shared/types';
 // CSS classe
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import complexHeaderMenuClasses from './styles/complex-header-menu.module.css';
-import { erNavDekoratoren } from './helpers/urls';
 import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
 
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
@@ -171,105 +165,26 @@ window.addEventListener('message', (e) => {
     }
 
     if (e.data.payload.context) {
-      setActiveContext(e.data.payload.context);
+      const context = e.data.payload.context;
+      if (CONTEXTS.includes(context)) {
+        window.dispatchEvent(
+          new CustomEvent('activecontext', {
+            bubbles: true,
+            detail: { context },
+          }),
+        );
+      } else {
+        console.warn('Unrecognized context', context);
+      }
     }
   }
 });
 
-document
-  .querySelectorAll(`.${headerClasses.headerContextLink}`)
-  .forEach((contextLink) => {
-    contextLink.addEventListener('click', (e) => {
-      if (erNavDekoratoren()) {
-        e.preventDefault();
-      }
-
-      setActiveContext(contextLink.getAttribute('data-context') as Context);
-    });
+window.addEventListener('activecontext', (event) => {
+  updateDecoratorParams({
+    context: (event as CustomEvent<{ context: Context }>).detail.context,
   });
-
-// For inside menu.
-document.body.addEventListener('click', (e) => {
-  const target = hasClass({
-    element: e.target as HTMLElement,
-    className: 'context-menu-link-wrapper',
-  });
-
-  if (target) {
-    e.preventDefault();
-    // alert('Found a context menu link wrapper')
-    const newContext = target.getAttribute('data-context') as Context;
-    setActiveContext(newContext);
-  }
 });
-
-async function setActiveContext(context: Context | null) {
-  if (context && CONTEXTS.includes(context)) {
-    updateDecoratorParams({ context });
-
-    document
-      .querySelectorAll(`.${headerClasses.headerContextLink}`)
-      .forEach((el) =>
-        el.getAttribute('data-context') === context
-          ? el.classList.add(headerClasses.lenkeActive)
-          : el.classList.remove(headerClasses.lenkeActive),
-      );
-
-    const headerMenuLinks = await getContent('headerMenuLinks', {
-      context,
-    });
-
-    replaceElement({
-      selector: '#header-menu-links',
-      html: HeaderMenuLinks({
-        headerMenuLinks,
-        className: `cols-${headerMenuLinks.length}`,
-      }),
-    });
-  } else {
-    console.warn('Unrecognized context', context);
-  }
-}
-
-// Keeping this for later when fixing opening menus and such
-// function dismissMenu() {
-//     const menu = document.getElementById('menu');
-//     const menuButton = document.getElementById('menu-button');
-//
-//     [menuButton, menuBackground, menu].forEach((el) => el && purgeActive(el));
-// }
-
-// Handles mobile search
-const [inlineSearch] = document.getElementsByTagName('inline-search');
-
-if (window.__DECORATOR_DATA__.params.simple === false) {
-  const searchEventHandlers: Record<SearchEvent, () => void> = {
-    'started-typing': () => {
-      document
-        .querySelector('#header-menu-links')
-        ?.classList.add('is-searching');
-    },
-    'is-searching': () => {
-      document
-        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
-        ?.classList.add(complexHeaderMenuClasses.active);
-    },
-    'stopped-searching': () => {
-      document
-        .querySelector('#header-menu-links')
-        ?.classList.remove('is-searching');
-    },
-    'finished-searching': () => {
-      document
-        .querySelector(`.${complexHeaderMenuClasses.searchLoader}`)
-        ?.classList.remove(complexHeaderMenuClasses.active);
-    },
-  };
-
-  for (const [event, handler] of Object.entries(searchEventHandlers)) {
-    inlineSearch.addEventListener(event, handler);
-  }
-}
 
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
@@ -334,9 +249,6 @@ api.checkAuth({
           ? await notificationsResponse.text()
           : window.__DECORATOR_DATA__.texts.notifications_error;
     }
-
-    // Attach arkiver listener
-    afterAuthListeners();
   },
 });
 
