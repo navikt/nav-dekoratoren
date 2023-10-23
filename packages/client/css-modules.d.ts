@@ -178,19 +178,6 @@ declare module '*search-hits.module.css' {
   export default classes;
 }
 
-declare module '*search.module.css' {
-  const classes: {
-    searchHitList: string;
-    menuSearch: string;
-    menuSearch__circle: string;
-    menuSearch__line_1: string;
-    menuSearch__line_2: string;
-    menuSearch__line_3: string;
-    menuSearch__line_4: string;
-  };
-  export default classes;
-}
-
 declare module '*simple-footer.module.css' {
   const classes: {
     simpleFooter: string;
