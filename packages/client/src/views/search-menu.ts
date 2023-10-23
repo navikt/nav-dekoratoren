@@ -5,6 +5,7 @@ import cls from '../styles/search-form.module.css';
 class SearchMenu extends HTMLElement {
   form: HTMLFormElement | null = null;
   input: HTMLInputElement | null = null;
+  parentDropdown: HTMLInputElement | null = null;
   hits: HTMLElement;
 
   constructor() {
@@ -12,28 +13,27 @@ class SearchMenu extends HTMLElement {
     this.hits = document.createElement('div');
   }
 
-  clearSearch() {
+  clearSearch = () => {
     this.hits.remove();
     if (this.input) {
       this.input.value = '';
     }
-  }
+  };
+
+  focus = () => this.input?.focus();
 
   connectedCallback() {
     this.form = this.querySelector(`.${cls.searchForm}`);
     this.input = this.querySelector(`.${cls.searchInput}`);
+    this.parentDropdown = this.closest('dropdown-menu');
 
     if (this.getAttribute('data-auto-focus') !== null) {
-      this.closest('dropdown-menu')?.addEventListener('menuopened', () => {
-        this.input?.focus();
-      });
+      this.parentDropdown?.addEventListener('menuopened', this.focus);
     }
 
-    this.closest('dropdown-menu')?.addEventListener('menuclosed', () =>
-      this.clearSearch(),
-    );
+    this.parentDropdown?.addEventListener('menuclosed', this.clearSearch);
 
-    this.addEventListener('clearsearch', () => this.clearSearch());
+    this.addEventListener('clearsearch', this.clearSearch);
 
     this.form?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -86,6 +86,14 @@ class SearchMenu extends HTMLElement {
         this.hits.remove();
       }
     });
+  }
+
+  disconnectedCallback() {
+    if (this.getAttribute('data-auto-focus') !== null) {
+      this.parentDropdown?.removeEventListener('menuopened', this.focus);
+    }
+
+    this.parentDropdown?.removeEventListener('menuclosed', this.clearSearch);
   }
 }
 
