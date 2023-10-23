@@ -97,6 +97,7 @@ export async function Index({
   lens,
   decoratorData,
   maskDocument = false,
+  main,
 }: {
   language: Language;
   header: Template;
@@ -106,6 +107,7 @@ export async function Index({
   lens: Template;
   decoratorData: Template;
   maskDocument?: boolean;
+  main?: Template;
 }) {
   const { links, scripts } = assets;
 
@@ -188,6 +190,7 @@ export async function Index({
           >
             Set utils background
           </button>
+          <div>${main}</div>
         </main>
         <div id="footer-withmenu" class="bg-white">
           ${logoutWarning} ${feedback} ${footer}

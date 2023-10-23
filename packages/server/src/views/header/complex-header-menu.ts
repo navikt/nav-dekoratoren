@@ -30,11 +30,11 @@ export const ComplexHeaderMenu = ({
     <search-menu class="${cls.searchMenu}">
       ${SearchForm({ texts })}
     </search-menu>
-    <div id="header-menu-links">
+    <main-menu>
       ${HeaderMenuLinks({
         headerMenuLinks,
         className: 'cols-3',
       })}
-    </div>
+    </main-menu>
   </div>
 `;

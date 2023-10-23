@@ -189,6 +189,14 @@ declare module '*simple-footer.module.css' {
   export default classes;
 }
 
+declare module '*splash-page.module.css' {
+  const classes: {
+    splashPage: string;
+    splashAlert: string;
+  };
+  export default classes;
+}
+
 declare module '*utils.module.css' {
   const classes: {
     bigLabel: string;

@@ -15,7 +15,8 @@ body {
 }
 
 #header-withmenu,
-#footer-withmenu {
+#footer-withmenu
+{
   font-family: 'Source Sans 3', sans-serif;
   line-height: 1.333;
   font-size: 1.125rem;
