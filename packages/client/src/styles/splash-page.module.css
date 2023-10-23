@@ -1,0 +1,22 @@
+.splashPage {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Source Sans 3', sans-serif;
+    line-height: 1.333;
+    font-size: 1.125rem;
+    background-color: rgb(241, 241, 241);
+}
+
+
+.splashAlert {
+    align-items: center;
+    border: 1px solid;
+    border-radius: var(--a-border-radius-medium);
+    display: flex;
+    gap: var(--a-spacing-3);
+    padding: var(--a-spacing-4);
+    background-color: var(--ac-alert-info-bg,var(--a-surface-info-subtle));
+    border-color: var(--ac-alert-info-border,var(--a-border-info));
+}

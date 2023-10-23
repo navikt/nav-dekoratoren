@@ -390,6 +390,7 @@ exports[`renders norwegian index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
+        
     <header class="_siteheader_bxwj3_1">
       <div class="_wrapperWrapper_bxwj3_9">
         <div class="_hovedmenyWrapper_bxwj3_16 _contentContainer_zsniq_2">
@@ -1279,7 +1280,8 @@ exports[`renders norwegian index 1`] = `
     </header>
     
     <menu-background />
-  </div>
+  
+        </div>
         <main>
           
   <button
@@ -1346,6 +1348,18 @@ exports[`renders norwegian index 1`] = `
           >
             Set utils background
           </button>
+          <div>
+          
+    <div class="_splashPage_1sgkj_1">
+      <div class="_splashAlert_1sgkj_13">
+        <span
+          >Hei! Dette er en intern test-side for header og footer på nav.no.
+          <a href="https://www.nav.no">Gå til forsiden</a>.
+        </span>
+      </div>
+    </div>
+  
+          </div>
         </main>
         <div id="footer-withmenu" class="bg-white">
             
@@ -2043,6 +2057,7 @@ exports[`renders english index 1`] = `
     <template id="search-icon-button-template"></template>
   
         <div id="header-withmenu">
+        
     <header class="_siteheader_bxwj3_1">
       <div class="_wrapperWrapper_bxwj3_9">
         <div class="_hovedmenyWrapper_bxwj3_16 _contentContainer_zsniq_2">
@@ -3406,7 +3421,8 @@ exports[`renders english index 1`] = `
     </header>
     
     <menu-background />
-  </div>
+  
+        </div>
         <main>
           
   <button
@@ -3473,6 +3489,18 @@ exports[`renders english index 1`] = `
           >
             Set utils background
           </button>
+          <div>
+          
+    <div class="_splashPage_1sgkj_1">
+      <div class="_splashAlert_1sgkj_13">
+        <span
+          >Hei! Dette er en intern test-side for header og footer på nav.no.
+          <a href="https://www.nav.no">Gå til forsiden</a>.
+        </span>
+      </div>
+    </div>
+  
+          </div>
         </main>
         <div id="footer-withmenu" class="bg-white">
             

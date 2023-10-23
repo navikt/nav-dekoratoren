@@ -33,7 +33,7 @@ module.exports = {
     prefixer({
       transform(prefix, selector, prefixedSelector, filePath, rule) {
         if ([':root', ':host'].includes(selector)) {
-          return '#header-withmenu, #footer-withmenu';
+          return '#header-withmenu, #footer-withmenu, main';
         }
 
         return selector;
