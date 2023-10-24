@@ -18,8 +18,9 @@
 }
 
 .wrapperWrapper {
+  width: 100%;
+  max-width: calc(1440px + var(--a-spacing-10) * 2);
   height: 100%;
-  width: fit-content;
   margin-inline: auto;
   position: relative;
 }
@@ -35,6 +36,7 @@
   display: flex;
   align-items: center;
   height: 100%;
+  gap: var(--a-spacing-10);
 }
 
 @media (--breakpoint-lg) {
@@ -44,15 +46,13 @@
 }
 
 .arbeidsflate {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin-left: 40px;
+  display: none;
 }
 
-@media (--breakpoint-lg) {
+@media (min-width: 1200px) {
   .arbeidsflate {
-    display: none;
+    display: flex;
+    height: 100%;
   }
 }
 

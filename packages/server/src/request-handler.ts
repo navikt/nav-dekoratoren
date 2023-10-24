@@ -99,6 +99,8 @@ const requestHandler = async (
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
     .get('/api/notifications', async ({ query }) => {
+      // throw new Error('woops!');
+
       const notificationLists = await notificationsService.getNotifications(
         texts[validParams(query).language],
       );
