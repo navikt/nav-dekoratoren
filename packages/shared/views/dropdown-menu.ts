@@ -16,13 +16,9 @@ export const DropdownMenu = ({
 }: DropdownMenuProps) =>
   html`<dropdown-menu>
     ${button}
-    <div
-      class="${clsx(
-        utilsCls.contentContainer,
-        cls.dropdownMenuContent,
-        dropdownClass,
-      )}"
-    >
-      ${dropdownContent}
+    <div class="${clsx(utilsCls.contentContainer, cls.dropdownMenuContainer)}">
+      <div class="${clsx(dropdownClass, cls.dropdownMenuContent)}">
+        ${dropdownContent}
+      </div>
     </div>
   </dropdown-menu>`;
