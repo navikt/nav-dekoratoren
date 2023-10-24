@@ -63,8 +63,9 @@ declare module '*driftsmeldinger.module.css' {
 
 declare module '*dropdown-menu.module.css' {
   const classes: {
-    dropdownMenuContent: string;
+    dropdownMenuContainer: string;
     dropdownMenuOpen: string;
+    dropdownMenuContent: string;
   };
   export default classes;
 }
@@ -85,7 +86,6 @@ declare module '*header.module.css' {
   const classes: {
     logo: string;
     siteheader: string;
-    wrapperWrapper: string;
     hovedmenyWrapper: string;
     hovedmenyContent: string;
     arbeidsflate: string;
