@@ -4,15 +4,23 @@
   font: inherit;
   cursor: pointer;
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: center;
   color: rgba(0, 103, 197, 1);
-  min-width: 95px;
   white-space: nowrap;
   border-radius: 3px;
   padding: var(--a-spacing-3) var(--a-spacing-2);
   border: 2px solid transparent; /* border-2 border-transparent */
   background-color: rgba(0, 0, 0, 0);
   border-color: rgba(255, 255, 255, 0);
+}
+
+@media (min-width: 768px) {
+  .iconButton {
+    flex-direction: row;
+    min-width: 95px;
+    gap: var(--a-spacing-2);
+  }
 }
 
 .iconButton:hover {
@@ -41,13 +49,4 @@
 
 [aria-expanded='true'] .chevron {
   transform: rotate(180deg);
-}
-
-@media (--breakpoint-lg) {
-  .iconButton {
-    flex-direction: column;
-    min-width: none;
-    gap: 0px;
-    align-items: center;
-  }
 }

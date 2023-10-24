@@ -141,7 +141,6 @@ declare module '*notifications.module.css' {
     notificationListHeading: string;
     notificationList: string;
     allNotificationsLink: string;
-    tidligereNotifications: string;
   };
   export default classes;
 }

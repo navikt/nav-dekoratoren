@@ -39,12 +39,6 @@
   gap: var(--a-spacing-10);
 }
 
-@media (--breakpoint-lg) {
-  .hovedmenyContent {
-    padding-left: var(--a-spacing-4);
-  }
-}
-
 .arbeidsflate {
   display: none;
 }

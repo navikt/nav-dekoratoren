@@ -38,6 +38,7 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
           Icon: ProfileIcon({}),
           text: name,
           chevron: true,
+          className: cls.myPageMenuButton,
         }),
         dropdownClass: cls.myPageMenuDropdown,
         dropdownContent: html`<div>
@@ -52,6 +53,7 @@ export function LoggedInMenu({ name, myPageMenu, texts }: LoggedInMenuProps) {
         id: 'logout-button',
         Icon: LogoutIcon({}),
         text: texts.logout,
+        className: cls.logoutButton,
       })}
     </div>
   `;

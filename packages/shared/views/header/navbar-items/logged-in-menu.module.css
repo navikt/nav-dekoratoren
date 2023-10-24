@@ -1,17 +1,34 @@
 .notificationsDropdown {
   max-width: 570px;
+  background-color: var(--a-surface-subtle);
+  padding-block: var(--a-spacing-8);
 }
 
 .myPageMenuDropdown {
   max-width: 1024px;
 }
 
+.myPageMenuButton.myPageMenuButton {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .myPageMenuButton.myPageMenuButton {
+    display: flex;
+  }
+}
+
 .loggedInMenu {
-  background-color: rgba(230, 240, 255, 1);
   height: 100%;
   display: flex;
   align-items: center;
   padding: 0 var(--a-spacing-2);
+}
+
+@media (min-width: 768px) {
+  .loggedInMenu {
+    background-color: rgba(230, 240, 255, 1);
+  }
 }
 
 .myPageMenuHeading {
@@ -58,4 +75,14 @@
 
 [aria-expanded='true'] .closeIcon {
   display: block;
+}
+
+.logoutButton.logoutButton {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .logoutButton.logoutButton {
+    display: flex;
+  }
 }

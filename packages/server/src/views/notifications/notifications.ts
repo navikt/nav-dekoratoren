@@ -58,7 +58,7 @@ export function Notifications({
     )}
     <div>
       <a
-        class="${cls.tidligereNotifications}"
+        class="${cls.allNotificationsLink}"
         href="${process.env.VITE_MIN_SIDE_URL}/all-notifications"
       >
         ${texts.earlier_notifications}
