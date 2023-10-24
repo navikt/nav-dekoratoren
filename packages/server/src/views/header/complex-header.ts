@@ -44,53 +44,51 @@ export function ComplexHeader({
 }: ComplexHeaderProps) {
   return html`
     <header class="${cls.siteheader}">
-      <div class="${cls.wrapperWrapper}">
-        <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-          <div class="${cls.hovedmenyContent}">
-            ${LenkeMedSporing({
-              className: cls.logo,
-              href: '/',
-              analyticsEventArgs: {
-                category: 'dekorator-header',
-                action: 'navlogo',
-              },
-              dataAttachContext: true,
-              children: html`<img
-                src="/public/ikoner/meny/nav-logo-red.svg"
-                alt="NAV"
-              />`,
-            })}
-            <div class="${cls.arbeidsflate}">
-              ${isNorwegian &&
-              contextLinks?.map(
-                ({ url, lenkeTekstId, context }) =>
-                  html`<a
-                    is="context-link"
-                    href="${url}"
-                    data-analytics-event-args="${JSON.stringify({
-                      action: 'arbeidsflate-valg',
-                      category: 'dekorator-header',
-                      label: context,
-                    })}"
-                    class="${clsx(cls.headerContextLink, {
-                      [cls.lenkeActive]: context === currentContext,
-                    })}"
-                    data-attach-context
-                    data-context="${context.toLowerCase()}"
-                  >
-                    ${texts[lenkeTekstId]}
-                  </a>`,
-              )}
-            </div>
-          </div>
-          ${ComplexHeaderNavbarItems({
-            innlogget,
-            texts,
-            myPageMenu: myPageMenu as Node[],
-            headerMenuLinks,
-            name,
+      <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+        <div class="${cls.hovedmenyContent}">
+          ${LenkeMedSporing({
+            className: cls.logo,
+            href: '/',
+            analyticsEventArgs: {
+              category: 'dekorator-header',
+              action: 'navlogo',
+            },
+            dataAttachContext: true,
+            children: html`<img
+              src="/public/ikoner/meny/nav-logo-red.svg"
+              alt="NAV"
+            />`,
           })}
+          <div class="${cls.arbeidsflate}">
+            ${isNorwegian &&
+            contextLinks?.map(
+              ({ url, lenkeTekstId, context }) =>
+                html`<a
+                  is="context-link"
+                  href="${url}"
+                  data-analytics-event-args="${JSON.stringify({
+                    action: 'arbeidsflate-valg',
+                    category: 'dekorator-header',
+                    label: context,
+                  })}"
+                  class="${clsx(cls.headerContextLink, {
+                    [cls.lenkeActive]: context === currentContext,
+                  })}"
+                  data-attach-context
+                  data-context="${context.toLowerCase()}"
+                >
+                  ${texts[lenkeTekstId]}
+                </a>`,
+            )}
+          </div>
         </div>
+        ${ComplexHeaderNavbarItems({
+          innlogget,
+          texts,
+          myPageMenu: myPageMenu as Node[],
+          headerMenuLinks,
+          name,
+        })}
       </div>
     </header>
     ${DecoratorUtilsContainer({
