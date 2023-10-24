@@ -1,6 +1,6 @@
 @layer utilities {
   .contentContainer {
-    width: 100vw;
+    width: 100%;
     max-width: 1440px;
     margin-inline: auto;
     padding-inline: var(--a-spacing-4);
