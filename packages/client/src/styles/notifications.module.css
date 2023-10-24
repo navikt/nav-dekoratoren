@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-6);
-  padding: var(--a-spacing-4);
+  padding-inline: var(--a-spacing-2);
 }
 
 .notificationListHeading {
@@ -22,7 +22,6 @@
 }
 
 .allNotificationsLink {
-  text-decoration: underline;
   text-underline-offset: 0.15em;
   color: var(--a-text-default);
   cursor: pointer;
@@ -30,7 +29,4 @@
 
 .allNotificationsLink:hover {
   text-decoration: none;
-}
-
-.tidligereNotifications {
 }

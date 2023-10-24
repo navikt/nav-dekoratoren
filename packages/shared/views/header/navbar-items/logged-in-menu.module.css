@@ -1,5 +1,7 @@
 .notificationsDropdown {
   max-width: 570px;
+  background-color: var(--a-surface-subtle);
+  padding-block: var(--a-spacing-8);
 }
 
 .myPageMenuDropdown {
