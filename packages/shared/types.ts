@@ -76,6 +76,7 @@ export type Texts = {
   see_all_hits: string;
   no_hits_for: string;
   loading_preview: string;
+  to_front_page: string;
 };
 
 export type Driftsmelding = {

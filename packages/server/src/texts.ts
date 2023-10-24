@@ -56,6 +56,7 @@ const nb = {
   see_all_hits: 'Se alle treff',
   no_hits_for: 'Ingen treff for',
   loading_preview: 'Laster forhåndsvisning',
+  to_front_page: 'Til forsiden',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -118,6 +119,7 @@ export const texts: Record<Language, Texts> = {
     see_all_hits: 'See all hits',
     no_hits_for: 'No hits for',
     loading_preview: 'Loading preview',
+    to_front_page: 'To thie front page',
   },
   se: nb,
   nn: nb,
