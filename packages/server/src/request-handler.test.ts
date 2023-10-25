@@ -50,23 +50,6 @@ test('search', async () => {
   expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
 });
 
-test('driftsmeldinger', async () => {
-  const response = await fetch(
-    new Request('http://localhost/api/driftsmeldinger'),
-  );
-  expect(response.status).toBe(200);
-  expect(response.headers.get('content-type')).toBe(
-    'application/json; charset=utf-8',
-  );
-  expect(await response.json()).toEqual([
-    {
-      heading: 'wat',
-      url: 'example.com',
-      urlscope: ['privatperson'],
-    },
-  ]);
-});
-
 describe('notifications', () => {
   test('archive notification on POST', async () => {
     const response = await fetch(

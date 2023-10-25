@@ -1,0 +1,38 @@
+.opsMessages {
+  background-color: var(--a-deepblue-600);
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--a-spacing-4);
+  padding: var(--a-spacing-2);
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px) {
+  .opsMessages {
+    justify-content: center;
+    padding-inline: var(--a-spacing-6);
+    column-gap: var(--a-spacing-12);
+  }
+}
+
+.opsMessage {
+  border-radius: var(--a-border-radius-large);
+  color: var(--a-text-on-action);
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-2);
+  padding: var(--a-spacing-2);
+  cursor: pointer;
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
+}
+
+.opsMessage:hover {
+  text-decoration: none;
+}
+
+.opsMessage:focus {
+  box-shadow: 0 0 0 3px var(--a-text-on-action);
+  outline: none;
+  text-decoration: none;
+}

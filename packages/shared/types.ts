@@ -81,7 +81,6 @@ export type Texts = {
 export type Driftsmelding = {
   heading: string;
   url: string;
-  urlscope: string[];
 };
 
 export type TextKey = keyof Texts;

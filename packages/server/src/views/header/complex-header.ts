@@ -13,6 +13,7 @@ import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helper
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import cls from 'decorator-client/src/styles/header.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';
+import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 
 export type ComplexHeaderProps = {
   isNorwegian: boolean;
@@ -91,6 +92,7 @@ export function ComplexHeader({
         })}
       </div>
     </header>
+    <ops-messages class="${opsMessagesCls.opsMessages}" />
     ${DecoratorUtilsContainer({
       utilsBackground,
       breadcrumbs,

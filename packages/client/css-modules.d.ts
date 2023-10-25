@@ -53,14 +53,6 @@ declare module '*decorator-lens.module.css' {
   export default classes;
 }
 
-declare module '*driftsmeldinger.module.css' {
-  const classes: {
-    driftsmeldinger: string;
-    driftsmeldingLink: string;
-  };
-  export default classes;
-}
-
 declare module '*dropdown-menu.module.css' {
   const classes: {
     dropdownMenuContainer: string;
@@ -141,6 +133,14 @@ declare module '*notifications.module.css' {
     notificationListHeading: string;
     notificationList: string;
     allNotificationsLink: string;
+  };
+  export default classes;
+}
+
+declare module '*ops-messages.module.css' {
+  const classes: {
+    opsMessages: string;
+    opsMessage: string;
   };
   export default classes;
 }
