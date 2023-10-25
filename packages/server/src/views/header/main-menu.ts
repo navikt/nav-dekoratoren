@@ -1,13 +1,19 @@
 import html from 'decorator-shared/html';
-import { Link, LinkGroup, Texts } from 'decorator-shared/types';
+import { LinkGroup, Texts } from 'decorator-shared/types';
 import cls from 'decorator-client/src/styles/main-menu.module.css';
+
+type ContextLink = {
+  content: string;
+  description?: string;
+  url: string;
+};
 
 export type MainMenuProps = {
   title: string;
   texts: Texts;
   homeUrl: string;
   links: LinkGroup[];
-  contextLinks: Link[];
+  contextLinks: ContextLink[];
 };
 
 export function MainMenu({
@@ -43,8 +49,14 @@ export function MainMenu({
     </div>
     <div class="${cls.contextLinks}">
       ${contextLinks.map(
-        ({ content, url }) =>
-          html`<a href="${url}" class="${cls.contextLink}">${content}</a>`,
+        ({ content, url, description }) =>
+          html`<a href="${url}" class="${cls.contextLink}">
+            <div class="${cls.contextLinkTitle}">${content}</div>
+            ${description &&
+            html`<div class="${cls.contextLinkDescription}">
+              ${description}
+            </div>`}
+          </a>`,
       )}
     </div>
   </div>`;

@@ -129,6 +129,8 @@ declare module '*main-menu.module.css' {
     linkList: string;
     contextLinks: string;
     contextLink: string;
+    contextLinkTitle: string;
+    contextLinkDescription: string;
   };
   export default classes;
 }
