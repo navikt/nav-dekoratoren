@@ -17,14 +17,6 @@
   z-index: 1000;
 }
 
-.wrapperWrapper {
-  width: 100%;
-  max-width: calc(1440px + var(--a-spacing-10) * 2);
-  height: 100%;
-  margin-inline: auto;
-  position: relative;
-}
-
 .hovedmenyWrapper {
   height: 100%;
   display: flex;
