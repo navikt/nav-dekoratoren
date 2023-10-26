@@ -74,11 +74,12 @@
 
 .contextLinks {
   background-color: var(--a-surface-subtle);
-  columns: 19rem 3;
+  columns: 20rem 3;
   padding: var(--a-spacing-6);
 }
 
 .contextLink {
+  break-inside: avoid;
   display: block;
   margin-bottom: var(--a-spacing-6);
   background-color: var(--a-surface-default);

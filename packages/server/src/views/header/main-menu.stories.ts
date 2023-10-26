@@ -119,11 +119,14 @@ export const Arbeidsgiver: Story = {
     contextLinks: [
       {
         content: 'Min side - arbeidsgiver',
+        description: 'Dine sykmeldte, rekruttering, digitale skjemaer',
         url: '/min-side',
       },
 
       {
-        content: 'Privatperson',
+        content: 'Privat',
+        description:
+          'Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester',
         url: '/arbeidsgiver',
       },
       {
