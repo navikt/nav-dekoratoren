@@ -1,6 +1,10 @@
 import html from '../../html';
 
-export function WarningIcon() {
+export type WarningIconProps = {
+  className?: string;
+};
+
+export function WarningIcon({ className = '' }: WarningIconProps) {
   return html`
     <svg
       width="24px"
@@ -9,6 +13,7 @@ export function WarningIcon() {
       fill="none"
       role="img"
       aria-hidden="true"
+      class="${className}"
     >
       <path
         fill-rule="evenodd"
