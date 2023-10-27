@@ -16,7 +16,7 @@ export const Privatperson: Story = {
   args: {
     title: 'Hva kan vi hjelpe deg med?',
     texts: texts.nb,
-    homeUrl: '/',
+    frontPageUrl: '/',
     links: [
       {
         heading: 'Områder',
@@ -68,7 +68,7 @@ export const Arbeidsgiver: Story = {
   args: {
     title: 'Arbeidsgiver',
     texts: texts.nb,
-    homeUrl: '/',
+    frontPageUrl: '/',
     links: [
       {
         heading: 'Sykdom, skade og fravær',

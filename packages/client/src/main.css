@@ -15,9 +15,16 @@ body {
 }
 
 #header-withmenu,
-#footer-withmenu
-{
+#footer-withmenu {
+  --edge-spacing: var(--a-spacing-4);
   font-family: 'Source Sans 3', sans-serif;
   line-height: 1.333;
   font-size: 1.125rem;
+}
+
+@media (min-width: 1024px) {
+  #header-withmenu,
+  #footer-withmenu {
+    --edge-spacing: var(--a-spacing-10);
+  }
 }

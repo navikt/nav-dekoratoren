@@ -1,4 +1,6 @@
 .dropdownMenuContainer {
+  width: 100%;
+  max-width: 1440px;
   display: none;
   position: absolute;
   top: 100%;
@@ -24,17 +26,8 @@
 }
 
 .dropdownMenuContent {
+  width: 100%;
   background-color: var(--a-surface-default);
   border-radius: 0 0 var(--a-border-radius-medium) var(--a-border-radius-medium);
-  padding-block: var(--a-spacing-2) var(--a-spacing-4);
-  padding-inline: var(--a-spacing-4);
-  margin-inline: calc(var(--a-spacing-4) * -1);
-  flex-grow: 1;
-}
-
-@media (min-width: 1024px) {
-  .dropdownMenuContent {
-    padding-inline: var(--a-spacing-10);
-    margin-inline: calc(var(--a-spacing-10) * -1);
-    }
+  overflow: hidden;
 }
