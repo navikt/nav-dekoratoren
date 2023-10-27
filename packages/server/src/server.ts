@@ -1,4 +1,4 @@
-import { fetchDriftsmeldinger, fetchMenu, fetchSearch } from './enonic';
+import { fetchOpsMessages, fetchMenu, fetchSearch } from './enonic';
 import { readdirSync, statSync } from 'node:fs';
 import { env } from './env/server';
 import ContentService from './content-service';
@@ -23,7 +23,21 @@ const server = Bun.serve({
       process.env.NODE_ENV === 'production'
         ? fetchMenu
         : () => Promise.resolve(menu),
-      fetchDriftsmeldinger,
+      process.env.NODE_ENV === 'production'
+        ? fetchOpsMessages
+        : () =>
+            Promise.resolve([
+              {
+                heading: 'Ustabile tjenester søndag 15. januar',
+                url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
+                type: 'prodstatus',
+              },
+              {
+                heading: 'Svindelforsøk via SMS - vær oppmerksom',
+                url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
+                type: 'info',
+              },
+            ]),
     ),
     new SearchService(fetchSearch),
     {
