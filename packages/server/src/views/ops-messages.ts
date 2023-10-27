@@ -10,7 +10,15 @@ export type OpsMessagesProps = {
 export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
   ${opsMessages.map(
     ({ heading, url, type }) =>
-      html`<a href="${url}" class="${cls.opsMessage}">
+      html`<a
+        is="lenke-med-sporing"
+        data-analytics-event-args="${JSON.stringify({
+          category: 'dekorator-header',
+          action: 'driftsmeldinger',
+        })}"
+        href="${url}"
+        class="${cls.opsMessage}"
+      >
         ${type === 'prodstatus' ? WarningIcon() : InfoIcon()}
         <span>${heading}</span>
       </a>`,
