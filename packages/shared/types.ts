@@ -76,12 +76,13 @@ export type Texts = {
   see_all_hits: string;
   no_hits_for: string;
   loading_preview: string;
+  important_info: string;
 };
 
-export type Driftsmelding = {
+export type OpsMessage = {
   heading: string;
   url: string;
-  urlscope: string[];
+  type: 'prodstatus' | 'info';
 };
 
 export type TextKey = keyof Texts;

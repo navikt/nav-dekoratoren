@@ -1,4 +1,4 @@
-import { Driftsmelding, Node } from 'decorator-shared/types';
+import { OpsMessage, Node } from 'decorator-shared/types';
 import { env } from './env/server';
 import { SearchResult } from 'decorator-shared/types';
 
@@ -15,10 +15,10 @@ export const fetchMenu: () => Promise<Node[]> = async () => {
   return menuCache;
 };
 
-export const fetchDriftsmeldinger = (): Promise<Driftsmelding[]> =>
+export const fetchOpsMessages = (): Promise<OpsMessage[]> =>
   fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`).then((res) =>
     res.json(),
-  ) as Promise<Driftsmelding[]>;
+  ) as Promise<OpsMessage[]>;
 
 export const fetchSearch = (query: string): Promise<SearchResult> =>
   fetch(

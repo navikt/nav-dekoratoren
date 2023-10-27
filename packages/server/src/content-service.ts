@@ -1,4 +1,4 @@
-import { Driftsmelding, Link, LinkGroup, Node } from 'decorator-shared/types';
+import { OpsMessage, Link, LinkGroup, Node } from 'decorator-shared/types';
 import { Context, Language, Params } from 'decorator-shared/params';
 
 type LanguageParam = {
@@ -76,11 +76,11 @@ const extractor = {
 export default class ContentService {
   constructor(
     private fetchMenu: () => Promise<Node[]>,
-    private fetchDriftsmeldinger: () => Promise<Driftsmelding[]>,
+    private fetchOpsMessages: () => Promise<OpsMessage[]>,
   ) {}
 
-  async getDriftsmeldinger() {
-    return this.fetchDriftsmeldinger();
+  async getOpsMessages() {
+    return this.fetchOpsMessages();
   }
 
   async getHeaderMenuLinks(options: ExtractHeaderMenuLinkOptions) {

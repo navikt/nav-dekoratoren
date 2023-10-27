@@ -18,6 +18,7 @@ import { HandlerBuilder, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
 import { env } from './env/server';
 import { SearchHits } from './views/search-hits';
+import { OpsMessages } from './views/ops-messages';
 import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 
 type FileSystemService = {
@@ -119,12 +120,8 @@ const requestHandler = async (
         },
       );
     })
-
     .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
-    )
-    .get('/api/driftsmeldinger', () =>
-      jsonResponse(contentService.getDriftsmeldinger()),
     )
     .get('/api/search', async ({ query }) => {
       const searchQuery = query.q;
@@ -163,6 +160,18 @@ const requestHandler = async (
         },
       );
     })
+    .get(
+      '/ops-messages',
+      async () =>
+        new Response(
+          OpsMessages({
+            opsMessages: await contentService.getOpsMessages(),
+          }).render(),
+          {
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          },
+        ),
+    )
     .get('/', async ({ url, query }) => {
       const index = await renderIndex({
         contentService,

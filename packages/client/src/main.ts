@@ -22,10 +22,10 @@ import './views/search-menu';
 import './views/search-input';
 import './views/main-menu';
 import './views/context-link';
+import './views/ops-messages';
 
 import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
-import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { logoutWarningController } from './controllers/logout-warning';
 
 import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
@@ -98,7 +98,6 @@ onLoadListeners({
 });
 
 attachLensListener();
-fetchDriftsMeldinger();
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
   logoutWarningController(
