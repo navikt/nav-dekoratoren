@@ -56,7 +56,10 @@ declare module '*decorator-lens.module.css' {
 declare module '*driftsmeldinger.module.css' {
   const classes: {
     driftsmeldinger: string;
+    driftsmeldingerContainer: string;
     driftsmeldingLink: string;
+    driftsmeldingIkon: string;
+    driftsmeldingTekst: string;
   };
   export default classes;
 }
