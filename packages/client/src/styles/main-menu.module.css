@@ -76,14 +76,24 @@
 .contextLinks {
   background-color: var(--a-surface-subtle);
   columns: 20rem 3;
-  padding: var(--a-spacing-6);
-  padding-right: var(--edge-spacing);
+  gap: var(--a-spacing-3);
+  padding-block: var(--a-spacing-6);
+  padding-inline: var(--edge-spacing);
 }
+
+@media (min-width: 1024px) {
+  .contextLinks {
+    padding-inline-start: var(--a-spacing-6);
+    padding-block: var(--a-spacing-6);
+  }
+}
+
+
 
 .contextLink {
   break-inside: avoid;
   display: block;
-  margin-bottom: var(--a-spacing-6);
+  margin-block-end: var(--a-spacing-3);
   background-color: var(--a-surface-default);
   padding: var(--a-spacing-6);
   border-radius: var(--a-border-radius-large);
