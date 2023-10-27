@@ -10,6 +10,7 @@ import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-it
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import cls from 'decorator-client/src/styles/header.module.css';
 import utilCls from 'decorator-shared/utilities.module.css';
+import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 
 export type SimpleHeaderProps = {
   texts: Texts;
@@ -51,6 +52,7 @@ export function SimpleHeader({
         })}
       </div>
     </header>
+    <ops-messages class="${opsMessagesCls.opsMessages}" />
     ${DecoratorUtilsContainer({
       utilsBackground,
       breadcrumbs,
