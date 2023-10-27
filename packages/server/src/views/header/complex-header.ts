@@ -92,7 +92,11 @@ export function ComplexHeader({
         })}
       </div>
     </header>
-    <ops-messages class="${opsMessagesCls.opsMessages}" />
+    <div class="${opsMessagesCls.opsMessagesContainer}">
+      <ops-messages
+        class="${opsMessagesCls.opsMessages} ${utilsCls.contentContainer}"
+      />
+    </div>
     ${DecoratorUtilsContainer({
       utilsBackground,
       breadcrumbs,

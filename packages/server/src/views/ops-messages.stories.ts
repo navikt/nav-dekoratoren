@@ -2,15 +2,18 @@ import type { StoryObj, Meta } from '@storybook/html';
 import type { OpsMessagesProps } from './ops-messages';
 import { OpsMessages } from './ops-messages';
 import cls from 'decorator-client/src/styles/ops-messages.module.css';
+import utilCls from 'decorator-shared/utilities.module.css';
 import html from 'decorator-shared/html';
 import { OpsMessage } from 'decorator-shared/types';
 
 const meta: Meta<OpsMessagesProps> = {
   title: 'ops-messages',
   render: (args) =>
-    html`<ops-messages class="${cls.opsMessages}"
-      >${OpsMessages(args)}</ops-messages
-    >`,
+    html`<div class="${cls.opsMessagesContainer}">
+      <ops-messages class="${cls.opsMessages} ${utilCls.contentContainer}">
+        ${OpsMessages(args)}
+      </ops-messages>
+    </div>`,
 };
 
 export default meta;
