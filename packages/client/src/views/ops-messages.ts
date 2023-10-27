@@ -10,6 +10,7 @@ class OpsMessages extends HTMLElement {
           );
           this.innerHTML = html;
         } else {
+          this.removeAttribute('aria-label');
           this.innerHTML = '';
         }
       });
