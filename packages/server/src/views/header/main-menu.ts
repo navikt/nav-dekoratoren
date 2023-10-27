@@ -21,7 +21,18 @@ export function MainMenu({
     <div class="${cls.content}">
       <div class="${cls.header}">
         <h2 class="${cls.title}">${title}</h2>
-        <a href="${frontPageUrl}" class="${cls.link}">${texts.to_front_page}</a>
+        <a
+          href="${frontPageUrl}"
+          class="${cls.link}"
+          is="lenke-med-sporing"
+          data-attach-context
+          data-analytics-event-args="${JSON.stringify({
+            category: 'dekorator-meny',
+            action: 'hovedmeny/forsidelenke',
+            label: frontPageUrl,
+          })}"
+          >${texts.to_front_page}</a
+        >
       </div>
       <div class="${cls.links}">
         ${links.map(
@@ -32,7 +43,18 @@ export function MainMenu({
                 ${children.map(
                   ({ content, url }) =>
                     html`<li>
-                      <a href="${url}" class="${cls.link}">${content}</a>
+                      <a
+                        href="${url}"
+                        class="${cls.link}"
+                        is="lenke-med-sporing"
+                        data-attach-context
+                        data-analytics-event-args="${JSON.stringify({
+                          category: 'dekorator-meny',
+                          action: `${heading}/${content}`,
+                          label: url,
+                        })}"
+                        >${content}</a
+                      >
                     </li>`,
                 )}
               </ul>
@@ -44,7 +66,17 @@ export function MainMenu({
     <div class="${cls.contextLinks}">
       ${contextLinks.map(
         ({ content, url, description }) =>
-          html`<a href="${url}" class="${cls.contextLink}">
+          html`<a
+            href="${url}"
+            class="${cls.contextLink}"
+            is="lenke-med-sporing"
+            data-attach-context
+            data-analytics-event-args="${JSON.stringify({
+              category: 'dekorator-meny',
+              action: 'arbeidsflate-valg',
+              label: content,
+            })}"
+          >
             <div class="${cls.contextLinkTitle}">${content}</div>
             ${description &&
             html`<div class="${cls.contextLinkDescription}">
