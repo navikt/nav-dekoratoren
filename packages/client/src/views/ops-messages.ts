@@ -4,7 +4,10 @@ class OpsMessages extends HTMLElement {
       .then((res) => res.text())
       .then((html) => {
         if (html) {
-          this.setAttribute('aria-label', 'Viktig informasjon: ');
+          this.setAttribute(
+            'aria-label',
+            window.__DECORATOR_DATA__.texts.important_info,
+          );
           this.innerHTML = html;
         } else {
           this.innerHTML = '';
