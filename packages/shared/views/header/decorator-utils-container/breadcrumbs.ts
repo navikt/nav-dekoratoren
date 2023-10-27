@@ -17,7 +17,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
     ? html`
         <nav id="breadcrumbs-wrapper">
           <ol class="${cls.list}">
-            <li>
+            <li class="${cls.listItem}">
               ${LenkeMedSporing({
                 href: '/',
                 analyticsEventArgs: {
@@ -28,12 +28,13 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                   ${HomeIcon({ className: cls.svg })}
                   <span class="${cls.span}">nav.no</span>
                 `,
+                className: cls.link,
               })}
+              ${ForwardChevron()}
             </li>
             ${breadcrumbs.map(
               ({ title, url, handleInApp }, index) => html`
                 <li class="${cls.listItem}">
-                  ${ForwardChevron()}
                   ${index === breadcrumbs.length - 1
                     ? title
                     : LenkeMedSporing({
@@ -47,6 +48,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
                         dataHandleInApp: handleInApp,
                         className: cls.link,
                       })}
+                  ${index === breadcrumbs.length - 1 || ForwardChevron()}
                 </li>
               `,
             )}
