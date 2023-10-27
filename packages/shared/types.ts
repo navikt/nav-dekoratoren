@@ -79,7 +79,7 @@ export type Texts = {
   important_info: string;
 };
 
-export type Driftsmelding = {
+export type OpsMessage = {
   heading: string;
   url: string;
   type: 'prodstatus' | 'info';

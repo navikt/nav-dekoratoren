@@ -1,10 +1,10 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/ops-messages.module.css';
 import { WarningIcon, InfoIcon } from 'decorator-shared/views/icons';
-import { Driftsmelding } from 'decorator-shared/types';
+import { OpsMessage } from 'decorator-shared/types';
 
 export type OpsMessagesProps = {
-  opsMessages: Driftsmelding[];
+  opsMessages: OpsMessage[];
 };
 
 export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`

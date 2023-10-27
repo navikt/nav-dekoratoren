@@ -1,4 +1,4 @@
-import { fetchDriftsmeldinger, fetchMenu, fetchSearch } from './enonic';
+import { fetchOpsMessages, fetchMenu, fetchSearch } from './enonic';
 import { readdirSync, statSync } from 'node:fs';
 import { env } from './env/server';
 import ContentService from './content-service';
@@ -24,7 +24,7 @@ const server = Bun.serve({
         ? fetchMenu
         : () => Promise.resolve(menu),
       process.env.NODE_ENV === 'production'
-        ? fetchDriftsmeldinger
+        ? fetchOpsMessages
         : () =>
             Promise.resolve([
               {

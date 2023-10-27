@@ -165,7 +165,7 @@ const requestHandler = async (
       async () =>
         new Response(
           OpsMessages({
-            opsMessages: await contentService.getDriftsmeldinger(),
+            opsMessages: await contentService.getOpsMessages(),
           }).render(),
           {
             headers: { 'content-type': 'text/html; charset=utf-8' },
