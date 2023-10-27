@@ -1,19 +1,17 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/ops-messages.module.css';
-import { WarningIcon } from 'decorator-shared/views/icons';
+import { WarningIcon, InfoIcon } from 'decorator-shared/views/icons';
+import { Driftsmelding } from 'decorator-shared/types';
 
 export type OpsMessagesProps = {
-  opsMessages: {
-    heading: string;
-    url: string;
-  }[];
+  opsMessages: Driftsmelding[];
 };
 
 export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
   ${opsMessages.map(
-    ({ heading, url }) =>
+    ({ heading, url, type }) =>
       html`<a href="${url}" class="${cls.opsMessage}">
-        ${WarningIcon()}
+        ${type === 'prodstatus' ? WarningIcon() : InfoIcon()}
         <span>${heading}</span>
       </a>`,
   )}

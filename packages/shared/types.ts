@@ -82,6 +82,7 @@ export type Texts = {
 export type Driftsmelding = {
   heading: string;
   url: string;
+  type: 'prodstatus' | 'info';
 };
 
 export type TextKey = keyof Texts;

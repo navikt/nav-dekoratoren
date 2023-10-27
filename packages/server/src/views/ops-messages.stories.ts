@@ -3,6 +3,7 @@ import type { OpsMessagesProps } from './ops-messages';
 import { OpsMessages } from './ops-messages';
 import cls from 'decorator-client/src/styles/ops-messages.module.css';
 import html from 'decorator-shared/html';
+import { Driftsmelding } from 'decorator-shared/types';
 
 const meta: Meta<OpsMessagesProps> = {
   title: 'ops-messages',
@@ -15,9 +16,10 @@ const meta: Meta<OpsMessagesProps> = {
 export default meta;
 type Story = StoryObj<OpsMessagesProps>;
 
-const opsMessage = {
+const opsMessage: Driftsmelding = {
   heading: 'Ustabile tjenester søndag 15. januar',
   url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
+  type: 'prodstatus',
 };
 
 export const Single: Story = {
@@ -33,6 +35,7 @@ export const Multiple: Story = {
       {
         heading: 'Svindelforsøk via SMS - vær oppmerksom',
         url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
+        type: 'info',
       },
       opsMessage,
     ],

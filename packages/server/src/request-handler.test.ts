@@ -15,7 +15,7 @@ const fetch = await requestHandler(
         {
           heading: 'wat',
           url: 'example.com',
-          urlscope: ['privatperson'],
+          type: 'info',
         },
       ]),
   ),
