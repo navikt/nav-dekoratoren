@@ -1,5 +1,5 @@
 import {
-  Driftsmelding,
+  OpsMessage,
   Link,
   LinkGroup,
   MainMenuContextLink,
@@ -92,7 +92,7 @@ const extractor = {
 export default class ContentService {
   constructor(
     private fetchMenu: () => Promise<Node[]>,
-    private fetchDriftsmeldinger: () => Promise<Driftsmelding[]>,
+    private fetchOpsMessages: () => Promise<OpsMessage[]>,
   ) {}
 
   async mainMenuContextLinks({
@@ -167,8 +167,8 @@ export default class ContentService {
     });
   }
 
-  async getDriftsmeldinger() {
-    return this.fetchDriftsmeldinger();
+  async getOpsMessages() {
+    return this.fetchOpsMessages();
   }
 
   async getHeaderMenuLinks(options: ExtractHeaderMenuLinkOptions) {

@@ -20,6 +20,7 @@ import { env } from './env/server';
 import { SearchHits } from './views/search-hits';
 import { MainMenu } from './views/header/main-menu';
 import { Context, Language } from 'decorator-shared/params';
+import { OpsMessages } from './views/ops-messages';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -135,12 +136,8 @@ const requestHandler = async (
         },
       );
     })
-
     .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
-    )
-    .get('/api/driftsmeldinger', () =>
-      jsonResponse(contentService.getDriftsmeldinger()),
     )
     .get('/api/search', async ({ query }) => {
       const searchQuery = query.q;
@@ -189,6 +186,18 @@ const requestHandler = async (
         },
       );
     })
+    .get(
+      '/ops-messages',
+      async () =>
+        new Response(
+          OpsMessages({
+            opsMessages: await contentService.getOpsMessages(),
+          }).render(),
+          {
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          },
+        ),
+    )
     .get('/', async ({ url, query }) => {
       const index = await renderIndex({
         contentService,

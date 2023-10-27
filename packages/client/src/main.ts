@@ -22,10 +22,10 @@ import './views/search-menu';
 import './views/search-input';
 import './views/main-menu';
 import './views/context-link';
+import './views/ops-messages';
 
 import { type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
-import { fetchDriftsMeldinger } from './views/driftsmeldinger';
 import { logoutWarningController } from './controllers/logout-warning';
 
 import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
@@ -98,7 +98,6 @@ onLoadListeners({
 });
 
 attachLensListener();
-fetchDriftsMeldinger();
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
   logoutWarningController(
@@ -193,20 +192,22 @@ async function populateLoggedInMenu(authObject: Auth) {
   if (menuItems) {
     const snapshot = menuItems.outerHTML;
 
-    const template = window.__DECORATOR_DATA__.params.simple
-      ? SimpleHeaderNavbarItems({
-          innlogget: authObject.authenticated,
-          name: authObject.name,
-          texts: window.__DECORATOR_DATA__.texts,
-        })
-      : ComplexHeaderNavbarItems({
-          innlogget: authObject.authenticated,
-          name: authObject.name,
-          myPageMenu: await getContent('myPageMenu', {}),
-          texts: window.__DECORATOR_DATA__.texts,
-        });
+    console.log(authObject);
+    // TODO: dette fikser jeg (Andreas) i neste PR
+    // const template = window.__DECORATOR_DATA__.params.simple
+    //   ? SimpleHeaderNavbarItems({
+    //       innlogget: authObject.authenticated,
+    //       name: authObject.name,
+    //       texts: window.__DECORATOR_DATA__.texts,
+    //     })
+    //   : ComplexHeaderNavbarItems({
+    //       innlogget: authObject.authenticated,
+    //       name: authObject.name,
+    //       myPageMenu: await getContent('myPageMenu', {}),
+    //       texts: window.__DECORATOR_DATA__.texts,
+    //     });
 
-    menuItems.outerHTML = template.render();
+    // menuItems.outerHTML = template.render();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       const menuitems = document.getElementById('menu-items');
