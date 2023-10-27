@@ -20,8 +20,6 @@ import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator
 import cls from 'decorator-client/src/styles/header.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
-
 const frontPageUrl = (context: Context, language: Language) => {
   if (language === 'en') {
     return `${process.env.XP_BASE_URL}/en/home`;
@@ -110,7 +108,7 @@ export function ComplexHeader({
           mainMenuTitle:
             currentContext === 'privatperson'
               ? texts.how_can_we_help
-              : capitalize(currentContext),
+              : texts[`rolle_${currentContext}`],
           frontPageUrl: frontPageUrl(currentContext, language),
           innlogget,
           texts,

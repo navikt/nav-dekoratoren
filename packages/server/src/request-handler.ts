@@ -41,8 +41,6 @@ const rewriter = new HTMLRewriter().on('img', {
   },
 });
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
-
 const frontPageUrl = (context: Context, language: Language) => {
   if (language === 'en') {
     return `${process.env.XP_BASE_URL}/en/home`;
@@ -174,7 +172,7 @@ const requestHandler = async (
           title:
             data.context === 'privatperson'
               ? localTexts.how_can_we_help
-              : capitalize(data.context),
+              : localTexts[`rolle_${data.context}`],
           frontPageUrl: frontPageUrl(data.context, data.language),
           texts: localTexts,
           links: await contentService.getMainMenuLinks({
