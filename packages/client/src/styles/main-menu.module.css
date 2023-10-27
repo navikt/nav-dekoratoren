@@ -91,12 +91,30 @@
   text-decoration: none;
 }
 
+.contextLink:focus {
+  box-shadow: var(--a-shadow-focus);
+  outline: none;
+}
+
+.contextLink:hover {
+  background-color: var(--a-blue-500);
+  border: 2px solid var(--a-blue-500);
+}
+
 .contextLinkTitle {
   color: var(--a-text-action);
   font-size: var(--a-font-size-large);
   font-weight: var(--a-font-weight-bold);
 }
 
+.contextLink:hover .contextLinkTitle {
+  color: var(--a-text-on-action);
+}
+
 .contextLinkDescription {
   color: var(--a-text-default);
+}
+
+.contextLink:hover .contextLinkDescription {
+  color: var(--a-text-on-action);
 }
