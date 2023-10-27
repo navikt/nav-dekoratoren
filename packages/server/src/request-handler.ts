@@ -18,8 +18,9 @@ import { HandlerBuilder, jsonResponse } from './lib/handler';
 import { cspHandler } from './csp';
 import { env } from './env/server';
 import { SearchHits } from './views/search-hits';
+import { MainMenu } from './views/header/main-menu';
+import { Context, Language } from 'decorator-shared/params';
 import { OpsMessages } from './views/ops-messages';
-import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -40,6 +41,21 @@ const rewriter = new HTMLRewriter().on('img', {
     }
   },
 });
+
+const frontPageUrl = (context: Context, language: Language) => {
+  if (language === 'en') {
+    return `${process.env.XP_BASE_URL}/en/home`;
+  }
+
+  switch (context) {
+    case 'privatperson':
+      return `${process.env.XP_BASE_URL}/`;
+    case 'arbeidsgiver':
+      return `${process.env.XP_BASE_URL}/no/bedrift`;
+    case 'samarbeidspartner':
+      return `${process.env.XP_BASE_URL}/no/samarbeidspartner`;
+  }
+};
 
 const requestHandler = async (
   contentService: ContentService,
@@ -147,13 +163,23 @@ const requestHandler = async (
     )
     .get('/main-menu', async ({ query }) => {
       const data = validParams(query);
+      const localTexts = texts[data.language];
       return new Response(
-        HeaderMenuLinks({
-          headerMenuLinks: await contentService.getHeaderMenuLinks({
+        MainMenu({
+          title:
+            data.context === 'privatperson'
+              ? localTexts.how_can_we_help
+              : localTexts[`rolle_${data.context}`],
+          frontPageUrl: frontPageUrl(data.context, data.language),
+          texts: localTexts,
+          links: await contentService.getMainMenuLinks({
             language: data.language,
             context: data.context,
           }),
-          className: 'cols-3',
+          contextLinks: await contentService.mainMenuContextLinks({
+            context: data.context,
+            bedrift: data.bedrift,
+          }),
         }).render(),
         {
           headers: { 'content-type': 'text/html; charset=utf-8' },

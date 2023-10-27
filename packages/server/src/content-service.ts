@@ -1,4 +1,10 @@
-import { OpsMessage, Link, LinkGroup, Node } from 'decorator-shared/types';
+import {
+  OpsMessage,
+  Link,
+  LinkGroup,
+  MainMenuContextLink,
+  Node,
+} from 'decorator-shared/types';
 import { Context, Language, Params } from 'decorator-shared/params';
 
 type LanguageParam = {
@@ -9,13 +15,29 @@ type ContextParam = {
   context: Context;
 };
 
+type MainMenuLinkOptions = LanguageParam & ContextParam;
 type ExtractHeaderMenuLinkOptions = LanguageParam & ContextParam;
 type ExtractMyPageMenuOptions = LanguageParam;
-type ExtractMainMenuOptions = ContextParam;
 type ExtractSimpleFooter = LanguageParam;
 type ExtractComplexFooterLinks = LanguageParam & ContextParam;
 
 const extractor = {
+  mainMenuLinks(root: Node[], options: MainMenuLinkOptions) {
+    return (
+      get(
+        root,
+        ((language) => {
+          switch (language) {
+            case 'en':
+            case 'se':
+              return `${language}.Header.Main menu`;
+            default:
+              return `no.Header.Main menu.${getContextKey(options.context)}`;
+          }
+        })(options.language),
+      )?.map(nodeToLinkGroup) ?? []
+    );
+  },
   headerMenuLinks(root: Node[], options: ExtractHeaderMenuLinkOptions) {
     return get(
       root,
@@ -32,12 +54,6 @@ const extractor = {
   },
   myPageMenu(root: Node[], options: ExtractMyPageMenuOptions) {
     return get(root, `${getLangKey(options.language)}.Header.My page menu`);
-  },
-  mainMenu(root: Node[], options: ExtractMainMenuOptions) {
-    return get(root, 'no.Header.Main menu')?.map((link) => ({
-      ...link,
-      isActive: link.displayName.toLowerCase() === options.context,
-    }));
   },
   simpleFooter(root: Node[], options: ExtractSimpleFooter) {
     return [
@@ -79,6 +95,78 @@ export default class ContentService {
     private fetchOpsMessages: () => Promise<OpsMessage[]>,
   ) {}
 
+  async mainMenuContextLinks({
+    context,
+    bedrift,
+  }: {
+    context: Context;
+    bedrift?: string;
+  }): Promise<MainMenuContextLink[]> {
+    switch (context) {
+      case 'privatperson':
+        return [
+          {
+            content: 'Min side',
+            url: process.env.MIN_SIDE_URL ?? '#',
+          },
+          {
+            content: 'Arbeidsgiver',
+            url: `${process.env.XP_BASE_URL}/no/bedrift`,
+          },
+          {
+            content: 'Samarbeidspartner',
+            url: `${process.env.XP_BASE_URL}/no/samarbeidspartner`,
+          },
+        ];
+      case 'arbeidsgiver':
+        return [
+          {
+            content: 'Min side - arbeidsgiver',
+            description: 'Dine sykmeldte, rekruttering, digitale skjemaer',
+            url: `${process.env.MINSIDE_ARBEIDSGIVER_URL}${
+              bedrift ? `?bedrift=${bedrift}` : ''
+            }`,
+          },
+          {
+            content: 'Privat',
+            description:
+              'Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester',
+            url: `${process.env.XP_BASE_URL}/`,
+          },
+          {
+            content: 'Samarbeidspartner',
+            description:
+              'Helsepersonell, tiltaksarrangører, fylker og kommuner',
+            url: `${process.env.XP_BASE_URL}/no/samarbeidspartner`,
+          },
+        ];
+      case 'samarbeidspartner':
+        return [
+          {
+            content: 'Privat',
+            url: `${process.env.XP_BASE_URL}/`,
+          },
+          {
+            content: 'Arbeidsgiver',
+            url: `${process.env.XP_BASE_URL}/no/bedrift`,
+          },
+        ];
+    }
+  }
+
+  async getMainMenuLinks({
+    language,
+    context,
+  }: {
+    language: Language;
+    context: Context;
+  }) {
+    return extractor.mainMenuLinks(await this.fetchMenu(), {
+      language,
+      context,
+    });
+  }
+
   async getOpsMessages() {
     return this.fetchOpsMessages();
   }
@@ -89,10 +177,6 @@ export default class ContentService {
 
   async getMyPageMenu({ language }: { language: Language }) {
     return extractor.myPageMenu(await this.fetchMenu(), { language });
-  }
-
-  async getMainMenu({ context }: { context: Context }) {
-    return extractor.mainMenu(await this.fetchMenu(), { context });
   }
 
   async getSimpleFooterLinks({ language }: { language: Language }) {
@@ -118,9 +202,9 @@ export default class ContentService {
     const root = await this.fetchMenu();
 
     const base = {
-      mainMenu: extractor.mainMenu(root, options),
       headerMenuLinks: extractor.headerMenuLinks(root, options),
       myPageMenu: extractor.myPageMenu(root, options),
+      mainMenuLinks: extractor.mainMenuLinks(root, options),
     };
 
     if (options.simple) {
@@ -136,6 +220,14 @@ export default class ContentService {
     };
   }
 }
+
+const nodeToLinkGroup: (node: Node) => LinkGroup = ({
+  displayName,
+  children,
+}) => ({
+  heading: displayName,
+  children: children.map(nodeToLink),
+});
 
 const nodeToLink: (node: Node) => Link = ({ displayName, path }) => ({
   content: displayName,

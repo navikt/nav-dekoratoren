@@ -76,6 +76,7 @@ export type Texts = {
   see_all_hits: string;
   no_hits_for: string;
   loading_preview: string;
+  to_front_page: string;
   important_info: string;
 };
 
@@ -123,4 +124,10 @@ export type TaskAnalyticsSurveyConfig = {
   urls?: TaskAnalyticsUrlRule[];
   audience?: Context[];
   language?: Language[];
+};
+
+export type MainMenuContextLink = {
+  content: string;
+  description?: string;
+  url: string;
 };

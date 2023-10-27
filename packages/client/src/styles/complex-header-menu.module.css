@@ -7,12 +7,12 @@
   overflow-y: auto;
   position: relative;
   background-color: white;
-  padding: var(--a-spacing-4);
 }
 
 .searchMenu {
   display: grid;
   gap: var(--a-spacing-4);
+  padding-inline: var(--edge-spacing);
 }
 
 @media (min-width: 768px) {

@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import html, { Template } from '../html';
-import utilsCls from 'decorator-shared/utilities.module.css';
 import cls from 'decorator-client/src/styles/dropdown-menu.module.css';
 
 export type DropdownMenuProps = {
@@ -16,7 +15,7 @@ export const DropdownMenu = ({
 }: DropdownMenuProps) =>
   html`<dropdown-menu>
     ${button}
-    <div class="${clsx(utilsCls.contentContainer, cls.dropdownMenuContainer)}">
+    <div class="${cls.dropdownMenuContainer}">
       <div class="${clsx(dropdownClass, cls.dropdownMenuContent)}">
         ${dropdownContent}
       </div>

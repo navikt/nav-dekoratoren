@@ -192,20 +192,22 @@ async function populateLoggedInMenu(authObject: Auth) {
   if (menuItems) {
     const snapshot = menuItems.outerHTML;
 
-    const template = window.__DECORATOR_DATA__.params.simple
-      ? SimpleHeaderNavbarItems({
-          innlogget: authObject.authenticated,
-          name: authObject.name,
-          texts: window.__DECORATOR_DATA__.texts,
-        })
-      : ComplexHeaderNavbarItems({
-          innlogget: authObject.authenticated,
-          name: authObject.name,
-          myPageMenu: await getContent('myPageMenu', {}),
-          texts: window.__DECORATOR_DATA__.texts,
-        });
+    console.log(authObject);
+    // TODO: dette fikser jeg (Andreas) i neste PR
+    // const template = window.__DECORATOR_DATA__.params.simple
+    //   ? SimpleHeaderNavbarItems({
+    //       innlogget: authObject.authenticated,
+    //       name: authObject.name,
+    //       texts: window.__DECORATOR_DATA__.texts,
+    //     })
+    //   : ComplexHeaderNavbarItems({
+    //       innlogget: authObject.authenticated,
+    //       name: authObject.name,
+    //       myPageMenu: await getContent('myPageMenu', {}),
+    //       texts: window.__DECORATOR_DATA__.texts,
+    //     });
 
-    menuItems.outerHTML = template.render();
+    // menuItems.outerHTML = template.render();
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       const menuitems = document.getElementById('menu-items');

@@ -108,6 +108,25 @@ declare module '*logout-warning.module.css' {
   export default classes;
 }
 
+declare module '*main-menu.module.css' {
+  const classes: {
+    mainMenu: string;
+    content: string;
+    header: string;
+    link: string;
+    title: string;
+    links: string;
+    linkGroup: string;
+    linkGroupHeading: string;
+    linkList: string;
+    contextLinks: string;
+    contextLink: string;
+    contextLinkTitle: string;
+    contextLinkDescription: string;
+  };
+  export default classes;
+}
+
 declare module '*notification.module.css' {
   const classes: {
     notification: string;

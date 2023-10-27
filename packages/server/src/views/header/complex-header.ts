@@ -4,9 +4,15 @@ import {
   AvailableLanguage,
   Breadcrumb,
   Context,
+  Language,
   UtilsBackground,
 } from 'decorator-shared/params';
-import { Node, Texts } from 'decorator-shared/types';
+import {
+  LinkGroup,
+  MainMenuContextLink,
+  Node,
+  Texts,
+} from 'decorator-shared/types';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
@@ -15,25 +21,41 @@ import cls from 'decorator-client/src/styles/header.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 
+const frontPageUrl = (context: Context, language: Language) => {
+  if (language === 'en') {
+    return `${process.env.XP_BASE_URL}/en/home`;
+  }
+
+  switch (context) {
+    case 'privatperson':
+      return `${process.env.XP_BASE_URL}/`;
+    case 'arbeidsgiver':
+      return `${process.env.XP_BASE_URL}/no/bedrift`;
+    case 'samarbeidspartner':
+      return `${process.env.XP_BASE_URL}/no/samarbeidspartner`;
+  }
+};
+
 export type ComplexHeaderProps = {
-  isNorwegian: boolean;
-  mainMenu?: Node[];
   texts: Texts;
-  headerMenuLinks?: Node[];
   innlogget: boolean;
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
   availableLanguages: AvailableLanguage[];
   myPageMenu?: Node[];
-  contextLinks: ContextLink[];
   context: Context;
   name?: string;
+  language: Language;
+  mainMenuLinks: LinkGroup[];
+  mainMenuContextLinks: MainMenuContextLink[];
+  contextLinks: ContextLink[];
 };
 
 export function ComplexHeader({
-  isNorwegian,
+  language,
   contextLinks,
-  headerMenuLinks,
+  mainMenuLinks,
+  mainMenuContextLinks,
   texts,
   innlogget,
   breadcrumbs,
@@ -61,7 +83,7 @@ export function ComplexHeader({
             />`,
           })}
           <div class="${cls.arbeidsflate}">
-            ${isNorwegian &&
+            ${language === 'nb' &&
             contextLinks?.map(
               ({ url, lenkeTekstId, context }) =>
                 html`<a
@@ -84,10 +106,16 @@ export function ComplexHeader({
           </div>
         </div>
         ${ComplexHeaderNavbarItems({
+          mainMenuTitle:
+            currentContext === 'privatperson'
+              ? texts.how_can_we_help
+              : texts[`rolle_${currentContext}`],
+          frontPageUrl: frontPageUrl(currentContext, language),
           innlogget,
           texts,
           myPageMenu: myPageMenu as Node[],
-          headerMenuLinks,
+          mainMenuLinks,
+          contextLinks: mainMenuContextLinks,
           name,
         })}
       </div>
