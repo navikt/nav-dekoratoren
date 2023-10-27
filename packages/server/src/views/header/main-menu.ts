@@ -1,25 +1,19 @@
 import html from 'decorator-shared/html';
-import { LinkGroup, Texts } from 'decorator-shared/types';
+import { MainMenuContextLink, LinkGroup, Texts } from 'decorator-shared/types';
 import cls from 'decorator-client/src/styles/main-menu.module.css';
-
-type ContextLink = {
-  content: string;
-  description?: string;
-  url: string;
-};
 
 export type MainMenuProps = {
   title: string;
   texts: Texts;
-  homeUrl: string;
+  frontPageUrl: string;
   links: LinkGroup[];
-  contextLinks: ContextLink[];
+  contextLinks: MainMenuContextLink[];
 };
 
 export function MainMenu({
   title,
   texts,
-  homeUrl,
+  frontPageUrl,
   links,
   contextLinks,
 }: MainMenuProps) {
@@ -27,7 +21,7 @@ export function MainMenu({
     <div class="${cls.content}">
       <div class="${cls.header}">
         <h2 class="${cls.title}">${title}</h2>
-        <a href="${homeUrl}" class="${cls.link}">${texts.to_front_page}</a>
+        <a href="${frontPageUrl}" class="${cls.link}">${texts.to_front_page}</a>
       </div>
       <div class="${cls.links}">
         ${links.map(

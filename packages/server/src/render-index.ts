@@ -35,7 +35,7 @@ export default async ({
   const features = unleashService.getFeatures();
 
   // Passing directly for clarity
-  const { mainMenu, headerMenuLinks, myPageMenu, footerLinks } =
+  const { myPageMenu, footerLinks, mainMenuLinks } =
     await contentService.getFirstLoad({
       language,
       context: data.context,
@@ -58,17 +58,20 @@ export default async ({
               availableLanguages: data.availableLanguages,
             })
           : ComplexHeader({
-              mainMenu,
-              headerMenuLinks,
               myPageMenu,
               texts: localTexts,
               innlogget: false,
               contextLinks,
               context: data.context,
-              isNorwegian: true,
+              language,
               breadcrumbs: data.breadcrumbs,
               utilsBackground: data.utilsBackground,
               availableLanguages: data.availableLanguages,
+              mainMenuLinks,
+              mainMenuContextLinks: await contentService.mainMenuContextLinks({
+                context: data.context,
+                bedrift: data.bedrift,
+              }),
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
@@ -94,7 +97,10 @@ export default async ({
         params: data,
       }),
       maskDocument: data.maskHotjar,
-      main: (origin.includes("localhost") || origin.includes("dekoratøren")) ? SplashPage() : undefined
+      main:
+        origin.includes('localhost') || origin.includes('dekoratøren')
+          ? SplashPage()
+          : undefined,
     })
   ).render();
 };

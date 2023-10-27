@@ -1,7 +1,7 @@
 import { IconButton } from '../../components/icon-button';
 import { BurgerIcon } from '../../icons/burger';
 import { LoginIcon } from 'decorator-shared/views/icons/login';
-import { Node } from '../../../types';
+import { MainMenuContextLink, LinkGroup, Node } from '../../../types';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import { LoggedInMenu } from './logged-in-menu';
@@ -12,19 +12,25 @@ import { SearchIcon } from '../../icons';
 import { SearchForm } from '../../search-form';
 
 export type ComplexHeaderNavbarItemsProps = {
+  mainMenuTitle: string;
+  frontPageUrl: string;
   innlogget: boolean;
   name?: string;
   texts: Texts;
   myPageMenu: Node[];
-  headerMenuLinks?: Node[];
+  mainMenuLinks: LinkGroup[];
+  contextLinks: MainMenuContextLink[];
 };
 
 export function ComplexHeaderNavbarItems({
+  mainMenuTitle,
+  frontPageUrl,
   innlogget,
   name,
   texts,
   myPageMenu,
-  headerMenuLinks,
+  mainMenuLinks,
+  contextLinks,
 }: ComplexHeaderNavbarItemsProps) {
   return html`
     <div class="${cls.menuItems}">
@@ -35,7 +41,13 @@ export function ComplexHeaderNavbarItems({
             Icon: BurgerIcon(),
             text: texts.menu,
           }),
-          dropdownContent: ComplexHeaderMenu({ headerMenuLinks, texts }),
+          dropdownContent: ComplexHeaderMenu({
+            mainMenuTitle,
+            frontPageUrl,
+            mainMenuLinks,
+            contextLinks,
+            texts,
+          }),
         })}
         ${DropdownMenu({
           button: IconButton({

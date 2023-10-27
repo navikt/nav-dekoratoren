@@ -124,3 +124,9 @@ export type TaskAnalyticsSurveyConfig = {
   audience?: Context[];
   language?: Language[];
 };
+
+export type MainMenuContextLink = {
+  content: string;
+  description?: string;
+  url: string;
+};

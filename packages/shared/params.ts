@@ -54,6 +54,7 @@ export const paramsSchema = z.object({
   logoutUrl: z.string().url().optional(),
   maskHotjar: z.boolean().default(false),
   logoutWarning: z.boolean().default(false),
+  bedrift: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
