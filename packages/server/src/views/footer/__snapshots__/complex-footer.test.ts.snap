@@ -209,7 +209,7 @@ exports[`renders complex footer 1`] = `
                 </ul>
               </li>
             
-          <li><button type="button" class="_screenshareButton_2smvl_1">
+          <li><button  is="screenshare-button" class="_screenshareButton_2smvl_1">
     Del skjerm med veileder
     <svg
       width="1em"
