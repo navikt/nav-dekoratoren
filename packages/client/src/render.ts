@@ -15,13 +15,12 @@ export class ClientRenderer {
 
     async render(name: TemplateName, params: TemplateParams<TemplateName>, options: RenderOptions) {
         try {
-            const response = await fetch('/api/render', {
+            const response = await fetch(`/api/render/${name}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' // Set the content type to JSON
                 },
                 body: JSON.stringify({
-                    name,
                     params,
                     language: this.language
                 })

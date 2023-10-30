@@ -1,14 +1,10 @@
 import cls from 'decorator-client/src/styles/feedback.module.css';
 import { z } from 'zod';
 
-import html, { Template } from 'decorator-shared/html';
+import html from 'decorator-shared/html';
 
-export type ServerView = {
-    name: string;
-    view: Template;
-    schema: z.ZodObject<any, any>;
-}
 
+// @NOTE: this is probably a good pattern either way. Because we can always extract the type, but not the other way around.
 export const feedbackSchema = z.object({
     texts: z.object({
         send_undersokelse_takk: z.string(),
