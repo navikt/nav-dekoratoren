@@ -1,4 +1,4 @@
-declare module '*archivable-notification.module.css' {
+declare module 'archivable-notification.module.css' {
   const classes: {
     notification: string;
     date: string;
@@ -9,7 +9,20 @@ declare module '*archivable-notification.module.css' {
   export default classes;
 }
 
-declare module '*complex-footer.module.css' {
+declare module 'button.module.css' {
+  const classes: {
+    button: string;
+    primary: string;
+    bigLabel: string;
+    secondary: string;
+    outline: string;
+    wide: string;
+    ghost: string;
+  };
+  export default classes;
+}
+
+declare module 'complex-footer.module.css' {
   const classes: {
     footer: string;
     footerContent: string;
@@ -26,7 +39,7 @@ declare module '*complex-footer.module.css' {
   export default classes;
 }
 
-declare module '*complex-header-menu.module.css' {
+declare module 'complex-header-menu.module.css' {
   const classes: {
     menuTop: string;
     menuContent: string;
@@ -35,7 +48,7 @@ declare module '*complex-header-menu.module.css' {
   export default classes;
 }
 
-declare module '*context-menu-link.module.css' {
+declare module 'context-menu-link.module.css' {
   const classes: {
     wrapper: string;
     contextMenuLink: string;
@@ -45,7 +58,7 @@ declare module '*context-menu-link.module.css' {
   export default classes;
 }
 
-declare module '*decorator-lens.module.css' {
+declare module 'decorator-lens.module.css' {
   const classes: {
     decoratorLens: string;
     active: string;
@@ -53,7 +66,7 @@ declare module '*decorator-lens.module.css' {
   export default classes;
 }
 
-declare module '*dropdown-menu.module.css' {
+declare module 'dropdown-menu.module.css' {
   const classes: {
     dropdownMenuContainer: string;
     dropdownMenuOpen: string;
@@ -62,7 +75,7 @@ declare module '*dropdown-menu.module.css' {
   export default classes;
 }
 
-declare module '*feedback.module.css' {
+declare module 'feedback.module.css' {
   const classes: {
     feedback: string;
     feedbackContent: string;
@@ -74,7 +87,7 @@ declare module '*feedback.module.css' {
   export default classes;
 }
 
-declare module '*header.module.css' {
+declare module 'header.module.css' {
   const classes: {
     logo: string;
     siteheader: string;
@@ -96,7 +109,18 @@ declare module '*header.module.css' {
   export default classes;
 }
 
-declare module '*logout-warning.module.css' {
+declare module 'inputs.module.css' {
+  const classes: {
+    textInput: string;
+    invalid: string;
+    textInputLabel: string;
+    errorList: string;
+    showErrors: string;
+  };
+  export default classes;
+}
+
+declare module 'logout-warning.module.css' {
   const classes: {
     modal: string;
     modalAnimationFadein: string;
@@ -108,7 +132,7 @@ declare module '*logout-warning.module.css' {
   export default classes;
 }
 
-declare module '*main-menu.module.css' {
+declare module 'main-menu.module.css' {
   const classes: {
     mainMenu: string;
     content: string;
@@ -127,7 +151,19 @@ declare module '*main-menu.module.css' {
   export default classes;
 }
 
-declare module '*notification.module.css' {
+declare module 'modal.module.css' {
+  const classes: {
+    modal: string;
+    modalAnimationFadein: string;
+    modalWindow: string;
+    modalTitle: string;
+    modalBody: string;
+    buttonWrapper: string;
+  };
+  export default classes;
+}
+
+declare module 'notification.module.css' {
   const classes: {
     notification: string;
     text: string;
@@ -139,14 +175,14 @@ declare module '*notification.module.css' {
   export default classes;
 }
 
-declare module '*notifications-empty.module.css' {
+declare module 'notifications-empty.module.css' {
   const classes: {
     notificationsEmpty: string;
   };
   export default classes;
 }
 
-declare module '*notifications.module.css' {
+declare module 'notifications.module.css' {
   const classes: {
     notifications: string;
     notificationListHeading: string;
@@ -156,7 +192,7 @@ declare module '*notifications.module.css' {
   export default classes;
 }
 
-declare module '*ops-messages.module.css' {
+declare module 'ops-messages.module.css' {
   const classes: {
     opsMessagesContainer: string;
     opsMessages: string;
@@ -165,14 +201,33 @@ declare module '*ops-messages.module.css' {
   export default classes;
 }
 
-declare module '*screenshare-button.module.css' {
+declare module 'read-more.module.css' {
+  const classes: {
+    summary: string;
+    answer: string;
+    details: string;
+  };
+  export default classes;
+}
+
+declare module 'screenshare-button.module.css' {
   const classes: {
     screenshareButton: string;
   };
   export default classes;
 }
 
-declare module '*search-form.module.css' {
+declare module 'screensharing.module.css' {
+  const classes: {
+    screensharingModal: string;
+    avatar: string;
+    content: string;
+    buttonsWrapper: string;
+  };
+  export default classes;
+}
+
+declare module 'search-form.module.css' {
   const classes: {
     searchForm: string;
     label: string;
@@ -186,7 +241,7 @@ declare module '*search-form.module.css' {
   export default classes;
 }
 
-declare module '*search-hits.module.css' {
+declare module 'search-hits.module.css' {
   const classes: {
     searchHits: string;
     searchHitList: string;
@@ -197,7 +252,7 @@ declare module '*search-hits.module.css' {
   export default classes;
 }
 
-declare module '*simple-footer.module.css' {
+declare module 'simple-footer.module.css' {
   const classes: {
     simpleFooter: string;
     simpleFooterContent: string;
@@ -207,7 +262,7 @@ declare module '*simple-footer.module.css' {
   export default classes;
 }
 
-declare module '*splash-page.module.css' {
+declare module 'splash-page.module.css' {
   const classes: {
     splashPage: string;
     splashAlert: string;
@@ -215,7 +270,7 @@ declare module '*splash-page.module.css' {
   export default classes;
 }
 
-declare module '*utils.module.css' {
+declare module 'utils.module.css' {
   const classes: {
     bigLabel: string;
   };
