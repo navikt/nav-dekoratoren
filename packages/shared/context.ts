@@ -4,7 +4,6 @@ import { TextKey } from './types';
 export type ContextLink = {
   url: string;
   lenkeTekstId: TextKey;
-  stikkordId: TextKey;
   context: Context;
 };
 
@@ -18,7 +17,6 @@ export const personContextLenke = (XP_BASE_URL: string): ContextLink => {
   return {
     url: `${XP_BASE_URL}`,
     lenkeTekstId: 'rolle_privatperson',
-    stikkordId: 'meny_bunnlenke_minside_stikkord',
     context: 'privatperson',
   };
 };
@@ -27,7 +25,6 @@ export const arbeidsgiverContextLenke = (XP_BASE_URL: string): ContextLink => {
   return {
     url: `${XP_BASE_URL}/no/bedrift`,
     lenkeTekstId: 'rolle_arbeidsgiver',
-    stikkordId: 'meny_bunnlenke_arbeidsgiver_stikkord',
     context: 'arbeidsgiver',
   };
 };
@@ -38,7 +35,6 @@ export const samarbeidspartnerContextLenke = (
   return {
     url: `${XP_BASE_URL}/no/samarbeidspartner`,
     lenkeTekstId: 'rolle_samarbeidspartner',
-    stikkordId: 'meny_bunnlenke_samarbeidspartner_stikkord',
     context: 'samarbeidspartner',
   };
 };

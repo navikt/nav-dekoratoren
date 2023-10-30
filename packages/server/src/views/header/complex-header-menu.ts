@@ -1,39 +1,35 @@
-import html from 'decorator-shared/html';
-import { HeaderMenuLinks } from 'decorator-shared/views/header/header-menu-links';
-import { Node, Texts } from 'decorator-shared/types';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import cls from 'decorator-client/src/styles/complex-header-menu.module.css';
+import html from 'decorator-shared/html';
+import { MainMenuContextLink, LinkGroup, Texts } from 'decorator-shared/types';
 import { SearchForm } from 'decorator-shared/views/search-form';
+import { MainMenu } from './main-menu';
 
 export type ComplexHeaderMenuProps = {
+  mainMenuTitle: string;
+  frontPageUrl: string;
   texts: Texts;
-  headerMenuLinks?: Node[];
+  mainMenuLinks: LinkGroup[];
+  contextLinks: MainMenuContextLink[];
 };
 
 export const ComplexHeaderMenu = ({
-  headerMenuLinks,
+  mainMenuTitle,
+  frontPageUrl,
+  mainMenuLinks,
+  contextLinks,
   texts,
 }: ComplexHeaderMenuProps) => html`
-  <div class="${cls.menuTop}">
-    <h2>${texts.how_can_we_help}</h2>
-    ${LenkeMedSporing({
-      href: '#',
-      analyticsEventArgs: {
-        category: 'dekorator-meny',
-        action: 'hovedmeny/forsidelenke',
-      },
-      dataAttachContext: true,
-      children: texts.til_forsiden,
-    })}
-  </div>
   <div class="${cls.menuContent}">
     <search-menu class="${cls.searchMenu}">
       ${SearchForm({ texts })}
     </search-menu>
     <main-menu>
-      ${HeaderMenuLinks({
-        headerMenuLinks,
-        className: 'cols-3',
+      ${MainMenu({
+        title: mainMenuTitle,
+        frontPageUrl,
+        links: mainMenuLinks,
+        contextLinks,
+        texts,
       })}
     </main-menu>
   </div>

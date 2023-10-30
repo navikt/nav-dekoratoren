@@ -53,18 +53,11 @@ declare module '*decorator-lens.module.css' {
   export default classes;
 }
 
-declare module '*driftsmeldinger.module.css' {
-  const classes: {
-    driftsmeldinger: string;
-    driftsmeldingLink: string;
-  };
-  export default classes;
-}
-
 declare module '*dropdown-menu.module.css' {
   const classes: {
-    dropdownMenuContent: string;
+    dropdownMenuContainer: string;
     dropdownMenuOpen: string;
+    dropdownMenuContent: string;
   };
   export default classes;
 }
@@ -85,7 +78,6 @@ declare module '*header.module.css' {
   const classes: {
     logo: string;
     siteheader: string;
-    wrapperWrapper: string;
     hovedmenyWrapper: string;
     hovedmenyContent: string;
     arbeidsflate: string;
@@ -116,6 +108,25 @@ declare module '*logout-warning.module.css' {
   export default classes;
 }
 
+declare module '*main-menu.module.css' {
+  const classes: {
+    mainMenu: string;
+    content: string;
+    header: string;
+    link: string;
+    title: string;
+    links: string;
+    linkGroup: string;
+    linkGroupHeading: string;
+    linkList: string;
+    contextLinks: string;
+    contextLink: string;
+    contextLinkTitle: string;
+    contextLinkDescription: string;
+  };
+  export default classes;
+}
+
 declare module '*notification.module.css' {
   const classes: {
     notification: string;
@@ -141,7 +152,15 @@ declare module '*notifications.module.css' {
     notificationListHeading: string;
     notificationList: string;
     allNotificationsLink: string;
-    tidligereNotifications: string;
+  };
+  export default classes;
+}
+
+declare module '*ops-messages.module.css' {
+  const classes: {
+    opsMessagesContainer: string;
+    opsMessages: string;
+    opsMessage: string;
   };
   export default classes;
 }

@@ -17,13 +17,6 @@
   z-index: 1000;
 }
 
-.wrapperWrapper {
-  height: 100%;
-  width: fit-content;
-  margin-inline: auto;
-  position: relative;
-}
-
 .hovedmenyWrapper {
   height: 100%;
   display: flex;
@@ -35,24 +28,17 @@
   display: flex;
   align-items: center;
   height: 100%;
-}
-
-@media (--breakpoint-lg) {
-  .hovedmenyContent {
-    padding-left: var(--a-spacing-4);
-  }
+  gap: var(--a-spacing-10);
 }
 
 .arbeidsflate {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin-left: 40px;
+  display: none;
 }
 
-@media (--breakpoint-lg) {
+@media (min-width: 1200px) {
   .arbeidsflate {
-    display: none;
+    display: flex;
+    height: 100%;
   }
 }
 
