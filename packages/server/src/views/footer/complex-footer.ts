@@ -1,8 +1,7 @@
-import { LinkGroup, Texts } from 'decorator-shared/types';
+import { Features, LinkGroup, Texts } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 import { ScreenshareButton } from './screenshare-button';
 import { ArrowUp } from 'decorator-shared/views/icons';
-import { Features } from '../../unleash-service';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import cls from 'decorator-client/src/styles/complex-footer.module.css';
 import utilCls from 'decorator-shared/utilities.module.css';

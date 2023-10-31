@@ -1,13 +1,10 @@
+import { Features } from 'decorator-shared/types';
 import { Unleash, initialize } from 'unleash-client';
 
 type Config = {
   mock?: boolean;
 };
 
-export type Features = {
-  'dekoratoren.skjermdeling': boolean;
-  'dekoratoren.chatbotscript': boolean;
-};
 
 export default class UnleashService {
   unleashInstance: Unleash | null;

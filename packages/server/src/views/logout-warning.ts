@@ -1,16 +1,17 @@
 import html from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/logout-warning.module.css';
+import clsModal from 'decorator-client/src/styles/modal.module.css';
 import { Button } from 'decorator-shared/views/components/button';
 
 export type LogoutWarningProps = unknown;
 
 export function LogoutWarning() {
-  return html`<dialog class="${cls.modal}" id="logout-warning">
-    <div class="${cls.modalWindow}">
-      <h1 id="logout-warning-title" class="${cls.modalTitle}">
+  return html`<dialog class="${clsModal.modal}" id="logout-warning">
+    <div class="${clsModal.modalWindow}">
+      <h1 id="logout-warning-title" class="${clsModal.modalTitle}">
         Du blir snart logget ut automatisk
       </h1>
-      <p id="logout-warning-body" class="${cls.modalBody}">
+      <p id="logout-warning-body" class="${clsModal.modalBody}">
         Vil du fortsatt være innlogget?
       </p>
       <div class="${cls.buttonWrapper}">

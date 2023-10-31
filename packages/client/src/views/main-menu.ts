@@ -11,6 +11,7 @@ class MainMenu extends HTMLElement {
       });
   };
 
+
   connectedCallback() {
     window.addEventListener('activecontext', this.handleActiveContext);
   }
