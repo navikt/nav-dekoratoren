@@ -1,6 +1,6 @@
-import html, { Template } from '../../html';
-import { DownChevron } from '../icons/down-chevron';
-import cls from './icon-button.module.css';
+import html, { Template } from 'decorator-shared/html';
+import { DownChevron } from 'decorator-shared/views/icons/down-chevron';
+import cls from 'decorator-client/src/styles/icon-button.module.css';
 
 export function IconButton({
   Icon,

@@ -1,4 +1,4 @@
-import type { StoryObj, Meta } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import type { LoggedInMenuProps } from './logged-in-menu';
 import { LoggedInMenu } from './logged-in-menu';
 

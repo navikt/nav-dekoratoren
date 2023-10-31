@@ -1,15 +1,19 @@
-import { IconButton } from '../../components/icon-button';
-import { BurgerIcon } from '../../icons/burger';
-import { LoginIcon } from 'decorator-shared/views/icons/login';
-import { MainMenuContextLink, LinkGroup, Node } from '../../../types';
+import cls from 'decorator-client/src/styles/menu-items.module.css';
 import html from 'decorator-shared/html';
-import { Texts } from 'decorator-shared/types';
-import { LoggedInMenu } from './logged-in-menu';
-import cls from './menu-items.module.css';
-import { ComplexHeaderMenu } from 'decorator-server/src/views/header/complex-header-menu';
+import {
+  LinkGroup,
+  MainMenuContextLink,
+  Node,
+  Texts,
+} from 'decorator-shared/types';
+import { SearchIcon } from 'decorator-shared/views/icons';
+import { BurgerIcon } from 'decorator-shared/views/icons/burger';
+import { LoginIcon } from 'decorator-shared/views/icons/login';
 import { DropdownMenu } from '../../dropdown-menu';
-import { SearchIcon } from '../../icons';
+import { IconButton } from '../../icon-button';
 import { SearchForm } from '../../search-form';
+import { ComplexHeaderMenu } from '../complex-header-menu';
+import { LoggedInMenu } from './logged-in-menu';
 
 export type ComplexHeaderNavbarItemsProps = {
   mainMenuTitle: string;
@@ -37,7 +41,6 @@ export function ComplexHeaderNavbarItems({
       <div class="${cls.menuItemsUniversalLinks}">
         ${DropdownMenu({
           button: IconButton({
-            id: 'menu-button',
             Icon: BurgerIcon(),
             text: texts.menu,
           }),

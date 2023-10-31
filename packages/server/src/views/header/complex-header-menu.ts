@@ -1,7 +1,7 @@
 import cls from 'decorator-client/src/styles/complex-header-menu.module.css';
 import html from 'decorator-shared/html';
 import { MainMenuContextLink, LinkGroup, Texts } from 'decorator-shared/types';
-import { SearchForm } from 'decorator-shared/views/search-form';
+import { SearchForm } from '../search-form';
 import { MainMenu } from './main-menu';
 
 export type ComplexHeaderMenuProps = {

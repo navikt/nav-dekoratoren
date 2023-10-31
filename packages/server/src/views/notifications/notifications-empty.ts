@@ -1,5 +1,5 @@
-import html from '../../html';
-import cls from './empty.module.css';
+import cls from 'decorator-client/src/styles/notifications-empty.module.css';
+import html from 'decorator-shared/html';
 
 export type NotificationsEmptyProps = {
   texts: {

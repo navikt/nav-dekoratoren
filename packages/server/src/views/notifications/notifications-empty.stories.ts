@@ -1,6 +1,6 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import type { NotificationsEmptyProps } from './empty';
-import { NotificationsEmpty } from './empty';
+import type { NotificationsEmptyProps } from './notifications-empty';
+import { NotificationsEmpty } from './notifications-empty';
 
 const meta: Meta<NotificationsEmptyProps> = {
   title: 'notifications/empty',

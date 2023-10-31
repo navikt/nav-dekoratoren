@@ -1,9 +1,9 @@
-import { IconButton } from '../../components/icon-button';
-import { LoginIcon } from 'decorator-shared/views/icons/login';
+import cls from 'decorator-client/src/styles/menu-items.module.css';
 import html from 'decorator-shared/html';
-import { Texts } from '../../../types';
-import { LogoutIcon } from '../../icons/logout';
-import cls from './menu-items.module.css';
+import { Texts } from 'decorator-shared/types';
+import { LoginIcon } from 'decorator-shared/views/icons/login';
+import { LogoutIcon } from 'decorator-shared/views/icons/logout';
+import { IconButton } from '../../icon-button';
 
 export type SimpleHeaderNavbarItemsProps = {
   innlogget: boolean;

@@ -1,14 +1,14 @@
-import { Node, Texts } from '../../../types';
+import cls from 'decorator-client/src/styles/logged-in-menu.module.css';
 import html from 'decorator-shared/html';
-import { IconButton } from '../../components/icon-button';
+import { Node, Texts } from 'decorator-shared/types';
+import { CloseIcon } from 'decorator-shared/views/icons';
+import { LogoutIcon } from 'decorator-shared/views/icons/logout';
 import { NotificationsIcon } from 'decorator-shared/views/icons/notifications';
 import { ProfileIcon } from 'decorator-shared/views/icons/profile';
-import { HeaderMenuLinks } from '../header-menu-links';
-import { LoadingNotifications } from '../../notifications/loading';
-import cls from './logged-in-menu.module.css';
-import { LogoutIcon } from '../../icons/logout';
+import { LoadingNotifications } from 'decorator-shared/views/notifications/loading';
 import { DropdownMenu } from '../../dropdown-menu';
-import { CloseIcon } from '../../icons';
+import { IconButton } from '../../icon-button';
+import { HeaderMenuLinks } from '../header-menu-links';
 
 export type LoggedInMenuProps = {
   name: string;

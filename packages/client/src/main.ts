@@ -35,11 +35,8 @@ import { type AnalyticsEventArgs } from './analytics/constants';
 import { AppState } from 'decorator-shared/types';
 // CSS classe
 import headerClasses from './styles/header.module.css';
-import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
-
-import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
-import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
+import menuItemsClasses from './styles/menu-items.module.css';
+import loggedInMenuClasses from './styles/logged-in-menu.module.css';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 

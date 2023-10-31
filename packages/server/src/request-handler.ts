@@ -1,4 +1,4 @@
-import { NotificationsEmpty } from 'decorator-shared/views/notifications/empty';
+import { NotificationsEmpty } from './views/notifications/notifications-empty';
 import { validateParams } from './validateParams';
 import { getMockSession, refreshToken } from './mockAuth';
 import ContentService from './content-service';

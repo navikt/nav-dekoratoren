@@ -98,6 +98,15 @@ declare module 'header.module.css' {
   export default classes;
 }
 
+declare module 'icon-button.module.css' {
+  const classes: {
+    iconButton: string;
+    iconButtonSpan: string;
+    chevron: string;
+  };
+  export default classes;
+}
+
 declare module 'inputs.module.css' {
   const classes: {
     textInput: string;
@@ -105,6 +114,23 @@ declare module 'inputs.module.css' {
     textInputLabel: string;
     errorList: string;
     showErrors: string;
+  };
+  export default classes;
+}
+
+declare module 'logged-in-menu.module.css' {
+  const classes: {
+    notificationsDropdown: string;
+    myPageMenuDropdown: string;
+    myPageMenuButton: string;
+    loggedInMenu: string;
+    myPageMenuHeading: string;
+    link: string;
+    notificationsUnread: string;
+    notificationsIconWrapper: string;
+    notificationsIcon: string;
+    closeIcon: string;
+    logoutButton: string;
   };
   export default classes;
 }
@@ -140,6 +166,17 @@ declare module 'main-menu.module.css' {
   export default classes;
 }
 
+declare module 'menu-items.module.css' {
+  const classes: {
+    menuItems: string;
+    menuItemsUniversalLinks: string;
+    searchDropdown: string;
+    searchButton: string;
+    searchMenu: string;
+  };
+  export default classes;
+}
+
 declare module 'modal.module.css' {
   const classes: {
     modal: string;
@@ -164,6 +201,17 @@ declare module 'notification.module.css' {
     metadata: string;
     bottom: string;
     button: string;
+  };
+  export default classes;
+}
+
+declare module 'notifications-empty.module.css' {
+  const classes: {
+    notificationsEmpty: string;
+    heading: string;
+    description: string;
+    link: string;
+    image: string;
   };
   export default classes;
 }

@@ -6,7 +6,7 @@ import type {
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
-import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
+import { SimpleHeaderNavbarItems } from './navbar-items/simple-header-navbar-items';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import cls from 'decorator-client/src/styles/header.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';

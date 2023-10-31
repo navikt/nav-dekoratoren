@@ -13,7 +13,7 @@ import {
   Node,
   Texts,
 } from 'decorator-shared/types';
-import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
+import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';

@@ -1,14 +1,13 @@
-import { Node } from '../../types';
-import html from '../../html';
-import { ForwardChevron } from '../icons/forward-chevron';
-import { Context } from '../../params';
-
-import classes from 'decorator-client/src/styles/header.module.css';
-import contextMenuLinkClasses from 'decorator-client/src/styles/context-menu-link.module.css';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import clsx from 'clsx';
 import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
-import { Next } from '../icons/next';
+import contextMenuLinkClasses from 'decorator-client/src/styles/context-menu-link.module.css';
+import classes from 'decorator-client/src/styles/header.module.css';
+import html from 'decorator-shared/html';
+import { Context } from 'decorator-shared/params';
+import { Node } from 'decorator-shared/types';
+import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
+import { Next } from 'decorator-shared/views/icons/next';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 
 function Link({
   path,
