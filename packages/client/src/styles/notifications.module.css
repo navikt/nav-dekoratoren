@@ -18,7 +18,7 @@
 .notificationList {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-2);
+  gap: var(--a-spacing-3);
   list-style: none;
   margin-block: 0;
   padding-left: 0;

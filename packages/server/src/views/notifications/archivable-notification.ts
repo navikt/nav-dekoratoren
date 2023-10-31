@@ -1,5 +1,5 @@
 import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/archivable-notification.module.css';
+import cls from 'decorator-client/src/styles/notification.module.css';
 
 export type ArchivableNotificationProps = {
   title: string;

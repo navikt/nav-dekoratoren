@@ -1,16 +1,3 @@
-declare module '*archivable-notification.module.css' {
-  const classes: {
-    notification: string;
-    header: string;
-    headerLeft: string;
-    date: string;
-    bottom: string;
-    button: string;
-    metadata: string;
-  };
-  export default classes;
-}
-
 declare module '*complex-footer.module.css' {
   const classes: {
     footer: string;
@@ -139,6 +126,8 @@ declare module '*notification.module.css' {
     date: string;
     chevron: string;
     metadata: string;
+    bottom: string;
+    button: string;
   };
   export default classes;
 }
