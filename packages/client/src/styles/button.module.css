@@ -43,6 +43,15 @@
   background-color: var(--a-blue-100);
 }
 
+.ghost {
+    background-color: none;
+    color: var(--a-text-action);
+}
+
+.ghost:hover {
+    background-color: var(--a-blue-100);
+}
+
 .bigLabel {
   font-size: 1.125rem;
   line-height: 1.75rem;

@@ -2,7 +2,7 @@ import html from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/screenshare-button.module.css';
 
 export const ScreenshareButton = (text: string) =>
-  html`<button type="button" class="${cls.screenshareButton}">
+  html`<button  is="screenshare-button" class="${cls.screenshareButton}">
     ${text}
     <svg
       width="1em"

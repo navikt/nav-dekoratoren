@@ -1,0 +1,34 @@
+.summary {
+    color: var(--a-blue-500);
+    list-style-type: none;
+    list-style-image: url('/public/ikoner/read-more.svg');
+    height: 32px;
+}
+
+.summary:global(::marker) {
+    /* display: grid; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.summary:hover {
+    list-style-image: none;
+    background-color: var(--a-bg-subtle);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.answer {
+    border-left: 2px solid var(--a-border-divider);
+    padding-left: var(--a-spacing-3);
+    margin-left: var(--a-spacing-2);
+    line-height: 1.5;
+}
+
+.details[open] .summary {
+    list-style-image: url('/public/ikoner/read-less.svg')
+}
+
+.details {
+
+}

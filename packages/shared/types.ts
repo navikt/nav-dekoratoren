@@ -78,6 +78,12 @@ export type Texts = {
   loading_preview: string;
   to_front_page: string;
   important_info: string;
+  footer_del_skerm: string;
+  delskjerm_modal_beskrivelse: string;
+  delskjerm_modal_start: string;
+  delskjerm_modal_label: string;
+  delskjerm_modal_avbryt: string;
+  delskjerm_modal_feilmelding: string;
 };
 
 export type OpsMessage = {

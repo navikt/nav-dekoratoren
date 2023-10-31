@@ -58,6 +58,12 @@ const nb = {
   loading_preview: 'Laster forhåndsvisning',
   to_front_page: 'Til forsiden',
   important_info: 'Viktig informasjon: ',
+  footer_del_skerm: 'Del skjerm med veileder',
+  delskjerm_modal_beskrivelse: `Gi veilederen du snakker med på telefon tilgang til å se det du ser på nav.no.`,
+  delskjerm_modal_start: 'Start skjermdeling',
+  delskjerm_modal_label: 'Skriv in koden du får fra veilederen',
+  delskjerm_modal_avbryt: 'Avbryt',
+  delskjerm_modal_feilmelding: 'Må bestå av 5 siffer'
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -120,8 +126,14 @@ export const texts: Record<Language, Texts> = {
     see_all_hits: 'See all hits',
     no_hits_for: 'No hits for',
     loading_preview: 'Loading preview',
-    to_front_page: 'To thie front page',
+    to_front_page: 'To the front page',
     important_info: 'Imporant information: ',
+    footer_del_skerm: 'Share screen with your counsellor',
+    delskjerm_modal_beskrivelse: `Give the counsellor access to see the same content as you on nav.no`,
+    delskjerm_modal_start: 'Start screen sharing',
+    delskjerm_modal_label: 'Enter the code you received from the counsellor',
+    delskjerm_modal_avbryt: 'Cancel',
+    delskjerm_modal_feilmelding: 'Must be 5 digits'
   },
   se: nb,
   nn: nb,
