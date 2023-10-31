@@ -98,12 +98,14 @@ export async function Index({
   decoratorData,
   maskDocument = false,
   main,
+  shareScreen,
 }: {
   language: Language;
   header: Template;
   feedback?: Template;
   footer: Template;
   logoutWarning?: Template;
+  shareScreen?: Template;
   lens: Template;
   decoratorData: Template;
   maskDocument?: boolean;
@@ -127,7 +129,9 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        <div id="header-withmenu">${header}</div>
+        <div id="header-withmenu">
+        ${header}
+        </div>
         <main>
           ${Button({
             text: 'Test amplitude!',
@@ -193,7 +197,7 @@ export async function Index({
           <div>${main}</div>
         </main>
         <div id="footer-withmenu" class="bg-white">
-          ${logoutWarning} ${feedback} ${footer}
+          ${shareScreen} ${logoutWarning} ${feedback} ${footer}
         </div>
         ${lens}
         <div id="scripts" style="display:none">

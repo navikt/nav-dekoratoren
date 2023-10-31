@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import html from '../../html';
-import cls from './button.module.css';
+import cls from 'decorator-client/src/styles/button.module.css';
 
 export type ButtonProps = {
   text: string;
-  variant: 'primary' | 'secondary' | 'outline';
+  variant: 'primary' | 'secondary' | 'outline' | 'ghost';
   bigLabel?: boolean;
   wide?: boolean;
   className?: string;
@@ -32,6 +32,7 @@ export const Button = ({
         [cls.primary]: variant === 'primary',
         [cls.secondary]: variant === 'secondary',
         [cls.outline]: variant === 'outline',
+        [cls.ghost]: variant === 'ghost',
         [cls.bigLabel]: bigLabel,
         [cls.wide]: wide,
       },

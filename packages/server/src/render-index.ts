@@ -15,6 +15,7 @@ import UnleashService from './unleash-service';
 import { makeContextLinks } from 'decorator-shared/context';
 import { env } from './env/server';
 import { SplashPage } from './views/splash-page';
+import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
 
 export default async ({
   contentService,
@@ -75,6 +76,7 @@ export default async ({
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
+      shareScreen: data.shareScreen ? ScreensharingModal({ texts: localTexts }) : undefined,
       footer:
         data.simple || data.simpleFooter
           ? SimpleFooter({

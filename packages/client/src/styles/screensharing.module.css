@@ -1,0 +1,23 @@
+.screensharingModal {
+    overflow: visible;
+    border: none;
+    max-width: 560px;
+    width: 100%;
+}
+
+.avatar {
+    position: absolute;
+    width: 70px;
+    top: -50px;
+    left: calc(50% - 35px);
+}
+
+.content {
+    padding-top: var(--a-spacing-4);
+}
+
+.buttonsWrapper {
+    margin-top: var(--a-spacing-4);
+    display: flex;
+    gap: var(--a-spacing-4);
+}
