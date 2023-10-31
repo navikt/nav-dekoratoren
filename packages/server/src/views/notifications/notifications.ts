@@ -5,10 +5,11 @@ import { Notification } from './notification';
 import { Texts } from 'decorator-shared/types';
 
 export type Notification = {
+  title: string;
+  metadata?: string;
   text: string;
   date: string;
   icon: Template;
-  tags: string[];
 } & (
   | {
       isArchivable: true;

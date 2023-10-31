@@ -14,10 +14,11 @@ type Story = StoryObj<ArchivableNotificationProps>;
 
 export const Default: Story = {
   args: {
-    text: 'Beskjed uten lenke',
+    text: 'Husk timeavtalen du har med veileder tirsdag 18. oktober, kl. 12.30.',
     date: '2023-08-08T13:24:23.75234+02:00',
     icon: MessageIcon(),
-    tags: ['Varslet på e-post'],
+    title: 'Beskjed',
+    metadata: 'Varslet på e-post',
     texts: {
       archive: 'Arkiver',
     },

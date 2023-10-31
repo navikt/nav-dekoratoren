@@ -1,10 +1,12 @@
 declare module '*archivable-notification.module.css' {
   const classes: {
     notification: string;
+    header: string;
+    headerLeft: string;
     date: string;
     bottom: string;
-    tag: string;
     button: string;
+    metadata: string;
   };
   export default classes;
 }
@@ -130,11 +132,13 @@ declare module '*main-menu.module.css' {
 declare module '*notification.module.css' {
   const classes: {
     notification: string;
+    header: string;
+    headerLeft: string;
+    headerRight: string;
     text: string;
     date: string;
-    bottom: string;
-    tag: string;
     chevron: string;
+    metadata: string;
   };
   export default classes;
 }
