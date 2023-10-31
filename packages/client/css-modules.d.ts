@@ -148,6 +148,7 @@ declare module '*notifications-empty.module.css' {
 
 declare module '*notifications.module.css' {
   const classes: {
+    notificationsHeading: string;
     notifications: string;
     notificationListHeading: string;
     notificationList: string;
@@ -211,6 +212,21 @@ declare module '*splash-page.module.css' {
   const classes: {
     splashPage: string;
     splashAlert: string;
+  };
+  export default classes;
+}
+
+declare module '*user-menu.module.css' {
+  const classes: {
+    userMenu: string;
+    menuItems: string;
+    menuHeader: string;
+    loggedIn: string;
+    name: string;
+    menuItem: string;
+    menuItemIcon: string;
+    notifications: string;
+    logout: string;
   };
   export default classes;
 }

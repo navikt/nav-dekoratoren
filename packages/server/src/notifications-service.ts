@@ -1,6 +1,6 @@
 import { Texts } from 'decorator-shared/types';
 import notificationsMock from './notifications-mock.json';
-import { NotificationList } from './views/notifications/notifications';
+import { Notification } from './views/notifications/notifications';
 import {
   MessageIcon,
   TaskIcon,
@@ -32,7 +32,7 @@ type Beskjed = {
 
 const getNotifications: (
   texts: Texts,
-) => Promise<NotificationList[] | undefined> = async (texts) => {
+) => Promise<Notification[] | undefined> = async (texts) => {
   const kanalToTag = (kanal: string) => {
     switch (kanal) {
       case 'SMS':
@@ -71,14 +71,8 @@ const getNotifications: (
   });
 
   return Promise.resolve([
-    {
-      heading: texts.notifications_tasks_title,
-      notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
-    },
-    {
-      heading: texts.notifications_messages_title,
-      notifications: notificationsMock.beskjeder.map(beskjedToNotification),
-    },
+    ...notificationsMock.oppgaver.map(oppgaveToNotifiction),
+    ...notificationsMock.beskjeder.map(beskjedToNotification),
   ]);
 };
 

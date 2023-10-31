@@ -1,24 +1,25 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import type { NotificationsProps } from './notifications';
-import { Notifications } from './notifications';
+import type { UserMenuProps } from './user-menu';
+import { UserMenu } from './user-menu';
+import { texts } from '../../texts';
 import {
   MessageIcon,
   TaskIcon,
 } from 'decorator-shared/views/icons/notifications';
-import { texts } from '../../texts';
 
-const meta: Meta<NotificationsProps> = {
-  title: 'notifications/list',
+const meta: Meta<UserMenuProps> = {
+  title: 'header/user-menu',
   tags: ['autodocs'],
-  render: Notifications,
+  render: UserMenu,
 };
 
 export default meta;
-type Story = StoryObj<NotificationsProps>;
+type Story = StoryObj<UserMenuProps>;
 
 export const Default: Story = {
   args: {
     texts: texts.nb,
+    name: 'Charlie Jensen',
     notifications: [
       {
         text: 'Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.',

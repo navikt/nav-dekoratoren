@@ -7,7 +7,7 @@ import renderIndex from './render-index';
 
 import SearchService from './search-service';
 import {
-  NotificationList,
+  Notification,
   Notifications,
 } from './views/notifications/notifications';
 import { texts } from './texts';
@@ -28,7 +28,7 @@ type FileSystemService = {
 };
 
 type NotificationsService = {
-  getNotifications: (texts: Texts) => Promise<NotificationList[] | undefined>;
+  getNotifications: (texts: Texts) => Promise<Notification[] | undefined>;
 };
 
 const rewriter = new HTMLRewriter().on('img', {
@@ -118,17 +118,17 @@ const requestHandler = async (
     .get('/api/notifications', async ({ query }) => {
       // throw new Error('woops!');
 
-      const notificationLists = await notificationsService.getNotifications(
+      const notifications = await notificationsService.getNotifications(
         texts[validParams(query).language],
       );
 
       const localTexts = texts[validParams(query).language];
 
       return new Response(
-        notificationLists
+        notifications
           ? Notifications({
               texts: localTexts,
-              notificationLists,
+              notifications,
             }).render()
           : NotificationsEmpty({ texts: localTexts }).render(),
         {
