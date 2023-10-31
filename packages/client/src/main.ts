@@ -40,6 +40,8 @@ import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logg
 
 import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
 import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
+import { useLoadIfActiveSession } from './screensharing';
+import Cookies from 'js-cookie';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -69,12 +71,15 @@ declare global {
     // For task analytics, should have better types?
     TA: any;
     dataLayer: any;
+    vngageReady: () => void;
   }
 }
 
 window.__DECORATOR_DATA__ = JSON.parse(
   document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
 );
+
+console.log(window.__DECORATOR_DATA__)
 
 window.__DECORATOR_DATA__.env = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
@@ -266,3 +271,11 @@ function handleLogin() {
 }
 
 handleLogin();
+
+
+// @TODO: Refactor loaders
+window.addEventListener('load', () => {
+    useLoadIfActiveSession({
+        userState: Cookies.get('psCurrentState')
+    })
+})

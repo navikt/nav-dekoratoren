@@ -1,6 +1,16 @@
 import { Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 
+// 'delskjerm-modal-hjelpetekst-0': `Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.`,
+// 'delskjerm-modal-hjelpetekst-0-en': `When you share your screen, the counsellor can help you navigate nav.no`,
+// 'delskjerm-modal-hjelpetekst-0-se': `Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.`,
+// 'delskjerm-modal-hjelpetekst-1': `Veilederen ser kun det du ser på nav.no og kan ikke fylle inn opplysninger eller sende inn noe på dine vegne. `,
+// 'delskjerm-modal-hjelpetekst-1-en': `The counsellor can only see what you see on nav.no and can't fill in any information or send anything on your behalf.`,
+// 'delskjerm-modal-hjelpetekst-1-se': `Veilederen ser kun det du ser på nav.no og kan ikke fylle inn opplysninger eller sende inn noe på dine vegne. `,
+// 'delskjerm-modal-hjelpetekst-2': `Det er du som godkjenner skjermdeling. Ingenting blir lagret.`,
+// 'delskjerm-modal-hjelpetekst-2-en': `Screen sharing must be approved by you. Nothing is stored.`,
+// 'delskjerm-modal-hjelpetekst-2-se': `Det er du som godkjenner skjermdeling. Ingenting blir lagret.`,
+
 const nb = {
   share_screen: 'Del skjerm med veileder',
   to_top: 'Til toppen',
@@ -58,12 +68,20 @@ const nb = {
   loading_preview: 'Laster forhåndsvisning',
   to_front_page: 'Til forsiden',
   important_info: 'Viktig informasjon: ',
-  footer_del_skerm: 'Del skjerm med veileder',
+  footer_del_skjerm: 'Del skjerm med veileder',
   delskjerm_modal_beskrivelse: `Gi veilederen du snakker med på telefon tilgang til å se det du ser på nav.no.`,
   delskjerm_modal_start: 'Start skjermdeling',
   delskjerm_modal_label: 'Skriv in koden du får fra veilederen',
   delskjerm_modal_avbryt: 'Avbryt',
-  delskjerm_modal_feilmelding: 'Må bestå av 5 siffer'
+  delskjerm_modal_feilmelding: 'Må bestå av 5 siffer',
+  delskjerm_modal_hjelpetekst_overskrift: 'Hva er skjermdeling?',
+  delskjerm_modal_hjelpetekst_0:
+    'Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.',
+  delskjerm_modal_hjelpetekst_1:
+    'Veilederen ser kun det du ser på nav.no og kan ikke fylle inn opplysninger eller sende inn noe på dine vegne.',
+  delskjerm_modal_hjelpetekst_2:
+    'Det er du som godkjenner skjermdeling. Ingenting blir lagret.',
+  delskjerm_modal_stengt: 'Skjermdeling er for øyeblikket stengt, prøv igjen senere',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -128,12 +146,20 @@ export const texts: Record<Language, Texts> = {
     loading_preview: 'Loading preview',
     to_front_page: 'To the front page',
     important_info: 'Imporant information: ',
-    footer_del_skerm: 'Share screen with your counsellor',
+    footer_del_skjerm: 'Share screen with your counsellor',
     delskjerm_modal_beskrivelse: `Give the counsellor access to see the same content as you on nav.no`,
     delskjerm_modal_start: 'Start screen sharing',
     delskjerm_modal_label: 'Enter the code you received from the counsellor',
     delskjerm_modal_avbryt: 'Cancel',
-    delskjerm_modal_feilmelding: 'Must be 5 digits'
+    delskjerm_modal_feilmelding: 'Must be 5 digits',
+    delskjerm_modal_hjelpetekst_overskrift: 'What is screen sharing?',
+    delskjerm_modal_hjelpetekst_0:
+      'When you share your screen, the counsellor can help you navigate nav.no',
+    delskjerm_modal_hjelpetekst_1:
+      "The counsellor can only see what you see on nav.no and can't fill in any information or send anything on your behalf.",
+    delskjerm_modal_hjelpetekst_2:
+      'Screen sharing must be approved by you. Nothing is stored.',
+    delskjerm_modal_stengt: 'Screen sharing is currently closed, please try again later'
   },
   se: nb,
   nn: nb,

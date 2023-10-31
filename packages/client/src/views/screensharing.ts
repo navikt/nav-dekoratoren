@@ -1,5 +1,8 @@
+import { lazyLoadScreensharing } from '../screensharing';
 import cls from '../styles/inputs.module.css';
+import screensharingCls from '../styles/screensharing.module.css'
 
+// @TODO: Add loading indicator
 class ScreensharingModal extends HTMLDialogElement {
   input!: HTMLInputElement;
   confirmButton!: HTMLButtonElement;
@@ -25,7 +28,7 @@ class ScreensharingModal extends HTMLDialogElement {
   }
 
 
-  connectedCallback() {
+  load() {
       // Scroll to top when opened
       window.scrollTo(0, 0);
       this.input = this.querySelector('input#screensharing_code') as HTMLInputElement;
@@ -47,20 +50,34 @@ class ScreensharingModal extends HTMLDialogElement {
           this.close()
       });
 
+      const isOpen = window.__DECORATOR_DATA__.params.shareScreen && window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
+
+      if (!isOpen) {
+          this.classList.add(screensharingCls.isClosed);
+      }
+
+  }
+
+  connectedCallback() {
+      // Need to do this otherwise decorator data has not been hydrated
+      window.addEventListener('load', this.load.bind(this))
   }
 
   disconnectedCallback() {
-    // window.removeEventListener('click', this.handleWindowClick);
+    window.removeEventListener('load', this.load)
   }
 }
 
 
+// There is no "open" event for the dialog, so it needs to be done here
 class ScreenshareButton extends HTMLButtonElement {
     handleClick() {
-        console.log('Screenshare button clicked');
         const dialog = document.querySelector('dialog[is="screensharing-modal"]') as HTMLDialogElement;
-        dialog.showModal();
-        dialog.open = true;
+
+          lazyLoadScreensharing(() => {
+              dialog.showModal();
+              dialog.open = true;
+          })
 
     }
     connectedCallback() {
