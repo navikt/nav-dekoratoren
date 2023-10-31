@@ -76,6 +76,8 @@ window.__DECORATOR_DATA__ = JSON.parse(
   document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
 );
 
+console.log(window.__DECORATOR_DATA__)
+
 window.__DECORATOR_DATA__.env = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
   LOGIN_URL: import.meta.env.VITE_LOGIN_URL,

@@ -5,6 +5,18 @@
     width: 100%;
 }
 
+.screensharingModal .closed {
+    display: none;
+}
+
+.screensharingModal.isClosed .closed {
+    display: block;
+}
+
+.screensharingModal.isClosed .open {
+    display: none;
+}
+
 .avatar {
     position: absolute;
     width: 70px;
@@ -20,4 +32,9 @@
     margin-top: var(--a-spacing-4);
     display: flex;
     gap: var(--a-spacing-4);
+}
+
+.open{}
+.closed {
+    display: block;
 }

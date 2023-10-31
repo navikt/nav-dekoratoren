@@ -65,7 +65,7 @@ function createTSModule(file: ProcessedFile) {
 
   const tsModule = ts.factory.createModuleDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.DeclareKeyword)],
-    ts.factory.createStringLiteral(`${file.path}`),
+    ts.factory.createStringLiteral(`*/${file.path}`),
     ts.factory.createModuleBlock([classesDeclaration, exportClassesStatement]),
   );
 

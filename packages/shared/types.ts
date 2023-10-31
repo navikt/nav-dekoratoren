@@ -78,12 +78,17 @@ export type Texts = {
   loading_preview: string;
   to_front_page: string;
   important_info: string;
-  footer_del_skerm: string;
+  footer_del_skjerm: string;
   delskjerm_modal_beskrivelse: string;
   delskjerm_modal_start: string;
   delskjerm_modal_label: string;
   delskjerm_modal_avbryt: string;
   delskjerm_modal_feilmelding: string;
+  delskjerm_modal_hjelpetekst_overskrift: string;
+  delskjerm_modal_hjelpetekst_0: string;
+  delskjerm_modal_hjelpetekst_1: string;
+  delskjerm_modal_hjelpetekst_2: string;
+  delskjerm_modal_stengt: string;
 };
 
 export type OpsMessage = {
@@ -108,10 +113,16 @@ export type SearchResult = {
   total: number;
 };
 
+export type Features = {
+  'dekoratoren.skjermdeling': boolean;
+  'dekoratoren.chatbotscript': boolean;
+};
+
 export type AppState = {
   texts: Texts;
   params: Params;
   env: Environment;
+  features: Features;
 };
 
 export type TaskAnalyticsUrlRule = {

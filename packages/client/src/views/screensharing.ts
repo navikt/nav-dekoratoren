@@ -1,4 +1,5 @@
 import cls from '../styles/inputs.module.css';
+import screensharingCls from '../styles/screensharing.module.css'
 
 class ScreensharingModal extends HTMLDialogElement {
   input!: HTMLInputElement;
@@ -25,7 +26,7 @@ class ScreensharingModal extends HTMLDialogElement {
   }
 
 
-  connectedCallback() {
+  load() {
       // Scroll to top when opened
       window.scrollTo(0, 0);
       this.input = this.querySelector('input#screensharing_code') as HTMLInputElement;
@@ -47,17 +48,26 @@ class ScreensharingModal extends HTMLDialogElement {
           this.close()
       });
 
+      const isOpen = window.__DECORATOR_DATA__.params.shareScreen && window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
+      if (!isOpen) {
+          this.classList.add(screensharingCls.isClosed);
+      }
+
+  }
+
+  connectedCallback() {
+      // Need to do this otherwise decorator data has not been hydrated
+      window.addEventListener('load', this.load.bind(this))
   }
 
   disconnectedCallback() {
-    // window.removeEventListener('click', this.handleWindowClick);
+    window.removeEventListener('load', this.load)
   }
 }
 
 
 class ScreenshareButton extends HTMLButtonElement {
     handleClick() {
-        console.log('Screenshare button clicked');
         const dialog = document.querySelector('dialog[is="screensharing-modal"]') as HTMLDialogElement;
         dialog.showModal();
         dialog.open = true;
