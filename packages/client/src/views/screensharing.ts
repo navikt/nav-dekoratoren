@@ -51,7 +51,6 @@ class ScreensharingModal extends HTMLDialogElement {
       });
 
       const isOpen = window.__DECORATOR_DATA__.params.shareScreen && window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
-
       if (!isOpen) {
           this.classList.add(screensharingCls.isClosed);
       }
