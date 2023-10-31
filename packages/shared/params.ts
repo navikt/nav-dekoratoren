@@ -50,7 +50,7 @@ export const paramsSchema = z.object({
   chatbot: z.boolean().default(true),
   chatbotVisible: z.boolean().default(false),
   urlLookupTable: z.boolean().default(false),
-  shareScreen: z.boolean().default(false),
+  shareScreen: z.boolean().default(true),
   logoutUrl: z.string().url().optional(),
   maskHotjar: z.boolean().default(false),
   logoutWarning: z.boolean().default(false),
