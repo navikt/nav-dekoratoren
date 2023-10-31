@@ -1,5 +1,5 @@
 import html from '../../html';
-import cls from 'decorator-client/src/styles/notifications-empty.module.css';
+import cls from './empty.module.css';
 
 export type NotificationsEmptyProps = {
   texts: {
@@ -12,12 +12,23 @@ export type NotificationsEmptyProps = {
 export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
   return html`
     <div class="${cls.notificationsEmpty}">
-      <img src="/public/ikoner/varsler/kattIngenNotifications.svg" alt="" />
-      <h1>${texts.notifications_empty_list}</h1>
-      <p>${texts.notifications_empty_list_description}</p>
-      <a href="${process.env.VITE_MIN_SIDE_URL}/all-notifications"
-        >${texts.notifications_show_all}</a
-      >
+      <div>
+        <h2 class="${cls.heading}">${texts.notifications_empty_list}</h2>
+        <p class="${cls.description}">
+          ${texts.notifications_empty_list_description}
+        </p>
+        <a
+          class="${cls.link}"
+          href="${process.env.VITE_MIN_SIDE_URL}/all-notifications"
+        >
+          ${texts.notifications_show_all}
+        </a>
+      </div>
+      <img
+        class="${cls.image}"
+        src="/public/ikoner/varsler/kattIngenNotifications.svg"
+        alt=""
+      />
     </div>
   `;
 }

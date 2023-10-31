@@ -16,9 +16,9 @@ type Story = StoryObj<NotificationsEmptyProps>;
 export const Default: Story = {
   args: {
     texts: {
-      notifications_empty_list: 'Ingen notifications',
-      notifications_empty_list_description: 'Du har ingen notifications',
-      notifications_show_all: 'Vis alle notifications',
+      notifications_empty_list: 'Du har ingen nye varsler',
+      notifications_empty_list_description: 'Vi varsler deg når noe skjer.',
+      notifications_show_all: 'Se tidligere varsler',
     },
   },
 };

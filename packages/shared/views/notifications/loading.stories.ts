@@ -16,7 +16,7 @@ type Story = StoryObj<LoadingNotificationsProps>;
 export const Default: Story = {
   args: {
     texts: {
-      loading_notifications: 'Laster varslinger',
+      loading_notifications: 'Laster innhold...',
     },
   },
 };

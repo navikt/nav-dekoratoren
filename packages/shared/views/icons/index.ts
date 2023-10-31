@@ -1,5 +1,6 @@
 export * from './share-screen';
 export * from './warning';
+export * from './error';
 export * from './lock';
 export * from './next';
 export * from './down-chevron';

@@ -25,7 +25,7 @@ export const Default: Story = {
       logout: 'Logg ut',
       notifications: 'Varsler',
       notifications_empty_list: 'Du har ingen nye varsler',
-      notifications_empty_list_description: 'Vi varsler deg når noe skjer',
+      notifications_empty_list_description: 'Vi varsler deg når noe skjer.',
       notifications_show_all: 'Tidligere varsler',
       notifications_messages_title: 'Beskjeder',
       notified_EPOST: 'Varslet på e-post',

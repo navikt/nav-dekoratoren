@@ -132,13 +132,6 @@ declare module '*notification.module.css' {
   export default classes;
 }
 
-declare module '*notifications-empty.module.css' {
-  const classes: {
-    notificationsEmpty: string;
-  };
-  export default classes;
-}
-
 declare module '*notifications.module.css' {
   const classes: {
     notificationsHeading: string;

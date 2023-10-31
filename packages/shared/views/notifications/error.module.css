@@ -1,0 +1,14 @@
+.error {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--a-spacing-3);
+  border: 1px solid var(--a-border-danger);
+  background-color: var(--a-surface-danger-subtle);
+  padding: var(--a-spacing-4);
+  border-radius: var(--a-border-radius-medium);
+}
+
+.errorIcon {
+  font-size: 1.5rem;
+  color: var(--a-icon-danger);
+}
