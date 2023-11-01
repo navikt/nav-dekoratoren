@@ -4,7 +4,7 @@ import cls from 'decorator-client/src/styles/read-more.module.css';
 
 type ReadMoreProps = {
   question: string;
-  answer: string;
+  answer: string[];
 };
 
 export const ReadMore = (props: ReadMoreProps) => {
@@ -12,7 +12,9 @@ export const ReadMore = (props: ReadMoreProps) => {
     <read-more>
       <details class="${cls.details}">
         <summary class="${cls.summary}">${props.question}</summary>
-        <p class="${cls.answer}">${props.answer}</p>
+        <div class="${cls.answer}">
+          ${props.answer.map((a) => html`<p>${a}</p>`)}
+        </div>
       </details>
     </read-more>
   `;

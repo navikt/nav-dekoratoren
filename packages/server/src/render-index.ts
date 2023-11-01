@@ -98,6 +98,7 @@ export default async ({
       decoratorData: DecoratorData({
         texts: localTexts,
         params: data,
+        features,
       }),
       maskDocument: data.maskHotjar,
       main:

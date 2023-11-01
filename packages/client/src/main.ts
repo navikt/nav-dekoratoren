@@ -1,44 +1,32 @@
-import 'vite/modulepreload-polyfill';
-
-import './main.css';
-
-import.meta.glob('./styles/*.css', { eager: true });
-
-import './views/lenke-med-sporing';
-import * as api from './api';
-
+import { formatParams } from 'decorator-shared/json';
+import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
+import { AppState } from 'decorator-shared/types';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-
-// Maybe create a file that does this
-import './views/notifications';
-import './views/language-selector';
-import './views/loader';
-import './views/decorator-lens';
-import './views/local-time';
-import './views/menu-background';
-import './views/dropdown-menu';
-import './views/search-menu';
-import './views/search-input';
-import './views/main-menu';
+import Cookies from 'js-cookie';
+import 'vite/modulepreload-polyfill';
+import { type AnalyticsEventArgs } from './analytics/constants';
+import * as api from './api';
+import { logoutWarningController } from './controllers/logout-warning';
+import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
+import './main.css';
+import { useLoadIfActiveSession } from './screensharing';
+import headerClasses from './styles/header.module.css';
 import './views/context-link';
+import './views/decorator-lens';
+import { attachLensListener } from './views/decorator-lens';
+import './views/dropdown-menu';
+import './views/language-selector';
+import './views/lenke-med-sporing';
+import './views/loader';
+import './views/local-time';
+import './views/main-menu';
+import './views/menu-background';
+import './views/notifications';
 import './views/ops-messages';
 import './views/screensharing';
-
-import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
-import { attachLensListener } from './views/decorator-lens';
-import { logoutWarningController } from './controllers/logout-warning';
-
-import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
-
-import { type AnalyticsEventArgs } from './analytics/constants';
-import { AppState } from 'decorator-shared/types';
-// CSS classe
-import headerClasses from './styles/header.module.css';
-import menuItemsClasses from './styles/menu-items.module.css';
-import loggedInMenuClasses from './styles/logged-in-menu.module.css';
-import { formatParams } from 'decorator-shared/json';
-
-// import { AnalyticsCategory } from './analytics/analytics';
+import './views/search-input';
+import './views/search-menu';
+import.meta.glob('./styles/*.css', { eager: true });
 
 type Auth = {
   authenticated: boolean;
@@ -66,12 +54,15 @@ declare global {
     // For task analytics, should have better types?
     TA: any;
     dataLayer: any;
+    vngageReady: () => void;
   }
 }
 
 window.__DECORATOR_DATA__ = JSON.parse(
   document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
 );
+
+console.log(window.__DECORATOR_DATA__);
 
 window.__DECORATOR_DATA__.env = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
@@ -223,3 +214,10 @@ function handleLogin() {
 }
 
 handleLogin();
+
+// @TODO: Refactor loaders
+window.addEventListener('load', () => {
+  useLoadIfActiveSession({
+    userState: Cookies.get('psCurrentState'),
+  });
+});
