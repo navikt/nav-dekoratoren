@@ -135,13 +135,6 @@ const requestHandler = async (
         },
       );
     })
-    .get('/data/myPageMenu', ({ query }) =>
-      jsonResponse(
-        contentService.getMyPageMenu({
-          language: validParams(query).language,
-        }),
-      ),
-    )
     .get('/main-menu', async ({ query }) => {
       const data = validParams(query);
       const localTexts = texts[data.language];

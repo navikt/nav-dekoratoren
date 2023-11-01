@@ -4,8 +4,6 @@ import './main.css';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
-import getContent from './get-content';
-
 import './views/lenke-med-sporing';
 import * as api from './api';
 
