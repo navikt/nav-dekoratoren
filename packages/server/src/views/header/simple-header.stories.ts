@@ -14,9 +14,6 @@ type Story = StoryObj<SimpleHeaderProps>;
 
 export const Default: Story = {
   args: {
-    availableLanguages: [],
-    breadcrumbs: [],
-    utilsBackground: 'transparent',
     texts: texts['nb'],
   },
 };
