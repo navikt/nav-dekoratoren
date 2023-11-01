@@ -1,4 +1,5 @@
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
+import cls from 'decorator-client/src/styles/header.module.css';
+import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 import html from 'decorator-shared/html';
 import type {
   AvailableLanguage,
@@ -6,15 +7,14 @@ import type {
   UtilsBackground,
 } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
-import { SimpleHeaderNavbarItems } from './navbar-items/simple-header-navbar-items';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-import cls from 'decorator-client/src/styles/header.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';
-import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
+import { LoginIcon } from 'decorator-shared/views/icons';
+import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
+import { IconButton } from '../icon-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
-  innlogget: boolean;
   availableLanguages: AvailableLanguage[];
   breadcrumbs: Breadcrumb[];
   utilsBackground: UtilsBackground;
@@ -24,7 +24,6 @@ export function SimpleHeader({
   availableLanguages,
   breadcrumbs,
   utilsBackground,
-  innlogget,
   texts,
 }: SimpleHeaderProps) {
   return html`
@@ -45,11 +44,13 @@ export function SimpleHeader({
             />`,
           })}
         </div>
-        ${SimpleHeaderNavbarItems({
-          innlogget,
-          texts,
-          name: '',
-        })}
+        <user-menu class="${cls.menuItems}">
+          ${IconButton({
+            id: 'login-button',
+            Icon: LoginIcon({}),
+            text: texts.login,
+          })}
+        </user-menu>
       </div>
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>

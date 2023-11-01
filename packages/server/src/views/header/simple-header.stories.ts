@@ -17,7 +17,6 @@ export const Default: Story = {
     availableLanguages: [],
     breadcrumbs: [],
     utilsBackground: 'transparent',
-    innlogget: false,
     texts: texts['nb'],
   },
 };

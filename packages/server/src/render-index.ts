@@ -53,7 +53,6 @@ export default async ({
         data.simple || data.simpleHeader
           ? SimpleHeader({
               texts: localTexts,
-              innlogget: false,
               breadcrumbs: data.breadcrumbs,
               utilsBackground: data.utilsBackground,
               availableLanguages: data.availableLanguages,
@@ -76,7 +75,9 @@ export default async ({
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
-      shareScreen: data.shareScreen ? ScreensharingModal({ texts: localTexts }) : undefined,
+      shareScreen: data.shareScreen
+        ? ScreensharingModal({ texts: localTexts })
+        : undefined,
       footer:
         data.simple || data.simpleFooter
           ? SimpleFooter({

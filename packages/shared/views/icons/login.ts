@@ -1,8 +1,6 @@
 import html from 'decorator-shared/html';
 
-// @TODO: Should probably create a generic type for the className
-
-export function LoginIcon({ className }: { className: string }) {
+export function LoginIcon({ className }: { className?: string }) {
   return html`<svg
     width="24px"
     height="24px"
@@ -13,7 +11,7 @@ export function LoginIcon({ className }: { className: string }) {
     role="img"
     aria-labelledby="decorator-login-icon"
     aria-hidden="true"
-    class="${className}"
+    ${className && html`class="${className}"`}
   >
     <title id="decorator-login-icon">Logginn-ikon</title>
     <path
