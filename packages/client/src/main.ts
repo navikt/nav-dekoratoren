@@ -10,6 +10,7 @@ import * as api from './api';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 // Maybe create a file that does this
+import './views/notifications';
 import './views/language-selector';
 import './views/loader';
 import './views/decorator-lens';
