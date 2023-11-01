@@ -229,8 +229,8 @@ declare module 'notifications.module.css' {
 
 declare module 'ops-messages.module.css' {
   const classes: {
-    opsMessagesContainer: string;
     opsMessages: string;
+    opsMessagesContent: string;
     opsMessage: string;
   };
   export default classes;

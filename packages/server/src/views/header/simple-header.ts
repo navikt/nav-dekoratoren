@@ -52,11 +52,7 @@ export function SimpleHeader({
         })}
       </div>
     </header>
-    <div class="${opsMessagesCls.opsMessagesContainer}">
-      <ops-messages
-        class="${opsMessagesCls.opsMessages} ${utilsCls.contentContainer}"
-      />
-    </div>
+    <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
     ${DecoratorUtilsContainer({
       utilsBackground,
       breadcrumbs,
