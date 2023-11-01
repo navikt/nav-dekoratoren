@@ -14,4 +14,5 @@ export * from './search';
 export * from './arrow-up';
 export * from './info';
 export * from './person-circle';
+export * from './person-circle-notification';
 export * from './badge';

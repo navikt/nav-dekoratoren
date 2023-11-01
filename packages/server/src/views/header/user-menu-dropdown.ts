@@ -1,11 +1,14 @@
-import html from 'decorator-shared/html';
-import { DropdownMenu } from '../dropdown-menu';
-import { UserMenu } from './user-menu';
-import { Texts } from 'decorator-shared/types';
-import { Notification } from '../notifications/notifications';
 import cls from 'decorator-client/src/styles/user-menu-dropdown.module.css';
+import { Texts } from 'decorator-shared/types';
+import {
+  PersonCircleIcon,
+  PersonCircleNotificationIcon,
+} from 'decorator-shared/views/icons';
+import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
-import { PersonCircleIcon } from 'decorator-shared/views/icons';
+import { Notification } from '../notifications/notifications';
+import { UserMenu } from './user-menu';
+import html from 'decorator-shared/html';
 
 export type UserMenuDropdownProps = {
   texts: Texts;
@@ -21,7 +24,13 @@ export const UserMenuDropdown = ({
   DropdownMenu({
     button: IconButton({
       text: name ?? '',
-      Icon: PersonCircleIcon({}),
+      Icon: notifications?.length
+        ? PersonCircleNotificationIcon({
+            className: cls.icon,
+          })
+        : PersonCircleIcon({
+            className: cls.icon,
+          }),
     }),
     dropdownClass: cls.userMenuDropdown,
     dropdownContent: UserMenu({

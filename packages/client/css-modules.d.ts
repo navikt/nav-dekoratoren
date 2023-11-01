@@ -291,6 +291,8 @@ declare module 'splash-page.module.css' {
 declare module 'user-menu-dropdown.module.css' {
   const classes: {
     userMenuDropdown: string;
+    icon: string;
+    iconWrapper: string;
   };
   export default classes;
 }
