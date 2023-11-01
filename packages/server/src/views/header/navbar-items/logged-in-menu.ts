@@ -12,7 +12,7 @@ import { HeaderMenuLinks } from '../header-menu-links';
 
 export type LoggedInMenuProps = {
   name: string;
-  myPageMenu: Node[];
+  myPageMenu?: Node[];
   texts: Texts;
 };
 

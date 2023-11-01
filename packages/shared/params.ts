@@ -55,6 +55,7 @@ export const paramsSchema = z.object({
   maskHotjar: z.boolean().default(false),
   logoutWarning: z.boolean().default(false),
   bedrift: z.string().optional(),
+  name: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;

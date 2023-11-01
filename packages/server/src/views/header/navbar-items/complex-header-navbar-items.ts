@@ -21,7 +21,7 @@ export type ComplexHeaderNavbarItemsProps = {
   innlogget: boolean;
   name?: string;
   texts: Texts;
-  myPageMenu: Node[];
+  myPageMenu?: Node[];
   mainMenuLinks: LinkGroup[];
   contextLinks: MainMenuContextLink[];
 };

@@ -21,6 +21,8 @@ import { SearchHits } from './views/search-hits';
 import { MainMenu } from './views/header/main-menu';
 import { Context, Language } from 'decorator-shared/params';
 import { OpsMessages } from './views/ops-messages';
+import { SimpleHeaderNavbarItems } from './views/header/navbar-items/simple-header-navbar-items';
+import { ComplexHeaderNavbarItems } from './views/header/navbar-items/complex-header-navbar-items';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -181,6 +183,42 @@ const requestHandler = async (
             bedrift: data.bedrift,
           }),
         }).render(),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
+      );
+    })
+    .get('/logged-in-menu', async ({ query }) => {
+      const data = validParams(query);
+      const localTexts = texts[data.language];
+      return new Response(
+        data.simple
+          ? SimpleHeaderNavbarItems({
+              innlogget: true, // TODO
+              name: data.name,
+              texts: localTexts,
+            }).render()
+          : ComplexHeaderNavbarItems({
+              innlogget: true,
+              name: data.name,
+              myPageMenu: await contentService.getMyPageMenu({
+                language: data.language,
+              }),
+              texts: localTexts,
+              mainMenuTitle:
+                data.context === 'privatperson'
+                  ? localTexts.how_can_we_help
+                  : localTexts[`rolle_${data.context}`],
+              frontPageUrl: frontPageUrl(data.context, data.language),
+              mainMenuLinks: await contentService.getMainMenuLinks({
+                language: data.language,
+                context: data.context,
+              }),
+              contextLinks: await contentService.mainMenuContextLinks({
+                context: data.context,
+                bedrift: data.bedrift,
+              }),
+            }).render(),
         {
           headers: { 'content-type': 'text/html; charset=utf-8' },
         },

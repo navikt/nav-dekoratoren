@@ -37,6 +37,7 @@ import { AppState } from 'decorator-shared/types';
 import headerClasses from './styles/header.module.css';
 import menuItemsClasses from './styles/menu-items.module.css';
 import loggedInMenuClasses from './styles/logged-in-menu.module.css';
+import { formatParams } from 'decorator-shared/json';
 
 // import { AnalyticsCategory } from './analytics/analytics';
 
@@ -185,27 +186,21 @@ window.addEventListener('activecontext', (event) => {
 
 async function populateLoggedInMenu(authObject: Auth) {
   const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
-  // Store a snapshot if user logs out
 
   if (menuItems) {
     const snapshot = menuItems.outerHTML;
 
-    console.log(authObject);
-    // TODO: dette fikser jeg (Andreas) i neste PR
-    // const template = window.__DECORATOR_DATA__.params.simple
-    //   ? SimpleHeaderNavbarItems({
-    //       innlogget: authObject.authenticated,
-    //       name: authObject.name,
-    //       texts: window.__DECORATOR_DATA__.texts,
-    //     })
-    //   : ComplexHeaderNavbarItems({
-    //       innlogget: authObject.authenticated,
-    //       name: authObject.name,
-    //       myPageMenu: await getContent('myPageMenu', {}),
-    //       texts: window.__DECORATOR_DATA__.texts,
-    //     });
-
-    // menuItems.outerHTML = template.render();
+    fetch(
+      `${import.meta.env.VITE_DECORATOR_BASE_URL}/logged-in-menu?${formatParams(
+        {
+          simple: window.__DECORATOR_DATA__.params.simple,
+          language: window.__DECORATOR_DATA__.params.language,
+          name: authObject.name,
+        },
+      )}`,
+    )
+      .then((res) => res.text())
+      .then((html) => (menuItems.outerHTML = html));
 
     document.getElementById('logout-button')?.addEventListener('click', () => {
       const menuitems = document.getElementById('menu-items');
