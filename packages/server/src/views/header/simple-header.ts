@@ -1,30 +1,20 @@
 import cls from 'decorator-client/src/styles/header.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
-import html from 'decorator-shared/html';
-import type {
-  AvailableLanguage,
-  Breadcrumb,
-  UtilsBackground,
-} from 'decorator-shared/params';
+import html, { Template } from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import { LoginIcon } from 'decorator-shared/views/icons';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { IconButton } from '../icon-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
-  availableLanguages: AvailableLanguage[];
-  breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground;
+  decoratorUtilsContainer?: Template;
 };
 
 export function SimpleHeader({
-  availableLanguages,
-  breadcrumbs,
-  utilsBackground,
   texts,
+  decoratorUtilsContainer,
 }: SimpleHeaderProps) {
   return html`
     <header class="${cls.siteheader}">
@@ -54,10 +44,6 @@ export function SimpleHeader({
       </div>
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${DecoratorUtilsContainer({
-      utilsBackground,
-      breadcrumbs,
-      availableLanguages,
-    })}
+    ${decoratorUtilsContainer}
   `;
 }

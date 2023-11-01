@@ -1,12 +1,6 @@
 import clsx from 'clsx';
-import html from 'decorator-shared/html';
-import {
-  AvailableLanguage,
-  Breadcrumb,
-  Context,
-  Language,
-  UtilsBackground,
-} from 'decorator-shared/params';
+import html, { Template } from 'decorator-shared/html';
+import { Context, Language } from 'decorator-shared/params';
 import {
   LinkGroup,
   MainMenuContextLink,
@@ -16,7 +10,6 @@ import {
 import { ComplexHeaderNavbarItems } from './navbar-items/complex-header-navbar-items';
 import { ContextLink } from 'decorator-shared/context';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import cls from 'decorator-client/src/styles/header.module.css';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
@@ -39,9 +32,7 @@ const frontPageUrl = (context: Context, language: Language) => {
 export type ComplexHeaderProps = {
   texts: Texts;
   innlogget: boolean;
-  breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground;
-  availableLanguages: AvailableLanguage[];
+  decoratorUtilsContainer?: Template;
   myPageMenu?: Node[];
   context: Context;
   name?: string;
@@ -58,12 +49,10 @@ export function ComplexHeader({
   mainMenuContextLinks,
   texts,
   innlogget,
-  breadcrumbs,
-  utilsBackground,
   context: currentContext,
-  availableLanguages,
   myPageMenu,
   name,
+  decoratorUtilsContainer,
 }: ComplexHeaderProps) {
   return html`
     <header class="${cls.siteheader}">
@@ -121,11 +110,7 @@ export function ComplexHeader({
       </div>
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${DecoratorUtilsContainer({
-      utilsBackground,
-      breadcrumbs,
-      availableLanguages,
-    })}
+    ${decoratorUtilsContainer}
     <menu-background />
   `;
 }
