@@ -207,30 +207,6 @@ api.checkAuth({
     window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
     await populateLoggedInMenu(response);
-
-    const notificationsResponse = await fetch(
-      `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/notifications`,
-      {
-        credentials: 'include',
-      },
-    );
-    if (notificationsResponse.status === 200) {
-      const notificationsUnread = document.querySelector(
-        `.${loggedInMenuClasses.notificationsUnread}`,
-      );
-      notificationsUnread?.classList.add(loggedInMenuClasses.active);
-    }
-
-    const notificationsMenuContent = document.querySelector(
-      `.${loggedInMenuClasses.notificationsDropdown}`,
-    );
-
-    if (notificationsMenuContent) {
-      notificationsMenuContent.innerHTML =
-        notificationsResponse.status === 200
-          ? await notificationsResponse.text()
-          : window.__DECORATOR_DATA__.texts.notifications_error;
-    }
   },
 });
 

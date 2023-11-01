@@ -117,27 +117,6 @@ const requestHandler = async (
     .get('/oauth2/logout', () => jsonResponse(getMockSession()))
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
-    .get('/api/notifications', async ({ query }) => {
-      // throw new Error('woops!');
-
-      const notifications = await notificationsService.getNotifications(
-        texts[validParams(query).language],
-      );
-
-      const localTexts = texts[validParams(query).language];
-
-      return new Response(
-        notifications
-          ? Notifications({
-              texts: localTexts,
-              notifications,
-            }).render()
-          : NotificationsEmpty({ texts: localTexts }).render(),
-        {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
-        },
-      );
-    })
     .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
     )
