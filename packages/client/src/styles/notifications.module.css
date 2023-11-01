@@ -1,8 +1,11 @@
+.notificationsHeading {
+  margin-block: 0;
+}
+
 .notifications {
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-6);
-  padding-inline: var(--a-spacing-2);
 }
 
 .notificationListHeading {
@@ -15,7 +18,7 @@
 .notificationList {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-2);
+  gap: var(--a-spacing-3);
   list-style: none;
   margin-block: 0;
   padding-left: 0;
@@ -25,6 +28,7 @@
   text-underline-offset: 0.15em;
   color: var(--a-text-default);
   cursor: pointer;
+  align-self: center;
 }
 
 .allNotificationsLink:hover {

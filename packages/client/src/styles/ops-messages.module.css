@@ -1,8 +1,9 @@
-.opsMessagesContainer {
+.opsMessages {
   background-color: var(--a-deepblue-600);
+  display: block;
 }
 
-.opsMessages {
+.opsMessagesContent {
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--a-spacing-8);
@@ -11,7 +12,7 @@
 }
 
 @media (min-width: 768px) {
-  .opsMessages {
+  .opsMessagesContent {
     justify-content: center;
     column-gap: var(--a-spacing-16);
   }

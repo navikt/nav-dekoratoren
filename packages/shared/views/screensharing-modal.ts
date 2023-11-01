@@ -82,7 +82,7 @@ export const ScreensharingModal = ({ texts }: ScreensharingModalProps) =>
       <div class="${cls.closed}">
       ${Alert({
         variant: 'error',
-        text: texts.delskjerm_modal_stengt,
+        content: texts.delskjerm_modal_stengt,
       })}
       </div>
     </div>

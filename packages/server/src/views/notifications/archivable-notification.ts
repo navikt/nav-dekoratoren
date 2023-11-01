@@ -1,32 +1,38 @@
 import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/archivable-notification.module.css';
+import cls from 'decorator-client/src/styles/notification.module.css';
 
 export type ArchivableNotificationProps = {
+  title: string;
+  metadata?: string;
   id: string;
   text: string;
   date: string;
   icon: Template;
-  tags: string[];
   texts: {
     archive: string;
   };
 };
 
 export const ArchivableNotification = ({
+  title,
+  metadata,
   id,
   text,
   date,
   icon,
-  tags,
   texts,
 }: ArchivableNotificationProps) =>
   html`<archivable-notification class="${cls.notification}" data-id="${id}">
-    <div>
-      <div>${text}</div>
-      <local-time datetime="${date}" class="${cls.date}" />
+    <div class="${cls.header}">
+      <div class="${cls.headerLeft}">
+        ${icon}
+        <div>${title}</div>
+      </div>
+      <local-time datetime="${date}" class="${cls.date}"></local-time>
     </div>
+    <div>${text}</div>
     <div class="${cls.bottom}">
-      ${icon}${tags.map((tag) => html`<div class="${cls.tag}">${tag}</div>`)}
+      ${metadata && html`<div class="${cls.metadata}">${metadata}</div>`}
       <button class="${cls.button}">${texts.archive}</button>
     </div>
   </archivable-notification>`;

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import html, { Template } from '../html';
+import html, { Template } from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/dropdown-menu.module.css';
 
 export type DropdownMenuProps = {

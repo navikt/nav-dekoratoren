@@ -1,4 +1,15 @@
+import cls from '../styles/ops-messages.module.css';
+import utilsCls from 'decorator-shared/utilities.module.css';
+
 class OpsMessages extends HTMLElement {
+  content: HTMLElement;
+  constructor() {
+    super();
+    this.content = document.createElement('div');
+    this.content.classList.add(cls.opsMessagesContent);
+    this.content.classList.add(utilsCls.contentContainer);
+  }
+
   connectedCallback() {
     fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/ops-messages`)
       .then((res) => res.text())
@@ -8,10 +19,11 @@ class OpsMessages extends HTMLElement {
             'aria-label',
             window.__DECORATOR_DATA__.texts.important_info,
           );
-          this.innerHTML = html;
+          this.content.innerHTML = html;
+          this.append(this.content);
         } else {
           this.removeAttribute('aria-label');
-          this.innerHTML = '';
+          this.content.remove();
         }
       });
   }

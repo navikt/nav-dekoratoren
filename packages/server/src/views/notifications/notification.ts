@@ -3,32 +3,38 @@ import cls from 'decorator-client/src/styles/notification.module.css';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 
 export type NotificationProps = {
+  title: string;
   text: string;
   link: string;
   date: string;
   icon: Template;
-  tags: string[];
+  metadata?: string;
   amplitudeKomponent: string;
 };
 
 export const Notification = ({
+  title,
   text,
   link,
   date,
   icon,
-  tags,
+  metadata,
   amplitudeKomponent,
 }: NotificationProps) =>
   html`<link-notification
     class="${cls.notification}"
     data-amplitude-komponent="${amplitudeKomponent}"
   >
-    <div>
-      <a href="${link}" class="${cls.text}">${text}</a>
-      <local-time datetime="${date}" class="${cls.date}" />
+    <div class="${cls.header}">
+      <div class="${cls.headerLeft}">
+        ${icon}
+        <div>${title}</div>
+      </div>
+      <div class="${cls.headerRight}">
+        <local-time datetime="${date}" class="${cls.date}"></local-time>
+        ${ForwardChevron({ className: cls.chevron })}
+      </div>
     </div>
-    <div class="${cls.bottom}">
-      ${icon}${tags.map((tag) => html`<div class="${cls.tag}">${tag}</div>`)}
-      ${ForwardChevron({ className: cls.chevron })}
-    </div>
+    <a href="${link}" class="${cls.text}">${text}</a>
+    ${metadata && html`<div class="${cls.metadata}">${metadata}</div>`}
   </link-notification>`;

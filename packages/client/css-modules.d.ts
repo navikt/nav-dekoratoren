@@ -10,17 +10,6 @@ declare module '*/alert.module.css' {
   export default classes;
 }
 
-declare module '*/archivable-notification.module.css' {
-  const classes: {
-    notification: string;
-    date: string;
-    bottom: string;
-    tag: string;
-    button: string;
-  };
-  export default classes;
-}
-
 declare module '*/button.module.css' {
   const classes: {
     button: string;
@@ -121,6 +110,15 @@ declare module '*/header.module.css' {
   export default classes;
 }
 
+declare module '*/icon-button.module.css' {
+  const classes: {
+    iconButton: string;
+    iconButtonSpan: string;
+    chevron: string;
+  };
+  export default classes;
+}
+
 declare module '*/inputs.module.css' {
   const classes: {
     textInput: string;
@@ -158,6 +156,17 @@ declare module '*/main-menu.module.css' {
   export default classes;
 }
 
+declare module '*/menu-items.module.css' {
+  const classes: {
+    menuItems: string;
+    menuItemsUniversalLinks: string;
+    searchDropdown: string;
+    searchButton: string;
+    searchMenu: string;
+  };
+  export default classes;
+}
+
 declare module '*/modal.module.css' {
   const classes: {
     modal: string;
@@ -173,11 +182,15 @@ declare module '*/modal.module.css' {
 declare module '*/notification.module.css' {
   const classes: {
     notification: string;
+    header: string;
+    headerLeft: string;
+    headerRight: string;
     text: string;
     date: string;
-    bottom: string;
-    tag: string;
     chevron: string;
+    metadata: string;
+    bottom: string;
+    button: string;
   };
   export default classes;
 }
@@ -185,12 +198,17 @@ declare module '*/notification.module.css' {
 declare module '*/notifications-empty.module.css' {
   const classes: {
     notificationsEmpty: string;
+    heading: string;
+    description: string;
+    link: string;
+    image: string;
   };
   export default classes;
 }
 
 declare module '*/notifications.module.css' {
   const classes: {
+    notificationsHeading: string;
     notifications: string;
     notificationListHeading: string;
     notificationList: string;
@@ -201,8 +219,8 @@ declare module '*/notifications.module.css' {
 
 declare module '*/ops-messages.module.css' {
   const classes: {
-    opsMessagesContainer: string;
     opsMessages: string;
+    opsMessagesContent: string;
     opsMessage: string;
   };
   export default classes;
@@ -276,6 +294,31 @@ declare module '*/splash-page.module.css' {
   const classes: {
     splashPage: string;
     splashAlert: string;
+  };
+  export default classes;
+}
+
+declare module '*/user-menu-dropdown.module.css' {
+  const classes: {
+    userMenuDropdown: string;
+    icon: string;
+    iconWrapper: string;
+  };
+  export default classes;
+}
+
+declare module '*/user-menu.module.css' {
+  const classes: {
+    userMenu: string;
+    menuItems: string;
+    menuHeader: string;
+    loggedIn: string;
+    name: string;
+    menuItem: string;
+    menuItemIcon: string;
+    notifications: string;
+    logout: string;
+    alert: string;
   };
   export default classes;
 }

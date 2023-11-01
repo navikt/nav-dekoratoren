@@ -9,11 +9,11 @@ import { OpsMessage } from 'decorator-shared/types';
 const meta: Meta<OpsMessagesProps> = {
   title: 'ops-messages',
   render: (args) =>
-    html`<div class="${cls.opsMessagesContainer}">
-      <ops-messages class="${cls.opsMessages} ${utilCls.contentContainer}">
+    html`<ops-messages class="${cls.opsMessages}">
+      <div class="${cls.opsMessagesContent} ${utilCls.contentContainer}">
         ${OpsMessages(args)}
-      </ops-messages>
-    </div>`,
+      </div>
+    </ops-messag>`,
 };
 
 export default meta;

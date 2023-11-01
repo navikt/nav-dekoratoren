@@ -14,10 +14,11 @@ type Story = StoryObj<NotificationProps>;
 
 export const Default: Story = {
   args: {
-    text: 'Beskjed uten lenke',
+    text: 'Du har motatt et vedtak på søknaden din om foreldrepenger',
     link: 'https://www.nav.no',
+    title: 'Oppgave',
     date: '2023-08-08T13:24:23.75234+02:00',
     icon: TaskIcon(),
-    tags: ['Varslet på e-post'],
+    metadata: 'Varslet på SMS',
   },
 };

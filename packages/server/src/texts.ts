@@ -24,12 +24,15 @@ const nb = {
   logged_in: 'Logget inn',
   notifications: 'Varsler',
   notifications_empty_list: 'Du har ingen nye varsler',
-  notifications_empty_list_description: 'Vi varsler deg når noe skjer',
-  notifications_show_all: 'Tidligere varsler',
+  notifications_empty_list_description: 'Vi varsler deg når noe skjer.',
+  notifications_show_all: 'Se tidligere varsler',
   notifications_messages_title: 'Beskjeder',
   notified_EPOST: 'Varslet på e-post',
   notified_SMS: 'Varslet på SMS',
+  notified_SMS_and_EPOST: 'Varslet på e-post og SMS',
   earlier_notifications: 'Tidligere varsler',
+  message: 'Beskjed',
+  task: 'Oppgave',
   masked_message_text:
     'Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.',
   masked_task_text:
@@ -101,12 +104,16 @@ export const texts: Record<Language, Texts> = {
     logged_in: 'Logged in',
     notifications: 'Notifications',
     notifications_empty_list: 'You have no new notifications',
-    notifications_empty_list_description: 'Du har ingen nye varsler',
+    notifications_empty_list_description:
+      'We will notify you when something happens.',
     notifications_show_all: 'Previous notifications',
     notifications_messages_title: 'Beskjeder',
     notified_EPOST: 'Notified by e-mail',
     notified_SMS: 'Notified by SMS',
+    notified_SMS_and_EPOST: 'Notified by e-mail and SMS',
     earlier_notifications: 'Earlier notifications',
+    message: 'Message',
+    task: 'Task',
     masked_message_text:
       'You have a message, please log in with a higher security level to read the message.',
     masked_task_text:

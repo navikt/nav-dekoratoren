@@ -1,49 +1,32 @@
-import 'vite/modulepreload-polyfill';
-
-import './main.css';
-
-import.meta.glob('./styles/*.css', { eager: true });
-
-import getContent from './get-content';
-
-import './views/lenke-med-sporing';
-import * as api from './api';
-
+import { formatParams } from 'decorator-shared/json';
+import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
+import { AppState } from 'decorator-shared/types';
 import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
-
-// Maybe create a file that does this
-import './views/language-selector';
-import './views/loader';
-import './views/decorator-lens';
-import './views/local-time';
-import './views/menu-background';
-import './views/dropdown-menu';
-import './views/search-menu';
-import './views/search-input';
-import './views/main-menu';
+import Cookies from 'js-cookie';
+import 'vite/modulepreload-polyfill';
+import { type AnalyticsEventArgs } from './analytics/constants';
+import * as api from './api';
+import { logoutWarningController } from './controllers/logout-warning';
+import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
+import './main.css';
+import { useLoadIfActiveSession } from './screensharing';
+import headerClasses from './styles/header.module.css';
 import './views/context-link';
+import './views/decorator-lens';
+import { attachLensListener } from './views/decorator-lens';
+import './views/dropdown-menu';
+import './views/language-selector';
+import './views/lenke-med-sporing';
+import './views/loader';
+import './views/local-time';
+import './views/main-menu';
+import './views/menu-background';
+import './views/notifications';
 import './views/ops-messages';
 import './views/screensharing';
-
-import { type Context, type Params } from 'decorator-shared/params';
-import { attachLensListener } from './views/decorator-lens';
-import { logoutWarningController } from './controllers/logout-warning';
-
-import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
-
-import { type AnalyticsEventArgs } from './analytics/constants';
-import { AppState } from 'decorator-shared/types';
-// CSS classe
-import headerClasses from './styles/header.module.css';
-import menuItemsClasses from 'decorator-shared/views/header/navbar-items/menu-items.module.css';
-import loggedInMenuClasses from 'decorator-shared/views/header/navbar-items/logged-in-menu.module.css';
-
-import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
-import { ComplexHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/complex-header-navbar-items';
-import { useLoadIfActiveSession } from './screensharing';
-import Cookies from 'js-cookie';
-
-// import { AnalyticsCategory } from './analytics/analytics';
+import './views/search-input';
+import './views/search-menu';
+import.meta.glob('./styles/*.css', { eager: true });
 
 type Auth = {
   authenticated: boolean;
@@ -79,7 +62,7 @@ window.__DECORATOR_DATA__ = JSON.parse(
   document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
 );
 
-console.log(window.__DECORATOR_DATA__)
+console.log(window.__DECORATOR_DATA__);
 
 window.__DECORATOR_DATA__.env = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
@@ -192,38 +175,22 @@ window.addEventListener('activecontext', (event) => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-  const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
-  // Store a snapshot if user logs out
-
-  if (menuItems) {
-    const snapshot = menuItems.outerHTML;
-
-    console.log(authObject);
-    // TODO: dette fikser jeg (Andreas) i neste PR
-    // const template = window.__DECORATOR_DATA__.params.simple
-    //   ? SimpleHeaderNavbarItems({
-    //       innlogget: authObject.authenticated,
-    //       name: authObject.name,
-    //       texts: window.__DECORATOR_DATA__.texts,
-    //     })
-    //   : ComplexHeaderNavbarItems({
-    //       innlogget: authObject.authenticated,
-    //       name: authObject.name,
-    //       myPageMenu: await getContent('myPageMenu', {}),
-    //       texts: window.__DECORATOR_DATA__.texts,
-    //     });
-
-    // menuItems.outerHTML = template.render();
-
-    document.getElementById('logout-button')?.addEventListener('click', () => {
-      const menuitems = document.getElementById('menu-items');
-      if (menuitems) {
-        menuitems.outerHTML = snapshot;
+  console.log(authObject);
+  fetch(
+    `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
+      simple: window.__DECORATOR_DATA__.params.simple,
+      language: window.__DECORATOR_DATA__.params.language,
+      name: authObject.name,
+      level: `Level${authObject.securityLevel}` as LoginLevel,
+    })}`,
+  )
+    .then((res) => res.text())
+    .then((html) => {
+      const userMenu = document.querySelector('user-menu');
+      if (userMenu) {
+        userMenu.outerHTML = html;
       }
-
-      window.location.href = `${import.meta.env.VITE_LOGOUT_URL}`;
     });
-  }
 }
 
 api.checkAuth({
@@ -232,30 +199,6 @@ api.checkAuth({
     window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
     await populateLoggedInMenu(response);
-
-    const notificationsResponse = await fetch(
-      `${import.meta.env.VITE_DECORATOR_BASE_URL}/api/notifications`,
-      {
-        credentials: 'include',
-      },
-    );
-    if (notificationsResponse.status === 200) {
-      const notificationsUnread = document.querySelector(
-        `.${loggedInMenuClasses.notificationsUnread}`,
-      );
-      notificationsUnread?.classList.add(loggedInMenuClasses.active);
-    }
-
-    const notificationsMenuContent = document.querySelector(
-      `.${loggedInMenuClasses.notificationsDropdown}`,
-    );
-
-    if (notificationsMenuContent) {
-      notificationsMenuContent.innerHTML =
-        notificationsResponse.status === 200
-          ? await notificationsResponse.text()
-          : window.__DECORATOR_DATA__.texts.notifications_error;
-    }
   },
 });
 
@@ -272,10 +215,9 @@ function handleLogin() {
 
 handleLogin();
 
-
 // @TODO: Refactor loaders
 window.addEventListener('load', () => {
-    useLoadIfActiveSession({
-        userState: Cookies.get('psCurrentState')
-    })
-})
+  useLoadIfActiveSession({
+    userState: Cookies.get('psCurrentState'),
+  });
+});

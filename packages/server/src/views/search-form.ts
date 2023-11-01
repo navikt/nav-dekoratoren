@@ -1,6 +1,6 @@
-import html from '../html';
-import { CloseIcon } from './icons';
-import { SearchIcon } from './icons/search';
+import html from 'decorator-shared/html';
+import { CloseIcon } from 'decorator-shared/views/icons';
+import { SearchIcon } from 'decorator-shared/views/icons/search';
 import cls from 'decorator-client/src/styles/search-form.module.css';
 
 export type SearchFormProps = {

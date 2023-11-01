@@ -1,26 +1,28 @@
-import { NotificationsEmpty } from 'decorator-shared/views/notifications/empty';
-import { validateParams } from './validateParams';
-import { getMockSession, refreshToken } from './mockAuth';
-import ContentService from './content-service';
-
-import renderIndex from './render-index';
-
-import SearchService from './search-service';
-import {
-  NotificationList,
-  Notifications,
-} from './views/notifications/notifications';
-import { texts } from './texts';
+import { Context, Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
-import UnleashService from './unleash-service';
-import TaConfigService from './task-analytics-service';
-import { HandlerBuilder, jsonResponse } from './lib/handler';
+import { LogoutIcon } from 'decorator-shared/views/icons/logout';
+import ContentService from './content-service';
 import { cspHandler } from './csp';
 import { env } from './env/server';
-import { SearchHits } from './views/search-hits';
+import { HandlerBuilder, jsonResponse } from './lib/handler';
+import { getMockSession, refreshToken } from './mockAuth';
+import renderIndex from './render-index';
+import SearchService from './search-service';
+import TaConfigService from './task-analytics-service';
+import { texts } from './texts';
+import UnleashService from './unleash-service';
+import { validateParams } from './validateParams';
 import { MainMenu } from './views/header/main-menu';
-import { Context, Language } from 'decorator-shared/params';
+import { UserMenuDropdown } from './views/header/user-menu-dropdown';
+import { IconButton } from './views/icon-button';
+import {
+  Notification,
+  Notifications,
+} from './views/notifications/notifications';
+import { NotificationsEmpty } from './views/notifications/notifications-empty';
 import { OpsMessages } from './views/ops-messages';
+import { SearchHits } from './views/search-hits';
+import html from 'decorator-shared/html';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -28,7 +30,7 @@ type FileSystemService = {
 };
 
 type NotificationsService = {
-  getNotifications: (texts: Texts) => Promise<NotificationList[] | undefined>;
+  getNotifications: (texts: Texts) => Promise<Notification[] | undefined>;
 };
 
 const rewriter = new HTMLRewriter().on('img', {
@@ -92,8 +94,8 @@ const requestHandler = async (
     .get('/api/auth', () =>
       jsonResponse({
         authenticated: true,
-        name: 'LOKAL MOCK',
-        securityLevel: '4',
+        name: 'Charlie Jensen',
+        securityLevel: '3',
       }),
     )
     .get('/api/ta', () => jsonResponse(taConfigService.getTaConfig()))
@@ -115,27 +117,6 @@ const requestHandler = async (
     .get('/oauth2/logout', () => jsonResponse(getMockSession()))
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
-    .get('/api/notifications', async ({ query }) => {
-      // throw new Error('woops!');
-
-      const notificationLists = await notificationsService.getNotifications(
-        texts[validParams(query).language],
-      );
-
-      const localTexts = texts[validParams(query).language];
-
-      return new Response(
-        notificationLists
-          ? Notifications({
-              texts: localTexts,
-              notificationLists,
-            }).render()
-          : NotificationsEmpty({ texts: localTexts }).render(),
-        {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
-        },
-      );
-    })
     .post('/api/notifications/message/archive', async ({ request }) =>
       jsonResponse(request.json()),
     )
@@ -154,13 +135,6 @@ const requestHandler = async (
         },
       );
     })
-    .get('/data/myPageMenu', ({ query }) =>
-      jsonResponse(
-        contentService.getMyPageMenu({
-          language: validParams(query).language,
-        }),
-      ),
-    )
     .get('/main-menu', async ({ query }) => {
       const data = validParams(query);
       const localTexts = texts[data.language];
@@ -181,6 +155,29 @@ const requestHandler = async (
             bedrift: data.bedrift,
           }),
         }).render(),
+        {
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        },
+      );
+    })
+    .get('/user-menu', async ({ query }) => {
+      const data = validParams(query);
+      const localTexts = texts[data.language];
+      return new Response(
+        data.simple
+          ? html` <p><b>${localTexts.logged_in}:</b> ${data.name}</p>
+              ${IconButton({
+                id: 'logout-button',
+                Icon: LogoutIcon({}),
+                text: localTexts.logout,
+              })}`.render()
+          : UserMenuDropdown({
+              texts: localTexts,
+              name: data.name,
+              notifications:
+                await notificationsService.getNotifications(localTexts),
+              level: data.level,
+            }).render(),
         {
           headers: { 'content-type': 'text/html; charset=utf-8' },
         },

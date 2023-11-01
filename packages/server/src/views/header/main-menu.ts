@@ -6,8 +6,8 @@ export type MainMenuProps = {
   title: string;
   texts: Texts;
   frontPageUrl: string;
-  links: LinkGroup[];
-  contextLinks: MainMenuContextLink[];
+  links?: LinkGroup[];
+  contextLinks?: MainMenuContextLink[];
 };
 
 export function MainMenu({
@@ -35,7 +35,7 @@ export function MainMenu({
         >
       </div>
       <div class="${cls.links}">
-        ${links.map(
+        ${links?.map(
           ({ heading, children }) => html`
             <div class="${cls.linkGroup}">
               <h3 class="${cls.linkGroupHeading}">${heading}</h3>
@@ -64,7 +64,7 @@ export function MainMenu({
       </div>
     </div>
     <div class="${cls.contextLinks}">
-      ${contextLinks.map(
+      ${contextLinks?.map(
         ({ content, url, description }) =>
           html`<a
             href="${url}"

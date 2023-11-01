@@ -1,12 +1,13 @@
 import html from '../../html';
 
-export const InfoIcon = () =>
+export const InfoIcon = ({ className }: { className?: string } = {}) =>
   html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
     viewBox="0 0 24 24"
     aria-hidden="true"
+    ${className && html`class="${className}"`}
   >
     <path
       fill="currentColor"

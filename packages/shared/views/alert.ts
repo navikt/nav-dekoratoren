@@ -1,4 +1,5 @@
-import html from '../html';
+import clsx from 'clsx';
+import html, { Template } from '../html';
 import { alertIcons } from './icons/alert';
 import cls from 'decorator-client/src/styles/alert.module.css';
 
@@ -10,7 +11,8 @@ import cls from 'decorator-client/src/styles/alert.module.css';
 
 type AlertProps = {
   variant: 'error' | 'warning' | 'info' | 'success';
-  text: string;
+  content: Template | string;
+  className?: string;
   // @todo: implement if needed
   // size: 'medium' | 'small'
 };
@@ -21,9 +23,9 @@ export const Alert = (props: AlertProps) => {
   const icon = alertIcons[props.variant];
 
   return html`
-    <div class="${cls.alert} ${cls[props.variant]}">
+    <div class="${clsx(cls.alert, cls[props.variant], props.className)}">
       ${icon}
-      <div class="${cls.text}">${props.text}</div>
+      <div class="${cls.text}">${props.content}</div>
     </div>
   `;
 };

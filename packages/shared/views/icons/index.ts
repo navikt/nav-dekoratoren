@@ -1,5 +1,6 @@
 export * from './share-screen';
 export * from './warning';
+export * from './error';
 export * from './lock';
 export * from './next';
 export * from './down-chevron';
@@ -12,3 +13,8 @@ export * from './profile';
 export * from './search';
 export * from './arrow-up';
 export * from './info';
+export * from './info-square';
+export * from './person-circle';
+export * from './person-circle-notification';
+export * from './badge';
+export * from './padlock';

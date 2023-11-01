@@ -16,6 +16,7 @@ import { makeContextLinks } from 'decorator-shared/context';
 import { env } from './env/server';
 import { SplashPage } from './views/splash-page';
 import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
+import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 export default async ({
   contentService,
@@ -35,16 +36,21 @@ export default async ({
 
   const features = unleashService.getFeatures();
 
-  // Passing directly for clarity
-  const { myPageMenu, footerLinks, mainMenuLinks } =
-    await contentService.getFirstLoad({
-      language,
-      context: data.context,
-      simple: data.simple,
-      simpleFooter: data.simpleFooter,
-    });
+  const { footerLinks, mainMenuLinks } = await contentService.getFirstLoad({
+    language,
+    context: data.context,
+    simple: data.simple,
+    simpleFooter: data.simpleFooter,
+  });
 
   const contextLinks = makeContextLinks(env.XP_BASE_URL);
+
+  const decoratorUtilsContainer =
+    DecoratorUtilsContainer({
+      availableLanguages: data.availableLanguages,
+      breadcrumbs: data.breadcrumbs,
+      utilsBackground: data.utilsBackground,
+    }) ?? undefined;
 
   return (
     await Index({
@@ -53,21 +59,14 @@ export default async ({
         data.simple || data.simpleHeader
           ? SimpleHeader({
               texts: localTexts,
-              innlogget: false,
-              breadcrumbs: data.breadcrumbs,
-              utilsBackground: data.utilsBackground,
-              availableLanguages: data.availableLanguages,
+              decoratorUtilsContainer,
             })
           : ComplexHeader({
-              myPageMenu,
               texts: localTexts,
-              innlogget: false,
               contextLinks,
               context: data.context,
               language,
-              breadcrumbs: data.breadcrumbs,
-              utilsBackground: data.utilsBackground,
-              availableLanguages: data.availableLanguages,
+              decoratorUtilsContainer,
               mainMenuLinks,
               mainMenuContextLinks: await contentService.mainMenuContextLinks({
                 context: data.context,
@@ -76,7 +75,9 @@ export default async ({
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
-      shareScreen: data.shareScreen ? ScreensharingModal({ texts: localTexts }) : undefined,
+      shareScreen: data.shareScreen
+        ? ScreensharingModal({ texts: localTexts })
+        : undefined,
       footer:
         data.simple || data.simpleFooter
           ? SimpleFooter({

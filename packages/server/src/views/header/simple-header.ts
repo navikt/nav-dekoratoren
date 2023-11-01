@@ -1,66 +1,43 @@
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import html from 'decorator-shared/html';
-import type {
-  AvailableLanguage,
-  Breadcrumb,
-  UtilsBackground,
-} from 'decorator-shared/params';
-import { Texts } from 'decorator-shared/types';
-import { SimpleHeaderNavbarItems } from 'decorator-shared/views/header/navbar-items/simple-header-navbar-items';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import cls from 'decorator-client/src/styles/header.module.css';
-import utilsCls from 'decorator-shared/utilities.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
+import html, { Template } from 'decorator-shared/html';
+import { Texts } from 'decorator-shared/types';
+import utilsCls from 'decorator-shared/utilities.module.css';
+import { LoginIcon } from 'decorator-shared/views/icons';
+import { IconButton } from '../icon-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
-  innlogget: boolean;
-  availableLanguages: AvailableLanguage[];
-  breadcrumbs: Breadcrumb[];
-  utilsBackground: UtilsBackground;
+  decoratorUtilsContainer?: Template;
 };
 
-export function SimpleHeader({
-  availableLanguages,
-  breadcrumbs,
-  utilsBackground,
-  innlogget,
+export const SimpleHeader = ({
   texts,
-}: SimpleHeaderProps) {
-  return html`
-    <header class="${cls.siteheader}">
-      <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <div class="${cls.hovedmenyContent}">
-          ${LenkeMedSporing({
-            className: cls.logo,
-            href: '/',
-            analyticsEventArgs: {
-              category: 'dekorator-header',
-              action: 'navlogo',
-            },
-            dataAttachContext: true,
-            children: html`<img
-              src="/public/ikoner/meny/nav-logo-black.svg"
-              alt="NAV"
-            />`,
-          })}
-        </div>
-        ${SimpleHeaderNavbarItems({
-          innlogget,
-          texts,
-          name: '',
+  decoratorUtilsContainer,
+}: SimpleHeaderProps) => html`
+  <header class="${cls.siteheader}">
+    <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+      <a
+        is="lenke-med-sporing"
+        href="/"
+        class="${cls.logo}"
+        data-analytics-event-args="${JSON.stringify({
+          category: 'dekorator-header',
+          action: 'navlogo',
+        })}"
+        data-attach-context
+      >
+        <img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV" />
+      </a>
+      <user-menu class="${cls.menuItems}">
+        ${IconButton({
+          id: 'login-button',
+          Icon: LoginIcon({}),
+          text: texts.login,
         })}
-      </div>
-    </header>
-    <div class="${opsMessagesCls.opsMessagesContainer}">
-      <ops-messages
-        class="${opsMessagesCls.opsMessages} ${utilsCls.contentContainer}"
-      />
+      </user-menu>
     </div>
-    ${DecoratorUtilsContainer({
-      utilsBackground,
-      breadcrumbs,
-      availableLanguages,
-    })}
-  `;
-}
+  </header>
+  <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+  ${decoratorUtilsContainer}
+`;

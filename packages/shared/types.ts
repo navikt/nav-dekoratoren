@@ -44,7 +44,10 @@ export type Texts = {
   notifications_messages_title: string;
   notified_EPOST: string;
   notified_SMS: string;
+  notified_SMS_and_EPOST: string;
   earlier_notifications: string;
+  message: string;
+  task: string;
   masked_message_text: string;
   masked_task_text: string;
   archive: string;

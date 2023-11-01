@@ -1,6 +1,6 @@
 import { Texts } from 'decorator-shared/types';
 import notificationsMock from './notifications-mock.json';
-import { NotificationList } from './views/notifications/notifications';
+import { Notification } from './views/notifications/notifications';
 import {
   MessageIcon,
   TaskIcon,
@@ -32,25 +32,25 @@ type Beskjed = {
 
 const getNotifications: (
   texts: Texts,
-) => Promise<NotificationList[] | undefined> = async (texts) => {
-  const kanalToTag = (kanal: string) => {
-    switch (kanal) {
-      case 'SMS':
-        return texts.notified_SMS;
-      case 'EPOST':
-        return texts.notified_EPOST;
-      default:
-        return undefined;
+) => Promise<Notification[] | undefined> = async (texts) => {
+  const kanalerToMetadata = (kanaler: string[]) => {
+    if (kanaler.includes('SMS') && kanaler.includes('EPOST')) {
+      return texts.notified_SMS_and_EPOST;
+    } else if (kanaler.includes('SMS')) {
+      return texts.notified_SMS;
+    } else if (kanaler.includes('EPOST')) {
+      return texts.notified_EPOST;
+    } else {
+      return undefined;
     }
   };
 
   const oppgaveToNotifiction = (oppgave: Oppgave) => ({
+    title: texts.task,
     text: oppgave.isMasked ? texts.masked_task_text : oppgave.tekst ?? '',
     date: oppgave.tidspunkt,
     icon: TaskIcon(),
-    tags: oppgave.eksternVarslingKanaler
-      .map(kanalToTag)
-      .filter(Boolean) as string[],
+    metadata: kanalerToMetadata(oppgave.eksternVarslingKanaler),
     isArchivable: false,
     link: oppgave.link ?? '',
     id: oppgave.eventId,
@@ -58,12 +58,11 @@ const getNotifications: (
   });
 
   const beskjedToNotification = (beskjed: Beskjed) => ({
+    title: texts.message,
     text: beskjed.isMasked ? texts.masked_message_text : beskjed.tekst ?? '',
     date: beskjed.tidspunkt,
     icon: MessageIcon(),
-    tags: beskjed.eksternVarslingKanaler
-      .map(kanalToTag)
-      .filter(Boolean) as string[],
+    metadata: kanalerToMetadata(beskjed.eksternVarslingKanaler),
     isArchivable: !beskjed.link,
     link: beskjed.link ?? '',
     id: beskjed.eventId,
@@ -71,14 +70,8 @@ const getNotifications: (
   });
 
   return Promise.resolve([
-    {
-      heading: texts.notifications_tasks_title,
-      notifications: notificationsMock.oppgaver.map(oppgaveToNotifiction),
-    },
-    {
-      heading: texts.notifications_messages_title,
-      notifications: notificationsMock.beskjeder.map(beskjedToNotification),
-    },
+    ...notificationsMock.oppgaver.map(oppgaveToNotifiction),
+    ...notificationsMock.beskjeder.map(beskjedToNotification),
   ]);
 };
 
