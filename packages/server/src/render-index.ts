@@ -36,14 +36,12 @@ export default async ({
 
   const features = unleashService.getFeatures();
 
-  // Passing directly for clarity
-  const { myPageMenu, footerLinks, mainMenuLinks } =
-    await contentService.getFirstLoad({
-      language,
-      context: data.context,
-      simple: data.simple,
-      simpleFooter: data.simpleFooter,
-    });
+  const { footerLinks, mainMenuLinks } = await contentService.getFirstLoad({
+    language,
+    context: data.context,
+    simple: data.simple,
+    simpleFooter: data.simpleFooter,
+  });
 
   const contextLinks = makeContextLinks(env.XP_BASE_URL);
 
@@ -64,9 +62,7 @@ export default async ({
               decoratorUtilsContainer,
             })
           : ComplexHeader({
-              myPageMenu,
               texts: localTexts,
-              innlogget: false,
               contextLinks,
               context: data.context,
               language,

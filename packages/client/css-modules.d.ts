@@ -118,23 +118,6 @@ declare module 'inputs.module.css' {
   export default classes;
 }
 
-declare module 'logged-in-menu.module.css' {
-  const classes: {
-    notificationsDropdown: string;
-    myPageMenuDropdown: string;
-    myPageMenuButton: string;
-    loggedInMenu: string;
-    myPageMenuHeading: string;
-    link: string;
-    notificationsUnread: string;
-    notificationsIconWrapper: string;
-    notificationsIcon: string;
-    closeIcon: string;
-    logoutButton: string;
-  };
-  export default classes;
-}
-
 declare module 'logout-warning.module.css' {
   const classes: {
     modal: string;
