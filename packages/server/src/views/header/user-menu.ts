@@ -7,8 +7,8 @@ import { Notifications, Notification } from '../notifications/notifications';
 
 export type UserMenuProps = {
   texts: Texts;
-  name: string;
-  notifications: Notification[];
+  name?: string;
+  notifications?: Notification[];
 };
 
 export const UserMenu = ({ texts, name, notifications }: UserMenuProps) =>

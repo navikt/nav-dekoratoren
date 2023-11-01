@@ -33,17 +33,6 @@ type Beskjed = {
 const getNotifications: (
   texts: Texts,
 ) => Promise<Notification[] | undefined> = async (texts) => {
-  const kanalToTag = (kanal: string) => {
-    switch (kanal) {
-      case 'SMS':
-        return texts.notified_SMS;
-      case 'EPOST':
-        return texts.notified_EPOST;
-      default:
-        return undefined;
-    }
-  };
-
   const kanalerToMetadata = (kanaler: string[]) => {
     if (kanaler.includes('SMS') && kanaler.includes('EPOST')) {
       return texts.notified_SMS_and_EPOST;

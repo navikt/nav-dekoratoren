@@ -38,6 +38,21 @@ export function ComplexHeaderNavbarItems({
 }: ComplexHeaderNavbarItemsProps) {
   return html`
     <div class="${cls.menuItems}">
+      <user-menu>
+        ${innlogget
+          ? LoggedInMenu({
+              name: name as string,
+              myPageMenu,
+              texts,
+            })
+          : IconButton({
+              id: 'login-button',
+              Icon: LoginIcon({
+                className: '',
+              }),
+              text: texts.login,
+            })}
+      </user-menu>
       <div class="${cls.menuItemsUniversalLinks}">
         ${DropdownMenu({
           button: IconButton({
@@ -68,19 +83,6 @@ export function ComplexHeaderNavbarItems({
           `,
         })}
       </div>
-      ${innlogget
-        ? LoggedInMenu({
-            name: name as string,
-            myPageMenu,
-            texts,
-          })
-        : IconButton({
-            id: 'login-button',
-            Icon: LoginIcon({
-              className: '',
-            }),
-            text: texts.login,
-          })}
     </div>
   `;
 }

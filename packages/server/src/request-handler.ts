@@ -1,28 +1,28 @@
-import { NotificationsEmpty } from './views/notifications/notifications-empty';
-import { validateParams } from './validateParams';
-import { getMockSession, refreshToken } from './mockAuth';
+import { Context, Language } from 'decorator-shared/params';
+import { Texts } from 'decorator-shared/types';
+import { LogoutIcon } from 'decorator-shared/views/icons/logout';
 import ContentService from './content-service';
-
+import { cspHandler } from './csp';
+import { env } from './env/server';
+import { HandlerBuilder, jsonResponse } from './lib/handler';
+import { getMockSession, refreshToken } from './mockAuth';
 import renderIndex from './render-index';
-
 import SearchService from './search-service';
+import TaConfigService from './task-analytics-service';
+import { texts } from './texts';
+import UnleashService from './unleash-service';
+import { validateParams } from './validateParams';
+import { MainMenu } from './views/header/main-menu';
+import { UserMenuDropdown } from './views/header/user-menu-dropdown';
+import { IconButton } from './views/icon-button';
 import {
   Notification,
   Notifications,
 } from './views/notifications/notifications';
-import { texts } from './texts';
-import { Texts } from 'decorator-shared/types';
-import UnleashService from './unleash-service';
-import TaConfigService from './task-analytics-service';
-import { HandlerBuilder, jsonResponse } from './lib/handler';
-import { cspHandler } from './csp';
-import { env } from './env/server';
-import { SearchHits } from './views/search-hits';
-import { MainMenu } from './views/header/main-menu';
-import { Context, Language } from 'decorator-shared/params';
+import { NotificationsEmpty } from './views/notifications/notifications-empty';
 import { OpsMessages } from './views/ops-messages';
-import { SimpleHeaderNavbarItems } from './views/header/navbar-items/simple-header-navbar-items';
-import { ComplexHeaderNavbarItems } from './views/header/navbar-items/complex-header-navbar-items';
+import { SearchHits } from './views/search-hits';
+import html from 'decorator-shared/html';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -188,36 +188,22 @@ const requestHandler = async (
         },
       );
     })
-    .get('/logged-in-menu', async ({ query }) => {
+    .get('/user-menu', async ({ query }) => {
       const data = validParams(query);
       const localTexts = texts[data.language];
       return new Response(
         data.simple
-          ? SimpleHeaderNavbarItems({
-              innlogget: true, // TODO
-              name: data.name,
+          ? html` <p><b>${localTexts.logged_in}:</b> ${data.name}</p>
+              ${IconButton({
+                id: 'logout-button',
+                Icon: LogoutIcon({}),
+                text: localTexts.logout,
+              })}`.render()
+          : UserMenuDropdown({
               texts: localTexts,
-            }).render()
-          : ComplexHeaderNavbarItems({
-              innlogget: true,
               name: data.name,
-              myPageMenu: await contentService.getMyPageMenu({
-                language: data.language,
-              }),
-              texts: localTexts,
-              mainMenuTitle:
-                data.context === 'privatperson'
-                  ? localTexts.how_can_we_help
-                  : localTexts[`rolle_${data.context}`],
-              frontPageUrl: frontPageUrl(data.context, data.language),
-              mainMenuLinks: await contentService.getMainMenuLinks({
-                language: data.language,
-                context: data.context,
-              }),
-              contextLinks: await contentService.mainMenuContextLinks({
-                context: data.context,
-                bedrift: data.bedrift,
-              }),
+              notifications:
+                await notificationsService.getNotifications(localTexts),
             }).render(),
         {
           headers: { 'content-type': 'text/html; charset=utf-8' },

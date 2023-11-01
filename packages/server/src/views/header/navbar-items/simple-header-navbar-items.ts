@@ -14,7 +14,7 @@ export type SimpleHeaderNavbarItemsProps = {
 export const SimpleHeaderNavbarItems = (
   props: SimpleHeaderNavbarItemsProps,
 ) => html`
-  <div class="${cls.menuItems}">
+  <user-menu class="${cls.menuItems}">
     ${props.innlogget
       ? html`
           <p><b>${props.texts.logged_in}:</b> ${props.name}</p>
@@ -31,5 +31,5 @@ export const SimpleHeaderNavbarItems = (
           }),
           text: props.texts.login,
         })}
-  </div>
+  </user-menu>
 `;

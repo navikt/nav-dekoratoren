@@ -305,6 +305,13 @@ declare module 'splash-page.module.css' {
   export default classes;
 }
 
+declare module 'user-menu-dropdown.module.css' {
+  const classes: {
+    userMenuDropdown: string;
+  };
+  export default classes;
+}
+
 declare module 'user-menu.module.css' {
   const classes: {
     userMenu: string;

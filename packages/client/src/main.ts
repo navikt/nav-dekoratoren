@@ -185,32 +185,20 @@ window.addEventListener('activecontext', (event) => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-  const menuItems = document.querySelector(`.${menuItemsClasses.menuItems}`);
-
-  if (menuItems) {
-    const snapshot = menuItems.outerHTML;
-
-    fetch(
-      `${import.meta.env.VITE_DECORATOR_BASE_URL}/logged-in-menu?${formatParams(
-        {
-          simple: window.__DECORATOR_DATA__.params.simple,
-          language: window.__DECORATOR_DATA__.params.language,
-          name: authObject.name,
-        },
-      )}`,
-    )
-      .then((res) => res.text())
-      .then((html) => (menuItems.outerHTML = html));
-
-    document.getElementById('logout-button')?.addEventListener('click', () => {
-      const menuitems = document.getElementById('menu-items');
-      if (menuitems) {
-        menuitems.outerHTML = snapshot;
+  fetch(
+    `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
+      simple: window.__DECORATOR_DATA__.params.simple,
+      language: window.__DECORATOR_DATA__.params.language,
+      name: authObject.name,
+    })}`,
+  )
+    .then((res) => res.text())
+    .then((html) => {
+      const userMenu = document.querySelector('user-menu');
+      if (userMenu) {
+        userMenu.outerHTML = html;
       }
-
-      window.location.href = `${import.meta.env.VITE_LOGOUT_URL}`;
     });
-  }
 }
 
 api.checkAuth({

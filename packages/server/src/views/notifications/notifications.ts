@@ -24,14 +24,14 @@ export type Notification = {
 
 export type NotificationsProps = {
   texts: Texts;
-  notifications: Notification[];
+  notifications?: Notification[];
 };
 
 export function Notifications({ texts, notifications }: NotificationsProps) {
   return html`<div class="${cls.notifications}">
     <h2 class="${cls.notificationsHeading}">${texts.notifications}</h2>
     <ul class="${cls.notificationList}">
-      ${notifications.map(
+      ${notifications?.map(
         (notification) => html`
           <li>
             ${notification.isArchivable
