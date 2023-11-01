@@ -3,7 +3,7 @@ import type { ErrorProps } from './error';
 import { Error } from './error';
 
 const meta: Meta<ErrorProps> = {
-  title: 'notifications/error',
+  title: 'error',
   tags: ['autodocs'],
   render: (args) => {
     return Error(args);

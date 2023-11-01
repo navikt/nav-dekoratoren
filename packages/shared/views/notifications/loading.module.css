@@ -1,6 +1,0 @@
-.loadingNotifications {
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-3);
-  color: var(--a-text-subtle);
-}
