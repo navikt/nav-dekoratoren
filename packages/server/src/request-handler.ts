@@ -94,8 +94,8 @@ const requestHandler = async (
     .get('/api/auth', () =>
       jsonResponse({
         authenticated: true,
-        name: 'LOKAL MOCK',
-        securityLevel: '4',
+        name: 'Charlie Jensen',
+        securityLevel: '3',
       }),
     )
     .get('/api/ta', () => jsonResponse(taConfigService.getTaConfig()))
@@ -176,6 +176,7 @@ const requestHandler = async (
               name: data.name,
               notifications:
                 await notificationsService.getNotifications(localTexts),
+              level: data.level,
             }).render(),
         {
           headers: { 'content-type': 'text/html; charset=utf-8' },

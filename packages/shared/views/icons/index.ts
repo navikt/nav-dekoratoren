@@ -13,6 +13,8 @@ export * from './profile';
 export * from './search';
 export * from './arrow-up';
 export * from './info';
+export * from './info-square';
 export * from './person-circle';
 export * from './person-circle-notification';
 export * from './badge';
+export * from './padlock';

@@ -23,7 +23,7 @@ import './views/context-link';
 import './views/ops-messages';
 import './views/screensharing';
 
-import { type Context, type Params } from 'decorator-shared/params';
+import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
 import { attachLensListener } from './views/decorator-lens';
 import { logoutWarningController } from './controllers/logout-warning';
 
@@ -183,11 +183,13 @@ window.addEventListener('activecontext', (event) => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
+  console.log(authObject);
   fetch(
     `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
       simple: window.__DECORATOR_DATA__.params.simple,
       language: window.__DECORATOR_DATA__.params.language,
       name: authObject.name,
+      level: `Level${authObject.securityLevel}` as LoginLevel,
     })}`,
   )
     .then((res) => res.text())

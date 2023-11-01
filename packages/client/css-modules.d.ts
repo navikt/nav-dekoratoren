@@ -1,3 +1,13 @@
+declare module 'alert.module.css' {
+  const classes: {
+    alert: string;
+    error: string;
+    info: string;
+    icon: string;
+  };
+  export default classes;
+}
+
 declare module 'button.module.css' {
   const classes: {
     button: string;
@@ -308,6 +318,7 @@ declare module 'user-menu.module.css' {
     menuItemIcon: string;
     notifications: string;
     logout: string;
+    alert: string;
   };
   export default classes;
 }

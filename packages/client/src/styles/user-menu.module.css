@@ -19,16 +19,17 @@
 }
 
 .menuHeader {
-  padding-bottom: var(--a-spacing-5);
+  padding-bottom: var(--a-spacing-4);
 }
 
 .loggedIn {
   text-transform: uppercase;
   font-size: var(--a-font-size-small);
+  margin-bottom: var(--a-spacing-1);
 }
 
 .name {
-  font-size: var(--a-font-size-large);
+  font-size: var(--a-font-size-heading-xlarge);
 }
 
 .menuItem {
@@ -57,4 +58,8 @@
 
 .logout {
   margin-inline: var(--inline-padding);
+}
+
+.alert {
+  margin-top: var(--a-spacing-4);
 }
