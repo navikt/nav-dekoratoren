@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun --watch src/server.ts",
     "serve": "NODE_ENV=production bun src/server.ts",
-    "build": "NODE_ENV=production bun build ./src/server.ts --outdir ./dist --target bun",
+    "build": "NODE_ENV=production bun run build.ts",
     "test": "bun test"
   },
   "dependencies": {
