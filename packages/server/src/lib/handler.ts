@@ -59,7 +59,9 @@ export class HandlerBuilder {
 export const jsonResponse = async (data: unknown) =>
   new Response(JSON.stringify(await data), {
     headers: {
-        'content-type': 'application/json; charset=utf-8'
+        'content-type': 'application/json; charset=utf-8',
+        // @TODO: Fix
+        'Access-Control-Allow-Origin': '*'
     },
   });
 

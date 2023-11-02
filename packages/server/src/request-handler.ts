@@ -132,7 +132,7 @@ const requestHandler = async (
           texts: texts[validParams(query).language],
         }).render(),
         {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
+          headers: { 'content-type': 'text/html; charset=utf-8', 'Access-Control-Allow-Origin': '*' },
         },
       );
     })
@@ -180,7 +180,10 @@ const requestHandler = async (
               level: data.level,
             }).render(),
         {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
+          headers: {
+              'content-type': 'text/html; charset=utf-8',
+              'Access-Control-Allow-Origin': '*'
+          },
         },
       );
     })
@@ -192,7 +195,10 @@ const requestHandler = async (
             opsMessages: await contentService.getOpsMessages(),
           }).render(),
           {
-            headers: { 'content-type': 'text/html; charset=utf-8' },
+            headers: { 'content-type': 'text/html; charset=utf-8',
+                'Access-Control-Allow-Origin': '*'
+
+            },
           },
         ),
     )

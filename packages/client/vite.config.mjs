@@ -12,8 +12,8 @@ export const mainBundleConfig = defineConfig({
     },
     logLevel: 'info',
     build: {
-        minify: true,
-        target: 'es2015',
+        minify: false,
+        // target: 'es2015',
         manifest: true,
         rollupOptions: {
             output: {

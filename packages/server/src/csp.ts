@@ -88,7 +88,8 @@ const localDirectives = Object.entries(directives).reduce(
 );
 
 console.log(env.IS_LOCAL_PROD);
-export const cspDirectives = env.IS_LOCAL_PROD ? localDirectives : directives;
+// export const cspDirectives = env.IS_LOCAL_PROD ? localDirectives : directives;
+export const cspDirectives = localDirectives;
 
 export const cspHandler: Handler = {
   method: 'GET',

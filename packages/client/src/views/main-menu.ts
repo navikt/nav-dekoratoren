@@ -7,6 +7,7 @@ class MainMenu extends HTMLElement {
     )
       .then((response) => response.text())
       .then((html) => {
+          console.log(html, window.__DECORATOR_DATA__.env.APP_URL)
         this.innerHTML = html;
       });
   };
