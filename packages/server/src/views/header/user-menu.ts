@@ -35,8 +35,7 @@ export const UserMenu = ({
           variant: 'info',
           content: html`
             <div>
-              Du har logget inn med Min ID. Hvis du logger inn med et høyere
-              sikkerhetsnivå, får du se mer innhold og flere tjenester.
+              ${texts.security_level_info}
               <a href="#TODO">Logg inn med BankID, Buypass, eller Commfides</a>
             </div>
           `,

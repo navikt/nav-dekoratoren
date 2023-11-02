@@ -92,6 +92,7 @@ export type Texts = {
   delskjerm_modal_hjelpetekst_1: string;
   delskjerm_modal_hjelpetekst_2: string;
   delskjerm_modal_stengt: string;
+  security_level_info: string;
 };
 
 export type OpsMessage = {

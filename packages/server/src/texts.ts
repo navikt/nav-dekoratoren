@@ -84,7 +84,10 @@ const nb = {
     'Veilederen ser kun det du ser på nav.no og kan ikke fylle inn opplysninger eller sende inn noe på dine vegne.',
   delskjerm_modal_hjelpetekst_2:
     'Det er du som godkjenner skjermdeling. Ingenting blir lagret.',
-  delskjerm_modal_stengt: 'Skjermdeling er for øyeblikket stengt, prøv igjen senere',
+  delskjerm_modal_stengt:
+    'Skjermdeling er for øyeblikket stengt, prøv igjen senere',
+  security_level_info:
+    'Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -166,7 +169,10 @@ export const texts: Record<Language, Texts> = {
       "The counsellor can only see what you see on nav.no and can't fill in any information or send anything on your behalf.",
     delskjerm_modal_hjelpetekst_2:
       'Screen sharing must be approved by you. Nothing is stored.',
-    delskjerm_modal_stengt: 'Screen sharing is currently closed, please try again later'
+    delskjerm_modal_stengt:
+      'Screen sharing is currently closed, please try again later',
+    security_level_info:
+      'Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.',
   },
   se: nb,
   nn: nb,
