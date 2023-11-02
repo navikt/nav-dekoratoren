@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build-main && npm run build-lazy",
+    "build-main": "vite build --mode main",
+    "build-lazy": "vite build --mode lazy",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest watch"
   },

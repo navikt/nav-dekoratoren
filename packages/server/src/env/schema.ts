@@ -4,9 +4,14 @@ export const serverSchema = z.object({
   ENONICXP_SERVICES: z.string().url(),
   XP_BASE_URL: z.string().url(),
   PORT: z.number(),
-  NODE_ENV: z.string(),
   CDN_URL: z.string().url(),
+  NODE_ENV: z.enum([
+      'production',
+      'development',
+  ]),
 });
+
+export type NodeEnv = z.infer<typeof serverSchema>['NODE_ENV'];
 
 function portToNumber(port: string | undefined) {
   if (!port) {

@@ -23,6 +23,7 @@ import { NotificationsEmpty } from './views/notifications/notifications-empty';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import html from 'decorator-shared/html';
+import { assetsHandlers } from './handlers/assets-handler';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -210,6 +211,7 @@ const requestHandler = async (
       );
     })
     .use([cspHandler])
+    .use(assetsHandlers)
     .build();
 
   return async function fetch(request: Request): Promise<Response> {

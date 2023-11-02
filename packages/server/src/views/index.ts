@@ -3,8 +3,8 @@ import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
 
-const entryPointPath = 'src/main.ts';
-const entryPointPathAnalytics = 'src/analytics/analytics.ts';
+export const entryPointPath = 'src/main.ts';
+export const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
 const vendorScripts = {
   taskAnalytics: 'https://in2.taskanalytics.com/tm.js',
@@ -23,8 +23,14 @@ a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`,
 } as const;
 
-const getManifest = async () =>
-  (await import('decorator-client/dist/manifest.json')).default;
+
+/* Merge the two manifests*/
+export const getManifest = async () => {
+  const mainManifest = (await import('decorator-client/dist/manifest.json')).default;
+  const thirdPartyManifest = (await import('decorator-client/dist/analytics.manifest.json')).default;
+
+  return Object.assign({}, mainManifest, thirdPartyManifest);
+}
 
 type AssetFormatter = (src: string) => string;
 
@@ -40,6 +46,7 @@ type EnvAssets = Record<'production' | 'dev', string>;
 
 const getEnvAssets = async () => {
   const manifest = await getManifest();
+  console.log(manifest)
   const env = process.env.NODE_ENV === 'production' ? 'production' : 'dev';
 
   const css: EnvAssets = {
