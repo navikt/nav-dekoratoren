@@ -1,4 +1,5 @@
 import cls from 'decorator-client/src/styles/header.module.css';
+import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 import html, { Template } from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
@@ -29,7 +30,7 @@ export const SimpleHeader = ({
       >
         <img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV" />
       </a>
-      <user-menu class="${cls.menuItems}">
+      <user-menu class="${menuItemsCls.menuItems}">
         ${IconButton({
           id: 'login-button',
           Icon: LoginIcon({}),
