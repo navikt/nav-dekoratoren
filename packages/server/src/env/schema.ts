@@ -9,6 +9,8 @@ export const serverSchema = z.object({
       'production',
       'development',
   ]),
+  // Maybe a better way to do this?
+  IS_LOCAL_PROD: z.boolean().optional(),
 });
 
 export type NodeEnv = z.infer<typeof serverSchema>['NODE_ENV'];
@@ -31,4 +33,5 @@ export const serverEnv = {
   PORT: portToNumber(process.env.PORT),
   NODE_ENV: process.env.NODE_ENV,
   CDN_URL: process.env.CDN_URL,
+  IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === 'true',
 };

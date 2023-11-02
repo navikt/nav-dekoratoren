@@ -43,6 +43,8 @@ const scriptHandler: Handler = {
        return new Response(assets.js, {
            headers: {
                'content-type': 'application/javascript; charset=utf-8',
+                // @TODO: REplace with proper implementation
+                'Access-Control-Allow-Origin': '*'
            }
        })
     }

@@ -40,35 +40,30 @@ const partytownScript: AssetFormatter = (src) =>
   `<script type="text/partytown" src="${src}"></script>"`;
 const partytownInlineScript: AssetFormatter = (code) =>
   `<script type="text/partytown">${code}</script>"`;
+const cssLink: AssetFormatter = (src) =>
+    `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
+
 const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`;
 
 type EnvAssets = Record<'production' | 'dev', string>;
 
 const getEnvAssets = async () => {
   const manifest = await getManifest();
-  console.log(manifest)
   const env = process.env.NODE_ENV === 'production' ? 'production' : 'dev';
 
   const css: EnvAssets = {
-    production: manifest[entryPointPath].css
-      .map(
-        (href: string) =>
-          `<link type="text/css" rel="stylesheet" href="${
-            process.env.HOST ?? ``
-          }/public/${href}"></link>`,
-      )
-      .join(''),
+    production: cssLink(hostUrl('/css/client.css')),
     dev: '',
   };
 
   const scripts: EnvAssets = {
     production: [
-      script(hostUrl(`/public/${manifest[entryPointPath].file}`)),
-      partytownScript(
-        hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      ),
-      partytownScript(vendorScripts.taskAnalytics),
-      [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
+      script(hostUrl(`/client.js`)),
+      // partytownScript(
+      //   hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
+      // ),
+      // partytownScript(vendorScripts.taskAnalytics),
+      // [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),
     dev: [
       [

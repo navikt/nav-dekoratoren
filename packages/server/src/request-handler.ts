@@ -210,8 +210,8 @@ const requestHandler = async (
         }),
       );
     })
-    .use([cspHandler])
     .use(assetsHandlers)
+    .use([cspHandler])
     .build();
 
   return async function fetch(request: Request): Promise<Response> {

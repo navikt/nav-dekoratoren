@@ -18,6 +18,9 @@ export const mainBundleConfig = defineConfig({
         rollupOptions: {
             output: {
                 inlineDynamicImports: true,
+                // @TODO: Burde tweakes i nav-dekoreatoren-moduler for å støtte moduler
+                format: 'commonjs'
+                // esModule: true
             },
             plugins: [
                 minifyLiterals(),
@@ -25,8 +28,6 @@ export const mainBundleConfig = defineConfig({
                     dest: path.join(__dirname, 'dist', '~partytown'),
                 }),
             ],
-            // inlineDynamic imports works for main, but not when multiple inputs are defined. Need to fix it.
-            // ''
             input: ['src/main.ts'],
         },
     },
@@ -35,6 +36,7 @@ export const mainBundleConfig = defineConfig({
 
 export const lazyConfig = defineConfig({
     build: {
+        // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
         minify: true,
         manifest: 'analytics.manifest.json',

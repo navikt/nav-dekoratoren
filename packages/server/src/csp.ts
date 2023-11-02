@@ -6,6 +6,7 @@ import {
   DATA,
 } from 'csp-header';
 import { Handler, jsonResponse } from './lib/handler';
+import { env } from './env/server';
 
 const navNo = '*.nav.no';
 const cdnNavNo = 'cdn.nav.no';
@@ -35,12 +36,16 @@ const scriptSrc = [
   hotjarCom,
   taskAnalytics,
   boostScript,
+  // localhost testing
   UNSAFE_INLINE, // vergic, hotjar
 ];
 
 const workerSrc = [
   BLOB, // vergic
 ];
+
+
+// @TODO: Merge with bun responses
 
 const directives: Partial<CSPDirectives> = {
   'default-src': [navNo],
@@ -73,6 +78,7 @@ const directives: Partial<CSPDirectives> = {
 
 const localDirectives = Object.entries(directives).reduce(
   (acc, [key, value]) => {
+      console.log('This is hit')
     return {
       ...acc,
       [key]: Array.isArray(value) ? [...value, 'localhost:*'] : value,
@@ -81,8 +87,8 @@ const localDirectives = Object.entries(directives).reduce(
   {},
 );
 
-export const cspDirectives =
-  process.env.ENV === 'localhost' ? localDirectives : directives;
+console.log(env.IS_LOCAL_PROD);
+export const cspDirectives = env.IS_LOCAL_PROD ? localDirectives : directives;
 
 export const cspHandler: Handler = {
   method: 'GET',
