@@ -47,10 +47,24 @@ export class HandlerBuilder {
   }
 }
 
+
+// function makeHeaders() {
+//   const headers = new Headers()
+//   return new Headers(headers);
+// }
+
 /**
  * A helper function for creating a JSON response.
  */
 export const jsonResponse = async (data: unknown) =>
   new Response(JSON.stringify(await data), {
-    headers: { 'content-type': 'application/json; charset=utf-8' },
+    headers: {
+        'content-type': 'application/json; charset=utf-8'
+    },
   });
+
+export const htmlResponse = async (data: string) =>
+  new Response(data, {
+    headers: { 'content-type': 'text/html; charset=utf-8' },
+  });
+

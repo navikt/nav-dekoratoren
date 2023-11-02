@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "bun --watch src/server.ts",
     "serve": "NODE_ENV=production bun src/server.ts",
-    "build": "NODE_ENV=production bun run build.ts",
+    "clean": "rm -rf ./public",
+    "build": "bun run clean && NODE_ENV=production bun run build.ts",
     "test": "bun test"
   },
   "dependencies": {
