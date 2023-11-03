@@ -9,13 +9,11 @@ type ReadMoreProps = {
 
 export const ReadMore = (props: ReadMoreProps) => {
   return html`
-    <read-more>
-      <details class="${cls.details}">
-        <summary class="${cls.summary}">${props.question}</summary>
-        <div class="${cls.answer}">
-          ${props.answer.map((a) => html`<p>${a}</p>`)}
-        </div>
-      </details>
-    </read-more>
+    <details class="${cls.details}">
+      <summary class="${cls.summary}">${props.question}</summary>
+      <div class="${cls.answer}">
+        ${props.answer.map((a) => html`<p>${a}</p>`)}
+      </div>
+    </details>
   `;
 };
