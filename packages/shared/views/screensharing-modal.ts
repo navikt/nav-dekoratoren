@@ -35,9 +35,11 @@ export const ScreensharingModal = ({ texts }: ScreensharingModalProps) =>
     is="screensharing-modal"
     class="${clsModal.modal} ${cls.screensharingModal}"
   >
-    <img src="/public/ikoner/del-skjerm/Veileder.svg" class="${
-      cls.avatar
-    }" alt=""/>
+    <img
+      src="/public/ikoner/del-skjerm/Veileder.svg"
+      class="${cls.avatar}"
+      alt=""
+    />
     <div class="${clsModal.modalWindow} ${cls.content}">
       <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
       <p>${texts.delskjerm_modal_beskrivelse}</p>
@@ -52,40 +54,40 @@ export const ScreensharingModal = ({ texts }: ScreensharingModalProps) =>
         })}
       </p>
       <div class="${cls.open}">
-      <div>
-        <label for="screensharing_code" class="${clsInputs.textInputLabel}">${
-          texts.delskjerm_modal_label
-        }</label>
-        <input
-          id="screensharing_code"
-          class="${clsInputs.textInput}"
-          type="text"
-          maxlength="5"
-        />
-        <ul class="${clsInputs.errorList}">
+        <div>
+          <label for="screensharing_code" class="${clsInputs.textInputLabel}"
+            >${texts.delskjerm_modal_label}</label
+          >
+          <input
+            id="screensharing_code"
+            class="${clsInputs.textInput}"
+            type="text"
+            maxlength="5"
+          />
+          <ul class="${clsInputs.errorList}">
             <li>${texts.delskjerm_modal_feilmelding}</li>
-        <ul>
-      </div>
-      <div class="${cls.buttonsWrapper}">
-        ${Button({
-          text: texts.delskjerm_modal_start,
-          variant: 'primary',
-          bigLabel: true,
-          id: 'screensharing-confirm',
-        })}
-        ${Button({
-          text: texts.delskjerm_modal_avbryt,
-          variant: 'ghost',
-          bigLabel: true,
-          id: 'screensharing-cancel',
-        })}
-      </div>
+          </ul>
+        </div>
+        <div class="${cls.buttonsWrapper}">
+          ${Button({
+            text: texts.delskjerm_modal_start,
+            variant: 'primary',
+            bigLabel: true,
+            id: 'screensharing-confirm',
+          })}
+          ${Button({
+            text: texts.delskjerm_modal_avbryt,
+            variant: 'ghost',
+            bigLabel: true,
+            id: 'screensharing-cancel',
+          })}
+        </div>
       </div>
       <div class="${cls.closed}">
-      ${Alert({
-        variant: 'error',
-        content: texts.delskjerm_modal_stengt,
-      })}
+        ${Alert({
+          variant: 'error',
+          content: texts.delskjerm_modal_stengt,
+        })}
       </div>
     </div>
   </dialog>`;
