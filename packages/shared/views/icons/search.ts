@@ -4,11 +4,10 @@ import cls from './search.module.css';
 
 export type SearchProps = {
   className?: string;
-  slot?: string;
   menuSearch?: boolean;
 };
 
-export function SearchIcon({ className = '', slot, menuSearch }: SearchProps) {
+export function SearchIcon({ className = '', menuSearch }: SearchProps) {
   return html`
     <svg
       class="${clsx(className, menuSearch && cls.menuSearch)}"
@@ -23,7 +22,6 @@ export function SearchIcon({ className = '', slot, menuSearch }: SearchProps) {
       focusable="false"
       aria-labelledby="menuSearch_:R2oti:"
       role="img"
-      slot="${slot}"
     >
       <title id="menuSearch_:R2oti:">Søke-ikon</title>
       <circle class="${cls.menuSearch__circle}" cx="10" cy="10" r="7"></circle>
