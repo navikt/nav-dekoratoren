@@ -110,19 +110,7 @@ export function ComplexHeader({
                   <search-menu class="${menuCls.searchMenu}">
                     ${SearchForm({ texts })}
                   </search-menu>
-                  <main-menu>
-                    ${MainMenu({
-                      title:
-                        currentContext === 'privatperson'
-                          ? texts.how_can_we_help
-                          : texts[`rolle_${currentContext}`],
-
-                      frontPageUrl: frontPageUrl(currentContext, language),
-                      links: mainMenuLinks,
-                      contextLinks: mainMenuContextLinks,
-                      texts,
-                    })}
-                  </main-menu>
+                  <main-menu></main-menu>
                 </div>
               `,
             })}
