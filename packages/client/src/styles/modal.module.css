@@ -19,14 +19,14 @@
 }
 
 .modalTitle {
-  margin: 0;
   font-size: var(--a-font-size-heading-medium);
   font-weight: var(--a-font-weight-bold);
+  margin-top: 0;
   margin-bottom: var(--a-spacing-4);
 }
 
 .modalBody {
-  margin: 0;
+  margin-top: 0;
   margin-bottom: var(--a-spacing-4);
 }
 
