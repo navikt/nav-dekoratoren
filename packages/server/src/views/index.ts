@@ -196,7 +196,7 @@ export async function Index({
           </button>
           <div>${main}</div>
         </main>
-        <div id="footer-withmenu" class="bg-white">
+        <div id="footer-withmenu">
           ${shareScreen} ${logoutWarning} ${feedback} ${footer}
         </div>
         ${lens}
