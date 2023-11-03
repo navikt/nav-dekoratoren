@@ -145,7 +145,7 @@
   border-color: var(--a-text-action);
 }
 
-@media (--breakpoint-lg) {
+@media (max-width: 1024px) {
   .headerMenuLinks .nestedLink {
     display: flex;
   }

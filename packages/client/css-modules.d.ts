@@ -49,16 +49,6 @@ declare module '*/complex-header-menu.module.css' {
   export default classes;
 }
 
-declare module '*/context-menu-link.module.css' {
-  const classes: {
-    wrapper: string;
-    contextMenuLink: string;
-    chevron: string;
-    inner: string;
-  };
-  export default classes;
-}
-
 declare module '*/decorator-lens.module.css' {
   const classes: {
     decoratorLens: string;
@@ -319,13 +309,6 @@ declare module '*/user-menu.module.css' {
     notifications: string;
     logout: string;
     alert: string;
-  };
-  export default classes;
-}
-
-declare module '*/utils.module.css' {
-  const classes: {
-    bigLabel: string;
   };
   export default classes;
 }

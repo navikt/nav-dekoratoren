@@ -2,8 +2,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const prefixer = require('postcss-prefix-selector');
-const customMedia = require('postcss-custom-media');
-const postcssGlobalData = require('@csstools/postcss-global-data');
 const literalsPlugin = require('./literals-plugin');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
@@ -25,10 +23,6 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 /** @type {import('postcss-load-config').Config} */
 module.exports = {
   plugins: [
-    postcssGlobalData({
-      files: ['./src/custom-media-queries.css'],
-    }),
-    customMedia({}),
     require('autoprefixer'),
     prefixer({
       transform(prefix, selector, prefixedSelector, filePath, rule) {
