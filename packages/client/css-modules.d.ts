@@ -14,11 +14,11 @@ declare module '*/button.module.css' {
   const classes: {
     button: string;
     primary: string;
-    bigLabel: string;
     secondary: string;
     outline: string;
     wide: string;
     ghost: string;
+    bigLabel: string;
   };
   export default classes;
 }
