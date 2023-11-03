@@ -43,16 +43,14 @@ export const ScreensharingModal = ({ texts }: ScreensharingModalProps) =>
     <div class="${clsModal.modalWindow} ${cls.content}">
       <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
       <p>${texts.delskjerm_modal_beskrivelse}</p>
-      <p>
-        ${ReadMore({
-          question: texts.delskjerm_modal_hjelpetekst_overskrift,
-          answer: [
-            texts.delskjerm_modal_hjelpetekst_0,
-            texts.delskjerm_modal_hjelpetekst_1,
-            texts.delskjerm_modal_hjelpetekst_2,
-          ],
-        })}
-      </p>
+      ${ReadMore({
+        question: texts.delskjerm_modal_hjelpetekst_overskrift,
+        answer: [
+          texts.delskjerm_modal_hjelpetekst_0,
+          texts.delskjerm_modal_hjelpetekst_1,
+          texts.delskjerm_modal_hjelpetekst_2,
+        ],
+      })}
       <div class="${cls.open}">
         <div>
           <label for="screensharing_code" class="${clsInputs.textInputLabel}"
