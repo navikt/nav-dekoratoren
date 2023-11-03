@@ -44,11 +44,12 @@ const getEnvAssets = async () => {
 
   const css: EnvAssets = {
     production: manifest[entryPointPath].css
-      .map(
-        (href: string) =>
-          `<link type="text/css" rel="stylesheet" href="${
-            process.env.HOST ?? ``
-          }/public/${href}"></link>`,
+      .map((href: string) =>
+        html`<link
+          type="text/css"
+          rel="stylesheet"
+          href="${process.env.HOST ?? ``}/public/${href}"
+        />`.render(),
       )
       .join(''),
     dev: '',
