@@ -117,6 +117,7 @@ export async function Index({
     <!doctype html>
     <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
       <head>
+        <title>NAV Dekoratør</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -129,9 +130,7 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        <div id="header-withmenu">
-        ${header}
-        </div>
+        <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
             text: 'Test amplitude!',
