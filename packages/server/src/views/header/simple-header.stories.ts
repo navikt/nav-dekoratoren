@@ -14,6 +14,6 @@ type Story = StoryObj<SimpleHeaderProps>;
 
 export const Default: Story = {
   args: {
-    texts: texts['nb'],
+    texts: texts.nb,
   },
 };

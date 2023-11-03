@@ -1,12 +1,9 @@
 import cls from 'decorator-client/src/styles/notifications-empty.module.css';
 import html from 'decorator-shared/html';
+import { Texts } from 'decorator-shared/types';
 
 export type NotificationsEmptyProps = {
-  texts: {
-    notifications_empty_list: string;
-    notifications_empty_list_description: string;
-    notifications_show_all: string;
-  };
+  texts: Texts;
 };
 
 export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
