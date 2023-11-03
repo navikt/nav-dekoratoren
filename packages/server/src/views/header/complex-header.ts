@@ -147,6 +147,6 @@ export function ComplexHeader({
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
     ${decoratorUtilsContainer}
-    <menu-background />
+    <menu-background></menu-background>
   `;
 }
