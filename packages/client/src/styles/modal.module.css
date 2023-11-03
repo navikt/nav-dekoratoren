@@ -1,5 +1,6 @@
 .modal {
   animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
+  border: none;
   border-radius: var(--a-border-radius-large);
   padding: var(--a-spacing-10);
   box-shadow: var(--a-shadow-xlarge);
