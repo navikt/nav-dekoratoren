@@ -2,7 +2,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const prefixer = require('postcss-prefix-selector');
-const literalsPlugin = require('./literals-plugin');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
@@ -34,6 +33,5 @@ module.exports = {
       },
     }),
     // purgecss,
-    // literalsPlugin(),
   ],
 };
