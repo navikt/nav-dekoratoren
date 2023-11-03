@@ -88,8 +88,8 @@
 }
 
 .menuLinkInner {
-  color: rgba(0, 103, 197, 1);
-  margin-right: 16px;
+  color: var(--a-text-action);
+  margin-right: var(--a-spacing-8);
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

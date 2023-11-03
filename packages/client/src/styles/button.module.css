@@ -3,44 +3,38 @@
   color: inherit;
   align-items: center;
   background: none;
-  border-radius: 4px;
+  border-radius: var(--a-border-radius-medium);
   border: none;
   cursor: pointer;
   display: inline-flex;
   justify-content: center;
   margin: 0;
-  padding: 0.5rem 1rem;
+  padding: var(--a-spacing-2) var(--a-spacing-4);
   text-decoration: none;
 }
 
 .primary {
-  background-color: rgb(0, 103, 197);
-}
-
-.primary.bigLabel {
-  color: rgb(255, 255, 255);
+  background-color: var(--a-surface-action);
+  color: var(--a-text-on-action);
 }
 
 .secondary {
-  background-color: rgb(204, 225, 255);
-}
-
-.secondary.bigLabel {
-  color: rgb(0, 103, 197);
+  background-color: var(--a-surface-action-subtle);
+  color: var(--a-text-action-on-action-subtle);
 }
 
 .outline {
-  background-color: white;
-  border: 2px solid var(--a-blue-500);
-  color: var(--a-blue-500);
+  background-color: var(--a-surface-default);
+  border: 2px solid var(--a-border-action);
+  color: var(--a-text-action);
 }
 
-.outline.wide {
+.button.wide {
   min-width: 109px;
 }
 
 .outline:hover {
-  background-color: var(--a-blue-100);
+  background-color: var(--a-surface-action-subtle-hover);
 }
 
 .ghost {
@@ -49,12 +43,11 @@
 }
 
 .ghost:hover {
-    background-color: var(--a-blue-100);
+    background-color: var(--a-surface-action-subtle-hover);
 }
 
 .bigLabel {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 600;
-  display: block;
+  font-size: var(--a-font-size-large);
+  line-height: var(--a-font-line-height-xlarge);
+  font-weight: var(--a-font-weight-bold);
 }
