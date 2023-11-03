@@ -66,7 +66,7 @@ export function ComplexHeader({
             })}"
             data-attach-context
           >
-            <img src="/public/ikoner/meny/nav-logo-red.svg" lt="NAV" />
+            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
           </a>
           <div class="${cls.arbeidsflate}">
             ${language === 'nb' &&
