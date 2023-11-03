@@ -12,24 +12,21 @@
     "@babel/generator": "^7.22.10",
     "@babel/traverse": "^7.22.10",
     "@babel/types": "^7.22.10",
-    "@csstools/postcss-global-data": "^2.0.1",
     "@navikt/ds-tokens": "^4.11.2",
     "decorator-shared": "workspace:*",
     "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "@open-wc/testing": "^3.2.0",
+    "@types/lodash.debounce": "^4.0.8",
     "autoprefixer": "^10.4.14",
     "bun-types": "1.0.5",
+    "jsdom": "^22.1.0",
     "postcss": "^8.4.27",
-    "postcss-custom-media": "^10.0.0",
     "postcss-prefix-selector": "^1.16.0",
     "rollup-plugin-minify-html-literals-v3": "^1.3.3",
     "vite": "^4.4.7",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.5",
-    "jsdom": "^22.1.0",
-    "@open-wc/testing": "^3.2.0",
-    "@types/lodash.debounce": "^4.0.8"
+    "vitest": "^0.34.5"
   }
 }
