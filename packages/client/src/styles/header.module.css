@@ -12,6 +12,7 @@
 
 .siteheader {
   background-color: var(--a-surface-default);
+  color: var(--a-text-default);
   border-bottom: 1px solid var(--a-border-subtle);
   height: 80px;
   position: relative;
