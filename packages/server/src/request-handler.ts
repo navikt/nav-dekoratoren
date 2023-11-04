@@ -1,3 +1,4 @@
+import html from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
@@ -15,14 +16,9 @@ import { validateParams } from './validateParams';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
 import { IconButton } from './views/icon-button';
-import {
-  Notification,
-  Notifications,
-} from './views/notifications/notifications';
-import { NotificationsEmpty } from './views/notifications/notifications-empty';
+import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
-import html from 'decorator-shared/html';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
