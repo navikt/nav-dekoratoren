@@ -104,7 +104,6 @@ declare module '*/icon-button.module.css' {
   const classes: {
     iconButton: string;
     iconButtonSpan: string;
-    chevron: string;
   };
   export default classes;
 }

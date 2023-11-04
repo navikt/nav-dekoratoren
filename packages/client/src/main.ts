@@ -146,7 +146,6 @@ window.addEventListener('message', (e) => {
         DecoratorUtilsContainer({
           utilsBackground,
           breadcrumbs,
-          availableLanguages,
         })?.render() ?? '';
 
       addBreadcrumbEventListeners();

@@ -3,20 +3,18 @@ import html from '../../../html';
 import { UtilsBackground } from '../../../params';
 import utils from '../../../utilities.module.css';
 import { Breadcrumbs, BreadcrumbsProps } from './breadcrumbs';
-import { LanguageSelector, LanguageSelectorProps } from './language-selector';
 import cls from './decorator-utils-container.module.css';
+import { LanguageSelector } from './language-selector';
 
 export type DecoratorUtilsContainerProps = {
   utilsBackground: UtilsBackground;
-} & BreadcrumbsProps &
-  LanguageSelectorProps;
+} & BreadcrumbsProps;
 
 export const DecoratorUtilsContainer = ({
   utilsBackground,
   breadcrumbs,
-  availableLanguages,
 }: DecoratorUtilsContainerProps) =>
-  breadcrumbs.length > 0 || availableLanguages.length > 0
+  breadcrumbs.length > 0
     ? html`
         <div
           class="${clsx([
@@ -29,8 +27,7 @@ export const DecoratorUtilsContainer = ({
             },
           ])}"
         >
-          ${Breadcrumbs({ breadcrumbs })}
-          ${LanguageSelector({ availableLanguages })}
+          ${Breadcrumbs({ breadcrumbs })} ${LanguageSelector()}
         </div>
       `
     : null;

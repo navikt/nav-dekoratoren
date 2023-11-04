@@ -47,7 +47,6 @@ export default async ({
 
   const decoratorUtilsContainer =
     DecoratorUtilsContainer({
-      availableLanguages: data.availableLanguages,
       breadcrumbs: data.breadcrumbs,
       utilsBackground: data.utilsBackground,
     }) ?? undefined;

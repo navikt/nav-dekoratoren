@@ -1,23 +1,15 @@
-import { type AvailableLanguage } from 'decorator-shared/params';
-import html, { json } from '../../../html';
+import html from '../../../html';
+import { DownChevronIcon, GlobeIcon } from '../../icons';
 import cls from './language-selector.module.css';
 
-export type LanguageSelectorProps = {
-  availableLanguages: AvailableLanguage[];
-};
-
-export const LanguageSelector = ({
-  availableLanguages,
-}: LanguageSelectorProps) =>
-  availableLanguages.length > 0
-    ? html`
-        <language-selector class="sprakvelger ${cls.languageSelector}">
-          <button>
-            <span lang="nb">Språk</span>/<span lang="en">Language</span>
-          </button>
-          <script type="application/json">
-            ${json(availableLanguages)}
-          </script>
-        </language-selector>
-      `
-    : null;
+export const LanguageSelector = () => html`
+  <nav is="language-selector" class="${cls.languageSelector}">
+    <button type="button" class="${cls.button}">
+      ${GlobeIcon({ className: cls.icon })}
+      <span>
+        <span lang="nb">Språk</span>/<span lang="en">Language</span>
+      </span>
+      ${DownChevronIcon({ className: cls.icon })}
+    </button>
+  </nav>
+`;

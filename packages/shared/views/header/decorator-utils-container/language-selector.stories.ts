@@ -1,33 +1,26 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import type { LanguageSelectorProps } from './language-selector';
 import { LanguageSelector } from './language-selector';
 
-const meta: Meta<LanguageSelectorProps> = {
+const meta: Meta = {
   title: 'header/language-selector',
   tags: ['autodocs'],
-  render: LanguageSelector,
+  render: () => {
+    // @ts-expect-error: window in shared-package
+    window.__DECORATOR_DATA__ = {
+      params: {
+        availableLanguages: [
+          { locale: 'nb', handleInApp: true },
+          { locale: 'en', url: 'https://www.nav.no/person/kontakt-oss/en/' },
+        ],
+        language: 'en',
+      },
+    };
+
+    return LanguageSelector();
+  },
 };
 
 export default meta;
-type Story = StoryObj<LanguageSelectorProps>;
+type Story = StoryObj;
 
-export const Default: Story = {
-  args: {
-    availableLanguages: [
-      {
-        locale: 'nb',
-        url: 'https://www.nav.no/person/kontakt-oss',
-      },
-      {
-        locale: 'en',
-        url: 'https://www.nav.no/person/kontakt-oss/en/',
-      },
-    ],
-  },
-};
-
-export const Empty: Story = {
-  args: {
-    availableLanguages: [],
-  },
-};
+export const Default: Story = {};
