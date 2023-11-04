@@ -53,10 +53,7 @@ export function handleCors(request: Request): Result {
     const host = request.headers.get('host');
     const result = corsSchema.safeParse(host);
 
-    console.log('cors result', result)
-
     if (!result.success) {
-        console.log(result.error);
         return {
             kind: 'cors-error' as const,
             response: new Response(null, {
