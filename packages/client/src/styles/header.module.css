@@ -1,6 +1,7 @@
 .logo {
   display: flex;
   padding: var(--a-spacing-4) var(--a-spacing-2);
+  margin-left: calc(var(--a-spacing-2) * -1);
 }
 
 .logo:focus {
@@ -11,6 +12,7 @@
 
 .siteheader {
   background-color: var(--a-surface-default);
+  color: var(--a-text-default);
   border-bottom: 1px solid var(--a-border-subtle);
   height: 80px;
   position: relative;
@@ -88,8 +90,8 @@
 }
 
 .menuLinkInner {
-  color: rgba(0, 103, 197, 1);
-  margin-right: 16px;
+  color: var(--a-text-action);
+  margin-right: var(--a-spacing-8);
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
