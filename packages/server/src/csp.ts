@@ -4,8 +4,10 @@ import {
   UNSAFE_INLINE,
   BLOB,
   DATA,
+  getCSP,
 } from 'csp-header';
-import { Handler, jsonResponse } from './lib/handler';
+import { Handler, r } from './lib/handler';
+import { env } from './env/server';
 
 const navNo = '*.nav.no';
 const cdnNavNo = 'cdn.nav.no';
@@ -22,11 +24,15 @@ const vimeoCdn = '*.vimeocdn.com'; // used for video preview images
 const hotjarCom = '*.hotjar.com';
 const hotjarIo = '*.hotjar.io';
 const taskAnalytics = '*.taskanalytics.com';
+const googleFonts = '*.googleapis.com';
+const googleFontsStatic = '*.gstatic.com'
 
 const styleSrc = [
   navNo,
   vergicScreenSharing,
-  UNSAFE_INLINE, // various components with style-attributes
+  UNSAFE_INLINE, // various components with style-attributes,
+  googleFonts,
+  googleFontsStatic,
 ];
 
 const scriptSrc = [
@@ -35,12 +41,16 @@ const scriptSrc = [
   hotjarCom,
   taskAnalytics,
   boostScript,
+  // localhost testing
   UNSAFE_INLINE, // vergic, hotjar
 ];
 
 const workerSrc = [
   BLOB, // vergic
 ];
+
+
+// @TODO: Merge with bun responses
 
 const directives: Partial<CSPDirectives> = {
   'default-src': [navNo],
@@ -57,6 +67,8 @@ const directives: Partial<CSPDirectives> = {
     vergicScreenSharing,
     hotjarCom,
     cdnNavNo,
+    googleFonts,
+    googleFontsStatic,
     DATA, // ds-css
   ],
   'img-src': [navNo, vergicScreenSharing, vimeoCdn, hotjarCom, vergicDotCom],
@@ -75,19 +87,21 @@ const localDirectives = Object.entries(directives).reduce(
   (acc, [key, value]) => {
     return {
       ...acc,
-      [key]: Array.isArray(value) ? [...value, 'localhost:*'] : value,
+      [key]: Array.isArray(value) ? [...value, 'localhost:* ws:'] : value,
     };
   },
   {},
 );
 
-export const cspDirectives =
-  process.env.ENV === 'localhost' ? localDirectives : directives;
+export const cspDirectives = env.ENV === 'localhost' ? localDirectives : directives;
+export const csp = getCSP({
+    presets: [cspDirectives]
+})
 
 export const cspHandler: Handler = {
   method: 'GET',
   path: '/api/csp',
   handler: () => {
-    return jsonResponse(cspDirectives);
+    return r().json(cspDirectives).build()
   },
 };

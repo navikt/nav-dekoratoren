@@ -22,7 +22,7 @@ export async function fetchSession() {
 
   try {
     const sessionResponse = await fetch(sessionUrl, {
-      credentials: 'include',
+      // credentials: 'include',
     });
 
     return await sessionResponse.json();
@@ -36,7 +36,7 @@ export async function fethRenew() {
 
   try {
     const sessionResponse = await fetch(sessionUrl, {
-      credentials: 'include',
+      // credentials: 'include',
     });
 
     return await sessionResponse.json();

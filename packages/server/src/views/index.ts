@@ -2,9 +2,11 @@ import html, { Template, unsafeHtml } from 'decorator-shared/html';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
+import { env } from '../env/server';
+import { NodeEnv } from '../env/schema';
 
-const entryPointPath = 'src/main.ts';
-const entryPointPathAnalytics = 'src/analytics/analytics.ts';
+export const entryPointPath = 'src/main.ts';
+export const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
 const vendorScripts = {
   taskAnalytics: 'https://in2.taskanalytics.com/tm.js',
@@ -23,8 +25,16 @@ a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`,
 } as const;
 
-const getManifest = async () =>
-  (await import('decorator-client/dist/manifest.json')).default;
+/* Merge the two manifests*/
+export const getManifest = async () => {
+  const mainManifest = (await import('decorator-client/dist/manifest.json'))
+    .default;
+  const thirdPartyManifest = (
+    await import('decorator-client/dist/analytics.manifest.json')
+  ).default;
+
+  return Object.assign({}, mainManifest, thirdPartyManifest);
+};
 
 type AssetFormatter = (src: string) => string;
 
@@ -34,37 +44,31 @@ const partytownScript: AssetFormatter = (src) =>
   `<script type="text/partytown" src="${src}"></script>"`;
 const partytownInlineScript: AssetFormatter = (code) =>
   `<script type="text/partytown">${code}</script>"`;
+const cssLink: AssetFormatter = (src) =>
+  `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
+
 const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`;
 
-type EnvAssets = Record<'production' | 'dev', string>;
+type EnvAssets = Record<NodeEnv, string>;
 
 const getEnvAssets = async () => {
   const manifest = await getManifest();
-  const env = process.env.NODE_ENV === 'production' ? 'production' : 'dev';
 
   const css: EnvAssets = {
-    production: manifest[entryPointPath].css
-      .map((href: string) =>
-        html`<link
-          type="text/css"
-          rel="stylesheet"
-          href="${process.env.HOST ?? ``}/public/${href}"
-        />`.render(),
-      )
-      .join(''),
-    dev: '',
+    production: cssLink(hostUrl('/css/client.css')),
+    development: '',
   };
 
   const scripts: EnvAssets = {
     production: [
-      script(hostUrl(`/public/${manifest[entryPointPath].file}`)),
-      partytownScript(
-        hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      ),
-      partytownScript(vendorScripts.taskAnalytics),
-      [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
+      script(hostUrl(`/client.js`)),
+      // partytownScript(
+      //   hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
+      // ),
+      // partytownScript(vendorScripts.taskAnalytics),
+      // [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),
-    dev: [
+    development: [
       [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
@@ -82,8 +86,8 @@ const getEnvAssets = async () => {
   };
 
   return {
-    links: css[env],
-    scripts: scripts[env],
+    links: css[env.NODE_ENV],
+    scripts: scripts[env.NODE_ENV],
   };
 };
 
