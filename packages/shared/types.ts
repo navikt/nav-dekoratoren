@@ -27,7 +27,26 @@ export type LinkGroup = {
   children: Link[];
 };
 
-export type Texts = {
+export const clientTextsKeys = [
+  'token_warning_title',
+  'token_warning_body',
+  'send_undersokelse_takk',
+  'hensikt_med_tilbakemelding',
+  'hensikt_med_tilbakemelding_lenke',
+  'session_warning_title',
+  'session_warning_body',
+  'ok',
+  'yes',
+  'logout',
+  'important_info',
+  'loading_preview',
+] as const;
+
+export type ClientTexts = {
+  [K in (typeof clientTextsKeys)[number]]: string;
+};
+
+export type Texts = ClientTexts & {
   share_screen: string;
   to_top: string;
   menu: string;
@@ -35,7 +54,6 @@ export type Texts = {
   did_you_find: string;
   search: string;
   login: string;
-  logout: string;
   logged_in: string;
   notifications: string;
   notifications_empty_list: string;
@@ -52,17 +70,8 @@ export type Texts = {
   masked_task_text: string;
   archive: string;
   notifications_tasks_title: string;
-  token_warning_title: string;
-  token_warning_body: string;
-  session_warning_title: string;
-  session_warning_body: string;
-  yes: string;
-  ok: string;
   no: string;
   search_nav_no: string;
-  hensikt_med_tilbakemelding: string;
-  hensikt_med_tilbakemelding_lenke: string;
-  send_undersokelse_takk: string;
   rolle_privatperson: string;
   rolle_arbeidsgiver: string;
   rolle_samarbeidspartner: string;
@@ -78,9 +87,7 @@ export type Texts = {
   results: string;
   see_all_hits: string;
   no_hits_for: string;
-  loading_preview: string;
   to_front_page: string;
-  important_info: string;
   footer_del_skjerm: string;
   delskjerm_modal_beskrivelse: string;
   delskjerm_modal_start: string;
@@ -123,7 +130,7 @@ export type Features = {
 };
 
 export type AppState = {
-  texts: Texts;
+  texts: ClientTexts;
   params: Params;
   env: Environment;
   features: Features;

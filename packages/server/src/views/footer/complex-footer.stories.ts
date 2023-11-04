@@ -1,6 +1,7 @@
 import type { StoryObj, Meta } from '@storybook/html';
 import type { ComplexFooterProps } from './complex-footer';
 import { ComplexFooter } from './complex-footer';
+import { texts } from '../../texts';
 
 const meta: Meta<ComplexFooterProps> = {
   title: 'footer/complex',
@@ -17,10 +18,7 @@ export const Default: Story = {
       'dekoratoren.skjermdeling': true,
       'dekoratoren.chatbotscript': false,
     },
-    texts: {
-      to_top: 'Til toppen',
-      share_screen: 'Del skjerm med veileder',
-    },
+    texts: texts.nb,
     links: [
       {
         heading: 'Kontakt',

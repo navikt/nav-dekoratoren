@@ -2,6 +2,7 @@ import type { StoryObj, Meta } from '@storybook/html';
 import type { ArchivableNotificationProps } from './archivable-notification';
 import { ArchivableNotification } from './archivable-notification';
 import { MessageIcon } from 'decorator-shared/views/icons/notifications';
+import { texts } from '../../texts';
 
 const meta: Meta<ArchivableNotificationProps> = {
   title: 'notifications/archivable-notification',
@@ -19,8 +20,6 @@ export const Default: Story = {
     icon: MessageIcon(),
     title: 'Beskjed',
     metadata: 'Varslet på e-post',
-    texts: {
-      archive: 'Arkiver',
-    },
+    texts: texts.nb,
   },
 };

@@ -1,8 +1,8 @@
-import { Texts } from 'decorator-shared/types';
+import { ClientTexts } from 'decorator-shared/types';
 import feedbackClasses from '../styles/feedback.module.css';
 import { FeedbackSuccess } from '../views/feedback-success';
 
-export function addFeedbackListener({ texts }: { texts: Texts }) {
+export function addFeedbackListener({ texts }: { texts: ClientTexts }) {
   // Feedback
   const buttons = document.querySelectorAll(
     `.${feedbackClasses.feedbackContent} button`,

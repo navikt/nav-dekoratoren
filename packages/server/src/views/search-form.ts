@@ -2,12 +2,10 @@ import html from 'decorator-shared/html';
 import { CloseIcon } from 'decorator-shared/views/icons';
 import { SearchIcon } from 'decorator-shared/views/icons/search';
 import cls from 'decorator-client/src/styles/search-form.module.css';
+import { Texts } from 'decorator-shared/types';
 
 export type SearchFormProps = {
-  texts: {
-    search_nav_no: string;
-    search: string;
-  };
+  texts: Texts;
 };
 
 export const SearchForm = ({ texts }: SearchFormProps) => {

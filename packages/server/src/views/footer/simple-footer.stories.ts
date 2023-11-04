@@ -1,6 +1,7 @@
 import type { StoryObj, Meta } from '@storybook/html';
 import type { SimpleFooterProps } from './simple-footer';
 import { SimpleFooter } from './simple-footer';
+import { texts } from '../../texts';
 
 const meta: Meta<SimpleFooterProps> = {
   title: 'footer/simple',
@@ -17,9 +18,7 @@ export const Default: Story = {
       'dekoratoren.skjermdeling': true,
       'dekoratoren.chatbotscript': false,
     },
-    texts: {
-      share_screen: 'Del skjerm med veileder',
-    },
+    texts: texts.nb,
     links: [
       {
         content: 'Personvern og informasjonskapsler',
