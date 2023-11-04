@@ -4,9 +4,9 @@ import {
   UNSAFE_INLINE,
   BLOB,
   DATA,
+  getCSP,
 } from 'csp-header';
-import { Handler, jsonResponse } from './lib/handler';
-import { env } from './env/server';
+import { Handler, r } from './lib/handler';
 
 const navNo = '*.nav.no';
 const cdnNavNo = 'cdn.nav.no';
@@ -23,11 +23,15 @@ const vimeoCdn = '*.vimeocdn.com'; // used for video preview images
 const hotjarCom = '*.hotjar.com';
 const hotjarIo = '*.hotjar.io';
 const taskAnalytics = '*.taskanalytics.com';
+const googleFonts = '*.googleapis.com';
+const googleFontsStatic = '*.gstatic.com'
 
 const styleSrc = [
   navNo,
   vergicScreenSharing,
-  UNSAFE_INLINE, // various components with style-attributes
+  UNSAFE_INLINE, // various components with style-attributes,
+  googleFonts,
+  googleFontsStatic,
 ];
 
 const scriptSrc = [
@@ -62,6 +66,8 @@ const directives: Partial<CSPDirectives> = {
     vergicScreenSharing,
     hotjarCom,
     cdnNavNo,
+    googleFonts,
+    googleFontsStatic,
     DATA, // ds-css
   ],
   'img-src': [navNo, vergicScreenSharing, vimeoCdn, hotjarCom, vergicDotCom],
@@ -78,23 +84,25 @@ const directives: Partial<CSPDirectives> = {
 
 const localDirectives = Object.entries(directives).reduce(
   (acc, [key, value]) => {
-      console.log('This is hit')
     return {
       ...acc,
-      [key]: Array.isArray(value) ? [...value, 'localhost:*'] : value,
+      [key]: Array.isArray(value) ? [...value, 'localhost:* ws:'] : value,
     };
   },
   {},
 );
 
-console.log(env.IS_LOCAL_PROD);
+// console.log(env.IS_LOCAL_PROD);
 // export const cspDirectives = env.IS_LOCAL_PROD ? localDirectives : directives;
 export const cspDirectives = localDirectives;
+export const csp = getCSP({
+    presets: [cspDirectives]
+})
 
 export const cspHandler: Handler = {
   method: 'GET',
   path: '/api/csp',
   handler: () => {
-    return jsonResponse(cspDirectives);
+    return r().json(cspDirectives).build()
   },
 };

@@ -17,9 +17,12 @@
     "@csstools/postcss-global-data": "^2.0.1",
     "@navikt/ds-tokens": "^4.11.2",
     "decorator-shared": "workspace:*",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "js-cookie": "^3.0.5",
+    "amplitude-js": "^8.21.9"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "autoprefixer": "^10.4.14",
     "bun-types": "1.0.5",

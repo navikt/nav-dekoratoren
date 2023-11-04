@@ -24,7 +24,6 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@builder.io/partytown": "^0.8.1",
     "@types/amplitude-js": "^8.16.2",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
@@ -33,25 +32,21 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
+    "tsconfig-paths": "^4.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tsconfig-paths": "^4.2.0"
+    "react-dom": "^18.2.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
   },
   "dependencies": {
+    "clsx": "^2.0.0",
+    "zod": "^3.22.4",
     "@storybook/addon-essentials": "^7.4.3",
     "@storybook/blocks": "^7.4.3",
     "@storybook/html": "^7.4.3",
     "@storybook/html-vite": "^7.4.3",
-    "@types/js-cookie": "^3.0.4",
-    "amplitude-js": "^8.21.9",
-    "clsx": "^2.0.0",
-    "csp-header": "^5.2.1",
-    "js-cookie": "^3.0.5",
-    "storybook": "^7.4.3",
-    "unleash-client": "^4.1.1"
+    "storybook": "^7.4.3"
   }
 }

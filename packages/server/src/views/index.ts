@@ -2,6 +2,8 @@ import html, { Template, unsafeHtml } from 'decorator-shared/html';
 import { Language } from 'decorator-shared/params';
 import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
+import { env } from '../env/server';
+import { NodeEnv } from '../env/schema';
 
 export const entryPointPath = 'src/main.ts';
 export const entryPointPathAnalytics = 'src/analytics/analytics.ts';
@@ -45,15 +47,14 @@ const cssLink: AssetFormatter = (src) =>
 
 const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`;
 
-type EnvAssets = Record<'production' | 'dev', string>;
+type EnvAssets = Record<NodeEnv, string>;
 
 const getEnvAssets = async () => {
   const manifest = await getManifest();
-  const env = process.env.NODE_ENV === 'production' ? 'production' : 'dev';
 
   const css: EnvAssets = {
     production: cssLink(hostUrl('/css/client.css')),
-    dev: '',
+    development: '',
   };
 
   const scripts: EnvAssets = {
@@ -65,7 +66,7 @@ const getEnvAssets = async () => {
       // partytownScript(vendorScripts.taskAnalytics),
       // [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),
-    dev: [
+    development: [
       [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
@@ -83,8 +84,8 @@ const getEnvAssets = async () => {
   };
 
   return {
-    links: css[env],
-    scripts: scripts[env],
+    links: css[env.NODE_ENV],
+    scripts: scripts[env.NODE_ENV],
   };
 };
 
