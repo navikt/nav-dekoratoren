@@ -1,19 +1,18 @@
 import { formatParams } from 'decorator-shared/json';
 import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
 import { AppState } from 'decorator-shared/types';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
 import { type AnalyticsEventArgs } from './analytics/constants';
 import * as api from './api';
 import { logoutWarningController } from './controllers/logout-warning';
-import { addBreadcrumbEventListeners, onLoadListeners } from './listeners';
+import { onLoadListeners } from './listeners';
 import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
-import headerClasses from './styles/header.module.css';
 import './views/context-link';
 import './views/decorator-lens';
 import { attachLensListener } from './views/decorator-lens';
+import './views/decorator-utils';
 import './views/dropdown-menu';
 import './views/language-selector';
 import './views/lenke-med-sporing';
@@ -26,7 +25,6 @@ import './views/ops-messages';
 import './views/screensharing';
 import './views/search-input';
 import './views/search-menu';
-import './views/decorator-utils';
 import.meta.glob('./styles/*.css', { eager: true });
 
 type Auth = {
@@ -117,53 +115,6 @@ window.addEventListener('message', (e) => {
         });
       }
     });
-    if (
-      e.data.payload.breadcrumbs ||
-      e.data.payload.availableLanguages ||
-      e.data.payload.utilsBackground
-    ) {
-      if (e.data.payload.breadcrumbs) {
-        updateDecoratorParams({
-          breadcrumbs: e.data.payload.breadcrumbs,
-        });
-      }
-      if (e.data.payload.availableLanguages) {
-        updateDecoratorParams({
-          availableLanguages: e.data.payload.availableLanguages,
-        });
-      }
-      if (e.data.payload.utilsBackground) {
-        updateDecoratorParams({
-          utilsBackground: e.data.payload.utilsBackground,
-        });
-      }
-
-      const { utilsBackground, breadcrumbs = [] } =
-        window.__DECORATOR_DATA__.params;
-
-      const getUtilsContainer = () => {
-        const utilsContainer = document.querySelector(
-          '.decorator-utils-container',
-        );
-        if (utilsContainer) {
-          return utilsContainer;
-        } else {
-          const newUtilsContainer = document.createElement('div');
-          document
-            .querySelector(`.${headerClasses.siteheader}`)
-            ?.after(newUtilsContainer);
-          return newUtilsContainer;
-        }
-      };
-
-      getUtilsContainer().outerHTML =
-        DecoratorUtilsContainer({
-          utilsBackground,
-          breadcrumbs,
-        })?.render() ?? '';
-
-      addBreadcrumbEventListeners();
-    }
 
     if (e.data.payload.context) {
       const context = e.data.payload.context;

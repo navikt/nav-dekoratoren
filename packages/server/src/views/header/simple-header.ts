@@ -6,12 +6,21 @@ import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import { LoginIcon } from 'decorator-shared/views/icons';
 import { IconButton } from '../icon-button';
+import { AvailableLanguage, Breadcrumb } from 'decorator-shared/params';
+import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
+import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
 
 export type SimpleHeaderProps = {
   texts: Texts;
+  breadcrumbs: Breadcrumb[];
+  availableLanguages: AvailableLanguage[];
 };
 
-export const SimpleHeader = ({ texts }: SimpleHeaderProps) => html`
+export const SimpleHeader = ({
+  texts,
+  breadcrumbs,
+  availableLanguages,
+}: SimpleHeaderProps) => html`
   <header class="${cls.siteheader}">
     <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
       <a
@@ -36,5 +45,8 @@ export const SimpleHeader = ({ texts }: SimpleHeaderProps) => html`
     </div>
   </header>
   <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-  <decorator-utils></decorator-utils>
+  <decorator-utils>
+    ${breadcrumbs.length > 0 && Breadcrumbs({ breadcrumbs })}
+    ${availableLanguages.length > 0 && LanguageSelector()}
+  </decorator-utils>
 `;

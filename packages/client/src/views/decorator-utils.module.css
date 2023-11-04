@@ -4,6 +4,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   column-gap: var(--a-spacing-4);
+  padding-block: var(--a-spacing-3);
 }
 
 .white {

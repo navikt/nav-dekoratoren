@@ -145,13 +145,6 @@ export async function Index({
                   event: 'params',
                   payload: {
                     breadcrumbs: [
-                      {
-                        title: 'Arbeid og opphold i Norge',
-                        url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
-                      },
-                      {
-                        title: 'Medlemskap i folketrygden',
-                      },
                     ],
                   },
                 })
@@ -191,7 +184,7 @@ export async function Index({
                   source: 'decoratorClient',
                   event: 'params',
                   payload: {
-                    utilsBackground: 'white',
+                    utilsBackground: 'gray',
                   },
                 })
               })()"

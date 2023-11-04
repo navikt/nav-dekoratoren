@@ -30,7 +30,7 @@ export default async ({
   url: string;
   query: Record<string, unknown>;
 }) => {
-  const { language } = data;
+  const { language, breadcrumbs, availableLanguages } = data;
   const localTexts = texts[language];
 
   const features = unleashService.getFeatures();
@@ -49,7 +49,7 @@ export default async ({
       language,
       header:
         data.simple || data.simpleHeader
-          ? SimpleHeader({ texts: localTexts })
+          ? SimpleHeader({ texts: localTexts, breadcrumbs, availableLanguages })
           : ComplexHeader({
               texts: localTexts,
               contextLinks,
@@ -60,6 +60,8 @@ export default async ({
                 context: data.context,
                 bedrift: data.bedrift,
               }),
+              breadcrumbs,
+              availableLanguages,
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,

@@ -12,6 +12,7 @@
   margin: 0;
   font: inherit;
   font-size: var(--a-font-size-medium);
+  line-height: 22px;
   color: inherit;
   cursor: pointer;
   background-color: var(--a-surface-default);

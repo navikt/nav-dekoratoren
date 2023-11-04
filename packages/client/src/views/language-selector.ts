@@ -11,14 +11,13 @@ declare global {
 
 export class LanguageSelector extends HTMLElement {
   menu;
-  button;
+  button: HTMLButtonElement;
   #open = false;
   options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
   #language?: Language;
 
   set language(language: Language) {
     this.options.forEach((option) => {
-      console.log(option);
       option.classList.toggle(
         cls.selected,
         option.getAttribute('data-locale') === language,
@@ -76,17 +75,21 @@ export class LanguageSelector extends HTMLElement {
 
     this.classList.add(cls.languageSelector);
 
-    this.button = document.createElement('button');
-    this.button.type = 'button';
-    this.button.classList.add(cls.button);
-    this.button.innerHTML = html`
-      ${GlobeIcon({ className: cls.icon })}
-      <span>
-        <span lang="nb">Språk</span>/<span lang="en">Language</span>
-      </span>
-      ${DownChevronIcon({ className: cls.icon })}
-    `.render();
-    this.appendChild(this.button);
+    if (this.querySelector(`.${cls.button}`)) {
+      this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
+    } else {
+      this.button = document.createElement('button');
+      this.button.type = 'button';
+      this.button.classList.add(cls.button);
+      this.button.innerHTML = html`
+        ${GlobeIcon({ className: cls.icon })}
+        <span>
+          <span lang="nb">Språk</span>/<span lang="en">Language</span>
+        </span>
+        ${DownChevronIcon({ className: cls.icon })}
+      `.render();
+      this.appendChild(this.button);
+    }
 
     this.menu = document.createElement('ul');
     this.menu.classList.add(cls.menu, cls.hidden);

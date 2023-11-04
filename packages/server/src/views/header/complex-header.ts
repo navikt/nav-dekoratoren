@@ -5,7 +5,12 @@ import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 import { ContextLink } from 'decorator-shared/context';
 import html, { Template } from 'decorator-shared/html';
-import { Context, Language } from 'decorator-shared/params';
+import {
+  AvailableLanguage,
+  Breadcrumb,
+  Context,
+  Language,
+} from 'decorator-shared/params';
 import { LinkGroup, MainMenuContextLink, Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import {
@@ -17,6 +22,8 @@ import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
 import { MainMenu } from './main-menu';
+import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
+import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
 
 const frontPageUrl = (context: Context, language: Language) => {
   if (language === 'en') {
@@ -40,6 +47,8 @@ export type ComplexHeaderProps = {
   mainMenuLinks: LinkGroup[];
   mainMenuContextLinks: MainMenuContextLink[];
   contextLinks: ContextLink[];
+  breadcrumbs: Breadcrumb[];
+  availableLanguages: AvailableLanguage[];
 };
 
 export function ComplexHeader({
@@ -49,6 +58,8 @@ export function ComplexHeader({
   mainMenuContextLinks,
   texts,
   context: currentContext,
+  breadcrumbs,
+  availableLanguages,
 }: ComplexHeaderProps) {
   return html`
     <header class="${cls.siteheader}">
@@ -132,7 +143,11 @@ export function ComplexHeader({
       </div>
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    <decorator-utils></decorator-utils>
+    <decorator-utils>
+      ${breadcrumbs.length > 0 &&
+      html`<nav is="d-breadcrumbs">${Breadcrumbs({ breadcrumbs })}</nav>`}
+      ${availableLanguages.length > 0 && LanguageSelector()}
+    </decorator-utils>
     <menu-background></menu-background>
   `;
 }
