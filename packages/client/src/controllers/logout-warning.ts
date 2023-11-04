@@ -1,15 +1,15 @@
-import { Texts } from 'decorator-shared/types';
+import { ClientTexts } from 'decorator-shared/types';
 import {
-  fetchSession,
   AuthData,
+  fakeExpirationTime,
+  fetchSession,
   fethRenew,
   getSecondsToExpiration,
-  fakeExpirationTime,
 } from '../helpers/auth';
 
 export async function logoutWarningController(
   hasLogoutWarning: boolean,
-  texts: Texts,
+  texts: ClientTexts,
 ) {
   if (!hasLogoutWarning) {
     return;

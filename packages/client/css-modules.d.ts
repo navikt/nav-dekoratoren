@@ -24,11 +24,11 @@ declare module '*/button.module.css' {
   const classes: {
     button: string;
     primary: string;
-    bigLabel: string;
     secondary: string;
     outline: string;
     wide: string;
     ghost: string;
+    bigLabel: string;
   };
   export default classes;
 }
@@ -55,16 +55,6 @@ declare module '*/complex-header-menu.module.css' {
     menuTop: string;
     menuContent: string;
     searchMenu: string;
-  };
-  export default classes;
-}
-
-declare module '*/context-menu-link.module.css' {
-  const classes: {
-    wrapper: string;
-    contextMenuLink: string;
-    chevron: string;
-    inner: string;
   };
   export default classes;
 }
@@ -329,13 +319,6 @@ declare module '*/user-menu.module.css' {
     notifications: string;
     logout: string;
     alert: string;
-  };
-  export default classes;
-}
-
-declare module '*/utils.module.css' {
-  const classes: {
-    bigLabel: string;
   };
   export default classes;
 }

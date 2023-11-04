@@ -25,14 +25,16 @@ a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`,
 } as const;
 
-
 /* Merge the two manifests*/
 export const getManifest = async () => {
-  const mainManifest = (await import('decorator-client/dist/manifest.json')).default;
-  const thirdPartyManifest = (await import('decorator-client/dist/analytics.manifest.json')).default;
+  const mainManifest = (await import('decorator-client/dist/manifest.json'))
+    .default;
+  const thirdPartyManifest = (
+    await import('decorator-client/dist/analytics.manifest.json')
+  ).default;
 
   return Object.assign({}, mainManifest, thirdPartyManifest);
-}
+};
 
 type AssetFormatter = (src: string) => string;
 
@@ -43,7 +45,7 @@ const partytownScript: AssetFormatter = (src) =>
 const partytownInlineScript: AssetFormatter = (code) =>
   `<script type="text/partytown">${code}</script>"`;
 const cssLink: AssetFormatter = (src) =>
-    `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
+  `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
 const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`;
 
@@ -120,6 +122,7 @@ export async function Index({
     <!doctype html>
     <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
       <head>
+        <title>NAV Dekoratør</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -132,9 +135,7 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        <div id="header-withmenu">
-        ${header}
-        </div>
+        <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
             text: 'Test amplitude!',
@@ -199,7 +200,7 @@ export async function Index({
           </button>
           <div>${main}</div>
         </main>
-        <div id="footer-withmenu" class="bg-white">
+        <div id="footer-withmenu">
           ${shareScreen} ${logoutWarning} ${feedback} ${footer}
         </div>
         ${lens}

@@ -6,7 +6,7 @@
   height: calc(100vh - 73px);
   overflow-y: auto;
   position: relative;
-  background-color: white;
+  background-color: var(--a-surface-default);
 }
 
 .searchMenu {

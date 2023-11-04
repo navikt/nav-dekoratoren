@@ -1,4 +1,4 @@
-import { Features, Link } from 'decorator-shared/types';
+import { Features, Link, Texts } from 'decorator-shared/types';
 import html from 'decorator-shared/html';
 import { ScreenshareButton } from './screenshare-button';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
@@ -7,9 +7,7 @@ import utilCls from 'decorator-shared/utilities.module.css';
 
 export type SimpleFooterProps = {
   links: Link[];
-  texts: {
-    share_screen: string;
-  };
+  texts: Texts;
   features: Features;
 };
 

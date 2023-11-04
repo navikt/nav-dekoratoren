@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test';
 import { SimpleFooter } from './simple-footer';
 import UnleashService from '../../unleash-service';
+import { texts } from '../../texts';
 
 const unleashService = new UnleashService({ mock: true });
 
@@ -19,9 +20,7 @@ test('renders simple footer', async () => {
   expect(
     SimpleFooter({
       links,
-      texts: {
-        share_screen: 'Del skjerm med veileder',
-      },
+      texts: texts.nb,
       features: unleashService.getFeatures(),
     }).render(),
   ).toMatchSnapshot();

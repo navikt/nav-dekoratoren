@@ -21,6 +21,7 @@ body {
   font-family: 'Source Sans 3', sans-serif;
   line-height: 1.333;
   font-size: 1.125rem;
+  -webkit-font-smoothing: antialiased;
 }
 
 @media (min-width: 1024px) {

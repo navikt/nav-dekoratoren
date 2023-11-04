@@ -44,7 +44,7 @@
 
 .clear {
   align-items: center;
-  background: none;
+  background-color: none;
   border: none;
   border-radius: var(--a-border-radius-medium);
   color: var(--a-text-default);
