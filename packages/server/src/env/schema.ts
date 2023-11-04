@@ -5,14 +5,9 @@ export const serverSchema = z.object({
   XP_BASE_URL: z.string().url(),
   PORT: z.number(),
   CDN_URL: z.string().url(),
-  NODE_ENV: z.enum([
-      'production',
-      'development',
-  ]),
-  ENV: z.enum([
-      'localhost',
-      'NAV_NO'
-  ]),
+  NODE_ENV: z.enum(['production', 'development']),
+  // @TODO: What sould the mental model be here in relation to NODE_ENV?
+  ENV: z.enum(['localhost', 'NAV_NO']),
   // Maybe a better way to do this?
   IS_LOCAL_PROD: z.boolean().optional(),
 });
