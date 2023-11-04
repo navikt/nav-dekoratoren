@@ -7,6 +7,10 @@
   padding-block: var(--a-spacing-3);
 }
 
+.decoratorUtils.empty {
+  display: none;
+}
+
 .white {
   background-color: var(--a-bg-default);
 }

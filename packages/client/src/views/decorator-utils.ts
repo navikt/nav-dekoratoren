@@ -30,34 +30,31 @@ class DecoratorUtils extends HTMLElement {
     const { availableLanguages, language, breadcrumbs, utilsBackground } =
       window.__DECORATOR_DATA__.params;
 
-    if (availableLanguages) {
-      this.languageSelector.availableLanguages = availableLanguages;
+    this.classList.toggle(
+      cls.empty,
+      availableLanguages.length === 0 && breadcrumbs.length === 0,
+    );
 
-      if (
-        availableLanguages.length > 0 &&
-        !this.contains(this.languageSelector)
-      ) {
-        this.append(this.languageSelector);
-      } else if (availableLanguages.length === 0) {
-        this.languageSelector.remove();
-      }
-    }
-    if (language) {
-      this.languageSelector.language = language;
-    }
-    if (breadcrumbs) {
-      this.breadbrumbs.innerHTML = Breadcrumbs({ breadcrumbs }).render();
-
-      if (breadcrumbs.length > 0 && !this.contains(this.breadbrumbs)) {
-        this.prepend(this.breadbrumbs);
-      } else if (breadcrumbs.length === 0) {
-        this.breadbrumbs.remove();
-      }
+    this.languageSelector.availableLanguages = availableLanguages;
+    if (
+      availableLanguages.length > 0 &&
+      !this.contains(this.languageSelector)
+    ) {
+      this.append(this.languageSelector);
+    } else if (availableLanguages.length === 0) {
+      this.languageSelector.remove();
     }
 
-    if (utilsBackground) {
-      this.utilsBackground = utilsBackground;
+    this.languageSelector.language = language;
+
+    this.breadbrumbs.innerHTML = Breadcrumbs({ breadcrumbs }).render();
+    if (breadcrumbs.length > 0 && !this.contains(this.breadbrumbs)) {
+      this.prepend(this.breadbrumbs);
+    } else if (breadcrumbs.length === 0) {
+      this.breadbrumbs.remove();
     }
+
+    this.utilsBackground = utilsBackground;
   };
 
   set utilsBackground(utilsBackground: UtilsBackground) {

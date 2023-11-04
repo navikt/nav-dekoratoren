@@ -159,18 +159,6 @@ export async function Index({
                   event: 'params',
                   payload: {
                     availableLanguages: [
-                      {
-                        locale: 'se',
-                        url: 'https://www.nav.no/person/kontakt-oss',
-                      },
-                      {
-                        locale: 'nb',
-                        url: 'https://www.nav.no/person/kontakt-oss',
-                      },
-                      {
-                        locale: 'en',
-                        url: 'https://www.nav.no/person/kontakt-oss/en/',
-                      },
                     ],
                   },
                 })
