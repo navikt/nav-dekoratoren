@@ -224,7 +224,6 @@ const requestHandler = async (
             return new Response('Not found', { status: 404 });
         }
 
-
         const response = await handler.handler({
             request,
             url,

@@ -32,7 +32,7 @@ export const serverEnv = {
   ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
   XP_BASE_URL: process.env.XP_BASE_URL,
   PORT: portToNumber(process.env.PORT),
-  NODE_ENV: process.env.NODE_ENV,
+  NODE_ENV: process.env.NODE_ENV === 'test' ? 'development' : process.env.NODE_ENV,
   ENV: process.env.ENV,
   CDN_URL: process.env.CDN_URL,
   IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === 'true',
