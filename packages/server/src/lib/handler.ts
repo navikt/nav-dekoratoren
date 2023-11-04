@@ -14,7 +14,7 @@ class HandlerResponse<TData extends Params[0]> {
 
     json(data: TData | unknown) {
         // better handling here
-        this.data = data as TData
+        this.data = JSON.stringify(data) as TData
         this.headers.set('content-type', 'application/json; charset=utf-8')
         return this
     }

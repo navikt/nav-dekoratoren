@@ -178,7 +178,6 @@ const requestHandler = async (
                 {
                     headers: {
                         'content-type': 'text/html; charset=utf-8',
-                        'Access-Control-Allow-Origin': '*'
                     },
                 },
             );
@@ -232,8 +231,6 @@ const requestHandler = async (
             url,
             query: Object.fromEntries(url.searchParams),
         });
-
-
 
         for (const [h, v] of Object.entries(corsRes.headers)) {
             if (response.headers.has(h)) {

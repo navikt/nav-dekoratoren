@@ -1,6 +1,6 @@
 import z from 'zod';
 import { env } from './env/server';
-import { NodeEnv } from './env/schema';
+import { RunningEnv } from './env/schema';
 
 const corsWhitelist = [
     '.nav.no',
@@ -35,14 +35,6 @@ export const corsSchema = z.string().refine(
         };
     }
 );
-// }).refine(({ origin, validOrigins}) => {
-//
-// }, ({ origin, validOrigins}) => {
-//     return {
-//         path: 'origin',
-//         message: `Origin ${origin} is not allowed. Valid origins are ${validOrigins.join(', ')}`,
-//     }
-// })
 
 // At the start of each request
 type CorsError = {
@@ -61,8 +53,10 @@ export function handleCors(request: Request): Result {
     const host = request.headers.get('host');
     const result = corsSchema.safeParse(host);
 
+    console.log('cors result', result)
+
     if (!result.success) {
-        console.error(result.error);
+        console.log(result.error);
         return {
             kind: 'cors-error' as const,
             response: new Response(null, {
@@ -78,14 +72,14 @@ export function handleCors(request: Request): Result {
     }
 
 
-    const headers: Record<NodeEnv, HeadersInit> = {
-        production:
+    const headers: Record<RunningEnv, HeadersInit> = {
+        NAV_NO:
             {
                 'Access-Control-Allow-Origin': origin,
                 ...shared
             }
         ,
-        development: {
+        localhost: {
             'Access-Control-Allow-Origin': '*',
             ...shared
         }
@@ -95,9 +89,10 @@ export function handleCors(request: Request): Result {
 
     return {
         kind: 'valid' as const,
-        headers: headers[env.NODE_ENV]
+        headers: headers[env.ENV]
     }
 }
+// Reference
 // app.use((req, res, next) => {
 //     const origin = req.get('origin');
 //     const isLocalhost = origin?.startsWith('http://localhost:');

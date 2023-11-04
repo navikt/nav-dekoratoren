@@ -17,7 +17,8 @@ body {
 #header-withmenu,
 #footer-withmenu {
   --edge-spacing: var(--a-spacing-4);
-  font-family: 'Source Sans Pro', sans-serif;
+  /* How should we handle when on differnet domains? */
+  font-family: 'Source Sans 3', sans-serif;
   line-height: 1.333;
   font-size: 1.125rem;
 }

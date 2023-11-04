@@ -9,9 +9,15 @@ export const serverSchema = z.object({
       'production',
       'development',
   ]),
+  ENV: z.enum([
+      'localhost',
+      'NAV_NO'
+  ]),
   // Maybe a better way to do this?
   IS_LOCAL_PROD: z.boolean().optional(),
 });
+
+export type RunningEnv = z.infer<typeof serverSchema>['ENV'];
 
 export type NodeEnv = z.infer<typeof serverSchema>['NODE_ENV'];
 
@@ -32,6 +38,7 @@ export const serverEnv = {
   XP_BASE_URL: process.env.XP_BASE_URL,
   PORT: portToNumber(process.env.PORT),
   NODE_ENV: process.env.NODE_ENV,
+  ENV: process.env.ENV,
   CDN_URL: process.env.CDN_URL,
   IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === 'true',
 };
