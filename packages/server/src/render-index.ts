@@ -35,8 +35,6 @@ export default async ({
 
   const features = unleashService.getFeatures();
 
-  const contextLinks = makeContextLinks(env.XP_BASE_URL);
-
   const decoratorUtilsContainer =
     DecoratorUtilsContainer({
       availableLanguages: data.availableLanguages,
@@ -55,7 +53,7 @@ export default async ({
             })
           : ComplexHeader({
               texts: localTexts,
-              contextLinks,
+              contextLinks: makeContextLinks(env.XP_BASE_URL),
               context: data.context,
               language,
               decoratorUtilsContainer,
