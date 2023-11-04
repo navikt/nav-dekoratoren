@@ -2,6 +2,8 @@
 
 - 🔨 [installation](#installation)
 - 💻 [Development](#development)
+- Ingresses
+  - [Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs)
 
 ---
 
