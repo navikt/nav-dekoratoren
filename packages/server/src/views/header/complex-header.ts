@@ -35,7 +35,6 @@ const frontPageUrl = (context: Context, language: Language) => {
 
 export type ComplexHeaderProps = {
   texts: Texts;
-  decoratorUtilsContainer?: Template;
   context: Context;
   language: Language;
   mainMenuLinks: LinkGroup[];
@@ -50,7 +49,6 @@ export function ComplexHeader({
   mainMenuContextLinks,
   texts,
   context: currentContext,
-  decoratorUtilsContainer,
 }: ComplexHeaderProps) {
   return html`
     <header class="${cls.siteheader}">
@@ -134,7 +132,7 @@ export function ComplexHeader({
       </div>
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${decoratorUtilsContainer}
+    <decorator-utils></decorator-utils>
     <menu-background></menu-background>
   `;
 }

@@ -26,6 +26,7 @@ import './views/ops-messages';
 import './views/screensharing';
 import './views/search-input';
 import './views/search-menu';
+import './views/decorator-utils';
 import.meta.glob('./styles/*.css', { eager: true });
 
 type Auth = {
@@ -62,8 +63,6 @@ window.__DECORATOR_DATA__ = JSON.parse(
   document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
 );
 
-console.log(window.__DECORATOR_DATA__);
-
 window.__DECORATOR_DATA__.env = {
   MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
   LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
@@ -73,14 +72,20 @@ window.__DECORATOR_DATA__.env = {
   APP_URL: import.meta.env.VITE_APP_URL,
 };
 
-const updateDecoratorParams = (params: Partial<Params>): Params => {
+const updateDecoratorParams = (params: Partial<Params>) => {
   window.__DECORATOR_DATA__.params = {
     ...window.__DECORATOR_DATA__.params,
     ...params,
   };
 
-  return window.__DECORATOR_DATA__.params;
+  window.dispatchEvent(
+    new CustomEvent('paramsupdated', {
+      detail: { keys: Object.keys(params) },
+    }),
+  );
 };
+
+updateDecoratorParams({});
 
 onLoadListeners({
   texts: window.__DECORATOR_DATA__.texts,
@@ -100,6 +105,18 @@ window.addEventListener('message', (e) => {
     window.postMessage({ source: 'decorator', event: 'ready' });
   }
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
+    [
+      'language',
+      'breadcrumbs',
+      'availableLanguages',
+      'utilsBackground',
+    ].forEach((key) => {
+      if (e.data.payload[key]) {
+        updateDecoratorParams({
+          [key]: e.data.payload[key],
+        });
+      }
+    });
     if (
       e.data.payload.breadcrumbs ||
       e.data.payload.availableLanguages ||
@@ -121,11 +138,8 @@ window.addEventListener('message', (e) => {
         });
       }
 
-      const {
-        utilsBackground,
-        breadcrumbs = [],
-        availableLanguages = [],
-      } = window.__DECORATOR_DATA__.params;
+      const { utilsBackground, breadcrumbs = [] } =
+        window.__DECORATOR_DATA__.params;
 
       const getUtilsContainer = () => {
         const utilsContainer = document.querySelector(

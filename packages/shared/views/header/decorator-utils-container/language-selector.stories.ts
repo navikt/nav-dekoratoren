@@ -10,7 +10,10 @@ const meta: Meta = {
       params: {
         availableLanguages: [
           { locale: 'nb', handleInApp: true },
-          { locale: 'en', url: 'https://www.nav.no/person/kontakt-oss/en/' },
+          {
+            locale: 'en',
+            url: 'https://www.nav.no/person/kontakt-oss/en/',
+          },
         ],
         language: 'en',
       },

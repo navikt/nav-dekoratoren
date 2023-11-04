@@ -1,7 +1,7 @@
 import cls from 'decorator-client/src/styles/header.module.css';
 import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
-import html, { Template } from 'decorator-shared/html';
+import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import { LoginIcon } from 'decorator-shared/views/icons';
@@ -9,13 +9,9 @@ import { IconButton } from '../icon-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
-  decoratorUtilsContainer?: Template;
 };
 
-export const SimpleHeader = ({
-  texts,
-  decoratorUtilsContainer,
-}: SimpleHeaderProps) => html`
+export const SimpleHeader = ({ texts }: SimpleHeaderProps) => html`
   <header class="${cls.siteheader}">
     <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
       <a
@@ -40,5 +36,5 @@ export const SimpleHeader = ({
     </div>
   </header>
   <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-  ${decoratorUtilsContainer}
+  <decorator-utils></decorator-utils>
 `;

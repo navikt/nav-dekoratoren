@@ -13,13 +13,13 @@ export type Language = z.infer<typeof languageSchema>;
 
 const availableLanguageSchema = z.discriminatedUnion('handleInApp', [
   z.object({
-    locale: languageSchema,
     handleInApp: z.literal(true),
+    locale: languageSchema,
   }),
   z.object({
+    handleInApp: z.literal(false),
     locale: languageSchema,
     url: z.string(),
-    handleInApp: z.literal(false).default(false),
   }),
 ]);
 export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;

@@ -16,7 +16,6 @@ import { makeContextLinks } from 'decorator-shared/context';
 import { env } from './env/server';
 import { SplashPage } from './views/splash-page';
 import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 
 export default async ({
   contentService,
@@ -45,27 +44,17 @@ export default async ({
 
   const contextLinks = makeContextLinks(env.XP_BASE_URL);
 
-  const decoratorUtilsContainer =
-    DecoratorUtilsContainer({
-      breadcrumbs: data.breadcrumbs,
-      utilsBackground: data.utilsBackground,
-    }) ?? undefined;
-
   return (
     await Index({
       language,
       header:
         data.simple || data.simpleHeader
-          ? SimpleHeader({
-              texts: localTexts,
-              decoratorUtilsContainer,
-            })
+          ? SimpleHeader({ texts: localTexts })
           : ComplexHeader({
               texts: localTexts,
               contextLinks,
               context: data.context,
               language,
-              decoratorUtilsContainer,
               mainMenuLinks,
               mainMenuContextLinks: await contentService.mainMenuContextLinks({
                 context: data.context,

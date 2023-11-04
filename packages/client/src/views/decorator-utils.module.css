@@ -1,0 +1,15 @@
+.decoratorUtils {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: var(--a-spacing-4);
+}
+
+.white {
+  background-color: var(--a-bg-default);
+}
+
+.gray {
+  background-color: var(--a-bg-subtle);
+}
