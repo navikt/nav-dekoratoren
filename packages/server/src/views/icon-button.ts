@@ -16,7 +16,7 @@ export function IconButton({
   chevron?: boolean;
 }) {
   return html`
-    <button id="${id}" class="${cls.iconButton} ${className}">
+    <button ${id && html`id="${id}"`} class="${cls.iconButton} ${className}">
       ${Icon}
       <span class="${cls.iconButtonSpan}">${text}</span>
 

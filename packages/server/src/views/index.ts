@@ -44,11 +44,12 @@ const getEnvAssets = async () => {
 
   const css: EnvAssets = {
     production: manifest[entryPointPath].css
-      .map(
-        (href: string) =>
-          `<link type="text/css" rel="stylesheet" href="${
-            process.env.HOST ?? ``
-          }/public/${href}"></link>`,
+      .map((href: string) =>
+        html`<link
+          type="text/css"
+          rel="stylesheet"
+          href="${process.env.HOST ?? ``}/public/${href}"
+        />`.render(),
       )
       .join(''),
     dev: '',
@@ -117,6 +118,7 @@ export async function Index({
     <!doctype html>
     <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
       <head>
+        <title>NAV Dekoratør</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -129,9 +131,7 @@ export async function Index({
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        <div id="header-withmenu">
-        ${header}
-        </div>
+        <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
             text: 'Test amplitude!',
@@ -196,7 +196,7 @@ export async function Index({
           </button>
           <div>${main}</div>
         </main>
-        <div id="footer-withmenu" class="bg-white">
+        <div id="footer-withmenu">
           ${shareScreen} ${logoutWarning} ${feedback} ${footer}
         </div>
         ${lens}
