@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import cls from './burger.module.css';
+import cls from 'decorator-client/src/styles/burger.module.css';
 
 export const BurgerIcon = () =>
   html`<svg

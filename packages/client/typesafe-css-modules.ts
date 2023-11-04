@@ -8,7 +8,7 @@ import * as prettier from 'prettier';
 import prettierConfig from '../../.prettierrc.json';
 
 // Directoryes to write file to
-const targets = ['./', '../server/', '../shared/'];
+const targets = ['./', '../server/'];
 
 const FILE_NAME = './css-modules.d.ts';
 
