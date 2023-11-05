@@ -1,6 +1,5 @@
 import { makeContextLinks } from 'decorator-shared/context';
 import { Params } from 'decorator-shared/params';
-import { DecoratorUtilsContainer } from 'decorator-shared/views/header/decorator-utils-container';
 import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
 import ContentService from './content-service';
 import { env } from './env/server';
@@ -16,6 +15,7 @@ import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
 import { LogoutWarning } from './views/logout-warning';
 import { SplashPage } from './views/splash-page';
+import { DecoratorUtils } from './views/decorator-utils';
 
 export default async ({
   contentService,
@@ -30,17 +30,16 @@ export default async ({
   url: string;
   query: Record<string, unknown>;
 }) => {
-  const { language } = data;
+  const { language, breadcrumbs, availableLanguages } = data;
   const localTexts = texts[language];
 
   const features = unleashService.getFeatures();
 
-  const decoratorUtilsContainer =
-    DecoratorUtilsContainer({
-      availableLanguages: data.availableLanguages,
-      breadcrumbs: data.breadcrumbs,
-      utilsBackground: data.utilsBackground,
-    }) ?? undefined;
+  const decoratorUtils = DecoratorUtils({
+    breadcrumbs,
+    availableLanguages,
+    utilsBackground: data.utilsBackground,
+  });
 
   return (
     await Index({
@@ -49,14 +48,14 @@ export default async ({
         data.simple || data.simpleHeader
           ? SimpleHeader({
               texts: localTexts,
-              decoratorUtilsContainer,
+              decoratorUtils,
             })
           : ComplexHeader({
               texts: localTexts,
               contextLinks: makeContextLinks(env.XP_BASE_URL),
               context: data.context,
               language,
-              decoratorUtilsContainer,
+              decoratorUtils,
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,

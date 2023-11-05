@@ -19,10 +19,10 @@ import { SearchForm } from '../search-form';
 
 export type ComplexHeaderProps = {
   texts: Texts;
-  decoratorUtilsContainer?: Template;
   context: Context;
   language: Language;
   contextLinks: ContextLink[];
+  decoratorUtils: Template;
 };
 
 export function ComplexHeader({
@@ -30,7 +30,7 @@ export function ComplexHeader({
   contextLinks,
   texts,
   context: currentContext,
-  decoratorUtilsContainer,
+  decoratorUtils,
 }: ComplexHeaderProps) {
   // @TODO: Need id here for css vars.
   return html`
@@ -115,7 +115,7 @@ export function ComplexHeader({
       </div>
     </header>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${decoratorUtilsContainer}
+    ${decoratorUtils}
     <menu-background></menu-background>
   `;
 }

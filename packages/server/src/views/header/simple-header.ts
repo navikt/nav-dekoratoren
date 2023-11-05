@@ -9,12 +9,12 @@ import { IconButton } from '../icon-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
-  decoratorUtilsContainer?: Template;
+  decoratorUtils: Template;
 };
 
 export const SimpleHeader = ({
   texts,
-  decoratorUtilsContainer,
+  decoratorUtils,
 }: SimpleHeaderProps) => html`
   <header class="${cls.siteheader}">
     <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
@@ -40,5 +40,5 @@ export const SimpleHeader = ({
     </div>
   </header>
   <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-  ${decoratorUtilsContainer}
+  ${decoratorUtils}
 `;

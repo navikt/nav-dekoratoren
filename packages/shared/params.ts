@@ -11,11 +11,17 @@ export type Context = z.infer<typeof contextSchema>;
 const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 export type Language = z.infer<typeof languageSchema>;
 
-const availableLanguageSchema = z.object({
-  locale: languageSchema,
-  url: z.string().optional(),
-  handleInApp: z.boolean().default(false).optional(),
-});
+const availableLanguageSchema = z.discriminatedUnion('handleInApp', [
+  z.object({
+    handleInApp: z.literal(true),
+    locale: languageSchema,
+  }),
+  z.object({
+    handleInApp: z.literal(false),
+    locale: languageSchema,
+    url: z.string(),
+  }),
+]);
 export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const breadcrumbSchema = z.object({

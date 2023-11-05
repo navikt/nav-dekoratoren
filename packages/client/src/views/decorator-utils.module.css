@@ -1,9 +1,14 @@
-.decoratorUtilsContainer {
+.decoratorUtils {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   column-gap: var(--a-spacing-4);
+  padding-block: var(--a-spacing-3);
+}
+
+.decoratorUtils.empty {
+  display: none;
 }
 
 .white {

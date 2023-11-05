@@ -149,13 +149,6 @@ export async function Index({
                   event: 'params',
                   payload: {
                     breadcrumbs: [
-                      {
-                        title: 'Arbeid og opphold i Norge',
-                        url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
-                      },
-                      {
-                        title: 'Medlemskap i folketrygden',
-                      },
                     ],
                   },
                 })
@@ -170,14 +163,6 @@ export async function Index({
                   event: 'params',
                   payload: {
                     availableLanguages: [
-                      {
-                        locale: 'nb',
-                        url: 'https://www.nav.no/person/kontakt-oss',
-                      },
-                      {
-                        locale: 'en',
-                        url: 'https://www.nav.no/person/kontakt-oss/en/',
-                      },
                     ],
                   },
                 })
@@ -191,7 +176,7 @@ export async function Index({
                   source: 'decoratorClient',
                   event: 'params',
                   payload: {
-                    utilsBackground: 'white',
+                    utilsBackground: 'gray',
                   },
                 })
               })()"

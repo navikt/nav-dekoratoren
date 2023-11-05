@@ -14,7 +14,10 @@ export const validateParams = (params: any) => {
       ? JSON.parse(params.breadcrumbs)
       : params.breadcrumbs,
     availableLanguages: params.availableLanguages
-      ? JSON.parse(params.availableLanguages)
+      ? JSON.parse(params.availableLanguages).map((language: any) => ({
+          ...language,
+          handleInApp: parseBooleanParam(language.handleInApp),
+        }))
       : params.availableLanguages,
   });
 };

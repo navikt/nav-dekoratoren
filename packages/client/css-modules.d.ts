@@ -114,7 +114,6 @@ declare module '*/icon-button.module.css' {
   const classes: {
     iconButton: string;
     iconButtonSpan: string;
-    chevron: string;
   };
   export default classes;
 }
@@ -126,6 +125,20 @@ declare module '*/inputs.module.css' {
     textInputLabel: string;
     errorList: string;
     showErrors: string;
+  };
+  export default classes;
+}
+
+declare module '*/language-selector.module.css' {
+  const classes: {
+    languageSelector: string;
+    empty: string;
+    button: string;
+    icon: string;
+    menu: string;
+    hidden: string;
+    option: string;
+    selected: string;
   };
   export default classes;
 }

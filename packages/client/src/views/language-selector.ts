@@ -1,4 +1,5 @@
-import { AvailableLanguage } from 'decorator-shared/params';
+import { AvailableLanguage, Language } from 'decorator-shared/params';
+import cls from '../styles/language-selector.module.css';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -8,11 +9,48 @@ declare global {
 
 export class LanguageSelector extends HTMLElement {
   menu;
+  button: HTMLButtonElement;
+  #open = false;
+  options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
+  #language?: Language;
+
+  set language(language: Language) {
+    this.options.forEach((option) => {
+      option.classList.toggle(
+        cls.selected,
+        option.getAttribute('data-locale') === language,
+      );
+    });
+    this.#language = language;
+  }
 
   set availableLanguages(availableLanguages: AvailableLanguage[]) {
-    const availableLanguageToLi = (availableLanguage: AvailableLanguage) => {
+    const availableLanguageToLi = (language: AvailableLanguage) => {
       const li = document.createElement('li');
-      li.innerHTML = {
+      let option: HTMLAnchorElement | HTMLButtonElement;
+      if (language.handleInApp) {
+        option = document.createElement('button');
+
+        option.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          window.postMessage({
+            source: 'decorator',
+            event: 'languageSelect',
+            payload: language,
+          });
+          this.open = false;
+        });
+        option.addEventListener('blur', this.onBlur);
+      } else {
+        option = document.createElement('a');
+        option.href = language.url;
+        option.addEventListener('blur', this.onBlur);
+      }
+      option.classList.add(cls.option);
+      option.setAttribute('data-locale', language.locale);
+      option.classList.toggle(cls.selected, language.locale === this.#language);
+      option.innerHTML = {
         nb: 'Norsk (bokmål)',
         nn: 'Norsk (nynorsk)',
         en: 'English',
@@ -20,59 +58,52 @@ export class LanguageSelector extends HTMLElement {
         pl: 'Polski',
         uk: 'Українська',
         ru: 'Русский',
-      }[availableLanguage.locale];
-
-      if (availableLanguage.handleInApp) {
-        li.addEventListener('click', (e) => {
-          e.preventDefault();
-
-          window.postMessage({
-            source: 'decorator',
-            event: 'languageSelect',
-            payload: availableLanguage,
-          });
-        });
-      }
+      }[language.locale];
+      this.options.push(option);
+      li.appendChild(option);
       return li;
     };
 
-    const ul = document.createElement('ul');
-    ul.append(...availableLanguages.map(availableLanguageToLi));
-
-    this.menu.replaceChildren(ul);
+    this.options = [];
+    this.classList.toggle(cls.empty, availableLanguages.length === 0);
+    this.menu.replaceChildren(...availableLanguages.map(availableLanguageToLi));
   }
 
   constructor() {
     super();
-    this.menu = document.createElement('div');
-    this.menu.classList.add('decorator-language-selector-menu');
-    this.menu.classList.add('hidden');
+
+    this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
+
+    this.menu = document.createElement('ul');
+    this.menu.classList.add(cls.menu, cls.hidden);
     this.appendChild(this.menu);
+  }
 
-    const handleClickOutside = (e: Event) => {
-      if (!this.contains(e.target as Node)) {
-        this.menu.classList.add('hidden');
-        window.removeEventListener('click', handleClickOutside);
-      }
-    };
-
-    this.querySelector('button')?.addEventListener('click', () => {
-      if (this.menu.classList.contains('hidden')) {
-        window.addEventListener('click', handleClickOutside);
-      } else {
-        window.removeEventListener('click', handleClickOutside);
-      }
-
-      this.menu.classList.toggle('hidden');
+  connectedCallback() {
+    this.button.addEventListener('click', () => {
+      this.open = !this.#open;
     });
 
-    // Vet ikke om dette er beste måten å SSRe objekter. web.dev sier:
-    // "Aim to only accept rich data (objects, arrays) as properties.",
-    // https://web.dev/custom-elements-best-practices/#attributes-and-properties
-    this.availableLanguages = JSON.parse(
-      this.querySelector('script')?.innerHTML ?? '[]',
-    );
+    this.button.addEventListener('blur', this.onBlur);
+    this.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        this.open = false;
+      }
+    });
+  }
+
+  onBlur = (e: FocusEvent) => {
+    if (e.relatedTarget === null || !this.contains(e.relatedTarget as Node)) {
+      this.open = false;
+    }
+  };
+
+  set open(open: boolean) {
+    this.#open = open;
+    this.menu.classList.toggle(cls.hidden, !open);
   }
 }
 
-customElements.define('language-selector', LanguageSelector);
+customElements.define('language-selector', LanguageSelector, {
+  extends: 'nav',
+});
