@@ -38,17 +38,21 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
               <li class="${cls.listItem}">
                 ${index === breadcrumbs.length - 1
                   ? title
-                  : LenkeMedSporing({
-                      href: url as string,
-                      analyticsEventArgs: {
-                        ...analyticsEventArgs,
-                        label: '[redacted]',
-                        action: '[redacted]',
-                      },
-                      children: title,
-                      dataHandleInApp: handleInApp,
-                      className: cls.link,
-                    })}
+                  : html`
+                      <a
+                        is="d-breadcrumb"
+                        data-analytics-event-args="${JSON.stringify({
+                          ...analyticsEventArgs,
+                          label: '[redacted]',
+                          action: '[redacted]',
+                        })}"
+                        ${handleInApp && 'data-handle-in-app'}
+                        class="${cls.link}"
+                        href="${url}"
+                      >
+                        ${title}
+                      </a>
+                    `}
                 ${index === breadcrumbs.length - 1 || ForwardChevron()}
               </li>
             `,

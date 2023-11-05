@@ -9,6 +9,7 @@ import { logoutWarningController } from './controllers/logout-warning';
 import { onLoadListeners } from './listeners';
 import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
+import './views/breadcrumb';
 import './views/context-link';
 import './views/decorator-lens';
 import { attachLensListener } from './views/decorator-lens';
@@ -28,7 +29,7 @@ import './views/search-menu';
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
-window.analyticsEvent = () => {}
+window.analyticsEvent = () => {};
 window.logPageView = () => Promise.resolve();
 
 type Auth = {
