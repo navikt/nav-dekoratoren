@@ -1,25 +1,23 @@
+import { formatParams } from 'decorator-shared/json';
+
 class MainMenu extends HTMLElement {
-  fetchMenuContent = (context: string) =>
+  fetchMenuContent = () =>
     fetch(
-      `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?context=${context}`,
+      `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?${formatParams(
+        window.__DECORATOR_DATA__.params,
+      )}`,
     )
       .then((response) => response.text())
       .then((html) => {
-          console.log(html, window.__DECORATOR_DATA__.env.APP_URL)
         this.innerHTML = html;
       });
 
-  handleActiveContext = (event: Event) =>
-    this.fetchMenuContent((event as CustomEvent).detail.context);
+  handleActiveContext = () => this.fetchMenuContent();
 
   connectedCallback() {
     window.addEventListener('activecontext', this.handleActiveContext);
 
-    const onLoad = () => {
-      this.fetchMenuContent(window.__DECORATOR_DATA__.params.context);
-      window.removeEventListener('load', onLoad);
-    };
-    window.addEventListener('load', onLoad);
+    setTimeout(() => this.fetchMenuContent(), 0);
   }
 
   disconnectedCallback() {

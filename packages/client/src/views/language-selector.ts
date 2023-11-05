@@ -80,6 +80,7 @@ export class LanguageSelector extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log('connected');
     this.button.addEventListener('click', () => {
       this.open = !this.#open;
     });

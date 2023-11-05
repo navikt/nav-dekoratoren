@@ -22,6 +22,12 @@ import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
+import { SimpleHeader } from './views/header/simple-header';
+import { ComplexHeader } from './views/header/complex-header';
+import { DecoratorUtils } from './views/decorator-utils';
+import { makeContextLinks } from 'decorator-shared/context';
+import { SimpleFooter } from './views/footer/simple-footer';
+import { ComplexFooter } from './views/footer/complex-footer';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -191,6 +197,63 @@ const requestHandler = async (
         )
         .build(),
     )
+    .get('/header', async ({ query }) => {
+      const data = validParams(query);
+      const localTexts = texts[data.language];
+      const { language, breadcrumbs, availableLanguages, utilsBackground } =
+        data;
+
+      const decoratorUtils = DecoratorUtils({
+        breadcrumbs,
+        availableLanguages,
+        utilsBackground,
+      });
+
+      return r()
+        .html(
+          (data.simple || data.simpleHeader
+            ? SimpleHeader({
+                texts: localTexts,
+                decoratorUtils,
+              })
+            : ComplexHeader({
+                texts: localTexts,
+                contextLinks: makeContextLinks(env.XP_BASE_URL),
+                context: data.context,
+                language,
+                decoratorUtils,
+              })
+          ).render(),
+        )
+        .build();
+    })
+    .get('/footer', async ({ query }) => {
+      const data = validParams(query);
+      const localTexts = texts[data.language];
+      const features = unleashService.getFeatures();
+
+      return r()
+        .html(
+          (data.simple || data.simpleFooter
+            ? SimpleFooter({
+                links: await contentService.getSimpleFooterLinks({
+                  language: data.language,
+                }),
+                texts: localTexts,
+                features,
+              })
+            : ComplexFooter({
+                texts: localTexts,
+                links: await contentService.getComplexFooterLinks({
+                  language: data.language,
+                  context: data.context,
+                }),
+                features,
+              })
+          ).render(),
+        )
+        .build();
+    })
     .get('/', async ({ url, query }) => {
       const index = await renderIndex({
         contentService,
