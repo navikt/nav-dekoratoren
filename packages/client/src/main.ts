@@ -161,7 +161,6 @@ window.addEventListener('activecontext', (event) => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-  console.log(authObject);
   fetch(
     `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
       simple: window.__DECORATOR_DATA__.params.simple,
