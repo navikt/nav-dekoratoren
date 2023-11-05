@@ -1,21 +1,20 @@
-import { SimpleHeader } from './views/header/simple-header';
-import { ComplexHeader } from './views/header/complex-header';
-import { Index } from './views';
-import { Feedback } from './views/feedback';
-import { DecoratorLens } from './views/decorator-lens';
-import { DecoratorData } from './views/decorator-data';
-import { texts } from './texts';
-import ContentService from './content-service';
-import { Params } from 'decorator-shared/params';
-import { SimpleFooter } from './views/footer/simple-footer';
-import { ComplexFooter } from './views/footer/complex-footer';
-import { LogoutWarning } from './views/logout-warning';
-import { Link, LinkGroup } from 'decorator-shared/types';
-import UnleashService from './unleash-service';
 import { makeContextLinks } from 'decorator-shared/context';
-import { env } from './env/server';
-import { SplashPage } from './views/splash-page';
+import { Params } from 'decorator-shared/params';
 import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
+import ContentService from './content-service';
+import { env } from './env/server';
+import { texts } from './texts';
+import UnleashService from './unleash-service';
+import { Index } from './views';
+import { DecoratorData } from './views/decorator-data';
+import { DecoratorLens } from './views/decorator-lens';
+import { Feedback } from './views/feedback';
+import { ComplexFooter } from './views/footer/complex-footer';
+import { SimpleFooter } from './views/footer/simple-footer';
+import { ComplexHeader } from './views/header/complex-header';
+import { SimpleHeader } from './views/header/simple-header';
+import { LogoutWarning } from './views/logout-warning';
+import { SplashPage } from './views/splash-page';
 
 export default async ({
   contentService,
@@ -35,15 +34,6 @@ export default async ({
 
   const features = unleashService.getFeatures();
 
-  const { footerLinks, mainMenuLinks } = await contentService.getFirstLoad({
-    language,
-    context: data.context,
-    simple: data.simple,
-    simpleFooter: data.simpleFooter,
-  });
-
-  const contextLinks = makeContextLinks(env.XP_BASE_URL);
-
   return (
     await Index({
       language,
@@ -52,14 +42,9 @@ export default async ({
           ? SimpleHeader({ texts: localTexts, breadcrumbs, availableLanguages })
           : ComplexHeader({
               texts: localTexts,
-              contextLinks,
+              contextLinks: makeContextLinks(env.XP_BASE_URL),
               context: data.context,
               language,
-              mainMenuLinks,
-              mainMenuContextLinks: await contentService.mainMenuContextLinks({
-                context: data.context,
-                bedrift: data.bedrift,
-              }),
               breadcrumbs,
               availableLanguages,
             }),
@@ -71,13 +56,16 @@ export default async ({
       footer:
         data.simple || data.simpleFooter
           ? SimpleFooter({
-              links: footerLinks as Link[],
+              links: await contentService.getSimpleFooterLinks({ language }),
               texts: localTexts,
               features,
             })
           : ComplexFooter({
               texts: localTexts,
-              links: footerLinks as LinkGroup[],
+              links: await contentService.getComplexFooterLinks({
+                language,
+                context: data.context,
+              }),
               features,
             }),
       lens: DecoratorLens({

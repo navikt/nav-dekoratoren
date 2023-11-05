@@ -4,15 +4,17 @@ import cls from 'decorator-client/src/styles/header.module.css';
 import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 import { ContextLink } from 'decorator-shared/context';
-import html, { Template } from 'decorator-shared/html';
+import html from 'decorator-shared/html';
 import {
   AvailableLanguage,
   Breadcrumb,
   Context,
   Language,
 } from 'decorator-shared/params';
-import { LinkGroup, MainMenuContextLink, Texts } from 'decorator-shared/types';
+import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
+import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
+import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
 import {
   BurgerIcon,
   LoginIcon,
@@ -21,31 +23,11 @@ import {
 import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
-import { MainMenu } from './main-menu';
-import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
-import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
-
-const frontPageUrl = (context: Context, language: Language) => {
-  if (language === 'en') {
-    return `${process.env.XP_BASE_URL}/en/home`;
-  }
-
-  switch (context) {
-    case 'privatperson':
-      return `${process.env.XP_BASE_URL}/`;
-    case 'arbeidsgiver':
-      return `${process.env.XP_BASE_URL}/no/bedrift`;
-    case 'samarbeidspartner':
-      return `${process.env.XP_BASE_URL}/no/samarbeidspartner`;
-  }
-};
 
 export type ComplexHeaderProps = {
   texts: Texts;
   context: Context;
   language: Language;
-  mainMenuLinks: LinkGroup[];
-  mainMenuContextLinks: MainMenuContextLink[];
   contextLinks: ContextLink[];
   breadcrumbs: Breadcrumb[];
   availableLanguages: AvailableLanguage[];
@@ -54,15 +36,14 @@ export type ComplexHeaderProps = {
 export function ComplexHeader({
   language,
   contextLinks,
-  mainMenuLinks,
-  mainMenuContextLinks,
   texts,
   context: currentContext,
   breadcrumbs,
   availableLanguages,
 }: ComplexHeaderProps) {
+  // @TODO: Need id here for css vars.
   return html`
-    <header class="${cls.siteheader}">
+    <header class="${cls.siteheader}" id="header-withmenu">
       <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
         <div class="${cls.hovedmenyContent}">
           <a

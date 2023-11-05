@@ -1,10 +1,13 @@
+import html from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
 import ContentService from './content-service';
+import { handleCors } from './cors';
 import { cspHandler } from './csp';
 import { env } from './env/server';
-import { HandlerBuilder, jsonResponse } from './lib/handler';
+import { assetsHandlers } from './handlers/assets-handler';
+import { HandlerBuilder, r } from './lib/handler';
 import { getMockSession, refreshToken } from './mockAuth';
 import renderIndex from './render-index';
 import SearchService from './search-service';
@@ -15,14 +18,9 @@ import { validateParams } from './validateParams';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
 import { IconButton } from './views/icon-button';
-import {
-  Notification,
-  Notifications,
-} from './views/notifications/notifications';
-import { NotificationsEmpty } from './views/notifications/notifications-empty';
+import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
-import html from 'decorator-shared/html';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -87,22 +85,23 @@ const requestHandler = async (
         method: 'GET',
         path,
         handler: ({ url }) =>
-          // @ts-expect-error Blob type inconsistency
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
     .get('/api/auth', () =>
-      jsonResponse({
-        authenticated: true,
-        name: 'Charlie Jensen',
-        securityLevel: '3',
-      }),
+      r()
+        .json({
+          authenticated: true,
+          name: 'Charlie Jensen',
+          securityLevel: '3',
+        })
+        .build(),
     )
-    .get('/api/ta', () => jsonResponse(taConfigService.getTaConfig()))
-    .get('/api/oauth2/session', () => jsonResponse(getMockSession()))
+    .get('/api/ta', () => r().json(taConfigService.getTaConfig()).build())
+    .get('/api/oauth2/session', () => r().json(getMockSession()).build())
     .get('/api/oauth2/session/refresh', () => {
       refreshToken();
-      return jsonResponse(getMockSession());
+      return r().json(getMockSession()).build();
     })
     .get(
       '/oauth2/login',
@@ -114,26 +113,25 @@ const requestHandler = async (
           status: 302,
         }),
     )
-    .get('/oauth2/logout', () => jsonResponse(getMockSession()))
+    .get('/oauth2/logout', () => r().json(getMockSession()).build())
     .get('/api/isAlive', () => new Response('OK'))
     .get('/api/isReady', () => new Response('OK'))
     .post('/api/notifications/message/archive', async ({ request }) =>
-      jsonResponse(request.json()),
+      r().json(request.json()).build(),
     )
     .get('/api/search', async ({ query }) => {
       const searchQuery = query.q;
       const results = await searchService.search(searchQuery);
 
-      return new Response(
-        SearchHits({
-          results,
-          query: searchQuery,
-          texts: texts[validParams(query).language],
-        }).render(),
-        {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
-        },
-      );
+      return r()
+        .html(
+          SearchHits({
+            results,
+            query: searchQuery,
+            texts: texts[validParams(query).language],
+          }).render(),
+        )
+        .build();
     })
     .get('/main-menu', async ({ query }) => {
       const data = validParams(query);
@@ -179,21 +177,20 @@ const requestHandler = async (
               level: data.level,
             }).render(),
         {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
+          headers: {
+            'content-type': 'text/html; charset=utf-8',
+          },
         },
       );
     })
-    .get(
-      '/ops-messages',
-      async () =>
-        new Response(
+    .get('/ops-messages', async () =>
+      r()
+        .html(
           OpsMessages({
             opsMessages: await contentService.getOpsMessages(),
           }).render(),
-          {
-            headers: { 'content-type': 'text/html; charset=utf-8' },
-          },
-        ),
+        )
+        .build(),
     )
     .get('/', async ({ url, query }) => {
       const index = await renderIndex({
@@ -203,31 +200,45 @@ const requestHandler = async (
         url: url.toString(),
         query,
       });
-      return rewriter.transform(
-        new Response(index, {
-          headers: { 'content-type': 'text/html; charset=utf-8' },
-        }),
-      );
+
+      return rewriter.transform(r().html(index).build());
     })
+    .use(assetsHandlers)
     .use([cspHandler])
     .build();
 
   return async function fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
+    // Ambigious naming since it also returns headers, should be refactored?
+    const corsRes = handleCors(request);
+
+    if (corsRes.kind === 'cors-error') {
+      return corsRes.response;
+    }
+
     const handler = handlers.find(
       ({ method, path }) => request.method === method && url.pathname === path,
     );
 
-    if (handler) {
-      return handler.handler({
-        request,
-        url,
-        query: Object.fromEntries(url.searchParams),
-      });
-    } else {
+    if (!handler) {
       return new Response('Not found', { status: 404 });
     }
+
+    const response = await handler.handler({
+      request,
+      url,
+      query: Object.fromEntries(url.searchParams),
+    });
+
+    for (const [h, v] of Object.entries(corsRes.headers)) {
+      if (response.headers.has(h)) {
+        throw new Error(`Handler is trying to directly ${h} set with ${v}`);
+      }
+      response.headers.append(h, v);
+    }
+
+    return response;
   };
 };
 
