@@ -87,12 +87,10 @@ export function ComplexHeader({
                 text: texts.menu,
               }),
               dropdownContent: html`
-                <div class="${menuCls.menuContent}">
-                  <search-menu class="${menuCls.searchMenu}">
-                    ${SearchForm({ texts })}
-                  </search-menu>
-                  <main-menu></main-menu>
-                </div>
+                <search-menu class="${menuCls.searchMenu}">
+                  ${SearchForm({ texts })}
+                </search-menu>
+                <main-menu></main-menu>
               `,
             })}
             ${DropdownMenu({

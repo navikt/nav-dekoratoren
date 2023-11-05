@@ -53,7 +53,6 @@ declare module '*/complex-footer.module.css' {
 declare module '*/complex-header-menu.module.css' {
   const classes: {
     menuTop: string;
-    menuContent: string;
     searchMenu: string;
   };
   export default classes;
