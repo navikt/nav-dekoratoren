@@ -1,7 +1,5 @@
-import html from 'decorator-shared/html';
 import { AvailableLanguage, Language } from 'decorator-shared/params';
 import cls from '../styles/language-selector.module.css';
-import { DownChevronIcon, GlobeIcon } from 'decorator-shared/views/icons';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -74,23 +72,7 @@ export class LanguageSelector extends HTMLElement {
   constructor() {
     super();
 
-    this.classList.add(cls.languageSelector);
-
-    if (this.querySelector(`.${cls.button}`)) {
-      this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
-    } else {
-      this.button = document.createElement('button');
-      this.button.type = 'button';
-      this.button.classList.add(cls.button);
-      this.button.innerHTML = html`
-        ${GlobeIcon({ className: cls.icon })}
-        <span>
-          <span lang="nb">Språk</span>/<span lang="en">Language</span>
-        </span>
-        ${DownChevronIcon({ className: cls.icon })}
-      `.render();
-      this.appendChild(this.button);
-    }
+    this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
 
     this.menu = document.createElement('ul');
     this.menu.classList.add(cls.menu, cls.hidden);
