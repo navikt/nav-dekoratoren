@@ -38,6 +38,7 @@ export default async ({
   const decoratorUtils = DecoratorUtils({
     breadcrumbs,
     availableLanguages,
+    utilsBackground: data.utilsBackground,
   });
 
   return (
