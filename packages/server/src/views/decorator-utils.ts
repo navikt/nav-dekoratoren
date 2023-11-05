@@ -7,7 +7,7 @@ import {
   UtilsBackground,
 } from 'decorator-shared/params';
 import utilsCls from 'decorator-shared/utilities.module.css';
-import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
+import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { LanguageSelector } from './language-selector';
 
 export type DecoratorUtilsProps = {

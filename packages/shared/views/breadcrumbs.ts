@@ -1,8 +1,8 @@
-import { Breadcrumb } from '../../../params';
-import html from '../../../html';
+import { Breadcrumb } from '../params';
+import html from '../html';
 import cls from './breadcrumbs.module.css';
-import { ForwardChevron } from '../../icons';
-import { HomeIcon } from '../../icons/home';
+import { ForwardChevron } from './icons';
+import { HomeIcon } from './icons/home';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 
 const analyticsEventArgs = {

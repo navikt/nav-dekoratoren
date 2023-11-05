@@ -1,5 +1,5 @@
 import { UtilsBackground } from 'decorator-shared/params';
-import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
+import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import cls from './decorator-utils.module.css';
 import { LanguageSelector } from './language-selector';
 
