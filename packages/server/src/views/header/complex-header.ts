@@ -6,7 +6,7 @@ import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css'
 import { ContextLink } from 'decorator-shared/context';
 import html, { Template } from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
-import { LinkGroup, MainMenuContextLink, Texts } from 'decorator-shared/types';
+import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import {
   BurgerIcon,
@@ -16,38 +16,18 @@ import {
 import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
-import { MainMenu } from './main-menu';
-
-const frontPageUrl = (context: Context, language: Language) => {
-  if (language === 'en') {
-    return `${process.env.XP_BASE_URL}/en/home`;
-  }
-
-  switch (context) {
-    case 'privatperson':
-      return `${process.env.XP_BASE_URL}/`;
-    case 'arbeidsgiver':
-      return `${process.env.XP_BASE_URL}/no/bedrift`;
-    case 'samarbeidspartner':
-      return `${process.env.XP_BASE_URL}/no/samarbeidspartner`;
-  }
-};
 
 export type ComplexHeaderProps = {
   texts: Texts;
   decoratorUtilsContainer?: Template;
   context: Context;
   language: Language;
-  mainMenuLinks: LinkGroup[];
-  mainMenuContextLinks: MainMenuContextLink[];
   contextLinks: ContextLink[];
 };
 
 export function ComplexHeader({
   language,
   contextLinks,
-  mainMenuLinks,
-  mainMenuContextLinks,
   texts,
   context: currentContext,
   decoratorUtilsContainer,

@@ -5,89 +5,7 @@ import {
   MainMenuContextLink,
   Node,
 } from 'decorator-shared/types';
-import { Context, Language, Params } from 'decorator-shared/params';
-
-type LanguageParam = {
-  language: Language;
-};
-
-type ContextParam = {
-  context: Context;
-};
-
-type MainMenuLinkOptions = LanguageParam & ContextParam;
-type ExtractHeaderMenuLinkOptions = LanguageParam & ContextParam;
-type ExtractMyPageMenuOptions = LanguageParam;
-type ExtractSimpleFooter = LanguageParam;
-type ExtractComplexFooterLinks = LanguageParam & ContextParam;
-
-const extractor = {
-  mainMenuLinks(root: Node[], options: MainMenuLinkOptions) {
-    return (
-      get(
-        root,
-        ((language) => {
-          switch (language) {
-            case 'en':
-            case 'se':
-              return `${language}.Header.Main menu`;
-            default:
-              return `no.Header.Main menu.${getContextKey(options.context)}`;
-          }
-        })(options.language),
-      )?.map(nodeToLinkGroup) ?? []
-    );
-  },
-  headerMenuLinks(root: Node[], options: ExtractHeaderMenuLinkOptions) {
-    return get(
-      root,
-      ((language) => {
-        switch (language) {
-          case 'en':
-          case 'se':
-            return `${language}.Header.Main menu`;
-          default:
-            return `no.Header.Main menu.${getContextKey(options.context)}`;
-        }
-      })(options.language),
-    );
-  },
-  myPageMenu(root: Node[], options: ExtractMyPageMenuOptions) {
-    return get(root, `${getLangKey(options.language)}.Header.My page menu`);
-  },
-  simpleFooter(root: Node[], options: ExtractSimpleFooter) {
-    return [
-      ...(get(root, `${getLangKey(options.language)}.Footer.Personvern`)?.map(
-        nodeToLink,
-      ) ?? []),
-    ];
-  },
-  complexFooterLinks(
-    root: Node[],
-    { language, context }: ExtractComplexFooterLinks,
-  ) {
-    return [
-      ...(get(
-        root,
-        ((language) => {
-          switch (language) {
-            case 'en':
-            case 'se':
-              return `${language}.Footer.Columns`;
-            default:
-              return `no.Footer.Columns.${getContextKey(context)}`;
-          }
-        })(language),
-      )?.map(({ displayName, children }) => ({
-        heading: displayName,
-        children: children.map(nodeToLink),
-      })) ?? []),
-      {
-        children: extractor.simpleFooter(root, { language }),
-      },
-    ];
-  },
-};
+import { Context, Language } from 'decorator-shared/params';
 
 export default class ContentService {
   constructor(
@@ -161,26 +79,33 @@ export default class ContentService {
     language: Language;
     context: Context;
   }) {
-    return extractor.mainMenuLinks(await this.fetchMenu(), {
-      language,
-      context,
-    });
+    return (
+      get(
+        await this.fetchMenu(),
+        ((language) => {
+          switch (language) {
+            case 'en':
+            case 'se':
+              return `${language}.Header.Main menu`;
+            default:
+              return `no.Header.Main menu.${getContextKey(context)}`;
+          }
+        })(language),
+      )?.map(nodeToLinkGroup) ?? []
+    );
   }
 
   async getOpsMessages() {
     return this.fetchOpsMessages();
   }
 
-  async getHeaderMenuLinks(options: ExtractHeaderMenuLinkOptions) {
-    return extractor.headerMenuLinks(await this.fetchMenu(), options);
-  }
-
-  async getMyPageMenu({ language }: { language: Language }) {
-    return extractor.myPageMenu(await this.fetchMenu(), { language });
-  }
-
   async getSimpleFooterLinks({ language }: { language: Language }) {
-    return extractor.simpleFooter(await this.fetchMenu(), { language });
+    return [
+      ...(get(
+        await this.fetchMenu(),
+        `${getLangKey(language)}.Footer.Personvern`,
+      )?.map(nodeToLink) ?? []),
+    ];
   }
 
   async getComplexFooterLinks({
@@ -190,34 +115,27 @@ export default class ContentService {
     language: Language;
     context: Context;
   }): Promise<LinkGroup[]> {
-    return extractor.complexFooterLinks(await this.fetchMenu(), {
-      language,
-      context,
-    });
-  }
-
-  async getFirstLoad(
-    options: Pick<Params, 'context' | 'language' | 'simple' | 'simpleFooter'>,
-  ) {
     const root = await this.fetchMenu();
-
-    const base = {
-      headerMenuLinks: extractor.headerMenuLinks(root, options),
-      myPageMenu: extractor.myPageMenu(root, options),
-      mainMenuLinks: extractor.mainMenuLinks(root, options),
-    };
-
-    if (options.simple) {
-      return {
-        ...base,
-        footerLinks: extractor.simpleFooter(root, options),
-      };
-    }
-
-    return {
-      ...base,
-      footerLinks: extractor.complexFooterLinks(root, options),
-    };
+    return [
+      ...(get(
+        root,
+        ((language) => {
+          switch (language) {
+            case 'en':
+            case 'se':
+              return `${language}.Footer.Columns`;
+            default:
+              return `no.Footer.Columns.${getContextKey(context)}`;
+          }
+        })(language),
+      )?.map(({ displayName, children }) => ({
+        heading: displayName,
+        children: children.map(nodeToLink),
+      })) ?? []),
+      {
+        children: await this.getSimpleFooterLinks({ language }),
+      },
+    ];
   }
 }
 
