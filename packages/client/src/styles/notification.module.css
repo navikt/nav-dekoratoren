@@ -91,7 +91,7 @@
 
 .button {
   border: none;
-  background-color: none;
+  background: none;
   margin: 0;
   font: inherit;
   cursor: pointer;

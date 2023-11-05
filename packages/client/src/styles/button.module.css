@@ -2,7 +2,7 @@
   font: inherit;
   color: inherit;
   align-items: center;
-  background-color: none;
+  background: none;
   border-radius: var(--a-border-radius-medium);
   border: none;
   cursor: pointer;
@@ -38,12 +38,12 @@
 }
 
 .ghost {
-    background-color: none;
-    color: var(--a-text-action);
+  background-color: none;
+  color: var(--a-text-action);
 }
 
 .ghost:hover {
-    background-color: var(--a-surface-action-subtle-hover);
+  background-color: var(--a-surface-action-subtle-hover);
 }
 
 .bigLabel {
