@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 
-.dropdownMenuOpen > .dropdownMenuContainer {
+:where(.dropdownMenuOpen) > .dropdownMenuContainer {
   display: block;
   max-height: 100rem;
   opacity: 1;

@@ -2,6 +2,13 @@
   max-width: 600px;
 }
 
+@media (min-width: 768px) {
+  .userMenuDropdown {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
 .icon {
   font-size: 1.5rem;
 }
