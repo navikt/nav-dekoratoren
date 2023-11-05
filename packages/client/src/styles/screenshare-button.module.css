@@ -11,6 +11,9 @@
   gap: var(--a-spacing-2);
   align-items: center;
   text-decoration: underline;
+  text-decoration-color: var(--a-deepblue-200);
+  text-decoration-thickness: 0.0625em;
+  text-underline-offset: 0.15em;
   padding-block: var(--a-spacing-1);
 }
 
