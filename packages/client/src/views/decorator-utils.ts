@@ -41,6 +41,10 @@ class DecoratorUtils extends HTMLElement {
   connectedCallback() {
     window.addEventListener('paramsupdated', this.update);
   }
+
+  disconnectedCallback() {
+    window.removeEventListener('paramsupdated', this.update);
+  }
 }
 
 customElements.define('decorator-utils', DecoratorUtils);
