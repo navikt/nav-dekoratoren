@@ -1,3 +1,39 @@
+import { csp } from "../csp"
+
+type Params = ConstructorParameters<typeof Response>
+
+class HandlerResponse<TData extends Params[0]> {
+    headers = new Headers()
+    data?: TData
+
+    html(data: TData) {
+        this.data = data
+        this.headers.set('content-type', 'text/html; charset=utf-8')
+        return this
+    }
+
+    json(data: TData | unknown) {
+        // better handling here
+        this.data = JSON.stringify(data) as TData
+        this.headers.set('content-type', 'application/json; charset=utf-8')
+        return this
+    }
+
+    setHeader(key: string, value: string) {
+        this.headers.set(key, value)
+        return this
+    }
+
+    build() {
+        this.headers.append('Content-Security-Policy', csp)
+        return new Response(this.data, {
+            headers: this.headers
+        })
+    }
+}
+
+
+export const r = () => new HandlerResponse()
 /**
  * A handler function is a function that takes a request and returns a response.
  */
@@ -47,10 +83,12 @@ export class HandlerBuilder {
   }
 }
 
+
+// function makeHeaders() {
+//   const headers = new Headers()
+//   return new Headers(headers);
+// }
+
 /**
  * A helper function for creating a JSON response.
  */
-export const jsonResponse = async (data: unknown) =>
-  new Response(JSON.stringify(await data), {
-    headers: { 'content-type': 'application/json; charset=utf-8' },
-  });

@@ -6,6 +6,8 @@
   }
 }
 
+.menuBurger{}
+
 :where(.menuBurger) * {
   transform-origin: center;
 }

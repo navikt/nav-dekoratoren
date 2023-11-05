@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build-main && npm run build-lazy",
+    "build-main": "vite build --mode main",
+    "build-lazy": "vite build --mode lazy",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest watch"
   },
@@ -14,9 +16,13 @@
     "@babel/types": "^7.22.10",
     "@navikt/ds-tokens": "^4.11.2",
     "decorator-shared": "workspace:*",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "js-cookie": "^3.0.5",
+    "amplitude-js": "^8.21.9"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@open-wc/testing": "^3.2.0",
     "@types/lodash.debounce": "^4.0.8",
     "autoprefixer": "^10.4.14",

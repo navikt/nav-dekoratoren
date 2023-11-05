@@ -1,4 +1,5 @@
 import { LoginLevel } from 'decorator-shared/params';
+// NOTE: I don't think this file is used anymore
 
 export type Auth = {
   authenticated: boolean;
@@ -18,7 +19,8 @@ export async function checkAuth({
 
   try {
     const fetchResponse = await fetch(authUrl, {
-      credentials: 'include',
+      // disabling for testing
+      // credentials: 'include',
     });
     const response = await fetchResponse.json();
 
@@ -28,7 +30,7 @@ export async function checkAuth({
     }
 
     const sessionResponse = await fetch(sessionUrl, {
-      credentials: 'include',
+      // credentials: 'include',
     });
     const session = await sessionResponse.json();
     console.log(session);
@@ -52,7 +54,8 @@ export function archive(eventId: { eventId: string }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(eventId),
-      credentials: 'include',
+      // onnly testing
+      // credentials: 'include',
       keepalive: true,
     },
   ).catch((e) =>

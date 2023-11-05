@@ -15,8 +15,9 @@ export type ComplexFooterProps = {
 export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
   const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
 
+  // "TODO: Need ID here to be applied accross domains. Can be fixed with modules
   return html`
-    <footer class="${cls.footer}" data-theme="dark">
+    <footer class="${cls.footer}" id="footer-withmenu" data-theme="dark">
       <div class="${cls.footerContent} ${utilCls.contentContainer}">
         <a class="${cls.link} ${cls.toTop}" href="#">
           ${ArrowUp({ className: cls.arrowUp })} ${texts.to_top}

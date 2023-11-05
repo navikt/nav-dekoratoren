@@ -8,6 +8,9 @@ import menu from './content-test-data.json';
 import notificationsService from './notifications-service';
 import UnleashService from './unleash-service';
 import TaConfigService from './task-analytics-service';
+// import { corsSchema } from './cors';
+
+// corsSchema.parse('https://www.google.com')
 
 const getFilePaths = (dir: string): string[] =>
   readdirSync(dir).flatMap((name) => {

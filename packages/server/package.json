@@ -6,15 +6,20 @@
   "scripts": {
     "dev": "bun --watch src/server.ts",
     "serve": "NODE_ENV=production bun src/server.ts",
-    "build": "NODE_ENV=production bun run build.ts",
+    "serve-local": "NODE_ENV=production HOST=http://localhost:8089 IS_LOCAL_PROD='true' bun src/server.ts",
+    "clean": "rm -rf ./public/assets",
+    "build": "bun run clean && NODE_ENV=production bun run build.ts",
     "test": "bun test"
   },
   "dependencies": {
     "decorator-client": "workspace:*",
-    "decorator-shared": "workspace:*"
+    "decorator-shared": "workspace:*",
+    "unleash-client": "^4.1.1",
+    "csp-header": "^5.2.1",
+    "@builder.io/partytown": "^0.8.1"
   },
   "devDependencies": {
-    "bun-types": "1.0.5",
+    "bun-types": "^1.0.8",
     "postcss": "^8.4.30",
     "postcss-modules": "^6.0.0"
   }

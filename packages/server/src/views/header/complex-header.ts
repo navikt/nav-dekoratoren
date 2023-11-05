@@ -32,8 +32,9 @@ export function ComplexHeader({
   context: currentContext,
   decoratorUtilsContainer,
 }: ComplexHeaderProps) {
+  // @TODO: Need id here for css vars.
   return html`
-    <header class="${cls.siteheader}">
+    <header class="${cls.siteheader}" id="header-withmenu">
       <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
         <div class="${cls.hovedmenyContent}">
           <a
