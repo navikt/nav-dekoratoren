@@ -1,9 +1,22 @@
+import clsx from 'clsx';
 import html from '../../../html';
+import { AvailableLanguage } from '../../../params';
 import { DownChevronIcon, GlobeIcon } from '../../icons';
 import cls from './language-selector.module.css';
 
-export const LanguageSelector = () => html`
-  <nav is="language-selector" class="${cls.languageSelector}">
+export type LanguageSelectorProps = {
+  availableLanguages: AvailableLanguage[];
+};
+
+export const LanguageSelector = ({
+  availableLanguages,
+}: LanguageSelectorProps) => html`
+  <nav
+    is="language-selector"
+    class="${clsx(cls.languageSelector, {
+      [cls.empty]: availableLanguages.length === 0,
+    })}"
+  >
     <button type="button" class="${cls.button}">
       ${GlobeIcon({ className: cls.icon })}
       <span>

@@ -14,42 +14,45 @@ export type BreadcrumbsProps = {
   breadcrumbs: Breadcrumb[];
 };
 
-export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => html`
-  <ol class="${cls.list}">
-    <li class="${cls.listItem}">
-      ${LenkeMedSporing({
-        href: '/',
-        analyticsEventArgs: {
-          ...analyticsEventArgs,
-          action: 'nav.no',
-        },
-        children: html`
-          ${HomeIcon({ className: cls.svg })}
-          <span class="${cls.span}">nav.no</span>
-        `,
-        className: cls.link,
-      })}
-      ${ForwardChevron()}
-    </li>
-    ${breadcrumbs.map(
-      ({ title, url, handleInApp }, index) => html`
-        <li class="${cls.listItem}">
-          ${index === breadcrumbs.length - 1
-            ? title
-            : LenkeMedSporing({
-                href: url as string,
-                analyticsEventArgs: {
-                  ...analyticsEventArgs,
-                  label: '[redacted]',
-                  action: '[redacted]',
-                },
-                children: title,
-                dataHandleInApp: handleInApp,
-                className: cls.link,
-              })}
-          ${index === breadcrumbs.length - 1 || ForwardChevron()}
-        </li>
-      `,
-    )}
-  </ol>
-`;
+export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
+  breadcrumbs.length > 0
+    ? html`
+        <ol class="${cls.list}">
+          <li class="${cls.listItem}">
+            ${LenkeMedSporing({
+              href: '/',
+              analyticsEventArgs: {
+                ...analyticsEventArgs,
+                action: 'nav.no',
+              },
+              children: html`
+                ${HomeIcon({ className: cls.svg })}
+                <span class="${cls.span}">nav.no</span>
+              `,
+              className: cls.link,
+            })}
+            ${ForwardChevron()}
+          </li>
+          ${breadcrumbs.map(
+            ({ title, url, handleInApp }, index) => html`
+              <li class="${cls.listItem}">
+                ${index === breadcrumbs.length - 1
+                  ? title
+                  : LenkeMedSporing({
+                      href: url as string,
+                      analyticsEventArgs: {
+                        ...analyticsEventArgs,
+                        label: '[redacted]',
+                        action: '[redacted]',
+                      },
+                      children: title,
+                      dataHandleInApp: handleInApp,
+                      className: cls.link,
+                    })}
+                ${index === breadcrumbs.length - 1 || ForwardChevron()}
+              </li>
+            `,
+          )}
+        </ol>
+      `
+    : null;
