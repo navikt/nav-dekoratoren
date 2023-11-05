@@ -1,25 +1,20 @@
 import cls from 'decorator-client/src/styles/header.module.css';
 import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
-import html from 'decorator-shared/html';
+import html, { Template } from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import { LoginIcon } from 'decorator-shared/views/icons';
 import { IconButton } from '../icon-button';
-import { AvailableLanguage, Breadcrumb } from 'decorator-shared/params';
-import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
-import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
 
 export type SimpleHeaderProps = {
   texts: Texts;
-  breadcrumbs: Breadcrumb[];
-  availableLanguages: AvailableLanguage[];
+  decoratorUtils: Template;
 };
 
 export const SimpleHeader = ({
   texts,
-  breadcrumbs,
-  availableLanguages,
+  decoratorUtils,
 }: SimpleHeaderProps) => html`
   <header class="${cls.siteheader}">
     <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
@@ -45,8 +40,5 @@ export const SimpleHeader = ({
     </div>
   </header>
   <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-  <decorator-utils>
-    ${breadcrumbs.length > 0 && Breadcrumbs({ breadcrumbs })}
-    ${availableLanguages.length > 0 && LanguageSelector()}
-  </decorator-utils>
+  ${decoratorUtils}
 `;

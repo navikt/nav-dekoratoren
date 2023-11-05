@@ -15,6 +15,7 @@ import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
 import { LogoutWarning } from './views/logout-warning';
 import { SplashPage } from './views/splash-page';
+import { DecoratorUtils } from './views/decorator-utils';
 
 export default async ({
   contentService,
@@ -34,19 +35,26 @@ export default async ({
 
   const features = unleashService.getFeatures();
 
+  const decoratorUtils = DecoratorUtils({
+    breadcrumbs,
+    availableLanguages,
+  });
+
   return (
     await Index({
       language,
       header:
         data.simple || data.simpleHeader
-          ? SimpleHeader({ texts: localTexts, breadcrumbs, availableLanguages })
+          ? SimpleHeader({
+              texts: localTexts,
+              decoratorUtils,
+            })
           : ComplexHeader({
               texts: localTexts,
               contextLinks: makeContextLinks(env.XP_BASE_URL),
               context: data.context,
               language,
-              breadcrumbs,
-              availableLanguages,
+              decoratorUtils,
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
