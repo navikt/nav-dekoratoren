@@ -3,10 +3,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--a-spacing-2);
 }
 
 .menuItemsUniversalLinks {
   display: flex;
+  gap: var(--a-spacing-2);
 }
 
 .searchDropdown {

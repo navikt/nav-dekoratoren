@@ -303,6 +303,13 @@ declare module '*/simple-footer.module.css' {
   export default classes;
 }
 
+declare module '*/simple-user-menu.module.css' {
+  const classes: {
+    simpleUserMenu: string;
+  };
+  export default classes;
+}
+
 declare module '*/splash-page.module.css' {
   const classes: {
     splashPage: string;

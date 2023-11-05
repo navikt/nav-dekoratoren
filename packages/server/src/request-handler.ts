@@ -21,6 +21,7 @@ import { IconButton } from './views/icon-button';
 import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
+import { SimpleUserMenu } from './views/simple-user-menu';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -163,12 +164,10 @@ const requestHandler = async (
       const localTexts = texts[data.language];
       return new Response(
         data.simple
-          ? html` <p><b>${localTexts.logged_in}:</b> ${data.name}</p>
-              ${IconButton({
-                id: 'logout-button',
-                Icon: LogoutIcon({}),
-                text: localTexts.logout,
-              })}`.render()
+          ? SimpleUserMenu({
+              texts: localTexts,
+              name: data.name as string,
+            }).render()
           : UserMenuDropdown({
               texts: localTexts,
               name: data.name,
