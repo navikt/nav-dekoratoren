@@ -71,7 +71,6 @@ declare module '*/dropdown-menu.module.css' {
   const classes: {
     dropdownMenuContainer: string;
     dropdownMenuOpen: string;
-    dropdownMenuContent: string;
   };
   export default classes;
 }
