@@ -305,6 +305,7 @@ declare module '*/simple-footer.module.css' {
 declare module '*/simple-user-menu.module.css' {
   const classes: {
     simpleUserMenu: string;
+    name: string;
   };
   export default classes;
 }
