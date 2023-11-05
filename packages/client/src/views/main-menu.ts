@@ -12,16 +12,13 @@ class MainMenu extends HTMLElement {
         this.innerHTML = html;
       });
 
-  handleActiveContext = () => this.fetchMenuContent();
-
   connectedCallback() {
-    window.addEventListener('activecontext', this.handleActiveContext);
-
+    window.addEventListener('activecontext', this.fetchMenuContent);
     setTimeout(() => this.fetchMenuContent(), 0);
   }
 
   disconnectedCallback() {
-    window.removeEventListener('activecontext', this.handleActiveContext);
+    window.removeEventListener('activecontext', this.fetchMenuContent);
   }
 }
 
