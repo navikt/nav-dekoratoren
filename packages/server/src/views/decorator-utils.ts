@@ -8,7 +8,7 @@ import {
 } from 'decorator-shared/params';
 import utilsCls from 'decorator-shared/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/header/decorator-utils-container/breadcrumbs';
-import { LanguageSelector } from 'decorator-shared/views/header/decorator-utils-container/language-selector';
+import { LanguageSelector } from './language-selector';
 
 export type DecoratorUtilsProps = {
   breadcrumbs: Breadcrumb[];

@@ -129,6 +129,20 @@ declare module '*/inputs.module.css' {
   export default classes;
 }
 
+declare module '*/language-selector.module.css' {
+  const classes: {
+    languageSelector: string;
+    empty: string;
+    button: string;
+    icon: string;
+    menu: string;
+    hidden: string;
+    option: string;
+    selected: string;
+  };
+  export default classes;
+}
+
 declare module '*/logout-warning.module.css' {
   const classes: {
     buttonWrapper: string;

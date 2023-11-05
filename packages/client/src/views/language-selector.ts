@@ -1,6 +1,6 @@
 import html from 'decorator-shared/html';
 import { AvailableLanguage, Language } from 'decorator-shared/params';
-import cls from 'decorator-shared/views/header/decorator-utils-container/language-selector.module.css';
+import cls from '../styles/language-selector.module.css';
 import { DownChevronIcon, GlobeIcon } from 'decorator-shared/views/icons';
 
 declare global {
