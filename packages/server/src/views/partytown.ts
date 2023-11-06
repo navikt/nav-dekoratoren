@@ -7,7 +7,6 @@ export function Partytown() {
   return html`
     <script>
       partytown = {
-        debug: true,
         lib: '/public/~partytown/',
         forward: [
           'analyticsEvent',
