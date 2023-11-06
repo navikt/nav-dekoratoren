@@ -5,7 +5,6 @@ type Config = {
   mock?: boolean;
 };
 
-
 export default class UnleashService {
   unleashInstance: Unleash | null;
   supportedFeatures: { [key: string]: boolean };
@@ -37,6 +36,7 @@ export default class UnleashService {
     }
 
     try {
+      console.log('Initializing unleash');
       this.unleashInstance = initialize({
         url: `${UNLEASH_SERVER_API_URL}/api/`,
         appName: 'nav-dekoratoren',
