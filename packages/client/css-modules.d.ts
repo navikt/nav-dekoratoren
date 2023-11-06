@@ -10,6 +10,16 @@ declare module '*/alert.module.css' {
   export default classes;
 }
 
+declare module '*/arbeidsgiver-user-menu.module.css' {
+  const classes: {
+    arbeidsgiverUserMenu: string;
+    icon: string;
+    heading: string;
+    description: string;
+  };
+  export default classes;
+}
+
 declare module '*/burger.module.css' {
   const classes: {
     menuBurger: string;
