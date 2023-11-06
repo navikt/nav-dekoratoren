@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
-    "types": ["bun-types", "decorator-shared/module.d.ts"]
+    "types": ["bun-types"]
   },
   "exclude": ["**/*.stories.ts"]
 }
