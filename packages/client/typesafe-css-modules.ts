@@ -8,7 +8,7 @@ import * as prettier from 'prettier';
 import prettierConfig from '../../.prettierrc.json';
 
 // Directoryes to write file to
-const targets = ['./', '../server/'];
+const targets = ['./', '../server/', '../shared/'];
 
 const FILE_NAME = './css-modules.d.ts';
 
@@ -88,17 +88,21 @@ async function createOutput(modules: ts.ModuleDeclaration[]) {
   return formatted;
 }
 
+const getFilePaths = (dir: string): string[] =>
+  fs.readdirSync(dir).flatMap((name) => {
+    const file = `${dir}/${name}`;
+    return fs.lstatSync(file).isDirectory() ? getFilePaths(file) : file;
+  });
+
 export async function processAll() {
-  const root = path.resolve(__dirname, './src/styles');
-  const paths = fs
-    .readdirSync(root)
-    .filter((path) => path.endsWith('.module.css'))
-    .map((p) => path.resolve(`${root}/${p}`));
+  const paths = getFilePaths(path.resolve(__dirname, '..')).filter((path) =>
+    path.endsWith('.module.css'),
+  );
 
   const processedFiles = await Promise.all(
     paths.map(async (f) => await processFile(f)),
   );
-  const modules: ts.ModuleDeclaration[] = processedFiles.map(createTSModule); //;
+  const modules: ts.ModuleDeclaration[] = processedFiles.map(createTSModule);
   const output = await createOutput(modules);
 
   for (const target of targets) {
