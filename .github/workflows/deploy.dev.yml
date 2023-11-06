@@ -78,13 +78,6 @@ jobs:
     needs: 'build'
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: navikt/frontend/actions/cdn-upload/v1@main
-        name: Upload to CDN
-        with:
-          cdn-team-name: personbruker
-          source: './packages/server/public'
-          destination: '/decorator-next-dev/'
-
       - uses: actions/checkout@v3
       - name: Deploy app
         uses: 'nais/deploy/actions/deploy@v1'
