@@ -5,6 +5,10 @@ type Config = {
   mock?: boolean;
 };
 
+export interface GetFeatures {
+    getFeatures(): Features;
+}
+
 export default class UnleashService {
   unleashInstance: Unleash | null;
   supportedFeatures: { [key: string]: boolean };

@@ -42,7 +42,7 @@ const server = Bun.serve({
                 url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
                 type: 'info',
               },
-            ]),
+            ])
     ),
     new SearchService(fetchSearch),
     {
@@ -51,11 +51,19 @@ const server = Bun.serve({
     },
     // Implement this
     notificationsService(),
-    new UnleashService({}),
-    new TaConfigService(),
+    // new UnleashService({}),
+    {
+      getFeatures() {
+        return {
+          'dekoratoren.skjermdeling': true,
+          'dekoratoren.chatbotscript': true,
+        };
+      },
+    },
+    new TaConfigService()
   ),
 });
 
 console.log(
-  `decorator-next is running at http://${server.hostname}:${server.port}`,
+  `decorator-next is running at http://${server.hostname}:${server.port}`
 );

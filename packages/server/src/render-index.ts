@@ -4,7 +4,7 @@ import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
 import ContentService from './content-service';
 import { clientEnv, env } from './env/server';
 import { texts } from './texts';
-import UnleashService from './unleash-service';
+import UnleashService, { GetFeatures } from './unleash-service';
 import { Index } from './views';
 import { DecoratorData } from './views/decorator-data';
 import { DecoratorLens } from './views/decorator-lens';
@@ -25,7 +25,7 @@ export default async ({
   query,
 }: {
   contentService: ContentService;
-  unleashService: UnleashService;
+  unleashService: GetFeatures;
   data: Params;
   url: string;
   query: Record<string, unknown>;
