@@ -73,43 +73,46 @@ export function ComplexHeader({
               )}
             </div>
           </div>
-        </div>
-        <div class="${menuItemsCls.menuItems}">
-          <user-menu>
-            ${IconButton({
-              id: 'login-button',
-              Icon: LoginIcon({}),
-              text: texts.login,
-            })}
-          </user-menu>
-          <div class="${menuItemsCls.menuItemsUniversalLinks}">
-            ${DropdownMenu({
-              button: IconButton({
-                Icon: BurgerIcon(),
-                text: texts.menu,
-              }),
-              dropdownContent: html`
-                <search-menu class="${menuCls.searchMenu}">
-                  ${SearchForm({ texts })}
-                </search-menu>
-                <main-menu></main-menu>
-              `,
-            })}
-            ${DropdownMenu({
-              button: IconButton({
-                Icon: SearchIcon({
-                  menuSearch: true,
+          <div class="${menuItemsCls.menuItems}">
+            <user-menu>
+              ${IconButton({
+                id: 'login-button',
+                Icon: LoginIcon({}),
+                text: texts.login,
+              })}
+            </user-menu>
+            <div class="${menuItemsCls.menuItemsUniversalLinks}">
+              ${DropdownMenu({
+                button: IconButton({
+                  Icon: BurgerIcon(),
+                  text: texts.menu,
                 }),
-                text: texts.search,
-                className: menuItemsCls.searchButton,
-              }),
-              dropdownClass: menuItemsCls.searchDropdown,
-              dropdownContent: html`
-                <search-menu class="${menuItemsCls.searchMenu}" data-auto-focus>
-                  ${SearchForm({ texts })}
-                </search-menu>
-              `,
-            })}
+                dropdownContent: html`
+                  <search-menu class="${menuCls.searchMenu}">
+                    ${SearchForm({ texts })}
+                  </search-menu>
+                  <main-menu></main-menu>
+                `,
+              })}
+              ${DropdownMenu({
+                button: IconButton({
+                  Icon: SearchIcon({
+                    menuSearch: true,
+                  }),
+                  text: texts.search,
+                  className: menuItemsCls.searchButton,
+                }),
+                dropdownClass: menuItemsCls.searchDropdown,
+                dropdownContent: html`
+                  <search-menu
+                    class="${menuItemsCls.searchMenu}"
+                    data-auto-focus
+                  >
+                    ${SearchForm({ texts })}
+                  </search-menu>
+                `,
+              })}
+            </div>
           </div>
         </div>
       </header>
