@@ -24,6 +24,7 @@ jobs:
             cat > .env <<EOF
             ENV=NAV_NO
             HOST=https://decorator-next.ekstern.dev.nav.no
+            CDN_URL=https://decorator-next.ekstern.dev.nav.no
             ENONICXP_SERVICES=https://www.intern.dev.nav.no/_/service
             AUTH_API_URL=https://login.ekstern.dev.nav.no
             LOGIN_URL=https://login.ekstern.dev.nav.no/oauth2/login
