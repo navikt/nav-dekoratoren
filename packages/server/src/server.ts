@@ -18,6 +18,8 @@ const getFilePaths = (dir: string): string[] =>
     return statSync(file).isDirectory() ? getFilePaths(file) : file;
   });
 
+console.log('Starting decorator-next server');
+
 const server = Bun.serve({
   port: env.PORT || 8089,
   development: process.env.NODE_ENV === 'development',
