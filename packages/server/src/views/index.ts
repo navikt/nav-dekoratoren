@@ -181,7 +181,7 @@ export async function Index({
                 })
               })()"
           >
-            Set utils background
+          Markup was updated
           </button>
           <div>${main}</div>
           <script>
