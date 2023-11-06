@@ -1,7 +1,10 @@
 import { paramsSchema } from 'decorator-shared/params';
+import { clientEnv } from './env/server';
+import { P, match } from 'ts-pattern';
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const validateParams = (params: any) => {
+export const validateParams = (params: Record<string, string>) => {
   const parseBooleanParam = (param?: string | boolean): boolean =>
     typeof param === 'boolean' ? param : param === 'true' ? true : false;
 
@@ -20,7 +23,7 @@ export const validateParams = (params: any) => {
     'maskHotjar',
   ];
 
-  return paramsSchema.safeParse({
+  return {
     ...params,
     ...booleans.reduce(
       (prev, key) => ({
@@ -29,14 +32,31 @@ export const validateParams = (params: any) => {
       }),
       {},
     ),
-    breadcrumbs: params.breadcrumbs
-      ? JSON.parse(params.breadcrumbs)
-      : params.breadcrumbs,
+    logoutUrl: match(params.logoutUrl)
+        .with(P.string, (url) => url)
+        .otherwise(() => clientEnv.LOGOUT_URL),
+    breadcrumbs: match(params.breadcrumbs)
+        .with(P.string, (breadcrumbs) => JSON.parse(breadcrumbs))
+        .otherwise(() => []),
     availableLanguages: params.availableLanguages
       ? JSON.parse(params.availableLanguages).map((language: any) => ({
           ...language,
           handleInApp: parseBooleanParam(language.handleInApp),
         }))
       : params.availableLanguages,
-  });
+  };
 };
+
+
+export const validParams = (query: Record<string, string>) => {
+    const validParams = paramsSchema.safeParse(
+        validateParams(query)
+    );
+
+    if (!validParams.success) {
+      console.error(validParams.error);
+      throw new Error(validParams.error.toString());
+    }
+
+    return validParams.data;
+  };

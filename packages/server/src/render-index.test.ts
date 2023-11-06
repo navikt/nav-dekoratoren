@@ -16,6 +16,7 @@ test('It masks the document from hotjar', async () => {
       contentService,
       unleashService,
       data: {
+        redirectToLogout: 'https://www.nav.no',
         context: 'privatperson',
         simple: false,
         simpleHeader: false,

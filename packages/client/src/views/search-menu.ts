@@ -46,7 +46,7 @@ class SearchMenu extends HTMLElement {
 
     const fetchSearch = (query: string) => {
       const url = `${
-        import.meta.env.VITE_DECORATOR_BASE_URL
+        window.__DECORATOR_DATA__.env.APP_URL
       }/api/search?${Object.entries({
         language: window.__DECORATOR_DATA__.params.language,
         q: query,

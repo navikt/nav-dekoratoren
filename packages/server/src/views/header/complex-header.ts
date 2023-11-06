@@ -82,7 +82,7 @@ export function ComplexHeader({
               })}
             </user-menu>
             <div class="${menuItemsCls.menuItemsUniversalLinks}">
-              ${DropdownMenu({
+              ${language !== 'se' && DropdownMenu({
                 button: IconButton({
                   Icon: BurgerIcon(),
                   text: texts.menu,

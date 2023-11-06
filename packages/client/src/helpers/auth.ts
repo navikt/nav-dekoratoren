@@ -18,7 +18,7 @@ export type AuthData = {
 };
 
 export async function fetchSession() {
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
+  const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session`;
 
   try {
     const sessionResponse = await fetch(sessionUrl, {
@@ -32,7 +32,7 @@ export async function fetchSession() {
 }
 
 export async function fethRenew() {
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session/refresh`;
+  const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session/refresh`;
 
   try {
     const sessionResponse = await fetch(sessionUrl, {

@@ -9,13 +9,13 @@ export const entryPointPath = 'src/main.ts';
 export const entryPointPathAnalytics = 'src/analytics/analytics.ts';
 
 const vendorScripts = {
-  taskAnalytics: 'https://in2.taskanalytics.com/tm.js',
+    taskAnalytics: 'https://in2.taskanalytics.com/tm.js',
 } as const;
 
 // https://github.com/BuilderIO/partytown/issues/241
 // See how this works in production
 const inlineVendorScripts = {
-  hotjar: `(function(h,o,t,j,a,r){
+    hotjar: `(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};
 a=o.getElementsByTagName('head')[0];
@@ -27,98 +27,98 @@ a.appendChild(r);
 
 /* Merge the two manifests*/
 export const getManifest = async () => {
-  const mainManifest = (await import('decorator-client/dist/manifest.json'))
-    .default;
-  const thirdPartyManifest = (
-    await import('decorator-client/dist/analytics.manifest.json')
-  ).default;
+    const mainManifest = (await import('decorator-client/dist/manifest.json'))
+        .default;
+    const thirdPartyManifest = (
+        await import('decorator-client/dist/analytics.manifest.json')
+    ).default;
 
-  return Object.assign({}, mainManifest, thirdPartyManifest);
+    return Object.assign({}, mainManifest, thirdPartyManifest);
 };
 
 type AssetFormatter = (src: string) => string;
 
 const script: AssetFormatter = (src) =>
-  `<script type="module" src="${src}"></script>`;
+    `<script type="module" src="${src}"></script>`;
 const partytownScript: AssetFormatter = (src) =>
-  `<script type="text/partytown" src="${src}"></script>"`;
+    `<script type="text/partytown" src="${src}"></script>"`;
 const partytownInlineScript: AssetFormatter = (code) =>
-  `<script type="text/partytown">${code}</script>"`;
+    `<script type="text/partytown">${code}</script>"`;
 const cssLink: AssetFormatter = (src) =>
-  `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
+    `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
 const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`;
 
 type EnvAssets = Record<NodeEnv, string>;
 
 const getEnvAssets = async () => {
-  const manifest = await getManifest();
+    const manifest = await getManifest();
 
-  const css: EnvAssets = {
-    production: cssLink(hostUrl('/css/client.css')),
-    development: '',
-  };
+    const css: EnvAssets = {
+        production: cssLink(hostUrl('/css/client.css')),
+        development: '',
+    };
 
-  const scripts: EnvAssets = {
-    production: [
-      script(hostUrl(`/client.js`)),
-      // partytownScript(
-      //   hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      // ),
-      // partytownScript(vendorScripts.taskAnalytics),
-      // [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
-    ].join(''),
-    development: [
-      [
-        'http://localhost:5173/@vite/client',
-        `http://localhost:5173/${entryPointPath}`,
-      ]
-        .map(script)
-        .join(''),
-      [
-        vendorScripts.taskAnalytics,
-        hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      ]
-        .map(partytownScript)
-        .join(''),
-      [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
-    ].join(''),
-  };
+    const scripts: EnvAssets = {
+        production: [
+            script(hostUrl(`/client.js`)),
+            // partytownScript(
+            //   hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
+            // ),
+            // partytownScript(vendorScripts.taskAnalytics),
+            // [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
+        ].join(''),
+        development: [
+            [
+                'http://localhost:5173/@vite/client',
+                `http://localhost:5173/${entryPointPath}`,
+            ]
+                .map(script)
+                .join(''),
+            [
+                vendorScripts.taskAnalytics,
+                hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
+            ]
+                .map(partytownScript)
+                .join(''),
+            [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
+        ].join(''),
+    };
 
-  return {
-    links: css[env.NODE_ENV],
-    scripts: scripts[env.NODE_ENV],
-  };
+    return {
+        links: css[env.NODE_ENV],
+        scripts: scripts[env.NODE_ENV],
+    };
 };
 
 const assets = await getEnvAssets();
 
 export async function Index({
-  language,
-  header,
-  feedback,
-  logoutWarning,
-  footer,
-  lens,
-  decoratorData,
-  maskDocument = false,
-  main,
-  shareScreen,
+    language,
+    header,
+    feedback,
+    logoutWarning,
+    footer,
+    lens,
+    decoratorData,
+    maskDocument = false,
+    main,
+    shareScreen,
 }: {
-  language: Language;
-  header: Template;
-  feedback?: Template;
-  footer: Template;
-  logoutWarning?: Template;
-  shareScreen?: Template;
-  lens: Template;
-  decoratorData: Template;
-  maskDocument?: boolean;
-  main?: Template;
+    language: Language;
+    header: Template;
+    feedback?: Template;
+    footer: Template;
+    logoutWarning?: Template;
+    shareScreen?: Template;
+    lens: Template;
+    decoratorData: Template;
+    maskDocument?: boolean;
+    main?: Template;
 }) {
-  const { links, scripts } = assets;
+    const { links, scripts } = assets;
 
-  return html`
+    return html`
     <!doctype html>
     <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
       <head>
@@ -138,10 +138,10 @@ export async function Index({
         <div id="header-withmenu">${header}</div>
         <main>
           ${Button({
-            text: 'Test amplitude!',
-            variant: 'primary',
-            id: 'amplitude-test',
-          })}
+        text: 'Test amplitude!',
+        variant: 'primary',
+        id: 'amplitude-test',
+    })}
           <button
             onclick="(() => {
                 window.postMessage({
@@ -181,7 +181,7 @@ export async function Index({
                 })
               })()"
           >
-            Set utils background
+          Markup was updated
           </button>
           <div>${main}</div>
           <script>
@@ -206,6 +206,11 @@ export async function Index({
         ${lens}
         <div id="scripts" style="display:none">
           ${unsafeHtml(scripts)}${decoratorData}
+          <script>
+            window.__DECORATOR_DATA__ = JSON.parse(
+              document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
+            );
+          </script>
         </div>
       </body>
     </html>

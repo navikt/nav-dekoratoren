@@ -124,7 +124,7 @@ export async function logoutWarningController(
     const secondsToSessionExpiration = getSecondsToExpiration(session.ends_at);
 
     if (secondsToTokenExpiration < 0 || secondsToSessionExpiration < 0) {
-      window.location.href = `${import.meta.env.VITE_LOGOUT_URL}`;
+      window.location.href = `${window.__DECORATOR_DATA__.env.LOGOUT_URL}`;
     }
 
     if (secondsToTokenExpiration < TOKEN_WARNING_THRESHOLD) {
@@ -160,7 +160,7 @@ export async function logoutWarningController(
   function onCancel() {
     // Note that in both cases, hitting "Log out" is considered
     // cancelling the session and redirecting the user.
-    window.location.href = `${import.meta.env.VITE_LOGOUT_URL}`;
+    window.location.href = `${window.__DECORATOR_DATA__.env.LOGOUT_URL}`;
   }
 
   function onVisibilityChange() {

@@ -47,6 +47,7 @@ export const paramsSchema = z.object({
   redirectToApp: z.boolean().default(false),
   // Should maybe not be this
   redirectToUrl: z.string().default(''),
+  redirectToLogout: z.string().optional().default(''),
   level: loginLevel.default('Level3'),
   language: languageSchema.default('nb'),
   availableLanguages: z.array(availableLanguageSchema).default([]),
@@ -57,7 +58,7 @@ export const paramsSchema = z.object({
   chatbotVisible: z.boolean().default(false),
   urlLookupTable: z.boolean().default(false),
   shareScreen: z.boolean().default(true),
-  logoutUrl: z.string().url().optional(),
+  logoutUrl: z.string().url(),
   maskHotjar: z.boolean().default(false),
   logoutWarning: z.boolean().default(false),
   bedrift: z.string().optional(),
@@ -66,13 +67,15 @@ export const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export const environmentSchema = z.object({
+export const clientEnvSchema = z.object({
   MIN_SIDE_URL: z.string(),
   MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
+  AUTH_API_URL: z.string(),
+  VARSEL_API_URL: z.string(),
   LOGIN_URL: z.string(),
   LOGOUT_URL: z.string(),
   XP_BASE_URL: z.string(),
   APP_URL: z.string(),
 });
 
-export type Environment = z.infer<typeof environmentSchema>;
+export type Environment = z.infer<typeof clientEnvSchema>;

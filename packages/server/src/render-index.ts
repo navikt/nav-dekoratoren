@@ -2,7 +2,7 @@ import { makeContextLinks } from 'decorator-shared/context';
 import { Params } from 'decorator-shared/params';
 import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
 import ContentService from './content-service';
-import { env } from './env/server';
+import { clientEnv, env } from './env/server';
 import { texts } from './texts';
 import UnleashService from './unleash-service';
 import { Index } from './views';
@@ -86,6 +86,7 @@ export default async ({
         texts: localTexts,
         params: data,
         features,
+        environment: clientEnv
       }),
       maskDocument: data.maskHotjar,
       main:

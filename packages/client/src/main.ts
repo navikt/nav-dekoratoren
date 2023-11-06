@@ -62,18 +62,6 @@ declare global {
   }
 }
 
-window.__DECORATOR_DATA__ = JSON.parse(
-  document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
-);
-
-window.__DECORATOR_DATA__.env = {
-  MIN_SIDE_URL: import.meta.env.VITE_MIN_SIDE_URL,
-  LOGIN_URL: import.meta.env.VITE_LOGIN_URL,
-  LOGOUT_URL: import.meta.env.VITE_LOGOUT_URL,
-  MIN_SIDE_ARBEIDSGIVER_URL: import.meta.env.VITE_MIN_SIDE_ARBEIDSGIVER_URL,
-  XP_BASE_URL: import.meta.env.VITE_XP_BASE_URL,
-  APP_URL: import.meta.env.VITE_APP_URL,
-};
 
 const updateDecoratorParams = (params: Partial<Params>) => {
   window.__DECORATOR_DATA__.params = {
@@ -122,7 +110,7 @@ window.addEventListener('message', (e) => {
       Promise.all(
         ['header', 'footer'].map((key) =>
           fetch(
-            `${import.meta.env.VITE_DECORATOR_BASE_URL}/${key}?${formatParams(
+            `${window.__DECORATOR_DATA__.env.APP_URL}/${key}?${formatParams(
               window.__DECORATOR_DATA__.params,
             )}`,
           ).then((res) => res.text()),
@@ -162,7 +150,7 @@ window.addEventListener('activecontext', (event) => {
 
 async function populateLoggedInMenu(authObject: Auth) {
   fetch(
-    `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
+    `${window.__DECORATOR_DATA__.env.APP_URL}/user-menu?${formatParams({
       ...window.__DECORATOR_DATA__.params,
       name: authObject.name,
       level: `Level${authObject.securityLevel}` as LoginLevel,
@@ -195,7 +183,7 @@ function handleLogin() {
   document
     .getElementById('login-button')
     ?.addEventListener('click', async () => {
-      window.location.href = `${import.meta.env.VITE_LOGIN_URL}?redirect=${
+      window.location.href = `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${
         window.location.href
       }&level=${loginLevel}`;
     });
