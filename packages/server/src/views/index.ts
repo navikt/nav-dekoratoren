@@ -64,11 +64,11 @@ const getEnvAssets = async () => {
   const scripts: EnvAssets = {
     production: [
       script(hostUrl(`/client.js`)),
-      // partytownScript(
-      //   hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      // ),
-      // partytownScript(vendorScripts.taskAnalytics),
-      // [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
+      partytownScript(
+        hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
+      ),
+      partytownScript(vendorScripts.taskAnalytics),
+      [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),
     development: [
       [

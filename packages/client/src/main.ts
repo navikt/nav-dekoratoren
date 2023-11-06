@@ -29,9 +29,6 @@ import './views/search-menu';
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
-window.analyticsEvent = () => {};
-window.logPageView = () => Promise.resolve();
-
 type Auth = {
   authenticated: boolean;
   name: string;
@@ -171,8 +168,8 @@ const init = () =>
   api.checkAuth({
     onSuccess: async (response) => {
       // @TODO: Need to set up with partytown
-      // window.logPageView(window.__DECORATOR_DATA__.params, response);
-      // window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+      window.logPageView(window.__DECORATOR_DATA__.params, response);
+      window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
       await populateLoggedInMenu(response);
     },
