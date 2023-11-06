@@ -73,7 +73,9 @@ const directives: Partial<CSPDirectives> = {
     DATA, // ds-css
   ],
   'img-src': [navNo, vergicScreenSharing, vimeoCdn, hotjarCom, vergicDotCom],
-  'frame-src': [hotjarCom, vimeoPlayer, qbrick],
+  'frame-src': [
+      hotjarCom, vimeoPlayer, qbrick, navNo
+  ],
   'connect-src': [
     navNo,
     boostChatbot,
