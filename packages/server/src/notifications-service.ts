@@ -115,8 +115,8 @@ export const hentVarslerFetch = (
 ): Promise<NotificationData> => {
 
     return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
-        headers:{
-
+        headers: {
+            ...request.headers.entries(),
         },
         credentials: 'include'
     })
