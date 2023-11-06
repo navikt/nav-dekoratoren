@@ -23,7 +23,7 @@ exports[`renders simple footer 1`] = `
   </a>
 
       </div>
-      <button  is="screenshare-button" class="_screenshareButton_2smvl_1">
+      <button  is="screenshare-button" class="_screenshareButton_cbujh_1">
     Del skjerm med veileder
     <svg
       width="1em"

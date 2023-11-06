@@ -25,4 +25,14 @@
   transition-property: max-height;
   transition-timing-function: ease-in-out;
   z-index: 1;
+  height: calc(100vh - 72px);
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  :where(.dropdownMenuOpen) > .dropdownMenuContainer {
+    height: initial;
+    overflow-y: initial;
+    max-height: calc(100vh - 80px);
+  }
 }

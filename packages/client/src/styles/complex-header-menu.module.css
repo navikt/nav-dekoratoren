@@ -2,13 +2,6 @@
   display: none;
 }
 
-.menuContent {
-  height: calc(100vh - 73px);
-  overflow-y: auto;
-  position: relative;
-  background-color: var(--a-surface-default);
-}
-
 .searchMenu {
   display: grid;
   gap: var(--a-spacing-4);
@@ -18,11 +11,6 @@
 @media (min-width: 768px) {
   .menuTop {
     display: block;
-  }
-
-  .menuContent {
-    height: auto;
-    padding: 0;
   }
 
   .searchMenu {
