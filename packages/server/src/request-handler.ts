@@ -279,6 +279,14 @@ const requestHandler = async (
   return async function fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
+    if (url.pathname === '/api/isAlive') {
+        return new Response('OK');
+    }
+
+    if (url.pathname === '/api/isReady') {
+        return new Response('OK');
+    }
+
     // Ambigious naming since it also returns headers, should be refactored?
     const corsRes = handleCors(request);
 
