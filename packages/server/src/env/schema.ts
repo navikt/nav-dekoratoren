@@ -9,6 +9,7 @@ export const serverSchema = z.object({
   ENV: z.enum(['localhost', 'NAV_NO']),
   IS_LOCAL_PROD: z.boolean().optional(),
   HOST: z.string().url(),
+  VARSEL_API_URL: z.string().url(),
 })
 
 export type RunningEnv = z.infer<typeof serverSchema>['ENV'];
@@ -36,6 +37,7 @@ export const serverEnv = {
   CDN_URL: process.env.CDN_URL,
   IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === 'true',
   HOST: process.env.HOST,
+  VARSEL_API_URL: process.env.VARSEL_API_URL,
 };
 
 export const client_env = {

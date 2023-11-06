@@ -30,14 +30,11 @@ import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
+import { NotificationsService } from './notifications-service';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
   getFilePaths: (dir: string) => string[];
-};
-
-type NotificationsService = {
-  getNotifications: (texts: Texts) => Promise<Notification[] | undefined>;
 };
 
 const rewriter = new HTMLRewriter().on('img', {
@@ -84,7 +81,6 @@ const requestHandler = async (
         method: 'GET',
         path,
         handler: ({ url }) =>
-          // @ts-expect-error Blob type inconsistency
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
@@ -158,7 +154,7 @@ const requestHandler = async (
         },
       );
     })
-    .get('/user-menu', async ({ query }) => {
+    .get('/user-menu', async ({ query, request }) => {
       const template = async () => {
         const data = validParams(query);
         const localTexts = texts[data.language];
@@ -177,8 +173,10 @@ const requestHandler = async (
               UserMenuDropdown({
                 texts: localTexts,
                 name: data.name,
-                notifications:
-                  await notificationsService.getNotifications(localTexts),
+                notifications: await notificationsService.getNotifications({
+                  texts: localTexts,
+                  request,
+                }),
                 level: data.level,
                 logoutUrl: logoutUrl as string,
               }),
