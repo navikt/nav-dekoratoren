@@ -231,7 +231,7 @@ exports[`renders complex footer 1`] = `
         </ul>
 
         <div class="_complexFooterOrg_1r342_90">
-          <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
+          <img src="/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>
       </div>
