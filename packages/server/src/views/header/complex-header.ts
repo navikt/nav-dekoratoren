@@ -34,88 +34,93 @@ export function ComplexHeader({
 }: ComplexHeaderProps) {
   // @TODO: Need id here for css vars.
   return html`
-    <header class="${cls.siteheader}" id="header-withmenu">
-      <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <div class="${cls.hovedmenyContent}">
-          <a
-            is="lenke-med-sporing"
-            href="/"
-            class="${cls.logo}"
-            data-analytics-event-args="${JSON.stringify({
-              category: 'dekorator-header',
-              action: 'navlogo',
-            })}"
-            data-attach-context
-          >
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
-          </a>
-          <div class="${cls.arbeidsflate}">
-            ${language === 'nb' &&
-            contextLinks?.map(
-              ({ url, lenkeTekstId, context }) =>
-                html`<a
-                  is="context-link"
-                  href="${url}"
-                  data-analytics-event-args="${JSON.stringify({
-                    action: 'arbeidsflate-valg',
-                    category: 'dekorator-header',
-                    label: context,
-                  })}"
-                  class="${clsx(cls.headerContextLink, {
-                    [cls.lenkeActive]: context === currentContext,
-                  })}"
-                  data-attach-context
-                  data-context="${context.toLowerCase()}"
-                >
-                  ${texts[lenkeTekstId]}
-                </a>`,
-            )}
+    <div id="decorator-header">
+      <header class="${cls.siteheader}">
+        <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+          <div class="${cls.hovedmenyContent}">
+            <a
+              is="lenke-med-sporing"
+              href="/"
+              class="${cls.logo}"
+              data-analytics-event-args="${JSON.stringify({
+                category: 'dekorator-header',
+                action: 'navlogo',
+              })}"
+              data-attach-context
+            >
+              <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            </a>
+            <div class="${cls.arbeidsflate}">
+              ${language === 'nb' &&
+              contextLinks?.map(
+                ({ url, lenkeTekstId, context }) =>
+                  html`<a
+                    is="context-link"
+                    href="${url}"
+                    data-analytics-event-args="${JSON.stringify({
+                      action: 'arbeidsflate-valg',
+                      category: 'dekorator-header',
+                      label: context,
+                    })}"
+                    class="${clsx(cls.headerContextLink, {
+                      [cls.lenkeActive]: context === currentContext,
+                    })}"
+                    data-attach-context
+                    data-context="${context.toLowerCase()}"
+                  >
+                    ${texts[lenkeTekstId]}
+                  </a>`,
+              )}
+            </div>
           </div>
-        </div>
-        <div class="${menuItemsCls.menuItems}">
-          <user-menu>
-            ${IconButton({
-              id: 'login-button',
-              Icon: LoginIcon({}),
-              text: texts.login,
-            })}
-          </user-menu>
-          <div class="${menuItemsCls.menuItemsUniversalLinks}">
-            ${DropdownMenu({
-              button: IconButton({
-                Icon: BurgerIcon(),
-                text: texts.menu,
-              }),
-              dropdownContent: html`
-                <div class="${menuCls.menuContent}">
-                  <search-menu class="${menuCls.searchMenu}">
+          <div class="${menuItemsCls.menuItems}">
+            <user-menu>
+              ${IconButton({
+                id: 'login-button',
+                Icon: LoginIcon({}),
+                text: texts.login,
+              })}
+            </user-menu>
+            <div class="${menuItemsCls.menuItemsUniversalLinks}">
+              ${DropdownMenu({
+                button: IconButton({
+                  Icon: BurgerIcon(),
+                  text: texts.menu,
+                }),
+                dropdownContent: html`
+                  <div class="${menuCls.menuContent}">
+                    <search-menu class="${menuCls.searchMenu}">
+                      ${SearchForm({ texts })}
+                    </search-menu>
+                    <main-menu></main-menu>
+                  </div>
+                `,
+              })}
+              ${DropdownMenu({
+                button: IconButton({
+                  Icon: SearchIcon({
+                    menuSearch: true,
+                  }),
+                  text: texts.search,
+                  className: menuItemsCls.searchButton,
+                }),
+                dropdownClass: menuItemsCls.searchDropdown,
+                dropdownContent: html`
+                  <search-menu
+                    class="${menuItemsCls.searchMenu}"
+                    data-auto-focus
+                  >
                     ${SearchForm({ texts })}
                   </search-menu>
-                  <main-menu></main-menu>
-                </div>
-              `,
-            })}
-            ${DropdownMenu({
-              button: IconButton({
-                Icon: SearchIcon({
-                  menuSearch: true,
-                }),
-                text: texts.search,
-                className: menuItemsCls.searchButton,
-              }),
-              dropdownClass: menuItemsCls.searchDropdown,
-              dropdownContent: html`
-                <search-menu class="${menuItemsCls.searchMenu}" data-auto-focus>
-                  ${SearchForm({ texts })}
-                </search-menu>
-              `,
-            })}
+                `,
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </header>
-    <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${decoratorUtils}
-    <menu-background></menu-background>
+      </header>
+      <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+      ${decoratorUtils}
+      <menu-background></menu-background>
+    </div>
   `;
 }

@@ -7,8 +7,11 @@ import UnleashService from './unleash-service';
 import notificationsService from './notifications-service';
 import TaConfigService from './task-analytics-service';
 
-const req = (url: string, rest?: any) => new Request(url, {
-    headers: { Host: 'localhost:8089' }, ...rest })
+const req = (url: string, rest?: any) =>
+  new Request(url, {
+    headers: { Host: 'localhost:8089' },
+    ...rest,
+  });
 
 const fetch = await requestHandler(
   new ContentService(
@@ -40,16 +43,13 @@ test('is alive', async () => {
 
 test('index', async () => {
   const response = await fetch(req('http://localhost/'));
-  console.log(response);
   expect(response.status).toBe(200);
   expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
   expect(await response.text()).toContain('<!doctype html>');
 });
 
 test('search', async () => {
-  const response = await fetch(
-    req('http://localhost/api/search?q=test'),
-  );
+  const response = await fetch(req('http://localhost/api/search?q=test'));
   expect(response.status).toBe(200);
   expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
 });
@@ -68,7 +68,7 @@ describe('notifications', () => {
     );
     // Not sure if this test was complete, so commented out for now.
     // expect(await response.json()).toEqual('eventId');
-     expect(await response.json()).not.toBeNil();
+    expect(await response.json()).not.toBeNil();
   });
 
   test('archive notification gives 404 on GET', async () => {
@@ -81,17 +81,13 @@ describe('notifications', () => {
 
 describe('files', () => {
   test('hit', async () => {
-    const response = await fetch(
-      req('http://localhost/public/yep.svg'),
-    );
+    const response = await fetch(req('http://localhost/public/yep.svg'));
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('image/svg+xml');
   });
 
   test('miss', async () => {
-    const response = await fetch(
-      req('http://localhost/public/nope.svg'),
-    );
+    const response = await fetch(req('http://localhost/public/nope.svg'));
     expect(response.status).toBe(404);
   });
 });

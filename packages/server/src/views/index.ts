@@ -184,6 +184,21 @@ export async function Index({
             Set utils background
           </button>
           <div>${main}</div>
+          <script>
+            window.addEventListener('message', (e) => {
+              if (e.data.source === 'decorator') {
+                if (e.data.event === 'languageSelect') {
+                  window.postMessage({
+                    source: 'decoratorClient',
+                    event: 'params',
+                    payload: {
+                      language: e.data.payload.locale,
+                    },
+                  });
+                }
+              }
+            });
+          </script>
         </main>
         <div id="footer-withmenu">
           ${shareScreen} ${logoutWarning} ${feedback} ${footer}

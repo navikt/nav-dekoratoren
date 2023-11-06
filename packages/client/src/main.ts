@@ -108,18 +108,35 @@ window.addEventListener('message', (e) => {
     window.postMessage({ source: 'decorator', event: 'ready' });
   }
   if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
-    [
-      'language',
-      'breadcrumbs',
-      'availableLanguages',
-      'utilsBackground',
-    ].forEach((key) => {
+    ['breadcrumbs', 'availableLanguages', 'utilsBackground'].forEach((key) => {
       if (e.data.payload[key]) {
         updateDecoratorParams({
           [key]: e.data.payload[key],
         });
       }
     });
+
+    const language = e.data.payload.language;
+    if (language && language !== window.__DECORATOR_DATA__.params.language) {
+      updateDecoratorParams({ language });
+      Promise.all(
+        ['header', 'footer'].map((key) =>
+          fetch(
+            `${import.meta.env.VITE_DECORATOR_BASE_URL}/${key}?${formatParams(
+              window.__DECORATOR_DATA__.params,
+            )}`,
+          ).then((res) => res.text()),
+        ),
+      ).then(([header, footer]) => {
+        const headerEl = document.getElementById('decorator-header');
+        const footerEl = document.getElementById('decorator-footer');
+        if (headerEl && footerEl) {
+          headerEl.outerHTML = header;
+          footerEl.outerHTML = footer;
+          init();
+        }
+      });
+    }
 
     if (e.data.payload.context) {
       const context = e.data.payload.context;
@@ -144,11 +161,9 @@ window.addEventListener('activecontext', (event) => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-  console.log(authObject);
   fetch(
     `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
-      simple: window.__DECORATOR_DATA__.params.simple,
-      language: window.__DECORATOR_DATA__.params.language,
+      ...window.__DECORATOR_DATA__.params,
       name: authObject.name,
       level: `Level${authObject.securityLevel}` as LoginLevel,
     })}`,
@@ -162,15 +177,18 @@ async function populateLoggedInMenu(authObject: Auth) {
     });
 }
 
-api.checkAuth({
-  onSuccess: async (response) => {
-    // @TODO: Need to set up with partytown
-    // window.logPageView(window.__DECORATOR_DATA__.params, response);
-    // window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+const init = () =>
+  api.checkAuth({
+    onSuccess: async (response) => {
+      // @TODO: Need to set up with partytown
+      // window.logPageView(window.__DECORATOR_DATA__.params, response);
+      // window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
-    await populateLoggedInMenu(response);
-  },
-});
+      await populateLoggedInMenu(response);
+    },
+  });
+
+init();
 
 function handleLogin() {
   const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
