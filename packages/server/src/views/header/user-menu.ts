@@ -16,6 +16,7 @@ export type UserMenuProps = {
   name?: string;
   notifications?: Notification[];
   level: LoginLevel;
+  logoutUrl: string;
 };
 
 export const UserMenu = ({
@@ -23,6 +24,7 @@ export const UserMenu = ({
   name,
   level,
   notifications,
+  logoutUrl,
 }: UserMenuProps) =>
   html`<div class="${cls.userMenu}">
     <div class="${cls.menuItems}">
@@ -55,7 +57,7 @@ export const UserMenu = ({
     <div class="${cls.notifications}">
       ${Notifications({ texts, notifications })}
     </div>
-    <a href="#TODO" class="${cls.menuItem} ${cls.logout}">
+    <a href="${logoutUrl}" class="${cls.menuItem} ${cls.logout}">
       ${LogoutIcon({})}
       <span>Logg ut</span>
     </a>

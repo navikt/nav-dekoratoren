@@ -1,6 +1,8 @@
 import { Context, Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
+import { getLogOutUrl } from 'decorator-shared/auth';
+
 import ContentService from './content-service';
 import { handleCors } from './cors';
 import { cspHandler } from './csp';
@@ -13,7 +15,7 @@ import SearchService from './search-service';
 import TaConfigService from './task-analytics-service';
 import { texts } from './texts';
 import UnleashService from './unleash-service';
-import { validateParams } from './validateParams';
+import { validParams } from './validateParams';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
 import { IconButton } from './views/icon-button';
@@ -28,6 +30,7 @@ import { makeContextLinks } from 'decorator-shared/context';
 import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
 import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
+import { match } from 'ts-pattern';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -76,15 +79,6 @@ const requestHandler = async (
     .getFilePaths('./public')
     .map((file) => file.replace('./', '/'));
 
-  const validParams = (query: Record<string, string>) => {
-    const validParams = validateParams(query);
-    if (!validParams.success) {
-      console.error(validParams.error);
-      throw new Error(validParams.error.toString());
-    }
-
-    return validParams.data;
-  };
 
   const handlers = new HandlerBuilder()
     .use(
@@ -175,26 +169,30 @@ const requestHandler = async (
             name: data.name as string,
           });
         } else {
-          switch (data.context) {
-            case 'privatperson':
-              return UserMenuDropdown({
+            // What should type be here
+            // This should be merged with params.
+          const logoutUrl = getLogOutUrl(data);
+
+          return match(data.context)
+            .with('privatperson', async () => UserMenuDropdown({
                 texts: localTexts,
                 name: data.name,
-                notifications:
-                  await notificationsService.getNotifications(localTexts),
+                notifications: await notificationsService.getNotifications(localTexts),
                 level: data.level,
-              });
-            case 'arbeidsgiver':
-              return ArbeidsgiverUserMenu({ texts: localTexts });
-            case 'samarbeidspartner':
-              return IconButton({
+                logoutUrl: logoutUrl as string
+            }))
+            .with('arbeidsgiver', () => ArbeidsgiverUserMenu({
+                texts: localTexts,
+            }))
+            .with('samarbeidspartner', () => IconButton({
                 id: 'logout-button',
                 Icon: LogoutIcon({}),
                 text: localTexts.logout,
-              });
-          }
+            }))
+            .exhaustive();
         }
       };
+
       return template().then((template) => r().html(template.render()).build());
     })
     .get('/ops-messages', async () =>

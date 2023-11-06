@@ -11,7 +11,7 @@ class OpsMessages extends HTMLElement {
   }
 
   connectedCallback() {
-    fetch(`${import.meta.env.VITE_DECORATOR_BASE_URL}/ops-messages`)
+    fetch(`${window.__DECORATOR_DATA__.env.APP_URL}/ops-messages`)
       .then((res) => res.text())
       .then((html) => {
         if (html) {

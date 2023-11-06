@@ -1,5 +1,5 @@
 import html, { json } from 'decorator-shared/html';
-import { Params } from 'decorator-shared/params';
+import { Environment, Params } from 'decorator-shared/params';
 import { ClientTexts, Features, clientTextsKeys } from 'decorator-shared/types';
 
 // @TODO: For after NITD. Features should be loaded on the client to avoid caching.
@@ -7,10 +7,12 @@ export const DecoratorData = ({
   texts,
   params,
   features,
+  environment,
 }: {
   texts: ClientTexts;
   params: Params;
   features: Features;
+  environment: Environment;
 }) => html`
   <script type="application/json" id="__DECORATOR_DATA__">
     ${json({
@@ -25,6 +27,7 @@ export const DecoratorData = ({
         ),
       params,
       features,
+      env: environment,
     })}
   </script>
 `;

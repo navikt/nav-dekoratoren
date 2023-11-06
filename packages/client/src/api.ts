@@ -14,8 +14,8 @@ export async function checkAuth({
   onSuccess?: (response: Auth) => void;
   onError?: (error: Error) => void;
 }) {
-  const authUrl = `${import.meta.env.VITE_DECORATOR_API}/auth`;
-  const sessionUrl = `${import.meta.env.VITE_AUTH_API}/oauth2/session`;
+  const authUrl = `${window.__DECORATOR_DATA__.env.APP_URL}/api/auth`;
+  const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session`;
 
   try {
     const fetchResponse = await fetch(authUrl, {
@@ -49,7 +49,7 @@ export function makeLoginUrl(loginLevel: LoginLevel): string {
 
 export function archive(eventId: { eventId: string }) {
   return fetch(
-    `${import.meta.env.VITE_VARSEL_API_URL}/notifications/message/archive`,
+    `${window.__DECORATOR_DATA__.env.VARSEL_API_URL}/notifications/message/archive`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
