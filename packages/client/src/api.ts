@@ -19,8 +19,7 @@ export async function checkAuth({
 
   try {
     const fetchResponse = await fetch(authUrl, {
-      // disabling for testing
-      // credentials: 'include',
+      credentials: 'include',
     });
     const response = await fetchResponse.json();
 
@@ -30,7 +29,7 @@ export async function checkAuth({
     }
 
     const sessionResponse = await fetch(sessionUrl, {
-      // credentials: 'include',
+      credentials: 'include',
     });
     const session = await sessionResponse.json();
     console.log(session);
@@ -55,7 +54,7 @@ export function archive(eventId: { eventId: string }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(eventId),
       // onnly testing
-      // credentials: 'include',
+      credentials: 'include',
       keepalive: true,
     },
   ).catch((e) =>
