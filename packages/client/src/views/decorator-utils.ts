@@ -40,6 +40,7 @@ class DecoratorUtils extends HTMLElement {
 
   connectedCallback() {
     window.addEventListener('paramsupdated', this.update);
+    setTimeout(this.update, 0);
   }
 
   disconnectedCallback() {
