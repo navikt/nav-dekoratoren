@@ -42,8 +42,7 @@ const rewriter = new HTMLRewriter().on('img', {
     const src = element.getAttribute('src');
 
     if (src) {
-      const url = new URL(src, env.CDN_URL);
-      element.setAttribute('src', url.toString());
+      element.setAttribute('src', `${env.CDN_URL}${src}`);
     }
   },
 });
