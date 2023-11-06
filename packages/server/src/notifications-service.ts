@@ -113,7 +113,13 @@ export const hentVarslerFetch = (
     // Test without
     request: Request,
 ): Promise<NotificationData> => {
-    return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, { credentials: 'include' })
+
+    return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
+        headers:{
+
+        },
+        credentials: 'include'
+    })
     .then((response) => response.json() as Promise<NotificationData>)
 }
 
