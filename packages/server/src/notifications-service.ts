@@ -118,7 +118,8 @@ export const hentVarslerFetch = (
         headers: {
             ...request.headers.entries(),
         },
-        credentials: 'include'
+        credentials: 'include',
+        verbose: true,
     })
     .then((response) => response.json() as Promise<NotificationData>)
 }
