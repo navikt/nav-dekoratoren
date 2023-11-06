@@ -8,6 +8,10 @@ metadata:
 spec:
   image: {{image}}
   port: 8089
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
   ingresses:
     - https://decorator-next.ekstern.dev.nav.no
   liveness:
