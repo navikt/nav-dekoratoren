@@ -47,9 +47,11 @@ const partytownInlineScript: AssetFormatter = (code) =>
 const cssLink: AssetFormatter = (src) =>
     `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
-const hostUrl: AssetFormatter = (src) => `${process.env.HOST ?? ``}${src}`;
+const hostUrl: AssetFormatter = (src) => `${env.HOST ?? ``}${src}`;
 
 type EnvAssets = Record<NodeEnv, string>;
+
+console.log('Host is', env.HOST)
 
 const getEnvAssets = async () => {
     const manifest = await getManifest();
