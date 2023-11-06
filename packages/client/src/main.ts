@@ -186,9 +186,6 @@ function handleLogin() {
       window.location.href = `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${
         window.location.href
       }&level=${loginLevel}`;
-      // window.location.href = `${import.meta.env.VITE_LOGIN_URL}?redirect=${
-      //   window.location.href
-      // }&level=${loginLevel}`;
     });
 }
 

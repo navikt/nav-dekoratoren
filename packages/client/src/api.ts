@@ -42,7 +42,7 @@ export async function checkAuth({
 }
 
 export function makeLoginUrl(loginLevel: LoginLevel): string {
-  return `${import.meta.env.VITE_LOGIN_URL}?redirect=${
+  return `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${
     window.location.href
   }&level=${loginLevel}`;
 }
