@@ -23,7 +23,7 @@ export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
       </div>
       <img
         class="${cls.image}"
-        src="/public/ikoner/varsler/kattIngenNotifications.svg"
+        src="/ikoner/varsler/kattIngenNotifications.svg"
         alt=""
       />
     </div>

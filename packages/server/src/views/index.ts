@@ -48,6 +48,7 @@ const cssLink: AssetFormatter = (src) =>
   `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
 const hostUrl: AssetFormatter = (src) => `${env.HOST ?? ``}${src}`;
+const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
 type EnvAssets = Record<NodeEnv, string>;
 
@@ -57,13 +58,13 @@ const getEnvAssets = async () => {
   const manifest = await getManifest();
 
   const css: EnvAssets = {
-    production: cssLink(hostUrl('/css/client.css')),
+    production: manifest[entryPointPath].css.map(cdnUrl).map(cssLink).join(''),
     development: '',
   };
 
   const scripts: EnvAssets = {
     production: [
-      script(hostUrl(`/client.js`)),
+      script(cdnUrl(manifest[entryPointPath].file)),
       partytownScript(
         hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
       ),

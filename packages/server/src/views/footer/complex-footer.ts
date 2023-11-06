@@ -55,7 +55,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
         </ul>
 
         <div class="${cls.complexFooterOrg}">
-          <img src="/public/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
+          <img src="/ikoner/meny/nav-logo-white.svg" alt="NAV-logo" />
           <span>Arbeids- og velferdsetaten</span>
         </div>
       </div>

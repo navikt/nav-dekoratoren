@@ -29,7 +29,7 @@ export const SimpleHeader = ({
           })}"
           data-attach-context
         >
-          <img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV" />
+          <img src="/ikoner/meny/nav-logo-black.svg" alt="NAV" />
         </a>
         <user-menu class="${menuItemsCls.menuItems}">
           ${IconButton({
