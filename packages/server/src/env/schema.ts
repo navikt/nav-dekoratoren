@@ -8,6 +8,7 @@ export const serverSchema = z.object({
   NODE_ENV: z.enum(['production', 'development']),
   ENV: z.enum(['localhost', 'NAV_NO']),
   IS_LOCAL_PROD: z.boolean().optional(),
+  HOST: z.string().url(),
 })
 
 export type RunningEnv = z.infer<typeof serverSchema>['ENV'];
@@ -34,10 +35,11 @@ export const serverEnv = {
   ENV: process.env.ENV,
   CDN_URL: process.env.CDN_URL,
   IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === 'true',
+  HOST: process.env.HOST,
 };
 
 export const client_env = {
-  APP_URL: process.env.APP_URL,
+  APP_URL: process.env.HOST,
   XP_BASE_URL: process.env.XP_BASE_URL,
   LOGOUT_URL: process.env.LOGOUT_URL,
   LOGIN_URL: process.env.LOGIN_URL,
