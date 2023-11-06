@@ -46,6 +46,7 @@ const scriptSrc = [
 ];
 
 const workerSrc = [
+  navNo,
   BLOB, // vergic
 ];
 
