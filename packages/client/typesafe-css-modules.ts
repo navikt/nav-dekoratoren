@@ -99,13 +99,10 @@ export async function processAll() {
     path.endsWith('.module.css'),
   );
 
-  console.log('paths', paths.length);
-
   const processedFiles = await Promise.all(
     paths.map(async (f) => await processFile(f)),
   );
   const modules: ts.ModuleDeclaration[] = processedFiles.map(createTSModule);
-  console.log('modules', modules.length);
   const output = await createOutput(modules);
 
   for (const target of targets) {
