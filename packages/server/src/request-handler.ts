@@ -80,6 +80,7 @@ const requestHandler = async (
         method: 'GET',
         path,
         handler: ({ url }) =>
+          // @ts-expect-error Blob type inconsistency
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
@@ -232,6 +233,9 @@ const requestHandler = async (
                 context: data.context,
                 language,
                 decoratorUtils,
+                opsMessages: data.ssr
+                  ? await contentService.getOpsMessages()
+                  : [],
               })
           ).render(),
         )

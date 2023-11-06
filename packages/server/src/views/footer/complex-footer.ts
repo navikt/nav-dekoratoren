@@ -4,7 +4,7 @@ import { ScreenshareButton } from './screenshare-button';
 import { ArrowUp } from 'decorator-shared/views/icons';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import cls from 'decorator-client/src/styles/complex-footer.module.css';
-import utilCls from 'decorator-shared/utilities.module.css';
+import utilCls from 'decorator-client/src/styles/utilities.module.css';
 
 export type ComplexFooterProps = {
   texts: Pick<Texts, 'share_screen' | 'to_top'>;
