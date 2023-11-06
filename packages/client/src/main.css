@@ -14,8 +14,8 @@ body {
   margin: 0;
 }
 
-#header-withmenu,
-#footer-withmenu {
+#decorator-header,
+#decorator-footer {
   --edge-spacing: var(--a-spacing-4);
   /* How should we handle when on differnet domains? */
   font-family: 'Source Sans 3', sans-serif;
@@ -25,8 +25,8 @@ body {
 }
 
 @media (min-width: 1024px) {
-  #header-withmenu,
-  #footer-withmenu {
+  #decorator-header,
+  #decorator-footer {
     --edge-spacing: var(--a-spacing-10);
   }
 }

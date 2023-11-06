@@ -1,3 +1,5 @@
+import { P, match } from 'ts-pattern';
+
 type Props = Record<string, string | boolean | number | null | undefined>;
 
 // Conditionally add props to an element
@@ -60,15 +62,12 @@ function escapeHtml(string: string) {
   return lastIndex !== index ? html + str.slice(lastIndex, index) : html;
 }
 
-interface Element {}
-
 type TemplateStringValues =
   | string
   | string[]
   | Template
   | Template[]
   | boolean
-  | ((e: Element) => void)
   | number
   | undefined
   | null;
@@ -93,16 +92,21 @@ export const unsafeHtml = (htmlString: string) => ({
 export default html;
 
 const renderValue = (item: TemplateStringValues): string =>
-  Array.isArray(item)
-    ? item.map(renderValue).join('')
-    : // Check for boolean
-    [false, undefined, null].some((value) => item === value)
-    ? ''
-    : typeof item === 'string'
-    ? escapeHtml(item)
-    : item && typeof item === 'object' && 'render' in item
-    ? item.render()
-    : '';
+  match(item)
+    // Join arrays
+    .with(P.array(P.any), (items) => items.map(renderValue).join(''))
+    // Nullish values to empty string
+    .with(P.union(false, P.nullish), () => '')
+    // Escape strings
+    .with(P.string, (str) => escapeHtml(str))
+    // Convert numbers to string
+    .with(P.number, (num) => String(num))
+    // Make "true" into true string
+    .with(true, () => 'true')
+    // Render template
+    .with(P.select(), (template) => template.render())
+    .exhaustive();
+// .otherwise((template) => template.render());
 
 type AttribueValue = number | string | boolean | string[];
 
