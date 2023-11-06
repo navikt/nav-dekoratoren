@@ -5,6 +5,14 @@ type Config = {
   mock?: boolean;
 };
 
+
+/**
+ * @deprecated Only for testing deployment
+ */
+export interface GetFeatures {
+    getFeatures(): Features;
+}
+
 export default class UnleashService {
   unleashInstance: Unleash | null;
   supportedFeatures: { [key: string]: boolean };

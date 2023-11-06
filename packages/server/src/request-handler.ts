@@ -14,7 +14,7 @@ import renderIndex from './render-index';
 import SearchService from './search-service';
 import TaConfigService from './task-analytics-service';
 import { texts } from './texts';
-import UnleashService from './unleash-service';
+import UnleashService, { GetFeatures } from './unleash-service';
 import { validParams } from './validateParams';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
@@ -72,7 +72,7 @@ const requestHandler = async (
   searchService: SearchService,
   fileSystemService: FileSystemService,
   notificationsService: NotificationsService,
-  unleashService: UnleashService,
+  unleashService: GetFeatures,
   taConfigService: TaConfigService,
 ) => {
   const filePaths = fileSystemService
