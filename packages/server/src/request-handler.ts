@@ -168,25 +168,53 @@ const requestHandler = async (
     .get('/user-menu', async ({ query }) => {
       const data = validParams(query);
       const localTexts = texts[data.language];
-      return new Response(
-        data.simple
-          ? SimpleUserMenu({
+      if (data.simple) {
+        return r()
+          .html(
+            SimpleUserMenu({
               texts: localTexts,
               name: data.name as string,
-            }).render()
-          : UserMenuDropdown({
-              texts: localTexts,
-              name: data.name,
-              notifications:
-                await notificationsService.getNotifications(localTexts),
-              level: data.level,
             }).render(),
-        {
-          headers: {
-            'content-type': 'text/html; charset=utf-8',
-          },
-        },
-      );
+          )
+          .build();
+      } else {
+        switch (data.context) {
+          case 'privatperson':
+            return r()
+              .html(
+                UserMenuDropdown({
+                  texts: localTexts,
+                  name: data.name,
+                  notifications:
+                    await notificationsService.getNotifications(localTexts),
+                  level: data.level,
+                }).render(),
+              )
+              .build();
+          case 'arbeidsgiver':
+            return r()
+              .html(
+                UserMenuDropdown({
+                  texts: localTexts,
+                  name: data.name,
+                  notifications:
+                    await notificationsService.getNotifications(localTexts),
+                  level: data.level,
+                }).render(),
+              )
+              .build();
+          case 'samarbeidspartner':
+            return r()
+              .html(
+                IconButton({
+                  id: 'logout-button',
+                  Icon: LogoutIcon({}),
+                  text: localTexts.logout,
+                }).render(),
+              )
+              .build();
+        }
+      }
     })
     .get('/ops-messages', async () =>
       r()

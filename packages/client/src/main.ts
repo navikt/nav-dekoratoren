@@ -163,8 +163,7 @@ window.addEventListener('activecontext', (event) => {
 async function populateLoggedInMenu(authObject: Auth) {
   fetch(
     `${import.meta.env.VITE_DECORATOR_BASE_URL}/user-menu?${formatParams({
-      simple: window.__DECORATOR_DATA__.params.simple,
-      language: window.__DECORATOR_DATA__.params.language,
+      ...window.__DECORATOR_DATA__.params,
       name: authObject.name,
       level: `Level${authObject.securityLevel}` as LoginLevel,
     })}`,
