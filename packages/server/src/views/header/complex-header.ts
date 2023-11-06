@@ -34,42 +34,44 @@ export function ComplexHeader({
 }: ComplexHeaderProps) {
   // @TODO: Need id here for css vars.
   return html`
-    <header class="${cls.siteheader}" id="header-withmenu">
-      <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <div class="${cls.hovedmenyContent}">
-          <a
-            is="lenke-med-sporing"
-            href="/"
-            class="${cls.logo}"
-            data-analytics-event-args="${JSON.stringify({
-              category: 'dekorator-header',
-              action: 'navlogo',
-            })}"
-            data-attach-context
-          >
-            <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
-          </a>
-          <div class="${cls.arbeidsflate}">
-            ${language === 'nb' &&
-            contextLinks?.map(
-              ({ url, lenkeTekstId, context }) =>
-                html`<a
-                  is="context-link"
-                  href="${url}"
-                  data-analytics-event-args="${JSON.stringify({
-                    action: 'arbeidsflate-valg',
-                    category: 'dekorator-header',
-                    label: context,
-                  })}"
-                  class="${clsx(cls.headerContextLink, {
-                    [cls.lenkeActive]: context === currentContext,
-                  })}"
-                  data-attach-context
-                  data-context="${context.toLowerCase()}"
-                >
-                  ${texts[lenkeTekstId]}
-                </a>`,
-            )}
+    <div id="decorator-header">
+      <header class="${cls.siteheader}">
+        <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+          <div class="${cls.hovedmenyContent}">
+            <a
+              is="lenke-med-sporing"
+              href="/"
+              class="${cls.logo}"
+              data-analytics-event-args="${JSON.stringify({
+                category: 'dekorator-header',
+                action: 'navlogo',
+              })}"
+              data-attach-context
+            >
+              <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+            </a>
+            <div class="${cls.arbeidsflate}">
+              ${language === 'nb' &&
+              contextLinks?.map(
+                ({ url, lenkeTekstId, context }) =>
+                  html`<a
+                    is="context-link"
+                    href="${url}"
+                    data-analytics-event-args="${JSON.stringify({
+                      action: 'arbeidsflate-valg',
+                      category: 'dekorator-header',
+                      label: context,
+                    })}"
+                    class="${clsx(cls.headerContextLink, {
+                      [cls.lenkeActive]: context === currentContext,
+                    })}"
+                    data-attach-context
+                    data-context="${context.toLowerCase()}"
+                  >
+                    ${texts[lenkeTekstId]}
+                  </a>`,
+              )}
+            </div>
           </div>
         </div>
         <div class="${menuItemsCls.menuItems}">
@@ -110,10 +112,10 @@ export function ComplexHeader({
             })}
           </div>
         </div>
-      </div>
-    </header>
-    <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${decoratorUtils}
-    <menu-background></menu-background>
+      </header>
+      <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+      ${decoratorUtils}
+      <menu-background></menu-background>
+    </div>
   `;
 }

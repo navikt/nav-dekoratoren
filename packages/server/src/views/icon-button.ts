@@ -9,7 +9,7 @@ export function IconButton({
 }: {
   Icon: Template;
   id?: string;
-  text: string;
+  text: Template | string;
   className?: string;
 }) {
   return html`

@@ -1,4 +1,4 @@
-import { loadExternalScript } from "./utils";
+import { loadExternalScript } from './utils';
 
 export const VNGAGE_ID = '83BD7664-B38B-4EEE-8D99-200669A32551' as const;
 
@@ -15,8 +15,6 @@ export type VngageUserState = {
   poi: unknown;
 };
 
-
-
 // @TODO: Use promise instead of callback?
 export function lazyLoadScreensharing(cb: () => void) {
   // Check if it is already loaded to avoid layout shift
@@ -25,12 +23,12 @@ export function lazyLoadScreensharing(cb: () => void) {
     window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
 
   if (!enabled) {
-    cb()
+    cb();
     return;
   }
 
   window.vngageReady = () => {
-      cb()
+    cb();
   };
 
   loadExternalScript(vendorScripts.skjermdeling);
@@ -41,7 +39,6 @@ export function useLoadIfActiveSession({
 }: {
   userState: string | undefined;
 }) {
-    console.log(userState)
   if (userState && userState !== 'Ready') {
     loadExternalScript(vendorScripts.skjermdeling);
   }
