@@ -19,3 +19,4 @@ export * from './person-circle-notification';
 export * from './badge';
 export * from './padlock';
 export * from './globe';
+export * from './briefcase';

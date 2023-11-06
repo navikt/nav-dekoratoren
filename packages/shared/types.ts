@@ -100,6 +100,7 @@ export type Texts = ClientTexts & {
   delskjerm_modal_hjelpetekst_2: string;
   delskjerm_modal_stengt: string;
   security_level_info: string;
+  go_to_my_page: string;
 };
 
 export type OpsMessage = {

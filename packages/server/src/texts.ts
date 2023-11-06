@@ -88,6 +88,7 @@ const nb = {
     'Skjermdeling er for øyeblikket stengt, prøv igjen senere',
   security_level_info:
     'Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.',
+  go_to_my_page: 'Gå til Min side',
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -173,6 +174,7 @@ export const texts: Record<Language, Texts> = {
       'Screen sharing is currently closed, please try again later',
     security_level_info:
       'Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.',
+    go_to_my_page: 'Go to my page',
   },
   se: nb,
   nn: nb,

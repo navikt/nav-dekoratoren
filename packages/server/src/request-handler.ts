@@ -1,4 +1,3 @@
-import html from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
@@ -28,6 +27,7 @@ import { DecoratorUtils } from './views/decorator-utils';
 import { makeContextLinks } from 'decorator-shared/context';
 import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexFooter } from './views/footer/complex-footer';
+import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -166,55 +166,36 @@ const requestHandler = async (
       );
     })
     .get('/user-menu', async ({ query }) => {
-      const data = validParams(query);
-      const localTexts = texts[data.language];
-      if (data.simple) {
-        return r()
-          .html(
-            SimpleUserMenu({
-              texts: localTexts,
-              name: data.name as string,
-            }).render(),
-          )
-          .build();
-      } else {
-        switch (data.context) {
-          case 'privatperson':
-            return r()
-              .html(
-                UserMenuDropdown({
-                  texts: localTexts,
-                  name: data.name,
-                  notifications:
-                    await notificationsService.getNotifications(localTexts),
-                  level: data.level,
-                }).render(),
-              )
-              .build();
-          case 'arbeidsgiver':
-            return r()
-              .html(
-                UserMenuDropdown({
-                  texts: localTexts,
-                  name: data.name,
-                  notifications:
-                    await notificationsService.getNotifications(localTexts),
-                  level: data.level,
-                }).render(),
-              )
-              .build();
-          case 'samarbeidspartner':
-            return r()
-              .html(
-                IconButton({
-                  id: 'logout-button',
-                  Icon: LogoutIcon({}),
-                  text: localTexts.logout,
-                }).render(),
-              )
-              .build();
+      const template = async () => {
+        const data = validParams(query);
+        const localTexts = texts[data.language];
+        if (data.simple) {
+          return SimpleUserMenu({
+            texts: localTexts,
+            name: data.name as string,
+          });
+        } else {
+          switch (data.context) {
+            case 'privatperson':
+              return UserMenuDropdown({
+                texts: localTexts,
+                name: data.name,
+                notifications:
+                  await notificationsService.getNotifications(localTexts),
+                level: data.level,
+              });
+            case 'arbeidsgiver':
+              return ArbeidsgiverUserMenu({ texts: localTexts });
+            case 'samarbeidspartner':
+              return IconButton({
+                id: 'logout-button',
+                Icon: LogoutIcon({}),
+                text: localTexts.logout,
+              });
+          }
         }
-      }
+      };
+      return template().then((template) => r().html(template.render()).build());
     })
     .get('/ops-messages', async () =>
       r()
