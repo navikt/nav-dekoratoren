@@ -12,7 +12,7 @@ export function LogoutWarning() {
         Du blir snart logget ut automatisk
       </h1>
       <p id="logout-warning-body" class="${clsModal.modalBody}">
-        Vil du fortsatt være innlogget?
+        Vil du fortsatt ${'være'} innlogget?
       </p>
       <div class="${cls.buttonWrapper}">
         ${Button({

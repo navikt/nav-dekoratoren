@@ -1,8 +1,9 @@
+import { getLogOutUrl } from 'decorator-shared/auth';
 import { Context, Language } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
-import { getLogOutUrl } from 'decorator-shared/auth';
-
+import { makeContextLinks } from 'decorator-shared/context';
+import { match } from 'ts-pattern';
 import ContentService from './content-service';
 import { handleCors } from './cors';
 import { cspHandler } from './csp';
@@ -14,30 +15,27 @@ import renderIndex from './render-index';
 import SearchService from './search-service';
 import TaConfigService from './task-analytics-service';
 import { texts } from './texts';
-import UnleashService, { GetFeatures } from './unleash-service';
+import { GetFeatures } from './unleash-service';
 import { validParams } from './validateParams';
+import { DecoratorUtils } from './views/decorator-utils';
+import { ComplexFooter } from './views/footer/complex-footer';
+import { SimpleFooter } from './views/footer/simple-footer';
+import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
+import { ComplexHeader } from './views/header/complex-header';
 import { MainMenu } from './views/header/main-menu';
+import { SimpleHeader } from './views/header/simple-header';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
 import { IconButton } from './views/icon-button';
 import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
-import { SimpleHeader } from './views/header/simple-header';
-import { ComplexHeader } from './views/header/complex-header';
-import { DecoratorUtils } from './views/decorator-utils';
-import { makeContextLinks } from 'decorator-shared/context';
-import { SimpleFooter } from './views/footer/simple-footer';
-import { ComplexFooter } from './views/footer/complex-footer';
-import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
-import { match } from 'ts-pattern';
 import { NotificationsService } from './notifications-service';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
   getFilePaths: (dir: string) => string[];
 };
-
 
 const rewriter = new HTMLRewriter().on('img', {
   element: (element) => {
@@ -76,7 +74,6 @@ const requestHandler = async (
   const filePaths = fileSystemService
     .getFilePaths('./public')
     .map((file) => file.replace('./', '/'));
-
 
   const handlers = new HandlerBuilder()
     .use(
@@ -167,29 +164,35 @@ const requestHandler = async (
             name: data.name as string,
           });
         } else {
-            // What should type be here
-            // This should be merged with params.
+          // What should type be here
+          // This should be merged with params.
           const logoutUrl = getLogOutUrl(data);
 
           return match(data.context)
-            .with('privatperson', async () => UserMenuDropdown({
+            .with('privatperson', async () =>
+              UserMenuDropdown({
                 texts: localTexts,
                 name: data.name,
                 notifications: await notificationsService.getNotifications({
-                    texts: localTexts,
-                    request
+                  texts: localTexts,
+                  request,
                 }),
                 level: data.level,
-                logoutUrl: logoutUrl as string
-            }))
-            .with('arbeidsgiver', () => ArbeidsgiverUserMenu({
+                logoutUrl: logoutUrl as string,
+              }),
+            )
+            .with('arbeidsgiver', () =>
+              ArbeidsgiverUserMenu({
                 texts: localTexts,
-            }))
-            .with('samarbeidspartner', () => IconButton({
+              }),
+            )
+            .with('samarbeidspartner', () =>
+              IconButton({
                 id: 'logout-button',
                 Icon: LogoutIcon({}),
                 text: localTexts.logout,
-            }))
+              }),
+            )
             .exhaustive();
         }
       };
@@ -281,11 +284,11 @@ const requestHandler = async (
     const url = new URL(request.url);
 
     if (url.pathname === '/api/isAlive') {
-        return new Response('OK');
+      return new Response('OK');
     }
 
     if (url.pathname === '/api/isReady') {
-        return new Response('OK');
+      return new Response('OK');
     }
 
     // Ambigious naming since it also returns headers, should be refactored?
