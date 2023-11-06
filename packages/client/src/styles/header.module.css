@@ -14,9 +14,15 @@
   background-color: var(--a-surface-default);
   color: var(--a-text-default);
   border-bottom: 1px solid var(--a-border-subtle);
-  height: 80px;
+  height: 72px;
   position: relative;
   z-index: 1000;
+}
+
+@media (min-width: 768px) {
+  .siteheader {
+    height: 80px;
+  }
 }
 
 .hovedmenyWrapper {

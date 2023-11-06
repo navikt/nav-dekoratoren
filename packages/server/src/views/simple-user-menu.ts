@@ -11,7 +11,10 @@ export type SimpleUserMenuProps = {
 
 export const SimpleUserMenu = ({ name, texts }: SimpleUserMenuProps) =>
   html`<div class="${cls.simpleUserMenu}">
-    <span><b>${texts.logged_in}:</b> ${name}</span>
+    <span class="${cls.name}">
+      <b>${texts.logged_in}:</b>
+      <span>${name}</span>
+    </span>
     ${IconButton({
       id: 'logout-button',
       Icon: LogoutIcon({}),
