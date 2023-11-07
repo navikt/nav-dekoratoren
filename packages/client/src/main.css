@@ -20,6 +20,7 @@ body {
   font-family: var(--a-font-family);
   line-height: 1.333;
   font-size: 1.125rem;
+  color: var(--a-text-default);
   -webkit-font-smoothing: antialiased;
 }
 
