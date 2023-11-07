@@ -8,7 +8,7 @@
   box-shadow: var(--a-shadow-xsmall);
 }
 
-.notification:hover {
+.notification.hover:hover {
   box-shadow: var(--a-shadow-small);
 }
 

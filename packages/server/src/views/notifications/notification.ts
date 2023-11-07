@@ -22,7 +22,7 @@ export const Notification = ({
   amplitudeKomponent,
 }: NotificationProps) =>
   html`<link-notification
-    class="${cls.notification}"
+    class="${cls.notification} ${cls.hover}"
     data-amplitude-komponent="${amplitudeKomponent}"
   >
     <div class="${cls.header}">
