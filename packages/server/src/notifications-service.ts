@@ -1,24 +1,23 @@
 import { Texts } from 'decorator-shared/types';
-import notificationsMock from './notifications-mock.json';
-import { Notification } from './views/notifications/notifications';
 import {
   MessageIcon,
   TaskIcon,
 } from 'decorator-shared/views/icons/notifications';
-import { Language } from 'decorator-shared/params';
-import { env } from './env/server';
 import { match } from 'ts-pattern';
 import { exchangeToken } from './auth';
+import { env } from './env/server';
+import notificationsMock from './notifications-mock.json';
+import { Notification } from './views/notifications/notifications';
 
 export type NotificationsService = {
-    getNotifications: ({
-        texts,
-        request,
-    }: {
-        texts: Texts;
-        request: Request;
-    }) => Promise<Notification[] | undefined>;
-}
+  getNotifications: ({
+    texts,
+    request,
+  }: {
+    texts: Texts;
+    request: Request;
+  }) => Promise<Notification[] | undefined>;
+};
 
 type Oppgave = {
   eventId: string;
@@ -45,13 +44,13 @@ type Beskjed = {
 };
 
 type NotificationData = {
-    oppgaver: Oppgave[];
-    beskjeder: Beskjed[];
-}
+  oppgaver: Oppgave[];
+  beskjeder: Beskjed[];
+};
 
 const getNotifications: (
   texts: Texts,
-  data: NotificationData
+  data: NotificationData | null,
 ) => Promise<Notification[] | undefined> = async (texts, data) => {
   const kanalerToMetadata = (kanaler: string[]) => {
     if (kanaler.includes('SMS') && kanaler.includes('EPOST')) {
@@ -90,62 +89,57 @@ const getNotifications: (
   });
 
   return Promise.resolve([
-    ...data.oppgaver.map(oppgaveToNotifiction),
-    ...data.beskjeder.map(beskjedToNotification),
+    ...(data?.oppgaver.map(oppgaveToNotifiction) || []),
+    ...(data?.beskjeder.map(beskjedToNotification) || []),
   ]);
 };
 
-
 export const getNotificationsDev = () => {
-    return {
-        getNotifications: async ({
-            texts
-        }: {
-            texts: Texts;
-        }) => {
-            // just for dev
-            return getNotifications(texts, notificationsMock);
-        }
-    }
+  return {
+    getNotifications: async ({ texts }: { texts: Texts }) => {
+      // just for dev
+      return getNotifications(texts, notificationsMock);
+    },
+  };
 };
 
 export const hentVarslerFetch = async (
-    VARSEL_API_URL: string,
-    // Test without
-    request: Request,
-): Promise<NotificationData> => {
-    const token = await exchangeToken(request)
+  VARSEL_API_URL: string,
+  // Test without
+  request: Request,
+): Promise<NotificationData | null> => {
+  const token = await exchangeToken(request);
 
-    return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
-        headers: {
-            'Authorization': token,
-        },
-        credentials: 'include',
-        verbose: true,
-    })
-    .then((response) => response.json() as Promise<NotificationData>)
-}
-
-
+  return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
+    headers: {
+      Authorization: token,
+    },
+    credentials: 'include',
+    verbose: true,
+  }).then((response) => response.json() as Promise<NotificationData>);
+};
 
 export const getNotificationsProd = () => {
-    return {
-        getNotifications: async ({
-            request,
-            texts
-        }: {
-            request: Request;
-            texts: Texts;
-        }) => {
-            const notificationData = await hentVarslerFetch(env.VARSEL_API_URL, request);
-            return getNotifications(texts, notificationData);
-        }
-    }
-}
+  return {
+    getNotifications: async ({
+      request,
+      texts,
+    }: {
+      request: Request;
+      texts: Texts;
+    }) => {
+      const notificationData = await hentVarslerFetch(
+        env.VARSEL_API_URL,
+        request,
+      );
+      return getNotifications(texts, notificationData);
+    },
+  };
+};
 
 export default () => {
-    return match(env.NODE_ENV)
-        .with('development', () => getNotificationsDev())
-        .with('production', () => getNotificationsProd())
-        .exhaustive()
-}
+  return match(env.NODE_ENV)
+    .with('development', () => getNotificationsDev())
+    .with('production', () => getNotificationsProd())
+    .exhaustive();
+};

@@ -12,6 +12,7 @@ spec:
     enabled: true
     sidecar:
       enabled: true
+      level: Level4
   ingresses:
     - https://decorator-next.ekstern.dev.nav.no
   liveness:
