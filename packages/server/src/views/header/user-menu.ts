@@ -38,7 +38,9 @@ export const UserMenu = ({
           content: html`
             <div>
               ${texts.security_level_info}
-              <a href="#TODO">Logg inn med BankID, Buypass, eller Commfides</a>
+              <a class="${cls.link}" href="#TODO"
+                >Logg inn med BankID, Buypass, eller Commfides</a
+              >
             </div>
           `,
         })}

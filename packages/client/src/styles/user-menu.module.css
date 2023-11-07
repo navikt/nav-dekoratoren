@@ -72,3 +72,15 @@
 .alert {
   margin-top: var(--a-spacing-4);
 }
+
+.link {
+  margin-top: var(--a-spacing-3);
+  text-underline-offset: 0.15em;
+  color: var(--a-text-default);
+  cursor: pointer;
+  align-self: center;
+}
+
+.link:hover {
+  text-decoration: none;
+}

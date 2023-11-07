@@ -14,19 +14,23 @@ body {
   margin: 0;
 }
 
-#decorator-header,
-#decorator-footer {
-  --edge-spacing: var(--a-spacing-4);
-  font-family: var(--a-font-family);
-  line-height: 1.333;
-  font-size: 1.125rem;
-  color: var(--a-text-default);
-  -webkit-font-smoothing: antialiased;
-}
+@layer base, utilities;
 
-@media (min-width: 1024px) {
+@layer base {
   #decorator-header,
   #decorator-footer {
-    --edge-spacing: var(--a-spacing-10);
+    --edge-spacing: var(--a-spacing-4);
+    font-family: var(--a-font-family);
+    line-height: 1.333;
+    font-size: 1.125rem;
+    color: var(--a-text-default);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (min-width: 1024px) {
+    #decorator-header,
+    #decorator-footer {
+      --edge-spacing: var(--a-spacing-10);
+    }
   }
 }
