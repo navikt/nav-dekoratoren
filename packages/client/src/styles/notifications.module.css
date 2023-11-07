@@ -1,18 +1,15 @@
 .notificationsHeading {
   margin-block: 0;
+  font-size: var(--a-font-size-heading-medium);
+  letter-spacing: -0.002em;
+  line-height: var(--a-font-line-height-heading-medium);
+  font-weight: var(--a-font-weight-bold);
 }
 
 .notifications {
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-3);
-}
-
-.notificationListHeading {
-  font-size: var(--a-font-size-large);
-  font-weight: var(--a-font-weight-regular);
-  line-height: var(--a-font-line-height-large);
-  margin: 0 0 var(--a-spacing-4) 0;
 }
 
 .notificationList {
