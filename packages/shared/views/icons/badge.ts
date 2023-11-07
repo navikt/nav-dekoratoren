@@ -1,6 +1,6 @@
 import html from '../../html';
 
-export const BadgeIcon = ({ className }: { className: string }) =>
+export const BadgeIcon = ({ className }: { className?: string } = {}) =>
   html`<svg
     width="1em"
     height="1em"
@@ -9,7 +9,7 @@ export const BadgeIcon = ({ className }: { className: string }) =>
     xmlns="http://www.w3.org/2000/svg"
     focusable="false"
     role="img"
-    class="${className}"
+    ${className && html`class="${className}"`}
   >
     <path
       fill-rule="evenodd"
