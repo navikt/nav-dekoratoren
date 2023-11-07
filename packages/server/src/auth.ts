@@ -34,8 +34,10 @@ export async function exchangeToken(request: Request) {
   );
   */
 
+  console.log('exchangeToken', 'getting issuer');
   const as = await getIssuer();
 
+  console.log('exchangeToken', 'sending deviceAuthReq');
   const response = await oauth.deviceAuthorizationRequest(
     as,
     client,
@@ -47,6 +49,7 @@ export async function exchangeToken(request: Request) {
     },
   );
 
+  console.log('exchangeToken', 'deviceAuthRes', JSON.stringify(response));
   let challenges: oauth.WWWAuthenticateChallenge[] | undefined;
   if ((challenges = oauth.parseWwwAuthenticateChallenges(response))) {
     for (const challenge of challenges) {
