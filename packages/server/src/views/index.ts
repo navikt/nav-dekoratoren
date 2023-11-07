@@ -126,11 +126,12 @@ export async function Index({
     <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
       <head>
         <title>${'NAV Dekoratør'}</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

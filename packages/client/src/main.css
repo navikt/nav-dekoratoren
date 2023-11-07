@@ -17,8 +17,7 @@ body {
 #decorator-header,
 #decorator-footer {
   --edge-spacing: var(--a-spacing-4);
-  /* How should we handle when on differnet domains? */
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--a-font-family);
   line-height: 1.333;
   font-size: 1.125rem;
   -webkit-font-smoothing: antialiased;
