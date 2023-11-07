@@ -74,8 +74,7 @@
 }
 
 .metadata {
-  color: var(--a-text-subtle);
-  font-size: var(--a-font-size-small);
+  font-size: var(--a-font-size-medium);
   line-height: var(--a-font-line-height-medium);
 }
 
