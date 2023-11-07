@@ -5,7 +5,7 @@
 .notifications {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-6);
+  gap: var(--a-spacing-3);
 }
 
 .notificationListHeading {
@@ -25,6 +25,7 @@
 }
 
 .allNotificationsLink {
+  margin-top: var(--a-spacing-3);
   text-underline-offset: 0.15em;
   color: var(--a-text-default);
   cursor: pointer;
