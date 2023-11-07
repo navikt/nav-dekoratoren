@@ -108,7 +108,7 @@ export const hentVarslerFetch = async (
   // Test without
   request: Request,
 ): Promise<NotificationData | null> => {
-  console.log('hentVarslerFetch', 'henter token');
+
   const token = await exchangeToken(request);
   console.log('hentVarslerFetch', 'token hentet', token);
 

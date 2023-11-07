@@ -5,9 +5,9 @@ import {
 
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
-  console.log('exchangeToken');
+  console.log('exchangeToken', request);
   const accessToken = request.headers
-    .get('Authorization')!
+    .get('authorization')!
     .replace('Bearer ', '')!;
   console.log('access1', accessToken);
 
@@ -18,7 +18,7 @@ export async function exchangeToken(request: Request) {
 
   if (isInvalidTokenSet(tokenX)) {
     throw new Error(
-      `Unable to exchange token for tms-varsel-api token, reason: ${tokenX.message}`,
+      `Unable to exchange token for tms-varsel-api token, reason: ${tokenX.message} -- ${JSON.stringify(request.headers)}`,
       {
         cause: tokenX.error,
       },
