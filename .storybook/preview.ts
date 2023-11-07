@@ -1,27 +1,12 @@
 import type { Preview } from '@storybook/html';
-import html from 'decorator-shared/html';
-import { Params } from 'decorator-shared/params';
 import 'decorator-client/src/main.css';
-import 'decorator-client/src/views/local-time';
-import 'decorator-client/src/views/loader';
-import 'decorator-client/src/views/language-selector';
-import 'decorator-client/src/views/menu-background';
 import 'decorator-client/src/views/dropdown-menu';
+import 'decorator-client/src/views/language-selector';
+import 'decorator-client/src/views/loader';
+import 'decorator-client/src/views/local-time';
+import 'decorator-client/src/views/menu-background';
 import 'decorator-client/src/views/search-input';
-
-declare global {
-  interface Window {
-    __DECORATOR_DATA__: {
-      params: Partial<Params>;
-    };
-  }
-}
-
-window.__DECORATOR_DATA__ = {
-  params: {
-    language: 'nb',
-  },
-};
+import html from 'decorator-shared/html';
 
 const preview: Preview = {
   decorators: [
