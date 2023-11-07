@@ -10,7 +10,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  staticDirs: [{ from: '../packages/server/public', to: '/public' }],
+  staticDirs: [{ from: '../packages/server/public', to: '/' }],
   viteFinal: (config) => ({ ...config, define: { 'process.env': {} } }),
 };
 export default config;
