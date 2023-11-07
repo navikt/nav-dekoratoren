@@ -8,6 +8,7 @@ import {
 import { Language } from 'decorator-shared/params';
 import { env } from './env/server';
 import { match } from 'ts-pattern';
+import { exchangeToken } from './auth';
 
 export type NotificationsService = {
     getNotifications: ({
@@ -108,15 +109,16 @@ export const getNotificationsDev = () => {
     }
 };
 
-export const hentVarslerFetch = (
+export const hentVarslerFetch = async (
     VARSEL_API_URL: string,
     // Test without
     request: Request,
 ): Promise<NotificationData> => {
+    const token = await exchangeToken(request)
 
     return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
         headers: {
-            ...request.headers.entries(),
+            'Authorization': token,
         },
         credentials: 'include',
         verbose: true,
