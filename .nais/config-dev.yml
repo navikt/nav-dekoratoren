@@ -37,4 +37,4 @@ spec:
     - name: PORT
       value: '8089'
   envFrom:
-    - secret: nav-dekoratoren-unleash-api-token
+    - secret: decorator-next-unleash-api-token
