@@ -6,8 +6,8 @@ import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css'
 import { ContextLink } from 'decorator-shared/context';
 import html, { Template } from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
-import { Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-shared/utilities.module.css';
+import { OpsMessage, Texts } from 'decorator-shared/types';
+import utilsCls from 'decorator-client/src/styles/utilities.module.css';
 import {
   BurgerIcon,
   LoginIcon,
@@ -16,6 +16,7 @@ import {
 import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
+import { OpsMessages } from '../ops-messages';
 
 export type ComplexHeaderProps = {
   texts: Texts;
@@ -23,6 +24,7 @@ export type ComplexHeaderProps = {
   language: Language;
   contextLinks: ContextLink[];
   decoratorUtils: Template;
+  opsMessages: OpsMessage[];
 };
 
 export function ComplexHeader({
@@ -31,6 +33,7 @@ export function ComplexHeader({
   texts,
   context: currentContext,
   decoratorUtils,
+  opsMessages,
 }: ComplexHeaderProps) {
   // @TODO: Need id here for css vars.
   return html`
@@ -48,7 +51,7 @@ export function ComplexHeader({
               })}"
               data-attach-context
             >
-              <img src="/public/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+              <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
             </a>
             <div class="${cls.arbeidsflate}">
               ${language === 'nb' &&
@@ -82,7 +85,8 @@ export function ComplexHeader({
               })}
             </user-menu>
             <div class="${menuItemsCls.menuItemsUniversalLinks}">
-              ${language !== 'se' && DropdownMenu({
+              ${language !== 'se' &&
+              DropdownMenu({
                 button: IconButton({
                   Icon: BurgerIcon(),
                   text: texts.menu,
@@ -116,7 +120,9 @@ export function ComplexHeader({
           </div>
         </div>
       </header>
-      <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+      <ops-messages class="${opsMessagesCls.opsMessages}"
+        >${opsMessages.length > 0 && OpsMessages({ opsMessages })}</ops-messages
+      >
       ${decoratorUtils}
       <menu-background></menu-background>
     </div>

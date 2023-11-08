@@ -2,7 +2,7 @@ import type { StoryObj, Meta } from '@storybook/html';
 import type { OpsMessagesProps } from './ops-messages';
 import { OpsMessages } from './ops-messages';
 import cls from 'decorator-client/src/styles/ops-messages.module.css';
-import utilCls from 'decorator-shared/utilities.module.css';
+import utilCls from 'decorator-client/src/styles/utilities.module.css';
 import html from 'decorator-shared/html';
 import { OpsMessage } from 'decorator-shared/types';
 

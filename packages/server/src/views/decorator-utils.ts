@@ -6,7 +6,7 @@ import {
   Breadcrumb,
   UtilsBackground,
 } from 'decorator-shared/params';
-import utilsCls from 'decorator-shared/utilities.module.css';
+import utilsCls from 'decorator-client/src/styles/utilities.module.css';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { LanguageSelector } from './language-selector';
 
@@ -23,6 +23,7 @@ export const DecoratorUtils = ({
 }: DecoratorUtilsProps) =>
   html`<decorator-utils
     class="${clsx(utilsCls.contentContainer, cls.decoratorUtils, {
+      [cls.empty]: availableLanguages.length === 0 && breadcrumbs.length === 0,
       [cls.white]: utilsBackground === 'white',
       [cls.gray]: utilsBackground === 'gray',
     })}"

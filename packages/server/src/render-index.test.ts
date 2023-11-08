@@ -37,6 +37,7 @@ test('It masks the document from hotjar', async () => {
         maskHotjar: true,
         logoutWarning: false,
         redirectToUrl: 'https://www.nav.no',
+        ssr: true,
       },
       url: 'localhost:8089/',
       query: {},

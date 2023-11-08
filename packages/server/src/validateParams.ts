@@ -2,7 +2,6 @@ import { paramsSchema } from 'decorator-shared/params';
 import { clientEnv } from './env/server';
 import { P, match } from 'ts-pattern';
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateParams = (params: Record<string, string>) => {
   const parseBooleanParam = (param?: string | boolean): boolean =>
@@ -21,6 +20,7 @@ export const validateParams = (params: Record<string, string>) => {
     'urlLookupTable',
     'shareScreen',
     'maskHotjar',
+    'ssr',
   ];
 
   return {
@@ -33,11 +33,11 @@ export const validateParams = (params: Record<string, string>) => {
       {},
     ),
     logoutUrl: match(params.logoutUrl)
-        .with(P.string, (url) => url)
-        .otherwise(() => clientEnv.LOGOUT_URL),
+      .with(P.string, (url) => url)
+      .otherwise(() => clientEnv.LOGOUT_URL),
     breadcrumbs: match(params.breadcrumbs)
-        .with(P.string, (breadcrumbs) => JSON.parse(breadcrumbs))
-        .otherwise(() => []),
+      .with(P.string, (breadcrumbs) => JSON.parse(breadcrumbs))
+      .otherwise(() => []),
     availableLanguages: params.availableLanguages
       ? JSON.parse(params.availableLanguages).map((language: any) => ({
           ...language,
@@ -47,16 +47,13 @@ export const validateParams = (params: Record<string, string>) => {
   };
 };
 
-
 export const validParams = (query: Record<string, string>) => {
-    const validParams = paramsSchema.safeParse(
-        validateParams(query)
-    );
+  const validParams = paramsSchema.safeParse(validateParams(query));
 
-    if (!validParams.success) {
-      console.error(validParams.error);
-      throw new Error(validParams.error.toString());
-    }
+  if (!validParams.success) {
+    console.error(validParams.error);
+    throw new Error(validParams.error.toString());
+  }
 
-    return validParams.data;
-  };
+  return validParams.data;
+};

@@ -56,6 +56,9 @@ export default async ({
               context: data.context,
               language,
               decoratorUtils,
+              opsMessages: data.ssr
+                ? await contentService.getOpsMessages()
+                : [],
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
@@ -86,7 +89,7 @@ export default async ({
         texts: localTexts,
         params: data,
         features,
-        environment: clientEnv
+        environment: clientEnv,
       }),
       maskDocument: data.maskHotjar,
       main:

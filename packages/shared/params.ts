@@ -39,6 +39,7 @@ const loginLevel = z.enum(['Level3', 'Level4']);
 export type LoginLevel = z.infer<typeof loginLevel>;
 
 export const paramsSchema = z.object({
+  ssr: z.boolean().default(false),
   context: contextSchema.default('privatperson'),
   simple: z.boolean().default(false),
   simpleHeader: z.boolean().default(false),

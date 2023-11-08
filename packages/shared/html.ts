@@ -104,7 +104,7 @@ const renderValue = (item: TemplateStringValues): string =>
     // Make "true" into true string
     .with(true, () => 'true')
     // Render template
-    .with(P.select(), (template) => template.render())
+    .with(P.select(), (template) => template.render().trim())
     .exhaustive();
 // .otherwise((template) => template.render());
 

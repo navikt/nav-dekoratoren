@@ -9,7 +9,6 @@ import notificationsService from './notifications-service';
 import UnleashService from './unleash-service';
 import TaConfigService from './task-analytics-service';
 // import { corsSchema } from './cors';
-
 // corsSchema.parse('https://www.google.com')
 
 const getFilePaths = (dir: string): string[] =>
@@ -62,6 +61,13 @@ const server = Bun.serve({
     },
     new TaConfigService()
   ),
+    error(error) {
+    return new Response(`<pre>${error}\n${error.stack}</pre>`, {
+      headers: {
+        "Content-Type": "text/html",
+      },
+    });
+  },
 });
 
 console.log(

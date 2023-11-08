@@ -8,6 +8,13 @@ metadata:
 spec:
   image: {{image}}
   port: 8089
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+  tokenx:
+    enabled: true
   ingresses:
     - https://decorator-next.ekstern.dev.nav.no
   liveness:
@@ -22,6 +29,9 @@ spec:
         - host: www.nav.no
         - host: www.intern.dev.nav.no
         - host: navno-unleash-api.nav.cloud.nais.io
+      rules:
+        - application: tms-varsel-api
+          namespace: min-side
   replicas:
     min: 1
     max: 2

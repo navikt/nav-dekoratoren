@@ -8,7 +8,7 @@
   box-shadow: var(--a-shadow-xsmall);
 }
 
-.notification:hover {
+.notification.hover:hover {
   box-shadow: var(--a-shadow-small);
 }
 
@@ -74,8 +74,7 @@
 }
 
 .metadata {
-  color: var(--a-text-subtle);
-  font-size: var(--a-font-size-small);
+  font-size: var(--a-font-size-medium);
   line-height: var(--a-font-line-height-medium);
 }
 

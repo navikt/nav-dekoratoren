@@ -24,11 +24,12 @@ jobs:
             cat > .env <<EOF
             ENV=NAV_NO
             HOST=https://decorator-next.ekstern.dev.nav.no
-            CDN_URL=https://decorator-next.ekstern.dev.nav.no
+            CDN_URL=https://cdn.nav.no/personbruker/decorator-next/public
             ENONICXP_SERVICES=https://www.intern.dev.nav.no/_/service
             AUTH_API_URL=https://login.ekstern.dev.nav.no
             LOGIN_URL=https://login.ekstern.dev.nav.no/oauth2/login
             LOGOUT_URL=https://login.ekstern.dev.nav.no/oauth2/logout
+            VARSEL_API_URL=http://tms-varsel-api.min-side
             PORT=8089
             EOF
       - name: Install dependencies
@@ -39,6 +40,13 @@ jobs:
         run: bun run build
       - name: Run tests
         run: bun run test
+      - name: upload to CDN
+        uses: navikt/frontend/actions/cdn-upload/v1@main
+        with:
+          cdn-team-name: personbruker
+          source: './packages/server/public'
+          destination: '/decorator-next'
+
       - name: Login to GitHub Docker Registry
         uses: docker/login-action@v1
         with:
@@ -52,6 +60,7 @@ jobs:
           file: Dockerfile
           tags: '${{ env.IMAGE }}'
           push: 'true'
+
   deploy:
     name: Deploy app
     needs: 'build'

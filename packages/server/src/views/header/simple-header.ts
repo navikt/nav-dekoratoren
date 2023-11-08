@@ -3,7 +3,7 @@ import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
 import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
 import html, { Template } from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-shared/utilities.module.css';
+import utilsCls from 'decorator-client/src/styles/utilities.module.css';
 import { LoginIcon } from 'decorator-shared/views/icons';
 import { IconButton } from '../icon-button';
 
@@ -29,7 +29,7 @@ export const SimpleHeader = ({
           })}"
           data-attach-context
         >
-          <img src="/public/ikoner/meny/nav-logo-black.svg" alt="NAV" />
+          <img src="/ikoner/meny/nav-logo-black.svg" alt="NAV" />
         </a>
         <user-menu class="${menuItemsCls.menuItems}">
           ${IconButton({
