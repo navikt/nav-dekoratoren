@@ -21,6 +21,8 @@ export async function exchangeToken(request: Request) {
     'dev-gcp:min-side:tms-varsel-api',
   );
 
+  console.log(tokenX)
+
   if (isInvalidTokenSet(tokenX)) {
     throw new Error(
       `Unable to exchange token for tms-varsel-api token, reason: ${tokenX.message} -- ${JSON.stringify(request.headers)}`,
