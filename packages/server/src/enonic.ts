@@ -13,7 +13,6 @@ export const fetchMenu: () => Promise<Node[]> = async () => {
       (response) => response.json(),
     )) as Node[];
   }
-  console.log('returning menu from enonic', menuCache);
   return menuCache;
 };
 
@@ -22,8 +21,6 @@ export const fetchOpsMessages = (): Promise<OpsMessage[]> => {
   const driftsmeldinger = fetch(
     `${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`,
   ).then((res) => res.json()) as Promise<OpsMessage[]>;
-
-  console.log('returning driftsmeldinger from enonic', driftsmeldinger);
 
   return driftsmeldinger;
 };

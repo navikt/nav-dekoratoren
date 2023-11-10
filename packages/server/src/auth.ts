@@ -5,7 +5,8 @@ import {
 
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
-  console.log('exchangeToken', request);
+    const authHeader = request.headers.get('authorization');
+    console.log('This is the auth header', authHeader)
   const accessToken = request.headers
     .get('authorization')!
     .replace('Bearer ', '')!;
