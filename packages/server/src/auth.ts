@@ -4,6 +4,21 @@ import {
 } from '@navikt/next-auth-wonderwall';
 import cookie from 'cookie';
 
+function testWithFetch(jwt: string) {
+    fetch('https://tokendings.prod-gcp.nais.io', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+            client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+            client_assertion: jwt,
+            subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
+
+        }
+    })
+
+}
+
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
     const authHeader = request.headers.get('authorization');
@@ -21,7 +36,7 @@ export async function exchangeToken(request: Request) {
     'dev-gcp:min-side:tms-varsel-api',
   );
 
-  console.log(tokenX)
+  console.log('token', tokenX);
 
   if (isInvalidTokenSet(tokenX)) {
     throw new Error(
