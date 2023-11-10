@@ -1,8 +1,5 @@
-import {
-  grantTokenXOboToken,
-  isInvalidTokenSet,
-} from '@navikt/next-auth-wonderwall';
 import cookie from 'cookie';
+import { grantTokenXOboToken, isInvalidTokenSet } from './auth-hack';
 
 function testWithFetch(jwt: string) {
     fetch('https://tokendings.prod-gcp.nais.io', {
@@ -18,6 +15,7 @@ function testWithFetch(jwt: string) {
     })
 
 }
+
 
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
