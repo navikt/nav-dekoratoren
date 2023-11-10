@@ -7,8 +7,8 @@ import cookie from 'cookie';
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
     const authHeader = request.headers.get('authorization');
-    const cookies = request.headers.get('cookie');
-    console.log('This is the cookie', cookie.parse(cookies as string))
+    const cookies = cookie.parse(request.headers.get('cookie') as string);
+    const testToken = cookies['sso-dev.nav.no'] as string;
 
     console.log('This is the auth header', authHeader)
   const accessToken = request.headers
@@ -17,7 +17,7 @@ export async function exchangeToken(request: Request) {
   console.log('access1', accessToken);
 
   const tokenX = await grantTokenXOboToken(
-    accessToken,
+    testToken,
     'dev-gcp:min-side:tms-varsel-api',
   );
 
