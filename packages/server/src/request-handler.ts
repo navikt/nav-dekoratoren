@@ -1,6 +1,5 @@
 import { getLogOutUrl } from 'decorator-shared/auth';
 import { Context, Language } from 'decorator-shared/params';
-import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
 import { makeContextLinks } from 'decorator-shared/context';
 import { match } from 'ts-pattern';
@@ -15,7 +14,7 @@ import renderIndex from './render-index';
 import SearchService from './search-service';
 import TaConfigService from './task-analytics-service';
 import { texts } from './texts';
-import { GetFeatures } from './unleash-service';
+import UnleashService from './unleash-service';
 import { validParams } from './validateParams';
 import { DecoratorUtils } from './views/decorator-utils';
 import { ComplexFooter } from './views/footer/complex-footer';
@@ -26,7 +25,6 @@ import { MainMenu } from './views/header/main-menu';
 import { SimpleHeader } from './views/header/simple-header';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
 import { IconButton } from './views/icon-button';
-import { Notification } from './views/notifications/notifications';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
@@ -67,7 +65,7 @@ const requestHandler = async (
   searchService: SearchService,
   fileSystemService: FileSystemService,
   notificationsService: NotificationsService,
-  unleashService: GetFeatures,
+  unleashService: UnleashService,
   taConfigService: TaConfigService,
 ) => {
   const filePaths = fileSystemService
