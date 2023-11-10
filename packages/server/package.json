@@ -12,6 +12,7 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@navikt/next-auth-wonderwall": "^1.5.0",
     "decorator-client": "workspace:*",
     "decorator-shared": "workspace:*",
     "unleash-client": "^4.1.1",
