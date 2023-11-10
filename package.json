@@ -25,6 +25,7 @@
   ],
   "devDependencies": {
     "@types/amplitude-js": "^8.16.2",
+    "@types/cookie": "^0.5.4",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "concurrently": "^8.2.0",
@@ -32,9 +33,9 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
-    "tsconfig-paths": "^4.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tsconfig-paths": "^4.2.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
@@ -47,6 +48,8 @@
     "@storybook/html": "^7.4.3",
     "@storybook/html-vite": "^7.4.3",
     "clsx": "^2.0.0",
+    "cookie": "^0.6.0",
+    "js-cookie": "^3.0.5",
     "storybook": "^7.4.3",
     "ts-pattern": "^5.0.5",
     "zod": "^3.22.4"
