@@ -2,10 +2,14 @@ import {
   grantTokenXOboToken,
   isInvalidTokenSet,
 } from '@navikt/next-auth-wonderwall';
+import cookie from 'cookie';
 
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
     const authHeader = request.headers.get('authorization');
+    const cookies = request.headers.get('cookie');
+    console.log('This is the cookie', cookie.parse(cookies as string))
+
     console.log('This is the auth header', authHeader)
   const accessToken = request.headers
     .get('authorization')!
