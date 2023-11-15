@@ -17,11 +17,13 @@ const asKey = async (jwk: any) => {
  async function createClientAssertion() {
     const tokenxConfig = verifyAndGetTokenXConfig();
     const now = Math.floor(Date.now() / 1000);
+    console.log(tokenxConfig)
+    console.log('ENDPOINT', process.env.TOKEN_X_TOKEN_ENDPOINT)
 
     const payload = {
       sub: tokenxConfig.tokenXClientId,
       iss: tokenxConfig.tokenXClientId,
-      aud: "https://tokenx.dev-gcp.nav.cloud.nais.io/token",
+      aud: tokenxConfig.tokenXWellKnownUrl,
       jti: uuid(),
       nbf: now,
       iat: now,
@@ -52,7 +54,7 @@ async function fetchExchange(subject_token: string) {
             client_assertion,
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
             subject_token,
-            audience: 'https://tokenx.dev-gcp.nav.cloud.nais.io/token'
+            audience: 'tokenx.dev-gcp.nav.cloud.nais.io'
         })
 
     const response = await fetch(`https://tokenx.dev-gcp.nav.cloud.nais.io/token`, {
