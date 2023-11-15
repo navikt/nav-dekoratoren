@@ -1,50 +1,95 @@
-import cookie from 'cookie';
-import { grantTokenXOboToken, isInvalidTokenSet } from './auth-hack';
+import { verifyAndGetTokenXConfig } from './auth-config';
+import jwt from 'jsonwebtoken'
+import jose from 'node-jose';
 
-function testWithFetch(jwt: string) {
-    fetch('https://tokendings.prod-gcp.nais.io', {
+const asKey = async (jwk: any) => {
+    if (!jwk) {
+      throw Error('JWK Mangler');
+    }
+
+    return jose.JWK.asKey(jwk).then((key: any) => {
+      return Promise.resolve(key);
+    });
+  };
+
+
+ async function createClientAssertion() {
+    const tokenxConfig = verifyAndGetTokenXConfig();
+    const now = Math.floor(Date.now() / 1000);
+
+    const payload = {
+      sub: tokenxConfig.tokenXClientId,
+      iss: tokenxConfig.tokenXClientId,
+      aud: "dev-gcp:min-side:tms-varsel-api",
+      jti: Bun.hash(now.toString()),
+      nbf: now,
+      iat: now,
+      exp: now + 60, // max 120
+    };
+
+    const key = await asKey(tokenxConfig.privateJwk);
+
+    const options: any = {
+      algorithm: 'RS256',
+      header: {
+        kid: key.kid,
+        typ: 'JWT',
+        alg: 'RS256',
+      },
+    };
+
+    return jwt.sign(payload, key.toPEM(true), options);
+}
+
+async function fetchExchange(jwt: string) {
+    const client_assertion = await createClientAssertion();
+    console.log('client_assertion', client_assertion);
+    const response = await fetch('https://tokendings.prod-gcp.nais.io', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
             client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-            client_assertion: jwt,
+            client_assertion,
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-
+            subject_token: jwt,
+            audiance: 'dev-gcp:min-side:tms-varsel-api'
         }
     })
 
+    return response.json();
 }
 
 
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
     const authHeader = request.headers.get('authorization');
-    const cookies = cookie.parse(request.headers.get('cookie') as string);
-    const testToken = cookies['sso-dev.nav.no'] as string;
 
-    console.log('This is the auth header', authHeader)
-  const accessToken = request.headers
-    .get('authorization')!
-    .replace('Bearer ', '')!;
+    if (!authHeader) {
+        throw new Error('Missing authorization header');
+    }
+
+  const accessToken = authHeader.replace('Bearer ', '');
   console.log('access1', accessToken);
 
-  const tokenX = await grantTokenXOboToken(
-    testToken,
-    'dev-gcp:min-side:tms-varsel-api',
-  );
+  const exchanged = await fetchExchange(accessToken);
+  console.log(exchanged)
 
-  console.log('token', tokenX);
+  return `Bearer ${exchanged}`;
 
-  if (isInvalidTokenSet(tokenX)) {
-    throw new Error(
-      `Unable to exchange token for tms-varsel-api token, reason: ${tokenX.message} -- ${JSON.stringify(request.headers)}`,
-      {
-        cause: tokenX.error,
-      },
-    );
-  }
-  console.log('token', tokenX);
-
-  return `Bearer ${tokenX}`;
 }
+  // const tokenX = await grantTokenXOboToken(
+  //   accessToken,
+  //   'dev-gcp:min-side:tms-varsel-api',
+  // );
+  //
+  // console.log('token', tokenX);
+  //
+  // if (isInvalidTokenSet(tokenX)) {
+  //   throw new Error(
+  //     `Unable to exchange token for tms-varsel-api token, reason: ${tokenX.message} -- ${JSON.stringify(request.headers)}`,
+  //     {
+  //       cause: tokenX.error,
+  //     },
+  //   );
+  // }

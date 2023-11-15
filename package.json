@@ -26,6 +26,8 @@
   "devDependencies": {
     "@types/amplitude-js": "^8.16.2",
     "@types/cookie": "^0.5.4",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node-jose": "^1.1.13",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "concurrently": "^8.2.0",
@@ -50,6 +52,8 @@
     "cookie": "^0.6.0",
     "jose": "^5.1.0",
     "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "node-jose": "^2.2.0",
     "openid-client": "^5.6.1",
     "storybook": "^7.4.3",
     "ts-pattern": "^5.0.5",
