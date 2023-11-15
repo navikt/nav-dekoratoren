@@ -45,7 +45,7 @@ const asKey = async (jwk: any) => {
 async function fetchExchange(jwt: string) {
     const client_assertion = await createClientAssertion();
     console.log('client_assertion', client_assertion);
-    const response = await fetch('https://tokendings.prod-gcp.nais.io', {
+    const response = await fetch('https://tokendings.prod-gcp.nais.io/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
