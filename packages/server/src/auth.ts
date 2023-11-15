@@ -60,7 +60,7 @@ async function fetchExchange(subject_token: string) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: params,
+        body: params.toString(),
         credentials: 'include',
         verbose: true,
     })
