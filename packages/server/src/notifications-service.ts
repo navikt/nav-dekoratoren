@@ -113,19 +113,17 @@ export const hentVarslerFetch = async (
 
   console.log('Trying with this token', token)
 
-  return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
+  const response = await fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
     headers: {
       authorization: token,
     },
     credentials: 'include',
     verbose: true,
-  }).then(async (response) => {
-    if (response.status === 401) {
-        console.log('401')
-        console.log(await response.text())
-    }
-      return response.json() as Promise<NotificationData>
   })
+
+  console.log(response)
+
+  return response.json() as Promise<NotificationData | null>;
 };
 
 export const getNotificationsProd = () => {
