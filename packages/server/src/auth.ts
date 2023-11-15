@@ -52,6 +52,7 @@ async function fetchExchange(subject_token: string) {
             client_assertion,
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
             subject_token,
+            audience: 'tokenx.dev-gcp.nav.cloud.nais.io'
         })
 
     const response = await fetch(`https://tokenx.dev-gcp.nav.cloud.nais.io/token`, {
