@@ -67,7 +67,7 @@ async function fetchExchange(subject_token: string) {
     console.log(response)
     console.log('-----')
 
-    return response.json();
+    return response.text();
 }
 
 
@@ -84,6 +84,7 @@ export async function exchangeToken(request: Request) {
 
   try {
   const exchanged = await fetchExchange(accessToken);
+  console.log('exchanged', exchanged);
   return `Bearer ${exchanged}`;
   console.log(exchanged)
   } catch (e) {
