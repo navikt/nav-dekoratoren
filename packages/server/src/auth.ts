@@ -45,17 +45,20 @@ const asKey = async (jwk: any) => {
 async function fetchExchange(jwt: string) {
     const client_assertion = await createClientAssertion();
     console.log('client_assertion', client_assertion);
-    const response = await fetch('https://tokendings.prod-gcp.nais.io/token', {
+    // tokenx.prod-gcp.nav.cloud.nais.io
+    const response = await fetch('http://tokenx.prod-gcp.nav.cloud.nais.io/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
             grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
             client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
             client_assertion,
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
             subject_token: jwt,
             audiance: 'dev-gcp:min-side:tms-varsel-api'
-        },
+        }),
         credentials: 'include',
         verbose: true,
     })
