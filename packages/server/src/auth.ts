@@ -57,7 +57,12 @@ async function fetchExchange(jwt: string) {
             audiance: 'dev-gcp:min-side:tms-varsel-api'
         },
         credentials: 'include',
+        verbose: true,
     })
+
+    console.log('-----')
+    console.log(response)
+    console.log('-----')
 
     return response.json();
 }

@@ -111,6 +111,7 @@ export const hentVarslerFetch = async (
 
   const token = await exchangeToken(request);
   console.log('hentVarslerFetch', 'token hentet', token);
+  console.log('Varsel API url', VARSEL_API_URL)
 
   return fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
     headers: {
