@@ -119,8 +119,11 @@ export const hentVarslerFetch = async (
     },
     credentials: 'include',
     verbose: true,
-  }).then((response) => {
-      console.log(response)
+  }).then(async (response) => {
+    if (response.status === 401) {
+        console.log('401')
+        console.log(await response.text())
+    }
       return response.json() as Promise<NotificationData>
   })
 };
