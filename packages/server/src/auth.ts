@@ -1,6 +1,7 @@
 import { verifyAndGetTokenXConfig } from './auth-config';
 import jwt from 'jsonwebtoken'
 import jose from 'node-jose';
+import { v4 as uuid } from 'uuid';
 
 const asKey = async (jwk: any) => {
     if (!jwk) {
@@ -21,7 +22,7 @@ const asKey = async (jwk: any) => {
       sub: tokenxConfig.tokenXClientId,
       iss: tokenxConfig.tokenXClientId,
       aud: "dev-gcp:min-side:tms-varsel-api",
-      jti: Bun.hash(now.toString()),
+      jti: uuid(),
       nbf: now,
       iat: now,
       exp: now + 60, // max 120
