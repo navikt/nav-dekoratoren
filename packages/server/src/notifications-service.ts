@@ -119,7 +119,10 @@ export const hentVarslerFetch = async (
     },
     credentials: 'include',
     verbose: true,
-  }).then((response) => response.json() as Promise<NotificationData>);
+  }).then((response) => response.json() as Promise<NotificationData>)
+  .catch((error) => {
+      console.log('Error', error);
+  }) as Promise<NotificationData>;
 };
 
 export const getNotificationsProd = () => {
