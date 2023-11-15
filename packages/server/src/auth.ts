@@ -3,15 +3,24 @@ import jwt from 'jsonwebtoken'
 import jose from 'node-jose';
 import { v4 as uuid } from 'uuid';
 
+type ExchangeTokenSuccess = {
+    access_token: string;
+    issued_token_type: string;
+    token_type: string;
+    expires_in: number;
+}
+
+function makeAuthHeader(response: ExchangeTokenSuccess) {
+    return `${response.token_type} ${response.access_token}`;
+}
+
 const asKey = async (jwk: any) => {
     if (!jwk) {
       throw Error('JWK Mangler');
     }
 
-    return jose.JWK.asKey(jwk).then((key: any) => {
-      return Promise.resolve(key);
-    });
-  };
+    return jose.JWK.asKey(jwk)
+};
 
 
  async function createClientAssertion() {
@@ -65,13 +74,8 @@ async function fetchExchange(subject_token: string) {
         verbose: true,
     })
 
-    console.log('-----')
-    console.log(response)
-    console.log('-----')
-
-    return response.text();
+    return response.json() as Promise<ExchangeTokenSuccess>;
 }
-
 
 // @TODO: Add access policy rules to tms-varsel-api
 export async function exchangeToken(request: Request) {
@@ -82,18 +86,8 @@ export async function exchangeToken(request: Request) {
     }
 
   const accessToken = authHeader.replace('Bearer ', '');
-  console.log('access1', accessToken);
-
-  try {
   const exchanged = await fetchExchange(accessToken);
-  console.log('exchanged', exchanged);
-  return `Bearer ${exchanged}`;
-  console.log(exchanged)
-  } catch (e) {
-    console.log(e)
-}
-return 'Bearer 123';
-
+  return makeAuthHeader(exchanged);
 }
   // const tokenX = await grantTokenXOboToken(
   //   accessToken,
