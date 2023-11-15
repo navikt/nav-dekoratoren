@@ -77,6 +77,8 @@ export const clientEnvSchema = z.object({
   LOGOUT_URL: z.string(),
   XP_BASE_URL: z.string(),
   APP_URL: z.string(),
+  API_DEKORATOREN_URL: z.string(),
+  API_SESSION_URL: z.string(),
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;

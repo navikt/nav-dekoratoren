@@ -14,8 +14,9 @@ export async function checkAuth({
   onSuccess?: (response: Auth) => void;
   onError?: (error: Error) => void;
 }) {
-  const authUrl = `${window.__DECORATOR_DATA__.env.APP_URL}/api/auth`;
-  const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session`;
+  const authUrl = `${window.__DECORATOR_DATA__.env.API_DEKORATOREN_URL}/api/auth`;
+  // Can maybe just use AITH_API_URL
+  const sessionUrl = window.__DECORATOR_DATA__.env.API_SESSION_URL;
 
   try {
     const fetchResponse = await fetch(authUrl, {

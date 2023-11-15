@@ -40,6 +40,9 @@ export const serverEnv = {
   VARSEL_API_URL: process.env.VARSEL_API_URL,
 };
 
+
+// This is session URL for prod
+// https://login.nav.no/oauth2/session
 export const client_env = {
   APP_URL: process.env.HOST,
   XP_BASE_URL: process.env.XP_BASE_URL,
@@ -49,6 +52,8 @@ export const client_env = {
   MIN_SIDE_URL: process.env.MIN_SIDE_URL,
   MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,
   VARSEL_API_URL: process.env.VARSEL_API_URL,
+  API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
+  API_SESSION_URL: process.env.API_SESSION_URL,
 }
 
 
