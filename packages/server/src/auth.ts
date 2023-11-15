@@ -55,7 +55,8 @@ async function fetchExchange(jwt: string) {
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
             subject_token: jwt,
             audiance: 'dev-gcp:min-side:tms-varsel-api'
-        }
+        },
+        credentials: 'include',
     })
 
     return response.json();
@@ -73,10 +74,14 @@ export async function exchangeToken(request: Request) {
   const accessToken = authHeader.replace('Bearer ', '');
   console.log('access1', accessToken);
 
+  try {
   const exchanged = await fetchExchange(accessToken);
-  console.log(exchanged)
-
   return `Bearer ${exchanged}`;
+  console.log(exchanged)
+  } catch (e) {
+    console.log(e)
+}
+return 'Bearer 123';
 
 }
   // const tokenX = await grantTokenXOboToken(
