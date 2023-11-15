@@ -21,7 +21,7 @@ const asKey = async (jwk: any) => {
     const payload = {
       sub: tokenxConfig.tokenXClientId,
       iss: tokenxConfig.tokenXClientId,
-      aud: "dev-gcp:min-side:tms-varsel-api",
+      aud: "https://tokenx.dev-gcp.nav.cloud.nais.io/token",
       jti: uuid(),
       nbf: now,
       iat: now,
