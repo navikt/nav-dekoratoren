@@ -46,7 +46,7 @@ async function fetchExchange(subject_token: string) {
     const client_assertion = await createClientAssertion();
     console.log('client_assertion', client_assertion);
     // tokenx.prod-gcp.nav.cloud.nais.io
-    const response = await fetch('http://tokenx.prod-gcp.nav.cloud.nais.io/token', {
+    const response = await fetch('http://tokenx.dev-gcp.nav.cloud.nais.io/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
