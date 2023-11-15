@@ -29,6 +29,7 @@ spec:
         - host: www.nav.no
         - host: www.intern.dev.nav.no
         - host: navno-unleash-api.nav.cloud.nais.io
+        - host: tokendings.prod-gcp.nais.io
       rules:
         - application: tms-varsel-api
           namespace: min-side
