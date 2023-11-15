@@ -42,7 +42,7 @@ const asKey = async (jwk: any) => {
     return jwt.sign(payload, key.toPEM(true), options);
 }
 
-async function fetchExchange(jwt: string) {
+async function fetchExchange(subject_token: string) {
     const client_assertion = await createClientAssertion();
     console.log('client_assertion', client_assertion);
     // tokenx.prod-gcp.nav.cloud.nais.io
@@ -56,8 +56,8 @@ async function fetchExchange(jwt: string) {
             client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
             client_assertion,
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-            subject_token: jwt,
-            audiance: 'dev-gcp:min-side:tms-varsel-api'
+            subject_token,
+            audience: 'dev-gcp:min-side:tms-varsel-api'
         }),
         credentials: 'include',
         verbose: true,
