@@ -113,7 +113,7 @@ export const hentVarslerFetch = async (
 
   console.log('Trying with this token', token)
 
-  const response = await fetch(`${VARSEL_API_URL}/varselbjelle/varsler`, {
+  const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/varselbjelle/varsler`, {
     headers: {
       authorization: token,
     },
