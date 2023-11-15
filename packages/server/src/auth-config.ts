@@ -6,6 +6,7 @@ export interface TokenXConfig {
     tokenXWellKnownUrl: string
     idportenClientId: string
     idportenWellKnownUrl: string
+    tokenXEndpoint: string
 }
 
 const RequiredTokenXConfigSchema = z.object({
@@ -14,6 +15,7 @@ const RequiredTokenXConfigSchema = z.object({
     tokenXWellKnownUrl: z.string(),
     idportenClientId: z.string(),
     idportenWellKnownUrl: z.string(),
+    tokenXEndpoint: z.string(),
 })
 
 export function verifyAndGetTokenXConfig(): TokenXConfig {
@@ -23,6 +25,7 @@ export function verifyAndGetTokenXConfig(): TokenXConfig {
         tokenXWellKnownUrl: process.env.TOKEN_X_WELL_KNOWN_URL,
         idportenClientId: process.env.IDPORTEN_CLIENT_ID,
         idportenWellKnownUrl: process.env.IDPORTEN_WELL_KNOWN_URL,
+        tokenXEndpoint: process.env.TOKEN_X_TOKEN_ENDPOINT,
     })
 
     if (parsedEnv.success) {
