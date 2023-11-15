@@ -46,20 +46,21 @@ async function fetchExchange(subject_token: string) {
     const client_assertion = await createClientAssertion();
     console.log('client_assertion', client_assertion);
     // tokenx.prod-gcp.nav.cloud.nais.io
-    const params = {
+    const params = new URLSearchParams({
             grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
             client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
             client_assertion,
             subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
             subject_token,
             audience: 'dev-gcp:min-side:tms-varsel-api'
-        }
+        })
+
     const response = await fetch(`https://tokenx.dev-gcp.nav.cloud.nais.io/token`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            ...params
         },
+        body: params,
         credentials: 'include',
         verbose: true,
     })
