@@ -31,8 +31,7 @@ jobs:
             LOGOUT_URL=https://login.ekstern.dev.nav.no/oauth2/logout
             VARSEL_API_URL=http://tms-varsel-api.min-side
             API_DEKORATOREN_URL=https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api
-
-            API_SESSION_URL=https://login.nav.no/oauth2/session
+            API_SESSION_URL=https://login.ekstern.dev.nav.no/oauth2/session
             PORT=8089
             EOF
       - name: Install dependencies
