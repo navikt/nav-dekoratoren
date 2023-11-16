@@ -27,10 +27,11 @@ a.appendChild(r);
 
 /* Merge the two manifests*/
 export const getManifest = async () => {
-  const mainManifest = (await import('decorator-client/dist/manifest.json'))
+  const dir = 'decorator-client/dist/.vite'
+  const mainManifest = (await import(`${dir}/manifest.json`))
     .default;
   const thirdPartyManifest = (
-    await import('decorator-client/dist/analytics.manifest.json')
+    await import(`${dir}/analytics.manifest.json`)
   ).default;
 
   return Object.assign({}, mainManifest, thirdPartyManifest);
