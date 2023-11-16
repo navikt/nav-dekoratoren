@@ -15,9 +15,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "types": ["vite/client", "vitest/globals"],
-    "paths": {
-      "@/*": ["./*"]
-    }
   },
   "exclude": ["node_modules", "dist", "**/*.stories.ts"]
 }
