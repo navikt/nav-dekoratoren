@@ -114,14 +114,14 @@ export const hentVarslerFetch = async (
   console.log('Trying with this token', token)
 // `${VARSEL_API_URL}/tms-varsel-api/varselbjelle/varsler`
   // https://www.intern.dev.nav.no/tms-varsel-api
-  const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/varselbjelle/varsler`, {
+  const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
     headers: {
       'token-x-authorization': token,
     },
     credentials: 'include'
   })
 
-  console.log(response)
+  console.log(JSON.stringify(response.headers))
 
   return response.json() as Promise<NotificationData | null>;
 };
