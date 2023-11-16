@@ -116,7 +116,7 @@ export const hentVarslerFetch = async (
   // https://www.intern.dev.nav.no/tms-varsel-api
   const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/varselbjelle/varsler`, {
     headers: {
-      'Authorization': token,
+      'token-x-authorization': token,
     }
   })
 
