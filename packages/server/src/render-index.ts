@@ -1,6 +1,6 @@
 import { makeContextLinks } from 'decorator-shared/context';
 import { Params } from 'decorator-shared/params';
-import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
+import { getModal } from 'decorator-shared/views/screensharing-modal';
 import ContentService from './content-service';
 import { clientEnv, env } from './env/server';
 import { texts } from './texts';
@@ -41,6 +41,8 @@ export default async ({
     utilsBackground: data.utilsBackground,
   });
 
+  console.log(data.shareScreen)
+
   return (
     await Index({
       language,
@@ -62,9 +64,10 @@ export default async ({
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
-      shareScreen: data.shareScreen
-        ? ScreensharingModal({ texts: localTexts })
-        : undefined,
+      shareScreen: getModal({
+          enabled: data.shareScreen && features['dekoratoren.skjermdeling'],
+          texts: localTexts
+      }),
       footer:
         data.simple || data.simpleFooter
           ? SimpleFooter({

@@ -1,28 +1,29 @@
 import { paramsSchema } from 'decorator-shared/params';
 import { clientEnv } from './env/server';
 import { P, match } from 'ts-pattern';
+import { ZodBoolean, ZodDefault } from 'zod';
+
+console.log(paramsSchema.shape.ssr._def.innerType._def.typeName)
+
+export const getBooleans = () => Object.entries(paramsSchema.shape)
+    .reduce((prev, [key, value]) => {
+        if  (value instanceof ZodDefault && value._def.innerType instanceof ZodBoolean) {
+            return [...prev, key]
+        }
+        return prev
+    }, new Array<string>())
+
+export const parseBooleanParam = (param?: string | boolean): boolean =>
+    match(param)
+        .with(P.string, (param) => param === 'true')
+        .with(P.boolean, (param) => param)
+        .otherwise(() => false);
+
+const booleans = getBooleans()
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateParams = (params: Record<string, string>) => {
-  const parseBooleanParam = (param?: string | boolean): boolean =>
-    typeof param === 'boolean' ? param : param === 'true' ? true : false;
-
-  const booleans = [
-    'simple',
-    'simpleHeader',
-    'simpleFooter',
-    'enforceLogin',
-    'feedback',
-    'logoutWarning',
-    'redirectToApp',
-    'chatbot',
-    'chatbotVisible',
-    'urlLookupTable',
-    'shareScreen',
-    'maskHotjar',
-    'ssr',
-  ];
-
   return {
     ...params,
     ...booleans.reduce(
