@@ -1,20 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "Node",
-    "moduleDetection": "force",
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": false,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": false,
-    "composite": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "composite": true
   },
-  "references": [
-    {
-      "path": "./test"
-    }
-  ],
 }

@@ -1,10 +1,22 @@
 {
   "compilerOptions": {
-    "rootDir": "../",
     "module": "ESNext",
     "strict": true,
-    "types": ["bun-types"],
-    "composite": true
+    "skipLibCheck": false,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "rootDir": "../",
+    "types": [
+        "bun-types"
+    ],
+    "paths": {
+       "lib/*": ["../*"]
+    },
+    "composite": true,
+    "isolatedModules": true
   },
-  "include": ["../**/*"],
+  "include": [
+    "**/*",
+    "../**/*"
+  ]
 }
