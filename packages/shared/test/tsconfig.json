@@ -1,11 +1,10 @@
 {
-  "references": [
-      {
-          "path": "../"
-      }
-  ],
   "compilerOptions": {
-    "composite": true,
-    "types": ["bun-types"]
+    "rootDir": "../",
+    "module": "ESNext",
+    "strict": true,
+    "types": ["bun-types"],
+    "composite": true
   },
+  "include": ["../**/*"],
 }

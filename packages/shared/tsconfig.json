@@ -10,10 +10,11 @@
     "isolatedModules": false,
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
+    "composite": true,
   },
   "references": [
     {
       "path": "./test"
     }
-  ]
+  ],
 }
