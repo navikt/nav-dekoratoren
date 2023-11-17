@@ -1,4 +1,4 @@
-import { paramsSchema } from 'decorator-shared/params';
+import { paramsSchema, type Params } from 'decorator-shared/params';
 import { clientEnv } from './env/server';
 import { P, match } from 'ts-pattern';
 import { ZodBoolean, ZodDefault } from 'zod';
@@ -21,15 +21,23 @@ const booleans = getBooleans()
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateParams = (params: Record<string, string>) => {
+    const reduced = booleans.reduce(
+      (prev, key) => {
+          const exists = params[key] !== undefined
+          const isOptional = paramsSchema.shape[key as keyof Params] instanceof ZodDefault === false
+          const shouldParse = exists || isOptional
+
+          return ({
+        ...prev,
+        [key]: shouldParse ?
+            parseBooleanParam(params[key]) : paramsSchema.shape[key as keyof Params].parse(params[key]),
+      })
+      },
+      {},
+    )
   return {
     ...params,
-    ...booleans.reduce(
-      (prev, key) => ({
-        ...prev,
-        [key]: parseBooleanParam(params[key]),
-      }),
-      {},
-    ),
+    ...reduced,
     logoutUrl: match(params.logoutUrl)
       .with(P.string, (url) => url)
       .otherwise(() => clientEnv.LOGOUT_URL),
@@ -47,6 +55,8 @@ export const validateParams = (params: Record<string, string>) => {
 
 export const validParams = (query: Record<string, string>) => {
   const validParams = paramsSchema.safeParse(validateParams(query));
+
+  console.log(validParams)
 
   if (!validParams.success) {
     console.error(validParams.error);
