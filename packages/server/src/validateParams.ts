@@ -50,7 +50,7 @@ export const validateParams = (params: Record<string, string>) => {
           handleInApp: parseBooleanParam(language.handleInApp),
         }))
       : params.availableLanguages,
-  };
+  } as Params;
 };
 
 export const validParams = (query: Record<string, string>) => {

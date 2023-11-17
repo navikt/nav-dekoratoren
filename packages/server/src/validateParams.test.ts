@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { parseBooleanParam } from './validateParams';
+import { parseBooleanParam, validateParams } from './validateParams';
 
 describe('Parsing boolean query paramters', () => {
     it('"true" should return a boolean true', () => {
@@ -12,5 +12,21 @@ describe('Parsing boolean query paramters', () => {
         expect(parseBooleanParam({})).toEqual(false)
         expect(parseBooleanParam([])).toEqual(false)
         expect(parseBooleanParam([1, 2, 3])).toEqual(false)
+    })
+})
+
+describe('Interpolating with defaults', () => {
+    it('should return the default value if the key is not present', () => {
+        const params = validateParams({})
+
+        expect(params.shareScreen).toEqual(true)
+    })
+
+    it('should override the default value if the key is present', () => {
+        const params = validateParams({
+            shareScreen: 'false'
+        })
+
+        expect(params.shareScreen).toEqual(false)
     })
 })
