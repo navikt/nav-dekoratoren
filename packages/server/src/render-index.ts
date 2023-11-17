@@ -41,10 +41,8 @@ export default async ({
     utilsBackground: data.utilsBackground,
   });
 
-  console.log(data.shareScreen)
-
   return (
-    await Index({
+    Index({
       language,
       header:
         data.simple || data.simpleHeader
