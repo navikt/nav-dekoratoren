@@ -14,8 +14,9 @@ import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
 import { LogoutWarning } from './views/logout-warning';
-import { SplashPage } from './views/splash-page';
+import { getSplashPage } from './views/splash-page';
 import { DecoratorUtils } from './views/decorator-utils';
+import { match } from 'ts-pattern';
 
 export default async ({
   contentService,
@@ -93,10 +94,7 @@ export default async ({
         environment: clientEnv,
       }),
       maskDocument: data.maskHotjar,
-      main:
-        origin.includes('localhost') || origin.includes('dekoratøren')
-          ? SplashPage()
-          : undefined,
+      main: getSplashPage(origin)
     })
   ).render();
 };

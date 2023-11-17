@@ -1,8 +1,9 @@
-import html from 'decorator-shared/html';
+import html from "decorator-shared/html";
 
-import cls from 'decorator-client/src/styles/splash-page.module.css';
+import cls from "decorator-client/src/styles/splash-page.module.css";
+import { match } from "ts-pattern";
 
-export function SplashPage() {
+function SplashPage() {
   return html`
     <div class="${cls.splashPage}">
       <div class="${cls.splashAlert}">
@@ -14,3 +15,10 @@ export function SplashPage() {
     </div>
   `;
 }
+
+const domainsToShow = ["localhost", "dekoratøren"] as const;
+
+export const getSplashPage = (origin: string) =>
+  match(origin)
+    .when((origin) => domainsToShow.some((domain) => origin.includes(domain)), SplashPage)
+    .otherwise(() => undefined);
