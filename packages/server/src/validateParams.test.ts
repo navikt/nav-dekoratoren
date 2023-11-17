@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { parseBooleanParam, validateParams } from './validateParams';
+import { formatParams } from 'decorator-shared/json';
 
 describe('Parsing boolean query paramters', () => {
     it('"true" should return a boolean true', () => {
@@ -29,4 +30,28 @@ describe('Interpolating with defaults', () => {
 
         expect(params.shareScreen).toEqual(false)
     })
+})
+
+describe('JSON parsing', () => {
+    it('should parse no breadcrumbs as an empty array', () => {
+        const params = validateParams({})
+        expect(params.breadcrumbs).toEqual([])
+    })
+
+    it('should parse a stringified array of breadcrumbs', () => {
+        const base = [
+                {
+                    title: 'Arbeid og opphold i Norge',
+                    url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
+                },
+                {
+                    title: 'Medlemskap i folketrygden',
+                },
+            ]
+        const params = validateParams(Object.fromEntries(formatParams({
+            breadcrumbs: base
+        }).entries()))
+
+        expect(params.breadcrumbs).toEqual(base)
+    });
 })
