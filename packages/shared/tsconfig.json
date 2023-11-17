@@ -4,13 +4,16 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "Node",
+    "moduleDetection": "force",
     "strict": true,
-    "downlevelIteration": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
-    "types": []
-  }
+  },
+  "references": [
+    {
+      "path": "./test"
+    }
+  ]
 }

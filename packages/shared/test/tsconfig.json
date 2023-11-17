@@ -1,0 +1,11 @@
+{
+  "references": [
+      {
+          "path": "../"
+      }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "types": ["bun-types"]
+  },
+}
