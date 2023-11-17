@@ -10,12 +10,6 @@ class ScreensharingModal extends HTMLDialogElement {
   errorList!: HTMLUListElement;
   code: string = '';
 
-  handleWindowClick = (e: MouseEvent) => {
-    if (!this.contains(e.target as Node)) {
-      this.open = false;
-    }
-  };
-
   validateInput () {
       if (!this.code || this.code.length !== 5 || !this.code.match(/^[0-9]+$/)) {
         this.input.classList.add(cls.invalid)
@@ -27,10 +21,7 @@ class ScreensharingModal extends HTMLDialogElement {
       this.errorList.classList.remove(cls.showErrors)
   }
 
-
-  load() {
-      // Scroll to top when opened
-      window.scrollTo(0, 0);
+  connectedCallback() {
       this.input = this.querySelector('input#screensharing_code') as HTMLInputElement;
       this.confirmButton = this.querySelector('button#screensharing-confirm') as HTMLButtonElement;
       this.cancelButton = this.querySelector('button#screensharing-cancel') as HTMLButtonElement;
@@ -50,33 +41,21 @@ class ScreensharingModal extends HTMLDialogElement {
           this.close()
       });
 
-      const isOpen = window.__DECORATOR_DATA__.params.shareScreen && window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
+      const isScreensharingEnabled = window.__DECORATOR_DATA__.params.shareScreen && window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
 
-      if (!isOpen) {
+      if (!isScreensharingEnabled) {
           this.classList.add(screensharingCls.isClosed);
       }
-
-  }
-
-  connectedCallback() {
-      // Need to do this otherwise decorator data has not been hydrated
-      window.addEventListener('load', this.load.bind(this))
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener('load', this.load)
   }
 }
 
 
-// There is no "open" event for the dialog, so it needs to be done here
 class ScreenshareButton extends HTMLButtonElement {
     handleClick() {
         const dialog = document.querySelector('dialog[is="screensharing-modal"]') as HTMLDialogElement;
 
           lazyLoadScreensharing(() => {
               dialog.showModal();
-              dialog.open = true;
           })
 
     }

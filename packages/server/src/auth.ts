@@ -91,18 +91,3 @@ export async function exchangeToken(request: Request) {
   const exchanged = await fetchExchange(accessToken);
   return makeAuthHeader(exchanged);
 }
-// const tokenX = await grantTokenXOboToken(
-//   accessToken,
-//   'dev-gcp:min-side:tms-varsel-api',
-// );
-//
-// console.log('token', tokenX);
-//
-// if (isInvalidTokenSet(tokenX)) {
-//   throw new Error(
-//     `Unable to exchange token for tms-varsel-api token, reason: ${tokenX.message} -- ${JSON.stringify(request.headers)}`,
-//     {
-//       cause: tokenX.error,
-//     },
-//   );
-// }

@@ -12,24 +12,12 @@ import { Alert } from './alert';
 // @TODO The answer text for readmore should be three seperate paragraphs
 // See in ledetekster.ts in nav-dekoratoren line 144. Fixing after NITD.
 export type ScreensharingModalProps = {
-  texts: Pick<
-    Texts,
-    | 'footer_del_skjerm'
-    | 'delskjerm_modal_beskrivelse'
-    | 'delskjerm_modal_start'
-    | 'delskjerm_modal_label'
-    | 'delskjerm_modal_avbryt'
-    | 'delskjerm_modal_feilmelding'
-    | 'delskjerm_modal_hjelpetekst_overskrift'
-    | 'delskjerm_modal_hjelpetekst_0'
-    | 'delskjerm_modal_hjelpetekst_1'
-    | 'delskjerm_modal_hjelpetekst_2'
-    | 'delskjerm_modal_stengt'
-  >;
+  texts: Texts;
 };
 
-// @TODO: Should make inputs into a component?
-
+// CSS: Classes are confusing with .open .closed
+// @TODO: Don't export this, but use it to create two other "components"
+// @TODO Refactor typography
 export const ScreensharingModal = ({ texts }: ScreensharingModalProps) =>
   html`<dialog
     is="screensharing-modal"
@@ -40,8 +28,8 @@ export const ScreensharingModal = ({ texts }: ScreensharingModalProps) =>
       <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
       <p>${texts.delskjerm_modal_beskrivelse}</p>
       ${ReadMore({
-        question: texts.delskjerm_modal_hjelpetekst_overskrift,
-        answer: [
+        header: texts.delskjerm_modal_hjelpetekst_overskrift,
+        content: [
           texts.delskjerm_modal_hjelpetekst_0,
           texts.delskjerm_modal_hjelpetekst_1,
           texts.delskjerm_modal_hjelpetekst_2,

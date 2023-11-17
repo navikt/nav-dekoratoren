@@ -21,7 +21,8 @@
     position: absolute;
     width: 70px;
     top: -50px;
-    left: calc(50% - 35px);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .content {
@@ -34,7 +35,6 @@
     gap: var(--a-spacing-4);
 }
 
-.open{}
 .closed {
     display: block;
 }
