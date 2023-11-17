@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
 import path from 'path';
 import { partytownRollup } from '@builder.io/partytown/utils';
 import { typedCssModulesPlugin } from './typesafe-css-modules';
 
 export const mainBundleConfig = defineConfig({
-    plugins: [tsconfigPaths(), typedCssModulesPlugin()],
+    plugins: [typedCssModulesPlugin()],
     server: {
         origin: 'http://localhost:5173',
     },
@@ -39,7 +38,7 @@ export const lazyConfig = defineConfig({
         // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
         minify: true,
-        manifest: 'analytics.manifest.json',
+        manifest: '.vite/analytics.manifest.json',
         rollupOptions: {
             input: ['src/analytics/analytics.ts'],
         },
