@@ -97,7 +97,6 @@ const getNotifications: (
 export const getNotificationsDev = () => {
   return {
     getNotifications: async ({ texts }: { texts: Texts }) => {
-      // just for dev
       return getNotifications(texts, notificationsMock);
     },
   };
@@ -105,15 +104,10 @@ export const getNotificationsDev = () => {
 
 export const hentVarslerFetch = async (
   VARSEL_API_URL: string,
-  // Test without
   request: Request,
 ): Promise<NotificationData | null> => {
 
   const token = await exchangeToken(request);
-
-  console.log('Trying with this token', token)
-// `${VARSEL_API_URL}/tms-varsel-api/varselbjelle/varsler`
-  // https://www.intern.dev.nav.no/tms-varsel-api
   const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
     headers: {
       'token-x-authorization': token,
@@ -139,7 +133,6 @@ export const getNotificationsProd = () => {
         env.VARSEL_API_URL,
         request,
       );
-      console.log('Notifications data', notificationData);
       return getNotifications(texts, notificationData);
     },
   };

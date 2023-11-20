@@ -1,5 +1,4 @@
 import { LoginLevel } from 'decorator-shared/params';
-// NOTE: I don't think this file is used anymore
 
 export type Auth = {
   authenticated: boolean;
@@ -15,7 +14,6 @@ export async function checkAuth({
   onError?: (error: Error) => void;
 }) {
   const authUrl = `${window.__DECORATOR_DATA__.env.API_DEKORATOREN_URL}/auth`;
-  // Can maybe just use AITH_API_URL
   const sessionUrl = window.__DECORATOR_DATA__.env.API_SESSION_URL;
 
   try {
@@ -54,7 +52,6 @@ export function archive(eventId: { eventId: string }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(eventId),
-      // onnly testing
       credentials: 'include',
       keepalive: true,
     },

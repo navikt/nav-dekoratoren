@@ -15,11 +15,9 @@ const cssModulesPlugin: BunPlugin = {
   },
 };
 
-const res = await Bun.build({
+await Bun.build({
   entrypoints: ['./src/server.ts'],
   target: 'bun', // bun
   outdir: './dist',
   plugins: [cssModulesPlugin],
 });
-
-console.log(res);

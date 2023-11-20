@@ -32,20 +32,19 @@ class ScreensharingModal extends HTMLDialogElement {
       if (!isScreensharingEnabled) {
           this.classList.add(screensharingCls.isClosed);
       }
-      // this.input.addEventListener('input', () => {
-      //     this.clearErrors();
-      //     this.code = this.input.value;
-      // })
-      //
-      // this.confirmButton.addEventListener('click', () => {
-      //     console.log('Confirm button clicked');
-      //     this.validateInput();
-      // });
-      //
-      // this.cancelButton.addEventListener('click', () => {
-      //     this.close()
-      // });
+      this.input.addEventListener('input', () => {
+          this.clearErrors();
+          this.code = this.input.value;
+      })
 
+      this.confirmButton.addEventListener('click', () => {
+          console.log('Confirm button clicked');
+          this.validateInput();
+      });
+
+      this.cancelButton.addEventListener('click', () => {
+          this.close()
+      });
   }
 }
 
