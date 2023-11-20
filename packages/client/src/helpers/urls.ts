@@ -17,8 +17,6 @@ const getRedirectUrlLogin = (
   arbeidsflate: Context,
 ) => {
   const { MIN_SIDE_URL, MIN_SIDE_ARBEIDSGIVER_URL } = environment;
-  console.log(MIN_SIDE_URL, MIN_SIDE_ARBEIDSGIVER_URL);
-
   const { redirectToUrl, redirectToApp } = params;
 
   const appUrl = window.location.origin + window.location.pathname;

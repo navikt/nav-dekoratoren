@@ -1,6 +1,6 @@
 import { makeContextLinks } from 'decorator-shared/context';
 import { Params } from 'decorator-shared/params';
-import { ScreensharingModal } from 'decorator-shared/views/screensharing-modal';
+import { getModal } from 'decorator-shared/views/screensharing-modal';
 import ContentService from './content-service';
 import { clientEnv, env } from './env/server';
 import { texts } from './texts';
@@ -14,8 +14,9 @@ import { SimpleFooter } from './views/footer/simple-footer';
 import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
 import { LogoutWarning } from './views/logout-warning';
-import { SplashPage } from './views/splash-page';
+import { getSplashPage } from './views/splash-page';
 import { DecoratorUtils } from './views/decorator-utils';
+import { match } from 'ts-pattern';
 
 export default async ({
   contentService,
@@ -42,7 +43,7 @@ export default async ({
   });
 
   return (
-    await Index({
+    Index({
       language,
       header:
         data.simple || data.simpleHeader
@@ -62,9 +63,10 @@ export default async ({
             }),
       feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
       logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
-      shareScreen: data.shareScreen
-        ? ScreensharingModal({ texts: localTexts })
-        : undefined,
+      shareScreen: getModal({
+          enabled: data.shareScreen && features['dekoratoren.skjermdeling'],
+          texts: localTexts
+      }),
       footer:
         data.simple || data.simpleFooter
           ? SimpleFooter({
@@ -92,10 +94,7 @@ export default async ({
         environment: clientEnv,
       }),
       maskDocument: data.maskHotjar,
-      main:
-        origin.includes('localhost') || origin.includes('dekoratøren')
-          ? SplashPage()
-          : undefined,
+      main: getSplashPage(origin)
     })
   ).render();
 };

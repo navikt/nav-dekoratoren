@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "Node",
     "strict": true,
-    "downlevelIteration": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": false,
-    "types": []
-  }
+    "allowJs": true,
+    "esModuleInterop": true,
+    "composite": true
+  },
 }

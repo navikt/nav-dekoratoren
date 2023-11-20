@@ -54,58 +54,9 @@ export const client_env = {
   VARSEL_API_URL: process.env.VARSEL_API_URL,
   API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
   API_SESSION_URL: process.env.API_SESSION_URL,
+
+  OPPORTUNITY_ID: process.env.OPPORTUNITY_ID,
+  SOLUTION_ID: process.env.SOLUTION_ID,
+  CASETYPE_ID: process.env.CASETYPE_ID,
+  NAV_GROUP_ID: process.env.NAV_GROUP_ID,
 }
-
-
-
-    // Reference from running decorator
-    // return {
-    //     ENV: process.env.ENV as string,
-    //     XP_BASE_URL: process.env.XP_BASE_URL as string,
-    //     APP_URL: appUrl as string,
-    //     APP_BASE_URL: process.env.APP_BASE_URL as string,
-    //     APP_BASE_PATH: process.env.APP_BASE_PATH as string,
-    //     API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL as string,
-    //     OPPORTUNITY_ID: process.env.OPPORTUNITY_ID as string,
-    //     SOLUTION_ID: process.env.SOLUTION_ID as string,
-    //     CASETYPE_ID: process.env.CASETYPE_ID as string,
-    //     NAV_GROUP_ID: process.env.NAV_GROUP_ID as string,
-    //     MINSIDE_ARBEIDSGIVER_URL: process.env.MINSIDE_ARBEIDSGIVER_URL as string,
-    //     MIN_SIDE_URL: process.env.MIN_SIDE_URL as string,
-    //     LOGIN_URL: process.env.LOGIN_URL as string,
-    //     LOGOUT_URL: process.env.LOGOUT_URL as string,
-    //     VARSEL_API_URL: process.env.VARSEL_API_URL as string,
-    //     ...(req.query && {
-    //         PARAMS: {
-    //             CONTEXT: chosenContext,
-    //             SIMPLE: req.query.simple === 'true',
-    //             SIMPLE_HEADER: req.query.header === 'true' || req.query.simpleHeader === 'true', // 'header'
-    //             SIMPLE_FOOTER: req.query.footer === 'true' || req.query.simpleFooter === 'true', // and 'footer' parameters are kept for legacy compatibility
-    //             ENFORCE_LOGIN: req.query.enforceLogin === 'true',
-    //             REDIRECT_TO_APP: req.query.redirectToApp === 'true',
-    //             REDIRECT_TO_URL: req.query.redirectToUrl as string,
-    //             REDIRECT_TO_URL_LOGOUT: req.query.redirectToUrlLogout as string,
-    //             LEVEL: (req.query.level || 'Level3') as string,
-    //             LANGUAGE: chosenLanguage,
-    //             ...(req.query.availableLanguages && {
-    //                 AVAILABLE_LANGUAGES: JSON.parse(req.query.availableLanguages as string),
-    //             }),
-    //             ...(req.query.breadcrumbs && {
-    //                 BREADCRUMBS: JSON.parse(req.query.breadcrumbs as string),
-    //             }),
-    //             FEEDBACK: req.query.feedback === 'true',
-    //             CHATBOT: req.query.chatbot !== 'false',
-    //             CHATBOT_VISIBLE: req.query.chatbotVisible === 'true',
-    //             URL_LOOKUP_TABLE: req.query.urlLookupTable !== 'false',
-    //             ...(req.query.utilsBackground && {
-    //                 UTILS_BACKGROUND: req.query.utilsBackground as string,
-    //             }),
-    //             SHARE_SCREEN: req.query.shareScreen !== 'false',
-    //             ...(req.query.logoutUrl && {
-    //                 LOGOUT_URL: req.query.logoutUrl as string,
-    //             }),
-    //             MASK_HOTJAR: req.query.maskHotjar !== 'false',
-    //             LOGOUT_WARNING: req.query.logoutWarning === 'true',
-    //         },
-    //     }),
-    // }

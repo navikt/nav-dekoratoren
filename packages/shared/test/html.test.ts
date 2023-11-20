@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import html from '../shared/html';
+import html from '../html';
 
 describe('html template tag', () => {
   it('escapes HTML variables to avoid XSS', () => {

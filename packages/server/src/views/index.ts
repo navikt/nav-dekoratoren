@@ -97,7 +97,7 @@ const getEnvAssets = async () => {
 
 const assets = await getEnvAssets();
 
-export async function Index({
+export function Index({
   language,
   header,
   feedback,

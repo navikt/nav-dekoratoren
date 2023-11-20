@@ -23,9 +23,10 @@ import './views/main-menu';
 import './views/menu-background';
 import './views/notifications';
 import './views/ops-messages';
-import './views/screensharing';
+import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
+
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
@@ -56,6 +57,9 @@ declare global {
     TA: any;
     dataLayer: any;
     vngageReady: () => void;
+    vngage: {
+        join: (queue: string, options: unknown) => void;
+    }
   }
 }
 

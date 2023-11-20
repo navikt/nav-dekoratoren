@@ -1,37 +1,43 @@
-import { paramsSchema } from 'decorator-shared/params';
+import { paramsSchema, type Params } from 'decorator-shared/params';
 import { clientEnv } from './env/server';
 import { P, match } from 'ts-pattern';
+import { ZodBoolean, ZodDefault } from 'zod';
+
+export const getBooleans = () => Object.entries(paramsSchema.shape)
+    .reduce((prev, [key, value]) => {
+        if  (value instanceof ZodDefault && value._def.innerType instanceof ZodBoolean) {
+            return [...prev, key]
+        }
+        return prev
+    }, new Array<string>())
+
+export const parseBooleanParam = (param?: unknown): boolean =>
+    match(param)
+        .with(P.string, (param) => param === 'true')
+        .with(P.boolean, (param) => param)
+        .otherwise(() => false);
+
+const booleans = getBooleans()
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateParams = (params: Record<string, string>) => {
-  const parseBooleanParam = (param?: string | boolean): boolean =>
-    typeof param === 'boolean' ? param : param === 'true' ? true : false;
+    const reduced = booleans.reduce(
+      (prev, key) => {
+          const exists = params[key] !== undefined
+          const isOptional = paramsSchema.shape[key as keyof Params] instanceof ZodDefault === false
+          const shouldParse = exists || isOptional
 
-  const booleans = [
-    'simple',
-    'simpleHeader',
-    'simpleFooter',
-    'enforceLogin',
-    'feedback',
-    'logoutWarning',
-    'redirectToApp',
-    'chatbot',
-    'chatbotVisible',
-    'urlLookupTable',
-    'shareScreen',
-    'maskHotjar',
-    'ssr',
-  ];
-
+          return ({
+        ...prev,
+        [key]: shouldParse ?
+            parseBooleanParam(params[key]) : paramsSchema.shape[key as keyof Params].parse(params[key]),
+      })
+      },
+      {},
+    )
   return {
     ...params,
-    ...booleans.reduce(
-      (prev, key) => ({
-        ...prev,
-        [key]: parseBooleanParam(params[key]),
-      }),
-      {},
-    ),
+    ...reduced,
     logoutUrl: match(params.logoutUrl)
       .with(P.string, (url) => url)
       .otherwise(() => clientEnv.LOGOUT_URL),
@@ -44,7 +50,7 @@ export const validateParams = (params: Record<string, string>) => {
           handleInApp: parseBooleanParam(language.handleInApp),
         }))
       : params.availableLanguages,
-  };
+  } as Params;
 };
 
 export const validParams = (query: Record<string, string>) => {
