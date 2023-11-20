@@ -12,7 +12,8 @@ const corsWhitelist = [
     'navdialog.cs106.force.com',
     'navdialog.cs108.force.com',
     'navdialog.cs162.force.com',
-    'https://decorator-next.ekstern.dev.nav.no'
+    'https://decorator-next.ekstern.dev.nav.no',
+    'decorator-next'
 ];
 
 
