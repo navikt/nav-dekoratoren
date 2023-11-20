@@ -56,8 +56,6 @@ export function handleCors(request: Request): Result {
     const result = corsSchema.safeParse(host);
 
     if (!result.success) {
-        console.log(result.error)
-
         return {
             kind: 'cors-error' as const,
             message: result.error.message,
@@ -67,7 +65,6 @@ export function handleCors(request: Request): Result {
         } as const
     }
 
-    const origin = result.data;
 
     const shared = {
         'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
@@ -77,7 +74,7 @@ export function handleCors(request: Request): Result {
     const headers: Record<RunningEnv, HeadersInit> = {
         NAV_NO:
             {
-                'Access-Control-Allow-Origin': origin,
+                'Access-Control-Allow-Origin': corsWhitelist.join(', '),
                 ...shared
             }
         ,
@@ -89,10 +86,6 @@ export function handleCors(request: Request): Result {
             ...shared
         }
     };
-
-    console.log(headers)
-
-
 
     return {
         kind: 'valid' as const,
