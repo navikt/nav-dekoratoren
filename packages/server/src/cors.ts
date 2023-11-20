@@ -13,7 +13,7 @@ const corsWhitelist = [
     'navdialog.cs108.force.com',
     'navdialog.cs162.force.com',
     'https://decorator-next.ekstern.dev.nav.no',
-    'decorator-next'
+    '.personbruker'
 ];
 
 
@@ -55,6 +55,10 @@ type Result = CorsError | Valid;
 
 export function handleCors(request: Request): Result {
     const host = request.headers.get('host');
+    const origin = request.headers.get('origin');
+
+    console.log(origin, host);
+
     const result = corsSchema.safeParse(host);
 
     if (!result.success) {
@@ -76,7 +80,7 @@ export function handleCors(request: Request): Result {
     const headers: Record<RunningEnv, HeadersInit> = {
         NAV_NO:
             {
-                'Access-Control-Allow-Origin': corsWhitelist.join(', '),
+                'Access-Control-Allow-Origin': request.headers.get('origin') as string,
                 ...shared
             }
         ,
