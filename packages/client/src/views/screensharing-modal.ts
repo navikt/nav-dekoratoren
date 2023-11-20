@@ -1,4 +1,4 @@
-import { lazyLoadScreensharing } from '../screensharing';
+import { lazyLoadScreensharing, startCall } from '../screensharing';
 import cls from '../styles/screensharing-modal.module.css';
 import clsInputs from '../styles/inputs.module.css';
 
@@ -13,7 +13,9 @@ class ScreensharingModal extends HTMLDialogElement {
       if (!this.code || this.code.length !== 5 || !this.code.match(/^[0-9]+$/)) {
         this.input.classList.add(clsInputs.invalid)
         this.errorList.classList.add(clsInputs.showErrors)
+        return false
       }
+      return true
   }
 
   clearErrors() {
@@ -32,7 +34,10 @@ class ScreensharingModal extends HTMLDialogElement {
       })
 
       this.confirmButton.addEventListener('click', () => {
-          this.validateInput();
+          if(this.validateInput()) {
+              startCall(this.code);
+              this.close();
+          }
       });
 
       this.cancelButton.addEventListener('click', () => {
