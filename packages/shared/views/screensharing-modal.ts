@@ -10,17 +10,12 @@ import { ReadMore } from './read-more';
 import { Alert } from './alert';
 import { match } from 'ts-pattern';
 
-// @TODO The answer text for readmore should be three seperate paragraphs
-// See in ledetekster.ts in nav-dekoratoren line 144. Fixing after NITD.
 export type ScreensharingModalProps = {
   texts: Texts;
   children: Template;
   status: 'enabled' | 'disabled';
 };
 
-// CSS: Classes are confusing with .open .closed
-// @TODO: Don't export this, but use it to create two other "components"
-// @TODO Refactor typography
 const ScreensharingModal = ({
   texts,
   children,
