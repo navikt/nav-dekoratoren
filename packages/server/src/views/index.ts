@@ -49,7 +49,7 @@ const cssLink: AssetFormatter = (src) =>
   `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
 const hostUrl: AssetFormatter = (src) => `${env.HOST ?? ``}${src}`;
-const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
+export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
 type EnvAssets = Record<NodeEnv, string>;
 
