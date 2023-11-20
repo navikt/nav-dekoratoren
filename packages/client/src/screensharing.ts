@@ -16,19 +16,21 @@ export type VngageUserState = {
 };
 
 // @TODO: Use promise instead of callback?
+let hasBeenOpened = false;
 export function lazyLoadScreensharing(cb: () => void) {
   // Check if it is already loaded to avoid layout shift
   const enabled =
     window.__DECORATOR_DATA__.params.shareScreen &&
     window.__DECORATOR_DATA__.features['dekoratoren.skjermdeling'];
 
-  if (!enabled) {
+  if (!enabled || hasBeenOpened) {
     cb();
     return;
   }
 
   window.vngageReady = () => {
     cb();
+    hasBeenOpened = true;
   };
 
   loadExternalScript(vendorScripts.skjermdeling);

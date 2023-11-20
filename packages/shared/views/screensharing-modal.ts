@@ -1,6 +1,6 @@
 import html, { Template } from '../html';
 
-import cls from 'decorator-client/src/styles/screensharing.module.css';
+import cls from 'decorator-client/src/styles/screensharing-modal.module.css';
 import clsModal from 'decorator-client/src/styles/modal.module.css';
 import clsInputs from 'decorator-client/src/styles/inputs.module.css';
 
@@ -38,10 +38,11 @@ const ScreensharingModal = ({
           texts.delskjerm_modal_hjelpetekst_2,
         ],
       })}
-      ${children}
+      <div class="${cls.children}">${children}</div>
     </div>
   </dialog>`;
 
+// @TODO: Implement deterministic ID generation
 export const ScreensharingEnabled = ({ texts }: WithTexts) => {
   return ScreensharingModal({
     texts,
@@ -53,7 +54,7 @@ export const ScreensharingEnabled = ({ texts }: WithTexts) => {
         >
         <input
           id="screensharing_code"
-          class="${clsInputs.textInput}"
+          class="${clsInputs.textInput} ${cls.codeInput}"
           type="text"
           maxlength="5"
         />
@@ -66,13 +67,13 @@ export const ScreensharingEnabled = ({ texts }: WithTexts) => {
           text: texts.delskjerm_modal_start,
           variant: 'primary',
           bigLabel: true,
-          id: 'screensharing-confirm',
+          className: cls.confirmButton,
         })}
         ${Button({
           text: texts.delskjerm_modal_avbryt,
           variant: 'ghost',
           bigLabel: true,
-          id: 'screensharing-cancel',
+          className: cls.cancelButton,
         })}
       </div>
     `,
