@@ -115,8 +115,6 @@ export const hentVarslerFetch = async (
     credentials: 'include'
   })
 
-  console.log(JSON.stringify(response.headers))
-
   return response.json() as Promise<NotificationData | null>;
 };
 

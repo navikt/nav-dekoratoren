@@ -56,8 +56,6 @@ export const validateParams = (params: Record<string, string>) => {
 export const validParams = (query: Record<string, string>) => {
   const validParams = paramsSchema.safeParse(validateParams(query));
 
-  console.log(validParams)
-
   if (!validParams.success) {
     console.error(validParams.error);
     throw new Error(validParams.error.toString());
