@@ -11,6 +11,7 @@ import { assetsHandlers } from './handlers/assets-handler';
 import { HandlerBuilder, r } from './lib/handler';
 import { getMockSession, refreshToken } from './mockAuth';
 import renderIndex from './render-index';
+import jsonIndex from './json-index';
 import SearchService from './search-service';
 import TaConfigService from './task-analytics-service';
 import { texts } from './texts';
@@ -217,53 +218,65 @@ const requestHandler = async (
         utilsBackground,
       });
 
-      return r()
-        .html(
-          (data.simple || data.simpleHeader
-            ? SimpleHeader({
-                texts: localTexts,
-                decoratorUtils,
-              })
-            : ComplexHeader({
-                texts: localTexts,
-                contextLinks: makeContextLinks(env.XP_BASE_URL),
-                context: data.context,
-                language,
-                decoratorUtils,
-                opsMessages: data.ssr
-                  ? await contentService.getOpsMessages()
-                  : [],
-              })
-          ).render(),
-        )
-        .build();
+      return rewriter.transform(
+        r()
+          .html(
+            (data.simple || data.simpleHeader
+              ? SimpleHeader({
+                  texts: localTexts,
+                  decoratorUtils,
+                })
+              : ComplexHeader({
+                  texts: localTexts,
+                  contextLinks: makeContextLinks(env.XP_BASE_URL),
+                  context: data.context,
+                  language,
+                  decoratorUtils,
+                  opsMessages: data.ssr
+                    ? await contentService.getOpsMessages()
+                    : [],
+                })
+            ).render(),
+          )
+          .build(),
+      );
     })
     .get('/footer', async ({ query }) => {
       const data = validParams(query);
       const localTexts = texts[data.language];
       const features = unleashService.getFeatures();
 
-      return r()
-        .html(
-          (data.simple || data.simpleFooter
-            ? SimpleFooter({
-                links: await contentService.getSimpleFooterLinks({
-                  language: data.language,
-                }),
-                texts: localTexts,
-                features,
-              })
-            : ComplexFooter({
-                texts: localTexts,
-                links: await contentService.getComplexFooterLinks({
-                  language: data.language,
-                  context: data.context,
-                }),
-                features,
-              })
-          ).render(),
-        )
-        .build();
+      return rewriter.transform(
+        r()
+          .html(
+            (data.simple || data.simpleFooter
+              ? SimpleFooter({
+                  links: await contentService.getSimpleFooterLinks({
+                    language: data.language,
+                  }),
+                  texts: localTexts,
+                  features,
+                })
+              : ComplexFooter({
+                  texts: localTexts,
+                  links: await contentService.getComplexFooterLinks({
+                    language: data.language,
+                    context: data.context,
+                  }),
+                  features,
+                })
+            ).render(),
+          )
+          .build(),
+      );
+    })
+    .get('/scripts', async ({ query }) => {
+      const json = await jsonIndex({
+        unleashService,
+        data: validParams(query),
+      });
+
+      return r().json(json).build();
     })
     .get('/', async ({ url, query }) => {
       const index = await renderIndex({

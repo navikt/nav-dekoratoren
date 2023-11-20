@@ -4,6 +4,7 @@ public/dist.css
 dist/
 .DS_Store
 storybook-static/
+.idea
 
 # yarn 3
 .pnp.*
