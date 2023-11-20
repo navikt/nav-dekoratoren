@@ -59,7 +59,7 @@ const getEnvAssetsRaw = async (): Promise<{
   };
 
   return {
-    links: css[env.NODE_ENV],
+    links: css[env.NODE_ENV] as string[],
     scripts: scripts[env.NODE_ENV],
   };
 };
