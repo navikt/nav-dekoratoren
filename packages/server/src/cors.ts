@@ -56,10 +56,12 @@ export function handleCors(request: Request): Result {
     const result = corsSchema.safeParse(host);
 
     if (!result.success) {
+        console.log(result.error)
+
         return {
             kind: 'cors-error' as const,
             message: result.error.message,
-            response: new Response(null, {
+            response: new Response(result.error.message, {
                 status: 403,
             })
         } as const
