@@ -6,6 +6,7 @@ const corsWhitelist = [
     '.nav.no',
     '.oera.no',
     '.nais.io',
+    '.intern.dev.nav.no',
     'https://preview-sykdomifamilien.gtsb.io',
     'navdialog.cs102.force.com',
     'navdialog.cs106.force.com',
@@ -84,6 +85,8 @@ export function handleCors(request: Request): Result {
             ...shared
         }
     };
+
+    console.log(headers)
 
 
 
