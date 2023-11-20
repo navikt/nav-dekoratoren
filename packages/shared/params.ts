@@ -79,6 +79,11 @@ export const clientEnvSchema = z.object({
   APP_URL: z.string(),
   API_DEKORATOREN_URL: z.string(),
   API_SESSION_URL: z.string(),
+  // Screensharing related
+  OPPORTUNITY_ID: z.string(),
+  SOLUTION_ID: z.string(),
+  CASETYPE_ID: z.string(),
+  NAV_GROUP_ID: z.string(),
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;

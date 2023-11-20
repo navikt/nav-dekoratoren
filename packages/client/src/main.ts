@@ -57,6 +57,9 @@ declare global {
     TA: any;
     dataLayer: any;
     vngageReady: () => void;
+    vngage: {
+        join: (queue: string, options: unknown) => void;
+    }
   }
 }
 
