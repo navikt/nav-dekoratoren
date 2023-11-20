@@ -308,6 +308,7 @@ const requestHandler = async (
     const corsRes = handleCors(request);
 
     if (corsRes.kind === 'cors-error') {
+      console.log(corsRes.message)
       return corsRes.response;
     }
 

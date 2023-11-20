@@ -40,6 +40,7 @@ export const corsSchema = z.string().refine(
 // At the start of each request
 type CorsError = {
     kind: 'cors-error',
+    message: string,
     response: Response
 }
 
@@ -57,6 +58,7 @@ export function handleCors(request: Request): Result {
     if (!result.success) {
         return {
             kind: 'cors-error' as const,
+            message: result.error.message,
             response: new Response(null, {
                 status: 403,
             })
