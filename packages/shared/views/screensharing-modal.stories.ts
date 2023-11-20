@@ -1,9 +1,9 @@
 import type { StoryObj, Meta } from '@storybook/html';
-import type { ScreensharingModalProps } from './screensharing-modal';
-import { ScreensharingModal } from './screensharing-modal';
+import type { GetScreensharingModalOptions } from './screensharing-modal';
+import { getModal } from './screensharing-modal';
 import { texts } from 'decorator-server/src/texts';
 
-const meta: Meta<ScreensharingModalProps> = {
+const meta: Meta<GetScreensharingModalOptions> = {
   title: 'screensharing-modal',
   tags: ['autodocs'],
   render: (args) => {
@@ -12,15 +12,29 @@ const meta: Meta<ScreensharingModalProps> = {
       document.querySelector('dialog').showModal();
     }, 0);
 
-    return ScreensharingModal(args);
+    const div = document.createElement('div');
+
+    div.innerHTML = getModal({
+      ...args,
+    }).render();
+
+    return div;
   },
 };
 
 export default meta;
-type Story = StoryObj<ScreensharingModalProps>;
+type Story = StoryObj<GetScreensharingModalOptions>;
 
-export const Default: Story = {
+export const Enabled: Story = {
   args: {
     texts: texts.nb,
+    enabled: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    texts: texts.nb,
+    enabled: false,
   },
 };

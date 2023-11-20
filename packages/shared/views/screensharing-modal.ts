@@ -91,13 +91,12 @@ export const ScreensharingDisabledModal = ({ texts }: WithTexts) => {
   });
 };
 
-export const getModal = ({
-  enabled,
-  texts,
-}: {
+export type GetScreensharingModalOptions = {
   enabled: boolean;
   texts: Texts;
-}) => {
+};
+
+export const getModal = ({ enabled, texts }: GetScreensharingModalOptions) => {
   return match(enabled)
     .with(true, () => ScreensharingEnabled({ texts }))
     .with(false, () => ScreensharingDisabledModal({ texts }))
