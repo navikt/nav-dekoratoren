@@ -34,6 +34,10 @@ spec:
         - application: tms-varsel-api
           namespace: min-side
           cluster: dev-gcp
+    inbound:
+      rules:
+        - application: "*"
+          namespace: "*"
   replicas:
     min: 1
     max: 2

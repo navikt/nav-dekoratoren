@@ -77,7 +77,10 @@ export function handleCors(request: Request): Result {
             }
         ,
         localhost: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': [
+                'http://localhost:3006',
+            ].join(', '),
+            'Access-Control-Allow-Credentials': 'true',
             ...shared
         }
     };

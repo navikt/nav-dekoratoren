@@ -40,10 +40,11 @@ type AssetFormatter = (src: string) => string;
 
 const script: AssetFormatter = (src) =>
   `<script type="module" src="${src}"></script>`;
+
 const partytownScript: AssetFormatter = (src) =>
-  `<script type="text/partytown" src="${src}"></script>"`;
+  `<script type="text/partytown" src="${src}"></script>`;
 const partytownInlineScript: AssetFormatter = (code) =>
-  `<script type="text/partytown">${code}</script>"`;
+  `<script type="text/partytown">${code}</script>`;
 const cssLink: AssetFormatter = (src) =>
   `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
@@ -70,7 +71,8 @@ const getEnvAssets = async () => {
       ),
       partytownScript(vendorScripts.taskAnalytics),
       [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
-    ].join(''),
+    ].join('')
+    ,
     development: [
       [
         'http://localhost:5173/@vite/client',
@@ -135,7 +137,6 @@ export function Index({
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        ${Partytown()}
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
@@ -209,6 +210,7 @@ export function Index({
         </div>
         ${lens}
         <div id="scripts" style="display:none">
+          ${Partytown()}
           ${unsafeHtml(scripts)}${decoratorData}
           <script>
             window.__DECORATOR_DATA__ = JSON.parse(
