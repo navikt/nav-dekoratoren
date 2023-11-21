@@ -82,17 +82,31 @@ const requestHandler = async (
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
+    // @TODO Mock entire auth flow
     .get('/api/auth', () =>
       r()
         .json({
-          authenticated: true,
+          authenticated: false,
           name: 'Charlie Jensen',
           securityLevel: '3',
         })
         .build(),
     )
     .get('/api/ta', () => r().json(taConfigService.getTaConfig()).build())
-    .get('/api/oauth2/session', () => r().json(getMockSession()).build())
+    .get('/api/oauth2/session', () => {
+        // r().json(getMockSession()).build()
+        return new Response(JSON.stringify({
+            authenticated: false,
+            name: '',
+            securityLevel: '',
+        }), {
+            status: 401,
+            headers: {
+                'content-type': 'application/json',
+            }
+        })
+
+    })
     .get('/api/oauth2/session/refresh', () => {
       refreshToken();
       return r().json(getMockSession()).build();
