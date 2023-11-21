@@ -81,6 +81,7 @@ export function handleCors(request: Request): Result {
         NAV_NO:
             {
                 'Access-Control-Allow-Origin': request.headers.get('origin') as string,
+                'Access-Control-Allow-Credentials': 'true',
                 ...shared
             }
         ,
