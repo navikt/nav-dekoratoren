@@ -26,16 +26,11 @@ import './views/ops-messages';
 import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
+import { Auth } from './api';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
-type Auth = {
-  authenticated: boolean;
-  name: string;
-  securityLevel: string;
-};
-
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
 declare global {
@@ -168,16 +163,20 @@ async function populateLoggedInMenu(authObject: Auth) {
     });
 }
 
-const init = () =>
-  api.checkAuth({
-    onSuccess: async (response) => {
-      // @TODO: Need to set up with partytown
-      window.logPageView(window.__DECORATOR_DATA__.params, response);
-      window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+      //
+      // await populateLoggedInMenu(response);
+const init = async () => {
+    const response = await api.checkAuth();
 
-      await populateLoggedInMenu(response);
-    },
-  });
+    window.logPageView(window.__DECORATOR_DATA__.params, response);
+    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+
+    if (!response.authenticated) {
+        return;
+    }
+
+    await populateLoggedInMenu(response);
+}
 
 init();
 
