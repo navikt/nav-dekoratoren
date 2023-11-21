@@ -131,6 +131,7 @@ export const getNotificationsProd = () => {
         env.VARSEL_API_URL,
         request,
       );
+      console.log('NOTIFICATIONS', notificationData);
       return getNotifications(texts, notificationData);
     },
   };
