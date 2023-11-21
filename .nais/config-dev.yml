@@ -5,10 +5,6 @@ metadata:
   namespace: personbruker
   labels:
     team: personbruker
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-    nginx.ingress.kubernetes.io/proxy-body-size: "256M"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "3000"
 spec:
   image: {{image}}
   port: 8089
@@ -38,6 +34,10 @@ spec:
         - application: tms-varsel-api
           namespace: min-side
           cluster: dev-gcp
+    inbound:
+      rules:
+        - application: "*"
+          namespace: "*"
   replicas:
     min: 1
     max: 2
