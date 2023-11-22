@@ -1,7 +1,7 @@
 import postcss from 'postcss';
 import postcssModules from 'postcss-modules';
 import fs from 'fs';
-import path from 'path';
+import pathFs from 'path';
 import ts from 'typescript';
 import { HmrContext } from 'vite';
 import * as prettier from 'prettier';
@@ -17,8 +17,18 @@ async function processFile(path: string) {
   const val = await postcss([
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     postcssModules({
-      getJSON: () => {},
-    }),
+      getJSON: (name, json) => {
+          const fileName = name.split("/").pop()?.replace(".css", "");
+          const target = pathFs.resolve(__dirname, '../server/styles');
+
+        // can do this elsehwere
+          if (!fs.existsSync(target)) {
+            fs.mkdirSync(target);
+          }
+          // Check if it exists, delete, if not create
+          fs.writeFileSync(`${target}/${fileName}.json`, JSON.stringify(json));
+      }
+    })
   ]).process(file.toString(), { from: path });
 
   const tokens = val.messages.find(
@@ -95,7 +105,7 @@ const getFilePaths = (dir: string): string[] =>
   });
 
 export async function processAll() {
-  const paths = getFilePaths(path.resolve(__dirname, '..')).filter((path) =>
+  const paths = getFilePaths(pathFs.resolve(__dirname, '..')).filter((path) =>
     path.endsWith('.module.css'),
   );
 
@@ -106,7 +116,7 @@ export async function processAll() {
   const output = await createOutput(modules);
 
   for (const target of targets) {
-    fs.writeFileSync(path.resolve(target, FILE_NAME), output);
+    fs.writeFileSync(pathFs.resolve(target, FILE_NAME), output);
   }
 }
 

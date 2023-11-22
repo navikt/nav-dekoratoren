@@ -9,7 +9,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "paths": {
+        "@styles/*": ["./styles/*"],
+    }
   },
   "exclude": ["**/*.stories.ts"]
 }

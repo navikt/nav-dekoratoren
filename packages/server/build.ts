@@ -15,6 +15,8 @@ const cssModulesPlugin: BunPlugin = {
   },
 };
 
+console.log('Building server...');
+
 await Bun.build({
   entrypoints: ['./src/server.ts'],
   target: 'bun', // bun

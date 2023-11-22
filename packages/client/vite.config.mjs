@@ -8,6 +8,9 @@ export const mainBundleConfig = defineConfig({
     plugins: [typedCssModulesPlugin()],
     server: {
         origin: 'http://localhost:5173',
+        watch: {
+            usePolling: true
+        }
     },
     logLevel: 'info',
     build: {

@@ -17,6 +17,7 @@ import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
 import { OpsMessages } from '../ops-messages';
+console.log(utilsCls);
 
 export type ComplexHeaderProps = {
   texts: Texts;

@@ -3,14 +3,19 @@ import html from 'decorator-shared/html';
 import { ScreenshareButton } from './screenshare-button';
 import { ArrowUp } from 'decorator-shared/views/icons';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import cls from 'decorator-client/src/styles/complex-footer.module.css';
+
+import cls from '@styles/complex-footer.module.json';
+
 import utilCls from 'decorator-client/src/styles/utilities.module.css';
+
 
 export type ComplexFooterProps = {
   texts: Pick<Texts, 'share_screen' | 'to_top'>;
   links: LinkGroup[];
   features: Features;
 };
+
+console.log(cls["footerContent"]);
 
 export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
   const isScreensharingEnabled = features['dekoratoren.skjermdeling'];
