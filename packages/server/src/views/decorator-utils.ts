@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import cls from 'decorator-client/src/views/decorator-utils.module.css';
+import cls from '@styles/decorator-utils.module.json';
 import html from 'decorator-shared/html';
 import {
   AvailableLanguage,
   Breadcrumb,
   UtilsBackground,
 } from 'decorator-shared/params';
-import utilsCls from 'decorator-client/src/styles/utilities.module.css';
+import utilsCls from '@styles/utilities.module.json';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import { LanguageSelector } from './language-selector';
 

@@ -1,6 +1,6 @@
 import html from "decorator-shared/html";
 
-import cls from "decorator-client/src/styles/splash-page.module.css";
+import cls from "@styles/splash-page.module.json";
 import { match } from "ts-pattern";
 
 function SplashPage() {

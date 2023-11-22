@@ -1,5 +1,5 @@
 import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/icon-button.module.css';
+import cls from '@styles/icon-button.module.json';
 
 export function IconButton({
   Icon,

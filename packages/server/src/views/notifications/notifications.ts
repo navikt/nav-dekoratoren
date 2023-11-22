@@ -1,4 +1,4 @@
-import cls from 'decorator-client/src/styles/notifications.module.css';
+import cls from '@styles/notifications.module.json';
 import html, { Template } from 'decorator-shared/html';
 import { ArchivableNotification } from './archivable-notification';
 import { Notification } from './notification';

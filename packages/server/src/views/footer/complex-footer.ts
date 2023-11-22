@@ -6,7 +6,7 @@ import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helper
 
 import cls from '@styles/complex-footer.module.json';
 
-import utilCls from 'decorator-client/src/styles/utilities.module.css';
+import utilCls from '@styles/utilities.module.json';
 
 
 export type ComplexFooterProps = {

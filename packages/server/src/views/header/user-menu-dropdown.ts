@@ -1,4 +1,4 @@
-import cls from 'decorator-client/src/styles/user-menu-dropdown.module.css';
+import cls from '@styles/user-menu-dropdown.module.json';
 import { LoginLevel } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
 import {

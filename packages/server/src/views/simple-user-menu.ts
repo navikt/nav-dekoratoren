@@ -1,4 +1,4 @@
-import cls from 'decorator-client/src/styles/simple-user-menu.module.css';
+import cls from '@styles/simple-user-menu.module.json';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';

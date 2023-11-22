@@ -1,4 +1,4 @@
-import cls from 'decorator-client/src/styles/notifications-empty.module.css';
+import cls from '@styles/notifications-empty.module.json';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 

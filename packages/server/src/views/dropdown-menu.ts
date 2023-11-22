@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/dropdown-menu.module.css';
+import cls from '@styles/dropdown-menu.module.json';
 
 export type DropdownMenuProps = {
   button: Template;

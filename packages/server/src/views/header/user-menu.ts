@@ -6,7 +6,7 @@ import {
   PersonCircleIcon,
 } from 'decorator-shared/views/icons';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
-import cls from 'decorator-client/src/styles/user-menu.module.css';
+import cls from '@styles/user-menu.module.json';
 import { Notifications, Notification } from '../notifications/notifications';
 import { LoginLevel } from 'decorator-shared/params';
 import { Alert } from 'decorator-shared/views/alert';

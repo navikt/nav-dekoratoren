@@ -1,7 +1,7 @@
-import cls from 'decorator-client/src/styles/ops-messages.module.css';
+import cls from '@styles/ops-messages.module.json';
 import html from 'decorator-shared/html';
 import { OpsMessage } from 'decorator-shared/types';
-import utilsCls from 'decorator-client/src/styles/utilities.module.css';
+import utilsCls from '@styles/utilities.module.json';
 import { InfoIcon, WarningIcon } from 'decorator-shared/views/icons';
 
 export type OpsMessagesProps = {

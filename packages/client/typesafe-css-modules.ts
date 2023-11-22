@@ -7,25 +7,21 @@ import { HmrContext } from 'vite';
 import * as prettier from 'prettier';
 import prettierConfig from '../../.prettierrc.json';
 
-// Directoryes to write file to
-const targets = ['./', '../server/', '../shared/'];
+const targets = ['./', '../shared/'];
 
 const FILE_NAME = './css-modules.d.ts';
 
 async function processFile(path: string) {
   const file = fs.readFileSync(path, 'utf-8');
   const val = await postcss([
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     postcssModules({
       getJSON: (name, json) => {
           const fileName = name.split("/").pop()?.replace(".css", "");
           const target = pathFs.resolve(__dirname, '../server/styles');
 
-        // can do this elsehwere
           if (!fs.existsSync(target)) {
             fs.mkdirSync(target);
           }
-          // Check if it exists, delete, if not create
           fs.writeFileSync(`${target}/${fileName}.json`, JSON.stringify(json));
       }
     })
@@ -120,15 +116,10 @@ export async function processAll() {
   }
 }
 
-// @NOTE: Can be made more efficient by only processing the file that changed and checking the source file. Perf gains not worth it for now.
 export const typedCssModulesPlugin = () => {
-  // let config: ResolvedConfig
-
   return {
     name: 'typed-css-modules',
     configResolved() {
-      //resolvedConfig: ResolvedConfig
-      // config = resolvedConfig
       processAll();
     },
     handleHotUpdate(context: HmrContext) {

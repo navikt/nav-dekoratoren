@@ -1,6 +1,6 @@
 import html from 'decorator-shared/html';
 import { MainMenuContextLink, LinkGroup, Texts } from 'decorator-shared/types';
-import cls from 'decorator-client/src/styles/main-menu.module.css';
+import cls from '@styles/main-menu.module.json';
 
 export type MainMenuProps = {
   title: string;

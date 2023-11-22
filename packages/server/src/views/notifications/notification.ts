@@ -1,5 +1,5 @@
 import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/notification.module.css';
+import cls from '@styles/notification.module.json';
 import { ForwardChevron } from 'decorator-shared/views/icons/forward-chevron';
 
 export type NotificationProps = {

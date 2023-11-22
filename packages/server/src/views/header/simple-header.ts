@@ -1,9 +1,9 @@
-import cls from 'decorator-client/src/styles/header.module.css';
-import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
-import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
+import cls from '@styles/header.module.json';
+import menuItemsCls from '@styles/menu-items.module.json';
+import opsMessagesCls from '@styles/ops-messages.module.json';
 import html, { Template } from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-client/src/styles/utilities.module.css';
+import utilsCls from '@styles/utilities.module.json';
 import { LoginIcon } from 'decorator-shared/views/icons';
 import { IconButton } from '../icon-button';
 

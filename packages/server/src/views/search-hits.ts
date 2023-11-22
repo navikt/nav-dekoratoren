@@ -1,6 +1,6 @@
 import html from 'decorator-shared/html';
 import { SearchResult, Texts } from 'decorator-shared/types';
-import cls from 'decorator-client/src/styles/search-hits.module.css';
+import cls from '@styles/search-hits.module.json';
 import { ForwardChevron } from 'decorator-shared/views/icons';
 
 export type SearchHitsProps = {

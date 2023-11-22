@@ -1,4 +1,4 @@
-preload = ["./css-modules-plugin.ts"]
-
-[test]
-preload = ["./css-modules-plugin.ts"]
+# preload = ["./css-modules-plugin.ts"]
+#
+# [test]
+# preload = ["./css-modules-plugin.ts"]

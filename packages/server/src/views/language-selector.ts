@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import html from 'decorator-shared/html';
 import { AvailableLanguage } from 'decorator-shared/params';
 import { DownChevronIcon, GlobeIcon } from 'decorator-shared/views/icons';
-import cls from 'decorator-client/src/styles/language-selector.module.css';
+import cls from '@styles/language-selector.module.json';
 
 export type LanguageSelectorProps = {
   availableLanguages: AvailableLanguage[];

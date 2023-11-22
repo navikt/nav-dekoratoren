@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/feedback.module.css';
+import cls from '@styles/feedback.module.json';
 import { Texts } from 'decorator-shared/types';
 import { Button } from 'decorator-shared/views/components/button';
 

@@ -1,6 +1,6 @@
 import html from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/logout-warning.module.css';
-import clsModal from 'decorator-client/src/styles/modal.module.css';
+import cls from '@styles/logout-warning.module.json';
+import clsModal from '@styles/modal.module.json';
 import { Button } from 'decorator-shared/views/components/button';
 
 export type LogoutWarningProps = unknown;

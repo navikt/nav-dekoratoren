@@ -1,13 +1,13 @@
 import clsx from 'clsx';
-import menuCls from 'decorator-client/src/styles/complex-header-menu.module.css';
-import cls from 'decorator-client/src/styles/header.module.css';
-import menuItemsCls from 'decorator-client/src/styles/menu-items.module.css';
-import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css';
+import menuCls from '@styles/complex-header-menu.module.json';
+import cls from '@styles/header.module.json';
+import menuItemsCls from '@styles/menu-items.module.json';
+import opsMessagesCls from '@styles/ops-messages.module.json';
 import { ContextLink } from 'decorator-shared/context';
 import html, { Template } from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
 import { OpsMessage, Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-client/src/styles/utilities.module.css';
+import utilsCls from '@styles/utilities.module.json';
 import {
   BurgerIcon,
   LoginIcon,
