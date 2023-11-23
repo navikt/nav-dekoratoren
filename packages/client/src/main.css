@@ -125,7 +125,6 @@ body {
     line-height: 1.333;
     font-size: 1.125rem;
     color: var(--a-text-default);
-    -webkit-font-smoothing: antialiased;
   }
 
   @media (min-width: 1024px) {
