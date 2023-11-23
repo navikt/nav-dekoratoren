@@ -7,7 +7,7 @@
 .footerContent {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-9);
+  gap: var(--a-spacing-12);
 }
 
 .link {
