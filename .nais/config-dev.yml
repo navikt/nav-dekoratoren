@@ -15,7 +15,7 @@ spec:
   idporten:
     enabled: true
     sidecar:
-      enabled: true
+      enabled: false
       level: Level4
   tokenx:
     enabled: true
