@@ -16,7 +16,7 @@ export const SimpleFooter = ({
   texts,
   features,
 }: SimpleFooterProps) => html`
-  <footer class="${cls.simpleFooter}" id="decorator-footer">
+  <footer class="${cls.simpleFooter}">
     <div class="${cls.simpleFooterContent} ${utilCls.contentContainer}">
       <div class="${cls.footerLinkList}">
         ${links.map(({ url, content }) =>
