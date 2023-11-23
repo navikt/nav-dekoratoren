@@ -55,13 +55,6 @@ const server = Bun.serve({
     new UnleashService({}),
     new TaConfigService(),
   ),
-  error(error) {
-    return new Response(`<pre>${error}\n${error.stack}</pre>`, {
-      headers: {
-        'Content-Type': 'text/html',
-      },
-    });
-  },
 });
 
 console.log(
