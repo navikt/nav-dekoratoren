@@ -26,6 +26,7 @@ class HandlerResponse<TData extends Params[0]> {
 
     build() {
         this.headers.append('Content-Security-Policy', csp)
+
         return new Response(this.data, {
             headers: this.headers
         })

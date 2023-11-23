@@ -21,7 +21,9 @@ console.log('Starting decorator-next server');
 
 const server = Bun.serve({
   port: env.PORT || 8089,
-  development: process.env.NODE_ENV === 'development',
+  // development: process.env.node_env === 'development',
+  // Enabling briefly for debugging
+  development: true,
   fetch: await requestHandler(
     new ContentService(
       process.env.NODE_ENV === 'production'
