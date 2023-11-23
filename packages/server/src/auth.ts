@@ -71,7 +71,6 @@ async function fetchExchange(subject_token: string) {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: params.toString(),
-      credentials: "include",
       verbose: true,
     },
   );
