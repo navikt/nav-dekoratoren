@@ -107,11 +107,11 @@ export const hentVarslerFetch = async (
   request: Request,
 ): Promise<NotificationData | null> => {
 
-  const token = request.headers.get('Authorization') || '';
-  console.log('TOKEN', token);
+  const cookie = request.headers.get('cookie') || '';
+  console.log('COOKIE', cookie);
   const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
     headers: {
-      'token-x-authorization': token,
+        'cookie': request.headers.get('cookie') || '',
     }
   })
 
