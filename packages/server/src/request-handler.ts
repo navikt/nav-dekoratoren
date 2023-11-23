@@ -18,8 +18,6 @@ import { texts } from './texts';
 import UnleashService from './unleash-service';
 import { validParams } from './validateParams';
 import { DecoratorUtils } from './views/decorator-utils';
-import { ComplexFooter } from './views/footer/complex-footer';
-import { SimpleFooter } from './views/footer/simple-footer';
 import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
 import { ComplexHeader } from './views/header/complex-header';
 import { MainMenu } from './views/header/main-menu';
@@ -30,6 +28,7 @@ import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
 import { NotificationsService } from './notifications-service';
+import { Footer } from './views/footer/footer';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -94,18 +93,20 @@ const requestHandler = async (
     )
     .get('/api/ta', () => r().json(taConfigService.getTaConfig()).build())
     .get('/api/oauth2/session', () => {
-        // r().json(getMockSession()).build()
-        return new Response(JSON.stringify({
-            authenticated: false,
-            name: '',
-            securityLevel: '',
-        }), {
-            status: 401,
-            headers: {
-                'content-type': 'application/json',
-            }
-        })
-
+      // r().json(getMockSession()).build()
+      return new Response(
+        JSON.stringify({
+          authenticated: false,
+          name: '',
+          securityLevel: '',
+        }),
+        {
+          status: 401,
+          headers: {
+            'content-type': 'application/json',
+          },
+        },
+      );
     })
     .get('/api/oauth2/session/refresh', () => {
       refreshToken();
@@ -263,23 +264,25 @@ const requestHandler = async (
       return rewriter.transform(
         r()
           .html(
-            (data.simple || data.simpleFooter
-              ? SimpleFooter({
-                  links: await contentService.getSimpleFooterLinks({
-                    language: data.language,
+            Footer({
+              ...(data.simpleFooter || data.simple
+                ? {
+                    simple: true,
+                    links: await contentService.getSimpleFooterLinks({
+                      language: data.language,
+                    }),
+                  }
+                : {
+                    simple: false,
+                    links: await contentService.getComplexFooterLinks({
+                      language: data.language,
+                      context: data.context,
+                    }),
                   }),
-                  texts: localTexts,
-                  features,
-                })
-              : ComplexFooter({
-                  texts: localTexts,
-                  links: await contentService.getComplexFooterLinks({
-                    language: data.language,
-                    context: data.context,
-                  }),
-                  features,
-                })
-            ).render(),
+              data,
+              features,
+              texts: localTexts,
+            }).render(),
           )
           .build(),
       );
@@ -322,7 +325,7 @@ const requestHandler = async (
     const corsRes = handleCors(request);
 
     if (corsRes.kind === 'cors-error') {
-      console.log(corsRes.message)
+      console.log(corsRes.message);
       return corsRes.response;
     }
 
