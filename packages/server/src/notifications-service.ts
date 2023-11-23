@@ -107,7 +107,7 @@ export const hentVarslerFetch = async (
   request: Request,
 ): Promise<NotificationData | null> => {
 
-  const token = await exchangeToken(request);
+  const token = request.headers.get('Authorization') || '';
   const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
     headers: {
       'token-x-authorization': token,
