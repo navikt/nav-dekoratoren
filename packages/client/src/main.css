@@ -65,8 +65,10 @@
   --a-font-line-height-heading-small: 1.75rem;
   --a-font-line-height-heading-medium: 2rem;
   --a-font-family: 'Source Sans Pro', Arial, sans-serif;
+  --a-icon-default: var(--a-gray-900);
   --a-icon-info: var(--a-lightblue-800);
   --a-icon-danger: var(--a-red-500);
+  --a-nav-red: var(--a-red-500);
   --a-icon-subtle: var(--a-grayalpha-700);
   --a-surface-alt-3-strong: var(--a-deepblue-800);
   --a-surface-info-subtle: var(--a-lightblue-100);
