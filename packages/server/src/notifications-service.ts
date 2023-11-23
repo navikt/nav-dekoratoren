@@ -108,11 +108,14 @@ export const hentVarslerFetch = async (
 ): Promise<NotificationData | null> => {
 
   const token = request.headers.get('Authorization') || '';
+  console.log('TOKEN', token);
   const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
     headers: {
       'token-x-authorization': token,
     }
   })
+
+  console.log('RESPONSE', response);
 
   return response.json() as Promise<NotificationData | null>;
 };
