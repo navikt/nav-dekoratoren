@@ -76,7 +76,7 @@ export function handleCors(request: Request): Result {
     const headers: Record<RunningEnv, HeadersInit> = {
         NAV_NO:
             {
-                'Access-Control-Allow-Origin': request.headers.get('origin') as string,
+                'Access-Control-Allow-Origin': host as string,
                 'Access-Control-Allow-Credentials': 'true',
                 ...shared
             }
