@@ -112,7 +112,9 @@ export const hentVarslerFetch = async (
   const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
     headers: {
         'cookie': request.headers.get('cookie') || '',
-    }
+    },
+    credentials: 'include',
+    keepalive: true,
   })
 
   console.log('RESPONSE', response);
