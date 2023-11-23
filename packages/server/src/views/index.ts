@@ -71,8 +71,7 @@ const getEnvAssets = async () => {
       ),
       partytownScript(vendorScripts.taskAnalytics),
       [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
-    ].join('')
-    ,
+    ].join(''),
     development: [
       [
         'http://localhost:5173/@vite/client',
@@ -101,21 +100,15 @@ const assets = await getEnvAssets();
 export function Index({
   language,
   header,
-  feedback,
-  logoutWarning,
   footer,
   lens,
   decoratorData,
   maskDocument = false,
   main,
-  shareScreen,
 }: {
   language: Language;
   header: Template;
-  feedback?: Template;
   footer: Template;
-  logoutWarning?: Template;
-  shareScreen?: Template;
   lens: Template;
   decoratorData: Template;
   maskDocument?: boolean;
@@ -205,13 +198,10 @@ export function Index({
             });
           </script>
         </main>
-        <div id="footer-withmenu">
-          ${shareScreen} ${logoutWarning} ${feedback} ${footer}
-        </div>
+        <div id="footer-withmenu">${footer}</div>
         ${lens}
         <div id="scripts" style="display:none">
-          ${Partytown()}
-          ${unsafeHtml(scripts)}${decoratorData}
+          ${Partytown()} ${unsafeHtml(scripts)}${decoratorData}
           <script>
             window.__DECORATOR_DATA__ = JSON.parse(
               document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',

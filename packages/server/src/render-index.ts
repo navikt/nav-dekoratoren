@@ -1,6 +1,5 @@
 import { makeContextLinks } from 'decorator-shared/context';
 import { Params } from 'decorator-shared/params';
-import { getModal } from 'decorator-shared/views/screensharing-modal';
 import ContentService from './content-service';
 import { clientEnv, env } from './env/server';
 import { texts } from './texts';
@@ -8,15 +7,11 @@ import { GetFeatures } from './unleash-service';
 import { Index } from './views';
 import { DecoratorData } from './views/decorator-data';
 import { DecoratorLens } from './views/decorator-lens';
-import { Feedback } from './views/feedback';
-import { ComplexFooter } from './views/footer/complex-footer';
-import { SimpleFooter } from './views/footer/simple-footer';
+import { DecoratorUtils } from './views/decorator-utils';
 import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
-import { LogoutWarning } from './views/logout-warning';
 import { getSplashPage } from './views/splash-page';
-import { DecoratorUtils } from './views/decorator-utils';
-import { match } from 'ts-pattern';
+import { Footer } from './views/footer/footer';
 
 export default async ({
   contentService,
@@ -42,59 +37,53 @@ export default async ({
     utilsBackground: data.utilsBackground,
   });
 
-  return (
-    Index({
-      language,
-      header:
-        data.simple || data.simpleHeader
-          ? SimpleHeader({
-              texts: localTexts,
-              decoratorUtils,
-            })
-          : ComplexHeader({
-              texts: localTexts,
-              contextLinks: makeContextLinks(env.XP_BASE_URL),
-              context: data.context,
+  return Index({
+    language,
+    header:
+      data.simple || data.simpleHeader
+        ? SimpleHeader({
+            texts: localTexts,
+            decoratorUtils,
+          })
+        : ComplexHeader({
+            texts: localTexts,
+            contextLinks: makeContextLinks(env.XP_BASE_URL),
+            context: data.context,
+            language,
+            decoratorUtils,
+            opsMessages: data.ssr ? await contentService.getOpsMessages() : [],
+          }),
+    footer: Footer({
+      ...(data.simple || data.simpleFooter
+        ? {
+            simple: true,
+            links: await contentService.getSimpleFooterLinks({
               language,
-              decoratorUtils,
-              opsMessages: data.ssr
-                ? await contentService.getOpsMessages()
-                : [],
             }),
-      feedback: data.feedback ? Feedback({ texts: localTexts }) : undefined,
-      logoutWarning: data.logoutWarning ? LogoutWarning() : undefined,
-      shareScreen: getModal({
-          enabled: data.shareScreen && features['dekoratoren.skjermdeling'],
-          texts: localTexts
-      }),
-      footer:
-        data.simple || data.simpleFooter
-          ? SimpleFooter({
-              links: await contentService.getSimpleFooterLinks({ language }),
-              texts: localTexts,
-              features,
-            })
-          : ComplexFooter({
-              texts: localTexts,
-              links: await contentService.getComplexFooterLinks({
-                language,
-                context: data.context,
-              }),
-              features,
+          }
+        : {
+            simple: false,
+            links: await contentService.getComplexFooterLinks({
+              language,
+              context: data.context,
             }),
-      lens: DecoratorLens({
-        origin,
-        env: data,
-        query,
-      }),
-      decoratorData: DecoratorData({
-        texts: localTexts,
-        params: data,
-        features,
-        environment: clientEnv,
-      }),
-      maskDocument: data.maskHotjar,
-      main: getSplashPage(origin)
-    })
-  ).render();
+          }),
+      data,
+      features,
+      texts: localTexts,
+    }),
+    lens: DecoratorLens({
+      origin,
+      env: data,
+      query,
+    }),
+    decoratorData: DecoratorData({
+      texts: localTexts,
+      params: data,
+      features,
+      environment: clientEnv,
+    }),
+    maskDocument: data.maskHotjar,
+    main: getSplashPage(origin),
+  }).render();
 };
