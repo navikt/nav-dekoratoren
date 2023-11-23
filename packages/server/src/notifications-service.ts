@@ -8,6 +8,7 @@ import { exchangeToken } from './auth';
 import { env } from './env/server';
 import notificationsMock from './notifications-mock.json';
 import { Notification } from './views/notifications/notifications';
+import Cookies from 'js-cookie';
 
 export type NotificationsService = {
   getNotifications: ({
@@ -108,13 +109,11 @@ export const hentVarslerFetch = async (
 ): Promise<NotificationData | null> => {
 
   const cookie = request.headers.get('cookie') || '';
-  console.log('COOKIE', cookie);
-  const response = await fetch(`${VARSEL_API_URL}/tms-varsel-api/bjellevarsler`, {
+  const response = await fetch(`https://www.intern.dev.nav.no/tms-varsel-api/varselbjelle/varsler`, {
     headers: {
-        'cookie': request.headers.get('cookie') || '',
-    },
-    credentials: 'include',
-    keepalive: true,
+        'cookie': cookie,
+        // 'token-x-authorization': token,
+    }
   })
 
   console.log('RESPONSE', response);
