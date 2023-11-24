@@ -346,6 +346,7 @@ const requestHandler = async (
       response.headers.append(h, v);
     }
 
+    console.log('THIS IS THE OUTGOING RESPONSE HEADERS', response.headers);
 
     return response;
   };
