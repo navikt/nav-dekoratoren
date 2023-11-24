@@ -150,7 +150,9 @@ async function populateLoggedInMenu(authObject: Auth) {
       ...window.__DECORATOR_DATA__.params,
       name: authObject.name,
       level: `Level${authObject.securityLevel}` as LoginLevel,
-    })}`)
+    })}`, {
+        'credentials': 'include'
+    })
     .then((res) => res.text())
     .then((html) => {
       const userMenu = document.querySelector('user-menu');
