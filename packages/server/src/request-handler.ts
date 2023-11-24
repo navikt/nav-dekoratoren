@@ -323,6 +323,7 @@ const requestHandler = async (
 
     // Ambigious naming since it also returns headers, should be refactored?
     const headers = handleCors(request);
+    console.log('headers', headers);
 
     const handler = handlers.find(
       ({ method, path }) => request.method === method && url.pathname === path,
@@ -344,6 +345,7 @@ const requestHandler = async (
       }
       response.headers.append(h, v);
     }
+
 
     return response;
   };
