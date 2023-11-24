@@ -339,10 +339,11 @@ const requestHandler = async (
       query: Object.fromEntries(url.searchParams),
     });
 
-    for (const [h, v] of Object.entries(headers)) {
+    for (const [h, v] of headers.entries()) {
       if (response.headers.has(h)) {
         throw new Error(`Handler is trying to directly ${h} set with ${v}`);
       }
+      console.log('SETTING HEADER', h, v);
       response.headers.append(h, v);
     }
 
