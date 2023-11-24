@@ -1,5 +1,3 @@
-import z from 'zod';
-
 const corsWhitelist = [
     '.nav.no',
     '.oera.no',
@@ -21,6 +19,7 @@ export const isLocalhost = (origin?: string) => origin?.includes('localhost:');
 
 export function handleCors(request: Request) {
     const origin = request.headers.get('host');
+    console.log('REQUUEST', request)
     console.log(origin);
 
     const headers = new Headers();
