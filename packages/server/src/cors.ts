@@ -19,14 +19,15 @@ export const isLocalhost = (origin?: string) => origin?.includes('localhost:');
 
 export function handleCors(request: Request) {
     const origin = request.headers.get('origin');
+    console.log('origin', origin, isAllowedDomain(origin as string));
+    console.log(request)
     const headers = new Headers();
 
     if (origin && (isAllowedDomain(origin as string) || isLocalhost(origin as string))) {
-        console.log('hello')
         headers.set('Access-Control-Allow-Origin', origin as string);
         headers.set('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
         headers.set('Access-Control-Allow-Credentials', 'true');
-        headers.set('Access-Control-Allow-Headers', request.headers.get('Access-Control-Request-Headers') as string);
+        // headers.set('Access-Control-Allow-Headers', request.headers.get('Access-Control-Request-Headers') as string);
     }
 
     headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
