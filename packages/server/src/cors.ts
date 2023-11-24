@@ -1,24 +1,22 @@
 import z from 'zod';
-import { env } from './env/server';
-import { RunningEnv } from './env/schema';
 
 const corsWhitelist = [
     '.nav.no',
     '.oera.no',
     '.nais.io',
-    '.intern.dev.nav.no',
     'https://preview-sykdomifamilien.gtsb.io',
     'navdialog.cs102.force.com',
     'navdialog.cs106.force.com',
     'navdialog.cs108.force.com',
     'navdialog.cs162.force.com',
-    'decorator-next.ekstern.dev.nav.no',
     '.personbruker'
 ];
 
 
 export const isAllowedDomain = (origin?: string) =>
     origin && corsWhitelist.some((domain) => origin.endsWith(domain));
+
+export const isLocalhost = (origin?: string) => origin?.startsWith('http://localhost:');
 
 export const corsSchema = z.string().refine(
     (origin) => {
@@ -41,13 +39,13 @@ export const corsSchema = z.string().refine(
 
 
 
-export function handleCors(request: Request): HeadersInit {
+export function handleCors(request: Request) {
     const origin = request.headers.get('Origin');
     const result = corsSchema.safeParse(origin);
 
     const headers = new Headers();
 
-    if (result.success) {
+    if (result.success || isLocalhost(origin as string)) {
         headers.set('Access-Control-Allow-Origin', origin as string);
         headers.set('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
         headers.set('Access-Control-Allow-Credentials', 'true');
@@ -58,7 +56,7 @@ export function handleCors(request: Request): HeadersInit {
     headers.set('Pragma', 'no-cache');
     headers.set('Expires', '-1');
 
-    return headers.entries();
+    return headers;
 }
 // Reference
 // app.use((req, res, next) => {
