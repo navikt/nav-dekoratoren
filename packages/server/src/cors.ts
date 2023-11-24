@@ -12,7 +12,7 @@ const corsWhitelist = [
     'navdialog.cs106.force.com',
     'navdialog.cs108.force.com',
     'navdialog.cs162.force.com',
-    'https://decorator-next.ekstern.dev.nav.no',
+    'decorator-next.ekstern.dev.nav.no',
     '.personbruker'
 ];
 
@@ -39,41 +39,26 @@ export const corsSchema = z.string().refine(
     }
 );
 
-// At the start of each request
-type CorsError = {
-    kind: 'cors-error',
-    message: string,
-    response: Response
-}
-
-type Valid = {
-    kind: 'valid',
-    headers: HeadersInit
-}
-type Result = CorsError | Valid;
 
 
-export function handleCors(request: Request): Result {
-    const host = request.headers.get('host');
-    const result = corsSchema.safeParse(host);
+export function handleCors(request: Request): HeadersInit {
+    const origin = request.headers.get('Origin');
+    const result = corsSchema.safeParse(origin);
 
-    if (!result.success) {
-        return {
-            kind: 'cors-error' as const,
-            message: result.error.message,
-            response: new Response(result.error.message, {
-                status: 403,
-            })
-        } as const
+    const headers = new Headers();
+
+    if (result.success) {
+        headers.set('Access-Control-Allow-Origin', origin as string);
+        headers.set('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+        headers.set('Access-Control-Allow-Credentials', 'true');
+        headers.set('Access-Control-Allow-Headers', request.headers.get('Access-Control-Request-Headers') as string);
     }
 
+    headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    headers.set('Pragma', 'no-cache');
+    headers.set('Expires', '-1');
 
-    return {
-        kind: 'valid' as const,
-        headers:  {
-            'Access-Control-Allow-Origin': host as string,
-        }
-    }
+    return headers.entries();
 }
 // Reference
 // app.use((req, res, next) => {

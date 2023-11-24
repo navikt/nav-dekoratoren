@@ -322,12 +322,7 @@ const requestHandler = async (
     }
 
     // Ambigious naming since it also returns headers, should be refactored?
-    const corsRes = handleCors(request);
-
-    if (corsRes.kind === 'cors-error') {
-      console.log(corsRes.message);
-      return corsRes.response;
-    }
+    const headers = handleCors(request);
 
     const handler = handlers.find(
       ({ method, path }) => request.method === method && url.pathname === path,
@@ -343,7 +338,7 @@ const requestHandler = async (
       query: Object.fromEntries(url.searchParams),
     });
 
-    for (const [h, v] of Object.entries(corsRes.headers)) {
+    for (const [h, v] of Object.entries(headers)) {
       if (response.headers.has(h)) {
         throw new Error(`Handler is trying to directly ${h} set with ${v}`);
       }
