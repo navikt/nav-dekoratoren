@@ -68,31 +68,11 @@ export function handleCors(request: Request): Result {
     }
 
 
-    const shared = {
-        'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-    }
-
-
-    const headers: Record<RunningEnv, HeadersInit> = {
-        NAV_NO:
-            {
-                'Access-Control-Allow-Origin': host as string,
-                'Access-Control-Allow-Credentials': 'true',
-                ...shared
-            }
-        ,
-        localhost: {
-            'Access-Control-Allow-Origin': [
-                'http://localhost:3006',
-            ].join(', '),
-            'Access-Control-Allow-Credentials': 'true',
-            ...shared
-        }
-    };
-
     return {
         kind: 'valid' as const,
-        headers: headers[env.ENV]
+        headers:  {
+            'Access-Control-Allow-Origin': host as string,
+        }
     }
 }
 // Reference
