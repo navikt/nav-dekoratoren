@@ -306,7 +306,6 @@ const requestHandler = async (
 
       return rewriter.transform(r().html(index).build());
     })
-    .use(assetsHandlers)
     .use([cspHandler])
     .build();
 
