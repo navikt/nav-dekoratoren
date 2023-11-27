@@ -18,8 +18,6 @@ export const isLocalhost = (origin?: string) => origin?.includes('localhost:');
 
 export function handleCors(request: Request) {
     const origin = request.headers.get('origin');
-    console.log('origin', origin, isAllowedDomain(origin as string));
-    console.log(request)
     const headers = new Headers();
 
     if (origin && (isAllowedDomain(origin as string) || isLocalhost(origin as string))) {

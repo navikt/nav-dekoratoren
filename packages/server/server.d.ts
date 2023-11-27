@@ -1,4 +1,4 @@
-declare module 'decorator-client/dist/manifest.json' {
+declare module '*manifest.json' {
   const value: Record<
     string,
     {
