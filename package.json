@@ -6,9 +6,9 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "bun run --cwd packages/shared test & bun run --cwd packages/client test & bun run --cwd packages/server test & wait",
+    "test": "bun run --cwd packages/shared test && bun run --cwd packages/client test && bun run --cwd packages/server test",
     "dev": "concurrently \"bun run --cwd packages/client dev\" \"bun run --cwd packages/server dev\"",
-    "build": "bun run --cwd packages/client build & bun run --cwd packages/server build & wait bun run copy-assets",
+    "build": "bun run --cwd packages/client build && bun run --cwd packages/server build && bun run copy-assets",
     "copy-assets": "cp -r packages/client/dist/assets packages/server/public/ && cp -r packages/client/dist/~partytown packages/server/public/ && cp -r packages/client/dist/.vite packages/server/public/",
     "serve": "bun run --cwd packages/server serve",
     "serve-local": "bun run --cwd packages/server serve-local",
