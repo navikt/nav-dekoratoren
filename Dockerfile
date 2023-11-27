@@ -2,7 +2,7 @@ FROM oven/bun:1.0.14
 
 WORKDIR /app
 
-COPY packages/server/dist /app/dist
+COPY packages/server/output /app/dist
 COPY packages/server/public /app/public
 
 EXPOSE 8089
