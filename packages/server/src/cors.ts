@@ -7,7 +7,6 @@ const corsWhitelist = [
     'navdialog.cs106.force.com',
     'navdialog.cs108.force.com',
     'navdialog.cs162.force.com',
-    '.personbruker'
 ];
 
 
@@ -27,7 +26,7 @@ export function handleCors(request: Request) {
         headers.set('Access-Control-Allow-Origin', origin as string);
         headers.set('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
         headers.set('Access-Control-Allow-Credentials', 'true');
-        // headers.set('Access-Control-Allow-Headers', request.headers.get('Access-Control-Request-Headers') as string);
+        headers.set('Access-Control-Allow-Headers', 'cookie,Content-Type,Authorization');
     }
 
     headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
