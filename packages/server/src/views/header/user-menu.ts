@@ -10,6 +10,7 @@ import cls from 'decorator-client/src/styles/user-menu.module.css';
 import { Notifications, Notification } from '../notifications/notifications';
 import { LoginLevel } from 'decorator-shared/params';
 import { Alert } from 'decorator-shared/views/alert';
+import { clientEnv } from '../../env/server';
 
 export type UserMenuProps = {
   texts: Texts;
@@ -17,6 +18,8 @@ export type UserMenuProps = {
   notifications?: Notification[];
   level: LoginLevel;
   logoutUrl: string;
+  minsideUrl: string;
+  personopplysningerUrl: string;
 };
 
 export const UserMenu = ({
@@ -25,6 +28,8 @@ export const UserMenu = ({
   level,
   notifications,
   logoutUrl,
+  minsideUrl,
+  personopplysningerUrl,
 }: UserMenuProps) =>
   html`<div class="${cls.userMenu}">
     <div class="${cls.menuItems}">
@@ -45,11 +50,11 @@ export const UserMenu = ({
           `,
         })}
       </div>
-      <a href="#TODO" class="${cls.menuItem}">
+      <a href="${minsideUrl}" class="${cls.menuItem}">
         ${PersonCircleIcon({ className: cls.menuItemIcon })}
         <span>Min side</span>
       </a>
-      <a href="#TODO" class="${cls.menuItem}">
+      <a href="${personopplysningerUrl}" class="${cls.menuItem}">
         ${level === 'Level4'
           ? BadgeIcon({ className: cls.menuItemIcon })
           : PadlockIcon({ className: cls.menuItemIcon })}
