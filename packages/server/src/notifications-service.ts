@@ -4,11 +4,9 @@ import {
   TaskIcon,
 } from 'decorator-shared/views/icons/notifications';
 import { match } from 'ts-pattern';
-import { exchangeToken } from './auth';
 import { env } from './env/server';
 import notificationsMock from './notifications-mock.json';
 import { Notification } from './views/notifications/notifications';
-import Cookies from 'js-cookie';
 
 export type NotificationsService = {
   getNotifications: ({

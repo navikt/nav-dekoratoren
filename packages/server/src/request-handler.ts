@@ -6,7 +6,7 @@ import { match } from 'ts-pattern';
 import ContentService from './content-service';
 import { handleCors } from './cors';
 import { cspHandler } from './csp';
-import { env } from './env/server';
+import { clientEnv, env } from './env/server';
 import { assetsHandlers } from './handlers/assets-handler';
 import { HandlerBuilder, r } from './lib/handler';
 import { getMockSession, refreshToken } from './mockAuth';
@@ -85,7 +85,7 @@ const requestHandler = async (
     .get('/api/auth', () =>
       r()
         .json({
-          authenticated: false,
+          authenticated: true,
           name: 'Charlie Jensen',
           securityLevel: '3',
         })
@@ -101,7 +101,6 @@ const requestHandler = async (
           securityLevel: '',
         }),
         {
-          status: 401,
           headers: {
             'content-type': 'application/json',
           },
@@ -192,6 +191,8 @@ const requestHandler = async (
                 }),
                 level: data.level,
                 logoutUrl: logoutUrl as string,
+                minsideUrl: clientEnv.MIN_SIDE_URL,
+                personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
               }),
             )
             .with('arbeidsgiver', () =>

@@ -71,6 +71,7 @@ export type Params = z.infer<typeof paramsSchema>;
 export const clientEnvSchema = z.object({
   MIN_SIDE_URL: z.string(),
   MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
+  PERSONOPPLYSNINGER_URL: z.string(),
   AUTH_API_URL: z.string(),
   VARSEL_API_URL: z.string(),
   LOGIN_URL: z.string(),

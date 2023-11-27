@@ -6,6 +6,7 @@ import {
   Node,
 } from 'decorator-shared/types';
 import { Context, Language } from 'decorator-shared/params';
+import { clientEnv, env } from './env/server';
 
 export default class ContentService {
   constructor(
@@ -25,15 +26,15 @@ export default class ContentService {
         return [
           {
             content: 'Min side',
-            url: process.env.MIN_SIDE_URL ?? '#',
+            url: clientEnv.MIN_SIDE_URL ?? '#',
           },
           {
             content: 'Arbeidsgiver',
-            url: `${process.env.XP_BASE_URL}/no/bedrift`,
+            url: `${env.XP_BASE_URL}/no/bedrift`,
           },
           {
             content: 'Samarbeidspartner',
-            url: `${process.env.XP_BASE_URL}/no/samarbeidspartner`,
+            url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
           },
         ];
       case 'arbeidsgiver':
@@ -41,7 +42,7 @@ export default class ContentService {
           {
             content: 'Min side - arbeidsgiver',
             description: 'Dine sykmeldte, rekruttering, digitale skjemaer',
-            url: `${process.env.MINSIDE_ARBEIDSGIVER_URL}${
+            url: `${clientEnv.MIN_SIDE_ARBEIDSGIVER_URL}${
               bedrift ? `?bedrift=${bedrift}` : ''
             }`,
           },
@@ -49,24 +50,24 @@ export default class ContentService {
             content: 'Privat',
             description:
               'Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester',
-            url: `${process.env.XP_BASE_URL}/`,
+            url: `${env.XP_BASE_URL}/`,
           },
           {
             content: 'Samarbeidspartner',
             description:
               'Helsepersonell, tiltaksarrangører, fylker og kommuner',
-            url: `${process.env.XP_BASE_URL}/no/samarbeidspartner`,
+            url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
           },
         ];
       case 'samarbeidspartner':
         return [
           {
             content: 'Privat',
-            url: `${process.env.XP_BASE_URL}/`,
+            url: `${env.XP_BASE_URL}/`,
           },
           {
             content: 'Arbeidsgiver',
-            url: `${process.env.XP_BASE_URL}/no/bedrift`,
+            url: `${env.XP_BASE_URL}/no/bedrift`,
           },
         ];
     }
