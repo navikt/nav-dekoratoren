@@ -306,7 +306,6 @@ const requestHandler = async (
 
       return rewriter.transform(r().html(index).build());
     })
-    .use(assetsHandlers)
     .use([cspHandler])
     .build();
 
@@ -321,9 +320,7 @@ const requestHandler = async (
       return new Response('OK');
     }
 
-    // Ambigious naming since it also returns headers, should be refactored?
     const headers = handleCors(request);
-    console.log('headers', headers);
 
     const handler = handlers.find(
       ({ method, path }) => request.method === method && url.pathname === path,
@@ -343,11 +340,9 @@ const requestHandler = async (
       if (response.headers.has(h)) {
         throw new Error(`Handler is trying to directly ${h} set with ${v}`);
       }
-      console.log('SETTING HEADER', h, v);
       response.headers.append(h, v);
     }
 
-    console.log('THIS IS THE OUTGOING RESPONSE HEADERS', response.headers);
 
     return response;
   };

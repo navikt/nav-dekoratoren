@@ -66,6 +66,7 @@ jobs:
           file: Dockerfile
           tags: '${{ env.IMAGE }}'
           push: 'true'
+          no-cache: 'true'
 
   deploy:
     name: Deploy app
