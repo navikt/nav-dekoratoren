@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "bunx --bun vite",
-    "build": "npm run build-main & npm run build-lazy & wait",
+    "build": "npm run build-main & npm run build-lazy && wait",
     "build-main": "bunx --bun vite build --mode main",
     "build-lazy": "bunx --bun vite build --mode lazy",
     "test": "TZ=UTC vitest run",
