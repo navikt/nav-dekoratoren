@@ -10,10 +10,6 @@
     "test:watch": "TZ=UTC vitest watch"
   },
   "dependencies": {
-    "@babel/core": "^7.22.10",
-    "@babel/generator": "^7.22.10",
-    "@babel/traverse": "^7.22.10",
-    "@babel/types": "^7.22.10",
     "@navikt/ds-tokens": "^4.11.2",
     "decorator-shared": "workspace:*",
     "lodash.debounce": "^4.0.8",
