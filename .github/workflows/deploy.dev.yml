@@ -36,7 +36,7 @@ jobs:
             PORT=8089
             MIN_SIDE_URL=https://www.intern.dev.nav.no/minside
             MIN_SIDE_ARBEIDSGIVER_URL=https://www.intern.dev.nav.no/min-side-arbeidsgiver
-            PERSONOPPLYSNINGER_URL=https://www.intern.dev.nav.no/minside
+            PERSONOPPLYSNINGER_URL=https://www.intern.dev.nav.no/person/personopplysninger
             CASETYPE_ID=66D660EF-6F14-44B4-8ADE-A70A127202D0
             NAV_GROUP_ID=A034081B-6B73-46B7-BE27-23B8E9CE3079
             OPPORTUNITY_ID=615FF5E7-37B7-4697-A35F-72598B0DC53B
