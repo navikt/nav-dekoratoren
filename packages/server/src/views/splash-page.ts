@@ -16,7 +16,7 @@ function SplashPage() {
   `;
 }
 
-const domainsToShow = ["localhost", "dekoratøren"] as const;
+const domainsToShow = ["localhost", "decorator-next"] as const;
 
 export const getSplashPage = (origin: string) =>
   match(origin)

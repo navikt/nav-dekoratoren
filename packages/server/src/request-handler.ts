@@ -213,14 +213,17 @@ const requestHandler = async (
 
       return template().then((template) => r().html(template.render()).build());
     })
-    .get('/ops-messages', async () =>
-      r()
+    .get('/ops-messages', async () => {
+      const opsMessages = await contentService.getOpsMessages();
+
+      return r()
         .html(
-          OpsMessages({
-            opsMessages: await contentService.getOpsMessages(),
-          }).render(),
+          match(opsMessages).with([], () => '').otherwise(() =>
+            OpsMessages({ opsMessages }).render(),
+          )
         )
-        .build(),
+        .build()
+    }
     )
     .get('/header', async ({ query }) => {
       const data = validParams(query);
