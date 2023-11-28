@@ -14,5 +14,6 @@ jobs:
       NAIS_VARS: .nais/vars/dev.yml
       IMAGE_NAME: decorator-next
       CLUSTER: dev-gcp
+      CDN_ENVIRONMENT: cdn.dev.nav.no
     secrets: inherit
 

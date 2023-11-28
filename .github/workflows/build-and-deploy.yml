@@ -11,6 +11,9 @@ on:
       CLUSTER:
         required: true
         type: string
+      CDN_ENVIRONMENT:
+        required: true
+        type: string
 
 jobs:
   build_and_deploy:
@@ -40,7 +43,8 @@ jobs:
         with:
           cdn-team-name: personbruker
           source: './packages/server/public'
-          destination: '/decorator-next-${{ inputs.CLUSTER }}'
+          destination: '/decorator-next'
+          cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
 
       - name: Login to GitHub Docker Registry
         uses: docker/login-action@v1
