@@ -1,0 +1,66 @@
+name: Build and deploy to nais
+on:
+  workflow_call:
+    inputs:
+      NAIS_VARS:
+        required: true
+        type: string
+      IMAGE_NAME:
+        required: true
+        type: string
+      CLUSTER:
+        required: true
+        type: string
+
+jobs:
+  build_and_deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    env:
+      image: ghcr.io/${{ github.repository }}:${{ inputs.IMAGE_NAME }}-${{ github.sha }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: '10.0.14'
+      - name: Install dependencies
+        run: bun install --immutable
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Build app
+        run: bun run build
+      - name: Run tests
+        run: bun run test
+      - name: upload to CDN
+        uses: navikt/frontend/actions/cdn-upload/v1@main
+        with:
+          cdn-team-name: personbruker
+          source: './packages/server/public'
+          destination: '/decorator-next-${{ inputs.CLUSTER }}'
+
+      - name: Login to GitHub Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: 'ghcr.io'
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Build and push Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          tags: '${{ inputs.IMAGE_NAME }}'
+          push: 'true'
+
+      - uses: nais/deploy/actions/deploy@master
+        env:
+          CLUSTER: ${{ inputs.CLUSTER }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          RESOURCE: .nais/config.yaml
+          VAR: image=${{ env.image }},BUILD_ID=${{ github.sha }}
+          VARS: ${{ inputs.NAIS_VARS }}

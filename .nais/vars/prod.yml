@@ -14,7 +14,7 @@ env:
   - name: HOST
     value: https://www.nav.no/decorator-next
   - name: CDN_URL
-    value: https://cdn.nav.no/personbruker/decorator-next-prod/public
+    value: https://cdn.nav.no/personbruker/decorator-next-prod-gcp/public
   - name: ENONICXP_SERVICES
     value:  https://www.nav.no/_/service
   - name: XP_BASE_URL
