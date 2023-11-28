@@ -1,0 +1,85 @@
+
+name: Deploy to prod
+on:
+  release:
+    types: [released]
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: '1.0.14'
+      - name: Define app environmment
+        run: |
+            cat > .env <<EOF
+            ENV=NAV_NO
+            HOST=https://decorator-next.ekstern.dev.nav.no
+            CDN_URL=https://cdn.nav.no/personbruker/decorator-next/public
+            ENONICXP_SERVICES=https://www.intern.dev.nav.no/_/service
+            XP_BASE_URL=https://www.intern.dev.nav.no
+            AUTH_API_URL=https://login.ekstern.dev.nav.no
+            LOGIN_URL=https://login.ekstern.dev.nav.no/oauth2/login
+            LOGOUT_URL=https://login.ekstern.dev.nav.no/oauth2/logout
+            VARSEL_API_URL=https://www.intern.dev.nav.no/tms-varsel-api
+            API_DEKORATOREN_URL=https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api
+            API_SESSION_URL=https://login.ekstern.dev.nav.no/oauth2/session
+            PORT=8089
+            MIN_SIDE_URL=https://www.intern.dev.nav.no/minside
+            MIN_SIDE_ARBEIDSGIVER_URL=https://www.intern.dev.nav.no/min-side-arbeidsgiver
+            PERSONOPPLYSNINGER_URL=https://www.intern.dev.nav.no/person/personopplysninger
+            CASETYPE_ID=66D660EF-6F14-44B4-8ADE-A70A127202D0
+            NAV_GROUP_ID=A034081B-6B73-46B7-BE27-23B8E9CE3079
+            OPPORTUNITY_ID=615FF5E7-37B7-4697-A35F-72598B0DC53B
+            SOLUTION_ID=5EB316A1-11E2-460A-B4E3-F82DBD13E21D
+            EOF
+      - name: Install dependencies
+        run: bun install --immutable
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Build app
+        run: bun run build
+      - name: Run tests
+        run: bun run test
+      - name: upload to CDN
+        uses: navikt/frontend/actions/cdn-upload/v1@main
+        with:
+          cdn-team-name: personbruker
+          source: './packages/server/public'
+          destination: '/decorator-next-prod'
+
+      - name: Login to GitHub Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: 'ghcr.io'
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GITHUB_TOKEN }}'
+      - name: Build and push Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          tags: '${{ env.IMAGE }}'
+          push: 'true'
+
+  deploy:
+    name: Deploy app
+    needs: 'build'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy app
+        uses: 'nais/deploy/actions/deploy@v1'
+        env:
+          'APIKEY': '${{ secrets.NAIS_DEPLOY_APIKEY }}'
+          'CLUSTER': 'prod-gcp'
+          'RESOURCE': '.nais/config-dev.yml'
