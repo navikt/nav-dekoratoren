@@ -52,7 +52,9 @@ export function ComplexHeader({
               })}"
               data-attach-context
             >
-              ${NavLogo()}
+              ${NavLogo({
+                id: 'dekoratoren-header-logo'
+              })}
             </a>
             <div class="${cls.arbeidsflate}">
               ${language === 'nb' &&

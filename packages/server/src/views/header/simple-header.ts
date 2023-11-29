@@ -30,7 +30,9 @@ export const SimpleHeader = ({
           })}"
           data-attach-context
         >
-          ${NavLogo()}
+          ${NavLogo({
+              id: 'dekoratoren-header-logo'
+          })}
         </a>
         <user-menu class="${menuItemsCls.menuItems}">
           ${IconButton({

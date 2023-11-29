@@ -56,7 +56,9 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
         </ul>
 
         <div class="${cls.complexFooterOrg}">
-          ${NavLogo()}
+          ${NavLogo({
+              id: 'dekoratoren-footer-logo'
+          })}
 
           <span>Arbeids- og velferdsetaten</span>
         </div>

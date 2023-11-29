@@ -1,6 +1,13 @@
 import html from '../html';
+import { DecoratorId } from '../types';
 
-export const NavLogo = ({ className }: { className?: string } = {}) =>
+export const NavLogo = ({
+  className,
+  id,
+}: {
+  className?: string;
+  id: DecoratorId;
+}) =>
   html`<svg
     xmlns="http://www.w3.org/2000/svg"
     width="64"
@@ -10,10 +17,10 @@ export const NavLogo = ({ className }: { className?: string } = {}) =>
     focusable="false"
     aria-hidden="true"
     focusable="false"
-    aria-labelledby="nav-logo"
+    aria-labelledby="${id}"
     ${className && html`class="${className}"`}
   >
-    <title id="nav-logo">NAV</title>
+    <title id="${id}">NAV</title>
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
