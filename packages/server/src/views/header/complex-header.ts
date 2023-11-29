@@ -13,6 +13,7 @@ import {
   LoginIcon,
   SearchIcon,
 } from 'decorator-shared/views/icons';
+import { NavLogo } from 'decorator-shared/views/nav-logo';
 import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
@@ -51,7 +52,9 @@ export function ComplexHeader({
               })}"
               data-attach-context
             >
-              <img src="/ikoner/meny/nav-logo-red.svg" alt="NAV" />
+              ${NavLogo({
+                id: 'dekoratoren-header-logo'
+              })}
             </a>
             <div class="${cls.arbeidsflate}">
               ${language === 'nb' &&

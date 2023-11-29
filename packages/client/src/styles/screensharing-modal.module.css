@@ -8,9 +8,9 @@
 .avatar {
     position: absolute;
     width: 70px;
-    top: -50px;
+    top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 }
 
 .content {
@@ -23,7 +23,9 @@
     gap: var(--a-spacing-4);
 }
 
-.children {}
+.children {
+  margin-top: var(--a-spacing-4);
+}
 .codeInput {}
 .confirmButton {}
 .cancelButton {}

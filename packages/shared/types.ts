@@ -7,6 +7,11 @@ export enum MenuValue {
   IKKEBESTEMT = 'IKKEBESTEMT',
 }
 
+/**
+ * Used to enforce scoped ids
+ */
+export type DecoratorId = `dekoratoren-${string}`;
+
 export type Node = {
   children: Node[];
   displayName: string;
