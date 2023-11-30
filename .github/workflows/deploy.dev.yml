@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     uses: ./.github/workflows/build-and-deploy.yml
+    permissions:
+      packages: write
+      id-token: write
     with:
       NAIS_VARS: .nais/vars/dev.yml
       IMAGE_NAME: decorator-next
