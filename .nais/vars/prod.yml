@@ -1,6 +1,5 @@
 appName: decorator-next
 appPath: ''
-port: 8089
 ingresses:
   - https://www.nav.no/decorator-next
 outboundHosts:
@@ -32,7 +31,7 @@ env:
   - name: API_SESSION_URL
     value: https://login.nav.no/oauth2/session
   - name: PORT
-    value: 8089
+    value: '8089'
   - name: MIN_SIDE_URL
     value: https://www.nav.no/minside/
   - name: MIN_SIDE_ARBEIDSGIVER_URL
