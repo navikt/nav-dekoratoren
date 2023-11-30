@@ -38,7 +38,7 @@ spec:
       value: {{var.value}}
   {{/each}}
   envFrom:
-    - secret: decorator-next-unleash-api-token
+    - secret: decorator-next
   replicas:
   {{#with replicas}}
     min: {{min}}
