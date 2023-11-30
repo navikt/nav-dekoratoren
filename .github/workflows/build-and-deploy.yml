@@ -44,7 +44,7 @@ jobs:
           cdn-team-name: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
-          cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
+          # cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
 
       - name: Login to GitHub Docker Registry
         uses: docker/login-action@v1
