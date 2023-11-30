@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const serverSchema = z.object({
   ENONICXP_SERVICES: z.string().url(),
   XP_BASE_URL: z.string().url(),
-  PORT: z.number(),
+  PORT: z.number().optional(),
   CDN_URL: z.string().url(),
   NODE_ENV: z.enum(['production', 'development']),
   ENV: z.enum(['localhost', 'NAV_NO']),
