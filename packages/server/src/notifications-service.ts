@@ -107,7 +107,7 @@ export const hentVarslerFetch = async (
 ): Promise<NotificationData | null> => {
 
   const cookie = request.headers.get('cookie') || '';
-  const response = await fetch(`https://www.intern.dev.nav.no/tms-varsel-api/varselbjelle/varsler`, {
+  const response = await fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
     headers: {
         'cookie': cookie,
         // 'token-x-authorization': token,
