@@ -1,0 +1,17 @@
+name: Deploy to prod
+on:
+  release:
+    types: [released]
+
+jobs:
+  deploy:
+    permissions:
+      packages: write
+    if: github.event.release.target_commitish == 'main'
+    uses: ./.github/workflows/build-and-deploy.yml
+    with:
+      NAIS_VARS: .nais/vars/prod.yaml
+      IMAGE_NAME: release-${{ github.ref_name }}
+      CLUSTER: prod-gcp
+      CDN_ENVIRONMENT: cdn.nav.no
+    secrets: inherit

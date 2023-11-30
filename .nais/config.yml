@@ -1,0 +1,55 @@
+---
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: {{appName}}
+  namespace: personbruker
+  labels:
+    team: personbruker
+spec:
+  image: {{image}}
+  port: 8088
+  liveness:
+    path: {{appPath}}/isAlive
+  readiness:
+    path: {{appPath}}/isReady
+  prometheus:
+    enabled: true
+    path: {{appPath}}/metrics
+  ingresses:
+  {{#each ingresses as |url|}}
+    - {{url}}
+  {{/each}}
+  accessPolicy:
+    outbound:
+      external:
+        {{#each outboundHosts as |host|}}
+        - host: {{host}}
+        {{/each}}
+    inbound:
+      rules:
+        - application: "*"
+          namespace: "*"
+  env:
+    - name: BUILD_ID
+      value: {{BUILD_ID}}
+  {{#each env as |var|}}
+    - name: {{var.name}}
+      value: {{var.value}}
+  {{/each}}
+  envFrom:
+    - secret: decorator-next-unleash-api-token
+  replicas:
+  {{#with replicas}}
+    min: {{min}}
+    max: {{max}}
+  {{/with}}
+  resources:
+  {{#with resources}}
+    requests:
+      cpu: {{requests.cpu}}
+      memory: {{requests.memory}}
+    limits:
+      memory: {{limits.memory}}
+  {{/with}}
+
