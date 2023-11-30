@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
+      id-token: write
     env:
       image: ghcr.io/${{ github.repository }}:${{ inputs.IMAGE_NAME }}-${{ github.sha }}
     steps:
@@ -44,6 +45,7 @@ jobs:
           cdn-team-name: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
 
       - name: Login to GitHub Docker Registry
