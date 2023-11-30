@@ -6,6 +6,7 @@ import { Texts } from 'decorator-shared/types';
 import utilsCls from 'decorator-client/src/styles/utilities.module.css';
 import { LoginIcon } from 'decorator-shared/views/icons';
 import { IconButton } from '../icon-button';
+import { NavLogo } from 'decorator-shared/views/nav-logo';
 
 export type SimpleHeaderProps = {
   texts: Texts;
@@ -22,14 +23,16 @@ export const SimpleHeader = ({
         <a
           is="lenke-med-sporing"
           href="/"
-          class="${cls.logo}"
+          class="${cls.logo} ${cls.logoSimple}"
           data-analytics-event-args="${JSON.stringify({
             category: 'dekorator-header',
             action: 'navlogo',
           })}"
           data-attach-context
         >
-          <img src="/ikoner/meny/nav-logo-black.svg" alt="NAV" />
+          ${NavLogo({
+              id: 'dekoratoren-header-logo'
+          })}
         </a>
         <user-menu class="${menuItemsCls.menuItems}">
           ${IconButton({

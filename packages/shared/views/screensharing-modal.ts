@@ -3,6 +3,7 @@ import html, { Template } from '../html';
 import cls from 'decorator-client/src/styles/screensharing-modal.module.css';
 import clsModal from 'decorator-client/src/styles/modal.module.css';
 import clsInputs from 'decorator-client/src/styles/inputs.module.css';
+import { VeilederIllustration } from 'decorator-shared/views/illustrations';
 
 import { Button } from './components/button';
 import { Texts, WithTexts } from '../types';
@@ -26,7 +27,7 @@ const ScreensharingModal = ({
     class="${clsModal.modal} ${cls.screensharingModal}"
     data-status="${status}"
   >
-    <img src="/ikoner/del-skjerm/Veileder.svg" class="${cls.avatar}" alt="" />
+    ${VeilederIllustration({ className: cls.avatar })}
     <div class="${clsModal.modalWindow} ${cls.content}">
       <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
       <p>${texts.delskjerm_modal_beskrivelse}</p>
