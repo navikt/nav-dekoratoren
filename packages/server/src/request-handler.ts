@@ -314,7 +314,7 @@ const requestHandler = async (
     .build();
 
   return async function fetch(request: Request): Promise<Response> {
-    const url = new URL(request.url);
+    const url = new URL(request.url, env.HOST);
 
     console.log(url)
 
