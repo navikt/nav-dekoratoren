@@ -316,6 +316,8 @@ const requestHandler = async (
   return async function fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
+    console.log(url)
+
     if (url.pathname === '/api/isAlive') {
       return new Response('OK');
     }
@@ -331,6 +333,8 @@ const requestHandler = async (
     );
 
     if (!handler) {
+      console.log(`No handler for ${request.method} ${url.pathname}`);
+      console.log(request);
       return new Response('Not found', { status: 404 });
     }
 

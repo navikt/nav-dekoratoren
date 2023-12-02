@@ -1,5 +1,5 @@
 appName: decorator-next
-appPath: '/decorator-next'
+appPath: /decorator-next
 ingresses:
   - https://www.nav.no/decorator-next
 outboundHosts:
