@@ -46,8 +46,7 @@ jobs:
           cdn-team-name: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
+          cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
 
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
