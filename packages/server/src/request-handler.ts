@@ -331,8 +331,6 @@ const requestHandler = async (
     );
 
     if (!handler) {
-      console.log(`No handler for ${request.method} ${url.pathname}`);
-      console.log(request);
       return new Response('Not found', { status: 404 });
     }
 

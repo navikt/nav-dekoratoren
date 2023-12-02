@@ -114,8 +114,6 @@ export const hentVarslerFetch = async (
     }
   })
 
-  console.log('RESPONSE', response);
-
   return response.json() as Promise<NotificationData | null>;
 };
 
@@ -132,7 +130,6 @@ export const getNotificationsProd = () => {
         env.VARSEL_API_URL,
         request,
       );
-      console.log('NOTIFICATIONS', notificationData);
       return getNotifications(texts, notificationData);
     },
   };
