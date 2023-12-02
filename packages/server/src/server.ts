@@ -1,6 +1,5 @@
 import { fetchOpsMessages, fetchMenu, fetchSearch } from './enonic';
 import { readdirSync, statSync } from 'node:fs';
-import { env } from './env/server';
 import ContentService from './content-service';
 import requestHandler from './request-handler';
 import SearchService from './search-service';
@@ -20,7 +19,7 @@ const getFilePaths = (dir: string): string[] =>
 console.log('Starting decorator-next server');
 
 const server = Bun.serve({
-  port: env.PORT || 8089,
+  port: 8089,
   // development: process.env.node_env === 'development',
   // Enabling briefly for debugging
   development: true,
