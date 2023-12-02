@@ -14,10 +14,10 @@ spec:
   image: {{image}}
   port: 8089
   liveness:
-    path: {{appPath}}/isAlive
+    path: /api/isAlive
     initialDelay: 10
   readiness:
-    path: {{appPath}}/isReady
+    path: /api/isReady
     initialDelay: 10
   prometheus:
     enabled: true
