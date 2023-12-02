@@ -30,8 +30,6 @@ env:
     value: https://www.nav.no/person/nav-dekoratoren-api
   - name: API_SESSION_URL
     value: https://login.nav.no/oauth2/session
-  - name: PORT
-    value: '8089'
   - name: MIN_SIDE_URL
     value: https://www.nav.no/minside/
   - name: MIN_SIDE_ARBEIDSGIVER_URL
