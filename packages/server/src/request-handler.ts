@@ -314,9 +314,7 @@ const requestHandler = async (
     .build();
 
   return async function fetch(request: Request): Promise<Response> {
-    const url = new URL(request.url, env.HOST);
-
-    console.log(url)
+    const url = new URL(request.url.replace('decorator-next', ''));
 
     if (url.pathname === '/api/isAlive') {
       return new Response('OK');
