@@ -4,6 +4,7 @@ import cls from './breadcrumbs.module.css';
 import { ForwardChevron } from './icons';
 import { HomeIcon } from './icons/home';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
+import { isNavUrl } from '../utils';
 
 const analyticsEventArgs = {
   category: 'dekorator-header',
@@ -14,8 +15,27 @@ export type BreadcrumbsProps = {
   breadcrumbs: Breadcrumb[];
 };
 
-export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
-  breadcrumbs.length > 0
+export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
+  breadcrumbs.forEach((breadcrumb) => {
+    if (!breadcrumb.title) {
+      const error = 'breadcrumbs.title supports string';
+      throw Error(error);
+    }
+    if (!breadcrumb.url) {
+      const error = 'breadcrumbs.url supports string';
+      throw Error(error);
+    }
+    if (!isNavUrl(breadcrumb.url)) {
+      const error = `breadcrumbs.url supports only nav.no urls - failed to validate ${breadcrumb.url}`;
+      throw Error(error);
+    }
+  });
+};
+
+export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
+  validateBreadcrumbs(breadcrumbs);
+
+  return breadcrumbs.length > 0
     ? html`
         <ol class="${cls.list}">
           <li class="${cls.listItem}">
@@ -60,3 +80,4 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) =>
         </ol>
       `
     : null;
+};
