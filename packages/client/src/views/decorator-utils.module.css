@@ -7,7 +7,7 @@
   padding-block: var(--a-spacing-3);
 }
 
-.decoratorUtils.empty {
+.decoratorUtils.hidden {
   display: none;
 }
 

@@ -6,3 +6,7 @@ export const isNavUrl = (url: string) => {
 
   return isLocalhost || isPath || isNavOrNais;
 };
+
+export const isExternallyAvailable = (url: string) => {
+  return url.includes('www.nav.no');
+};

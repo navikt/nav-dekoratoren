@@ -14,16 +14,18 @@ export type DecoratorUtilsProps = {
   breadcrumbs: Breadcrumb[];
   availableLanguages: AvailableLanguage[];
   utilsBackground: UtilsBackground;
+  hidden: boolean
 };
 
 export const DecoratorUtils = ({
   breadcrumbs,
   availableLanguages,
   utilsBackground,
+  hidden,
 }: DecoratorUtilsProps) =>
   html`<decorator-utils
     class="${clsx(utilsCls.contentContainer, cls.decoratorUtils, {
-      [cls.empty]: availableLanguages.length === 0 && breadcrumbs.length === 0,
+      [cls.hidden]: (availableLanguages.length === 0 && breadcrumbs.length === 0) || hidden,
       [cls.white]: utilsBackground === 'white',
       [cls.gray]: utilsBackground === 'gray',
     })}"
