@@ -12,6 +12,7 @@ import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
 import { getSplashPage } from './views/splash-page';
 import { Footer } from './views/footer/footer';
+import { isExternallyAvailable } from 'decorator-shared/utils';
 
 export default async ({
   contentService,
@@ -31,10 +32,12 @@ export default async ({
 
   const features = unleashService.getFeatures();
 
+
   const decoratorUtils = DecoratorUtils({
     breadcrumbs,
     availableLanguages,
     utilsBackground: data.utilsBackground,
+    hidden: isExternallyAvailable(clientEnv.APP_URL)
   });
 
   return Index({

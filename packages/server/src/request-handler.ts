@@ -7,7 +7,6 @@ import ContentService from './content-service';
 import { handleCors } from './cors';
 import { cspHandler } from './csp';
 import { clientEnv, env } from './env/server';
-import { assetsHandlers } from './handlers/assets-handler';
 import { HandlerBuilder, r } from './lib/handler';
 import { getMockSession, refreshToken } from './mockAuth';
 import renderIndex from './render-index';
@@ -29,6 +28,7 @@ import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
 import { NotificationsService } from './notifications-service';
 import { Footer } from './views/footer/footer';
+import { isExternallyAvailable } from 'decorator-shared/utils';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -81,7 +81,6 @@ const requestHandler = async (
           new Response(fileSystemService.getFile(`.${url.pathname}`)),
       })),
     )
-    // @TODO Mock entire auth flow
     .get('/api/auth', () =>
       r()
         .json({
@@ -93,7 +92,6 @@ const requestHandler = async (
     )
     .get('/api/ta', () => r().json(taConfigService.getTaConfig()).build())
     .get('/api/oauth2/session', () => {
-      // r().json(getMockSession()).build()
       return new Response(
         JSON.stringify({
           authenticated: false,
@@ -235,6 +233,7 @@ const requestHandler = async (
         breadcrumbs,
         availableLanguages,
         utilsBackground,
+        hidden: isExternallyAvailable(clientEnv.APP_URL)
       });
 
       return rewriter.transform(
