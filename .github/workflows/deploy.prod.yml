@@ -15,5 +15,4 @@ jobs:
       NAIS_VARS: .nais/vars/prod.yml
       IMAGE_NAME: release-${{ github.ref_name }}
       CLUSTER: prod-gcp
-      CDN_ENVIRONMENT: cdn.nav.no
     secrets: inherit

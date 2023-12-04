@@ -11,9 +11,6 @@ on:
       CLUSTER:
         required: true
         type: string
-      CDN_ENVIRONMENT:
-        required: true
-        type: string
 
 jobs:
   build_and_deploy:
@@ -46,7 +43,6 @@ jobs:
           cdn-team-name: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
-          cdn-environment: '${{ inputs.CDN_ENVIRONMENT }}'
 
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
