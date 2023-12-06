@@ -28,6 +28,7 @@ import './views/search-input';
 import './views/search-menu';
 import { Auth } from './api';
 
+
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing

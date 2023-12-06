@@ -1,6 +1,7 @@
 import { UtilsBackground } from 'decorator-shared/params';
 import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import cls from './decorator-utils.module.css';
+import cls from '../styles/decorator-utils.module.css';
+
 import { LanguageSelector } from './language-selector';
 
 class DecoratorUtils extends HTMLElement {
@@ -23,7 +24,7 @@ class DecoratorUtils extends HTMLElement {
       window.__DECORATOR_DATA__.params;
 
     this.classList.toggle(
-      cls.empty,
+      cls.hidden,
       availableLanguages.length === 0 && breadcrumbs.length === 0,
     );
     this.utilsBackground = utilsBackground;

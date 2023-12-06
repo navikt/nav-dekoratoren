@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import cls from 'decorator-client/src/views/decorator-utils.module.css';
+import cls from 'decorator-client/src/styles/decorator-utils.module.css';
 import html from 'decorator-shared/html';
 import {
   AvailableLanguage,
