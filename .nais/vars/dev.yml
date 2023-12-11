@@ -14,7 +14,7 @@ env:
   - name: HOST
     value: https://decorator-next.ekstern.dev.nav.no
   - name: CDN_URL
-    value: https://cdn.dev.nav.no/personbruker/decorator-next/public
+    value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
     value: https://www.intern.dev.nav.no/_/service
   - name: XP_BASE_URL
