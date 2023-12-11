@@ -73,7 +73,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                         ${title}
                       </a>
                     `}
-                ${index === breadcrumbs.length - 1 || ForwardChevron()}
+                ${index === breadcrumbs.length - 1 ? '' : ForwardChevron()}
               </li>
             `,
           )}

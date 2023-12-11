@@ -16,10 +16,11 @@ export const Default: Story = {
     breadcrumbs: [
       {
         title: 'Arbeid og opphold i Norge',
-        url: '/no/person/flere-tema/arbeid-og-opphold-i-norge',
+        url: 'https://www.nav.no/person/flere-tema/arbeid-og-opphold-i-norge',
       },
       {
         title: 'Medlemskap i folketrygden',
+        url: 'https://www.nav.no/person/flere-tema/arbeid-og-opphold-i-norge',
       },
     ],
   },
