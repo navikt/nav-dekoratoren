@@ -14,7 +14,6 @@ class DecoratorUtils extends HTMLElement {
     this.languageSelector = this.querySelector(
       'language-selector',
     ) as LanguageSelector;
-    console.log(this.languageSelector)
     this.breadbrumbs = this.querySelector(
       'nav[is="d-breadcrumbs"]',
     ) as HTMLElement;
