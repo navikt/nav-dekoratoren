@@ -1,4 +1,4 @@
 public/assets/
 public/~partytown/
-public/.vite/
+public/.vite/*.json
 .env
