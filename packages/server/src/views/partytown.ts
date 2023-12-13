@@ -1,5 +1,7 @@
 import html, { unsafeHtml } from 'decorator-shared/html';
 import { partytownSnippet } from '@builder.io/partytown/integration';
+import { env } from '../env/server';
+
 
 const snippetText = partytownSnippet();
 
@@ -7,8 +9,7 @@ export function Partytown() {
   return html`
     <script>
       partytown = {
-        debug: true,
-        lib: '/public/~partytown/',
+        lib: '${env.HOST}/public/~partytown/',
         forward: [
           'analyticsEvent',
           'logAmplitudeEvent',
