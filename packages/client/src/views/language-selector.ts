@@ -9,6 +9,7 @@ declare global {
 
 export class LanguageSelector extends HTMLElement {
   menu;
+  container: HTMLDivElement;
   button: HTMLButtonElement;
   #open = false;
   options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
@@ -28,6 +29,7 @@ export class LanguageSelector extends HTMLElement {
     const availableLanguageToLi = (language: AvailableLanguage) => {
       const li = document.createElement('li');
       let option: HTMLAnchorElement | HTMLButtonElement;
+
       if (language.handleInApp) {
         option = document.createElement('button');
 
@@ -73,10 +75,11 @@ export class LanguageSelector extends HTMLElement {
     super();
 
     this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
+    this.container = this.querySelector(`.${cls.languageSelector}`)!;
 
     this.menu = document.createElement('ul');
     this.menu.classList.add(cls.menu, cls.hidden);
-    this.appendChild(this.menu);
+    this.container.appendChild(this.menu);
   }
 
   connectedCallback() {
@@ -104,6 +107,4 @@ export class LanguageSelector extends HTMLElement {
   }
 }
 
-customElements.define('language-selector', LanguageSelector, {
-  extends: 'nav',
-});
+customElements.define('language-selector', LanguageSelector);

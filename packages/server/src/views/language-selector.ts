@@ -11,9 +11,8 @@ export type LanguageSelectorProps = {
 export const LanguageSelector = ({
   availableLanguages,
 }: LanguageSelectorProps) => html`
-  <nav
-    is="language-selector"
-    class="${clsx(cls.languageSelector, {
+  <language-selector>
+  <div class="${clsx(cls.languageSelector, {
       [cls.empty]: availableLanguages.length === 0,
     })}"
   >
@@ -24,5 +23,6 @@ export const LanguageSelector = ({
       </span>
       ${DownChevronIcon({ className: cls.icon })}
     </button>
-  </nav>
+    </div>
+  </language-selector>
 `;

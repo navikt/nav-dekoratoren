@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import type { LanguageSelectorProps } from './language-selector';
 import { LanguageSelector } from './language-selector';
 import { LanguageSelector as ClientComponent } from 'decorator-client/src/views/language-selector';
+import html from 'decorator-shared/html';
 
 const meta: Meta<LanguageSelectorProps> = {
   title: 'header/language-selector',
@@ -9,13 +10,17 @@ const meta: Meta<LanguageSelectorProps> = {
   render: (args) => {
     setTimeout(() => {
       const ls = document.querySelector(
-        'nav[is="language-selector"]',
+        'language-selector',
       ) as ClientComponent;
       ls.availableLanguages = args.availableLanguages;
       ls.language = 'en';
     }, 0);
 
-    return LanguageSelector(args);
+    return html`
+    <div style="height: 300px">
+    ${LanguageSelector(args)}
+    </div>
+    `
   },
 };
 
