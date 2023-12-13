@@ -12,7 +12,7 @@ class DecoratorUtils extends HTMLElement {
     super();
 
     this.languageSelector = this.querySelector(
-      'nav[is="language-selector"]',
+      'language-selector',
     ) as LanguageSelector;
     this.breadbrumbs = this.querySelector(
       'nav[is="d-breadcrumbs"]',
