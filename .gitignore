@@ -1,7 +1,8 @@
 node_modules/
 public/dist.css
 *.log
-**/.DS_Store
+packages/client/dist/
+.DS_Store
 storybook-static/
 .idea
 
