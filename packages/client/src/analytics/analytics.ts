@@ -6,6 +6,7 @@ import {
 } from './task-analytics/ta';
 
 export const initAnalytics = () => {
+  console.log('initAnalytics');
   initAmplitude();
   initTaskAnalytics();
 };

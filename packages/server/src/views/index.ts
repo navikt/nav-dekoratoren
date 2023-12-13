@@ -201,7 +201,7 @@ export function Index({
         <div id="footer-withmenu">${footer}</div>
         ${lens}
         <div id="scripts" style="display:none">
-          ${Partytown()} ${unsafeHtml(scripts)}${decoratorData}
+          ${unsafeHtml(scripts)}${Partytown()} ${decoratorData}
           <script>
             window.__DECORATOR_DATA__ = JSON.parse(
               document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '',
