@@ -19,7 +19,7 @@ export const NavLogo = ({
     role="img"
     ${className && html`class="${className}"`}
   >
-    <title id="${id}">NAV</title>
+    <title id="${id}">Til forsiden</title>
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
