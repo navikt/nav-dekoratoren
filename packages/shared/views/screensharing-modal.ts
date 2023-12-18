@@ -21,27 +21,29 @@ const ScreensharingModal = ({
   texts,
   children,
   status,
-}: ScreensharingModalProps) =>
-  html`<dialog
-    is="screensharing-modal"
-    class="${clsModal.modal} ${cls.screensharingModal}"
-    data-status="${status}"
-  >
-    ${VeilederIllustration({ className: cls.avatar })}
-    <div class="${clsModal.modalWindow} ${cls.content}">
-      <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
-      <p>${texts.delskjerm_modal_beskrivelse}</p>
-      ${ReadMore({
-        header: texts.delskjerm_modal_hjelpetekst_overskrift,
-        content: [
-          texts.delskjerm_modal_hjelpetekst_0,
-          texts.delskjerm_modal_hjelpetekst_1,
-          texts.delskjerm_modal_hjelpetekst_2,
-        ],
-      })}
-      <div class="${cls.children}">${children}</div>
-    </div>
-  </dialog>`;
+}: ScreensharingModalProps) => html`
+  <screensharing-modal>
+    <dialog
+      class="${clsModal.modal} ${cls.screensharingModal}"
+      data-status="${status}"
+    >
+      ${VeilederIllustration({ className: cls.avatar })}
+      <div class="${clsModal.modalWindow} ${cls.content}">
+        <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
+        <p>${texts.delskjerm_modal_beskrivelse}</p>
+        ${ReadMore({
+          header: texts.delskjerm_modal_hjelpetekst_overskrift,
+          content: [
+            texts.delskjerm_modal_hjelpetekst_0,
+            texts.delskjerm_modal_hjelpetekst_1,
+            texts.delskjerm_modal_hjelpetekst_2,
+          ],
+        })}
+        <div class="${cls.children}">${children}</div>
+      </div>
+    </dialog>
+  </screensharing-modal>
+`;
 
 // @TODO: Implement deterministic ID generation
 export const ScreensharingEnabled = ({ texts }: WithTexts) => {
