@@ -2,7 +2,7 @@ import { lazyLoadScreensharing, startCall } from '../screensharing';
 import cls from '../styles/screensharing-modal.module.css';
 import clsInputs from '../styles/inputs.module.css';
 
-class ScreensharingModal extends HTMLElement {
+export class ScreensharingModal extends HTMLElement {
   dialog!: HTMLDialogElement;
   input!: HTMLInputElement;
   confirmButton!: HTMLButtonElement;
@@ -73,5 +73,4 @@ class ScreenshareButton extends HTMLElement {
 
 
 customElements.define('screensharing-modal', ScreensharingModal);
-
 customElements.define('screenshare-button', ScreenshareButton);

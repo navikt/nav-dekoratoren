@@ -3,13 +3,19 @@ import type { GetScreensharingModalOptions } from './screensharing-modal';
 import { getModal } from './screensharing-modal';
 import { texts } from 'decorator-server/src/texts';
 
+import 'decorator-client/src/views/screensharing-modal';
+
 const meta: Meta<GetScreensharingModalOptions> = {
   title: 'screensharing-modal',
   tags: ['autodocs'],
   render: (args) => {
     setTimeout(() => {
       // @ts-expect-error: document in server-package
-      document.querySelector('dialog').showModal();
+      const modal = document.querySelector(
+        'screensharing-modal',
+      ) as ScreensharingModal;
+      console.log(modal);
+      modal.showModal();
     }, 0);
 
     const div = document.createElement('div');
