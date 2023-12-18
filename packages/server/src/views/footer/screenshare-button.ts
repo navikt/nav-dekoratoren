@@ -2,7 +2,9 @@ import html from 'decorator-shared/html';
 import cls from 'decorator-client/src/styles/screenshare-button.module.css';
 
 export const ScreenshareButton = (text: string) =>
-  html`<button  is="screenshare-button" class="${cls.screenshareButton}">
+  html`
+  <screenshare-button>
+  <button is="screenshare-button" class="${cls.screenshareButton}">
     ${text}
     <svg
       width="1em"
@@ -20,4 +22,6 @@ export const ScreenshareButton = (text: string) =>
         fill="currentColor"
       ></path>
     </svg>
-  </button>`;
+  </button>
+  </screenshare-button>
+  `;
