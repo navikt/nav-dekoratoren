@@ -11,6 +11,9 @@ export const PersonCircleNotificationIcon = ({
     height="24"
     viewBox="0 0 24 24"
     fill="none"
+    focusable="false"
+    aria-hidden="true"
+    role="img"
     ${className && html`class="${className}"`}
   >
     <path

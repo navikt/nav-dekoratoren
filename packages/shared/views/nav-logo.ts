@@ -15,9 +15,8 @@ export const NavLogo = ({
     fill="none"
     viewBox="0 0 64 20"
     focusable="false"
-    aria-hidden="true"
-    focusable="false"
     aria-labelledby="${id}"
+    role="img"
     ${className && html`class="${className}"`}
   >
     <title id="${id}">NAV</title>

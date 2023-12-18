@@ -7,8 +7,9 @@ export function WarningIcon() {
       height="24px"
       viewBox="0 0 24 24"
       fill="none"
-      role="img"
+      focusable="false"
       aria-hidden="true"
+      role="img"
     >
       <path
         fill-rule="evenodd"

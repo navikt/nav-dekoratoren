@@ -11,6 +11,7 @@ export const ScreenshareButton = (text: string) =>
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       focusable="false"
+      aria-hidden="true"
       role="img"
     >
       <path

@@ -18,8 +18,8 @@ export function SearchIcon({ className = '', menuSearch }: SearchProps) {
       viewBox="0 0 24 24"
       stroke="currentColor"
       stroke-width="2"
-      aria-hidden="true"
       focusable="false"
+      aria-hidden="true"
       role="img"
     >
       <circle class="${cls.menuSearch__circle}" cx="10" cy="10" r="7"></circle>

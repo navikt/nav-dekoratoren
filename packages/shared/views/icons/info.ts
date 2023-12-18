@@ -6,7 +6,9 @@ export const InfoIcon = ({ className }: { className?: string } = {}) =>
     width="24"
     height="24"
     viewBox="0 0 24 24"
+    focusable="false"
     aria-hidden="true"
+    role="img"
     ${className && html`class="${className}"`}
   >
     <path

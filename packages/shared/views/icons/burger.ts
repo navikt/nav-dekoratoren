@@ -10,8 +10,8 @@ export const BurgerIcon = () =>
     viewBox="0 0 24 24"
     stroke="currentColor"
     stroke-width="2"
-    aria-hidden="true"
     focusable="false"
+    aria-hidden="true"
     role="img"
     class="${cls.menuBurger}"
   >
