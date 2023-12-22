@@ -2,9 +2,11 @@ import html from '../html';
 import { DecoratorId } from '../types';
 
 export const NavLogo = ({
+  title,
   className,
   id,
 }: {
+  title?: string;
   className?: string;
   id: DecoratorId;
 }) =>
@@ -19,7 +21,7 @@ export const NavLogo = ({
     role="img"
     ${className && html`class="${className}"`}
   >
-    <title id="${id}">Til forsiden</title>
+    <title id="${id}">${title || 'NAV logo'}</title>
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"

@@ -86,7 +86,6 @@ export type Texts = ClientTexts & {
   meny_bunnlenke_samarbeidspartner_stikkord: string;
   loading_notifications: string;
   notifications_error: string;
-  til_forsiden: string;
   how_can_we_help: string;
   showing: string;
   of: string;

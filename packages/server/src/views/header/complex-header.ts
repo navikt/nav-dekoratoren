@@ -55,6 +55,7 @@ export function ComplexHeader({
               data-attach-context
             >
               ${NavLogo({
+                  title: texts.to_front_page,
                 id: 'dekoratoren-header-logo'
               })}
             </a>
