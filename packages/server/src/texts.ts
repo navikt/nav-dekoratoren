@@ -12,6 +12,7 @@ import { Texts } from 'decorator-shared/types';
 // 'delskjerm-modal-hjelpetekst-2-se': `Det er du som godkjenner skjermdeling. Ingenting blir lagret.`,
 
 const nb = {
+  skip_link: 'Hopp til hovedinnhold',
   share_screen: 'Del skjerm med veileder',
   to_top: 'Til toppen',
   menu: 'Meny',
@@ -96,6 +97,7 @@ export type LangBaseKeys = keyof typeof nb;
 export const texts: Record<Language, Texts> = {
   nb,
   en: {
+    skip_link: 'Go to main content',
     share_screen: 'Share screen with your counsellor',
     to_top: 'To the top',
     menu: 'Menu',
@@ -177,6 +179,7 @@ export const texts: Record<Language, Texts> = {
     go_to_my_page: 'Go to my page',
   },
   se: {
+    skip_link: 'Hopp til hovedinnhold',
     share_screen: 'Del skjerm med veileder',
     to_top: 'Til toppen',
     menu: 'Meny',

@@ -41,7 +41,7 @@ export function ComplexHeader({
   return html`
     <div id="decorator-header">
       <header class="${cls.siteheader}">
-        ${SkipLink()}
+        ${SkipLink(texts.skip_link)}
         <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
           <div class="${cls.hovedmenyContent}">
             <a

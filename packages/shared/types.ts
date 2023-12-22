@@ -52,6 +52,7 @@ export type ClientTexts = {
 };
 
 export type Texts = ClientTexts & {
+  skip_link: string;
   share_screen: string;
   to_top: string;
   menu: string;

@@ -1,7 +1,7 @@
 import html from 'decorator-shared/html';
 import cls from './skiplink.module.css';
 
-export const SkipLink = () => html`
+export const SkipLink = (text: string) => html`
   <a
     is="lenke-med-sporing"
     href="#maincontent"
@@ -12,6 +12,6 @@ export const SkipLink = () => html`
     })}"
     data-attach-context
   >
-    Hopp til hovedinnhold
+    ${text}
   </a>
 `;

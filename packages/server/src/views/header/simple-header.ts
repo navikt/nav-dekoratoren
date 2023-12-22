@@ -20,7 +20,7 @@ export const SimpleHeader = ({
 }: SimpleHeaderProps) => html`
   <div id="decorator-header">
     <header class="${cls.siteheader}">
-      ${SkipLink()}
+      ${SkipLink(texts.skip_link)}
       <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
         <a
           is="lenke-med-sporing"
