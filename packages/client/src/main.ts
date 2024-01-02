@@ -61,6 +61,13 @@ if (window.__DECORATOR_DATA__.params.logoutWarning) {
 window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
         window.postMessage({ source: 'decorator', event: 'ready' });
+if (window.faro) {
+  console.log('Faro is available');
+  console.log(window.faro)
+} else {
+  console.log('Faro is not available');
+}
+
     }
     if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
         ['breadcrumbs', 'availableLanguages', 'utilsBackground'].forEach((key) => {
@@ -166,9 +173,3 @@ window.addEventListener('load', () => {
     });
 });
 
-if (window.faro) {
-  console.log('Faro is available');
-  console.log(window.faro)
-} else {
-  console.log('Faro is not available');
-}
