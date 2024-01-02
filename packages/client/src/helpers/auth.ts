@@ -27,7 +27,7 @@ export async function fetchSession() {
 
     return await sessionResponse.json();
   } catch (error) {
-    throw new Error(`Error fetching auth: ${error}`);
+    console.log(`User is not logged in`);
   }
 }
 
@@ -41,7 +41,7 @@ export async function fethRenew() {
 
     return await sessionResponse.json();
   } catch (error) {
-    throw new Error(`Error fetching auth: ${error}`);
+    console.log(`User is not logged in`);
   }
 }
 

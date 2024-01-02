@@ -2,7 +2,6 @@ import { formatParams } from 'decorator-shared/json';
 import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
 import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
-import { type AnalyticsEventArgs } from './analytics/constants';
 import * as api from './api';
 import { logoutWarningController } from './controllers/logout-warning';
 import { onLoadListeners } from './listeners';
@@ -26,20 +25,13 @@ import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
 import { Auth } from './api';
-import { initializeFaro } from '@grafana/faro-web-sdk';
+import { c } from 'vitest/dist/reporters-5f784f42';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
-initializeFaro({
-    url: 'https://telemetry.nav.no/collect',
-    app: {
-        // @NOTE: for testing purposes
-        name: 'decorator-next',
-    },
-});
 
 const updateDecoratorParams = (params: Partial<Params>) => {
     window.__DECORATOR_DATA__.params = {
@@ -173,3 +165,10 @@ window.addEventListener('load', () => {
         userState: Cookies.get('psCurrentState'),
     });
 });
+
+if (window.faro) {
+  console.log('Faro is available');
+  console.log(window.faro)
+} else {
+  console.log('Faro is not available');
+}

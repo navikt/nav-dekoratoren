@@ -1,4 +1,5 @@
 import { AppState } from 'decorator-shared/types';
+import { Faro } from '@grafana/faro-web-sdk';
 
 declare global {
   interface Window {
@@ -21,6 +22,7 @@ declare global {
     vngageReady: () => void;
     vngage: {
         join: (queue: string, options: unknown) => void;
-    }
+    },
+    faro?: Faro
   }
 }
