@@ -61,12 +61,6 @@ if (window.__DECORATOR_DATA__.params.logoutWarning) {
 window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
         window.postMessage({ source: 'decorator', event: 'ready' });
-if (window.faro) {
-  console.log('Faro is available');
-  console.log(window.faro)
-} else {
-  console.log('Faro is not available');
-}
 
     }
     if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
@@ -171,5 +165,11 @@ window.addEventListener('load', () => {
     useLoadIfActiveSession({
         userState: Cookies.get('psCurrentState'),
     });
+if (window.faro) {
+  console.log('Faro is available');
+  console.log(window.faro)
+} else {
+  console.log('Faro is not available');
+}
 });
 
