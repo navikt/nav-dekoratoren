@@ -14,7 +14,7 @@ const FILE_NAME = './css-modules.d.ts';
 
 async function processFile(path: string) {
   const file = fs.readFileSync(path, 'utf-8');
-  // @ts-ignore
+  // @ts-expect-error Postcss types are wrong
   const val = await postcss([
     postcssModules({
       getJSON: () => {},

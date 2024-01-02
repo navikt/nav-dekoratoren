@@ -16,7 +16,7 @@ env:
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
-    value: https://www.intern.dev.nav.no/_/service
+    value: https://portal-admin-dev.oera.no/_/service
   - name: XP_BASE_URL
     value: https://www.intern.dev.nav.no
   - name: AUTH_API_URL
