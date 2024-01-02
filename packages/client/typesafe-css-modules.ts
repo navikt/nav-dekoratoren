@@ -1,5 +1,4 @@
 import postcss from 'postcss';
-import postcssModules from 'postcss-modules';
 import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
@@ -16,7 +15,7 @@ async function processFile(path: string) {
   const file = fs.readFileSync(path, 'utf-8');
   const val = await postcss([
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    postcssModules({
+    require('postcss-modules')({
       getJSON: () => {},
     }),
   ]).process(file.toString(), { from: path });
@@ -82,6 +81,7 @@ async function createOutput(modules: ts.ModuleDeclaration[]) {
 
   const formatted = await prettier.format(output, {
     ...prettierConfig,
+    trailingComma: 'es5',
     parser: 'typescript',
   });
 
