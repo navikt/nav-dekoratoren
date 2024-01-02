@@ -28,7 +28,7 @@
     "@types/cookie": "^0.5.4",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "bun-types": "^1.0.15",
+    "@types/bun": "^1.0.0",
     "concurrently": "^8.2.0",
     "eslint": "latest",
     "husky": "^8.0.0",
