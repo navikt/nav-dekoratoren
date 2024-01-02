@@ -4,6 +4,7 @@ import path from 'path';
 import ts from 'typescript';
 import { HmrContext } from 'vite';
 import * as prettier from 'prettier';
+import postcssModules from 'postcss-modules';
 import prettierConfig from '../../.prettierrc.json';
 
 // Directoryes to write file to
@@ -13,9 +14,9 @@ const FILE_NAME = './css-modules.d.ts';
 
 async function processFile(path: string) {
   const file = fs.readFileSync(path, 'utf-8');
+  // @ts-ignore
   const val = await postcss([
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('postcss-modules')({
+    postcssModules({
       getJSON: () => {},
     }),
   ]).process(file.toString(), { from: path });
