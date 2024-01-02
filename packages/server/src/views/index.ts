@@ -130,7 +130,6 @@ export function Index({
         />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        ${Partytown()}
       </head>
       <body>
         <div id="styles" style="display:none">${unsafeHtml(links)}</div>
@@ -202,6 +201,7 @@ export function Index({
         <div id="footer-withmenu">${footer}</div>
         ${lens}
         <div id="scripts" style="display:none">
+          ${Partytown()}
           ${unsafeHtml(scripts)}${decoratorData}
           <script>
             window.__DECORATOR_DATA__ = JSON.parse(
