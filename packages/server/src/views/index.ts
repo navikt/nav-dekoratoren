@@ -41,10 +41,18 @@ type AssetFormatter = (src: string) => string;
 const script: AssetFormatter = (src) =>
   `<script type="module" src="${src}"></script>`;
 
+const asyncScript: AssetFormatter = (src) =>
+  `<script fetchpriotiy='low' async type="module" src="${src}"></script>`;
+
+const asyncScriptInline: AssetFormatter = (src) =>
+  `<script fetchpriotiy='low' async type="module">${src}</script>`;
+
 const partytownScript: AssetFormatter = (src) =>
   `<script type="text/partytown" src="${src}"></script>`;
+
 const partytownInlineScript: AssetFormatter = (code) =>
   `<script type="text/partytown">${code}</script>`;
+
 const cssLink: AssetFormatter = (src) =>
   `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
 
@@ -66,11 +74,11 @@ const getEnvAssets = async () => {
   const scripts: EnvAssets = {
     production: [
       script(cdnUrl(manifest[entryPointPath].file)),
-      partytownScript(
+      asyncScript(
         hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
       ),
-      partytownScript(vendorScripts.taskAnalytics),
-      [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
+      asyncScript(vendorScripts.taskAnalytics),
+      [inlineVendorScripts.hotjar].map(asyncScriptInline).join(''),
     ].join(''),
     development: [
       [
@@ -83,7 +91,7 @@ const getEnvAssets = async () => {
         vendorScripts.taskAnalytics,
         hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
       ]
-        .map(partytownScript)
+        .map(asyncScript)
         .join(''),
       [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),
@@ -201,7 +209,6 @@ export function Index({
         <div id="footer-withmenu">${footer}</div>
         ${lens}
         <div id="scripts" style="display:none">
-          ${Partytown()}
           ${unsafeHtml(scripts)}${decoratorData}
           <script>
             window.__DECORATOR_DATA__ = JSON.parse(

@@ -25,13 +25,12 @@ import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
 import { Auth } from './api';
-import { c } from 'vitest/dist/reporters-5f784f42';
+import { addFaroMetaData } from './faro';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
 const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
-
 
 const updateDecoratorParams = (params: Partial<Params>) => {
     window.__DECORATOR_DATA__.params = {
@@ -61,7 +60,6 @@ if (window.__DECORATOR_DATA__.params.logoutWarning) {
 window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
         window.postMessage({ source: 'decorator', event: 'ready' });
-
     }
     if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
         ['breadcrumbs', 'availableLanguages', 'utilsBackground'].forEach((key) => {
@@ -165,11 +163,5 @@ window.addEventListener('load', () => {
     useLoadIfActiveSession({
         userState: Cookies.get('psCurrentState'),
     });
-if (window.faro) {
-  console.log('Faro is available');
-  console.log(window.faro)
-} else {
-  console.log('Faro is not available');
-}
+    addFaroMetaData();
 });
-
