@@ -1,5 +1,5 @@
 import html from 'decorator-shared/html';
-import { SearchResult, Texts } from 'decorator-shared/types';
+import { SearchResult, SearchHit, Texts } from 'decorator-shared/types';
 import cls from 'decorator-client/src/styles/search-hits.module.css';
 import { ForwardChevron } from 'decorator-shared/views/icons';
 
@@ -19,7 +19,7 @@ export const SearchHits = ({
       ? html`<h2 class="${cls.title}">${texts.no_hits_for} (${query})</h2>`
       : html`<ul class="${cls.searchHitList}">
             ${hits.map(
-              (hit, index) => html`
+              (hit: SearchHit, index:number) => html`
                 <li>
                   <a
                     href="${hit.href}"
@@ -43,7 +43,7 @@ export const SearchHits = ({
             )}
           </ul>
           <div>
-            <div>
+            <div role="status">
               ${texts.showing} ${Math.min(total, 5).toString()} ${texts.of}
               ${total.toString()} ${texts.results}
             </div>
