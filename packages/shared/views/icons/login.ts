@@ -8,9 +8,8 @@ export function LoginIcon({ className }: { className?: string }) {
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     focusable="false"
-    role="img"
     aria-labelledby="decorator-login-icon"
-    aria-hidden="true"
+    role="img"
     ${className && html`class="${className}"`}
   >
     <title id="decorator-login-icon">Logginn-ikon</title>

@@ -19,13 +19,22 @@ type AlertProps = {
 
 export type AlertVariant = AlertProps['variant'];
 
-export const Alert = (props: AlertProps) => {
-  const icon = alertIcons[props.variant];
+const role = {
+  info: undefined,
+  success: 'status',
+  warning: 'status',
+  error: 'alert',
+};
 
+export const Alert = (props: AlertProps) => {
+  const { variant, content, className } = props;
   return html`
-    <div class="${clsx(cls.alert, cls[props.variant], props.className)}">
-      ${icon}
-      <div class="${cls.text}">${props.content}</div>
+    <div
+      role="${role[variant]}"
+      class="${clsx(cls.alert, cls[variant], className)}"
+    >
+      ${alertIcons[variant]}
+      <span class="${cls.text}">${content}</span>
     </div>
   `;
 };

@@ -2,9 +2,11 @@ import html from '../html';
 import { DecoratorId } from '../types';
 
 export const NavLogo = ({
+  title,
   className,
   id,
 }: {
+  title?: string;
   className?: string;
   id: DecoratorId;
 }) =>
@@ -15,12 +17,11 @@ export const NavLogo = ({
     fill="none"
     viewBox="0 0 64 20"
     focusable="false"
-    aria-hidden="true"
-    focusable="false"
     aria-labelledby="${id}"
+    role="img"
     ${className && html`class="${className}"`}
   >
-    <title id="${id}">NAV</title>
+    <title id="${id}">${title || 'NAV logo'}</title>
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"

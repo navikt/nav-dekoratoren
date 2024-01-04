@@ -60,6 +60,7 @@ export const ScreensharingEnabled = ({ texts }: WithTexts) => {
           class="${clsInputs.textInput} ${cls.codeInput}"
           type="text"
           maxlength="5"
+          autocomplete="off"
         />
         <ul class="${clsInputs.errorList}">
           <li>${texts.delskjerm_modal_feilmelding}</li>

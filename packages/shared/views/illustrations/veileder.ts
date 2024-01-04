@@ -7,8 +7,9 @@ export const VeilederIllustration = ({ className }: { className?: string }) =>
     height="64"
     fill="none"
     viewBox="0 0 64 64"
-    aria-hidden="true"
     focusable="false"
+    aria-hidden="true"
+    role="img"
     ${className && html`class="${className}"`}
   >
     <path fill="#99C2E8" d="M32 64a32 32 0 1 0 0-64 32 32 0 0 0 0 64Z" />

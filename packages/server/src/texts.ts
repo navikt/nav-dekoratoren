@@ -12,6 +12,7 @@ import { Texts } from 'decorator-shared/types';
 // 'delskjerm-modal-hjelpetekst-2-se': `Det er du som godkjenner skjermdeling. Ingenting blir lagret.`,
 
 const nb = {
+  skip_link: 'Hopp til hovedinnhold',
   share_screen: 'Del skjerm med veileder',
   to_top: 'Til toppen',
   menu: 'Meny',
@@ -61,7 +62,6 @@ const nb = {
     'Helsepersonell, tiltaksarrangører, fylker og kommuner',
   loading_notifications: 'Laster varslinger',
   notifications_error: 'Feil ved lasting av varsler',
-  til_forsiden: 'Til forsiden',
   how_can_we_help: 'Hva kan vi hjelpe deg med?',
   showing: 'Viser',
   of: 'av',
@@ -96,6 +96,7 @@ export type LangBaseKeys = keyof typeof nb;
 export const texts: Record<Language, Texts> = {
   nb,
   en: {
+    skip_link: 'Go to main content',
     share_screen: 'Share screen with your counsellor',
     to_top: 'To the top',
     menu: 'Menu',
@@ -147,7 +148,6 @@ export const texts: Record<Language, Texts> = {
       'Health personnel, intervention organizers, counties and municipalities',
     loading_notifications: 'Loading notifications',
     notifications_error: 'Error loading notifications',
-    til_forsiden: 'To the frontpage',
     how_can_we_help: 'What can we help you with?',
     showing: 'Showing',
     of: 'of',
@@ -177,6 +177,7 @@ export const texts: Record<Language, Texts> = {
     go_to_my_page: 'Go to my page',
   },
   se: {
+    skip_link: 'Hopp til hovedinnhold',
     share_screen: 'Del skjerm med veileder',
     to_top: 'Til toppen',
     menu: 'Meny',
@@ -226,7 +227,6 @@ export const texts: Record<Language, Texts> = {
       'Helsepersonell, tiltaksarrangører, fylker og kommuner',
     loading_notifications: 'Laster varslinger',
     notifications_error: 'Feil ved lasting av varsler',
-    til_forsiden: 'Til forsiden',
     how_can_we_help: 'Hva kan vi hjelpe deg med?',
     showing: 'Viser',
     of: 'av',

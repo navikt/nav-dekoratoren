@@ -9,8 +9,8 @@ export function ForwardChevron(props?: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       focusable="false"
-      role="img"
       aria-hidden="true"
+      role="img"
       ${spreadProps({
         class: props?.className,
       })}

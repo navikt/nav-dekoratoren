@@ -3,20 +3,15 @@ import html from '../../html';
 type Props = { width?: string; height?: string };
 
 export const Lock = ({ width, height }: Props) => {
-  //@TODO: UU better impl
-  const id = Math.random().toString(36).substring(7);
-
   return html` <svg
     xmlns="http://www.w3.org/2000/svg"
     width="${width}"
     height="${height}"
     viewBox="0 0 16 24"
-    role="img"
-    focusable="{false}"
+    focusable="false"
     aria-hidden="true"
-    aria-labelledby="lockIcon${id}"
+    role="img"
   >
-    <title id="lockIcon${id}" />
     <path
       fill="currentColor"
       stroke="none"
