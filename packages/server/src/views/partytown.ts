@@ -1,25 +1,23 @@
 import html, { unsafeHtml } from 'decorator-shared/html';
 import { partytownSnippet } from '@builder.io/partytown/integration';
-import { env } from '../env/server';
 
-
-const snippetText = partytownSnippet();
-
-export function Partytown() {
-  return html`
-    <script>
-      partytown = {
-        lib: '${env.HOST}/public/~partytown/',
+export const partytownConfig = {
+        lib: `/public/~partytown/`,
+        debug: true,
         forward: [
           'analyticsEvent',
           'logAmplitudeEvent',
           'logPageView',
           'startTaskAnalyticsSurvey',
         ],
-      };
-    </script>
+}
+
+const snippetText = partytownSnippet(partytownConfig);
+
+export function Partytown() {
+  return html`
     <script>
-      ${unsafeHtml(snippetText)};
+      ${unsafeHtml(snippetText)}
     </script>
   `;
 }

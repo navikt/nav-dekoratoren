@@ -1,10 +1,10 @@
 import postcss from 'postcss';
-import postcssModules from 'postcss-modules';
 import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
 import { HmrContext } from 'vite';
 import * as prettier from 'prettier';
+import postcssModules from 'postcss-modules';
 import prettierConfig from '../../.prettierrc.json';
 
 // Directoryes to write file to
@@ -14,8 +14,8 @@ const FILE_NAME = './css-modules.d.ts';
 
 async function processFile(path: string) {
   const file = fs.readFileSync(path, 'utf-8');
+  // @ts-expect-error Postcss types are wrong
   const val = await postcss([
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     postcssModules({
       getJSON: () => {},
     }),
@@ -82,6 +82,7 @@ async function createOutput(modules: ts.ModuleDeclaration[]) {
 
   const formatted = await prettier.format(output, {
     ...prettierConfig,
+    trailingComma: 'es5',
     parser: 'typescript',
   });
 

@@ -6,6 +6,11 @@ dist/
 storybook-static/
 .idea
 
+packages/server/public/assets/
+packages/server/public/~partytown/
+packages/server/public/.vite/
+packages/server/.env
+
 # yarn 3
 .pnp.*
 .yarn/*

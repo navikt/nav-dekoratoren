@@ -2,12 +2,17 @@ import { lazyLoadScreensharing, startCall } from '../screensharing';
 import cls from '../styles/screensharing-modal.module.css';
 import clsInputs from '../styles/inputs.module.css';
 
-class ScreensharingModal extends HTMLDialogElement {
+export class ScreensharingModal extends HTMLElement {
+  dialog!: HTMLDialogElement;
   input!: HTMLInputElement;
   confirmButton!: HTMLButtonElement;
   cancelButton!: HTMLButtonElement;
   errorList!: HTMLUListElement;
   code: string = '';
+
+  showModal () {
+      this.dialog.showModal()
+  }
 
   validateInput () {
       if (!this.code || this.code.length !== 5 || !this.code.match(/^[0-9]+$/)) {
@@ -23,6 +28,7 @@ class ScreensharingModal extends HTMLDialogElement {
   }
 
   async connectedCallback() {
+      this.dialog = this.querySelector('dialog') as HTMLDialogElement;
       this.input = this.querySelector('input#screensharing_code') as HTMLInputElement;
       this.confirmButton = this.querySelector(`.${cls.confirmButton}`) as HTMLButtonElement;
       this.cancelButton = this.querySelector(`.${cls.cancelButton}`) as HTMLButtonElement;
@@ -36,20 +42,20 @@ class ScreensharingModal extends HTMLDialogElement {
       this.confirmButton.addEventListener('click', () => {
           if(this.validateInput()) {
               startCall(this.code);
-              this.close();
+              this.dialog.close();
           }
       });
 
       this.cancelButton.addEventListener('click', () => {
-          this.close()
+          this.dialog.close()
       });
   }
 }
 
 
-class ScreenshareButton extends HTMLButtonElement {
+class ScreenshareButton extends HTMLElement {
     handleClick() {
-        const dialog = document.querySelector('dialog[is="screensharing-modal"]') as HTMLDialogElement;
+        const dialog = document.querySelector('screensharing-modal') as HTMLDialogElement;
 
         lazyLoadScreensharing(() => {
               dialog.showModal();
@@ -66,10 +72,5 @@ class ScreenshareButton extends HTMLButtonElement {
 }
 
 
-customElements.define('screensharing-modal', ScreensharingModal, {
-    extends: 'dialog'
-});
-
-customElements.define('screenshare-button', ScreenshareButton, {
-    extends: 'button'
-});
+customElements.define('screensharing-modal', ScreensharingModal);
+customElements.define('screenshare-button', ScreenshareButton);
