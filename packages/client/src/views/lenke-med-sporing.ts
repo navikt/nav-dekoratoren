@@ -14,6 +14,8 @@ export class LenkeMedSporingElement extends HTMLElement {
         a.innerHTML = this.innerHTML;
         a.classList.add(...this.classList);
 
+        this.classList.remove(...this.classList);
+
         this.innerHTML = '';
         this.appendChild(a);
 
