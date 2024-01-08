@@ -56,7 +56,6 @@ jobs:
       - uses: nais/deploy/actions/deploy@master
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: .nais/config.yml
           VAR: image=${{ steps.docker-push.outputs.image }},BUILD_ID=${{ github.sha }}
           VARS: ${{ inputs.NAIS_VARS }}
