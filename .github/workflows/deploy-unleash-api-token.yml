@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Deploy application
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@master
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/unleash-api-token.dev.yaml
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Deploy application
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@master
         if: github.ref == 'refs/heads/main'
         env:
           CLUSTER: prod-gcp
