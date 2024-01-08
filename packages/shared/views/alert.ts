@@ -10,22 +10,28 @@ import cls from 'decorator-client/src/styles/alert.module.css';
  */
 
 type AlertProps = {
-  variant: 'error' | 'warning' | 'info' | 'success';
-  content: Template | string;
-  className?: string;
-  // @todo: implement if needed
-  // size: 'medium' | 'small'
+    variant: 'error' | 'warning' | 'info' | 'success';
+    content: Template | string;
+    className?: string;
+    // @todo: implement if needed
+    // size: 'medium' | 'small'
 };
 
 export type AlertVariant = AlertProps['variant'];
 
-export const Alert = (props: AlertProps) => {
-  const icon = alertIcons[props.variant];
+const role = {
+    info: undefined,
+    success: 'status',
+    warning: 'status',
+    error: 'alert',
+};
 
-  return html`
-    <div class="${clsx(cls.alert, cls[props.variant], props.className)}">
-      ${icon}
-      <div class="${cls.text}">${props.content}</div>
-    </div>
-  `;
+export const Alert = (props: AlertProps) => {
+    const { variant, content, className } = props;
+    return html`
+        <div role="${role[variant]}" class="${clsx(cls.alert, cls[variant], className)}">
+            ${alertIcons[variant]}
+            <span class="${cls.text}">${content}</span>
+        </div>
+    `;
 };

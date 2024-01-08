@@ -20,6 +20,7 @@ export const SearchForm = ({ texts }: SearchFormProps) => {
           type="text"
           name="search"
           id="${id}"
+          autocomplete="off"
         />
         <button type="button" class="${cls.clear}">
             ${CloseIcon({ariaLabel: texts.clear})}

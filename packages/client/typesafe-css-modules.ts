@@ -14,7 +14,6 @@ const FILE_NAME = './css-modules.d.ts';
 
 async function processFile(path: string) {
   const file = fs.readFileSync(path, 'utf-8');
-  // @ts-expect-error Postcss types are wrong
   const val = await postcss([
     postcssModules({
       getJSON: () => {},
@@ -63,13 +62,11 @@ function createTSModule(file: ProcessedFile) {
     ts.factory.createIdentifier('classes'),
   );
 
-  const tsModule = ts.factory.createModuleDeclaration(
+  return ts.factory.createModuleDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.DeclareKeyword)],
     ts.factory.createStringLiteral(`*/${file.path}`),
     ts.factory.createModuleBlock([classesDeclaration, exportClassesStatement]),
   );
-
-  return tsModule;
 }
 
 async function createOutput(modules: ts.ModuleDeclaration[]) {
@@ -80,13 +77,11 @@ async function createOutput(modules: ts.ModuleDeclaration[]) {
     .map((mod) => printer.printNode(ts.EmitHint.Unspecified, mod, sourceFile))
     .join('\n\n');
 
-  const formatted = await prettier.format(output, {
+  return await prettier.format(output, {
     ...prettierConfig,
     trailingComma: 'es5',
     parser: 'typescript',
   });
-
-  return formatted;
 }
 
 const getFilePaths = (dir: string): string[] =>

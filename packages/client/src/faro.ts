@@ -6,7 +6,8 @@ export function addFaroMetaData() {
 
     window.faro.api.setSession({
         attributes: {
-            ...window.__DECORATOR_DATA__.env,
+            "decorator_env": JSON.stringify(window.__DECORATOR_DATA__.env),
+            "decorator_params": JSON.stringify(window.__DECORATOR_DATA__.params),
         },
     });
 
