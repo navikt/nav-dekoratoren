@@ -37,10 +37,8 @@ class SearchMenu extends HTMLElement {
 
     this.form?.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      // TODO: Use proper url
       window.location.assign(
-        `https://www.ekstern.dev.nav.no/sok?ord=${this.input?.value}}`,
+        `${window.__DECORATOR_DATA__.env.APP_URL}/sok?ord=${this.input?.value}`,
       );
     });
 
