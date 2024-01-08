@@ -19,9 +19,7 @@ export class LenkeMedSporingElement extends HTMLElement {
         this.innerHTML = '';
         this.appendChild(a);
 
-        this.addEventListener('click', (e) => {
-            e.preventDefault();
-
+        this.addEventListener('click', () => {
             if (eventArgs) {
                 const payload = {
                     ...eventArgs,
