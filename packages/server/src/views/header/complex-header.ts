@@ -44,8 +44,7 @@ export function ComplexHeader({
         ${SkipLink(texts.skip_link)}
         <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
           <div class="${cls.hovedmenyContent}">
-            <a
-              is="lenke-med-sporing"
+            <lenke-med-sporing
               href="/"
               class="${cls.logo}"
               data-analytics-event-args="${JSON.stringify({
@@ -58,7 +57,7 @@ export function ComplexHeader({
                   title: texts.to_front_page,
                 id: 'dekoratoren-header-logo'
               })}
-            </a>
+            </lenke-med-sporing>
             <div class="${cls.arbeidsflate}">
               ${language === 'nb' &&
               contextLinks?.map(
