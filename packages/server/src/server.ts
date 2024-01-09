@@ -7,6 +7,7 @@ import menu from './content-test-data.json';
 import notificationsService from './notifications-service';
 import UnleashService from './unleash-service';
 import TaConfigService from './task-analytics-service';
+import { env } from './env/server';
 // import { corsSchema } from './cors';
 // corsSchema.parse('https://www.google.com')
 
@@ -20,9 +21,7 @@ console.log('Starting decorator-next server');
 
 const server = Bun.serve({
   port: 8089,
-  // development: process.env.node_env === 'development',
-  // Enabling briefly for debugging
-  development: true,
+  development: env.NODE_ENV === 'development',
   fetch: await requestHandler(
     new ContentService(
       process.env.NODE_ENV === 'production'
