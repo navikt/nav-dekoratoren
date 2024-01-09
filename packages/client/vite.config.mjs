@@ -14,6 +14,7 @@ export const mainBundleConfig = defineConfig({
         minify: true,
         target: 'esnext',
         manifest: true,
+        sourcemap: true,
         rollupOptions: {
             output: {
                 inlineDynamicImports: true,

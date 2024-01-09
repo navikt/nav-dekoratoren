@@ -62,7 +62,8 @@ export function ComplexHeader({
               ${language === 'nb' &&
               contextLinks?.map(
                 ({ url, lenkeTekstId, context }) =>
-                  html`<a
+                  html`
+                    <context-link
                     is="context-link"
                     href="${url}"
                     data-analytics-event-args="${JSON.stringify({
@@ -73,11 +74,11 @@ export function ComplexHeader({
                     class="${clsx(cls.headerContextLink, {
                       [cls.lenkeActive]: context === currentContext,
                     })}"
-                    data-attach-context
+                    data-attach-context="true"
                     data-context="${context.toLowerCase()}"
                   >
                     ${texts[lenkeTekstId]}
-                  </a>`,
+                  </context-link>`,
               )}
             </div>
           </div>

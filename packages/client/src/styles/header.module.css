@@ -148,6 +148,7 @@
   border-bottom: 4px solid transparent;
   padding: 0 1rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .headerContextLink:hover {
