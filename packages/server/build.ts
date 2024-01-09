@@ -1,5 +1,6 @@
 import { BunPlugin } from 'bun';
 import { getPostcssTokens } from './css-modules-plugin';
+import { minify } from 'esbuild-minify-templates';
 
 const cssModulesPlugin: BunPlugin = {
     name: 'css-modules',
@@ -13,9 +14,18 @@ const cssModulesPlugin: BunPlugin = {
     },
 };
 
-await Bun.build({
+const result = await Bun.build({
     entrypoints: ['./src/server.ts'],
     target: 'bun', // bun
     outdir: './dist',
+    minify: false,
     plugins: [cssModulesPlugin],
 });
+
+const [output] = result.outputs
+const text = await output.text()
+const minified = minify(text, {
+    taggedOnly: true
+}).toString()
+
+await Bun.write(Bun.file(output.path), minified)
