@@ -84,14 +84,9 @@ const getEnvAssets = async () => {
       [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
+        `http://localhost:5173/${entryPointPathAnalytics}`,
       ]
         .map(script)
-        .join(''),
-      [
-        vendorScripts.taskAnalytics,
-        hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      ]
-        .map(asyncScript)
         .join(''),
       [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),

@@ -1,7 +1,5 @@
 import { formatParams } from 'decorator-shared/json';
-import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
-import Cookies from 'js-cookie';
-import 'vite/modulepreload-polyfill';
+import { LoginLevel, type Context, type Params } from 'decorator-shared/params'; import Cookies from 'js-cookie'; import 'vite/modulepreload-polyfill';
 import * as api from './api';
 import { logoutWarningController } from './controllers/logout-warning';
 import { onLoadListeners } from './listeners';
@@ -26,6 +24,7 @@ import './views/search-input';
 import './views/search-menu';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
+import { analyticsReady } from './events';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
@@ -137,14 +136,14 @@ async function populateLoggedInMenu(authObject: Auth) {
 const init = async () => {
     const response = await api.checkAuth();
 
-    window.logPageView(window.__DECORATOR_DATA__.params, response);
-    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
     if (!response.authenticated) {
         return;
     }
 
     await populateLoggedInMenu(response);
+
+    window.dispatchEvent(analyticsReady(response));
 };
 
 init();

@@ -1,3 +1,5 @@
+import { Auth } from '../api';
+import { analyticsReadyEvent } from '../events';
 import { initAmplitude, logAmplitudeEvent, logPageView } from './amplitude';
 import { AnalyticsEventArgs } from './constants';
 import {
@@ -8,6 +10,11 @@ import {
 export const initAnalytics = () => {
   initAmplitude();
   initTaskAnalytics();
+   window.addEventListener(analyticsReadyEvent, (e) => {
+        const response = (e as CustomEvent).detail as Auth;
+        window.logPageView(window.__DECORATOR_DATA__.params, response);
+        window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+   });
 };
 
 // Connects to partytown forwarding
@@ -37,6 +44,7 @@ window.analyticsEvent = function (props: AnalyticsEventArgs) {
     'decorator_next',
   );
 };
+
 window.logPageView = logPageView;
 window.logAmplitudeEvent = logAmplitudeEvent;
 window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
