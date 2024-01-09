@@ -22,8 +22,7 @@ export const SimpleHeader = ({
     <header class="${cls.siteheader}">
       ${SkipLink(texts.skip_link)}
       <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <a
-          is="lenke-med-sporing"
+        <lenke-med-sporing
           href="/"
           class="${cls.logo} ${cls.logoSimple}"
           data-analytics-event-args="${JSON.stringify({
@@ -36,7 +35,7 @@ export const SimpleHeader = ({
               title: texts.to_front_page,
               id: 'dekoratoren-header-logo'
           })}
-        </a>
+        </lenke-med-sporing>
         <user-menu class="${menuItemsCls.menuItems}">
           ${IconButton({
             id: 'login-button',

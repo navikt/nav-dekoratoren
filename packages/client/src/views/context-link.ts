@@ -1,39 +1,51 @@
-import { LenkeMedSporingElement } from './lenke-med-sporing';
 import { erNavDekoratoren } from '../helpers/urls';
 import headerClasses from '../styles/header.module.css';
+import { tryParse } from 'decorator-shared/json';
+import { type AnalyticsEventArgs } from '../analytics/constants';
 
-class ContextLink extends LenkeMedSporingElement {
-  handleActiveContext = (event: Event) =>
-    this.classList.toggle(
-      headerClasses.lenkeActive,
-      this.getAttribute('data-context') ===
-        (event as CustomEvent<{ context: string }>).detail.context,
-    );
+class ContextLink extends HTMLElement {
+    handleActiveContext = (event: Event) =>
+        this.classList.toggle(
+            headerClasses.lenkeActive,
+            this.getAttribute('data-context') === (event as CustomEvent<{ context: string }>).detail.context
+        );
 
-  connectedCallback() {
-    window.addEventListener('activecontext', this.handleActiveContext);
+    connectedCallback() {
+        const attachContext = this.getAttribute('data-attach-context') === 'true';
+        const rawEventArgs = this.getAttribute('data-analytics-event-args');
+        const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
 
-    this.addEventListener('click', (e) => {
-      if (erNavDekoratoren()) {
-        e.preventDefault();
-      }
+        window.addEventListener('activecontext', this.handleActiveContext);
 
-      this.dispatchEvent(
-        new CustomEvent('activecontext', {
-          bubbles: true,
-          detail: {
-            context: this.getAttribute('data-context'),
-          },
-        }),
-      );
-    });
-  }
+        this.addEventListener('click', (e) => {
+            if (erNavDekoratoren()) {
+                e.preventDefault();
+            }
 
-  disconnectedCallback() {
-    window.removeEventListener('activecontext', this.handleActiveContext);
-  }
+            this.dispatchEvent(
+                new CustomEvent('activecontext', {
+                    bubbles: true,
+                    detail: {
+                        context: this.getAttribute('data-context'),
+                    },
+                })
+            );
+
+            if (eventArgs) {
+                const payload = {
+                    ...eventArgs,
+                    ...(attachContext && {
+                        context: window.__DECORATOR_DATA__.params.context,
+                    }),
+                };
+                window.analyticsEvent(payload);
+            }
+        });
+    }
+
+    disconnectedCallback() {
+        window.removeEventListener('activecontext', this.handleActiveContext);
+    }
 }
 
-customElements.define('context-link', ContextLink, {
-  extends: 'a',
-});
+customElements.define('context-link', ContextLink);

@@ -28,6 +28,11 @@ export async function fetchSession() {
     return await sessionResponse.json();
   } catch (error) {
     console.log(`User is not logged in`);
+        return {
+          authenticated: false,
+          name: '',
+          securityLevel: '',
+    }
   }
 }
 
@@ -42,6 +47,11 @@ export async function fethRenew() {
     return await sessionResponse.json();
   } catch (error) {
     console.log(`User is not logged in`);
+    return {
+          authenticated: false,
+          name: '',
+          securityLevel: '',
+    }
   }
 }
 

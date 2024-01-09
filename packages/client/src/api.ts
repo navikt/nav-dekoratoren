@@ -17,10 +17,13 @@ export async function checkAuth() {
     const fetchResponse = await fetch(authUrl, {
       credentials: "include",
     });
+
     const response = await fetchResponse.json();
+
     const sessionResponse = await fetch(sessionUrl, {
       credentials: "include",
     });
+
     const session = await sessionResponse.json();
     console.log(session)
 

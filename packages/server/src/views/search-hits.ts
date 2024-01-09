@@ -21,10 +21,9 @@ export const SearchHits = ({
             ${hits.map(
               (hit, index) => html`
                 <li>
-                  <a
+                  <lenke-med-sporing
                     href="${hit.href}"
                     class="${cls.searchHit}"
-                    is="lenke-med-sporing"
                     data-analytics-event-args="${JSON.stringify({
                       eventName: 'resultat-klikk',
                       destinasjon: '[redacted]',
@@ -37,7 +36,7 @@ export const SearchHits = ({
                       <h2 class="${cls.title}">${hit.displayName}</h2>
                       <div>${hit.highlight}</div>
                     </div>
-                  </a>
+                  </lenke-med-sporing>
                 </li>
               `,
             )}
