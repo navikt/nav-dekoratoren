@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/server.ts",
-    "serve": "NODE_ENV=production bun src/server.ts",
+    "serve": "NODE_ENV=production bun dist/server.js",
     "serve-local": "NODE_ENV=production HOST=http://localhost:8089 IS_LOCAL_PROD='true' bun --watch src/server.ts",
     "clean": "rm -rf ./public/assets",
     "build": "bun run clean && NODE_ENV=production bun run build.ts",
