@@ -91,8 +91,7 @@ const fetchAndStart = (state: AppState) => {
       return res.json();
     })
     .then((surveys) => {
-      console.log(surveys);
-      if (!Array.isArray(surveys)) {
+          if (!Array.isArray(surveys)) {
         throw Error(
           `Invalid type for surveys response - ${JSON.stringify(surveys)}`,
         );
