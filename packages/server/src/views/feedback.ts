@@ -8,7 +8,7 @@ export type FeedbackProps = {
 };
 
 export const Feedback = ({ texts }: FeedbackProps) => html`
-  <div class="${cls.feedback}">
+  <d-feedback class="${cls.feedback}">
     <div class="${cls.feedbackContent}">
       <h2 class="${cls.feedbackTitle}">${texts.did_you_find}</h2>
       <div class="${cls.buttonWrapper}">
@@ -30,5 +30,5 @@ export const Feedback = ({ texts }: FeedbackProps) => html`
         })}
       </div>
     </div>
-  </div>
+  </d-feedback>
 `;
