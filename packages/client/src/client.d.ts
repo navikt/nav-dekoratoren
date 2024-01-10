@@ -1,5 +1,7 @@
 import { AppState } from 'decorator-shared/types';
 import { Faro } from '@grafana/faro-web-sdk';
+import { EventName, CustomEvents, MessageEvents } from './events';
+
 
 declare global {
   interface Window {
@@ -23,6 +25,11 @@ declare global {
     vngage: {
         join: (queue: string, options: unknown) => void;
     },
-    faro?: Faro
+    faro?: Faro,
+    addEventListener(type: 'message',
+           listener: (this: Document, ev: MessageEvent<MessageEvents>) => void): void;
+    addEventListener<K extends keyof CustomEvents>(type: K,
+           listener: (this: Document, ev: CustomEvent<CustomEvents[K]>) => void): void;
+
   }
 }

@@ -1,5 +1,5 @@
 import { formatParams } from 'decorator-shared/json';
-import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
+import { LoginLevel, type Context } from 'decorator-shared/params';
 import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
 import * as api from './api';
@@ -25,55 +25,47 @@ import './views/feedback';
 import './views/login-button';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
-import { analyticsLoaded, analyticsReady } from './events';
+import { analyticsLoaded, analyticsReady, createEvent } from './events';
+    import { type ParamKey } from 'decorator-shared/params';
+import { param, hasParam, updateDecoratorParams, env } from './params';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
-const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
+export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
-const updateDecoratorParams = (params: Partial<Params>) => {
-    window.__DECORATOR_DATA__.params = {
-        ...window.__DECORATOR_DATA__.params,
-        ...params,
-    };
 
-    window.dispatchEvent(
-        new CustomEvent('paramsupdated', {
-            detail: { keys: Object.keys(params) },
-        })
-    );
-};
+const texts = window.__DECORATOR_DATA__.texts;
+
 
 updateDecoratorParams({});
 
-// onLoadListeners({
-//     texts: window.__DECORATOR_DATA__.texts,
-// });
-
-if (window.__DECORATOR_DATA__.params.logoutWarning) {
-    logoutWarningController(window.__DECORATOR_DATA__.params.logoutWarning, window.__DECORATOR_DATA__.texts);
+if (hasParam('logoutWarning')) {
+    logoutWarningController(param('logoutWarning'), texts);
 }
+
 
 window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
         window.postMessage({ source: 'decorator', event: 'ready' });
     }
     if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
-        ['breadcrumbs', 'availableLanguages', 'utilsBackground'].forEach((key) => {
-            if (e.data.payload[key]) {
+        const payload = e.data.payload;
+
+        (['breadcrumbs', 'availableLanguages', 'utilsBackground'] satisfies ParamKey[]).forEach((key) => {
+            if (payload[key]) {
                 updateDecoratorParams({
-                    [key]: e.data.payload[key],
+                    [key]: payload[key],
                 });
             }
         });
 
         const language = e.data.payload.language;
-        if (language && language !== window.__DECORATOR_DATA__.params.language) {
+        if (language && language !== param('language')) {
             updateDecoratorParams({ language });
             Promise.all(
                 ['header', 'footer'].map((key) =>
-                    fetch(`${window.__DECORATOR_DATA__.env.APP_URL}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`).then((res) =>
+                    fetch(`${env('APP_URL')}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`).then((res) =>
                         res.text()
                     )
                 )
@@ -92,7 +84,7 @@ window.addEventListener('message', (e) => {
             const context = e.data.payload.context;
             if (CONTEXTS.includes(context)) {
                 window.dispatchEvent(
-                    new CustomEvent('activecontext', {
+                    createEvent('activecontext', {
                         bubbles: true,
                         detail: { context },
                     })
@@ -112,7 +104,7 @@ window.addEventListener('activecontext', (event) => {
 
 async function populateLoggedInMenu(authObject: Auth) {
     fetch(
-        `${window.__DECORATOR_DATA__.env.APP_URL}/user-menu?${formatParams({
+        `${env('APP_URL')}/user-menu?${formatParams({
             ...window.__DECORATOR_DATA__.params,
             name: authObject.name,
             level: `Level${authObject.securityLevel}` as LoginLevel,
