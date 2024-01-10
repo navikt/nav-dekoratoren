@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
 import * as api from './api';
 import { logoutWarningController } from './controllers/logout-warning';
-import { onLoadListeners } from './listeners';
 import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
 import './views/breadcrumb';
@@ -22,6 +21,7 @@ import './views/ops-messages';
 import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
+import './views/feedback';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
 import { analyticsLoaded, analyticsReady } from './events';
@@ -46,9 +46,9 @@ const updateDecoratorParams = (params: Partial<Params>) => {
 
 updateDecoratorParams({});
 
-onLoadListeners({
-    texts: window.__DECORATOR_DATA__.texts,
-});
+// onLoadListeners({
+//     texts: window.__DECORATOR_DATA__.texts,
+// });
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
     logoutWarningController(window.__DECORATOR_DATA__.params.logoutWarning, window.__DECORATOR_DATA__.texts);
