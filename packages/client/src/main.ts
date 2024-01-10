@@ -9,8 +9,6 @@ import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
 import './views/breadcrumb';
 import './views/context-link';
-import './views/decorator-lens';
-import { attachLensListener } from './views/decorator-lens';
 import './views/decorator-utils';
 import './views/dropdown-menu';
 import './views/language-selector';
@@ -51,8 +49,6 @@ updateDecoratorParams({});
 onLoadListeners({
     texts: window.__DECORATOR_DATA__.texts,
 });
-
-attachLensListener();
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
     logoutWarningController(window.__DECORATOR_DATA__.params.logoutWarning, window.__DECORATOR_DATA__.texts);

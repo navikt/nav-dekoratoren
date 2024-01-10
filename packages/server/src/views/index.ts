@@ -104,7 +104,6 @@ export function Index({
   language,
   header,
   footer,
-  lens,
   decoratorData,
   maskDocument = false,
   main,
@@ -112,7 +111,6 @@ export function Index({
   language: Language;
   header: Template;
   footer: Template;
-  lens: Template;
   decoratorData: Template;
   maskDocument?: boolean;
   main?: Template;
@@ -202,7 +200,6 @@ export function Index({
           </script>
         </main>
         <div id="footer-withmenu">${footer}</div>
-        ${lens}
         <div id="scripts" style="display:none">
           ${unsafeHtml(scripts)}${decoratorData}
           <script>
