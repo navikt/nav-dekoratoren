@@ -2,13 +2,17 @@ import { erNavDekoratoren } from '../helpers/urls';
 import headerClasses from '../styles/header.module.css';
 import { tryParse } from 'decorator-shared/json';
 import { type AnalyticsEventArgs } from '../analytics/constants';
+import { createEvent } from '../events';
+import { Context } from 'decorator-shared/params';
 
 class ContextLink extends HTMLElement {
-    handleActiveContext = (event: Event) =>
+    handleActiveContext = (event: Event) => {
         this.classList.toggle(
             headerClasses.lenkeActive,
             this.getAttribute('data-context') === (event as CustomEvent<{ context: string }>).detail.context
         );
+
+    }
 
     connectedCallback() {
         const attachContext = this.getAttribute('data-attach-context') === 'true';
@@ -23,10 +27,10 @@ class ContextLink extends HTMLElement {
             }
 
             this.dispatchEvent(
-                new CustomEvent('activecontext', {
+                createEvent('activecontext', {
                     bubbles: true,
                     detail: {
-                        context: this.getAttribute('data-context'),
+                        context: this.getAttribute('data-context') as Context
                     },
                 })
             );

@@ -30,6 +30,9 @@ declare global {
            listener: (this: Document, ev: MessageEvent<MessageEvents>) => void): void;
     addEventListener<K extends keyof CustomEvents>(type: K,
            listener: (this: Document, ev: CustomEvent<CustomEvents[K]>) => void): void;
+    removeEventListener(type: 'message',
+           listener: (this: Document, ev: MessageEvent<MessageEvents>) => void): void;
+        removeEventListener<K extends keyof CustomEvents>(type: K, listener: (this: Document, ev: CustomEvent<CustomEvents[K]>) => void): void;
 
   }
 }
