@@ -1,4 +1,3 @@
-// import { AppState } from 'decorator-shared/types';
 import './login-button';
 import { fixture, html } from '@open-wc/testing';
 
