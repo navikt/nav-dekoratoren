@@ -1,5 +1,7 @@
 import { formatParams } from 'decorator-shared/json';
-import { LoginLevel, type Context, type Params } from 'decorator-shared/params'; import Cookies from 'js-cookie'; import 'vite/modulepreload-polyfill';
+import { LoginLevel, type Context, type Params } from 'decorator-shared/params';
+import Cookies from 'js-cookie';
+import 'vite/modulepreload-polyfill';
 import * as api from './api';
 import { logoutWarningController } from './controllers/logout-warning';
 import { onLoadListeners } from './listeners';
@@ -24,7 +26,7 @@ import './views/search-input';
 import './views/search-menu';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
-import { analyticsReady } from './events';
+import { analyticsLoaded, analyticsReady } from './events';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
@@ -133,27 +135,41 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 //
 // await populateLoggedInMenu(response);
+
 const init = async () => {
     const response = await api.checkAuth();
 
+    dispatchEvent(
+        new CustomEvent(analyticsLoaded.type, {
+            bubbles: true,
+            detail: { response },
+        })
+    );
 
     if (!response.authenticated) {
         return;
     }
 
-    await populateLoggedInMenu(response);
 
-    window.dispatchEvent(analyticsReady(response));
+    await populateLoggedInMenu(response);
 };
 
 init();
+
+window.addEventListener(analyticsReady.type, () => {
+    window.addEventListener(analyticsLoaded.type, (e) => {
+        const response = (e as CustomEvent<Auth>).detail;
+            window.logPageView(window.__DECORATOR_DATA__.params, response);
+-       window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+    });
+});
 
 function handleLogin() {
     const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
     document.getElementById('login-button')?.addEventListener('click', async () => {
         window.location.href = `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${window.location.href}&level=${loginLevel}`;
     });
-}
+    }
 
 handleLogin();
 

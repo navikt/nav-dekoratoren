@@ -1,8 +1,11 @@
-import { Auth } from "./api";
+import { Auth } from "./api"
 
-export const analyticsReadyEvent = "decorator-analytics-ready";
-
-export const analyticsReady = (response: Auth) => new CustomEvent(analyticsReadyEvent, {
+export const analyticsReady = new CustomEvent('analytics-ready-event', {
     bubbles: true,
-    detail: response
+})
+
+export type AnalyticsLoaded = CustomEvent<Auth>
+
+export const analyticsLoaded = new CustomEvent<Auth>('analytics-loaded-event', {
+    bubbles: true,
 })

@@ -1,5 +1,4 @@
-import { Auth } from '../api';
-import { analyticsReadyEvent } from '../events';
+import { analyticsReady } from '../events';
 import { initAmplitude, logAmplitudeEvent, logPageView } from './amplitude';
 import { AnalyticsEventArgs } from './constants';
 import {
@@ -10,11 +9,7 @@ import {
 export const initAnalytics = () => {
   initAmplitude();
   initTaskAnalytics();
-   window.addEventListener(analyticsReadyEvent, (e) => {
-        const response = (e as CustomEvent).detail as Auth;
-        window.logPageView(window.__DECORATOR_DATA__.params, response);
-        window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
-   });
+  dispatchEvent(analyticsReady);
 };
 
 // Connects to partytown forwarding
