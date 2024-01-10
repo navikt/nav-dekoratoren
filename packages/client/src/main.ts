@@ -26,6 +26,7 @@ import './views/search-input';
 import './views/search-menu';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
+import { analyticsLoaded, analyticsReady } from './events';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
@@ -134,11 +135,16 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 //
 // await populateLoggedInMenu(response);
+
 const init = async () => {
     const response = await api.checkAuth();
 
-    window.logPageView(window.__DECORATOR_DATA__.params, response);
-    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+    dispatchEvent(
+        new CustomEvent(analyticsLoaded.type, {
+            bubbles: true,
+            detail: { response },
+        })
+    );
 
     if (!response.authenticated) {
         return;
@@ -148,6 +154,14 @@ const init = async () => {
 };
 
 init();
+
+window.addEventListener(analyticsReady.type, () => {
+    window.addEventListener(analyticsLoaded.type, (e) => {
+        const response = (e as CustomEvent<Auth>).detail;
+        window.logPageView(window.__DECORATOR_DATA__.params, response);
+        window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+    });
+});
 
 function handleLogin() {
     const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
