@@ -150,7 +150,6 @@ const init = async () => {
         return;
     }
 
-
     await populateLoggedInMenu(response);
 };
 
@@ -159,8 +158,8 @@ init();
 window.addEventListener(analyticsReady.type, () => {
     window.addEventListener(analyticsLoaded.type, (e) => {
         const response = (e as CustomEvent<Auth>).detail;
-            window.logPageView(window.__DECORATOR_DATA__.params, response);
--       window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+        window.logPageView(window.__DECORATOR_DATA__.params, response);
+        window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
     });
 });
 
@@ -169,7 +168,7 @@ function handleLogin() {
     document.getElementById('login-button')?.addEventListener('click', async () => {
         window.location.href = `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${window.location.href}&level=${loginLevel}`;
     });
-    }
+}
 
 handleLogin();
 
