@@ -22,6 +22,7 @@ import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
 import './views/feedback';
+import './views/login-button';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
 import { analyticsLoaded, analyticsReady } from './events';
@@ -158,15 +159,6 @@ window.addEventListener(analyticsReady.type, () => {
         window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
     });
 });
-
-function handleLogin() {
-    const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
-    document.getElementById('login-button')?.addEventListener('click', async () => {
-        window.location.href = `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${window.location.href}&level=${loginLevel}`;
-    });
-}
-
-handleLogin();
 
 // @TODO: Refactor loaders
 window.addEventListener('load', () => {

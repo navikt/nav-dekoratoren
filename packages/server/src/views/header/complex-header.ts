@@ -19,6 +19,7 @@ import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
 import { OpsMessages } from '../ops-messages';
+import { LoginButton } from '../login-button';
 
 export type ComplexHeaderProps = {
   texts: Texts;
@@ -84,10 +85,8 @@ export function ComplexHeader({
           </div>
           <div class="${menuItemsCls.menuItems}">
             <user-menu>
-              ${IconButton({
-                id: 'login-button',
-                Icon: LoginIcon({}),
-                text: texts.login,
+              ${LoginButton({
+                texts: texts
               })}
             </user-menu>
             <div class="${menuItemsCls.menuItemsUniversalLinks}">

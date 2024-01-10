@@ -8,6 +8,7 @@ import { LoginIcon } from 'decorator-shared/views/icons';
 import { IconButton } from '../icon-button';
 import { SkipLink } from 'decorator-shared/views/skiplink';
 import { NavLogo } from 'decorator-shared/views/nav-logo';
+import { LoginButton } from '../login-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
@@ -34,13 +35,11 @@ export const SimpleHeader = ({
           ${NavLogo({
               title: texts.to_front_page,
               id: 'dekoratoren-header-logo'
-          })}
+              })}
         </lenke-med-sporing>
         <user-menu class="${menuItemsCls.menuItems}">
-          ${IconButton({
-            id: 'login-button',
-            Icon: LoginIcon({}),
-            text: texts.login,
+          ${LoginButton({
+            texts: texts,
           })}
         </user-menu>
       </nav>
