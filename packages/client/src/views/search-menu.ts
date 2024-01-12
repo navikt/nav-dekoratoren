@@ -37,9 +37,7 @@ class SearchMenu extends HTMLElement {
 
     this.form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      window.location.assign(
-        `${window.__DECORATOR_DATA__.env.APP_URL}/sok?ord=${this.input?.value}`,
-      );
+      window.location.assign(`${window.location.origin}/sok?ord=${this.input?.value}`);
     });
 
     const fetchSearch = (query: string) => {
