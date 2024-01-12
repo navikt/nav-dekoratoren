@@ -43,7 +43,7 @@ export function Notifications({ texts, notifications }: NotificationsProps) {
     </ul>
     <a
       class="${cls.allNotificationsLink}"
-      href="${process.env.VITE_MIN_SIDE_URL}/all-notifications"
+      href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
     >
       ${texts.earlier_notifications}
     </a>

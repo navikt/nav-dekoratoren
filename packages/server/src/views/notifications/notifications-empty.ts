@@ -16,7 +16,7 @@ export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
         </p>
         <a
           class="${cls.link}"
-          href="${process.env.VITE_MIN_SIDE_URL}/all-notifications"
+          href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
         >
           ${texts.notifications_show_all}
         </a>
