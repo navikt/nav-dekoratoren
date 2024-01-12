@@ -4,10 +4,9 @@ import opsMessagesCls from 'decorator-client/src/styles/ops-messages.module.css'
 import utilsCls from 'decorator-client/src/styles/utilities.module.css';
 import html, { Template } from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
-import { LoginIcon } from 'decorator-shared/views/icons';
-import { IconButton } from '../icon-button';
 import { SkipLink } from 'decorator-shared/views/skiplink';
 import { NavLogo } from 'decorator-shared/views/nav-logo';
+import { LoginButton } from '../login-button';
 
 export type SimpleHeaderProps = {
   texts: Texts;
@@ -22,8 +21,7 @@ export const SimpleHeader = ({
     <header class="${cls.siteheader}">
       ${SkipLink(texts.skip_link)}
       <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <a
-          is="lenke-med-sporing"
+        <lenke-med-sporing
           href="/"
           class="${cls.logo} ${cls.logoSimple}"
           data-analytics-event-args="${JSON.stringify({
@@ -35,13 +33,11 @@ export const SimpleHeader = ({
           ${NavLogo({
               title: texts.to_front_page,
               id: 'dekoratoren-header-logo'
-          })}
-        </a>
+              })}
+        </lenke-med-sporing>
         <user-menu class="${menuItemsCls.menuItems}">
-          ${IconButton({
-            id: 'login-button',
-            Icon: LoginIcon({}),
-            text: texts.login,
+          ${LoginButton({
+            texts: texts,
           })}
         </user-menu>
       </nav>

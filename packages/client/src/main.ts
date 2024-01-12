@@ -4,13 +4,10 @@ import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
 import * as api from './api';
 import { logoutWarningController } from './controllers/logout-warning';
-import { onLoadListeners } from './listeners';
 import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
 import './views/breadcrumb';
 import './views/context-link';
-import './views/decorator-lens';
-import { attachLensListener } from './views/decorator-lens';
 import './views/decorator-utils';
 import './views/dropdown-menu';
 import './views/language-selector';
@@ -24,8 +21,11 @@ import './views/ops-messages';
 import './views/screensharing-modal';
 import './views/search-input';
 import './views/search-menu';
+import './views/feedback';
+import './views/login-button';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
+import { analyticsLoaded, analyticsReady } from './events';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
@@ -47,11 +47,9 @@ const updateDecoratorParams = (params: Partial<Params>) => {
 
 updateDecoratorParams({});
 
-onLoadListeners({
-    texts: window.__DECORATOR_DATA__.texts,
-});
-
-attachLensListener();
+// onLoadListeners({
+//     texts: window.__DECORATOR_DATA__.texts,
+// });
 
 if (window.__DECORATOR_DATA__.params.logoutWarning) {
     logoutWarningController(window.__DECORATOR_DATA__.params.logoutWarning, window.__DECORATOR_DATA__.texts);
@@ -134,11 +132,16 @@ async function populateLoggedInMenu(authObject: Auth) {
 
 //
 // await populateLoggedInMenu(response);
+
 const init = async () => {
     const response = await api.checkAuth();
 
-    window.logPageView(window.__DECORATOR_DATA__.params, response);
-    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+    dispatchEvent(
+        new CustomEvent(analyticsLoaded.type, {
+            bubbles: true,
+            detail: { response },
+        })
+    );
 
     if (!response.authenticated) {
         return;
@@ -149,14 +152,13 @@ const init = async () => {
 
 init();
 
-function handleLogin() {
-    const loginLevel = window.__DECORATOR_DATA__.params.level || 'Level4';
-    document.getElementById('login-button')?.addEventListener('click', async () => {
-        window.location.href = `${window.__DECORATOR_DATA__.env.LOGIN_URL}?redirect=${window.location.href}&level=${loginLevel}`;
+window.addEventListener(analyticsReady.type, () => {
+    window.addEventListener(analyticsLoaded.type, (e) => {
+        const response = (e as CustomEvent<Auth>).detail;
+        window.logPageView(window.__DECORATOR_DATA__.params, response);
+        window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
     });
-}
-
-handleLogin();
+});
 
 // @TODO: Refactor loaders
 window.addEventListener('load', () => {

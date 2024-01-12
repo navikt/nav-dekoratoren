@@ -10,7 +10,6 @@ import { Context, Language } from 'decorator-shared/params';
 import { OpsMessage, Texts } from 'decorator-shared/types';
 import {
   BurgerIcon,
-  LoginIcon,
   SearchIcon,
 } from 'decorator-shared/views/icons';
 import { SkipLink } from 'decorator-shared/views/skiplink';
@@ -19,6 +18,7 @@ import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
 import { OpsMessages } from '../ops-messages';
+import { LoginButton } from '../login-button';
 
 export type ComplexHeaderProps = {
   texts: Texts;
@@ -44,8 +44,7 @@ export function ComplexHeader({
         ${SkipLink(texts.skip_link)}
         <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
           <div class="${cls.hovedmenyContent}">
-            <a
-              is="lenke-med-sporing"
+            <lenke-med-sporing
               href="/"
               class="${cls.logo}"
               data-analytics-event-args="${JSON.stringify({
@@ -58,12 +57,13 @@ export function ComplexHeader({
                   title: texts.to_front_page,
                 id: 'dekoratoren-header-logo'
               })}
-            </a>
+            </lenke-med-sporing>
             <div class="${cls.arbeidsflate}">
               ${language === 'nb' &&
               contextLinks?.map(
                 ({ url, lenkeTekstId, context }) =>
-                  html`<a
+                  html`
+                    <context-link
                     is="context-link"
                     href="${url}"
                     data-analytics-event-args="${JSON.stringify({
@@ -74,20 +74,18 @@ export function ComplexHeader({
                     class="${clsx(cls.headerContextLink, {
                       [cls.lenkeActive]: context === currentContext,
                     })}"
-                    data-attach-context
+                    data-attach-context="true"
                     data-context="${context.toLowerCase()}"
                   >
                     ${texts[lenkeTekstId]}
-                  </a>`,
+                  </context-link>`,
               )}
             </div>
           </div>
           <div class="${menuItemsCls.menuItems}">
             <user-menu>
-              ${IconButton({
-                id: 'login-button',
-                Icon: LoginIcon({}),
-                text: texts.login,
+              ${LoginButton({
+                texts: texts
               })}
             </user-menu>
             <div class="${menuItemsCls.menuItemsUniversalLinks}">

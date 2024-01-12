@@ -201,8 +201,7 @@ const requestHandler = async (
             .with('samarbeidspartner', () =>
               IconButton({
                 id: 'logout-button',
-                Icon: LogoutIcon({}),
-                text: localTexts.logout,
+                Icon: LogoutIcon({}), text: localTexts.logout,
               }),
             )
             .exhaustive();

@@ -6,7 +6,6 @@ import { texts } from './texts';
 import { GetFeatures } from './unleash-service';
 import { Index } from './views';
 import { DecoratorData } from './views/decorator-data';
-import { DecoratorLens } from './views/decorator-lens';
 import { DecoratorUtils } from './views/decorator-utils';
 import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
@@ -74,11 +73,6 @@ export default async ({
       data,
       features,
       texts: localTexts,
-    }),
-    lens: DecoratorLens({
-      origin,
-      env: data,
-      query,
     }),
     decoratorData: DecoratorData({
       texts: localTexts,

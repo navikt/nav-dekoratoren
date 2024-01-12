@@ -1,6 +1,7 @@
 .feedback {
   border-top: 2px solid var(--a-gray-300);
   padding-block: var(--a-spacing-4);
+  display: block;
 }
 
 .feedbackContent {

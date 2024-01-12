@@ -12,8 +12,7 @@ export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
   <div class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
     ${opsMessages.map(
       ({ heading, url, type }) =>
-        html`<a
-          is="lenke-med-sporing"
+        html`<lenke-med-sporing
           data-analytics-event-args="${JSON.stringify({
             category: 'dekorator-header',
             action: 'driftsmeldinger',
@@ -23,7 +22,7 @@ export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
         >
           ${type === 'prodstatus' ? WarningIcon() : InfoIcon()}
           <span>${heading}</span>
-        </a>`,
+        </lenke-med-sporing>`,
     )}
   </div>
 `;

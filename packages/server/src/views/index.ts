@@ -1,6 +1,5 @@
 import html, { Template, unsafeHtml } from 'decorator-shared/html';
 import { Language } from 'decorator-shared/params';
-import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
 import { env } from '../env/server';
 import { NodeEnv } from '../env/schema';
@@ -47,14 +46,11 @@ const asyncScript: AssetFormatter = (src) =>
 const asyncScriptInline: AssetFormatter = (src) =>
   `<script fetchpriotiy='low' async type="module">${src}</script>`;
 
-const partytownScript: AssetFormatter = (src) =>
-  `<script type="text/partytown" src="${src}"></script>`;
-
 const partytownInlineScript: AssetFormatter = (code) =>
   `<script type="text/partytown">${code}</script>`;
 
 const cssLink: AssetFormatter = (src) =>
-  `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
+  `<link type="text/css" rel="stylesheet" href="${src}" />`;
 
 const hostUrl: AssetFormatter = (src) => `${env.HOST ?? ``}${src}`;
 export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
@@ -84,14 +80,9 @@ const getEnvAssets = async () => {
       [
         'http://localhost:5173/@vite/client',
         `http://localhost:5173/${entryPointPath}`,
+        `http://localhost:5173/${entryPointPathAnalytics}`,
       ]
         .map(script)
-        .join(''),
-      [
-        vendorScripts.taskAnalytics,
-        hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`),
-      ]
-        .map(asyncScript)
         .join(''),
       [inlineVendorScripts.hotjar].map(partytownInlineScript).join(''),
     ].join(''),
@@ -109,7 +100,6 @@ export function Index({
   language,
   header,
   footer,
-  lens,
   decoratorData,
   maskDocument = false,
   main,
@@ -117,7 +107,6 @@ export function Index({
   language: Language;
   header: Template;
   footer: Template;
-  lens: Template;
   decoratorData: Template;
   maskDocument?: boolean;
   main?: Template;
@@ -207,7 +196,6 @@ export function Index({
           </script>
         </main>
         <div id="footer-withmenu">${footer}</div>
-        ${lens}
         <div id="scripts" style="display:none">
           ${unsafeHtml(scripts)}${decoratorData}
           <script>

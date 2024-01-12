@@ -11,18 +11,20 @@ export type AuthResponse = Auth;
 
 export async function checkAuth() {
   const authUrl = `${window.__DECORATOR_DATA__.env.API_DEKORATOREN_URL}/auth`;
-  const sessionUrl = window.__DECORATOR_DATA__.env.API_SESSION_URL;
+      // const sessionUrl = window.__DECORATOR_DATA__.env.API_SESSION_URL;
 
   try {
     const fetchResponse = await fetch(authUrl, {
       credentials: "include",
     });
+
     const response = await fetchResponse.json();
-    const sessionResponse = await fetch(sessionUrl, {
-      credentials: "include",
-    });
-    const session = await sessionResponse.json();
-    console.log(session)
+
+    // const sessionResponse = await fetch(sessionUrl, {
+    //   credentials: "include",
+    // });
+
+    // const session = await sessionResponse.json();
 
     return response as Auth;
     // const session = await sessionResponse.json();

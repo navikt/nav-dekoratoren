@@ -1,7 +1,0 @@
-.decoratorLens {
-  display: none;
-}
-
-.decoratorLens.active {
-  display: block;
-}

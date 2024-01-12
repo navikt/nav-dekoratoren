@@ -21,18 +21,16 @@ export function MainMenu({
     <div class="${cls.content}">
       <div class="${cls.header}">
         <h2 class="${cls.title}">${title}</h2>
-        <a
+        <lenke-med-sporing
           href="${frontPageUrl}"
           class="${cls.link}"
-          is="lenke-med-sporing"
           data-attach-context
           data-analytics-event-args="${JSON.stringify({
             category: 'dekorator-meny',
             action: 'hovedmeny/forsidelenke',
             label: frontPageUrl,
           })}"
-          >${texts.to_front_page}</a
-        >
+          >${texts.to_front_page}</lenke-med-sporing>
       </div>
       <div class="${cls.links}">
         ${links?.map(
@@ -43,18 +41,16 @@ export function MainMenu({
                 ${children.map(
                   ({ content, url }) =>
                     html`<li>
-                      <a
+                      <lenke-med-sporing
                         href="${url}"
                         class="${cls.link}"
-                        is="lenke-med-sporing"
                         data-attach-context
                         data-analytics-event-args="${JSON.stringify({
                           category: 'dekorator-meny',
                           action: `${heading}/${content}`,
                           label: url,
                         })}"
-                        >${content}</a
-                      >
+                        >${content}</lenke-med-sporing>
                     </li>`,
                 )}
               </ul>
@@ -66,10 +62,9 @@ export function MainMenu({
     <div class="${cls.contextLinks}">
       ${contextLinks?.map(
         ({ content, url, description }) =>
-          html`<a
+          html`<lenke-med-sporing
             href="${url}"
             class="${cls.contextLink}"
-            is="lenke-med-sporing"
             data-attach-context
             data-analytics-event-args="${JSON.stringify({
               category: 'dekorator-meny',
@@ -82,7 +77,7 @@ export function MainMenu({
             html`<div class="${cls.contextLinkDescription}">
               ${description}
             </div>`}
-          </a>`,
+          </lenke-med-sporing>`,
       )}
     </div>
   </div>`;
