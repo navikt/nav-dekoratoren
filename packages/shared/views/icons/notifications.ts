@@ -24,7 +24,16 @@ export function NotificationsIcon({ className }: { className?: string }) {
 }
 
 export function MessageIcon() {
-    return html`<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none">
+    return html`<svg
+        width="24px"
+        height="24px"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        focusable="false"
+        aria-hidden="true"
+        role="img"
+    >
         <rect width="24" height="24" fill="#3380A5" rx="4" />
         <path
             fill="#fff"
