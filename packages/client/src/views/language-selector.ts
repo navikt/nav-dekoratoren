@@ -56,10 +56,10 @@ export class LanguageSelector extends HTMLElement {
         nb: 'Norsk (bokmål)',
         nn: 'Norsk (nynorsk)',
         en: 'English',
-        se: 'Sámegiel',
-        pl: 'Polski',
-        uk: 'Українська',
-        ru: 'Русский',
+        se: 'Sámegiel (samisk)',
+        pl: 'Polski (polsk)',
+        uk: 'Українська (ukrainsk)',
+        ru: 'Русский (russisk)',
       }[language.locale];
       this.options.push(option);
       li.appendChild(option);
