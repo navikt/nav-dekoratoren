@@ -75,7 +75,7 @@ const nb = {
   footer_del_skjerm: 'Del skjerm med veileder',
   delskjerm_modal_beskrivelse: `Gi veilederen du snakker med på telefon tilgang til å se det du ser på nav.no.`,
   delskjerm_modal_start: 'Start skjermdeling',
-  delskjerm_modal_label: 'Skriv in koden du får fra veilederen',
+  delskjerm_modal_label: 'Skriv inn koden du får fra veilederen',
   delskjerm_modal_avbryt: 'Avbryt',
   delskjerm_modal_feilmelding: 'Må bestå av 5 siffer',
   delskjerm_modal_hjelpetekst_overskrift: 'Hva er skjermdeling?',
