@@ -22,9 +22,13 @@ export const SearchForm = ({ texts }: SearchFormProps) => {
           id="${id}"
           autocomplete="off"
         />
-        <button type="button" class="${cls.clear}">${CloseIcon({})}</button>
+        <button type="button" class="${cls.clear}">
+            ${CloseIcon({ariaLabel: texts.clear})}
+        </button>
       </search-input>
-      <button class="${cls.submit}">${SearchIcon({})}</button>
+      <button class="${cls.submit}">
+          ${SearchIcon({ariaLabel: texts.search})}
+      </button>
     </div>
   </form>`;
 };

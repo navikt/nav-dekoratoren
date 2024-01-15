@@ -10,7 +10,6 @@ import { Context, Language } from 'decorator-shared/params';
 import { OpsMessage, Texts } from 'decorator-shared/types';
 import {
   BurgerIcon,
-  LoginIcon,
   SearchIcon,
 } from 'decorator-shared/views/icons';
 import { SkipLink } from 'decorator-shared/views/skiplink';

@@ -62,6 +62,5 @@ export function getSecondsToExpiration(expiration: string) {
 }
 
 export function fakeExpirationTime(seconds: number) {
-  const fakeTokenEndsAt = new Date(Date.now() + seconds * 1000).toISOString();
-  return fakeTokenEndsAt;
+  return new Date(Date.now() + seconds * 1000).toISOString();
 }
