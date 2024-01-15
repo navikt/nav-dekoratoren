@@ -1,10 +1,14 @@
 import { formatParams } from 'decorator-shared/json';
+import { Context } from 'decorator-shared/params';
+import { CustomEvents } from '../events';
 
 class MainMenu extends HTMLElement {
-  fetchMenuContent = () =>
+  fetchMenuContent = (context?: Context) =>
     fetch(
-      `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?${formatParams(
-        window.__DECORATOR_DATA__.params,
+      `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?${formatParams({
+        ...window.__DECORATOR_DATA__.params,
+        context: context || window.__DECORATOR_DATA__.params.context,
+    }
       )}`,
     )
       .then((response) => response.text())
@@ -12,13 +16,18 @@ class MainMenu extends HTMLElement {
         this.innerHTML = html;
       });
 
+  onContextChange = (e: CustomEvent<CustomEvents['activecontext']>) => {
+    this.fetchMenuContent(e.detail.context);
+  }
+
   connectedCallback() {
-    window.addEventListener('activecontext', this.fetchMenuContent);
+    window.addEventListener('activecontext', this.onContextChange);
+
     setTimeout(() => this.fetchMenuContent(), 0);
   }
 
   disconnectedCallback() {
-    window.removeEventListener('activecontext', this.fetchMenuContent);
+    window.removeEventListener('activecontext', this.onContextChange);
   }
 }
 
