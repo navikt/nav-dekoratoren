@@ -6,7 +6,7 @@ import { texts } from './texts';
 import { GetFeatures } from './unleash-service';
 import { Index } from './views';
 import { DecoratorData } from './views/decorator-data';
-    import { DecoratorUtils } from './views/decorator-utils';
+import { DecoratorUtils } from './views/decorator-utils';
 import { ComplexHeader } from './views/header/complex-header';
 import { SimpleHeader } from './views/header/simple-header';
 import { getSplashPage } from './views/splash-page';

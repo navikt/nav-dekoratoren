@@ -1,6 +1,5 @@
 import html, { Template, unsafeHtml } from 'decorator-shared/html';
 import { Language } from 'decorator-shared/params';
-import { Partytown } from './partytown';
 import { Button } from 'decorator-shared/views/components/button';
 import { env } from '../env/server';
 import { NodeEnv } from '../env/schema';
@@ -47,14 +46,11 @@ const asyncScript: AssetFormatter = (src) =>
 const asyncScriptInline: AssetFormatter = (src) =>
   `<script fetchpriotiy='low' async type="module">${src}</script>`;
 
-const partytownScript: AssetFormatter = (src) =>
-  `<script type="text/partytown" src="${src}"></script>`;
-
 const partytownInlineScript: AssetFormatter = (code) =>
   `<script type="text/partytown">${code}</script>`;
 
 const cssLink: AssetFormatter = (src) =>
-  `<link type="text/css" rel="stylesheet" href="${src}"></link>`;
+  `<link type="text/css" rel="stylesheet" href="${src}" />`;
 
 const hostUrl: AssetFormatter = (src) => `${env.HOST ?? ``}${src}`;
 export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
