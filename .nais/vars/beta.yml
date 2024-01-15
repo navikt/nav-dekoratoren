@@ -12,7 +12,7 @@ env:
   - name: ENV
     value: NAV_NO
   - name: HOST
-    value: https://decorator-next.ekstern.dev.nav.no
+    value: https://dekoratoren-beta.intern.dev.nav.no
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
