@@ -29,6 +29,7 @@ import { SimpleUserMenu } from './views/simple-user-menu';
 import { NotificationsService } from './notifications-service';
 import { Footer } from './views/footer/footer';
 import { isExternallyAvailable } from 'decorator-shared/utils';
+import { assetsHandlers } from './handlers/assets-handler';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -308,6 +309,7 @@ const requestHandler = async (
 
       return rewriter.transform(r().html(index).build());
     })
+    .use(assetsHandlers)
     .use([cspHandler])
     .build();
 

@@ -39,7 +39,7 @@ const assets = await loaders[env.NODE_ENV]()
 const scriptHandler: Handler = {
     method: 'GET',
     path: '/client.js',
-    handler: ({ }) => {
+    handler: () => {
        return new Response(assets.js, {
            headers: {
                'content-type': 'application/javascript; charset=utf-8',
