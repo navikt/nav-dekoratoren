@@ -28,13 +28,11 @@ export default async ({
 }) => {
   const { language, breadcrumbs, availableLanguages } = data;
   const localTexts = texts[language];
-
   const features = unleashService.getFeatures();
-
-
   const decoratorUtils = DecoratorUtils({
     breadcrumbs,
     availableLanguages,
+    localTexts,
     utilsBackground: data.utilsBackground,
     hidden: isExternallyAvailable(clientEnv.APP_URL)
   });
