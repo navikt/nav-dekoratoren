@@ -1,3 +1,4 @@
+/// <reference types="./client.d.ts" />
 import { formatParams } from 'decorator-shared/json';
 import { LoginLevel, type Context } from 'decorator-shared/params';
 import Cookies from 'js-cookie';
@@ -36,7 +37,6 @@ export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as
 
 
 const texts = window.__DECORATOR_DATA__.texts;
-
 
 updateDecoratorParams({});
 

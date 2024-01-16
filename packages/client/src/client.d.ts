@@ -1,6 +1,9 @@
 import { AppState } from 'decorator-shared/types';
 import { Faro } from '@grafana/faro-web-sdk';
 import { EventName, CustomEvents, MessageEvents } from './events';
+import { Params } from 'decorator-shared/params';
+import { Auth } from './api';
+    import { AnalyticsEventArgs } from './analytics/constants';
 
 
 declare global {
