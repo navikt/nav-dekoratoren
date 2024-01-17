@@ -30,6 +30,8 @@ import { analyticsLoaded, analyticsReady, createEvent } from './events';
     import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 
+console.log('Decorator client loaded');
+
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing

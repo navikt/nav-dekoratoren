@@ -311,7 +311,10 @@ const requestHandler = async (
       return rewriter.transform(r().html(index).build());
     })
     // Build header and footer for SSR
-    .use([csrHandler])
+    .use([csrHandler({
+        contentService,
+        features: unleashService.getFeatures()
+    })])
     .use(assetsHandlers)
     .use([cspHandler])
     .build();
