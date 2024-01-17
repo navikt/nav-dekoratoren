@@ -62,6 +62,7 @@ export type Texts = ClientTexts & {
     clear: string;
     login: string;
     logged_in: string;
+    language_selector: string;
     notifications: string;
     notifications_empty_list: string;
     notifications_empty_list_description: string;

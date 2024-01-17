@@ -13,14 +13,12 @@ import { getSplashPage } from './views/splash-page';
 import { Footer } from './views/footer/footer';
 import { isExternallyAvailable } from 'decorator-shared/utils';
 import { Features, Texts } from 'decorator-shared/types';
-import { match } from 'ts-pattern';
 
 export default async ({
     contentService,
     unleashService,
     data,
     url: origin,
-    query,
 }: {
     contentService: ContentService;
     unleashService: GetFeatures;
@@ -36,16 +34,15 @@ export default async ({
     const sharedArgs = {
         texts: localTexts,
         data,
-        contentService
-    }
-
+        contentService,
+    };
 
     return Index({
         language,
         header: await renderHeader(sharedArgs),
         footer: await renderFooter({
             ...sharedArgs,
-            features
+            features,
         }),
         decoratorData: DecoratorData({
             texts: localTexts,
@@ -71,6 +68,7 @@ export async function renderHeader({ texts, data, contentService }: SharedParame
         availableLanguages: data.availableLanguages,
         utilsBackground: data.utilsBackground,
         hidden: isExternallyAvailable(clientEnv.APP_URL),
+        localTexts: texts
     });
 
     return data.simple || data.simpleHeader

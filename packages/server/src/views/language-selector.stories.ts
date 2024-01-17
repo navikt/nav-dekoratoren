@@ -3,6 +3,7 @@ import type { LanguageSelectorProps } from './language-selector';
 import { LanguageSelector } from './language-selector';
 import { LanguageSelector as ClientComponent } from 'decorator-client/src/views/language-selector';
 import html from 'decorator-shared/html';
+import { texts } from '../texts';
 
 const meta: Meta<LanguageSelectorProps> = {
   title: 'header/language-selector',
@@ -33,5 +34,6 @@ export const Default: Story = {
       { locale: 'nb', handleInApp: true },
       { locale: 'en', url: 'https://www.nav.no/en/person', handleInApp: false },
     ],
+    localTexts: texts['en']
   },
 };

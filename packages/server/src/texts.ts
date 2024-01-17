@@ -24,6 +24,7 @@ const nb = {
   login: 'Logg inn',
   logout: 'Logg ut',
   logged_in: 'Logget inn',
+  language_selector: 'Velg språk',
   notifications: 'Varsler',
   notifications_empty_list: 'Du har ingen nye varsler',
   notifications_empty_list_description: 'Vi varsler deg når noe skjer.',
@@ -109,6 +110,7 @@ export const texts: Record<Language, Texts> = {
     login: 'Log in',
     logout: 'Log out',
     logged_in: 'Logged in',
+    language_selector: 'Choose language',
     notifications: 'Notifications',
     notifications_empty_list: 'You have no new notifications',
     notifications_empty_list_description:
@@ -191,6 +193,7 @@ export const texts: Record<Language, Texts> = {
     login: 'Sisačáliheapmi',
     logout: 'Olggosčáliheapmi',
     logged_in: 'Logget inn',
+    language_selector: 'Velg språk',
     notifications: 'Varsler',
     notifications_empty_list: 'Du har ingen nye varsler',
     notifications_empty_list_description: 'Vi varsler deg når noe skjer.',

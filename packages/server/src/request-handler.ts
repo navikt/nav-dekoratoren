@@ -233,6 +233,7 @@ const requestHandler = async (
       const decoratorUtils = DecoratorUtils({
         breadcrumbs,
         availableLanguages,
+        localTexts,
         utilsBackground,
         hidden: isExternallyAvailable(clientEnv.APP_URL)
       });
