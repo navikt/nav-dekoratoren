@@ -9,7 +9,7 @@ export type OpsMessagesProps = {
 };
 
 export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
-  <div class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
+  <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
     ${opsMessages.map(
       ({ heading, url, type }) =>
         html`<lenke-med-sporing
@@ -24,5 +24,5 @@ export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
           <span>${heading}</span>
         </lenke-med-sporing>`,
     )}
-  </div>
+  </section>
 `;
