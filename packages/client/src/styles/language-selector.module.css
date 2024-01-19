@@ -23,7 +23,7 @@
   padding: var(--a-spacing-2);
   display: grid;
   grid-auto-flow: column;
-  gap: var(--a-spacing-4);
+  gap: var(--a-spacing-1);
   align-items: center;
   border: 1px solid var(--a-gray-600);
   border-radius: var(--a-border-radius-medium);
@@ -33,6 +33,10 @@
   box-shadow: var(--a-shadow-focus);
   border-color: transparent;
   outline: none;
+}
+
+.label {
+    margin-right: var(--a-spacing-2);
 }
 
 .icon {
