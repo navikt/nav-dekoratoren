@@ -9,4 +9,4 @@ import './index.css';
 
 render(<App />, document.getElementById('app')!);
 
-import 'decorator-client/src/client';
+import 'decorator-client/src/csr';
