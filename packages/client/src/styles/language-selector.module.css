@@ -23,7 +23,7 @@
   padding: var(--a-spacing-2);
   display: grid;
   grid-auto-flow: column;
-  gap: var(--a-spacing-4);
+  gap: var(--a-spacing-1);
   align-items: center;
   border: 1px solid var(--a-gray-600);
   border-radius: var(--a-border-radius-medium);
@@ -33,6 +33,10 @@
   box-shadow: var(--a-shadow-focus);
   border-color: transparent;
   outline: none;
+}
+
+.label {
+    margin-right: var(--a-spacing-2);
 }
 
 .icon {
@@ -51,6 +55,8 @@
   margin-top: 1px;
   border-bottom-right-radius: var(--a-border-radius-medium);
   border-bottom-left-radius: var(--a-border-radius-medium);
+  overflow: hidden; /* fallback for browser that don't support clip */
+  overflow: clip;
 }
 
 .menu > :not(:last-child) {
@@ -67,12 +73,10 @@
   cursor: pointer;
   margin: 0;
   outline: none;
-  padding: var(--a-spacing-2);
-  padding-left: var(--a-spacing-3);
+  padding: var(--a-spacing-3) var(--a-spacing-4);
   width: 100%;
   text-align: left;
-  --color: var(--a-text-default);
-  color: var(--color);
+  color: var(--a-text-default);
   text-decoration: none;
   font: inherit;
   display: grid;
@@ -86,17 +90,17 @@
 .option:hover,
 .option:focus-visible {
   background-color: var(--a-surface-action-hover);
-  --color: var(--a-text-on-action);
+  color: var(--a-text-on-action);
 }
 
 .option::before {
   content: '';
   display: block;
-  height: 5px;
-  width: 5px;
+  height: 8px;
+  width: 8px;
   border-radius: 100%;
 }
 
 .option.selected::before {
-  background-color: var(--color);
+  background-color: currentColor;
 }
