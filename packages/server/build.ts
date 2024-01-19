@@ -22,10 +22,10 @@ const result = await Bun.build({
     plugins: [cssModulesPlugin],
 });
 
-const [output] = result.outputs
-const text = await output.text()
+const [output] = result.outputs;
+const text = await output.text();
 const minified = minify(text, {
-    taggedOnly: true
-}).toString()
+    taggedOnly: true,
+}).toString();
 
-await Bun.write(Bun.file(output.path), minified)
+await Bun.write(Bun.file(output.path), minified);

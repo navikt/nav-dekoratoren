@@ -1,43 +1,31 @@
 import { analyticsReady } from '../events';
 import { initAmplitude, logAmplitudeEvent, logPageView } from './amplitude';
 import { AnalyticsEventArgs } from './constants';
-import {
-  initTaskAnalytics,
-  startTaskAnalyticsSurvey,
-} from './task-analytics/ta';
+import { initTaskAnalytics, startTaskAnalyticsSurvey } from './task-analytics/ta';
 
 export const initAnalytics = () => {
-  initAmplitude();
-  initTaskAnalytics();
-  dispatchEvent(analyticsReady);
+    initAmplitude();
+    initTaskAnalytics();
+    dispatchEvent(analyticsReady);
 };
 
 // Connects to partytown forwarding
 window.analyticsEvent = function (props: AnalyticsEventArgs) {
-  const {
-    context,
-    eventName,
-    destination,
-    category,
-    action,
-    label,
-    komponent,
-    lenkegruppe,
-  } = props;
-  const actionFinal = `${context ? context + '/' : ''}${action}`;
+    const { context, eventName, destination, category, action, label, komponent, lenkegruppe } = props;
+    const actionFinal = `${context ? context + '/' : ''}${action}`;
 
-  logAmplitudeEvent(
-    eventName || 'navigere',
-    {
-      destinasjon: destination || label,
-      søkeord: eventName === 'søk' ? '[redacted]' : undefined,
-      lenketekst: actionFinal,
-      kategori: category,
-      komponent: komponent || action,
-      lenkegruppe,
-    },
-    'decorator_next',
-  );
+    logAmplitudeEvent(
+        eventName || 'navigere',
+        {
+            destinasjon: destination || label,
+            søkeord: eventName === 'søk' ? '[redacted]' : undefined,
+            lenketekst: actionFinal,
+            kategori: category,
+            komponent: komponent || action,
+            lenkegruppe,
+        },
+        'decorator_next'
+    );
 };
 
 window.logPageView = logPageView;

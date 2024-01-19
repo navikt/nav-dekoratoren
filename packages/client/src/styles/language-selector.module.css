@@ -1,38 +1,38 @@
 .languageSelector {
-  width: fit-content;
-  position: relative;
+    width: fit-content;
+    position: relative;
 }
 
 .languageSelector:only-child {
-  margin-left: auto;
+    margin-left: auto;
 }
 
 .empty {
-  display: none;
+    display: none;
 }
 
 .button {
-  border: none;
-  margin: 0;
-  font: inherit;
-  font-size: var(--a-font-size-medium);
-  line-height: 22px;
-  color: inherit;
-  cursor: pointer;
-  background-color: var(--a-surface-default);
-  padding: var(--a-spacing-2);
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--a-spacing-1);
-  align-items: center;
-  border: 1px solid var(--a-gray-600);
-  border-radius: var(--a-border-radius-medium);
+    border: none;
+    margin: 0;
+    font: inherit;
+    font-size: var(--a-font-size-medium);
+    line-height: 22px;
+    color: inherit;
+    cursor: pointer;
+    background-color: var(--a-surface-default);
+    padding: var(--a-spacing-2);
+    display: grid;
+    grid-auto-flow: column;
+    gap: var(--a-spacing-1);
+    align-items: center;
+    border: 1px solid var(--a-gray-600);
+    border-radius: var(--a-border-radius-medium);
 }
 
 .button:focus-visible {
-  box-shadow: var(--a-shadow-focus);
-  border-color: transparent;
-  outline: none;
+    box-shadow: var(--a-shadow-focus);
+    border-color: transparent;
+    outline: none;
 }
 
 .label {
@@ -40,67 +40,67 @@
 }
 
 .icon {
-  font-size: var(--a-font-size-xlarge);
+    font-size: var(--a-font-size-xlarge);
 }
 
 .menu {
-  position: absolute;
-  width: 100%;
-  list-style: none;
-  padding-left: 0;
-  margin-block: 0;
-  background-color: var(--a-surface-default);
-  border: 1px solid var(--a-gray-200);
-  box-shadow: 0 0.05rem 0.25rem 0.125rem rgba(0, 0, 0, 0.08);
-  margin-top: 1px;
-  border-bottom-right-radius: var(--a-border-radius-medium);
-  border-bottom-left-radius: var(--a-border-radius-medium);
-  overflow: hidden; /* fallback for browser that don't support clip */
-  overflow: clip;
+    position: absolute;
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+    margin-block: 0;
+    background-color: var(--a-surface-default);
+    border: 1px solid var(--a-gray-200);
+    box-shadow: 0 0.05rem 0.25rem 0.125rem rgba(0, 0, 0, 0.08);
+    margin-top: 1px;
+    border-bottom-right-radius: var(--a-border-radius-medium);
+    border-bottom-left-radius: var(--a-border-radius-medium);
+    overflow: hidden; /* fallback for browser that don't support clip */
+    overflow: clip;
 }
 
 .menu > :not(:last-child) {
-  border-bottom: 1px solid var(--a-gray-200);
+    border-bottom: 1px solid var(--a-gray-200);
 }
 
 .menu.hidden {
-  display: none;
+    display: none;
 }
 
 .option {
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  margin: 0;
-  outline: none;
-  padding: var(--a-spacing-3) var(--a-spacing-4);
-  width: 100%;
-  text-align: left;
-  color: var(--a-text-default);
-  text-decoration: none;
-  font: inherit;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--a-spacing-2);
-  align-items: center;
-  font-size: var(--a-font-size-medium);
-  line-height: var(--a-font-line-height-medium);
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    outline: none;
+    padding: var(--a-spacing-3) var(--a-spacing-4);
+    width: 100%;
+    text-align: left;
+    color: var(--a-text-default);
+    text-decoration: none;
+    font: inherit;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--a-spacing-2);
+    align-items: center;
+    font-size: var(--a-font-size-medium);
+    line-height: var(--a-font-line-height-medium);
 }
 
 .option:hover,
 .option:focus-visible {
-  background-color: var(--a-surface-action-hover);
-  color: var(--a-text-on-action);
+    background-color: var(--a-surface-action-hover);
+    color: var(--a-text-on-action);
 }
 
 .option::before {
-  content: '';
-  display: block;
-  height: 8px;
-  width: 8px;
-  border-radius: 100%;
+    content: '';
+    display: block;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
 }
 
 .option.selected::before {
-  background-color: currentColor;
+    background-color: currentColor;
 }

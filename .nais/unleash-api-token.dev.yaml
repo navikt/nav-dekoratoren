@@ -1,14 +1,14 @@
 apiVersion: unleash.nais.io/v1
 kind: ApiToken
 metadata:
-  name: decorator-next
-  namespace: personbruker
-  labels:
-    team: personbruker
+    name: decorator-next
+    namespace: personbruker
+    labels:
+        team: personbruker
 spec:
-  unleashInstance:
-    apiVersion: unleash.nais.io/v1
-    kind: RemoteUnleash
-    name: navno
-  secretName: decorator-next-unleash-api-token
-  environment: development
+    unleashInstance:
+        apiVersion: unleash.nais.io/v1
+        kind: RemoteUnleash
+        name: navno
+    secretName: decorator-next-unleash-api-token
+    environment: development

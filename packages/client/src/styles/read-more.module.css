@@ -26,9 +26,8 @@
 }
 
 .details[open] .summary {
-    list-style-image: url('/public/ikoner/read-less.svg')
+    list-style-image: url('/public/ikoner/read-less.svg');
 }
 
 .details {
-
 }

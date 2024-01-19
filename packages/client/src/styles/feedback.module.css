@@ -1,37 +1,37 @@
 .feedback {
-  border-top: 2px solid var(--a-gray-300);
-  padding-block: var(--a-spacing-4);
-  display: block;
+    border-top: 2px solid var(--a-gray-300);
+    padding-block: var(--a-spacing-4);
+    display: block;
 }
 
 .feedbackContent {
-  margin-inline: auto;
-  max-width: 48rem /* 768px */;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    margin-inline: auto;
+    max-width: 48rem /* 768px */;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .feedbackTitle {
-  font-size: 20px;
-  line-height: 28px;
-  font-weight: var(--a-font-weight-regular);
-  margin-block: 0;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: var(--a-font-weight-regular);
+    margin-block: 0;
 }
 
 .buttonWrapper {
-  display: flex;
-  gap: var(--a-spacing-2);
-  padding-inline: var(--a-spacing-4);
+    display: flex;
+    gap: var(--a-spacing-2);
+    padding-inline: var(--a-spacing-4);
 }
 
 .feedbackSuccess {
-  text-align: center;
-  display: grid;
-  gap: var(--a-spacing-1);
+    text-align: center;
+    display: grid;
+    gap: var(--a-spacing-1);
 }
 
 .link {
-  color: var(--a-surface-action);
-  text-decoration: underline;
+    color: var(--a-surface-action);
+    text-decoration: underline;
 }

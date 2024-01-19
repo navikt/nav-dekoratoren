@@ -5,19 +5,19 @@ import { LogoutIcon } from 'decorator-shared/views/icons/logout';
 import { IconButton } from './icon-button';
 
 export type SimpleUserMenuProps = {
-  name: string;
-  texts: Texts;
+    name: string;
+    texts: Texts;
 };
 
 export const SimpleUserMenu = ({ name, texts }: SimpleUserMenuProps) =>
-  html`<div class="${cls.simpleUserMenu}">
-    <span class="${cls.name}">
-      <b>${texts.logged_in}:</b>
-      <span>${name}</span>
-    </span>
-    ${IconButton({
-      id: 'logout-button',
-      Icon: LogoutIcon({}),
-      text: texts.logout,
-    })}
-  </div>`;
+    html`<div class="${cls.simpleUserMenu}">
+        <span class="${cls.name}">
+            <b>${texts.logged_in}:</b>
+            <span>${name}</span>
+        </span>
+        ${IconButton({
+            id: 'logout-button',
+            Icon: LogoutIcon({}),
+            text: texts.logout,
+        })}
+    </div>`;

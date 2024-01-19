@@ -1,93 +1,93 @@
 .footer {
-  background-color: var(--a-surface-alt-3-strong);
-  color: var(--a-text-on-inverted);
-  padding-block: var(--a-spacing-6) var(--a-spacing-12);
+    background-color: var(--a-surface-alt-3-strong);
+    color: var(--a-text-on-inverted);
+    padding-block: var(--a-spacing-6) var(--a-spacing-12);
 }
 
 .footerContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--a-spacing-12);
 }
 
 .link {
-  color: inherit;
-  text-decoration-color: var(--a-deepblue-200);
-  text-decoration-thickness: 0.0625em;
-  text-underline-offset: 0.15em;
+    color: inherit;
+    text-decoration-color: var(--a-deepblue-200);
+    text-decoration-thickness: 0.0625em;
+    text-underline-offset: 0.15em;
 }
 
 .link:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .link:focus {
-  text-decoration: none;
-  background-color: var(--a-surface-default);
-  color: var(--a-text-action);
-  outline: none;
+    text-decoration: none;
+    background-color: var(--a-surface-default);
+    color: var(--a-text-action);
+    outline: none;
 }
 
 .toTop {
-  align-self: flex-start;
-  font-size: var(--a-font-size-xlarge);
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-2);
-  padding: var(--a-spacing-4);
-  padding-left: 0;
+    align-self: flex-start;
+    font-size: var(--a-font-size-xlarge);
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-2);
+    padding: var(--a-spacing-4);
+    padding-left: 0;
 }
 
 .arrowUp {
-  stroke: var(--a-text-on-inverted);
+    stroke: var(--a-text-on-inverted);
 }
 
 .toTop:focus .arrowUp {
-  stroke: var(--a-text-action);
+    stroke: var(--a-text-action);
 }
 
 .footerLinks {
-  columns: 22rem 3;
-  list-style: none;
-  padding-left: 0;
-  margin-block: 0;
+    columns: 22rem 3;
+    list-style: none;
+    padding-left: 0;
+    margin-block: 0;
 }
 
 .footerLinkGroup {
-  break-inside: avoid;
+    break-inside: avoid;
 }
 
 .footerLinkGroup:not(:last-child) {
-  margin-bottom: var(--a-spacing-8);
+    margin-bottom: var(--a-spacing-8);
 }
 
 .footerLinkHeading {
-  color: var(--a-deepblue-200);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-size: var(--a-font-size-small);
-  margin-top: 0;
-  margin-bottom: var(--a-spacing-2);
+    color: var(--a-deepblue-200);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: var(--a-font-size-small);
+    margin-top: 0;
+    margin-bottom: var(--a-spacing-2);
 }
 
 .footerInnerLinkList {
-  list-style: none;
-  padding-left: 0;
-  margin-block: 0;
+    list-style: none;
+    padding-left: 0;
+    margin-block: 0;
 }
 
 .footerLink {
-  display: inline-block;
-  padding-block: var(--a-spacing-1);
+    display: inline-block;
+    padding-block: var(--a-spacing-1);
 }
 
 @media (min-width: 768px) {
-  .footerLink {
-    padding-block: var(--a-spacing-2);
-  }
+    .footerLink {
+        padding-block: var(--a-spacing-2);
+    }
 }
 
 .complexFooterOrg {
-  display: grid;
-  gap: var(--a-spacing-2);
+    display: grid;
+    gap: var(--a-spacing-2);
 }

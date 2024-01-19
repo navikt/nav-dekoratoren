@@ -1,22 +1,17 @@
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "strict": true,
-    "skipLibCheck": false,
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "rootDir": "../",
-    "types": [
-        "bun-types"
-    ],
-    "paths": {
-       "lib/*": ["../*"]
+    "compilerOptions": {
+        "module": "ESNext",
+        "strict": true,
+        "skipLibCheck": false,
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "rootDir": "../",
+        "types": ["bun-types"],
+        "paths": {
+            "lib/*": ["../*"]
+        },
+        "composite": true,
+        "isolatedModules": true
     },
-    "composite": true,
-    "isolatedModules": true
-  },
-  "include": [
-    "**/*",
-    "../**/*"
-  ]
+    "include": ["**/*", "../**/*"]
 }

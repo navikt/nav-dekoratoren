@@ -1,34 +1,34 @@
 .notificationsHeading {
-  margin-block: 0;
-  font-size: var(--a-font-size-heading-medium);
-  letter-spacing: -0.002em;
-  line-height: var(--a-font-line-height-heading-medium);
-  font-weight: var(--a-font-weight-bold);
+    margin-block: 0;
+    font-size: var(--a-font-size-heading-medium);
+    letter-spacing: -0.002em;
+    line-height: var(--a-font-line-height-heading-medium);
+    font-weight: var(--a-font-weight-bold);
 }
 
 .notifications {
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--a-spacing-3);
 }
 
 .notificationList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-3);
-  list-style: none;
-  margin-block: 0;
-  padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--a-spacing-3);
+    list-style: none;
+    margin-block: 0;
+    padding-left: 0;
 }
 
 .allNotificationsLink {
-  margin-top: var(--a-spacing-3);
-  text-underline-offset: 0.15em;
-  color: var(--a-text-default);
-  cursor: pointer;
-  align-self: center;
+    margin-top: var(--a-spacing-3);
+    text-underline-offset: 0.15em;
+    color: var(--a-text-default);
+    cursor: pointer;
+    align-self: center;
 }
 
 .allNotificationsLink:hover {
-  text-decoration: none;
+    text-decoration: none;
 }

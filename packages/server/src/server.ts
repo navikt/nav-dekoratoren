@@ -12,49 +12,45 @@ import { env } from './env/server';
 // corsSchema.parse('https://www.google.com')
 
 const getFilePaths = (dir: string): string[] =>
-  readdirSync(dir).flatMap((name) => {
-    const file = dir + '/' + name;
-    return statSync(file).isDirectory() ? getFilePaths(file) : file;
-  });
+    readdirSync(dir).flatMap((name) => {
+        const file = dir + '/' + name;
+        return statSync(file).isDirectory() ? getFilePaths(file) : file;
+    });
 
 console.log('Starting decorator-next server');
 
 const server = Bun.serve({
-  port: 8089,
-  development: env.NODE_ENV === 'development',
-  fetch: await requestHandler(
-    new ContentService(
-      process.env.NODE_ENV === 'production'
-        ? fetchMenu
-        : () => Promise.resolve(menu),
-      process.env.NODE_ENV === 'production'
-        ? fetchOpsMessages
-        : () =>
-            Promise.resolve([
-              {
-                heading: 'Ustabile tjenester søndag 15. januar',
-                url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
-                type: 'prodstatus',
-              },
-              {
-                heading: 'Svindelforsøk via SMS - vær oppmerksom',
-                url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
-                type: 'info',
-              },
-            ]),
+    port: 8089,
+    development: env.NODE_ENV === 'development',
+    fetch: await requestHandler(
+        new ContentService(
+            process.env.NODE_ENV === 'production' ? fetchMenu : () => Promise.resolve(menu),
+            process.env.NODE_ENV === 'production'
+                ? fetchOpsMessages
+                : () =>
+                      Promise.resolve([
+                          {
+                              heading: 'Ustabile tjenester søndag 15. januar',
+                              url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
+                              type: 'prodstatus',
+                          },
+                          {
+                              heading: 'Svindelforsøk via SMS - vær oppmerksom',
+                              url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
+                              type: 'info',
+                          },
+                      ])
+        ),
+        new SearchService(fetchSearch),
+        {
+            getFilePaths,
+            getFile: Bun.file,
+        },
+        // Implement this
+        notificationsService(),
+        new UnleashService({}),
+        new TaConfigService()
     ),
-    new SearchService(fetchSearch),
-    {
-      getFilePaths,
-      getFile: Bun.file,
-    },
-    // Implement this
-    notificationsService(),
-    new UnleashService({}),
-    new TaConfigService(),
-  ),
 });
 
-console.log(
-  `decorator-next is running at http://${server.hostname}:${server.port}`,
-);
+console.log(`decorator-next is running at http://${server.hostname}:${server.port}`);

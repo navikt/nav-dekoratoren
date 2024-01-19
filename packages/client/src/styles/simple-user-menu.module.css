@@ -1,16 +1,16 @@
 .simpleUserMenu {
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-2);
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-2);
 }
 
 .name {
-  display: grid;
+    display: grid;
 }
 
 @media (min-width: 768px) {
-  .name {
-    grid-auto-flow: column;
-    gap: var(--a-spacing-1);
-  }
+    .name {
+        grid-auto-flow: column;
+        gap: var(--a-spacing-1);
+    }
 }

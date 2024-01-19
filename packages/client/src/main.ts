@@ -27,7 +27,7 @@ import './views/login-button';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
 import { analyticsLoaded, analyticsReady, createEvent } from './events';
-    import { type ParamKey } from 'decorator-shared/params';
+import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 
 console.log('Decorator client loaded');
@@ -37,7 +37,6 @@ import.meta.glob('./styles/*.css', { eager: true });
 // Just for testing
 export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
-
 const texts = window.__DECORATOR_DATA__.texts;
 
 updateDecoratorParams({});
@@ -45,7 +44,6 @@ updateDecoratorParams({});
 if (hasParam('logoutWarning')) {
     logoutWarningController(param('logoutWarning'), texts);
 }
-
 
 window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -67,9 +65,7 @@ window.addEventListener('message', (e) => {
             updateDecoratorParams({ language });
             Promise.all(
                 ['header', 'footer'].map((key) =>
-                    fetch(`${env('APP_URL')}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`).then((res) =>
-                        res.text()
-                    )
+                    fetch(`${env('APP_URL')}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`).then((res) => res.text())
                 )
             ).then(([header, footer]) => {
                 const headerEl = document.getElementById('decorator-header');

@@ -9,14 +9,10 @@ import { clientEnv } from './env/server';
 
 type Providers = {
     contentService: ContentService;
-    features: Features
-}
+    features: Features;
+};
 
-function csrHandlerFunc({
-    contentService,
-    features
-    } : Providers): HandlerFunction {
-
+function csrHandlerFunc({ contentService, features }: Providers): HandlerFunction {
     const fn: HandlerFunction = async ({ query }) => {
         const data = validParams(query);
         const localTexts = texts[data.language];
@@ -24,23 +20,21 @@ function csrHandlerFunc({
         const header$ = renderHeader({
             contentService,
             data,
-            texts: localTexts
+            texts: localTexts,
         });
 
         const footer$ = renderFooter({
             contentService,
             data,
             texts: localTexts,
-            features
+            features,
         });
 
         const manifest$ = getManifest();
 
-        const [header, footer, manifest] = await Promise.all([header$, footer$, manifest$])
+        const [header, footer, manifest] = await Promise.all([header$, footer$, manifest$]);
 
-        const scripts = [
-            cdnUrl(manifest['src/main.ts'].file),
-        ]
+        const scripts = [cdnUrl(manifest['src/main.ts'].file)];
 
         return r()
             .json({
@@ -50,14 +44,14 @@ function csrHandlerFunc({
                     texts: localTexts,
                     params: data,
                     features,
-                    env: clientEnv
+                    env: clientEnv,
                 } satisfies AppState,
-                scripts: scripts
+                scripts: scripts,
             })
             .build();
     };
 
-    return fn
+    return fn;
 }
 
 export function csrHandler(providers: Providers) {

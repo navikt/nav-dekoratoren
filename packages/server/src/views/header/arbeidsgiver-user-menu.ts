@@ -4,14 +4,14 @@ import { BriefcaseIcon } from 'decorator-shared/views/icons';
 import cls from 'decorator-client/src/styles/arbeidsgiver-user-menu.module.css';
 
 export type ArbeidsgiverUserMenuProps = {
-  texts: Texts;
+    texts: Texts;
 };
 
 export const ArbeidsgiverUserMenu = ({ texts }: ArbeidsgiverUserMenuProps) =>
-  html`<button class="${cls.arbeidsgiverUserMenu}">
-    ${BriefcaseIcon({ className: cls.icon })}
-    <div>
-      <div class="${cls.heading}">${texts.go_to_my_page}</div>
-      <div class="${cls.description}">${texts.rolle_arbeidsgiver}</div>
-    </div>
-  </button>`;
+    html`<button class="${cls.arbeidsgiverUserMenu}">
+        ${BriefcaseIcon({ className: cls.icon })}
+        <div>
+            <div class="${cls.heading}">${texts.go_to_my_page}</div>
+            <div class="${cls.description}">${texts.rolle_arbeidsgiver}</div>
+        </div>
+    </button>`;

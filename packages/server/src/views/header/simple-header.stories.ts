@@ -4,16 +4,16 @@ import { SimpleHeader } from './simple-header';
 import { texts } from '../../texts';
 
 const meta: Meta<SimpleHeaderProps> = {
-  title: 'header/simple',
-  tags: ['autodocs'],
-  render: SimpleHeader,
+    title: 'header/simple',
+    tags: ['autodocs'],
+    render: SimpleHeader,
 };
 
 export default meta;
 type Story = StoryObj<SimpleHeaderProps>;
 
 export const Default: Story = {
-  args: {
-    texts: texts.nb,
-  },
+    args: {
+        texts: texts.nb,
+    },
 };

@@ -19,7 +19,7 @@ export const mainBundleConfig = defineConfig({
             output: {
                 inlineDynamicImports: true,
                 // @TODO: Burde tweakes i nav-dekoreatoren-moduler for å støtte moduler
-                format: 'commonjs'
+                format: 'commonjs',
                 // esModule: true
             },
             plugins: [
@@ -32,7 +32,6 @@ export const mainBundleConfig = defineConfig({
         },
     },
 });
-
 
 export const lazyConfig = defineConfig({
     build: {
@@ -58,7 +57,6 @@ export const csrConfig = defineConfig({
     },
 });
 
-
 export default defineConfig(({ mode }) => {
     if (mode === 'development') {
         return mainBundleConfig;
@@ -69,4 +67,4 @@ export default defineConfig(({ mode }) => {
     if (mode === 'csr') return csrConfig;
 
     return mainBundleConfig;
-})
+});

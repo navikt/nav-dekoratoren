@@ -1,9 +1,9 @@
 import { Params } from './params';
 
 export const getLogOutUrl = (params: Params) => {
-  if (params.redirectToLogout) {
-    return `${params.logoutUrl}?redirect=${params.redirectToUrl}`;
-  }
+    if (params.redirectToLogout) {
+        return `${params.logoutUrl}?redirect=${params.redirectToUrl}`;
+    }
 
-  return params.logoutUrl;
+    return params.logoutUrl;
 };
