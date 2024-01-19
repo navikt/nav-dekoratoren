@@ -21,7 +21,7 @@ export const LanguageSelector = ({
         >
             <button type="button" class="${cls.button}">
                 ${GlobeIcon({ className: cls.icon })}
-                <span>
+                <span class="${cls.label}">
                     <span lang="nb">${'Språk'}</span>/<span lang="en">Language</span>
                 </span>
                 ${DownChevronIcon({ className: cls.icon })}
