@@ -73,8 +73,7 @@
   padding-left: var(--a-spacing-3);
   width: 100%;
   text-align: left;
-  --color: var(--a-text-default);
-  color: var(--color);
+  color: var(--a-text-default);
   text-decoration: none;
   font: inherit;
   display: grid;
@@ -88,7 +87,7 @@
 .option:hover,
 .option:focus-visible {
   background-color: var(--a-surface-action-hover);
-  --color: var(--a-text-on-action);
+  color: var(--a-text-on-action);
 }
 
 .option::before {
@@ -100,5 +99,5 @@
 }
 
 .option.selected::before {
-  background-color: var(--color);
+  background-color: currentColor;
 }
