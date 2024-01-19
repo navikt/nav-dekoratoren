@@ -15,12 +15,9 @@ describe('html template tag', () => {
     });
 
     it('does not escape nested html', () => {
-        const output = html`${html`<script>
-            alert('not an XSS attack!');
-        </script>`}`.render();
+        // prettier-ignore
+        const output = html`${html`<script>alert('not an XSS attack!');</script>`}`.render();
 
-        expect(output).toEqual(`<script>
-      alert('not an XSS attack!');
-    </script>`);
+        expect(output).toEqual(`<script>alert('not an XSS attack!');</script>`);
     });
 });
