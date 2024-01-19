@@ -46,6 +46,18 @@ export const lazyConfig = defineConfig({
     },
 });
 
+export const csrConfig = defineConfig({
+    build: {
+        // Don't clear the output, we want to keep the main bundle
+        emptyOutDir: false,
+        minify: true,
+        manifest: '.vite/csr.manifest.json',
+        rollupOptions: {
+            input: ['src/csr.ts'],
+        },
+    },
+});
+
 
 export default defineConfig(({ mode }) => {
     if (mode === 'development') {
@@ -54,6 +66,7 @@ export default defineConfig(({ mode }) => {
     // Build steps
     if (mode === 'main') return mainBundleConfig;
     if (mode === 'lazy') return lazyConfig;
+    if (mode === 'csr') return csrConfig;
 
     return mainBundleConfig;
 })

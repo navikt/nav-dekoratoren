@@ -1,6 +1,11 @@
+import ContentService from "../content-service"
 import { csp } from "../csp"
 
 type Params = ConstructorParameters<typeof Response>
+
+export type DefaultContext = {
+    contentService: ContentService
+}
 
 class HandlerResponse<TData extends Params[0]> {
     headers = new Headers()
@@ -63,6 +68,7 @@ export type Handler = {
 // @TODO: Make typesafe?
 export class HandlerBuilder {
   handlers: Handler[] = [];
+
 
   get(path: string, handler: HandlerFunction): HandlerBuilder {
     this.handlers.push({ method: 'GET', path, handler });

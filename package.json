@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "^1.3.5",
+    "@navikt/nav-dekoratoren-moduler": "^2.1.5",
     "@storybook/addon-essentials": "^7.4.3",
     "@storybook/blocks": "^7.4.3",
     "@storybook/html": "^7.4.3",

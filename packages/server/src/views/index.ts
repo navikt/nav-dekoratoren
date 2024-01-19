@@ -28,11 +28,18 @@ a.appendChild(r);
 export const getManifest = async () => {
   const mainManifest = (await import(`decorator-client/dist/.vite/manifest.json`))
     .default;
+  const csrManifest = (
+    await import(`decorator-client/dist/.vite/csr.manifest.json`)
+  ).default;
   const thirdPartyManifest = (
     await import(`decorator-client/dist/.vite/analytics.manifest.json`)
   ).default;
 
-  return Object.assign({}, mainManifest, thirdPartyManifest);
+  return {
+        ...mainManifest,
+        ...csrManifest,
+        ...thirdPartyManifest
+    };
 };
 
 type AssetFormatter = (src: string) => string;
@@ -57,9 +64,7 @@ export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
 type EnvAssets = Record<NodeEnv, string>;
 
-console.log('Host is', env.HOST);
-
-const getEnvAssets = async () => {
+export const getEnvAssets = async () => {
   const manifest = await getManifest();
 
   const css: EnvAssets = {

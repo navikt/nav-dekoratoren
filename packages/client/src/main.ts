@@ -1,3 +1,4 @@
+/// <reference types="./client.d.ts" />
 import { formatParams } from 'decorator-shared/json';
 import { LoginLevel, type Context } from 'decorator-shared/params';
 import Cookies from 'js-cookie';
@@ -29,6 +30,8 @@ import { analyticsLoaded, analyticsReady, createEvent } from './events';
     import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 
+console.log('Decorator client loaded');
+
 import.meta.glob('./styles/*.css', { eager: true });
 
 // Just for testing
@@ -36,7 +39,6 @@ export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as
 
 
 const texts = window.__DECORATOR_DATA__.texts;
-
 
 updateDecoratorParams({});
 

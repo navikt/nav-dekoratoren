@@ -1,47 +1,22 @@
 // import { Handler } from "../lib/handler"
-import { NodeEnv } from "../env/schema"
-import { env } from "../env/server"
 import { Handler } from "../lib/handler";
-import { entryPointPath, getManifest } from "../views";
+import { cdnUrl, getManifest } from "../views";
 
 
-type Assets = {
-    js: string;
-    css: string;
-}
-
-type AssetsLoader = () => Promise<Assets>
-
-// Bun.file is relative to --cwd flag
-const publicPath = (path: string) => `./public/${path}`
-
-// Loading same for both now, but may be usefull later to be able to differentiate
-const loadAssets: AssetsLoader = async () => {
-    const manifest = await getManifest()
-
-    const js = await Bun.file(publicPath(manifest[entryPointPath].file)).text()
-    const css = await Bun.file(publicPath(manifest[entryPointPath].css[0])).text()
-
-    return {
-        js,
-        css,
-    }
-}
-
-const loaders: Record<NodeEnv, AssetsLoader> = {
-    production: loadAssets,
-    development: loadAssets
-}
-
-
-const assets = await loaders[env.NODE_ENV]()
+const manifest = await getManifest()
+const csrManifest = manifest['src/csr.ts']
+const mainManifest = manifest['src/main.ts']
+const csrScriptUrl = cdnUrl(csrManifest.file)
+const cssUrl = cdnUrl(mainManifest.css[0])
 
 const scriptHandler: Handler = {
     method: 'GET',
     path: '/client.js',
     handler: () => {
-       return new Response(assets.js, {
+       return new Response(null, {
+           status: 301,
            headers: {
+               'Location': csrScriptUrl,
                'content-type': 'application/javascript; charset=utf-8',
            }
        })
@@ -52,8 +27,11 @@ const cssHandler: Handler = {
     method: 'GET',
     path: '/css/client.css',
     handler: () => {
-       return new Response(assets.css, {
+        // assets.css
+       return new Response(null, {
+            status: 301,
            headers: {
+               'Location': cssUrl,
                'content-type': 'text/css; charset=utf-8',
            }
        })

@@ -30,6 +30,7 @@ import { NotificationsService } from './notifications-service';
 import { Footer } from './views/footer/footer';
 import { isExternallyAvailable } from 'decorator-shared/utils';
 import { assetsHandlers } from './handlers/assets-handler';
+import { csrHandler } from './csr';
 
 type FileSystemService = {
   getFile: (path: string) => Blob;
@@ -310,6 +311,11 @@ const requestHandler = async (
 
       return rewriter.transform(r().html(index).build());
     })
+    // Build header and footer for SSR
+    .use([csrHandler({
+        contentService,
+        features: unleashService.getFeatures()
+    })])
     .use(assetsHandlers)
     .use([cspHandler])
     .build();

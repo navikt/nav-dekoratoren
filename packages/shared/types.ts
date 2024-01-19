@@ -167,3 +167,11 @@ export type MainMenuContextLink = {
     description?: string;
     url: string;
 };
+
+export type CsrPayload = {
+    header: string;
+    footer: string;
+    data: AppState;
+    scripts: string[];
+    name: string;
+};
