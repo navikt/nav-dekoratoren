@@ -68,7 +68,7 @@ export async function renderHeader({ texts, data, contentService }: SharedParame
         availableLanguages: data.availableLanguages,
         utilsBackground: data.utilsBackground,
         hidden: isExternallyAvailable(clientEnv.APP_URL),
-        localTexts: texts
+        localTexts: texts,
     });
 
     return data.simple || data.simpleHeader

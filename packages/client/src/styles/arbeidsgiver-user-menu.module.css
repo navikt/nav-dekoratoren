@@ -1,47 +1,47 @@
 .arbeidsgiverUserMenu {
-  border: none;
-  background-color: var(--a-surface-default);
-  margin: 0;
-  font: inherit;
-  cursor: pointer;
-  color: var(--a-text-action);
-  text-align: left;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: var(--a-spacing-2);
-  padding: var(--a-spacing-3);
-  border-radius: var(--a-border-radius-medium);
-  border: 2px solid var(--a-transparent);
+    border: none;
+    background-color: var(--a-surface-default);
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    color: var(--a-text-action);
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--a-spacing-2);
+    padding: var(--a-spacing-3);
+    border-radius: var(--a-border-radius-medium);
+    border: 2px solid var(--a-transparent);
 }
 
 .arbeidsgiverUserMenu:hover {
-  background-color: var(--a-surface-action-subtle-hover);
+    background-color: var(--a-surface-action-subtle-hover);
 }
 
 .arbeidsgiverUserMenu:focus-visible {
-  box-shadow: var(--a-shadow-focus);
-  border-color: var(--text-a-action);
-  outline: none;
+    box-shadow: var(--a-shadow-focus);
+    border-color: var(--text-a-action);
+    outline: none;
 }
 
 .arbeidsgiverUserMenu:active {
-  background-color: var(--a-surface-action-active);
-  color: var(--a-text-on-action);
+    background-color: var(--a-surface-action-active);
+    color: var(--a-text-on-action);
 }
 
 .arbeidsgiverUserMenu:focus-visible:active {
-  border-color: var(--a-surface-default);
+    border-color: var(--a-surface-default);
 }
 
 .icon {
-  font-size: 2.5rem;
+    font-size: 2.5rem;
 }
 
 .heading {
-  font-weight: var(--a-font-weight-bold);
+    font-weight: var(--a-font-weight-bold);
 }
 
 .description {
-  font-size: var(--a-font-size-small);
+    font-size: var(--a-font-size-small);
 }

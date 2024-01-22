@@ -1,33 +1,33 @@
 .list {
-  list-style: none;
-  padding: 6px 0;
-  margin-block: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--a-spacing-2);
+    list-style: none;
+    padding: 6px 0;
+    margin-block: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--a-spacing-2);
 }
 
 .link {
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-1);
-  color: var(--a-text-action);
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-1);
+    color: var(--a-text-action);
 }
 
 .span {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .svg.svg {
-  font-size: 28px;
-  color: var(--a-text-default);
-  stroke: none;
-  margin-right: var(--a-spacing-2);
+    font-size: 28px;
+    color: var(--a-text-default);
+    stroke: none;
+    margin-right: var(--a-spacing-2);
 }
 
 .listItem {
-  display: flex;
-  align-items: center;
-  gap: var(--a-spacing-2);
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-2);
 }

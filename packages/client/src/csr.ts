@@ -1,4 +1,4 @@
-import { CsrPayload } from "decorator-shared/types";
+import { CsrPayload } from 'decorator-shared/types';
 
 const findOrError = (id: string) => {
     const el = document.getElementById(id);
@@ -8,12 +8,12 @@ const findOrError = (id: string) => {
     }
 
     return el as HTMLDivElement;
-}
+};
 
 function urlToScript(url: string) {
     const script = document.createElement('script');
     script.src = url;
-    return script
+    return script;
 }
 
 export async function hydrate() {
@@ -21,16 +21,16 @@ export async function hydrate() {
 
     const envUrl = envEl.dataset.src as string;
 
-    const response = await fetch(envUrl)
-    const elements = await response.json() as CsrPayload
+    const response = await fetch(envUrl);
+    const elements = (await response.json()) as CsrPayload;
 
-    header.outerHTML = elements.header
-    footer.outerHTML = elements.footer
+    header.outerHTML = elements.header;
+    footer.outerHTML = elements.footer;
 
     // Set decorator state before script evaulation
-    window.__DECORATOR_DATA__ = elements.data
+    window.__DECORATOR_DATA__ = elements.data;
 
-    elements.scripts.map(urlToScript).forEach(script => document.body.appendChild(script))
+    elements.scripts.map(urlToScript).forEach((script) => document.body.appendChild(script));
 }
 
-hydrate()
+hydrate();

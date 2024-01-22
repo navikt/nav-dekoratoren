@@ -1,52 +1,52 @@
 .modal {
-  animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
-  border: none;
-  border-radius: var(--a-border-radius-large);
-  padding: var(--a-spacing-10);
-  box-shadow: var(--a-shadow-xlarge);
+    animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
+    border: none;
+    border-radius: var(--a-border-radius-large);
+    padding: var(--a-spacing-10);
+    box-shadow: var(--a-shadow-xlarge);
 }
 
 .modal::backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: var(--ac-modal-backdrop,rgba(2,20,49,.49));
+    position: fixed;
+    inset: 0;
+    background-color: var(--ac-modal-backdrop, rgba(2, 20, 49, 0.49));
 }
 
 .modalWindow {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 .modalTitle {
-  font-size: var(--a-font-size-heading-medium);
-  font-weight: var(--a-font-weight-bold);
-  margin-top: 0;
-  margin-bottom: var(--a-spacing-4);
+    font-size: var(--a-font-size-heading-medium);
+    font-weight: var(--a-font-weight-bold);
+    margin-top: 0;
+    margin-bottom: var(--a-spacing-4);
 }
 
 .modalBody {
-  margin-top: 0;
-  margin-bottom: var(--a-spacing-4);
+    margin-top: 0;
+    margin-bottom: var(--a-spacing-4);
 }
 
 @keyframes modalAnimationFadein {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, calc(5% + 4px), 0);
-    transform: translate3d(0, calc(5% + 4px), 0);
-  }
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, calc(5% + 4px), 0);
+        transform: translate3d(0, calc(5% + 4px), 0);
+    }
 
-  50% {
-    opacity: 1;
-  }
+    50% {
+        opacity: 1;
+    }
 
-  to {
-    -webkit-transform: none;
-    transform: none;
-  }
+    to {
+        -webkit-transform: none;
+        transform: none;
+    }
 }
 
 .buttonWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: var(--a-spacing-4);
+    display: flex;
+    flex-direction: row;
+    gap: var(--a-spacing-4);
 }

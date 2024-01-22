@@ -14,8 +14,8 @@ class DecoratorFeedback extends HTMLElement {
 
                 if (feedbackContent) {
                     feedbackContent.innerHTML = FeedbackSuccess({
-                            texts: window.__DECORATOR_DATA__.texts,
-                        }).render();
+                        texts: window.__DECORATOR_DATA__.texts,
+                    }).render();
 
                     window.logAmplitudeEvent('tilbakemelding', {
                         kilde: 'footer',

@@ -9,12 +9,9 @@ const corsWhitelist = [
     'navdialog.cs162.force.com',
 ];
 
-
-export const isAllowedDomain = (origin?: string) =>
-    origin && corsWhitelist.some((domain) => origin.endsWith(domain));
+export const isAllowedDomain = (origin?: string) => origin && corsWhitelist.some((domain) => origin.endsWith(domain));
 
 export const isLocalhost = (origin?: string) => origin?.includes('localhost:');
-
 
 export function handleCors(request: Request) {
     const origin = request.headers.get('origin');

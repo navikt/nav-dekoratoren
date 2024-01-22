@@ -1,15 +1,14 @@
-
 .textInput {
- -webkit-appearance: none;
-  appearance: none;
-  padding: var(--a-spacing-2);
-  background-color: var(--ac-textfield-bg, var(--__ac-textfield-bg, var(--a-surface-default)));
-  border-radius: var(--a-border-radius-medium);
-  border: 1px solid var(--ac-textfield-border, var(--__ac-textfield-border, var(--a-border-default)));
-  min-height: 3rem;
-  width: 100%;
-  color: var(--ac-textfield-text, var(--__ac-textfield-text, var(--a-text-default)));
-  font-family: var(--a-font-family-default);
+    -webkit-appearance: none;
+    appearance: none;
+    padding: var(--a-spacing-2);
+    background-color: var(--ac-textfield-bg, var(--__ac-textfield-bg, var(--a-surface-default)));
+    border-radius: var(--a-border-radius-medium);
+    border: 1px solid var(--ac-textfield-border, var(--__ac-textfield-border, var(--a-border-default)));
+    min-height: 3rem;
+    width: 100%;
+    color: var(--ac-textfield-text, var(--__ac-textfield-text, var(--a-text-default)));
+    font-family: var(--a-font-family-default);
 }
 
 .textInput.invalid {

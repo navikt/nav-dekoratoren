@@ -1,41 +1,41 @@
 .notificationsEmpty {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--a-spacing-1);
-  border-radius: var(--a-border-radius-xlarge);
-  padding: var(--a-spacing-4);
-  background-color: var(--a-surface-default);
-  box-shadow: var(--a-shadow-xsmall);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--a-spacing-1);
+    border-radius: var(--a-border-radius-xlarge);
+    padding: var(--a-spacing-4);
+    background-color: var(--a-surface-default);
+    box-shadow: var(--a-shadow-xsmall);
 }
 
 .heading {
-  margin-block: 0;
-  font-size: var(--a-font-size-large);
-  line-height: var(--a-font-line-height-xlarge);
-  margin-bottom: 2px;
+    margin-block: 0;
+    font-size: var(--a-font-size-large);
+    line-height: var(--a-font-line-height-xlarge);
+    margin-bottom: 2px;
 }
 
 .description {
-  margin-block: 0;
-  font-size: var(--a-font-size-medium);
-  line-height: var(--a-font-line-height-large);
-  margin-bottom: var(--a-spacing-3);
+    margin-block: 0;
+    font-size: var(--a-font-size-medium);
+    line-height: var(--a-font-line-height-large);
+    margin-bottom: var(--a-spacing-3);
 }
 
 .link {
-  text-underline-offset: 0.15em;
-  color: var(--a-text-default);
-  cursor: pointer;
-  align-self: center;
-  font-size: var(--a-font-size-medium);
-  line-height: var(--a-font-line-height-large);
+    text-underline-offset: 0.15em;
+    color: var(--a-text-default);
+    cursor: pointer;
+    align-self: center;
+    font-size: var(--a-font-size-medium);
+    line-height: var(--a-font-line-height-large);
 }
 
 .link:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .image {
-  padding: var(--a-spacing-2);
-  height: 96px;
+    padding: var(--a-spacing-2);
+    height: 96px;
 }

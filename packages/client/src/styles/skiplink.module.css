@@ -1,28 +1,28 @@
 .skiplink {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  z-index: 1001;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    z-index: 1001;
 }
 .skiplink:focus,
 .skiplink:active {
-  clip: auto;
-  height: 2.625rem;
-  width: auto;
-  padding: 0.8rem;
-  margin: 0;
-  overflow: visible;
-  position: absolute;
+    clip: auto;
+    height: 2.625rem;
+    width: auto;
+    padding: 0.8rem;
+    margin: 0;
+    overflow: visible;
+    position: absolute;
 }
 .skiplink:focus {
-  outline: none;
-  color: white;
-  text-decoration: none;
-  background-color: var(--a-border-focus);
-  box-shadow: 0 0 0 2px var(--a-border-focus);
+    outline: none;
+    color: white;
+    text-decoration: none;
+    background-color: var(--a-border-focus);
+    box-shadow: 0 0 0 2px var(--a-border-focus);
 }

@@ -3,9 +3,9 @@ import { TaskAnalyticsSurveyConfig } from 'decorator-shared/types';
 import taConfigJson from './ta-config-mock.json';
 
 export default class TaConfigService {
-  constructor() {}
+    constructor() {}
 
-  getTaConfig(): TaskAnalyticsSurveyConfig[] {
-    return taConfigJson as TaskAnalyticsSurveyConfig[];
-  }
+    getTaConfig(): TaskAnalyticsSurveyConfig[] {
+        return taConfigJson as TaskAnalyticsSurveyConfig[];
+    }
 }

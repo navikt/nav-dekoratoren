@@ -1,9 +1,9 @@
 # Table of contents
 
-- 🔨 [installation](#installation)
-- 💻 [Development](#development)
-- Ingresses
-  - [Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs)
+-   🔨 [installation](#installation)
+-   💻 [Development](#development)
+-   Ingresses
+    -   [Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs)
 
 ---
 
@@ -37,8 +37,8 @@ Styling documentation.
 
 _trouble shooting_:
 
-- If you're having trouble with design tokens not being loaded, it may be because your element is not in the scope of the elements defined in postcss.config.js [prefixer configuration](https://github.com/navikt/decorator-next/blob/main/packages/client/postcss.config.js)
+-   If you're having trouble with design tokens not being loaded, it may be because your element is not in the scope of the elements defined in postcss.config.js [prefixer configuration](https://github.com/navikt/decorator-next/blob/main/packages/client/postcss.config.js)
 
 ### Resources
 
-- [Typescript documentation for Bun](https://bun.sh/docs/typescript)
+-   [Typescript documentation for Bun](https://bun.sh/docs/typescript)

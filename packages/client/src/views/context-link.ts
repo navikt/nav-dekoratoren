@@ -11,8 +11,7 @@ class ContextLink extends HTMLElement {
             headerClasses.lenkeActive,
             this.getAttribute('data-context') === (event as CustomEvent<{ context: string }>).detail.context
         );
-
-    }
+    };
 
     connectedCallback() {
         const attachContext = this.getAttribute('data-attach-context') === 'true';
@@ -30,7 +29,7 @@ class ContextLink extends HTMLElement {
                 createEvent('activecontext', {
                     bubbles: true,
                     detail: {
-                        context: this.getAttribute('data-context') as Context
+                        context: this.getAttribute('data-context') as Context,
                     },
                 })
             );

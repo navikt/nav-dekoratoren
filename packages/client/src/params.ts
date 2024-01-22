@@ -3,15 +3,15 @@ import { createEvent } from './events';
 
 const hasParam = (paramKey: ParamKey): boolean => {
     return window.__DECORATOR_DATA__.params[paramKey] !== undefined;
-}
+};
 
 const param = <TKey extends keyof Params>(paramKey: TKey) => {
-    return window.__DECORATOR_DATA__.params[paramKey] as Params[TKey]
-}
+    return window.__DECORATOR_DATA__.params[paramKey] as Params[TKey];
+};
 
 const env = <TKey extends keyof Environment>(envKey: keyof Environment): string => {
     return window.__DECORATOR_DATA__.env[envKey] as Environment[TKey];
-}
+};
 
 const updateDecoratorParams = (params: Partial<Params>) => {
     window.__DECORATOR_DATA__.params = {
@@ -26,9 +26,4 @@ const updateDecoratorParams = (params: Partial<Params>) => {
     );
 };
 
-export {
-    hasParam,
-    param,
-    env,
-    updateDecoratorParams,
-}
+export { hasParam, param, env, updateDecoratorParams };
