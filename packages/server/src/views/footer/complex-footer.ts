@@ -6,6 +6,7 @@ import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helper
 import cls from 'decorator-client/src/styles/complex-footer.module.css';
 import utilCls from 'decorator-client/src/styles/utilities.module.css';
 import { NavLogo } from 'decorator-shared/views/nav-logo';
+import { ChatbotWrapper } from './chatbot-wrapper';
 
 export type ComplexFooterProps = {
     texts: Pick<Texts, 'share_screen' | 'to_top'>;
@@ -19,6 +20,8 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
     // "TODO: Need ID here to be applied accross domains. Can be fixed with modules
     return html`
         <footer class="${cls.footer}" data-theme="dark">
+            <!-- Just for testing the chatbot integration -->
+            ${ChatbotWrapper()}
             <div class="${cls.footerContent} ${utilCls.contentContainer}">
                 <a class="${cls.link} ${cls.toTop}" href="#"> ${ArrowUp({ className: cls.arrowUp })} ${texts.to_top} </a>
 

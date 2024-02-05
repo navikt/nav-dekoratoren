@@ -19,6 +19,7 @@ declare global {
         // For task analytics, should have better types?
         TA: any;
         dataLayer: any;
+        boostInit: any;
         vngageReady: () => void;
         vngage: {
             join: (queue: string, options: unknown) => void;
