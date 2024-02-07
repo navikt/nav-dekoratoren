@@ -44,6 +44,8 @@ env:
     value: 615FF5E7-37B7-4697-A35F-72598B0DC53B
   - name: SOLUTION_ID
     value: 5EB316A1-11E2-460A-B4E3-F82DBD13E21D
+  - name: BOOST_ENVIRONMENT
+    value: "nav"
 replicas:
   min: 1
   max: 2

@@ -1,108 +1,114 @@
+/* Styles */
 .chatbot {
-    --open-button-avatar-size-number: var(70px);
-    --chatbot-circle-color: var(--a-blue-800);
-    appearance: none;
-    background: #fff;
-    padding: 8px 15px;
-    padding-right: calc((var(--openButtonAvatarSizeNumber) / 3.5) * 1px);
-    margin-right: calc(var(--openButtonAvatarSizeNumber / 3) * 1px);
-    margin-bottom: calc(var(--openButtonAvatarSizeNumber / 6) * 1px);
-    position: fixed;
-    bottom: 20px;
-    right: 8px;
-    z-index: 998;
-    border: 0;
-    cursor: pointer;
-    border-radius: 30px;
-    transform: scale(0.8) translate3d(0, calc(var(--openButtonAvatarSizeNumber) * 2px), 0);
-    opacity: 0;
-    transition:
-        transform 0.2s,
-        opacity 0.1s;
-    display: none;
-    box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-        0 0 0 5px var(--chatbot-circle-color),
-        0 1px 4px rgba(0, 0, 0, 0.5),
-        0 4px 10px #000,
-        0 0 0 6px rgba(0, 0, 0, 0.1);
-}
-
-.chatbot:focus {
-    background: var(--chatbot-circle-color);
-    outline: none;
-    box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.6),
-        0 0 0 5px #fff,
-        0 4px 10px #000,
-        0 0 0 6px rgba(0, 0, 0, 0.1);
+  appearance: none;
+  background: #fff;
+  padding: 8px 15px;
+  position: fixed;
+  bottom: 20px;
+  right: 8px;
+  z-index: 998;
+  border: 0;
+  cursor: pointer;
+  border-radius: 30px;
+  transform: scale(0.8) translate3d(0, 140px, 0);
+  opacity: 0;
+  transition: transform 0.2s, opacity 0.1s;
+  display: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 0 5px var(--a-blue-800),
+    0 1px 4px rgba(0, 0, 0, 0.5), 0 4px 10px #000, 0 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 .chatbot.extraVisible {
-    transform: scale(1);
-    opacity: 1;
-    transition:
-        transform 0.5s,
-        opacity 0.2s 0.3s;
-    display: block;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0.5s, opacity 0.2s 0.3s;
+  display: block;
+}
+
+@media (hover: hover) {
+  .chatbot:hover {
+    background-color: var(--a-blue-800);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), 0 0 0 5px #fff, 0 4px 10px #000,
+      0 0 0 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.chatbot:focus {
+  background: var(--a-blue-800);
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), 0 0 0 5px #fff, 0 4px 10px #000,
+    0 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 480px) {
-    .chatbot {
-        margin-right: calc(var(--openButtonAvatarSizeNumber / 2) * 1px);
-        margin-bottom: calc(var(--openButtonAvatarSizeNumber / 5) * 1px);
-        padding: 8px 15px;
-        bottom: 17px;
-        right: 17px;
-    }
+  .chatbot {
+    margin-right: 35px;
+    margin-bottom: 23.3333px;
+    padding: 8px 15px;
+    bottom: 17px;
+    right: 17px;
+  }
 }
 
 @media (min-width: 580px) {
-    .chatbot {
-        bottom: 25px;
-        right: 25px;
-    }
+  .chatbot {
+    bottom: 25px;
+    right: 25px;
+  }
 }
 
 .chatbotWrapper {
-    width: calc(var(-10) * 1px);
-    height: calc(var(openButtonAvatarSizeNumber - 10) * 1px);
-    position: absolute;
-    top: 50%;
-    right: -(calc(var(--openButtonAvatarSizeNumber) / 3) * 1px);
-    transform: translateY(-50%);
-    transition: transform 0.2s;
-    display: inline-block;
-    vertical-align: top;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  right: -23.3333px;
+  transform: translateY(-50%);
+  transition: transform 0.2s;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.chatbot:hover .chatbotWrapper,
+.chatbot:focus .chatbotWrapper {
+  transform: translateY(-50%) scale(1.1);
 }
 
 .chatbotWrapper svg {
-    width: 100%;
-    height: 100%;
-    border-radius: calc(var(--openButtonAvatarSizeNumber) * 1px);
+  width: 100%;
+  height: 100%;
+  border-radius: 70px;
 }
 
 .chatbotWrapper:before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-        0 0 0 6px var(chatbotCircleColor),
-        0 0 0 5px #fff,
-        0 0 1px 5px rgba(0, 0, 0, 0.2),
-        0 4px 10px #000,
-        10px 10px 10px rgba(0, 0, 0, 0.3);
-    border-radius: calc(var(openButtonAvatarSizeNumber) * 1px);
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 0 6px var(--a-blue-800), 0 0 0 5px #fff,
+    0 0 1px 5px rgba(0, 0, 0, 0.2), 0 4px 10px #000, 10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 70px;
 }
 
-.chatbot:hover .chatbotWrapper {
-    transform: translateY(-50%) scale(1.1);
+@media (hover: hover) {
+  .chatbot:hover .chatbotWrapper:before {
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 0 6px var(--a-blue-800), 0 0 0 6px #fff,
+      0 0 1px 5px rgba(0, 0, 0, 0.2), 0 4px 10px #000, 10px 10px 10px rgba(0, 0, 0, 0.3);
+  }
 }
 
-.chatbot:focus .chatbotWrapper {
-    transform: translateY(-50%) scale(1.1);
+.chatbot:focus .chatbotWrapper:before {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), 0 0 0 6px var(--a-blue-800), 0 4px 10px white,
+    0 0 0 4px #5c4378, 0 0 0 9px var(--a-blue-50), 0 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
+
+@media (min-width: 480px) {
+  .chatbotWrapper {
+    width: 70px;
+    height: 70px;
+    right: -35px;
+  }
+}
+

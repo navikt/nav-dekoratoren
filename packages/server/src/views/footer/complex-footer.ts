@@ -20,8 +20,6 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
     // "TODO: Need ID here to be applied accross domains. Can be fixed with modules
     return html`
         <footer class="${cls.footer}" data-theme="dark">
-            <!-- Just for testing the chatbot integration -->
-            ${ChatbotWrapper()}
             <div class="${cls.footerContent} ${utilCls.contentContainer}">
                 <a class="${cls.link} ${cls.toTop}" href="#"> ${ArrowUp({ className: cls.arrowUp })} ${texts.to_top} </a>
 
