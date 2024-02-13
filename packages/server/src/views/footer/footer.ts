@@ -6,6 +6,7 @@ import { Feedback } from '../feedback';
 import { LogoutWarning } from '../logout-warning';
 import { ComplexFooter } from './complex-footer';
 import { SimpleFooter } from './simple-footer';
+import { ChatbotWrapper } from './chatbot-wrapper';
 
 type FooterProps = {
     data: Params;
@@ -28,6 +29,7 @@ export const Footer = ({ simple, links, data, features, texts }: FooterProps) =>
             enabled: data.shareScreen && features['dekoratoren.skjermdeling'],
             texts,
         })}
+        ${data.chatbot && ChatbotWrapper(data.chatbotVisible)}
         ${data.logoutWarning ? LogoutWarning() : undefined} ${data.feedback ? Feedback({ texts }) : undefined}
         ${simple
             ? SimpleFooter({
@@ -41,3 +43,5 @@ export const Footer = ({ simple, links, data, features, texts }: FooterProps) =>
                   features,
               })}
     </div>`;
+
+

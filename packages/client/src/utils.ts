@@ -22,7 +22,7 @@ export function replaceElement({
 }
 
 // @NOTE: can maybe use HTML rewriter here to append scripts based on cookies?
-const loadedScripts = new Set<string>();
+export const loadedScripts = new Set<string>();
 
 export const loadExternalScript = (uri: string, async = true) => {
     return new Promise<void>((resolve) => {
@@ -42,3 +42,4 @@ export const loadExternalScript = (uri: string, async = true) => {
         document.body.appendChild(script);
     });
 };
+

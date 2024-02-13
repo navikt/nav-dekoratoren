@@ -1,3 +1,4 @@
+import { BoostEnviroment } from 'decorator-shared/params';
 import { z } from 'zod';
 
 export const serverSchema = z.object({
@@ -44,4 +45,6 @@ export const client_env = {
     SOLUTION_ID: process.env.SOLUTION_ID,
     CASETYPE_ID: process.env.CASETYPE_ID,
     NAV_GROUP_ID: process.env.NAV_GROUP_ID,
+    BOOST_ENVIRONMENT: process.env.BOOST_ENVIRONMENT as BoostEnviroment,
+    ENV: serverEnv.NODE_ENV
 };

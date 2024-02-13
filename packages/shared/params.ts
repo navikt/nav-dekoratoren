@@ -82,6 +82,9 @@ export const clientEnvSchema = z.object({
     SOLUTION_ID: z.string(),
     CASETYPE_ID: z.string(),
     NAV_GROUP_ID: z.string(),
+    BOOST_ENVIRONMENT: z.enum(['nav', 'navtest']),
+    ENV: z.enum(['production', 'development']),
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;
+export type BoostEnviroment = Environment['BOOST_ENVIRONMENT'];
