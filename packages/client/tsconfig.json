@@ -16,5 +16,5 @@
         "noEmit": true,
         "types": ["vite/client", "vitest/globals"]
     },
-    "exclude": ["node_modules", "dist", "**/*.stories.ts"]
+    "exclude": ["node_modules", "dist"]
 }

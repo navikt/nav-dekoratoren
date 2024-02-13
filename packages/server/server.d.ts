@@ -1,3 +1,5 @@
+import { Template } from "decorator-shared/html";
+
 declare module '*manifest.json' {
     const value: Record<
         string,
