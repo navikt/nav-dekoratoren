@@ -15,7 +15,8 @@
     "prepare": "husky install",
     "benchmarking": "./benchmarking/run",
     "partytown": "partytown copylib packages/server/public/~partytown",
-    "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb"
+    "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb",
+    "postinstall": "husky install"
   },
   "keywords": [],
   "author": "",
