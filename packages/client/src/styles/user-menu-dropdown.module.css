@@ -9,6 +9,13 @@
     }
 }
 
+.userMenuButton span {
+    text-overflow: ellipsis;
+    max-width: 99px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .icon {
     font-size: 1.5rem;
 }

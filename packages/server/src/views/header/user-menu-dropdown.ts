@@ -20,6 +20,7 @@ export type UserMenuDropdownProps = {
 export const UserMenuDropdown = ({ texts, name, notifications, level, logoutUrl, minsideUrl, personopplysningerUrl }: UserMenuDropdownProps) =>
     DropdownMenu({
         button: IconButton({
+            className: cls.userMenuButton,
             text: name ?? '',
             Icon: notifications?.length
                 ? PersonCircleNotificationIcon({

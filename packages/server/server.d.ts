@@ -1,3 +1,6 @@
+import { Template } from "decorator-shared/html";
+export { ArgTypes, Args, Parameters, StrictArgs } from '@storybook/types';
+
 declare module '*manifest.json' {
     const value: Record<
         string,
