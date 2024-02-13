@@ -10,4 +10,5 @@
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": false
     },
+    "exclude": ["**/*.stories.ts"]
 }
