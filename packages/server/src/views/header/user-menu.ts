@@ -6,7 +6,6 @@ import cls from 'decorator-client/src/styles/user-menu.module.css';
 import { Notifications, Notification } from '../notifications/notifications';
 import { LoginLevel } from 'decorator-shared/params';
 import { Alert } from 'decorator-shared/views/alert';
-import { clientEnv } from '../../env/server';
 
 export type UserMenuProps = {
     texts: Texts;

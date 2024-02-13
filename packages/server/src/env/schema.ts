@@ -46,5 +46,5 @@ export const client_env = {
     CASETYPE_ID: process.env.CASETYPE_ID,
     NAV_GROUP_ID: process.env.NAV_GROUP_ID,
     BOOST_ENVIRONMENT: process.env.BOOST_ENVIRONMENT as BoostEnviroment,
-    ENV: process.env.NODE_ENV
+    ENV: serverEnv.NODE_ENV
 };
