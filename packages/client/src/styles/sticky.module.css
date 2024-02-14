@@ -1,0 +1,51 @@
+/*
+*
+*/
+
+.stickyPlaceholder {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    height: var(--header-height-mobil);
+}
+
+@media (min-width: var(--desktop-min-width)) {
+    .stickyPlaceholder {
+        height: var(--header-height-desktop);
+    }
+}
+
+/* :global(.simple) { */
+/*     .stickyPlaceholder { */
+/*         height: sv.$header-height-simple-mobile; */
+/**/
+/*         @media #{sv.$screen-desktop} { */
+/*             height: sv.$header-height-simple-desktop; */
+/*         } */
+/*     } */
+/* } */
+.stickyContent {
+    position: relative;
+    width: 100%;
+    top: 0px;
+}
+
+.transitioning {
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.stickyContainer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: block;
+}
+
+@media (max-width: var(--desktop-min-width)) {
+    .stickyContainerMobilFixed {
+        position: fixed;
+        top: 0;
+    }
+}

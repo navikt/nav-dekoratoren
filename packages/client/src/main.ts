@@ -24,7 +24,9 @@ import './views/search-input';
 import './views/search-menu';
 import './views/feedback';
 import './views/login-button';
-    import './views/chatbot-wrapper';
+import './views/chatbot-wrapper';
+import './views/sticky';
+
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
 import { analyticsLoaded, analyticsReady, createEvent } from './events';

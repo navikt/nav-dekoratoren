@@ -3,6 +3,7 @@ import { Language } from 'decorator-shared/params';
 import { Button } from 'decorator-shared/views/components/button';
 import { env } from '../env/server';
 import { NodeEnv } from '../env/schema';
+import { Sticky } from './sticky';
 
 export const entryPointPath = 'src/main.ts';
 export const entryPointPathAnalytics = 'src/analytics/analytics.ts';
@@ -119,7 +120,8 @@ export function Index({
             </head>
             <body>
                 <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-                <div id="header-withmenu">${header}</div>
+                <div id="header-withmenu">
+                            ${Sticky({ children: header })}</div>
                 <main>
                     ${Button({
                         text: 'Test amplitude!',

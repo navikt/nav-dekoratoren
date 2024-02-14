@@ -96,6 +96,10 @@
     --a-border-divider: var(--a-grayalpha-300);
     --a-border-default: var(--a-grayalpha-500);
     --a-shadow-focus: 0 0 0 3px var(--a-border-focus);
+
+    --header-height-mobil: 72px;
+    --header-height-desktop: 80px;
+    --desktop-min-width: 768px;
 }
 
 /* Vurdere å kun ta med i dev -> Start */
@@ -149,6 +153,11 @@ body {
     #decorator-header,
     #decorator-footer {
         --edge-spacing: var(--a-spacing-4);
+        --header-height-mobil: 72px;
+        --header-height-desktop: 80px;
+        --desktop-min-width: 768px;
+
+
         font-family: var(--a-font-family);
         line-height: 1.333;
         font-size: 1.125rem;
