@@ -1,5 +1,21 @@
 import { formatParams } from './json';
-import { Environment, Params } from './params';
+import { Environment, Language, Params } from './params';
+
+type IdPortenLocale = 'nb' | 'nn' | 'en' | 'se';
+
+const idPortenLocaleMap: Record<Language, IdPortenLocale> = {
+    nb: 'nb',
+    nn: 'nn',
+    se: 'se',
+    en: 'en',
+    pl: 'en',
+    ru: 'en',
+    uk: 'en',
+};
+
+export function getIdPortenLocale(language: Language) {
+    return idPortenLocaleMap[language];
+}
 
 export function makeEndpointFactory(defaultParams: () => Params, origin: string) {
     return (endpoint: string, params: Partial<Params>) => {
@@ -14,12 +30,10 @@ export function makeEndpointFactory(defaultParams: () => Params, origin: string)
 
 type GetUrlLoginOptions = {
     environment: Pick<Environment, 'APP_URL' | 'MIN_SIDE_URL' | 'MIN_SIDE_ARBEIDSGIVER_URL' | 'LOGIN_URL'>;
-    params: Pick<Params, 'redirectToApp' | 'redirectToUrl' | 'context' | 'level'>;
+    params: Pick<Params, 'redirectToApp' | 'redirectToUrl' | 'context' | 'level' | 'language'>;
     isClientSide?: boolean;
 };
 
-// @TODO: I'm pretty sure we can just supply this to the client from the server
-// Maybe an extra field in app_state
 function makeRedirectUrlLogin({ environment, params, isClientSide = false }: GetUrlLoginOptions) {
     const { redirectToUrl, redirectToApp } = params;
 
@@ -50,9 +64,12 @@ export function makeLoginUrl(
     }
 ) {
     const redirectUrl = makeRedirectUrlLogin(options);
+    const idPortenLocale = getIdPortenLocale(options.params.language);
+
+    console.log('idPortenLocale', idPortenLocale);
 
     const { environment, params } = options;
-    return `${environment.LOGIN_URL}?redirect=${redirectUrl}&level=${options.overrideLevel || params.level}`;
+    return `${environment.LOGIN_URL}?redirect=${redirectUrl}&level=${options.overrideLevel || params.level}&locale=${idPortenLocale}`;
 }
 
 export function erNavDekoratoren(url: string) {

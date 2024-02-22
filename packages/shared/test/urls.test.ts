@@ -36,10 +36,11 @@ describe('URLs', () => {
                 redirectToApp: false,
                 redirectToUrl: 'https://www.nav.no',
                 context: 'privatperson',
+                language: 'nb',
             },
         });
 
-        expect(loginUrl).toBe('https://www.nav.no/login?redirect=https://www.nav.no&level=Level3');
+        expect(loginUrl).toBe('https://www.nav.no/login?redirect=https://www.nav.no&level=Level3&locale=nb');
     });
 
     it('Redirect should be min side arbeidsgiver if context is arbeidsgiver', () => {
@@ -50,10 +51,11 @@ describe('URLs', () => {
                 redirectToApp: false,
                 redirectToUrl: '',
                 context: 'arbeidsgiver',
+                language: 'nb',
             },
         });
 
-        expect(loginUrl).toBe(`https://www.nav.no/login?redirect=${dummyEnv.MIN_SIDE_ARBEIDSGIVER_URL}&level=Level3`);
+        expect(loginUrl).toBe(`https://www.nav.no/login?redirect=${dummyEnv.MIN_SIDE_ARBEIDSGIVER_URL}&level=Level3&locale=nb`);
     });
 
     it('Redirect should be min side if no redirectToUrl is set and redirectToApp is false and context is anything but arbeidsgiver', () => {
@@ -64,9 +66,10 @@ describe('URLs', () => {
                 redirectToApp: false,
                 redirectToUrl: '',
                 context: 'privatperson',
+                language: 'nb',
             },
         });
 
-        expect(loginUrl).toBe(`https://www.nav.no/login?redirect=${dummyEnv.MIN_SIDE_URL}&level=Level3`);
+        expect(loginUrl).toBe(`https://www.nav.no/login?redirect=${dummyEnv.MIN_SIDE_URL}&level=Level3&locale=nb`);
     });
 });
