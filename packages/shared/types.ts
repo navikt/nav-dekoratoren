@@ -137,6 +137,9 @@ export type Features = {
     'dekoratoren.chatbotscript': boolean;
 };
 
+/**
+ * Computed values based on params and environment
+ */
 export type AppState = {
     texts: ClientTexts;
     params: Params;

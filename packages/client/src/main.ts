@@ -8,7 +8,7 @@ import { logoutWarningController } from './controllers/logout-warning';
 import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
 import './views/breadcrumb';
-    import './views/context-link';
+import './views/context-link';
 import './views/decorator-utils';
 import './views/dropdown-menu';
 import './views/language-selector';
@@ -24,21 +24,20 @@ import './views/search-input';
 import './views/search-menu';
 import './views/feedback';
 import './views/login-button';
-    import './views/chatbot-wrapper';
+import './views/chatbot-wrapper';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
-import { analyticsLoaded, analyticsReady, createEvent } from './events';
+import { MessageEvents, analyticsLoaded, analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
-
-console.log('Decorator client loaded');
+import { makeEndpointFactory } from 'decorator-shared/urls';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
-// Just for testing
 export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
-
 const texts = window.__DECORATOR_DATA__.texts;
+
+const makeEndpoint = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'));
 
 updateDecoratorParams({});
 
@@ -50,6 +49,7 @@ window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
         window.postMessage({ source: 'decorator', event: 'ready' });
     }
+
     if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
         const payload = e.data.payload;
 
@@ -102,16 +102,15 @@ window.addEventListener('activecontext', (event) => {
 });
 
 async function populateLoggedInMenu(authObject: Auth) {
-    fetch(
-        `${env('APP_URL')}/user-menu?${formatParams({
-            ...window.__DECORATOR_DATA__.params,
-            name: authObject.name,
-            level: `Level${authObject.securityLevel}` as LoginLevel,
-        })}`,
-        {
-            credentials: 'include',
-        }
-    )
+    const url = makeEndpoint('/user-menu', {
+        name: authObject.name,
+        // Should have function for this and tests
+        level: `Level${authObject.securityLevel}` as LoginLevel,
+    });
+
+    fetch(url, {
+        credentials: 'include',
+    })
         .then((res) => res.text())
         .then((html) => {
             const userMenu = document.querySelector('user-menu');
