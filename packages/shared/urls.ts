@@ -18,6 +18,8 @@ type GetUrlLoginOptions = {
     isClientSide?: boolean;
 };
 
+// @TODO: I'm pretty sure we can just supply this to the client from the server
+// Maybe an extra field in app_state
 function makeRedirectUrlLogin({ environment, params, isClientSide = false }: GetUrlLoginOptions) {
     const { redirectToUrl, redirectToApp } = params;
 

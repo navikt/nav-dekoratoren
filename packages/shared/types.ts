@@ -137,11 +137,19 @@ export type Features = {
     'dekoratoren.chatbotscript': boolean;
 };
 
+/**
+ * Computed values based on params and environment
+ */
+export type Computed = {
+    loginUrl: string;
+};
+
 export type AppState = {
     texts: ClientTexts;
     params: Params;
     env: Environment;
     features: Features;
+    computed: Computed;
 };
 
 export type TaskAnalyticsUrlRule = {

@@ -49,6 +49,8 @@ export default async ({
             params: data,
             features,
             environment: clientEnv,
+            // @TODO: Extract what things can be comptued globally
+            computed: {},
         }),
         maskDocument: data.maskHotjar,
         main: getSplashPage(origin),
