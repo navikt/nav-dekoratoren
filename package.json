@@ -12,11 +12,9 @@
     "copy-assets": "cp -r packages/client/dist/assets packages/server/public/ && cp -r packages/client/dist/~partytown packages/server/public/",
     "serve": "bun run --cwd packages/server serve",
     "serve-dev": "concurrently \"bun run --cwd packages/server serve-local\" \"bun run --cwd packages/client build:watch\"",
-    "prepare": "husky install",
     "benchmarking": "./benchmarking/run",
     "partytown": "partytown copylib packages/server/public/~partytown",
-    "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb",
-    "postinstall": "husky install"
+    "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +30,6 @@
     "@types/bun": "^1.0.0",
     "concurrently": "^8.2.0",
     "eslint": "latest",
-    "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0"
   },
