@@ -1,41 +1,31 @@
-/*
-*
-*/
-
 .stickyPlaceholder {
     position: relative;
     margin: 0;
     padding: 0;
     background-color: transparent;
     height: var(--header-height-mobil);
-}
 
-@media (min-width: var(--desktop-min-width)) {
-    .stickyPlaceholder {
+    @media (min-width: 768px) {
         height: var(--header-height-desktop);
     }
 }
 
-/* :global(.simple) { */
-/*     .stickyPlaceholder { */
-/*         height: sv.$header-height-simple-mobile; */
-/**/
-/*         @media #{sv.$screen-desktop} { */
-/*             height: sv.$header-height-simple-desktop; */
-/*         } */
-/*     } */
-/* } */
 .stickyContent {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: 100%;
+    border-bottom: 1px solid var(--a-border-subtle);
+    background-color: var(--a-surface-default);
     top: 0;
+
+    transition-property: transform, visibility;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
 }
 
-.transitioning {
-    transition: transform 0.3s ease-in-out;
+.hidden {
+    transform: translateY(-80px);
+    visibility: hidden;
 }
-
 
 .stickyContainer {
     margin: 0;
