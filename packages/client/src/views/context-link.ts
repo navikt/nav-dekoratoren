@@ -1,4 +1,4 @@
-import { erNavDekoratoren } from '../helpers/urls';
+import { erNavDekoratoren } from 'decorator-shared/urls';
 import headerClasses from '../styles/header.module.css';
 import { tryParse } from 'decorator-shared/json';
 import { type AnalyticsEventArgs } from '../analytics/constants';
@@ -21,7 +21,7 @@ class ContextLink extends HTMLElement {
         window.addEventListener('activecontext', this.handleActiveContext);
 
         this.addEventListener('click', (e) => {
-            if (erNavDekoratoren()) {
+            if (erNavDekoratoren(window.location.href)) {
                 e.preventDefault();
             }
 

@@ -27,9 +27,9 @@ a.appendChild(r);
 
 /* Merge the two manifests*/
 export const getManifest = async () => {
-    const mainManifest = (await import(`decorator-client/dist/.vite/manifest.json`)).default;
-    const csrManifest = (await import(`decorator-client/dist/.vite/csr.manifest.json`)).default;
-    const thirdPartyManifest = (await import(`decorator-client/dist/.vite/analytics.manifest.json`)).default;
+    const mainManifest = (await import('decorator-client/dist/.vite/manifest.json')).default;
+    const csrManifest = (await import('decorator-client/dist/.vite/csr.manifest.json')).default;
+    const thirdPartyManifest = (await import('decorator-client/dist/.vite/analytics.manifest.json')).default;
 
     return {
         ...mainManifest,
@@ -60,7 +60,7 @@ export const getEnvAssets = async () => {
 
     const css: EnvAssets = {
         production: manifest[entryPointPath].css.map(cdnUrl).map(cssLink).join(''),
-        development: '',
+        development: cssLink(''), // Dummy to ensure the styles-container is not empty
     };
 
     const scripts: EnvAssets = {

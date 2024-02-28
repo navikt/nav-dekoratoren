@@ -8,7 +8,7 @@ import { logoutWarningController } from './controllers/logout-warning';
 import './main.css';
 import { useLoadIfActiveSession } from './screensharing';
 import './views/breadcrumb';
-    import './views/context-link';
+import './views/context-link';
 import './views/decorator-utils';
 import './views/dropdown-menu';
 import './views/language-selector';

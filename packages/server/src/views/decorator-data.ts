@@ -8,7 +8,7 @@ export const DecoratorData = ({
     params,
     features,
     environment,
-}: {
+    }: {
     texts: ClientTexts;
     params: Params;
     features: Features;
