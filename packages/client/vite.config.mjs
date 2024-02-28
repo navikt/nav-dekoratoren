@@ -31,6 +31,14 @@ export const mainBundleConfig = defineConfig({
             input: ['src/main.ts'],
         },
     },
+    css: {
+        modules: {
+            // Create stable classnames in dev mode, in order to not break in HMR when loaded via other apps
+            ...(process.env.NODE_ENV === 'development' && {
+                generateScopedName: '[name]__[local]',
+            }),
+        },
+    },
 });
 
 export const lazyConfig = defineConfig({

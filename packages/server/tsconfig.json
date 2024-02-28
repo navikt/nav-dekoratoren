@@ -10,7 +10,8 @@
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": false,
         "paths": {
-            "decorator-shared/*": ["../shared/*"]
+            "decorator-shared/*": ["../shared/*"],
+            "decorator-client/*": ["../client/*"]
         }
     },
     "exclude": ["**/*.stories.ts"]
