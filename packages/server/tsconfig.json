@@ -8,7 +8,11 @@
         "strict": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "isolatedModules": false
+        "isolatedModules": false,
+        "paths": {
+            "decorator-shared/*": ["../shared/*"],
+            "decorator-client/*": ["../client/*"]
+        }
     },
     "exclude": ["**/*.stories.ts"]
 }

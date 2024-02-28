@@ -3,6 +3,7 @@ import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
 import path from 'path';
 import { partytownRollup } from '@builder.io/partytown/utils';
 import { typedCssModulesPlugin } from './typesafe-css-modules';
+import { cssModulesScopedNameOption } from '../shared/css-modules-config';
 
 export const mainBundleConfig = defineConfig({
     plugins: [typedCssModulesPlugin()],
@@ -29,6 +30,11 @@ export const mainBundleConfig = defineConfig({
                 }),
             ],
             input: ['src/main.ts'],
+        },
+    },
+    css: {
+        modules: {
+            ...cssModulesScopedNameOption,
         },
     },
 });

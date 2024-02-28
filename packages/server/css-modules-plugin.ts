@@ -1,11 +1,14 @@
 import { plugin } from 'bun';
 import postcss from 'postcss';
+import { cssModulesScopedNameOption } from '../shared/css-modules-config';
 
 export async function getPostcssTokens(path: string) {
     const val = await postcss([
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         require('postcss-modules')({
-            getJSON: () => {},
+            getJSON: () => {
+            },
+            ...cssModulesScopedNameOption,
         }),
     ]).process(await Bun.file(path).text(), { from: path });
 
