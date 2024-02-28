@@ -1,5 +1,6 @@
 import { plugin } from 'bun';
 import postcss from 'postcss';
+import { cssModulesScopedNameOption } from '../shared/css-modules-config';
 
 export async function getPostcssTokens(path: string) {
     const val = await postcss([
@@ -7,10 +8,7 @@ export async function getPostcssTokens(path: string) {
         require('postcss-modules')({
             getJSON: () => {
             },
-            // Create stable classnames in dev mode, in order to not break in HMR when loaded via other apps
-            ...(process.env.NODE_ENV === 'development' && {
-                generateScopedName: '[name]__[local]',
-            }),
+            ...cssModulesScopedNameOption,
         }),
     ]).process(await Bun.file(path).text(), { from: path });
 

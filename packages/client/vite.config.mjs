@@ -3,6 +3,7 @@ import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
 import path from 'path';
 import { partytownRollup } from '@builder.io/partytown/utils';
 import { typedCssModulesPlugin } from './typesafe-css-modules';
+import { cssModulesScopedNameOption } from '../shared/css-modules-config';
 
 export const mainBundleConfig = defineConfig({
     plugins: [typedCssModulesPlugin()],
@@ -33,10 +34,7 @@ export const mainBundleConfig = defineConfig({
     },
     css: {
         modules: {
-            // Create stable classnames in dev mode, in order to not break in HMR when loaded via other apps
-            ...(process.env.NODE_ENV === 'development' && {
-                generateScopedName: '[name]__[local]',
-            }),
+            ...cssModulesScopedNameOption,
         },
     },
 });
