@@ -25,6 +25,10 @@
 .hidden {
     transform: translateY(calc(0px - var(--header-height-mobil)));
     visibility: hidden;
+
+    @media (min-width: 768px) {
+        transform: translateY(calc(0px - var(--header-height-desktop)));
+    }
 }
 
 .stickyContainer {
