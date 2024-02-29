@@ -5,45 +5,49 @@ import { type AnalyticsEventArgs } from '../analytics/constants';
 import { createEvent } from '../events';
 import { Context } from 'decorator-shared/params';
 
-class ContextLink extends HTMLElement {
+class ContextLink extends HTMLAnchorElement {
     handleActiveContext = (event: Event) => {
         this.classList.toggle(
             headerClasses.lenkeActive,
-            this.getAttribute('data-context') === (event as CustomEvent<{ context: string }>).detail.context
+            this.getAttribute('data-context') === (event as CustomEvent<{ context: string }>).detail.context,
         );
     };
 
-    connectedCallback() {
-        const attachContext = this.getAttribute('data-attach-context') === 'true';
+    handleClick = (e: MouseEvent) => {
+        console.log('Clicked!');
+
+        if (erNavDekoratoren(window.location.href)) {
+            console.log('Er dekoratøren');
+            e.preventDefault();
+        }
+
         const rawEventArgs = this.getAttribute('data-analytics-event-args');
         const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
+        const attachContext = this.getAttribute('data-attach-context') === 'true';
 
+        this.dispatchEvent(
+            createEvent('activecontext', {
+                bubbles: true,
+                detail: {
+                    context: this.getAttribute('data-context') as Context,
+                },
+            }),
+        );
+
+        if (eventArgs) {
+            const payload = {
+                ...eventArgs,
+                ...(attachContext && {
+                    context: window.__DECORATOR_DATA__.params.context,
+                }),
+            };
+            window.analyticsEvent(payload);
+        }
+    };
+
+    connectedCallback() {
         window.addEventListener('activecontext', this.handleActiveContext);
-
-        this.addEventListener('click', (e) => {
-            if (erNavDekoratoren(window.location.href)) {
-                e.preventDefault();
-            }
-
-            this.dispatchEvent(
-                createEvent('activecontext', {
-                    bubbles: true,
-                    detail: {
-                        context: this.getAttribute('data-context') as Context,
-                    },
-                })
-            );
-
-            if (eventArgs) {
-                const payload = {
-                    ...eventArgs,
-                    ...(attachContext && {
-                        context: window.__DECORATOR_DATA__.params.context,
-                    }),
-                };
-                window.analyticsEvent(payload);
-            }
-        });
+        this.addEventListener('click', this.handleClick);
     }
 
     disconnectedCallback() {
@@ -51,4 +55,4 @@ class ContextLink extends HTMLElement {
     }
 }
 
-customElements.define('context-link', ContextLink);
+customElements.define('context-link', ContextLink, { extends: 'a' });

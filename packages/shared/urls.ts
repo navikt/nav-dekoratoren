@@ -73,5 +73,5 @@ export function makeLoginUrl(
 }
 
 export function erNavDekoratoren(url: string) {
-    return url.includes('dekoratoren') || url.includes('localhost');
+    return url.includes('dekoratoren') || url.includes('localhost:8089');
 }

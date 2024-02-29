@@ -26,7 +26,15 @@ export type ComplexHeaderProps = {
     opsMessages: OpsMessage[];
 };
 
-export function ComplexHeader({ language, contextLinks, texts, context: currentContext, decoratorUtils, opsMessages }: ComplexHeaderProps) {
+export function ComplexHeader(
+    {
+        language,
+        contextLinks,
+        texts,
+        context: currentContext,
+        decoratorUtils,
+        opsMessages,
+    }: ComplexHeaderProps) {
     // @TODO: Need id here for css vars.
     return html`
         <div id="decorator-header">
@@ -52,7 +60,7 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                             ${language === 'nb' &&
                             contextLinks?.map(
                                 ({ url, lenkeTekstId, context }) =>
-                                    html` <context-link
+                                    html` <a
                                         is="context-link"
                                         href="${url}"
                                         data-analytics-event-args="${JSON.stringify({
@@ -67,7 +75,7 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                         data-context="${context.toLowerCase()}"
                                     >
                                         ${texts[lenkeTekstId]}
-                                    </context-link>`
+                                    </a>`,
                             )}
                         </div>
                     </div>
@@ -85,7 +93,7 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                     text: texts.menu,
                                 }),
                                 dropdownContent: html`
-                                    <search-menu class="${menuCls.searchMenu}"> ${SearchForm({ texts })} </search-menu>
+                                    <search-menu class="${menuCls.searchMenu}"> ${SearchForm({ texts })}</search-menu>
                                     <main-menu></main-menu>
                                 `,
                             })}
@@ -99,14 +107,18 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                 }),
                                 dropdownClass: menuItemsCls.searchDropdown,
                                 dropdownContent: html`
-                                    <search-menu class="${menuItemsCls.searchMenu}" data-auto-focus> ${SearchForm({ texts })} </search-menu>
+                                    <search-menu class="${menuItemsCls.searchMenu}" data-auto-focus>
+                                        ${SearchForm({ texts })}
+                                    </search-menu>
                                 `,
                             })}
                         </div>
                     </div>
                 </nav>
             </header>
-            <ops-messages class="${opsMessagesCls.opsMessages}">${opsMessages.length > 0 && OpsMessages({ opsMessages })}</ops-messages>
+            <ops-messages class="${opsMessagesCls.opsMessages}">
+                ${opsMessages.length > 0 && OpsMessages({ opsMessages })}
+            </ops-messages>
             ${decoratorUtils}
             <menu-background></menu-background>
         </div>

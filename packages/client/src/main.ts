@@ -96,6 +96,7 @@ window.addEventListener('message', (e) => {
 });
 
 window.addEventListener('activecontext', (event) => {
+    console.log(`Context event: ${event.detail.context}`)
     updateDecoratorParams({
         context: (event as CustomEvent<{ context: Context }>).detail.context,
     });
