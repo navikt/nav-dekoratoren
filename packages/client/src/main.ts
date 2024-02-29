@@ -1,6 +1,6 @@
 /// <reference types="./client.d.ts" />
 import { formatParams } from 'decorator-shared/json';
-import { LoginLevel, type Context } from 'decorator-shared/params';
+import { type Context } from 'decorator-shared/params';
 import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
 import * as api from './api';
@@ -25,19 +25,17 @@ import './views/search-menu';
 import './views/feedback';
 import './views/login-button';
 import './views/chatbot-wrapper';
+import './views/user-menu';
 import { Auth } from './api';
 import { addFaroMetaData } from './faro';
-import { MessageEvents, analyticsLoaded, analyticsReady, createEvent } from './events';
+import { analyticsLoaded, analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
-import { makeEndpointFactory } from 'decorator-shared/urls';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
 export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 const texts = window.__DECORATOR_DATA__.texts;
-
-const makeEndpoint = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'));
 
 updateDecoratorParams({});
 
@@ -96,35 +94,10 @@ window.addEventListener('message', (e) => {
 });
 
 window.addEventListener('activecontext', (event) => {
-    console.log(`Context event: ${event.detail.context}`)
     updateDecoratorParams({
         context: (event as CustomEvent<{ context: Context }>).detail.context,
     });
 });
-
-export async function populateLoggedInMenu(authObject?: Auth) {
-    const auth = authObject || await api.checkAuth();
-
-    const url = makeEndpoint('/user-menu', {
-        name: auth.name,
-        // Should have function for this and tests
-        level: `Level${auth.securityLevel}` as LoginLevel,
-    });
-
-    fetch(url, {
-        credentials: 'include',
-    })
-        .then((res) => res.text())
-        .then((html) => {
-            const userMenu = document.querySelector('user-menu');
-            if (userMenu) {
-                userMenu.innerHTML = html;
-            }
-        });
-}
-
-//
-// await populateLoggedInMenu(response);
 
 const init = async () => {
     const response = await api.checkAuth();
@@ -135,12 +108,6 @@ const init = async () => {
             detail: { response },
         })
     );
-
-    if (!response.authenticated) {
-        return;
-    }
-
-    await populateLoggedInMenu(response);
 };
 
 init();

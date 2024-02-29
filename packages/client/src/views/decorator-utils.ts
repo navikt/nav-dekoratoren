@@ -3,33 +3,27 @@ import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import cls from '../styles/decorator-utils.module.css';
 
 import { LanguageSelector } from './language-selector';
-import { populateLoggedInMenu } from '../main';
 
 class DecoratorUtils extends HTMLElement {
     languageSelector: LanguageSelector;
-    breadbrumbs: HTMLElement;
+    breadcrumbs: HTMLElement;
 
     constructor() {
         super();
 
         this.languageSelector = this.querySelector('language-selector') as LanguageSelector;
-        this.breadbrumbs = this.querySelector('nav[is="d-breadcrumbs"]') as HTMLElement;
+        this.breadcrumbs = this.querySelector('nav[is="d-breadcrumbs"]') as HTMLElement;
     }
 
     update = () => {
-        const { availableLanguages, language, breadcrumbs, utilsBackground, context } = window.__DECORATOR_DATA__.params;
+        const { availableLanguages, language, breadcrumbs, utilsBackground } = window.__DECORATOR_DATA__.params;
 
         this.classList.toggle(cls.hidden, availableLanguages.length === 0 && breadcrumbs.length === 0);
         this.utilsBackground = utilsBackground;
 
         this.languageSelector.availableLanguages = availableLanguages;
         this.languageSelector.language = language;
-        this.breadbrumbs.innerHTML = Breadcrumbs({ breadcrumbs })?.render() ?? '';
-
-        if (context) {
-            console.log(context);
-            populateLoggedInMenu()
-        }
+        this.breadcrumbs.innerHTML = Breadcrumbs({ breadcrumbs })?.render() ?? '';
     };
 
     set utilsBackground(utilsBackground: UtilsBackground) {

@@ -21,7 +21,7 @@ const updateDecoratorParams = (params: Partial<Params>) => {
 
     window.dispatchEvent(
         createEvent('paramsupdated', {
-            detail: { keys: Object.keys(params) as ParamKey[] },
+            detail: { params },
         })
     );
 };

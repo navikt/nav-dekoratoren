@@ -10,7 +10,7 @@ export type CustomEvents = {
     'analytics-load-event': Auth;
     activecontext: { context: Context };
     paramsupdated: {
-        keys: ParamKey[];
+        params: Partial<Params>;
     };
 };
 
