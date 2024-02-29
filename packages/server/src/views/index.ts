@@ -3,7 +3,6 @@ import { Language } from 'decorator-shared/params';
 import { Button } from 'decorator-shared/views/components/button';
 import { env } from '../env/server';
 import { NodeEnv } from '../env/schema';
-import { Sticky } from './sticky';
 
 export const entryPointPath = 'src/main.ts';
 export const entryPointPathAnalytics = 'src/analytics/analytics.ts';
