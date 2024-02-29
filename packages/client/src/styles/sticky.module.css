@@ -23,7 +23,7 @@
 }
 
 .hidden {
-    transform: translateY(calc(0 - var(--header-height-mobil)));
+    transform: translateY(calc(0px - var(--header-height-mobil)));
     visibility: hidden;
 }
 
