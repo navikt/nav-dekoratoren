@@ -16,9 +16,8 @@
     border-bottom: 1px solid var(--a-border-subtle);
     background-color: var(--a-surface-default);
     top: 0;
-
     transition-property: transform, visibility;
-    transition-duration: 0.25s;
+    transition-duration: 0.15s;
     transition-timing-function: ease-in-out;
 }
 
