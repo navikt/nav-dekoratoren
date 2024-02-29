@@ -3,6 +3,7 @@ import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
 import cls from '../styles/decorator-utils.module.css';
 
 import { LanguageSelector } from './language-selector';
+import { populateLoggedInMenu } from '../main';
 
 class DecoratorUtils extends HTMLElement {
     languageSelector: LanguageSelector;
@@ -16,7 +17,7 @@ class DecoratorUtils extends HTMLElement {
     }
 
     update = () => {
-        const { availableLanguages, language, breadcrumbs, utilsBackground } = window.__DECORATOR_DATA__.params;
+        const { availableLanguages, language, breadcrumbs, utilsBackground, context } = window.__DECORATOR_DATA__.params;
 
         this.classList.toggle(cls.hidden, availableLanguages.length === 0 && breadcrumbs.length === 0);
         this.utilsBackground = utilsBackground;
@@ -24,6 +25,11 @@ class DecoratorUtils extends HTMLElement {
         this.languageSelector.availableLanguages = availableLanguages;
         this.languageSelector.language = language;
         this.breadbrumbs.innerHTML = Breadcrumbs({ breadcrumbs })?.render() ?? '';
+
+        if (context) {
+            console.log(context);
+            populateLoggedInMenu()
+        }
     };
 
     set utilsBackground(utilsBackground: UtilsBackground) {

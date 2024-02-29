@@ -102,11 +102,13 @@ window.addEventListener('activecontext', (event) => {
     });
 });
 
-async function populateLoggedInMenu(authObject: Auth) {
+export async function populateLoggedInMenu(authObject?: Auth) {
+    const auth = authObject || await api.checkAuth();
+
     const url = makeEndpoint('/user-menu', {
-        name: authObject.name,
+        name: auth.name,
         // Should have function for this and tests
-        level: `Level${authObject.securityLevel}` as LoginLevel,
+        level: `Level${auth.securityLevel}` as LoginLevel,
     });
 
     fetch(url, {
@@ -116,7 +118,7 @@ async function populateLoggedInMenu(authObject: Auth) {
         .then((html) => {
             const userMenu = document.querySelector('user-menu');
             if (userMenu) {
-                userMenu.outerHTML = html;
+                userMenu.innerHTML = html;
             }
         });
 }
