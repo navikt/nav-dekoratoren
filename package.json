@@ -26,13 +26,12 @@
   ],
   "devDependencies": {
     "@types/amplitude-js": "^8.16.2",
-    "@types/cookie": "^0.5.4",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "@types/bun": "^1.0.0",
+    "@types/bun": "1.0.8",
     "concurrently": "^8.2.0",
     "eslint": "latest",
-    "husky": "^8.0.0",
+    "husky": "9.0.11",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0"
   },
