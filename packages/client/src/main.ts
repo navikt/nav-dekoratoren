@@ -26,9 +26,8 @@ import './views/feedback';
 import './views/login-button';
 import './views/chatbot-wrapper';
 import './views/user-menu';
-import { Auth } from './api';
 import { addFaroMetaData } from './faro';
-import { analyticsLoaded, analyticsReady, createEvent } from './events';
+import { analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 
@@ -100,22 +99,15 @@ window.addEventListener('activecontext', (event) => {
 });
 
 const init = async () => {
-    const response = await api.checkAuth();
-
-    dispatchEvent(
-        new CustomEvent(analyticsLoaded.type, {
-            bubbles: true,
-            detail: { response },
-        })
-    );
+    const authResponse = await api.checkAuth();
+    dispatchEvent(createEvent('authupdated', { detail: { auth: authResponse } }));
 };
 
 init();
 
 window.addEventListener(analyticsReady.type, () => {
-    window.addEventListener(analyticsLoaded.type, (e) => {
-        const response = (e as CustomEvent<Auth>).detail;
-        window.logPageView(window.__DECORATOR_DATA__.params, response);
+    window.addEventListener('authupdated', (e) => {
+        window.logPageView(window.__DECORATOR_DATA__.params, e.detail.auth);
         window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
     });
 });

@@ -1,5 +1,5 @@
 import { Auth } from './api';
-import { Context, Params, type ParamKey } from 'decorator-shared/params';
+import { Context, Params } from 'decorator-shared/params';
 
 export type MessageEvent = {
     hello: 'true';
@@ -7,10 +7,12 @@ export type MessageEvent = {
 
 export type CustomEvents = {
     'analytics-ready-event': void;
-    'analytics-load-event': Auth;
     activecontext: { context: Context };
     paramsupdated: {
         params: Partial<Params>;
+    };
+    authupdated: {
+        auth: Auth;
     };
 };
 
@@ -32,11 +34,5 @@ export function createEvent<TName extends keyof CustomEvents>(name: TName, optio
 }
 
 export const analyticsReady = new CustomEvent('analytics-ready-event', {
-    bubbles: true,
-});
-
-export type AnalyticsLoaded = CustomEvent<Auth>;
-
-export const analyticsLoaded = new CustomEvent<Auth>('analytics-loaded-event', {
     bubbles: true,
 });
