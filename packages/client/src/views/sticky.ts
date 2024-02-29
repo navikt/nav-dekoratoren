@@ -2,48 +2,40 @@ import cls from 'decorator-client/src/styles/sticky.module.css';
 
 // @TODO Resizing
 class Sticky extends HTMLElement {
-    prevScrollOffset: number;
-    stickyContent: HTMLElement;
-    // The number of pixels to scroll up before showing the sticky header
-    delta: number;
-    // Can set this dynamically and reattach listeners
-    scrollYCutOff: number;
+    // The number of pixels to scroll before showing/hiding the sticky header
+    private readonly delta = 20;
+    private readonly headerHeight = 80;
 
-    directionChangedPosition: number;
-    prevScrollDirection: 'up' | 'down' | null;
+    private stickyContent: HTMLElement;
+
+    private prevScrollOffset: number = 0;
+    private offsetAtDirectionChange: number = 0;
+    private prevScrollDirection: 'up' | 'down' | null = null;
 
     constructor() {
         super();
-        this.prevScrollOffset = 0;
-        this.delta = 20;
-        this.scrollYCutOff = 80;
-
-        this.directionChangedPosition = 0;
-        this.prevScrollDirection = null;
-
         this.stickyContent = this.querySelector(`.${cls.stickyContent}`)!;
     }
 
 
-    handleScroll = () => {
-        console.log('scrolling');
+    private handleScroll = () => {
         const currentScrollOffset = window.scrollY;
         const currentScrollDirection = this.prevScrollOffset > currentScrollOffset ? 'up' : 'down';
 
         this.prevScrollOffset = currentScrollOffset;
 
+        if (currentScrollOffset < this.headerHeight) {
+            this.stickyContent.classList.remove(cls.hidden);
+            return;
+        }
+
         if (currentScrollDirection !== this.prevScrollDirection) {
             this.prevScrollDirection = currentScrollDirection;
-            this.directionChangedPosition = currentScrollOffset;
+            this.offsetAtDirectionChange = currentScrollOffset;
             return;
         }
 
-        if (Math.abs(this.directionChangedPosition - currentScrollOffset) < this.delta) {
-            return;
-        }
-
-        if (currentScrollOffset < this.scrollYCutOff) {
-            this.stickyContent.classList.remove(cls.hidden);
+        if (Math.abs(this.offsetAtDirectionChange - currentScrollOffset) < this.delta) {
             return;
         }
 
@@ -54,20 +46,15 @@ class Sticky extends HTMLElement {
         }
     };
 
-    connectedCallback() {
-        // this.prevScrollOffset = window.scrollY;
-        // this.style.position = 'absolute';
+    private connectedCallback() {
         this.stickyContent = this.querySelector(`.${cls.stickyContent}`)!;
         this.prevScrollOffset = window.scrollY;
 
-        // this.handleScroll()
-
         window.addEventListener('scroll', this.handleScroll);
+    }
 
-        // Wait to apply transition class
-        setTimeout(() => {
-            // this.stickyContent.classList.add(cls.transitioning);
-        }, 30);
+    private disconnectedCallback() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 }
 
