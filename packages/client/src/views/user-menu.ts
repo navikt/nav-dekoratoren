@@ -6,6 +6,8 @@ import { makeEndpointFactory } from 'decorator-shared/urls';
 import { env } from '../params';
 
 class UserMenu extends HTMLElement {
+    private readonly responseCache: Record<string, string> = {};
+
     constructor() {
         super();
         this.populateLoggedInMenu();
@@ -20,8 +22,17 @@ class UserMenu extends HTMLElement {
         this.populateLoggedInMenu();
     }
 
-    private async populateLoggedInMenu(authObject?: Auth) {
-        const auth = authObject || (await api.checkAuth());
+    private async populateLoggedInMenu() {
+        const auth = await api.checkAuth();
+        const context = window.__DECORATOR_DATA__.params.context;
+
+        const fromCache = this.responseCache[context];
+
+        if (fromCache) {
+            console.log('Found in cache');
+            this.innerHTML = fromCache;
+            return;
+        }
 
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
             name: auth.name,
@@ -34,6 +45,7 @@ class UserMenu extends HTMLElement {
             .then((res) => res.text())
             .then((html) => {
                 this.innerHTML = html;
+                this.responseCache[context] = html;
             });
     }
 
