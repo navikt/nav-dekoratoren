@@ -6,6 +6,8 @@ import { Auth } from '../api';
 
 class UserMenu extends HTMLElement {
     private readonly responseCache: Record<string, string> = {};
+
+    // TODO: use a global auth state instead?
     private authState: Auth | null = null;
 
     private updateAuthState(e: CustomEvent<CustomEvents['authupdated']>) {
@@ -27,6 +29,7 @@ class UserMenu extends HTMLElement {
             return;
         }
 
+        // TODO: generate cache key from all relevant params
         const context = window.__DECORATOR_DATA__.params.context;
         const cachedHtml = this.responseCache[context];
 

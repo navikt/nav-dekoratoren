@@ -25,15 +25,20 @@ import './views/search-menu';
 import './views/feedback';
 import './views/login-button';
 import './views/chatbot-wrapper';
+import './views/sticky';
 import './views/user-menu';
 import { addFaroMetaData } from './faro';
 import { analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 
+console.log('Decorator client loaded');
+
 import.meta.glob('./styles/*.css', { eager: true });
 
+// Just for testing
 export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
+
 const texts = window.__DECORATOR_DATA__.texts;
 
 updateDecoratorParams({});
@@ -46,7 +51,6 @@ window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
         window.postMessage({ source: 'decorator', event: 'ready' });
     }
-
     if (e.data.source === 'decoratorClient' && e.data.event == 'params') {
         const payload = e.data.payload;
 
