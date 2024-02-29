@@ -21,7 +21,7 @@ class ChatbotWrapper extends HTMLElement {
         const isVisible = hasConversation || chatbotParam;
         const chatbotFlagEnabled = window.__DECORATOR_DATA__.features['dekoratoren.chatbotscript'];
 
-        if (!isVisible || !chatbotFlagEnabled ) {
+        if (!isVisible || !chatbotFlagEnabled) {
             return;
         }
 
@@ -99,9 +99,9 @@ class ChatbotWrapper extends HTMLElement {
     }
 
     showChatbot() {
-        const chatbotVisibleParam = window.__DECORATOR_DATA__.params.chatbot;
+        const shouldShow = window.__DECORATOR_DATA__.params.chatbot && window.__DECORATOR_DATA__.params.chatbotVisible;
 
-        if (chatbotVisibleParam) {
+        if (shouldShow) {
             this.button.classList.add(styles.extraVisible);
         }
     }
