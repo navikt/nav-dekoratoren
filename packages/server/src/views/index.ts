@@ -122,7 +122,7 @@ export function Index({
         <div id="header-withmenu">
             ${header}
         </div>
-        <main>
+        <main style="height:2000px;">
             ${Button({
                 text: 'Test amplitude!',
                 variant: 'primary',
