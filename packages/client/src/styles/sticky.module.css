@@ -11,7 +11,7 @@
 }
 
 .stickyContent {
-    position: fixed;
+    position: absolute;
     width: 100%;
     border-bottom: 1px solid var(--a-border-subtle);
     background-color: var(--a-surface-default);
@@ -19,6 +19,10 @@
     transition-property: transform, visibility;
     transition-duration: 0.15s;
     transition-timing-function: ease-in-out;
+}
+
+.sticky {
+    position: fixed;
 }
 
 .hidden {
