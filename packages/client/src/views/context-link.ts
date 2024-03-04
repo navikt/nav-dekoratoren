@@ -2,15 +2,28 @@ import { erNavDekoratoren } from 'decorator-shared/urls';
 import headerClasses from '../styles/header.module.css';
 import { tryParse } from 'decorator-shared/json';
 import { type AnalyticsEventArgs } from '../analytics/constants';
-import { createEvent } from '../events';
+import { createEvent, CustomEvents } from '../events';
 import { Context } from 'decorator-shared/params';
 
-class ContextLink extends HTMLAnchorElement {
-    handleActiveContext = (event: Event) => {
-        this.classList.toggle(
-            headerClasses.lenkeActive,
-            this.getAttribute('data-context') === (event as CustomEvent<{ context: string }>).detail.context
-        );
+class ContextLink extends HTMLElement {
+    private readonly anchor: HTMLAnchorElement;
+
+    constructor() {
+        super();
+
+        this.anchor = document.createElement('a');
+        this.anchor.href = this.getAttribute('href') || '';
+        this.anchor.innerHTML = this.innerHTML;
+        this.anchor.classList.add(...this.classList);
+
+        this.classList.remove(...this.classList);
+
+        this.innerHTML = '';
+        this.appendChild(this.anchor);
+    }
+
+    handleActiveContext = (event: CustomEvent<CustomEvents['activecontext']>) => {
+        this.anchor.classList.toggle(headerClasses.lenkeActive, this.getAttribute('data-context') === event.detail.context);
     };
 
     handleClick = (e: MouseEvent) => {
@@ -52,4 +65,4 @@ class ContextLink extends HTMLAnchorElement {
     }
 }
 
-customElements.define('context-link', ContextLink, { extends: 'a' });
+customElements.define('context-link', ContextLink);
