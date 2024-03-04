@@ -39,8 +39,6 @@ import.meta.glob('./styles/*.css', { eager: true });
 
 window.makeEndpoint = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'));
 
-console.log(window.makeEndpoint('/header'))
-
 // Just for testing
 export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;
 
