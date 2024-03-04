@@ -1,23 +1,14 @@
 import type { AnalyticsEventArgs } from '../analytics/constants';
 import { tryParse } from 'decorator-shared/json';
+import { CustomLinkComponent } from '../helpers/custom-link-component';
 
-export class LenkeMedSporingElement extends HTMLElement {
+export class LenkeMedSporingElement extends CustomLinkComponent {
     constructor() {
         super();
 
         const attachContext = this.getAttribute('data-attach-context') === 'true';
         const rawEventArgs = this.getAttribute('data-analytics-event-args');
         const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
-
-        const a = document.createElement('a');
-        a.href = this.getAttribute('href') || '';
-        a.innerHTML = this.innerHTML;
-        a.classList.add(...this.classList);
-
-        this.classList.remove(...this.classList);
-
-        this.innerHTML = '';
-        this.appendChild(a);
 
         this.addEventListener('click', () => {
             if (eventArgs) {
