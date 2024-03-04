@@ -17,7 +17,9 @@ export function getIdPortenLocale(language: Language) {
     return idPortenLocaleMap[language];
 }
 
-export function makeEndpointFactory(defaultParams: () => Params, origin: string) {
+export type DecoratorEndpointFn = (endpoint: string, params: Partial<Params>) => string;
+
+export function makeEndpointFactory(defaultParams: () => Params, origin: string): DecoratorEndpointFn {
     return (endpoint: string, params: Partial<Params>) => {
         const formattedParams = formatParams({
             ...defaultParams(),
