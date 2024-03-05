@@ -31,10 +31,12 @@ import { addFaroMetaData } from './faro';
 import { analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
+import { makeEndpointFactory } from 'decorator-shared/urls';
 
-console.log('Decorator client loaded');
 
 import.meta.glob('./styles/*.css', { eager: true });
+
+window.makeEndpoint = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'));
 
 // Just for testing
 export const CONTEXTS = ['privatperson', 'arbeidsgiver', 'samarbeidspartner'] as const;

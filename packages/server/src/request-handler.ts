@@ -9,7 +9,7 @@ import { cspHandler } from './csp';
 import { clientEnv, env } from './env/server';
 import { HandlerBuilder, r } from './lib/handler';
 import { getMockSession, refreshToken } from './mockAuth';
-import renderIndex from './render-index';
+import renderIndex, { renderFooter, renderHeader } from './render-index';
 import jsonIndex from './json-index';
 import SearchService from './search-service';
 import TaConfigService from './task-analytics-service';
@@ -27,7 +27,6 @@ import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
 import { NotificationsService } from './notifications-service';
-import { Footer } from './views/footer/footer';
 import { isExternallyAvailable } from 'decorator-shared/utils';
 import { assetsHandlers } from './handlers/assets-handler';
 import { csrHandler } from './csr';
@@ -219,67 +218,28 @@ const requestHandler = async (
         .get('/header', async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
-            const { language, breadcrumbs, availableLanguages, utilsBackground } = data;
 
-            const decoratorUtils = DecoratorUtils({
-                breadcrumbs,
-                availableLanguages,
-                localTexts,
-                utilsBackground,
-                hidden: isExternallyAvailable(clientEnv.APP_URL),
+            const header = await renderHeader({
+                texts: localTexts,
+                data,
+                contentService,
             });
 
-            return rewriter.transform(
-                r()
-                    .html(
-                        (data.simple || data.simpleHeader
-                            ? SimpleHeader({
-                                  texts: localTexts,
-                                  decoratorUtils,
-                              })
-                            : ComplexHeader({
-                                  texts: localTexts,
-                                  contextLinks: makeContextLinks(env.XP_BASE_URL),
-                                  context: data.context,
-                                  language,
-                                  decoratorUtils,
-                                  opsMessages: data.ssr ? await contentService.getOpsMessages() : [],
-                              })
-                        ).render()
-                    )
-                    .build()
-            );
+
+            return rewriter.transform(r().html(header.render()).build());
         })
         .get('/footer', async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
             const features = unleashService.getFeatures();
+            const footer = await renderFooter({
+                features,
+                texts: localTexts,
+                contentService,
+                data,
+            });
 
-            return rewriter.transform(
-                r()
-                    .html(
-                        Footer({
-                            ...(data.simpleFooter || data.simple
-                                ? {
-                                      simple: true,
-                                      links: await contentService.getSimpleFooterLinks({
-                                          language: data.language,
-                                      }),
-                                  }
-                                : {
-                                      simple: false,
-                                      links: await contentService.getComplexFooterLinks({
-                                          language: data.language,
-                                          context: data.context,
-                                      }),
-                                  }),
-                            data,
-                            features,
-                            texts: localTexts,
-                        }).render()
-                    )
-                    .build()
-            );
+            return rewriter.transform(r().html(footer.render()).build());
         })
         .get('/scripts', async ({ query }) => {
             const json = await jsonIndex({

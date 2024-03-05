@@ -87,12 +87,3 @@ export class HandlerBuilder {
         return this.handlers;
     }
 }
-
-// function makeHeaders() {
-//   const headers = new Headers()
-//   return new Headers(headers);
-// }
-
-/**
- * A helper function for creating a JSON response.
- */

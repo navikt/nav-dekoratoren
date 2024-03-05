@@ -4,10 +4,12 @@ import { EventName, CustomEvents, MessageEvents } from './events';
 import { Params } from 'decorator-shared/params';
 import { Auth } from './api';
 import { AnalyticsEventArgs } from './analytics/constants';
+import { DecoratorEndpointFn } from 'decorator-shared/urls';
 
 declare global {
     interface Window {
         __DECORATOR_DATA__: AppState;
+        makeEndpoint: decoratorEndpointFn;
         loginDebug: {
             expireToken: (seconds: number) => void;
             expireSession: (seconds: number) => void;
