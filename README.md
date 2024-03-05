@@ -5,6 +5,10 @@
 -   Ingresses
     -   [Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs)
 
+
+
+Oppdatert doc kommer! Decorator-next skal være bakoverkompatibel med alle tjenester i [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren).
+
 ---
 
 ## Installation

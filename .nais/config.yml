@@ -32,6 +32,9 @@ spec:
         {{#each outboundHosts as |host|}}
         - host: {{host}}
         {{/each}}
+    rules:
+        -   application: tms-varsel-api
+            namespace: min-side
     inbound:
       rules:
         - application: "*"

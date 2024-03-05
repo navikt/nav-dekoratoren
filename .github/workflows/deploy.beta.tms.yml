@@ -1,4 +1,4 @@
-name: Deploy to beta
+name: Deploy to TMS beta
 on:
   workflow_dispatch:
   push:
