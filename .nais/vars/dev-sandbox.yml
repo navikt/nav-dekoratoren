@@ -1,17 +1,18 @@
-appName: nav-dekoratoren
+appName: nav-dekoratoren-sandbox
 appPath: ''
 ingresses:
-  - https://dekoratoren.ekstern.dev.nav.no
+  - https://decorator-next.ekstern.dev.nav.no
 outboundHosts:
   - www.nav.no
   - www.intern.dev.nav.no
+  - www.dev.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
 env:
   - name: ENV
     value: dev
   - name: HOST
-    value: https://dekoratoren.ekstern.dev.nav.no
+    value: https://decorator-next.ekstern.dev.nav.no
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
@@ -48,10 +49,10 @@ env:
     value: "navtest"
 replicas:
   min: 1
-  max: 2
+  max: 1
 resources:
   requests:
-    cpu: 100m
-    memory: 384Mi
+    cpu: 50m
+    memory: 256Mi
   limits:
-    memory: 1024Mi
+    memory: 512Mi

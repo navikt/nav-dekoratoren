@@ -1,4 +1,4 @@
-name: Deploy to TMS beta
+name: Deploy to sandbox
 on:
   workflow_dispatch:
 
@@ -9,6 +9,6 @@ jobs:
       id-token: write
       contents: read
     with:
-      DEPLOY_INSTANCE: dev-beta-tms
+      DEPLOY_INSTANCE: dev-sandbox
       CLUSTER: dev-gcp
     secrets: inherit
