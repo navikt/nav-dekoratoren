@@ -19,7 +19,7 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: .nais/unleash-api-token.dev.yaml
+          RESOURCE: .nais/unleash-api-token.dev.yml
   deploy-prod:
     name: Deploy unleash-apitoken to prod
     runs-on: ubuntu-latest
@@ -34,4 +34,4 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: .nais/unleash-api-token.prod.yaml
+          RESOURCE: .nais/unleash-api-token.prod.yml
