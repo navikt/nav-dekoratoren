@@ -40,9 +40,7 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                 href="/"
                                 class="${cls.logo}"
                                 data-analytics
-                                -
                                 event
-                                -
                                 args="${JSON.stringify({
                                     category: 'dekorator-header',
                                     action: 'navlogo',

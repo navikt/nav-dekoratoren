@@ -4,9 +4,9 @@ import { tryParse } from 'decorator-shared/json';
 import { type AnalyticsEventArgs } from '../analytics/constants';
 import { createEvent, CustomEvents } from '../events';
 import { Context } from 'decorator-shared/params';
-import { CustomLinkComponent } from '../helpers/custom-link-component';
+import { CustomLinkElement } from '../helpers/custom-link-element';
 
-class ContextLink extends CustomLinkComponent {
+class ContextLink extends CustomLinkElement {
     handleActiveContext = (event: CustomEvent<CustomEvents['activecontext']>) => {
         this.anchor.classList.toggle(headerClasses.lenkeActive, this.getAttribute('data-context') === event.detail.context);
     };

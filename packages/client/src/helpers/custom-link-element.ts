@@ -1,4 +1,4 @@
-export class CustomLinkComponent extends HTMLElement {
+export class CustomLinkElement extends HTMLElement {
     protected readonly anchor: HTMLAnchorElement;
 
     constructor() {

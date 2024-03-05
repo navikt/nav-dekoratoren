@@ -1,8 +1,8 @@
 import type { AnalyticsEventArgs } from '../analytics/constants';
 import { tryParse } from 'decorator-shared/json';
-import { CustomLinkComponent } from '../helpers/custom-link-component';
+import { CustomLinkElement } from '../helpers/custom-link-element';
 
-export class LenkeMedSporingElement extends CustomLinkComponent {
+export class LenkeMedSporingElement extends CustomLinkElement {
     constructor() {
         super();
 

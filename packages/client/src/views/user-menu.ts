@@ -24,19 +24,9 @@ class UserMenu extends HTMLElement {
         this.populateLoggedInMenu();
     }
 
-    private populateLoggedInMenu() {
+    private async fetchMenuHtml() {
         if (!this.authState?.authenticated) {
-            return;
-        }
-
-        // TODO: generate cache key from all relevant params
-        const context = window.__DECORATOR_DATA__.params.context;
-        const cachedHtml = this.responseCache[context];
-
-        if (cachedHtml) {
-            console.log('Found user menu in cache');
-            this.innerHTML = cachedHtml;
-            return;
+            return null;
         }
 
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
@@ -44,13 +34,37 @@ class UserMenu extends HTMLElement {
             level: `Level${this.authState.securityLevel}` as LoginLevel,
         });
 
-        fetch(url, {
+        return fetch(url, {
             credentials: 'include',
-        })
-            .then((res) => res.text())
+        }).then((res) => res.text());
+    }
+
+    private getCacheKey() {
+        const { context, level, language } = window.__DECORATOR_DATA__.params;
+        return `${context}_${language}_${level}`;
+    }
+
+    private async populateLoggedInMenu() {
+        const cacheKey = this.getCacheKey();
+        const cachedHtml = this.responseCache[cacheKey];
+
+        if (cachedHtml) {
+            console.log('Found user menu in cache');
+            this.innerHTML = cachedHtml;
+            return;
+        }
+
+        this.fetchMenuHtml()
             .then((html) => {
+                if (!html) {
+                    throw Error('No HTML found!');
+                }
+
                 this.innerHTML = html;
-                this.responseCache[context] = html;
+                this.responseCache[cacheKey] = html;
+            })
+            .catch((e) => {
+                console.error(`Failed to fetch logged in menu - ${e}`);
             });
     }
 
