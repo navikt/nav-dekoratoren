@@ -32,6 +32,12 @@ Team min side:
 
 _Merk:_ Beta-instansene av dekoratøren er ment for intern testing i team personbruker. Disse kan være ustabile i lengre perioder.
 
+**Dev (sandbox)**
+
+- https://decorator-next.ekstern.dev.nav.no
+
+Denne er kun for testing av dekoratøren isolert, og skal ikke konsumeres av andre apper.
+
 ---
 
 ## Utvikling
