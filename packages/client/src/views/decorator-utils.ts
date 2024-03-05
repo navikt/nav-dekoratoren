@@ -6,13 +6,13 @@ import { LanguageSelector } from './language-selector';
 
 class DecoratorUtils extends HTMLElement {
     languageSelector: LanguageSelector;
-    breadbrumbs: HTMLElement;
+    breadcrumbs: HTMLElement;
 
     constructor() {
         super();
 
         this.languageSelector = this.querySelector('language-selector') as LanguageSelector;
-        this.breadbrumbs = this.querySelector('nav[is="d-breadcrumbs"]') as HTMLElement;
+        this.breadcrumbs = this.querySelector('nav[is="d-breadcrumbs"]') as HTMLElement;
     }
 
     update = () => {
@@ -23,7 +23,7 @@ class DecoratorUtils extends HTMLElement {
 
         this.languageSelector.availableLanguages = availableLanguages;
         this.languageSelector.language = language;
-        this.breadbrumbs.innerHTML = Breadcrumbs({ breadcrumbs })?.render() ?? '';
+        this.breadcrumbs.innerHTML = Breadcrumbs({ breadcrumbs })?.render() ?? '';
     };
 
     set utilsBackground(utilsBackground: UtilsBackground) {

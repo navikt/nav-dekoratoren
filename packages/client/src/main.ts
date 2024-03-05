@@ -1,6 +1,6 @@
 /// <reference types="./client.d.ts" />
 import { formatParams } from 'decorator-shared/json';
-import { LoginLevel, type Context } from 'decorator-shared/params';
+import { type Context } from 'decorator-shared/params';
 import Cookies from 'js-cookie';
 import 'vite/modulepreload-polyfill';
 import * as api from './api';
@@ -26,10 +26,9 @@ import './views/feedback';
 import './views/login-button';
 import './views/chatbot-wrapper';
 import './views/sticky';
-
-import { Auth } from './api';
+import './views/user-menu';
 import { addFaroMetaData } from './faro';
-import { analyticsLoaded, analyticsReady, createEvent } from './events';
+import { analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 import { makeEndpointFactory } from 'decorator-shared/urls';
@@ -105,52 +104,16 @@ window.addEventListener('activecontext', (event) => {
     });
 });
 
-async function populateLoggedInMenu(authObject: Auth) {
-    fetch(
-        `${env('APP_URL')}/user-menu?${formatParams({
-            ...window.__DECORATOR_DATA__.params,
-            name: authObject.name,
-            level: `Level${authObject.securityLevel}` as LoginLevel,
-        })}`,
-        {
-            credentials: 'include',
-        }
-    )
-        .then((res) => res.text())
-        .then((html) => {
-            const userMenu = document.querySelector('user-menu');
-            if (userMenu) {
-                userMenu.outerHTML = html;
-            }
-        });
-}
-
-//
-// await populateLoggedInMenu(response);
-
 const init = async () => {
-    const response = await api.checkAuth();
-
-    dispatchEvent(
-        new CustomEvent(analyticsLoaded.type, {
-            bubbles: true,
-            detail: { response },
-        })
-    );
-
-    if (!response.authenticated) {
-        return;
-    }
-
-    await populateLoggedInMenu(response);
+    const authResponse = await api.checkAuth();
+    dispatchEvent(createEvent('authupdated', { detail: { auth: authResponse } }));
 };
 
 init();
 
 window.addEventListener(analyticsReady.type, () => {
-    window.addEventListener(analyticsLoaded.type, (e) => {
-        const response = (e as CustomEvent<Auth>).detail;
-        window.logPageView(window.__DECORATOR_DATA__.params, response);
+    window.addEventListener('authupdated', (e) => {
+        window.logPageView(window.__DECORATOR_DATA__.params, e.detail.auth);
         window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
     });
 });
