@@ -49,16 +49,7 @@ const requestHandler = async (
     unleashService: UnleashService,
     taConfigService: TaConfigService
 ) => {
-    const filePaths = fileSystemService.getFilePaths('./public').map((file) => file.replace('./', '/'));
-
-    const handlers = new HandlerBuilder()
-        .use(
-            filePaths.map((path) => ({
-                method: 'GET',
-                path,
-                handler: ({ url }) => new Response(fileSystemService.getFile(`.${url.pathname}`)),
-            }))
-        )
+    const handlersBuilder = new HandlerBuilder()
         .get('/api/auth', () =>
             r()
                 .json({
@@ -122,7 +113,7 @@ const requestHandler = async (
             const frontPageUrl = makeFrontpageUrl({
                 context: data.context,
                 language: data.language,
-                baseUrl: process.env.XP_BASE_URL,
+                baseUrl: env.XP_BASE_URL,
             });
 
             return new Response(
@@ -254,8 +245,22 @@ const requestHandler = async (
             }),
         ])
         .use(assetsHandlers)
-        .use([cspHandler])
-        .build();
+        .use([cspHandler]);
+
+    // Only serve files in local prod or dev mode
+    if (env.IS_LOCAL_PROD || env.NODE_ENV === 'development') {
+        const filePaths = fileSystemService.getFilePaths('./public').map((file) => file.replace('./', '/'));
+
+        handlersBuilder.use(
+            filePaths.map((path) => ({
+                method: 'GET',
+                path,
+                handler: ({ url }) => new Response(fileSystemService.getFile(`.${url.pathname}`)),
+            }))
+        );
+    }
+
+    const handlers = handlersBuilder.build();
 
     return async function fetch(request: Request): Promise<Response> {
         const url = new URL(request.url.replace('/decorator-next', ''));
