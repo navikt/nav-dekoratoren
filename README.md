@@ -1,27 +1,24 @@
-# Table of contents
+# Dekoratøren / decorator-next
+Applikasjon for header og footer på nav.no.
 
--   🔨 [installation](#installation)
--   💻 [Development](#development)
--   Ingresses
-    -   [Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs)
+decorator-next er en full omskrivning av [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren), med mål om bedre performance og betydelig mindre client-side javascript.
 
+Denne versjonen av dekoratøren er nå i bruk i alle dev-miljøer. Gi oss gjerne beskjed på slack i `#dekoratøren_på_navno` dersom du opplever problemer eller har andre innspill.
 
----
+I produksjon benyttes fremdeles den gamle [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren).
 
 ## Bruk av dekoratøren
 
 Oppdatert doc kommer! Decorator-next skal være bakoverkompatibel med alle tjenester som beskrevet i README for [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren) og [@navikt/nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
-decorator-next er nå i bruk i alle dev-miljøer. Kom gjerne med innspill på slack-kanalen #dekoratøren_på_navno dersom du opplever problemer. I produksjon benyttes fremdeles [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren).
-
 ### Ingresser
 
-**Dev**
+**Dev (stable)**
 
 -   http://nav-dekoratoren.personbruker (service host)
 -   https://dekoratoren.ekstern.dev.nav.no (tilgjengelig fra åpent internett)
 
-**Beta**
+**Dev (beta)**
 
 Team nav.no:
 
@@ -68,6 +65,9 @@ Styling documentation.
 _Troubleshooting_:
 
 -   If you're having trouble with design tokens not being loaded, it may be because your element is not in the scope of the elements defined in postcss.config.js [prefixer configuration](https://github.com/navikt/decorator-next/blob/main/packages/client/postcss.config.js)
+
+### Storybook
+[Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs)
 
 ### Resources
 
