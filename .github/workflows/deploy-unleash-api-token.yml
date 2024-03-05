@@ -9,6 +9,9 @@ jobs:
   deploy-dev:
     name: Deploy unleash-apitoken to dev
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,10 +20,12 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/unleash-api-token.dev.yaml
-
   deploy-prod:
     name: Deploy unleash-apitoken to prod
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
