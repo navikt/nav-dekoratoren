@@ -4,6 +4,7 @@ ingresses:
   - https://dekoratoren.ekstern.dev.nav.no
 outboundHosts:
   - www.nav.no
+  - www.dev.nav.no
   - www.intern.dev.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
