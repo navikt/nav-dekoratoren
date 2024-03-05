@@ -4,7 +4,6 @@ import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
 export type LenkeMedSporingProps = {
     href: string;
     analyticsEventArgs: AnalyticsEventArgs;
-    dataAttachContext?: boolean;
     className?: string;
     dataContext?: string;
     dataHandleInApp?: boolean;

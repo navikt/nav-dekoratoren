@@ -18,7 +18,6 @@ class ContextLink extends CustomLinkElement {
 
         const rawEventArgs = this.getAttribute('data-analytics-event-args');
         const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
-        const attachContext = this.getAttribute('data-attach-context') === 'true';
 
         this.dispatchEvent(
             createEvent('activecontext', {
@@ -31,10 +30,8 @@ class ContextLink extends CustomLinkElement {
 
         if (eventArgs) {
             const payload = {
+                context: window.__DECORATOR_DATA__.params.context,
                 ...eventArgs,
-                ...(attachContext && {
-                    context: window.__DECORATOR_DATA__.params.context,
-                }),
             };
             window.analyticsEvent(payload);
         }

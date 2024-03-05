@@ -9,7 +9,6 @@ export const SkipLink = (text: string) => html`
             category: 'dekorator-header',
             action: 'skiplink',
         })}"
-        data-attach-context
     >
         ${text}
     </lenke-med-sporing>

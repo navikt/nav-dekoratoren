@@ -45,7 +45,6 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                     category: 'dekorator-header',
                                     action: 'navlogo',
                                 })}"
-                                data-attach-context
                             >
                                 ${NavLogo({
                                     title: texts.to_front_page,
@@ -66,7 +65,6 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                             class="${clsx(cls.headerContextLink, {
                                                 [cls.lenkeActive]: context === currentContext,
                                             })}"
-                                            data-attach-context="true"
                                             data-context="${context.toLowerCase()}"
                                         >
                                             ${texts[lenkeTekstId]}

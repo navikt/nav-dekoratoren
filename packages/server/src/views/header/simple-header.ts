@@ -25,7 +25,6 @@ export const SimpleHeader = ({ texts, decoratorUtils }: SimpleHeaderProps) => ht
                         category: 'dekorator-header',
                         action: 'navlogo',
                     })}"
-                    data-attach-context
                 >
                     ${NavLogo({
                         title: texts.to_front_page,

@@ -18,7 +18,6 @@ export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: Ma
                 <lenke-med-sporing
                     href="${frontPageUrl}"
                     class="${cls.link}"
-                    data-attach-context
                     data-analytics-event-args="${JSON.stringify({
                         category: 'dekorator-meny',
                         action: 'hovedmeny/forsidelenke',
@@ -39,7 +38,6 @@ export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: Ma
                                             <lenke-med-sporing
                                                 href="${url}"
                                                 class="${cls.link}"
-                                                data-attach-context
                                                 data-analytics-event-args="${JSON.stringify({
                                                     category: 'dekorator-meny',
                                                     action: `${heading}/${content}`,
@@ -61,7 +59,6 @@ export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: Ma
                     html`<lenke-med-sporing
                         href="${url}"
                         class="${cls.contextLink}"
-                        data-attach-context
                         data-analytics-event-args="${JSON.stringify({
                             category: 'dekorator-meny',
                             action: 'arbeidsflate-valg',
