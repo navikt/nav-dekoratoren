@@ -6,7 +6,7 @@ export const serverSchema = z.object({
     XP_BASE_URL: z.string().url(),
     CDN_URL: z.string().url(),
     NODE_ENV: z.enum(['production', 'development']),
-    ENV: z.enum(['localhost', 'NAV_NO']),
+    ENV: z.enum(['localhost', 'dev', 'prod']),
     IS_LOCAL_PROD: z.boolean().optional(),
     HOST: z.string().url(),
     VARSEL_API_URL: z.string().url(),
@@ -46,5 +46,5 @@ export const client_env = {
     CASETYPE_ID: process.env.CASETYPE_ID,
     NAV_GROUP_ID: process.env.NAV_GROUP_ID,
     BOOST_ENVIRONMENT: process.env.BOOST_ENVIRONMENT as BoostEnviroment,
-    ENV: serverEnv.NODE_ENV
+    ENV: serverEnv.NODE_ENV,
 };
