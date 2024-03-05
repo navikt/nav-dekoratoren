@@ -46,8 +46,8 @@ env:
   - name: BOOST_ENVIRONMENT
     value: "nav"
 replicas:
-  min: 1
-  max: 2
+  min: 2
+  max: 40
 resources:
   requests:
     cpu: 100m
