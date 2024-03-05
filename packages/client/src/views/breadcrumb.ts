@@ -20,6 +20,4 @@ class Breadcrumb extends LenkeMedSporingElement {
     }
 }
 
-customElements.define('d-breadcrumb', Breadcrumb, {
-    extends: 'a',
-});
+customElements.define('d-breadcrumb', Breadcrumb);
