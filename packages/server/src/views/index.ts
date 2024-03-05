@@ -49,7 +49,6 @@ const partytownInlineScript: AssetFormatter = (code) => `<script type="text/part
 
 const cssLink: AssetFormatter = (src) => `<link type="text/css" rel="stylesheet" href="${src}" />`;
 
-const hostUrl: AssetFormatter = (src) => `${env.HOST ?? ``}${src}`;
 export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
 type EnvAssets = Record<NodeEnv, string>;
@@ -65,7 +64,7 @@ export const getEnvAssets = async () => {
     const scripts: EnvAssets = {
         production: [
             script(cdnUrl(manifest[entryPointPath].file)),
-            asyncScript(hostUrl(`/public/${manifest[entryPointPathAnalytics].file}`)),
+            asyncScript(cdnUrl(manifest[entryPointPathAnalytics].file)),
             asyncScript(vendorScripts.taskAnalytics),
             [inlineVendorScripts.hotjar].map(asyncScriptInline).join(''),
         ].join(''),
@@ -86,13 +85,13 @@ export const getEnvAssets = async () => {
 const assets = await getEnvAssets();
 
 export function Index({
-                          language,
-                          header,
-                          footer,
-                          decoratorData,
-                          maskDocument = false,
-                          main,
-                      }: {
+    language,
+    header,
+    footer,
+    decoratorData,
+    maskDocument = false,
+    main,
+}: {
     language: Language;
     header: Template;
     footer: Template;
@@ -105,31 +104,29 @@ export function Index({
     return html`
         <!doctype html>
         <html lang="${language}" ${maskDocument ? 'data-hj-supress' : ''}>
-        <head>
-            <title>${'NAV Dekoratør'}</title>
-            <link
-                rel="preload"
-                href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
-                as="font"
-                type="font/woff2"
-                crossorigin="anonymous"
-            />
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </head>
-        <body>
-        <div id="styles" style="display:none">${unsafeHtml(links)}</div>
-        <div id="header-withmenu">
-            ${header}
-        </div>
-        <main style="height:2000px;">
-            ${Button({
-                text: 'Test amplitude!',
-                variant: 'primary',
-                id: 'amplitude-test',
-            })}
-            <button
-                onclick="(() => {
+            <head>
+                <title>${'NAV Dekoratør'}</title>
+                <link
+                    rel="preload"
+                    href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
+                    as="font"
+                    type="font/woff2"
+                    crossorigin="anonymous"
+                />
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body>
+                <div id="styles" style="display:none">${unsafeHtml(links)}</div>
+                <div id="header-withmenu">${header}</div>
+                <main style="height:2000px;">
+                    ${Button({
+                        text: 'Test amplitude!',
+                        variant: 'primary',
+                        id: 'amplitude-test',
+                    })}
+                    <button
+                        onclick="(() => {
                 window.postMessage({
                   source: 'decoratorClient',
                   event: 'params',
@@ -139,11 +136,11 @@ export function Index({
                   },
                 })
               })()"
-            >
-                Set breadcrumbs
-            </button>
-            <button
-                onclick="(() => {
+                    >
+                        Set breadcrumbs
+                    </button>
+                    <button
+                        onclick="(() => {
               window.postMessage({
                   source: 'decoratorClient',
                   event: 'params',
@@ -153,11 +150,11 @@ export function Index({
                   },
                 })
               })()"
-            >
-                Set available languages
-            </button>
-            <button
-                onclick="(() => {
+                    >
+                        Set available languages
+                    </button>
+                    <button
+                        onclick="(() => {
               window.postMessage({
                   source: 'decoratorClient',
                   event: 'params',
@@ -166,34 +163,34 @@ export function Index({
                   },
                 })
               })()"
-            >
-                Markup was updated
-            </button>
-            <div>${main}</div>
-            <script>
-                window.addEventListener('message', (e) => {
-                    if (e.data.source === 'decorator') {
-                        if (e.data.event === 'languageSelect') {
-                            window.postMessage({
-                                source: 'decoratorClient',
-                                event: 'params',
-                                payload: {
-                                    language: e.data.payload.locale,
-                                },
-                            });
-                        }
-                    }
-                });
-            </script>
-        </main>
-        <div id="footer-withmenu">${footer}</div>
-        <div id="scripts" style="display:none">
-            ${unsafeHtml(scripts)}${decoratorData}
-            <script>
-                window.__DECORATOR_DATA__ = JSON.parse(document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '');
-            </script>
-        </div>
-        </body>
+                    >
+                        Markup was updated
+                    </button>
+                    <div>${main}</div>
+                    <script>
+                        window.addEventListener('message', (e) => {
+                            if (e.data.source === 'decorator') {
+                                if (e.data.event === 'languageSelect') {
+                                    window.postMessage({
+                                        source: 'decoratorClient',
+                                        event: 'params',
+                                        payload: {
+                                            language: e.data.payload.locale,
+                                        },
+                                    });
+                                }
+                            }
+                        });
+                    </script>
+                </main>
+                <div id="footer-withmenu">${footer}</div>
+                <div id="scripts" style="display:none">
+                    ${unsafeHtml(scripts)}${decoratorData}
+                    <script>
+                        window.__DECORATOR_DATA__ = JSON.parse(document.getElementById('__DECORATOR_DATA__')?.innerHTML ?? '');
+                    </script>
+                </div>
+            </body>
         </html>
     `;
 }
