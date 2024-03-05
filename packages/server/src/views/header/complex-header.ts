@@ -53,7 +53,7 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                 })}
                             </lenke-med-sporing>
                             <div class="${cls.arbeidsflate}">
-                                ${language === 'nb' &&
+                                ${(language === 'nb' || language === 'nn') &&
                                 contextLinks?.map(
                                     ({ url, lenkeTekstId, context }) =>
                                         html` <context-link
