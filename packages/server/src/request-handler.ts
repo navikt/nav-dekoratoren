@@ -167,6 +167,7 @@ const requestHandler = async (
                         .with('arbeidsgiver', () =>
                             ArbeidsgiverUserMenu({
                                 texts: localTexts,
+                                href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL
                             })
                         )
                         .with('samarbeidspartner', () =>

@@ -13,5 +13,8 @@ export default meta;
 type Story = StoryObj<ArbeidsgiverUserMenuProps>;
 
 export const Default: Story = {
-    args: { texts: texts.nb },
+    args: {
+        texts: texts.nb,
+        href: 'min/side'
+    },
 };

@@ -13,6 +13,7 @@
     padding: var(--a-spacing-3);
     border-radius: var(--a-border-radius-medium);
     border: 2px solid var(--a-transparent);
+    text-decoration: none;
 }
 
 .arbeidsgiverUserMenu:hover {
