@@ -55,7 +55,8 @@ export const paramsSchema = z.object({
     chatbotVisible: z.boolean().default(false),
     urlLookupTable: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
-    logoutUrl: z.string().url(),
+    // @TODO: Validering av domenet
+    logoutUrl: z.string().default(''),
     maskHotjar: z.boolean().default(false),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
