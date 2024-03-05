@@ -7,8 +7,6 @@ outboundHosts:
   - www.intern.dev.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
-  - portal-admin-q6.oera.no
-
 env:
   - name: ENV
     value: NAV_NO

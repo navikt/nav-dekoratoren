@@ -22,6 +22,11 @@ spec:
   prometheus:
     enabled: true
     path: {{appPath}}/metrics
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: false
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
@@ -32,9 +37,6 @@ spec:
         {{#each outboundHosts as |host|}}
         - host: {{host}}
         {{/each}}
-      rules:
-        - application: tms-varsel-api
-          namespace: min-side
     inbound:
       rules:
         - application: "*"
@@ -44,6 +46,12 @@ spec:
     - name: {{var.name}}
       value: {{var.value}}
   {{/each}}
+  envFrom:
+    - secret: nav-dekoratoren
+    - secret: nav-dekoratoren-unleash-api-token
+  filesFrom:
+    - configmap: dekoratoren-config
+      mountPath: /app/config
   replicas:
   {{#with replicas}}
     min: {{min}}

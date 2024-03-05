@@ -8,7 +8,7 @@ class ArchivableNotificaton extends HTMLElement {
             this.querySelector('button')?.addEventListener('click', () =>
                 api.archive({ eventId: id }).then(() => {
                     this.parentElement?.remove();
-                    window.logAmplitudeEvent(...analyticsEvents.akrivertBeskjed);
+                    window.logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
                 })
             );
         }
