@@ -1,7 +1,5 @@
 import { getLogOutUrl } from 'decorator-shared/auth';
-import { Context, Language } from 'decorator-shared/params';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
-import { makeContextLinks } from 'decorator-shared/context';
 import { match } from 'ts-pattern';
 import ContentService from './content-service';
 import { handleCors } from './cors';
@@ -16,19 +14,16 @@ import TaConfigService from './task-analytics-service';
 import { texts } from './texts';
 import UnleashService from './unleash-service';
 import { validParams } from './validateParams';
-import { DecoratorUtils } from './views/decorator-utils';
 import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
-import { ComplexHeader } from './views/header/complex-header';
 import { MainMenu } from './views/header/main-menu';
-import { SimpleHeader } from './views/header/simple-header';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
 import { IconButton } from './views/icon-button';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
 import { NotificationsService } from './notifications-service';
-import { isExternallyAvailable } from 'decorator-shared/utils';
 import { assetsHandlers } from './handlers/assets-handler';
+import { makeFrontpageUrl } from 'decorator-shared/urls';
 import { csrHandler } from './csr';
 
 type FileSystemService = {
@@ -45,21 +40,6 @@ const rewriter = new HTMLRewriter().on('img', {
         }
     },
 });
-
-const frontPageUrl = (context: Context, language: Language) => {
-    if (language === 'en') {
-        return `${process.env.XP_BASE_URL}/en/home`;
-    }
-
-    switch (context) {
-        case 'privatperson':
-            return `${process.env.XP_BASE_URL}/`;
-        case 'arbeidsgiver':
-            return `${process.env.XP_BASE_URL}/no/bedrift`;
-        case 'samarbeidspartner':
-            return `${process.env.XP_BASE_URL}/no/samarbeidspartner`;
-    }
-};
 
 const requestHandler = async (
     contentService: ContentService,
@@ -138,10 +118,17 @@ const requestHandler = async (
         .get('/main-menu', async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
+
+            const frontPageUrl = makeFrontpageUrl({
+                context: data.context,
+                language: data.language,
+                baseUrl: process.env.XP_BASE_URL,
+            });
+
             return new Response(
                 MainMenu({
                     title: data.context === 'privatperson' ? localTexts.how_can_we_help : localTexts[`rolle_${data.context}`],
-                    frontPageUrl: frontPageUrl(data.context, data.language),
+                    frontPageUrl,
                     texts: localTexts,
                     links: await contentService.getMainMenuLinks({
                         language: data.language,
@@ -225,7 +212,6 @@ const requestHandler = async (
                 contentService,
             });
 
-
             return rewriter.transform(r().html(header.render()).build());
         })
         .get('/footer', async ({ query }) => {
@@ -292,7 +278,8 @@ const requestHandler = async (
 
         const response = await handler.handler({
             request,
-            url,
+            // @ts-expect-error Mismatch of URL lib types
+            url: url,
             query: Object.fromEntries(url.searchParams),
         });
 

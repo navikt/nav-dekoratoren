@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { makeEndpointFactory, makeLoginUrl } from 'lib/urls';
+import { makeEndpointFactory, makeFrontpageUrl, makeLoginUrl } from 'lib/urls';
 
 const dummyEnv = {
     LOGIN_URL: 'https://www.nav.no/login',
@@ -71,5 +71,49 @@ describe('URLs', () => {
         });
 
         expect(loginUrl).toBe(`https://www.nav.no/login?redirect=${dummyEnv.MIN_SIDE_URL}&level=Level3&locale=nb`);
+    });
+});
+
+describe('Frontpage URLs', () => {
+    const baseUrl = 'https://www.nav.no';
+
+    it('Should redirect to /en/home if the language is en', () => {
+        const url = makeFrontpageUrl({
+            language: 'en',
+            context: 'privatperson',
+            baseUrl,
+        });
+
+        expect(url).toBe('https://www.nav.no/en/home');
+    });
+
+    it('Should redirect to / for privatperson context', () => {
+        const url = makeFrontpageUrl({
+            language: 'nb',
+            context: 'privatperson',
+            baseUrl,
+        });
+
+        expect(url).toBe('https://www.nav.no/');
+    });
+
+    it('Should redirect to /no/bedrift for arbeidsgiver context', () => {
+        const url = makeFrontpageUrl({
+            language: 'nb',
+            context: 'arbeidsgiver',
+            baseUrl,
+        });
+
+        expect(url).toBe('https://www.nav.no/no/bedrift');
+    });
+
+    it('Should redirect to /no/samarbeidspartner for arbeidsgiver context', () => {
+        const url = makeFrontpageUrl({
+            language: 'nb',
+            context: 'samarbeidspartner',
+            baseUrl,
+        });
+
+        expect(url).toBe('https://www.nav.no/no/samarbeidspartner');
     });
 });
