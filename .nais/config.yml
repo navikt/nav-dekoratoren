@@ -14,10 +14,10 @@ spec:
   image: {{image}}
   port: 8089
   liveness:
-    path: /api/isAlive
+    path: {{appPath}}/api/isAlive
     initialDelay: 10
   readiness:
-    path: /api/isReady
+    path: {{appPath}}/api/isReady
     initialDelay: 10
   prometheus:
     enabled: true
@@ -32,9 +32,9 @@ spec:
         {{#each outboundHosts as |host|}}
         - host: {{host}}
         {{/each}}
-    rules:
-        -   application: tms-varsel-api
-            namespace: min-side
+      rules:
+        - application: tms-varsel-api
+          namespace: min-side
     inbound:
       rules:
         - application: "*"
@@ -57,4 +57,3 @@ spec:
     limits:
       memory: {{limits.memory}}
   {{/with}}
-

@@ -12,8 +12,6 @@ jobs:
       id-token: write
       contents: read
     with:
-      NAIS_VARS: .nais/vars/dev-beta-navno.yml
-      IMAGE_NAME: decorator-next
+      DEPLOY_INSTANCE: dev-beta-navno
       CLUSTER: dev-gcp
     secrets: inherit
-

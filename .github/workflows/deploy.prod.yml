@@ -6,13 +6,11 @@ on:
 jobs:
   deploy:
     permissions:
-      packages: write
       id-token: write
       contents: read
     if: github.event.release.target_commitish == 'main'
     uses: ./.github/workflows/build-and-deploy.yml
     with:
-      NAIS_VARS: .nais/vars/prod.yml
-      IMAGE_NAME: release-${{ github.ref_name }}
+      DEPLOY_INSTANCE: prod
       CLUSTER: prod-gcp
     secrets: inherit

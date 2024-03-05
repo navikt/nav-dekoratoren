@@ -9,12 +9,9 @@ jobs:
   deploy:
     uses: ./.github/workflows/build-and-deploy.yml
     permissions:
-      packages: write
       id-token: write
       contents: read
     with:
-      NAIS_VARS: .nais/vars/beta.yml
-      IMAGE_NAME: decorator-next
+      DEPLOY_INSTANCE: dev-beta-tms
       CLUSTER: dev-gcp
     secrets: inherit
-
