@@ -17,11 +17,13 @@ class ChatbotWrapper extends HTMLElement {
 
     connectedCallback() {
         const hasConversation = Cookies.get(conversationCookieName);
+        const chatbotVisibleParam = window.__DECORATOR_DATA__.params.chatbotVisible;
         const chatbotParam = window.__DECORATOR_DATA__.params.chatbot;
-        const isVisible = hasConversation || chatbotParam;
+
+        const isVisible = hasConversation || chatbotVisibleParam;
         const chatbotFlagEnabled = window.__DECORATOR_DATA__.features['dekoratoren.chatbotscript'];
 
-        if (!isVisible || !chatbotFlagEnabled) {
+        if (!chatbotParam || !isVisible || !chatbotFlagEnabled) {
             return;
         }
 
