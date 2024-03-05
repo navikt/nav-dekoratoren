@@ -9,7 +9,7 @@ outboundHosts:
   - tokendings.dev-gcp.nais.io
 env:
   - name: ENV
-    value: NAV_NO
+    value: dev
   - name: HOST
     value: https://dekoratoren-beta-tms.intern.dev.nav.no
   - name: CDN_URL
