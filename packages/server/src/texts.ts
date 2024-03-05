@@ -133,7 +133,7 @@ export const texts: Record<Language, Texts> = {
         meny_bunnlenke_samarbeidspartner_stikkord: 'Health personnel, intervention organizers, counties and municipalities',
         loading_notifications: 'Loading notifications',
         notifications_error: 'Error loading notifications',
-        how_can_we_help: 'What can we help you with?',
+        how_can_we_help: 'How can we help you?',
         showing: 'Showing',
         of: 'of',
         results: 'results',
