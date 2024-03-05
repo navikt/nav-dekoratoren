@@ -1,4 +1,4 @@
-appName: nav-dekoratoren-sandbox
+appName: decorator-next
 appPath: ''
 ingresses:
   - https://decorator-next.ekstern.dev.nav.no
