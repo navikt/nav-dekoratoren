@@ -1,6 +1,9 @@
-name: Deploy to dev
+name: Deploy to sandbox
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -9,6 +12,6 @@ jobs:
       id-token: write
       contents: read
     with:
-      DEPLOY_INSTANCE: dev-stable
+      DEPLOY_INSTANCE: dev-sandbox
       CLUSTER: dev-gcp
     secrets: inherit

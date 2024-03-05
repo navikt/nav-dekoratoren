@@ -1,22 +1,17 @@
-name: test
-
+name: Build and run tests
 on:
+  push:
   pull_request:
     branches:
       - main
 
-env:
-  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
 jobs:
-  test:
-    name: test
+  build-and-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
-      packages: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: '1.0.29'

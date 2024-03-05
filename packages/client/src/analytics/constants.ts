@@ -19,7 +19,7 @@ export type AnalyticsActions =
 // type AnalyticsEvents = Record<string, AnalyticsEvent>;
 
 export const analyticsEvents = {
-    akrivertBeskjed: [
+    arkivertBeskjed: [
         'arkivert-beskjed',
         {
             komponent: 'varsler-beskjed-arkiverbar',

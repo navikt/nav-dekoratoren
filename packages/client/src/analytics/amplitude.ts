@@ -80,6 +80,7 @@ export const logAmplitudeEvent = (eventName: string, eventData: EventData = {}, 
                 origin,
                 originVersion: eventData.originVersion || 'unknown',
                 viaDekoratoren: true,
+                fromNext: true,
             },
             resolve
         );

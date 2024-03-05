@@ -2,10 +2,7 @@ name: Build and deploy to nais
 on:
   workflow_call:
     inputs:
-      NAIS_VARS:
-        required: true
-        type: string
-      IMAGE_NAME:
+      DEPLOY_INSTANCE:
         required: true
         type: string
       CLUSTER:
@@ -16,15 +13,13 @@ jobs:
   build_and_deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
+    environment: ${{ inputs.DEPLOY_INSTANCE }}
     permissions:
       contents: read
-      packages: write
       id-token: write
-    env:
-      image: ghcr.io/${{ github.repository }}:${{ inputs.IMAGE_NAME }}-${{ github.sha }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
@@ -43,7 +38,6 @@ jobs:
           cdn-team-name: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
-
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
         id: docker-push
@@ -51,11 +45,10 @@ jobs:
           team: personbruker
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          image_suffix: ${{ inputs.environment }}
-
-      - uses: nais/deploy/actions/deploy@master
+          image_suffix: ${{ inputs.DEPLOY_INSTANCE }}
+      - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config.yml
-          VAR: image=${{ steps.docker-push.outputs.image }},BUILD_ID=${{ github.sha }}
-          VARS: ${{ inputs.NAIS_VARS }}
+          VAR: image=${{ steps.docker-push.outputs.image }}
+          VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
