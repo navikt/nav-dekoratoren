@@ -25,7 +25,3 @@ export class LenkeMedSporingElement extends CustomLinkElement {
 }
 
 customElements.define('lenke-med-sporing', LenkeMedSporingElement);
-
-/*
- * Definerer en helper funksjon for rendering siden det er mange paramtere som er viktig at typesjekkes
- * */
