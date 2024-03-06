@@ -1,6 +1,7 @@
 import { lazyLoadScreensharing, startCall } from '../screensharing';
 import cls from '../styles/screensharing-modal.module.css';
 import clsInputs from '../styles/inputs.module.css';
+import { param } from '../params';
 
 export class ScreensharingModal extends HTMLElement {
     dialog!: HTMLDialogElement;
@@ -28,6 +29,10 @@ export class ScreensharingModal extends HTMLElement {
     }
 
     async connectedCallback() {
+        if (param('shareScreen') == false) {
+            return;
+        }
+
         this.dialog = this.querySelector('dialog') as HTMLDialogElement;
         this.input = this.querySelector('input#screensharing_code') as HTMLInputElement;
         this.confirmButton = this.querySelector(`.${cls.confirmButton}`) as HTMLButtonElement;
