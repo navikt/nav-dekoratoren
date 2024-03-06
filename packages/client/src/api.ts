@@ -2,8 +2,8 @@ import { LoginLevel } from 'decorator-shared/params';
 
 export type Auth = {
     authenticated: boolean;
-    name: string;
-    securityLevel: string;
+    name?: string;
+    securityLevel?: string;
 };
 
 // @TODO: Implement handling of API errors

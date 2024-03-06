@@ -8,7 +8,9 @@ class UserMenu extends HTMLElement {
     private readonly responseCache: Record<string, string> = {};
 
     // TODO: use a global auth state instead?
-    private authState: Auth | null = null;
+    private authState: Auth = {
+        authenticated: false,
+    };
 
     private updateAuthState(e: CustomEvent<CustomEvents['authupdated']>) {
         this.authState = e.detail.auth;
@@ -25,10 +27,6 @@ class UserMenu extends HTMLElement {
     }
 
     private async fetchMenuHtml() {
-        if (!this.authState?.authenticated) {
-            return null;
-        }
-
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
             name: this.authState.name,
             level: `Level${this.authState.securityLevel}` as LoginLevel,
@@ -45,11 +43,15 @@ class UserMenu extends HTMLElement {
     }
 
     private async populateLoggedInMenu() {
+        // TODO: some sort of placeholder while awaiting auth state?
+        if (!this.authState.authenticated) {
+            return;
+        }
+
         const cacheKey = this.getCacheKey();
         const cachedHtml = this.responseCache[cacheKey];
 
         if (cachedHtml) {
-            console.log('Found user menu in cache');
             this.innerHTML = cachedHtml;
             return;
         }
@@ -65,6 +67,8 @@ class UserMenu extends HTMLElement {
             })
             .catch((e) => {
                 console.error(`Failed to fetch logged in menu - ${e}`);
+                // TODO: better error handling
+                this.innerHTML = 'Kunne ikke laste innlogget meny';
             });
     }
 
