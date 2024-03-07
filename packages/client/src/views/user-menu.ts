@@ -12,20 +12,6 @@ class UserMenu extends HTMLElement {
         authenticated: false,
     };
 
-    private updateAuthState(e: CustomEvent<CustomEvents['authupdated']>) {
-        this.authState = e.detail.auth;
-        this.populateLoggedInMenu();
-    }
-
-    private updateMenu(e: CustomEvent<CustomEvents['paramsupdated']>) {
-        const contextFromParams = e.detail.params?.context;
-        if (!contextFromParams) {
-            return;
-        }
-
-        this.populateLoggedInMenu();
-    }
-
     private async fetchMenuHtml(auth: AuthLoggedIn) {
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
             name: auth.name,
@@ -72,9 +58,20 @@ class UserMenu extends HTMLElement {
             });
     }
 
+    private updateAuthState = (e: CustomEvent<CustomEvents['authupdated']>) => {
+        this.authState = e.detail.auth;
+        this.populateLoggedInMenu();
+    };
+
+    private updateMenu = (e: CustomEvent<CustomEvents['paramsupdated']>) => {
+        if (e.detail.params?.context) {
+            this.populateLoggedInMenu();
+        }
+    };
+
     private connectedCallback() {
-        window.addEventListener('paramsupdated', this.updateMenu.bind(this));
-        window.addEventListener('authupdated', this.updateAuthState.bind(this));
+        window.addEventListener('paramsupdated', this.updateMenu);
+        window.addEventListener('authupdated', this.updateAuthState);
     }
 
     private disconnectedCallback() {
