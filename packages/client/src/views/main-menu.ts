@@ -1,31 +1,52 @@
 import { formatParams } from 'decorator-shared/json';
 import { Context } from 'decorator-shared/params';
 import { CustomEvents } from '../events';
+import { ClientSideMenuCache } from '../helpers/cache';
 
 class MainMenu extends HTMLElement {
-    fetchMenuContent = (context?: Context) =>
+    private readonly responseCache = new ClientSideMenuCache();
+
+    private fetchMenuContent = (context: Context) =>
         fetch(
             `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?${formatParams({
                 ...window.__DECORATOR_DATA__.params,
-                context: context || window.__DECORATOR_DATA__.params.context,
+                context,
             })}`
-        )
-            .then((response) => response.text())
-            .then((html) => {
-                this.innerHTML = html;
-            });
+        ).then((response) => response.text());
 
-    onContextChange = (e: CustomEvent<CustomEvents['activecontext']>) => {
-        this.fetchMenuContent(e.detail.context);
-    };
-
-    connectedCallback() {
-        window.addEventListener('activecontext', this.onContextChange);
-
-        setTimeout(() => this.fetchMenuContent(), 0);
+    private buildCacheKey(context: Context) {
+        const { language } = window.__DECORATOR_DATA__.params;
+        return `${context}_${language}`;
     }
 
-    disconnectedCallback() {
+    private updateMenuContent = (context?: Context) => {
+        const contextActual = context || window.__DECORATOR_DATA__.params.context;
+        const cacheKey = this.buildCacheKey(contextActual);
+
+        this.responseCache
+            .get(cacheKey, () => this.fetchMenuContent(contextActual))
+            .then((html) => {
+                if (!html) {
+                    // TODO: better error handling
+                    console.error('Failed to fetch content for main-menu');
+                    this.innerHTML = 'Kunne ikke laste meny-innhold';
+                    return;
+                }
+
+                this.innerHTML = html;
+            });
+    };
+
+    private onContextChange = (e: CustomEvent<CustomEvents['activecontext']>) => {
+        this.updateMenuContent(e.detail.context);
+    };
+
+    private connectedCallback() {
+        window.addEventListener('activecontext', this.onContextChange);
+        setTimeout(() => this.updateMenuContent(), 0);
+    }
+
+    private disconnectedCallback() {
         window.removeEventListener('activecontext', this.onContextChange);
     }
 }

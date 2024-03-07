@@ -2,19 +2,20 @@ import { CustomEvents } from '../events';
 import { makeEndpointFactory } from 'decorator-shared/urls';
 import { env } from '../params';
 import { Auth, AuthLoggedIn } from '../api';
+import { ClientSideMenuCache } from '../helpers/cache';
 
 class UserMenu extends HTMLElement {
-    private readonly responseCache: Record<string, string> = {};
+    private readonly responseCache = new ClientSideMenuCache();
 
     // TODO: use a global auth state instead?
     private authState: Auth = {
         authenticated: false,
     };
 
-    private async fetchMenuHtml(auth: AuthLoggedIn) {
+    private async fetchMenuHtml(name: string, securityLevel: AuthLoggedIn['securityLevel']) {
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
-            name: auth.name,
-            level: `Level${auth.securityLevel}`,
+            name,
+            level: `Level${securityLevel}`,
         });
 
         return fetch(url, {
@@ -22,7 +23,7 @@ class UserMenu extends HTMLElement {
         }).then((res) => res.text());
     }
 
-    private getCacheKey(auth: AuthLoggedIn) {
+    private buildCacheKey(auth: AuthLoggedIn) {
         const { context, language } = window.__DECORATOR_DATA__.params;
         return `${context}_${language}_${auth.securityLevel}`;
     }
@@ -33,27 +34,20 @@ class UserMenu extends HTMLElement {
             return;
         }
 
-        const cacheKey = this.getCacheKey(this.authState);
-        const cachedHtml = this.responseCache[cacheKey];
+        const cacheKey = this.buildCacheKey(this.authState);
+        const { name, securityLevel } = this.authState;
 
-        if (cachedHtml) {
-            this.innerHTML = cachedHtml;
-            return;
-        }
-
-        this.fetchMenuHtml(this.authState)
+        this.responseCache
+            .get(cacheKey, () => this.fetchMenuHtml(name, securityLevel))
             .then((html) => {
                 if (!html) {
-                    throw Error('No HTML found!');
+                    // TODO: better error handling
+                    console.error('Failed to fetch content for user-menu');
+                    this.innerHTML = 'Kunne ikke laste innlogget meny';
+                    return;
                 }
 
                 this.innerHTML = html;
-                this.responseCache[cacheKey] = html;
-            })
-            .catch((e) => {
-                console.error(`Failed to fetch logged in menu - ${e}`);
-                // TODO: better error handling
-                this.innerHTML = 'Kunne ikke laste innlogget meny';
             });
     }
 
