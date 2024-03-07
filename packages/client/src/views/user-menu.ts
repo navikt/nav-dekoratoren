@@ -1,5 +1,4 @@
 import { CustomEvents } from '../events';
-import { LoginLevel } from 'decorator-shared/params';
 import { makeEndpointFactory } from 'decorator-shared/urls';
 import { env } from '../params';
 import { Auth, AuthLoggedIn } from '../api';
@@ -15,7 +14,7 @@ class UserMenu extends HTMLElement {
     private async fetchMenuHtml(auth: AuthLoggedIn) {
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
             name: auth.name,
-            level: `Level${auth.securityLevel}` as LoginLevel,
+            level: `Level${auth.securityLevel}`,
         });
 
         return fetch(url, {
