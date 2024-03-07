@@ -38,8 +38,8 @@ class UserMenu extends HTMLElement {
     }
 
     private getCacheKey() {
-        const { context, level, language } = window.__DECORATOR_DATA__.params;
-        return `${context}_${language}_${level}`;
+        const { context, language } = window.__DECORATOR_DATA__.params;
+        return `${context}_${language}_${this.authState.securityLevel || 'none'}`;
     }
 
     private async populateLoggedInMenu() {
