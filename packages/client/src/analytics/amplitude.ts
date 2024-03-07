@@ -1,8 +1,6 @@
 import amplitude from 'amplitude-js';
 import { Params } from 'decorator-shared/params';
 import { Auth } from '../api';
-// import { Params } from 'store/reducers/environment-duck';
-// import { InnloggingsstatusState } from '../../store/reducers/innloggingsstatus-duck';
 
 type EventData = Record<string, any>;
 
@@ -59,10 +57,10 @@ export const logPageView = (params: Params, authState: Auth) => {
     console.log('Logging page view', params, authState);
     return logAmplitudeEvent('besøk', {
         sidetittel: document.title,
-        innlogging: authState.securityLevel ?? false,
+        innlogging: authState.authenticated ? authState.securityLevel : false,
         parametre: {
             ...params,
-            BREADCRUMBS: !!(params?.breadcrumbs && params.breadcrumbs.length > 0),
+            BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
             ...(params.availableLanguages && {
                 availableLanguages: params.availableLanguages.map((lang) => lang.locale),
             }),

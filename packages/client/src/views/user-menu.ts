@@ -2,7 +2,7 @@ import { CustomEvents } from '../events';
 import { LoginLevel } from 'decorator-shared/params';
 import { makeEndpointFactory } from 'decorator-shared/urls';
 import { env } from '../params';
-import { Auth } from '../api';
+import { Auth, AuthLoggedIn } from '../api';
 
 class UserMenu extends HTMLElement {
     private readonly responseCache: Record<string, string> = {};
@@ -26,10 +26,10 @@ class UserMenu extends HTMLElement {
         this.populateLoggedInMenu();
     }
 
-    private async fetchMenuHtml() {
+    private async fetchMenuHtml(auth: AuthLoggedIn) {
         const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
-            name: this.authState.name,
-            level: `Level${this.authState.securityLevel}` as LoginLevel,
+            name: auth.name,
+            level: `Level${auth.securityLevel}` as LoginLevel,
         });
 
         return fetch(url, {
@@ -37,9 +37,9 @@ class UserMenu extends HTMLElement {
         }).then((res) => res.text());
     }
 
-    private getCacheKey() {
+    private getCacheKey(auth: AuthLoggedIn) {
         const { context, language } = window.__DECORATOR_DATA__.params;
-        return `${context}_${language}_${this.authState.securityLevel || 'none'}`;
+        return `${context}_${language}_${auth.securityLevel}`;
     }
 
     private async populateLoggedInMenu() {
@@ -48,7 +48,7 @@ class UserMenu extends HTMLElement {
             return;
         }
 
-        const cacheKey = this.getCacheKey();
+        const cacheKey = this.getCacheKey(this.authState);
         const cachedHtml = this.responseCache[cacheKey];
 
         if (cachedHtml) {
@@ -56,7 +56,7 @@ class UserMenu extends HTMLElement {
             return;
         }
 
-        this.fetchMenuHtml()
+        this.fetchMenuHtml(this.authState)
             .then((html) => {
                 if (!html) {
                     throw Error('No HTML found!');
