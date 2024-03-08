@@ -17,7 +17,7 @@ export type CustomEvents = {
     menuopened: void;
     menuclosed: void;
     clearsearch: void;
-    closemenus: void;
+    closemenus: void; // Currently fired only from other apps
 };
 
 export type MessageEvents =
