@@ -17,7 +17,7 @@ import { validParams } from './validateParams';
 import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
-import { IconButton } from './views/icon-button';
+import { AnchorIconButton, IconButton } from './views/icon-button';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
@@ -152,6 +152,7 @@ const requestHandler = async (
                     // This should be merged with params.
                     const logoutUrl = getLogOutUrl(data);
 
+                    // @TODO: Tests for important urls, like logout
                     return match(data.context)
                         .with('privatperson', async () =>
                             UserMenuDropdown({
@@ -174,9 +175,9 @@ const requestHandler = async (
                             })
                         )
                         .with('samarbeidspartner', () =>
-                            IconButton({
-                                id: 'logout-button',
+                            AnchorIconButton({
                                 Icon: LogoutIcon({}),
+                                href: logoutUrl,
                                 text: localTexts.logout,
                             })
                         )
