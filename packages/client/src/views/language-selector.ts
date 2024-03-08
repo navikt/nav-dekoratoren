@@ -64,7 +64,7 @@ export class LanguageSelector extends HTMLElement {
         };
 
         this.options = [];
-        this.classList.toggle(cls.empty, availableLanguages.length === 0);
+        this.container.classList.toggle(cls.empty, availableLanguages.length === 0);
         this.menu.replaceChildren(...availableLanguages.map(availableLanguageToLi));
     }
 
