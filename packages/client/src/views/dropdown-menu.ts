@@ -17,7 +17,7 @@ class DropdownMenu extends HTMLElement {
         }
 
         this.classList.toggle(cls.dropdownMenuOpen, open);
-        this.button?.toggleAttribute('aria-expanded');
+        this.button?.setAttribute('aria-expanded', JSON.stringify(open));
         this.#open = open;
         this.dispatchEvent(createEvent(open ? 'menuopened' : 'menuclosed', { bubbles: true }));
     }
