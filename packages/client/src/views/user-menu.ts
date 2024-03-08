@@ -11,19 +11,16 @@ class UserMenu extends HTMLElement {
         authenticated: false,
     };
 
-    private async fetchMenuHtml(name: string, securityLevel: AuthLoggedIn['securityLevel']) {
-        const url = window.makeEndpoint('/user-menu', {
-            name,
-            level: `Level${securityLevel}`,
-        });
+    private async fetchMenuHtml() {
+        const url = window.makeEndpoint('/user-menu');
 
         return fetch(url, {
             credentials: 'include',
         }).then((res) => res.text());
     }
 
-    private buildCacheKey(auth: AuthLoggedIn) {
-        return `${param('context')}_${param('language')}_${auth.securityLevel}`;
+    private buildCacheKey() {
+        return `${param('context')}_${param('language')}`;
     }
 
     private async populateLoggedInMenu() {
@@ -32,11 +29,10 @@ class UserMenu extends HTMLElement {
             return;
         }
 
-        const cacheKey = this.buildCacheKey(this.authState);
-        const { name, securityLevel } = this.authState;
+        const cacheKey = this.buildCacheKey();
 
         this.responseCache
-            .get(cacheKey, () => this.fetchMenuHtml(name, securityLevel))
+            .get(cacheKey, () => this.fetchMenuHtml())
             .then((html) => {
                 if (!html) {
                     // TODO: better error handling

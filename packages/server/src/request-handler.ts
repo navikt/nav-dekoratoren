@@ -136,6 +136,19 @@ const requestHandler = async (
             );
         })
         .get('/user-menu', async ({ query, request }) => {
+            const auth = (await fetch(`${process.env.API_DEKORATOREN_URL}/auth`, { headers: request.headers })
+                .then((res) => res.json())
+                .catch((e) => {
+                    console.error(`Auth error - ${e}`);
+                    return null;
+                })) as any;
+
+            console.log('Auth response', auth);
+
+            if (!auth?.authenticated) {
+                return new Response();
+            }
+
             const template = async () => {
                 const data = validParams(query);
                 const localTexts = texts[data.language];
@@ -145,7 +158,7 @@ const requestHandler = async (
                     return SimpleUserMenu({
                         logoutUrl,
                         texts: localTexts,
-                        name: data.name as string,
+                        name: auth.name as string,
                     });
                 } else {
                     // What should type be here
@@ -157,12 +170,12 @@ const requestHandler = async (
                         .with('privatperson', async () =>
                             UserMenuDropdown({
                                 texts: localTexts,
-                                name: data.name,
+                                name: auth.name,
                                 notifications: await notificationsService.getNotifications({
                                     texts: localTexts,
                                     request,
                                 }),
-                                level: data.level,
+                                level: auth.securityLevel,
                                 logoutUrl: logoutUrl as string,
                                 minsideUrl: clientEnv.MIN_SIDE_URL,
                                 personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
