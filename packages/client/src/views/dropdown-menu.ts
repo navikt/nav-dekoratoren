@@ -1,4 +1,5 @@
 import cls from '../styles/dropdown-menu.module.css';
+import { createEvent } from '../events';
 
 class DropdownMenu extends HTMLElement {
     button: HTMLElement | null = null;
@@ -19,7 +20,7 @@ class DropdownMenu extends HTMLElement {
                 this.button?.removeAttribute('aria-expanded');
             }
             this.#open = open;
-            this.dispatchEvent(new Event(open ? 'menuopened' : 'menuclosed', { bubbles: true }));
+            this.dispatchEvent(createEvent(open ? 'menuopened' : 'menuclosed', { bubbles: true }));
         }
     }
 

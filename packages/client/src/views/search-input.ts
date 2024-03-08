@@ -1,4 +1,5 @@
 import cls from '../styles/search-form.module.css';
+import { createEvent } from '../events';
 
 class SearchInput extends HTMLElement {
     clearButton: HTMLButtonElement | null = null;
@@ -14,7 +15,7 @@ class SearchInput extends HTMLElement {
 
         this.clearButton?.addEventListener('click', () => {
             this.clearButton?.classList.remove(cls.visible);
-            this.dispatchEvent(new Event('clearsearch', { bubbles: true }));
+            this.dispatchEvent(createEvent('clearsearch', { bubbles: true }));
             if (this.input) {
                 this.input.focus();
             }
