@@ -25,6 +25,7 @@ import { NotificationsService } from './notifications-service';
 import { assetsHandlers } from './handlers/assets-handler';
 import { makeFrontpageUrl } from 'decorator-shared/urls';
 import { csrHandler } from './csr';
+import { Auth } from '@navikt/nav-dekoratoren-moduler';
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
@@ -141,7 +142,7 @@ const requestHandler = async (
                 .catch((e) => {
                     console.error(`Auth error - ${e}`);
                     return null;
-                })) as any;
+                })) as Auth | null;
 
             console.log('Auth response', auth);
 
@@ -175,7 +176,7 @@ const requestHandler = async (
                                     texts: localTexts,
                                     request,
                                 }),
-                                level: auth.securityLevel,
+                                level: `Level${auth.securityLevel}`,
                                 logoutUrl: logoutUrl as string,
                                 minsideUrl: clientEnv.MIN_SIDE_URL,
                                 personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
