@@ -31,6 +31,7 @@ export const serverEnv = {
 // https://login.nav.no/oauth2/session
 export const client_env = {
     APP_URL: process.env.HOST,
+    SEARCH_URL: process.env.SEARCH_URL,
     XP_BASE_URL: process.env.XP_BASE_URL,
     LOGOUT_URL: process.env.LOGOUT_URL,
     LOGIN_URL: process.env.LOGIN_URL,
@@ -41,10 +42,6 @@ export const client_env = {
     VARSEL_API_URL: process.env.VARSEL_API_URL,
     API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
     API_SESSION_URL: process.env.API_SESSION_URL,
-    OPPORTUNITY_ID: process.env.OPPORTUNITY_ID,
-    SOLUTION_ID: process.env.SOLUTION_ID,
-    CASETYPE_ID: process.env.CASETYPE_ID,
-    NAV_GROUP_ID: process.env.NAV_GROUP_ID,
     BOOST_ENVIRONMENT: process.env.BOOST_ENVIRONMENT as BoostEnviroment,
     ENV: serverEnv.NODE_ENV,
 };
