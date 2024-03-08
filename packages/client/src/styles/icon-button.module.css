@@ -9,9 +9,14 @@
     white-space: nowrap;
     border-radius: var(--a-border-radius-medium);
     padding: var(--a-spacing-2);
-    border: 2px solid transparent; /* border-2 border-transparent */
+    border: 2px solid transparent;
+    /* border-2 border-transparent */
     background-color: var(--a-surface-default);
     border-color: var(--a-transparent);
+}
+
+.anchorIconButton {
+    text-decoration: none;
 }
 
 @media (min-width: 768px) {

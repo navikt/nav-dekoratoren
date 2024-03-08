@@ -139,8 +139,11 @@ const requestHandler = async (
             const template = async () => {
                 const data = validParams(query);
                 const localTexts = texts[data.language];
+                const logoutUrl = getLogOutUrl(data);
+
                 if (data.simple) {
                     return SimpleUserMenu({
+                        logoutUrl,
                         texts: localTexts,
                         name: data.name as string,
                     });
@@ -167,7 +170,7 @@ const requestHandler = async (
                         .with('arbeidsgiver', () =>
                             ArbeidsgiverUserMenu({
                                 texts: localTexts,
-                                href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL
+                                href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
                             })
                         )
                         .with('samarbeidspartner', () =>

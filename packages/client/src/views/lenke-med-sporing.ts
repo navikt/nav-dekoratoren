@@ -10,8 +10,8 @@ export class LenkeMedSporingElement extends CustomLinkElement {
         const rawEventArgs = this.getAttribute('data-analytics-event-args');
         const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
 
-        this.addEventListener('click', () => {
-            if (eventArgs) {
+        if (eventArgs) {
+            this.addEventListener('click', () => {
                 const payload = {
                     ...eventArgs,
                     ...(attachContext && {
@@ -19,8 +19,8 @@ export class LenkeMedSporingElement extends CustomLinkElement {
                     }),
                 };
                 window.analyticsEvent(payload);
-            }
-        });
+            });
+        }
     }
 }
 

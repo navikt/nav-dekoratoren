@@ -16,6 +16,7 @@ export const OpsMessages = ({ opsMessages }: OpsMessagesProps) => html`
                     data-analytics-event-args="${JSON.stringify({
                         category: 'dekorator-header',
                         action: 'driftsmeldinger',
+                        label: url,
                     })}"
                     href="${url}"
                     class="${cls.opsMessage}"
