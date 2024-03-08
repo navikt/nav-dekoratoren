@@ -28,10 +28,12 @@ class DropdownMenu extends HTMLElement {
 
     connectedCallback() {
         this.button = this.querySelector(':scope > button');
-
-        this.button?.addEventListener('click', () => {
-            this.open = !this.#open;
-        });
+        if (this.button) {
+            this.button.addEventListener('click', () => {
+                this.open = !this.#open;
+            });
+            this.button.setAttribute('aria-expanded', 'false');
+        }
 
         window.addEventListener('click', this.handleWindowClick);
         window.addEventListener('closemenus', this.close);
