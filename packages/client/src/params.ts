@@ -9,7 +9,7 @@ const param = <TKey extends keyof Params>(paramKey: TKey) => {
     return window.__DECORATOR_DATA__.params[paramKey] as Params[TKey];
 };
 
-const env = <TKey extends keyof Environment>(envKey: keyof Environment): string => {
+const env = <TKey extends keyof Environment>(envKey: TKey): string => {
     return window.__DECORATOR_DATA__.env[envKey] as Environment[TKey];
 };
 

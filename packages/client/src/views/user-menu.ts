@@ -1,8 +1,7 @@
 import { CustomEvents } from '../events';
-import { makeEndpointFactory } from 'decorator-shared/urls';
-import { env } from '../params';
 import { Auth, AuthLoggedIn } from '../api';
 import { ClientSideCache } from '../helpers/cache';
+import { param } from '../params';
 
 class UserMenu extends HTMLElement {
     private readonly responseCache = new ClientSideCache();
@@ -13,7 +12,7 @@ class UserMenu extends HTMLElement {
     };
 
     private async fetchMenuHtml(name: string, securityLevel: AuthLoggedIn['securityLevel']) {
-        const url = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'))('/user-menu', {
+        const url = window.makeEndpoint('/user-menu', {
             name,
             level: `Level${securityLevel}`,
         });
@@ -24,8 +23,7 @@ class UserMenu extends HTMLElement {
     }
 
     private buildCacheKey(auth: AuthLoggedIn) {
-        const { context, language } = window.__DECORATOR_DATA__.params;
-        return `${context}_${language}_${auth.securityLevel}`;
+        return `${param('context')}_${param('language')}_${auth.securityLevel}`;
     }
 
     private async populateLoggedInMenu() {

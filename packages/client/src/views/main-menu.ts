@@ -1,26 +1,22 @@
-import { formatParams } from 'decorator-shared/json';
 import { Context } from 'decorator-shared/params';
 import { CustomEvents } from '../events';
 import { ClientSideCache } from '../helpers/cache';
+import { param } from '../params';
 
 class MainMenu extends HTMLElement {
     private readonly responseCache = new ClientSideCache();
 
-    private fetchMenuContent = (context: Context) =>
-        fetch(
-            `${window.__DECORATOR_DATA__.env.APP_URL}/main-menu?${formatParams({
-                ...window.__DECORATOR_DATA__.params,
-                context,
-            })}`
-        ).then((response) => response.text());
+    private async fetchMenuContent(context: Context) {
+        const url = window.makeEndpoint('/main-menu', { context });
+        return fetch(url).then((res) => res.text());
+    }
 
     private buildCacheKey(context: Context) {
-        const { language } = window.__DECORATOR_DATA__.params;
-        return `${context}_${language}`;
+        return `${context}_${param('language')}`;
     }
 
     private updateMenuContent = (context?: Context) => {
-        const contextActual = context || window.__DECORATOR_DATA__.params.context;
+        const contextActual = context || param('context');
         const cacheKey = this.buildCacheKey(contextActual);
 
         this.responseCache
