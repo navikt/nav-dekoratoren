@@ -2,7 +2,7 @@ import cls from 'decorator-client/src/styles/simple-user-menu.module.css';
 import html from 'decorator-shared/html';
 import { Texts } from 'decorator-shared/types';
 import { LogoutIcon } from 'decorator-shared/views/icons/logout';
-import { AnchorIconButton, IconButton } from './icon-button';
+import { AnchorIconButton } from './icon-button';
 
 export type SimpleUserMenuProps = {
     name: string;

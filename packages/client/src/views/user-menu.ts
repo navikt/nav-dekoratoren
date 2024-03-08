@@ -2,10 +2,10 @@ import { CustomEvents } from '../events';
 import { makeEndpointFactory } from 'decorator-shared/urls';
 import { env } from '../params';
 import { Auth, AuthLoggedIn } from '../api';
-import { ClientSideMenuCache } from '../helpers/cache';
+import { ClientSideCache } from '../helpers/cache';
 
 class UserMenu extends HTMLElement {
-    private readonly responseCache = new ClientSideMenuCache();
+    private readonly responseCache = new ClientSideCache();
 
     // TODO: use a global auth state instead?
     private authState: Auth = {

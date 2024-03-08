@@ -1,10 +1,10 @@
 import { formatParams } from 'decorator-shared/json';
 import { Context } from 'decorator-shared/params';
 import { CustomEvents } from '../events';
-import { ClientSideMenuCache } from '../helpers/cache';
+import { ClientSideCache } from '../helpers/cache';
 
 class MainMenu extends HTMLElement {
-    private readonly responseCache = new ClientSideMenuCache();
+    private readonly responseCache = new ClientSideCache();
 
     private fetchMenuContent = (context: Context) =>
         fetch(

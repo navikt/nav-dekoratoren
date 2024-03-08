@@ -1,6 +1,6 @@
 type Callback<Type> = () => Promise<Type>;
 
-export class ClientSideMenuCache<ValueType = string> {
+export class ClientSideCache<ValueType = string> {
     private readonly cache: Record<string, ValueType> = {};
 
     async get(key: string, callback: Callback<ValueType>): Promise<ValueType | null> {
