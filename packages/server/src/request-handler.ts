@@ -136,7 +136,7 @@ const requestHandler = async (
             );
         })
         .get('/user-menu', async ({ query, request }) => {
-            const auth = (await fetch('http://nav-dekoratoren-api/auth', { headers: request.headers })
+            const auth = (await fetch('http://nav-dekoratoren-api/person/nav-dekoratoren-api/auth', { headers: request.headers })
                 .then((res) => res.json())
                 .catch((e) => {
                     console.error(`Auth error - ${e}`);
