@@ -7,9 +7,9 @@ import html from 'decorator-shared/html';
 import { OpsMessage } from 'decorator-shared/types';
 
 const meta: Meta<OpsMessagesProps> = {
-  title: 'ops-messages',
-  render: (args) =>
-    html`<ops-messages class="${cls.opsMessages}">
+    title: 'ops-messages',
+    render: (args) =>
+        html`<ops-messages class="${cls.opsMessages}">
       <div class="${cls.opsMessagesContent} ${utilCls.contentContainer}">
         ${OpsMessages(args)}
       </div>
@@ -20,27 +20,27 @@ export default meta;
 type Story = StoryObj<OpsMessagesProps>;
 
 const opsMessage: OpsMessage = {
-  heading: 'Ustabile tjenester søndag 15. januar',
-  url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
-  type: 'prodstatus',
+    heading: 'Ustabile tjenester søndag 15. januar',
+    url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
+    type: 'prodstatus',
 };
 
 export const Single: Story = {
-  args: {
-    opsMessages: [opsMessage],
-  },
+    args: {
+        opsMessages: [opsMessage],
+    },
 };
 
 export const Multiple: Story = {
-  args: {
-    opsMessages: [
-      opsMessage,
-      {
-        heading: 'Svindelforsøk via SMS - vær oppmerksom',
-        url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
-        type: 'info',
-      },
-      opsMessage,
-    ],
-  },
+    args: {
+        opsMessages: [
+            opsMessage,
+            {
+                heading: 'Svindelforsøk via SMS - vær oppmerksom',
+                url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
+                type: 'info',
+            },
+            opsMessage,
+        ],
+    },
 };

@@ -34,6 +34,7 @@ export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     });
 };
 
+
 export const Breadcrumbs = ({ breadcrumbs, localTexts }: BreadcrumbsProps) => {
     validateBreadcrumbs(breadcrumbs);
 
@@ -61,8 +62,7 @@ export const Breadcrumbs = ({ breadcrumbs, localTexts }: BreadcrumbsProps) => {
                               ${index === breadcrumbs.length - 1
                                   ? title
                                   : html`
-                                        <a
-                                            is="d-breadcrumb"
+                                        <d-breadcrumb
                                             data-analytics-event-args="${JSON.stringify({
                                                 ...analyticsEventArgs,
                                                 label: '[redacted]',
@@ -73,7 +73,7 @@ export const Breadcrumbs = ({ breadcrumbs, localTexts }: BreadcrumbsProps) => {
                                             href="${url}"
                                         >
                                             ${title}
-                                        </a>
+                                        </d-breadcrumb>
                                     `}
                               ${index === breadcrumbs.length - 1 ? '' : ForwardChevron()}
                           </li>

@@ -1,25 +1,26 @@
 {
-  "name": "decorator-server",
-  "version": "0.0.1",
-  "module": "src/server.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "bun --watch src/server.ts",
-    "serve": "NODE_ENV=production bun dist/server.js",
-    "serve-local": "NODE_ENV=production HOST=http://localhost:8089 IS_LOCAL_PROD='true' bun --watch src/server.ts",
-    "clean": "rm -rf ./public/assets",
-    "build": "bun run clean && NODE_ENV=production bun run build.ts",
-    "test": "bun test --env-file=.env.sample"
-  },
-  "dependencies": {
-    "decorator-client": "workspace:*",
-    "decorator-shared": "workspace:*",
-    "unleash-client": "^4.1.1",
-    "csp-header": "^5.2.1",
-    "@builder.io/partytown": "^0.8.1"
-  },
-  "devDependencies": {
-    "postcss": "^8.4.30",
-    "postcss-modules": "^6.0.0"
-  }
+    "name": "decorator-server",
+    "version": "0.0.1",
+    "module": "src/server.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "bun --watch src/server.ts",
+        "postinstall": "cp .env.sample .env",
+        "serve": "NODE_ENV=production bun dist/server.js",
+        "serve-local": "NODE_ENV=production HOST=http://localhost:8089 IS_LOCAL_PROD='true' bun --watch src/server.ts",
+        "clean": "rm -rf ./public/assets",
+        "build": "bun run clean && NODE_ENV=production bun run build.ts",
+        "test": "bun test --env-file=./.env.sample"
+    },
+    "dependencies": {
+        "decorator-client": "workspace:*",
+        "decorator-shared": "workspace:*",
+        "unleash-client": "^4.1.1",
+        "csp-header": "^5.2.1",
+        "@builder.io/partytown": "^0.8.1"
+    },
+    "devDependencies": {
+        "postcss": "^8.4.30",
+        "postcss-modules": "^6.0.0"
+    }
 }

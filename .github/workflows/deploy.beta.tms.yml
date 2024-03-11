@@ -1,0 +1,14 @@
+name: Deploy to TMS beta
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/build-and-deploy.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-beta-tms
+      CLUSTER: dev-gcp
+    secrets: inherit

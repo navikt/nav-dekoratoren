@@ -1,0 +1,17 @@
+name: Deploy to sandbox
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/build-and-deploy.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-sandbox
+      CLUSTER: dev-gcp
+    secrets: inherit

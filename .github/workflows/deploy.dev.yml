@@ -1,20 +1,14 @@
 name: Deploy to dev
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   deploy:
     uses: ./.github/workflows/build-and-deploy.yml
     permissions:
-      packages: write
       id-token: write
       contents: read
     with:
-      NAIS_VARS: .nais/vars/dev.yml
-      IMAGE_NAME: decorator-next
+      DEPLOY_INSTANCE: dev-stable
       CLUSTER: dev-gcp
     secrets: inherit
-

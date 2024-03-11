@@ -1,7 +1,6 @@
-import clsx from 'clsx';
 import html from 'decorator-shared/html';
 import { AvailableLanguage } from 'decorator-shared/params';
-import { Texts } from "decorator-shared/types";
+import { Texts } from 'decorator-shared/types';
 import { DownChevronIcon, GlobeIcon } from 'decorator-shared/views/icons';
 import cls from 'decorator-client/src/styles/language-selector.module.css';
 
@@ -18,12 +17,12 @@ export const LanguageSelector = ({
         ? html`
             <language-selector>
                 <nav
-                    class="${clsx(cls.languageSelector, {[cls.empty]: availableLanguages.length === 0})}"
+                    class="${cls.languageSelector}"
                     aria-label="${localTexts.language_selector}"
                 >
                     <button type="button" class="${cls.button}">
                         ${GlobeIcon({ className: cls.icon })}
-                        <span>
+                        <span class="${ cls.label }>
                             <span lang="nb">${'Språk'}</span>/<span lang="en">Language</span>
                         </span>
                         ${DownChevronIcon({ className: cls.icon })}
@@ -31,4 +30,4 @@ export const LanguageSelector = ({
                 </nav>
             </language-selector>`
         : null;
-}
+};

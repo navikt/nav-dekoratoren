@@ -14,10 +14,10 @@ spec:
   image: {{image}}
   port: 8089
   liveness:
-    path: /api/isAlive
+    path: {{appPath}}/api/isAlive
     initialDelay: 10
   readiness:
-    path: /api/isReady
+    path: {{appPath}}/api/isReady
     initialDelay: 10
   prometheus:
     enabled: true
@@ -41,6 +41,12 @@ spec:
     - name: {{var.name}}
       value: {{var.value}}
   {{/each}}
+  envFrom:
+    - secret: nav-dekoratoren
+    - secret: nav-dekoratoren-unleash-api-token
+  filesFrom:
+    - configmap: dekoratoren-config
+      mountPath: /app/config
   replicas:
   {{#with replicas}}
     min: {{min}}
@@ -54,4 +60,3 @@ spec:
     limits:
       memory: {{limits.memory}}
   {{/with}}
-

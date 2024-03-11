@@ -1,53 +1,53 @@
 .button {
-  font: inherit;
-  color: inherit;
-  align-items: center;
-  background: none;
-  border-radius: var(--a-border-radius-medium);
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: center;
-  margin: 0;
-  padding: var(--a-spacing-2) var(--a-spacing-4);
-  text-decoration: none;
+    font: inherit;
+    color: inherit;
+    align-items: center;
+    background: none;
+    border-radius: var(--a-border-radius-medium);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    margin: 0;
+    padding: var(--a-spacing-2) var(--a-spacing-4);
+    text-decoration: none;
 }
 
 .primary {
-  background-color: var(--a-surface-action);
-  color: var(--a-text-on-action);
+    background-color: var(--a-surface-action);
+    color: var(--a-text-on-action);
 }
 
 .secondary {
-  background-color: var(--a-surface-action-subtle);
-  color: var(--a-text-action-on-action-subtle);
+    background-color: var(--a-surface-action-subtle);
+    color: var(--a-text-action-on-action-subtle);
 }
 
 .outline {
-  background-color: var(--a-surface-default);
-  border: 2px solid var(--a-border-action);
-  color: var(--a-text-action);
+    background-color: var(--a-surface-default);
+    border: 2px solid var(--a-border-action);
+    color: var(--a-text-action);
 }
 
 .button.wide {
-  min-width: 109px;
+    min-width: 109px;
 }
 
 .outline:hover {
-  background-color: var(--a-surface-action-subtle-hover);
+    background-color: var(--a-surface-action-subtle-hover);
 }
 
 .ghost {
-  background-color: none;
-  color: var(--a-text-action);
+    background-color: none;
+    color: var(--a-text-action);
 }
 
 .ghost:hover {
-  background-color: var(--a-surface-action-subtle-hover);
+    background-color: var(--a-surface-action-subtle-hover);
 }
 
 .bigLabel {
-  font-size: var(--a-font-size-large);
-  line-height: var(--a-font-line-height-xlarge);
-  font-weight: var(--a-font-weight-bold);
+    font-size: var(--a-font-size-large);
+    line-height: var(--a-font-line-height-xlarge);
+    font-weight: var(--a-font-weight-bold);
 }

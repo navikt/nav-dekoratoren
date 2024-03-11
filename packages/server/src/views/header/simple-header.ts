@@ -9,40 +9,36 @@ import { NavLogo } from 'decorator-shared/views/nav-logo';
 import { LoginButton } from '../login-button';
 
 export type SimpleHeaderProps = {
-  texts: Texts;
-  decoratorUtils: Template;
+    texts: Texts;
+    decoratorUtils: Template;
 };
 
-export const SimpleHeader = ({
-  texts,
-  decoratorUtils,
-}: SimpleHeaderProps) => html`
-  <div id="decorator-header">
-    <header class="${cls.siteheader}">
-      ${SkipLink(texts.skip_link)}
-      <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-        <lenke-med-sporing
-          href="/"
-          class="${cls.logo} ${cls.logoSimple}"
-          data-analytics-event-args="${JSON.stringify({
-            category: 'dekorator-header',
-            action: 'navlogo',
-          })}"
-          data-attach-context
-        >
-          ${NavLogo({
-              title: texts.to_front_page,
-              id: 'dekoratoren-header-logo'
-              })}
-        </lenke-med-sporing>
-        <user-menu class="${menuItemsCls.menuItems}">
-          ${LoginButton({
-            texts: texts,
-          })}
-        </user-menu>
-      </nav>
-    </header>
-    <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-    ${decoratorUtils}
-  </div>
+export const SimpleHeader = ({ texts, decoratorUtils }: SimpleHeaderProps) => html`
+    <div id="decorator-header">
+        <header class="${cls.siteheader}">
+            ${SkipLink(texts.skip_link)}
+            <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+                <lenke-med-sporing
+                    href="/"
+                    class="${cls.logo} ${cls.logoSimple}"
+                    data-analytics-event-args="${JSON.stringify({
+                        category: 'dekorator-header',
+                        action: 'navlogo',
+                    })}"
+                >
+                    ${NavLogo({
+                        title: texts.to_front_page,
+                        id: 'dekoratoren-header-logo',
+                    })}
+                </lenke-med-sporing>
+                <user-menu class="${menuItemsCls.menuItems}">
+                    ${LoginButton({
+                        texts: texts,
+                    })}
+                </user-menu>
+            </nav>
+        </header>
+        <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+        ${decoratorUtils}
+    </div>
 `;

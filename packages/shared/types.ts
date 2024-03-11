@@ -138,6 +138,9 @@ export type Features = {
     'dekoratoren.chatbotscript': boolean;
 };
 
+/**
+ * Computed values based on params and environment
+ */
 export type AppState = {
     texts: ClientTexts;
     params: Params;
@@ -167,4 +170,12 @@ export type MainMenuContextLink = {
     content: string;
     description?: string;
     url: string;
+};
+
+export type CsrPayload = {
+    header: string;
+    footer: string;
+    data: AppState;
+    scripts: string[];
+    name: string;
 };

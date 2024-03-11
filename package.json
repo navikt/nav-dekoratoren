@@ -15,7 +15,8 @@
     "prepare": "husky install",
     "benchmarking": "./benchmarking/run",
     "partytown": "partytown copylib packages/server/public/~partytown",
-    "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb"
+    "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb",
+    "postinstall": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -25,15 +26,19 @@
   ],
   "devDependencies": {
     "@types/amplitude-js": "^8.16.2",
-    "@types/cookie": "^0.5.4",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "@types/bun": "^1.0.0",
+    "@types/bun": "1.0.8",
     "concurrently": "^8.2.0",
     "eslint": "latest",
-    "husky": "^8.0.0",
+    "husky": "9.0.11",
     "lint-staged": "^13.2.3",
-    "prettier": "^3.0.0"
+    "@storybook/addon-essentials": "^7.4.3",
+    "@storybook/addon-viewport": "^7.6.15",
+    "@storybook/blocks": "^7.4.3",
+    "@storybook/html": "^7.4.3",
+    "@storybook/html-vite": "^7.4.3",
+    "storybook": "^7.4.3"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
@@ -41,15 +46,12 @@
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "^1.3.5",
-    "@storybook/addon-essentials": "^7.4.3",
-    "@storybook/blocks": "^7.4.3",
-    "@storybook/html": "^7.4.3",
-    "@storybook/html-vite": "^7.4.3",
+    "@navikt/nav-dekoratoren-moduler": "^2.1.5",
     "clsx": "^2.0.0",
     "esbuild-minify-templates": "^0.11.0",
     "js-cookie": "^3.0.5",
     "postcss-modules": "latest",
-    "storybook": "^7.4.3",
+    "prettier": "^3.2.5",
     "ts-pattern": "^5.0.5",
     "zod": "^3.22.4"
   }

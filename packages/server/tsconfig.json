@@ -1,14 +1,18 @@
 {
-  "compilerOptions": {
-    "lib": ["ESNext"],
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "bundler",
-    "moduleDetection": "force",
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false,
-  },
-  "exclude": ["**/*.stories.ts"]
+    "compilerOptions": {
+        "lib": ["ESNext"],
+        "module": "esnext",
+        "target": "esnext",
+        "moduleResolution": "bundler",
+        "moduleDetection": "force",
+        "strict": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": false,
+        "paths": {
+            "decorator-shared/*": ["../shared/*"],
+            "decorator-client/*": ["../client/*"]
+        }
+    },
+    "exclude": ["**/*.stories.ts"]
 }

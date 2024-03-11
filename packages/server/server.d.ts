@@ -1,14 +1,16 @@
+import { Template } from "decorator-shared/html";
+
 declare module '*manifest.json' {
-  const value: Record<
-    string,
-    {
-      file: string;
-      css: string[];
-      src: string;
-      isEntry: boolean;
-    }
-  >;
-  export default value;
+    const value: Record<
+        string,
+        {
+            file: string;
+            css: string[];
+            src: string;
+            isEntry: boolean;
+        }
+    >;
+    export default value;
 }
 
 declare module 'decorator-shared/*.module.css' {

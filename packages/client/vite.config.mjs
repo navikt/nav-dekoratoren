@@ -3,6 +3,7 @@ import minifyLiterals from 'rollup-plugin-minify-html-literals-v3';
 import path from 'path';
 import { partytownRollup } from '@builder.io/partytown/utils';
 import { typedCssModulesPlugin } from './typesafe-css-modules';
+import { cssModulesScopedNameOption } from '../shared/css-modules-config';
 
 export const mainBundleConfig = defineConfig({
     plugins: [typedCssModulesPlugin()],
@@ -19,7 +20,7 @@ export const mainBundleConfig = defineConfig({
             output: {
                 inlineDynamicImports: true,
                 // @TODO: Burde tweakes i nav-dekoreatoren-moduler for å støtte moduler
-                format: 'commonjs'
+                format: 'commonjs',
                 // esModule: true
             },
             plugins: [
@@ -31,8 +32,12 @@ export const mainBundleConfig = defineConfig({
             input: ['src/main.ts'],
         },
     },
+    css: {
+        modules: {
+            ...cssModulesScopedNameOption,
+        },
+    },
 });
-
 
 export const lazyConfig = defineConfig({
     build: {
@@ -46,6 +51,17 @@ export const lazyConfig = defineConfig({
     },
 });
 
+export const csrConfig = defineConfig({
+    build: {
+        // Don't clear the output, we want to keep the main bundle
+        emptyOutDir: false,
+        minify: true,
+        manifest: '.vite/csr.manifest.json',
+        rollupOptions: {
+            input: ['src/csr.ts'],
+        },
+    },
+});
 
 export default defineConfig(({ mode }) => {
     if (mode === 'development') {
@@ -54,6 +70,7 @@ export default defineConfig(({ mode }) => {
     // Build steps
     if (mode === 'main') return mainBundleConfig;
     if (mode === 'lazy') return lazyConfig;
+    if (mode === 'csr') return csrConfig;
 
     return mainBundleConfig;
-})
+});

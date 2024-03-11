@@ -1,0 +1,49 @@
+.stickyPlaceholder {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    height: var(--header-height-mobil);
+
+    @media (min-width: 768px) {
+        height: var(--header-height-desktop);
+    }
+}
+
+.stickyContent {
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid var(--a-border-subtle);
+    background-color: var(--a-surface-default);
+    top: 0;
+    transition-property: transform, visibility;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out;
+}
+
+.sticky {
+    position: fixed;
+}
+
+.hidden {
+    transform: translateY(calc(0px - var(--header-height-mobil)));
+    visibility: hidden;
+
+    @media (min-width: 768px) {
+        transform: translateY(calc(0px - var(--header-height-desktop)));
+    }
+}
+
+.stickyContainer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: block;
+}
+
+@media (max-width: var(--desktop-min-width)) {
+    .stickyContainerMobilFixed {
+        position: fixed;
+        top: 0;
+    }
+}
