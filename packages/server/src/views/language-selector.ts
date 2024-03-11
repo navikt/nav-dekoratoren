@@ -13,19 +13,22 @@ export type LanguageSelectorProps = {
 export const LanguageSelector = ({
     availableLanguages,
     localTexts
-}: LanguageSelectorProps) => html`
-    <language-selector>
-        <nav
-            class="${clsx(cls.languageSelector, {[cls.empty]: availableLanguages.length === 0})}"
-            aria-label="${localTexts.language_selector}"
-        >
-            <button type="button" class="${cls.button}">
-                ${GlobeIcon({ className: cls.icon })}
-                <span>
-                    <span lang="nb">${'Språk'}</span>/<span lang="en">Language</span>
-                </span>
-                ${DownChevronIcon({ className: cls.icon })}
-            </button>
-        </nav>
-    </language-selector>
-`;
+}: LanguageSelectorProps) => {
+    return availableLanguages.length > 0
+        ? html`
+            <language-selector>
+                <nav
+                    class="${clsx(cls.languageSelector, {[cls.empty]: availableLanguages.length === 0})}"
+                    aria-label="${localTexts.language_selector}"
+                >
+                    <button type="button" class="${cls.button}">
+                        ${GlobeIcon({ className: cls.icon })}
+                        <span>
+                            <span lang="nb">${'Språk'}</span>/<span lang="en">Language</span>
+                        </span>
+                        ${DownChevronIcon({ className: cls.icon })}
+                    </button>
+                </nav>
+            </language-selector>`
+        : null;
+}

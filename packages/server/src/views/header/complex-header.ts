@@ -42,7 +42,7 @@ export function ComplexHeader({
     <div id="decorator-header">
       <header class="${cls.siteheader}">
         ${SkipLink(texts.skip_link)}
-        <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+        <nav aria-label="${texts.menu}" class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
           <div class="${cls.hovedmenyContent}">
             <lenke-med-sporing
               href="/"
