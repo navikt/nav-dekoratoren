@@ -14,6 +14,10 @@ export type CustomEvents = {
     authupdated: {
         auth: Auth;
     };
+    menuopened: void;
+    menuclosed: void;
+    clearsearch: void;
+    closemenus: void; // Currently fired only from other apps
 };
 
 export type MessageEvents =

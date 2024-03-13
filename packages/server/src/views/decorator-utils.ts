@@ -23,7 +23,7 @@ export const DecoratorUtils = ({ breadcrumbs, availableLanguages, localTexts, ut
             [cls.gray]: utilsBackground === 'gray',
         })}"
     >
-        <nav is="d-breadcrumbs">${Breadcrumbs({ breadcrumbs })}</nav>
+        <nav>${Breadcrumbs({ breadcrumbs })}</nav>
         ${LanguageSelector({ availableLanguages, localTexts })}
     </decorator-utils>
 `;

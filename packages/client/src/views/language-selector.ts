@@ -1,5 +1,6 @@
 import { AvailableLanguage, Language } from 'decorator-shared/params';
 import cls from '../styles/language-selector.module.css';
+import { updateDecoratorParams } from '../params';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,6 +34,7 @@ export class LanguageSelector extends HTMLElement {
                 option.addEventListener('click', (e) => {
                     e.preventDefault();
 
+                    updateDecoratorParams({ language: language.locale });
                     window.postMessage({
                         source: 'decorator',
                         event: 'languageSelect',
@@ -64,7 +66,7 @@ export class LanguageSelector extends HTMLElement {
         };
 
         this.options = [];
-        this.classList.toggle(cls.empty, availableLanguages.length === 0);
+        this.container.classList.toggle(cls.empty, availableLanguages.length === 0);
         this.menu.replaceChildren(...availableLanguages.map(availableLanguageToLi));
     }
 
