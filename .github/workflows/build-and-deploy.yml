@@ -32,12 +32,14 @@ jobs:
         run: bun run build
       - name: Run tests
         run: bun run test
-      - name: upload to CDN
-        uses: navikt/frontend/actions/cdn-upload/v2@main
+      - name: Upload static files to NAV CDN
+        uses: nais/deploy/actions/cdn-upload/v2@master
         with:
-          cdn-team-name: personbruker
+          team: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Secret
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Variable
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
         id: docker-push
