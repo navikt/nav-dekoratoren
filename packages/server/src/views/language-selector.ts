@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import html from 'decorator-shared/html';
 import { AvailableLanguage } from 'decorator-shared/params';
 import { Texts } from 'decorator-shared/types';
@@ -10,14 +9,19 @@ export type LanguageSelectorProps = {
     localTexts: Texts;
 };
 
-export const LanguageSelector = ({ availableLanguages, localTexts }: LanguageSelectorProps) => html`
-    <language-selector>
-        <nav class="${clsx(cls.languageSelector, { [cls.empty]: availableLanguages.length === 0 })}" aria-label="${localTexts.language_selector}">
-            <button type="button" class="${cls.button}">
-                ${GlobeIcon({ className: cls.icon })}
-                <span class="${cls.label}"> <span lang="nb">${'Språk'}</span>/<span lang="en">Language</span> </span>
-                ${DownChevronIcon({ className: cls.icon })}
-            </button>
-        </nav>
-    </language-selector>
-`;
+export const LanguageSelector = ({ availableLanguages, localTexts }: LanguageSelectorProps) => {
+    return availableLanguages.length > 0
+    ? html`
+        <language-selector>
+            <nav class="${cls.languageSelector}" aria-label="${localTexts.language_selector}">
+                <button type="button" class="${cls.button}">
+                    ${GlobeIcon({ className: cls.icon })}
+                    <span class="${cls.label}">
+                        <span lang="nb">${'Språk'}</span>/<span lang="en">Language</span>
+                    </span>
+                    ${DownChevronIcon({ className: cls.icon })}
+                </button>
+            </nav>
+        </language-selector>`
+    : null;
+};

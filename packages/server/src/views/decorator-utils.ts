@@ -15,7 +15,9 @@ export type DecoratorUtilsProps = {
     hidden: boolean;
 };
 
-export const DecoratorUtils = ({ breadcrumbs, availableLanguages, localTexts, utilsBackground, hidden }: DecoratorUtilsProps) => html`
+export const DecoratorUtils = (
+    { breadcrumbs, availableLanguages, localTexts, utilsBackground, hidden }: DecoratorUtilsProps
+) => html`
     <decorator-utils
         class="${clsx(utilsCls.contentContainer, cls.decoratorUtils, {
             [cls.hidden]: (availableLanguages.length === 0 && breadcrumbs.length === 0) || hidden,
@@ -23,7 +25,7 @@ export const DecoratorUtils = ({ breadcrumbs, availableLanguages, localTexts, ut
             [cls.gray]: utilsBackground === 'gray',
         })}"
     >
-        <nav is="d-breadcrumbs">${Breadcrumbs({ breadcrumbs })}</nav>
+        ${Breadcrumbs({ breadcrumbs, localTexts })}
         ${LanguageSelector({ availableLanguages, localTexts })}
     </decorator-utils>
 `;

@@ -1,10 +1,11 @@
-import { Breadcrumb } from '../params';
 import html from '../html';
-import cls from './breadcrumbs.module.css';
 import { ForwardChevron } from './icons';
 import { HomeIcon } from './icons/home';
 import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
 import { isNavUrl } from '../utils';
+import { Breadcrumb } from '../params';
+import { Texts } from '../types';
+import cls from './breadcrumbs.module.css';
 
 const analyticsEventArgs = {
     category: 'dekorator-header',
@@ -13,6 +14,7 @@ const analyticsEventArgs = {
 
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
+    localTexts: Texts;
 };
 
 export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
@@ -32,11 +34,11 @@ export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     });
 };
 
-export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ breadcrumbs, localTexts }: BreadcrumbsProps) => {
     validateBreadcrumbs(breadcrumbs);
 
     return breadcrumbs.length > 0
-        ? html`
+        ? html` <nav aria-label="${localTexts.breadcrumbs}">
               <ol class="${cls.list}">
                   <li class="${cls.listItem}">
                       ${LenkeMedSporing({
@@ -77,6 +79,6 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                       `
                   )}
               </ol>
-          `
+          </nav>`
         : null;
 };

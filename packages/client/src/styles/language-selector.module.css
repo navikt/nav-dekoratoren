@@ -7,12 +7,7 @@
     margin-left: auto;
 }
 
-.empty {
-    display: none;
-}
-
 .button {
-    border: none;
     margin: 0;
     font: inherit;
     font-size: var(--a-font-size-medium);
