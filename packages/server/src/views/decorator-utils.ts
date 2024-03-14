@@ -24,7 +24,6 @@ export const DecoratorUtils = (
             [cls.white]: utilsBackground === 'white',
             [cls.gray]: utilsBackground === 'gray',
         })}"
-    >
         ${Breadcrumbs({ breadcrumbs, localTexts })}
         ${LanguageSelector({ availableLanguages, localTexts })}
     </decorator-utils>
