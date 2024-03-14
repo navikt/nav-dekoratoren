@@ -33,7 +33,6 @@ import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 import { makeEndpointFactory } from 'decorator-shared/urls';
 
-
 import.meta.glob('./styles/*.css', { eager: true });
 
 window.makeEndpoint = makeEndpointFactory(() => window.__DECORATOR_DATA__.params, env('APP_URL'));
@@ -48,6 +47,24 @@ updateDecoratorParams({});
 if (hasParam('logoutWarning')) {
     logoutWarningController(param('logoutWarning'), texts);
 }
+
+window.addEventListener('paramsupdated', (e) => {
+    if (e.detail.params.language) {
+        Promise.all(
+            ['header', 'footer'].map((key) =>
+                fetch(`${env('APP_URL')}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`).then((res) => res.text())
+            )
+        ).then(([header, footer]) => {
+            const headerEl = document.getElementById('decorator-header');
+            const footerEl = document.getElementById('decorator-footer');
+            if (headerEl && footerEl) {
+                headerEl.outerHTML = header;
+                footerEl.outerHTML = footer;
+                init();
+            }
+        });
+    }
+});
 
 window.addEventListener('message', (e) => {
     if (e.data.source === 'decoratorClient' && e.data.event === 'ready') {
@@ -67,19 +84,6 @@ window.addEventListener('message', (e) => {
         const language = e.data.payload.language;
         if (language && language !== param('language')) {
             updateDecoratorParams({ language });
-            Promise.all(
-                ['header', 'footer'].map((key) =>
-                    fetch(`${env('APP_URL')}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`).then((res) => res.text())
-                )
-            ).then(([header, footer]) => {
-                const headerEl = document.getElementById('decorator-header');
-                const footerEl = document.getElementById('decorator-footer');
-                if (headerEl && footerEl) {
-                    headerEl.outerHTML = header;
-                    footerEl.outerHTML = footer;
-                    init();
-                }
-            });
         }
 
         if (e.data.payload.context) {
