@@ -59,7 +59,7 @@ const requestHandler = async (
                 })
                 .build()
         )
-        .get('/api/ta', () => r().json(taConfigService.getTaConfig()).build())
+        .get('/api/ta', () => taConfigService.getTaConfig().then((config) => r().json(config).build()))
         .get('/api/oauth2/session', () => {
             return new Response(
                 JSON.stringify({

@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
-const contextSchema = z.enum(['privatperson', 'arbeidsgiver', 'samarbeidspartner']);
-
+export const contextSchema = z.enum(['privatperson', 'arbeidsgiver', 'samarbeidspartner']);
 export type Context = z.infer<typeof contextSchema>;
 
-const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
+export const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 export type Language = z.infer<typeof languageSchema>;
 
 const availableLanguageSchema = z.discriminatedUnion('handleInApp', [
