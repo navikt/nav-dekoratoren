@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { contextSchema, languageSchema } from 'decorator-shared/params';
 
 // To mock this locally, create the file /config/ta-config.json on the server package root
-const filePath = Bun.resolveSync('./config/ta-config.json', process.cwd());
+const filePath = `${process.cwd()}/config/ta-config.json`;
 
 const configSchema = z.object({
     id: z.string(),
@@ -32,6 +32,8 @@ type ConfigSchema = z.infer<typeof configSchema>;
 export default class TaConfigService {
     async getTaConfig(): Promise<TaskAnalyticsSurveyConfig[]> {
         try {
+            console.log(`Loading TA config from ${filePath}`);
+
             const fileContent = Bun.file(filePath);
 
             const json = await fileContent.json();
@@ -42,7 +44,7 @@ export default class TaConfigService {
 
             return json.filter(this.validateConfig);
         } catch (e) {
-            console.error(`Error loading TA config: ${e}`);
+            console.error(`Error loading TA config from ${filePath} - ${e}`);
             return [];
         }
     }
