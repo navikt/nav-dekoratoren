@@ -32,8 +32,6 @@ type ConfigSchema = z.infer<typeof configSchema>;
 export default class TaConfigService {
     async getTaConfig(): Promise<TaskAnalyticsSurveyConfig[]> {
         try {
-            console.log(`Attempting to load TA config from ${filePath}`);
-
             const fileContent = Bun.file(filePath);
 
             const json = await fileContent.json();
