@@ -55,7 +55,7 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppStat
 };
 
 const fetchAndStart = async (state: AppState) => {
-    fetch(`${state.env.APP_URL}/api/ta`)
+    return fetch(`${state.env.APP_URL}/api/ta`)
         .then((res) => {
             if (!res.ok) {
                 throw Error(`${res.status} ${res.statusText}`);
