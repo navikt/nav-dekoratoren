@@ -71,7 +71,7 @@ const fetchAndStart = async (state: AppState) => {
     }
 };
 
-export const startTaskAnalyticsSurvey = (state: AppState) => {
+const startTaskAnalyticsSurvey = (state: AppState) => {
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
@@ -84,4 +84,5 @@ export const startTaskAnalyticsSurvey = (state: AppState) => {
 export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
+    window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
 };

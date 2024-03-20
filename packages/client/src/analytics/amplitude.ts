@@ -1,6 +1,7 @@
 import amplitude from 'amplitude-js';
 import { Params } from 'decorator-shared/params';
 import { Auth } from '../api';
+import { AnalyticsEventArgs } from './constants';
 
 type EventData = Record<string, any>;
 
@@ -9,6 +10,25 @@ declare global {
         dekoratorenAmplitude: typeof logEventFromApp;
     }
 }
+
+// Connects to partytown forwarding
+const amplitudeEvent = (props: AnalyticsEventArgs) => {
+    const { context, eventName, destination, category, action, label, komponent, lenkegruppe } = props;
+    const actionFinal = `${context ? context + '/' : ''}${action}`;
+
+    logAmplitudeEvent(
+        eventName || 'navigere',
+        {
+            destinasjon: destination || label,
+            søkeord: eventName === 'søk' ? '[redacted]' : undefined,
+            lenketekst: actionFinal,
+            kategori: category,
+            komponent: komponent || action,
+            lenkegruppe,
+        },
+        'decorator_next'
+    );
+};
 
 export const initAmplitude = () => {
     const userProps = {
@@ -28,6 +48,9 @@ export const initAmplitude = () => {
     amplitude.getInstance().setUserProperties(userProps);
 
     window.dekoratorenAmplitude = logEventFromApp;
+    window.analyticsEvent = amplitudeEvent;
+    window.logPageView = logPageView;
+    window.logAmplitudeEvent = logAmplitudeEvent;
 };
 
 const logEventFromApp = (params?: { origin: unknown | string; eventName: unknown | string; eventData?: unknown | EventData }): Promise<any> => {
