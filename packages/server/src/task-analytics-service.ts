@@ -29,8 +29,24 @@ const configSchema = z.object({
 
 type ConfigSchema = z.infer<typeof configSchema>;
 
+type Cache = {
+    config: TaskAnalyticsSurveyConfig[];
+    expires: number;
+};
+
+const CACHE_TTL_MS = 10000;
+
 export default class TaConfigService {
+    private readonly cache: Cache = {
+        config: [],
+        expires: 0,
+    };
+
     async getTaConfig(): Promise<TaskAnalyticsSurveyConfig[]> {
+        if (Date.now() < this.cache.expires) {
+            return this.cache.config;
+        }
+
         try {
             console.log(`Loading TA config from ${filePath}`);
 
@@ -42,7 +58,12 @@ export default class TaConfigService {
                 return [];
             }
 
-            return json.filter(this.validateConfig);
+            const config = json.filter(this.validateConfig);
+
+            this.cache.config = config;
+            this.cache.expires = Date.now() + CACHE_TTL_MS;
+
+            return config;
         } catch (e) {
             console.error(`Error loading TA config from ${filePath} - ${e}`);
             return [];
