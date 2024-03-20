@@ -54,26 +54,23 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppStat
     startSurvey(id);
 };
 
-const fetchAndStart = (state: AppState) => {
-    return fetch(`${state.env.APP_URL}/api/ta`)
-        .then((res) => {
-            if (!res.ok) {
-                throw Error(`${res.status} ${res.statusText}`);
-            }
-
-            return res.json();
-        })
-        .then((surveys) => {
-            if (!Array.isArray(surveys)) {
-                throw Error(`Invalid type for surveys response - ${JSON.stringify(surveys)}`);
-            }
-            fetchedSurveys = surveys;
-            findAndStartSurvey(surveys, state);
-        })
-        .catch((e) => {
-            console.error(`Error fetching Task Analytics surveys - ${e}`);
-        });
+const fetchAndStart = async (state: AppState) => {
+    try {
+        const res = await fetch(`${state.env.APP_URL}/api/ta`);
+        if (!res.ok) {
+            throw Error(`${res.status} ${res.statusText}`);
+        }
+        const surveys = await res.json();
+        if (!Array.isArray(surveys)) {
+            throw Error(`Invalid type for surveys response - ${JSON.stringify(surveys)}`);
+        }
+        fetchedSurveys = surveys;
+        findAndStartSurvey(surveys, state);
+    } catch (e) {
+        console.error(`Error fetching Task Analytics surveys - ${e}`);
+    }
 };
+
 export const startTaskAnalyticsSurvey = (state: AppState) => {
     taskAnalyticsRefreshState();
 

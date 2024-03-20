@@ -2,7 +2,7 @@ import { TaskAnalyticsSurveyConfig } from 'decorator-shared/types';
 import { z } from 'zod';
 import { contextSchema, languageSchema } from 'decorator-shared/params';
 
-// To mock this locally, create the file /config/ta-config-mock.json on the project root
+// To mock this locally, create the file /config/ta-config.json on the server package root
 const filePath = Bun.resolveSync('./config/ta-config.json', process.cwd());
 
 const configSchema = z.object({

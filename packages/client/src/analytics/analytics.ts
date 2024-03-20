@@ -9,6 +9,8 @@ export const initAnalytics = () => {
     dispatchEvent(analyticsReady);
 };
 
+initAnalytics();
+
 // Connects to partytown forwarding
 window.analyticsEvent = function (props: AnalyticsEventArgs) {
     const { context, eventName, destination, category, action, label, komponent, lenkegruppe } = props;
@@ -31,5 +33,3 @@ window.analyticsEvent = function (props: AnalyticsEventArgs) {
 window.logPageView = logPageView;
 window.logAmplitudeEvent = logAmplitudeEvent;
 window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
-
-initAnalytics();
