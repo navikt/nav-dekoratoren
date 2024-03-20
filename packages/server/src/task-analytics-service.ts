@@ -48,8 +48,6 @@ export default class TaConfigService {
         }
 
         try {
-            console.log(`Loading TA config from ${filePath}`);
-
             const fileContent = Bun.file(filePath);
 
             const json = await fileContent.json();
