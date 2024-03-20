@@ -10,26 +10,6 @@ declare global {
         dekoratorenAmplitude: typeof logEventFromApp;
     }
 }
-
-// Connects to partytown forwarding
-const amplitudeEvent = (props: AnalyticsEventArgs) => {
-    const { context, eventName, destination, category, action, label, komponent, lenkegruppe } = props;
-    const actionFinal = `${context ? context + '/' : ''}${action}`;
-
-    logAmplitudeEvent(
-        eventName || 'navigere',
-        {
-            destinasjon: destination || label,
-            søkeord: eventName === 'søk' ? '[redacted]' : undefined,
-            lenketekst: actionFinal,
-            kategori: category,
-            komponent: komponent || action,
-            lenkegruppe,
-        },
-        'decorator_next'
-    );
-};
-
 export const initAmplitude = () => {
     const userProps = {
         skjermbredde: window.screen.width,
@@ -48,9 +28,30 @@ export const initAmplitude = () => {
     amplitude.getInstance().setUserProperties(userProps);
 
     window.dekoratorenAmplitude = logEventFromApp;
+
+    // Do these need to be on the window object?
     window.analyticsEvent = amplitudeEvent;
     window.logPageView = logPageView;
     window.logAmplitudeEvent = logAmplitudeEvent;
+};
+
+// Connects to partytown forwarding
+export const amplitudeEvent = (props: AnalyticsEventArgs) => {
+    const { context, eventName, destination, category, action, label, komponent, lenkegruppe } = props;
+    const actionFinal = `${context ? context + '/' : ''}${action}`;
+
+    logAmplitudeEvent(
+        eventName || 'navigere',
+        {
+            destinasjon: destination || label,
+            søkeord: eventName === 'søk' ? '[redacted]' : undefined,
+            lenketekst: actionFinal,
+            kategori: category,
+            komponent: komponent || action,
+            lenkegruppe,
+        },
+        'decorator_next'
+    );
 };
 
 const logEventFromApp = (params?: { origin: unknown | string; eventName: unknown | string; eventData?: unknown | EventData }): Promise<any> => {
