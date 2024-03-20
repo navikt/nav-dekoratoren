@@ -54,7 +54,7 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppStat
     startSurvey(id);
 };
 
-const fetchAndStart = (state: AppState) => {
+const fetchAndStart = async (state: AppState) => {
     return fetch(`${state.env.APP_URL}/api/ta`)
         .then((res) => {
             if (!res.ok) {
@@ -74,7 +74,8 @@ const fetchAndStart = (state: AppState) => {
             console.error(`Error fetching Task Analytics surveys - ${e}`);
         });
 };
-export const startTaskAnalyticsSurvey = (state: AppState) => {
+
+const startTaskAnalyticsSurvey = (state: AppState) => {
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
@@ -87,4 +88,5 @@ export const startTaskAnalyticsSurvey = (state: AppState) => {
 export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
+    window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
 };

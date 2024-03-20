@@ -32,6 +32,7 @@ import { analyticsReady, createEvent } from './events';
 import { type ParamKey } from 'decorator-shared/params';
 import { param, hasParam, updateDecoratorParams, env } from './params';
 import { makeEndpointFactory } from 'decorator-shared/urls';
+import { initAnalytics } from './analytics/analytics';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
@@ -109,17 +110,19 @@ window.addEventListener('activecontext', (event) => {
 });
 
 const init = async () => {
-    const authResponse = await api.checkAuth();
-    dispatchEvent(createEvent('authupdated', { detail: { auth: authResponse } }));
+    initAnalytics();
+
+    api.checkAuth().then((authResponse) => {
+        dispatchEvent(createEvent('authupdated', { detail: { auth: authResponse } }));
+    });
 };
 
-init();
-
 window.addEventListener(analyticsReady.type, () => {
-    window.addEventListener('authupdated', (e) => {
-        window.logPageView(window.__DECORATOR_DATA__.params, e.detail.auth);
-        window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
-    });
+    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+});
+
+window.addEventListener('authupdated', (e) => {
+    window.logPageView(window.__DECORATOR_DATA__.params, e.detail.auth);
 });
 
 // @TODO: Refactor loaders
@@ -129,3 +132,5 @@ window.addEventListener('load', () => {
     });
     addFaroMetaData();
 });
+
+init();
