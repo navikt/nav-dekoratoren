@@ -33,6 +33,7 @@ export type LinkGroup = {
 };
 
 export const clientTextsKeys = [
+    'breadcrumbs',
     'token_warning_title',
     'token_warning_body',
     'send_undersokelse_takk',
@@ -62,7 +63,6 @@ export type Texts = ClientTexts & {
     clear: string;
     login: string;
     logged_in: string;
-    breadcrumbs: string;
     language_selector: string;
     notifications: string;
     notifications_empty_list: string;
