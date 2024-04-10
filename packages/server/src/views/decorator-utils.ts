@@ -27,7 +27,9 @@ export const DecoratorUtils = (
             [cls.gray]: utilsBackground === 'gray',
         })}"
         >
-            ${Breadcrumbs({ breadcrumbs, label })}
+            <breadcrumbs>
+                ${Breadcrumbs({ breadcrumbs, label })}
+            </breadcrumbs>
             ${LanguageSelector({ availableLanguages, localTexts })}
         </decorator-utils>
     `;
