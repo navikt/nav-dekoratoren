@@ -76,7 +76,9 @@ export class LanguageSelector extends HTMLElement {
 
         this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
-
+        console.log(this);
+        console.log(this.button);
+        console.log(this.container);
         if (this.container) {
             this.menu = document.createElement('ul');
             this.menu.classList.add(cls.menu, cls.hidden);
