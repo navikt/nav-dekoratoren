@@ -78,7 +78,6 @@ const logEventFromApp = (params?: { origin: unknown | string; eventName: unknown
 };
 
 export const logPageView = (params: Params, authState: Auth) => {
-    console.log('Logging page view', params, authState);
     return logAmplitudeEvent('besøk', {
         sidetittel: document.title,
         innlogging: authState.authenticated ? authState.securityLevel : false,
