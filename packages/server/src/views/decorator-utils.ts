@@ -17,13 +17,15 @@ export type DecoratorUtilsProps = {
 
 export const DecoratorUtils = ({ breadcrumbs, availableLanguages, localTexts, utilsBackground, hidden }: DecoratorUtilsProps) => html`
     <decorator-utils
-        class="${clsx(utilsCls.contentContainer, cls.decoratorUtils, {
+        class="${clsx(cls.decoratorUtils, {
             [cls.hidden]: (availableLanguages.length === 0 && breadcrumbs.length === 0) || hidden,
             [cls.white]: utilsBackground === 'white',
             [cls.gray]: utilsBackground === 'gray',
         })}"
     >
-        <nav>${Breadcrumbs({ breadcrumbs })}</nav>
-        ${LanguageSelector({ availableLanguages, localTexts })}
+        <div class="${clsx(cls.decoratorUtilsContent, utilsCls.contentContainer)}">
+            <nav>${Breadcrumbs({ breadcrumbs })}</nav>
+            ${LanguageSelector({ availableLanguages, localTexts })}
+        </div>
     </decorator-utils>
 `;
