@@ -22,7 +22,7 @@ const service = new SearchService(() =>
 
 describe('search service', () => {
     test('returns first five results', async () => {
-        const result = await service.search('word');
+        const result = await service.search({ query: 'asdf', language: 'no', context: 'privatperson' });
 
         expect(result.hits.length).toBe(5);
         expect(result.total).toBe(6);
