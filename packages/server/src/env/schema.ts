@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const serverSchema = z.object({
     ENONICXP_SERVICES: z.string().url(),
+    SEARCH_API: z.string().url(),
     XP_BASE_URL: z.string().url(),
     CDN_URL: z.string().url(),
     NODE_ENV: z.enum(['production', 'development']),
@@ -18,6 +19,7 @@ export type NodeEnv = z.infer<typeof serverSchema>['NODE_ENV'];
 
 export const serverEnv = {
     ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
+    SEARCH_API: process.env.SEARCH_API,
     XP_BASE_URL: process.env.XP_BASE_URL,
     NODE_ENV: process.env.NODE_ENV === 'test' ? 'development' : process.env.NODE_ENV,
     ENV: process.env.ENV,

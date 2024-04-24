@@ -15,6 +15,8 @@ env:
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
     value: https://www.nav.no/_/service
+  - name: SEARCH_API
+    value: https://navno-search-api.nav.no/content/decorator-search
   - name: XP_BASE_URL
     value: https://www.nav.no
   - name: AUTH_API_URL
