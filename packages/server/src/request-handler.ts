@@ -17,7 +17,7 @@ import { validParams } from './validateParams';
 import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
-import { AnchorIconButton, IconButton } from './views/icon-button';
+import { AnchorIconButton } from './views/icon-button';
 import { OpsMessages } from './views/ops-messages';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
@@ -47,7 +47,7 @@ const requestHandler = async (
     fileSystemService: FileSystemService,
     notificationsService: NotificationsService,
     unleashService: UnleashService,
-    taConfigService: TaConfigService
+    taConfigService: TaConfigService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
         .get('/api/auth', () =>
@@ -57,7 +57,7 @@ const requestHandler = async (
                     name: 'Charlie Jensen',
                     securityLevel: '3',
                 })
-                .build()
+                .build(),
         )
         .get('/api/ta', () => taConfigService.getTaConfig().then((config) => r().json(config).build()))
         .get('/api/oauth2/session', () => {
@@ -71,7 +71,7 @@ const requestHandler = async (
                     headers: {
                         'content-type': 'application/json',
                     },
-                }
+                },
             );
         })
         .get('/api/oauth2/session/refresh', () => {
@@ -86,7 +86,7 @@ const requestHandler = async (
                         Location: url.searchParams.get('redirect') ?? '',
                     },
                     status: 302,
-                })
+                }),
         )
         .get('/oauth2/logout', () => r().json(getMockSession()).build())
         .get('/api/isAlive', () => new Response('OK'))
@@ -94,7 +94,7 @@ const requestHandler = async (
         .post('/api/notifications/message/archive', async ({ request }) => r().json(request.json()).build())
         .get('/api/search', async ({ query }) => {
             const searchQuery = query.q;
-            const results = await searchService.search(searchQuery);
+            const results = await searchService.search({ query: searchQuery, ...validParams(query) });
 
             return r()
                 .html(
@@ -102,7 +102,7 @@ const requestHandler = async (
                         results,
                         query: searchQuery,
                         texts: texts[validParams(query).language],
-                    }).render()
+                    }).render(),
                 )
                 .build();
         })
@@ -132,7 +132,7 @@ const requestHandler = async (
                 }).render(),
                 {
                     headers: { 'content-type': 'text/html; charset=utf-8' },
-                }
+                },
             );
         })
         .get('/user-menu', async ({ query, request }) => {
@@ -166,20 +166,20 @@ const requestHandler = async (
                                 logoutUrl: logoutUrl as string,
                                 minsideUrl: clientEnv.MIN_SIDE_URL,
                                 personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
-                            })
+                            }),
                         )
                         .with('arbeidsgiver', () =>
                             ArbeidsgiverUserMenu({
                                 texts: localTexts,
                                 href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
-                            })
+                            }),
                         )
                         .with('samarbeidspartner', () =>
                             AnchorIconButton({
                                 Icon: LogoutIcon({}),
                                 href: logoutUrl,
                                 text: localTexts.logout,
-                            })
+                            }),
                         )
                         .exhaustive();
                 }
@@ -194,7 +194,7 @@ const requestHandler = async (
                 .html(
                     match(opsMessages)
                         .with([], () => '')
-                        .otherwise(() => OpsMessages({ opsMessages }).render())
+                        .otherwise(() => OpsMessages({ opsMessages }).render()),
                 )
                 .build();
         })
@@ -261,7 +261,7 @@ const requestHandler = async (
                 method: 'GET',
                 path,
                 handler: ({ url }) => new Response(fileSystemService.getFile(`.${url.pathname}`)),
-            }))
+            })),
         );
     }
 
