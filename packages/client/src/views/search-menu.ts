@@ -45,7 +45,8 @@ class SearchMenu extends HTMLElement {
         const fetchSearch = (query: string) => {
             const url = `${env("APP_URL")}/api/search?${Object.entries({
                 language: param("language"),
-                q: query,
+                context: param("context"),
+                q: encodeURIComponent(query),
             })
                 .map(([key, value]) => `${key}=${value}`)
                 .join('&')}`;
