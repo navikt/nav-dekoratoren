@@ -11,8 +11,8 @@ class DecoratorUtils extends HTMLElement {
     constructor() {
         super();
 
-        this.languageSelector = this.querySelector(':scope > language-selector')!;
-        this.breadcrumbs = this.querySelector(':scope > nav')!;
+        this.languageSelector = this.querySelector(':scope > div > language-selector')!;
+        this.breadcrumbs = this.querySelector(':scope > div > nav')!;
     }
 
     update = () => {
