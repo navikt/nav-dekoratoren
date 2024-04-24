@@ -33,11 +33,13 @@ const server = Bun.serve({
                               heading: 'Ustabile tjenester søndag 15. januar',
                               url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
                               type: 'prodstatus',
+                              urlscope: ['http://localhost:3000/arbeid'],
                           },
                           {
                               heading: 'Svindelforsøk via SMS - vær oppmerksom',
                               url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
                               type: 'info',
+                              urlscope: [],
                           },
                       ])
         ),

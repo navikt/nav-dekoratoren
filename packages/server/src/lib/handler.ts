@@ -38,7 +38,7 @@ class HandlerResponse<TData extends Params[0]> {
     }
 }
 
-export const r = () => new HandlerResponse();
+export const responseBuilder = () => new HandlerResponse();
 /**
  * A handler function is a function that takes a request and returns a response.
  */

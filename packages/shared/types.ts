@@ -114,6 +114,7 @@ export type OpsMessage = {
     heading: string;
     url: string;
     type: 'prodstatus' | 'info';
+    urlscope: string[];
 };
 
 export type TextKey = keyof Texts;
