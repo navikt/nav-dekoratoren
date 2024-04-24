@@ -132,6 +132,12 @@ export function Index({
                   event: 'params',
                   payload: {
                     breadcrumbs: [
+                        { title: 'Ditt NAV', url: 'https://www.nav.no/person/dittnav' }, // Sender brukeren til definert url
+    {
+        title: 'Kontakt oss',
+        url: 'https://www.nav.no/person/kontakt-oss/nb/',
+        handleInApp: true, // Håndteres av onBreadcrumbClick
+    },
                     ],
                   },
                 })
