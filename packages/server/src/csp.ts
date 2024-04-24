@@ -1,5 +1,5 @@
 import { CSPDirectives, UNSAFE_EVAL, UNSAFE_INLINE, BLOB, DATA, getCSP } from 'csp-header';
-import { Handler, r } from './lib/handler';
+import { Handler, responseBuilder } from './lib/handler';
 import { env } from './env/server';
 
 const navNo = '*.nav.no';
@@ -84,6 +84,6 @@ export const cspHandler: Handler = {
     method: 'GET',
     path: '/api/csp',
     handler: () => {
-        return r().json(cspDirectives).build();
+        return responseBuilder().json(cspDirectives).build();
     },
 };

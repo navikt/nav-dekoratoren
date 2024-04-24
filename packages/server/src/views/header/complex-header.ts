@@ -7,14 +7,13 @@ import utilsCls from 'decorator-client/src/styles/utilities.module.css';
 import { ContextLink } from 'decorator-shared/context';
 import html, { Template } from 'decorator-shared/html';
 import { Context, Language } from 'decorator-shared/params';
-import { OpsMessage, Texts } from 'decorator-shared/types';
+import { Texts } from 'decorator-shared/types';
 import { BurgerIcon, SearchIcon } from 'decorator-shared/views/icons';
 import { SkipLink } from 'decorator-shared/views/skiplink';
 import { NavLogo } from 'decorator-shared/views/nav-logo';
 import { DropdownMenu } from '../dropdown-menu';
 import { IconButton } from '../icon-button';
 import { SearchForm } from '../search-form';
-import { OpsMessages } from '../ops-messages';
 import { LoginButton } from '../login-button';
 
 export type ComplexHeaderProps = {
@@ -23,10 +22,9 @@ export type ComplexHeaderProps = {
     language: Language;
     contextLinks: ContextLink[];
     decoratorUtils: Template;
-    opsMessages: OpsMessage[];
 };
 
-export function ComplexHeader({ language, contextLinks, texts, context: currentContext, decoratorUtils, opsMessages }: ComplexHeaderProps) {
+export function ComplexHeader({ language, contextLinks, texts, context: currentContext, decoratorUtils }: ComplexHeaderProps) {
     // @TODO: Need id here for css vars.
     return html`
         <div id="decorator-header">
@@ -53,21 +51,20 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                             ${(language === 'nb' || language === 'nn') &&
                             contextLinks?.map(
                                 ({ url, lenkeTekstId, context }) =>
-                                    html`
-                                        <context-link
-                                            href="${url}"
-                                            data-analytics-event-args="${JSON.stringify({
-                                                action: 'arbeidsflate-valg',
-                                                category: 'dekorator-header',
-                                                label: context,
-                                            })}"
-                                            class="${clsx(cls.headerContextLink, {
-                                                [cls.lenkeActive]: context === currentContext,
-                                            })}"
-                                            data-context="${context.toLowerCase()}"
-                                        >
-                                            ${texts[lenkeTekstId]}
-                                        </context-link>`
+                                    html` <context-link
+                                        href="${url}"
+                                        data-analytics-event-args="${JSON.stringify({
+                                            action: 'arbeidsflate-valg',
+                                            category: 'dekorator-header',
+                                            label: context,
+                                        })}"
+                                        class="${clsx(cls.headerContextLink, {
+                                            [cls.lenkeActive]: context === currentContext,
+                                        })}"
+                                        data-context="${context.toLowerCase()}"
+                                    >
+                                        ${texts[lenkeTekstId]}
+                                    </context-link>`
                             )}
                         </div>
                     </div>
@@ -99,18 +96,14 @@ export function ComplexHeader({ language, contextLinks, texts, context: currentC
                                 }),
                                 dropdownClass: menuItemsCls.searchDropdown,
                                 dropdownContent: html`
-                                    <search-menu class="${menuItemsCls.searchMenu}" data-auto-focus>
-                                        ${SearchForm({ texts })}
-                                    </search-menu>
+                                    <search-menu class="${menuItemsCls.searchMenu}" data-auto-focus> ${SearchForm({ texts })} </search-menu>
                                 `,
                             })}
                         </div>
                     </div>
                 </nav>
             </header>
-            <ops-messages class="${opsMessagesCls.opsMessages}">
-                ${opsMessages.length > 0 && OpsMessages({ opsMessages })}
-            </ops-messages>
+            <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
             ${decoratorUtils}
             <menu-background></menu-background>
         </div>
