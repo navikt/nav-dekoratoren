@@ -1,5 +1,5 @@
 import { AppState, Features } from 'decorator-shared/types';
-import { DefaultContext, Handler, HandlerFunction, r } from './lib/handler';
+import { DefaultContext, Handler, HandlerFunction, responseBuilder } from './lib/handler';
 import { renderFooter, renderHeader } from './render-index';
 import { texts } from './texts';
 import { validParams } from './validateParams';
@@ -36,7 +36,7 @@ function csrHandlerFunc({ contentService, features }: Providers): HandlerFunctio
 
         const scripts = [cdnUrl(manifest['src/main.ts'].file)];
 
-        return r()
+        return responseBuilder()
             .json({
                 header: header.render(),
                 footer: footer.render(),

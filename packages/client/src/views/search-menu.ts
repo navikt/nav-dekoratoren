@@ -1,6 +1,7 @@
 import html from 'decorator-shared/html';
 import debounce from 'lodash.debounce';
 import cls from '../styles/search-form.module.css';
+import { env, param } from '../params';
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -37,13 +38,15 @@ class SearchMenu extends HTMLElement {
 
         this.form?.addEventListener('submit', (e) => {
             e.preventDefault();
-            window.location.assign(`${window.location.origin}/sok?ord=${this.input?.value}`);
+            const xpOrigin = env("XP_BASE_URL")
+            window.location.assign(`${xpOrigin}/sok?ord=${this.input?.value}`);
         });
 
         const fetchSearch = (query: string) => {
-            const url = `${window.__DECORATOR_DATA__.env.APP_URL}/api/search?${Object.entries({
-                language: window.__DECORATOR_DATA__.params.language,
-                q: query,
+            const url = `${env("APP_URL")}/api/search?${Object.entries({
+                language: param("language"),
+                context: param("context"),
+                q: encodeURIComponent(query),
             })
                 .map(([key, value]) => `${key}=${value}`)
                 .join('&')}`;

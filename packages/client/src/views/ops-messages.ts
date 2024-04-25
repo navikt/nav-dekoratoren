@@ -1,17 +1,65 @@
+import cls from 'decorator-client/src/styles/ops-messages.module.css';
+import utilsCls from 'decorator-client/src/styles/utilities.module.css';
+import html from 'decorator-shared/html';
+import { OpsMessage } from 'decorator-shared/types';
+import { InfoIcon, WarningIcon } from 'decorator-shared/views/icons';
+import { env } from '../params';
+
+export const OpsMessagesTemplate = ({ opsMessages }: { opsMessages: OpsMessage[] }) => html`
+    <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
+        ${opsMessages.map(
+            ({ heading, url, type }) =>
+                html` <lenke-med-sporing
+                    data-analytics-event-args="${JSON.stringify({
+                        category: 'dekorator-header',
+                        action: 'driftsmeldinger',
+                        label: url,
+                    })}"
+                    href="${url}"
+                    class="${cls.opsMessage}"
+                >
+                    ${type === 'prodstatus' ? WarningIcon() : InfoIcon()}
+                    <span>${heading}</span>
+                </lenke-med-sporing>`
+        )}
+    </section>
+`;
+
+const removeTrailingChars = (url?: string) => url?.replace(/(\/|\$|(\/\$))$/, '');
+
 class OpsMessages extends HTMLElement {
+    private messages: OpsMessage[] = [];
+
     connectedCallback() {
-        if (!this.innerHTML) {
-            fetch(`${window.__DECORATOR_DATA__.env.APP_URL}/ops-messages`)
-                .then((res) => res.text())
-                .then((html) => {
-                    if (html) {
-                        this.setAttribute('aria-label', window.__DECORATOR_DATA__.texts.important_info);
-                        this.innerHTML = html;
-                    } else {
-                        this.removeAttribute('aria-label');
-                    }
-                });
+        fetch(`${env('APP_URL')}/ops-messages`)
+            .then((res) => res.json())
+            .then((opsMessages) => {
+                this.messages = opsMessages;
+                this.render();
+            });
+    }
+
+    render() {
+        if (this.messages.length === 0) {
+            this.removeAttribute('aria-label');
+            return;
         }
+
+        this.setAttribute('aria-label', window.__DECORATOR_DATA__.texts.important_info);
+        const filteredMessages = this.messages.filter((opsMessage: OpsMessage) => {
+            const currentUrl = removeTrailingChars(window.location.href);
+            return (
+                !opsMessage.urlscope ||
+                !currentUrl ||
+                opsMessage.urlscope.length === 0 ||
+                opsMessage.urlscope.some((rawUrl) => {
+                    const url = removeTrailingChars(rawUrl);
+                    return url && (rawUrl.endsWith('$') ? currentUrl === url : currentUrl.startsWith(url));
+                })
+            );
+        });
+
+        this.innerHTML = OpsMessagesTemplate({ opsMessages: filteredMessages }).render();
     }
 }
 

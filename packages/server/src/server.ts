@@ -1,4 +1,4 @@
-import { fetchOpsMessages, fetchMenu, fetchSearch } from './enonic';
+import { fetchOpsMessages, fetchMenu } from './enonic';
 import { readdirSync, statSync } from 'node:fs';
 import ContentService from './content-service';
 import requestHandler from './request-handler';
@@ -33,15 +33,17 @@ const server = Bun.serve({
                               heading: 'Ustabile tjenester søndag 15. januar',
                               url: 'https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar',
                               type: 'prodstatus',
+                              urlscope: ['http://localhost:3000/arbeid'],
                           },
                           {
                               heading: 'Svindelforsøk via SMS - vær oppmerksom',
                               url: 'https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016',
                               type: 'info',
+                              urlscope: [],
                           },
                       ])
         ),
-        new SearchService(fetchSearch),
+        new SearchService(),
         {
             getFilePaths,
             getFile: Bun.file,

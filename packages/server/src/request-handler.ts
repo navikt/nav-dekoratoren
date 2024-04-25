@@ -5,7 +5,7 @@ import ContentService from './content-service';
 import { handleCors } from './cors';
 import { cspHandler } from './csp';
 import { clientEnv, env } from './env/server';
-import { HandlerBuilder, r } from './lib/handler';
+import { HandlerBuilder, responseBuilder } from './lib/handler';
 import { getMockSession, refreshToken } from './mockAuth';
 import renderIndex, { renderFooter, renderHeader } from './render-index';
 import jsonIndex from './json-index';
@@ -17,8 +17,7 @@ import { validParams } from './validateParams';
 import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
 import { MainMenu } from './views/header/main-menu';
 import { UserMenuDropdown } from './views/header/user-menu-dropdown';
-import { AnchorIconButton, IconButton } from './views/icon-button';
-import { OpsMessages } from './views/ops-messages';
+import { AnchorIconButton } from './views/icon-button';
 import { SearchHits } from './views/search-hits';
 import { SimpleUserMenu } from './views/simple-user-menu';
 import { NotificationsService } from './notifications-service';
@@ -51,7 +50,7 @@ const requestHandler = async (
 ) => {
     const handlersBuilder = new HandlerBuilder()
         .get('/api/auth', () =>
-            r()
+            responseBuilder()
                 .json({
                     authenticated: true,
                     name: 'Charlie Jensen',
@@ -59,7 +58,7 @@ const requestHandler = async (
                 })
                 .build()
         )
-        .get('/api/ta', () => r().json(taConfigService.getTaConfig()).build())
+        .get('/api/ta', () => taConfigService.getTaConfig().then((config) => responseBuilder().json(config).build()))
         .get('/api/oauth2/session', () => {
             return new Response(
                 JSON.stringify({
@@ -76,7 +75,7 @@ const requestHandler = async (
         })
         .get('/api/oauth2/session/refresh', () => {
             refreshToken();
-            return r().json(getMockSession()).build();
+            return responseBuilder().json(getMockSession()).build();
         })
         .get(
             '/oauth2/login',
@@ -88,15 +87,15 @@ const requestHandler = async (
                     status: 302,
                 })
         )
-        .get('/oauth2/logout', () => r().json(getMockSession()).build())
+        .get('/oauth2/logout', () => responseBuilder().json(getMockSession()).build())
         .get('/api/isAlive', () => new Response('OK'))
         .get('/api/isReady', () => new Response('OK'))
-        .post('/api/notifications/message/archive', async ({ request }) => r().json(request.json()).build())
+        .post('/api/notifications/message/archive', async ({ request }) => responseBuilder().json(request.json()).build())
         .get('/api/search', async ({ query }) => {
             const searchQuery = query.q;
-            const results = await searchService.search(searchQuery);
+            const results = await searchService.search({ query: searchQuery, ...validParams(query) });
 
-            return r()
+            return responseBuilder()
                 .html(
                     SearchHits({
                         results,
@@ -185,17 +184,11 @@ const requestHandler = async (
                 }
             };
 
-            return template().then((template) => r().html(template.render()).build());
+            return template().then((template) => responseBuilder().html(template.render()).build());
         })
         .get('/ops-messages', async () => {
-            const opsMessages = await contentService.getOpsMessages();
-
-            return r()
-                .html(
-                    match(opsMessages)
-                        .with([], () => '')
-                        .otherwise(() => OpsMessages({ opsMessages }).render())
-                )
+            return responseBuilder()
+                .json(await contentService.getOpsMessages())
                 .build();
         })
         .get('/header', async ({ query }) => {
@@ -208,7 +201,7 @@ const requestHandler = async (
                 contentService,
             });
 
-            return rewriter.transform(r().html(header.render()).build());
+            return rewriter.transform(responseBuilder().html(header.render()).build());
         })
         .get('/footer', async ({ query }) => {
             const data = validParams(query);
@@ -221,7 +214,7 @@ const requestHandler = async (
                 data,
             });
 
-            return rewriter.transform(r().html(footer.render()).build());
+            return rewriter.transform(responseBuilder().html(footer.render()).build());
         })
         .get('/scripts', async ({ query }) => {
             const json = await jsonIndex({
@@ -229,7 +222,7 @@ const requestHandler = async (
                 data: validParams(query),
             });
 
-            return r().json(json).build();
+            return responseBuilder().json(json).build();
         })
         .get('/', async ({ url, query }) => {
             const index = await renderIndex({
@@ -240,7 +233,7 @@ const requestHandler = async (
                 query,
             });
 
-            return rewriter.transform(r().html(index).build());
+            return rewriter.transform(responseBuilder().html(index).build());
         })
         // Build header and footer for SSR
         .use([
