@@ -1,11 +1,10 @@
-import postcss from "postcss";
 import fs from "fs";
 import path from "path";
+import postcss from "postcss";
+import postcssModules from "postcss-modules";
+import * as prettier from "prettier";
 import ts from "typescript";
 import { HmrContext } from "vite";
-import * as prettier from "prettier";
-import postcssModules from "postcss-modules";
-import prettierConfig from "../../.prettierrc.json";
 
 // Directoryes to write file to
 const targets = ["./", "../server/", "../shared/"];
