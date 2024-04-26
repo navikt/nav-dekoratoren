@@ -3,14 +3,20 @@
  * If the sum of probabilities is greater than 100%, we draw based on their relative values
  * */
 
-import { TaskAnalyticsSurveyConfig } from 'decorator-shared/types';
+import { TaskAnalyticsSurveyConfig } from "decorator-shared/types";
 
 const selectionMinRange = 100;
 const defaultSelection = 100;
 
-export const taskAnalyticsSelectSurvey = (surveys: TaskAnalyticsSurveyConfig[]): TaskAnalyticsSurveyConfig | null | undefined => {
-    const selectionSum = surveys.reduce((sum, survey) => sum + (survey.selection || defaultSelection), 0);
-    const selectedValue = Math.random() * Math.max(selectionSum, selectionMinRange);
+export const taskAnalyticsSelectSurvey = (
+    surveys: TaskAnalyticsSurveyConfig[],
+): TaskAnalyticsSurveyConfig | null | undefined => {
+    const selectionSum = surveys.reduce(
+        (sum, survey) => sum + (survey.selection || defaultSelection),
+        0,
+    );
+    const selectedValue =
+        Math.random() * Math.max(selectionSum, selectionMinRange);
 
     let lowerBound = 0;
 

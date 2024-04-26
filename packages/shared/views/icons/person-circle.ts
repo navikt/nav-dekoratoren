@@ -1,4 +1,4 @@
-import html from '../../html';
+import html from "../../html";
 
 export const PersonCircleIcon = ({ className }: { className?: string }) =>
     html`<svg

@@ -1,9 +1,9 @@
-const prefixer = require('postcss-prefix-selector');
+const prefixer = require("postcss-prefix-selector");
 
 /** @type {import('postcss-load-config').Config} */
 module.exports = {
     plugins: [
-        require('autoprefixer'),
+        require("autoprefixer"),
         // To filter out unsued tokens.
         // prefixer({
         //   transform(prefix, selector, prefixedSelector, filePath, rule) {

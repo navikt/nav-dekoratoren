@@ -1,6 +1,6 @@
-import { Params } from 'decorator-shared/params';
+import { Params } from "decorator-shared/params";
 
-describe('Setting parameters', () => {
+describe("Setting parameters", () => {
     let ready = false;
 
     const isReady = (window: Window) => {
@@ -13,20 +13,23 @@ describe('Setting parameters', () => {
             (function wait() {
                 if (!ready) {
                     setTimeout(wait, 50);
-                    window.postMessage({ source: 'decoratorClient', event: 'ready' }, window.location.origin);
+                    window.postMessage(
+                        { source: "decoratorClient", event: "ready" },
+                        window.location.origin,
+                    );
                 }
             })();
 
             const receiveMessage = (msg: MessageEvent) => {
                 const { data } = msg;
                 const { source, event } = data;
-                if (source === 'decorator' && event === 'ready') {
+                if (source === "decorator" && event === "ready") {
                     ready = true;
-                    window.removeEventListener('message', receiveMessage);
+                    window.removeEventListener("message", receiveMessage);
                     resolve(true);
                 }
             };
-            window.addEventListener('message', receiveMessage);
+            window.addEventListener("message", receiveMessage);
         });
     };
 
@@ -39,8 +42,8 @@ describe('Setting parameters', () => {
             })
             .then((window) => {
                 window.postMessage({
-                    source: 'decoratorClient',
-                    event: 'params',
+                    source: "decoratorClient",
+                    event: "params",
                     payload: params,
                 });
             });
@@ -49,22 +52,22 @@ describe('Setting parameters', () => {
         ready = false;
     });
 
-    it('Breadcrumbs is set and handled in app', () => {
-        cy.visit('/');
+    it("Breadcrumbs is set and handled in app", () => {
+        cy.visit("/");
 
-        cy.findByText('Ditt NAV').should('not.exist');
+        cy.findByText("Ditt NAV").should("not.exist");
 
         const obj = {
             callback: console.log,
         };
 
-        const spy = cy.spy(obj, 'callback');
+        const spy = cy.spy(obj, "callback");
 
         cy.window()
             .then((window) => {
-                window.addEventListener('message', (message) => {
+                window.addEventListener("message", (message) => {
                     const { source, event, payload } = message.data;
-                    if (source === 'decorator' && event === 'breadcrumbClick') {
+                    if (source === "decorator" && event === "breadcrumbClick") {
                         obj.callback(payload);
                     }
                 });
@@ -73,49 +76,49 @@ describe('Setting parameters', () => {
                 setParams({
                     breadcrumbs: [
                         {
-                            url: '/a',
-                            title: 'Ditt NAV',
+                            url: "/a",
+                            title: "Ditt NAV",
                             handleInApp: true,
                         },
                         {
-                            url: '/b',
-                            title: 'Kontakt oss',
+                            url: "/b",
+                            title: "Kontakt oss",
                         },
                         {
-                            url: '/c',
-                            title: 'NAV Oslo',
+                            url: "/c",
+                            title: "NAV Oslo",
                         },
                     ],
-                })
+                }),
             )
             .then(() => {
-                cy.findByText('Ditt NAV').should('exist');
+                cy.findByText("Ditt NAV").should("exist");
 
-                cy.findByText('Ditt NAV')
+                cy.findByText("Ditt NAV")
                     .click()
                     .then(() => {
                         expect(spy).to.be.calledWith({
-                            url: '/a',
-                            title: 'Ditt NAV',
+                            url: "/a",
+                            title: "Ditt NAV",
                             handleInApp: true,
                         });
                     });
             });
     });
 
-    it('Breadcrumbs handled in app works when set on server', () => {
+    it("Breadcrumbs handled in app works when set on server", () => {
         cy.visit(
             `/?breadcrumbs=${JSON.stringify([
-                { url: '/wat', title: 'Ditt NAV', handleInApp: true },
-                { url: '/b', title: 'Kontakt oss' },
-            ])}`
+                { url: "/wat", title: "Ditt NAV", handleInApp: true },
+                { url: "/b", title: "Kontakt oss" },
+            ])}`,
         );
 
         const obj = {
             callback: console.log,
         };
 
-        const spy = cy.spy(obj, 'callback');
+        const spy = cy.spy(obj, "callback");
 
         cy.window()
             .then(async (window) => {
@@ -123,44 +126,44 @@ describe('Setting parameters', () => {
                 return window;
             })
             .then((window) => {
-                window.addEventListener('message', (message) => {
+                window.addEventListener("message", (message) => {
                     const { source, event, payload } = message.data;
-                    if (source === 'decorator' && event === 'breadcrumbClick') {
+                    if (source === "decorator" && event === "breadcrumbClick") {
                         obj.callback(payload);
                     }
                 });
             })
             .then(() => {
-                cy.findByText('Ditt NAV').should('exist');
+                cy.findByText("Ditt NAV").should("exist");
 
-                cy.findByText('Ditt NAV')
+                cy.findByText("Ditt NAV")
                     .click()
                     .then(() => {
                         expect(spy).to.be.calledWith({
-                            url: '/wat',
-                            title: 'Ditt NAV',
+                            url: "/wat",
+                            title: "Ditt NAV",
                             handleInApp: true,
                         });
                     });
             });
     });
 
-    it('Available languages is set and handled in app', () => {
-        cy.visit('/');
+    it("Available languages is set and handled in app", () => {
+        cy.visit("/");
 
-        cy.findByText('Språk').should('not.exist');
+        cy.findByText("Språk").should("not.exist");
 
         const obj = {
             callback: console.log,
         };
 
-        const spy = cy.spy(obj, 'callback');
+        const spy = cy.spy(obj, "callback");
 
         cy.window()
             .then((window) => {
-                window.addEventListener('message', (message) => {
+                window.addEventListener("message", (message) => {
                     const { source, event, payload } = message.data;
-                    if (source === 'decorator' && event === 'languageSelect') {
+                    if (source === "decorator" && event === "languageSelect") {
                         obj.callback(payload);
                     }
                 });
@@ -168,40 +171,40 @@ describe('Setting parameters', () => {
             .then(() =>
                 setParams({
                     availableLanguages: [
-                        { locale: 'nb', url: '/', handleInApp: true },
-                        { locale: 'en', url: '/hmm' },
+                        { locale: "nb", url: "/", handleInApp: true },
+                        { locale: "en", url: "/hmm" },
                     ],
-                })
+                }),
             )
             .then(() => {
-                cy.findByText('Språk')
+                cy.findByText("Språk")
                     .click()
                     .then(() =>
                         cy
                             .get('[class*="sprakvelger"]')
-                            .findByText('English')
+                            .findByText("English")
                             .click()
                             .then(() => {
                                 expect(spy).to.not.be.called;
-                            })
+                            }),
                     );
             });
     });
 
-    it('Available languages is set and handled in app (nb)', () => {
-        cy.visit('/');
+    it("Available languages is set and handled in app (nb)", () => {
+        cy.visit("/");
 
         const obj = {
             callback: console.log,
         };
 
-        const spy = cy.spy(obj, 'callback');
+        const spy = cy.spy(obj, "callback");
 
         cy.window()
             .then((window) => {
-                window.addEventListener('message', (message) => {
+                window.addEventListener("message", (message) => {
                     const { source, event, payload } = message.data;
-                    if (source === 'decorator' && event === 'languageSelect') {
+                    if (source === "decorator" && event === "languageSelect") {
                         obj.callback(payload);
                     }
                 });
@@ -209,42 +212,42 @@ describe('Setting parameters', () => {
             .then(() =>
                 setParams({
                     availableLanguages: [
-                        { locale: 'nb', url: '/', handleInApp: true },
-                        { locale: 'en', url: '/hmm' },
+                        { locale: "nb", url: "/", handleInApp: true },
+                        { locale: "en", url: "/hmm" },
                     ],
-                })
+                }),
             )
             .then(() => {
-                cy.findByText('Språk')
+                cy.findByText("Språk")
                     .click()
                     .then(() =>
                         cy
-                            .findByText('Norsk (bokmål)')
+                            .findByText("Norsk (bokmål)")
                             .click()
                             .then(() => {
                                 expect(spy).to.be.calledWith({
-                                    locale: 'nb',
-                                    url: '/',
+                                    locale: "nb",
+                                    url: "/",
                                     handleInApp: true,
                                 });
-                            })
+                            }),
                     );
             });
     });
 
-    it('Available languages handled correctly when set on server', () => {
+    it("Available languages handled correctly when set on server", () => {
         cy.visit(
             `/?availableLanguages=${JSON.stringify([
-                { locale: 'nb', url: '/', handleInApp: true },
-                { locale: 'en', url: '/' },
-            ])}`
+                { locale: "nb", url: "/", handleInApp: true },
+                { locale: "en", url: "/" },
+            ])}`,
         );
 
         const obj = {
             callback: console.log,
         };
 
-        const spy = cy.spy(obj, 'callback');
+        const spy = cy.spy(obj, "callback");
 
         cy.window()
             .then(async (window) => {
@@ -252,19 +255,19 @@ describe('Setting parameters', () => {
                 return window;
             })
             .then((window) => {
-                window.addEventListener('message', (message) => {
+                window.addEventListener("message", (message) => {
                     const { source, event, payload } = message.data;
-                    if (source === 'decorator' && event === 'languageSelect') {
+                    if (source === "decorator" && event === "languageSelect") {
                         obj.callback(payload);
                     }
                 });
             })
             .then(() => {
-                cy.findByText('Språk')
+                cy.findByText("Språk")
                     .click()
                     .then(() => {
                         cy.get('[class*="sprakvelger"]')
-                            .findByText('English')
+                            .findByText("English")
                             .click()
                             .then(() => {
                                 expect(spy).to.not.be.called;
@@ -273,19 +276,19 @@ describe('Setting parameters', () => {
             });
     });
 
-    it('Available languages handled correctly when set on server (nb)', () => {
+    it("Available languages handled correctly when set on server (nb)", () => {
         cy.visit(
             `/?availableLanguages=${JSON.stringify([
-                { locale: 'nb', url: '/', handleInApp: true },
-                { locale: 'en', url: '/' },
-            ])}`
+                { locale: "nb", url: "/", handleInApp: true },
+                { locale: "en", url: "/" },
+            ])}`,
         );
 
         const obj = {
             callback: console.log,
         };
 
-        const spy = cy.spy(obj, 'callback');
+        const spy = cy.spy(obj, "callback");
 
         cy.window()
             .then(async (window) => {
@@ -293,23 +296,23 @@ describe('Setting parameters', () => {
                 return window;
             })
             .then((window) => {
-                window.addEventListener('message', (message) => {
+                window.addEventListener("message", (message) => {
                     const { source, event, payload } = message.data;
-                    if (source === 'decorator' && event === 'languageSelect') {
+                    if (source === "decorator" && event === "languageSelect") {
                         obj.callback(payload);
                     }
                 });
             })
             .then(() => {
-                cy.findByText('Språk')
+                cy.findByText("Språk")
                     .click()
                     .then(() => {
-                        cy.findByText('Norsk (bokmål)')
+                        cy.findByText("Norsk (bokmål)")
                             .click()
                             .then(() => {
                                 expect(spy).to.be.calledWith({
-                                    locale: 'nb',
-                                    url: '/',
+                                    locale: "nb",
+                                    url: "/",
                                     handleInApp: true,
                                 });
                             });
@@ -317,32 +320,44 @@ describe('Setting parameters', () => {
             });
     });
 
-    it('utilsBackground', () => {
+    it("utilsBackground", () => {
         cy.visit(
             `/?breadcrumbs=${JSON.stringify([
-                { url: '/wat', title: 'Ditt NAV', handleInApp: true },
-                { url: '/b', title: 'Kontakt oss' },
-            ])}`
+                { url: "/wat", title: "Ditt NAV", handleInApp: true },
+                { url: "/b", title: "Kontakt oss" },
+            ])}`,
         );
 
-        cy.get('.decorator-utils-container').should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
+        cy.get(".decorator-utils-container").should(
+            "have.css",
+            "background-color",
+            "rgba(0, 0, 0, 0)",
+        );
 
-        setParams({ utilsBackground: 'gray' }).then(() => {
-            cy.get('.decorator-utils-container').should('have.css', 'background-color', 'rgb(241, 241, 241)');
+        setParams({ utilsBackground: "gray" }).then(() => {
+            cy.get(".decorator-utils-container").should(
+                "have.css",
+                "background-color",
+                "rgb(241, 241, 241)",
+            );
         });
 
-        setParams({ utilsBackground: 'white' }).then(() => {
-            cy.get('.decorator-utils-container').should('have.css', 'background-color', 'rgb(255, 255, 255)');
+        setParams({ utilsBackground: "white" }).then(() => {
+            cy.get(".decorator-utils-container").should(
+                "have.css",
+                "background-color",
+                "rgb(255, 255, 255)",
+            );
         });
     });
 
-    it('Context', () => {
-        cy.viewport(1201, 1337).visit('/');
+    it("Context", () => {
+        cy.viewport(1201, 1337).visit("/");
 
-        cy.get('[class*="lenkeActive"]').should('contain', 'Privat');
+        cy.get('[class*="lenkeActive"]').should("contain", "Privat");
 
-        setParams({ context: 'arbeidsgiver' }).then(() => {
-            cy.get('[class*="lenkeActive"]').should('contain', 'Arbeidsgiver');
+        setParams({ context: "arbeidsgiver" }).then(() => {
+            cy.get('[class*="lenkeActive"]').should("contain", "Arbeidsgiver");
         });
     });
 });

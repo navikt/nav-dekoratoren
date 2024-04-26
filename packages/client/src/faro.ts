@@ -11,5 +11,5 @@ export function addFaroMetaData() {
         },
     });
 
-    console.log('Faro: Adding metadata');
+    console.log("Faro: Adding metadata");
 }

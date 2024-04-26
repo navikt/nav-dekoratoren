@@ -1,6 +1,4 @@
-import { Template } from "decorator-shared/html";
-
-declare module '*manifest.json' {
+declare module "*manifest.json" {
     const value: Record<
         string,
         {
@@ -13,7 +11,7 @@ declare module '*manifest.json' {
     export default value;
 }
 
-declare module 'decorator-shared/*.module.css' {
+declare module "decorator-shared/*.module.css" {
     const value: Record<string, string>;
     export default value;
 }

@@ -1,32 +1,45 @@
-import html, { Template } from '../html';
+import html, { Template } from "../html";
 
-import cls from 'decorator-client/src/styles/screensharing-modal.module.css';
-import clsModal from 'decorator-client/src/styles/modal.module.css';
-import clsInputs from 'decorator-client/src/styles/inputs.module.css';
-import { VeilederIllustration } from 'decorator-shared/views/illustrations';
+import cls from "decorator-client/src/styles/screensharing-modal.module.css";
+import clsModal from "decorator-client/src/styles/modal.module.css";
+import clsInputs from "decorator-client/src/styles/inputs.module.css";
+import { VeilederIllustration } from "decorator-shared/views/illustrations";
 
-import { Button } from './components/button';
-import { Texts, WithTexts } from '../types';
-import { ReadMore } from './read-more';
-import { Alert } from './alert';
-import { match } from 'ts-pattern';
+import { Button } from "./components/button";
+import { Texts, WithTexts } from "../types";
+import { ReadMore } from "./read-more";
+import { Alert } from "./alert";
+import { match } from "ts-pattern";
 
 export type ScreensharingModalProps = {
     texts: Texts;
     children: Template;
-    status: 'enabled' | 'disabled';
+    status: "enabled" | "disabled";
 };
 
-const ScreensharingModal = ({ texts, children, status }: ScreensharingModalProps) => html`
+const ScreensharingModal = ({
+    texts,
+    children,
+    status,
+}: ScreensharingModalProps) => html`
     <screensharing-modal>
-        <dialog class="${clsModal.modal} ${cls.screensharingModal}" data-status="${status}">
+        <dialog
+            class="${clsModal.modal} ${cls.screensharingModal}"
+            data-status="${status}"
+        >
             ${VeilederIllustration({ className: cls.avatar })}
             <div class="${clsModal.modalWindow} ${cls.content}">
-                <h1 class="${clsModal.modalTitle}">${texts.footer_del_skjerm}</h1>
+                <h1 class="${clsModal.modalTitle}">
+                    ${texts.footer_del_skjerm}
+                </h1>
                 <p>${texts.delskjerm_modal_beskrivelse}</p>
                 ${ReadMore({
                     header: texts.delskjerm_modal_hjelpetekst_overskrift,
-                    content: [texts.delskjerm_modal_hjelpetekst_0, texts.delskjerm_modal_hjelpetekst_1, texts.delskjerm_modal_hjelpetekst_2],
+                    content: [
+                        texts.delskjerm_modal_hjelpetekst_0,
+                        texts.delskjerm_modal_hjelpetekst_1,
+                        texts.delskjerm_modal_hjelpetekst_2,
+                    ],
                 })}
                 <div class="${cls.children}">${children}</div>
             </div>
@@ -38,11 +51,21 @@ const ScreensharingModal = ({ texts, children, status }: ScreensharingModalProps
 export const ScreensharingEnabled = ({ texts }: WithTexts) => {
     return ScreensharingModal({
         texts,
-        status: 'enabled',
+        status: "enabled",
         children: html`
             <div>
-                <label for="screensharing_code" class="${clsInputs.textInputLabel}">${texts.delskjerm_modal_label}</label>
-                <input id="screensharing_code" class="${clsInputs.textInput} ${cls.codeInput}" type="text" maxlength="5" autocomplete="off" />
+                <label
+                    for="screensharing_code"
+                    class="${clsInputs.textInputLabel}"
+                    >${texts.delskjerm_modal_label}</label
+                >
+                <input
+                    id="screensharing_code"
+                    class="${clsInputs.textInput} ${cls.codeInput}"
+                    type="text"
+                    maxlength="5"
+                    autocomplete="off"
+                />
                 <ul class="${clsInputs.errorList}">
                     <li>${texts.delskjerm_modal_feilmelding}</li>
                 </ul>
@@ -50,13 +73,13 @@ export const ScreensharingEnabled = ({ texts }: WithTexts) => {
             <div class="${cls.buttonsWrapper}">
                 ${Button({
                     text: texts.delskjerm_modal_start,
-                    variant: 'primary',
+                    variant: "primary",
                     bigLabel: true,
                     className: cls.confirmButton,
                 })}
                 ${Button({
                     text: texts.delskjerm_modal_avbryt,
-                    variant: 'ghost',
+                    variant: "ghost",
                     bigLabel: true,
                     className: cls.cancelButton,
                 })}
@@ -68,9 +91,9 @@ export const ScreensharingEnabled = ({ texts }: WithTexts) => {
 export const ScreensharingDisabledModal = ({ texts }: WithTexts) => {
     return ScreensharingModal({
         texts,
-        status: 'disabled',
+        status: "disabled",
         children: Alert({
-            variant: 'error',
+            variant: "error",
             content: texts.delskjerm_modal_stengt,
         }),
     });

@@ -1,6 +1,6 @@
-import cls from 'decorator-client/src/styles/sticky.module.css';
+import cls from "decorator-client/src/styles/sticky.module.css";
 
-const STICKY_OFFSET_PROPERTY = '--decorator-sticky-offset';
+const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
 const STICKY_TRIGGER_DELTA_PX = 20;
 const HEADER_HEIGHT_PX = 80;
 
@@ -10,7 +10,7 @@ class Sticky extends HTMLElement {
 
     private prevScrollOffset: number = 0;
     private offsetAtDirectionChange: number = 0;
-    private prevScrollDirection: 'up' | 'down' | null = null;
+    private prevScrollDirection: "up" | "down" | null = null;
 
     constructor() {
         super();
@@ -19,12 +19,13 @@ class Sticky extends HTMLElement {
 
     private handleScroll = () => {
         const currentScrollOffset = window.scrollY;
-        const currentScrollDirection = this.prevScrollOffset > currentScrollOffset ? 'up' : 'down';
+        const currentScrollDirection =
+            this.prevScrollOffset > currentScrollOffset ? "up" : "down";
 
         this.prevScrollOffset = currentScrollOffset;
 
         if (currentScrollOffset < HEADER_HEIGHT_PX) {
-            if (currentScrollDirection === 'down') {
+            if (currentScrollDirection === "down") {
                 this.dock();
             }
             return;
@@ -36,11 +37,14 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        if (Math.abs(this.offsetAtDirectionChange - currentScrollOffset) < STICKY_TRIGGER_DELTA_PX) {
+        if (
+            Math.abs(this.offsetAtDirectionChange - currentScrollOffset) <
+            STICKY_TRIGGER_DELTA_PX
+        ) {
             return;
         }
 
-        if (currentScrollDirection === 'down') {
+        if (currentScrollDirection === "down") {
             this.unstick();
         } else {
             this.stick();
@@ -50,18 +54,27 @@ class Sticky extends HTMLElement {
     private dock() {
         this.stickyContent.classList.remove(cls.hidden);
         this.stickyContent.classList.remove(cls.sticky);
-        document.documentElement.style.setProperty(STICKY_OFFSET_PROPERTY, '0px');
+        document.documentElement.style.setProperty(
+            STICKY_OFFSET_PROPERTY,
+            "0px",
+        );
     }
 
     private stick() {
         this.stickyContent.classList.remove(cls.hidden);
         this.stickyContent.classList.add(cls.sticky);
-        document.documentElement.style.setProperty(STICKY_OFFSET_PROPERTY, `${HEADER_HEIGHT_PX}px`);
+        document.documentElement.style.setProperty(
+            STICKY_OFFSET_PROPERTY,
+            `${HEADER_HEIGHT_PX}px`,
+        );
     }
 
     private unstick() {
         this.stickyContent.classList.add(cls.hidden);
-        document.documentElement.style.setProperty(STICKY_OFFSET_PROPERTY, '0px');
+        document.documentElement.style.setProperty(
+            STICKY_OFFSET_PROPERTY,
+            "0px",
+        );
     }
 
     private init() {
@@ -80,12 +93,12 @@ class Sticky extends HTMLElement {
         this.prevScrollOffset = window.scrollY;
         this.init();
 
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener("scroll", this.handleScroll);
     }
 
     private disconnectedCallback() {
-        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener("scroll", this.handleScroll);
     }
 }
 
-customElements.define('d-sticky', Sticky);
+customElements.define("d-sticky", Sticky);

@@ -1,18 +1,21 @@
-import { AppState, Features } from 'decorator-shared/types';
-import { DefaultContext, Handler, HandlerFunction, responseBuilder } from './lib/handler';
-import { renderFooter, renderHeader } from './render-index';
-import { texts } from './texts';
-import { validParams } from './validateParams';
-import ContentService from './content-service';
-import { cdnUrl, getEnvAssets, getManifest } from './views';
-import { clientEnv } from './env/server';
+import { AppState, Features } from "decorator-shared/types";
+import ContentService from "./content-service";
+import { clientEnv } from "./env/server";
+import { Handler, HandlerFunction, responseBuilder } from "./lib/handler";
+import { renderFooter, renderHeader } from "./render-index";
+import { texts } from "./texts";
+import { validParams } from "./validateParams";
+import { cdnUrl, getManifest } from "./views";
 
 type Providers = {
     contentService: ContentService;
     features: Features;
 };
 
-function csrHandlerFunc({ contentService, features }: Providers): HandlerFunction {
+function csrHandlerFunc({
+    contentService,
+    features,
+}: Providers): HandlerFunction {
     const fn: HandlerFunction = async ({ query }) => {
         const data = validParams(query);
         const localTexts = texts[data.language];
@@ -32,9 +35,13 @@ function csrHandlerFunc({ contentService, features }: Providers): HandlerFunctio
 
         const manifest$ = getManifest();
 
-        const [header, footer, manifest] = await Promise.all([header$, footer$, manifest$]);
+        const [header, footer, manifest] = await Promise.all([
+            header$,
+            footer$,
+            manifest$,
+        ]);
 
-        const scripts = [cdnUrl(manifest['src/main.ts'].file)];
+        const scripts = [cdnUrl(manifest["src/main.ts"].file)];
 
         return responseBuilder()
             .json({
@@ -56,8 +63,8 @@ function csrHandlerFunc({ contentService, features }: Providers): HandlerFunctio
 
 export function csrHandler(providers: Providers) {
     const csrHandler: Handler = {
-        method: 'GET',
-        path: '/env',
+        method: "GET",
+        path: "/env",
         handler: csrHandlerFunc(providers),
     };
 

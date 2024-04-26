@@ -1,5 +1,5 @@
-import html from '../../../html';
-import classes from './link-button.module.css';
+import html from "../../../html";
+import classes from "./link-button.module.css";
 
 type LinkButtonProps = {
     text: string;

@@ -1,5 +1,5 @@
-import html, { Template } from '../../html';
-import { AlertVariant } from '../alert';
+import html, { Template } from "../../html";
+import { AlertVariant } from "../alert";
 
 export const alertIcons: Record<Partial<AlertVariant>, Template> = {
     info: html`<svg

@@ -1,30 +1,41 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import { taskAnalyticsGetState, taskAnalyticsSetSurveyMatched } from './ta-cookies';
-import { Context } from 'decorator-shared/params';
-import { TaskAnalyticsSurveyConfig, TaskAnalyticsUrlRule } from 'decorator-shared/types';
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import {
+    taskAnalyticsGetState,
+    taskAnalyticsSetSurveyMatched,
+} from "./ta-cookies";
+import { Context } from "decorator-shared/params";
+import {
+    TaskAnalyticsSurveyConfig,
+    TaskAnalyticsUrlRule,
+} from "decorator-shared/types";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const norwayTz = 'Europe/Oslo';
+const norwayTz = "Europe/Oslo";
 
-type Audience = Required<TaskAnalyticsSurveyConfig>['audience'][number];
-type Language = Required<TaskAnalyticsSurveyConfig>['language'][number];
-type Duration = TaskAnalyticsSurveyConfig['duration'];
+type Audience = Required<TaskAnalyticsSurveyConfig>["audience"][number];
+type Language = Required<TaskAnalyticsSurveyConfig>["language"][number];
+type Duration = TaskAnalyticsSurveyConfig["duration"];
 
-const removeTrailingSlash = (str: string) => str.replace(/\/$/, '');
+const removeTrailingSlash = (str: string) => str.replace(/\/$/, "");
 
-const isMatchingUrl = (url: string, currentUrl: string, match: TaskAnalyticsUrlRule['match']) =>
-    match === 'startsWith' ? currentUrl.startsWith(url) : currentUrl === url;
+const isMatchingUrl = (
+    url: string,
+    currentUrl: string,
+    match: TaskAnalyticsUrlRule["match"],
+) => (match === "startsWith" ? currentUrl.startsWith(url) : currentUrl === url);
 
 const isMatchingUrls = (urls?: TaskAnalyticsUrlRule[]) => {
     if (!urls) {
         return true;
     }
 
-    const currentUrl = removeTrailingSlash(`${window.location.origin}${window.location.pathname}`);
+    const currentUrl = removeTrailingSlash(
+        `${window.location.origin}${window.location.pathname}`,
+    );
 
     let isMatched: boolean | null = null;
     let isExcluded = false;
@@ -54,9 +65,11 @@ const isMatchingUrls = (urls?: TaskAnalyticsUrlRule[]) => {
     return !(isExcluded || isMatched === false);
 };
 
-const isMatchingAudience = (currentAudience: Audience, audience?: Audience[]) => !audience || audience.some((a) => a === currentAudience);
+const isMatchingAudience = (currentAudience: Audience, audience?: Audience[]) =>
+    !audience || audience.some((a) => a === currentAudience);
 
-const isMatchingLanguage = (currentLanguage: Language, language?: Language[]) => !language || language.some((lang) => lang === currentLanguage);
+const isMatchingLanguage = (currentLanguage: Language, language?: Language[]) =>
+    !language || language.some((lang) => lang === currentLanguage);
 
 const isMatchingDuration = (duration: Duration) => {
     if (!duration) {
@@ -66,10 +79,17 @@ const isMatchingDuration = (duration: Duration) => {
     const { start, end } = duration;
     const now = dayjs().tz(norwayTz);
 
-    return (!start || now.isAfter(dayjs.tz(start, norwayTz))) && (!end || now.isBefore(dayjs.tz(end, norwayTz)));
+    return (
+        (!start || now.isAfter(dayjs.tz(start, norwayTz))) &&
+        (!end || now.isBefore(dayjs.tz(end, norwayTz)))
+    );
 };
 
-export const taskAnalyticsIsMatchingSurvey = (survey: TaskAnalyticsSurveyConfig, currentLanguage: Language, currentAudience: Audience) => {
+export const taskAnalyticsIsMatchingSurvey = (
+    survey: TaskAnalyticsSurveyConfig,
+    currentLanguage: Language,
+    currentAudience: Audience,
+) => {
     const { urls, audience, language, duration } = survey;
 
     return (
@@ -80,13 +100,17 @@ export const taskAnalyticsIsMatchingSurvey = (survey: TaskAnalyticsSurveyConfig,
     );
 };
 
-export const taskAnalyticsGetMatchingSurveys = (surveys: TaskAnalyticsSurveyConfig[], currentLanguage: Language, currentAudience: Context) => {
+export const taskAnalyticsGetMatchingSurveys = (
+    surveys: TaskAnalyticsSurveyConfig[],
+    currentLanguage: Language,
+    currentAudience: Context,
+) => {
     const { matched: prevMatched = {} } = taskAnalyticsGetState();
 
     const matchingSurveys = surveys.filter((survey) => {
         const { id } = survey;
         if (!id) {
-            console.log('No TA survey id specified!');
+            console.log("No TA survey id specified!");
             return false;
         }
 
@@ -94,7 +118,11 @@ export const taskAnalyticsGetMatchingSurveys = (surveys: TaskAnalyticsSurveyConf
             return false;
         }
 
-        const isMatching = taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience);
+        const isMatching = taskAnalyticsIsMatchingSurvey(
+            survey,
+            currentLanguage,
+            currentAudience,
+        );
         if (!isMatching) {
             return false;
         }

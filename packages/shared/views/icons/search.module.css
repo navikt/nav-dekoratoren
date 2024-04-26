@@ -10,22 +10,22 @@
     transform-origin: center;
 }
 
-[aria-expanded='true'] .menuSearch__circle {
+[aria-expanded="true"] .menuSearch__circle {
     transform: scale(0.01);
 }
 
-[aria-expanded='true'] .menuSearch__line_1 {
+[aria-expanded="true"] .menuSearch__line_1 {
     transform: rotate(180deg) translate3d(-3px, -3px, 0);
 }
 
-[aria-expanded='true'] .menuSearch__line_2 {
+[aria-expanded="true"] .menuSearch__line_2 {
     transform: rotate(90deg) translate3d(-3px, -3px, 0);
 }
 
-[aria-expanded='true'] .menuSearch__line_3 {
+[aria-expanded="true"] .menuSearch__line_3 {
     transform: rotate(-90deg) translate3d(-3px, -3px, 0);
 }
 
-[aria-expanded='true'] .menuSearch__line_4 {
+[aria-expanded="true"] .menuSearch__line_4 {
     transform: translate3d(-3px, -3px, 0);
 }

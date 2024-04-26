@@ -13,7 +13,8 @@
     transition-timing-function: ease-in;
     width: 100%;
     background-color: var(--a-surface-default);
-    border-radius: 0 0 var(--a-border-radius-medium) var(--a-border-radius-medium);
+    border-radius: 0 0 var(--a-border-radius-medium)
+        var(--a-border-radius-medium);
     overflow: hidden;
 }
 

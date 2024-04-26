@@ -13,9 +13,12 @@
  * ```
  */
 
-import { Params } from './params';
+import { Params } from "./params";
 
-export function tryParse<TParsed, TDefault = any>(value: string | null, defaultValue: TDefault) {
+export function tryParse<TParsed, TDefault = any>(
+    value: string | null,
+    defaultValue: TDefault,
+) {
     if (!value) return defaultValue;
     try {
         return JSON.parse(value) as TParsed;
@@ -25,5 +28,9 @@ export function tryParse<TParsed, TDefault = any>(value: string | null, defaultV
 }
 
 export function formatParams(params: Partial<Params>) {
-    return new URLSearchParams(Object.entries(params).map(([k, v]) => (Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v.toString()])));
+    return new URLSearchParams(
+        Object.entries(params).map(([k, v]) =>
+            Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v.toString()],
+        ),
+    );
 }

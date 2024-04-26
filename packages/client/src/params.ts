@@ -1,5 +1,5 @@
-import { Params, type ParamKey, Environment } from 'decorator-shared/params';
-import { createEvent } from './events';
+import { Params, type ParamKey, Environment } from "decorator-shared/params";
+import { createEvent } from "./events";
 
 export const hasParam = (paramKey: ParamKey): boolean => {
     return window.__DECORATOR_DATA__.params[paramKey] !== undefined;
@@ -29,9 +29,9 @@ export const updateDecoratorParams = (params: Partial<Params>) => {
         };
 
         window.dispatchEvent(
-            createEvent('paramsupdated', {
+            createEvent("paramsupdated", {
                 detail: { params: updatedParams },
-            })
+            }),
         );
     }
 };

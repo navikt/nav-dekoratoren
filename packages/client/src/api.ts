@@ -1,9 +1,9 @@
-import { LoginLevel } from 'decorator-shared/params';
+import { LoginLevel } from "decorator-shared/params";
 
 export type AuthLoggedIn = {
     authenticated: true;
     name: string;
-    securityLevel: '3' | '4';
+    securityLevel: "3" | "4";
 };
 
 export type AuthLoggedOut = {
@@ -21,7 +21,7 @@ export async function checkAuth(): Promise<Auth> {
 
     try {
         const fetchResponse = await fetch(authUrl, {
-            credentials: 'include',
+            credentials: "include",
         });
 
         const response = await fetchResponse.json();
@@ -48,11 +48,18 @@ export function makeLoginUrl(loginLevel: LoginLevel): string {
 }
 
 export function archive(eventId: { eventId: string }) {
-    return fetch(`${window.__DECORATOR_DATA__.env.VARSEL_API_URL}/notifications/message/archive`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(eventId),
-        credentials: 'include',
-        keepalive: true,
-    }).catch((e) => console.info(`Error posting done event for notifications [eventId: ${eventId?.eventId} - error: ${e}]`));
+    return fetch(
+        `${window.__DECORATOR_DATA__.env.VARSEL_API_URL}/notifications/message/archive`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(eventId),
+            credentials: "include",
+            keepalive: true,
+        },
+    ).catch((e) =>
+        console.info(
+            `Error posting done event for notifications [eventId: ${eventId?.eventId} - error: ${e}]`,
+        ),
+    );
 }

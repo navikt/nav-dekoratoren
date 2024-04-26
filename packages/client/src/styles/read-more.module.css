@@ -1,7 +1,7 @@
 .summary {
     color: var(--a-blue-500);
     list-style-type: none;
-    list-style-image: url('/public/ikoner/read-more.svg');
+    list-style-image: url("/public/ikoner/read-more.svg");
     height: 32px;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .details[open] .summary {
-    list-style-image: url('/public/ikoner/read-less.svg');
+    list-style-image: url("/public/ikoner/read-less.svg");
 }
 
 .details {

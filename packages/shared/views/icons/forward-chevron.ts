@@ -1,4 +1,4 @@
-import html, { spreadProps } from 'decorator-shared/html';
+import html, { spreadProps } from "decorator-shared/html";
 
 export function ForwardChevron(props?: { className?: string }) {
     return html`

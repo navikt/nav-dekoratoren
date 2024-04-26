@@ -1,6 +1,8 @@
-import html from '../../html';
+import html from "../../html";
 
-export const DownChevronIcon = ({ className }: { className?: string } = {}) => html`
+export const DownChevronIcon = ({
+    className,
+}: { className?: string } = {}) => html`
     <svg
         width="1em"
         height="1em"

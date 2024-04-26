@@ -1,7 +1,7 @@
-import { lazyLoadScreensharing, startCall } from '../screensharing';
-import cls from '../styles/screensharing-modal.module.css';
-import clsInputs from '../styles/inputs.module.css';
-import { param } from '../params';
+import { lazyLoadScreensharing, startCall } from "../screensharing";
+import cls from "../styles/screensharing-modal.module.css";
+import clsInputs from "../styles/inputs.module.css";
+import { param } from "../params";
 
 export class ScreensharingModal extends HTMLElement {
     dialog!: HTMLDialogElement;
@@ -9,14 +9,18 @@ export class ScreensharingModal extends HTMLElement {
     confirmButton!: HTMLButtonElement;
     cancelButton!: HTMLButtonElement;
     errorList!: HTMLUListElement;
-    code: string = '';
+    code: string = "";
 
     showModal() {
         this.dialog.showModal();
     }
 
     validateInput() {
-        if (!this.code || this.code.length !== 5 || !this.code.match(/^[0-9]+$/)) {
+        if (
+            !this.code ||
+            this.code.length !== 5 ||
+            !this.code.match(/^[0-9]+$/)
+        ) {
             this.input.classList.add(clsInputs.invalid);
             this.errorList.classList.add(clsInputs.showErrors);
             return false;
@@ -29,29 +33,35 @@ export class ScreensharingModal extends HTMLElement {
     }
 
     async connectedCallback() {
-        if (param('shareScreen') == false) {
+        if (param("shareScreen") == false) {
             return;
         }
 
-        this.dialog = this.querySelector('dialog') as HTMLDialogElement;
-        this.input = this.querySelector('input#screensharing_code') as HTMLInputElement;
-        this.confirmButton = this.querySelector(`.${cls.confirmButton}`) as HTMLButtonElement;
-        this.cancelButton = this.querySelector(`.${cls.cancelButton}`) as HTMLButtonElement;
-        this.errorList = this.querySelector('ul') as HTMLUListElement;
+        this.dialog = this.querySelector("dialog") as HTMLDialogElement;
+        this.input = this.querySelector(
+            "input#screensharing_code",
+        ) as HTMLInputElement;
+        this.confirmButton = this.querySelector(
+            `.${cls.confirmButton}`,
+        ) as HTMLButtonElement;
+        this.cancelButton = this.querySelector(
+            `.${cls.cancelButton}`,
+        ) as HTMLButtonElement;
+        this.errorList = this.querySelector("ul") as HTMLUListElement;
 
-        this.input.addEventListener('input', () => {
+        this.input.addEventListener("input", () => {
             this.clearErrors();
             this.code = this.input.value;
         });
 
-        this.confirmButton.addEventListener('click', () => {
+        this.confirmButton.addEventListener("click", () => {
             if (this.validateInput()) {
                 startCall(this.code);
                 this.dialog.close();
             }
         });
 
-        this.cancelButton.addEventListener('click', () => {
+        this.cancelButton.addEventListener("click", () => {
             this.dialog.close();
         });
     }
@@ -59,7 +69,9 @@ export class ScreensharingModal extends HTMLElement {
 
 class ScreenshareButton extends HTMLElement {
     handleClick() {
-        const dialog = document.querySelector('screensharing-modal') as HTMLDialogElement;
+        const dialog = document.querySelector(
+            "screensharing-modal",
+        ) as HTMLDialogElement;
 
         lazyLoadScreensharing(() => {
             dialog.showModal();
@@ -67,13 +79,13 @@ class ScreenshareButton extends HTMLElement {
     }
 
     connectedCallback() {
-        this.addEventListener('click', this.handleClick);
+        this.addEventListener("click", this.handleClick);
     }
 
     disonnectedCallback() {
-        this.removeEventListener('click', this.handleClick);
+        this.removeEventListener("click", this.handleClick);
     }
 }
 
-customElements.define('screensharing-modal', ScreensharingModal);
-customElements.define('screenshare-button', ScreenshareButton);
+customElements.define("screensharing-modal", ScreensharingModal);
+customElements.define("screenshare-button", ScreenshareButton);

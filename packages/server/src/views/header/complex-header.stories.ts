@@ -1,12 +1,12 @@
-import type { StoryObj, Meta } from '@storybook/html';
-import type { ComplexHeaderProps } from './complex-header';
-import { ComplexHeader } from './complex-header';
-import { texts } from '../../texts';
-import { makeContextLinks } from 'decorator-shared/context';
+import type { StoryObj, Meta } from "@storybook/html";
+import type { ComplexHeaderProps } from "./complex-header";
+import { ComplexHeader } from "./complex-header";
+import { texts } from "../../texts";
+import { makeContextLinks } from "decorator-shared/context";
 
 const meta: Meta<ComplexHeaderProps> = {
-    title: 'header/complex-header',
-    tags: ['autodocs'],
+    title: "header/complex-header",
+    tags: ["autodocs"],
     render: ComplexHeader,
 };
 
@@ -15,36 +15,36 @@ type Story = StoryObj<ComplexHeaderProps>;
 
 export const Default: Story = {
     args: {
-        language: 'nb',
-        contextLinks: makeContextLinks(''),
+        language: "nb",
+        contextLinks: makeContextLinks(""),
         texts: texts.nb,
-        context: 'privatperson',
+        context: "privatperson",
         opsMessages: [],
     },
 };
 
 export const LoggedInPrivatperson: Story = {
     args: {
-        language: 'nb',
-        contextLinks: makeContextLinks(''),
+        language: "nb",
+        contextLinks: makeContextLinks(""),
         texts: texts.nb,
-        context: 'privatperson',
+        context: "privatperson",
         opsMessages: [],
     },
 };
 
 export const LoggedInPrivatpersonMobile: Story = {
     parameters: {
-        layout: 'fullscreen',
+        layout: "fullscreen",
         viewport: {
-            defaultViewport: 'mobile',
+            defaultViewport: "mobile",
         },
     },
     args: {
-        language: 'nb',
-        contextLinks: makeContextLinks(''),
+        language: "nb",
+        contextLinks: makeContextLinks(""),
         texts: texts.nb,
-        context: 'privatperson',
+        context: "privatperson",
         opsMessages: [],
     },
 };

@@ -1,6 +1,6 @@
-import clsx from 'clsx';
-import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/dropdown-menu.module.css';
+import clsx from "clsx";
+import html, { Template } from "decorator-shared/html";
+import cls from "decorator-client/src/styles/dropdown-menu.module.css";
 
 export type DropdownMenuProps = {
     button: Template;
@@ -8,8 +8,14 @@ export type DropdownMenuProps = {
     dropdownClass?: string;
 };
 
-export const DropdownMenu = ({ button, dropdownContent, dropdownClass }: DropdownMenuProps) =>
+export const DropdownMenu = ({
+    button,
+    dropdownContent,
+    dropdownClass,
+}: DropdownMenuProps) =>
     html`<dropdown-menu>
         ${button}
-        <div class="${clsx(cls.dropdownMenuContainer, dropdownClass)}">${dropdownContent}</div>
+        <div class="${clsx(cls.dropdownMenuContainer, dropdownClass)}">
+            ${dropdownContent}
+        </div>
     </dropdown-menu>`;

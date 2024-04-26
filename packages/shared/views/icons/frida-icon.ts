@@ -1,7 +1,15 @@
-import html from '../../html';
+import html from "../../html";
 
 export const FridaIcon = ({ className }: { className?: string } = {}) =>
-    html`<svg class="${className}" focusable="false" fill="none" height="50" viewBox="0 0 50 50" width="50" xmlns="http://www.w3.org/2000/svg">
+    html`<svg
+        class="${className}"
+        focusable="false"
+        fill="none"
+        height="50"
+        viewBox="0 0 50 50"
+        width="50"
+        xmlns="http://www.w3.org/2000/svg"
+    >
         <path d="m0 0h50v50h-50z" fill="#ffffff" />
         <g clipRule="evenodd" fillRule="evenodd">
             <path

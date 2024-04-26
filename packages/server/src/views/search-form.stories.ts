@@ -1,11 +1,11 @@
-import type { StoryObj, Meta } from '@storybook/html';
-import type { SearchFormProps } from './search-form';
-import { SearchForm } from './search-form';
-import { texts } from '../texts';
+import type { StoryObj, Meta } from "@storybook/html";
+import type { SearchFormProps } from "./search-form";
+import { SearchForm } from "./search-form";
+import { texts } from "../texts";
 
 const meta: Meta<SearchFormProps> = {
-    title: 'search/search-form',
-    tags: ['autodocs'],
+    title: "search/search-form",
+    tags: ["autodocs"],
     render: SearchForm,
 };
 

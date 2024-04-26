@@ -1,16 +1,19 @@
-import type { AnalyticsEventArgs } from '../analytics/constants';
-import { tryParse } from 'decorator-shared/json';
-import { CustomLinkElement } from '../helpers/custom-link-element';
+import type { AnalyticsEventArgs } from "../analytics/constants";
+import { tryParse } from "decorator-shared/json";
+import { CustomLinkElement } from "../helpers/custom-link-element";
 
 export class LenkeMedSporingElement extends CustomLinkElement {
     constructor() {
         super();
 
-        const rawEventArgs = this.getAttribute('data-analytics-event-args');
-        const eventArgs = tryParse<AnalyticsEventArgs, null>(rawEventArgs, null);
+        const rawEventArgs = this.getAttribute("data-analytics-event-args");
+        const eventArgs = tryParse<AnalyticsEventArgs, null>(
+            rawEventArgs,
+            null,
+        );
 
         if (eventArgs) {
-            this.addEventListener('click', () => {
+            this.addEventListener("click", () => {
                 const payload = {
                     context: window.__DECORATOR_DATA__.params.context,
                     ...eventArgs,
@@ -21,4 +24,4 @@ export class LenkeMedSporingElement extends CustomLinkElement {
     }
 }
 
-customElements.define('lenke-med-sporing', LenkeMedSporingElement);
+customElements.define("lenke-med-sporing", LenkeMedSporingElement);

@@ -1,12 +1,12 @@
-import { Auth } from './api';
-import { Context, Params } from 'decorator-shared/params';
+import { Auth } from "./api";
+import { Context, Params } from "decorator-shared/params";
 
 export type MessageEvent = {
-    hello: 'true';
+    hello: "true";
 };
 
 export type CustomEvents = {
-    'analytics-ready-event': void;
+    "analytics-ready-event": void;
     activecontext: { context: Context };
     paramsupdated: {
         params: Partial<Params>;
@@ -22,21 +22,24 @@ export type CustomEvents = {
 
 export type MessageEvents =
     | {
-          source: 'decoratorClient';
-          event: 'ready';
+          source: "decoratorClient";
+          event: "ready";
       }
     | {
-          source: 'decoratorClient';
-          event: 'params';
+          source: "decoratorClient";
+          event: "params";
           payload: Partial<Params>;
       };
 
 export type EventName = keyof CustomEvents;
 
-export function createEvent<TName extends keyof CustomEvents>(name: TName, options: CustomEventInit<CustomEvents[TName]>) {
+export function createEvent<TName extends keyof CustomEvents>(
+    name: TName,
+    options: CustomEventInit<CustomEvents[TName]>,
+) {
     return new CustomEvent(name, options);
 }
 
-export const analyticsReady = new CustomEvent('analytics-ready-event', {
+export const analyticsReady = new CustomEvent("analytics-ready-event", {
     bubbles: true,
 });

@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html from "decorator-shared/html";
 
 export function LoginIcon({ className }: { className?: string }) {
     return html`<svg

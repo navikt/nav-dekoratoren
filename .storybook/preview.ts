@@ -1,15 +1,18 @@
 /// <reference lib="DOM" />
-import type { Preview } from '@storybook/html';
-import 'decorator-client/src/main.css';
-import 'decorator-client/src/views/dropdown-menu';
-import 'decorator-client/src/views/language-selector';
-import 'decorator-client/src/views/loader';
-import 'decorator-client/src/views/local-time';
-import 'decorator-client/src/views/menu-background';
-import 'decorator-client/src/views/search-input';
-import html from 'decorator-shared/html';
-import { Params } from 'decorator-shared/params';
-import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import type { Preview } from "@storybook/html";
+import "decorator-client/src/main.css";
+import "decorator-client/src/views/dropdown-menu";
+import "decorator-client/src/views/language-selector";
+import "decorator-client/src/views/loader";
+import "decorator-client/src/views/local-time";
+import "decorator-client/src/views/menu-background";
+import "decorator-client/src/views/search-input";
+import html from "decorator-shared/html";
+import { Params } from "decorator-shared/params";
+import {
+    INITIAL_VIEWPORTS,
+    MINIMAL_VIEWPORTS,
+} from "@storybook/addon-viewport";
 
 declare global {
     interface Window {
@@ -27,7 +30,7 @@ const customViewports = {
 
 window.__DECORATOR_DATA__ = {
     params: {
-        language: 'nb',
+        language: "nb",
     },
 };
 
@@ -37,12 +40,12 @@ const preview: Preview = {
             const story = Story();
 
             if (story === null) {
-                return '';
-            } else if (typeof story === 'object' && 'render' in story) {
+                return "";
+            } else if (typeof story === "object" && "render" in story) {
                 return html`<div id="decorator-header">${story}</div>`.render();
             } else {
-                const wrapper = document.createElement('div');
-                wrapper.setAttribute('id', 'decorator-header');
+                const wrapper = document.createElement("div");
+                wrapper.setAttribute("id", "decorator-header");
                 // @ts-ignore
                 wrapper.appendChild(story);
                 return wrapper;
@@ -52,9 +55,9 @@ const preview: Preview = {
     parameters: {
         viewport: {
             viewports: customViewports,
-            defaultViewport: 'desktop',
+            defaultViewport: "desktop",
         },
-        actions: { argTypesRegex: '^on[A-Z].*' },
+        actions: { argTypesRegex: "^on[A-Z].*" },
         controls: {
             matchers: {
                 color: /(background|color)$/i,

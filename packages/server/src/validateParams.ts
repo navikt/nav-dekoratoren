@@ -1,11 +1,14 @@
-import { paramsSchema, type Params } from 'decorator-shared/params';
-import { clientEnv } from './env/server';
-import { P, match } from 'ts-pattern';
-import { ZodBoolean, ZodDefault } from 'zod';
+import { paramsSchema, type Params } from "decorator-shared/params";
+import { clientEnv } from "./env/server";
+import { P, match } from "ts-pattern";
+import { ZodBoolean, ZodDefault } from "zod";
 
 export const getBooleans = () =>
     Object.entries(paramsSchema.shape).reduce((prev, [key, value]) => {
-        if (value instanceof ZodDefault && value._def.innerType instanceof ZodBoolean) {
+        if (
+            value instanceof ZodDefault &&
+            value._def.innerType instanceof ZodBoolean
+        ) {
             return [...prev, key];
         }
         return prev;
@@ -13,7 +16,7 @@ export const getBooleans = () =>
 
 export const parseBooleanParam = (param?: unknown): boolean =>
     match(param)
-        .with(P.string, (param) => param === 'true')
+        .with(P.string, (param) => param === "true")
         .with(P.boolean, (param) => param)
         .otherwise(() => false);
 
@@ -23,12 +26,16 @@ const booleans = getBooleans();
 export const validateParams = (params: Record<string, string>) => {
     const reduced = booleans.reduce((prev, key) => {
         const exists = params[key] !== undefined;
-        const isOptional = paramsSchema.shape[key as keyof Params] instanceof ZodDefault === false;
+        const isOptional =
+            paramsSchema.shape[key as keyof Params] instanceof ZodDefault ===
+            false;
         const shouldParse = exists || isOptional;
 
         return {
             ...prev,
-            [key]: shouldParse ? parseBooleanParam(params[key]) : paramsSchema.shape[key as keyof Params].parse(params[key]),
+            [key]: shouldParse
+                ? parseBooleanParam(params[key])
+                : paramsSchema.shape[key as keyof Params].parse(params[key]),
         };
     }, {});
     return {

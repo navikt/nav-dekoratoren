@@ -1,41 +1,41 @@
-import { getLogOutUrl } from 'decorator-shared/auth';
-import { LogoutIcon } from 'decorator-shared/views/icons/logout';
-import { match } from 'ts-pattern';
-import ContentService from './content-service';
-import { handleCors } from './cors';
-import { cspHandler } from './csp';
-import { clientEnv, env } from './env/server';
-import { HandlerBuilder, responseBuilder } from './lib/handler';
-import { getMockSession, refreshToken } from './mockAuth';
-import renderIndex, { renderFooter, renderHeader } from './render-index';
-import jsonIndex from './json-index';
-import SearchService from './search-service';
-import TaConfigService from './task-analytics-service';
-import { texts } from './texts';
-import UnleashService from './unleash-service';
-import { validParams } from './validateParams';
-import { ArbeidsgiverUserMenu } from './views/header/arbeidsgiver-user-menu';
-import { MainMenu } from './views/header/main-menu';
-import { UserMenuDropdown } from './views/header/user-menu-dropdown';
-import { AnchorIconButton } from './views/icon-button';
-import { SearchHits } from './views/search-hits';
-import { SimpleUserMenu } from './views/simple-user-menu';
-import { NotificationsService } from './notifications-service';
-import { assetsHandlers } from './handlers/assets-handler';
-import { makeFrontpageUrl } from 'decorator-shared/urls';
-import { csrHandler } from './csr';
+import { getLogOutUrl } from "decorator-shared/auth";
+import { LogoutIcon } from "decorator-shared/views/icons/logout";
+import { match } from "ts-pattern";
+import ContentService from "./content-service";
+import { handleCors } from "./cors";
+import { cspHandler } from "./csp";
+import { clientEnv, env } from "./env/server";
+import { HandlerBuilder, responseBuilder } from "./lib/handler";
+import { getMockSession, refreshToken } from "./mockAuth";
+import renderIndex, { renderFooter, renderHeader } from "./render-index";
+import jsonIndex from "./json-index";
+import SearchService from "./search-service";
+import TaConfigService from "./task-analytics-service";
+import { texts } from "./texts";
+import UnleashService from "./unleash-service";
+import { validParams } from "./validateParams";
+import { ArbeidsgiverUserMenu } from "./views/header/arbeidsgiver-user-menu";
+import { MainMenu } from "./views/header/main-menu";
+import { UserMenuDropdown } from "./views/header/user-menu-dropdown";
+import { AnchorIconButton } from "./views/icon-button";
+import { SearchHits } from "./views/search-hits";
+import { SimpleUserMenu } from "./views/simple-user-menu";
+import { NotificationsService } from "./notifications-service";
+import { assetsHandlers } from "./handlers/assets-handler";
+import { makeFrontpageUrl } from "decorator-shared/urls";
+import { csrHandler } from "./csr";
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
     getFilePaths: (dir: string) => string[];
 };
 
-const rewriter = new HTMLRewriter().on('img', {
+const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
-        const src = element.getAttribute('src');
+        const src = element.getAttribute("src");
 
         if (src) {
-            element.setAttribute('src', `${env.CDN_URL}${src}`);
+            element.setAttribute("src", `${env.CDN_URL}${src}`);
         }
     },
 });
@@ -46,54 +46,65 @@ const requestHandler = async (
     fileSystemService: FileSystemService,
     notificationsService: NotificationsService,
     unleashService: UnleashService,
-    taConfigService: TaConfigService
+    taConfigService: TaConfigService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
-        .get('/api/auth', () =>
+        .get("/api/auth", () =>
             responseBuilder()
                 .json({
                     authenticated: true,
-                    name: 'Charlie Jensen',
-                    securityLevel: '3',
+                    name: "Charlie Jensen",
+                    securityLevel: "3",
                 })
-                .build()
+                .build(),
         )
-        .get('/api/ta', () => taConfigService.getTaConfig().then((config) => responseBuilder().json(config).build()))
-        .get('/api/oauth2/session', () => {
+        .get("/api/ta", () =>
+            taConfigService
+                .getTaConfig()
+                .then((config) => responseBuilder().json(config).build()),
+        )
+        .get("/api/oauth2/session", () => {
             return new Response(
                 JSON.stringify({
                     authenticated: false,
-                    name: '',
-                    securityLevel: '',
+                    name: "",
+                    securityLevel: "",
                 }),
                 {
                     headers: {
-                        'content-type': 'application/json',
+                        "content-type": "application/json",
                     },
-                }
+                },
             );
         })
-        .get('/api/oauth2/session/refresh', () => {
+        .get("/api/oauth2/session/refresh", () => {
             refreshToken();
             return responseBuilder().json(getMockSession()).build();
         })
         .get(
-            '/oauth2/login',
+            "/oauth2/login",
             ({ url }) =>
-                new Response('', {
+                new Response("", {
                     headers: {
-                        Location: url.searchParams.get('redirect') ?? '',
+                        Location: url.searchParams.get("redirect") ?? "",
                     },
                     status: 302,
-                })
+                }),
         )
-        .get('/oauth2/logout', () => responseBuilder().json(getMockSession()).build())
-        .get('/api/isAlive', () => new Response('OK'))
-        .get('/api/isReady', () => new Response('OK'))
-        .post('/api/notifications/message/archive', async ({ request }) => responseBuilder().json(request.json()).build())
-        .get('/api/search', async ({ query }) => {
+        .get("/oauth2/logout", () =>
+            responseBuilder().json(getMockSession()).build(),
+        )
+        .get("/api/isAlive", () => new Response("OK"))
+        .get("/api/isReady", () => new Response("OK"))
+        .post("/api/notifications/message/archive", async ({ request }) =>
+            responseBuilder().json(request.json()).build(),
+        )
+        .get("/api/search", async ({ query }) => {
             const searchQuery = query.q;
-            const results = await searchService.search({ query: searchQuery, ...validParams(query) });
+            const results = await searchService.search({
+                query: searchQuery,
+                ...validParams(query),
+            });
 
             return responseBuilder()
                 .html(
@@ -101,11 +112,11 @@ const requestHandler = async (
                         results,
                         query: searchQuery,
                         texts: texts[validParams(query).language],
-                    }).render()
+                    }).render(),
                 )
                 .build();
         })
-        .get('/main-menu', async ({ query }) => {
+        .get("/main-menu", async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
 
@@ -117,7 +128,10 @@ const requestHandler = async (
 
             return new Response(
                 MainMenu({
-                    title: data.context === 'privatperson' ? localTexts.how_can_we_help : localTexts[`rolle_${data.context}`],
+                    title:
+                        data.context === "privatperson"
+                            ? localTexts.how_can_we_help
+                            : localTexts[`rolle_${data.context}`],
                     frontPageUrl,
                     texts: localTexts,
                     links: await contentService.getMainMenuLinks({
@@ -130,11 +144,11 @@ const requestHandler = async (
                     }),
                 }).render(),
                 {
-                    headers: { 'content-type': 'text/html; charset=utf-8' },
-                }
+                    headers: { "content-type": "text/html; charset=utf-8" },
+                },
             );
         })
-        .get('/user-menu', async ({ query, request }) => {
+        .get("/user-menu", async ({ query, request }) => {
             const template = async () => {
                 const data = validParams(query);
                 const localTexts = texts[data.language];
@@ -153,45 +167,51 @@ const requestHandler = async (
 
                     // @TODO: Tests for important urls, like logout
                     return match(data.context)
-                        .with('privatperson', async () =>
+                        .with("privatperson", async () =>
                             UserMenuDropdown({
                                 texts: localTexts,
                                 name: data.name,
-                                notifications: await notificationsService.getNotifications({
-                                    texts: localTexts,
-                                    request,
-                                }),
+                                notifications:
+                                    await notificationsService.getNotifications(
+                                        {
+                                            texts: localTexts,
+                                            request,
+                                        },
+                                    ),
                                 level: data.level,
                                 logoutUrl: logoutUrl as string,
                                 minsideUrl: clientEnv.MIN_SIDE_URL,
-                                personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
-                            })
+                                personopplysningerUrl:
+                                    clientEnv.PERSONOPPLYSNINGER_URL,
+                            }),
                         )
-                        .with('arbeidsgiver', () =>
+                        .with("arbeidsgiver", () =>
                             ArbeidsgiverUserMenu({
                                 texts: localTexts,
                                 href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
-                            })
+                            }),
                         )
-                        .with('samarbeidspartner', () =>
+                        .with("samarbeidspartner", () =>
                             AnchorIconButton({
                                 Icon: LogoutIcon({}),
                                 href: logoutUrl,
                                 text: localTexts.logout,
-                            })
+                            }),
                         )
                         .exhaustive();
                 }
             };
 
-            return template().then((template) => responseBuilder().html(template.render()).build());
+            return template().then((template) =>
+                responseBuilder().html(template.render()).build(),
+            );
         })
-        .get('/ops-messages', async () => {
+        .get("/ops-messages", async () => {
             return responseBuilder()
                 .json(await contentService.getOpsMessages())
                 .build();
         })
-        .get('/header', async ({ query }) => {
+        .get("/header", async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
 
@@ -201,9 +221,11 @@ const requestHandler = async (
                 contentService,
             });
 
-            return rewriter.transform(responseBuilder().html(header.render()).build());
+            return rewriter.transform(
+                responseBuilder().html(header.render()).build(),
+            );
         })
-        .get('/footer', async ({ query }) => {
+        .get("/footer", async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
             const features = unleashService.getFeatures();
@@ -214,9 +236,11 @@ const requestHandler = async (
                 data,
             });
 
-            return rewriter.transform(responseBuilder().html(footer.render()).build());
+            return rewriter.transform(
+                responseBuilder().html(footer.render()).build(),
+            );
         })
-        .get('/scripts', async ({ query }) => {
+        .get("/scripts", async ({ query }) => {
             const json = await jsonIndex({
                 unleashService,
                 data: validParams(query),
@@ -224,7 +248,7 @@ const requestHandler = async (
 
             return responseBuilder().json(json).build();
         })
-        .get('/', async ({ url, query }) => {
+        .get("/", async ({ url, query }) => {
             const index = await renderIndex({
                 contentService,
                 unleashService,
@@ -246,37 +270,43 @@ const requestHandler = async (
         .use([cspHandler]);
 
     // Only serve files in local prod or dev mode
-    if (env.IS_LOCAL_PROD || env.NODE_ENV === 'development') {
-        const filePaths = fileSystemService.getFilePaths('./public').map((file) => file.replace('./', '/'));
+    if (env.IS_LOCAL_PROD || env.NODE_ENV === "development") {
+        const filePaths = fileSystemService
+            .getFilePaths("./public")
+            .map((file) => file.replace("./", "/"));
 
         handlersBuilder.use(
             filePaths.map((path) => ({
-                method: 'GET',
+                method: "GET",
                 path,
-                handler: ({ url }) => new Response(fileSystemService.getFile(`.${url.pathname}`)),
-            }))
+                handler: ({ url }) =>
+                    new Response(fileSystemService.getFile(`.${url.pathname}`)),
+            })),
         );
     }
 
     const handlers = handlersBuilder.build();
 
     return async function fetch(request: Request): Promise<Response> {
-        const url = new URL(request.url.replace('/decorator-next', ''));
+        const url = new URL(request.url.replace("/decorator-next", ""));
 
-        if (url.pathname === '/api/isAlive') {
-            return new Response('OK');
+        if (url.pathname === "/api/isAlive") {
+            return new Response("OK");
         }
 
-        if (url.pathname === '/api/isReady') {
-            return new Response('OK');
+        if (url.pathname === "/api/isReady") {
+            return new Response("OK");
         }
 
         const headers = handleCors(request);
 
-        const handler = handlers.find(({ method, path }) => request.method === method && url.pathname === path);
+        const handler = handlers.find(
+            ({ method, path }) =>
+                request.method === method && url.pathname === path,
+        );
 
         if (!handler) {
-            return new Response('Not found', { status: 404 });
+            return new Response("Not found", { status: 404 });
         }
 
         const response = await handler.handler({
@@ -288,7 +318,9 @@ const requestHandler = async (
 
         for (const [h, v] of headers.entries()) {
             if (response.headers.has(h)) {
-                throw new Error(`Handler is trying to directly ${h} set with ${v}`);
+                throw new Error(
+                    `Handler is trying to directly ${h} set with ${v}`,
+                );
             }
             response.headers.append(h, v);
         }

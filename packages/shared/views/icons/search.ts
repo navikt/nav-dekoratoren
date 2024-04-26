@@ -1,6 +1,6 @@
-import clsx from 'clsx';
-import html from '../../html';
-import cls from './search.module.css';
+import clsx from "clsx";
+import html from "../../html";
+import cls from "./search.module.css";
 
 export type SearchProps = {
     className?: string;
@@ -8,7 +8,11 @@ export type SearchProps = {
     menuSearch?: boolean;
 };
 
-export function SearchIcon({ className = '', ariaLabel, menuSearch }: SearchProps) {
+export function SearchIcon({
+    className = "",
+    ariaLabel,
+    menuSearch,
+}: SearchProps) {
     return html`
         <svg
             class="${clsx(className, menuSearch && cls.menuSearch)}"
@@ -24,7 +28,12 @@ export function SearchIcon({ className = '', ariaLabel, menuSearch }: SearchProp
             focusable="false"
             role="img"
         >
-            <circle class="${cls.menuSearch__circle}" cx="10" cy="10" r="7"></circle>
+            <circle
+                class="${cls.menuSearch__circle}"
+                cx="10"
+                cy="10"
+                r="7"
+            ></circle>
             <path class="${cls.menuSearch__line_1}" d="m15 15 7 7"></path>
             <path class="${cls.menuSearch__line_2}" d="m15 15 7 7"></path>
             <path class="${cls.menuSearch__line_3}" d="m15 15 7 7"></path>

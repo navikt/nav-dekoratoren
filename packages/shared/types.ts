@@ -1,10 +1,10 @@
-import { Context, Environment, Language, Params } from './params';
+import { Context, Environment, Language, Params } from "./params";
 
 export enum MenuValue {
-    PRIVATPERSON = 'privatperson',
-    ARBEIDSGIVER = 'arbeidsgiver',
-    SAMARBEIDSPARTNER = 'samarbeidspartner',
-    IKKEBESTEMT = 'IKKEBESTEMT',
+    PRIVATPERSON = "privatperson",
+    ARBEIDSGIVER = "arbeidsgiver",
+    SAMARBEIDSPARTNER = "samarbeidspartner",
+    IKKEBESTEMT = "IKKEBESTEMT",
 }
 
 /**
@@ -25,7 +25,7 @@ export type Node = {
 export type Link = {
     content: string;
     url: string;
-} & Pick<Node, 'path'>;
+} & Pick<Node, "path">;
 
 export type LinkGroup = {
     heading?: string;
@@ -33,18 +33,18 @@ export type LinkGroup = {
 };
 
 export const clientTextsKeys = [
-    'token_warning_title',
-    'token_warning_body',
-    'send_undersokelse_takk',
-    'hensikt_med_tilbakemelding',
-    'hensikt_med_tilbakemelding_lenke',
-    'session_warning_title',
-    'session_warning_body',
-    'ok',
-    'yes',
-    'logout',
-    'important_info',
-    'loading_preview',
+    "token_warning_title",
+    "token_warning_body",
+    "send_undersokelse_takk",
+    "hensikt_med_tilbakemelding",
+    "hensikt_med_tilbakemelding_lenke",
+    "session_warning_title",
+    "session_warning_body",
+    "ok",
+    "yes",
+    "logout",
+    "important_info",
+    "loading_preview",
 ] as const;
 
 export type ClientTexts = {
@@ -113,7 +113,7 @@ export type Texts = ClientTexts & {
 export type OpsMessage = {
     heading: string;
     url: string;
-    type: 'prodstatus' | 'info';
+    type: "prodstatus" | "info";
     urlscope: string[];
 };
 
@@ -134,8 +134,8 @@ export type SearchResult = {
 };
 
 export type Features = {
-    'dekoratoren.skjermdeling': boolean;
-    'dekoratoren.chatbotscript': boolean;
+    "dekoratoren.skjermdeling": boolean;
+    "dekoratoren.chatbotscript": boolean;
 };
 
 /**
@@ -150,7 +150,7 @@ export type AppState = {
 
 export type TaskAnalyticsUrlRule = {
     url: string;
-    match: 'exact' | 'startsWith';
+    match: "exact" | "startsWith";
     exclude?: boolean;
 };
 

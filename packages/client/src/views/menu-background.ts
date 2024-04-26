@@ -1,4 +1,4 @@
-import cls from './menu-background.module.css';
+import cls from "./menu-background.module.css";
 
 class MenuBackground extends HTMLElement {
     openCount = 0;
@@ -6,7 +6,7 @@ class MenuBackground extends HTMLElement {
     connectedCallback() {
         this.classList.add(cls.menuBackground);
 
-        window.addEventListener('menuopened', () => {
+        window.addEventListener("menuopened", () => {
             this.openCount = this.openCount + 1;
             if (this.openCount > 0) {
                 this.classList.add(cls.active);
@@ -14,7 +14,7 @@ class MenuBackground extends HTMLElement {
             }
         });
 
-        window.addEventListener('menuclosed', () => {
+        window.addEventListener("menuclosed", () => {
             this.openCount = this.openCount - 1;
             if (this.openCount < 1) {
                 this.classList.remove(cls.active);
@@ -24,4 +24,4 @@ class MenuBackground extends HTMLElement {
     }
 }
 
-customElements.define('menu-background', MenuBackground);
+customElements.define("menu-background", MenuBackground);

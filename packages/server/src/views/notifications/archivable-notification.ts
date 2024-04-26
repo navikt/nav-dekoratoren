@@ -1,6 +1,6 @@
-import html, { Template } from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/notification.module.css';
-import { Texts } from 'decorator-shared/types';
+import html, { Template } from "decorator-shared/html";
+import cls from "decorator-client/src/styles/notification.module.css";
+import { Texts } from "decorator-shared/types";
 
 export type ArchivableNotificationProps = {
     title: string;
@@ -12,7 +12,15 @@ export type ArchivableNotificationProps = {
     texts: Texts;
 };
 
-export const ArchivableNotification = ({ title, metadata, id, text, date, icon, texts }: ArchivableNotificationProps) =>
+export const ArchivableNotification = ({
+    title,
+    metadata,
+    id,
+    text,
+    date,
+    icon,
+    texts,
+}: ArchivableNotificationProps) =>
     html`<archivable-notification class="${cls.notification}" data-id="${id}">
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">

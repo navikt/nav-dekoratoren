@@ -1,8 +1,8 @@
-import cls from 'decorator-client/src/styles/notifications.module.css';
-import html, { Template } from 'decorator-shared/html';
-import { ArchivableNotification } from './archivable-notification';
-import { Notification } from './notification';
-import { Texts } from 'decorator-shared/types';
+import cls from "decorator-client/src/styles/notifications.module.css";
+import html, { Template } from "decorator-shared/html";
+import { ArchivableNotification } from "./archivable-notification";
+import { Notification } from "./notification";
+import { Texts } from "decorator-shared/types";
 
 export type Notification = {
     title: string;
@@ -33,10 +33,19 @@ export function Notifications({ texts, notifications }: NotificationsProps) {
         <ul class="${cls.notificationList}">
             ${notifications?.map(
                 (notification) => html`
-                    <li>${notification.isArchivable ? ArchivableNotification({ ...notification, texts }) : Notification(notification)}</li>
-                `
+                    <li>
+                        ${notification.isArchivable
+                            ? ArchivableNotification({ ...notification, texts })
+                            : Notification(notification)}
+                    </li>
+                `,
             )}
         </ul>
-        <a class="${cls.allNotificationsLink}" href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"> ${texts.earlier_notifications} </a>
+        <a
+            class="${cls.allNotificationsLink}"
+            href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+        >
+            ${texts.earlier_notifications}
+        </a>
     </div>`;
 }

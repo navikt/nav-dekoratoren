@@ -1,6 +1,6 @@
-import html from 'decorator-shared/html';
-import { MainMenuContextLink, LinkGroup, Texts } from 'decorator-shared/types';
-import cls from 'decorator-client/src/styles/main-menu.module.css';
+import html from "decorator-shared/html";
+import { MainMenuContextLink, LinkGroup, Texts } from "decorator-shared/types";
+import cls from "decorator-client/src/styles/main-menu.module.css";
 
 export type MainMenuProps = {
     title: string;
@@ -10,7 +10,13 @@ export type MainMenuProps = {
     contextLinks?: MainMenuContextLink[];
 };
 
-export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: MainMenuProps) {
+export function MainMenu({
+    title,
+    texts,
+    frontPageUrl,
+    links,
+    contextLinks,
+}: MainMenuProps) {
     return html`<div class="${cls.mainMenu}">
         <div class="${cls.content}">
             <div class="${cls.header}">
@@ -19,8 +25,8 @@ export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: Ma
                     href="${frontPageUrl}"
                     class="${cls.link}"
                     data-analytics-event-args="${JSON.stringify({
-                        category: 'dekorator-meny',
-                        action: 'hovedmeny/forsidelenke',
+                        category: "dekorator-meny",
+                        action: "hovedmeny/forsidelenke",
                         label: frontPageUrl,
                     })}"
                     >${texts.to_front_page}</lenke-med-sporing
@@ -38,18 +44,21 @@ export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: Ma
                                             <lenke-med-sporing
                                                 href="${url}"
                                                 class="${cls.link}"
-                                                data-analytics-event-args="${JSON.stringify({
-                                                    category: 'dekorator-meny',
-                                                    action: `${heading}/${content}`,
-                                                    label: url,
-                                                })}"
+                                                data-analytics-event-args="${JSON.stringify(
+                                                    {
+                                                        category:
+                                                            "dekorator-meny",
+                                                        action: `${heading}/${content}`,
+                                                        label: url,
+                                                    },
+                                                )}"
                                                 >${content}</lenke-med-sporing
                                             >
-                                        </li>`
+                                        </li>`,
                                 )}
                             </ul>
                         </div>
-                    `
+                    `,
                 )}
             </div>
         </div>
@@ -60,14 +69,17 @@ export function MainMenu({ title, texts, frontPageUrl, links, contextLinks }: Ma
                         href="${url}"
                         class="${cls.contextLink}"
                         data-analytics-event-args="${JSON.stringify({
-                            category: 'dekorator-meny',
-                            action: 'arbeidsflate-valg',
+                            category: "dekorator-meny",
+                            action: "arbeidsflate-valg",
                             label: content,
                         })}"
                     >
                         <div class="${cls.contextLinkTitle}">${content}</div>
-                        ${description && html`<div class="${cls.contextLinkDescription}">${description}</div>`}
-                    </lenke-med-sporing>`
+                        ${description &&
+                        html`<div class="${cls.contextLinkDescription}">
+                            ${description}
+                        </div>`}
+                    </lenke-med-sporing>`,
             )}
         </div>
     </div>`;

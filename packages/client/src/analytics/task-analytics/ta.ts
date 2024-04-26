@@ -1,8 +1,15 @@
-import { taskAnalyticsSelectSurvey } from './ta-selection';
-import { taskAnalyticsRefreshState, taskAnalyticsGetSelectedSurveyId, taskAnalyticsSetSelected } from './ta-cookies';
-import { taskAnalyticsGetMatchingSurveys, taskAnalyticsIsMatchingSurvey } from './ta-matching';
-import { Context, Language } from 'decorator-shared/params';
-import { AppState, TaskAnalyticsSurveyConfig } from 'decorator-shared/types';
+import { taskAnalyticsSelectSurvey } from "./ta-selection";
+import {
+    taskAnalyticsRefreshState,
+    taskAnalyticsGetSelectedSurveyId,
+    taskAnalyticsSetSelected,
+} from "./ta-cookies";
+import {
+    taskAnalyticsGetMatchingSurveys,
+    taskAnalyticsIsMatchingSurvey,
+} from "./ta-matching";
+import { Context, Language } from "decorator-shared/params";
+import { AppState, TaskAnalyticsSurveyConfig } from "decorator-shared/types";
 
 let fetchedSurveys: TaskAnalyticsSurveyConfig[] | null = null;
 
@@ -13,17 +20,28 @@ const taFallback = (...args: any[]) => {
 
 const startSurvey = (surveyId: string) => {
     console.log(`Starting TA survey ${surveyId}`);
-    window.TA('start', surveyId);
+    window.TA("start", surveyId);
 };
 
-const startSurveyIfMatching = (surveyId: string, surveys: TaskAnalyticsSurveyConfig[], currentLanguage: Language, currentAudience: Context) => {
+const startSurveyIfMatching = (
+    surveyId: string,
+    surveys: TaskAnalyticsSurveyConfig[],
+    currentLanguage: Language,
+    currentAudience: Context,
+) => {
     const survey = surveys.find((s) => s.id === surveyId);
-    if (survey && taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience)) {
+    if (
+        survey &&
+        taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience)
+    ) {
         startSurvey(surveyId);
     }
 };
 
-const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppState) => {
+const findAndStartSurvey = (
+    surveys: TaskAnalyticsSurveyConfig[],
+    state: AppState,
+) => {
     const { params } = state;
     // const { context } = state.params
 
@@ -35,11 +53,20 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppStat
     // If a survey was previously selected for the user, try to start it
     const selectedSurveyId = taskAnalyticsGetSelectedSurveyId();
     if (selectedSurveyId) {
-        startSurveyIfMatching(selectedSurveyId, surveys, params.language, params.context);
+        startSurveyIfMatching(
+            selectedSurveyId,
+            surveys,
+            params.language,
+            params.context,
+        );
         return;
     }
 
-    const matchingSurveys = taskAnalyticsGetMatchingSurveys(surveys, params.language, params.context);
+    const matchingSurveys = taskAnalyticsGetMatchingSurveys(
+        surveys,
+        params.language,
+        params.context,
+    );
     if (!matchingSurveys) {
         return;
     }
@@ -65,7 +92,9 @@ const fetchAndStart = async (state: AppState) => {
         })
         .then((surveys) => {
             if (!Array.isArray(surveys)) {
-                throw Error(`Invalid type for surveys response - ${JSON.stringify(surveys)}`);
+                throw Error(
+                    `Invalid type for surveys response - ${JSON.stringify(surveys)}`,
+                );
             }
             fetchedSurveys = surveys;
             findAndStartSurvey(surveys, state);

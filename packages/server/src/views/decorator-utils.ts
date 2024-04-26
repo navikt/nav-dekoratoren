@@ -1,11 +1,15 @@
-import clsx from 'clsx';
-import cls from 'decorator-client/src/styles/decorator-utils.module.css';
-import html from 'decorator-shared/html';
-import { AvailableLanguage, Breadcrumb, UtilsBackground } from 'decorator-shared/params';
-import { Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-client/src/styles/utilities.module.css';
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import { LanguageSelector } from './language-selector';
+import clsx from "clsx";
+import cls from "decorator-client/src/styles/decorator-utils.module.css";
+import html from "decorator-shared/html";
+import {
+    AvailableLanguage,
+    Breadcrumb,
+    UtilsBackground,
+} from "decorator-shared/params";
+import { Texts } from "decorator-shared/types";
+import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
+import { LanguageSelector } from "./language-selector";
 
 export type DecoratorUtilsProps = {
     breadcrumbs: Breadcrumb[];
@@ -15,15 +19,28 @@ export type DecoratorUtilsProps = {
     hidden: boolean;
 };
 
-export const DecoratorUtils = ({ breadcrumbs, availableLanguages, localTexts, utilsBackground, hidden }: DecoratorUtilsProps) => html`
+export const DecoratorUtils = ({
+    breadcrumbs,
+    availableLanguages,
+    localTexts,
+    utilsBackground,
+    hidden,
+}: DecoratorUtilsProps) => html`
     <decorator-utils
         class="${clsx(cls.decoratorUtils, {
-            [cls.hidden]: (availableLanguages.length === 0 && breadcrumbs.length === 0) || hidden,
-            [cls.white]: utilsBackground === 'white',
-            [cls.gray]: utilsBackground === 'gray',
+            [cls.hidden]:
+                (availableLanguages.length === 0 && breadcrumbs.length === 0) ||
+                hidden,
+            [cls.white]: utilsBackground === "white",
+            [cls.gray]: utilsBackground === "gray",
         })}"
     >
-        <div class="${clsx(cls.decoratorUtilsContent, utilsCls.contentContainer)}">
+        <div
+            class="${clsx(
+                cls.decoratorUtilsContent,
+                utilsCls.contentContainer,
+            )}"
+        >
             <nav>${Breadcrumbs({ breadcrumbs })}</nav>
             ${LanguageSelector({ availableLanguages, localTexts })}
         </div>

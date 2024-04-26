@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 /*
  * We keep the state of survey selection for the user in a cookie. When a survey has matched for a user
@@ -12,7 +12,7 @@ type TaskAnalyticsState = {
     matched?: Record<string, number>;
 };
 
-const cookieName = 'ta-dekoratoren-v2';
+const cookieName = "ta-dekoratoren-v2";
 
 const expireTimeDays = 30;
 const expireTimeMs = expireTimeDays * 24 * 60 * 60 * 1000;
@@ -20,7 +20,7 @@ const expireTimeMs = expireTimeDays * 24 * 60 * 60 * 1000;
 const setCookie = (state: TaskAnalyticsState) => {
     Cookies.set(cookieName, JSON.stringify(state), {
         expires: expireTimeDays,
-        domain: '.nav.no',
+        domain: ".nav.no",
     });
 };
 
@@ -55,7 +55,8 @@ export const taskAnalyticsRefreshState = () => {
 
     const now = Date.now();
 
-    const freshSelected = selected?.ts && now - selected.ts > expireTimeMs ? undefined : selected;
+    const freshSelected =
+        selected?.ts && now - selected.ts > expireTimeMs ? undefined : selected;
 
     const freshMatched = matched
         ? Object.entries(matched).reduce((acc, [key, timestamp]) => {

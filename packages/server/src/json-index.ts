@@ -1,11 +1,17 @@
-import { texts } from './texts';
-import { cdnUrl, entryPointPath, getManifest } from './views';
-import { DecoratorData } from './views/decorator-data';
-import { clientEnv, env } from './env/server';
-import { GetFeatures } from './unleash-service';
-import { Params } from 'decorator-shared/params';
+import { texts } from "./texts";
+import { cdnUrl, entryPointPath, getManifest } from "./views";
+import { DecoratorData } from "./views/decorator-data";
+import { clientEnv, env } from "./env/server";
+import { GetFeatures } from "./unleash-service";
+import { Params } from "decorator-shared/params";
 
-export default async ({ unleashService, data }: { unleashService: GetFeatures; data: Params }) => {
+export default async ({
+    unleashService,
+    data,
+}: {
+    unleashService: GetFeatures;
+    data: Params;
+}) => {
     const { language } = data;
     const localTexts = texts[language];
 
@@ -41,12 +47,15 @@ const getEnvAssetsRaw = async (): Promise<{
 
     const css = {
         production: manifest[entryPointPath].css.map(cdnUrl),
-        development: '',
+        development: "",
     };
 
     const scripts = {
         production: [cdnUrl(manifest[entryPointPath].file)],
-        development: ['http://localhost:5173/@vite/client', `http://localhost:5173/${entryPointPath}`],
+        development: [
+            "http://localhost:5173/@vite/client",
+            `http://localhost:5173/${entryPointPath}`,
+        ],
     };
 
     return {
