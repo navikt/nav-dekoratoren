@@ -40,12 +40,6 @@ class OpsMessages extends HTMLElement {
     }
 
     render() {
-        if (this.messages.length === 0) {
-            this.removeAttribute('aria-label');
-            return;
-        }
-
-        this.setAttribute('aria-label', window.__DECORATOR_DATA__.texts.important_info);
         const filteredMessages = this.messages.filter((opsMessage: OpsMessage) => {
             const currentUrl = removeTrailingChars(window.location.href);
             return (
@@ -58,6 +52,13 @@ class OpsMessages extends HTMLElement {
                 })
             );
         });
+
+        if (filteredMessages.length === 0) {
+            this.removeAttribute('aria-label');
+            return;
+        }
+
+        this.setAttribute('aria-label', window.__DECORATOR_DATA__.texts.important_info);
 
         this.innerHTML = OpsMessagesTemplate({ opsMessages: filteredMessages }).render();
     }
