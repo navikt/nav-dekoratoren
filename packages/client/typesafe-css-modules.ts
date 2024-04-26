@@ -87,8 +87,6 @@ async function createOutput(modules: ts.ModuleDeclaration[]) {
         .join("\n\n");
 
     return await prettier.format(output, {
-        ...prettierConfig,
-        trailingComma: "es5",
         parser: "typescript",
     });
 }
