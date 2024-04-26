@@ -3,20 +3,8 @@ import {
     MessageIcon,
     TaskIcon,
 } from "decorator-shared/views/icons/notifications";
-import { match } from "ts-pattern";
 import { env } from "./env/server";
-import notificationsMock from "./notifications-mock.json";
 import { Notification } from "./views/notifications/notifications";
-
-export type NotificationsService = {
-    getNotifications: ({
-        texts,
-        request,
-    }: {
-        texts: Texts;
-        request: Request;
-    }) => Promise<Notification[] | undefined>;
-};
 
 type Oppgave = {
     eventId: string;
@@ -47,10 +35,10 @@ type NotificationData = {
     beskjeder: Beskjed[];
 };
 
-const getNotifications: (
+const parseNotifications: (
     texts: Texts,
     data: NotificationData | null,
-) => Promise<Notification[] | undefined> = async (texts, data) => {
+) => Promise<Notification[]> = async (texts, data) => {
     const kanalerToMetadata = (kanaler: string[]) => {
         if (kanaler.includes("SMS") && kanaler.includes("EPOST")) {
             return texts.notified_SMS_and_EPOST;
@@ -95,50 +83,17 @@ const getNotifications: (
     ]);
 };
 
-export const getNotificationsDev = () => {
-    return {
-        getNotifications: async ({ texts }: { texts: Texts }) => {
-            return getNotifications(texts, notificationsMock);
-        },
-    };
-};
-
-export const hentVarslerFetch = async (
-    VARSEL_API_URL: string,
-    request: Request,
-): Promise<NotificationData | null> => {
-    const cookie = request.headers.get("cookie") || "";
-    const response = await fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
+export const getNotifications = async ({
+    request,
+    texts,
+}: {
+    request: Request;
+    texts: Texts;
+}) =>
+    fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
         headers: {
-            cookie: cookie,
-            // 'token-x-authorization': token,
+            cookie: request.headers.get("cookie") || "",
         },
-    });
-
-    return response.json() as Promise<NotificationData | null>;
-};
-
-export const getNotificationsProd = () => {
-    return {
-        getNotifications: async ({
-            request,
-            texts,
-        }: {
-            request: Request;
-            texts: Texts;
-        }) => {
-            const notificationData = await hentVarslerFetch(
-                env.VARSEL_API_URL,
-                request,
-            );
-            return getNotifications(texts, notificationData);
-        },
-    };
-};
-
-export default () => {
-    return match(env.NODE_ENV)
-        .with("development", () => getNotificationsDev())
-        .with("production", () => getNotificationsProd())
-        .exhaustive();
-};
+    })
+        .then((res) => res.json() as Promise<NotificationData | null>)
+        .then((notifications) => parseNotifications(texts, notifications));

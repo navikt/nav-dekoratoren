@@ -1,12 +1,14 @@
-import { fetchOpsMessages, fetchMenu } from "./enonic";
+import { HttpResponse, http } from "msw";
+import { setupServer } from "msw/node";
 import { readdirSync, statSync } from "node:fs";
 import ContentService from "./content-service";
-import requestHandler from "./request-handler";
 import menu from "./content-test-data.json";
-import notificationsService from "./notifications-service";
-import UnleashService from "./unleash-service";
-import TaConfigService from "./task-analytics-service";
+import { fetchMenu, fetchOpsMessages } from "./enonic";
 import { env } from "./env/server";
+import notificationsMock from "./notifications-mock.json";
+import requestHandler from "./request-handler";
+import TaConfigService from "./task-analytics-service";
+import UnleashService from "./unleash-service";
 // import { corsSchema } from './cors';
 // corsSchema.parse('https://www.google.com')
 
@@ -17,6 +19,14 @@ const getFilePaths = (dir: string): string[] =>
     });
 
 console.log("Starting decorator-next server");
+
+if (env.NODE_ENV === "development") {
+    setupServer(
+        http.get(`${env.VARSEL_API_URL}/varselbjelle/varsler`, () =>
+            HttpResponse.json(notificationsMock),
+        ),
+    ).listen();
+}
 
 const server = Bun.serve({
     port: 8089,
@@ -48,8 +58,6 @@ const server = Bun.serve({
             getFilePaths,
             getFile: Bun.file,
         },
-        // Implement this
-        notificationsService(),
         new UnleashService({}),
         new TaConfigService(),
     ),

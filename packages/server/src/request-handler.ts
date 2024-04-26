@@ -19,11 +19,11 @@ import { UserMenuDropdown } from "./views/header/user-menu-dropdown";
 import { AnchorIconButton } from "./views/icon-button";
 import { SearchHits } from "./views/search-hits";
 import { SimpleUserMenu } from "./views/simple-user-menu";
-import { NotificationsService } from "./notifications-service";
 import { assetsHandlers } from "./handlers/assets-handler";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { csrHandler } from "./csr";
 import { search } from "./search";
+import { getNotifications } from "./notifications";
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
@@ -43,7 +43,6 @@ const rewriter = new HTMLRewriter().on("img", {
 const requestHandler = async (
     contentService: ContentService,
     fileSystemService: FileSystemService,
-    notificationsService: NotificationsService,
     unleashService: UnleashService,
     taConfigService: TaConfigService,
 ) => {
@@ -170,13 +169,10 @@ const requestHandler = async (
                             UserMenuDropdown({
                                 texts: localTexts,
                                 name: data.name,
-                                notifications:
-                                    await notificationsService.getNotifications(
-                                        {
-                                            texts: localTexts,
-                                            request,
-                                        },
-                                    ),
+                                notifications: await getNotifications({
+                                    texts: localTexts,
+                                    request,
+                                }),
                                 level: data.level,
                                 logoutUrl: logoutUrl as string,
                                 minsideUrl: clientEnv.MIN_SIDE_URL,

@@ -3,7 +3,6 @@ import content from "./content-test-data.json";
 import requestHandler from "./request-handler";
 import ContentService from "./content-service";
 import UnleashService from "./unleash-service";
-import notificationsService from "./notifications-service";
 import TaConfigService from "./task-analytics-service";
 
 const req = (url: string, rest?: any) =>
@@ -29,7 +28,6 @@ const fetch = await requestHandler(
         getFilePaths: () => ["./public/yep.svg"],
         getFile: () => Bun.file("./yep.svg"),
     },
-    notificationsService(),
     new UnleashService({ mock: true }),
     new TaConfigService(),
 );
