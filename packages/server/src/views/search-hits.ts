@@ -1,5 +1,5 @@
 import html from "decorator-shared/html";
-import { SearchResult, SearchHit, Texts } from "decorator-shared/types";
+import { SearchResult, Texts } from "decorator-shared/types";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import { ForwardChevron } from "decorator-shared/views/icons";
 
@@ -21,7 +21,7 @@ export const SearchHits = ({
               </h2>`
             : html`<ul class="${cls.searchHitList}">
                       ${hits.map(
-                          (hit: SearchHit, index: number) => html`
+                          (hit, index) => html`
                               <li>
                                   <lenke-med-sporing
                                       href="${hit.href}"

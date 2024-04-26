@@ -9,7 +9,6 @@ import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import jsonIndex from "./json-index";
-import SearchService from "./search-service";
 import TaConfigService from "./task-analytics-service";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
@@ -24,6 +23,7 @@ import { NotificationsService } from "./notifications-service";
 import { assetsHandlers } from "./handlers/assets-handler";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { csrHandler } from "./csr";
+import { search } from "./search";
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
@@ -42,7 +42,6 @@ const rewriter = new HTMLRewriter().on("img", {
 
 const requestHandler = async (
     contentService: ContentService,
-    searchService: SearchService,
     fileSystemService: FileSystemService,
     notificationsService: NotificationsService,
     unleashService: UnleashService,
@@ -101,7 +100,7 @@ const requestHandler = async (
         )
         .get("/api/search", async ({ query }) => {
             const searchQuery = query.q;
-            const results = await searchService.search({
+            const results = await search({
                 query: searchQuery,
                 ...validParams(query),
             });

@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import content from "./content-test-data.json";
 import requestHandler from "./request-handler";
 import ContentService from "./content-service";
-import SearchService from "./search-service";
 import UnleashService from "./unleash-service";
 import notificationsService from "./notifications-service";
 import TaConfigService from "./task-analytics-service";
@@ -22,10 +21,10 @@ const fetch = await requestHandler(
                     heading: "wat",
                     url: "example.com",
                     type: "info",
+                    urlscope: [],
                 },
             ]),
     ),
-    new SearchService(() => Promise.resolve({ hits: [], total: 0 })),
     {
         getFilePaths: () => ["./public/yep.svg"],
         getFile: () => Bun.file("./yep.svg"),

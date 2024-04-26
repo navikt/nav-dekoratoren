@@ -122,14 +122,12 @@ export type WithTexts<T = object> = T & {
     texts: Texts;
 };
 
-export type SearchHit = {
-    displayName: string;
-    highlight: string;
-    href: string;
-};
-
 export type SearchResult = {
-    hits: SearchHit[];
+    hits: {
+        displayName: string;
+        highlight: string;
+        href: string;
+    }[];
     total: number;
 };
 

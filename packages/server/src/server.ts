@@ -2,7 +2,6 @@ import { fetchOpsMessages, fetchMenu } from "./enonic";
 import { readdirSync, statSync } from "node:fs";
 import ContentService from "./content-service";
 import requestHandler from "./request-handler";
-import SearchService from "./search-service";
 import menu from "./content-test-data.json";
 import notificationsService from "./notifications-service";
 import UnleashService from "./unleash-service";
@@ -45,7 +44,6 @@ const server = Bun.serve({
                           },
                       ]),
         ),
-        new SearchService(),
         {
             getFilePaths,
             getFile: Bun.file,
