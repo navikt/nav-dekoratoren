@@ -19,6 +19,7 @@
     color: var(--a-text-default);
     position: relative;
     z-index: 1000;
+    background-color: var(--a-surface-default);
 }
 
 .hovedmenyWrapper {

@@ -10,7 +10,6 @@ class MenuBackground extends HTMLElement {
             this.openCount = this.openCount + 1;
             if (this.openCount > 0) {
                 this.classList.add(cls.active);
-                document.body.classList.add(cls.menuOpenBody);
             }
         });
 
@@ -18,7 +17,6 @@ class MenuBackground extends HTMLElement {
             this.openCount = this.openCount - 1;
             if (this.openCount < 1) {
                 this.classList.remove(cls.active);
-                document.body.classList.remove(cls.menuOpenBody);
             }
         });
     }
