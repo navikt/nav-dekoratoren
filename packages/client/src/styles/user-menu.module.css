@@ -1,6 +1,5 @@
 .userMenu {
     --inline-padding: var(--a-spacing-4);
-    background-color: var(--a-surface-default);
 }
 
 @media (min-width: 1024px) {
@@ -48,6 +47,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: var(--a-spacing-3);
+    background-color: var(--a-surface-default);
 }
 
 .menuItem:hover {
@@ -67,7 +67,10 @@
 }
 
 .logout {
-    margin-inline: var(--inline-padding);
+    border-top: 1px solid var(--a-border-subtle);
+    padding-inline: var(--inline-padding);
+    position: sticky;
+    bottom: 0;
 }
 
 .alert {
