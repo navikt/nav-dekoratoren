@@ -1,8 +1,4 @@
 import { Texts } from "decorator-shared/types";
-import {
-    MessageIcon,
-    TaskIcon,
-} from "decorator-shared/views/icons/notifications";
 import { env } from "./env/server";
 import { Notification } from "./views/notifications/notifications";
 
@@ -55,7 +51,7 @@ const parseNotifications: (
         title: texts.task,
         text: oppgave.isMasked ? texts.masked_task_text : oppgave.tekst ?? "",
         date: oppgave.tidspunkt,
-        icon: TaskIcon(),
+        icon: "task" as const,
         metadata: kanalerToMetadata(oppgave.eksternVarslingKanaler),
         isArchivable: false,
         link: oppgave.link ?? "",
@@ -69,7 +65,7 @@ const parseNotifications: (
             ? texts.masked_message_text
             : beskjed.tekst ?? "",
         date: beskjed.tidspunkt,
-        icon: MessageIcon(),
+        icon: "message" as const,
         metadata: kanalerToMetadata(beskjed.eksternVarslingKanaler),
         isArchivable: !beskjed.link,
         link: beskjed.link ?? "",

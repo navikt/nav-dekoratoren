@@ -1,15 +1,15 @@
 import cls from "decorator-client/src/styles/notifications.module.css";
-import html, { Template } from "decorator-shared/html";
+import html from "decorator-shared/html";
+import { Texts } from "decorator-shared/types";
 import { ArchivableNotification } from "./archivable-notification";
 import { Notification } from "./notification";
-import { Texts } from "decorator-shared/types";
 
 export type Notification = {
     title: string;
     metadata?: string;
     text: string;
     date: string;
-    icon: Template;
+    icon: "task" | "message";
 } & (
     | {
           isArchivable: true;

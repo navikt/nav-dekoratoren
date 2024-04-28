@@ -1,6 +1,10 @@
-import html, { Template } from "decorator-shared/html";
 import cls from "decorator-client/src/styles/notification.module.css";
+import html from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
+import {
+    MessageIcon,
+    TaskIcon,
+} from "decorator-shared/views/icons/notifications";
 
 export type ArchivableNotificationProps = {
     title: string;
@@ -8,7 +12,7 @@ export type ArchivableNotificationProps = {
     id: string;
     text: string;
     date: string;
-    icon: Template;
+    icon: "task" | "message";
     texts: Texts;
 };
 
@@ -24,7 +28,14 @@ export const ArchivableNotification = ({
     html`<archivable-notification class="${cls.notification}" data-id="${id}">
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">
-                ${icon}
+                ${(() => {
+                    switch (icon) {
+                        case "task":
+                            return TaskIcon();
+                        case "message":
+                            return MessageIcon();
+                    }
+                })()}
                 <div>${title}</div>
             </div>
             <local-time datetime="${date}" class="${cls.date}"></local-time>
