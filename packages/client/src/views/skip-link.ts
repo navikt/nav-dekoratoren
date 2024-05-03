@@ -1,30 +1,39 @@
 import { LenkeMedSporingElement } from "./lenke-med-sporing";
 
-const MAINCONTENT_ID = "maincontent";
+const DEFERRED_UPDATE_TIME = 5000;
+
+// TODO: add event listener for SPA navigation
 
 class SkipLinkElement extends LenkeMedSporingElement {
-    // Handles client-side rendering of the maincontent element
-    // TODO: Is this worth the potential performance hit? :|
-    private readonly observer = new MutationObserver(() =>
-        this.updateVisibility(),
-    );
-
-    private updateVisibility() {
-        const hasMainContentElement = !!document.getElementById(MAINCONTENT_ID);
-        this.style.display = hasMainContentElement ? "" : "none";
+    private hasMainContent() {
+        return !!document.getElementById("maincontent");
     }
 
-    private connectedCallback() {
-        this.updateVisibility();
-        this.observer.observe(document.body, {
+    private updateDisplay() {
+        this.style.display = this.hasMainContent() ? "" : "none";
+    }
+
+    // Handles the case of client-side rendered maincontent element,
+    // which may occur after the initial maincontent check
+    private deferredUpdate() {
+        const observer = new MutationObserver(() => {
+            this.updateDisplay();
+        });
+
+        observer.observe(document.body, {
             attributeFilter: ["id"],
             childList: true,
             subtree: true,
         });
+
+        setTimeout(() => observer.disconnect(), DEFERRED_UPDATE_TIME);
     }
 
-    private disconnectedCallback() {
-        this.observer.disconnect();
+    private connectedCallback() {
+        this.updateDisplay();
+        if (!this.hasMainContent()) {
+            this.deferredUpdate();
+        }
     }
 }
 
