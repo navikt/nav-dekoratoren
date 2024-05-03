@@ -19,7 +19,7 @@ export type CustomEvents = {
     clearsearch: void;
     closemenus: void; // Currently fired only from other apps
     historyPush: {
-        href: string;
+        url: URL;
     };
 };
 
@@ -69,7 +69,7 @@ export const initHistoryEvents = () => {
             dispatchEvent(
                 createEvent("historyPush", {
                     detail: {
-                        href: urlParsed.href,
+                        url: urlParsed,
                     },
                 }),
             );

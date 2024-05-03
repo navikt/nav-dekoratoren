@@ -34,6 +34,7 @@ import { param, hasParam, updateDecoratorParams, env } from "./params";
 import { makeEndpointFactory } from "decorator-shared/urls";
 import { initAnalytics } from "./analytics/analytics";
 import { logPageView } from "./analytics/amplitude";
+import { startTaskAnalyticsSurvey } from "./analytics/task-analytics/ta";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
@@ -137,7 +138,7 @@ const init = async () => {
 };
 
 window.addEventListener(analyticsReady.type, () => {
-    window.startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
+    startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 });
 
 window.addEventListener("authupdated", (e) => {

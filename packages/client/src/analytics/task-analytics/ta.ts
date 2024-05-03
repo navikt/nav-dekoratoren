@@ -28,11 +28,17 @@ const startSurveyIfMatching = (
     surveys: TaskAnalyticsSurveyConfig[],
     currentLanguage: Language,
     currentAudience: Context,
+    currentUrl: URL,
 ) => {
     const survey = surveys.find((s) => s.id === surveyId);
     if (
         survey &&
-        taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience)
+        taskAnalyticsIsMatchingSurvey(
+            survey,
+            currentLanguage,
+            currentAudience,
+            currentUrl,
+        )
     ) {
         startSurvey(surveyId);
     }
@@ -41,6 +47,7 @@ const startSurveyIfMatching = (
 const findAndStartSurvey = (
     surveys: TaskAnalyticsSurveyConfig[],
     state: AppState,
+    currentUrl: URL,
 ) => {
     const { params } = state;
     // const { context } = state.params
@@ -58,6 +65,7 @@ const findAndStartSurvey = (
             surveys,
             params.language,
             params.context,
+            currentUrl,
         );
         return;
     }
@@ -66,6 +74,7 @@ const findAndStartSurvey = (
         surveys,
         params.language,
         params.context,
+        currentUrl,
     );
     if (!matchingSurveys) {
         return;
@@ -81,7 +90,7 @@ const findAndStartSurvey = (
     startSurvey(id);
 };
 
-const fetchAndStart = async (state: AppState) => {
+const fetchAndStart = async (state: AppState, currentUrl: URL) => {
     return fetch(`${state.env.APP_URL}/api/ta`)
         .then((res) => {
             if (!res.ok) {
@@ -97,34 +106,31 @@ const fetchAndStart = async (state: AppState) => {
                 );
             }
             fetchedSurveys = surveys;
-            findAndStartSurvey(surveys, state);
+            findAndStartSurvey(surveys, state, currentUrl);
         })
         .catch((e) => {
             console.error(`Error fetching Task Analytics surveys - ${e}`);
         });
 };
 
-const startTaskAnalyticsSurvey = (state: AppState) => {
+export const startTaskAnalyticsSurvey = (
+    state: AppState,
+    currentUrl = new URL(window.location.href),
+) => {
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
-        findAndStartSurvey(fetchedSurveys, state);
+        findAndStartSurvey(fetchedSurveys, state, currentUrl);
     } else {
-        fetchAndStart(state);
+        fetchAndStart(state, currentUrl);
     }
 };
 
 export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
-    window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
 
-    window.addEventListener("historyPush", () =>
-        // TODO: can this be solved in a more dependable manner?
-        // setTimeout to ensure window.location is updated after the history push
-        setTimeout(
-            () => startTaskAnalyticsSurvey(window.__DECORATOR_DATA__),
-            250,
-        ),
+    window.addEventListener("historyPush", (e) =>
+        startTaskAnalyticsSurvey(window.__DECORATOR_DATA__, e.detail.url),
     );
 };

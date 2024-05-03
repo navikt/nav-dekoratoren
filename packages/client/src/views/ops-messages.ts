@@ -29,8 +29,12 @@ export const OpsMessagesTemplate = ({
     </section>
 `;
 
+const exactPathTerminator = "$";
+
 const removeTrailingChars = (url?: string) =>
-    url?.replace(/(\/|\$|(\/\$))$/, "");
+    url?.replace(`${exactPathTerminator}$`, "").replace(/\/$/, "");
+
+// url?.replace(new RegExp(`/?${exactPathTerminator}?$`), "");
 
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
@@ -44,16 +48,16 @@ class OpsMessages extends HTMLElement {
             });
 
         window.addEventListener("historyPush", (e) =>
-            this.render(e.detail.href),
+            this.render(e.detail.url),
         );
         window.addEventListener("popstate", () => this.render());
     }
 
-    private render(href?: string) {
+    private render(url?: URL) {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
                 const currentUrl = removeTrailingChars(
-                    href ?? window.location.href,
+                    (url ?? window.location).href,
                 );
                 return (
                     !opsMessage.urlscope ||
@@ -63,7 +67,7 @@ class OpsMessages extends HTMLElement {
                         const url = removeTrailingChars(rawUrl);
                         return (
                             url &&
-                            (rawUrl.endsWith("$")
+                            (rawUrl.endsWith(exactPathTerminator)
                                 ? currentUrl === url
                                 : currentUrl.startsWith(url))
                         );
