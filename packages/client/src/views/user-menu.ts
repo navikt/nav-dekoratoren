@@ -1,10 +1,12 @@
 import { CustomEvents } from "../events";
 import { Auth, AuthLoggedIn } from "../api";
-import { ClientSideCache } from "../helpers/cache";
+import { ResponseCache } from "decorator-shared/cache";
 import { param } from "../params";
 
+const ONE_MIN_MS = 60 * 1000;
+
 class UserMenu extends HTMLElement {
-    private readonly responseCache = new ClientSideCache();
+    private readonly responseCache = new ResponseCache({ ttl: ONE_MIN_MS });
 
     // TODO: use a global auth state instead?
     private authState: Auth = {
