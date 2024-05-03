@@ -120,6 +120,11 @@ export const initTaskAnalytics = () => {
     window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
 
     window.addEventListener("historyPush", () =>
-        startTaskAnalyticsSurvey(window.__DECORATOR_DATA__),
+        // TODO: can this be solved in a more dependable manner?
+        // setTimeout to ensure window.location is updated after the history push
+        setTimeout(
+            () => startTaskAnalyticsSurvey(window.__DECORATOR_DATA__),
+            250,
+        ),
     );
 };

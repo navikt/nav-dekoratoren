@@ -18,7 +18,9 @@ export type CustomEvents = {
     menuclosed: void;
     clearsearch: void;
     closemenus: void; // Currently fired only from other apps
-    historyPush: void;
+    historyPush: {
+        href: string;
+    };
 };
 
 export type MessageEvents =
@@ -45,24 +47,43 @@ export const analyticsReady = new CustomEvent("analytics-ready-event", {
     bubbles: true,
 });
 
+type PushStateArgs = Parameters<typeof window.history.pushState>;
+type ReplaceStateArgs = Parameters<typeof window.history.replaceState>;
+
 // Emits events on navigation in SPAs
 export const initHistoryEvents = () => {
     const pushStateActual = window.history.pushState.bind(window.history);
+    const replaceStateActual = window.history.replaceState.bind(window.history);
+
     let currentPathname = window.location.pathname;
 
-    window.history.pushState = (
-        ...args: Parameters<typeof window.history.pushState>
-    ) => {
-        // Delay slightly to allow SPAs to update their state
-        setTimeout(() => {
-            const newPathname = window.location.pathname;
-            if (newPathname !== currentPathname) {
-                dispatchEvent(createEvent("historyPush", {}));
-                currentPathname = newPathname;
-                console.log(`Navigated to ${newPathname}`);
-            }
-        }, 250);
+    const dispatchHistoryEvent = (url?: URL | string | null) => {
+        if (!url) {
+            return;
+        }
 
+        const urlParsed = new URL(url, window.location.origin);
+        const newPathname = urlParsed.pathname;
+
+        if (newPathname !== currentPathname) {
+            dispatchEvent(
+                createEvent("historyPush", {
+                    detail: {
+                        href: urlParsed.href,
+                    },
+                }),
+            );
+            currentPathname = newPathname;
+        }
+    };
+
+    window.history.pushState = (...args: PushStateArgs) => {
+        dispatchHistoryEvent(args[2]);
         return pushStateActual(...args);
+    };
+
+    window.history.replaceState = (...args: ReplaceStateArgs) => {
+        dispatchHistoryEvent(args[2]);
+        return replaceStateActual(...args);
     };
 };

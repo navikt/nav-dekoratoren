@@ -43,14 +43,18 @@ class OpsMessages extends HTMLElement {
                 this.render();
             });
 
-        window.addEventListener("historyPush", this.render);
-        window.addEventListener("popstate", this.render);
+        window.addEventListener("historyPush", (e) =>
+            this.render(e.detail.href),
+        );
+        window.addEventListener("popstate", () => this.render());
     }
 
-    private render = () => {
+    private render(href?: string) {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
-                const currentUrl = removeTrailingChars(window.location.href);
+                const currentUrl = removeTrailingChars(
+                    href ?? window.location.href,
+                );
                 return (
                     !opsMessage.urlscope ||
                     !currentUrl ||
@@ -81,7 +85,7 @@ class OpsMessages extends HTMLElement {
         this.innerHTML = OpsMessagesTemplate({
             opsMessages: filteredMessages,
         }).render();
-    };
+    }
 }
 
 customElements.define("ops-messages", OpsMessages);

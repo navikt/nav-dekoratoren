@@ -146,7 +146,12 @@ window.addEventListener("authupdated", (e) => {
     window.logPageView(window.__DECORATOR_DATA__.params, auth);
 
     window.addEventListener("historyPush", () =>
-        logPageView(window.__DECORATOR_DATA__.params, auth),
+        // TODO: can this be solved in a more dependable manner?
+        // setTimeout to ensure window.location is updated after the history push
+        setTimeout(
+            () => logPageView(window.__DECORATOR_DATA__.params, auth),
+            250,
+        ),
     );
 });
 
