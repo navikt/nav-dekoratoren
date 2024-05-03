@@ -12,8 +12,8 @@ export enum MenuValue {
  */
 export type DecoratorId = `dekoratoren-${string}`;
 
-export type Node = {
-    children: Node[];
+export type MenuNode = {
+    children: MenuNode[];
     displayName: string;
     path?: string;
     flatten?: boolean;
@@ -25,7 +25,7 @@ export type Node = {
 export type Link = {
     content: string;
     url: string;
-} & Pick<Node, "path">;
+} & Pick<MenuNode, "path">;
 
 export type LinkGroup = {
     heading?: string;

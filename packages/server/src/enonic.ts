@@ -1,18 +1,18 @@
-import { OpsMessage, Node } from "decorator-shared/types";
+import { OpsMessage, MenuNode } from "decorator-shared/types";
 import { env } from "./env/server";
 import { ResponseCache } from "decorator-shared/cache";
 
 const TEN_SECONDS_MS = 10 * 1000;
 
-const menuCache = new ResponseCache<Node[]>({ ttl: TEN_SECONDS_MS });
+const menuCache = new ResponseCache<MenuNode[]>({ ttl: TEN_SECONDS_MS });
 const opsMsgsCache = new ResponseCache<OpsMessage[]>({ ttl: TEN_SECONDS_MS });
 
 // TODO: error handling and response validation
 
-export const fetchMenu = async (): Promise<Node[]> => {
+export const fetchMenu = async (): Promise<MenuNode[]> => {
     const menu = await menuCache.get("menu", () =>
         fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`).then(
-            (response) => response.json() as Promise<Node[]>,
+            (response) => response.json() as Promise<MenuNode[]>,
         ),
     );
 
