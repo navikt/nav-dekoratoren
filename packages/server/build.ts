@@ -23,9 +23,13 @@ const result = await Bun.build({
 });
 
 const [output] = result.outputs;
-const text = await output.text();
-const minified = minify(text, {
-    taggedOnly: true,
-}).toString();
+console.log(`Build outout: ${output}`);
 
-await Bun.write(Bun.file(output.path), minified);
+if (output) {
+    const text = await output.text();
+    const minified = minify(text, {
+        taggedOnly: true,
+    }).toString();
+
+    await Bun.write(Bun.file(output.path), minified);
+}

@@ -27,6 +27,7 @@ import "./views/login-button";
 import "./views/chatbot-wrapper";
 import "./views/sticky";
 import "./views/user-menu";
+import "./views/skip-link";
 import { addFaroMetaData } from "./faro";
 import { analyticsReady, createEvent } from "./events";
 import { type ParamKey } from "decorator-shared/params";
