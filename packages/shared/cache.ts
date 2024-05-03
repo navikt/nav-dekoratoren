@@ -1,5 +1,3 @@
-type Callback<Type> = () => Promise<Type>;
-
 type CacheItem<Type> = {
     value: Type;
     expires: number;
@@ -20,7 +18,7 @@ export class ResponseCache<ValueType = string> {
 
     async get(
         key: string,
-        callback: Callback<ValueType>,
+        callback: () => Promise<ValueType>,
     ): Promise<ValueType | null> {
         const cachedItem = this.cache[key];
         const now = Date.now();
