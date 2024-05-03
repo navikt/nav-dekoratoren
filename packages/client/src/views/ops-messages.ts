@@ -42,6 +42,8 @@ class OpsMessages extends HTMLElement {
                 this.messages = opsMessages;
                 this.render();
             });
+
+        window.addEventListener("historyPush", () => this.render());
     }
 
     render() {

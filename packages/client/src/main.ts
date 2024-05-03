@@ -28,7 +28,7 @@ import "./views/chatbot-wrapper";
 import "./views/sticky";
 import "./views/user-menu";
 import { addFaroMetaData } from "./faro";
-import { analyticsReady, createEvent } from "./events";
+import { analyticsReady, createEvent, initHistoryEvents } from "./events";
 import { type ParamKey } from "decorator-shared/params";
 import { param, hasParam, updateDecoratorParams, env } from "./params";
 import { makeEndpointFactory } from "decorator-shared/urls";
@@ -125,6 +125,7 @@ window.addEventListener("activecontext", (event) => {
 });
 
 const init = async () => {
+    initHistoryEvents();
     initAnalytics();
 
     api.checkAuth().then((authResponse) => {
