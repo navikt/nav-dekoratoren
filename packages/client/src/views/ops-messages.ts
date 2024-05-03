@@ -35,7 +35,7 @@ const removeTrailingChars = (url?: string) =>
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 
-    connectedCallback() {
+    private connectedCallback() {
         fetch(`${env("APP_URL")}/ops-messages`)
             .then((res) => res.json())
             .then((opsMessages) => {
@@ -43,10 +43,11 @@ class OpsMessages extends HTMLElement {
                 this.render();
             });
 
-        window.addEventListener("historyPush", () => this.render());
+        window.addEventListener("historyPush", this.render);
+        window.addEventListener("popstate", this.render);
     }
 
-    render() {
+    private render = () => {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
                 const currentUrl = removeTrailingChars(window.location.href);
@@ -80,7 +81,7 @@ class OpsMessages extends HTMLElement {
         this.innerHTML = OpsMessagesTemplate({
             opsMessages: filteredMessages,
         }).render();
-    }
+    };
 }
 
 customElements.define("ops-messages", OpsMessages);

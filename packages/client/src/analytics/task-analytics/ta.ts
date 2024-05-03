@@ -118,4 +118,8 @@ export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
     window.startTaskAnalyticsSurvey = startTaskAnalyticsSurvey;
+
+    window.addEventListener("historyPush", () =>
+        startTaskAnalyticsSurvey(window.__DECORATOR_DATA__),
+    );
 };

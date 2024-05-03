@@ -33,6 +33,7 @@ import { type ParamKey } from "decorator-shared/params";
 import { param, hasParam, updateDecoratorParams, env } from "./params";
 import { makeEndpointFactory } from "decorator-shared/urls";
 import { initAnalytics } from "./analytics/analytics";
+import { logPageView } from "./analytics/amplitude";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
@@ -140,7 +141,13 @@ window.addEventListener(analyticsReady.type, () => {
 });
 
 window.addEventListener("authupdated", (e) => {
-    window.logPageView(window.__DECORATOR_DATA__.params, e.detail.auth);
+    const { auth } = e.detail;
+
+    window.logPageView(window.__DECORATOR_DATA__.params, auth);
+
+    window.addEventListener("historyPush", () =>
+        logPageView(window.__DECORATOR_DATA__.params, auth),
+    );
 });
 
 // @TODO: Refactor loaders
