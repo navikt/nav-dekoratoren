@@ -6,7 +6,9 @@ import { param } from "../params";
 const ONE_MIN_MS = 60 * 1000;
 
 class UserMenu extends HTMLElement {
-    private readonly responseCache = new ResponseCache({ ttl: ONE_MIN_MS });
+    private readonly responseCache = new ResponseCache<string>({
+        ttl: ONE_MIN_MS,
+    });
 
     // TODO: use a global auth state instead?
     private authState: Auth = {

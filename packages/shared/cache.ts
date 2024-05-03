@@ -3,7 +3,7 @@ type CacheItem<Type> = {
     expires: number;
 };
 
-export class ResponseCache<ValueType = string> {
+export class ResponseCache<ValueType = unknown> {
     private readonly ttl: number;
     private readonly cache = new Map<string, CacheItem<ValueType>>();
     private readonly pendingPromises = new Map<

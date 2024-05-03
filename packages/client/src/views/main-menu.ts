@@ -6,7 +6,9 @@ import { param } from "../params";
 const TEN_MIN_MS = 10 * 60 * 1000;
 
 class MainMenu extends HTMLElement {
-    private readonly responseCache = new ResponseCache({ ttl: TEN_MIN_MS });
+    private readonly responseCache = new ResponseCache<string>({
+        ttl: TEN_MIN_MS,
+    });
 
     private async fetchMenuContent(context: Context) {
         const url = window.makeEndpoint("/main-menu", { context });
