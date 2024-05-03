@@ -4,9 +4,8 @@ type CacheItem<Type> = {
 };
 
 export class ResponseCache<ValueType = string> {
-    private readonly cache: Record<string, CacheItem<ValueType>> = {};
     private readonly ttl: number;
-
+    private readonly cache = new Map<string, CacheItem<ValueType>>();
     private readonly pendingPromises = new Map<
         string,
         Promise<ValueType | null>
@@ -20,11 +19,15 @@ export class ResponseCache<ValueType = string> {
         key: string,
         callback: () => Promise<ValueType>,
     ): Promise<ValueType | null> {
-        const cachedItem = this.cache[key];
+        const cachedItem = this.cache.get(key);
         const now = Date.now();
 
-        if (cachedItem && cachedItem.expires > now) {
-            return Promise.resolve(cachedItem.value);
+        if (cachedItem) {
+            if (cachedItem.expires > now) {
+                return Promise.resolve(cachedItem.value);
+            } else {
+                this.cache.delete(key);
+            }
         }
 
         const pendingPromise = this.pendingPromises.get(key);
@@ -38,7 +41,7 @@ export class ResponseCache<ValueType = string> {
                     throw Error("No value returned from callback");
                 }
 
-                this.cache[key] = { value, expires: now + this.ttl };
+                this.cache.set(key, { value, expires: now + this.ttl });
                 return value;
             })
             .catch((e) => {
