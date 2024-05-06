@@ -29,25 +29,36 @@ export const OpsMessagesTemplate = ({
     </section>
 `;
 
+const exactPathTerminator = "$";
+
 const removeTrailingChars = (url?: string) =>
-    url?.replace(/(\/|\$|(\/\$))$/, "");
+    url?.replace(`${exactPathTerminator}$`, "").replace(/\/$/, "");
+
+// url?.replace(new RegExp(`/?${exactPathTerminator}?$`), "");
 
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 
-    connectedCallback() {
+    private connectedCallback() {
         fetch(`${env("APP_URL")}/ops-messages`)
             .then((res) => res.json())
             .then((opsMessages) => {
                 this.messages = opsMessages;
                 this.render();
             });
+
+        window.addEventListener("historyPush", (e) =>
+            this.render(e.detail.url),
+        );
+        window.addEventListener("popstate", () => this.render());
     }
 
-    render() {
+    private render(url?: URL) {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
-                const currentUrl = removeTrailingChars(window.location.href);
+                const currentUrl = removeTrailingChars(
+                    (url ?? window.location).href,
+                );
                 return (
                     !opsMessage.urlscope ||
                     !currentUrl ||
@@ -56,7 +67,7 @@ class OpsMessages extends HTMLElement {
                         const url = removeTrailingChars(rawUrl);
                         return (
                             url &&
-                            (rawUrl.endsWith("$")
+                            (rawUrl.endsWith(exactPathTerminator)
                                 ? currentUrl === url
                                 : currentUrl.startsWith(url))
                         );

@@ -20,7 +20,6 @@ declare global {
             eventData: Record<string, any>,
             origin?: string,
         ) => void;
-        startTaskAnalyticsSurvey: (state: AppState) => void;
         // For task analytics, should have better types?
         TA: any;
         dataLayer: any;

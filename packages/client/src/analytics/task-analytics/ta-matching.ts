@@ -28,13 +28,9 @@ const isMatchingUrl = (
     match: TaskAnalyticsUrlRule["match"],
 ) => (match === "startsWith" ? currentUrl.startsWith(url) : currentUrl === url);
 
-const isMatchingUrls = (urls?: TaskAnalyticsUrlRule[]) => {
-    if (!urls) {
-        return true;
-    }
-
-    const currentUrl = removeTrailingSlash(
-        `${window.location.origin}${window.location.pathname}`,
+const isMatchingUrls = (urls: TaskAnalyticsUrlRule[], currentUrl: URL) => {
+    const currentUrlStr = removeTrailingSlash(
+        `${currentUrl.origin}${currentUrl.pathname}`,
     );
 
     let isMatched: boolean | null = null;
@@ -44,7 +40,7 @@ const isMatchingUrls = (urls?: TaskAnalyticsUrlRule[]) => {
         const { url, match, exclude } = urlRule;
         const urlToMatch = removeTrailingSlash(url);
 
-        if (isMatchingUrl(urlToMatch, currentUrl, match)) {
+        if (isMatchingUrl(urlToMatch, currentUrlStr, match)) {
             // If the url is excluded we can stop. If not, we need to continue checking the url-array, in case
             // there are exclusions in the rest of the array
             if (exclude) {
@@ -89,11 +85,12 @@ export const taskAnalyticsIsMatchingSurvey = (
     survey: TaskAnalyticsSurveyConfig,
     currentLanguage: Language,
     currentAudience: Audience,
+    currentUrl: URL,
 ) => {
     const { urls, audience, language, duration } = survey;
 
     return (
-        isMatchingUrls(urls) &&
+        (!urls || isMatchingUrls(urls, currentUrl)) &&
         isMatchingAudience(currentAudience, audience) &&
         isMatchingLanguage(currentLanguage, language) &&
         isMatchingDuration(duration)
@@ -104,6 +101,7 @@ export const taskAnalyticsGetMatchingSurveys = (
     surveys: TaskAnalyticsSurveyConfig[],
     currentLanguage: Language,
     currentAudience: Context,
+    currentUrl: URL,
 ) => {
     const { matched: prevMatched = {} } = taskAnalyticsGetState();
 
@@ -122,6 +120,7 @@ export const taskAnalyticsGetMatchingSurveys = (
             survey,
             currentLanguage,
             currentAudience,
+            currentUrl,
         );
         if (!isMatching) {
             return false;
