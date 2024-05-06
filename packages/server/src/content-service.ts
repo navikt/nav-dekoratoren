@@ -3,14 +3,14 @@ import {
     Link,
     LinkGroup,
     MainMenuContextLink,
-    Node,
+    MenuNode,
 } from "decorator-shared/types";
 import { Context, Language } from "decorator-shared/params";
 import { clientEnv, env } from "./env/server";
 
 export default class ContentService {
     constructor(
-        private fetchMenu: () => Promise<Node[]>,
+        private fetchMenu: () => Promise<MenuNode[]>,
         private fetchOpsMessages: () => Promise<OpsMessage[]>,
     ) {}
 
@@ -139,7 +139,7 @@ export default class ContentService {
     }
 }
 
-const nodeToLinkGroup: (node: Node) => LinkGroup = ({
+const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
     displayName,
     children,
 }) => ({
@@ -147,7 +147,7 @@ const nodeToLinkGroup: (node: Node) => LinkGroup = ({
     children: children.map(nodeToLink),
 });
 
-const nodeToLink: (node: Node) => Link = ({ displayName, path }) => ({
+const nodeToLink: (node: MenuNode) => Link = ({ displayName, path }) => ({
     content: displayName,
     url: path ?? "#",
 });
@@ -169,11 +169,11 @@ const getLangKey = (lang: Language): ContentLangKey => {
     }
 };
 
-const get = (menu: Node[], path: string): Node[] | undefined => {
+const get = (menu: MenuNode[], path: string): MenuNode[] | undefined => {
     const getRecursive = (
-        node: Node | undefined,
+        node: MenuNode | undefined,
         path: string,
-    ): Node | undefined => {
+    ): MenuNode | undefined => {
         if (path.includes(".")) {
             return path
                 .split(".")
