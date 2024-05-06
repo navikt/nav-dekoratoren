@@ -1,6 +1,4 @@
-import { Texts } from "decorator-shared/types";
 import { env } from "./env/server";
-import { Notification } from "./views/notifications/notifications";
 
 type Oppgave = {
     eventId: string;
@@ -31,65 +29,54 @@ type NotificationData = {
     beskjeder: Beskjed[];
 };
 
-const parseNotifications: (
-    texts: Texts,
-    data: NotificationData | null,
-) => Promise<Notification[]> = async (texts, data) => {
-    const kanalerToMetadata = (kanaler: string[]) => {
-        if (kanaler.includes("SMS") && kanaler.includes("EPOST")) {
-            return texts.notified_SMS_and_EPOST;
-        } else if (kanaler.includes("SMS")) {
-            return texts.notified_SMS;
-        } else if (kanaler.includes("EPOST")) {
-            return texts.notified_EPOST;
-        } else {
-            return undefined;
-        }
-    };
-
-    const oppgaveToNotifiction = (oppgave: Oppgave) => ({
-        title: texts.task,
-        text: oppgave.isMasked ? texts.masked_task_text : oppgave.tekst ?? "",
-        date: oppgave.tidspunkt,
-        icon: "task" as const,
-        metadata: kanalerToMetadata(oppgave.eksternVarslingKanaler),
-        isArchivable: false,
-        link: oppgave.link ?? "",
-        id: oppgave.eventId,
-        amplitudeKomponent: "varsel-oppgave",
-    });
-
-    const beskjedToNotification = (beskjed: Beskjed) => ({
-        title: texts.message,
-        text: beskjed.isMasked
-            ? texts.masked_message_text
-            : beskjed.tekst ?? "",
-        date: beskjed.tidspunkt,
-        icon: "message" as const,
-        metadata: kanalerToMetadata(beskjed.eksternVarslingKanaler),
-        isArchivable: !beskjed.link,
-        link: beskjed.link ?? "",
-        id: beskjed.eventId,
-        amplitudeKomponent: "varsel-beskjed",
-    });
-
-    return Promise.resolve([
-        ...(data?.oppgaver.map(oppgaveToNotifiction) || []),
-        ...(data?.beskjeder.map(beskjedToNotification) || []),
-    ]);
+export type MaskedNotification = {
+    id: string;
+    type: "task" | "message";
+    date: string;
+    channels: string[];
+    masked: true;
 };
 
-export const getNotifications = async ({
-    request,
-    texts,
-}: {
-    request: Request;
-    texts: Texts;
-}) =>
+export type UnmaskedNotification = {
+    id: string;
+    type: "task" | "message";
+    date: string;
+    channels: string[];
+    masked: false;
+    text: string;
+    link?: string;
+};
+
+export type Notification = MaskedNotification | UnmaskedNotification;
+
+const varslerToNotifications = (varsler: NotificationData): Notification[] => {
+    const varselToNotification =
+        (type: "task" | "message") =>
+        (varsel: Beskjed | Oppgave): Notification => ({
+            id: varsel.eventId,
+            type,
+            date: varsel.tidspunkt,
+            channels: varsel.eksternVarslingKanaler,
+            ...(varsel.isMasked
+                ? { masked: true }
+                : {
+                      masked: false,
+                      text: varsel.tekst ?? "",
+                      link: varsel.link ?? "",
+                  }),
+        });
+
+    return [
+        ...(varsler.oppgaver.map(varselToNotification("task")) || []),
+        ...(varsler.beskjeder.map(varselToNotification("message")) || []),
+    ];
+};
+
+export const getNotifications = async ({ request }: { request: Request }) =>
     fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
         headers: {
             cookie: request.headers.get("cookie") || "",
         },
     })
-        .then((res) => res.json() as Promise<NotificationData | null>)
-        .then((notifications) => parseNotifications(texts, notifications));
+        .then((res) => res.json() as Promise<NotificationData>)
+        .then(varslerToNotifications);

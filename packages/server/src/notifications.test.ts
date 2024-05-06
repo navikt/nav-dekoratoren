@@ -7,12 +7,11 @@ import {
     test,
 } from "bun:test";
 import { HttpResponse, http } from "msw";
-import { setupServer } from "msw/node";
+import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "./env/server";
-import notificationsMock from "./notifications-mock.json";
 import { getNotifications } from "./notifications";
-import { texts } from "./texts";
 
+/*
 const server = setupServer(
     http.get(`${env.VARSEL_API_URL}/varselbjelle/varsler`, () =>
         HttpResponse.json(notificationsMock),
@@ -48,5 +47,84 @@ describe("notifications service", () => {
         );
 
         expect(result[4].metadata).toBe("Varslet på SMS");
+    });
+});
+*/
+
+describe("notifications ", () => {
+    let server: SetupServerApi;
+
+    beforeAll(() => {
+        server = setupServer(
+            http.get(`${env.VARSEL_API_URL}/varselbjelle/varsler`, () =>
+                HttpResponse.json({
+                    oppgaver: [
+                        {
+                            eventId: "a",
+                            tidspunkt: "2023-07-04T11:41:02.280367+02:00",
+                            isMasked: true,
+                            eksternVarslingKanaler: [],
+                        },
+                        {
+                            eventId: "b",
+                            tidspunkt: "2023-07-04T11:43:02.280367+02:00",
+                            isMasked: false,
+                            eksternVarslingKanaler: ["SMS", "EPOST"],
+                            link: "http://example.com",
+                            tekst: "wat",
+                        },
+                    ],
+                    beskjeder: [
+                        {
+                            eventId: "c",
+                            tidspunkt: "2023-07-04T11:47:02.280367+02:00",
+                            eksternVarslingKanaler: ["SMS"],
+                            isMasked: false,
+                            tekst: "omg",
+                            link: "https://developer.mozilla.org/",
+                        },
+                    ],
+                }),
+            ),
+        );
+        server.listen();
+    });
+    afterEach(() => server.resetHandlers());
+    afterAll(() => server.close());
+
+    test("returns task", async () => {
+        const result = await getNotifications({
+            request: new Request("http://example.com", {
+                headers: { cookie: "cookie" },
+            }),
+        });
+
+        expect(result).toEqual([
+            {
+                id: "a",
+                type: "task",
+                date: "2023-07-04T11:41:02.280367+02:00",
+                channels: [],
+                masked: true,
+            },
+            {
+                id: "b",
+                type: "task",
+                date: "2023-07-04T11:43:02.280367+02:00",
+                channels: ["SMS", "EPOST"],
+                masked: false,
+                text: "wat",
+                link: "http://example.com",
+            },
+            {
+                id: "c",
+                type: "message",
+                date: "2023-07-04T11:47:02.280367+02:00",
+                channels: ["SMS"],
+                masked: false,
+                text: "omg",
+                link: "https://developer.mozilla.org/",
+            },
+        ]);
     });
 });
