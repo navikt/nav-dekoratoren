@@ -2,7 +2,7 @@ import html from "decorator-shared/html";
 import cls from "decorator-client/src/styles/skiplink.module.css";
 
 export const SkipLink = (text: string) => html`
-    <lenke-med-sporing
+    <skip-link
         href="#maincontent"
         class="${cls.skiplink}"
         data-analytics-event-args="${JSON.stringify({
@@ -11,5 +11,5 @@ export const SkipLink = (text: string) => html`
         })}"
     >
         ${text}
-    </lenke-med-sporing>
+    </skip-link>
 `;

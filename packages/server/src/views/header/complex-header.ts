@@ -9,7 +9,7 @@ import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
 import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
-import { SkipLink } from "decorator-shared/views/skiplink";
+import { SkipLink } from "decorator-shared/views/skip-link";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import { DropdownMenu } from "../dropdown-menu";
 import { IconButton } from "../icon-button";
@@ -94,8 +94,8 @@ export function ComplexHeader({
                                 }),
                                 dropdownContent: html`
                                     <search-menu class="${menuCls.searchMenu}">
-                                        ${SearchForm({ texts })}</search-menu
-                                    >
+                                        ${SearchForm({ texts })}
+                                    </search-menu>
                                     <main-menu></main-menu>
                                 `,
                             })}

@@ -4,7 +4,7 @@ import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css"
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import html, { Template } from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
-import { SkipLink } from "decorator-shared/views/skiplink";
+import { SkipLink } from "decorator-shared/views/skip-link";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import { LoginButton } from "../login-button";
 
