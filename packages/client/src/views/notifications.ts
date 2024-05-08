@@ -25,7 +25,10 @@ class LinkNotification extends HTMLElement {
         if (a) {
             a.addEventListener("click", () => {
                 window.logAmplitudeEvent("navigere", {
-                    komponent: this.getAttribute("data-amplitude-komponent"),
+                    komponent:
+                        this.getAttribute("data-type") === "task"
+                            ? "varsel-oppgave"
+                            : "varsel-beskjed",
                     kategori: "varselbjelle",
                     destinasjon: a.href,
                 });

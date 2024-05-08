@@ -184,7 +184,6 @@ const requestHandler = async (
                                 texts: localTexts,
                                 name: auth.name,
                                 notifications: await getNotifications({
-                                    texts: localTexts,
                                     request,
                                 }),
                                 level: `Level${auth.securityLevel}`,
