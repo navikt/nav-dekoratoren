@@ -148,6 +148,8 @@ const requestHandler = async (
             );
         })
         .get("/user-menu", async ({ query, request }) => {
+            console.log(`API url: ${env.API_DEKORATOREN_URL}`);
+
             const auth = (await fetch(`${env.API_DEKORATOREN_URL}/auth`, {
                 headers: request.headers,
             })
