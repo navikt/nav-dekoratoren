@@ -2,7 +2,10 @@ import { CustomEvents } from "../events";
 
 class UserMenu extends HTMLElement {
     private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
-        this.innerHTML = e.detail.usermenuHtml || "Tom HTML";
+        const html = e.detail.usermenuHtml;
+        if (html) {
+            this.innerHTML = html;
+        }
     };
 
     private connectedCallback() {
