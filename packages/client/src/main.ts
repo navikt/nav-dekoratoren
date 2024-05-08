@@ -132,9 +132,7 @@ const init = async () => {
     initAnalytics();
 
     api.checkAuth().then((authResponse) => {
-        dispatchEvent(
-            createEvent("authupdated", { detail: { auth: authResponse } }),
-        );
+        dispatchEvent(createEvent("authupdated", { detail: authResponse }));
     });
 };
 

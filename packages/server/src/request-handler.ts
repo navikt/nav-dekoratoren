@@ -1,10 +1,7 @@
-import { getLogOutUrl } from "decorator-shared/auth";
-import { LogoutIcon } from "decorator-shared/views/icons/logout";
-import { match } from "ts-pattern";
 import ContentService from "./content-service";
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
-import { clientEnv, env } from "./env/server";
+import { env } from "./env/server";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
@@ -13,18 +10,13 @@ import TaConfigService from "./task-analytics-service";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
-import { ArbeidsgiverUserMenu } from "./views/header/arbeidsgiver-user-menu";
 import { MainMenu } from "./views/header/main-menu";
-import { UserMenuDropdown } from "./views/header/user-menu-dropdown";
-import { AnchorIconButton } from "./views/icon-button";
 import { SearchHits } from "./views/search-hits";
-import { SimpleUserMenu } from "./views/simple-user-menu";
 import { assetsHandlers } from "./handlers/assets-handler";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { csrHandler } from "./csr";
 import { search } from "./search";
-import { getNotifications } from "./notifications";
-import { Auth } from "@navikt/nav-dekoratoren-moduler";
+import { authHandler } from "./handlers/auth-handler";
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
@@ -147,89 +139,7 @@ const requestHandler = async (
                 },
             );
         })
-        .get("/user-menu", async ({ query, request }) => {
-            console.log(`API url: ${env.API_DEKORATOREN_URL}`);
-
-            const auth = (await fetch(`${env.API_DEKORATOREN_URL}/auth`, {
-                headers: {
-                    "Cache-Control": "no-cache",
-                    Cookie: request.headers.get("cookie") || "",
-                },
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        console.log(
-                            `Response ok ${res.status} ${res.statusText}`,
-                        );
-                        return res.json();
-                    }
-
-                    throw Error(
-                        `Bad response - ${res.status} ${res.statusText}`,
-                    );
-                })
-                .catch((e) => {
-                    console.error(`Auth error - ${e}`);
-                    return null;
-                })) as Auth | null;
-
-            if (!auth?.authenticated) {
-                return new Response();
-            }
-
-            const template = async () => {
-                const data = validParams(query);
-                const localTexts = texts[data.language];
-                const logoutUrl = getLogOutUrl(data);
-
-                if (data.simple) {
-                    return SimpleUserMenu({
-                        logoutUrl,
-                        texts: localTexts,
-                        name: auth.name as string,
-                    });
-                } else {
-                    // What should type be here
-                    // This should be merged with params.
-                    const logoutUrl = getLogOutUrl(data);
-
-                    // @TODO: Tests for important urls, like logout
-                    return match(data.context)
-                        .with("privatperson", async () =>
-                            UserMenuDropdown({
-                                texts: localTexts,
-                                name: auth.name,
-                                notifications: await getNotifications({
-                                    request,
-                                }),
-                                level: `Level${auth.securityLevel}`,
-                                logoutUrl: logoutUrl as string,
-                                minsideUrl: clientEnv.MIN_SIDE_URL,
-                                personopplysningerUrl:
-                                    clientEnv.PERSONOPPLYSNINGER_URL,
-                            }),
-                        )
-                        .with("arbeidsgiver", () =>
-                            ArbeidsgiverUserMenu({
-                                texts: localTexts,
-                                href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
-                            }),
-                        )
-                        .with("samarbeidspartner", () =>
-                            AnchorIconButton({
-                                Icon: LogoutIcon({}),
-                                href: logoutUrl,
-                                text: localTexts.logout,
-                            }),
-                        )
-                        .exhaustive();
-                }
-            };
-
-            return template().then((template) =>
-                responseBuilder().html(template.render()).build(),
-            );
-        })
+        .get("/auth-data", authHandler)
         .get("/ops-messages", async () => {
             return responseBuilder()
                 .json(await contentService.getOpsMessages())

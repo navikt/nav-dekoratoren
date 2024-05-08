@@ -1,9 +1,5 @@
-import { Auth } from "./api";
 import { Context, Params } from "decorator-shared/params";
-
-export type MessageEvent = {
-    hello: "true";
-};
+import { AuthDataResponse } from "decorator-shared/auth";
 
 export type CustomEvents = {
     "analytics-ready-event": void;
@@ -11,9 +7,7 @@ export type CustomEvents = {
     paramsupdated: {
         params: Partial<Params>;
     };
-    authupdated: {
-        auth: Auth;
-    };
+    authupdated: AuthDataResponse;
     menuopened: void;
     menuclosed: void;
     clearsearch: void;

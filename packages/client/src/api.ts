@@ -1,23 +1,9 @@
 import { LoginLevel } from "decorator-shared/params";
 import { env } from "./params";
+import { AuthDataResponse } from "decorator-shared/auth";
 
-export type AuthLoggedIn = {
-    authenticated: true;
-    name: string;
-    securityLevel: "3" | "4";
-};
-
-export type AuthLoggedOut = {
-    authenticated: false;
-};
-
-export type Auth = AuthLoggedIn | AuthLoggedOut;
-
-// @TODO: Implement handling of API errors
-export type AuthResponse = Auth;
-
-export async function checkAuth(): Promise<Auth> {
-    const authUrl = `${env("API_DEKORATOREN_URL")}/auth`;
+export async function checkAuth(): Promise<AuthDataResponse> {
+    const authUrl = `${env("APP_URL")}/auth-data`;
     // const sessionUrl = window.__DECORATOR_DATA__.env.API_SESSION_URL;
 
     try {
@@ -33,13 +19,15 @@ export async function checkAuth(): Promise<Auth> {
 
         // const session = await sessionResponse.json();
 
-        return response as Auth;
+        return response as AuthDataResponse;
         // const session = await sessionResponse.json();
     } catch (error) {
         console.error(`Failed to check auth - ${error}`);
 
         return {
-            authenticated: false,
+            auth: {
+                authenticated: false,
+            },
         };
     }
 }
