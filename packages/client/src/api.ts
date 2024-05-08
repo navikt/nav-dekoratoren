@@ -1,4 +1,5 @@
 import { LoginLevel } from "decorator-shared/params";
+import { env } from "./params";
 
 export type AuthLoggedIn = {
     authenticated: true;
@@ -16,7 +17,7 @@ export type Auth = AuthLoggedIn | AuthLoggedOut;
 export type AuthResponse = Auth;
 
 export async function checkAuth(): Promise<Auth> {
-    const authUrl = `${window.__DECORATOR_DATA__.env.API_DEKORATOREN_URL}/auth`;
+    const authUrl = `${env("API_DEKORATOREN_URL")}/auth`;
     // const sessionUrl = window.__DECORATOR_DATA__.env.API_SESSION_URL;
 
     try {

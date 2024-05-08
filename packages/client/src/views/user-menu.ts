@@ -17,12 +17,12 @@ class UserMenu extends HTMLElement {
         }).then((res) => res.text());
     }
 
-    private buildCacheKey() {
+    private buildCacheKey = () => {
         return `${param("context")}_${param("language")}`;
-    }
+    };
 
     // TODO: some sort of placeholder view while awaiting server response?
-    private async populateLoggedInMenu() {
+    private populateLoggedInMenu = async () => {
         const cacheKey = this.buildCacheKey();
 
         this.responseCache
@@ -36,7 +36,7 @@ class UserMenu extends HTMLElement {
 
                 this.innerHTML = html;
             });
-    }
+    };
 
     private updateMenu = (e: CustomEvent<CustomEvents["paramsupdated"]>) => {
         if (e.detail.params?.context) {
@@ -45,11 +45,14 @@ class UserMenu extends HTMLElement {
     };
 
     private connectedCallback() {
+        console.log("User menu connected");
         window.addEventListener("paramsupdated", this.updateMenu);
+        window.addEventListener("authupdated", this.populateLoggedInMenu);
     }
 
     private disconnectedCallback() {
         window.removeEventListener("paramsupdated", this.updateMenu);
+        window.removeEventListener("authupdated", this.populateLoggedInMenu);
     }
 }
 

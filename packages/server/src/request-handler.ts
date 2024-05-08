@@ -148,17 +148,14 @@ const requestHandler = async (
             );
         })
         .get("/user-menu", async ({ query, request }) => {
-            const auth = (await fetch(
-                "http://nav-dekoratoren-api/person/nav-dekoratoren-api/auth",
-                { headers: request.headers },
-            )
+            const auth = (await fetch(`${env.API_DEKORATOREN_URL}/auth`, {
+                headers: request.headers,
+            })
                 .then((res) => res.json())
                 .catch((e) => {
                     console.error(`Auth error - ${e}`);
                     return null;
                 })) as Auth | null;
-
-            console.log("Auth response", auth);
 
             if (!auth?.authenticated) {
                 return new Response();
@@ -185,7 +182,7 @@ const requestHandler = async (
                         .with("privatperson", async () =>
                             UserMenuDropdown({
                                 texts: localTexts,
-                                name: data.name,
+                                name: auth.name,
                                 notifications: await getNotifications({
                                     texts: localTexts,
                                     request,
