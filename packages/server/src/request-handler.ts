@@ -153,7 +153,16 @@ const requestHandler = async (
             const auth = (await fetch(`${env.API_DEKORATOREN_URL}/auth`, {
                 headers: request.headers,
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res.ok) {
+                        console.log(`Response ok ${res.status}`);
+                        return res.json();
+                    }
+
+                    throw Error(
+                        `Bad response - ${res.status} ${res.statusText}`,
+                    );
+                })
                 .catch((e) => {
                     console.error(`Auth error - ${e}`);
                     return null;
