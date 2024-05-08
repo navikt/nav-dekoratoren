@@ -151,11 +151,16 @@ const requestHandler = async (
             console.log(`API url: ${env.API_DEKORATOREN_URL}`);
 
             const auth = (await fetch(`${env.API_DEKORATOREN_URL}/auth`, {
-                headers: request.headers,
+                headers: {
+                    "Cache-Control": "no-cache",
+                    Cookie: request.headers.get("cookie") || "",
+                },
             })
                 .then((res) => {
                     if (res.ok) {
-                        console.log(`Response ok ${res.status}`);
+                        console.log(
+                            `Response ok ${res.status} ${res.statusText}`,
+                        );
                         return res.json();
                     }
 
