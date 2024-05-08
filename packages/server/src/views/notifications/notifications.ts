@@ -1,7 +1,3 @@
-import {
-    default as archivableCls,
-    default as notificationCls,
-} from "decorator-client/src/styles/notification.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
 import html from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
@@ -40,16 +36,13 @@ const MaskedNotificationComp = ({
     notification: MaskedNotification;
     texts: Texts;
 }) =>
-    html`<div class="${archivableCls.notification}">
-        <div class="${archivableCls.header}">
-            <div class="${archivableCls.headerLeft}">
+    html`<div class="${cls.notification}">
+        <div class="${cls.header}">
+            <div class="${cls.headerLeft}">
                 ${type === "task" ? TaskIcon() : MessageIcon()}
                 <div>${texts[type]}</div>
             </div>
-            <local-time
-                datetime="${date}"
-                class="${archivableCls.date}"
-            ></local-time>
+            <local-time datetime="${date}" class="${cls.date}"></local-time>
         </div>
         <div>
             ${type === "task"
@@ -66,25 +59,22 @@ const NotificationComp = ({
     notification: UnmaskedNotification;
 }) =>
     html`<link-notification
-        class="${notificationCls.notification} ${notificationCls.hover}"
+        class="${cls.notification} ${cls.linkNotification}"
         data-amplitude-komponent="TODO"
     >
-        <div class="${notificationCls.header}">
-            <div class="${notificationCls.headerLeft}">
+        <div class="${cls.header}">
+            <div class="${cls.headerLeft}">
                 ${type === "task" ? TaskIcon() : MessageIcon()}
                 <div>${texts[type]}</div>
             </div>
-            <div class="${notificationCls.headerRight}">
-                <local-time
-                    datetime="${date}"
-                    class="${notificationCls.date}"
-                ></local-time>
-                ${ForwardChevron({ className: notificationCls.chevron })}
+            <div class="${cls.headerRight}">
+                <local-time datetime="${date}" class="${cls.date}"></local-time>
+                ${ForwardChevron({ className: cls.chevron })}
             </div>
         </div>
-        <a href="${link}" class="${notificationCls.text}">${text}</a>
+        <a href="${link}" class="${cls.text}">${text}</a>
         ${channels.length > 0 &&
-        html`<div class="${notificationCls.metadata}">
+        html`<div class="${cls.metadata}">
             ${kanalerToMetadata(channels, texts)}
         </div>`}
     </link-notification>`;
@@ -96,27 +86,21 @@ const ArchivableNotification = ({
     notification: UnmaskedNotification;
     texts: Texts;
 }) =>
-    html`<archivable-notification
-        class="${archivableCls.notification}"
-        data-id="${id}"
-    >
-        <div class="${archivableCls.header}">
-            <div class="${archivableCls.headerLeft}">
+    html`<archivable-notification class="${cls.notification}" data-id="${id}">
+        <div class="${cls.header}">
+            <div class="${cls.headerLeft}">
                 ${type === "task" ? TaskIcon() : MessageIcon()}
                 <div>${texts[type]}</div>
             </div>
-            <local-time
-                datetime="${date}"
-                class="${archivableCls.date}"
-            ></local-time>
+            <local-time datetime="${date}" class="${cls.date}"></local-time>
         </div>
         <div>${text}</div>
-        <div class="${archivableCls.bottom}">
+        <div class="${cls.bottom}">
             ${channels.length > 0 &&
-            html`<div class="${archivableCls.metadata}">
+            html`<div class="${cls.metadata}">
                 ${kanalerToMetadata(channels, texts)}
             </div>`}
-            <button class="${archivableCls.button}">${texts.archive}</button>
+            <button class="${cls.button}">${texts.archive}</button>
         </div>
     </archivable-notification>`;
 

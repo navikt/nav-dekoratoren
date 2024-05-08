@@ -32,3 +32,110 @@
 .allNotificationsLink:hover {
     text-decoration: none;
 }
+
+.notification {
+    display: grid;
+    position: relative;
+    gap: var(--a-spacing-1);
+    border-radius: var(--a-border-radius-xlarge);
+    padding: var(--a-spacing-4);
+    background-color: var(--a-surface-default);
+    box-shadow: var(--a-shadow-xsmall);
+}
+
+.linkNotification:hover {
+    box-shadow: var(--a-shadow-small);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerLeft {
+    display: flex;
+    gap: var(--a-spacing-2);
+    align-items: center;
+}
+
+.headerRight {
+    display: flex;
+    gap: var(--a-spacing-1);
+    align-items: center;
+}
+
+.text {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    font-weight: var(--a-font-weight-bold);
+}
+
+.text::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.notification:hover .text {
+    color: var(--a-text-action);
+}
+
+.text:focus {
+    outline: none;
+    color: var(--a-text-action);
+}
+
+.text:focus-visible::after {
+    box-shadow: var(--a-shadow-focus);
+    border-radius: var(--a-border-radius-xlarge);
+}
+
+.date {
+    color: var(--a-text-subtle);
+    font-size: var(--a-font-size-medium);
+    line-height: var(--a-font-line-height-medium);
+}
+
+.chevron {
+    font-size: var(--a-font-size-xlarge);
+    color: var(--a-text-subtle);
+    transition: transform 0.1s ease-in-out;
+}
+
+.notification:hover .chevron {
+    transform: translateX(2px);
+}
+
+.metadata {
+    font-size: var(--a-font-size-medium);
+    line-height: var(--a-font-line-height-medium);
+}
+
+.bottom {
+    display: flex;
+    align-items: center;
+    gap: var(--a-spacing-2);
+}
+
+.bottom > :last-child {
+    margin-left: auto;
+}
+
+.button {
+    border: none;
+    background: none;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    color: var(--a-text-action);
+    border-radius: var(--a-border-radius-medium);
+    padding: 0 var(--a-spacing-2);
+    font-size: var(--a-font-size-medium);
+    font-weight: var(--a-font-weight-bold);
+}
+
+.button:hover {
+    background-color: var(--a-surface-action-subtle-hover);
+}
