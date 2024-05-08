@@ -1,5 +1,5 @@
-import html, { Template, htmlAttributes } from 'decorator-shared/html';
-import { AnalyticsEventArgs } from 'decorator-client/src/analytics/constants';
+import html, { Template, htmlAttributes } from "decorator-shared/html";
+import { AnalyticsEventArgs } from "decorator-client/src/analytics/constants";
 
 export type LenkeMedSporingProps = {
     href: string;
@@ -10,8 +10,17 @@ export type LenkeMedSporingProps = {
     children: Template | string;
 };
 
-export const LenkeMedSporing = ({ children, analyticsEventArgs, ...props }: LenkeMedSporingProps) => html`
-    <lenke-med-sporing data-analytics-event-args="${JSON.stringify(analyticsEventArgs)}" ${htmlAttributes(props)}> ${children} </lenke-med-sporing>
+export const LenkeMedSporing = ({
+    children,
+    analyticsEventArgs,
+    ...props
+}: LenkeMedSporingProps) => html`
+    <lenke-med-sporing
+        data-analytics-event-args="${JSON.stringify(analyticsEventArgs)}"
+        ${htmlAttributes(props)}
+    >
+        ${children}
+    </lenke-med-sporing>
 `;
 // export const LenkeMedSporing = ({
 //   children,

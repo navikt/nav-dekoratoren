@@ -25,7 +25,9 @@ let mockAuth: APISessionData | null = null;
 export const createMockSession = () => {
     const now = new Date();
 
-    const sessionExpires = new Date(now.getTime() + SESSION_MOCK_SECONDS * 1000);
+    const sessionExpires = new Date(
+        now.getTime() + SESSION_MOCK_SECONDS * 1000,
+    );
     const tokenExpires = new Date(now.getTime() + TOKEN_MOCK_SECONDS * 1000);
 
     mockAuth = {
@@ -33,15 +35,23 @@ export const createMockSession = () => {
             created_at: now.toISOString(),
             ends_at: sessionExpires.toISOString(),
             timeout_at: sessionExpires.toISOString(),
-            ends_in_seconds: Math.round((sessionExpires.getTime() - now.getTime()) / 1000),
+            ends_in_seconds: Math.round(
+                (sessionExpires.getTime() - now.getTime()) / 1000,
+            ),
             active: true,
-            timeout_in_seconds: Math.round((sessionExpires.getTime() - now.getTime()) / 1000),
+            timeout_in_seconds: Math.round(
+                (sessionExpires.getTime() - now.getTime()) / 1000,
+            ),
         },
         tokens: {
             expire_at: tokenExpires.toISOString(),
             refreshed_at: now.toISOString(),
-            expire_in_seconds: Math.round((tokenExpires.getTime() - now.getTime()) / 1000),
-            next_auto_refresh_in_seconds: Math.round((tokenExpires.getTime() - now.getTime()) / 1000),
+            expire_in_seconds: Math.round(
+                (tokenExpires.getTime() - now.getTime()) / 1000,
+            ),
+            next_auto_refresh_in_seconds: Math.round(
+                (tokenExpires.getTime() - now.getTime()) / 1000,
+            ),
             refresh_cooldown: false,
             refresh_cooldown_seconds: 0,
         },
@@ -58,16 +68,20 @@ const isTokenExpired = (auth: any) => {
 export const refreshToken = () => {
     if (!mockAuth) {
         createMockSession();
-        throw new Error('Mock session not created');
+        throw new Error("Mock session not created");
     }
     if (!mockAuth) {
-        throw new Error('Mock session not created');
+        throw new Error("Mock session not created");
     }
     const now = new Date();
-    const newExpiresAt = new Date(new Date().getTime() + TOKEN_MOCK_SECONDS * 1000);
+    const newExpiresAt = new Date(
+        new Date().getTime() + TOKEN_MOCK_SECONDS * 1000,
+    );
     mockAuth.tokens.expire_at = newExpiresAt.toISOString();
     mockAuth.tokens.refreshed_at = new Date().toISOString();
-    mockAuth.tokens.expire_in_seconds = Math.round((newExpiresAt.getTime() - now.getTime()) / 1000);
+    mockAuth.tokens.expire_in_seconds = Math.round(
+        (newExpiresAt.getTime() - now.getTime()) / 1000,
+    );
 };
 
 export const getMockSession = () => {
@@ -80,21 +94,37 @@ export const getMockSession = () => {
     }
 
     if (!mockAuth) {
-        throw new Error('Mock session not created');
+        throw new Error("Mock session not created");
     }
 
     return {
         ...mockAuth,
         session: {
             ...mockAuth.session,
-            ends_in_seconds: Math.round((new Date(mockAuth.session.ends_at).getTime() - new Date().getTime()) / 1000),
-            timeout_in_seconds: Math.round((new Date(mockAuth.session.timeout_at).getTime() - new Date().getTime()) / 1000),
+            ends_in_seconds: Math.round(
+                (new Date(mockAuth.session.ends_at).getTime() -
+                    new Date().getTime()) /
+                    1000,
+            ),
+            timeout_in_seconds: Math.round(
+                (new Date(mockAuth.session.timeout_at).getTime() -
+                    new Date().getTime()) /
+                    1000,
+            ),
         },
         tokens: {
             ...mockAuth.tokens,
 
-            expire_in_seconds: Math.round((new Date(mockAuth.tokens.expire_at).getTime() - new Date().getTime()) / 1000),
-            next_auto_refresh_in_seconds: Math.round((new Date(mockAuth.tokens.expire_at).getTime() - new Date().getTime()) / 1000),
+            expire_in_seconds: Math.round(
+                (new Date(mockAuth.tokens.expire_at).getTime() -
+                    new Date().getTime()) /
+                    1000,
+            ),
+            next_auto_refresh_in_seconds: Math.round(
+                (new Date(mockAuth.tokens.expire_at).getTime() -
+                    new Date().getTime()) /
+                    1000,
+            ),
         },
     };
 };

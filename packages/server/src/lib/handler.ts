@@ -1,5 +1,5 @@
-import ContentService from '../content-service';
-import { csp } from '../csp';
+import ContentService from "../content-service";
+import { csp } from "../csp";
 
 type Params = ConstructorParameters<typeof Response>;
 
@@ -13,14 +13,14 @@ class HandlerResponse<TData extends Params[0]> {
 
     html(data: TData) {
         this.data = data;
-        this.headers.set('content-type', 'text/html; charset=utf-8');
+        this.headers.set("content-type", "text/html; charset=utf-8");
         return this;
     }
 
     json(data: TData | unknown) {
         // better handling here
         this.data = JSON.stringify(data) as TData;
-        this.headers.set('content-type', 'application/json; charset=utf-8');
+        this.headers.set("content-type", "application/json; charset=utf-8");
         return this;
     }
 
@@ -30,7 +30,7 @@ class HandlerResponse<TData extends Params[0]> {
     }
 
     build() {
-        this.headers.append('Content-Security-Policy', csp);
+        this.headers.append("Content-Security-Policy", csp);
 
         return new Response(this.data, {
             headers: this.headers,
@@ -38,7 +38,7 @@ class HandlerResponse<TData extends Params[0]> {
     }
 }
 
-export const r = () => new HandlerResponse();
+export const responseBuilder = () => new HandlerResponse();
 /**
  * A handler function is a function that takes a request and returns a response.
  */
@@ -69,12 +69,12 @@ export class HandlerBuilder {
     handlers: Handler[] = [];
 
     get(path: string, handler: HandlerFunction): HandlerBuilder {
-        this.handlers.push({ method: 'GET', path, handler });
+        this.handlers.push({ method: "GET", path, handler });
         return this;
     }
 
     post(path: string, handler: HandlerFunction): HandlerBuilder {
-        this.handlers.push({ method: 'POST', path, handler });
+        this.handlers.push({ method: "POST", path, handler });
         return this;
     }
 

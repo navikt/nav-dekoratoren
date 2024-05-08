@@ -1,25 +1,31 @@
-import { formatParams } from './json';
-import { Environment, Language, Params } from './params';
+import { formatParams } from "./json";
+import { Environment, Language, Params } from "./params";
 
-type IdPortenLocale = 'nb' | 'nn' | 'en' | 'se';
+type IdPortenLocale = "nb" | "nn" | "en" | "se";
 
 const idPortenLocaleMap: Record<Language, IdPortenLocale> = {
-    nb: 'nb',
-    nn: 'nn',
-    se: 'se',
-    en: 'en',
-    pl: 'en',
-    ru: 'en',
-    uk: 'en',
+    nb: "nb",
+    nn: "nn",
+    se: "se",
+    en: "en",
+    pl: "en",
+    ru: "en",
+    uk: "en",
 };
 
 export function getIdPortenLocale(language: Language) {
     return idPortenLocaleMap[language];
 }
 
-export type DecoratorEndpointFn = (endpoint: string, params: Partial<Params>) => string;
+export type DecoratorEndpointFn = (
+    endpoint: string,
+    params: Partial<Params>,
+) => string;
 
-export function makeEndpointFactory(defaultParams: () => Params, origin: string): DecoratorEndpointFn {
+export function makeEndpointFactory(
+    defaultParams: () => Params,
+    origin: string,
+): DecoratorEndpointFn {
     return (endpoint: string, params: Partial<Params>) => {
         const formattedParams = formatParams({
             ...defaultParams(),
@@ -31,12 +37,22 @@ export function makeEndpointFactory(defaultParams: () => Params, origin: string)
 }
 
 type GetUrlLoginOptions = {
-    environment: Pick<Environment, 'APP_URL' | 'MIN_SIDE_URL' | 'MIN_SIDE_ARBEIDSGIVER_URL' | 'LOGIN_URL'>;
-    params: Pick<Params, 'redirectToApp' | 'redirectToUrl' | 'context' | 'level' | 'language'>;
+    environment: Pick<
+        Environment,
+        "APP_URL" | "MIN_SIDE_URL" | "MIN_SIDE_ARBEIDSGIVER_URL" | "LOGIN_URL"
+    >;
+    params: Pick<
+        Params,
+        "redirectToApp" | "redirectToUrl" | "context" | "level" | "language"
+    >;
     isClientSide?: boolean;
 };
 
-function makeRedirectUrlLogin({ environment, params, isClientSide = false }: GetUrlLoginOptions) {
+function makeRedirectUrlLogin({
+    environment,
+    params,
+    isClientSide = false,
+}: GetUrlLoginOptions) {
     const { redirectToUrl, redirectToApp } = params;
 
     const appUrl = environment.APP_URL;
@@ -53,7 +69,7 @@ function makeRedirectUrlLogin({ environment, params, isClientSide = false }: Get
         return appUrl;
     }
 
-    if (params.context === 'arbeidsgiver') {
+    if (params.context === "arbeidsgiver") {
         return environment.MIN_SIDE_ARBEIDSGIVER_URL;
     }
 
@@ -63,38 +79,38 @@ function makeRedirectUrlLogin({ environment, params, isClientSide = false }: Get
 export function makeLoginUrl(
     options: GetUrlLoginOptions & {
         overrideLevel?: string;
-    }
+    },
 ) {
     const redirectUrl = makeRedirectUrlLogin(options);
     const idPortenLocale = getIdPortenLocale(options.params.language);
 
-    console.log('idPortenLocale', idPortenLocale);
+    console.log("idPortenLocale", idPortenLocale);
 
     const { environment, params } = options;
     return `${environment.LOGIN_URL}?redirect=${redirectUrl}&level=${options.overrideLevel || params.level}&locale=${idPortenLocale}`;
 }
 
 export function erNavDekoratoren(url: string) {
-    return url.includes('dekoratoren') || url.includes('localhost:8089');
+    return url.includes("dekoratoren") || url.includes("localhost:8089");
 }
 
 export function makeFrontpageUrl({
     context,
     language,
     baseUrl,
-}: Pick<Params, 'context' | 'language'> & {
+}: Pick<Params, "context" | "language"> & {
     baseUrl: string;
 }) {
-    if (language === 'en') {
+    if (language === "en") {
         return `${baseUrl}/en/home`;
     }
 
     switch (context) {
-        case 'privatperson':
+        case "privatperson":
             return `${baseUrl}/`;
-        case 'arbeidsgiver':
+        case "arbeidsgiver":
             return `${baseUrl}/no/bedrift`;
-        case 'samarbeidspartner':
+        case "samarbeidspartner":
             return `${baseUrl}/no/samarbeidspartner`;
     }
 }

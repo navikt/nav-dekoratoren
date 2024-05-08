@@ -1,4 +1,4 @@
-import html from '../../html';
+import html from "../../html";
 
 type Props = { width?: string; height?: string };
 

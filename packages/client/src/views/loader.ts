@@ -1,11 +1,11 @@
-import html from 'decorator-shared/html';
+import html from "decorator-shared/html";
 
 export class Loader extends HTMLElement {
     constructor() {
         super();
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        const title = this.getAttribute('title') ?? 'Laster forhåndsvisning';
+        const shadowRoot = this.attachShadow({ mode: "open" });
+        const title = this.getAttribute("title") ?? "Laster forhåndsvisning";
 
         shadowRoot.innerHTML = html`
             <style>
@@ -61,13 +61,33 @@ export class Loader extends HTMLElement {
             </style>
             <div class="dekorator-loader-container">
                 <span>${title}</span>
-                <svg class="dekorator-loader" focusable="false" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid" alt="">
-                    <circle class="dekoratoren-loader__background" xmlns="http://www.w3.org/2000/svg" cx="25" cy="25" r="20" fill="none" />
-                    <circle class="dekoratoren-loader__foreground" cx="25" cy="25" r="20" fill="none" strokeDasharray="50 155" />
+                <svg
+                    class="dekorator-loader"
+                    focusable="false"
+                    viewBox="0 0 50 50"
+                    preserveAspectRatio="xMidYMid"
+                    alt=""
+                >
+                    <circle
+                        class="dekoratoren-loader__background"
+                        xmlns="http://www.w3.org/2000/svg"
+                        cx="25"
+                        cy="25"
+                        r="20"
+                        fill="none"
+                    />
+                    <circle
+                        class="dekoratoren-loader__foreground"
+                        cx="25"
+                        cy="25"
+                        r="20"
+                        fill="none"
+                        strokeDasharray="50 155"
+                    />
                 </svg>
             </div>
         `.render();
     }
 }
 
-customElements.define('decorator-loader', Loader);
+customElements.define("decorator-loader", Loader);

@@ -15,8 +15,3 @@
     background-color: rgba(50, 65, 79, 0.8);
     visibility: visible;
 }
-
-.menuOpenBody {
-    overflow-x: hidden;
-    overflow-y: hidden;
-}

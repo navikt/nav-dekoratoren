@@ -1,4 +1,4 @@
-import html from '../../html';
+import html from "../../html";
 
 export const VeilederIllustration = ({ className }: { className?: string }) =>
     html` <svg
@@ -61,7 +61,12 @@ export const VeilederIllustration = ({ className }: { className?: string }) =>
             d="M39.17 50.83h-1.16c-.08 0-.15-.06-.15-.14v-.18c0-.08.07-.14.15-.14h1.16c.09 0 .16.06.16.14v.18c0 .08-.07.14-.16.14Z"
             clip-rule="evenodd"
         />
-        <path fill="#C2B5CF" fill-rule="evenodd" d="M38.26 50.67h.67V49h-.67v1.67Z" clip-rule="evenodd" />
+        <path
+            fill="#C2B5CF"
+            fill-rule="evenodd"
+            d="M38.26 50.67h.67V49h-.67v1.67Z"
+            clip-rule="evenodd"
+        />
         <path
             fill="#145570"
             fill-rule="evenodd"

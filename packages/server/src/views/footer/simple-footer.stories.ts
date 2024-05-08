@@ -1,11 +1,11 @@
-import type { StoryObj, Meta } from '@storybook/html';
-import type { SimpleFooterProps } from './simple-footer';
-import { SimpleFooter } from './simple-footer';
-import { texts } from '../../texts';
+import type { StoryObj, Meta } from "@storybook/html";
+import type { SimpleFooterProps } from "./simple-footer";
+import { SimpleFooter } from "./simple-footer";
+import { texts } from "../../texts";
 
 const meta: Meta<SimpleFooterProps> = {
-    title: 'footer/simple',
-    tags: ['autodocs'],
+    title: "footer/simple",
+    tags: ["autodocs"],
     render: SimpleFooter,
 };
 
@@ -15,18 +15,18 @@ type Story = StoryObj<SimpleFooterProps>;
 export const Default: Story = {
     args: {
         features: {
-            'dekoratoren.skjermdeling': true,
-            'dekoratoren.chatbotscript': false,
+            "dekoratoren.skjermdeling": true,
+            "dekoratoren.chatbotscript": false,
         },
         texts: texts.nb,
         links: [
             {
-                content: 'Personvern og informasjonskapsler',
-                url: '/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten',
+                content: "Personvern og informasjonskapsler",
+                url: "/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten",
             },
             {
-                content: 'Tilgjengelighet',
-                url: '/tilgjengelighet',
+                content: "Tilgjengelighet",
+                url: "/tilgjengelighet",
             },
         ],
     },

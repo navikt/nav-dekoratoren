@@ -1,5 +1,5 @@
-import cls from '../styles/dropdown-menu.module.css';
-import { createEvent } from '../events';
+import cls from "../styles/dropdown-menu.module.css";
+import { createEvent } from "../events";
 
 class DropdownMenu extends HTMLElement {
     button: HTMLElement | null = null;
@@ -17,9 +17,11 @@ class DropdownMenu extends HTMLElement {
         }
 
         this.classList.toggle(cls.dropdownMenuOpen, open);
-        this.button?.setAttribute('aria-expanded', JSON.stringify(open));
+        this.button?.setAttribute("aria-expanded", JSON.stringify(open));
         this.#open = open;
-        this.dispatchEvent(createEvent(open ? 'menuopened' : 'menuclosed', { bubbles: true }));
+        this.dispatchEvent(
+            createEvent(open ? "menuopened" : "menuclosed", { bubbles: true }),
+        );
     }
 
     close = () => {
@@ -27,22 +29,22 @@ class DropdownMenu extends HTMLElement {
     };
 
     connectedCallback() {
-        this.button = this.querySelector(':scope > button');
+        this.button = this.querySelector(":scope > button");
         if (this.button) {
-            this.button.addEventListener('click', () => {
+            this.button.addEventListener("click", () => {
                 this.open = !this.#open;
             });
-            this.button.setAttribute('aria-expanded', 'false');
+            this.button.setAttribute("aria-expanded", "false");
         }
 
-        window.addEventListener('click', this.handleWindowClick);
-        window.addEventListener('closemenus', this.close);
+        window.addEventListener("click", this.handleWindowClick);
+        window.addEventListener("closemenus", this.close);
     }
 
     disconnectedCallback() {
-        window.removeEventListener('click', this.handleWindowClick);
-        window.removeEventListener('closemenus', this.close);
+        window.removeEventListener("click", this.handleWindowClick);
+        window.removeEventListener("closemenus", this.close);
     }
 }
 
-customElements.define('dropdown-menu', DropdownMenu);
+customElements.define("dropdown-menu", DropdownMenu);

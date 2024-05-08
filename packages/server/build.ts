@@ -1,13 +1,13 @@
-import { BunPlugin } from 'bun';
-import { getPostcssTokens } from './css-modules-plugin';
-import { minify } from 'esbuild-minify-templates';
+import { BunPlugin } from "bun";
+import { getPostcssTokens } from "./css-modules-plugin";
+import { minify } from "esbuild-minify-templates";
 
 const cssModulesPlugin: BunPlugin = {
-    name: 'css-modules',
+    name: "css-modules",
     setup(build) {
         build.onLoad({ filter: /\.module.*\.css$/ }, async ({ path }) => {
             return {
-                loader: 'json',
+                loader: "json",
                 contents: JSON.stringify(await getPostcssTokens(path)),
             };
         });
@@ -15,17 +15,21 @@ const cssModulesPlugin: BunPlugin = {
 };
 
 const result = await Bun.build({
-    entrypoints: ['./src/server.ts'],
-    target: 'bun', // bun
-    outdir: './dist',
+    entrypoints: ["./src/server.ts"],
+    target: "bun", // bun
+    outdir: "./dist",
     minify: false,
     plugins: [cssModulesPlugin],
 });
 
 const [output] = result.outputs;
-const text = await output.text();
-const minified = minify(text, {
-    taggedOnly: true,
-}).toString();
+console.log(`Build outout: ${output}`);
 
-await Bun.write(Bun.file(output.path), minified);
+if (output) {
+    const text = await output.text();
+    const minified = minify(text, {
+        taggedOnly: true,
+    }).toString();
+
+    await Bun.write(Bun.file(output.path), minified);
+}

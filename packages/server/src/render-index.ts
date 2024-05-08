@@ -1,18 +1,18 @@
-import { makeContextLinks } from 'decorator-shared/context';
-import { Params } from 'decorator-shared/params';
-import ContentService from './content-service';
-import { clientEnv, env } from './env/server';
-import { texts } from './texts';
-import { GetFeatures } from './unleash-service';
-import { Index } from './views';
-import { DecoratorData } from './views/decorator-data';
-import { DecoratorUtils } from './views/decorator-utils';
-import { ComplexHeader } from './views/header/complex-header';
-import { SimpleHeader } from './views/header/simple-header';
-import { getSplashPage } from './views/splash-page';
-import { Footer } from './views/footer/footer';
-import { isExternallyAvailable } from 'decorator-shared/utils';
-import { Features, Texts } from 'decorator-shared/types';
+import { makeContextLinks } from "decorator-shared/context";
+import { Params } from "decorator-shared/params";
+import ContentService from "./content-service";
+import { clientEnv, env } from "./env/server";
+import { texts } from "./texts";
+import { GetFeatures } from "./unleash-service";
+import { Index } from "./views";
+import { DecoratorData } from "./views/decorator-data";
+import { DecoratorUtils } from "./views/decorator-utils";
+import { ComplexHeader } from "./views/header/complex-header";
+import { SimpleHeader } from "./views/header/simple-header";
+import { getSplashPage } from "./views/splash-page";
+import { Footer } from "./views/footer/footer";
+import { isExternallyAvailable } from "decorator-shared/utils";
+import { Features, Texts } from "decorator-shared/types";
 
 export default async ({
     contentService,
@@ -62,7 +62,11 @@ type SharedParameters = {
     texts: Texts;
 };
 
-export async function renderHeader({ texts, data, contentService }: SharedParameters) {
+export async function renderHeader({
+    texts,
+    data,
+    contentService,
+}: SharedParameters) {
     const decoratorUtils = DecoratorUtils({
         breadcrumbs: data.breadcrumbs,
         availableLanguages: data.availableLanguages,
@@ -82,7 +86,9 @@ export async function renderHeader({ texts, data, contentService }: SharedParame
               context: data.context,
               language: data.language,
               decoratorUtils,
-              opsMessages: data.ssr ? await contentService.getOpsMessages() : [],
+              opsMessages: data.ssr
+                  ? await contentService.getOpsMessages()
+                  : [],
           });
 }
 

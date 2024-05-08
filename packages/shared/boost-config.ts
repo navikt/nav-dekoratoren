@@ -1,6 +1,6 @@
 type HexColor = `#${string}`;
 
-type ButtonType = 'button' | 'bullet';
+type ButtonType = "button" | "bullet";
 
 type BoostHeaderFilterOptions = { id: number; title: string; values: string[] };
 
@@ -11,7 +11,7 @@ type BoostHeaderFilter = {
 
 type BoostHeader = {
     filters?: BoostHeaderFilter;
-    showMinimizeButton?: 'always' | 'never' | 'mobile';
+    showMinimizeButton?: "always" | "never" | "mobile";
     title?: string;
 };
 
@@ -68,17 +68,25 @@ type BoostButtonStyling = {
 };
 
 type BoostStyling = {
-    avatarShape?: 'rounded' | 'squared';
+    avatarShape?: "rounded" | "squared";
     avatarUrl?: string;
     fontFamily?: string;
-    panelShape?: 'squared' | 'rounded';
+    panelShape?: "squared" | "rounded";
     panelBackgroundColor?: HexColor;
     panelScrollbarColor?: HexColor;
     contrastColor?: HexColor;
     primaryColor?: HexColor;
     disableVanStylingChange?: boolean;
-    size?: 'small' | 'medium' | 'large';
-    pace?: 'glacial' | 'slower' | 'slow' | 'normal' | 'fast' | 'faster' | 'supersonic' | number;
+    size?: "small" | "medium" | "large";
+    pace?:
+        | "glacial"
+        | "slower"
+        | "slow"
+        | "normal"
+        | "fast"
+        | "faster"
+        | "supersonic"
+        | number;
     position?: BoostPositionStyling;
     chatBubbles?: BoostChatBubbleStyles;
     messageFeedback?: BoostMessageFeedbackStyling;
@@ -118,7 +126,11 @@ export type BoostConfig = {
 export type BoostObject = {
     chatPanel: {
         sendMessage: (message: string) => void;
-        addEventListener: (type: string, listener: EventListener, options?: { once: boolean }) => void;
+        addEventListener: (
+            type: string,
+            listener: EventListener,
+            options?: { once: boolean },
+        ) => void;
         removeEventListener: (type: string, listener: EventListener) => void;
         setFilterValues: (filterValues: string[]) => void;
         setContextIntentId: (contextIntentId: number) => void;
@@ -133,16 +145,22 @@ export type BoostObject = {
             newConversationId: string | null,
             options?: {
                 continueConversation: boolean;
-            }
+            },
         ) => void;
         show: () => void;
-        getVisibility: () => 'visible' | 'closed' | 'minimized';
+        getVisibility: () => "visible" | "closed" | "minimized";
     };
 };
 
-export type PreferredFilter = 'arbeidsgiver' | 'nynorsk' | 'bokmal';
+export type PreferredFilter = "arbeidsgiver" | "nynorsk" | "bokmal";
 
-export function makeBoostConfig({ preferredFilter, conversationId }: { preferredFilter: PreferredFilter; conversationId?: string | null }) {
+export function makeBoostConfig({
+    preferredFilter,
+    conversationId,
+}: {
+    preferredFilter: PreferredFilter;
+    conversationId?: string | null;
+}) {
     return {
         chatPanel: {
             settings: {
@@ -164,4 +182,4 @@ export function makeBoostConfig({ preferredFilter, conversationId }: { preferred
     } satisfies BoostConfig;
 }
 
-export const conversationCookieName = 'nav-chatbot%3Aconversation';
+export const conversationCookieName = "nav-chatbot%3Aconversation";

@@ -94,7 +94,7 @@
 }
 
 .option::before {
-    content: '';
+    content: "";
     display: block;
     height: 8px;
     width: 8px;

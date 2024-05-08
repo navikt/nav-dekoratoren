@@ -1,7 +1,7 @@
-import html from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/feedback.module.css';
-import { Texts } from 'decorator-shared/types';
-import { Button } from 'decorator-shared/views/components/button';
+import html from "decorator-shared/html";
+import cls from "decorator-client/src/styles/feedback.module.css";
+import { Texts } from "decorator-shared/types";
+import { Button } from "decorator-shared/views/components/button";
 
 export type FeedbackProps = {
     texts: Texts;
@@ -14,18 +14,18 @@ export const Feedback = ({ texts }: FeedbackProps) => html`
             <div class="${cls.buttonWrapper}">
                 ${Button({
                     text: texts.yes,
-                    variant: 'outline',
+                    variant: "outline",
                     wide: true,
                     bigLabel: true,
-                    id: 'feedback-yes',
+                    id: "feedback-yes",
                     data: { answer: texts.yes },
                 })}
                 ${Button({
                     text: texts.no,
-                    variant: 'outline',
+                    variant: "outline",
                     wide: true,
                     bigLabel: true,
-                    id: 'feedback-no',
+                    id: "feedback-no",
                     data: { answer: texts.no },
                 })}
             </div>

@@ -20,6 +20,7 @@
         "@builder.io/partytown": "^0.8.1"
     },
     "devDependencies": {
+        "msw": "^2.2.14",
         "postcss": "^8.4.30",
         "postcss-modules": "^6.0.0"
     }

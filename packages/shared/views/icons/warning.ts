@@ -1,8 +1,16 @@
-import html from '../../html';
+import html from "../../html";
 
 export function WarningIcon() {
     return html`
-        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" focusable="false" aria-hidden="true" role="img">
+        <svg
+            width="24px"
+            height="24px"
+            viewBox="0 0 24 24"
+            fill="none"
+            focusable="false"
+            aria-hidden="true"
+            role="img"
+        >
             <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"

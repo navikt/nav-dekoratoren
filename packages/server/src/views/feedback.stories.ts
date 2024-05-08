@@ -1,12 +1,12 @@
-import type { StoryObj, Meta } from '@storybook/html';
-import type { FeedbackProps } from './feedback';
-import { Feedback } from './feedback';
-import { texts } from '../texts';
-import { FeedbackSuccess } from 'decorator-client/src/views/feedback-success';
+import type { StoryObj, Meta } from "@storybook/html";
+import type { FeedbackProps } from "./feedback";
+import { Feedback } from "./feedback";
+import { texts } from "../texts";
+import { FeedbackSuccess } from "decorator-client/src/views/feedback-success";
 
 const meta: Meta<FeedbackProps> = {
-    title: 'feedback',
-    tags: ['autodocs'],
+    title: "feedback",
+    tags: ["autodocs"],
 };
 
 export default meta;

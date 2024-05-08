@@ -1,7 +1,16 @@
-import { ClientTexts } from 'decorator-shared/types';
-import { AuthData, fakeExpirationTime, fetchSession, fethRenew, getSecondsToExpiration } from '../helpers/auth';
+import { ClientTexts } from "decorator-shared/types";
+import {
+    AuthData,
+    fakeExpirationTime,
+    fetchSession,
+    fethRenew,
+    getSecondsToExpiration,
+} from "../helpers/auth";
 
-export async function logoutWarningController(hasLogoutWarning: boolean, texts: ClientTexts) {
+export async function logoutWarningController(
+    hasLogoutWarning: boolean,
+    texts: ClientTexts,
+) {
     if (!hasLogoutWarning) {
         return;
     }
@@ -14,11 +23,17 @@ export async function logoutWarningController(hasLogoutWarning: boolean, texts: 
     const SESSION_WARNING_THRESHOLD = 5 * 60; // 5 minutes
 
     // Modal elements
-    const logoutWarningDialog = document.getElementById('logout-warning') as HTMLDialogElement | null;
-    const title = logoutWarningDialog?.querySelector('#logout-warning-title');
-    const body = logoutWarningDialog?.querySelector('#logout-warning-body');
-    const confirmButton = logoutWarningDialog?.querySelector('#logout-warning-confirm');
-    const cancelButton = logoutWarningDialog?.querySelector('#logout-warning-cancel');
+    const logoutWarningDialog = document.getElementById(
+        "logout-warning",
+    ) as HTMLDialogElement | null;
+    const title = logoutWarningDialog?.querySelector("#logout-warning-title");
+    const body = logoutWarningDialog?.querySelector("#logout-warning-body");
+    const confirmButton = logoutWarningDialog?.querySelector(
+        "#logout-warning-confirm",
+    );
+    const cancelButton = logoutWarningDialog?.querySelector(
+        "#logout-warning-cancel",
+    );
 
     // Session and token fetching from central login service
     // ---------------------------------------------
@@ -48,25 +63,34 @@ export async function logoutWarningController(hasLogoutWarning: boolean, texts: 
 
     // Updaters for the actual modal UI
     // ---------------------------------------------
-    function updateDialogUI(type: 'token' | 'session', minutes?: number) {
-        if (!title || !body || !confirmButton || !cancelButton || !logoutWarningDialog) {
+    function updateDialogUI(type: "token" | "session", minutes?: number) {
+        if (
+            !title ||
+            !body ||
+            !confirmButton ||
+            !cancelButton ||
+            !logoutWarningDialog
+        ) {
             return;
         }
 
-        if (type === 'token') {
+        if (type === "token") {
             title.innerHTML = texts.token_warning_title;
             body.innerHTML = texts.token_warning_body;
             confirmButton.innerHTML = texts.yes;
             cancelButton.innerHTML = texts.logout;
         } else {
-            title.innerHTML = texts.session_warning_title.replace('$1', minutes?.toString() || '');
+            title.innerHTML = texts.session_warning_title.replace(
+                "$1",
+                minutes?.toString() || "",
+            );
             body.innerHTML = texts.session_warning_body;
             confirmButton.innerHTML = texts.ok;
             cancelButton.innerHTML = texts.logout;
         }
 
-        confirmButton.setAttribute('data-type', type);
-        cancelButton.setAttribute('data-type', type);
+        confirmButton.setAttribute("data-type", type);
+        cancelButton.setAttribute("data-type", type);
 
         if (!logoutWarningDialog.open && !silenceWarning) {
             logoutWarningDialog.showModal();
@@ -96,21 +120,27 @@ export async function logoutWarningController(hasLogoutWarning: boolean, texts: 
         }
 
         const { tokens, session } = auth;
-        const secondsToTokenExpiration = getSecondsToExpiration(tokens.expire_at);
-        const secondsToSessionExpiration = getSecondsToExpiration(session.ends_at);
+        const secondsToTokenExpiration = getSecondsToExpiration(
+            tokens.expire_at,
+        );
+        const secondsToSessionExpiration = getSecondsToExpiration(
+            session.ends_at,
+        );
 
         if (secondsToTokenExpiration < 0 || secondsToSessionExpiration < 0) {
             window.location.href = `${window.__DECORATOR_DATA__.env.LOGOUT_URL}`;
         }
 
         if (secondsToTokenExpiration < TOKEN_WARNING_THRESHOLD) {
-            updateDialogUI('token');
+            updateDialogUI("token");
             return;
         }
 
         if (secondsToSessionExpiration < SESSION_WARNING_THRESHOLD) {
-            const minutesToSessionExpiration = Math.ceil(secondsToSessionExpiration / 60);
-            updateDialogUI('session', minutesToSessionExpiration);
+            const minutesToSessionExpiration = Math.ceil(
+                secondsToSessionExpiration / 60,
+            );
+            updateDialogUI("session", minutesToSessionExpiration);
             return;
         }
 
@@ -123,8 +153,8 @@ export async function logoutWarningController(hasLogoutWarning: boolean, texts: 
     // ---------------------------------------------
     function onConfirm(e: Event) {
         const target = e.target as HTMLButtonElement;
-        const type = target.getAttribute('data-type');
-        if (type === 'token') {
+        const type = target.getAttribute("data-type");
+        if (type === "token") {
             getRenewedTokenRemote();
         } else {
             silenceSessionWarning();
@@ -138,7 +168,7 @@ export async function logoutWarningController(hasLogoutWarning: boolean, texts: 
     }
 
     function onVisibilityChange() {
-        if (document.visibilityState === 'visible') {
+        if (document.visibilityState === "visible") {
             getUpdatedSessionRemote();
         }
     }
@@ -153,9 +183,9 @@ export async function logoutWarningController(hasLogoutWarning: boolean, texts: 
     }
 
     function startEventListeners() {
-        window.addEventListener('visibilitychange', onVisibilityChange);
-        confirmButton?.addEventListener('click', onConfirm);
-        cancelButton?.addEventListener('click', onCancel);
+        window.addEventListener("visibilitychange", onVisibilityChange);
+        confirmButton?.addEventListener("click", onConfirm);
+        cancelButton?.addEventListener("click", onCancel);
     }
 
     startEventListeners();

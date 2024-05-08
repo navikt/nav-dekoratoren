@@ -1,20 +1,24 @@
-import { CustomEvents } from '../events';
-import { ClientSideCache } from '../helpers/cache';
-import { param } from '../params';
+import { CustomEvents } from "../events";
+import { param } from "../params";
+import { ResponseCache } from "decorator-shared/cache";
+
+const ONE_MIN_MS = 60 * 1000;
 
 class UserMenu extends HTMLElement {
-    private readonly responseCache = new ClientSideCache();
+    private readonly responseCache = new ResponseCache<string>({
+        ttl: ONE_MIN_MS,
+    });
 
     private async fetchMenuHtml() {
-        const url = window.makeEndpoint('/user-menu');
+        const url = window.makeEndpoint("/user-menu");
 
         return fetch(url, {
-            credentials: 'include',
+            credentials: "include",
         }).then((res) => res.text());
     }
 
     private buildCacheKey() {
-        return `${param('context')}_${param('language')}`;
+        return `${param("context")}_${param("language")}`;
     }
 
     // TODO: some sort of placeholder view while awaiting server response?
@@ -26,7 +30,7 @@ class UserMenu extends HTMLElement {
             .then((html) => {
                 if (!html) {
                     // TODO: better error handling
-                    console.error('Failed to fetch content for user-menu');
+                    console.error("Failed to fetch content for user-menu");
                     return;
                 }
 
@@ -34,19 +38,19 @@ class UserMenu extends HTMLElement {
             });
     }
 
-    private updateMenu = (e: CustomEvent<CustomEvents['paramsupdated']>) => {
+    private updateMenu = (e: CustomEvent<CustomEvents["paramsupdated"]>) => {
         if (e.detail.params?.context) {
             this.populateLoggedInMenu();
         }
     };
 
     private connectedCallback() {
-        window.addEventListener('paramsupdated', this.updateMenu);
+        window.addEventListener("paramsupdated", this.updateMenu);
     }
 
     private disconnectedCallback() {
-        window.removeEventListener('paramsupdated', this.updateMenu);
+        window.removeEventListener("paramsupdated", this.updateMenu);
     }
 }
 
-customElements.define('user-menu', UserMenu);
+customElements.define("user-menu", UserMenu);

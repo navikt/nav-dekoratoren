@@ -11,9 +11,13 @@
     --a-spacing-3: 0.75rem;
     --a-spacing-2: 0.5rem;
     --a-spacing-1: 0.25rem;
-    --a-shadow-xlarge: 0px 2px 5px 0px rgba(0, 0, 0, 0.15), 0px 10px 24px 0px rgba(0, 0, 0, 0.18), 0px 0px 1px 0px rgba(0, 0, 0, 0.08);
-    --a-shadow-small: 0px 3px 8px 0px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 0px 1px 0px rgba(0, 0, 0, 0.18);
-    --a-shadow-xsmall: 0px 1px 3px 0px rgba(0, 0, 0, 0.15), 0px 0px 1px 0px rgba(0, 0, 0, 0.2);
+    --a-shadow-xlarge: 0px 2px 5px 0px rgba(0, 0, 0, 0.15),
+        0px 10px 24px 0px rgba(0, 0, 0, 0.18),
+        0px 0px 1px 0px rgba(0, 0, 0, 0.08);
+    --a-shadow-small: 0px 3px 8px 0px rgba(0, 0, 0, 0.1),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 0px 1px 0px rgba(0, 0, 0, 0.18);
+    --a-shadow-xsmall: 0px 1px 3px 0px rgba(0, 0, 0, 0.15),
+        0px 0px 1px 0px rgba(0, 0, 0, 0.2);
     --a-lightblue-800: rgba(35, 107, 125, 1);
     --a-lightblue-700: rgba(54, 141, 168, 1);
     --a-lightblue-100: rgba(216, 249, 255, 1);
@@ -61,7 +65,7 @@
     --a-font-line-height-xlarge: 1.75rem;
     --a-font-line-height-heading-small: 1.75rem;
     --a-font-line-height-heading-medium: 2rem;
-    --a-font-family: 'Source Sans Pro', Arial, sans-serif;
+    --a-font-family: "Source Sans Pro", Arial, sans-serif;
     --a-icon-default: var(--a-gray-900);
     --a-icon-info: var(--a-lightblue-800);
     --a-icon-danger: var(--a-red-500);
@@ -104,32 +108,36 @@
 
 /* Vurdere å kun ta med i dev -> Start */
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: "Source Sans Pro";
     font-style: italic;
     font-weight: 400;
     font-display: swap;
-    src: url('https://cdn.nav.no/aksel/fonts/SourceSans3-italic.woff2') format('woff2');
+    src: url("https://cdn.nav.no/aksel/fonts/SourceSans3-italic.woff2")
+        format("woff2");
 }
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: "Source Sans Pro";
     font-style: italic;
     font-weight: 600;
     font-display: swap;
-    src: url('https://cdn.nav.no/aksel/fonts/SourceSans3-italic-latin-semibold.woff2') format('woff2');
+    src: url("https://cdn.nav.no/aksel/fonts/SourceSans3-italic-latin-semibold.woff2")
+        format("woff2");
 }
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: "Source Sans Pro";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2') format('woff2');
+    src: url("https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2")
+        format("woff2");
 }
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: "Source Sans Pro";
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2') format('woff2');
+    src: url("https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2")
+        format("woff2");
 }
 /* End */
 
@@ -159,14 +167,13 @@ body {
         --header-height-desktop: 80px;
         --desktop-min-width: 768px;
 
-
         font-family: var(--a-font-family);
         line-height: 1.333;
         font-size: 1.125rem;
         color: var(--a-text-default);
     }
     :where(#header-withmenu, #footer-withmenu) {
-        font-family: var(--a-font-family, 'Source Sans Pro', Arial, sans-serif);
+        font-family: var(--a-font-family, "Source Sans Pro", Arial, sans-serif);
     }
 
     @media (min-width: 1024px) {

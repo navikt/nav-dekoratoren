@@ -1,4 +1,4 @@
-import html from 'decorator-shared/html';
+import html from "decorator-shared/html";
 
 // @TODO: Should probably create a generic type for the className
 
@@ -45,7 +45,12 @@ export function MessageIcon() {
 }
 
 export function TaskIcon() {
-    return html`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    return html`<svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+    >
         <rect width="24" height="24" fill="#C77300" rx="4" />
         <path
             fill="#fff"

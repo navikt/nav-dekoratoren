@@ -1,6 +1,7 @@
-import html from 'decorator-shared/html';
-import debounce from 'lodash.debounce';
-import cls from '../styles/search-form.module.css';
+import html from "decorator-shared/html";
+import debounce from "lodash.debounce";
+import cls from "../styles/search-form.module.css";
+import { env, param } from "../params";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -10,13 +11,13 @@ class SearchMenu extends HTMLElement {
 
     constructor() {
         super();
-        this.hits = document.createElement('div');
+        this.hits = document.createElement("div");
     }
 
     clearSearch = () => {
         this.hits.remove();
         if (this.input) {
-            this.input.value = '';
+            this.input.value = "";
         }
     };
 
@@ -25,35 +26,37 @@ class SearchMenu extends HTMLElement {
     connectedCallback() {
         this.form = this.querySelector(`.${cls.searchForm}`);
         this.input = this.querySelector(`.${cls.searchInput}`);
-        this.parentDropdown = this.closest('dropdown-menu');
+        this.parentDropdown = this.closest("dropdown-menu");
 
-        if (this.getAttribute('data-auto-focus') !== null) {
-            this.parentDropdown?.addEventListener('menuopened', this.focus);
+        if (this.getAttribute("data-auto-focus") !== null) {
+            this.parentDropdown?.addEventListener("menuopened", this.focus);
         }
 
-        this.parentDropdown?.addEventListener('menuclosed', this.clearSearch);
+        this.parentDropdown?.addEventListener("menuclosed", this.clearSearch);
 
-        this.addEventListener('clearsearch', this.clearSearch);
+        this.addEventListener("clearsearch", this.clearSearch);
 
-        this.form?.addEventListener('submit', (e) => {
+        this.form?.addEventListener("submit", (e) => {
             e.preventDefault();
-            window.location.assign(`${window.location.origin}/sok?ord=${this.input?.value}`);
+            const xpOrigin = env("XP_BASE_URL");
+            window.location.assign(`${xpOrigin}/sok?ord=${this.input?.value}`);
         });
 
         const fetchSearch = (query: string) => {
-            const url = `${window.__DECORATOR_DATA__.env.APP_URL}/api/search?${Object.entries({
-                language: window.__DECORATOR_DATA__.params.language,
-                q: query,
+            const url = `${env("APP_URL")}/api/search?${Object.entries({
+                language: param("language"),
+                context: param("context"),
+                q: encodeURIComponent(query),
             })
                 .map(([key, value]) => `${key}=${value}`)
-                .join('&')}`;
+                .join("&")}`;
 
             window.analyticsEvent({
-                eventName: 'søk',
+                eventName: "søk",
                 destination: url,
-                category: 'dekorator-header',
+                category: "dekorator-header",
                 label: query,
-                action: 'søk-dynamisk',
+                action: "søk-dynamisk",
             });
 
             return fetch(url)
@@ -67,11 +70,13 @@ class SearchMenu extends HTMLElement {
 
         const fetchSearchDebounced = debounce(fetchSearch, 500);
 
-        this.input?.addEventListener('input', (e) => {
+        this.input?.addEventListener("input", (e) => {
             const { value } = e.target as HTMLInputElement;
             if (value.length > 2) {
                 this.append(this.hits);
-                this.hits.innerHTML = html`<decorator-loader title="${window.__DECORATOR_DATA__.texts.loading_preview}" />`.render();
+                this.hits.innerHTML = html`<decorator-loader
+                    title="${window.__DECORATOR_DATA__.texts.loading_preview}"
+                />`.render();
 
                 fetchSearchDebounced(value);
             } else {
@@ -81,12 +86,15 @@ class SearchMenu extends HTMLElement {
     }
 
     disconnectedCallback() {
-        if (this.getAttribute('data-auto-focus') !== null) {
-            this.parentDropdown?.removeEventListener('menuopened', this.focus);
+        if (this.getAttribute("data-auto-focus") !== null) {
+            this.parentDropdown?.removeEventListener("menuopened", this.focus);
         }
 
-        this.parentDropdown?.removeEventListener('menuclosed', this.clearSearch);
+        this.parentDropdown?.removeEventListener(
+            "menuclosed",
+            this.clearSearch,
+        );
     }
 }
 
-customElements.define('search-menu', SearchMenu);
+customElements.define("search-menu", SearchMenu);

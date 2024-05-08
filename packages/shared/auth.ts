@@ -1,4 +1,4 @@
-import { Params } from './params';
+import { Params } from "./params";
 
 export const getLogOutUrl = (params: Params) => {
     if (params.redirectToLogout) {

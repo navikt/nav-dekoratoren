@@ -22,7 +22,7 @@ export async function fetchSession() {
 
     try {
         const sessionResponse = await fetch(sessionUrl, {
-            credentials: 'include',
+            credentials: "include",
         });
 
         return await sessionResponse.json();
@@ -30,8 +30,8 @@ export async function fetchSession() {
         console.log(`User is not logged in`);
         return {
             authenticated: false,
-            name: '',
-            securityLevel: '',
+            name: "",
+            securityLevel: "",
         };
     }
 }
@@ -41,7 +41,7 @@ export async function fethRenew() {
 
     try {
         const sessionResponse = await fetch(sessionUrl, {
-            credentials: 'include',
+            credentials: "include",
         });
 
         return await sessionResponse.json();
@@ -49,8 +49,8 @@ export async function fethRenew() {
         console.log(`User is not logged in`);
         return {
             authenticated: false,
-            name: '',
-            securityLevel: '',
+            name: "",
+            securityLevel: "",
         };
     }
 }

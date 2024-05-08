@@ -13,14 +13,14 @@
     transform-origin: center;
 }
 
-[aria-expanded='true'] .menuBurger__line_1 {
+[aria-expanded="true"] .menuBurger__line_1 {
     transform: rotate(-225deg) translate3d(0, 8px, 0);
 }
 
-[aria-expanded='true'] .menuBurger__line_2 {
+[aria-expanded="true"] .menuBurger__line_2 {
     transform: rotate(-180deg) scaleX(0);
 }
 
-[aria-expanded='true'] .menuBurger__line_3 {
+[aria-expanded="true"] .menuBurger__line_3 {
     transform: rotate(-135deg) translate3d(0, -8px, 0);
 }

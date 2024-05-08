@@ -1,6 +1,7 @@
-import amplitude from 'amplitude-js';
-import { Params } from 'decorator-shared/params';
-import { Auth } from '../api';
+import amplitude from "amplitude-js";
+import { Params } from "decorator-shared/params";
+import { Auth } from "../api";
+import { AnalyticsEventArgs } from "./constants";
 
 type EventData = Record<string, any>;
 
@@ -9,7 +10,6 @@ declare global {
         dekoratorenAmplitude: typeof logEventFromApp;
     }
 }
-
 export const initAmplitude = () => {
     const userProps = {
         skjermbredde: window.screen.width,
@@ -18,8 +18,8 @@ export const initAmplitude = () => {
         vindushoyde: window.innerHeight,
     };
 
-    amplitude.init('default', '', {
-        apiEndpoint: 'amplitude.nav.no/collect-auto',
+    amplitude.init("default", "", {
+        apiEndpoint: "amplitude.nav.no/collect-auto",
         saveEvents: false,
         includeUtm: true,
         includeReferrer: true,
@@ -28,23 +28,64 @@ export const initAmplitude = () => {
     amplitude.getInstance().setUserProperties(userProps);
 
     window.dekoratorenAmplitude = logEventFromApp;
+
+    // Do these need to be on the window object?
+    window.analyticsEvent = amplitudeEvent;
+    window.logPageView = logPageView;
+    window.logAmplitudeEvent = logAmplitudeEvent;
 };
 
-const logEventFromApp = (params?: { origin: unknown | string; eventName: unknown | string; eventData?: unknown | EventData }): Promise<any> => {
+// Connects to partytown forwarding
+export const amplitudeEvent = (props: AnalyticsEventArgs) => {
+    const {
+        context,
+        eventName,
+        destination,
+        category,
+        action,
+        label,
+        komponent,
+        lenkegruppe,
+    } = props;
+    const actionFinal = `${context ? context + "/" : ""}${action}`;
+
+    logAmplitudeEvent(
+        eventName || "navigere",
+        {
+            destinasjon: destination || label,
+            søkeord: eventName === "søk" ? "[redacted]" : undefined,
+            lenketekst: actionFinal,
+            kategori: category,
+            komponent: komponent || action,
+            lenkegruppe,
+        },
+        "decorator_next",
+    );
+};
+
+const logEventFromApp = (params?: {
+    origin: unknown | string;
+    eventName: unknown | string;
+    eventData?: unknown | EventData;
+}): Promise<any> => {
     try {
         if (!params || params.constructor !== Object) {
-            return Promise.reject('Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, any>}');
+            return Promise.reject(
+                "Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, any>}",
+            );
         }
 
         const { origin, eventName, eventData = {} } = params;
-        if (!eventName || typeof eventName !== 'string') {
+        if (!eventName || typeof eventName !== "string") {
             return Promise.reject('Parameter "eventName" must be a string');
         }
-        if (!origin || typeof origin !== 'string') {
+        if (!origin || typeof origin !== "string") {
             return Promise.reject('Parameter "origin" must be a string');
         }
         if (!eventData || eventData.constructor !== Object) {
-            return Promise.reject('Parameter "eventData" must be a plain object');
+            return Promise.reject(
+                'Parameter "eventData" must be a plain object',
+            );
         }
 
         return logAmplitudeEvent(eventName, eventData, origin);
@@ -54,21 +95,26 @@ const logEventFromApp = (params?: { origin: unknown | string; eventName: unknown
 };
 
 export const logPageView = (params: Params, authState: Auth) => {
-    console.log('Logging page view', params, authState);
-    return logAmplitudeEvent('besøk', {
+    return logAmplitudeEvent("besøk", {
         sidetittel: document.title,
         innlogging: authState.authenticated ? authState.securityLevel : false,
         parametre: {
             ...params,
             BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
             ...(params.availableLanguages && {
-                availableLanguages: params.availableLanguages.map((lang) => lang.locale),
+                availableLanguages: params.availableLanguages.map(
+                    (lang) => lang.locale,
+                ),
             }),
         },
     });
 };
 
-export const logAmplitudeEvent = (eventName: string, eventData: EventData = {}, origin = 'decorator-next') => {
+export const logAmplitudeEvent = (
+    eventName: string,
+    eventData: EventData = {},
+    origin = "decorator-next",
+) => {
     return new Promise((resolve) => {
         amplitude.getInstance().logEvent(
             eventName,
@@ -76,11 +122,11 @@ export const logAmplitudeEvent = (eventName: string, eventData: EventData = {}, 
                 ...eventData,
                 platform: window.location.toString(),
                 origin,
-                originVersion: eventData.originVersion || 'unknown',
+                originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,
                 fromNext: true,
             },
-            resolve
+            resolve,
         );
     });
 };

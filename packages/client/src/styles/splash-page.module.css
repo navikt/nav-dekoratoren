@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: "Source Sans 3", sans-serif;
     line-height: 1.333;
     font-size: var(--a-font-size-large);
     background-color: var(--a-bg-subtle);

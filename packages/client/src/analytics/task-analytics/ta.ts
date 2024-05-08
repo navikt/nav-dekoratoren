@@ -1,8 +1,15 @@
-import { taskAnalyticsSelectSurvey } from './ta-selection';
-import { taskAnalyticsRefreshState, taskAnalyticsGetSelectedSurveyId, taskAnalyticsSetSelected } from './ta-cookies';
-import { taskAnalyticsGetMatchingSurveys, taskAnalyticsIsMatchingSurvey } from './ta-matching';
-import { Context, Language } from 'decorator-shared/params';
-import { AppState, TaskAnalyticsSurveyConfig } from 'decorator-shared/types';
+import { taskAnalyticsSelectSurvey } from "./ta-selection";
+import {
+    taskAnalyticsRefreshState,
+    taskAnalyticsGetSelectedSurveyId,
+    taskAnalyticsSetSelected,
+} from "./ta-cookies";
+import {
+    taskAnalyticsGetMatchingSurveys,
+    taskAnalyticsIsMatchingSurvey,
+} from "./ta-matching";
+import { Context, Language } from "decorator-shared/params";
+import { AppState, TaskAnalyticsSurveyConfig } from "decorator-shared/types";
 
 let fetchedSurveys: TaskAnalyticsSurveyConfig[] | null = null;
 
@@ -13,17 +20,35 @@ const taFallback = (...args: any[]) => {
 
 const startSurvey = (surveyId: string) => {
     console.log(`Starting TA survey ${surveyId}`);
-    window.TA('start', surveyId);
+    window.TA("start", surveyId);
 };
 
-const startSurveyIfMatching = (surveyId: string, surveys: TaskAnalyticsSurveyConfig[], currentLanguage: Language, currentAudience: Context) => {
+const startSurveyIfMatching = (
+    surveyId: string,
+    surveys: TaskAnalyticsSurveyConfig[],
+    currentLanguage: Language,
+    currentAudience: Context,
+    currentUrl: URL,
+) => {
     const survey = surveys.find((s) => s.id === surveyId);
-    if (survey && taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience)) {
+    if (
+        survey &&
+        taskAnalyticsIsMatchingSurvey(
+            survey,
+            currentLanguage,
+            currentAudience,
+            currentUrl,
+        )
+    ) {
         startSurvey(surveyId);
     }
 };
 
-const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppState) => {
+const findAndStartSurvey = (
+    surveys: TaskAnalyticsSurveyConfig[],
+    state: AppState,
+    currentUrl: URL,
+) => {
     const { params } = state;
     // const { context } = state.params
 
@@ -35,11 +60,22 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppStat
     // If a survey was previously selected for the user, try to start it
     const selectedSurveyId = taskAnalyticsGetSelectedSurveyId();
     if (selectedSurveyId) {
-        startSurveyIfMatching(selectedSurveyId, surveys, params.language, params.context);
+        startSurveyIfMatching(
+            selectedSurveyId,
+            surveys,
+            params.language,
+            params.context,
+            currentUrl,
+        );
         return;
     }
 
-    const matchingSurveys = taskAnalyticsGetMatchingSurveys(surveys, params.language, params.context);
+    const matchingSurveys = taskAnalyticsGetMatchingSurveys(
+        surveys,
+        params.language,
+        params.context,
+        currentUrl,
+    );
     if (!matchingSurveys) {
         return;
     }
@@ -54,7 +90,7 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurveyConfig[], state: AppStat
     startSurvey(id);
 };
 
-const fetchAndStart = (state: AppState) => {
+const fetchAndStart = async (state: AppState, currentUrl: URL) => {
     return fetch(`${state.env.APP_URL}/api/ta`)
         .then((res) => {
             if (!res.ok) {
@@ -65,26 +101,36 @@ const fetchAndStart = (state: AppState) => {
         })
         .then((surveys) => {
             if (!Array.isArray(surveys)) {
-                throw Error(`Invalid type for surveys response - ${JSON.stringify(surveys)}`);
+                throw Error(
+                    `Invalid type for surveys response - ${JSON.stringify(surveys)}`,
+                );
             }
             fetchedSurveys = surveys;
-            findAndStartSurvey(surveys, state);
+            findAndStartSurvey(surveys, state, currentUrl);
         })
         .catch((e) => {
             console.error(`Error fetching Task Analytics surveys - ${e}`);
         });
 };
-export const startTaskAnalyticsSurvey = (state: AppState) => {
+
+export const startTaskAnalyticsSurvey = (
+    state: AppState,
+    currentUrl = new URL(window.location.href),
+) => {
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
-        findAndStartSurvey(fetchedSurveys, state);
+        findAndStartSurvey(fetchedSurveys, state, currentUrl);
     } else {
-        fetchAndStart(state);
+        fetchAndStart(state, currentUrl);
     }
 };
 
 export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
+
+    window.addEventListener("historyPush", (e) =>
+        startTaskAnalyticsSurvey(window.__DECORATOR_DATA__, e.detail.url),
+    );
 };

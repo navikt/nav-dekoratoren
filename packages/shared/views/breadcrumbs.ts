@@ -1,14 +1,14 @@
-import { Breadcrumb } from '../params';
-import html from '../html';
-import cls from './breadcrumbs.module.css';
-import { ForwardChevron } from './icons';
-import { HomeIcon } from './icons/home';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import { isNavUrl } from '../utils';
+import { Breadcrumb } from "../params";
+import html from "../html";
+import cls from "./breadcrumbs.module.css";
+import { ForwardChevron } from "./icons";
+import { HomeIcon } from "./icons/home";
+import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
+import { isNavUrl } from "../utils";
 
 const analyticsEventArgs = {
-    category: 'dekorator-header',
-    komponent: 'brødsmule',
+    category: "dekorator-header",
+    komponent: "brødsmule",
 } as const;
 
 export type BreadcrumbsProps = {
@@ -18,11 +18,11 @@ export type BreadcrumbsProps = {
 export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     breadcrumbs.forEach((breadcrumb) => {
         if (!breadcrumb.title) {
-            const error = 'breadcrumbs.title supports string';
+            const error = "breadcrumbs.title supports string";
             throw Error(error);
         }
         if (!breadcrumb.url) {
-            const error = 'breadcrumbs.url supports string';
+            const error = "breadcrumbs.url supports string";
             throw Error(error);
         }
         if (!isNavUrl(breadcrumb.url)) {
@@ -40,10 +40,10 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
               <ol class="${cls.list}">
                   <li class="${cls.listItem}">
                       ${LenkeMedSporing({
-                          href: '/',
+                          href: "/",
                           analyticsEventArgs: {
                               ...analyticsEventArgs,
-                              action: 'nav.no',
+                              action: "nav.no",
                           },
                           children: html`
                               ${HomeIcon({ className: cls.svg })}
@@ -60,21 +60,26 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                                   ? title
                                   : html`
                                         <d-breadcrumb
-                                            data-analytics-event-args="${JSON.stringify({
-                                                ...analyticsEventArgs,
-                                                label: '[redacted]',
-                                                action: '[redacted]',
-                                            })}"
-                                            ${handleInApp && 'data-handle-in-app'}
+                                            data-analytics-event-args="${JSON.stringify(
+                                                {
+                                                    ...analyticsEventArgs,
+                                                    label: "[redacted]",
+                                                    action: "[redacted]",
+                                                },
+                                            )}"
+                                            ${handleInApp &&
+                                            "data-handle-in-app"}
                                             class="${cls.link}"
                                             href="${url}"
                                         >
                                             ${title}
                                         </d-breadcrumb>
                                     `}
-                              ${index === breadcrumbs.length - 1 ? '' : ForwardChevron()}
+                              ${index === breadcrumbs.length - 1
+                                  ? ""
+                                  : ForwardChevron()}
                           </li>
-                      `
+                      `,
                   )}
               </ol>
           `

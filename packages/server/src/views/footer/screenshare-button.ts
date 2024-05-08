@@ -1,5 +1,5 @@
-import html from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/screenshare-button.module.css';
+import html from "decorator-shared/html";
+import cls from "decorator-client/src/styles/screenshare-button.module.css";
 
 export const ScreenshareButton = (text: string) => html`
     <screenshare-button>

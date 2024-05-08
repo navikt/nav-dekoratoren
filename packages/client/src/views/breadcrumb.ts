@@ -1,19 +1,19 @@
-import { LenkeMedSporingElement } from './lenke-med-sporing';
+import { LenkeMedSporingElement } from "./lenke-med-sporing";
 
 class Breadcrumb extends LenkeMedSporingElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        if (this.getAttribute('data-handle-in-app') !== null) {
-            this.addEventListener('click', (e) => {
+        if (this.getAttribute("data-handle-in-app") !== null) {
+            this.addEventListener("click", (e) => {
                 e.preventDefault();
 
                 window.postMessage({
-                    source: 'decorator',
-                    event: 'breadcrumbClick',
+                    source: "decorator",
+                    event: "breadcrumbClick",
                     payload: {
-                        url: this.getAttribute('href'),
+                        url: this.getAttribute("href"),
                         title: this.innerHTML,
                         handleInApp: true,
                     },
@@ -23,4 +23,4 @@ class Breadcrumb extends LenkeMedSporingElement {
     }
 }
 
-customElements.define('d-breadcrumb', Breadcrumb);
+customElements.define("d-breadcrumb", Breadcrumb);

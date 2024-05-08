@@ -4,14 +4,14 @@ export class CustomLinkElement extends HTMLElement {
     constructor() {
         super();
 
-        this.anchor = document.createElement('a');
-        this.anchor.href = this.getAttribute('href') || '';
+        this.anchor = document.createElement("a");
+        this.anchor.href = this.getAttribute("href") || "";
         this.anchor.innerHTML = this.innerHTML;
         this.anchor.classList.add(...this.classList);
 
         this.classList.remove(...this.classList);
 
-        this.innerHTML = '';
+        this.innerHTML = "";
         this.appendChild(this.anchor);
     }
 }

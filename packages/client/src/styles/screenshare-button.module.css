@@ -34,7 +34,7 @@
     }
 }
 
-[data-theme='dark'] .screenshareButton {
+[data-theme="dark"] .screenshareButton {
     color: var(--a-text-on-inverted);
     padding-block: var(--a-spacing-2);
     padding-inline: var(--a-spacing-4) var(--a-spacing-3);
@@ -48,16 +48,16 @@
     text-decoration: none;
 }
 
-[data-theme='dark'] .screenshareButton:hover {
+[data-theme="dark"] .screenshareButton:hover {
     background-color: var(--a-deepblue-500);
     border-color: var(--a-deepblue-300);
 }
 
-[data-theme='dark'] .screenshareButton:focus-visible {
+[data-theme="dark"] .screenshareButton:focus-visible {
     box-shadow: 0 0 0 3px var(--a-border-focus-on-inverted);
 }
 
-[data-theme='dark'] .screenshareButton:active {
+[data-theme="dark"] .screenshareButton:active {
     background-color: var(--a-deepblue-600);
 }
 

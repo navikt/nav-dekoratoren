@@ -1,7 +1,15 @@
-import html from '../html';
-import { DecoratorId } from '../types';
+import html from "../html";
+import { DecoratorId } from "../types";
 
-export const NavLogo = ({ title, className, id }: { title?: string; className?: string; id: DecoratorId }) =>
+export const NavLogo = ({
+    title,
+    className,
+    id,
+}: {
+    title?: string;
+    className?: string;
+    id: DecoratorId;
+}) =>
     html`<svg
         xmlns="http://www.w3.org/2000/svg"
         width="64"
@@ -13,7 +21,7 @@ export const NavLogo = ({ title, className, id }: { title?: string; className?: 
         role="img"
         ${className && html`class="${className}"`}
     >
-        <title id="${id}">${title || 'NAV logo'}</title>
+        <title id="${id}">${title || "NAV logo"}</title>
         <path
             fill-rule="evenodd"
             clip-rule="evenodd"

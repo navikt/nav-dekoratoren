@@ -1,6 +1,10 @@
-import html from '../../html';
+import html from "../../html";
 
-export const PersonCircleNotificationIcon = ({ className }: { className?: string }) =>
+export const PersonCircleNotificationIcon = ({
+    className,
+}: {
+    className?: string;
+}) =>
     html`<svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

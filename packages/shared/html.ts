@@ -1,4 +1,4 @@
-import { P, match } from 'ts-pattern';
+import { P, match } from "ts-pattern";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
 
@@ -18,7 +18,7 @@ export function spreadProps(props: Props) {
 const matchHtmlRegExp = /["'&<>]/;
 
 function escapeHtml(string: string) {
-    const str = '' + string;
+    const str = "" + string;
     const match = matchHtmlRegExp.exec(str);
 
     if (!match) {
@@ -26,26 +26,26 @@ function escapeHtml(string: string) {
     }
 
     let escape;
-    let html = '';
+    let html = "";
     let index;
     let lastIndex = 0;
 
     for (index = match.index; index < str.length; index++) {
         switch (str.charCodeAt(index)) {
             case 34: // "
-                escape = '&quot;';
+                escape = "&quot;";
                 break;
             case 38: // &
-                escape = '&amp;';
+                escape = "&amp;";
                 break;
             case 39: // '
-                escape = '&#x27;'; // modified from escape-html; used to be '&#39'
+                escape = "&#x27;"; // modified from escape-html; used to be '&#39'
                 break;
             case 60: // <
-                escape = '&lt;';
+                escape = "&lt;";
                 break;
             case 62: // >
-                escape = '&gt;';
+                escape = "&gt;";
                 break;
             default:
                 continue;
@@ -62,13 +62,24 @@ function escapeHtml(string: string) {
     return lastIndex !== index ? html + str.slice(lastIndex, index) : html;
 }
 
-type TemplateStringValues = string | string[] | Template | Template[] | boolean | number | undefined | null;
+type TemplateStringValues =
+    | string
+    | string[]
+    | Template
+    | Template[]
+    | boolean
+    | number
+    | undefined
+    | null;
 
 export type Template = {
     render: () => string;
 };
 
-const html = (strings: TemplateStringsArray, ...values: TemplateStringValues[]): Template => ({
+const html = (
+    strings: TemplateStringsArray,
+    ...values: TemplateStringValues[]
+): Template => ({
     render: () => String.raw({ raw: strings }, ...values.map(renderValue)),
 });
 
@@ -83,15 +94,15 @@ export default html;
 const renderValue = (item: TemplateStringValues): string =>
     match(item)
         // Join arrays
-        .with(P.array(P.any), (items) => items.map(renderValue).join(''))
+        .with(P.array(P.any), (items) => items.map(renderValue).join(""))
         // Nullish values to empty string
-        .with(P.union(false, P.nullish), () => '')
+        .with(P.union(false, P.nullish), () => "")
         // Escape strings
         .with(P.string, (str) => escapeHtml(str))
         // Convert numbers to string
         .with(P.number, (num) => String(num))
         // Make "true" into true string
-        .with(true, () => 'true')
+        .with(true, () => "true")
         // Render template
         .with(P.select(), (template) => template.render().trim())
         .exhaustive();
@@ -99,15 +110,32 @@ const renderValue = (item: TemplateStringValues): string =>
 
 type AttribueValue = number | string | boolean | string[];
 
-const toKebabCase = (str: string) => str.replace(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase());
+const toKebabCase = (str: string) =>
+    str.replace(
+        /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g,
+        (match) => "-" + match.toLowerCase(),
+    );
 
-export const htmlAttributes = (attributes: Record<string, AttribueValue>): Template => {
+export const htmlAttributes = (
+    attributes: Record<string, AttribueValue>,
+): Template => {
     return unsafeHtml(
         Object.entries(attributes)
             .filter(([, value]) => value !== undefined && value !== null)
-            .map(([name, value]: [string, AttribueValue]): [string, AttribueValue] => [name === 'className' ? 'class' : name, value])
-            .map(([name, value]) => (typeof value === 'boolean' ? (value ? toKebabCase(name) : '') : `${toKebabCase(name)}="${value}"`))
+            .map(
+                ([name, value]: [string, AttribueValue]): [
+                    string,
+                    AttribueValue,
+                ] => [name === "className" ? "class" : name, value],
+            )
+            .map(([name, value]) =>
+                typeof value === "boolean"
+                    ? value
+                        ? toKebabCase(name)
+                        : ""
+                    : `${toKebabCase(name)}="${value}"`,
+            )
             .filter(Boolean)
-            .join(' ')
+            .join(" "),
     );
 };
