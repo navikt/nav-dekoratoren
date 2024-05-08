@@ -1,32 +1,18 @@
 import { env } from "./env/server";
 
-type Oppgave = {
+type Varsel = {
     eventId: string;
-    varselId: string;
+    type: "oppgave" | "beskjed";
     tidspunkt: string;
     isMasked: boolean;
     tekst: string | null;
     link: string | null;
-    type: string;
-    eksternVarslingSendt: boolean;
     eksternVarslingKanaler: string[];
 };
 
-type Beskjed = {
-    eventId: string;
-    varselId: string;
-    tidspunkt: string;
-    isMasked: boolean;
-    tekst: string | null;
-    link: string | null;
-    type: string;
-    eksternVarslingSendt: boolean;
-    eksternVarslingKanaler: string[];
-};
-
-type NotificationData = {
-    oppgaver: Oppgave[];
-    beskjeder: Beskjed[];
+export type Varsler = {
+    oppgaver: Varsel[];
+    beskjeder: Varsel[];
 };
 
 export type MaskedNotification = {
@@ -49,28 +35,24 @@ export type UnmaskedNotification = {
 
 export type Notification = MaskedNotification | UnmaskedNotification;
 
-const varslerToNotifications = (varsler: NotificationData): Notification[] => {
-    const varselToNotification =
-        (type: "task" | "message") =>
-        (varsel: Beskjed | Oppgave): Notification => ({
-            id: varsel.eventId,
-            type,
-            date: varsel.tidspunkt,
-            channels: varsel.eksternVarslingKanaler,
-            ...(varsel.isMasked
-                ? { masked: true }
-                : {
-                      masked: false,
-                      text: varsel.tekst ?? "",
-                      link: varsel.link ?? "",
-                  }),
-        });
-
-    return [
-        ...(varsler.oppgaver.map(varselToNotification("task")) || []),
-        ...(varsler.beskjeder.map(varselToNotification("message")) || []),
-    ];
-};
+const varslerToNotifications = (varsler: Varsler): Notification[] =>
+    [varsler.oppgaver, varsler.beskjeder].flatMap((list) =>
+        list.map(
+            (varsel: Varsel): Notification => ({
+                id: varsel.eventId,
+                type: varsel.type === "beskjed" ? "message" : "task",
+                date: varsel.tidspunkt,
+                channels: varsel.eksternVarslingKanaler,
+                ...(varsel.isMasked
+                    ? { masked: true }
+                    : {
+                          masked: false,
+                          text: varsel.tekst ?? "",
+                          link: varsel.link ?? undefined,
+                      }),
+            }),
+        ),
+    );
 
 export const getNotifications = async ({ request }: { request: Request }) =>
     fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
@@ -78,5 +60,5 @@ export const getNotifications = async ({ request }: { request: Request }) =>
             cookie: request.headers.get("cookie") || "",
         },
     })
-        .then((res) => res.json() as Promise<NotificationData>)
+        .then((res) => res.json() as Promise<Varsler>)
         .then(varslerToNotifications);
