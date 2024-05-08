@@ -1,95 +1,64 @@
-import { Texts } from "decorator-shared/types";
 import { env } from "./env/server";
-import { Notification } from "./views/notifications/notifications";
 
-type Oppgave = {
+type Varsel = {
     eventId: string;
-    varselId: string;
+    type: "oppgave" | "beskjed";
     tidspunkt: string;
     isMasked: boolean;
     tekst: string | null;
     link: string | null;
-    type: string;
-    eksternVarslingSendt: boolean;
     eksternVarslingKanaler: string[];
 };
 
-type Beskjed = {
-    eventId: string;
-    varselId: string;
-    tidspunkt: string;
-    isMasked: boolean;
-    tekst: string | null;
-    link: string | null;
-    type: string;
-    eksternVarslingSendt: boolean;
-    eksternVarslingKanaler: string[];
+export type Varsler = {
+    oppgaver: Varsel[];
+    beskjeder: Varsel[];
 };
 
-type NotificationData = {
-    oppgaver: Oppgave[];
-    beskjeder: Beskjed[];
+export type MaskedNotification = {
+    id: string;
+    type: "task" | "message";
+    date: string;
+    channels: string[];
+    masked: true;
 };
 
-const parseNotifications: (
-    texts: Texts,
-    data: NotificationData | null,
-) => Promise<Notification[]> = async (texts, data) => {
-    const kanalerToMetadata = (kanaler: string[]) => {
-        if (kanaler.includes("SMS") && kanaler.includes("EPOST")) {
-            return texts.notified_SMS_and_EPOST;
-        } else if (kanaler.includes("SMS")) {
-            return texts.notified_SMS;
-        } else if (kanaler.includes("EPOST")) {
-            return texts.notified_EPOST;
-        } else {
-            return undefined;
-        }
-    };
-
-    const oppgaveToNotifiction = (oppgave: Oppgave) => ({
-        title: texts.task,
-        text: oppgave.isMasked ? texts.masked_task_text : oppgave.tekst ?? "",
-        date: oppgave.tidspunkt,
-        icon: "task" as const,
-        metadata: kanalerToMetadata(oppgave.eksternVarslingKanaler),
-        isArchivable: false,
-        link: oppgave.link ?? "",
-        id: oppgave.eventId,
-        amplitudeKomponent: "varsel-oppgave",
-    });
-
-    const beskjedToNotification = (beskjed: Beskjed) => ({
-        title: texts.message,
-        text: beskjed.isMasked
-            ? texts.masked_message_text
-            : beskjed.tekst ?? "",
-        date: beskjed.tidspunkt,
-        icon: "message" as const,
-        metadata: kanalerToMetadata(beskjed.eksternVarslingKanaler),
-        isArchivable: !beskjed.link,
-        link: beskjed.link ?? "",
-        id: beskjed.eventId,
-        amplitudeKomponent: "varsel-beskjed",
-    });
-
-    return Promise.resolve([
-        ...(data?.oppgaver.map(oppgaveToNotifiction) || []),
-        ...(data?.beskjeder.map(beskjedToNotification) || []),
-    ]);
+export type UnmaskedNotification = {
+    id: string;
+    type: "task" | "message";
+    date: string;
+    channels: string[];
+    masked: false;
+    text: string;
+    link?: string;
 };
 
-export const getNotifications = async ({
-    request,
-    texts,
-}: {
-    request: Request;
-    texts: Texts;
-}) =>
+export type Notification = MaskedNotification | UnmaskedNotification;
+
+const varslerToNotifications = (varsler: Varsler): Notification[] =>
+    [varsler.oppgaver, varsler.beskjeder].flatMap((list) =>
+        list.map(
+            (varsel: Varsel): Notification => ({
+                id: varsel.eventId,
+                type: varsel.type === "beskjed" ? "message" : "task",
+                date: varsel.tidspunkt,
+                channels: varsel.eksternVarslingKanaler,
+                ...(varsel.isMasked
+                    ? { masked: true }
+                    : {
+                          masked: false,
+                          text: varsel.tekst ?? "",
+                          link: varsel.link ?? undefined,
+                      }),
+            }),
+        ),
+    );
+
+export const getNotifications = async ({ request }: { request: Request }) =>
     fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
         headers: {
             cookie: request.headers.get("cookie") || "",
         },
     })
-        .then((res) => res.json() as Promise<NotificationData | null>)
-        .then((notifications) => parseNotifications(texts, notifications));
+        .then((res) => res.json() as Promise<Varsler>)
+        .then(varslerToNotifications);

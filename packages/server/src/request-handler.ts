@@ -170,7 +170,6 @@ const requestHandler = async (
                                 texts: localTexts,
                                 name: data.name,
                                 notifications: await getNotifications({
-                                    texts: localTexts,
                                     request,
                                 }),
                                 level: data.level,

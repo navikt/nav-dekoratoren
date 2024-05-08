@@ -7,9 +7,10 @@ import {
 } from "decorator-shared/views/icons";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import cls from "decorator-client/src/styles/user-menu.module.css";
-import { Notifications, Notification } from "../notifications/notifications";
+import { Notifications } from "../notifications/notifications";
 import { LoginLevel } from "decorator-shared/params";
 import { Alert } from "decorator-shared/views/alert";
+import { Notification } from "../../notifications";
 
 export type UserMenuProps = {
     texts: Texts;

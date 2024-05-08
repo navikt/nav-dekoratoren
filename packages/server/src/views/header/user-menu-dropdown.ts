@@ -7,8 +7,8 @@ import {
 } from "decorator-shared/views/icons";
 import { DropdownMenu } from "../dropdown-menu";
 import { IconButton } from "../icon-button";
-import { Notification } from "../notifications/notifications";
 import { UserMenu } from "./user-menu";
+import { Notification } from "../../notifications";
 
 export type UserMenuDropdownProps = {
     texts: Texts;
