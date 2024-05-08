@@ -60,7 +60,7 @@ const NotificationComp = ({
 }) =>
     html`<link-notification
         class="${cls.notification} ${cls.linkNotification}"
-        data-amplitude-komponent="TODO"
+        data-type="${type}"
     >
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">
