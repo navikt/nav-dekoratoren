@@ -1,6 +1,7 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
 import { Result } from "./result";
+import { ResponseCache } from "decorator-shared/cache";
 
 const configSchema = z.array(
     z.object({
@@ -28,35 +29,29 @@ const configSchema = z.array(
 
 type TaskAnalyticsSurveyConfig = z.infer<typeof configSchema>;
 
-let cache: TaskAnalyticsSurveyConfig;
-let expires: number;
+const TEN_SECONDS_MS = 10 * 1000;
+
+const cache = new ResponseCache<TaskAnalyticsSurveyConfig>({
+    ttl: TEN_SECONDS_MS,
+});
 
 export const getTaConfig = async (): Promise<
     Result<TaskAnalyticsSurveyConfig>
-> => {
-    if (Date.now() < expires) {
-        return Result.Ok(cache);
-    }
+> =>
+    cache
+        .get("ta-config", async () => {
+            const json = await Bun.file(
+                `${process.cwd()}/config/ta-config.json`,
+            ).json();
 
-    try {
-        const json = await Bun.file(
-            `${process.cwd()}/config/ta-config.json`,
-        ).json();
+            const result = configSchema.safeParse(json);
 
-        const result = configSchema.safeParse(json);
+            if (!result.success) {
+                throw result.error;
+            }
 
-        if (!result.success) {
-            return Result.Error(result.error);
-        }
-
-        cache = result.data;
-        expires = Date.now() + 10000;
-
-        return Result.Ok(result.data);
-    } catch (e) {
-        if (e instanceof Error) {
-            return Result.Error(e);
-        }
-        throw e;
-    }
-};
+            return result.data;
+        })
+        .then((config) =>
+            config ? Result.Ok(config) : Result.Error("Failed to fetch config"),
+        );
