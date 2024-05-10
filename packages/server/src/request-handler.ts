@@ -5,6 +5,7 @@ import { cspHandler } from "./csp";
 import { csrHandler } from "./csr";
 import { env } from "./env/server";
 import { assetsHandlers } from "./handlers/assets-handler";
+import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
@@ -16,7 +17,6 @@ import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
-import { authHandler } from "./handlers/auth-handler";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -143,10 +143,9 @@ const requestHandler = async (
             const data = validParams(query);
             const localTexts = texts[data.language];
 
-            const header = await renderHeader({
+            const header = renderHeader({
                 texts: localTexts,
                 data,
-                contentService,
             });
 
             return rewriter.transform(
@@ -182,7 +181,6 @@ const requestHandler = async (
                 unleashService,
                 data: validParams(query),
                 url: url.toString(),
-                query,
             });
 
             return rewriter.transform(responseBuilder().html(index).build());

@@ -3,7 +3,7 @@ import ContentService from "./content-service";
 import { clientEnv } from "./env/server";
 import { Handler, HandlerFunction, responseBuilder } from "./lib/handler";
 import { renderFooter, renderHeader } from "./render-index";
-import { texts } from "./texts";
+import { texts as i18n } from "./texts";
 import { validParams } from "./validateParams";
 import { cdnUrl, getManifest } from "./views";
 
@@ -18,28 +18,23 @@ function csrHandlerFunc({
 }: Providers): HandlerFunction {
     const fn: HandlerFunction = async ({ query }) => {
         const data = validParams(query);
-        const localTexts = texts[data.language];
+        const texts = i18n[data.language];
 
-        const header$ = renderHeader({
-            contentService,
+        const header = renderHeader({
             data,
-            texts: localTexts,
+            texts,
         });
 
         const footer$ = renderFooter({
             contentService,
             data,
-            texts: localTexts,
+            texts,
             features,
         });
 
         const manifest$ = getManifest();
 
-        const [header, footer, manifest] = await Promise.all([
-            header$,
-            footer$,
-            manifest$,
-        ]);
+        const [footer, manifest] = await Promise.all([footer$, manifest$]);
 
         const scripts = [cdnUrl(manifest["src/main.ts"].file)];
 
@@ -48,12 +43,12 @@ function csrHandlerFunc({
                 header: header.render(),
                 footer: footer.render(),
                 data: {
-                    texts: localTexts,
+                    texts,
                     params: data,
                     features,
                     env: clientEnv,
                 } satisfies AppState,
-                scripts: scripts,
+                scripts,
             })
             .build();
     };
