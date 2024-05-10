@@ -1,4 +1,5 @@
 import { Params } from "./params";
+import { LoginButton } from "decorator-server/src/views/login-button";
 
 export const getLogOutUrl = (params: Params) => {
     if (params.redirectToLogout) {
@@ -7,6 +8,13 @@ export const getLogOutUrl = (params: Params) => {
 
     return params.logoutUrl;
 };
+
+export const loggedOutResponseData = (loginText: string): AuthDataResponse => ({
+    auth: {
+        authenticated: false,
+    },
+    usermenuHtml: LoginButton(loginText).render(),
+});
 
 export type AuthLoggedIn = {
     authenticated: true;
@@ -22,5 +30,5 @@ export type Auth = AuthLoggedIn | AuthLoggedOut;
 
 export type AuthDataResponse = {
     auth: Auth;
-    usermenuHtml?: string;
+    usermenuHtml: string;
 };

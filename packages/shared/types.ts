@@ -43,8 +43,10 @@ export const clientTextsKeys = [
     "ok",
     "yes",
     "logout",
+    "login",
     "important_info",
     "loading_preview",
+    "loading",
 ] as const;
 
 export type ClientTexts = {

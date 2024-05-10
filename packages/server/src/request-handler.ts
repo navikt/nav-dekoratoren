@@ -33,15 +33,15 @@ const requestHandler = async (
     unleashService: UnleashService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
-        .get("/api/auth", () =>
-            responseBuilder()
+        .get("/api/auth", () => {
+            return responseBuilder()
                 .json({
                     authenticated: true,
                     name: "Charlie Jensen",
                     securityLevel: "3",
                 })
-                .build(),
-        )
+                .build();
+        })
         .get("/api/ta", () =>
             getTaskAnalyticsConfig().then((result) => {
                 if (result.ok) {
@@ -52,18 +52,11 @@ const requestHandler = async (
             }),
         )
         .get("/api/oauth2/session", () => {
-            return new Response(
-                JSON.stringify({
+            return responseBuilder()
+                .json({
                     authenticated: false,
-                    name: "",
-                    securityLevel: "",
-                }),
-                {
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                },
-            );
+                })
+                .build();
         })
         .get("/api/oauth2/session/refresh", () => {
             refreshToken();

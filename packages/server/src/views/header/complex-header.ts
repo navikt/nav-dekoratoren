@@ -14,7 +14,6 @@ import { NavLogo } from "decorator-shared/views/nav-logo";
 import { DropdownMenu } from "../dropdown-menu";
 import { IconButton } from "../icon-button";
 import { SearchForm } from "../search-form";
-import { LoginButton } from "../login-button";
 
 export type ComplexHeaderProps = {
     texts: Texts;
@@ -80,11 +79,7 @@ export function ComplexHeader({
                         </div>
                     </div>
                     <div class="${menuItemsCls.menuItems}">
-                        <user-menu>
-                            ${LoginButton({
-                                texts: texts,
-                            })}
-                        </user-menu>
+                        <user-menu></user-menu>
                         <div class="${menuItemsCls.menuItemsUniversalLinks}">
                             ${language !== "se" &&
                             DropdownMenu({

@@ -1,11 +1,23 @@
 import { CustomEvents } from "../events";
+import html from "decorator-shared/html";
+import cls from "decorator-client/src/styles/user-menu.module.css";
+import iconButtonCls from "decorator-client/src/styles/icon-button.module.css";
+
+const Loader = (text: string) => html`
+    <span class="${cls.loader} ${iconButtonCls.iconButtonSpan}">${text}</span>
+`;
 
 class UserMenu extends HTMLElement {
+    constructor() {
+        super();
+        this.innerHTML = Loader(
+            window.__DECORATOR_DATA__.texts.loading,
+        ).render();
+    }
+
     private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
-        const html = e.detail.usermenuHtml;
-        if (html) {
-            this.innerHTML = html;
-        }
+        this.classList.add(cls.userMenuContainer);
+        this.innerHTML = e.detail.usermenuHtml;
     };
 
     private connectedCallback() {

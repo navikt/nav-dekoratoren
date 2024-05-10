@@ -6,7 +6,6 @@ import html, { Template } from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
 import { SkipLink } from "decorator-shared/views/skip-link";
 import { NavLogo } from "decorator-shared/views/nav-logo";
-import { LoginButton } from "../login-button";
 
 export type SimpleHeaderProps = {
     texts: Texts;
@@ -34,11 +33,7 @@ export const SimpleHeader = ({
                         id: "dekoratoren-header-logo",
                     })}
                 </lenke-med-sporing>
-                <user-menu class="${menuItemsCls.menuItems}">
-                    ${LoginButton({
-                        texts: texts,
-                    })}
-                </user-menu>
+                <user-menu class="${menuItemsCls.menuItems}"></user-menu>
             </nav>
         </header>
         <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>

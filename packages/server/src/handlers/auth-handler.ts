@@ -4,9 +4,9 @@ import { validParams } from "../validateParams";
 import { texts } from "../texts";
 import {
     Auth,
-    AuthDataResponse,
     AuthLoggedIn,
     getLogOutUrl,
+    loggedOutResponseData,
 } from "decorator-shared/auth";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 import { match } from "ts-pattern";
@@ -16,12 +16,12 @@ import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
 import { AnchorIconButton } from "../views/icon-button";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import html from "decorator-shared/html";
+import { Language, type Params } from "decorator-shared/params";
 
-const notAuthenticatedResponse: AuthDataResponse = {
-    auth: {
-        authenticated: false,
-    },
-};
+const notAuthenticatedResponse = (language: Language) =>
+    responseBuilder()
+        .json(loggedOutResponseData(texts[language].login))
+        .build();
 
 const AUTH_API_URL = `${env.API_DEKORATOREN_URL}/auth`;
 
@@ -50,13 +50,12 @@ const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
 const buildUsermenuHtml = async (
     auth: AuthLoggedIn,
     request: Request,
-    query: Record<string, string>,
+    params: Params,
 ) => {
-    const data = validParams(query);
-    const localTexts = texts[data.language];
-    const logoutUrl = getLogOutUrl(data);
+    const localTexts = texts[params.language];
+    const logoutUrl = getLogOutUrl(params);
 
-    if (data.simple) {
+    if (params.simple) {
         return SimpleUserMenu({
             logoutUrl,
             texts: localTexts,
@@ -65,13 +64,13 @@ const buildUsermenuHtml = async (
     }
 
     // @TODO: Tests for important urls, like logout
-    const template = await match(data.context)
+    const template = await match(params.context)
         .with("privatperson", async () => {
             const notificationsResult = await getNotifications({
                 request,
             });
             if (!notificationsResult.ok) {
-                return html`<div>Error</div>`;
+                return html` <div>Error</div>`;
             }
 
             return UserMenuDropdown({
@@ -103,19 +102,19 @@ const buildUsermenuHtml = async (
 };
 
 export const authHandler: HandlerFunction = async ({ request, query }) => {
-    const response = responseBuilder();
+    const params = validParams(query);
 
     const cookieHeader = request.headers.get("Cookie");
     if (!cookieHeader) {
-        return response.json(notAuthenticatedResponse).build();
+        return notAuthenticatedResponse(params.language);
     }
 
     const auth = await fetchAuth(cookieHeader);
     if (!auth?.authenticated) {
-        return response.json(notAuthenticatedResponse).build();
+        return notAuthenticatedResponse(params.language);
     }
 
-    const usermenuHtml = await buildUsermenuHtml(auth, request, query);
+    const usermenuHtml = await buildUsermenuHtml(auth, request, params);
 
-    return response.json({ auth, usermenuHtml }).build();
+    return responseBuilder().json({ auth, usermenuHtml }).build();
 };

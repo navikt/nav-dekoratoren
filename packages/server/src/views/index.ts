@@ -49,10 +49,10 @@ const script: AssetFormatter = (src) =>
     `<script type="module" src="${src}"></script>`;
 
 const asyncScript: AssetFormatter = (src) =>
-    `<script fetchpriotiy='low' async type="module" src="${src}"></script>`;
+    `<script fetchpriority='low' async type="module" src="${src}"></script>`;
 
 const asyncScriptInline: AssetFormatter = (src) =>
-    `<script fetchpriotiy='low' async type="module">${src}</script>`;
+    `<script fetchpriority='low' async type="module">${src}</script>`;
 
 const partytownInlineScript: AssetFormatter = (code) =>
     `<script type="text/partytown">${code}</script>`;

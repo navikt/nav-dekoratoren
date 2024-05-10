@@ -56,7 +56,7 @@ export const validateParams = (params: Record<string, string>) => {
     } as Params;
 };
 
-export const validParams = (query: Record<string, string>) => {
+export const validParams = (query: Record<string, string>): Params => {
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {
