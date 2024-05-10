@@ -2,8 +2,8 @@ import { Faro } from "@grafana/faro-web-sdk";
 import { Params } from "decorator-shared/params";
 import { AppState } from "decorator-shared/types";
 import { AnalyticsEventArgs } from "./analytics/constants";
-import { Auth } from "./api";
 import { CustomEvents, MessageEvents } from "./events";
+import { Auth } from "decorator-shared/auth";
 
 declare global {
     interface Window {

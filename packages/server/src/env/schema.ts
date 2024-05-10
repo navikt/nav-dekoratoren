@@ -11,6 +11,7 @@ export const serverSchema = z.object({
     IS_LOCAL_PROD: z.boolean().optional(),
     HOST: z.string().url(),
     VARSEL_API_URL: z.string().url(),
+    API_DEKORATOREN_URL: z.string().url(),
 });
 
 export type RunningEnv = z.infer<typeof serverSchema>["ENV"];
@@ -28,6 +29,7 @@ export const serverEnv = {
     IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === "true",
     HOST: process.env.HOST,
     VARSEL_API_URL: process.env.VARSEL_API_URL,
+    API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
 };
 
 // This is session URL for prod
@@ -42,7 +44,6 @@ export const client_env = {
     MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,
     PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
     VARSEL_API_URL: process.env.VARSEL_API_URL,
-    API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
     API_SESSION_URL: process.env.API_SESSION_URL,
     OPPORTUNITY_ID: process.env.OPPORTUNITY_ID,
     SOLUTION_ID: process.env.SOLUTION_ID,

@@ -19,7 +19,7 @@ export const SearchForm = ({ texts }: SearchFormProps) => {
                     class="${cls.searchInput}"
                     type="text"
                     name="search"
-                        id="${id}"
+                    id="${id}"
                     autocomplete="off"
                 />
                 <button type="button" class="${cls.clear}">

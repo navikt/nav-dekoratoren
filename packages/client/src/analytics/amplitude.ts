@@ -1,7 +1,7 @@
 import amplitude from "amplitude-js";
 import { Params } from "decorator-shared/params";
-import { Auth } from "../api";
 import { AnalyticsEventArgs } from "./constants";
+import { Auth } from "decorator-shared/auth";
 
 type EventData = Record<string, any>;
 

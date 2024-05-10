@@ -28,6 +28,8 @@ spec:
   {{/each}}
   accessPolicy:
     outbound:
+      rules:
+        - application: nav-dekoratoren-api
       external:
         {{#each outboundHosts as |host|}}
         - host: {{host}}

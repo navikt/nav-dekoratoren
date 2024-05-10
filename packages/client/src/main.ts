@@ -3,7 +3,6 @@ import { formatParams } from "decorator-shared/json";
 import { type Context } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
-import * as api from "./api";
 import { logoutWarningController } from "./controllers/logout-warning";
 import "./main.css";
 import { useLoadIfActiveSession } from "./screensharing";
@@ -36,6 +35,7 @@ import { makeEndpointFactory } from "decorator-shared/urls";
 import { initAnalytics } from "./analytics/analytics";
 import { logPageView } from "./analytics/amplitude";
 import { startTaskAnalyticsSurvey } from "./analytics/task-analytics/ta";
+import { initAuth } from "./auth";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
@@ -130,12 +130,7 @@ window.addEventListener("activecontext", (event) => {
 const init = async () => {
     initHistoryEvents();
     initAnalytics();
-
-    api.checkAuth().then((authResponse) => {
-        dispatchEvent(
-            createEvent("authupdated", { detail: { auth: authResponse } }),
-        );
-    });
+    initAuth();
 };
 
 window.addEventListener(analyticsReady.type, () => {

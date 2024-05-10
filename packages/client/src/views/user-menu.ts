@@ -1,80 +1,19 @@
 import { CustomEvents } from "../events";
-import { Auth, AuthLoggedIn } from "../api";
-import { ResponseCache } from "decorator-shared/cache";
-import { param } from "../params";
-
-const ONE_MIN_MS = 60 * 1000;
 
 class UserMenu extends HTMLElement {
-    private readonly responseCache = new ResponseCache<string>({
-        ttl: ONE_MIN_MS,
-    });
-
-    // TODO: use a global auth state instead?
-    private authState: Auth = {
-        authenticated: false,
-    };
-
-    private async fetchMenuHtml(
-        name: string,
-        securityLevel: AuthLoggedIn["securityLevel"],
-    ) {
-        const url = window.makeEndpoint("/user-menu", {
-            name,
-            level: `Level${securityLevel}`,
-        });
-
-        return fetch(url, {
-            credentials: "include",
-        }).then((res) => res.text());
-    }
-
-    private buildCacheKey(auth: AuthLoggedIn) {
-        return `${param("context")}_${param("language")}_${auth.securityLevel}`;
-    }
-
-    private async populateLoggedInMenu() {
-        // TODO: some sort of placeholder while awaiting auth state?
-        if (!this.authState.authenticated) {
-            return;
-        }
-
-        const cacheKey = this.buildCacheKey(this.authState);
-        const { name, securityLevel } = this.authState;
-
-        this.responseCache
-            .get(cacheKey, () => this.fetchMenuHtml(name, securityLevel))
-            .then((html) => {
-                if (!html) {
-                    // TODO: better error handling
-                    console.error("Failed to fetch content for user-menu");
-                    this.innerHTML = "Kunne ikke laste innlogget meny";
-                    return;
-                }
-
-                this.innerHTML = html;
-            });
-    }
-
-    private updateAuthState = (e: CustomEvent<CustomEvents["authupdated"]>) => {
-        this.authState = e.detail.auth;
-        this.populateLoggedInMenu();
-    };
-
-    private updateMenu = (e: CustomEvent<CustomEvents["paramsupdated"]>) => {
-        if (e.detail.params?.context) {
-            this.populateLoggedInMenu();
+    private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
+        const html = e.detail.usermenuHtml;
+        if (html) {
+            this.innerHTML = html;
         }
     };
 
     private connectedCallback() {
-        window.addEventListener("paramsupdated", this.updateMenu);
-        window.addEventListener("authupdated", this.updateAuthState);
+        window.addEventListener("authupdated", this.onAuthUpdated);
     }
 
     private disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.updateMenu);
-        window.removeEventListener("authupdated", this.updateAuthState);
+        window.removeEventListener("authupdated", this.onAuthUpdated);
     }
 }
 
