@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test";
+import ContentService from "./content-service";
 import content from "./content-test-data.json";
 import requestHandler from "./request-handler";
-import ContentService from "./content-service";
-import UnleashService from "./unleash-service";
 import TaConfigService from "./task-analytics-service";
+import UnleashService from "./unleash-service";
 
 const req = (url: string, rest?: any) =>
     new Request(url, {
@@ -24,10 +24,6 @@ const fetch = await requestHandler(
                 },
             ]),
     ),
-    {
-        getFilePaths: () => ["./public/yep.svg"],
-        getFile: () => Bun.file("./yep.svg"),
-    },
     new UnleashService({ mock: true }),
     new TaConfigService(),
 );

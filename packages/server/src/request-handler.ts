@@ -1,14 +1,20 @@
 import { getLogOutUrl } from "decorator-shared/auth";
+import html from "decorator-shared/html";
+import { makeFrontpageUrl } from "decorator-shared/urls";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import { match } from "ts-pattern";
 import ContentService from "./content-service";
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
+import { csrHandler } from "./csr";
 import { clientEnv, env } from "./env/server";
+import { assetsHandlers } from "./handlers/assets-handler";
+import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
+import { getNotifications } from "./notifications";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
-import jsonIndex from "./json-index";
+import { search } from "./search";
 import TaConfigService from "./task-analytics-service";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
@@ -19,17 +25,6 @@ import { UserMenuDropdown } from "./views/header/user-menu-dropdown";
 import { AnchorIconButton } from "./views/icon-button";
 import { SearchHits } from "./views/search-hits";
 import { SimpleUserMenu } from "./views/simple-user-menu";
-import { assetsHandlers } from "./handlers/assets-handler";
-import { makeFrontpageUrl } from "decorator-shared/urls";
-import { csrHandler } from "./csr";
-import { search } from "./search";
-import { getNotifications } from "./notifications";
-import html from "decorator-shared/html";
-
-type FileSystemService = {
-    getFile: (path: string) => Blob;
-    getFilePaths: (dir: string) => string[];
-};
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -43,7 +38,6 @@ const rewriter = new HTMLRewriter().on("img", {
 
 const requestHandler = async (
     contentService: ContentService,
-    fileSystemService: FileSystemService,
     unleashService: UnleashService,
     taConfigService: TaConfigService,
 ) => {
@@ -267,22 +261,6 @@ const requestHandler = async (
         ])
         .use(assetsHandlers)
         .use([cspHandler]);
-
-    // Only serve files in local prod or dev mode
-    if (env.IS_LOCAL_PROD || env.NODE_ENV === "development") {
-        const filePaths = fileSystemService
-            .getFilePaths("./public")
-            .map((file) => file.replace("./", "/"));
-
-        handlersBuilder.use(
-            filePaths.map((path) => ({
-                method: "GET",
-                path,
-                handler: ({ url }) =>
-                    new Response(fileSystemService.getFile(`.${url.pathname}`)),
-            })),
-        );
-    }
 
     const handlers = handlersBuilder.build();
 
