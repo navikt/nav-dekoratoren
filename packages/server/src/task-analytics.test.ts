@@ -6,8 +6,8 @@ describe("task analytics", () => {
     test("returns config", async () => {
         const result = await getTaConfig();
         expectOK(result);
-        expect(result.config.length).toBe(3);
-        expect(result.config[2]).toEqual({
+        expect(result.data.length).toBe(3);
+        expect(result.data[2]).toEqual({
             duration: {
                 end: "2023-02-28",
                 start: "2023-01-30T08:00",
@@ -23,11 +23,11 @@ describe("task analytics", () => {
     });
 
     test("caches config", async () => {
-        const config1 = await getTaConfig();
-        const config2 = await getTaConfig();
+        const res1 = await getTaConfig();
+        const res3 = await getTaConfig();
 
-        expectOK(config1);
-        expectOK(config2);
-        expect(config1.config).toBe(config2.config);
+        expectOK(res1);
+        expectOK(res3);
+        expect(res1.data).toBe(res3.data);
     });
 });

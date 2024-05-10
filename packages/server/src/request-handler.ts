@@ -51,7 +51,7 @@ const requestHandler = async (
         .get("/api/ta", () =>
             getTaConfig().then((result) => {
                 if (result.ok) {
-                    return responseBuilder().json(result.config).build();
+                    return responseBuilder().json(result.data).build();
                 } else {
                     throw result.error;
                 }

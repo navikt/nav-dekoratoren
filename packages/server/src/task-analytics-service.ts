@@ -1,5 +1,6 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
+import { Result } from "./result";
 
 const configSchema = z.array(
     z.object({
@@ -27,27 +28,14 @@ const configSchema = z.array(
 
 type TaskAnalyticsSurveyConfig = z.infer<typeof configSchema>;
 
-type Result<Payload> = ({ ok: true } & Payload) | { ok: false; error: Error };
-
-const Result = {
-    Error: <Payload>(error: Error | string): Result<Payload> => ({
-        ok: false,
-        error: error instanceof Error ? error : new Error(error),
-    }),
-    Ok: <Payload>(payload: Payload): Result<Payload> => ({
-        ok: true,
-        ...payload,
-    }),
-};
-
 let cache: TaskAnalyticsSurveyConfig;
 let expires: number;
 
 export const getTaConfig = async (): Promise<
-    Result<{ config: TaskAnalyticsSurveyConfig }>
+    Result<TaskAnalyticsSurveyConfig>
 > => {
     if (Date.now() < expires) {
-        return Result.Ok({ config: cache });
+        return Result.Ok(cache);
     }
 
     try {
@@ -64,7 +52,7 @@ export const getTaConfig = async (): Promise<
         cache = result.data;
         expires = Date.now() + 10000;
 
-        return Result.Ok({ config: result.data });
+        return Result.Ok(result.data);
     } catch (e) {
         if (e instanceof Error) {
             return Result.Error(e);
