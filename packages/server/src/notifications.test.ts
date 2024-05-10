@@ -10,23 +10,7 @@ import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "./env/server";
 import { Varsler, getNotifications } from "./notifications";
-
-type AnyOkUnion = {
-    ok: boolean;
-    [key: string]: unknown;
-};
-
-export function expectOK<T extends AnyOkUnion>(
-    result: T,
-): asserts result is Extract<T, { ok: true }> {
-    expect(result.ok).toBe(true);
-}
-
-export function expectNotOK<T extends AnyOkUnion>(
-    result: T,
-): asserts result is Extract<T, { ok: false }> {
-    expect(result.ok).toBe(false);
-}
+import { expectOK } from "./test-expect";
 
 describe("notifications", () => {
     let server: SetupServerApi;

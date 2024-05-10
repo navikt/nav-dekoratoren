@@ -11,17 +11,12 @@ import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { search } from "./search";
-import TaConfigService from "./task-analytics-service";
+import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
-
-type FileSystemService = {
-    getFile: (path: string) => Blob;
-    getFilePaths: (dir: string) => string[];
-};
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -35,9 +30,7 @@ const rewriter = new HTMLRewriter().on("img", {
 
 const requestHandler = async (
     contentService: ContentService,
-    fileSystemService: FileSystemService,
     unleashService: UnleashService,
-    taConfigService: TaConfigService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
         .get("/api/auth", () => {
@@ -50,9 +43,13 @@ const requestHandler = async (
                 .build();
         })
         .get("/api/ta", () =>
-            taConfigService
-                .getTaConfig()
-                .then((config) => responseBuilder().json(config).build()),
+            getTaskAnalyticsConfig().then((result) => {
+                if (result.ok) {
+                    return responseBuilder().json(result.data).build();
+                } else {
+                    throw result.error;
+                }
+            }),
         )
         .get("/api/oauth2/session", () => {
             return responseBuilder()
@@ -193,22 +190,6 @@ const requestHandler = async (
         ])
         .use(assetsHandlers)
         .use([cspHandler]);
-
-    // Only serve files in local prod or dev mode
-    if (env.IS_LOCAL_PROD || env.NODE_ENV === "development") {
-        const filePaths = fileSystemService
-            .getFilePaths("./public")
-            .map((file) => file.replace("./", "/"));
-
-        handlersBuilder.use(
-            filePaths.map((path) => ({
-                method: "GET",
-                path,
-                handler: ({ url }) =>
-                    new Response(fileSystemService.getFile(`.${url.pathname}`)),
-            })),
-        );
-    }
 
     const handlers = handlersBuilder.build();
 

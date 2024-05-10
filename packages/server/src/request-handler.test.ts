@@ -1,9 +1,8 @@
 import { describe, expect, test } from "bun:test";
+import ContentService from "./content-service";
 import content from "./content-test-data.json";
 import requestHandler from "./request-handler";
-import ContentService from "./content-service";
 import UnleashService from "./unleash-service";
-import TaConfigService from "./task-analytics-service";
 
 const req = (url: string, rest?: any) =>
     new Request(url, {
@@ -24,12 +23,7 @@ const fetch = await requestHandler(
                 },
             ]),
     ),
-    {
-        getFilePaths: () => ["./public/yep.svg"],
-        getFile: () => Bun.file("./yep.svg"),
-    },
     new UnleashService({ mock: true }),
-    new TaConfigService(),
 );
 
 test("is alive", async () => {
@@ -76,19 +70,6 @@ describe("notifications", () => {
         const response = await fetch(
             req("http://localhost/api/notifications/message/archive"),
         );
-        expect(response.status).toBe(404);
-    });
-});
-
-describe("files", () => {
-    test("hit", async () => {
-        const response = await fetch(req("http://localhost/public/yep.svg"));
-        expect(response.status).toBe(200);
-        expect(response.headers.get("content-type")).toBe("image/svg+xml");
-    });
-
-    test("miss", async () => {
-        const response = await fetch(req("http://localhost/public/nope.svg"));
         expect(response.status).toBe(404);
     });
 });

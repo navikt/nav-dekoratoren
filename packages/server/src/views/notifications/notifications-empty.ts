@@ -1,6 +1,7 @@
 import cls from "decorator-client/src/styles/notifications-empty.module.css";
 import html from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
+import { KattIngenNotifications } from "decorator-shared/views/illustrations";
 
 export type NotificationsEmptyProps = {
     texts: Texts;
@@ -23,11 +24,7 @@ export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
                     ${texts.notifications_show_all}
                 </a>
             </div>
-            <img
-                class="${cls.image}"
-                src="/ikoner/varsler/kattIngenNotifications.svg"
-                alt=""
-            />
+            ${KattIngenNotifications({ className: cls.image })}
         </div>
     `;
 }
