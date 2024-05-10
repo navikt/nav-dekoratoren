@@ -182,4 +182,4 @@ export const texts: Record<Language, Texts> = {
     pl: en,
     uk: en,
     ru: en,
-};
+} as const;

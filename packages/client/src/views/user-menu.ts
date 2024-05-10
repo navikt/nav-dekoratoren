@@ -3,14 +3,16 @@ import html from "decorator-shared/html";
 import cls from "decorator-client/src/styles/user-menu.module.css";
 import iconButtonCls from "decorator-client/src/styles/icon-button.module.css";
 
-const Loader = html`
-    <span class="${cls.loader} ${iconButtonCls.iconButtonSpan}">Laster</span>
+const Loader = (text: string) => html`
+    <span class="${cls.loader} ${iconButtonCls.iconButtonSpan}">${text}</span>
 `;
 
 class UserMenu extends HTMLElement {
     constructor() {
         super();
-        this.innerHTML = Loader.render();
+        this.innerHTML = Loader(
+            window.__DECORATOR_DATA__.texts.loading,
+        ).render();
     }
 
     private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
