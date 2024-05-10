@@ -2,7 +2,12 @@ import { HandlerFunction, responseBuilder } from "../lib/handler";
 import { clientEnv, env } from "../env/server";
 import { validParams } from "../validateParams";
 import { texts } from "../texts";
-import { Auth, AuthLoggedIn, getLogOutUrl } from "decorator-shared/auth";
+import {
+    Auth,
+    AuthLoggedIn,
+    getLogOutUrl,
+    loggedOutResponseData,
+} from "decorator-shared/auth";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 import { match } from "ts-pattern";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
@@ -11,17 +16,11 @@ import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
 import { AnchorIconButton } from "../views/icon-button";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import html from "decorator-shared/html";
-import { LoginButton } from "../views/login-button";
 import { Language, type Params } from "decorator-shared/params";
 
 const notAuthenticatedResponse = (language: Language) =>
     responseBuilder()
-        .json({
-            auth: {
-                authenticated: false,
-            },
-            usermenuHtml: LoginButton(texts[language]).render(),
-        })
+        .json(loggedOutResponseData(texts[language].login))
         .build();
 
 const AUTH_API_URL = `${env.API_DEKORATOREN_URL}/auth`;

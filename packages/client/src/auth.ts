@@ -1,6 +1,5 @@
-import { AuthDataResponse } from "decorator-shared/auth";
+import { AuthDataResponse, loggedOutResponseData } from "decorator-shared/auth";
 import { createEvent, CustomEvents } from "./events";
-import { LoginButton } from "decorator-server/src/views/login-button";
 
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = window.makeEndpoint("/auth-data");
@@ -11,15 +10,7 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
         .then((res) => res.json() as Promise<AuthDataResponse>)
         .catch((error) => {
             console.error(`Failed to fetch auth data - ${error}`);
-
-            return {
-                auth: {
-                    authenticated: false,
-                },
-                usermenuHtml: LoginButton(
-                    window.__DECORATOR_DATA__.texts,
-                ).render(),
-            };
+            return loggedOutResponseData(window.__DECORATOR_DATA__.texts.login);
         });
 };
 
