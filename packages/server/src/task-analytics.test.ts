@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { getTaConfig } from "./task-analytics-service";
+import { getTaConfig } from "./task-analytics";
 import { expectOK } from "./test-expect";
 
 describe("task analytics", () => {
