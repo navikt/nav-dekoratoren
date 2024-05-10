@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import ContentService from "./content-service";
 import content from "./content-test-data.json";
 import requestHandler from "./request-handler";
-import TaConfigService from "./task-analytics-service";
 import UnleashService from "./unleash-service";
 
 const req = (url: string, rest?: any) =>
@@ -25,7 +24,6 @@ const fetch = await requestHandler(
             ]),
     ),
     new UnleashService({ mock: true }),
-    new TaConfigService(),
 );
 
 test("is alive", async () => {

@@ -11,7 +11,7 @@ import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { search } from "./search";
-import TaConfigService from "./task-analytics-service";
+import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
@@ -31,7 +31,6 @@ const rewriter = new HTMLRewriter().on("img", {
 const requestHandler = async (
     contentService: ContentService,
     unleashService: UnleashService,
-    taConfigService: TaConfigService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
         .get("/api/auth", () =>
@@ -44,9 +43,13 @@ const requestHandler = async (
                 .build(),
         )
         .get("/api/ta", () =>
-            taConfigService
-                .getTaConfig()
-                .then((config) => responseBuilder().json(config).build()),
+            getTaskAnalyticsConfig().then((result) => {
+                if (result.ok) {
+                    return responseBuilder().json(result.data).build();
+                } else {
+                    throw result.error;
+                }
+            }),
         )
         .get("/api/oauth2/session", () => {
             return new Response(

@@ -6,7 +6,6 @@ import { fetchMenu, fetchOpsMessages } from "./enonic";
 import { env } from "./env/server";
 import notificationsMock from "./notifications-mock.json";
 import requestHandler from "./request-handler";
-import TaConfigService from "./task-analytics-service";
 import UnleashService from "./unleash-service";
 
 console.log("Starting decorator-next server");
@@ -46,7 +45,6 @@ const server = Bun.serve({
                       ]),
         ),
         new UnleashService({}),
-        new TaConfigService(),
     ),
 });
 

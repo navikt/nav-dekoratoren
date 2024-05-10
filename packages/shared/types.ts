@@ -1,4 +1,4 @@
-import { Context, Environment, Language, Params } from "./params";
+import { Environment, Params } from "./params";
 
 export enum MenuValue {
     PRIVATPERSON = "privatperson",
@@ -144,24 +144,6 @@ export type AppState = {
     params: Params;
     env: Environment;
     features: Features;
-};
-
-export type TaskAnalyticsUrlRule = {
-    url: string;
-    match: "exact" | "startsWith";
-    exclude?: boolean;
-};
-
-export type TaskAnalyticsSurveyConfig = {
-    id: string;
-    selection?: number;
-    duration?: {
-        start?: string;
-        end?: string;
-    };
-    urls?: TaskAnalyticsUrlRule[];
-    audience?: Context[];
-    language?: Language[];
 };
 
 export type MainMenuContextLink = {

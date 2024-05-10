@@ -1,5 +1,6 @@
-import { env } from "./env/server";
 import { z } from "zod";
+import { env } from "./env/server";
+import { Result } from "./result";
 
 const varselSchema = z.object({
     eventId: z.string(),
@@ -59,8 +60,6 @@ const varslerToNotifications = (varsler: Varsler): Notification[] =>
         ),
     );
 
-type Result<Data> = { ok: true; data: Data } | { ok: false; error: Error };
-
 export const getNotifications = async ({
     request,
 }: {
@@ -76,10 +75,7 @@ export const getNotifications = async ({
     );
 
     if (!fetchResult.ok) {
-        return {
-            ok: false,
-            error: Error(await fetchResult.text()),
-        };
+        return Result.Error(await fetchResult.text());
     }
 
     try {
@@ -87,22 +83,13 @@ export const getNotifications = async ({
 
         const validationResult = varslerSchema.safeParse(json);
         if (!validationResult.success) {
-            return {
-                ok: false,
-                error: validationResult.error,
-            };
+            return Result.Error(validationResult.error);
         }
 
-        return {
-            ok: true,
-            data: varslerToNotifications(validationResult.data),
-        };
+        return Result.Ok(varslerToNotifications(validationResult.data));
     } catch (error) {
         if (error instanceof Error) {
-            return {
-                ok: false,
-                error,
-            };
+            return Result.Error(error);
         }
         throw error;
     }
