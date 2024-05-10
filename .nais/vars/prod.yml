@@ -28,7 +28,7 @@ env:
   - name: VARSEL_API_URL
     value: https://www.nav.no/tms-varsel-api
   - name: API_DEKORATOREN_URL
-    value: https://www.nav.no/person/nav-dekoratoren-api
+    value: http://nav-dekoratoren-api/person/nav-dekoratoren-api
   - name: API_SESSION_URL
     value: https://login.nav.no/oauth2/session
   - name: MIN_SIDE_URL
