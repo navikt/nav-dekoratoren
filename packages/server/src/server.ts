@@ -1,6 +1,5 @@
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-import { readdirSync, statSync } from "node:fs";
 import ContentService from "./content-service";
 import menu from "./content-test-data.json";
 import { fetchMenu, fetchOpsMessages } from "./enonic";
@@ -8,14 +7,6 @@ import { env } from "./env/server";
 import notificationsMock from "./notifications-mock.json";
 import requestHandler from "./request-handler";
 import UnleashService from "./unleash-service";
-// import { corsSchema } from './cors';
-// corsSchema.parse('https://www.google.com')
-
-const getFilePaths = (dir: string): string[] =>
-    readdirSync(dir).flatMap((name) => {
-        const file = dir + "/" + name;
-        return statSync(file).isDirectory() ? getFilePaths(file) : file;
-    });
 
 console.log("Starting decorator-next server");
 
@@ -53,10 +44,6 @@ const server = Bun.serve({
                           },
                       ]),
         ),
-        {
-            getFilePaths,
-            getFile: Bun.file,
-        },
         new UnleashService({}),
     ),
 });

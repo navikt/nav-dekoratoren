@@ -1,15 +1,15 @@
 import html, { Template } from "../html";
 
-import cls from "decorator-client/src/styles/screensharing-modal.module.css";
-import clsModal from "decorator-client/src/styles/modal.module.css";
 import clsInputs from "decorator-client/src/styles/inputs.module.css";
+import clsModal from "decorator-client/src/styles/modal.module.css";
+import cls from "decorator-client/src/styles/screensharing-modal.module.css";
 import { VeilederIllustration } from "decorator-shared/views/illustrations";
 
-import { Button } from "./components/button";
-import { Texts, WithTexts } from "../types";
-import { ReadMore } from "./read-more";
-import { Alert } from "./alert";
 import { match } from "ts-pattern";
+import { Texts, WithTexts } from "../types";
+import { Alert } from "./alert";
+import { Button } from "./components/button";
+import { ReadMore } from "./read-more";
 
 export type ScreensharingModalProps = {
     texts: Texts;
@@ -35,11 +35,11 @@ const ScreensharingModal = ({
                 <p>${texts.delskjerm_modal_beskrivelse}</p>
                 ${ReadMore({
                     header: texts.delskjerm_modal_hjelpetekst_overskrift,
-                    content: [
-                        texts.delskjerm_modal_hjelpetekst_0,
-                        texts.delskjerm_modal_hjelpetekst_1,
-                        texts.delskjerm_modal_hjelpetekst_2,
-                    ],
+                    content: html`
+                        <div>${texts.delskjerm_modal_hjelpetekst_0}</div>
+                        <div>${texts.delskjerm_modal_hjelpetekst_1}</div>
+                        <div>${texts.delskjerm_modal_hjelpetekst_2}</div>
+                    `,
                 })}
                 <div class="${cls.children}">${children}</div>
             </div>
