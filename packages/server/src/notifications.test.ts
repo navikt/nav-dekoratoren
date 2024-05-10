@@ -11,6 +11,23 @@ import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "./env/server";
 import { Varsler, getNotifications } from "./notifications";
 
+type AnyOkUnion = {
+    ok: boolean;
+    [key: string]: unknown;
+};
+
+export function expectOK<T extends AnyOkUnion>(
+    result: T,
+): asserts result is Extract<T, { ok: true }> {
+    expect(result.ok).toBe(true);
+}
+
+export function expectNotOK<T extends AnyOkUnion>(
+    result: T,
+): asserts result is Extract<T, { ok: false }> {
+    expect(result.ok).toBe(false);
+}
+
 describe("notifications", () => {
     let server: SetupServerApi;
 
@@ -64,7 +81,8 @@ describe("notifications", () => {
             }),
         });
 
-        expect(result).toEqual([
+        expectOK(result);
+        expect(result.data).toEqual([
             {
                 id: "a",
                 type: "task",

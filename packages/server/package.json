@@ -17,7 +17,8 @@
         "decorator-shared": "workspace:*",
         "unleash-client": "^4.1.1",
         "csp-header": "^5.2.1",
-        "@builder.io/partytown": "^0.8.1"
+        "@builder.io/partytown": "^0.8.1",
+        "zod": "^3.22.4"
     },
     "devDependencies": {
         "msw": "^2.2.14",
