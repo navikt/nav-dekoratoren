@@ -43,7 +43,7 @@ const requestHandler = async (
         .get("/api/auth", () => {
             return responseBuilder()
                 .json({
-                    authenticated: false,
+                    authenticated: true,
                     name: "Charlie Jensen",
                     securityLevel: "3",
                 })
