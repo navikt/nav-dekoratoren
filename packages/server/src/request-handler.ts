@@ -50,9 +50,13 @@ const requestHandler = async (
                 .build(),
         )
         .get("/api/ta", () =>
-            taConfigService
-                .getTaConfig()
-                .then((config) => responseBuilder().json(config).build()),
+            taConfigService.getTaConfig().then((result) => {
+                if (result.ok) {
+                    return responseBuilder().json(result.config).build();
+                } else {
+                    throw result.error;
+                }
+            }),
         )
         .get("/api/oauth2/session", () => {
             return new Response(

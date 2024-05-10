@@ -36,15 +36,31 @@ type Cache = {
 
 const CACHE_TTL_MS = 10000;
 
+type Result<Payload> = ({ ok: true } & Payload) | { ok: false; error: Error };
+const Result = {
+    Error: <Payload>(error: Error | string): Result<Payload> => ({
+        ok: false,
+        error: error instanceof Error ? error : new Error(error),
+    }),
+    Ok: (
+        config: TaskAnalyticsSurveyConfig[],
+    ): Result<{ config: TaskAnalyticsSurveyConfig[] }> => ({
+        ok: true,
+        config,
+    }),
+};
+
 export default class TaConfigService {
     private readonly cache: Cache = {
         config: [],
         expires: 0,
     };
 
-    async getTaConfig(): Promise<TaskAnalyticsSurveyConfig[]> {
+    async getTaConfig(): Promise<
+        Result<{ config: TaskAnalyticsSurveyConfig[] }>
+    > {
         if (Date.now() < this.cache.expires) {
-            return this.cache.config;
+            return Result.Ok(this.cache.config);
         }
 
         try {
@@ -55,7 +71,12 @@ export default class TaConfigService {
                 console.error(
                     `Invalid TA config type - expected array, got ${typeof json}`,
                 );
-                return [];
+                return Result.Error(
+                    new Error(
+                        "Invalid TA config type - expected array, got " +
+                            typeof json,
+                    ),
+                );
             }
 
             const config = json.filter(this.validateConfig);
@@ -63,10 +84,12 @@ export default class TaConfigService {
             this.cache.config = config;
             this.cache.expires = Date.now() + CACHE_TTL_MS;
 
-            return config;
+            return Result.Ok(config);
         } catch (e) {
             console.error(`Error loading TA config from ${filePath} - ${e}`);
-            return [];
+            return Result.Error(
+                `Error loading TA config from ${filePath} - ${e}`,
+            );
         }
     }
 
