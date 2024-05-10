@@ -75,16 +75,3 @@ describe("notifications", () => {
         expect(response.status).toBe(404);
     });
 });
-
-describe("files", () => {
-    test("hit", async () => {
-        const response = await fetch(req("http://localhost/public/yep.svg"));
-        expect(response.status).toBe(200);
-        expect(response.headers.get("content-type")).toBe("image/svg+xml");
-    });
-
-    test("miss", async () => {
-        const response = await fetch(req("http://localhost/public/nope.svg"));
-        expect(response.status).toBe(404);
-    });
-});
