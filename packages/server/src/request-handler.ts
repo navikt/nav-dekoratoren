@@ -40,33 +40,26 @@ const requestHandler = async (
     taConfigService: TaConfigService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
-        .get("/api/auth", () =>
-            responseBuilder()
+        .get("/api/auth", () => {
+            return responseBuilder()
                 .json({
-                    authenticated: true,
+                    authenticated: false,
                     name: "Charlie Jensen",
                     securityLevel: "3",
                 })
-                .build(),
-        )
+                .build();
+        })
         .get("/api/ta", () =>
             taConfigService
                 .getTaConfig()
                 .then((config) => responseBuilder().json(config).build()),
         )
         .get("/api/oauth2/session", () => {
-            return new Response(
-                JSON.stringify({
+            return responseBuilder()
+                .json({
                     authenticated: false,
-                    name: "",
-                    securityLevel: "",
-                }),
-                {
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                },
-            );
+                })
+                .build();
         })
         .get("/api/oauth2/session/refresh", () => {
             refreshToken();

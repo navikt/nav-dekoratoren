@@ -20,7 +20,7 @@ const notAuthenticatedResponse = (language: Language) =>
             auth: {
                 authenticated: false,
             },
-            usermenuHtml: LoginButton({ texts: texts[language] }).render(),
+            usermenuHtml: LoginButton(texts[language]).render(),
         })
         .build();
 

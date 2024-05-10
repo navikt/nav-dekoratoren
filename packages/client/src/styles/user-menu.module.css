@@ -1,3 +1,9 @@
+.userMenuContainer {
+    animation-name: fadeIn;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
 .userMenu {
     --inline-padding: var(--a-spacing-4);
 }
@@ -87,4 +93,59 @@
 
 .link:hover {
     text-decoration: none;
+}
+
+.loader {
+    color: var(--a-text-action);
+    visibility: hidden;
+    opacity: 0;
+
+    animation-name: fadeIn;
+    animation-duration: 500ms;
+    /* Delay the loader for a second. We only want to display the loader if the auth response is slow */
+    animation-delay: 1000ms;
+    animation-fill-mode: forwards;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        min-width: 0.9375rem;
+        text-align: left;
+
+        animation-name: ellipses;
+        animation-duration: 1500ms;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@keyframes ellipses {
+    0% {
+        content: "";
+    }
+
+    25% {
+        content: "." / "";
+    }
+
+    50% {
+        content: ".." / "";
+    }
+
+    75% {
+        content: "..." / "";
+    }
 }

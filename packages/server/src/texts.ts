@@ -91,6 +91,7 @@ const nb = {
     security_level_info:
         "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
     go_to_my_page: "Gå til Min side",
+    loading: "Laster",
 } satisfies Texts;
 
 export type LangBaseKeys = keyof typeof nb;
@@ -180,8 +181,10 @@ export const texts: Record<Language, Texts> = {
         security_level_info:
             "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
         go_to_my_page: "Go to my page",
+        loading: "Loading",
     },
     se: {
+        ...nb,
         skip_link: "Hopp til hovedinnhold",
         share_screen: "Del skjerm med veileder",
         to_top: "Til toppen",

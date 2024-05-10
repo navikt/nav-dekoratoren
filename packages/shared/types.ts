@@ -43,6 +43,7 @@ export const clientTextsKeys = [
     "ok",
     "yes",
     "logout",
+    "login",
     "important_info",
     "loading_preview",
 ] as const;
@@ -108,6 +109,7 @@ export type Texts = ClientTexts & {
     delskjerm_modal_stengt: string;
     security_level_info: string;
     go_to_my_page: string;
+    loading: string;
 };
 
 export type OpsMessage = {
