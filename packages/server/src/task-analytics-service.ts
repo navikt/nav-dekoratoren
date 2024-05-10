@@ -1,108 +1,74 @@
-import { TaskAnalyticsSurveyConfig } from "decorator-shared/types";
-import { z } from "zod";
 import { contextSchema, languageSchema } from "decorator-shared/params";
+import { z } from "zod";
 
-// To mock this locally, create the file /config/ta-config.json on the server package root
-const filePath = `${process.cwd()}/config/ta-config.json`;
-
-const configSchema = z.object({
-    id: z.string(),
-    selection: z.optional(z.number()),
-    duration: z.optional(
-        z.object({
-            start: z.optional(z.string()),
-            end: z.optional(z.string()),
-        }),
-    ),
-    urls: z.optional(
-        z.array(
+const configSchema = z.array(
+    z.object({
+        id: z.string(),
+        selection: z.optional(z.number()),
+        duration: z.optional(
             z.object({
-                url: z.string(),
-                match: z.enum(["exact", "startsWith"]),
-                exclude: z.optional(z.boolean()),
+                start: z.optional(z.string()),
+                end: z.optional(z.string()),
             }),
         ),
-    ),
-    audience: z.optional(z.array(contextSchema)),
-    language: z.optional(z.array(languageSchema)),
-});
+        urls: z.optional(
+            z.array(
+                z.object({
+                    url: z.string(),
+                    match: z.enum(["exact", "startsWith"]),
+                    exclude: z.optional(z.boolean()),
+                }),
+            ),
+        ),
+        audience: z.optional(z.array(contextSchema)),
+        language: z.optional(z.array(languageSchema)),
+    }),
+);
 
-type ConfigSchema = z.infer<typeof configSchema>;
-
-type Cache = {
-    config: TaskAnalyticsSurveyConfig[];
-    expires: number;
-};
-
-const CACHE_TTL_MS = 10000;
+type TaskAnalyticsSurveyConfig = z.infer<typeof configSchema>;
 
 type Result<Payload> = ({ ok: true } & Payload) | { ok: false; error: Error };
+
 const Result = {
     Error: <Payload>(error: Error | string): Result<Payload> => ({
         ok: false,
         error: error instanceof Error ? error : new Error(error),
     }),
-    Ok: (
-        config: TaskAnalyticsSurveyConfig[],
-    ): Result<{ config: TaskAnalyticsSurveyConfig[] }> => ({
+    Ok: <Payload>(payload: Payload): Result<Payload> => ({
         ok: true,
-        config,
+        ...payload,
     }),
 };
 
-export default class TaConfigService {
-    private readonly cache: Cache = {
-        config: [],
-        expires: 0,
-    };
+let cache: TaskAnalyticsSurveyConfig;
+let expires: number;
 
-    async getTaConfig(): Promise<
-        Result<{ config: TaskAnalyticsSurveyConfig[] }>
-    > {
-        if (Date.now() < this.cache.expires) {
-            return Result.Ok(this.cache.config);
-        }
-
-        try {
-            const fileContent = Bun.file(filePath);
-
-            const json = await fileContent.json();
-            if (!Array.isArray(json)) {
-                console.error(
-                    `Invalid TA config type - expected array, got ${typeof json}`,
-                );
-                return Result.Error(
-                    new Error(
-                        "Invalid TA config type - expected array, got " +
-                            typeof json,
-                    ),
-                );
-            }
-
-            const config = json.filter(this.validateConfig);
-
-            this.cache.config = config;
-            this.cache.expires = Date.now() + CACHE_TTL_MS;
-
-            return Result.Ok(config);
-        } catch (e) {
-            console.error(`Error loading TA config from ${filePath} - ${e}`);
-            return Result.Error(
-                `Error loading TA config from ${filePath} - ${e}`,
-            );
-        }
+export const getTaConfig = async (): Promise<
+    Result<{ config: TaskAnalyticsSurveyConfig }>
+> => {
+    if (Date.now() < expires) {
+        return Result.Ok({ config: cache });
     }
 
-    private validateConfig(config: unknown): config is ConfigSchema {
-        const result = configSchema.safeParse(config);
+    try {
+        const json = await Bun.file(
+            `${process.cwd()}/config/ta-config.json`,
+        ).json();
+
+        const result = configSchema.safeParse(json);
 
         if (!result.success) {
-            console.error(
-                `Validation error for TA config - ${result.error.message}`,
-            );
-            return false;
+            return Result.Error(result.error);
         }
 
-        return true;
+        cache = result.data;
+        expires = Date.now() + 10000;
+
+        return Result.Ok({ config: result.data });
+    } catch (e) {
+        if (e instanceof Error) {
+            return Result.Error(e);
+        }
+        throw e;
     }
-}
+};

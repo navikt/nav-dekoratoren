@@ -11,7 +11,7 @@ import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { search } from "./search";
-import TaConfigService from "./task-analytics-service";
+import { getTaConfig } from "./task-analytics-service";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
@@ -37,7 +37,6 @@ const requestHandler = async (
     contentService: ContentService,
     fileSystemService: FileSystemService,
     unleashService: UnleashService,
-    taConfigService: TaConfigService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
         .get("/api/auth", () =>
@@ -50,7 +49,7 @@ const requestHandler = async (
                 .build(),
         )
         .get("/api/ta", () =>
-            taConfigService.getTaConfig().then((result) => {
+            getTaConfig().then((result) => {
                 if (result.ok) {
                     return responseBuilder().json(result.config).build();
                 } else {

@@ -7,7 +7,6 @@ import { fetchMenu, fetchOpsMessages } from "./enonic";
 import { env } from "./env/server";
 import notificationsMock from "./notifications-mock.json";
 import requestHandler from "./request-handler";
-import TaConfigService from "./task-analytics-service";
 import UnleashService from "./unleash-service";
 // import { corsSchema } from './cors';
 // corsSchema.parse('https://www.google.com')
@@ -59,7 +58,6 @@ const server = Bun.serve({
             getFile: Bun.file,
         },
         new UnleashService({}),
-        new TaConfigService(),
     ),
 });
 

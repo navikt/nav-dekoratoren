@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test";
-import TaConfigService from "./task-analytics-service";
+import { getTaConfig } from "./task-analytics-service";
 import { expectOK } from "./test-expect";
 
 describe("task analytics", () => {
     test("returns config", async () => {
-        const result = await new TaConfigService().getTaConfig();
+        const result = await getTaConfig();
         expectOK(result);
         expect(result.config.length).toBe(3);
         expect(result.config[2]).toEqual({
@@ -23,9 +23,8 @@ describe("task analytics", () => {
     });
 
     test("caches config", async () => {
-        const service = new TaConfigService();
-        const config1 = await service.getTaConfig();
-        const config2 = await service.getTaConfig();
+        const config1 = await getTaConfig();
+        const config2 = await getTaConfig();
 
         expectOK(config1);
         expectOK(config2);
