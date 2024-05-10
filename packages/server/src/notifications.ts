@@ -1,19 +1,24 @@
 import { env } from "./env/server";
+import { z } from "zod";
 
-type Varsel = {
-    eventId: string;
-    type: "oppgave" | "beskjed";
-    tidspunkt: string;
-    isMasked: boolean;
-    tekst: string | null;
-    link: string | null;
-    eksternVarslingKanaler: string[];
-};
+const varselSchema = z.object({
+    eventId: z.string(),
+    type: z.enum(["oppgave", "beskjed"]),
+    tidspunkt: z.string(),
+    isMasked: z.boolean(),
+    tekst: z.string().nullable(),
+    link: z.string().nullable(),
+    eksternVarslingKanaler: z.array(z.string()),
+});
 
-export type Varsler = {
-    oppgaver: Varsel[];
-    beskjeder: Varsel[];
-};
+const varslerSchema = z.object({
+    oppgaver: z.array(varselSchema),
+    beskjeder: z.array(varselSchema),
+});
+
+type Varsel = z.infer<typeof varselSchema>;
+
+export type Varsler = z.infer<typeof varslerSchema>;
 
 export type MaskedNotification = {
     id: string;
@@ -54,11 +59,51 @@ const varslerToNotifications = (varsler: Varsler): Notification[] =>
         ),
     );
 
-export const getNotifications = async ({ request }: { request: Request }) =>
-    fetch(`${env.VARSEL_API_URL}/varselbjelle/varsler`, {
-        headers: {
-            cookie: request.headers.get("cookie") || "",
+type Result<Data> = { ok: true; data: Data } | { ok: false; error: Error };
+
+export const getNotifications = async ({
+    request,
+}: {
+    request: Request;
+}): Promise<Result<Notification[]>> => {
+    const fetchResult = await fetch(
+        `${env.VARSEL_API_URL}/varselbjelle/varsler`,
+        {
+            headers: {
+                cookie: request.headers.get("cookie") || "",
+            },
         },
-    })
-        .then((res) => res.json() as Promise<Varsler>)
-        .then(varslerToNotifications);
+    );
+
+    if (!fetchResult.ok) {
+        return {
+            ok: false,
+            error: Error(await fetchResult.text()),
+        };
+    }
+
+    try {
+        const json = await fetchResult.json();
+
+        const validationResult = varslerSchema.safeParse(json);
+        if (!validationResult.success) {
+            return {
+                ok: false,
+                error: validationResult.error,
+            };
+        }
+
+        return {
+            ok: true,
+            data: varslerToNotifications(validationResult.data),
+        };
+    } catch (error) {
+        if (error instanceof Error) {
+            return {
+                ok: false,
+                error,
+            };
+        }
+        throw error;
+    }
+};

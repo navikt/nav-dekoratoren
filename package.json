@@ -58,7 +58,6 @@
         "js-cookie": "^3.0.5",
         "postcss-modules": "latest",
         "prettier": "^3.2.5",
-        "ts-pattern": "^5.0.5",
-        "zod": "^3.22.4"
+        "ts-pattern": "^5.0.5"
     }
 }
