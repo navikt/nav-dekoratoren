@@ -18,11 +18,6 @@ import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
 
-type FileSystemService = {
-    getFile: (path: string) => Blob;
-    getFilePaths: (dir: string) => string[];
-};
-
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
         const src = element.getAttribute("src");
@@ -35,7 +30,6 @@ const rewriter = new HTMLRewriter().on("img", {
 
 const requestHandler = async (
     contentService: ContentService,
-    fileSystemService: FileSystemService,
     unleashService: UnleashService,
     taConfigService: TaConfigService,
 ) => {
@@ -200,22 +194,6 @@ const requestHandler = async (
         ])
         .use(assetsHandlers)
         .use([cspHandler]);
-
-    // Only serve files in local prod or dev mode
-    if (env.IS_LOCAL_PROD || env.NODE_ENV === "development") {
-        const filePaths = fileSystemService
-            .getFilePaths("./public")
-            .map((file) => file.replace("./", "/"));
-
-        handlersBuilder.use(
-            filePaths.map((path) => ({
-                method: "GET",
-                path,
-                handler: ({ url }) =>
-                    new Response(fileSystemService.getFile(`.${url.pathname}`)),
-            })),
-        );
-    }
 
     const handlers = handlersBuilder.build();
 
