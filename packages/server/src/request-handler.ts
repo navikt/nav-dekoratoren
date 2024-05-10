@@ -11,7 +11,7 @@ import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { search } from "./search";
-import { getTaConfig } from "./task-analytics";
+import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
@@ -43,7 +43,7 @@ const requestHandler = async (
                 .build(),
         )
         .get("/api/ta", () =>
-            getTaConfig().then((result) => {
+            getTaskAnalyticsConfig().then((result) => {
                 if (result.ok) {
                     return responseBuilder().json(result.data).build();
                 } else {

@@ -35,11 +35,11 @@ const cache = new ResponseCache<TaskAnalyticsSurveyConfig>({
     ttl: TEN_SECONDS_MS,
 });
 
-export const getTaConfig = async (): Promise<
+export const getTaskAnalyticsConfig = async (): Promise<
     Result<TaskAnalyticsSurveyConfig>
 > =>
     cache
-        .get("ta-config", async () => {
+        .get("task-analytics-config", async () => {
             const json = await Bun.file(
                 `${process.cwd()}/config/ta-config.json`,
             ).json();
