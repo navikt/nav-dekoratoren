@@ -24,6 +24,7 @@ import { makeFrontpageUrl } from "decorator-shared/urls";
 import { csrHandler } from "./csr";
 import { search } from "./search";
 import { getNotifications } from "./notifications";
+import html from "decorator-shared/html";
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
@@ -165,20 +166,24 @@ const requestHandler = async (
 
                     // @TODO: Tests for important urls, like logout
                     return match(data.context)
-                        .with("privatperson", async () =>
-                            UserMenuDropdown({
+                        .with("privatperson", async () => {
+                            const result = await getNotifications({
+                                request,
+                            });
+                            if (!result.ok) {
+                                return html`<div>Error</div>`;
+                            }
+                            return UserMenuDropdown({
                                 texts: localTexts,
                                 name: data.name,
-                                notifications: await getNotifications({
-                                    request,
-                                }),
+                                notifications: result.data,
                                 level: data.level,
                                 logoutUrl: logoutUrl as string,
                                 minsideUrl: clientEnv.MIN_SIDE_URL,
                                 personopplysningerUrl:
                                     clientEnv.PERSONOPPLYSNINGER_URL,
-                            }),
-                        )
+                            });
+                        })
                         .with("arbeidsgiver", () =>
                             ArbeidsgiverUserMenu({
                                 texts: localTexts,
