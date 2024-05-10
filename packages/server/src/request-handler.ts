@@ -1,22 +1,22 @@
+import { makeFrontpageUrl } from "decorator-shared/urls";
 import ContentService from "./content-service";
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
+import { csrHandler } from "./csr";
 import { env } from "./env/server";
+import { assetsHandlers } from "./handlers/assets-handler";
+import { authHandler } from "./handlers/auth-handler";
+import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
-import jsonIndex from "./json-index";
+import { search } from "./search";
 import TaConfigService from "./task-analytics-service";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
-import { assetsHandlers } from "./handlers/assets-handler";
-import { makeFrontpageUrl } from "decorator-shared/urls";
-import { csrHandler } from "./csr";
-import { search } from "./search";
-import { authHandler } from "./handlers/auth-handler";
 
 type FileSystemService = {
     getFile: (path: string) => Blob;
@@ -149,10 +149,9 @@ const requestHandler = async (
             const data = validParams(query);
             const localTexts = texts[data.language];
 
-            const header = await renderHeader({
+            const header = renderHeader({
                 texts: localTexts,
                 data,
-                contentService,
             });
 
             return rewriter.transform(
@@ -188,7 +187,6 @@ const requestHandler = async (
                 unleashService,
                 data: validParams(query),
                 url: url.toString(),
-                query,
             });
 
             return rewriter.transform(responseBuilder().html(index).build());

@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import cls from "decorator-client/src/styles/decorator-utils.module.css";
+import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
 import {
     AvailableLanguage,
@@ -7,30 +8,26 @@ import {
     UtilsBackground,
 } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
-import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
 import { LanguageSelector } from "./language-selector";
 
 export type DecoratorUtilsProps = {
+    texts: Texts;
     breadcrumbs: Breadcrumb[];
     availableLanguages: AvailableLanguage[];
-    localTexts: Texts;
     utilsBackground: UtilsBackground;
-    hidden: boolean;
 };
 
 export const DecoratorUtils = ({
+    texts,
     breadcrumbs,
     availableLanguages,
-    localTexts,
     utilsBackground,
-    hidden,
 }: DecoratorUtilsProps) => html`
     <decorator-utils
         class="${clsx(cls.decoratorUtils, {
             [cls.hidden]:
-                (availableLanguages.length === 0 && breadcrumbs.length === 0) ||
-                hidden,
+                availableLanguages.length === 0 && breadcrumbs.length === 0,
             [cls.white]: utilsBackground === "white",
             [cls.gray]: utilsBackground === "gray",
         })}"
@@ -42,7 +39,7 @@ export const DecoratorUtils = ({
             )}"
         >
             <nav>${Breadcrumbs({ breadcrumbs })}</nav>
-            ${LanguageSelector({ availableLanguages, localTexts })}
+            ${LanguageSelector({ availableLanguages, texts })}
         </div>
     </decorator-utils>
 `;
