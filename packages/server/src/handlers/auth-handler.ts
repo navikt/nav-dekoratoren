@@ -15,6 +15,7 @@ import { getNotifications } from "../notifications";
 import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
 import { AnchorIconButton } from "../views/icon-button";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
+import html from "decorator-shared/html";
 
 const notAuthenticatedResponse: AuthDataResponse = {
     auth: {
@@ -65,17 +66,24 @@ const buildUsermenuHtml = async (
 
     // @TODO: Tests for important urls, like logout
     const template = await match(data.context)
-        .with("privatperson", async () =>
-            UserMenuDropdown({
+        .with("privatperson", async () => {
+            const notificationsResult = await getNotifications({
+                request,
+            });
+            if (!notificationsResult.ok) {
+                return html`<div>Error</div>`;
+            }
+
+            return UserMenuDropdown({
                 texts: localTexts,
                 name: auth.name,
-                notifications: await getNotifications({ request }),
+                notifications: notificationsResult.data,
                 level: `Level${auth.securityLevel}`,
                 logoutUrl: logoutUrl as string,
                 minsideUrl: clientEnv.MIN_SIDE_URL,
                 personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
-            }),
-        )
+            });
+        })
         .with("arbeidsgiver", async () =>
             ArbeidsgiverUserMenu({
                 texts: localTexts,
