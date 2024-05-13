@@ -10,6 +10,7 @@ export type DefaultContext = {
 class HandlerResponse<TData extends Params[0]> {
     headers = new Headers();
     data?: TData;
+    #status?: number = 200;
 
     html(data: TData) {
         this.data = data;
@@ -24,6 +25,11 @@ class HandlerResponse<TData extends Params[0]> {
         return this;
     }
 
+    status(status: number) {
+        this.#status = status;
+        return this;
+    }
+
     setHeader(key: string, value: string) {
         this.headers.set(key, value);
         return this;
@@ -34,6 +40,7 @@ class HandlerResponse<TData extends Params[0]> {
 
         return new Response(this.data, {
             headers: this.headers,
+            status: this.#status,
         });
     }
 }

@@ -4,7 +4,7 @@ import { env } from "../params";
 
 export const endpointUrlWithParams = (
     endpointUrl: `/${string}`,
-    params?: Partial<Params>,
+    params?: Partial<Params> & Record<string, unknown>,
 ) => {
     const formattedParams = formatParams({
         ...window.__DECORATOR_DATA__.params,

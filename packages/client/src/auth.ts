@@ -3,7 +3,7 @@ import { createEvent, CustomEvents } from "./events";
 import { endpointUrlWithParams } from "./helpers/urls";
 
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
-    const url = endpointUrlWithParams("/auth-data");
+    const url = endpointUrlWithParams("/auth");
 
     return fetch(url, {
         credentials: "include",

@@ -4,8 +4,14 @@ import { fetchMenu, fetchOpsMessages } from "./enonic";
 import { env } from "./env/server";
 import requestHandler from "./request-handler";
 import UnleashService from "./unleash-service";
+import setupMocks from "./mocks";
 
 console.log("Starting decorator-next server");
+
+if (env.NODE_ENV === "development") {
+    console.log("Setting up mocks");
+    setupMocks();
+}
 
 const server = Bun.serve({
     port: 8089,

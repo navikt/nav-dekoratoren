@@ -94,3 +94,26 @@ export const getNotifications = async ({
         throw error;
     }
 };
+
+export const archiveNotification = async ({
+    request,
+    id,
+}: {
+    request: Request;
+    id: string;
+}) => {
+    const fetchResult = await fetch(`${env.VARSEL_API_URL}/beskjed/inaktiver`, {
+        method: "POST",
+        headers: {
+            cookie: request.headers.get("cookie") || "",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id),
+    });
+
+    if (!fetchResult.ok) {
+        return Result.Error(await fetchResult.text());
+    }
+
+    return Result.Ok(id);
+};

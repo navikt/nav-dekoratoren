@@ -1,6 +1,16 @@
-import { describe, expect, test } from "bun:test";
+import {
+    afterAll,
+    afterEach,
+    beforeAll,
+    describe,
+    expect,
+    test,
+} from "bun:test";
+import { HttpResponse, http } from "msw";
+import { SetupServerApi, setupServer } from "msw/node";
 import ContentService from "./content-service";
 import content from "./content-test-data.json";
+import { env } from "./env/server";
 import requestHandler from "./request-handler";
 import UnleashService from "./unleash-service";
 
@@ -50,20 +60,30 @@ test("search", async () => {
 });
 
 describe("notifications", () => {
+    let server: SetupServerApi;
+
+    beforeAll(() => {
+        server = setupServer(
+            http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
+                HttpResponse.json({ success: true }),
+            ),
+        );
+        server.listen();
+    });
+    afterEach(() => server.resetHandlers());
+    afterAll(() => server.close());
+
     test("archive notification on POST", async () => {
         const response = await fetch(
-            req("http://localhost/api/notifications/message/archive", {
+            req("http://localhost/api/notifications/archive?id=eventId", {
                 method: "POST",
-                body: JSON.stringify("eventId"),
             }),
         );
         expect(response.status).toBe(200);
         expect(response.headers.get("content-type")).toBe(
             "application/json; charset=utf-8",
         );
-        // Not sure if this test was complete, so commented out for now.
-        // expect(await response.json()).toEqual('eventId');
-        expect(await response.json()).not.toBeNil();
+        expect(await response.json()).toEqual("eventId");
     });
 
     test("archive notification gives 404 on GET", async () => {

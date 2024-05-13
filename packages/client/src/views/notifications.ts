@@ -1,13 +1,18 @@
 import { analyticsEvents } from "../analytics/constants";
-import * as api from "../api";
 import { logAmplitudeEvent } from "../analytics/amplitude";
+import { endpointUrlWithParams } from "../helpers/urls";
 
 class ArchivableNotificaton extends HTMLElement {
     connectedCallback() {
         const id = this.getAttribute("data-id");
         if (id) {
             this.querySelector("button")?.addEventListener("click", () =>
-                api.archive({ eventId: id }).then(() => {
+                fetch(
+                    endpointUrlWithParams("/api/notifications/archive", { id }),
+                    {
+                        method: "POST",
+                    },
+                ).then(() => {
                     this.parentElement?.remove();
                     logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
                 }),

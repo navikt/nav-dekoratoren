@@ -40,7 +40,6 @@ test("It masks the document from hotjar", async () => {
                 ssr: true,
             },
             url: "localhost:8089/",
-            query: {},
         }),
     ).toContain("data-hj-supress");
 });

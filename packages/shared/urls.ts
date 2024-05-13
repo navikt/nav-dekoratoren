@@ -1,4 +1,4 @@
-import { Environment, Language, Params } from "./params";
+import { Language, Params } from "./params";
 
 type IdPortenLocale = "nb" | "nn" | "en" | "se";
 
@@ -14,60 +14,6 @@ const idPortenLocaleMap: Record<Language, IdPortenLocale> = {
 
 export function getIdPortenLocale(language: Language) {
     return idPortenLocaleMap[language];
-}
-
-type GetUrlLoginOptions = {
-    environment: Pick<
-        Environment,
-        "APP_URL" | "MIN_SIDE_URL" | "MIN_SIDE_ARBEIDSGIVER_URL" | "LOGIN_URL"
-    >;
-    params: Pick<
-        Params,
-        "redirectToApp" | "redirectToUrl" | "context" | "level" | "language"
-    >;
-    isClientSide?: boolean;
-};
-
-function makeRedirectUrlLogin({
-    environment,
-    params,
-    isClientSide = false,
-}: GetUrlLoginOptions) {
-    const { redirectToUrl, redirectToApp } = params;
-
-    const appUrl = environment.APP_URL;
-
-    if (isClientSide && erNavDekoratoren(appUrl)) {
-        return appUrl;
-    }
-
-    if (redirectToUrl) {
-        return redirectToUrl;
-    }
-
-    if (redirectToApp) {
-        return appUrl;
-    }
-
-    if (params.context === "arbeidsgiver") {
-        return environment.MIN_SIDE_ARBEIDSGIVER_URL;
-    }
-
-    return environment.MIN_SIDE_URL;
-}
-
-export function makeLoginUrl(
-    options: GetUrlLoginOptions & {
-        overrideLevel?: string;
-    },
-) {
-    const redirectUrl = makeRedirectUrlLogin(options);
-    const idPortenLocale = getIdPortenLocale(options.params.language);
-
-    console.log("idPortenLocale", idPortenLocale);
-
-    const { environment, params } = options;
-    return `${environment.LOGIN_URL}?redirect=${redirectUrl}&level=${options.overrideLevel || params.level}&locale=${idPortenLocale}`;
 }
 
 export function erNavDekoratoren(url: string) {

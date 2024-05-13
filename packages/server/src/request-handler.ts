@@ -8,7 +8,6 @@ import { assetsHandlers } from "./handlers/assets-handler";
 import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
-import { getMockSession, refreshToken } from "./mockAuth";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { search } from "./search";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
@@ -17,7 +16,7 @@ import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
-import notificationsMock from "./notifications-mock.json";
+import { archiveNotification } from "./notifications";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -34,15 +33,6 @@ const requestHandler = async (
     unleashService: UnleashService,
 ) => {
     const handlersBuilder = new HandlerBuilder()
-        .get("/api/auth", () => {
-            return responseBuilder()
-                .json({
-                    authenticated: true,
-                    name: "Charlie Jensen",
-                    securityLevel: "3",
-                })
-                .build();
-        })
         .get("/api/ta", () =>
             getTaskAnalyticsConfig().then((result) => {
                 if (result.ok) {
@@ -52,38 +42,22 @@ const requestHandler = async (
                 }
             }),
         )
-        .get("/api/varselbjelle/varsler", () => {
-            return responseBuilder().json(notificationsMock).build();
-        })
-        .get("/api/oauth2/session", () => {
-            return responseBuilder()
-                .json({
-                    authenticated: false,
-                })
-                .build();
-        })
-        .get("/api/oauth2/session/refresh", () => {
-            refreshToken();
-            return responseBuilder().json(getMockSession()).build();
-        })
-        .get(
-            "/oauth2/login",
-            ({ url }) =>
-                new Response("", {
-                    headers: {
-                        Location: url.searchParams.get("redirect") ?? "",
-                    },
-                    status: 302,
-                }),
-        )
-        .get("/oauth2/logout", () =>
-            responseBuilder().json(getMockSession()).build(),
-        )
         .get("/api/isAlive", () => new Response("OK"))
         .get("/api/isReady", () => new Response("OK"))
-        .post("/api/notifications/message/archive", async ({ request }) =>
-            responseBuilder().json(request.json()).build(),
-        )
+        .post("/api/notifications/archive", async ({ request, query }) => {
+            const result = await archiveNotification({
+                request,
+                id: query.id,
+            });
+            if (result.ok) {
+                return responseBuilder().json(result.data).build();
+            } else {
+                return responseBuilder()
+                    .status(500)
+                    .json({ error: result.error.message })
+                    .build();
+            }
+        })
         .get("/api/search", async ({ query }) => {
             const searchQuery = query.q;
             const results = await search({
@@ -133,7 +107,7 @@ const requestHandler = async (
                 },
             );
         })
-        .get("/auth-data", authHandler)
+        .get("/auth", authHandler)
         .get("/ops-messages", async () => {
             return responseBuilder()
                 .json(await contentService.getOpsMessages())
@@ -199,14 +173,6 @@ const requestHandler = async (
 
     return async function fetch(request: Request): Promise<Response> {
         const url = new URL(request.url.replace("/decorator-next", ""));
-
-        if (url.pathname === "/api/isAlive") {
-            return new Response("OK");
-        }
-
-        if (url.pathname === "/api/isReady") {
-            return new Response("OK");
-        }
 
         const headers = handleCors(request);
 
