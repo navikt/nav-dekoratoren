@@ -5,6 +5,7 @@ import { type AnalyticsEventArgs } from "../analytics/constants";
 import { createEvent, CustomEvents } from "../events";
 import { Context } from "decorator-shared/params";
 import { CustomLinkElement } from "../helpers/custom-link-element";
+import { amplitudeEvent } from "../analytics/amplitude";
 
 class ContextLink extends CustomLinkElement {
     handleActiveContext = (
@@ -41,7 +42,7 @@ class ContextLink extends CustomLinkElement {
                 context: window.__DECORATOR_DATA__.params.context,
                 ...eventArgs,
             };
-            window.analyticsEvent(payload);
+            amplitudeEvent(payload);
         }
     };
 

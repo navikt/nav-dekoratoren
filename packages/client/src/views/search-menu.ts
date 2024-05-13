@@ -2,6 +2,7 @@ import html from "decorator-shared/html";
 import debounce from "lodash.debounce";
 import cls from "../styles/search-form.module.css";
 import { env, param } from "../params";
+import { amplitudeEvent } from "../analytics/amplitude";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -51,7 +52,7 @@ class SearchMenu extends HTMLElement {
                 .map(([key, value]) => `${key}=${value}`)
                 .join("&")}`;
 
-            window.analyticsEvent({
+            amplitudeEvent({
                 eventName: "søk",
                 destination: url,
                 category: "dekorator-header",

@@ -1,6 +1,7 @@
 import type { AnalyticsEventArgs } from "../analytics/constants";
 import { tryParse } from "decorator-shared/json";
 import { CustomLinkElement } from "../helpers/custom-link-element";
+import { amplitudeEvent } from "../analytics/amplitude";
 
 export class LenkeMedSporingElement extends CustomLinkElement {
     constructor() {
@@ -18,7 +19,7 @@ export class LenkeMedSporingElement extends CustomLinkElement {
                     context: window.__DECORATOR_DATA__.params.context,
                     ...eventArgs,
                 };
-                window.analyticsEvent(payload);
+                amplitudeEvent(payload);
             });
         }
     }

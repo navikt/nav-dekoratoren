@@ -15,14 +15,7 @@ export const search = ({
     )
         .then((res) => res.json() as Promise<SearchResult>)
         .then((result) => ({
-            hits: result.hits?.slice(0, 5).map((hit) => ({
-                // TODO: kan limit(5) gjøres i søketjenesten
-                ...hit,
-                highlight: hit.highlight // TODO: replace() i søketjenesten
-                    .replace(/<\/?[^>]+(>|$)/g, "") // Remove html
-                    .replace(/\[.*?(\])/g, "") // Remove shortcodes
-                    .replace(/(\[|<).*?(\(...\))/g, ""), // Remove incomplete html/shortcodes
-            })),
+            hits: result.hits.slice(0, 5),
             total: result.total,
         }))
         .catch((err) => {

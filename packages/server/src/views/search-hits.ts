@@ -1,4 +1,4 @@
-import html from "decorator-shared/html";
+import html, { unsafeHtml } from "decorator-shared/html";
 import { SearchResult, Texts } from "decorator-shared/types";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import { ForwardChevron } from "decorator-shared/views/icons";
@@ -42,7 +42,9 @@ export const SearchHits = ({
                                           <h2 class="${cls.title}">
                                               ${hit.displayName}
                                           </h2>
-                                          <div>${hit.highlight}</div>
+                                          <div>
+                                              ${unsafeHtml(hit.highlight)}
+                                          </div>
                                       </div>
                                   </lenke-med-sporing>
                               </li>
