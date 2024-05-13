@@ -19,7 +19,7 @@ env:
   - name: ENONICXP_SERVICES
     value: https://www.dev.nav.no/_/service
   - name: SEARCH_API
-    value: https://navno-search-api.ekstern.dev.nav.no/content/decorator-search
+    value: http://navno-search-api/content/decorator-search
   - name: XP_BASE_URL
     value: https://www.ansatt.dev.nav.no
   - name: AUTH_API_URL
