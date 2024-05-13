@@ -18,4 +18,6 @@ export default () =>
         http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
             HttpResponse.json({ success: true }),
         ),
-    ).listen();
+    ).listen({
+        onUnhandledRequest: "bypass",
+    });
