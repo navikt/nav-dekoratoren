@@ -14,17 +14,8 @@ export const search = ({
         `${env.SEARCH_API}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
     )
         .then((res) => res.json() as Promise<SearchResult>)
-        .then((result) => ({
-            hits: result.hits?.slice(0, 5).map((hit) => ({
-                // TODO: kan limit(5) gjøres i søketjenesten
-                ...hit,
-                highlight: hit.highlight // TODO: replace() i søketjenesten
-                    .replace(/<\/?[^>]+(>|$)/g, "") // Remove html
-                    .replace(/\[.*?(\])/g, "") // Remove shortcodes
-                    .replace(/(\[|<).*?(\(...\))/g, ""), // Remove incomplete html/shortcodes
-            })),
-            total: result.total,
-        }))
+        // TODO: implement a count-parameter in the search api?
+        .then((result) => ({ ...result, hits: result.hits.slice(0, 5) }))
         .catch((err) => {
             console.error(`Error from search api - ${err}`);
 
