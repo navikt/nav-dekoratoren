@@ -8,7 +8,6 @@ import { Auth } from "decorator-shared/auth";
 declare global {
     interface Window {
         __DECORATOR_DATA__: AppState;
-        makeEndpoint: decoratorEndpointFn;
         loginDebug: {
             expireToken: (seconds: number) => void;
             expireSession: (seconds: number) => void;

@@ -36,7 +36,7 @@ export async function fetchSession() {
     }
 }
 
-export async function fethRenew() {
+export async function fetchRenew() {
     const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session/refresh`;
 
     try {
