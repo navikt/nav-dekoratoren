@@ -14,6 +14,8 @@ export const search = ({
         `${env.SEARCH_API}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
     )
         .then((res) => res.json() as Promise<SearchResult>)
+        // TODO: implement a count-parameter in the search api?
+        .then((result) => ({ ...result, hits: result.hits.slice(0, 5) }))
         .catch((err) => {
             console.error(`Error from search api - ${err}`);
 
