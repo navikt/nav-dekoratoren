@@ -17,6 +17,7 @@ import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
+import notificationsMock from "./notifications-mock.json";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -51,6 +52,9 @@ const requestHandler = async (
                 }
             }),
         )
+        .get("/api/varselbjelle/varsler", () => {
+            return responseBuilder().json(notificationsMock).build();
+        })
         .get("/api/oauth2/session", () => {
             return responseBuilder()
                 .json({

@@ -1,25 +1,14 @@
 import { Faro } from "@grafana/faro-web-sdk";
-import { Params } from "decorator-shared/params";
 import { AppState } from "decorator-shared/types";
-import { AnalyticsEventArgs } from "./analytics/constants";
 import { CustomEvents, MessageEvents } from "./events";
-import { Auth } from "decorator-shared/auth";
 
 declare global {
     interface Window {
         __DECORATOR_DATA__: AppState;
-        makeEndpoint: decoratorEndpointFn;
         loginDebug: {
             expireToken: (seconds: number) => void;
             expireSession: (seconds: number) => void;
         };
-        analyticsEvent: (props: AnalyticsEventArgs) => void;
-        logPageView: (params: Params, authState: Auth) => Promise<unknown>;
-        logAmplitudeEvent: (
-            eventName: string,
-            eventData: Record<string, any>,
-            origin?: string,
-        ) => void;
         // For task analytics, should have better types?
         TA: any;
         dataLayer: any;

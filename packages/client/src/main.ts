@@ -31,18 +31,12 @@ import { addFaroMetaData } from "./faro";
 import { analyticsReady, createEvent, initHistoryEvents } from "./events";
 import { type ParamKey } from "decorator-shared/params";
 import { param, hasParam, updateDecoratorParams, env } from "./params";
-import { makeEndpointFactory } from "decorator-shared/urls";
 import { initAnalytics } from "./analytics/analytics";
 import { logPageView } from "./analytics/amplitude";
 import { startTaskAnalyticsSurvey } from "./analytics/task-analytics/ta";
 import { initAuth } from "./auth";
 
 import.meta.glob("./styles/*.css", { eager: true });
-
-window.makeEndpoint = makeEndpointFactory(
-    () => window.__DECORATOR_DATA__.params,
-    env("APP_URL"),
-);
 
 // Just for testing
 export const CONTEXTS = [
@@ -140,7 +134,7 @@ window.addEventListener(analyticsReady.type, () => {
 window.addEventListener("authupdated", (e) => {
     const { auth } = e.detail;
 
-    window.logPageView(window.__DECORATOR_DATA__.params, auth);
+    logPageView(window.__DECORATOR_DATA__.params, auth);
 
     window.addEventListener("historyPush", () =>
         // TODO: can this be solved in a more dependable manner?

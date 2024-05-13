@@ -3,7 +3,7 @@ import {
     AuthData,
     fakeExpirationTime,
     fetchSession,
-    fethRenew,
+    fetchRenew,
     getSecondsToExpiration,
 } from "../helpers/auth";
 
@@ -45,7 +45,7 @@ export async function logoutWarningController(
     }
 
     async function getRenewedTokenRemote() {
-        const result = await fethRenew();
+        const result = await fetchRenew();
         if (result.session && result.tokens) {
             auth = { ...result }; // Spread to avoid referencing.
         }

@@ -1,22 +1,11 @@
-import { HttpResponse, http } from "msw";
-import { setupServer } from "msw/node";
 import ContentService from "./content-service";
 import menu from "./content-test-data.json";
 import { fetchMenu, fetchOpsMessages } from "./enonic";
 import { env } from "./env/server";
-import notificationsMock from "./notifications-mock.json";
 import requestHandler from "./request-handler";
 import UnleashService from "./unleash-service";
 
 console.log("Starting decorator-next server");
-
-if (env.NODE_ENV === "development") {
-    setupServer(
-        http.get(`${env.VARSEL_API_URL}/varselbjelle/varsler`, () =>
-            HttpResponse.json(notificationsMock),
-        ),
-    ).listen();
-}
 
 const server = Bun.serve({
     port: 8089,

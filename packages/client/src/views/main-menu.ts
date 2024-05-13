@@ -2,6 +2,7 @@ import { Context } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { ResponseCache } from "decorator-shared/cache";
 import { param } from "../params";
+import { endpointUrlWithParams } from "../helpers/urls";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -11,7 +12,7 @@ class MainMenu extends HTMLElement {
     });
 
     private async fetchMenuContent(context: Context) {
-        const url = window.makeEndpoint("/main-menu", { context });
+        const url = endpointUrlWithParams("/main-menu", { context });
         return fetch(url).then((res) => res.text());
     }
 
@@ -19,12 +20,11 @@ class MainMenu extends HTMLElement {
         return `${context}_${param("language")}`;
     }
 
-    private updateMenuContent = (context?: Context) => {
-        const contextActual = context || param("context");
-        const cacheKey = this.buildCacheKey(contextActual);
+    private updateMenuContent = (context: Context) => {
+        const cacheKey = this.buildCacheKey(context);
 
         this.responseCache
-            .get(cacheKey, () => this.fetchMenuContent(contextActual))
+            .get(cacheKey, () => this.fetchMenuContent(context))
             .then((html) => {
                 if (!html) {
                     // TODO: better error handling
@@ -44,8 +44,8 @@ class MainMenu extends HTMLElement {
     };
 
     private connectedCallback() {
+        this.updateMenuContent(param("context"));
         window.addEventListener("activecontext", this.onContextChange);
-        setTimeout(() => this.updateMenuContent(), 0);
     }
 
     private disconnectedCallback() {

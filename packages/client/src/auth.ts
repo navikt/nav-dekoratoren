@@ -1,8 +1,9 @@
 import { AuthDataResponse, loggedOutResponseData } from "decorator-shared/auth";
 import { createEvent, CustomEvents } from "./events";
+import { endpointUrlWithParams } from "./helpers/urls";
 
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
-    const url = window.makeEndpoint("/auth-data");
+    const url = endpointUrlWithParams("/auth-data");
 
     return fetch(url, {
         credentials: "include",

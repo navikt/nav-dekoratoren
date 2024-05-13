@@ -27,12 +27,8 @@ export const initAmplitude = () => {
     });
     amplitude.getInstance().setUserProperties(userProps);
 
+    // This function is exposed for use from consuming applications
     window.dekoratorenAmplitude = logEventFromApp;
-
-    // Do these need to be on the window object?
-    window.analyticsEvent = amplitudeEvent;
-    window.logPageView = logPageView;
-    window.logAmplitudeEvent = logAmplitudeEvent;
 };
 
 // Connects to partytown forwarding

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { makeEndpointFactory, makeFrontpageUrl, makeLoginUrl } from "lib/urls";
+import { makeFrontpageUrl, makeLoginUrl } from "lib/urls";
 
 const dummyEnv = {
     LOGIN_URL: "https://www.nav.no/login",
@@ -8,26 +8,7 @@ const dummyEnv = {
     MIN_SIDE_ARBEIDSGIVER_URL: "https://www.nav.no/min-side-arbeidsgiver",
 };
 
-describe("URLs", () => {
-    it("It includes params from the defaultParams function", () => {
-        const params = {
-            simple: true,
-        } as any;
-
-        const callEndpoint = makeEndpointFactory(
-            () => ({
-                ...params,
-            }),
-            "http://localhost:3000",
-        );
-
-        expect(
-            callEndpoint("/user-menu", {
-                feedback: true,
-            }),
-        ).toBe("http://localhost:3000/user-menu?simple=true&feedback=true");
-    });
-
+describe("Login URLs", () => {
     it("Basic login URL with redirect is created correctly", () => {
         const loginUrl = makeLoginUrl({
             environment: dummyEnv,

@@ -1,5 +1,6 @@
 import feedbackClasses from "../styles/feedback.module.css";
 import { FeedbackSuccess } from "./feedback-success";
+import { logAmplitudeEvent } from "../analytics/amplitude";
 
 class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
@@ -21,7 +22,7 @@ class DecoratorFeedback extends HTMLElement {
                         texts: window.__DECORATOR_DATA__.texts,
                     }).render();
 
-                    window.logAmplitudeEvent("tilbakemelding", {
+                    logAmplitudeEvent("tilbakemelding", {
                         kilde: "footer",
                         svar: answer,
                     });

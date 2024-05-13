@@ -1,5 +1,6 @@
 import { analyticsEvents } from "../analytics/constants";
 import * as api from "../api";
+import { logAmplitudeEvent } from "../analytics/amplitude";
 
 class ArchivableNotificaton extends HTMLElement {
     connectedCallback() {
@@ -8,9 +9,7 @@ class ArchivableNotificaton extends HTMLElement {
             this.querySelector("button")?.addEventListener("click", () =>
                 api.archive({ eventId: id }).then(() => {
                     this.parentElement?.remove();
-                    window.logAmplitudeEvent(
-                        ...analyticsEvents.arkivertBeskjed,
-                    );
+                    logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
                 }),
             );
         }
@@ -24,7 +23,7 @@ class LinkNotification extends HTMLElement {
         const a = this.querySelector("a");
         if (a) {
             a.addEventListener("click", () => {
-                window.logAmplitudeEvent("navigere", {
+                logAmplitudeEvent("navigere", {
                     komponent:
                         this.getAttribute("data-type") === "task"
                             ? "varsel-oppgave"
