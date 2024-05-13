@@ -21,7 +21,6 @@
         "zod": "^3.22.4"
     },
     "devDependencies": {
-        "msw": "^2.2.14",
         "postcss": "^8.4.30",
         "postcss-modules": "^6.0.0"
     }
