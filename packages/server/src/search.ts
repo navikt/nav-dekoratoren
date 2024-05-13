@@ -25,7 +25,11 @@ export const search = ({
             })),
             total: result.total,
         }))
-        .catch(() => ({
-            hits: [],
-            total: 0,
-        }));
+        .catch((err) => {
+            console.error(`Error from search api - ${err}`);
+
+            return {
+                hits: [],
+                total: 0,
+            };
+        });

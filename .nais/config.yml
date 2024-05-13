@@ -30,6 +30,7 @@ spec:
     outbound:
       rules:
         - application: nav-dekoratoren-api
+        - application: navno-search-api
       external:
         {{#each outboundHosts as |host|}}
         - host: {{host}}
