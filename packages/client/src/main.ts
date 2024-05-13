@@ -134,7 +134,7 @@ window.addEventListener(analyticsReady.type, () => {
 window.addEventListener("authupdated", (e) => {
     const { auth } = e.detail;
 
-    window.logPageView(window.__DECORATOR_DATA__.params, auth);
+    logPageView(window.__DECORATOR_DATA__.params, auth);
 
     window.addEventListener("historyPush", () =>
         // TODO: can this be solved in a more dependable manner?
