@@ -55,12 +55,12 @@ const buildUsermenuHtml = async (
     const localTexts = texts[params.language];
     const logoutUrl = getLogOutUrl(params);
 
-    if (params.simple) {
+    if (params.simple || params.simpleHeader) {
         return SimpleUserMenu({
             logoutUrl,
             texts: localTexts,
             name: auth.name,
-        });
+        }).render();
     }
 
     // @TODO: Tests for important urls, like logout
