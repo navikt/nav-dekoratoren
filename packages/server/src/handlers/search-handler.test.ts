@@ -9,18 +9,12 @@ import {
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import { env } from "../env/server";
-import { fetchSearch } from "./search-handler";
+import { searchHandler } from "./search-handler";
 
 const hits = new Array(6).fill(0).map((_, i) => ({
     displayName: `Hit ${i}`,
-    audience: ["person"],
-    createdTime: "2022-02-09T14:51:57.490Z",
-    modifiedTime: "2022-02-09T14:51:57.490Z",
     highlight: `highlight ${i}`,
-    href: "example.com",
-    language: "nb",
-    hideModifiedDate: true,
-    hidePublishDate: false,
+    href: "https://example.com",
 }));
 
 const server = setupServer(
@@ -32,19 +26,23 @@ const server = setupServer(
     ),
 );
 
-describe("search", () => {
+describe("Search handler", () => {
     beforeAll(() => server.listen());
     afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
 
-    test("returns first five results", async () => {
-        const result = await fetchSearch({
-            query: "asdf",
-            language: "no",
-            context: "privatperson",
+    test("Should return html containing first 5 hits only", async () => {
+        const response = await searchHandler({
+            query: { q: "asdf" },
+            url: new URL("http://localhost:3000") as URL, // ?!
+            request: new Request("http://localhost:3000"),
         });
 
-        expect(result.hits.length).toBe(5);
-        expect(result.total).toBe(6);
+        expect(response.ok).toBeTrue();
+
+        const html = await response.text();
+
+        expect(html).toContain("highlight 4");
+        expect(html).not.toContain("highlight 5");
     });
 });

@@ -33,7 +33,7 @@ const parseAndValidateResult = (result: unknown): ResultType<SearchResult> => {
     });
 };
 
-export const fetchSearch = async ({
+const fetchSearch = async ({
     query,
     context,
     language,
@@ -76,5 +76,7 @@ export const searchHandler: HandlerFunction = async ({ query }) => {
             .build();
     }
 
-    return responseBuilder().html("asdf").build();
+    console.log(result.error.message);
+
+    return responseBuilder().html("Oh noes!").build();
 };
