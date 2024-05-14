@@ -5,8 +5,9 @@ import { SearchHits } from "../views/search-hits";
 import { texts } from "../texts";
 import { ResultType, Result } from "../result";
 import { z } from "zod";
+import { SearchErrorView } from "decorator-shared/views/errors/search-error";
 
-type SearchResult = z.infer<typeof resultSchema>;
+export type SearchResult = z.infer<typeof resultSchema>;
 
 const resultSchema = z.object({
     total: z.number(),
@@ -64,19 +65,18 @@ export const searchHandler: HandlerFunction = async ({ query }) => {
         ...validParams(query),
     });
 
-    if (result.ok) {
-        return responseBuilder()
-            .html(
-                SearchHits({
-                    results: result.data,
-                    query: searchQuery,
-                    texts: texts[validParams(query).language],
-                }).render(),
-            )
-            .build();
+    if (!result.ok) {
+        console.log(`Error fetching search results: ${result.error.message}`);
+        return responseBuilder().html(SearchErrorView().render()).build();
     }
 
-    console.log(result.error.message);
-
-    return responseBuilder().html("Oh noes!").build();
+    return responseBuilder()
+        .html(
+            SearchHits({
+                results: result.data,
+                query: searchQuery,
+                texts: texts[validParams(query).language],
+            }).render(),
+        )
+        .build();
 };

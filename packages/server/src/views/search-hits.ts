@@ -1,7 +1,8 @@
 import html, { unsafeHtml } from "decorator-shared/html";
-import { SearchResult, Texts } from "decorator-shared/types";
+import { Texts } from "decorator-shared/types";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import { ForwardChevron } from "decorator-shared/views/icons";
+import { SearchResult } from "../handlers/search-handler";
 
 export type SearchHitsProps = {
     results: SearchResult;

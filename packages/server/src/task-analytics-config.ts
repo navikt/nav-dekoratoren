@@ -1,6 +1,6 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
-import { Result } from "./result";
+import { Result, ResultType } from "./result";
 import { ResponseCache } from "decorator-shared/cache";
 
 const configSchema = z.array(
@@ -36,7 +36,7 @@ const cache = new ResponseCache<TaskAnalyticsSurveyConfig>({
 });
 
 export const getTaskAnalyticsConfig = async (): Promise<
-    Result<TaskAnalyticsSurveyConfig>
+    ResultType<TaskAnalyticsSurveyConfig>
 > =>
     cache
         .get("task-analytics-config", async () => {

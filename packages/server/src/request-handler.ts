@@ -55,23 +55,6 @@ const requestHandler = async (unleashService: UnleashService) => {
                     .build();
             }
         })
-        .get("/api/search", async ({ query }) => {
-            const searchQuery = query.q;
-            const results = await search({
-                query: searchQuery,
-                ...validParams(query),
-            });
-
-            return responseBuilder()
-                .html(
-                    SearchHits({
-                        results,
-                        query: searchQuery,
-                        texts: texts[validParams(query).language],
-                    }).render(),
-                )
-                .build();
-        })
         .get("/api/search", searchHandler)
         .get("/main-menu", async ({ query }) => {
             const data = validParams(query);
