@@ -9,13 +9,12 @@ import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
-import { search } from "./search";
+import { searchHandler } from "./handlers/search-handler";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
-import { SearchHits } from "./views/search-hits";
 import { archiveNotification } from "./notifications";
 
 const rewriter = new HTMLRewriter().on("img", {
@@ -58,23 +57,7 @@ const requestHandler = async (
                     .build();
             }
         })
-        .get("/api/search", async ({ query }) => {
-            const searchQuery = query.q;
-            const results = await search({
-                query: searchQuery,
-                ...validParams(query),
-            });
-
-            return responseBuilder()
-                .html(
-                    SearchHits({
-                        results,
-                        query: searchQuery,
-                        texts: texts[validParams(query).language],
-                    }).render(),
-                )
-                .build();
-        })
+        .get("/api/search", searchHandler)
         .get("/main-menu", async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];

@@ -8,8 +8,8 @@ import {
 } from "bun:test";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-import { env } from "./env/server";
-import { search } from "./search";
+import { env } from "../env/server";
+import { fetchSearch } from "./search-handler";
 
 const hits = new Array(6).fill(0).map((_, i) => ({
     displayName: `Hit ${i}`,
@@ -38,7 +38,7 @@ describe("search", () => {
     afterAll(() => server.close());
 
     test("returns first five results", async () => {
-        const result = await search({
+        const result = await fetchSearch({
             query: "asdf",
             language: "no",
             context: "privatperson",
