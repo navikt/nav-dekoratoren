@@ -61,14 +61,16 @@ export default class UnleashService {
             (acc, toggle: string) => {
                 // If mocking or running from localhost, return default toggles without
                 // actually trying to get anything from Unleash Next
-                if (this.mock)
+                if (this.mock) {
                     return { ...acc, [toggle]: this.defaultToggles[toggle] };
+                }
 
                 // If Unleash instance is not synched, return the default toggles
                 // to prevent chatbot or screen sharing to be disabled just because Unleash failing.
                 const isFeatureEnabled = this.unleashInstance?.isSynchronized()
                     ? this.unleashInstance.isEnabled(toggle)
                     : this.defaultToggles[toggle];
+
                 return { ...acc, [toggle]: isFeatureEnabled };
             },
             {},
