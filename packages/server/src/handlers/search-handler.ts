@@ -3,7 +3,6 @@ import { validParams } from "../validateParams";
 import { HandlerFunction, responseBuilder } from "../lib/handler";
 import { SearchHits } from "../views/search-hits";
 import { texts } from "../texts";
-import { ResultType } from "../result";
 import { z } from "zod";
 import { SearchErrorView } from "decorator-shared/views/errors/search-error";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
@@ -29,7 +28,7 @@ const fetchSearch = async ({
     query: string;
     context: string;
     language: string;
-}): Promise<ResultType<SearchResult>> =>
+}) =>
     fetchAndValidateJson(
         `${env.SEARCH_API}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
         undefined,
