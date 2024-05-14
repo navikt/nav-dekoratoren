@@ -1,12 +1,5 @@
 import { Environment, Params } from "./params";
 
-export enum MenuValue {
-    PRIVATPERSON = "privatperson",
-    ARBEIDSGIVER = "arbeidsgiver",
-    SAMARBEIDSPARTNER = "samarbeidspartner",
-    IKKEBESTEMT = "IKKEBESTEMT",
-}
-
 /**
  * Used to enforce scoped ids
  */
@@ -122,15 +115,6 @@ export type OpsMessage = {
 export type TextKey = keyof Texts;
 export type WithTexts<T = object> = T & {
     texts: Texts;
-};
-
-export type SearchResult = {
-    hits: {
-        displayName: string;
-        highlight: string;
-        href: string;
-    }[];
-    total: number;
 };
 
 export type Features = {

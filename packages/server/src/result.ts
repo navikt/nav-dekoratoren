@@ -1,13 +1,14 @@
-export type Result<Payload> =
-    | { ok: true; data: Payload }
-    | { ok: false; error: Error };
+type ResultOk<Payload> = { ok: true; data: Payload };
+type ResultError = { ok: false; error: Error };
+
+export type ResultType<Payload> = ResultOk<Payload> | ResultError;
 
 export const Result = {
-    Error: <Payload>(error: Error | string): Result<Payload> => ({
+    Error: (error: Error | string): ResultError => ({
         ok: false,
         error: error instanceof Error ? error : new Error(error),
     }),
-    Ok: <Payload>(data: Payload): Result<Payload> => ({
+    Ok: <Payload>(data: Payload): ResultOk<Payload> => ({
         ok: true,
         data,
     }),

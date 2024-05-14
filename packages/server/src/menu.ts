@@ -124,6 +124,7 @@ export const getComplexFooterLinks = async ({
     context: Context;
 }): Promise<LinkGroup[]> => {
     const root = await fetchMenu();
+
     return [
         ...(get(
             root,

@@ -1,10 +1,23 @@
-import { expect, test } from "bun:test";
+import { afterAll, expect, test } from "bun:test";
 import renderIndex from "./render-index";
 import UnleashService from "./unleash-service";
+import { http, HttpResponse } from "msw";
+import { env } from "./env/server";
+import testData from "./content-test-data.json";
+import { setupServer } from "msw/node";
 
 const unleashService = new UnleashService({ mock: true });
 
 test("It masks the document from hotjar", async () => {
+    const server = setupServer(
+        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+            HttpResponse.json(testData),
+        ),
+    );
+    server.listen();
+
+    afterAll(() => server.close());
+
     expect(
         await renderIndex({
             unleashService,

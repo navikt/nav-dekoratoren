@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { env } from "./env/server";
-import { Result } from "./result";
+import { Result, ResultType } from "./result";
 
 const varselSchema = z.object({
     eventId: z.string(),
@@ -64,7 +64,7 @@ export const getNotifications = async ({
     request,
 }: {
     request: Request;
-}): Promise<Result<Notification[]>> => {
+}): Promise<ResultType<Notification[]>> => {
     const fetchResult = await fetch(
         `${env.VARSEL_API_URL}/varselbjelle/varsler`,
         {
