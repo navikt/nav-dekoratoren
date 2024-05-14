@@ -2,10 +2,7 @@ import { expect, test, describe } from "bun:test";
 import testData from "./content-test-data.json";
 import ContentService from "./content-service";
 
-const contentService = new ContentService(
-    () => Promise.resolve(testData),
-    () => Promise.resolve([]),
-);
+const contentService = new ContentService(() => Promise.resolve(testData));
 
 describe("getSimpleFooterLinks", () => {
     test("returns norwegian", async () => {

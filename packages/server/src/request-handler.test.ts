@@ -21,18 +21,7 @@ const req = (url: string, rest?: any) =>
     });
 
 const fetch = await requestHandler(
-    new ContentService(
-        () => Promise.resolve(content),
-        () =>
-            Promise.resolve([
-                {
-                    heading: "wat",
-                    url: "example.com",
-                    type: "info",
-                    urlscope: [],
-                },
-            ]),
-    ),
+    new ContentService(() => Promise.resolve(content)),
     new UnleashService({ mock: true }),
 );
 

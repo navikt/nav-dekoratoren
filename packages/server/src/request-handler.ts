@@ -17,6 +17,7 @@ import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 import { SearchHits } from "./views/search-hits";
 import { archiveNotification } from "./notifications";
+import { fetchOpsMessages } from "./enonic";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -110,7 +111,7 @@ const requestHandler = async (
         .get("/auth", authHandler)
         .get("/ops-messages", async () => {
             return responseBuilder()
-                .json(await contentService.getOpsMessages())
+                .json(await fetchOpsMessages())
                 .build();
         })
         .get("/header", async ({ query }) => {

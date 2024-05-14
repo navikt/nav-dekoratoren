@@ -1,10 +1,10 @@
 import ContentService from "./content-service";
 import menu from "./content-test-data.json";
-import { fetchMenu, fetchOpsMessages } from "./enonic";
+import { fetchMenu } from "./enonic";
 import { env } from "./env/server";
+import setupMocks from "./mocks";
 import requestHandler from "./request-handler";
 import UnleashService from "./unleash-service";
-import setupMocks from "./mocks";
 
 console.log("Starting decorator-next server");
 
@@ -21,23 +21,6 @@ const server = Bun.serve({
             process.env.NODE_ENV === "production"
                 ? fetchMenu
                 : () => Promise.resolve(menu),
-            process.env.NODE_ENV === "production"
-                ? fetchOpsMessages
-                : () =>
-                      Promise.resolve([
-                          {
-                              heading: "Ustabile tjenester søndag 15. januar",
-                              url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
-                              type: "prodstatus",
-                              urlscope: ["http://localhost:3000/arbeid"],
-                          },
-                          {
-                              heading: "Svindelforsøk via SMS - vær oppmerksom",
-                              url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
-                              type: "info",
-                              urlscope: [],
-                          },
-                      ]),
         ),
         new UnleashService({}),
     ),

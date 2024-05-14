@@ -1,18 +1,14 @@
+import { Context, Language } from "decorator-shared/params";
 import {
-    OpsMessage,
     Link,
     LinkGroup,
     MainMenuContextLink,
     MenuNode,
 } from "decorator-shared/types";
-import { Context, Language } from "decorator-shared/params";
 import { clientEnv, env } from "./env/server";
 
 export default class ContentService {
-    constructor(
-        private fetchMenu: () => Promise<MenuNode[]>,
-        private fetchOpsMessages: () => Promise<OpsMessage[]>,
-    ) {}
+    constructor(private fetchMenu: () => Promise<MenuNode[]>) {}
 
     async mainMenuContextLinks({
         context,
@@ -93,10 +89,6 @@ export default class ContentService {
                 })(language),
             )?.map(nodeToLinkGroup) ?? []
         );
-    }
-
-    async getOpsMessages() {
-        return this.fetchOpsMessages();
     }
 
     async getSimpleFooterLinks({ language }: { language: Language }) {

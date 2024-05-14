@@ -4,10 +4,7 @@ import renderIndex from "./render-index";
 import ContentService from "./content-service";
 import UnleashService from "./unleash-service";
 
-const contentService = new ContentService(
-    () => Promise.resolve(menu),
-    () => Promise.resolve([]),
-);
+const contentService = new ContentService(() => Promise.resolve(menu));
 const unleashService = new UnleashService({ mock: true });
 
 test("It masks the document from hotjar", async () => {

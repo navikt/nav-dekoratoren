@@ -18,6 +18,22 @@ export default () =>
         http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
             HttpResponse.json({ success: true }),
         ),
+        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`, () =>
+            HttpResponse.json([
+                {
+                    heading: "Ustabile tjenester søndag 15. januar",
+                    url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
+                    type: "prodstatus",
+                    urlscope: ["http://localhost:3000/arbeid"],
+                },
+                {
+                    heading: "Svindelforsøk via SMS - vær oppmerksom",
+                    url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
+                    type: "info",
+                    urlscope: [],
+                },
+            ]),
+        ),
     ).listen({
         onUnhandledRequest: "bypass",
     });
