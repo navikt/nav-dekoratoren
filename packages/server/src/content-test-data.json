@@ -1163,7 +1163,7 @@
                         "hasChildren": true,
                         "children": [
                             {
-                                "displayName": "Personvern og informasjonskapsler",
+                                "displayName": "Personvern",
                                 "path": "/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten",
                                 "displayLock": false,
                                 "id": "431518f0-99f7-4704-bbac-326bad6ac38e",
@@ -1835,7 +1835,7 @@
                         "hasChildren": true,
                         "children": [
                             {
-                                "displayName": "Privacy and cookies",
+                                "displayName": "Privacy",
                                 "path": "/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten",
                                 "displayLock": false,
                                 "flatten": false,

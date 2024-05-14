@@ -1,5 +1,4 @@
 import { AppState, Features } from "decorator-shared/types";
-import ContentService from "./content-service";
 import { clientEnv } from "./env/server";
 import { Handler, HandlerFunction, responseBuilder } from "./lib/handler";
 import { renderFooter, renderHeader } from "./render-index";
@@ -8,14 +7,10 @@ import { validParams } from "./validateParams";
 import { cdnUrl, getManifest } from "./views";
 
 type Providers = {
-    contentService: ContentService;
     features: Features;
 };
 
-function csrHandlerFunc({
-    contentService,
-    features,
-}: Providers): HandlerFunction {
+function csrHandlerFunc({ features }: Providers): HandlerFunction {
     const fn: HandlerFunction = async ({ query }) => {
         const data = validParams(query);
         const texts = i18n[data.language];
@@ -26,7 +21,6 @@ function csrHandlerFunc({
         });
 
         const footer$ = renderFooter({
-            contentService,
             data,
             texts,
             features,

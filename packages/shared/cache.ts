@@ -13,6 +13,12 @@ export class ResponseCache<ValueType = unknown> {
 
     constructor({ ttl }: { ttl: number }) {
         this.ttl = ttl;
+        caches.push(this);
+    }
+
+    clear() {
+        this.cache.clear();
+        this.pendingPromises.clear();
     }
 
     async get(
@@ -59,3 +65,7 @@ export class ResponseCache<ValueType = unknown> {
         return promise;
     }
 }
+
+const caches: ResponseCache[] = [];
+
+export const clearCache = () => caches.forEach((cache) => cache.clear());

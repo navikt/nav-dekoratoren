@@ -1,13 +1,15 @@
 import { makeFrontpageUrl } from "decorator-shared/urls";
-import ContentService from "./content-service";
+import { getMainMenuLinks, mainMenuContextLinks } from "./menu";
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
 import { csrHandler } from "./csr";
+import { fetchOpsMessages } from "./enonic";
 import { env } from "./env/server";
 import { assetsHandlers } from "./handlers/assets-handler";
 import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
+import { archiveNotification } from "./notifications";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { searchHandler } from "./handlers/search-handler";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
@@ -15,7 +17,6 @@ import { texts } from "./texts";
 import UnleashService from "./unleash-service";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
-import { archiveNotification } from "./notifications";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -27,10 +28,7 @@ const rewriter = new HTMLRewriter().on("img", {
     },
 });
 
-const requestHandler = async (
-    contentService: ContentService,
-    unleashService: UnleashService,
-) => {
+const requestHandler = async (unleashService: UnleashService) => {
     const handlersBuilder = new HandlerBuilder()
         .get("/api/ta", () =>
             getTaskAnalyticsConfig().then((result) => {
@@ -57,6 +55,23 @@ const requestHandler = async (
                     .build();
             }
         })
+        .get("/api/search", async ({ query }) => {
+            const searchQuery = query.q;
+            const results = await search({
+                query: searchQuery,
+                ...validParams(query),
+            });
+
+            return responseBuilder()
+                .html(
+                    SearchHits({
+                        results,
+                        query: searchQuery,
+                        texts: texts[validParams(query).language],
+                    }).render(),
+                )
+                .build();
+        })
         .get("/api/search", searchHandler)
         .get("/main-menu", async ({ query }) => {
             const data = validParams(query);
@@ -76,11 +91,11 @@ const requestHandler = async (
                             : localTexts[`rolle_${data.context}`],
                     frontPageUrl,
                     texts: localTexts,
-                    links: await contentService.getMainMenuLinks({
+                    links: await getMainMenuLinks({
                         language: data.language,
                         context: data.context,
                     }),
-                    contextLinks: await contentService.mainMenuContextLinks({
+                    contextLinks: await mainMenuContextLinks({
                         context: data.context,
                         bedrift: data.bedrift,
                     }),
@@ -93,7 +108,7 @@ const requestHandler = async (
         .get("/auth", authHandler)
         .get("/ops-messages", async () => {
             return responseBuilder()
-                .json(await contentService.getOpsMessages())
+                .json(await fetchOpsMessages())
                 .build();
         })
         .get("/header", async ({ query }) => {
@@ -116,7 +131,6 @@ const requestHandler = async (
             const footer = await renderFooter({
                 features,
                 texts: localTexts,
-                contentService,
                 data,
             });
 
@@ -134,7 +148,6 @@ const requestHandler = async (
         })
         .get("/", async ({ url, query }) => {
             const index = await renderIndex({
-                contentService,
                 unleashService,
                 data: validParams(query),
                 url: url.toString(),
@@ -145,7 +158,6 @@ const requestHandler = async (
         // Build header and footer for SSR
         .use([
             csrHandler({
-                contentService,
                 features: unleashService.getFeatures(),
             }),
         ])

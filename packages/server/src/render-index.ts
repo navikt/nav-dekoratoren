@@ -1,7 +1,7 @@
 import { makeContextLinks } from "decorator-shared/context";
 import { Params } from "decorator-shared/params";
 import { Features, Texts } from "decorator-shared/types";
-import ContentService from "./content-service";
+import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu";
 import { clientEnv, env } from "./env/server";
 import { texts as i18n } from "./texts";
 import { GetFeatures } from "./unleash-service";
@@ -14,12 +14,10 @@ import { SimpleHeader } from "./views/header/simple-header";
 import { getSplashPage } from "./views/splash-page";
 
 export default async ({
-    contentService,
     unleashService,
     data,
     url,
 }: {
-    contentService: ContentService;
     unleashService: GetFeatures;
     data: Params;
     url: string;
@@ -39,7 +37,6 @@ export default async ({
             texts,
             data,
             features,
-            contentService,
         }),
         decoratorData: DecoratorData({
             texts,
@@ -92,24 +89,22 @@ export async function renderFooter({
     features,
     texts,
     data,
-    contentService,
 }: {
     data: Params;
     texts: Texts;
     features: Features;
-    contentService: ContentService;
 }) {
     return Footer({
         ...(data.simple || data.simpleFooter
             ? {
                   simple: true,
-                  links: await contentService.getSimpleFooterLinks({
+                  links: await getSimpleFooterLinks({
                       language: data.language,
                   }),
               }
             : {
                   simple: false,
-                  links: await contentService.getComplexFooterLinks({
+                  links: await getComplexFooterLinks({
                       language: data.language,
                       context: data.context,
                   }),
