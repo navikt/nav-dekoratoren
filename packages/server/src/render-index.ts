@@ -1,10 +1,10 @@
 import { makeContextLinks } from "decorator-shared/context";
 import { Params } from "decorator-shared/params";
 import { Features, Texts } from "decorator-shared/types";
-import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu";
 import { clientEnv, env } from "./env/server";
+import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu";
 import { texts as i18n } from "./texts";
-import { GetFeatures } from "./unleash-service";
+import { getFeatures } from "./unleash";
 import { Index } from "./views";
 import { DecoratorData } from "./views/decorator-data";
 import { DecoratorUtils } from "./views/decorator-utils";
@@ -13,23 +13,15 @@ import { ComplexHeader } from "./views/header/complex-header";
 import { SimpleHeader } from "./views/header/simple-header";
 import { getSplashPage } from "./views/splash-page";
 
-export default async ({
-    unleashService,
-    data,
-    url,
-}: {
-    unleashService: GetFeatures;
-    data: Params;
-    url: string;
-}) => {
+export default async ({ data, url }: { data: Params; url: string }) => {
     const { language } = data;
     const texts = i18n[language];
 
-    const features = unleashService.getFeatures();
+    const features = getFeatures();
 
     return Index({
         language,
-        header: await renderHeader({
+        header: renderHeader({
             texts,
             data,
         }),

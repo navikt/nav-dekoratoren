@@ -2,9 +2,13 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import notificationsMock from "./notifications-mock.json";
 import { env } from "./env/server";
+import testData from "./content-test-data.json";
 
 export default () =>
     setupServer(
+        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+            HttpResponse.json(testData),
+        ),
         http.get("http://localhost:8089/api/varselbjelle/varsler", () =>
             HttpResponse.json(notificationsMock),
         ),

@@ -1,51 +1,63 @@
-import { afterAll, expect, test } from "bun:test";
-import renderIndex from "./render-index";
-import UnleashService from "./unleash-service";
-import { http, HttpResponse } from "msw";
-import { env } from "./env/server";
+import {
+    afterAll,
+    afterEach,
+    beforeAll,
+    beforeEach,
+    expect,
+    test,
+    describe,
+} from "bun:test";
+import { clearCache } from "decorator-shared/cache";
+import { HttpResponse, http } from "msw";
+import { SetupServerApi, setupServer } from "msw/node";
 import testData from "./content-test-data.json";
-import { setupServer } from "msw/node";
+import { env } from "./env/server";
+import renderIndex from "./render-index";
 
-const unleashService = new UnleashService({ mock: true });
+describe("render-index", () => {
+    let server: SetupServerApi;
 
-test("It masks the document from hotjar", async () => {
-    const server = setupServer(
-        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
-            HttpResponse.json(testData),
-        ),
-    );
-    server.listen();
-
+    beforeAll(() => {
+        server = setupServer(
+            http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+                HttpResponse.json(testData),
+            ),
+        );
+        server.listen();
+    });
+    beforeEach(() => clearCache());
+    afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
 
-    expect(
-        await renderIndex({
-            unleashService,
-            data: {
-                redirectToLogout: "https://www.nav.no",
-                context: "privatperson",
-                simple: false,
-                simpleHeader: false,
-                simpleFooter: false,
-                enforceLogin: false,
-                redirectToApp: false,
-                level: "Level3",
-                language: "en",
-                availableLanguages: [],
-                breadcrumbs: [],
-                utilsBackground: "transparent",
-                feedback: false,
-                chatbot: true,
-                chatbotVisible: false,
-                urlLookupTable: false,
-                shareScreen: false,
-                logoutUrl: "/logout",
-                maskHotjar: true,
-                logoutWarning: false,
-                redirectToUrl: "https://www.nav.no",
-                ssr: true,
-            },
-            url: "localhost:8089/",
-        }),
-    ).toContain("data-hj-supress");
+    test("It masks the document from hotjar", async () => {
+        expect(
+            await renderIndex({
+                data: {
+                    redirectToLogout: "https://www.nav.no",
+                    context: "privatperson",
+                    simple: false,
+                    simpleHeader: false,
+                    simpleFooter: false,
+                    enforceLogin: false,
+                    redirectToApp: false,
+                    level: "Level3",
+                    language: "en",
+                    availableLanguages: [],
+                    breadcrumbs: [],
+                    utilsBackground: "transparent",
+                    feedback: false,
+                    chatbot: true,
+                    chatbotVisible: false,
+                    urlLookupTable: false,
+                    shareScreen: false,
+                    logoutUrl: "/logout",
+                    maskHotjar: true,
+                    logoutWarning: false,
+                    redirectToUrl: "https://www.nav.no",
+                    ssr: true,
+                },
+                url: "localhost:8089/",
+            }),
+        ).toContain("data-hj-supress");
+    });
 });

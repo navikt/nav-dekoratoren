@@ -2,6 +2,8 @@ import { BoostEnviroment } from "decorator-shared/params";
 import { z } from "zod";
 
 export const serverSchema = z.object({
+    UNLEASH_SERVER_API_TOKEN: z.string(),
+    UNLEASH_SERVER_API_URL: z.string().url(),
     ENONICXP_SERVICES: z.string().url(),
     SEARCH_API: z.string().url(),
     XP_BASE_URL: z.string().url(),
@@ -19,6 +21,8 @@ export type RunningEnv = z.infer<typeof serverSchema>["ENV"];
 export type NodeEnv = z.infer<typeof serverSchema>["NODE_ENV"];
 
 export const serverEnv = {
+    UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
+    UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,
     ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
     SEARCH_API: process.env.SEARCH_API,
     XP_BASE_URL: process.env.XP_BASE_URL,

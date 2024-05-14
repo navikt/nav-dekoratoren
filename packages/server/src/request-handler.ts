@@ -1,5 +1,4 @@
 import { makeFrontpageUrl } from "decorator-shared/urls";
-import { getMainMenuLinks, mainMenuContextLinks } from "./menu";
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
 import { csrHandler } from "./csr";
@@ -9,12 +8,13 @@ import { assetsHandlers } from "./handlers/assets-handler";
 import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
+import { getMainMenuLinks, mainMenuContextLinks } from "./menu";
 import { archiveNotification } from "./notifications";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { searchHandler } from "./handlers/search-handler";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
-import UnleashService from "./unleash-service";
+import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
 
@@ -28,7 +28,7 @@ const rewriter = new HTMLRewriter().on("img", {
     },
 });
 
-const requestHandler = async (unleashService: UnleashService) => {
+const requestHandler = async () => {
     const handlersBuilder = new HandlerBuilder()
         .get("/api/ta", () =>
             getTaskAnalyticsConfig().then((result) => {
@@ -110,7 +110,7 @@ const requestHandler = async (unleashService: UnleashService) => {
         .get("/footer", async ({ query }) => {
             const data = validParams(query);
             const localTexts = texts[data.language];
-            const features = unleashService.getFeatures();
+            const features = getFeatures();
             const footer = await renderFooter({
                 features,
                 texts: localTexts,
@@ -123,7 +123,6 @@ const requestHandler = async (unleashService: UnleashService) => {
         })
         .get("/scripts", async ({ query }) => {
             const json = await jsonIndex({
-                unleashService,
                 data: validParams(query),
             });
 
@@ -131,7 +130,6 @@ const requestHandler = async (unleashService: UnleashService) => {
         })
         .get("/", async ({ url, query }) => {
             const index = await renderIndex({
-                unleashService,
                 data: validParams(query),
                 url: url.toString(),
             });
@@ -141,7 +139,7 @@ const requestHandler = async (unleashService: UnleashService) => {
         // Build header and footer for SSR
         .use([
             csrHandler({
-                features: unleashService.getFeatures(),
+                features: getFeatures(),
             }),
         ])
         .use(assetsHandlers)

@@ -1,21 +1,15 @@
+import { Params } from "decorator-shared/params";
+import { clientEnv, env } from "./env/server";
 import { texts } from "./texts";
+import { getFeatures } from "./unleash";
 import { cdnUrl, entryPointPath, getManifest } from "./views";
 import { DecoratorData } from "./views/decorator-data";
-import { clientEnv, env } from "./env/server";
-import { GetFeatures } from "./unleash-service";
-import { Params } from "decorator-shared/params";
 
-export default async ({
-    unleashService,
-    data,
-}: {
-    unleashService: GetFeatures;
-    data: Params;
-}) => {
+export default async ({ data }: { data: Params }) => {
     const { language } = data;
     const localTexts = texts[language];
 
-    const features = unleashService.getFeatures();
+    const features = getFeatures();
 
     const { links, scripts } = await getEnvAssetsRaw();
 

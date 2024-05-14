@@ -1,7 +1,6 @@
 import { env } from "./env/server";
 import setupMocks from "./mocks";
 import requestHandler from "./request-handler";
-import UnleashService from "./unleash-service";
 
 console.log("Starting decorator-next server");
 
@@ -13,7 +12,7 @@ if (env.NODE_ENV === "development") {
 const server = Bun.serve({
     port: 8089,
     development: env.NODE_ENV === "development",
-    fetch: await requestHandler(new UnleashService({})),
+    fetch: await requestHandler(),
 });
 
 console.log(

@@ -12,7 +12,7 @@ const TEN_SECONDS_MS = 10 * 1000;
 
 const menuCache = new ResponseCache<MenuNode[]>({ ttl: TEN_SECONDS_MS });
 
-export const fetchMenu = async (): Promise<MenuNode[]> => {
+const fetchMenu = async (): Promise<MenuNode[]> => {
     const menu = await menuCache.get("menu", () =>
         fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`).then(
             (response) => response.json() as Promise<MenuNode[]>,
