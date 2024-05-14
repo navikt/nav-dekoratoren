@@ -3,9 +3,9 @@ import { validParams } from "../validateParams";
 import { HandlerFunction, responseBuilder } from "../lib/handler";
 import { SearchHits } from "../views/search-hits";
 import { texts } from "../texts";
-import { ResultType, Result } from "../result";
 import { z } from "zod";
 import { SearchErrorView } from "decorator-shared/views/errors/search-error";
+import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 
 export type SearchResult = z.infer<typeof resultSchema>;
 
@@ -20,20 +20,6 @@ const resultSchema = z.object({
     ),
 });
 
-const parseAndValidateResult = (result: unknown): ResultType<SearchResult> => {
-    const validatedResult = resultSchema.safeParse(result);
-    if (!validatedResult.success) {
-        return Result.Error(
-            `Error parsing search results - ${validatedResult.error}`,
-        );
-    }
-
-    return Result.Ok({
-        ...validatedResult.data,
-        hits: validatedResult.data.hits.slice(0, 5),
-    });
-};
-
 const fetchSearch = async ({
     query,
     context,
@@ -42,20 +28,12 @@ const fetchSearch = async ({
     query: string;
     context: string;
     language: string;
-}): Promise<ResultType<SearchResult>> =>
-    fetch(
+}) =>
+    fetchAndValidateJson(
         `${env.SEARCH_API}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
-    )
-        .then((res) => {
-            if (!res.ok) {
-                return Result.Error(`${res.status} - ${res.statusText}`);
-            }
-
-            return res.json().then(parseAndValidateResult);
-        })
-        .catch((err) => {
-            return Result.Error(`Failed to fetch from search api - ${err}`);
-        });
+        undefined,
+        resultSchema,
+    );
 
 export const searchHandler: HandlerFunction = async ({ query }) => {
     const searchQuery = query.q;
@@ -70,10 +48,12 @@ export const searchHandler: HandlerFunction = async ({ query }) => {
         return responseBuilder().html(SearchErrorView().render()).build();
     }
 
+    const resultPruned = { ...result.data, hits: result.data.hits.slice(0, 5) };
+
     return responseBuilder()
         .html(
             SearchHits({
-                results: result.data,
+                results: resultPruned,
                 query: searchQuery,
                 texts: texts[validParams(query).language],
             }).render(),
