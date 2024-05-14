@@ -27,8 +27,6 @@ export default async ({
 
     const features = unleashService.getFeatures();
 
-    console.log("Rendering index");
-
     return Index({
         language,
         header: await renderHeader({
@@ -73,8 +71,6 @@ export function renderHeader({
         utilsBackground,
     });
 
-    console.log("Rendering header");
-
     return simple || simpleHeader
         ? SimpleHeader({
               texts,
@@ -98,7 +94,6 @@ export async function renderFooter({
     texts: Texts;
     features: Features;
 }) {
-    console.log("Rendering footer");
     return Footer({
         ...(data.simple || data.simpleFooter
             ? {
