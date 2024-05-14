@@ -8,8 +8,6 @@ import {
 } from "bun:test";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
-import ContentService from "./content-service";
-import content from "./content-test-data.json";
 import { env } from "./env/server";
 import requestHandler from "./request-handler";
 import UnleashService from "./unleash-service";
@@ -20,10 +18,7 @@ const req = (url: string, rest?: any) =>
         ...rest,
     });
 
-const fetch = await requestHandler(
-    new ContentService(() => Promise.resolve(content)),
-    new UnleashService({ mock: true }),
-);
+const fetch = await requestHandler(new UnleashService({ mock: true }));
 
 test("is alive", async () => {
     const response = await fetch(req("http://localhost/api/isAlive"));

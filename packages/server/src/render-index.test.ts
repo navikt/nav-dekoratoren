@@ -1,16 +1,12 @@
 import { expect, test } from "bun:test";
-import menu from "./content-test-data.json";
 import renderIndex from "./render-index";
-import ContentService from "./content-service";
 import UnleashService from "./unleash-service";
 
-const contentService = new ContentService(() => Promise.resolve(menu));
 const unleashService = new UnleashService({ mock: true });
 
 test("It masks the document from hotjar", async () => {
     expect(
         await renderIndex({
-            contentService,
             unleashService,
             data: {
                 redirectToLogout: "https://www.nav.no",

@@ -1,6 +1,3 @@
-import ContentService from "./content-service";
-import menu from "./content-test-data.json";
-import { fetchMenu } from "./enonic";
 import { env } from "./env/server";
 import setupMocks from "./mocks";
 import requestHandler from "./request-handler";
@@ -16,14 +13,7 @@ if (env.NODE_ENV === "development") {
 const server = Bun.serve({
     port: 8089,
     development: env.NODE_ENV === "development",
-    fetch: await requestHandler(
-        new ContentService(
-            process.env.NODE_ENV === "production"
-                ? fetchMenu
-                : () => Promise.resolve(menu),
-        ),
-        new UnleashService({}),
-    ),
+    fetch: await requestHandler(new UnleashService({})),
 });
 
 console.log(

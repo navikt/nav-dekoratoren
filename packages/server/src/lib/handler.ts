@@ -1,11 +1,6 @@
-import ContentService from "../content-service";
 import { csp } from "../csp";
 
 type Params = ConstructorParameters<typeof Response>;
-
-export type DefaultContext = {
-    contentService: ContentService;
-};
 
 class HandlerResponse<TData extends Params[0]> {
     headers = new Headers();
