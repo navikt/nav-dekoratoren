@@ -11,7 +11,7 @@ import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import testData from "./main-menu-mock.json";
 import { env } from "../env/server";
-import { clearCache } from "decorator-shared/cache";
+import { clearCache } from "../lib/response-cache";
 import { getSimpleFooterLinks } from "./main-menu";
 
 describe("getSimpleFooterLinks", () => {

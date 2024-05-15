@@ -1,4 +1,4 @@
-import { ResponseCache } from "decorator-shared/cache";
+import { StaleWhileRevalidateResponseCache } from "./lib/response-cache";
 import { OpsMessage } from "decorator-shared/types";
 import { env } from "./env/server";
 
@@ -6,7 +6,9 @@ const TEN_SECONDS_MS = 10 * 1000;
 
 const DRIFTSMELDINGER_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`;
 
-const opsMsgsCache = new ResponseCache<OpsMessage[]>({ ttl: TEN_SECONDS_MS });
+const opsMsgsCache = new StaleWhileRevalidateResponseCache<OpsMessage[]>({
+    ttl: TEN_SECONDS_MS,
+});
 
 // TODO: error handling and response validation
 export const fetchOpsMessages = async (): Promise<OpsMessage[]> => {

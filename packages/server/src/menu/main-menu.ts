@@ -1,4 +1,4 @@
-import { ResponseCache } from "decorator-shared/cache";
+import { StaleWhileRevalidateResponseCache } from "../lib/response-cache";
 import { Context, Language } from "decorator-shared/params";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import { clientEnv, env } from "../env/server";
@@ -11,9 +11,11 @@ type MainMenu = z.infer<typeof mainmenuSchema>;
 
 const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
-const ONE_MINUTE_MS = 10 * 1000;
+const ONE_MINUTE_MS = 60 * 1000;
 
-const menuCache = new ResponseCache<MainMenu>({ ttl: ONE_MINUTE_MS });
+const menuCache = new StaleWhileRevalidateResponseCache<MainMenu>({
+    ttl: ONE_MINUTE_MS,
+});
 
 const baseMainMenuNode = z.object({
     id: z.string(),
@@ -33,6 +35,7 @@ const fetchMenu = async (): Promise<MainMenu> => {
     const menuFromService = await menuCache.get("menu", () =>
         fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then(
             (res) => {
+                console.log("Fetched");
                 if (!res.ok) {
                     console.log(
                         `Error fetching menu from Enonic - ${res.error}`,

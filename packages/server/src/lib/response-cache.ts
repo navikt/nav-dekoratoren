@@ -3,7 +3,9 @@ type CacheItem<Type> = {
     expires: number;
 };
 
-export class ResponseCache<ValueType = unknown> {
+// This cache always returns a stale value (if it exists), while revalidating
+// the requested value in the background
+export class StaleWhileRevalidateResponseCache<ValueType = unknown> {
     private readonly ttl: number;
     private readonly cache = new Map<string, CacheItem<ValueType>>();
     private readonly pendingPromises = new Map<
@@ -26,12 +28,20 @@ export class ResponseCache<ValueType = unknown> {
         callback: () => Promise<ValueType | null>,
     ): Promise<ValueType | null> {
         const cachedItem = this.cache.get(key);
-        const now = Date.now();
 
-        if (cachedItem && cachedItem.expires > now) {
-            return Promise.resolve(cachedItem.value);
+        if (cachedItem && cachedItem.expires > Date.now()) {
+            return cachedItem.value;
         }
 
+        const promise = this.getPromise(key, callback);
+
+        return cachedItem?.value || promise;
+    }
+
+    private async getPromise(
+        key: string,
+        callback: () => Promise<ValueType | null>,
+    ) {
         const pendingPromise = this.pendingPromises.get(key);
         if (pendingPromise) {
             return pendingPromise;
@@ -43,14 +53,14 @@ export class ResponseCache<ValueType = unknown> {
                     throw Error("No value returned from callback");
                 }
 
-                this.cache.set(key, { value, expires: now + this.ttl });
+                this.cache.set(key, { value, expires: Date.now() + this.ttl });
                 return value;
             })
             .catch((e) => {
                 console.error(
                     `Callback error while fetching value for key ${key} - ${e}`,
                 );
-                return cachedItem?.value || null;
+                return this.cache.get(key)?.value || null;
             })
             .finally(() => {
                 this.pendingPromises.delete(key);
@@ -62,6 +72,6 @@ export class ResponseCache<ValueType = unknown> {
     }
 }
 
-const caches: ResponseCache[] = [];
+const caches: StaleWhileRevalidateResponseCache[] = [];
 
 export const clearCache = () => caches.forEach((cache) => cache.clear());
