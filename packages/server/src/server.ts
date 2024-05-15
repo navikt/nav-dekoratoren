@@ -27,12 +27,12 @@ export const app = new Hono();
 
 app.use(headers);
 
-app.get("/api/isAlive", (c) => c.text("OK"));
-app.get("/api/isReady", (c) => c.text("OK"));
-app.get("/api/ta", async (c) => {
+app.get("/api/isAlive", ({ text }) => text("OK"));
+app.get("/api/isReady", ({ text }) => text("OK"));
+app.get("/api/ta", async ({ json }) => {
     const result = await getTaskAnalyticsConfig();
     if (result.ok) {
-        return c.json(result.data);
+        return json(result.data);
     } else {
         throw new HTTPException(500, {
             message: result.error.message,
@@ -40,13 +40,13 @@ app.get("/api/ta", async (c) => {
         });
     }
 });
-app.post("/api/notifications/:id/archive", async (c) => {
+app.post("/api/notifications/:id/archive", async ({ req, json }) => {
     const result = await archiveNotification({
-        cookie: c.req.header("cookie") ?? "",
-        id: c.req.param("id"),
+        cookie: req.header("cookie") ?? "",
+        id: req.param("id"),
     });
     if (result.ok) {
-        return c.json(result.data);
+        return json(result.data);
     } else {
         throw new HTTPException(500, {
             message: result.error.message,
@@ -54,20 +54,20 @@ app.post("/api/notifications/:id/archive", async (c) => {
         });
     }
 });
-app.get("/api/search", async (c) =>
-    c.html(
+app.get("/api/search", async ({ req, html }) =>
+    html(
         await searchHandler({
-            ...validParams(c.req.query()),
-            query: c.req.query("q") ?? "",
+            ...validParams(req.query()),
+            query: req.query("q") ?? "",
         }),
     ),
 );
-app.get("/api/csp", (c) => c.json(cspDirectives));
-app.get("/main-menu", async (c) => {
-    const data = validParams(c.req.query());
+app.get("/api/csp", ({ json }) => json(cspDirectives));
+app.get("/main-menu", async ({ req, html }) => {
+    const data = validParams(req.query());
     const localTexts = texts[data.language];
 
-    return c.html(
+    return html(
         MainMenu({
             title:
                 data.context === "privatperson"
@@ -90,29 +90,29 @@ app.get("/main-menu", async (c) => {
         }).render(),
     );
 });
-app.get("/auth", async (c) =>
-    c.json(
+app.get("/auth", async ({ req, json }) =>
+    json(
         await authHandler({
-            params: validParams(c.req.query()),
-            cookie: c.req.header("Cookie") ?? "",
+            params: validParams(req.query()),
+            cookie: req.header("Cookie") ?? "",
         }),
     ),
 );
-app.get("/ops-messages", async (c) => c.json(await fetchOpsMessages()));
-app.get("/header", async (c) => {
-    const data = validParams(c.req.query());
+app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
+app.get("/header", async ({ req, html }) => {
+    const data = validParams(req.query());
 
-    return c.html(
+    return html(
         renderHeader({
             texts: texts[data.language],
             data,
         }).render(),
     );
 });
-app.get("/footer", async (c) => {
-    const data = validParams(c.req.query());
+app.get("/footer", async ({ req, html }) => {
+    const data = validParams(req.query());
 
-    return c.html(
+    return html(
         (
             await renderFooter({
                 features: getFeatures(),
@@ -122,11 +122,11 @@ app.get("/footer", async (c) => {
         ).render(),
     );
 });
-app.get("/env", async (c) => {
-    const data = validParams(c.req.query());
+app.get("/env", async ({ req, json }) => {
+    const data = validParams(req.query());
     const features = getFeatures();
 
-    return c.json({
+    return json({
         header: renderHeader({
             data,
             texts: texts[data.language],
@@ -147,19 +147,19 @@ app.get("/env", async (c) => {
         scripts: [cdnUrl((await getManifest())["src/main.ts"].file)],
     });
 });
-app.get("/client.js", async (c) => {
+app.get("/client.js", async ({ redirect }) => {
     const manifest = await getManifest();
-    c.redirect(cdnUrl(manifest["src/csr.ts"].file));
+    redirect(cdnUrl(manifest["src/csr.ts"].file));
 });
-app.get("/css/client.css", async (c) => {
+app.get("/css/client.css", async ({ redirect }) => {
     const manifest = await getManifest();
-    c.redirect(cdnUrl(manifest["src/main.ts"].css[0]));
+    redirect(cdnUrl(manifest["src/main.ts"].css[0]));
 });
-app.get("/", async (c) =>
-    c.html(
+app.get("/", async ({ req, html }) =>
+    html(
         await renderIndex({
-            data: validParams(c.req.query()),
-            url: c.req.url,
+            data: validParams(req.query()),
+            url: req.url,
         }),
     ),
 );
