@@ -1,16 +1,16 @@
+import { TaskAnalyticsSurvey } from "decorator-server/src/task-analytics-config";
+
 /*
  * Draws a random surveys from the array based on the selection probabilities set in the config
  * If the sum of probabilities is greater than 100%, we draw based on their relative values
  * */
 
-import { TaskAnalyticsSurveyConfig } from "decorator-shared/types";
-
 const selectionMinRange = 100;
 const defaultSelection = 100;
 
 export const taskAnalyticsSelectSurvey = (
-    surveys: TaskAnalyticsSurveyConfig[],
-): TaskAnalyticsSurveyConfig | null | undefined => {
+    surveys: TaskAnalyticsSurvey[],
+): TaskAnalyticsSurvey | null | undefined => {
     const selectionSum = surveys.reduce(
         (sum, survey) => sum + (survey.selection || defaultSelection),
         0,
