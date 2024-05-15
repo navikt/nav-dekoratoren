@@ -9,7 +9,6 @@ import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu";
-import { archiveNotification } from "./notifications";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { searchHandler } from "./handlers/search-handler";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
@@ -17,6 +16,7 @@ import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { MainMenu } from "./views/header/main-menu";
+import { notificationsArchiveHandler } from "./handlers/notifications-archive-handler";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -41,20 +41,7 @@ const requestHandler = async () => {
         )
         .get("/api/isAlive", () => new Response("OK"))
         .get("/api/isReady", () => new Response("OK"))
-        .post("/api/notifications/archive", async ({ request, query }) => {
-            const result = await archiveNotification({
-                request,
-                id: query.id,
-            });
-            if (result.ok) {
-                return responseBuilder().json(result.data).build();
-            } else {
-                return responseBuilder()
-                    .status(500)
-                    .json({ error: result.error.message })
-                    .build();
-            }
-        })
+        .post("/api/notifications/archive", notificationsArchiveHandler)
         .get("/api/search", searchHandler)
         .get("/main-menu", async ({ query }) => {
             const data = validParams(query);
