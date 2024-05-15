@@ -7,18 +7,18 @@ import {
 } from "./ta-cookies";
 import { Context } from "decorator-shared/params";
 import {
-    TaskAnalyticsSurveyConfig,
+    TaskAnalyticsSurvey,
     TaskAnalyticsUrlRule,
-} from "decorator-shared/types";
+} from "decorator-server/src/task-analytics-config";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const norwayTz = "Europe/Oslo";
 
-type Audience = Required<TaskAnalyticsSurveyConfig>["audience"][number];
-type Language = Required<TaskAnalyticsSurveyConfig>["language"][number];
-type Duration = TaskAnalyticsSurveyConfig["duration"];
+type Audience = Required<TaskAnalyticsSurvey>["audience"][number];
+type Language = Required<TaskAnalyticsSurvey>["language"][number];
+type Duration = TaskAnalyticsSurvey["duration"];
 
 const removeTrailingSlash = (str: string) => str.replace(/\/$/, "");
 
@@ -82,7 +82,7 @@ const isMatchingDuration = (duration: Duration) => {
 };
 
 export const taskAnalyticsIsMatchingSurvey = (
-    survey: TaskAnalyticsSurveyConfig,
+    survey: TaskAnalyticsSurvey,
     currentLanguage: Language,
     currentAudience: Audience,
     currentUrl: URL,
@@ -98,7 +98,7 @@ export const taskAnalyticsIsMatchingSurvey = (
 };
 
 export const taskAnalyticsGetMatchingSurveys = (
-    surveys: TaskAnalyticsSurveyConfig[],
+    surveys: TaskAnalyticsSurvey[],
     currentLanguage: Language,
     currentAudience: Context,
     currentUrl: URL,
