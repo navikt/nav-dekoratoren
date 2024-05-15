@@ -17,6 +17,7 @@ import { validParams } from "./validateParams";
 import { cdnUrl, getManifest } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { cspDirectives } from "./content-security-policy";
+import { HTTPException } from "hono/http-exception";
 
 if (env.NODE_ENV === "development") {
     console.log("Setting up mocks");
@@ -34,20 +35,24 @@ app.get("/api/ta", async (c) => {
     if (result.ok) {
         return c.json(result.data);
     } else {
-        throw result.error;
+        throw new HTTPException(500, {
+            message: result.error.message,
+            cause: result.error,
+        });
     }
 });
 app.post("/api/notifications/:id/archive", async (c) => {
-    const id = c.req.param("id");
-
     const result = await archiveNotification({
         cookie: c.req.header("cookie") ?? "",
-        id,
+        id: c.req.param("id"),
     });
     if (result.ok) {
         return c.json(result.data);
     } else {
-        return c.json({ error: result.error.message }).status(500);
+        throw new HTTPException(500, {
+            message: result.error.message,
+            cause: result.error,
+        });
     }
 });
 app.get("/api/search", async (c) =>
