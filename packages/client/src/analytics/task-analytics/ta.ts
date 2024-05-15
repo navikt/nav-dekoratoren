@@ -9,9 +9,10 @@ import {
     taskAnalyticsIsMatchingSurvey,
 } from "./ta-matching";
 import { Context, Language } from "decorator-shared/params";
-import { AppState, TaskAnalyticsSurveyConfig } from "decorator-shared/types";
+import { AppState } from "decorator-shared/types";
+import { TaskAnalyticsSurvey } from "decorator-server/src/task-analytics-config";
 
-let fetchedSurveys: TaskAnalyticsSurveyConfig[] | null = null;
+let fetchedSurveys: TaskAnalyticsSurvey[] | null = null;
 
 const taFallback = (...args: any[]) => {
     window.TA.q = window.TA.q || [];
@@ -25,7 +26,7 @@ const startSurvey = (surveyId: string) => {
 
 const startSurveyIfMatching = (
     surveyId: string,
-    surveys: TaskAnalyticsSurveyConfig[],
+    surveys: TaskAnalyticsSurvey[],
     currentLanguage: Language,
     currentAudience: Context,
     currentUrl: URL,
@@ -45,7 +46,7 @@ const startSurveyIfMatching = (
 };
 
 const findAndStartSurvey = (
-    surveys: TaskAnalyticsSurveyConfig[],
+    surveys: TaskAnalyticsSurvey[],
     state: AppState,
     currentUrl: URL,
 ) => {
@@ -129,6 +130,8 @@ export const startTaskAnalyticsSurvey = (
 export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
+
+    startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 
     window.addEventListener("historyPush", (e) =>
         startTaskAnalyticsSurvey(window.__DECORATOR_DATA__, e.detail.url),

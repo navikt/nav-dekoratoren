@@ -2,7 +2,6 @@ import { Context, Params } from "decorator-shared/params";
 import { AuthDataResponse } from "decorator-shared/auth";
 
 export type CustomEvents = {
-    "analytics-ready-event": void;
     activecontext: { context: Context };
     paramsupdated: {
         params: Partial<Params>;
@@ -28,18 +27,12 @@ export type MessageEvents =
           payload: Partial<Params>;
       };
 
-export type EventName = keyof CustomEvents;
-
 export function createEvent<TName extends keyof CustomEvents>(
     name: TName,
     options: CustomEventInit<CustomEvents[TName]>,
 ) {
     return new CustomEvent(name, options);
 }
-
-export const analyticsReady = new CustomEvent("analytics-ready-event", {
-    bubbles: true,
-});
 
 type PushStateArgs = Parameters<typeof window.history.pushState>;
 type ReplaceStateArgs = Parameters<typeof window.history.replaceState>;

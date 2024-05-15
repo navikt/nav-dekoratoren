@@ -18,6 +18,7 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
 const updateAuthData = () =>
     fetchAuthData().then((authResponse) => {
         dispatchEvent(createEvent("authupdated", { detail: authResponse }));
+        return authResponse;
     });
 
 const updateAuthOnContextSwitch = (
@@ -28,8 +29,8 @@ const updateAuthOnContextSwitch = (
     }
 };
 
-export const initAuth = () => {
-    updateAuthData().then(() => {
+export const initAuth = () =>
+    updateAuthData().then((authResponse) => {
         window.addEventListener("paramsupdated", updateAuthOnContextSwitch);
+        return authResponse.auth;
     });
-};
