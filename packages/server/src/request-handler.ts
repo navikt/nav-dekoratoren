@@ -1,4 +1,3 @@
-import { makeFrontpageUrl } from "decorator-shared/urls";
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
 import { csrHandler } from "./csr";
@@ -8,15 +7,14 @@ import { assetsHandlers } from "./handlers/assets-handler";
 import { authHandler } from "./handlers/auth-handler";
 import jsonIndex from "./json-index";
 import { HandlerBuilder, responseBuilder } from "./lib/handler";
-import { getMainMenuLinks, mainMenuContextLinks } from "./menu";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { searchHandler } from "./handlers/search-handler";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { MainMenu } from "./views/header/main-menu";
 import { notificationsArchiveHandler } from "./handlers/notifications-archive-handler";
+import { mainmenuHandler } from "./handlers/mainmenu-handler";
 
 const rewriter = new HTMLRewriter().on("img", {
     element: (element) => {
@@ -43,38 +41,7 @@ const requestHandler = async () => {
         .get("/api/isReady", () => new Response("OK"))
         .post("/api/notifications/archive", notificationsArchiveHandler)
         .get("/api/search", searchHandler)
-        .get("/main-menu", async ({ query }) => {
-            const data = validParams(query);
-            const localTexts = texts[data.language];
-
-            const frontPageUrl = makeFrontpageUrl({
-                context: data.context,
-                language: data.language,
-                baseUrl: env.XP_BASE_URL,
-            });
-
-            return new Response(
-                MainMenu({
-                    title:
-                        data.context === "privatperson"
-                            ? localTexts.how_can_we_help
-                            : localTexts[`rolle_${data.context}`],
-                    frontPageUrl,
-                    texts: localTexts,
-                    links: await getMainMenuLinks({
-                        language: data.language,
-                        context: data.context,
-                    }),
-                    contextLinks: await mainMenuContextLinks({
-                        context: data.context,
-                        bedrift: data.bedrift,
-                    }),
-                }).render(),
-                {
-                    headers: { "content-type": "text/html; charset=utf-8" },
-                },
-            );
-        })
+        .get("/main-menu", mainmenuHandler)
         .get("/auth", authHandler)
         .get("/ops-messages", async () => {
             return responseBuilder()

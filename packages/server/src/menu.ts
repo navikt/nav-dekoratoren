@@ -8,27 +8,29 @@ import {
 } from "decorator-shared/types";
 import { clientEnv, env } from "./env/server";
 
-const TEN_SECONDS_MS = 10 * 1000;
+const ONE_MINUTE_MS = 10 * 1000;
 
-const menuCache = new ResponseCache<MenuNode[]>({ ttl: TEN_SECONDS_MS });
+const menuCache = new ResponseCache<MenuNode[]>({ ttl: ONE_MINUTE_MS });
+
+const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
 const fetchMenu = async (): Promise<MenuNode[]> => {
     const menu = await menuCache.get("menu", () =>
-        fetch(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`).then(
-            (response) => response.json() as Promise<MenuNode[]>,
+        fetch(MENU_SERVICE_URL).then(
+            (res) => res.json() as Promise<MenuNode[]>,
         ),
     );
 
     return menu || [];
 };
 
-export const mainMenuContextLinks = async ({
+export const mainMenuContextLinks = ({
     context,
     bedrift,
 }: {
     context: Context;
     bedrift?: string;
-}): Promise<MainMenuContextLink[]> => {
+}): MainMenuContextLink[] => {
     switch (context) {
         case "privatperson":
             return [

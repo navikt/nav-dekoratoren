@@ -28,12 +28,8 @@ export class ResponseCache<ValueType = unknown> {
         const cachedItem = this.cache.get(key);
         const now = Date.now();
 
-        if (cachedItem) {
-            if (cachedItem.expires > now) {
-                return Promise.resolve(cachedItem.value);
-            } else {
-                this.cache.delete(key);
-            }
+        if (cachedItem && cachedItem.expires > now) {
+            return Promise.resolve(cachedItem.value);
         }
 
         const pendingPromise = this.pendingPromises.get(key);
@@ -54,7 +50,7 @@ export class ResponseCache<ValueType = unknown> {
                 console.error(
                     `Callback error while fetching value for key ${key} - ${e}`,
                 );
-                return null;
+                return cachedItem?.value || null;
             })
             .finally(() => {
                 this.pendingPromises.delete(key);
