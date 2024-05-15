@@ -128,36 +128,27 @@ app.get("/scripts", async (c) =>
 );
 app.get("/env", async (c) => {
     const data = validParams(c.req.query());
-    const localTexts = texts[data.language];
     const features = getFeatures();
 
-    const header = renderHeader({
-        data,
-        texts: localTexts,
-    });
-
-    const footer$ = renderFooter({
-        data,
-        texts: localTexts,
-        features,
-    });
-
-    const manifest$ = getManifest();
-
-    const [footer, manifest] = await Promise.all([footer$, manifest$]);
-
-    const scripts = [cdnUrl(manifest["src/main.ts"].file)];
-
     return c.json({
-        header: header.render(),
-        footer: footer.render(),
+        header: renderHeader({
+            data,
+            texts: texts[data.language],
+        }).render(),
+        footer: (
+            await renderFooter({
+                data,
+                texts: texts[data.language],
+                features,
+            })
+        ).render(),
         data: {
             texts,
             params: data,
             features,
             env: clientEnv,
         },
-        scripts,
+        scripts: [cdnUrl((await getManifest())["src/main.ts"].file)],
     });
 });
 app.get("/client.js", async (c) => {

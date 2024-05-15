@@ -7,21 +7,18 @@ import { DecoratorData } from "./views/decorator-data";
 
 export default async ({ data }: { data: Params }) => {
     const { language } = data;
-    const localTexts = texts[language];
 
-    const features = getFeatures();
-
-    const { links, scripts } = await getEnvAssetsRaw();
+    const { styles, scripts } = await getEnvAssetsRaw();
 
     return {
-        language: data.language,
-        scripts: scripts,
-        styles: links,
+        language,
+        scripts,
+        styles,
         inlineScripts: [
             DecoratorData({
-                texts: localTexts,
+                texts: texts[language],
                 params: data,
-                features,
+                features: getFeatures(),
                 environment: clientEnv,
             }).render(),
             `<script>
@@ -34,26 +31,22 @@ export default async ({ data }: { data: Params }) => {
 };
 
 const getEnvAssetsRaw = async (): Promise<{
-    links: string[];
+    styles: string[];
     scripts: string[];
 }> => {
     const manifest = await getManifest();
 
-    const css = {
-        production: manifest[entryPointPath].css.map(cdnUrl),
-        development: "",
-    };
-
-    const scripts = {
-        production: [cdnUrl(manifest[entryPointPath].file)],
-        development: [
-            "http://localhost:5173/@vite/client",
-            `http://localhost:5173/${entryPointPath}`,
-        ],
-    };
-
+    if (env.NODE_ENV === "development") {
+        return {
+            styles: [],
+            scripts: [
+                "http://localhost:5173/@vite/client",
+                `http://localhost:5173/${entryPointPath}`,
+            ],
+        };
+    }
     return {
-        links: css[env.NODE_ENV] as string[],
-        scripts: scripts[env.NODE_ENV],
+        styles: manifest[entryPointPath].css.map(cdnUrl),
+        scripts: [cdnUrl(manifest[entryPointPath].file)],
     };
 };
