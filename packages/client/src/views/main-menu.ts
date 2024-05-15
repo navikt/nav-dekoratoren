@@ -1,15 +1,16 @@
 import { Context } from "decorator-shared/params";
 import { CustomEvents } from "../events";
-import { ResponseCache } from "decorator-shared/cache";
+import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 import { param } from "../params";
 import { endpointUrlWithParams } from "../helpers/urls";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
 class MainMenu extends HTMLElement {
-    private readonly responseCache = new ResponseCache<string>({
-        ttl: TEN_MIN_MS,
-    });
+    private readonly responseCache =
+        new StaleWhileRevalidateResponseCache<string>({
+            ttl: TEN_MIN_MS,
+        });
 
     private async fetchMenuContent(context: Context) {
         const url = endpointUrlWithParams("/main-menu", { context });

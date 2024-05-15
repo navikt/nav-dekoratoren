@@ -2,42 +2,51 @@ import { analyticsEvents } from "../analytics/constants";
 import { logAmplitudeEvent } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
 
-class ArchivableNotificaton extends HTMLElement {
+class ArchivableNotification extends HTMLElement {
+    // TODO: hva skal vi vise hvis arkivering feiler?
+    private handleError() {}
+
     connectedCallback() {
         const id = this.getAttribute("data-id");
-        if (id) {
-            this.querySelector("button")?.addEventListener("click", () =>
-                fetch(
-                    endpointUrlWithParams("/api/notifications/archive", { id }),
-                    {
-                        method: "POST",
-                    },
-                ).then(() => {
-                    this.parentElement?.remove();
-                    logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
-                }),
-            );
+        if (!id) {
+            return;
         }
+
+        this.querySelector("button")?.addEventListener("click", () =>
+            fetch(endpointUrlWithParams("/api/notifications/archive", { id }), {
+                method: "POST",
+            }).then((res) => {
+                if (!res.ok) {
+                    this.handleError();
+                    return;
+                }
+
+                this.parentElement?.remove();
+                logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
+            }),
+        );
     }
 }
 
-customElements.define("archivable-notification", ArchivableNotificaton);
+customElements.define("archivable-notification", ArchivableNotification);
 
 class LinkNotification extends HTMLElement {
     connectedCallback() {
-        const a = this.querySelector("a");
-        if (a) {
-            a.addEventListener("click", () => {
-                logAmplitudeEvent("navigere", {
-                    komponent:
-                        this.getAttribute("data-type") === "task"
-                            ? "varsel-oppgave"
-                            : "varsel-beskjed",
-                    kategori: "varselbjelle",
-                    destinasjon: a.href,
-                });
-            });
+        const anchorElement = this.querySelector("a");
+        if (!anchorElement) {
+            return;
         }
+
+        anchorElement.addEventListener("click", () => {
+            logAmplitudeEvent("navigere", {
+                komponent:
+                    this.getAttribute("data-type") === "task"
+                        ? "varsel-oppgave"
+                        : "varsel-beskjed",
+                kategori: "varselbjelle",
+                destinasjon: anchorElement.href,
+            });
+        });
     }
 }
 

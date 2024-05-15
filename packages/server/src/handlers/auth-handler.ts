@@ -15,7 +15,6 @@ import { getNotifications } from "../notifications";
 import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
 import { AnchorIconButton } from "../views/icon-button";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
-import html from "decorator-shared/html";
 import { Language, type Params } from "decorator-shared/params";
 
 const notAuthenticatedResponse = (language: Language) =>
@@ -69,14 +68,13 @@ const buildUsermenuHtml = async (
             const notificationsResult = await getNotifications({
                 request,
             });
-            if (!notificationsResult.ok) {
-                return html` <div>Error</div>`;
-            }
 
             return UserMenuDropdown({
                 texts: localTexts,
                 name: auth.name,
-                notifications: notificationsResult.data,
+                notifications: notificationsResult.ok
+                    ? notificationsResult.data
+                    : null,
                 level: `Level${auth.securityLevel}`,
                 logoutUrl: logoutUrl as string,
                 minsideUrl: clientEnv.MIN_SIDE_URL,

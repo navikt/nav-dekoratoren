@@ -1,7 +1,7 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
 import { Result, ResultType } from "./result";
-import { ResponseCache } from "decorator-shared/cache";
+import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 
 const configSchema = z.array(
     z.object({
@@ -31,7 +31,7 @@ type TaskAnalyticsSurveyConfig = z.infer<typeof configSchema>;
 
 const TEN_SECONDS_MS = 10 * 1000;
 
-const cache = new ResponseCache<TaskAnalyticsSurveyConfig>({
+const cache = new StaleWhileRevalidateResponseCache<TaskAnalyticsSurveyConfig>({
     ttl: TEN_SECONDS_MS,
 });
 

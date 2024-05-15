@@ -134,7 +134,9 @@
                                             },
                                             {
                                                 "displayName": "Utbetalinger",
-                                                "path": "/no/nav-og-samfunn/kontakt-nav/utbetalinger/utbetalinger",
+                                                "path": "/utbetalinger",
+                                                "displayLock": false,
+                                                "flatten": false,
                                                 "id": "b3a2b780-1243-41b1-bd63-e47f014762a4",
                                                 "hasChildren": false,
                                                 "children": []
@@ -150,9 +152,19 @@
                                             },
                                             {
                                                 "displayName": "Meldekort",
-                                                "path": "/no/person/arbeid/dagpenger-ved-arbeidsloshet-og-permittering/meldekort-hvordan-gjor-du-det",
+                                                "path": "/send-meldekort",
                                                 "displayLock": false,
+                                                "flatten": false,
                                                 "id": "bcd4d2ab-de95-4904-9cf2-476652dd0150",
+                                                "hasChildren": false,
+                                                "children": []
+                                            },
+                                            {
+                                                "displayName": "Registrer deg som arbeidssøker",
+                                                "path": "/registrer-arbeidssoker",
+                                                "displayLock": false,
+                                                "flatten": false,
+                                                "id": "a1c3a620-28e6-41ca-a40c-2a67081213b7",
                                                 "hasChildren": false,
                                                 "children": []
                                             },
@@ -291,7 +303,7 @@
                                     },
                                     {
                                         "displayName": "Permittere og nedbemanne",
-                                        "path": "/nav.no-ressurser/filer/bedrift/permittering-og-omstilling",
+                                        "path": "",
                                         "displayLock": false,
                                         "flatten": false,
                                         "id": "fd830811-1371-48d0-a5a5-04c47b4609d8",
@@ -379,7 +391,9 @@
                                             },
                                             {
                                                 "displayName": "Aa-registeret",
-                                                "path": "/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen",
+                                                "path": "/arbeidsgiver/aa-registeret",
+                                                "displayLock": false,
+                                                "flatten": false,
                                                 "id": "847513c4-d85e-46cd-aca5-ad00f78a30d2",
                                                 "hasChildren": false,
                                                 "children": []
@@ -404,14 +418,25 @@
                                         "children": [
                                             {
                                                 "displayName": "Leger og andre behandlere",
-                                                "path": "/no/nav-og-samfunn/samarbeid/leger-og-andre-behandlere",
+                                                "path": "/samarbeidspartner/lege-andre-behandlere",
+                                                "displayLock": false,
+                                                "flatten": false,
                                                 "id": "763009d7-a071-4fda-8602-599b5aab44ae",
                                                 "hasChildren": false,
                                                 "children": []
                                             },
                                             {
+                                                "displayName": "Bostyrer",
+                                                "path": "/samarbeidspartner/er-bostyrer",
+                                                "displayLock": false,
+                                                "flatten": false,
+                                                "id": "80eb6ff3-3d18-4fc1-bada-a5c65d6c3b2b",
+                                                "hasChildren": false,
+                                                "children": []
+                                            },
+                                            {
                                                 "displayName": "Tiltaksarrangør",
-                                                "path": "/samarbeidspartner/tiltaksarrangor",
+                                                "path": "/samarbeidspartner/er-tiltaksarrangor",
                                                 "displayLock": false,
                                                 "flatten": false,
                                                 "id": "c0e35520-c911-444c-a67c-46d2d25ff602",
@@ -420,7 +445,7 @@
                                             },
                                             {
                                                 "displayName": "Hjelpemiddelformidler",
-                                                "path": "/no/nav-og-samfunn/samarbeid/hjelpemidler",
+                                                "path": "/samarbeidspartner/hjelpemiddelformidler",
                                                 "displayLock": false,
                                                 "flatten": false,
                                                 "id": "3a48480b-8cf5-4e9b-8255-486e48f9d5b4",
@@ -428,17 +453,17 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Bostyrer",
-                                                "path": "/samarbeidspartner/bostyrer",
+                                                "displayName": "Optiker eller øyelege",
+                                                "path": "/samarbeidspartner/oyelege-optiker",
                                                 "displayLock": false,
                                                 "flatten": false,
-                                                "id": "80eb6ff3-3d18-4fc1-bada-a5c65d6c3b2b",
+                                                "id": "73c43ca4-a543-4e39-9de1-a3afcb9302eb",
                                                 "hasChildren": false,
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Ansatt i NAV-kontor, kommunen eller fylkeskommunen",
-                                                "path": "/no/nav-og-samfunn/samarbeid/for-kommunen",
+                                                "displayName": "Ansatt i kommunen eller fylkeskommunen",
+                                                "path": "/samarbeidspartner/kommunen-fylkeskommunen",
                                                 "displayLock": false,
                                                 "flatten": false,
                                                 "id": "175cf6ee-2ab3-41f0-b748-acac59674406",
@@ -446,8 +471,8 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Tillitsvalgt eller verneombud",
-                                                "path": "/samarbeidspartner/tillitsvalgt-verneombud",
+                                                "displayName": "Andre samarbeidspartnere",
+                                                "path": "/samarbeidspartner/andre",
                                                 "displayLock": false,
                                                 "flatten": false,
                                                 "id": "51ae4003-0e6e-4611-9b07-9c5b6b1a930d",
@@ -469,36 +494,6 @@
                                                 "displayLock": false,
                                                 "flatten": false,
                                                 "id": "d27043f4-d7f8-4d9a-a16e-464989262056",
-                                                "hasChildren": false,
-                                                "children": []
-                                            },
-                                            {
-                                                "displayName": "Tilskudd gjennom NAV",
-                                                "path": "/no/nav-og-samfunn/samarbeid/tilskudd-gjennom-nav",
-                                                "id": "abfbc074-1d42-4729-a977-efcf1c06f012",
-                                                "hasChildren": false,
-                                                "children": []
-                                            },
-                                            {
-                                                "displayName": "Arbeid, psykisk helse og samarbeidspartnere",
-                                                "path": "/no/nav-og-samfunn/samarbeid/arbeid-og-psykisk-helse",
-                                                "id": "7aacb881-6008-4404-9d71-c89297fb018a",
-                                                "hasChildren": false,
-                                                "children": []
-                                            },
-                                            {
-                                                "displayName": "Arbeidslivskriminalitet og trygdesvindel",
-                                                "path": "/no/nav-og-samfunn/samarbeid/arbeidslivskriminalitet-og-trygdesvindel",
-                                                "id": "bc89de77-54a3-4575-b96e-768ab6719a3c",
-                                                "hasChildren": false,
-                                                "children": []
-                                            },
-                                            {
-                                                "displayName": "Brukermedvirkning",
-                                                "path": "/samarbeidspartner/brukermedvirkning",
-                                                "displayLock": false,
-                                                "flatten": false,
-                                                "id": "76cb9ada-a525-4b01-81cc-6251d0ebbc82",
                                                 "hasChildren": false,
                                                 "children": []
                                             }
@@ -635,7 +630,7 @@
                                     },
                                     {
                                         "displayName": "Din CV",
-                                        "path": "https://arbeidsplassen.nav.no/minside",
+                                        "path": "https://arbeidsplassen.nav.no/min-side",
                                         "displayLock": false,
                                         "isMyPageMenu": true,
                                         "id": "d10cdf61-dfa3-4d4a-a0ef-60cbec525ab4",
@@ -816,7 +811,7 @@
                                             },
                                             {
                                                 "displayName": "Klage, tilbakemelding, ros",
-                                                "path": "/person/kontakt-oss/tilbakemeldinger",
+                                                "path": "/person/kontakt-oss/nb/tilbakemeldinger",
                                                 "displayLock": false,
                                                 "id": "f560b646-5699-421d-b77f-1c7101e4797f",
                                                 "hasChildren": false,
@@ -865,7 +860,9 @@
                                             },
                                             {
                                                 "displayName": "Om NAV",
-                                                "path": "/no/nav-og-samfunn/om-nav/om-nav",
+                                                "path": "/annet/om-nav",
+                                                "displayLock": false,
+                                                "flatten": false,
                                                 "id": "1c679d24-8679-4b16-abd1-be71a6937ed2",
                                                 "hasChildren": false,
                                                 "children": []
@@ -947,7 +944,7 @@
                                             },
                                             {
                                                 "displayName": "Klage og tilbakemeldinger",
-                                                "path": "/person/kontakt-oss/tilbakemeldinger",
+                                                "path": "/person/kontakt-oss/nb/tilbakemeldinger",
                                                 "id": "a1dd5056-9af1-4148-a7a8-cde8c3b092a9",
                                                 "hasChildren": false,
                                                 "children": []
@@ -987,15 +984,18 @@
                                             },
                                             {
                                                 "displayName": "Om NAV",
-                                                "path": "/no/nav-og-samfunn/om-nav/om-nav",
+                                                "path": "/annet/om-nav",
+                                                "displayLock": false,
+                                                "flatten": false,
                                                 "id": "154f9fbc-20ca-4b4a-a2ec-20123786c8f8",
                                                 "hasChildren": false,
                                                 "children": []
                                             },
                                             {
                                                 "displayName": "Jobb i NAV",
-                                                "path": "/no/nav-og-samfunn/om-nav/sok-jobb-i-nav",
+                                                "path": "/sok-jobb-i-nav",
                                                 "displayLock": false,
+                                                "flatten": false,
                                                 "id": "46cd7642-60c7-485f-97d7-8be68a080d5a",
                                                 "hasChildren": false,
                                                 "children": []
@@ -1074,7 +1074,7 @@
                                             },
                                             {
                                                 "displayName": "Klage og tilbakemeldinger",
-                                                "path": "/person/kontakt-oss/tilbakemeldinger",
+                                                "path": "/person/kontakt-oss/nb/tilbakemeldinger",
                                                 "id": "ec978347-41fa-41b5-8f54-f961795da25e",
                                                 "hasChildren": false,
                                                 "children": []
@@ -1115,14 +1115,17 @@
                                             {
                                                 "displayName": "Om NAV",
                                                 "path": "/no/nav-og-samfunn/om-nav/om-nav",
+                                                "displayLock": false,
+                                                "flatten": false,
                                                 "id": "faa2b268-ef0f-4316-aa38-679b25ae9d45",
                                                 "hasChildren": false,
                                                 "children": []
                                             },
                                             {
                                                 "displayName": "Jobb i NAV",
-                                                "path": "/no/nav-og-samfunn/om-nav/sok-jobb-i-nav",
+                                                "path": "/sok-jobb-i-nav",
                                                 "displayLock": false,
+                                                "flatten": false,
                                                 "id": "c2ad3aa1-e20d-4be0-bc87-6a733a50e109",
                                                 "hasChildren": false,
                                                 "children": []
@@ -1163,10 +1166,19 @@
                         "hasChildren": true,
                         "children": [
                             {
-                                "displayName": "Personvern",
+                                "displayName": "Personvern og informasjonskapsler",
                                 "path": "/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten",
                                 "displayLock": false,
                                 "id": "431518f0-99f7-4704-bbac-326bad6ac38e",
+                                "hasChildren": false,
+                                "children": []
+                            },
+                            {
+                                "displayName": "Svindelforsøk og sikkerhet",
+                                "path": "/svindel",
+                                "displayLock": false,
+                                "flatten": false,
+                                "id": "5cbedb3a-b9e0-4b99-aff1-4e12d695500c",
                                 "hasChildren": false,
                                 "children": []
                             },
@@ -1188,6 +1200,8 @@
     {
         "displayName": "en",
         "path": "/en",
+        "displayLock": false,
+        "flatten": false,
         "id": "264fe25b-c4e0-4991-87a4-f1037309e8d9",
         "hasChildren": true,
         "children": [
@@ -1324,7 +1338,7 @@
                                     },
                                     {
                                         "displayName": "Your CV (in Norwegian)",
-                                        "path": "https://arbeidsplassen.nav.no/minside",
+                                        "path": "https://arbeidsplassen.nav.no/min-side",
                                         "displayLock": false,
                                         "isMyPageMenu": true,
                                         "id": "4d327869-8fca-45c6-9464-ab4a02330f98",
@@ -1452,81 +1466,100 @@
                         "hasChildren": true,
                         "children": [
                             {
-                                "displayName": "Work and stay in Norway",
-                                "path": "/en/home/work-and-stay-in-norway",
-                                "id": "4034ae9f-981a-4ea4-9311-eade71ae098b",
+                                "displayName": "Shortcuts",
+                                "path": "/en/home/about-nav",
+                                "displayLock": false,
+                                "flatten": false,
+                                "id": "750d0be4-5351-48d7-99e1-b367a403ae19",
                                 "hasChildren": true,
                                 "children": [
                                     {
-                                        "displayName": "Work in Norway",
-                                        "path": "/en/home/work-and-stay-in-norway/work-in-norway",
-                                        "id": "7d765f26-ce01-4f2f-b644-42ae75fad947",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Employee on the Norwegian continental shelf",
-                                        "path": "/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf",
-                                        "id": "a27d8a44-5159-4b23-bfe5-9f11b079cb2b",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Foreign students in Norway",
-                                        "path": "/en/home/work-and-stay-in-norway/foreign-students-in-norway",
-                                        "id": "4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Tourists in Norway",
-                                        "path": "/en/home/work-and-stay-in-norway/tourists-in-norway",
-                                        "id": "117d0621-476c-42d6-9789-26f898250225",
-                                        "hasChildren": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "displayName": "Benefits and services",
-                                "path": "/en/home/benefits-and-services",
-                                "id": "f855f440-9267-4b2c-8f27-6b9eec6b2e68",
-                                "hasChildren": true,
-                                "children": [
-                                    {
-                                        "displayName": "Information about NAV's services and benefits",
-                                        "path": "/en/home/benefits-and-services/information-about-nav-s-services-and-benefits",
-                                        "id": "2bdcfe94-5b37-462f-b063-3d2b1c56cac6",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Unemployment benefits",
-                                        "path": "https://www.nav.no/arbeid/en/dagpenger-og-eos",
+                                        "displayName": "Applications and forms",
+                                        "path": "/soknader/en",
                                         "displayLock": false,
                                         "flatten": false,
-                                        "id": "50a2ecf5-dd14-4839-a05f-b97a2c98620f",
+                                        "id": "1a9bce8f-e99c-4e54-8290-f8b0acc9add2",
                                         "hasChildren": false,
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Family related benefits",
-                                        "path": "/en/home/benefits-and-services/family-related-benefits",
-                                        "id": "f30dd799-91aa-4c50-a470-969f5087d34c",
+                                        "displayName": "Submitting additional documentation",
+                                        "path": "/ettersende/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "06f5cb05-0433-410f-b1fd-e0ff4180004a",
                                         "hasChildren": false,
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Pensions and pension applications from outside Norway",
-                                        "path": "/en/home/benefits-and-services/pensions-and-pension-application-from-outside-norway",
-                                        "id": "7369c78c-ecde-4704-acbe-08d42366bbd2",
+                                        "displayName": "Financial support and services from A to Z",
+                                        "path": "/tjenester/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "35022d2c-a54e-4dc0-a594-66de8e53d613",
                                         "hasChildren": false,
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Employment status form - how do you use it?",
-                                        "path": "/en/home/benefits-and-services/employment-status-form-how-do-you-use-it",
+                                        "displayName": "Right to complain",
+                                        "path": "/klagerettigheter/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Notify us of any changes",
+                                        "path": "/endringer/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "473b8664-0820-4af1-a62c-e15c2d00dcea",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Payment dates",
+                                        "path": "/utbetalingsdatoer/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "6ea62452-1277-4ec5-941c-9e77f1fa48ce",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Case processing times",
+                                        "path": "/saksbehandlingstider/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "93b4dccb-fe84-42a3-8989-660fb2df8584",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Rates",
+                                        "path": "/satser/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "954fdb02-3d1f-404f-a042-9bf71142021f",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Employment status form",
+                                        "path": "/send-meldekort/en",
+                                        "displayLock": false,
+                                        "flatten": false,
                                         "id": "33d17dc4-39dd-44c9-82e1-516ed4e583ed",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Register as a Job Seeker",
+                                        "path": "https://www.nav.no/arbeid/registrering/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "9550b2de-d669-4d76-9c3e-7dce3204e00e",
                                         "hasChildren": false,
                                         "children": []
                                     }
@@ -1562,15 +1595,6 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Appeals",
-                                        "path": "/klagerettigheter/en",
-                                        "displayLock": false,
-                                        "flatten": false,
-                                        "id": "ee3f95db-9c5b-4c6b-8c86-0449b7cb0ceb",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
                                         "displayName": "Working abroad",
                                         "path": "/en/home/rules-and-regulations/working-abroad",
                                         "id": "280069da-b8f9-4871-b681-ccc339146a3a",
@@ -1587,11 +1611,67 @@
                                 ]
                             },
                             {
+                                "displayName": "Work and stay in Norway",
+                                "path": "/en/home/work-and-stay-in-norway",
+                                "id": "4034ae9f-981a-4ea4-9311-eade71ae098b",
+                                "hasChildren": true,
+                                "children": [
+                                    {
+                                        "displayName": "Work in Norway",
+                                        "path": "https://www.workinnorway.no/",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "7d765f26-ce01-4f2f-b644-42ae75fad947",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Employee on the Norwegian continental shelf",
+                                        "path": "/en/home/work-and-stay-in-norway/employee-on-the-norwegian-continental-shelf",
+                                        "id": "a27d8a44-5159-4b23-bfe5-9f11b079cb2b",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Foreign students in Norway",
+                                        "path": "/en/home/work-and-stay-in-norway/foreign-students-in-norway",
+                                        "id": "4cf3fd28-bcc3-4048-9df9-ab59ed14e9eb",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Tourists in Norway",
+                                        "path": "/en/home/work-and-stay-in-norway/tourists-in-norway",
+                                        "id": "117d0621-476c-42d6-9789-26f898250225",
+                                        "hasChildren": false,
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
                                 "displayName": "Employers",
                                 "path": "/en/home/employers",
                                 "id": "e7dbd656-7c3f-4d29-bc75-489df9b66cc8",
                                 "hasChildren": true,
                                 "children": [
+                                    {
+                                        "displayName": "Applications and forms for employers",
+                                        "path": "/arbeidsgiver/soknader/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "4284b86f-a92b-4069-8fce-928ac6671760",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
+                                    {
+                                        "displayName": "Complaint for employers",
+                                        "path": "/arbeidsgiver/klage/en",
+                                        "displayLock": false,
+                                        "flatten": false,
+                                        "id": "2bc7a169-e828-46ce-903d-7fde7bc8abda",
+                                        "hasChildren": false,
+                                        "children": []
+                                    },
                                     {
                                         "displayName": "Recruit in Norway?",
                                         "path": "/en/home/employers/recruit-in-norway",
@@ -1601,17 +1681,10 @@
                                     },
                                     {
                                         "displayName": "Recruiting from the EU/EEA",
-                                        "path": "/employers/rekruttere-eu-eos/en",
+                                        "path": "/arbeidsgiver/rekruttere-eu-eos/en",
                                         "displayLock": false,
                                         "flatten": false,
                                         "id": "d4750660-17c2-43de-960f-7ad6907674fa",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "What is the NAV State Register of Employers and Employees (Aa-registeret)",
-                                        "path": "/en/home/employers/nav-state-register-of-employers-and-employees",
-                                        "id": "b76014b0-8c04-44e0-99a4-fbcd0aa7a282",
                                         "hasChildren": false,
                                         "children": []
                                     },
@@ -1623,78 +1696,13 @@
                                         "id": "cf749f0c-144f-4f51-b327-49d37c447ce1",
                                         "hasChildren": false,
                                         "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "displayName": "About NAV",
-                                "path": "/en/home/about-nav",
-                                "id": "750d0be4-5351-48d7-99e1-b367a403ae19",
-                                "hasChildren": true,
-                                "children": [
+                                    },
                                     {
-                                        "displayName": "Contact us",
-                                        "path": "/kontaktoss/en",
+                                        "displayName": "State register of employers and employees",
+                                        "path": "/arbeidsgiver/aa-registeret/en",
                                         "displayLock": false,
                                         "flatten": false,
-                                        "id": "b94f13b1-3010-432d-954f-43a90ea122ce",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Payment dates",
-                                        "path": "/utbetalingsdatoer/en",
-                                        "displayLock": false,
-                                        "flatten": false,
-                                        "id": "6ea62452-1277-4ec5-941c-9e77f1fa48ce",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Case processing times",
-                                        "path": "/saksbehandlingstider/en",
-                                        "displayLock": false,
-                                        "flatten": false,
-                                        "id": "93b4dccb-fe84-42a3-8989-660fb2df8584",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Rates",
-                                        "path": "/satser/en",
-                                        "displayLock": false,
-                                        "flatten": false,
-                                        "id": "954fdb02-3d1f-404f-a042-9bf71142021f",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "What is NAV?",
-                                        "path": "/en/home/about-nav/what-is-nav",
-                                        "id": "35022d2c-a54e-4dc0-a594-66de8e53d613",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Notify us of any changes",
-                                        "path": "/endringer/en",
-                                        "displayLock": false,
-                                        "flatten": false,
-                                        "id": "473b8664-0820-4af1-a62c-e15c2d00dcea",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Forms and applications",
-                                        "path": "/soknader/en/person",
-                                        "id": "1a9bce8f-e99c-4e54-8290-f8b0acc9add2",
-                                        "hasChildren": false,
-                                        "children": []
-                                    },
-                                    {
-                                        "displayName": "Search tips",
-                                        "path": "/en/home/about-nav/search-tips",
-                                        "id": "06f5cb05-0433-410f-b1fd-e0ff4180004a",
+                                        "id": "b76014b0-8c04-44e0-99a4-fbcd0aa7a282",
                                         "hasChildren": false,
                                         "children": []
                                     }
@@ -1793,8 +1801,9 @@
                                     },
                                     {
                                         "displayName": "Work with us",
-                                        "path": "/no/nav-og-samfunn/om-nav/sok-jobb-i-nav",
+                                        "path": "/sok-jobb-i-nav",
                                         "displayLock": false,
+                                        "flatten": false,
                                         "id": "9b29760e-74ca-43c8-8132-d3034b1640df",
                                         "hasChildren": false,
                                         "children": []
@@ -1810,7 +1819,7 @@
                                 "children": [
                                     {
                                         "displayName": "Norwegian",
-                                        "path": "/no",
+                                        "path": "/no/en",
                                         "displayLock": false,
                                         "id": "cde7caa1-b9ff-4798-8132-3d3c6975ccd8",
                                         "hasChildren": false,
@@ -1831,11 +1840,13 @@
                     {
                         "displayName": "Personvern",
                         "path": "",
+                        "displayLock": false,
+                        "flatten": false,
                         "id": "2b7912c8-30c4-47ce-a8a7-1bd0329c4c6e",
                         "hasChildren": true,
                         "children": [
                             {
-                                "displayName": "Privacy",
+                                "displayName": "Privacy and cookies",
                                 "path": "/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten",
                                 "displayLock": false,
                                 "flatten": false,
@@ -1844,7 +1855,16 @@
                                 "children": []
                             },
                             {
-                                "displayName": "Accessibility",
+                                "displayName": "Fraud attempts and security",
+                                "path": "/svindel/en",
+                                "displayLock": false,
+                                "flatten": false,
+                                "id": "83423dff-1d82-4cc2-8be0-ee3f23449f57",
+                                "hasChildren": false,
+                                "children": []
+                            },
+                            {
+                                "displayName": "Accessibility at nav.no",
                                 "path": "/tilgjengelighet/en",
                                 "displayLock": false,
                                 "flatten": false,
@@ -1932,7 +1952,7 @@
                                     },
                                     {
                                         "displayName": "Klage, tilbakemelding, ros",
-                                        "path": "/person/kontakt-oss/tilbakemeldinger",
+                                        "path": "/person/kontakt-oss/nb/tilbakemeldinger",
                                         "displayLock": false,
                                         "id": "c0c65749-34f9-4137-855e-052954248f8e",
                                         "hasChildren": false,
@@ -1972,7 +1992,7 @@
                                     },
                                     {
                                         "displayName": "Om NAV",
-                                        "path": "/no/nav-og-samfunn/om-nav/om-nav",
+                                        "path": "/annet/om-nav",
                                         "displayLock": false,
                                         "flatten": false,
                                         "id": "df37b52f-361f-47ca-bfb0-218d48d9c23b",
@@ -1981,8 +2001,9 @@
                                     },
                                     {
                                         "displayName": "Jobbe i NAV",
-                                        "path": "/no/nav-og-samfunn/om-nav/sok-jobb-i-nav",
+                                        "path": "/sok-jobb-i-nav",
                                         "displayLock": false,
+                                        "flatten": false,
                                         "id": "414435ec-d974-453d-8153-755571b303ce",
                                         "hasChildren": false,
                                         "children": []
@@ -2031,7 +2052,7 @@
                             },
                             {
                                 "displayName": "Tilgjengelighet",
-                                "path": "/no/nav-og-samfunn/kontakt-nav/teknisk-brukerstotte/nyttig-a-vite/tilgjengelighet",
+                                "path": "",
                                 "displayLock": false,
                                 "id": "7febee78-52a5-4acc-a90d-4ef90de7b77a",
                                 "hasChildren": false,
