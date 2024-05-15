@@ -164,4 +164,6 @@ app.get("/", async (c) =>
     ),
 );
 
+app.route("/decorator-next", app);
+
 export default app;
