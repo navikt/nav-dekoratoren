@@ -1,9 +1,19 @@
-import { analyticsReady } from "../events";
-import { initAmplitude } from "./amplitude";
+import { initAmplitude, logPageView } from "./amplitude";
 import { initTaskAnalytics } from "./task-analytics/ta";
+import { Auth } from "decorator-shared/auth";
 
-export const initAnalytics = () => {
+export const initAnalytics = (auth: Auth) => {
     initAmplitude();
     initTaskAnalytics();
-    dispatchEvent(analyticsReady);
+
+    logPageView(window.__DECORATOR_DATA__.params, auth);
+
+    window.addEventListener("historyPush", () =>
+        // TODO: can this be solved in a more dependable manner?
+        // setTimeout to ensure window.location is updated after the history push
+        setTimeout(
+            () => logPageView(window.__DECORATOR_DATA__.params, auth),
+            250,
+        ),
+    );
 };

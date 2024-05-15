@@ -3,9 +3,9 @@ type CacheItem<Type> = {
     expires: number;
 };
 
-// This cache always returns a stale value (if it exists), while revalidating
+// This cache returns a stale value (if it exists), while revalidating
 // the requested value in the background
-export class StaleWhileRevalidateResponseCache<ValueType = unknown> {
+export class ResponseCache<ValueType = unknown> {
     private readonly ttl: number;
     private readonly cache = new Map<string, CacheItem<ValueType>>();
     private readonly pendingPromises = new Map<
@@ -72,6 +72,6 @@ export class StaleWhileRevalidateResponseCache<ValueType = unknown> {
     }
 }
 
-const caches: StaleWhileRevalidateResponseCache[] = [];
+const caches: ResponseCache[] = [];
 
 export const clearCache = () => caches.forEach((cache) => cache.clear());

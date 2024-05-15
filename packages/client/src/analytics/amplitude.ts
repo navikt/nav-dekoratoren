@@ -5,6 +5,11 @@ import { Auth } from "decorator-shared/auth";
 
 type EventData = Record<string, any>;
 
+const buildPlatformField = () => {
+    const { origin, pathname, hash } = window.location;
+    return `${origin}${pathname}${hash}`;
+};
+
 declare global {
     interface Window {
         dekoratorenAmplitude: typeof logEventFromApp;
@@ -18,12 +23,12 @@ export const initAmplitude = () => {
         vindushoyde: window.innerHeight,
     };
 
-    amplitude.init("default", "", {
+    amplitude.getInstance().init("default", "", {
         apiEndpoint: "amplitude.nav.no/collect-auto",
         saveEvents: false,
         includeUtm: true,
         includeReferrer: true,
-        platform: window.location.toString(),
+        platform: buildPlatformField(),
     });
     amplitude.getInstance().setUserProperties(userProps);
 
@@ -116,7 +121,7 @@ export const logAmplitudeEvent = (
             eventName,
             {
                 ...eventData,
-                platform: window.location.toString(),
+                platform: buildPlatformField(),
                 origin,
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,

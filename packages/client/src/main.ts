@@ -28,12 +28,10 @@ import "./views/sticky";
 import "./views/user-menu";
 import "./views/skip-link";
 import { addFaroMetaData } from "./faro";
-import { analyticsReady, createEvent, initHistoryEvents } from "./events";
+import { createEvent, initHistoryEvents } from "./events";
 import { type ParamKey } from "decorator-shared/params";
 import { param, hasParam, updateDecoratorParams, env } from "./params";
 import { initAnalytics } from "./analytics/analytics";
-import { logPageView } from "./analytics/amplitude";
-import { startTaskAnalyticsSurvey } from "./analytics/task-analytics/ta";
 import { initAuth } from "./auth";
 
 import.meta.glob("./styles/*.css", { eager: true });
@@ -117,34 +115,6 @@ window.addEventListener("activecontext", (event) => {
     });
 });
 
-const init = async () => {
-    initHistoryEvents();
-    if (param("maskHotjar")) {
-        document.documentElement.setAttribute("data-hj-suppress", "");
-    }
-    initAnalytics();
-    initAuth();
-};
-
-window.addEventListener(analyticsReady.type, () => {
-    startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
-});
-
-window.addEventListener("authupdated", (e) => {
-    const { auth } = e.detail;
-
-    logPageView(window.__DECORATOR_DATA__.params, auth);
-
-    window.addEventListener("historyPush", () =>
-        // TODO: can this be solved in a more dependable manner?
-        // setTimeout to ensure window.location is updated after the history push
-        setTimeout(
-            () => logPageView(window.__DECORATOR_DATA__.params, auth),
-            250,
-        ),
-    );
-});
-
 // @TODO: Refactor loaders
 window.addEventListener("load", () => {
     useLoadIfActiveSession({
@@ -152,5 +122,15 @@ window.addEventListener("load", () => {
     });
     addFaroMetaData();
 });
+
+const init = async () => {
+    initHistoryEvents();
+    if (param("maskHotjar")) {
+        document.documentElement.setAttribute("data-hj-suppress", "");
+    }
+    initAuth().then((auth) => {
+        initAnalytics(auth);
+    });
+};
 
 init();
