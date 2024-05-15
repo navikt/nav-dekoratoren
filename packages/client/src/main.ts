@@ -131,6 +131,7 @@ window.addEventListener(analyticsReady.type, () => {
     startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
 });
 
+// TODO: this runs too often, should only run once :)
 window.addEventListener("authupdated", (e) => {
     const { auth } = e.detail;
 
