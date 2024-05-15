@@ -5,7 +5,6 @@ import {
     getLogOutUrl,
     loggedOutResponseData,
 } from "decorator-shared/auth";
-import html from "decorator-shared/html";
 import { type Params } from "decorator-shared/params";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import { match } from "ts-pattern";
@@ -61,14 +60,13 @@ const buildUsermenuHtml = async (
     const template = await match(params.context)
         .with("privatperson", async () => {
             const notificationsResult = await getNotifications({ cookie });
-            if (!notificationsResult.ok) {
-                return html` <div>Error</div>`;
-            }
 
             return UserMenuDropdown({
                 texts: localTexts,
                 name: auth.name,
-                notifications: notificationsResult.data,
+                notifications: notificationsResult.ok
+                    ? notificationsResult.data
+                    : null,
                 level: `Level${auth.securityLevel}`,
                 logoutUrl: logoutUrl as string,
                 minsideUrl: clientEnv.MIN_SIDE_URL,

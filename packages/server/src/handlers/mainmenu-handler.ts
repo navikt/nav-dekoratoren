@@ -1,9 +1,9 @@
-import { validParams } from "../validateParams";
-import { texts } from "../texts";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { env } from "../env/server";
-import { MainMenu } from "../views/header/main-menu";
 import { getMainMenuLinks, mainMenuContextLinks } from "../menu/main-menu";
+import { texts } from "../texts";
+import { validParams } from "../validateParams";
+import { MainMenu } from "../views/header/main-menu";
 
 export const mainmenuHandler = async ({
     query,

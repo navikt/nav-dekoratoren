@@ -14,6 +14,7 @@ export const serverSchema = z.object({
     HOST: z.string().url(),
     VARSEL_API_URL: z.string().url(),
     API_DEKORATOREN_URL: z.string().url(),
+    LOGIN_URL: z.string().url(),
 });
 
 export type RunningEnv = z.infer<typeof serverSchema>["ENV"];
@@ -34,6 +35,7 @@ export const serverEnv = {
     HOST: process.env.HOST,
     VARSEL_API_URL: process.env.VARSEL_API_URL,
     API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
+    LOGIN_URL: process.env.LOGIN_URL,
 };
 
 // This is session URL for prod

@@ -11,10 +11,11 @@ import {
     Notification,
     UnmaskedNotification,
 } from "../../notifications";
+import { NotificationsErrorView } from "../errors/notifications-error";
 
 export type NotificationsProps = {
     texts: Texts;
-    notifications?: Notification[];
+    notifications: Notification[] | null;
 };
 
 const kanalerToMetadata = (kanaler: string[], texts: Texts) => {
@@ -36,7 +37,7 @@ const MaskedNotificationComp = ({
     notification: MaskedNotification;
     texts: Texts;
 }) =>
-    html`<div class="${cls.notification}">
+    html` <div class="${cls.notification}">
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">
                 ${type === "task" ? TaskIcon() : MessageIcon()}
@@ -58,7 +59,7 @@ const NotificationComp = ({
     texts: Texts;
     notification: UnmaskedNotification;
 }) =>
-    html`<link-notification
+    html` <link-notification
         class="${cls.notification} ${cls.linkNotification}"
         data-type="${type}"
     >
@@ -74,7 +75,7 @@ const NotificationComp = ({
         </div>
         <a href="${link}" class="${cls.text}">${text}</a>
         ${channels.length > 0 &&
-        html`<div class="${cls.metadata}">
+        html` <div class="${cls.metadata}">
             ${kanalerToMetadata(channels, texts)}
         </div>`}
     </link-notification>`;
@@ -86,7 +87,7 @@ const ArchivableNotification = ({
     notification: UnmaskedNotification;
     texts: Texts;
 }) =>
-    html`<archivable-notification class="${cls.notification}" data-id="${id}">
+    html` <archivable-notification class="${cls.notification}" data-id="${id}">
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">
                 ${type === "task" ? TaskIcon() : MessageIcon()}
@@ -97,7 +98,7 @@ const ArchivableNotification = ({
         <div>${text}</div>
         <div class="${cls.bottom}">
             ${channels.length > 0 &&
-            html`<div class="${cls.metadata}">
+            html` <div class="${cls.metadata}">
                 ${kanalerToMetadata(channels, texts)}
             </div>`}
             <button class="${cls.button}">${texts.archive}</button>
@@ -105,22 +106,30 @@ const ArchivableNotification = ({
     </archivable-notification>`;
 
 export function Notifications({ texts, notifications }: NotificationsProps) {
-    return html`<div class="${cls.notifications}">
+    return html` <div class="${cls.notifications}">
         <h2 class="${cls.notificationsHeading}">${texts.notifications}</h2>
-        <ul class="${cls.notificationList}">
-            ${notifications?.map(
-                (notification) => html`
-                    <li>
-                        ${notification.masked === true
-                            ? MaskedNotificationComp({ notification, texts })
-                            : notification.type === "message" &&
-                                !notification.link
-                              ? ArchivableNotification({ notification, texts })
-                              : NotificationComp({ notification, texts })}
-                    </li>
-                `,
-            )}
-        </ul>
+        ${notifications
+            ? html` <ul class="${cls.notificationList}">
+                  ${notifications.map(
+                      (notification) => html`
+                          <li>
+                              ${notification.masked
+                                  ? MaskedNotificationComp({
+                                        notification,
+                                        texts,
+                                    })
+                                  : notification.type === "message" &&
+                                      !notification.link
+                                    ? ArchivableNotification({
+                                          notification,
+                                          texts,
+                                      })
+                                    : NotificationComp({ notification, texts })}
+                          </li>
+                      `,
+                  )}
+              </ul>`
+            : NotificationsErrorView()}
         <a
             class="${cls.allNotificationsLink}"
             href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"

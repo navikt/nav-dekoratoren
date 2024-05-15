@@ -7,10 +7,10 @@ import {
     test,
     describe,
 } from "bun:test";
-import { clearCache } from "decorator-shared/cache";
+import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
-import testData from "./content-test-data.json";
+import testData from "./menu/main-menu-mock.json";
 import { env } from "./env/server";
 import renderIndex from "./render-index";
 

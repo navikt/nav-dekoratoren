@@ -5,20 +5,11 @@ import { Environment, Params } from "./params";
  */
 export type DecoratorId = `dekoratoren-${string}`;
 
-export type MenuNode = {
-    children: MenuNode[];
-    displayName: string;
-    path?: string;
-    flatten?: boolean;
-    id: string;
-    isActive?: boolean;
-    isMyPageMenu?: boolean;
-};
-
 export type Link = {
     content: string;
     url: string;
-} & Pick<MenuNode, "path">;
+    path?: string;
+};
 
 export type LinkGroup = {
     heading?: string;

@@ -12,8 +12,8 @@ import { Notification } from "../../notifications";
 
 export type UserMenuDropdownProps = {
     texts: Texts;
-    name?: string;
-    notifications?: Notification[];
+    name: string;
+    notifications: Notification[] | null;
     level: LoginLevel;
     logoutUrl: string;
     minsideUrl: string;
@@ -28,18 +28,19 @@ export const UserMenuDropdown = ({
     logoutUrl,
     minsideUrl,
     personopplysningerUrl,
-}: UserMenuDropdownProps) =>
-    DropdownMenu({
+}: UserMenuDropdownProps) => {
+    return DropdownMenu({
         button: IconButton({
             className: cls.userMenuButton,
-            text: name ?? "",
-            Icon: notifications?.length
-                ? PersonCircleNotificationIcon({
-                      className: cls.icon,
-                  })
-                : PersonCircleIcon({
-                      className: cls.icon,
-                  }),
+            text: name,
+            Icon:
+                notifications && notifications.length > 0
+                    ? PersonCircleNotificationIcon({
+                          className: cls.icon,
+                      })
+                    : PersonCircleIcon({
+                          className: cls.icon,
+                      }),
         }),
         dropdownClass: cls.userMenuDropdown,
         dropdownContent: UserMenu({
@@ -52,3 +53,4 @@ export const UserMenuDropdown = ({
             personopplysningerUrl,
         }),
     });
+};

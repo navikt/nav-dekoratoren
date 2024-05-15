@@ -1,9 +1,9 @@
 import { Context, Language } from "decorator-shared/params";
-import { SearchErrorView } from "decorator-shared/views/errors/search-error";
 import { z } from "zod";
 import { env } from "../env/server";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import { texts } from "../texts";
+import { SearchErrorView } from "../views/errors/search-error";
 import { SearchHits } from "../views/search-hits";
 
 export type SearchResult = z.infer<typeof resultSchema>;
