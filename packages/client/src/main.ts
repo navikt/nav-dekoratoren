@@ -85,6 +85,7 @@ window.addEventListener("message", (e) => {
                 "breadcrumbs",
                 "availableLanguages",
                 "utilsBackground",
+                "language",
             ] satisfies ParamKey[]
         ).forEach((key) => {
             if (payload[key]) {
@@ -93,11 +94,6 @@ window.addEventListener("message", (e) => {
                 });
             }
         });
-
-        const language = e.data.payload.language;
-        if (language && language !== param("language")) {
-            updateDecoratorParams({ language });
-        }
 
         if (e.data.payload.context) {
             const context = e.data.payload.context;
@@ -123,6 +119,9 @@ window.addEventListener("activecontext", (event) => {
 
 const init = async () => {
     initHistoryEvents();
+    if (param("maskHotjar")) {
+        document.documentElement.setAttribute("data-hj-suppress", "");
+    }
     initAnalytics();
     initAuth();
 };
