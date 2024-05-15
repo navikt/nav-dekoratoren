@@ -1,4 +1,11 @@
-import { BLOB, DATA, UNSAFE_EVAL, UNSAFE_INLINE, getCSP } from "csp-header";
+import {
+    BLOB,
+    CSPDirectives,
+    DATA,
+    UNSAFE_EVAL,
+    UNSAFE_INLINE,
+    getCSP,
+} from "csp-header";
 import { env } from "./env/server";
 
 const navNo = "*.nav.no";
@@ -42,7 +49,7 @@ const workerSrc = [
     BLOB, // vergic
 ];
 
-const directives = {
+const directives: Partial<CSPDirectives> = {
     "default-src": [navNo],
     "script-src": [
         ...scriptSrc,
@@ -74,16 +81,14 @@ const directives = {
 };
 
 const localDirectives = Object.entries(directives).reduce(
-    (acc, [key, value]) => {
-        return {
-            ...acc,
-            [key]: Array.isArray(value) ? [...value, "localhost:* ws:"] : value,
-        };
-    },
+    (acc, [key, value]) => ({
+        ...acc,
+        [key]: Array.isArray(value) ? [...value, "localhost:* ws:"] : value,
+    }),
     {},
 );
 
 export const cspDirectives =
-    env.ENV === "localhost" ? localDirectives : directives;
+    env.NODE_ENV === "development" ? localDirectives : directives;
 
 export const csp = getCSP({ presets: [cspDirectives] });
