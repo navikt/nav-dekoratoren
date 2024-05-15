@@ -114,7 +114,7 @@ const fetchAndStart = async (state: AppState, currentUrl: URL) => {
         });
 };
 
-export const startTaskAnalyticsSurvey = (
+const startTaskAnalyticsSurvey = (
     state: AppState,
     currentUrl = new URL(window.location.href),
 ) => {

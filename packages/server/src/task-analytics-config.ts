@@ -3,16 +3,16 @@ import { z } from "zod";
 import { Result, ResultType } from "./result";
 import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 
-export type TaskAnalyticsSurvey = z.infer<typeof taSurveyItemSchema>;
-export type TaskAnalyticsUrlRule = z.infer<typeof taUrlRule>;
+export type TaskAnalyticsSurvey = z.infer<typeof taSurveySchema>;
+export type TaskAnalyticsUrlRule = z.infer<typeof taUrlRuleSchema>;
 
-const taUrlRule = z.object({
+const taUrlRuleSchema = z.object({
     url: z.string(),
     match: z.enum(["exact", "startsWith"]),
     exclude: z.optional(z.boolean()),
 });
 
-const taSurveyItemSchema = z.object({
+const taSurveySchema = z.object({
     id: z.string(),
     selection: z.optional(z.number()),
     duration: z.optional(
@@ -21,12 +21,12 @@ const taSurveyItemSchema = z.object({
             end: z.optional(z.string()),
         }),
     ),
-    urls: z.optional(z.array(taUrlRule)),
+    urls: z.optional(z.array(taUrlRuleSchema)),
     audience: z.optional(z.array(contextSchema)),
     language: z.optional(z.array(languageSchema)),
 });
 
-const configSchema = z.array(taSurveyItemSchema);
+const configSchema = z.array(taSurveySchema);
 
 const TEN_SECONDS_MS = 10 * 1000;
 
