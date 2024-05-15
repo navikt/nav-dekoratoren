@@ -1,4 +1,4 @@
-import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
+import { ResponseCache } from "decorator-shared/response-cache";
 import { Context, Language } from "decorator-shared/params";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import { clientEnv, env } from "../env/server";
@@ -13,7 +13,7 @@ const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
 const ONE_MINUTE_MS = 60 * 1000;
 
-const menuCache = new StaleWhileRevalidateResponseCache<MainMenu>({
+const menuCache = new ResponseCache<MainMenu>({
     ttl: ONE_MINUTE_MS,
 });
 
