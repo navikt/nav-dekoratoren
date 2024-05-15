@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { env } from "./env/server";
 import { Result, ResultType } from "./result";
+import { fetchAndValidateJson } from "./lib/fetch-and-validate";
 
 const varselSchema = z.object({
     eventId: z.string(),
@@ -65,34 +66,19 @@ export const getNotifications = async ({
 }: {
     request: Request;
 }): Promise<ResultType<Notification[]>> => {
-    const fetchResult = await fetch(
+    return fetchAndValidateJson(
         `${env.VARSEL_API_URL}/varselbjelle/varsler`,
         {
             headers: {
                 cookie: request.headers.get("cookie") || "",
             },
         },
+        varslerSchema,
+    ).then((result) =>
+        result.ok
+            ? { ...result, data: varslerToNotifications(result.data) }
+            : result,
     );
-
-    if (!fetchResult.ok) {
-        return Result.Error(await fetchResult.text());
-    }
-
-    try {
-        const json = await fetchResult.json();
-
-        const validationResult = varslerSchema.safeParse(json);
-        if (!validationResult.success) {
-            return Result.Error(validationResult.error);
-        }
-
-        return Result.Ok(varslerToNotifications(validationResult.data));
-    } catch (error) {
-        if (error instanceof Error) {
-            return Result.Error(error);
-        }
-        throw error;
-    }
 };
 
 export const archiveNotification = async ({

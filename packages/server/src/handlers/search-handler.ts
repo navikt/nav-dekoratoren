@@ -4,7 +4,7 @@ import { HandlerFunction, responseBuilder } from "../lib/handler";
 import { SearchHits } from "../views/search-hits";
 import { texts } from "../texts";
 import { z } from "zod";
-import { SearchErrorView } from "decorator-shared/views/errors/search-error";
+import { SearchErrorView } from "../views/errors/search-error";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 
 export type SearchResult = z.infer<typeof resultSchema>;

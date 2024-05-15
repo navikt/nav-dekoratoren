@@ -11,11 +11,12 @@ import { Notifications } from "../notifications/notifications";
 import { LoginLevel } from "decorator-shared/params";
 import { Alert } from "decorator-shared/views/alert";
 import { Notification } from "../../notifications";
+import { env } from "../../env/server";
 
 export type UserMenuProps = {
     texts: Texts;
-    name?: string;
-    notifications?: Notification[];
+    name: string;
+    notifications: Notification[] | null;
     level: LoginLevel;
     logoutUrl: string;
     minsideUrl: string;
@@ -31,7 +32,7 @@ export const UserMenu = ({
     minsideUrl,
     personopplysningerUrl,
 }: UserMenuProps) =>
-    html`<div class="${cls.userMenu}">
+    html` <div class="${cls.userMenu}">
         <div class="${cls.menuItems}">
             <div class="${cls.menuHeader}">
                 <div class="${cls.loggedIn}">${texts.logged_in}</div>
@@ -43,7 +44,7 @@ export const UserMenu = ({
                     content: html`
                         <div>
                             ${texts.security_level_info}
-                            <a class="${cls.link}" href="#TODO"
+                            <a class="${cls.link}" href="${env.LOGIN_URL}"
                                 >Logg inn med BankID, Buypass, eller
                                 Commfides</a
                             >
