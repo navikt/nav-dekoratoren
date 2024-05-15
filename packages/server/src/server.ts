@@ -6,17 +6,17 @@ import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { searchHandler } from "./handlers/search-handler";
 import { headers } from "./headers";
+import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
+import { fetchOpsMessages } from "./ops-msgs";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { cdnUrl, getManifest } from "./views";
+import { getClientSideRenderingScriptUrl, getCss, getScripts } from "./views";
 import { MainMenu } from "./views/header/main-menu";
-import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
-import { fetchOpsMessages } from "./ops-msgs";
 
 if (env.NODE_ENV === "development") {
     console.log("Setting up mocks");
@@ -144,17 +144,16 @@ app.get("/env", async ({ req, json }) => {
             features,
             env: clientEnv,
         },
-        scripts: [cdnUrl((await getManifest())["src/main.ts"].file)],
+        scripts: await getScripts(),
+        //TODO: Add css
     });
 });
-app.get("/client.js", async ({ redirect }) => {
-    const manifest = await getManifest();
-    redirect(cdnUrl(manifest["src/csr.ts"].file));
-});
-app.get("/css/client.css", async ({ redirect }) => {
-    const manifest = await getManifest();
-    redirect(cdnUrl(manifest["src/main.ts"].css[0]));
-});
+app.get("/client.js", async ({ redirect }) =>
+    redirect(await getClientSideRenderingScriptUrl()),
+);
+app.get("/css/client.css", async ({ redirect }) =>
+    redirect((await getCss())[0]),
+);
 app.get("/", async ({ req, html }) =>
     html(
         await renderIndex({
