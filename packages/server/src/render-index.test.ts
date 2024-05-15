@@ -7,7 +7,7 @@ import {
     test,
     describe,
 } from "bun:test";
-import { clearCache } from "./lib/response-cache";
+import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import testData from "./menu/main-menu-mock.json";

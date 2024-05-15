@@ -1,4 +1,4 @@
-import { StaleWhileRevalidateResponseCache } from "../lib/response-cache";
+import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 import { Context, Language } from "decorator-shared/params";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import { clientEnv, env } from "../env/server";
@@ -35,7 +35,6 @@ const fetchMenu = async (): Promise<MainMenu> => {
     const menuFromService = await menuCache.get("menu", () =>
         fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then(
             (res) => {
-                console.log("Fetched");
                 if (!res.ok) {
                     console.log(
                         `Error fetching menu from Enonic - ${res.error}`,

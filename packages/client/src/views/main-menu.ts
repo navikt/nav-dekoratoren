@@ -1,6 +1,6 @@
 import { Context } from "decorator-shared/params";
 import { CustomEvents } from "../events";
-import { StaleWhileRevalidateResponseCache } from "../../../server/src/lib/response-cache";
+import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 import { param } from "../params";
 import { endpointUrlWithParams } from "../helpers/urls";
 

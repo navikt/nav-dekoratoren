@@ -1,7 +1,7 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
 import { Result, ResultType } from "./result";
-import { StaleWhileRevalidateResponseCache } from "./lib/response-cache";
+import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 
 const configSchema = z.array(
     z.object({

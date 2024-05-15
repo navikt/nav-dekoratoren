@@ -1,4 +1,4 @@
-import { StaleWhileRevalidateResponseCache } from "./lib/response-cache";
+import { StaleWhileRevalidateResponseCache } from "decorator-shared/response-cache";
 import { OpsMessage } from "decorator-shared/types";
 import { env } from "./env/server";
 
