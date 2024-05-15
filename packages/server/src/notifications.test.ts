@@ -9,7 +9,11 @@ import {
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "./env/server";
-import { Varsler, getNotifications } from "./notifications";
+import {
+    Varsler,
+    archiveNotification,
+    getNotifications,
+} from "./notifications";
 import { expectOK } from "./test-expect";
 
 describe("notifications", () => {
@@ -52,6 +56,9 @@ describe("notifications", () => {
                     ],
                 }),
             ),
+            http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
+                HttpResponse.json({ success: true }),
+            ),
         );
         server.listen();
     });
@@ -60,9 +67,7 @@ describe("notifications", () => {
 
     test("returns task", async () => {
         const result = await getNotifications({
-            request: new Request("http://example.com", {
-                headers: { cookie: "cookie" },
-            }),
+            cookie: "cookie",
         });
 
         expectOK(result);
@@ -93,5 +98,14 @@ describe("notifications", () => {
                 link: "https://developer.mozilla.org/",
             },
         ]);
+    });
+
+    test("archive notification on POST", async () => {
+        const response = await archiveNotification({
+            cookie: "",
+            id: "eventId",
+        });
+        expectOK(response);
+        expect(response.data).toEqual("eventId");
     });
 });

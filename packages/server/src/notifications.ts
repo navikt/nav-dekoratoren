@@ -61,16 +61,14 @@ const varslerToNotifications = (varsler: Varsler): Notification[] =>
     );
 
 export const getNotifications = async ({
-    request,
+    cookie,
 }: {
-    request: Request;
+    cookie: string;
 }): Promise<ResultType<Notification[]>> => {
     const fetchResult = await fetch(
         `${env.VARSEL_API_URL}/varselbjelle/varsler`,
         {
-            headers: {
-                cookie: request.headers.get("cookie") || "",
-            },
+            headers: { cookie },
         },
     );
 
@@ -96,16 +94,16 @@ export const getNotifications = async ({
 };
 
 export const archiveNotification = async ({
-    request,
+    cookie,
     id,
 }: {
-    request: Request;
+    cookie: string;
     id: string;
 }) => {
     const fetchResult = await fetch(`${env.VARSEL_API_URL}/beskjed/inaktiver`, {
         method: "POST",
         headers: {
-            cookie: request.headers.get("cookie") || "",
+            cookie,
             "Content-Type": "application/json",
         },
         body: JSON.stringify(id),
