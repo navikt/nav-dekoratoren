@@ -3,7 +3,7 @@ import { texts } from "../texts";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { env } from "../env/server";
 import { MainMenu } from "../views/header/main-menu";
-import { getMainMenuLinks, mainMenuContextLinks } from "../menu";
+import { getMainMenuLinks, mainMenuContextLinks } from "../menu/main-menu";
 import { HandlerFunction, responseBuilder } from "../lib/handler";
 
 export const mainmenuHandler: HandlerFunction = async ({ query }) => {

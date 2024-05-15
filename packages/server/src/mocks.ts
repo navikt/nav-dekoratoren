@@ -2,7 +2,7 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import notificationsMock from "./notifications-mock.json";
 import { env } from "./env/server";
-import testData from "./content-test-data.json";
+import testData from "./menu/main-menu-mock.json";
 
 export default () =>
     setupServer(

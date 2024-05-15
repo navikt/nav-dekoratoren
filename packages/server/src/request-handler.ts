@@ -1,7 +1,7 @@
 import { handleCors } from "./cors";
 import { cspHandler } from "./csp";
 import { csrHandler } from "./csr";
-import { fetchOpsMessages } from "./enonic";
+import { fetchOpsMessages } from "./ops-msgs";
 import { env } from "./env/server";
 import { assetsHandlers } from "./handlers/assets-handler";
 import { authHandler } from "./handlers/auth-handler";

@@ -10,7 +10,7 @@ import {
 import { clearCache } from "decorator-shared/cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
-import testData from "./content-test-data.json";
+import testData from "./menu/main-menu-mock.json";
 import { env } from "./env/server";
 import requestHandler from "./request-handler";
 

@@ -9,10 +9,10 @@ import {
 } from "bun:test";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
-import testData from "./content-test-data.json";
-import { env } from "./env/server";
+import testData from "./main-menu-mock.json";
+import { env } from "../env/server";
 import { clearCache } from "decorator-shared/cache";
-import { getSimpleFooterLinks } from "./menu";
+import { getSimpleFooterLinks } from "./main-menu";
 
 describe("getSimpleFooterLinks", () => {
     let server: SetupServerApi;

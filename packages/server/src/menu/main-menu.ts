@@ -1,9 +1,10 @@
 import { ResponseCache } from "decorator-shared/cache";
 import { Context, Language } from "decorator-shared/params";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
-import { clientEnv, env } from "./env/server";
-import { fetchAndValidateJson } from "./lib/fetch-and-validate";
+import { clientEnv, env } from "../env/server";
+import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import { z } from "zod";
+import fallbackData from "./main-menu-mock.json";
 
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;
@@ -44,7 +45,10 @@ const fetchMenu = async (): Promise<MainMenu> => {
         ),
     );
 
-    return menuFromService || [];
+    // The fallback/mock data should "never" be returned, unless the call to the menu service
+    // fails on a fresh pod with no menu response cached. It's not a perfect solution to use
+    // possibly stale "mock" data here, but it is a very rare edge case...
+    return menuFromService ?? fallbackData;
 };
 
 export const mainMenuContextLinks = ({
