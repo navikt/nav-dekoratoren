@@ -1,11 +1,12 @@
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
+import { cspDirectives } from "./content-security-policy";
 import { fetchOpsMessages } from "./enonic";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { searchHandler } from "./handlers/search-handler";
 import { headers } from "./headers";
-import jsonIndex from "./json-index";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
@@ -16,8 +17,6 @@ import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { cdnUrl, getManifest } from "./views";
 import { MainMenu } from "./views/header/main-menu";
-import { cspDirectives } from "./content-security-policy";
-import { HTTPException } from "hono/http-exception";
 
 if (env.NODE_ENV === "development") {
     console.log("Setting up mocks");
@@ -123,9 +122,6 @@ app.get("/footer", async (c) => {
         ).render(),
     );
 });
-app.get("/scripts", async (c) =>
-    c.json(await jsonIndex({ data: validParams(c.req.query()) })),
-);
 app.get("/env", async (c) => {
     const data = validParams(c.req.query());
     const features = getFeatures();
