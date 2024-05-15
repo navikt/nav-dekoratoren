@@ -36,7 +36,6 @@ export default async ({ data, url }: { data: Params; url: string }) => {
             features,
             environment: clientEnv,
         }),
-        maskDocument: data.maskHotjar,
         main: getSplashPage(url),
     }).render();
 };

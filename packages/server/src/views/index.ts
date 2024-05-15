@@ -89,19 +89,17 @@ export function Index({
     header,
     footer,
     decoratorData,
-    maskDocument = false,
     main,
 }: {
     language: Language;
     header: Template;
     footer: Template;
     decoratorData: Template;
-    maskDocument?: boolean;
     main?: Template;
 }) {
     return html`
         <!doctype html>
-        <html lang="${language}" ${maskDocument ? "data-hj-supress" : ""}>
+        <html lang="${language}">
             <head>
                 <title>${"NAV Dekoratør"}</title>
                 <link
