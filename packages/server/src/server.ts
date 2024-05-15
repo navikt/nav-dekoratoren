@@ -37,11 +37,8 @@ app.get("/api/ta", async (c) => {
         throw result.error;
     }
 });
-app.post("/api/notifications/archive", async (c) => {
-    const id = c.req.query("id");
-    if (!id) {
-        return c.json({ error: "Missing id" }).status(400);
-    }
+app.post("/api/notifications/:id/archive", async (c) => {
+    const id = c.req.param("id");
 
     const result = await archiveNotification({
         cookie: c.req.header("cookie") ?? "",

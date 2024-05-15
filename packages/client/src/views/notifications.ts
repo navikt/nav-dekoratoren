@@ -8,10 +8,8 @@ class ArchivableNotificaton extends HTMLElement {
         if (id) {
             this.querySelector("button")?.addEventListener("click", () =>
                 fetch(
-                    endpointUrlWithParams("/api/notifications/archive", { id }),
-                    {
-                        method: "POST",
-                    },
+                    endpointUrlWithParams(`/api/notifications/${id}/archive`),
+                    { method: "POST" },
                 ).then(() => {
                     this.parentElement?.remove();
                     logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
