@@ -23,7 +23,7 @@ export class ResponseCache<ValueType = unknown> {
 
     async get(
         key: string,
-        callback: () => Promise<ValueType>,
+        callback: () => Promise<ValueType | null>,
     ): Promise<ValueType | null> {
         const cachedItem = this.cache.get(key);
         const now = Date.now();

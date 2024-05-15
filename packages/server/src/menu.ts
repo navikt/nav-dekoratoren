@@ -1,27 +1,50 @@
 import { ResponseCache } from "decorator-shared/cache";
 import { Context, Language } from "decorator-shared/params";
-import {
-    Link,
-    LinkGroup,
-    MainMenuContextLink,
-    MenuNode,
-} from "decorator-shared/types";
+import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import { clientEnv, env } from "./env/server";
+import { fetchAndValidateJson } from "./lib/fetch-and-validate";
+import { z } from "zod";
 
-const ONE_MINUTE_MS = 10 * 1000;
-
-const menuCache = new ResponseCache<MenuNode[]>({ ttl: ONE_MINUTE_MS });
+type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
+type MainMenu = z.infer<typeof mainmenuSchema>;
 
 const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
-const fetchMenu = async (): Promise<MenuNode[]> => {
-    const menu = await menuCache.get("menu", () =>
-        fetch(MENU_SERVICE_URL).then(
-            (res) => res.json() as Promise<MenuNode[]>,
+const ONE_MINUTE_MS = 10 * 1000;
+
+const menuCache = new ResponseCache<MainMenu>({ ttl: ONE_MINUTE_MS });
+
+const baseMainMenuNode = z.object({
+    id: z.string(),
+    displayName: z.string(),
+    path: z.string().optional(),
+    flatten: z.boolean().optional(),
+    isMyPageMenu: z.boolean().optional(),
+});
+
+const mainMenuNode: z.ZodType<MenuNode> = baseMainMenuNode.extend({
+    children: z.lazy(() => mainMenuNode.array()),
+});
+
+const mainmenuSchema = z.array(mainMenuNode);
+
+const fetchMenu = async (): Promise<MainMenu> => {
+    const menuFromService = await menuCache.get("menu", () =>
+        fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then(
+            (res) => {
+                if (!res.ok) {
+                    console.log(
+                        `Error fetching menu from Enonic - ${res.error}`,
+                    );
+                    return null;
+                }
+
+                return res.data;
+            },
         ),
     );
 
-    return menu || [];
+    return menuFromService || [];
 };
 
 export const mainMenuContextLinks = ({
@@ -89,9 +112,11 @@ export const getMainMenuLinks = async ({
     language: Language;
     context: Context;
 }) => {
+    const menu = await fetchMenu();
+
     return (
         get(
-            await fetchMenu(),
+            menu,
             ((language) => {
                 switch (language) {
                     case "en":
@@ -110,12 +135,13 @@ export const getSimpleFooterLinks = async ({
 }: {
     language: Language;
 }) => {
-    return [
-        ...(get(
-            await fetchMenu(),
-            `${getLangKey(language)}.Footer.Personvern`,
-        )?.map(nodeToLink) ?? []),
-    ];
+    const menu = await fetchMenu();
+
+    return (
+        get(menu, `${getLangKey(language)}.Footer.Personvern`)?.map(
+            nodeToLink,
+        ) ?? []
+    );
 };
 
 export const getComplexFooterLinks = async ({
@@ -125,11 +151,11 @@ export const getComplexFooterLinks = async ({
     language: Language;
     context: Context;
 }): Promise<LinkGroup[]> => {
-    const root = await fetchMenu();
+    const menu = await fetchMenu();
 
     return [
         ...(get(
-            root,
+            menu,
             ((language) => {
                 switch (language) {
                     case "en":
@@ -162,9 +188,9 @@ const nodeToLink: (node: MenuNode) => Link = ({ displayName, path }) => ({
     url: path ?? "#",
 });
 
-function getContextKey(context: Context) {
+const getContextKey = (context: Context) => {
     return context.charAt(0).toUpperCase() + context.slice(1);
-}
+};
 
 type ContentLangKey = "no" | "en" | "se";
 
@@ -179,19 +205,19 @@ const getLangKey = (lang: Language): ContentLangKey => {
     }
 };
 
-const get = (menu: MenuNode[], path: string): MenuNode[] | undefined => {
-    const getRecursive = (
-        node: MenuNode | undefined,
-        path: string,
-    ): MenuNode | undefined => {
-        if (path.includes(".")) {
-            return path
-                .split(".")
-                .reduce((prev, curr) => getRecursive(prev, curr)!, node);
-        }
-        return node?.children?.find(({ displayName }) => displayName === path);
-    };
+const getRecursive = (
+    node: MenuNode | undefined,
+    path: string,
+): MenuNode | undefined => {
+    if (path.includes(".")) {
+        return path
+            .split(".")
+            .reduce((prev, curr) => getRecursive(prev, curr)!, node);
+    }
+    return node?.children?.find(({ displayName }) => displayName === path);
+};
 
+const get = (menu: MenuNode[], path: string): MenuNode[] | undefined => {
     return getRecursive(
         {
             children: menu,
