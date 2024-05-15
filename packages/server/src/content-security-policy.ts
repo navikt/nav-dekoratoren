@@ -1,12 +1,11 @@
 import {
+    BLOB,
     CSPDirectives,
+    DATA,
     UNSAFE_EVAL,
     UNSAFE_INLINE,
-    BLOB,
-    DATA,
     getCSP,
 } from "csp-header";
-import { Handler, responseBuilder } from "./lib/handler";
 import { env } from "./env/server";
 
 const navNo = "*.nav.no";
@@ -50,8 +49,6 @@ const workerSrc = [
     BLOB, // vergic
 ];
 
-// @TODO: Merge with bun responses
-
 const directives: Partial<CSPDirectives> = {
     "default-src": [navNo],
     "script-src": [
@@ -84,25 +81,14 @@ const directives: Partial<CSPDirectives> = {
 };
 
 const localDirectives = Object.entries(directives).reduce(
-    (acc, [key, value]) => {
-        return {
-            ...acc,
-            [key]: Array.isArray(value) ? [...value, "localhost:* ws:"] : value,
-        };
-    },
+    (acc, [key, value]) => ({
+        ...acc,
+        [key]: Array.isArray(value) ? [...value, "localhost:* ws:"] : value,
+    }),
     {},
 );
 
 export const cspDirectives =
-    env.ENV === "localhost" ? localDirectives : directives;
-export const csp = getCSP({
-    presets: [cspDirectives],
-});
+    env.NODE_ENV === "development" ? localDirectives : directives;
 
-export const cspHandler: Handler = {
-    method: "GET",
-    path: "/api/csp",
-    handler: () => {
-        return responseBuilder().json(cspDirectives).build();
-    },
-};
+export const csp = getCSP({ presets: [cspDirectives] });

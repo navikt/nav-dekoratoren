@@ -1,5 +1,5 @@
-import { analyticsEvents } from "../analytics/constants";
 import { logAmplitudeEvent } from "../analytics/amplitude";
+import { analyticsEvents } from "../analytics/constants";
 import { endpointUrlWithParams } from "../helpers/urls";
 
 class ArchivableNotification extends HTMLElement {
@@ -13,7 +13,7 @@ class ArchivableNotification extends HTMLElement {
         }
 
         this.querySelector("button")?.addEventListener("click", () =>
-            fetch(endpointUrlWithParams("/api/notifications/archive", { id }), {
+            fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
                 method: "POST",
             }).then((res) => {
                 if (!res.ok) {

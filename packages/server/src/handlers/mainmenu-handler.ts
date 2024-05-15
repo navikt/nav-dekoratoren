@@ -1,12 +1,15 @@
-import { validParams } from "../validateParams";
-import { texts } from "../texts";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { env } from "../env/server";
-import { MainMenu } from "../views/header/main-menu";
 import { getMainMenuLinks, mainMenuContextLinks } from "../menu/main-menu";
-import { HandlerFunction, responseBuilder } from "../lib/handler";
+import { texts } from "../texts";
+import { validParams } from "../validateParams";
+import { MainMenu } from "../views/header/main-menu";
 
-export const mainmenuHandler: HandlerFunction = async ({ query }) => {
+export const mainmenuHandler = async ({
+    query,
+}: {
+    query: Record<string, string>;
+}) => {
     const data = validParams(query);
     const localTexts = texts[data.language];
 
@@ -26,18 +29,14 @@ export const mainmenuHandler: HandlerFunction = async ({ query }) => {
         context: data.context,
     });
 
-    return responseBuilder()
-        .html(
-            MainMenu({
-                title:
-                    data.context === "privatperson"
-                        ? localTexts.how_can_we_help
-                        : localTexts[`rolle_${data.context}`],
-                frontPageUrl,
-                texts: localTexts,
-                links,
-                contextLinks,
-            }).render(),
-        )
-        .build();
+    return MainMenu({
+        title:
+            data.context === "privatperson"
+                ? localTexts.how_can_we_help
+                : localTexts[`rolle_${data.context}`],
+        frontPageUrl,
+        texts: localTexts,
+        links,
+        contextLinks,
+    }).render();
 };

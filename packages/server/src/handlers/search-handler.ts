@@ -1,11 +1,10 @@
-import { env } from "../env/server";
-import { validParams } from "../validateParams";
-import { HandlerFunction, responseBuilder } from "../lib/handler";
-import { SearchHits } from "../views/search-hits";
-import { texts } from "../texts";
+import { Context, Language } from "decorator-shared/params";
 import { z } from "zod";
-import { SearchErrorView } from "../views/errors/search-error";
+import { env } from "../env/server";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
+import { texts } from "../texts";
+import { SearchErrorView } from "../views/errors/search-error";
+import { SearchHits } from "../views/search-hits";
 
 export type SearchResult = z.infer<typeof resultSchema>;
 
@@ -35,28 +34,32 @@ const fetchSearch = async ({
         resultSchema,
     );
 
-export const searchHandler: HandlerFunction = async ({ query }) => {
-    const searchQuery = query.q;
-
+export const searchHandler = async ({
+    query,
+    context,
+    language,
+}: {
+    query: string;
+    context: Context;
+    language: Language;
+}): Promise<string> => {
     const result = await fetchSearch({
-        query: searchQuery,
-        ...validParams(query),
+        query,
+        context,
+        language,
     });
 
     if (!result.ok) {
         console.log(`Error fetching search results: ${result.error.message}`);
-        return responseBuilder().html(SearchErrorView().render()).build();
+        return SearchErrorView().render();
     }
 
-    const resultPruned = { ...result.data, hits: result.data.hits.slice(0, 5) };
-
-    return responseBuilder()
-        .html(
-            SearchHits({
-                results: resultPruned,
-                query: searchQuery,
-                texts: texts[validParams(query).language],
-            }).render(),
-        )
-        .build();
+    return SearchHits({
+        results: {
+            ...result.data,
+            hits: result.data.hits.slice(0, 5),
+        },
+        query,
+        texts: texts[language],
+    }).render();
 };

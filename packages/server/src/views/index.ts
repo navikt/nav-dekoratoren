@@ -1,8 +1,7 @@
 import html, { Template, unsafeHtml } from "decorator-shared/html";
 import { Language } from "decorator-shared/params";
-import { Button } from "decorator-shared/views/components/button";
-import { env } from "../env/server";
 import { NodeEnv } from "../env/schema";
+import { env } from "../env/server";
 
 export const entryPointPath = "src/main.ts";
 export const entryPointPathAnalytics = "src/analytics/analytics.ts";
@@ -140,61 +139,7 @@ export function Index({
             <body>
                 <div id="styles" style="display:none">${unsafeHtml(links)}</div>
                 <div id="header-withmenu">${header}</div>
-                <main style="height:2000px;">
-                    ${Button({
-                        text: "Test amplitude!",
-                        variant: "primary",
-                        id: "amplitude-test",
-                    })}
-                    <button
-                        onclick="(() => {
-                window.postMessage({
-                  source: 'decoratorClient',
-                  event: 'params',
-                  payload: {
-                    breadcrumbs: [
-                        { title: 'Ditt NAV', url: 'https://www.nav.no/person/dittnav' }, // Sender brukeren til definert url
-    {
-        title: 'Kontakt oss',
-        url: 'https://www.nav.no/person/kontakt-oss/nb/',
-        handleInApp: true, // Håndteres av onBreadcrumbClick
-    },
-                    ],
-                  },
-                })
-              })()"
-                    >
-                        Set breadcrumbs
-                    </button>
-                    <button
-                        onclick="(() => {
-              window.postMessage({
-                  source: 'decoratorClient',
-                  event: 'params',
-                  payload: {
-                    availableLanguages: [
-                    ],
-                  },
-                })
-              })()"
-                    >
-                        Set available languages
-                    </button>
-                    <button
-                        onclick="(() => {
-              window.postMessage({
-                  source: 'decoratorClient',
-                  event: 'params',
-                  payload: {
-                    utilsBackground: 'gray',
-                  },
-                })
-              })()"
-                    >
-                        Markup was updated
-                    </button>
-                    <div>${main}</div>
-                </main>
+                <main>${main}</main>
                 <div id="footer-withmenu">${footer}</div>
                 <div id="scripts" style="display:none">
                     ${unsafeHtml(scripts)}${decoratorData}

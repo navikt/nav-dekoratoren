@@ -15,6 +15,7 @@
     "dependencies": {
         "decorator-client": "workspace:*",
         "decorator-shared": "workspace:*",
+        "hono": "4.3.6",
         "unleash-client": "^4.1.1",
         "csp-header": "^5.2.1",
         "@builder.io/partytown": "^0.8.1",

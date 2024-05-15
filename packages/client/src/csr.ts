@@ -18,7 +18,7 @@ function urlToScript(url: string) {
     return script;
 }
 
-export async function hydrate() {
+async function hydrate() {
     const [header, footer, envEl] = [
         "decorator-header",
         "decorator-footer",

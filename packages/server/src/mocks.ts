@@ -4,7 +4,7 @@ import notificationsMock from "./notifications-mock.json";
 import { env } from "./env/server";
 import testData from "./menu/main-menu-mock.json";
 
-export default () =>
+export const setupMocks = () =>
     setupServer(
         http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
             HttpResponse.json(testData),
