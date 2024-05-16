@@ -16,7 +16,7 @@ import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { getClientScriptUrl, getClientStyleUrl, getScripts } from "./views";
+import { getCSRScriptUrl, getClientCSSUrl, getScripts } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { serveStatic } from "hono/bun";
 
@@ -155,10 +155,10 @@ app.get("/env", async ({ req, json }) => {
     });
 });
 app.get("/client.js", async ({ redirect }) =>
-    redirect(await getClientScriptUrl()),
+    redirect(await getCSRScriptUrl()),
 );
 app.get("/css/client.css", async ({ redirect }) =>
-    redirect(await getClientStyleUrl()),
+    redirect(await getClientCSSUrl()),
 );
 app.get("/", async ({ req, html }) =>
     html(

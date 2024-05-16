@@ -16,20 +16,19 @@ r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
 
-export const getClientScriptUrl = async () => {
+export const getCSRScriptUrl = async () => {
     const csrManifest = (
-        await import("decorator-client/dist/.vite/manifest.json")
+        await import("decorator-client/dist/.vite/csr.manifest.json")
     ).default;
 
-    return cdnUrl(csrManifest["src/main.ts"].file);
+    return cdnUrl(csrManifest["src/csr.ts"].file);
 };
 
-export const getClientStyleUrl = async () => {
-    const csrManifest = (
-        await import("decorator-client/dist/.vite/manifest.json")
-    ).default;
+export const getClientCSSUrl = async () => {
+    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
+        .default;
 
-    return cdnUrl(csrManifest["src/main.ts"].css[0]);
+    return cdnUrl(manifest["src/main.ts"].css[0]);
 };
 
 type AssetFormatter = (src: string) => string;
