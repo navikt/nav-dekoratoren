@@ -18,13 +18,18 @@ import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { getClientSideRenderingScriptUrl, getCss, getScripts } from "./views";
 import { MainMenu } from "./views/header/main-menu";
+import { serveStatic } from "hono/bun";
+
+const app = new Hono();
 
 if (env.NODE_ENV === "development") {
     console.log("Setting up mocks");
     setupMocks();
+    app.get(
+        "/mockServiceWorker.js",
+        serveStatic({ path: "./public/mockServiceWorker.js" }),
+    );
 }
-
-const app = new Hono();
 
 app.use(headers);
 
