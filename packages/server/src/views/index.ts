@@ -1,45 +1,27 @@
 import html, { Template, unsafeHtml } from "decorator-shared/html";
 import { Language } from "decorator-shared/params";
-import { NodeEnv } from "../env/schema";
 import { env } from "../env/server";
 
-export const entryPointPath = "src/main.ts";
-export const entryPointPathAnalytics = "src/analytics/analytics.ts";
-
-const vendorScripts = {
-    taskAnalytics: "https://in2.taskanalytics.com/tm.js",
-} as const;
+const entryPointPath = "src/main.ts";
+const entryPointPathAnalytics = "src/analytics/analytics.ts";
 
 // https://github.com/BuilderIO/partytown/issues/241
 // See how this works in production
-const inlineVendorScripts = {
-    hotjar: `(function(h,o,t,j,a,r){
+const hotjarScript = `(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};
 a=o.getElementsByTagName('head')[0];
 r=o.createElement('script');r.async=1;
 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
-})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`,
-} as const;
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
 
-/* Merge the two manifests*/
-export const getManifest = async () => {
-    const mainManifest = (
-        await import("decorator-client/dist/.vite/manifest.json")
-    ).default;
+export const getClientSideRenderingScriptUrl = async () => {
     const csrManifest = (
         await import("decorator-client/dist/.vite/csr.manifest.json")
     ).default;
-    const thirdPartyManifest = (
-        await import("decorator-client/dist/.vite/analytics.manifest.json")
-    ).default;
 
-    return {
-        ...mainManifest,
-        ...csrManifest,
-        ...thirdPartyManifest,
-    };
+    return cdnUrl(csrManifest["src/csr.ts"].file);
 };
 
 type AssetFormatter = (src: string) => string;
@@ -61,66 +43,63 @@ const cssLink: AssetFormatter = (src) =>
 
 export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
-type EnvAssets = Record<NodeEnv, string>;
-
-export const getEnvAssets = async () => {
-    const manifest = await getManifest();
-
-    const css: EnvAssets = {
-        production: manifest[entryPointPath].css
-            .map(cdnUrl)
-            .map(cssLink)
-            .join(""),
-        development: cssLink(""), // Dummy to ensure the styles-container is not empty
-    };
-
-    const scripts: EnvAssets = {
-        production: [
-            script(cdnUrl(manifest[entryPointPath].file)),
-            asyncScript(cdnUrl(manifest[entryPointPathAnalytics].file)),
-            asyncScript(vendorScripts.taskAnalytics),
-            [inlineVendorScripts.hotjar].map(asyncScriptInline).join(""),
-        ].join(""),
-        development: [
-            [
-                "http://localhost:5173/@vite/client",
-                `http://localhost:5173/${entryPointPath}`,
-                `http://localhost:5173/${entryPointPathAnalytics}`,
-            ]
-                .map(script)
-                .join(""),
-            [inlineVendorScripts.hotjar].map(partytownInlineScript).join(""),
-        ].join(""),
-    };
-
-    return {
-        links: css[env.NODE_ENV],
-        scripts: scripts[env.NODE_ENV],
-    };
+export const getCss = async () => {
+    if (env.NODE_ENV === "production") {
+        const manifest = (
+            await import("decorator-client/dist/.vite/manifest.json")
+        ).default;
+        return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
+    }
+    return [];
 };
 
-const assets = await getEnvAssets();
+export const getScripts = async () => {
+    if (env.NODE_ENV === "production") {
+        const manifest = (
+            await import("decorator-client/dist/.vite/manifest.json")
+        ).default;
+        const thirdPartyManifest = (
+            await import("decorator-client/dist/.vite/analytics.manifest.json")
+        ).default;
+        return [
+            script(cdnUrl(manifest[entryPointPath].file)),
+            asyncScript(
+                cdnUrl(thirdPartyManifest[entryPointPathAnalytics].file),
+            ),
+            asyncScript("https://in2.taskanalytics.com/tm.js"),
+            asyncScriptInline(hotjarScript),
+        ];
+    }
+
+    return [
+        ...[
+            "http://localhost:5173/@vite/client",
+            `http://localhost:5173/${entryPointPath}`,
+            `http://localhost:5173/${entryPointPathAnalytics}`,
+        ].map(script),
+        partytownInlineScript(hotjarScript),
+    ];
+};
+
+const css = (await getCss()).join("");
+const scripts = (await getScripts()).join("");
 
 export function Index({
     language,
     header,
     footer,
     decoratorData,
-    maskDocument = false,
     main,
 }: {
     language: Language;
     header: Template;
     footer: Template;
     decoratorData: Template;
-    maskDocument?: boolean;
     main?: Template;
 }) {
-    const { links, scripts } = assets;
-
     return html`
         <!doctype html>
-        <html lang="${language}" ${maskDocument ? "data-hj-supress" : ""}>
+        <html lang="${language}">
             <head>
                 <title>${"NAV Dekoratør"}</title>
                 <link
@@ -137,7 +116,7 @@ export function Index({
                 />
             </head>
             <body>
-                <div id="styles" style="display:none">${unsafeHtml(links)}</div>
+                <div id="styles" style="display:none">${unsafeHtml(css)}</div>
                 <div id="header-withmenu">${header}</div>
                 <main>${main}</main>
                 <div id="footer-withmenu">${footer}</div>

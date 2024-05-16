@@ -31,8 +31,8 @@ export const UserMenu = ({
     logoutUrl,
     minsideUrl,
     personopplysningerUrl,
-}: UserMenuProps) =>
-    html` <div class="${cls.userMenu}">
+}: UserMenuProps) => html`
+    <div class="${cls.userMenu}">
         <div class="${cls.menuItems}">
             <div class="${cls.menuHeader}">
                 <div class="${cls.loggedIn}">${texts.logged_in}</div>
@@ -70,4 +70,5 @@ export const UserMenu = ({
             ${LogoutIcon({})}
             <span>Logg ut</span>
         </a>
-    </div>`;
+    </div>
+`;

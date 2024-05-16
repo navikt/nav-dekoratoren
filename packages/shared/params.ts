@@ -68,7 +68,7 @@ export const paramsSchema = z.object({
     shareScreen: z.boolean().default(true),
     // @TODO: Validering av domenet
     logoutUrl: z.string().default(""),
-    maskHotjar: z.boolean().default(false),
+    maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
     name: z.string().optional(),

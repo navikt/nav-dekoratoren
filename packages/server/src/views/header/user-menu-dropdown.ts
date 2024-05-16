@@ -52,5 +52,8 @@ export const UserMenuDropdown = ({
             minsideUrl,
             personopplysningerUrl,
         }),
+        attributes: {
+            ["data-hj-suppress"]: true,
+        },
     });
 };
