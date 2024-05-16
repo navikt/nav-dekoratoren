@@ -1,3 +1,4 @@
+import { Server } from "bun";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
@@ -23,7 +24,7 @@ if (env.NODE_ENV === "development") {
     setupMocks();
 }
 
-export const app = new Hono();
+const app = new Hono();
 
 app.use(headers);
 
@@ -165,4 +166,7 @@ app.get("/", async ({ req, html }) =>
 
 app.route("/decorator-next", app);
 
-export default app;
+export default {
+    ...app,
+    port: Number(process.env.PORT) || 8089,
+} satisfies Partial<Server>;

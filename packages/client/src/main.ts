@@ -1,19 +1,27 @@
 /// <reference types="./client.d.ts" />
 import { formatParams } from "decorator-shared/json";
-import { type Context } from "decorator-shared/params";
+import { type Context, type ParamKey } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
+import { initAnalytics } from "./analytics/analytics";
+import { initAuth } from "./auth";
 import { logoutWarningController } from "./controllers/logout-warning";
+import { createEvent, initHistoryEvents } from "./events";
+import { addFaroMetaData } from "./faro";
 import "./main.css";
+import { env, hasParam, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 import "./views/breadcrumb";
+import "./views/chatbot-wrapper";
 import "./views/context-link";
 import "./views/decorator-utils";
 import "./views/dropdown-menu";
+import "./views/feedback";
 import "./views/language-selector";
 import "./views/lenke-med-sporing";
 import "./views/loader";
 import "./views/local-time";
+import "./views/login-button";
 import "./views/main-menu";
 import "./views/menu-background";
 import "./views/notifications";
@@ -21,18 +29,9 @@ import "./views/ops-messages";
 import "./views/screensharing-modal";
 import "./views/search-input";
 import "./views/search-menu";
-import "./views/feedback";
-import "./views/login-button";
-import "./views/chatbot-wrapper";
+import "./views/skip-link";
 import "./views/sticky";
 import "./views/user-menu";
-import "./views/skip-link";
-import { addFaroMetaData } from "./faro";
-import { createEvent, initHistoryEvents } from "./events";
-import { type ParamKey } from "decorator-shared/params";
-import { param, hasParam, updateDecoratorParams, env } from "./params";
-import { initAnalytics } from "./analytics/analytics";
-import { initAuth } from "./auth";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
