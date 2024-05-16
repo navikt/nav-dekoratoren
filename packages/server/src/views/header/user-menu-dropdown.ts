@@ -53,7 +53,7 @@ export const UserMenuDropdown = ({
             personopplysningerUrl,
         }),
         attributes: {
-            dataHjSuppress: true,
+            ["data-hj-suppress"]: true,
         },
     });
 };
