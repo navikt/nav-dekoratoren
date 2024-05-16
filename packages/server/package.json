@@ -21,6 +21,7 @@
         "unleash-client": "4.2.1"
     },
     "devDependencies": {
+        "@types/bun": "1.1.2",
         "msw": "2.3.0",
         "postcss": "8.4.38",
         "postcss-modules": "6.0.0"

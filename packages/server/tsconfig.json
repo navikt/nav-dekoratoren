@@ -12,7 +12,8 @@
         "paths": {
             "decorator-shared/*": ["../shared/*"],
             "decorator-client/*": ["../client/*"]
-        }
+        },
+        "typeRoots": ["bun-types"]
     },
     "exclude": ["**/*.stories.ts"]
 }
