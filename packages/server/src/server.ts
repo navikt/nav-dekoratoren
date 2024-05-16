@@ -17,6 +17,7 @@ import { cdnUrl, getManifest } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { fetchOpsMessages } from "./ops-msgs";
+import { Server } from "bun";
 
 if (env.NODE_ENV === "development") {
     console.log("Setting up mocks");
@@ -166,4 +167,7 @@ app.get("/", async ({ req, html }) =>
 
 app.route("/decorator-next", app);
 
-export default app;
+export default {
+    ...app,
+    port: Number(process.env.PORT) || 8089,
+} satisfies Partial<Server>;
