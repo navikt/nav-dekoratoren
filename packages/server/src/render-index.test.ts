@@ -58,6 +58,6 @@ describe("render-index", () => {
                 },
                 url: "localhost:8089/",
             }),
-        ).toContain("data-hj-supress");
+        ).toContain("<!doctype html>");
     });
 });

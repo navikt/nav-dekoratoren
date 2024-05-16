@@ -108,7 +108,7 @@ const renderValue = (item: TemplateStringValues): string =>
         .exhaustive();
 // .otherwise((template) => template.render());
 
-type AttribueValue = number | string | boolean | string[];
+export type AttribueValue = number | string | boolean | string[];
 
 const toKebabCase = (str: string) =>
     str.replace(
