@@ -42,13 +42,7 @@ export const CONTEXTS = [
     "samarbeidspartner",
 ] as const;
 
-const texts = window.__DECORATOR_DATA__.texts;
-
 updateDecoratorParams({});
-
-if (hasParam("logoutWarning")) {
-    logoutWarningController(param("logoutWarning"), texts);
-}
 
 window.addEventListener("paramsupdated", (e) => {
     if (e.detail.params.language) {
@@ -130,6 +124,23 @@ const init = async () => {
     initAuth().then((auth) => {
         initAnalytics(auth);
     });
+
+    if (hasParam("logoutWarning")) {
+        logoutWarningController(
+            param("logoutWarning"),
+            window.__DECORATOR_DATA__.texts,
+        );
+    }
 };
 
-init();
+async function enableMocking() {
+    if (process.env.NODE_ENV !== "development") {
+        return;
+    }
+
+    const { worker } = await import("./mocks");
+
+    return worker.start({ onUnhandledRequest: "bypass" });
+}
+
+enableMocking().then(() => init());

@@ -88,11 +88,6 @@ export const clientEnvSchema = z.object({
     XP_BASE_URL: z.string(),
     APP_URL: z.string(),
     API_SESSION_URL: z.string(),
-    // Screensharing related
-    OPPORTUNITY_ID: z.string(),
-    SOLUTION_ID: z.string(),
-    CASETYPE_ID: z.string(),
-    NAV_GROUP_ID: z.string(),
     BOOST_ENVIRONMENT: z.enum(["nav", "navtest"]),
     ENV: z.enum(["production", "development"]),
 });

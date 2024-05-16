@@ -51,10 +51,6 @@ export const client_env = {
     PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
     VARSEL_API_URL: process.env.VARSEL_API_URL,
     API_SESSION_URL: process.env.API_SESSION_URL,
-    OPPORTUNITY_ID: process.env.OPPORTUNITY_ID,
-    SOLUTION_ID: process.env.SOLUTION_ID,
-    CASETYPE_ID: process.env.CASETYPE_ID,
-    NAV_GROUP_ID: process.env.NAV_GROUP_ID,
     BOOST_ENVIRONMENT: process.env.BOOST_ENVIRONMENT as BoostEnviroment,
     ENV: serverEnv.NODE_ENV,
 };

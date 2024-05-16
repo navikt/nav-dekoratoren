@@ -38,14 +38,6 @@ env:
     value: https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver
   - name: PERSONOPPLYSNINGER_URL
     value: https://www.intern.dev.nav.no/person/personopplysninger
-  - name: CASETYPE_ID
-    value: "66D660EF-6F14-44B4-8ADE-A70A127202D0"
-  - name: NAV_GROUP_ID
-    value: "A034081B-6B73-46B7-BE27-23B8E9CE3079"
-  - name: OPPORTUNITY_ID
-    value: "615FF5E7-37B7-4697-A35F-72598B0DC53B"
-  - name: SOLUTION_ID
-    value: "5EB316A1-11E2-460A-B4E3-F82DBD13E21D"
   - name: BOOST_ENVIRONMENT
     value: "navtest"
 replicas:
