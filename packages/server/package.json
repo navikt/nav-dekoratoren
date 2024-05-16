@@ -13,17 +13,16 @@
         "test": "bun test --env-file=./.env.sample"
     },
     "dependencies": {
+        "@builder.io/partytown": "0.10.2",
+        "csp-header": "5.2.1",
         "decorator-client": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.3.6",
-        "unleash-client": "^4.1.1",
-        "csp-header": "^5.2.1",
-        "@builder.io/partytown": "^0.8.1",
-        "zod": "^3.22.4"
+        "hono": "4.3.7",
+        "unleash-client": "4.2.1"
     },
     "devDependencies": {
         "msw": "2.3.0",
-        "postcss": "^8.4.30",
-        "postcss-modules": "^6.0.0"
+        "postcss": "8.4.38",
+        "postcss-modules": "6.0.0"
     }
 }
