@@ -14,7 +14,7 @@ import {
 import { NotificationsErrorView } from "../errors/notifications-error";
 import { NotificationsEmpty } from "./notifications-empty";
 
-type NotificationsProps = {
+export type NotificationsProps = {
     texts: Texts;
     notifications: Notification[] | null;
 };

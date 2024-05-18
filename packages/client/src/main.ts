@@ -35,13 +35,6 @@ import "./views/user-menu";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
-// Just for testing
-export const CONTEXTS = [
-    "privatperson",
-    "arbeidsgiver",
-    "samarbeidspartner",
-] as const;
-
 updateDecoratorParams({});
 
 window.addEventListener("paramsupdated", (e) => {
@@ -88,7 +81,11 @@ window.addEventListener("message", (e) => {
 
         if (e.data.payload.context) {
             const context = e.data.payload.context;
-            if (CONTEXTS.includes(context)) {
+            if (
+                ["privatperson", "arbeidsgiver", "samarbeidspartner"].includes(
+                    context,
+                )
+            ) {
                 window.dispatchEvent(
                     createEvent("activecontext", {
                         bubbles: true,

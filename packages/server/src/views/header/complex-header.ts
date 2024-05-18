@@ -51,7 +51,6 @@ export function ComplexHeader({
                         >
                             ${NavLogo({
                                 title: texts.to_front_page,
-                                id: "dekoratoren-header-logo",
                             })}
                         </lenke-med-sporing>
                         <div class="${cls.arbeidsflate}">

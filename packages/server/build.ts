@@ -16,7 +16,7 @@ const cssModulesPlugin: BunPlugin = {
 
 const result = await Bun.build({
     entrypoints: ["./src/server.ts"],
-    target: "bun", // bun
+    target: "bun",
     outdir: "./dist",
     minify: false,
     plugins: [cssModulesPlugin],

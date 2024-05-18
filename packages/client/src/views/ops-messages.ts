@@ -34,8 +34,6 @@ const exactPathTerminator = "$";
 const removeTrailingChars = (url?: string) =>
     url?.replace(`${exactPathTerminator}$`, "").replace(/\/$/, "");
 
-// url?.replace(new RegExp(`/?${exactPathTerminator}?$`), "");
-
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 

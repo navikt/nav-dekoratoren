@@ -17,10 +17,6 @@ export const serverSchema = z.object({
     LOGIN_URL: z.string().url(),
 });
 
-export type RunningEnv = z.infer<typeof serverSchema>["ENV"];
-
-export type NodeEnv = z.infer<typeof serverSchema>["NODE_ENV"];
-
 export const serverEnv = {
     UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
     UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,

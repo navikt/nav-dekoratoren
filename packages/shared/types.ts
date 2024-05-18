@@ -1,10 +1,5 @@
 import { Environment, Params } from "./params";
 
-/**
- * Used to enforce scoped ids
- */
-export type DecoratorId = `dekoratoren-${string}`;
-
 export type Link = {
     content: string;
     url: string;

@@ -1,10 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { Environment, Params } from "lib/params";
-import {
-    erNavDekoratoren,
-    getIdPortenLocale,
-    makeFrontpageUrl,
-} from "lib/urls";
+import { Environment, Language, Params } from "lib/params";
+import { erNavDekoratoren, makeFrontpageUrl } from "lib/urls";
 
 type GetUrlLoginOptions = {
     environment: Pick<
@@ -46,7 +42,23 @@ function makeRedirectUrlLogin({
     return environment.MIN_SIDE_URL;
 }
 
-export function makeLoginUrl(
+type IdPortenLocale = "nb" | "nn" | "en" | "se";
+
+const idPortenLocaleMap: Record<Language, IdPortenLocale> = {
+    nb: "nb",
+    nn: "nn",
+    se: "se",
+    en: "en",
+    pl: "en",
+    ru: "en",
+    uk: "en",
+};
+
+function getIdPortenLocale(language: Language) {
+    return idPortenLocaleMap[language];
+}
+
+function makeLoginUrl(
     options: GetUrlLoginOptions & {
         overrideLevel?: string;
     },

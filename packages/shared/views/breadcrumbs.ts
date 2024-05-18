@@ -15,7 +15,7 @@ export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
 };
 
-export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
+const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     breadcrumbs.forEach((breadcrumb) => {
         if (!breadcrumb.title) {
             const error = "breadcrumbs.title supports string";

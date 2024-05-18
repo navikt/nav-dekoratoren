@@ -3,18 +3,13 @@ import html, { Template } from "../html";
 import { alertIcons } from "./icons/alert";
 import cls from "decorator-client/src/styles/alert.module.css";
 
-//@TODO: Stories?
-
 /**
  * @link https://aksel.nav.no/komponenter/core/alert
  */
-
 type AlertProps = {
     variant: "error" | "warning" | "info" | "success";
     content: Template | string;
     className?: string;
-    // @todo: implement if needed
-    // size: 'medium' | 'small'
 };
 
 export type AlertVariant = AlertProps["variant"];

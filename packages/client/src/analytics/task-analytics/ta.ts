@@ -51,7 +51,6 @@ const findAndStartSurvey = (
     currentUrl: URL,
 ) => {
     const { params } = state;
-    // const { context } = state.params
 
     // Do not show surveys if the simple header is used
     if (params.simple || params.simpleHeader) {

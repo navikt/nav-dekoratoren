@@ -22,7 +22,7 @@ export type AuthLoggedIn = {
     securityLevel: "3" | "4";
 };
 
-export type AuthLoggedOut = {
+type AuthLoggedOut = {
     authenticated: false;
 };
 

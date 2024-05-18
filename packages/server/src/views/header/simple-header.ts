@@ -30,7 +30,6 @@ export const SimpleHeader = ({
                 >
                     ${NavLogo({
                         title: texts.to_front_page,
-                        id: "dekoratoren-header-logo",
                     })}
                 </lenke-med-sporing>
                 <user-menu class="${menuItemsCls.menuItems}"></user-menu>

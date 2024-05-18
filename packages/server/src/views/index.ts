@@ -48,9 +48,9 @@ const partytownInlineScript: AssetFormatter = (code) =>
 const cssLink: AssetFormatter = (src) =>
     `<link type="text/css" rel="stylesheet" href="${src}" />`;
 
-export const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
+const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
-export const getCss = async () => {
+const getCss = async () => {
     if (env.NODE_ENV === "production") {
         const manifest = (
             await import("decorator-client/dist/.vite/manifest.json")

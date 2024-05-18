@@ -40,7 +40,6 @@ class ChatbotWrapper extends HTMLElement {
 
         this.button.addEventListener("click", this.openBoostWindow);
 
-        // Script is already loaded
         if (scriptLoaded) {
             this.showChatbot();
         } else {
