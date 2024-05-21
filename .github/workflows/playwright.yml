@@ -22,7 +22,7 @@ jobs:
     - name: Build app
       run: bun run build
     - name: Run Playwright tests
-      run: bun playwright
+      run: npx playwright@1.44.0 test
     - uses: actions/upload-artifact@v4
       if: always()
       with:
