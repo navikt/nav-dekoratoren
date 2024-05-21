@@ -20,9 +20,9 @@ jobs:
     - name: Build app
       run: bun run build
     - name: Install Playwright Browsers
-      run: bunx playwright install --with-deps
+      run: bunx --bun playwright install --with-deps
     - name: Run Playwright tests
-      run: bunx playwright test
+      run: bunx --bun playwright test
     - uses: actions/upload-artifact@v4
       if: always()
       with:
