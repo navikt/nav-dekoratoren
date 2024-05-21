@@ -17,6 +17,8 @@ jobs:
       run: bun install --immutable --ignore-scripts --production
       env:
         NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
     - name: Build app
       run: bun run build
     - name: Run Playwright tests
