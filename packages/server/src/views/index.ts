@@ -16,6 +16,13 @@ r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
 
+export const getMainScriptUrl = async () => {
+    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
+        .default;
+
+    return cdnUrl(manifest[entryPointPath].file);
+};
+
 export const getCSRScriptUrl = async () => {
     const csrManifest = (
         await import("decorator-client/dist/.vite/csr.manifest.json")
