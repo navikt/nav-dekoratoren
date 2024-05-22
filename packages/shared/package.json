@@ -4,10 +4,5 @@
     "type": "module",
     "scripts": {
         "test": "bun test"
-    },
-    "dependencies": {
-        "clsx": "^2.0.0",
-        "xlsx": "^0.18.5",
-        "zod": "^3.22.2"
     }
 }
