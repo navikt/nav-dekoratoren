@@ -6,7 +6,6 @@ import * as prettier from "prettier";
 import ts from "typescript";
 import { HmrContext } from "vite";
 
-// Directoryes to write file to
 const targets = ["./", "../server/", "../shared/"];
 
 const FILE_NAME = "./css-modules.d.ts";
@@ -114,13 +113,9 @@ export async function processAll() {
 
 // @NOTE: Can be made more efficient by only processing the file that changed and checking the source file. Perf gains not worth it for now.
 export const typedCssModulesPlugin = () => {
-    // let config: ResolvedConfig
-
     return {
         name: "typed-css-modules",
         configResolved() {
-            //resolvedConfig: ResolvedConfig
-            // config = resolvedConfig
             processAll();
         },
         handleHotUpdate(context: HmrContext) {

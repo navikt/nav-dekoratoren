@@ -2,13 +2,13 @@
 
 import { Context } from "decorator-shared/params";
 
-export type AnalyticsCategory =
+type AnalyticsCategory =
     | "dekorator-header"
     | "dekorator-footer"
     | "dekorator-meny"
     | "varsler";
 
-export type AnalyticsActions =
+type AnalyticsActions =
     | "søk-dynamisk"
     | "navlogo"
     | "lenke"
@@ -18,9 +18,6 @@ export type AnalyticsActions =
     | "nav.no"
     | "arbeidsflate-valg"
     | `${string}/${string}`;
-
-// type AnalyticsEvent = [string, Partial<AnalyticsEventArgs>];
-// type AnalyticsEvents = Record<string, AnalyticsEvent>;
 
 export const analyticsEvents = {
     arkivertBeskjed: [
@@ -32,8 +29,6 @@ export const analyticsEvents = {
     ],
 } as const;
 
-export type Lenkegruppe = "innlogget meny";
-
 export type AnalyticsEventArgs = {
     eventName?: string;
     category: AnalyticsCategory;
@@ -42,5 +37,5 @@ export type AnalyticsEventArgs = {
     destination?: string;
     label?: string;
     komponent?: string;
-    lenkegruppe?: Lenkegruppe;
+    lenkegruppe?: "innlogget meny";
 };

@@ -16,7 +16,7 @@ import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { getClientSideRenderingScriptUrl, getCss, getScripts } from "./views";
+import { getCSRScriptUrl, getClientCSSUrl, getMainScriptUrl } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { serveStatic } from "hono/bun";
 
@@ -32,6 +32,8 @@ if (env.NODE_ENV === "development") {
 }
 
 app.use(headers);
+
+app.get("/public/assets/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
@@ -150,15 +152,15 @@ app.get("/env", async ({ req, json }) => {
             features,
             env: clientEnv,
         },
-        scripts: await getScripts(),
-        //TODO: Add css
+        scripts: [await getMainScriptUrl()],
+        //TODO: Add css?
     });
 });
 app.get("/client.js", async ({ redirect }) =>
-    redirect(await getClientSideRenderingScriptUrl()),
+    redirect(await getCSRScriptUrl()),
 );
 app.get("/css/client.css", async ({ redirect }) =>
-    redirect((await getCss())[0]),
+    redirect(await getClientCSSUrl()),
 );
 app.get("/", async ({ req, html }) =>
     html(

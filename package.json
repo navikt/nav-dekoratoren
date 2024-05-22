@@ -14,7 +14,8 @@
         "benchmarking": "./benchmarking/run",
         "partytown": "partytown copylib packages/server/public/~partytown",
         "clean": "rm -rf node_modules packages/**/node_modules bun.lockb packages/**/bun.lockb",
-        "postinstall": "husky install"
+        "postinstall": "husky install",
+        "playwright": "playwright test"
     },
     "keywords": [],
     "author": "",
@@ -48,7 +49,8 @@
         "husky": "9.0.11",
         "lint-staged": "15.2.2",
         "msw": "2.3.0",
-        "storybook": "7.6.19"
+        "storybook": "7.6.19",
+        "@playwright/test": "^1.44.0"
     },
     "lint-staged": {
         "*.{ts,tsx,js}": [

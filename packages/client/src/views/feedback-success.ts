@@ -1,9 +1,8 @@
-import cls from "../styles/feedback.module.css";
-
 import html from "decorator-shared/html";
 import type { ClientTexts } from "decorator-shared/types";
+import cls from "../styles/feedback.module.css";
 
-export type FeedbackSuccessProps = {
+type FeedbackSuccessProps = {
     texts: ClientTexts;
 };
 

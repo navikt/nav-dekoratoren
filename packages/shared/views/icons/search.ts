@@ -2,17 +2,15 @@ import clsx from "clsx";
 import html from "../../html";
 import cls from "./search.module.css";
 
-export type SearchProps = {
-    className?: string;
-    ariaLabel?: string;
-    menuSearch?: boolean;
-};
-
 export function SearchIcon({
     className = "",
     ariaLabel,
     menuSearch,
-}: SearchProps) {
+}: {
+    className?: string;
+    ariaLabel?: string;
+    menuSearch?: boolean;
+}) {
     return html`
         <svg
             class="${clsx(className, menuSearch && cls.menuSearch)}"

@@ -12,6 +12,7 @@ import {
     UnmaskedNotification,
 } from "../../notifications";
 import { NotificationsErrorView } from "../errors/notifications-error";
+import { NotificationsEmpty } from "./notifications-empty";
 
 export type NotificationsProps = {
     texts: Texts;
@@ -109,26 +110,31 @@ export function Notifications({ texts, notifications }: NotificationsProps) {
     return html` <div class="${cls.notifications}">
         <h2 class="${cls.notificationsHeading}">${texts.notifications}</h2>
         ${notifications
-            ? html` <ul class="${cls.notificationList}">
-                  ${notifications.map(
-                      (notification) => html`
-                          <li>
-                              ${notification.masked
-                                  ? MaskedNotificationComp({
-                                        notification,
-                                        texts,
-                                    })
-                                  : notification.type === "message" &&
-                                      !notification.link
-                                    ? ArchivableNotification({
-                                          notification,
-                                          texts,
-                                      })
-                                    : NotificationComp({ notification, texts })}
-                          </li>
-                      `,
-                  )}
-              </ul>`
+            ? notifications.length > 0
+                ? html`<ul class="${cls.notificationList}">
+                      ${notifications.map(
+                          (notification) => html`
+                              <li>
+                                  ${notification.masked
+                                      ? MaskedNotificationComp({
+                                            notification,
+                                            texts,
+                                        })
+                                      : notification.type === "message" &&
+                                          !notification.link
+                                        ? ArchivableNotification({
+                                              notification,
+                                              texts,
+                                          })
+                                        : NotificationComp({
+                                              notification,
+                                              texts,
+                                          })}
+                              </li>
+                          `,
+                      )}
+                  </ul>`
+                : NotificationsEmpty({ texts })
             : NotificationsErrorView()}
         <a
             class="${cls.allNotificationsLink}"

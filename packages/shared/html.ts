@@ -106,7 +106,6 @@ const renderValue = (item: TemplateStringValues): string =>
         // Render template
         .with(P.select(), (template) => template.render().trim())
         .exhaustive();
-// .otherwise((template) => template.render());
 
 export type AttribueValue = number | string | boolean | string[];
 

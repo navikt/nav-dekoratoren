@@ -4,7 +4,6 @@ import { logAmplitudeEvent } from "../analytics/amplitude";
 
 class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
-        // Feedback
         const buttons = document.querySelectorAll(
             `.${feedbackClasses.feedbackContent} button`,
         );
