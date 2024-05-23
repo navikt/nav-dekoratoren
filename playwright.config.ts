@@ -73,5 +73,7 @@ export default defineConfig({
         command: "bun dev",
         url: "http://localhost:8089",
         reuseExistingServer: !process.env.CI,
+        stderr: "pipe",
+        stdout: "pipe",
     },
 });

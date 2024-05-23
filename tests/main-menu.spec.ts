@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { test, expect } = require("@playwright/test");
+import { test, expect } from "@playwright/test";
 
 test("main menu", async ({ page }) => {
     await page.goto("http://localhost:8089");
