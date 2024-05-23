@@ -2,8 +2,8 @@ import { ClientTexts } from "decorator-shared/types";
 import {
     AuthData,
     fakeExpirationTime,
-    fetchSession,
     fetchRenew,
+    fetchSession,
     getSecondsToExpiration,
 } from "../helpers/auth";
 
@@ -16,7 +16,7 @@ export async function logoutWarningController(
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let timeoutHandler: NodeJS.Timeout;
-    let auth: AuthData;
+    let auth: AuthData | undefined;
     let silenceWarning: boolean = false;
 
     const TOKEN_WARNING_THRESHOLD = 5 * 60; // 5 minutes
@@ -54,11 +54,23 @@ export async function logoutWarningController(
     // Debug functions for testing token and session expiry
     // ---------------------------------------------
     function fakeTokenExpiration(seconds: number) {
-        auth.tokens.expire_at = fakeExpirationTime(seconds);
+        if (auth?.tokens) {
+            auth.tokens.expire_at = fakeExpirationTime(seconds);
+        } else {
+            console.error(
+                "No tokens found in auth object. Cannot fake token expiry.",
+            );
+        }
     }
 
     function fakeSessionExpiration(seconds: number) {
-        auth.session.ends_at = fakeExpirationTime(seconds);
+        if (auth?.session) {
+            auth.session.ends_at = fakeExpirationTime(seconds);
+        } else {
+            console.error(
+                "No tokens found in auth object. Cannot fake session expiry.",
+            );
+        }
     }
 
     // Updaters for the actual modal UI
