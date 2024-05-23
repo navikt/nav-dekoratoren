@@ -13,10 +13,10 @@ import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
-import { texts } from "./texts";
+import { texts as i18n } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { getCSRScriptUrl, getClientCSSUrl, getScripts } from "./views";
+import { getCSRScriptUrl, getClientCSSUrl, getMainScriptUrl } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { serveStatic } from "hono/bun";
 
@@ -32,6 +32,8 @@ if (env.NODE_ENV === "development") {
 }
 
 app.use(headers);
+
+app.get("/public/assets/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
@@ -71,7 +73,7 @@ app.get("/api/search", async ({ req, html }) =>
 app.get("/api/csp", ({ json }) => json(cspDirectives));
 app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
-    const localTexts = texts[data.language];
+    const localTexts = i18n[data.language];
 
     return html(
         MainMenu({
@@ -110,7 +112,7 @@ app.get("/header", async ({ req, html }) => {
 
     return html(
         renderHeader({
-            texts: texts[data.language],
+            texts: i18n[data.language],
             data,
         }).render(),
     );
@@ -122,7 +124,7 @@ app.get("/footer", async ({ req, html }) => {
         (
             await renderFooter({
                 features: getFeatures(),
-                texts: texts[data.language],
+                texts: i18n[data.language],
                 data,
             })
         ).render(),
@@ -131,16 +133,17 @@ app.get("/footer", async ({ req, html }) => {
 app.get("/env", async ({ req, json }) => {
     const data = validParams(req.query());
     const features = getFeatures();
+    const texts = i18n[data.language];
 
     return json({
         header: renderHeader({
             data,
-            texts: texts[data.language],
+            texts,
         }).render(),
         footer: (
             await renderFooter({
                 data,
-                texts: texts[data.language],
+                texts,
                 features,
             })
         ).render(),
@@ -150,8 +153,8 @@ app.get("/env", async ({ req, json }) => {
             features,
             env: clientEnv,
         },
-        scripts: await getScripts(),
-        //TODO: Add css
+        scripts: [await getMainScriptUrl()],
+        //TODO: Add css?
     });
 });
 app.get("/client.js", async ({ redirect }) =>
