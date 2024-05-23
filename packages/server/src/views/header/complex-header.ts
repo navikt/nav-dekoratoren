@@ -32,8 +32,8 @@ export function ComplexHeader({
 }: ComplexHeaderProps) {
     // @TODO: Need id here for css vars.
     return html`
-        <div id="decorator-header">
-            <header class="${cls.siteheader}">
+        <header id="decorator-header">
+            <div class="${cls.siteheader}">
                 ${SkipLink(texts.skip_link)}
                 <nav
                     class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
@@ -51,6 +51,7 @@ export function ComplexHeader({
                         >
                             ${NavLogo({
                                 title: texts.to_front_page,
+                                titleId: "logo-svg-title",
                             })}
                         </lenke-med-sporing>
                         <div class="${cls.arbeidsflate}">
@@ -114,10 +115,10 @@ export function ComplexHeader({
                         </div>
                     </div>
                 </nav>
-            </header>
+            </div>
             <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
             ${decoratorUtils}
             <menu-background></menu-background>
-        </div>
+        </header>
     `;
 }

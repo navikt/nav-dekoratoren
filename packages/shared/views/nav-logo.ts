@@ -3,9 +3,11 @@ import html from "../html";
 export const NavLogo = ({
     title = "NAV logo",
     className,
+    titleId,
 }: {
     title?: string;
     className?: string;
+    titleId?: string;
 } = {}) =>
     html`<svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,8 +18,9 @@ export const NavLogo = ({
         focusable="false"
         role="img"
         ${className && html`class="${className}"`}
+        ${titleId && html`aria-labelledby="${titleId}"`}
     >
-        <title>${title}</title>
+        <title ${titleId && html`id="${titleId}"`}>${title}</title>
         <path
             fill-rule="evenodd"
             clip-rule="evenodd"

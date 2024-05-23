@@ -16,8 +16,8 @@ export const SimpleHeader = ({
     texts,
     decoratorUtils,
 }: SimpleHeaderProps) => html`
-    <div id="decorator-header">
-        <header class="${cls.siteheader}">
+    <header id="decorator-header">
+        <div class="${cls.siteheader}">
             ${SkipLink(texts.skip_link)}
             <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
                 <lenke-med-sporing
@@ -30,12 +30,13 @@ export const SimpleHeader = ({
                 >
                     ${NavLogo({
                         title: texts.to_front_page,
+                        titleId: "logo-svg-title",
                     })}
                 </lenke-med-sporing>
                 <user-menu class="${menuItemsCls.menuItems}"></user-menu>
             </nav>
-        </header>
+        </div>
         <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
         ${decoratorUtils}
-    </div>
+    </header>
 `;
