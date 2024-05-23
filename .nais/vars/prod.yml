@@ -20,7 +20,7 @@ env:
   - name: XP_BASE_URL
     value: https://www.nav.no
   - name: AUTH_API_URL
-    value: https://login.dev.nav.no
+    value: https://login.nav.no
   - name: LOGIN_URL
     value: https://login.nav.no/oauth2/login
   - name: LOGOUT_URL
