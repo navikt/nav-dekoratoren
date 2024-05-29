@@ -1,6 +1,7 @@
 .splashPage {
     height: 80vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: "Source Sans 3", sans-serif;

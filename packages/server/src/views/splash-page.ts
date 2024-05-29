@@ -6,6 +6,7 @@ import { match } from "ts-pattern";
 function SplashPage() {
     return html`
         <div class="${cls.splashPage}">
+            <h1>Decorator next</h1>
             <div class="${cls.splashAlert}">
                 <span>
                     Hei! Dette er en intern test-side for header og footer på

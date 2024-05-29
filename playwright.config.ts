@@ -69,11 +69,20 @@ export default defineConfig({
     ],
 
     /* Run your local dev server before starting the tests */
-    webServer: {
-        command: "bun dev",
-        url: "http://localhost:8089",
-        reuseExistingServer: !process.env.CI,
-        stderr: "pipe",
-        stdout: "pipe",
-    },
+    webServer: [
+        {
+            command: "bun dev",
+            url: "http://localhost:8089",
+            reuseExistingServer: !process.env.CI,
+            stderr: "pipe",
+            stdout: "pipe",
+        },
+        {
+            command: "bunx http-server",
+            url: "http://localhost:8080",
+            reuseExistingServer: !process.env.CI,
+            stderr: "pipe",
+            stdout: "pipe",
+        },
+    ],
 });

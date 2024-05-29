@@ -35,7 +35,7 @@ export function ComplexHeader({
         <header id="decorator-header">
             <div class="${cls.siteheader}">
                 ${SkipLink(texts.skip_link)}
-                <nav
+                <div
                     class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
                 >
                     <div class="${cls.hovedmenyContent}">
@@ -114,7 +114,7 @@ export function ComplexHeader({
                             })}
                         </div>
                     </div>
-                </nav>
+                </div>
             </div>
             <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
             ${decoratorUtils}

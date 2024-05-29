@@ -19,7 +19,7 @@ export const SimpleHeader = ({
     <header id="decorator-header">
         <div class="${cls.siteheader}">
             ${SkipLink(texts.skip_link)}
-            <nav class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+            <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
                 <lenke-med-sporing
                     href="/"
                     class="${cls.logo} ${cls.logoSimple}"
@@ -34,7 +34,7 @@ export const SimpleHeader = ({
                     })}
                 </lenke-med-sporing>
                 <user-menu class="${menuItemsCls.menuItems}"></user-menu>
-            </nav>
+            </div>
         </div>
         <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
         ${decoratorUtils}
