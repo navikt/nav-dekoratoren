@@ -23,7 +23,7 @@ jobs:
     - run: bunx playwright install --with-deps
     - run: cp packages/server/.env.sample packages/server/.env
     - run: bun run build
-    - run: bun playwright test
+    - run: bunx playwright test
     - uses: actions/upload-artifact@v4
       if: always()
       with:
