@@ -23,7 +23,7 @@ jobs:
       - run: bun run test
       - run: bunx playwright install --with-deps
       - run: cp packages/server/.env.sample packages/server/.env
-      - run: bun playwright test
+      - run: bunx playwright test
 
   create-release:
     needs: build-and-test
