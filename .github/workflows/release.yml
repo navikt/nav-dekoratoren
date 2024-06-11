@@ -27,9 +27,21 @@ jobs:
       - run: bunx playwright install --with-deps
       - run: cp packages/server/.env.sample packages/server/.env
       - run: bunx playwright test
+  
+  tag:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+
+
 
   create-release:
-    needs: build-and-test
+    needs: [build-and-test, tag]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
