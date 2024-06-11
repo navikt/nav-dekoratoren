@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - workflows-refactor
 
 jobs:
   build-and-test:
@@ -63,3 +62,48 @@ jobs:
           RESOURCE: .nais/config.yml
           VAR: image=${{ needs.build-and-test.outputs.image }}
           VARS: .nais/vars/dev-stable.yml
+
+  deploy-beta-navno:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/config.yml
+          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VARS: .nais/vars/dev-beta-navno.yml
+
+  deploy-sandbox:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/config.yml
+          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VARS: .nais/vars/dev-sandbox.yml
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/config.yml
+          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VARS: .nais/vars/prod.yml
