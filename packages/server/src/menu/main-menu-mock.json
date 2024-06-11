@@ -657,7 +657,7 @@
                                     },
                                     {
                                         "displayName": "Dialog med veilederen din",
-                                        "path": "http://nav.no/arbeid/dialog",
+                                        "path": "https://nav.no/arbeid/dialog",
                                         "displayLock": true,
                                         "isMyPageMenu": true,
                                         "id": "b2041cba-9580-499e-815b-caa624d49304",
@@ -1365,7 +1365,7 @@
                                     },
                                     {
                                         "displayName": "Reach your counselor (in Norwegian)",
-                                        "path": "http://nav.no/arbeid/dialog",
+                                        "path": "https://nav.no/arbeid/dialog",
                                         "displayLock": true,
                                         "isMyPageMenu": true,
                                         "id": "a779ca7c-50d4-4734-8370-d1d273666732",
