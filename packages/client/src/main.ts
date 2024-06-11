@@ -135,9 +135,18 @@ async function enableMocking() {
         return;
     }
 
+    if (window.location.origin !== env("APP_URL")) {
+        console.log(
+            "Skipping mock worker as current origin is not decorator origin",
+        );
+        return;
+    }
+
     const { worker } = await import("./mocks");
 
-    return worker.start({ onUnhandledRequest: "bypass" });
+    return worker.start({
+        onUnhandledRequest: "bypass",
+    });
 }
 
 enableMocking().then(() => init());
