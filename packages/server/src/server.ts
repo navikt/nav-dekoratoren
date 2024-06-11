@@ -22,7 +22,7 @@ import { serveStatic } from "hono/bun";
 
 const app = new Hono();
 
-if (env.NODE_ENV === "development") {
+if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     console.log("Setting up mocks");
     setupMocks();
     app.get(
