@@ -28,7 +28,7 @@ export const Default: Story = {
                 text: "Oppgave 2",
                 date: "2023-05-11T10:42:38.247492+02:00",
                 type: "task",
-                link: "http://nav.no",
+                link: "https://nav.no",
                 channels: ["SMS"],
                 masked: false,
             },
@@ -45,7 +45,7 @@ export const Default: Story = {
                 date: "2023-07-06T13:50:50.825129+02:00",
                 type: "message",
                 channels: ["EPOST"],
-                link: "http://nav.no",
+                link: "https://nav.no",
                 masked: false,
             },
             {

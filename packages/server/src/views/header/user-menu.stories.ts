@@ -23,7 +23,7 @@ export const LowAuthLevel: Story = {
                 icon: "task",
                 title: "Oppgave",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
             {
@@ -33,7 +33,7 @@ export const LowAuthLevel: Story = {
                 metadata: "Varslet på SMS",
                 title: "Oppgave",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
             {
@@ -51,7 +51,7 @@ export const LowAuthLevel: Story = {
                 title: "Beskjed",
                 metadata: "Varslet på e-post",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
             {
@@ -60,7 +60,7 @@ export const LowAuthLevel: Story = {
                 icon: "message",
                 title: "Beskjed",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
         ],
@@ -79,7 +79,7 @@ export const HighAuthLevel: Story = {
                 icon: "task",
                 title: "Oppgave",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
             {
@@ -89,7 +89,7 @@ export const HighAuthLevel: Story = {
                 metadata: "Varslet på SMS",
                 title: "Oppgave",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
             {
@@ -107,7 +107,7 @@ export const HighAuthLevel: Story = {
                 title: "Beskjed",
                 metadata: "Varslet på e-post",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
             {
@@ -116,7 +116,7 @@ export const HighAuthLevel: Story = {
                 icon: "message",
                 title: "Beskjed",
                 isArchivable: false,
-                link: "http://nav.no",
+                link: "https://nav.no",
                 amplitudeKomponent: "wat",
             },
         ],
