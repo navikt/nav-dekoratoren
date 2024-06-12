@@ -24,6 +24,12 @@ jobs:
       - run: bun run build
       - run: bun run test
 
-      - run: bunx playwright install --with-deps
-      - run: cp packages/server/.env.sample packages/server/.env
-      - run: bunx playwright test
+      - name: Build Playwright image
+        id: build-playwright
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Playwright.Dockerfile
+          push: false
+      - name: Run Playwright tests
+        run: docker run -e CI=true--ipc=host ${{steps.build-playwright.outputs.imageid}}
