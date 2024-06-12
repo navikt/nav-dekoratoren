@@ -36,6 +36,6 @@ export const Default: Story = {
                 handleInApp: false,
             },
         ],
-        localTexts: texts["en"],
+        texts: texts["en"],
     },
 };

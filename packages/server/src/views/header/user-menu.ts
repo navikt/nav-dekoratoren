@@ -1,23 +1,23 @@
+import cls from "decorator-client/src/styles/user-menu.module.css";
 import html from "decorator-shared/html";
+import { LoginLevel } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
+import { Alert } from "decorator-shared/views/alert";
 import {
-    PadlockIcon,
     BadgeIcon,
+    PadlockIcon,
     PersonCircleIcon,
 } from "decorator-shared/views/icons";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
-import cls from "decorator-client/src/styles/user-menu.module.css";
-import { Notifications } from "../notifications/notifications";
-import { LoginLevel } from "decorator-shared/params";
-import { Alert } from "decorator-shared/views/alert";
 import { Notification } from "../../notifications";
-import { env } from "../../env/server";
+import { Notifications } from "../notifications/notifications";
 
 export type UserMenuProps = {
     texts: Texts;
     name: string;
     notifications: Notification[] | null;
     level: LoginLevel;
+    loginUrl: string;
     logoutUrl: string;
     minsideUrl: string;
     personopplysningerUrl: string;
@@ -28,6 +28,7 @@ export const UserMenu = ({
     name,
     level,
     notifications,
+    loginUrl,
     logoutUrl,
     minsideUrl,
     personopplysningerUrl,
@@ -44,7 +45,7 @@ export const UserMenu = ({
                     content: html`
                         <div>
                             ${texts.security_level_info}
-                            <a class="${cls.link}" href="${env.LOGIN_URL}"
+                            <a class="${cls.link}" href="${loginUrl}"
                                 >Logg inn med BankID, Buypass, eller
                                 Commfides</a
                             >
