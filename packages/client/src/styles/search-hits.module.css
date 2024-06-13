@@ -19,9 +19,22 @@
     padding-left: 0;
 }
 
+.searchMoreHits a {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.searchHitRightArrow {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
 @media (min-width: 768px) {
     .searchHit {
-        padding-left: var(--a-spacing-4);
         border-bottom: 1px solid var(--a-border-default);
     }
 }
