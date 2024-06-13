@@ -1,4 +1,4 @@
-// Create stable classnames in dev mode, in order to not break in HMR when loaded via other apps
+// Create stable classnames in dev mode for HMR
 export const cssModulesScopedNameOption =
     process.env.NODE_ENV === "development"
         ? {
