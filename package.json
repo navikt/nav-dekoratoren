@@ -49,6 +49,7 @@
         "husky": "9.0.11",
         "lint-staged": "15.2.2",
         "storybook": "7.6.19",
+        "typescript-plugin-css-modules": "5.1.0",
         "@playwright/test": "1.44.0",
         "@axe-core/playwright": "4.9.1"
     },
