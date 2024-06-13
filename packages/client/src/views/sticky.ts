@@ -5,10 +5,13 @@ const HEADER_HEIGHT_PX = 80;
 
 class Sticky extends HTMLElement {
     private stickyContent: HTMLElement;
+    private stickyWrapper: HTMLElement;
 
     constructor() {
         super();
+
         this.stickyContent = this.querySelector(`.${cls.stickyContent}`)!;
+        this.stickyWrapper = this.querySelector(`.${cls.stickyWrapper}`)!;
     }
 
     private setStickyOffsetProperty(offset: number) {

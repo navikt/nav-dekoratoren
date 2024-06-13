@@ -2,10 +2,9 @@ import { partytownRollup } from "@builder.io/partytown/utils";
 import path from "path";
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
-import { typedCssModulesPlugin } from "./typesafe-css-modules";
+import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config.js";
 
 export const mainBundleConfig = defineConfig({
-    plugins: [typedCssModulesPlugin()],
     server: {
         origin: "http://localhost:5173",
     },
@@ -29,6 +28,11 @@ export const mainBundleConfig = defineConfig({
                 }),
             ],
             input: ["src/main.ts"],
+        },
+    },
+    css: {
+        modules: {
+            ...cssModulesScopedNameOption,
         },
     },
 });
