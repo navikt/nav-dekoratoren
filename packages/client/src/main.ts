@@ -4,13 +4,14 @@ import { type Context, type ParamKey } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
+import { logHistoryEvent } from "./analytics/amplitude";
 import { initAuth } from "./auth";
 import { logoutWarningController } from "./controllers/logout-warning";
 import { createEvent, initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
-import "./main.css";
 import { env, hasParam, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
+import "./main.css";
 import "./views/breadcrumb";
 import "./views/chatbot-wrapper";
 import "./views/context-link";
@@ -104,6 +105,13 @@ window.addEventListener("activecontext", (event) => {
         context: (event as CustomEvent<{ context: Context }>).detail.context,
     });
 });
+
+window.addEventListener("popstate", (event) => {
+    logHistoryEvent(event);
+});
+/*window.onpopstate = (e) => {
+    logHistoryEvent(e);
+};*/
 
 // @TODO: Refactor loaders
 window.addEventListener("load", () => {
