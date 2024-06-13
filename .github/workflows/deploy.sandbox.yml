@@ -1,9 +1,6 @@
 name: Deploy to sandbox
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   deploy:

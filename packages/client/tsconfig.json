@@ -17,7 +17,12 @@
         "types": ["vite/client", "vitest/globals"],
         "paths": {
             "decorator-shared/*": ["../shared/*"]
-        }
+        },
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules"
+            }
+        ]
     },
     "exclude": ["node_modules", "dist"]
 }

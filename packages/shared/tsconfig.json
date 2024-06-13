@@ -6,6 +6,11 @@
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "esModuleInterop": true,
-        "composite": true
+        "composite": true,
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules"
+            }
+        ]
     }
 }

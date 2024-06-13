@@ -15,6 +15,7 @@ export type UserMenuDropdownProps = {
     name: string;
     notifications: Notification[] | null;
     level: LoginLevel;
+    loginUrl: string;
     logoutUrl: string;
     minsideUrl: string;
     personopplysningerUrl: string;
@@ -25,6 +26,7 @@ export const UserMenuDropdown = ({
     name,
     notifications,
     level,
+    loginUrl,
     logoutUrl,
     minsideUrl,
     personopplysningerUrl,
@@ -48,6 +50,7 @@ export const UserMenuDropdown = ({
             name,
             notifications,
             level,
+            loginUrl,
             logoutUrl,
             minsideUrl,
             personopplysningerUrl,

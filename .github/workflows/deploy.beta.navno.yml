@@ -1,9 +1,6 @@
 name: Deploy to Team nav.no beta
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   deploy:
