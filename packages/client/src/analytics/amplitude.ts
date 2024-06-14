@@ -112,7 +112,10 @@ export const logPageView = (params: Params, authState: Auth) => {
 };
 
 export const logHistoryEvent = (event: PopStateEvent) => {
-    console.log(event);
+    return logAmplitudeEvent("navigere-internt", {
+        sidetittel: document.title,
+        parametere: event.state,
+    });
 };
 
 export const logAmplitudeEvent = (
