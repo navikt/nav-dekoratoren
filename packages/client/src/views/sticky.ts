@@ -1,8 +1,6 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
 
 const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
-const HEADER_HEIGHT_PROPERTY = "--header-height";
-const HEADER_HEIGHT_PX_FALLBACK = 80;
 
 class Sticky extends HTMLElement {
     private readonly contentElement: HTMLElement;
@@ -22,28 +20,16 @@ class Sticky extends HTMLElement {
         this.scrollPos = window.scrollY;
     }
 
-    private getHeaderHeight() {
-        const cssValue = getComputedStyle(this).getPropertyValue(
-            HEADER_HEIGHT_PROPERTY,
-        );
-        if (!cssValue) {
-            console.error("Header height property not found!");
-            return HEADER_HEIGHT_PX_FALLBACK;
-        }
-
-        const numPx = cssValue.replace("px", "");
-
-        return Number(numPx);
-    }
-
     private updateStickyPosition = () => {
         const newScrollPos = window.scrollY;
         const scrollPosDelta = newScrollPos - this.scrollPos;
 
-        const newStickyOffset = this.stickyOffset + scrollPosDelta;
-
         this.stickyOffset = Math.max(
-            Math.min(newStickyOffset, this.getHeaderHeight(), newScrollPos),
+            Math.min(
+                this.stickyOffset + scrollPosDelta,
+                this.contentElement.clientHeight,
+                newScrollPos,
+            ),
             0,
         );
 
