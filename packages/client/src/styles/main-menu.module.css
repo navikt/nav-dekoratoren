@@ -2,6 +2,10 @@
     display: grid;
 }
 
+.mainMenu.hidden {
+    display: none;
+}
+
 @media (min-width: 1024px) {
     .mainMenu {
         grid-template-columns: 2fr minmax(340px, 1fr);

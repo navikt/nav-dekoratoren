@@ -13,7 +13,6 @@
 
 .searchDropdown {
     max-width: 700px;
-    padding-block: var(--a-spacing-6) var(--a-spacing-8);
     padding-inline: var(--edge-spacing);
 }
 
