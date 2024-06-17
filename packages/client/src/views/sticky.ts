@@ -1,13 +1,14 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
 
 const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
-const HEADER_HEIGHT_PX = 80;
+const HEADER_HEIGHT_PROPERTY = "--header-height";
+const HEADER_HEIGHT_PX_FALLBACK = 80;
 
 class Sticky extends HTMLElement {
     private readonly contentElement: HTMLElement;
 
-    private prevScrollPos: number;
-    private currentStickyOffset: number = 0;
+    private scrollPos: number;
+    private stickyOffset: number = 0;
 
     constructor() {
         super();
@@ -18,38 +19,54 @@ class Sticky extends HTMLElement {
             console.error("No content element found!");
         }
 
-        this.prevScrollPos = window.scrollY;
+        this.scrollPos = window.scrollY;
+    }
+
+    private getHeaderHeight() {
+        const cssValue = getComputedStyle(this).getPropertyValue(
+            HEADER_HEIGHT_PROPERTY,
+        );
+        if (!cssValue) {
+            console.error("Header height property not found!");
+            return HEADER_HEIGHT_PX_FALLBACK;
+        }
+
+        const numPx = cssValue.replace("px", "");
+
+        return Number(numPx);
     }
 
     private updateStickyPosition = () => {
-        const currentScrollPos = window.scrollY;
-        const scrollPosDelta = currentScrollPos - this.prevScrollPos;
+        const newScrollPos = window.scrollY;
+        const scrollPosDelta = newScrollPos - this.scrollPos;
 
-        const newOffset = this.currentStickyOffset + scrollPosDelta;
+        const newStickyOffset = this.stickyOffset + scrollPosDelta;
 
-        this.currentStickyOffset = Math.max(
-            Math.min(newOffset, HEADER_HEIGHT_PX),
+        this.stickyOffset = Math.max(
+            Math.min(newStickyOffset, this.getHeaderHeight(), newScrollPos),
             0,
         );
 
-        console.log(`Current offset: ${this.currentStickyOffset}`);
+        console.log(`Current offset: ${this.stickyOffset}`);
 
         document.documentElement.style.setProperty(
             STICKY_OFFSET_PROPERTY,
-            `${this.currentStickyOffset}px`,
+            `${this.stickyOffset}px`,
         );
 
-        this.prevScrollPos = currentScrollPos;
+        this.scrollPos = newScrollPos;
     };
 
     connectedCallback() {
         this.updateStickyPosition();
 
         window.addEventListener("scroll", this.updateStickyPosition);
+        window.addEventListener("resize", this.updateStickyPosition);
     }
 
     disconnectedCallback() {
         window.removeEventListener("scroll", this.updateStickyPosition);
+        window.removeEventListener("resize", this.updateStickyPosition);
     }
 }
 
