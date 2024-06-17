@@ -62,11 +62,11 @@ class Sticky extends HTMLElement {
     };
 
     private onFocus = (e: FocusEvent) => {
-        this.handleOverlappingElement(e.target);
+        this.handleOverlappingElement(e.target as HTMLElement);
     };
 
     private onClick = (e: MouseEvent) => {
-        const targetHash = e.target?.hash;
+        const targetHash = (e.target as HTMLAnchorElement)?.hash;
         if (!targetHash) {
             return;
         }
@@ -76,7 +76,7 @@ class Sticky extends HTMLElement {
         this.handleOverlappingElement(targetElement);
     };
 
-    private handleOverlappingElement = (element?: HTMLElement) => {
+    private handleOverlappingElement = (element?: HTMLElement | null) => {
         if (!element) {
             return;
         }

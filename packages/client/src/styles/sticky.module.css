@@ -19,6 +19,7 @@
 .stickyWrapper {
     position: relative;
     display: block;
+    height: var(--header-height);
 }
 
 .fixed {
