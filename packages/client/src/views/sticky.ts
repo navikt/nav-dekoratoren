@@ -3,47 +3,66 @@ import cls from "decorator-client/src/styles/sticky.module.css";
 const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
 
 class Sticky extends HTMLElement {
-    private readonly headerElement: HTMLElement;
+    private readonly headerElement: HTMLElement = this.querySelector(
+        `.${cls.headerContent}`,
+    )!;
 
     private scrollPos: number = 0;
     private headerVisibleHeight: number = 0;
 
-    constructor() {
-        super();
-
-        this.headerElement = this.querySelector(`.${cls.headerContent}`)!;
-
-        if (!this.headerElement) {
-            console.error("No header element found!");
-        }
-
-        this.reset();
-    }
+    private isDeferringUpdates = false;
 
     private updateStickyPosition = () => {
+        if (this.isDeferringUpdates) {
+            return;
+        }
+
         const newScrollPos = window.scrollY;
         const scrollPosDelta = newScrollPos - this.scrollPos;
-        const headerContentHeight = this.headerElement.clientHeight;
 
         this.headerVisibleHeight = Math.max(
             Math.min(
-                this.headerVisibleHeight + scrollPosDelta,
-                headerContentHeight,
+                this.headerVisibleHeight - scrollPosDelta,
+                this.getHeaderHeight(),
             ),
             0,
         );
 
         document.documentElement.style.setProperty(
             STICKY_OFFSET_PROPERTY,
-            `${headerContentHeight - this.headerVisibleHeight}px`,
+            `${this.headerVisibleHeight}px`,
         );
 
         this.scrollPos = newScrollPos;
     };
 
+    private handleOverlappingElement = (element?: HTMLElement | null) => {
+        if (!element) {
+            return;
+        }
+
+        const elementIsBelowHeader =
+            element.offsetTop > this.scrollPos + this.headerVisibleHeight;
+
+        if (elementIsBelowHeader) {
+            return;
+        }
+
+        this.isDeferringUpdates = true;
+
+        setTimeout(() => {
+            this.isDeferringUpdates = false;
+        }, 500);
+    };
+
+    private getHeaderHeight = () => {
+        return this.headerElement.clientHeight;
+    };
+
     private reset = () => {
         this.scrollPos = window.scrollY;
-        this.headerVisibleHeight = 0;
+        this.headerVisibleHeight = this.getHeaderHeight();
+        this.updateStickyPosition();
     };
 
     private onMenuOpen = () => {
@@ -53,12 +72,10 @@ class Sticky extends HTMLElement {
     private onMenuClose = () => {
         this.headerElement.classList.remove(cls.fixed);
         this.reset();
-        this.updateStickyPosition();
     };
 
     private onHeaderFocus = () => {
         this.reset();
-        this.updateStickyPosition();
     };
 
     private onFocus = (e: FocusEvent) => {
@@ -76,27 +93,12 @@ class Sticky extends HTMLElement {
         this.handleOverlappingElement(targetElement);
     };
 
-    private handleOverlappingElement = (element?: HTMLElement | null) => {
-        if (!element) {
-            return;
-        }
-
-        const elementIsBelowHeader =
-            element.offsetTop > this.scrollPos + this.headerVisibleHeight;
-
-        if (elementIsBelowHeader) {
-            return;
-        }
-
-        window.removeEventListener("scroll", this.updateStickyPosition);
-        setTimeout(
-            () => window.addEventListener("scroll", this.updateStickyPosition),
-            500,
-        );
-    };
-
     connectedCallback() {
-        this.updateStickyPosition();
+        if (!this.headerElement) {
+            console.error("No header element found!");
+        }
+
+        this.reset();
 
         window.addEventListener("scroll", this.updateStickyPosition);
         window.addEventListener("resize", this.updateStickyPosition);
