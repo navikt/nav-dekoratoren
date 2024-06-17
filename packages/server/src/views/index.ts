@@ -44,10 +44,10 @@ const script: AssetFormatter = (src) =>
     `<script type="module" src="${src}"></script>`;
 
 const asyncScript: AssetFormatter = (src) =>
-    `<script fetchpriority='low' async type="module" src="${src}"></script>`;
+    `<script fetchpriority="low" async type="module" src="${src}"></script>`;
 
 const asyncScriptInline: AssetFormatter = (src) =>
-    `<script fetchpriority='low' async type="module">${src}</script>`;
+    `<script fetchpriority="low" async type="module">${src}</script>`;
 
 const partytownInlineScript: AssetFormatter = (code) =>
     `<script type="text/partytown">${code}</script>`;
@@ -58,13 +58,13 @@ const cssLink: AssetFormatter = (src) =>
 const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
 
 const getCss = async () => {
-    if (env.NODE_ENV === "production") {
-        const manifest = (
-            await import("decorator-client/dist/.vite/manifest.json")
-        ).default;
-        return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
+    if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
+        return [];
     }
-    return [];
+
+    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
+        .default;
+    return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
 };
 
 export const getScripts = async () => {
@@ -75,6 +75,7 @@ export const getScripts = async () => {
         const thirdPartyManifest = (
             await import("decorator-client/dist/.vite/analytics.manifest.json")
         ).default;
+
         return [
             script(cdnUrl(manifest[entryPointPath].file)),
             asyncScript(
@@ -98,19 +99,21 @@ export const getScripts = async () => {
 const css = (await getCss()).join("");
 const scripts = (await getScripts()).join("");
 
+type Props = {
+    language: Language;
+    header: Template;
+    footer: Template;
+    decoratorData: Template;
+    main?: Template;
+};
+
 export function Index({
     language,
     header,
     footer,
     decoratorData,
     main,
-}: {
-    language: Language;
-    header: Template;
-    footer: Template;
-    decoratorData: Template;
-    main?: Template;
-}) {
+}: Props) {
     return html`
         <!doctype html>
         <html lang="${language}">

@@ -57,7 +57,19 @@ window.addEventListener("paramsupdated", (e) => {
     }
 });
 
+const msgSafetyCheck = (message: MessageEvent) => {
+    const { origin, source } = message;
+    // Only allow messages from own window
+    if (window.location.href.indexOf(origin) === 0 && source === window) {
+        return true;
+    }
+    return false;
+};
+
 window.addEventListener("message", (e) => {
+    if (!msgSafetyCheck(e)) {
+        return;
+    }
     if (e.data.source === "decoratorClient" && e.data.event === "ready") {
         window.postMessage({ source: "decorator", event: "ready" });
     }
@@ -135,9 +147,18 @@ async function enableMocking() {
         return;
     }
 
+    if (window.location.origin !== env("APP_URL")) {
+        console.log(
+            "Skipping mock worker as current origin is not decorator origin",
+        );
+        return;
+    }
+
     const { worker } = await import("./mocks");
 
-    return worker.start({ onUnhandledRequest: "bypass" });
+    return worker.start({
+        onUnhandledRequest: "bypass",
+    });
 }
 
 enableMocking().then(() => init());

@@ -71,7 +71,7 @@ export default defineConfig({
     /* Run your local dev server before starting the tests */
     webServer: [
         {
-            command: "bun dev",
+            command: "bun run --cwd packages/server serve-local",
             url: "http://localhost:8089",
             reuseExistingServer: !process.env.CI,
             stderr: "pipe",

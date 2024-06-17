@@ -15,6 +15,7 @@ export const serverSchema = z.object({
     VARSEL_API_URL: z.string().url(),
     API_DEKORATOREN_URL: z.string().url(),
     LOGIN_URL: z.string().url(),
+    HAS_EXTERNAL_DEV_CONSUMER: z.boolean(),
 });
 
 export const serverEnv = {
@@ -32,6 +33,7 @@ export const serverEnv = {
     VARSEL_API_URL: process.env.VARSEL_API_URL,
     API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
     LOGIN_URL: process.env.LOGIN_URL,
+    HAS_EXTERNAL_DEV_CONSUMER: process.env.HAS_EXTERNAL_DEV_CONSUMER === "true",
 };
 
 // This is session URL for prod

@@ -2,7 +2,7 @@ import { Unleash, initialize } from "unleash-client";
 import { env } from "./env/server";
 
 let unleash: Unleash;
-if (env.NODE_ENV === "production") {
+if (env.NODE_ENV === "production" && !env.IS_LOCAL_PROD) {
     unleash = initialize({
         url: `${env.UNLEASH_SERVER_API_URL}/api/`,
         appName: "nav-dekoratoren",

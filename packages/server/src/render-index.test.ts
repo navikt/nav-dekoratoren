@@ -5,59 +5,31 @@ import {
     beforeEach,
     expect,
     test,
-    describe,
 } from "bun:test";
 import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
-import testData from "./menu/main-menu-mock.json";
 import { env } from "./env/server";
+import testData from "./menu/main-menu-mock.json";
 import renderIndex from "./render-index";
+import { validParams } from "./validateParams";
 
-describe("render-index", () => {
-    let server: SetupServerApi;
+let server: SetupServerApi;
 
-    beforeAll(() => {
-        server = setupServer(
-            http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
-                HttpResponse.json(testData),
-            ),
-        );
-        server.listen();
-    });
-    beforeEach(() => clearCache());
-    afterEach(() => server.resetHandlers());
-    afterAll(() => server.close());
+beforeAll(() => {
+    server = setupServer(
+        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+            HttpResponse.json(testData),
+        ),
+    );
+    server.listen();
+});
+beforeEach(() => clearCache());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-    test("It masks the document from hotjar", async () => {
-        expect(
-            await renderIndex({
-                data: {
-                    redirectToLogout: "https://www.nav.no",
-                    context: "privatperson",
-                    simple: false,
-                    simpleHeader: false,
-                    simpleFooter: false,
-                    enforceLogin: false,
-                    redirectToApp: false,
-                    level: "Level3",
-                    language: "en",
-                    availableLanguages: [],
-                    breadcrumbs: [],
-                    utilsBackground: "transparent",
-                    feedback: false,
-                    chatbot: true,
-                    chatbotVisible: false,
-                    urlLookupTable: false,
-                    shareScreen: false,
-                    logoutUrl: "/logout",
-                    maskHotjar: true,
-                    logoutWarning: false,
-                    redirectToUrl: "https://www.nav.no",
-                    ssr: true,
-                },
-                url: "localhost:8089/",
-            }),
-        ).toContain("<!doctype html>");
-    });
+test("render-index", async () => {
+    expect(
+        await renderIndex({ data: validParams({}), url: "localhost:8089/" }),
+    ).toContain("<!doctype html>");
 });
