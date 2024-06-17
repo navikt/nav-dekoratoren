@@ -23,7 +23,6 @@ class Sticky extends HTMLElement {
     private updateStickyPosition = () => {
         const newScrollPos = window.scrollY;
         const scrollPosDelta = newScrollPos - this.scrollPos;
-
         const headerContentHeight = this.headerElement.clientHeight;
 
         this.headerVisibleHeight = Math.max(
@@ -33,8 +32,6 @@ class Sticky extends HTMLElement {
             ),
             0,
         );
-
-        console.log(`Current visible height: ${this.headerVisibleHeight}`);
 
         document.documentElement.style.setProperty(
             STICKY_OFFSET_PROPERTY,
@@ -59,9 +56,43 @@ class Sticky extends HTMLElement {
         this.updateStickyPosition();
     };
 
-    private onFocus = () => {
+    private onHeaderFocus = () => {
         this.reset();
         this.updateStickyPosition();
+    };
+
+    private onFocus = (e: FocusEvent) => {
+        this.handleOverlappingElement(e.target);
+    };
+
+    private onClick = (e: MouseEvent) => {
+        const targetHash = e.target?.hash;
+        if (!targetHash) {
+            return;
+        }
+
+        const targetElement = document.querySelector(targetHash) as HTMLElement;
+
+        this.handleOverlappingElement(targetElement);
+    };
+
+    private handleOverlappingElement = (element?: HTMLElement) => {
+        if (!element) {
+            return;
+        }
+
+        const elementIsBelowHeader =
+            element.offsetTop > this.scrollPos + this.headerVisibleHeight;
+
+        if (elementIsBelowHeader) {
+            return;
+        }
+
+        window.removeEventListener("scroll", this.updateStickyPosition);
+        setTimeout(
+            () => window.addEventListener("scroll", this.updateStickyPosition),
+            500,
+        );
     };
 
     connectedCallback() {
@@ -71,7 +102,9 @@ class Sticky extends HTMLElement {
         window.addEventListener("resize", this.updateStickyPosition);
         window.addEventListener("menuopened", this.onMenuOpen);
         window.addEventListener("menuclosed", this.onMenuClose);
-        this.addEventListener("focusin", this.onFocus);
+        document.addEventListener("click", this.onClick);
+        document.addEventListener("focusin", this.onFocus);
+        this.headerElement.addEventListener("focusin", this.onHeaderFocus);
     }
 
     disconnectedCallback() {
@@ -79,7 +112,9 @@ class Sticky extends HTMLElement {
         window.removeEventListener("resize", this.updateStickyPosition);
         window.removeEventListener("menuopened", this.onMenuOpen);
         window.removeEventListener("menuclosed", this.onMenuClose);
-        this.removeEventListener("focusin", this.onFocus);
+        document.removeEventListener("click", this.onClick);
+        document.removeEventListener("focusin", this.onFocus);
+        this.headerElement.removeEventListener("focusin", this.onHeaderFocus);
     }
 }
 
