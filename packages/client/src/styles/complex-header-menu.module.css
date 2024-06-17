@@ -4,7 +4,6 @@
 
 .searchMenu {
     display: grid;
-    gap: var(--a-spacing-4);
     padding-inline: var(--edge-spacing);
 }
 
