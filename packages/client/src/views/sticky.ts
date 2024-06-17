@@ -3,44 +3,60 @@ import cls from "decorator-client/src/styles/sticky.module.css";
 const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
 
 class Sticky extends HTMLElement {
-    private readonly contentElement: HTMLElement;
+    private readonly headerElement: HTMLElement;
 
-    private scrollPos: number;
-    private stickyOffset: number = 0;
+    private scrollPos: number = 0;
+    private headerVisibleHeight: number = 0;
 
     constructor() {
         super();
 
-        this.contentElement = this.querySelector(`.${cls.stickyContent}`)!;
+        this.headerElement = this.querySelector(`.${cls.headerContent}`)!;
 
-        if (!this.contentElement) {
-            console.error("No content element found!");
+        if (!this.headerElement) {
+            console.error("No header element found!");
         }
 
-        this.scrollPos = window.scrollY;
+        this.reset();
     }
 
     private updateStickyPosition = () => {
         const newScrollPos = window.scrollY;
         const scrollPosDelta = newScrollPos - this.scrollPos;
 
-        this.stickyOffset = Math.max(
+        const headerContentHeight = this.headerElement.clientHeight;
+
+        this.headerVisibleHeight = Math.max(
             Math.min(
-                this.stickyOffset + scrollPosDelta,
-                this.contentElement.clientHeight,
-                newScrollPos,
+                this.headerVisibleHeight + scrollPosDelta,
+                headerContentHeight,
             ),
             0,
         );
 
-        console.log(`Current offset: ${this.stickyOffset}`);
+        console.log(`Current visible height: ${this.headerVisibleHeight}`);
 
         document.documentElement.style.setProperty(
             STICKY_OFFSET_PROPERTY,
-            `${this.stickyOffset}px`,
+            `${headerContentHeight - this.headerVisibleHeight}px`,
         );
 
         this.scrollPos = newScrollPos;
+    };
+
+    private reset = () => {
+        this.scrollPos = window.scrollY;
+        this.headerVisibleHeight = 0;
+    };
+
+    private setFixed = () => {
+        this.headerElement.classList.add(cls.fixed);
+    };
+
+    private setSticky = () => {
+        this.headerElement.classList.remove(cls.fixed);
+        this.reset();
+        this.updateStickyPosition();
     };
 
     connectedCallback() {
@@ -48,11 +64,15 @@ class Sticky extends HTMLElement {
 
         window.addEventListener("scroll", this.updateStickyPosition);
         window.addEventListener("resize", this.updateStickyPosition);
+        window.addEventListener("menuopened", this.setFixed);
+        window.addEventListener("menuclosed", this.setSticky);
     }
 
     disconnectedCallback() {
         window.removeEventListener("scroll", this.updateStickyPosition);
         window.removeEventListener("resize", this.updateStickyPosition);
+        window.removeEventListener("menuopened", this.setFixed);
+        window.removeEventListener("menuclosed", this.setSticky);
     }
 }
 
