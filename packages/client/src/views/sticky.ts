@@ -103,8 +103,11 @@ class Sticky extends HTMLElement {
 
         window.addEventListener("scroll", this.updateStickyPosition);
         window.addEventListener("resize", this.updateStickyPosition);
+
         window.addEventListener("menuopened", this.onMenuOpen);
         window.addEventListener("menuclosed", this.onMenuClose);
+        window.addEventListener("historyPush", this.updateStickyPosition);
+
         document.addEventListener("click", this.onClick);
         document.addEventListener("focusin", this.onFocus);
         this.headerElement.addEventListener("focusin", this.onHeaderFocus);
@@ -113,8 +116,11 @@ class Sticky extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("scroll", this.updateStickyPosition);
         window.removeEventListener("resize", this.updateStickyPosition);
+
         window.removeEventListener("menuopened", this.onMenuOpen);
         window.removeEventListener("menuclosed", this.onMenuClose);
+        window.removeEventListener("historyPush", this.updateStickyPosition);
+
         document.removeEventListener("click", this.onClick);
         document.removeEventListener("focusin", this.onFocus);
         this.headerElement.removeEventListener("focusin", this.onHeaderFocus);
