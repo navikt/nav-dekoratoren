@@ -82,6 +82,10 @@ class Sticky extends HTMLElement {
         this.handleOverlappingElement(e.target as HTMLElement);
     };
 
+    private onHistoryPush = () => {
+        setTimeout(this.updateStickyPosition, 250);
+    };
+
     private onClick = (e: MouseEvent) => {
         const targetHash = (e.target as HTMLAnchorElement)?.hash;
         if (!targetHash) {
@@ -106,7 +110,7 @@ class Sticky extends HTMLElement {
 
         window.addEventListener("menuopened", this.onMenuOpen);
         window.addEventListener("menuclosed", this.onMenuClose);
-        window.addEventListener("historyPush", this.updateStickyPosition);
+        window.addEventListener("historyPush", this.onHistoryPush);
 
         document.addEventListener("click", this.onClick);
         document.addEventListener("focusin", this.onFocus);
@@ -119,7 +123,7 @@ class Sticky extends HTMLElement {
 
         window.removeEventListener("menuopened", this.onMenuOpen);
         window.removeEventListener("menuclosed", this.onMenuClose);
-        window.removeEventListener("historyPush", this.updateStickyPosition);
+        window.removeEventListener("historyPush", this.onHistoryPush);
 
         document.removeEventListener("click", this.onClick);
         document.removeEventListener("focusin", this.onFocus);
