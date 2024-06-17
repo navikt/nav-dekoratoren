@@ -49,12 +49,17 @@ class Sticky extends HTMLElement {
         this.headerVisibleHeight = 0;
     };
 
-    private setFixed = () => {
+    private onMenuOpen = () => {
         this.headerElement.classList.add(cls.fixed);
     };
 
-    private setSticky = () => {
+    private onMenuClose = () => {
         this.headerElement.classList.remove(cls.fixed);
+        this.reset();
+        this.updateStickyPosition();
+    };
+
+    private onFocus = () => {
         this.reset();
         this.updateStickyPosition();
     };
@@ -64,15 +69,17 @@ class Sticky extends HTMLElement {
 
         window.addEventListener("scroll", this.updateStickyPosition);
         window.addEventListener("resize", this.updateStickyPosition);
-        window.addEventListener("menuopened", this.setFixed);
-        window.addEventListener("menuclosed", this.setSticky);
+        window.addEventListener("menuopened", this.onMenuOpen);
+        window.addEventListener("menuclosed", this.onMenuClose);
+        this.addEventListener("focusin", this.onFocus);
     }
 
     disconnectedCallback() {
         window.removeEventListener("scroll", this.updateStickyPosition);
         window.removeEventListener("resize", this.updateStickyPosition);
-        window.removeEventListener("menuopened", this.setFixed);
-        window.removeEventListener("menuclosed", this.setSticky);
+        window.removeEventListener("menuopened", this.onMenuOpen);
+        window.removeEventListener("menuclosed", this.onMenuClose);
+        this.removeEventListener("focusin", this.onFocus);
     }
 }
 
