@@ -94,11 +94,12 @@ class Sticky extends HTMLElement {
     };
 
     connectedCallback() {
+        this.reset();
+
         if (!this.headerElement) {
             console.error("No header element found!");
+            return;
         }
-
-        this.reset();
 
         window.addEventListener("scroll", this.updateStickyPosition);
         window.addEventListener("resize", this.updateStickyPosition);
