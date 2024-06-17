@@ -1,9 +1,13 @@
+:root {
+    --decorator-sticky-offset: 0px;
+}
+
 .stickyContent {
-    position: absolute;
+    position: fixed;
     width: 100%;
     border-bottom: 1px solid var(--a-border-subtle);
     background-color: var(--a-surface-default);
-    top: 0;
+    top: calc(0px - var(--decorator-sticky-offset));
 }
 
 .stickyWrapper {

@@ -4,32 +4,51 @@ const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
 const HEADER_HEIGHT_PX = 80;
 
 class Sticky extends HTMLElement {
-    private stickyContent: HTMLElement;
-    private stickyWrapper: HTMLElement;
+    private readonly contentElement: HTMLElement;
+
+    private prevScrollPos: number;
+    private currentStickyOffset: number = 0;
 
     constructor() {
         super();
 
-        this.stickyContent = this.querySelector(`.${cls.stickyContent}`)!;
-        this.stickyWrapper = this.querySelector(`.${cls.stickyWrapper}`)!;
+        this.contentElement = this.querySelector(`.${cls.stickyContent}`)!;
+
+        if (!this.contentElement) {
+            console.error("No content element found!");
+        }
+
+        this.prevScrollPos = window.scrollY;
     }
 
-    private setStickyOffsetProperty(offset: number) {
+    private updateStickyPosition = () => {
+        const currentScrollPos = window.scrollY;
+        const scrollPosDelta = currentScrollPos - this.prevScrollPos;
+
+        const newOffset = this.currentStickyOffset + scrollPosDelta;
+
+        this.currentStickyOffset = Math.max(
+            Math.min(newOffset, HEADER_HEIGHT_PX),
+            0,
+        );
+
+        console.log(`Current offset: ${this.currentStickyOffset}`);
+
         document.documentElement.style.setProperty(
             STICKY_OFFSET_PROPERTY,
-            `${offset}px`,
+            `${this.currentStickyOffset}px`,
         );
-    }
 
-    private updateStickyPosition() {}
+        this.prevScrollPos = currentScrollPos;
+    };
 
-    private connectedCallback() {
+    connectedCallback() {
         this.updateStickyPosition();
 
         window.addEventListener("scroll", this.updateStickyPosition);
     }
 
-    private disconnectedCallback() {
+    disconnectedCallback() {
         window.removeEventListener("scroll", this.updateStickyPosition);
     }
 }
