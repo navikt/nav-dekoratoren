@@ -48,8 +48,8 @@ export const initHistoryEvents = () => {
         }
 
         const currentPathname = window.location.pathname;
-
         if (currentPathname === prevPathname) {
+            console.log(`Not updated ${currentPathname} ${prevPathname}`);
             setTimeout(() => dispatchHistoryEvent(expiresTs), 50);
             return;
         }
