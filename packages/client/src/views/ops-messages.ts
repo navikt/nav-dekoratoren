@@ -37,7 +37,7 @@ const removeTrailingChars = (url?: string) =>
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 
-    private connectedCallback() {
+    connectedCallback() {
         fetch(`${env("APP_URL")}/ops-messages`)
             .then((res) => res.json())
             .then((opsMessages) => {
@@ -45,18 +45,14 @@ class OpsMessages extends HTMLElement {
                 this.render();
             });
 
-        window.addEventListener("historyPush", (e) =>
-            this.render(e.detail.url),
-        );
+        window.addEventListener("historyPush", () => this.render());
         window.addEventListener("popstate", () => this.render());
     }
 
-    private render(url?: URL) {
+    private render() {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
-                const currentUrl = removeTrailingChars(
-                    (url ?? window.location).href,
-                );
+                const currentUrl = removeTrailingChars(window.location.href);
                 return (
                     !opsMessage.urlscope ||
                     !currentUrl ||

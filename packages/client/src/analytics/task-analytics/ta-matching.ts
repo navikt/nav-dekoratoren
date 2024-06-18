@@ -28,9 +28,9 @@ const isMatchingUrl = (
     match: TaskAnalyticsUrlRule["match"],
 ) => (match === "startsWith" ? currentUrl.startsWith(url) : currentUrl === url);
 
-const isMatchingUrls = (urls: TaskAnalyticsUrlRule[], currentUrl: URL) => {
+const isMatchingUrls = (urls: TaskAnalyticsUrlRule[]) => {
     const currentUrlStr = removeTrailingSlash(
-        `${currentUrl.origin}${currentUrl.pathname}`,
+        `${window.location.origin}${window.location.pathname}`,
     );
 
     let isMatched: boolean | null = null;
@@ -85,12 +85,11 @@ export const taskAnalyticsIsMatchingSurvey = (
     survey: TaskAnalyticsSurvey,
     currentLanguage: Language,
     currentAudience: Audience,
-    currentUrl: URL,
 ) => {
     const { urls, audience, language, duration } = survey;
 
     return (
-        (!urls || isMatchingUrls(urls, currentUrl)) &&
+        (!urls || isMatchingUrls(urls)) &&
         isMatchingAudience(currentAudience, audience) &&
         isMatchingLanguage(currentLanguage, language) &&
         isMatchingDuration(duration)
@@ -101,7 +100,6 @@ export const taskAnalyticsGetMatchingSurveys = (
     surveys: TaskAnalyticsSurvey[],
     currentLanguage: Language,
     currentAudience: Context,
-    currentUrl: URL,
 ) => {
     const { matched: prevMatched = {} } = taskAnalyticsGetState();
 
@@ -120,7 +118,6 @@ export const taskAnalyticsGetMatchingSurveys = (
             survey,
             currentLanguage,
             currentAudience,
-            currentUrl,
         );
         if (!isMatching) {
             return false;
