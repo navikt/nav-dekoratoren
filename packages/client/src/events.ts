@@ -47,9 +47,11 @@ export const initHistoryEvents = () => {
             return;
         }
 
+        // Poll window.location to ensure it has changed before emitting the event
+        // SPA frameworks can sometimes be "slow" with updating this after changing
+        // their history state, so we have this as a workaround
         const currentPathname = window.location.pathname;
         if (currentPathname === prevPathname) {
-            console.log(`Not updated ${currentPathname} ${prevPathname}`);
             setTimeout(() => dispatchHistoryEvent(expiresTs), 50);
             return;
         }
