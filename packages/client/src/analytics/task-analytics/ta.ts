@@ -115,5 +115,5 @@ export const initTaskAnalytics = () => {
     window.dataLayer = window.dataLayer || [];
 
     startTaskAnalyticsSurvey();
-    window.addEventListener("historyPush", () => startTaskAnalyticsSurvey());
+    window.addEventListener("historyPush", startTaskAnalyticsSurvey);
 };

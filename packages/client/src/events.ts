@@ -50,7 +50,7 @@ export const initHistoryEvents = () => {
         const currentPathname = window.location.pathname;
 
         if (currentPathname === prevPathname) {
-            setInterval(() => dispatchHistoryEvent(expiresTs), 50);
+            setTimeout(() => dispatchHistoryEvent(expiresTs), 50);
             return;
         }
 
@@ -59,7 +59,7 @@ export const initHistoryEvents = () => {
         prevPathname = currentPathname;
     };
 
-    const handleHistoryCall = (url?: URL | string | null) => {
+    const handleHistoryStateChange = (url?: URL | string | null) => {
         if (!url) {
             return;
         }
@@ -74,13 +74,13 @@ export const initHistoryEvents = () => {
 
     window.history.pushState = (...args: PushStateArgs) => {
         const result = pushStateActual(...args);
-        handleHistoryCall(args[2]);
+        handleHistoryStateChange(args[2]);
         return result;
     };
 
     window.history.replaceState = (...args: ReplaceStateArgs) => {
         const result = replaceStateActual(...args);
-        handleHistoryCall(args[2]);
+        handleHistoryStateChange(args[2]);
         return result;
     };
 };
