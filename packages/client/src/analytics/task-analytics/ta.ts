@@ -9,7 +9,6 @@ import {
     taskAnalyticsIsMatchingSurvey,
 } from "./ta-matching";
 import { Context, Language } from "decorator-shared/params";
-import { AppState } from "decorator-shared/types";
 import { TaskAnalyticsSurvey } from "decorator-server/src/task-analytics-config";
 
 let fetchedSurveys: TaskAnalyticsSurvey[] | null = null;
@@ -29,28 +28,18 @@ const startSurveyIfMatching = (
     surveys: TaskAnalyticsSurvey[],
     currentLanguage: Language,
     currentAudience: Context,
-    currentUrl: URL,
 ) => {
     const survey = surveys.find((s) => s.id === surveyId);
     if (
         survey &&
-        taskAnalyticsIsMatchingSurvey(
-            survey,
-            currentLanguage,
-            currentAudience,
-            currentUrl,
-        )
+        taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience)
     ) {
         startSurvey(surveyId);
     }
 };
 
-const findAndStartSurvey = (
-    surveys: TaskAnalyticsSurvey[],
-    state: AppState,
-    currentUrl: URL,
-) => {
-    const { params } = state;
+const findAndStartSurvey = (surveys: TaskAnalyticsSurvey[]) => {
+    const { params } = window.__DECORATOR_DATA__;
 
     // Do not show surveys if the simple header is used
     if (params.simple || params.simpleHeader) {
@@ -65,7 +54,6 @@ const findAndStartSurvey = (
             surveys,
             params.language,
             params.context,
-            currentUrl,
         );
         return;
     }
@@ -74,7 +62,6 @@ const findAndStartSurvey = (
         surveys,
         params.language,
         params.context,
-        currentUrl,
     );
     if (!matchingSurveys) {
         return;
@@ -90,8 +77,8 @@ const findAndStartSurvey = (
     startSurvey(id);
 };
 
-const fetchAndStart = async (state: AppState, currentUrl: URL) => {
-    return fetch(`${state.env.APP_URL}/api/ta`)
+const fetchAndStart = async () => {
+    return fetch(`${window.__DECORATOR_DATA__.env.APP_URL}/api/ta`)
         .then((res) => {
             if (!res.ok) {
                 throw Error(`${res.status} ${res.statusText}`);
@@ -106,23 +93,20 @@ const fetchAndStart = async (state: AppState, currentUrl: URL) => {
                 );
             }
             fetchedSurveys = surveys;
-            findAndStartSurvey(surveys, state, currentUrl);
+            findAndStartSurvey(surveys);
         })
         .catch((e) => {
             console.error(`Error fetching Task Analytics surveys - ${e}`);
         });
 };
 
-const startTaskAnalyticsSurvey = (
-    state: AppState,
-    currentUrl = new URL(window.location.href),
-) => {
+const startTaskAnalyticsSurvey = () => {
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
-        findAndStartSurvey(fetchedSurveys, state, currentUrl);
+        findAndStartSurvey(fetchedSurveys);
     } else {
-        fetchAndStart(state, currentUrl);
+        fetchAndStart();
     }
 };
 
@@ -130,9 +114,6 @@ export const initTaskAnalytics = () => {
     window.TA = window.TA || taFallback;
     window.dataLayer = window.dataLayer || [];
 
-    startTaskAnalyticsSurvey(window.__DECORATOR_DATA__);
-
-    window.addEventListener("historyPush", (e) =>
-        startTaskAnalyticsSurvey(window.__DECORATOR_DATA__, e.detail.url),
-    );
+    startTaskAnalyticsSurvey();
+    window.addEventListener("historyPush", () => startTaskAnalyticsSurvey());
 };

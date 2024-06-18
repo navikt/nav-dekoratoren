@@ -11,9 +11,7 @@ export type CustomEvents = {
     menuclosed: void;
     clearsearch: void;
     closemenus: void; // Currently fired only from other apps
-    historyPush: {
-        url: URL;
-    };
+    historyPush: void;
 };
 
 export type MessageEvents =
@@ -42,35 +40,47 @@ export const initHistoryEvents = () => {
     const pushStateActual = window.history.pushState.bind(window.history);
     const replaceStateActual = window.history.replaceState.bind(window.history);
 
-    let currentPathname = window.location.pathname;
+    let prevPathname = window.location.pathname;
 
-    const dispatchHistoryEvent = (url?: URL | string | null) => {
+    const dispatchHistoryEvent = (expiresTs: number) => {
+        if (Date.now() > expiresTs) {
+            return;
+        }
+
+        const currentPathname = window.location.pathname;
+
+        if (currentPathname === prevPathname) {
+            setInterval(() => dispatchHistoryEvent(expiresTs), 50);
+            return;
+        }
+
+        dispatchEvent(createEvent("historyPush", {}));
+
+        prevPathname = currentPathname;
+    };
+
+    const handleHistoryCall = (url?: URL | string | null) => {
         if (!url) {
             return;
         }
 
         const urlParsed = new URL(url, window.location.origin);
-        const newPathname = urlParsed.pathname;
-
-        if (newPathname !== currentPathname) {
-            dispatchEvent(
-                createEvent("historyPush", {
-                    detail: {
-                        url: urlParsed,
-                    },
-                }),
-            );
-            currentPathname = newPathname;
+        if (urlParsed.pathname === prevPathname) {
+            return;
         }
+
+        dispatchHistoryEvent(Date.now() + 1000);
     };
 
     window.history.pushState = (...args: PushStateArgs) => {
-        dispatchHistoryEvent(args[2]);
-        return pushStateActual(...args);
+        const result = pushStateActual(...args);
+        handleHistoryCall(args[2]);
+        return result;
     };
 
     window.history.replaceState = (...args: ReplaceStateArgs) => {
-        dispatchHistoryEvent(args[2]);
-        return replaceStateActual(...args);
+        const result = replaceStateActual(...args);
+        handleHistoryCall(args[2]);
+        return result;
     };
 };
