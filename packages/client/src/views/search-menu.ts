@@ -72,25 +72,29 @@ class SearchMenu extends HTMLElement {
         const fetchSearchDebounced = debounce(fetchSearch, 500);
 
         this.input?.addEventListener("input", (e) => {
+            const mainMenu = document.getElementById("decorator-main-menu");
             const { value } = e.target as HTMLInputElement;
             if (value.length > 2) {
                 this.append(this.hits);
                 this.hits.innerHTML = html`<decorator-loader
                     title="${window.__DECORATOR_DATA__.texts.loading_preview}"
                 />`.render();
-
+                mainMenu && mainMenu.classList.add("hidden");
                 fetchSearchDebounced(value);
             } else {
+                mainMenu && mainMenu.classList.remove("hidden");
                 this.hits.remove();
             }
         });
     }
 
     disconnectedCallback() {
+        const mainMenu = document.getElementById("decorator-main-menu");
+        mainMenu && mainMenu.classList.remove("hidden");
+        console.log(mainMenu);
         if (this.getAttribute("data-auto-focus") !== null) {
             this.parentDropdown?.removeEventListener("menuopened", this.focus);
         }
-
         this.parentDropdown?.removeEventListener(
             "menuclosed",
             this.clearSearch,

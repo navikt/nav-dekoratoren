@@ -2,7 +2,7 @@
     display: grid;
 }
 
-.mainMenu.hidden {
+.mainMenu:global(.hidden) {
     display: none;
 }
 
