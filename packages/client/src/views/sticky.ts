@@ -3,37 +3,59 @@ import cls from "decorator-client/src/styles/sticky.module.css";
 const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
 
 class Sticky extends HTMLElement {
-    private readonly headerElement: HTMLElement = this.querySelector(
-        `.${cls.headerContent}`,
+    private readonly stickyElement: HTMLElement = this.querySelector(
+        `.${cls.stickyWrapper}`,
     )!;
 
-    private scrollPos: number = 0;
-    private headerVisibleHeight: number = 0;
+    private prevScrollPos: number = 0;
+    private prevScrollDir: "up" | "down" | null = null;
 
+    private headerVisibleHeight: number = 0;
     private isDeferringUpdates = false;
 
     private updateStickyPosition = () => {
-        if (this.isDeferringUpdates) {
-            return;
-        }
-
-        const newScrollPos = window.scrollY;
-        const scrollPosDelta = newScrollPos - this.scrollPos;
-
-        this.headerVisibleHeight = Math.max(
-            Math.min(
-                this.headerVisibleHeight - scrollPosDelta,
-                this.getHeaderHeight(),
-            ),
-            0,
-        );
-
         document.documentElement.style.setProperty(
             STICKY_OFFSET_PROPERTY,
             `${this.headerVisibleHeight}px`,
         );
+    };
 
-        this.scrollPos = newScrollPos;
+    private onScrollDown = () => {
+        const scrollDelta = window.scrollY - this.prevScrollPos;
+        this.headerVisibleHeight = Math.min(
+            Math.max(this.headerVisibleHeight + scrollDelta, 0),
+            this.getHeaderHeight(),
+        );
+    };
+
+    private onScrollUp = () => {
+        const currentTop = this.stickyElement.offsetTop;
+
+        const stickyTop = Math.min(
+            Math.max(currentTop, window.scrollY - this.getHeaderHeight()),
+            window.scrollY,
+        );
+
+        console.log(
+            `Current top ${currentTop} - New top ${stickyTop} - Scroll ${window.scrollY} - Height ${this.getHeaderHeight()}`,
+        );
+
+        this.stickyElement.style.top = `${stickyTop}px`;
+    };
+
+    private onScroll = () => {
+        const scrollPos = window.scrollY;
+
+        const scrollDir = scrollPos > this.prevScrollPos ? "down" : "up";
+
+        if (scrollDir === "down") {
+            this.onScrollDown();
+        } else {
+            this.onScrollUp();
+        }
+
+        this.prevScrollPos = scrollPos;
+        this.prevScrollDir = scrollDir;
     };
 
     private handleOverlappingElement = (element?: HTMLElement | null) => {
@@ -42,7 +64,7 @@ class Sticky extends HTMLElement {
         }
 
         const elementIsBelowHeader =
-            element.offsetTop > this.scrollPos + this.headerVisibleHeight;
+            element.offsetTop > this.prevScrollPos + this.headerVisibleHeight;
 
         if (elementIsBelowHeader) {
             return;
@@ -56,21 +78,20 @@ class Sticky extends HTMLElement {
     };
 
     private getHeaderHeight = () => {
-        return this.headerElement.clientHeight;
+        return this.stickyElement.clientHeight;
     };
 
-    private reset = () => {
-        this.scrollPos = window.scrollY;
+    private reset = (position = window.scrollY) => {
+        this.prevScrollPos = position;
         this.headerVisibleHeight = this.getHeaderHeight();
-        this.updateStickyPosition();
     };
 
     private onMenuOpen = () => {
-        this.headerElement.classList.add(cls.fixed);
+        this.stickyElement.classList.add(cls.fixed);
     };
 
     private onMenuClose = () => {
-        this.headerElement.classList.remove(cls.fixed);
+        this.stickyElement.classList.remove(cls.fixed);
         this.reset();
     };
 
@@ -83,7 +104,7 @@ class Sticky extends HTMLElement {
     };
 
     private onHistoryPush = () => {
-        setTimeout(this.updateStickyPosition, 250);
+        this.updateStickyPosition();
     };
 
     private onClick = (e: MouseEvent) => {
@@ -100,34 +121,38 @@ class Sticky extends HTMLElement {
     connectedCallback() {
         this.reset();
 
-        if (!this.headerElement) {
+        if (!this.stickyElement) {
             console.error("No header element found!");
             return;
         }
 
-        window.addEventListener("scroll", this.updateStickyPosition);
-        window.addEventListener("resize", this.updateStickyPosition);
+        window.addEventListener("scroll", this.onScroll);
 
-        window.addEventListener("menuopened", this.onMenuOpen);
-        window.addEventListener("menuclosed", this.onMenuClose);
-        window.addEventListener("historyPush", this.onHistoryPush);
+        // window.addEventListener("scroll", this.updateStickyPosition);
+        // window.addEventListener("resize", this.updateStickyPosition);
 
-        document.addEventListener("click", this.onClick);
-        document.addEventListener("focusin", this.onFocus);
-        this.headerElement.addEventListener("focusin", this.onHeaderFocus);
+        // window.addEventListener("menuopened", this.onMenuOpen);
+        // window.addEventListener("menuclosed", this.onMenuClose);
+        // window.addEventListener("historyPush", this.onHistoryPush);
+        //
+        // document.addEventListener("click", this.onClick);
+        // document.addEventListener("focusin", this.onFocus);
+        // this.headerElement.addEventListener("focusin", this.onHeaderFocus);
     }
 
     disconnectedCallback() {
-        window.removeEventListener("scroll", this.updateStickyPosition);
-        window.removeEventListener("resize", this.updateStickyPosition);
+        window.removeEventListener("scroll", this.onScroll);
 
-        window.removeEventListener("menuopened", this.onMenuOpen);
-        window.removeEventListener("menuclosed", this.onMenuClose);
-        window.removeEventListener("historyPush", this.onHistoryPush);
+        // window.removeEventListener("scroll", this.updateStickyPosition);
+        // window.removeEventListener("resize", this.updateStickyPosition);
 
-        document.removeEventListener("click", this.onClick);
-        document.removeEventListener("focusin", this.onFocus);
-        this.headerElement.removeEventListener("focusin", this.onHeaderFocus);
+        // window.removeEventListener("menuopened", this.onMenuOpen);
+        // window.removeEventListener("menuclosed", this.onMenuClose);
+        // window.removeEventListener("historyPush", this.onHistoryPush);
+        //
+        // document.removeEventListener("click", this.onClick);
+        // document.removeEventListener("focusin", this.onFocus);
+        // this.headerElement.removeEventListener("focusin", this.onHeaderFocus);
     }
 }
 

@@ -8,15 +8,15 @@
     --decorator-sticky-offset: var(--header-height);
 }
 
-.headerContent {
-    position: fixed;
+.stickyWrapper {
+    position: absolute;
     width: 100%;
     border-bottom: 1px solid var(--a-border-subtle);
     background-color: var(--a-surface-default);
-    top: calc(var(--decorator-sticky-offset) - var(--header-height));
+    top: 0;
 }
 
-.stickyWrapper {
+.placeholder {
     position: relative;
     display: block;
     height: var(--header-height);
