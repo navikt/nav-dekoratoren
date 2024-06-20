@@ -16,10 +16,12 @@ class SearchMenu extends HTMLElement {
     }
 
     clearSearch = () => {
+        const mainMenu = document.getElementById("decorator-main-menu");
         this.hits.remove();
         if (this.input) {
             this.input.value = "";
         }
+        mainMenu && mainMenu.classList.remove("hidden");
     };
 
     focus = () => this.input?.focus();
