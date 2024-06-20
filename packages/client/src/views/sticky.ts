@@ -7,55 +7,49 @@ class Sticky extends HTMLElement {
         `.${cls.stickyWrapper}`,
     )!;
 
-    private prevScrollPos: number = 0;
-    private prevScrollDir: "up" | "down" | null = null;
-
-    private headerVisibleHeight: number = 0;
+    private prevScrollPos = window.scrollY;
     private isDeferringUpdates = false;
 
     private updateStickyPosition = () => {
-        document.documentElement.style.setProperty(
-            STICKY_OFFSET_PROPERTY,
-            `${this.headerVisibleHeight}px`,
-        );
-    };
-
-    private onScrollDown = () => {
-        const scrollDelta = window.scrollY - this.prevScrollPos;
-        this.headerVisibleHeight = Math.min(
-            Math.max(this.headerVisibleHeight + scrollDelta, 0),
-            this.getHeaderHeight(),
-        );
-    };
-
-    private onScrollUp = () => {
         const currentTop = this.stickyElement.offsetTop;
 
-        const stickyTop = Math.min(
+        const newTop = Math.min(
             Math.max(currentTop, window.scrollY - this.getHeaderHeight()),
             window.scrollY,
         );
 
         console.log(
-            `Current top ${currentTop} - New top ${stickyTop} - Scroll ${window.scrollY} - Height ${this.getHeaderHeight()}`,
+            `Current top ${currentTop} - New top ${newTop} - Scroll ${window.scrollY} - Height ${this.getHeaderHeight()}`,
         );
 
-        this.stickyElement.style.top = `${stickyTop}px`;
+        this.stickyElement.style.top = `${newTop}px`;
     };
 
-    private onScroll = () => {
+    private updateOffsetProperty = () => {
+        const visibleHeight = Math.max(
+            this.getHeaderHeight() +
+                this.stickyElement.offsetTop -
+                window.scrollY,
+            0,
+        );
+
+        document.documentElement.style.setProperty(
+            STICKY_OFFSET_PROPERTY,
+            `${visibleHeight}px`,
+        );
+    };
+
+    private update = () => {
         const scrollPos = window.scrollY;
 
-        const scrollDir = scrollPos > this.prevScrollPos ? "down" : "up";
+        const isScrollingUp = scrollPos < this.prevScrollPos;
 
-        if (scrollDir === "down") {
-            this.onScrollDown();
-        } else {
-            this.onScrollUp();
+        if (isScrollingUp) {
+            this.updateStickyPosition();
         }
 
+        this.updateOffsetProperty();
         this.prevScrollPos = scrollPos;
-        this.prevScrollDir = scrollDir;
     };
 
     private handleOverlappingElement = (element?: HTMLElement | null) => {
@@ -81,31 +75,21 @@ class Sticky extends HTMLElement {
         return this.stickyElement.clientHeight;
     };
 
-    private reset = (position = window.scrollY) => {
-        this.prevScrollPos = position;
-        this.headerVisibleHeight = this.getHeaderHeight();
-    };
-
     private onMenuOpen = () => {
         this.stickyElement.classList.add(cls.fixed);
     };
 
     private onMenuClose = () => {
         this.stickyElement.classList.remove(cls.fixed);
-        this.reset();
     };
 
-    private onHeaderFocus = () => {
-        this.reset();
-    };
+    private onHeaderFocus = () => {};
 
     private onFocus = (e: FocusEvent) => {
         this.handleOverlappingElement(e.target as HTMLElement);
     };
 
-    private onHistoryPush = () => {
-        this.updateStickyPosition();
-    };
+    private onHistoryPush = () => {};
 
     private onClick = (e: MouseEvent) => {
         const targetHash = (e.target as HTMLAnchorElement)?.hash;
@@ -119,17 +103,13 @@ class Sticky extends HTMLElement {
     };
 
     connectedCallback() {
-        this.reset();
-
         if (!this.stickyElement) {
-            console.error("No header element found!");
+            console.error("No sticky element found!");
             return;
         }
 
-        window.addEventListener("scroll", this.onScroll);
-
-        // window.addEventListener("scroll", this.updateStickyPosition);
-        // window.addEventListener("resize", this.updateStickyPosition);
+        window.addEventListener("scroll", this.update);
+        window.addEventListener("resize", this.update);
 
         // window.addEventListener("menuopened", this.onMenuOpen);
         // window.addEventListener("menuclosed", this.onMenuClose);
@@ -141,10 +121,8 @@ class Sticky extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.removeEventListener("scroll", this.onScroll);
-
-        // window.removeEventListener("scroll", this.updateStickyPosition);
-        // window.removeEventListener("resize", this.updateStickyPosition);
+        window.removeEventListener("scroll", this.update);
+        window.removeEventListener("resize", this.update);
 
         // window.removeEventListener("menuopened", this.onMenuOpen);
         // window.removeEventListener("menuclosed", this.onMenuClose);
