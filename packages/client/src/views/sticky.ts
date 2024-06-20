@@ -10,8 +10,7 @@ class Sticky extends HTMLElement {
         `.${cls.fixedWrapper}`,
     )!;
 
-    private prevScrollPos = window.scrollY;
-    private isDeferringUpdates = false;
+    private fixedLocked = false;
 
     private updateStickyPosition = () => {
         const currentTop = this.stickyElement.offsetTop;
@@ -19,30 +18,20 @@ class Sticky extends HTMLElement {
         const scrollPos = window.scrollY;
 
         const newTop = Math.min(
-            Math.max(currentTop, window.scrollY - headerHeight),
+            Math.max(currentTop, scrollPos - headerHeight),
             scrollPos,
         );
 
         console.log(
-            `Current top ${currentTop} - New top ${newTop} - Scroll ${window.scrollY} - Height ${headerHeight}`,
+            `Current top ${currentTop} - New top ${newTop} - Scroll ${scrollPos} - Height ${headerHeight}`,
         );
 
-        if (newTop === scrollPos) {
-            console.log("Setting fixed");
-            this.fixedElement.classList.add(cls.fixed);
-        } else {
-            this.fixedElement.classList.remove(cls.fixed);
-        }
+        this.setFixed(newTop === scrollPos);
 
         this.stickyElement.style.top = `${newTop}px`;
-        this.updateOffsetProperty();
-    };
 
-    private updateOffsetProperty = () => {
         const visibleHeight = Math.max(
-            this.getHeaderHeight() +
-                this.stickyElement.offsetTop -
-                window.scrollY,
+            headerHeight + this.stickyElement.offsetTop - scrollPos,
             0,
         );
 
@@ -52,12 +41,13 @@ class Sticky extends HTMLElement {
         );
     };
 
-    private update = () => {
-        const scrollPos = window.scrollY;
-
-        this.updateStickyPosition();
-
-        this.prevScrollPos = scrollPos;
+    private setFixed = (fixed: boolean) => {
+        if (fixed || this.fixedLocked) {
+            console.log("Setting fixed");
+            this.fixedElement.classList.add(cls.fixed);
+        } else {
+            this.fixedElement.classList.remove(cls.fixed);
+        }
     };
 
     private handleOverlappingElement = (element?: HTMLElement | null) => {
@@ -72,10 +62,10 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        this.isDeferringUpdates = true;
+        this.fixedLocked = true;
 
         setTimeout(() => {
-            this.isDeferringUpdates = false;
+            this.fixedLocked = false;
         }, 500);
     };
 
@@ -84,11 +74,14 @@ class Sticky extends HTMLElement {
     };
 
     private onMenuOpen = () => {
-        this.stickyElement.classList.add(cls.fixed);
+        this.fixedLocked = true;
+        this.setFixed(true);
     };
 
     private onMenuClose = () => {
-        this.stickyElement.classList.remove(cls.fixed);
+        this.fixedLocked = false;
+        this.stickyElement.style.top = `${window.scrollY}px`;
+        this.updateStickyPosition();
     };
 
     private onHeaderFocus = () => {};
@@ -116,11 +109,11 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        window.addEventListener("scroll", this.update);
-        window.addEventListener("resize", this.update);
+        window.addEventListener("scroll", this.updateStickyPosition);
+        window.addEventListener("resize", this.updateStickyPosition);
 
-        // window.addEventListener("menuopened", this.onMenuOpen);
-        // window.addEventListener("menuclosed", this.onMenuClose);
+        window.addEventListener("menuopened", this.onMenuOpen);
+        window.addEventListener("menuclosed", this.onMenuClose);
         // window.addEventListener("historyPush", this.onHistoryPush);
         //
         // document.addEventListener("click", this.onClick);
@@ -129,11 +122,11 @@ class Sticky extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.removeEventListener("scroll", this.update);
-        window.removeEventListener("resize", this.update);
+        window.removeEventListener("scroll", this.updateStickyPosition);
+        window.removeEventListener("resize", this.updateStickyPosition);
 
-        // window.removeEventListener("menuopened", this.onMenuOpen);
-        // window.removeEventListener("menuclosed", this.onMenuClose);
+        window.removeEventListener("menuopened", this.onMenuOpen);
+        window.removeEventListener("menuclosed", this.onMenuClose);
         // window.removeEventListener("historyPush", this.onHistoryPush);
         //
         // document.removeEventListener("click", this.onClick);
