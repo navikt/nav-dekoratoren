@@ -24,15 +24,11 @@
 }
 
 .hovedmenyWrapper {
-    height: 72px;
+    height: var(--header-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-
-    @media (min-width: 768px) {
-        height: 80px;
-    }
 }
 
 .hovedmenyContent {
