@@ -121,9 +121,6 @@ window.addEventListener("activecontext", (event) => {
 window.addEventListener("popstate", (event) => {
     logHistoryEvent(event);
 });
-/*window.onpopstate = (e) => {
-    logHistoryEvent(e);
-};*/
 
 // @TODO: Refactor loaders
 window.addEventListener("load", () => {
