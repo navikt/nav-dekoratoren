@@ -72,10 +72,6 @@ export class LanguageSelector extends HTMLElement {
         };
 
         this.options = [];
-        this.container.classList.toggle(
-            cls.empty,
-            availableLanguages.length === 0,
-        );
         this.menu.replaceChildren(
             ...availableLanguages.map(availableLanguageToLi),
         );
@@ -86,18 +82,18 @@ export class LanguageSelector extends HTMLElement {
 
         this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
-
         this.menu = document.createElement("ul");
         this.menu.classList.add(cls.menu, cls.hidden);
-        this.container.appendChild(this.menu);
+        this.container && this.container.appendChild(this.menu);
     }
 
     connectedCallback() {
-        this.button.addEventListener("click", () => {
-            this.open = !this.#open;
-        });
-
-        this.button.addEventListener("blur", this.onBlur);
+        if (this.button) {
+            this.button.addEventListener("click", () => {
+                this.open = !this.#open;
+            });
+            this.button.addEventListener("blur", this.onBlur);
+        }
         this.addEventListener("keyup", (e) => {
             if (e.key === "Escape") {
                 this.open = false;
