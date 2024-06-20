@@ -6,23 +6,36 @@ class Sticky extends HTMLElement {
     private readonly stickyElement: HTMLElement = this.querySelector(
         `.${cls.stickyWrapper}`,
     )!;
+    private readonly fixedElement: HTMLElement = this.querySelector(
+        `.${cls.fixedWrapper}`,
+    )!;
 
     private prevScrollPos = window.scrollY;
     private isDeferringUpdates = false;
 
     private updateStickyPosition = () => {
         const currentTop = this.stickyElement.offsetTop;
+        const headerHeight = this.getHeaderHeight();
+        const scrollPos = window.scrollY;
 
         const newTop = Math.min(
-            Math.max(currentTop, window.scrollY - this.getHeaderHeight()),
-            window.scrollY,
+            Math.max(currentTop, window.scrollY - headerHeight),
+            scrollPos,
         );
 
         console.log(
-            `Current top ${currentTop} - New top ${newTop} - Scroll ${window.scrollY} - Height ${this.getHeaderHeight()}`,
+            `Current top ${currentTop} - New top ${newTop} - Scroll ${window.scrollY} - Height ${headerHeight}`,
         );
 
+        if (newTop === scrollPos) {
+            console.log("Setting fixed");
+            this.fixedElement.classList.add(cls.fixed);
+        } else {
+            this.fixedElement.classList.remove(cls.fixed);
+        }
+
         this.stickyElement.style.top = `${newTop}px`;
+        this.updateOffsetProperty();
     };
 
     private updateOffsetProperty = () => {
@@ -42,13 +55,8 @@ class Sticky extends HTMLElement {
     private update = () => {
         const scrollPos = window.scrollY;
 
-        const isScrollingUp = scrollPos < this.prevScrollPos;
+        this.updateStickyPosition();
 
-        if (isScrollingUp) {
-            this.updateStickyPosition();
-        }
-
-        this.updateOffsetProperty();
         this.prevScrollPos = scrollPos;
     };
 
@@ -58,7 +66,7 @@ class Sticky extends HTMLElement {
         }
 
         const elementIsBelowHeader =
-            element.offsetTop > this.prevScrollPos + this.headerVisibleHeight;
+            element.offsetTop > this.fixedElement.offsetTop;
 
         if (elementIsBelowHeader) {
             return;
@@ -72,7 +80,7 @@ class Sticky extends HTMLElement {
     };
 
     private getHeaderHeight = () => {
-        return this.stickyElement.clientHeight;
+        return this.fixedElement.clientHeight;
     };
 
     private onMenuOpen = () => {
