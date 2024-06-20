@@ -3,10 +3,10 @@ import cls from "decorator-client/src/styles/sticky.module.css";
 const STICKY_OFFSET_PROPERTY = "--decorator-sticky-offset";
 
 class Sticky extends HTMLElement {
-    private readonly stickyElement: HTMLElement = this.querySelector(
+    private readonly outerElement: HTMLElement = this.querySelector(
         `.${cls.stickyWrapper}`,
     )!;
-    private readonly fixedElement: HTMLElement = this.querySelector(
+    private readonly innerElement: HTMLElement = this.querySelector(
         `.${cls.fixedWrapper}`,
     )!;
 
@@ -18,8 +18,8 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        const currentTop = this.stickyElement.offsetTop;
-        const headerHeight = this.fixedElement.clientHeight;
+        const currentTop = this.outerElement.offsetTop;
+        const headerHeight = this.innerElement.clientHeight;
         const scrollPos = window.scrollY;
 
         const newTop = Math.min(
@@ -27,23 +27,19 @@ class Sticky extends HTMLElement {
             scrollPos,
         );
 
-        console.log(
-            `Current top ${currentTop} - New top ${newTop} - Scroll ${scrollPos} - Height ${headerHeight}`,
-        );
-
         this.setStickyPosition(newTop);
     };
 
     private setStickyPosition = (position: number) => {
         const scrollPos = window.scrollY;
-        const headerHeight = this.fixedElement.clientHeight;
+        const headerHeight = this.innerElement.clientHeight;
 
         this.setFixed(position === scrollPos);
 
-        this.stickyElement.style.top = `${position}px`;
+        this.outerElement.style.top = `${position}px`;
 
         const visibleHeight = Math.max(
-            headerHeight + this.stickyElement.offsetTop - scrollPos,
+            headerHeight + this.outerElement.offsetTop - scrollPos,
             0,
         );
 
@@ -55,37 +51,70 @@ class Sticky extends HTMLElement {
 
     private setFixed = (fixed: boolean) => {
         if (fixed || this.fixedLocked) {
-            console.log("Setting fixed");
-            this.fixedElement.classList.add(cls.fixed);
+            this.innerElement.classList.add(cls.fixed);
         } else {
-            this.fixedElement.classList.remove(cls.fixed);
+            this.innerElement.classList.remove(cls.fixed);
         }
     };
 
-    private handleOverlappingElement = (element?: HTMLElement | null) => {
-        if (!element) {
-            return;
-        }
-
-        const elementIsBelowHeader =
-            element.offsetTop > window.scrollY + this.fixedElement.clientHeight;
-
-        console.log(
-            `Overlap check ${element.offsetTop} - ${this.stickyElement.offsetTop} - ${this.fixedElement.clientHeight}`,
-            element,
-        );
-
-        if (elementIsBelowHeader) {
-            return;
-        }
-
+    private deferStickyBehaviour = () => {
         this.setStickyPosition(0);
         this.deferredUpdate = true;
 
-        // TODO: replace this janky solution with a scrollend handler when browser support has improvoed
+        // TODO: replace this janky solution with a scrollend handler when browser support has improved
         setTimeout(() => {
             this.deferredUpdate = false;
         }, 500);
+    };
+
+    private preventOverlapOnFocusChange = (e: FocusEvent) => {
+        const isWithinSticky = e
+            .composedPath?.()
+            ?.some((path) =>
+                (path as HTMLElement)?.className?.includes(cls.fixedWrapper),
+            );
+
+        if (isWithinSticky) {
+            return;
+        }
+
+        const targetElement = e.target as HTMLElement;
+        if (!targetElement) {
+            return;
+        }
+
+        const scrollPos = window.scrollY;
+        const targetPos = targetElement.offsetTop;
+        const headerHeight = this.innerElement.clientHeight;
+
+        const targetIsInHeaderArea =
+            targetPos >= scrollPos && targetPos <= scrollPos + headerHeight;
+
+        if (targetIsInHeaderArea) {
+            this.deferStickyBehaviour();
+        }
+    };
+
+    private preventOverlapOnAnchorClick = (e: MouseEvent) => {
+        const targetHash = (e.target as HTMLAnchorElement)?.hash;
+        if (!targetHash) {
+            return;
+        }
+
+        const targetElement = document.querySelector(targetHash) as HTMLElement;
+        if (!targetElement) {
+            return;
+        }
+
+        const scrollPos = window.scrollY;
+        const targetPos = targetElement.offsetTop;
+        const headerHeight = this.innerElement.clientHeight;
+
+        const targetIsAboveHeader = targetPos <= scrollPos + headerHeight;
+
+        if (targetIsAboveHeader) {
+            this.deferStickyBehaviour();
+        }
     };
 
     private onMenuOpen = () => {
@@ -95,38 +124,12 @@ class Sticky extends HTMLElement {
 
     private onMenuClose = () => {
         this.fixedLocked = false;
-        this.stickyElement.style.top = `${window.scrollY}px`;
+        this.outerElement.style.top = `${window.scrollY}px`;
         this.updateStickyPosition();
     };
 
-    private onFocus = (e: FocusEvent) => {
-        const isHeader = e
-            .composedPath?.()
-            ?.some((path) =>
-                (path as HTMLElement)?.className?.includes(cls.fixedWrapper),
-            );
-
-        if (isHeader) {
-            console.log("Focused header");
-            return;
-        }
-
-        this.handleOverlappingElement(e.target as HTMLElement);
-    };
-
-    private onClick = (e: MouseEvent) => {
-        const targetHash = (e.target as HTMLAnchorElement)?.hash;
-        if (!targetHash) {
-            return;
-        }
-
-        const targetElement = document.querySelector(targetHash) as HTMLElement;
-
-        this.handleOverlappingElement(targetElement);
-    };
-
     connectedCallback() {
-        if (!this.stickyElement) {
+        if (!this.outerElement) {
             console.error("No sticky element found!");
             return;
         }
@@ -137,8 +140,8 @@ class Sticky extends HTMLElement {
         window.addEventListener("menuopened", this.onMenuOpen);
         window.addEventListener("menuclosed", this.onMenuClose);
 
-        document.addEventListener("focusin", this.onFocus);
-        document.addEventListener("click", this.onClick);
+        document.addEventListener("focusin", this.preventOverlapOnFocusChange);
+        document.addEventListener("click", this.preventOverlapOnAnchorClick);
     }
 
     disconnectedCallback() {
@@ -148,8 +151,11 @@ class Sticky extends HTMLElement {
         window.removeEventListener("menuopened", this.onMenuOpen);
         window.removeEventListener("menuclosed", this.onMenuClose);
 
-        document.removeEventListener("focusin", this.onFocus);
-        document.removeEventListener("click", this.onClick);
+        document.removeEventListener(
+            "focusin",
+            this.preventOverlapOnFocusChange,
+        );
+        document.removeEventListener("click", this.preventOverlapOnAnchorClick);
     }
 }
 
