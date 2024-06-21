@@ -63,14 +63,15 @@ export const SearchHits = ({
                           `,
                       )}
                   </ul>
-                  <div role="status" class="${cls.searchMoreHits}">
-                      <a href="https://www.nav.no/sok?ord=${query}">
-                          ${texts.more_hits}
-                          ${ArrowRight({
-                              className: cls.searchHitRightArrow,
-                          })}
-                      </a>
-                  </div>`
+                  <a
+                      class="${cls.searchMoreHits}"
+                      href="https://www.nav.no/sok?ord=${query}"
+                  >
+                      ${texts.more_hits}
+                      ${ArrowRight({
+                          className: cls.searchHitRightArrow,
+                      })}
+                  </a>`
             : null}
     </div>
 `;
