@@ -112,7 +112,7 @@ class Sticky extends HTMLElement {
     };
 
     private preventOverlapOnAnchorClick = (e: MouseEvent) => {
-        const targetHash = (e.target as HTMLAnchorElement)?.hash;
+        const targetHash = (e.target as HTMLAnchorElement)?.closest("a")?.hash;
         if (!targetHash) {
             return;
         }
@@ -154,7 +154,7 @@ class Sticky extends HTMLElement {
 
     connectedCallback() {
         if (!this.absoluteElement || !this.fixedElement) {
-            console.error("No sticky element found!");
+            console.error("Required elements not found!");
             return;
         }
 

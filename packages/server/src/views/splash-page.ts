@@ -6,8 +6,6 @@ import cls from "decorator-client/src/styles/splash-page.module.css";
 function SplashPage() {
     return html`
         <div class="${cls.splashPage}">
-            <div id="blah" style="margin-bottom: 20rem">Blah blah</div>
-            <a href="#blah">Klikk meg!</a>
             <h1>Decorator next</h1>
             <div class="${cls.splashAlert}">
                 <span>
