@@ -84,5 +84,12 @@ export default defineConfig({
             stderr: "pipe",
             stdout: "pipe",
         },
+        {
+            command: "bun run --cwd=packages/next-pages-router-example dev",
+            url: "http://localhost:3000",
+            reuseExistingServer: !process.env.CI,
+            stderr: "pipe",
+            stdout: "pipe",
+        },
     ],
 });
