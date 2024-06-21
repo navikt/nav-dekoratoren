@@ -58,7 +58,7 @@ class SearchMenu extends HTMLElement {
                 eventName: "søk",
                 destination: url,
                 category: "dekorator-header",
-                label: query,
+                label: "[redacted]",
                 action: "søk-dynamisk",
             });
 
