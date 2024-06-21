@@ -2,7 +2,7 @@ import cls from "decorator-client/src/styles/sticky.module.css";
 
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should
-    // update when the scroll position changes upwards.
+    // update when the scroll position changes.
     private readonly absoluteElement: HTMLElement = this.querySelector(
         `.${cls.absoluteWrapper}`,
     )!;
