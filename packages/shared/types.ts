@@ -64,6 +64,9 @@ export type Texts = ClientTexts & {
     rolle_privatperson: string;
     rolle_arbeidsgiver: string;
     rolle_samarbeidspartner: string;
+    sok_rolle_privatperson: string;
+    sok_rolle_arbeidsgiver: string;
+    sok_rolle_samarbeidspartner: string;
     meny_bunnlenke_minside_stikkord: string;
     meny_bunnlenke_arbeidsgiver_stikkord: string;
     meny_bunnlenke_samarbeidspartner_stikkord: string;
@@ -74,8 +77,11 @@ export type Texts = ClientTexts & {
     of: string;
     results: string;
     see_all_hits: string;
+    hits: string;
     no_hits_for: string;
+    more_hits: string;
     to_front_page: string;
+    change_search_filter: string;
     footer_del_skjerm: string;
     delskjerm_modal_beskrivelse: string;
     delskjerm_modal_start: string;
