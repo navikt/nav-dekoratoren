@@ -74,7 +74,7 @@ type TemplateStringValues =
     | null;
 
 export type Template = {
-    render: (params?: Params) => string;
+    render: (params: Params) => string;
 };
 
 const html = (

@@ -9,11 +9,11 @@ import { type Params } from "decorator-shared/params";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import { match } from "ts-pattern";
 import { clientEnv, env } from "../env/server";
+import i18n from "../i18n";
 import { getNotifications } from "../notifications";
-import { texts } from "../texts";
+import { AnchorIconButton } from "../views/anchor-icon-button";
 import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
-import { AnchorIconButton } from "../views/icon-button";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 
 const AUTH_API_URL = `${env.API_DEKORATOREN_URL}/auth`;
@@ -45,15 +45,13 @@ const buildUsermenuHtml = async (
     cookie: string,
     params: Params,
 ) => {
-    const localTexts = texts[params.language];
     const logoutUrl = getLogOutUrl(params);
 
     if (params.simple || params.simpleHeader) {
         return SimpleUserMenu({
             logoutUrl,
-            texts: localTexts,
             name: auth.name,
-        }).render();
+        }).render(params);
     }
 
     // @TODO: Tests for important urls, like logout
@@ -62,7 +60,6 @@ const buildUsermenuHtml = async (
             const notificationsResult = await getNotifications({ cookie });
 
             return UserMenuDropdown({
-                texts: localTexts,
                 name: auth.name,
                 notifications: notificationsResult.ok
                     ? notificationsResult.data
@@ -76,7 +73,6 @@ const buildUsermenuHtml = async (
         })
         .with("arbeidsgiver", async () =>
             ArbeidsgiverUserMenu({
-                texts: localTexts,
                 href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
             }),
         )
@@ -84,12 +80,12 @@ const buildUsermenuHtml = async (
             AnchorIconButton({
                 Icon: LogoutIcon({}),
                 href: logoutUrl,
-                text: localTexts.logout,
+                text: i18n("logout"),
             }),
         )
         .exhaustive();
 
-    return template.render();
+    return template.render(params);
 };
 
 export const authHandler = async ({
@@ -100,12 +96,12 @@ export const authHandler = async ({
     cookie: string;
 }): Promise<AuthDataResponse> => {
     if (!cookie) {
-        return loggedOutResponseData(texts[params.language].login);
+        return loggedOutResponseData(i18n("login"), params);
     }
 
     const auth = await fetchAuth(cookie);
     if (!auth?.authenticated) {
-        return loggedOutResponseData(texts[params.language].login);
+        return loggedOutResponseData(i18n("login"), params);
     }
 
     const usermenuHtml = await buildUsermenuHtml(auth, cookie, params);

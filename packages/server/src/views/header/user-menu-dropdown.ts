@@ -1,17 +1,15 @@
 import cls from "decorator-client/src/styles/user-menu-dropdown.module.css";
 import { LoginLevel } from "decorator-shared/params";
-import { Texts } from "decorator-shared/types";
 import {
     PersonCircleIcon,
     PersonCircleNotificationIcon,
 } from "decorator-shared/views/icons";
-import { DropdownMenu } from "../dropdown-menu";
-import { IconButton } from "../icon-button";
-import { UserMenu } from "./user-menu";
 import { Notification } from "../../notifications";
+import { DropdownMenu } from "../dropdown-menu";
+import { IconButton } from "../../../../shared/views/icon-button";
+import { UserMenu } from "./user-menu";
 
 export type UserMenuDropdownProps = {
-    texts: Texts;
     name: string;
     notifications: Notification[] | null;
     level: LoginLevel;
@@ -22,7 +20,6 @@ export type UserMenuDropdownProps = {
 };
 
 export const UserMenuDropdown = ({
-    texts,
     name,
     notifications,
     level,
@@ -46,7 +43,6 @@ export const UserMenuDropdown = ({
         }),
         dropdownClass: cls.userMenuDropdown,
         dropdownContent: UserMenu({
-            texts,
             name,
             notifications,
             level,

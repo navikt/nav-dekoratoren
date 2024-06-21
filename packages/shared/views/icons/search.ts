@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import html from "../../html";
+import html, { Template } from "../../html";
 import cls from "./search.module.css";
 
 export function SearchIcon({
@@ -8,7 +8,7 @@ export function SearchIcon({
     menuSearch,
 }: {
     className?: string;
-    ariaLabel?: string;
+    ariaLabel?: Template | string;
     menuSearch?: boolean;
 }) {
     return html`

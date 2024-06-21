@@ -13,20 +13,24 @@ import { ComplexHeader } from "./views/header/complex-header";
 import { SimpleHeader } from "./views/header/simple-header";
 import { getSplashPage } from "./views/splash-page";
 
-export default async ({ data, url }: { data: Params; url: string }) => {
+export default async ({
+    data,
+    texts,
+    url,
+}: {
+    data: Params;
+    texts: Texts;
+    url: string;
+}) => {
     const { language } = data;
-    const texts = i18n[language];
-
     const features = getFeatures();
 
     return Index({
         language,
         header: renderHeader({
-            texts,
             data,
         }),
         footer: await renderFooter({
-            texts,
             data,
             features,
         }),
@@ -37,11 +41,10 @@ export default async ({ data, url }: { data: Params; url: string }) => {
             environment: clientEnv,
         }),
         main: getSplashPage(url),
-    }).render();
+    }).render(data);
 };
 
 export function renderHeader({
-    texts,
     data: {
         breadcrumbs,
         availableLanguages,
@@ -52,11 +55,9 @@ export function renderHeader({
         language,
     },
 }: {
-    texts: Texts;
     data: Params;
 }) {
     const decoratorUtils = DecoratorUtils({
-        texts,
         breadcrumbs,
         availableLanguages,
         utilsBackground,
@@ -64,11 +65,9 @@ export function renderHeader({
 
     return simple || simpleHeader
         ? SimpleHeader({
-              texts,
               decoratorUtils,
           })
         : ComplexHeader({
-              texts,
               contextLinks: makeContextLinks(env.XP_BASE_URL),
               context,
               language,
@@ -78,11 +77,9 @@ export function renderHeader({
 
 export async function renderFooter({
     features,
-    texts,
     data,
 }: {
     data: Params;
-    texts: Texts;
     features: Features;
 }) {
     return Footer({
@@ -102,6 +99,5 @@ export async function renderFooter({
               }),
         data,
         features,
-        texts,
     });
 }

@@ -80,7 +80,7 @@ class SearchMenu extends HTMLElement {
                 this.append(this.hits);
                 this.hits.innerHTML = html`<decorator-loader
                     title="${window.__DECORATOR_DATA__.texts.loading_preview}"
-                />`.render();
+                />`.render(window.__DECORATOR_DATA__.params);
                 mainMenu && mainMenu.classList.add("hidden");
                 fetchSearchDebounced(value);
             } else {

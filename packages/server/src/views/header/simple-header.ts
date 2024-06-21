@@ -3,22 +3,18 @@ import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import html, { Template } from "decorator-shared/html";
-import { Texts } from "decorator-shared/types";
-import { SkipLink } from "decorator-shared/views/skip-link";
 import { NavLogo } from "decorator-shared/views/nav-logo";
+import i18n from "../../i18n";
+import { SkipLink } from "../skip-link";
 
 export type SimpleHeaderProps = {
-    texts: Texts;
     decoratorUtils: Template;
 };
 
-export const SimpleHeader = ({
-    texts,
-    decoratorUtils,
-}: SimpleHeaderProps) => html`
+export const SimpleHeader = ({ decoratorUtils }: SimpleHeaderProps) => html`
     <header id="decorator-header">
         <div class="${cls.siteheader}">
-            ${SkipLink(texts.skip_link)}
+            ${SkipLink(i18n("skip_link"))}
             <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
                 <lenke-med-sporing
                     href="/"
@@ -29,7 +25,7 @@ export const SimpleHeader = ({
                     })}"
                 >
                     ${NavLogo({
-                        title: texts.to_front_page,
+                        title: i18n("to_front_page"),
                         titleId: "logo-svg-title",
                     })}
                 </lenke-med-sporing>

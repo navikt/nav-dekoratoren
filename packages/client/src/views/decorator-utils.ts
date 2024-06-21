@@ -30,7 +30,9 @@ class DecoratorUtils extends HTMLElement {
         this.languageSelector.availableLanguages = availableLanguages;
         this.languageSelector.language = language;
         this.breadcrumbs.innerHTML =
-            Breadcrumbs({ breadcrumbs })?.render() ?? "";
+            Breadcrumbs({ breadcrumbs })?.render(
+                window.__DECORATOR_DATA__.params,
+            ) ?? "";
     };
 
     set utilsBackground(utilsBackground: UtilsBackground) {

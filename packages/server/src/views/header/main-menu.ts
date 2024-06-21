@@ -1,10 +1,10 @@
-import html from "decorator-shared/html";
-import { MainMenuContextLink, LinkGroup, Texts } from "decorator-shared/types";
 import cls from "decorator-client/src/styles/main-menu.module.css";
+import html, { Template } from "decorator-shared/html";
+import { LinkGroup, MainMenuContextLink } from "decorator-shared/types";
+import i18n from "../../i18n";
 
 export type MainMenuProps = {
-    title: string;
-    texts: Texts;
+    title: Template;
     frontPageUrl: string;
     links?: LinkGroup[];
     contextLinks?: MainMenuContextLink[];
@@ -12,7 +12,6 @@ export type MainMenuProps = {
 
 export function MainMenu({
     title,
-    texts,
     frontPageUrl,
     links,
     contextLinks,
@@ -29,7 +28,7 @@ export function MainMenu({
                         action: "hovedmeny/forsidelenke",
                         label: frontPageUrl,
                     })}"
-                    >${texts.to_front_page}</lenke-med-sporing
+                    >${i18n("to_front_page")}</lenke-med-sporing
                 >
             </div>
             <div class="${cls.links}">

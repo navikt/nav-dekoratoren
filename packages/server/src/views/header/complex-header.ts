@@ -1,23 +1,22 @@
 import clsx from "clsx";
-import cls from "decorator-client/src/styles/header.module.css";
 import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
+import cls from "decorator-client/src/styles/header.module.css";
 import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import { ContextLink } from "decorator-shared/context";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
-import { Texts } from "decorator-shared/types";
 import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
-import { SkipLink } from "decorator-shared/views/skip-link";
 import { NavLogo } from "decorator-shared/views/nav-logo";
+import i18n from "../../i18n";
 import { DropdownMenu } from "../dropdown-menu";
-import { IconButton } from "../icon-button";
+import { IconButton } from "../../../../shared/views/icon-button";
 import { SearchForm } from "../search-form";
+import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
 
 export type ComplexHeaderProps = {
-    texts: Texts;
     context: Context;
     language: Language;
     contextLinks: ContextLink[];
@@ -27,7 +26,6 @@ export type ComplexHeaderProps = {
 export function ComplexHeader({
     language,
     contextLinks,
-    texts,
     context: currentContext,
     decoratorUtils,
 }: ComplexHeaderProps) {
@@ -35,7 +33,7 @@ export function ComplexHeader({
     return html`
         <header id="decorator-header">
             <div class="${cls.siteheader}">
-                ${SkipLink(texts.skip_link)}
+                ${SkipLink(i18n("skip_link"))}
                 ${Sticky({
                     children: html` <div
                         class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
@@ -52,7 +50,7 @@ export function ComplexHeader({
                                 })}"
                             >
                                 ${NavLogo({
-                                    title: texts.to_front_page,
+                                    title: i18n("to_front_page"),
                                     titleId: "logo-svg-title",
                                 })}
                             </lenke-med-sporing>
@@ -80,7 +78,7 @@ export function ComplexHeader({
                                             )}"
                                             data-context="${context.toLowerCase()}"
                                         >
-                                            ${texts[lenkeTekstId]}
+                                            ${i18n(lenkeTekstId)}
                                         </context-link>`,
                                 )}
                             </div>
@@ -94,13 +92,13 @@ export function ComplexHeader({
                                 DropdownMenu({
                                     button: IconButton({
                                         Icon: BurgerIcon(),
-                                        text: texts.menu,
+                                        text: i18n("menu"),
                                     }),
                                     dropdownContent: html`
                                         <search-menu
                                             class="${menuCls.searchMenu}"
                                         >
-                                            ${SearchForm({ texts })}
+                                            ${SearchForm()}
                                         </search-menu>
                                         <main-menu></main-menu>
                                     `,
@@ -110,7 +108,7 @@ export function ComplexHeader({
                                         Icon: SearchIcon({
                                             menuSearch: true,
                                         }),
-                                        text: texts.search,
+                                        text: i18n("search"),
                                         className: menuItemsCls.searchButton,
                                     }),
                                     dropdownClass: menuItemsCls.searchDropdown,
@@ -119,7 +117,7 @@ export function ComplexHeader({
                                             class="${menuItemsCls.searchMenu}"
                                             data-auto-focus
                                         >
-                                            ${SearchForm({ texts })}
+                                            ${SearchForm()}
                                         </search-menu>
                                     `,
                                 })}

@@ -50,7 +50,7 @@ export const searchHandler = async ({
 
     if (!result.ok) {
         console.log(`Error fetching search results: ${result.error.message}`);
-        return SearchErrorView().render();
+        return SearchErrorView().render({ language, context });
     }
 
     return SearchHits({

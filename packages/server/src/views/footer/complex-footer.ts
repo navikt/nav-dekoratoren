@@ -1,19 +1,19 @@
 import cls from "decorator-client/src/styles/complex-footer.module.css";
 import utilCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
-import { Features, LinkGroup, Texts } from "decorator-shared/types";
+import { Features, LinkGroup } from "decorator-shared/types";
 import { ArrowUp } from "decorator-shared/views/icons";
 import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import { NavLogo } from "decorator-shared/views/nav-logo";
+import i18n from "../../i18n";
 import { ScreenshareButton } from "./screenshare-button";
 
 export type ComplexFooterProps = {
-    texts: Pick<Texts, "share_screen" | "to_top">;
     links: LinkGroup[];
     features: Features;
 };
 
-export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
+export function ComplexFooter({ links, features }: ComplexFooterProps) {
     const isScreensharingEnabled = features["dekoratoren.skjermdeling"];
 
     // "TODO: Need ID here to be applied accross domains. Can be fixed with modules
@@ -21,7 +21,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
         <footer class="${cls.footer}" data-theme="dark">
             <div class="${cls.footerContent} ${utilCls.contentContainer}">
                 <a class="${cls.link} ${cls.toTop}" href="#">
-                    ${ArrowUp({ className: cls.arrowUp })} ${texts.to_top}
+                    ${ArrowUp({ className: cls.arrowUp })} ${i18n("to_top")}
                 </a>
 
                 <ul class="${cls.footerLinks}">
@@ -55,7 +55,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
                         `,
                     )}
                     ${isScreensharingEnabled &&
-                    html`<li>${ScreenshareButton(texts.share_screen)}</li>`}
+                    html`<li>${ScreenshareButton(i18n("share_screen"))}</li>`}
                 </ul>
 
                 <div class="${cls.complexFooterOrg}">

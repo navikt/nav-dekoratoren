@@ -1,27 +1,23 @@
 import cls from "decorator-client/src/styles/notifications-empty.module.css";
 import html from "decorator-shared/html";
-import { Texts } from "decorator-shared/types";
 import { KattIngenNotifications } from "decorator-shared/views/illustrations";
+import i18n from "../../i18n";
 
-export type NotificationsEmptyProps = {
-    texts: Texts;
-};
-
-export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
+export function NotificationsEmpty() {
     return html`
         <div class="${cls.notificationsEmpty}">
             <div>
                 <h2 class="${cls.heading}">
-                    ${texts.notifications_empty_list}
+                    ${i18n("notifications_empty_list")}
                 </h2>
                 <p class="${cls.description}">
-                    ${texts.notifications_empty_list_description}
+                    ${i18n("notifications_empty_list_description")}
                 </p>
                 <a
                     class="${cls.link}"
                     href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
                 >
-                    ${texts.notifications_show_all}
+                    ${i18n("notifications_show_all")}
                 </a>
             </div>
             ${KattIngenNotifications({ className: cls.image })}

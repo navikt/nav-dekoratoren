@@ -7,19 +7,16 @@ import {
     Breadcrumb,
     UtilsBackground,
 } from "decorator-shared/params";
-import { Texts } from "decorator-shared/types";
 import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
 import { LanguageSelector } from "./language-selector";
 
 export type DecoratorUtilsProps = {
-    texts: Texts;
     breadcrumbs: Breadcrumb[];
     availableLanguages: AvailableLanguage[];
     utilsBackground: UtilsBackground;
 };
 
 export const DecoratorUtils = ({
-    texts,
     breadcrumbs,
     availableLanguages,
     utilsBackground,
@@ -39,7 +36,7 @@ export const DecoratorUtils = ({
             )}"
         >
             <nav>${Breadcrumbs({ breadcrumbs })}</nav>
-            ${LanguageSelector({ availableLanguages, texts })}
+            ${LanguageSelector({ availableLanguages })}
         </div>
     </decorator-utils>
 `;

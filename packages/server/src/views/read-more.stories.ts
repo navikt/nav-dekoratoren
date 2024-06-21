@@ -1,6 +1,6 @@
 import type { StoryObj, Meta } from "@storybook/html";
 import { ReadMore, ReadMoreProps } from "./read-more";
-import html from "../html";
+import html from "decorator-shared/html";
 
 const meta: Meta<ReadMoreProps> = {
     title: "read-more",
@@ -13,7 +13,7 @@ type Story = StoryObj<ReadMoreProps>;
 
 export const Default: Story = {
     args: {
-        header: "Hva er skjermdeling?",
+        header: i18n("delskjerm_modal_hjelpetekst_overskrift"),
         content: html`
             <div>
                 Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe
