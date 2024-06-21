@@ -46,6 +46,9 @@ const nb = {
     rolle_privatperson: "Privat",
     rolle_arbeidsgiver: "Arbeidsgiver",
     rolle_samarbeidspartner: "Samarbeidspartner",
+    sok_rolle_privatperson: "privatperson",
+    sok_rolle_arbeidsgiver: "arbeidsgiver",
+    sok_rolle_samarbeidspartner: "samarbeidspartner",
     meny_bunnlenke_minside_stikkord:
         "Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester",
     meny_bunnlenke_arbeidsgiver_stikkord:
@@ -58,7 +61,10 @@ const nb = {
     showing: "Viser",
     of: "av",
     results: "resultater",
+    hits: "treff",
     see_all_hits: "Se alle treff",
+    more_hits: "Flere treff",
+    change_search_filter: "Endre søkefilter for å se andre treff",
     no_hits_for: "Ingen treff for",
     loading_preview: "Laster forhåndsvisning",
     to_front_page: "Til forsiden",
@@ -131,6 +137,9 @@ const en = {
     rolle_privatperson: "Private",
     rolle_arbeidsgiver: "Employer",
     rolle_samarbeidspartner: "Collaborator",
+    sok_rolle_privatperson: "private",
+    sok_rolle_arbeidsgiver: "employer",
+    sok_rolle_samarbeidspartner: "collaborator",
     meny_bunnlenke_minside_stikkord:
         "Your cases, payments, messages, report cards, activity plan, personal information and more services",
     meny_bunnlenke_arbeidsgiver_stikkord:
@@ -143,7 +152,10 @@ const en = {
     showing: "Showing",
     of: "of",
     results: "results",
+    hits: "hits",
     see_all_hits: "See all hits",
+    more_hits: "More hits",
+    change_search_filter: "Change search filter to see other hits",
     no_hits_for: "No hits for",
     loading_preview: "Loading preview",
     to_front_page: "To the front page",

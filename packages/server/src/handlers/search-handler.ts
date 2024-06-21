@@ -45,8 +45,8 @@ export const searchHandler = async ({
 }): Promise<string> => {
     const result = await fetchSearch({
         query,
-        context,
         language,
+        context,
     });
 
     if (!result.ok) {
@@ -61,5 +61,7 @@ export const searchHandler = async ({
         },
         query,
         texts: texts[language],
+        language,
+        context,
     }).render();
 };

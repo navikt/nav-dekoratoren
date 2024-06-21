@@ -14,14 +14,26 @@
     color: inherit;
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: var(--a-spacing-4);
-    padding: var(--a-spacing-4);
-    padding-left: 0;
+    gap: var(--a-spacing-2);
+    padding: var(--a-spacing-3) 0;
+}
+
+.searchMoreHits {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.searchHitRightArrow {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
 }
 
 @media (min-width: 768px) {
     .searchHit {
-        padding-left: var(--a-spacing-4);
         border-bottom: 1px solid var(--a-border-default);
     }
 }

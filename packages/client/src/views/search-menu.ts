@@ -16,10 +16,12 @@ class SearchMenu extends HTMLElement {
     }
 
     clearSearch = () => {
+        const mainMenu = document.getElementById("decorator-main-menu");
         this.hits.remove();
         if (this.input) {
             this.input.value = "";
         }
+        mainMenu && mainMenu.classList.remove("hidden");
     };
 
     focus = () => this.input?.focus();
@@ -56,7 +58,7 @@ class SearchMenu extends HTMLElement {
                 eventName: "søk",
                 destination: url,
                 category: "dekorator-header",
-                label: query,
+                label: "[redacted]",
                 action: "søk-dynamisk",
             });
 
@@ -72,15 +74,17 @@ class SearchMenu extends HTMLElement {
         const fetchSearchDebounced = debounce(fetchSearch, 500);
 
         this.input?.addEventListener("input", (e) => {
+            const mainMenu = document.getElementById("decorator-main-menu");
             const { value } = e.target as HTMLInputElement;
             if (value.length > 2) {
                 this.append(this.hits);
                 this.hits.innerHTML = html`<decorator-loader
                     title="${window.__DECORATOR_DATA__.texts.loading_preview}"
                 />`.render();
-
+                mainMenu && mainMenu.classList.add("hidden");
                 fetchSearchDebounced(value);
             } else {
+                mainMenu && mainMenu.classList.remove("hidden");
                 this.hits.remove();
             }
         });
@@ -90,7 +94,6 @@ class SearchMenu extends HTMLElement {
         if (this.getAttribute("data-auto-focus") !== null) {
             this.parentDropdown?.removeEventListener("menuopened", this.focus);
         }
-
         this.parentDropdown?.removeEventListener(
             "menuclosed",
             this.clearSearch,

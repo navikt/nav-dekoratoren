@@ -17,7 +17,7 @@ export function MainMenu({
     links,
     contextLinks,
 }: MainMenuProps) {
-    return html`<div class="${cls.mainMenu}">
+    return html`<div id="decorator-main-menu" class="${cls.mainMenu}">
         <div class="${cls.content}">
             <div class="${cls.header}">
                 <h2 class="${cls.title}">${title}</h2>
