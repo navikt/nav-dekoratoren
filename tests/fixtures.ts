@@ -1,16 +1,28 @@
-import {
-    Page,
-    PlaywrightTestArgs,
-    PlaywrightTestOptions,
-    PlaywrightWorkerArgs,
-    PlaywrightWorkerOptions,
-    TestType,
-    test as base,
-} from "@playwright/test";
+import { Page, test as base } from "@playwright/test";
+
+const decoratorReady = () =>
+    new Promise<void>((resolve) => {
+        window.addEventListener("message", (e) => {
+            if (e.data.source === "decorator" && e.data.event === "ready") {
+                interval && clearInterval(interval);
+                resolve();
+            }
+        });
+
+        const interval = setInterval(
+            () =>
+                window.postMessage({
+                    source: "decoratorClient",
+                    event: "ready",
+                }),
+            100,
+        );
+    });
 
 const ssr = base.extend({
     page: async ({ page }, use) => {
         await page.goto("http://localhost:8089");
+        await page.evaluate(decoratorReady);
         await use(page);
     },
 });
@@ -18,6 +30,7 @@ const ssr = base.extend({
 const nextPagesRouter = base.extend({
     page: async ({ page }, use) => {
         await page.goto("http://localhost:3000");
+        await page.evaluate(decoratorReady);
         await use(page);
     },
 });
@@ -25,7 +38,7 @@ const nextPagesRouter = base.extend({
 const csr = base.extend({
     page: async ({ page }, use) => {
         await page.goto("http://localhost:8080/csr.html");
-        await page.getAttribute("html", "data-hj-suppress");
+        await page.evaluate(decoratorReady);
         await use(page);
     },
 });
