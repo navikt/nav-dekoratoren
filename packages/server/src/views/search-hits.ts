@@ -1,9 +1,9 @@
-import html, { unsafeHtml } from "decorator-shared/html";
-import { Texts } from "decorator-shared/types";
 import cls from "decorator-client/src/styles/search-hits.module.css";
-import { ForwardChevron, ArrowRight } from "decorator-shared/views/icons";
-import { SearchResult } from "../handlers/search-handler";
+import html, { unsafeHtml } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
+import { Texts } from "decorator-shared/types";
+import { ArrowRight } from "decorator-shared/views/icons";
+import { SearchResult } from "../handlers/search-handler";
 
 export type SearchHitsProps = {
     results: SearchResult;
@@ -22,11 +22,12 @@ export const SearchHits = ({
 }: SearchHitsProps) => html`
     <div class="${cls.searchHits}">
         <div>
-            <h2 role="status" class="${cls.title}">
-                ${total.toString()} ${texts.hits} for &laquo;${query}&raquo
-                ${language !== "en" && ` for ${texts[`sok_rolle_${context}`]}`}
+            <h2 role="status" class="${cls.heading}">
+                ${total.toString()} ${texts.hits_for}
+                <span class="${cls.quoted}">${query}</span>
+                ${["nb", "nn"].includes(language) && ` for ${context}`}
             </h2>
-            <a href="https://www.nav.no/sok?ord=${query}">
+            <a href="https://www.nav.no/sok?ord=${query}" class="${cls.link}">
                 ${texts.change_search_filter}
             </a>
         </div>
@@ -47,17 +48,10 @@ export const SearchHits = ({
                                           },
                                       )}"
                                   >
-                                      ${ForwardChevron({
-                                          className: cls.chevron,
-                                      })}
-                                      <div>
-                                          <h2 class="${cls.title}">
-                                              ${hit.displayName}
-                                          </h2>
-                                          <div>
-                                              ${unsafeHtml(hit.highlight)}
-                                          </div>
-                                      </div>
+                                      <h2 class="${cls.title}">
+                                          ${hit.displayName}
+                                      </h2>
+                                      <div>${unsafeHtml(hit.highlight)}</div>
                                   </lenke-med-sporing>
                               </li>
                           `,

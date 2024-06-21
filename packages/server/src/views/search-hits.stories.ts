@@ -13,42 +13,47 @@ type Story = StoryObj<SearchHitsProps>;
 
 export const Default: Story = {
     args: {
+        language: "nb",
+        context: "privatperson",
         results: {
-            total: 652,
+            total: 69,
             hits: [
                 {
-                    displayName: "Arbeid med støtte",
-                    href: "https://www.nav.no/arbeid-med-stotte",
+                    displayName: "Sykepenger",
+                    href: "https://www.nav.no/sykepenger",
                     highlight:
-                        "Et tilbud for deg som trenger støtte for å skaffe eller beholde en jobb. ",
+                        "Erstatter inntekten din når du ikke kan jobbe på grunn av sykdom eller skade.",
                 },
                 {
-                    displayName: "Gradert sjukmelding",
-                    href: "https://www.nav.no/gradert-sjukmelding/nn",
+                    displayName: "Dekking av sykepenger i arbeidsgiverperioden",
+                    href: "https://www.nav.no/kronisk-syk-eller-gravid",
                     highlight:
-                        "Dersom du kan vere delvis i arbeid, skal du bli delvis sjukmeld. Føremålet er at du skal halde kontakten med arbeidsplassen og kunne jobbe når det er mogleg. Vilkåret er at det er medisinsk (...)",
+                        "NAV dekker sykepenger i arbeidsgiverperioden hvis du har hyppig sykefravær fordi du er kronisk syk eller gravid.",
                 },
                 {
-                    displayName: "Kva er NAV?",
-                    href: "https://www.nav.no/hva-er-nav/nn",
+                    displayName:
+                        "Sykepengesøknaden og behandling av personopplysninger",
+                    href: "https://www.nav.no/sykepenger-og-personopplysninger",
                     highlight:
-                        "Om kva NAV er, korleis vi er organiserte, og korleis vi jobbar for å løyse samfunnsoppdraget vårt.",
+                        "Når du har blitt syk eller skadet og ikke kan jobbe, kan du ha rett til sykepenger. Du må oppfylle noen generelle vilkår for å få sykepenger.",
                 },
                 {
-                    displayName: "Varig tilrettelagt arbeid",
-                    href: "https://www.nav.no/arbeidsgiver/varig-tilrettelagt-arbeid",
+                    displayName:
+                        "Dokumentasjon for sykepenger når du bor i utlandet",
+                    href: "https://www.nav.no/fyllut-ettersending/lospost?tema=SYK",
                     highlight:
-                        "Hvis en person får uføretrygd, men har mulighet til å gjøre tilpassede oppgaver, kan det være aktuelt med varig tilrettelagt arbeid i ordinær virksomhet.",
+                        "Hvis du er fast bosatt i utlandet og skal sende inn dokumentasjon som gjelder sykepenger, sender du dette sammen med en førsteside.",
                 },
                 {
-                    displayName: "Opplysning, råd og rettleiing",
-                    href: "https://www.nav.no/opplysning-rad-rettleiing/nn",
+                    displayName:
+                        "Søknad om sykepenger for arbeidstakere (NAV 08-07.04D)",
+                    href: "https://www.nav.no/start/soknad-sykepenger",
                     highlight:
-                        "Rettleiing frå NAV når du har utfordringar med heimeforhold, busituasjon, omsorg for barn, arbeid eller økonomi.",
+                        "Du søker du om sykepenger når perioden for sykmeldingen er over. Du får en melding når søknaden er klar til å fylles ut på Ditt sykefravær og sender den derfra. Du må sende søknad om sykepenger selv om arbeidsgiveren din betaler deg lønn mens  …",
                 },
             ],
         },
-        query: "arbeid",
+        query: "sykepenger",
         texts: texts.nb,
     },
 };
