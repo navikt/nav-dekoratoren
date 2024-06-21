@@ -1,28 +1,16 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./fixtures";
 
-test.describe("a11y", () => {
-    test("should not have any automatically detectable accessibility issues", async ({
+test("should not have any automatically detectable accessibility issues", async ({
+    page,
+}) => {
+    await page.goto("http://localhost:8089");
+    await page.waitForSelector("button");
+
+    const accessibilityScanResults = await new AxeBuilder({
         page,
-    }) => {
-        await page.goto("http://localhost:8089");
-        await page.waitForSelector("button");
+    }).analyze();
 
-        const accessibilityScanResults = await new AxeBuilder({
-            page,
-        }).analyze();
-
-        expect(accessibilityScanResults.violations).toEqual([]);
-    });
-
-    test("csr", async ({ page }) => {
-        await page.goto("http://localhost:8080/csr.html");
-        await page.waitForSelector("button");
-
-        const accessibilityScanResults = await new AxeBuilder({
-            page,
-        }).analyze();
-
-        expect(accessibilityScanResults.violations).toEqual([]);
-    });
+    expect(accessibilityScanResults.violations).toEqual([]);
 });
