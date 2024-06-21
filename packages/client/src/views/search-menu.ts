@@ -91,9 +91,6 @@ class SearchMenu extends HTMLElement {
     }
 
     disconnectedCallback() {
-        const mainMenu = document.getElementById("decorator-main-menu");
-        mainMenu && mainMenu.classList.remove("hidden");
-        console.log(mainMenu);
         if (this.getAttribute("data-auto-focus") !== null) {
             this.parentDropdown?.removeEventListener("menuopened", this.focus);
         }
