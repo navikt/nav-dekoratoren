@@ -1,4 +1,5 @@
 import { P, match } from "ts-pattern";
+import { Context, Language } from "./params";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
 
@@ -73,14 +74,34 @@ type TemplateStringValues =
     | null;
 
 export type Template = {
-    render: () => string;
+    render: (params?: Params) => string;
 };
 
 const html = (
     strings: TemplateStringsArray,
     ...values: TemplateStringValues[]
 ): Template => ({
-    render: () => String.raw({ raw: strings }, ...values.map(renderValue)),
+    render: (params) => {
+        const renderValue = (item: TemplateStringValues): string =>
+            match(item)
+                // Join arrays
+                .with(P.array(P.any), (items) =>
+                    items.map(renderValue).join(""),
+                )
+                // Nullish values to empty string
+                .with(P.union(false, P.nullish), () => "")
+                // Escape strings
+                .with(P.string, (str) => escapeHtml(str))
+                // Convert numbers to string
+                .with(P.number, (num) => String(num))
+                // Make "true" into true string
+                .with(true, () => "true")
+                // Render template
+                .with(P.select(), (template) => template.render(params).trim())
+                .exhaustive();
+
+        return String.raw({ raw: strings }, ...values.map(renderValue));
+    },
 });
 
 export const json = (value: any): Template => unsafeHtml(JSON.stringify(value));
@@ -91,21 +112,7 @@ export const unsafeHtml = (htmlString: string) => ({
 
 export default html;
 
-const renderValue = (item: TemplateStringValues): string =>
-    match(item)
-        // Join arrays
-        .with(P.array(P.any), (items) => items.map(renderValue).join(""))
-        // Nullish values to empty string
-        .with(P.union(false, P.nullish), () => "")
-        // Escape strings
-        .with(P.string, (str) => escapeHtml(str))
-        // Convert numbers to string
-        .with(P.number, (num) => String(num))
-        // Make "true" into true string
-        .with(true, () => "true")
-        // Render template
-        .with(P.select(), (template) => template.render().trim())
-        .exhaustive();
+type Params = { language: Language; context: Context };
 
 export type AttribueValue = number | string | boolean | string[];
 

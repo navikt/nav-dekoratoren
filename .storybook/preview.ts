@@ -38,14 +38,30 @@ window.__DECORATOR_DATA__ = {
 };
 
 const preview: Preview = {
+    globalTypes: {
+        locale: {
+            name: "Locale",
+            defaultValue: "nb",
+            toolbar: {
+                icon: "globe",
+                items: [
+                    { value: "nb", title: "Norsk" },
+                    { value: "en", title: "English" },
+                ],
+            },
+        },
+    },
     decorators: [
-        (Story) => {
+        (Story, context) => {
             const story = Story();
 
             if (story === null) {
                 return "";
             } else if (typeof story === "object" && "render" in story) {
-                return html`<div id="decorator-header">${story}</div>`.render();
+                return html`<div id="decorator-header">${story}</div>`.render({
+                    language: context.globals.locale,
+                    context: "privatperson",
+                });
             } else {
                 const wrapper = document.createElement("div");
                 wrapper.setAttribute("id", "decorator-header");

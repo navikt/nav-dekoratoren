@@ -13,8 +13,7 @@ type Story = StoryObj<SearchHitsProps>;
 
 export const Default: Story = {
     args: {
-        language: "nb",
-        context: "privatperson",
+        query: "sykepenger",
         results: {
             total: 69,
             hits: [
@@ -53,7 +52,5 @@ export const Default: Story = {
                 },
             ],
         },
-        query: "sykepenger",
-        texts: texts.nb,
     },
 };

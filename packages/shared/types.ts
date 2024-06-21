@@ -73,9 +73,7 @@ export type Texts = ClientTexts & {
     showing: string;
     of: string;
     results: string;
-    see_all_hits: string;
-    hits_for: string;
-    no_hits_for: string;
+    search_hits_heading: string;
     more_hits: string;
     to_front_page: string;
     change_search_filter: string;

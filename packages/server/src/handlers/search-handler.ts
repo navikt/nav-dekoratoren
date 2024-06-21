@@ -2,7 +2,6 @@ import { Context, Language } from "decorator-shared/params";
 import { z } from "zod";
 import { env } from "../env/server";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
-import { texts } from "../texts";
 import { SearchErrorView } from "../views/errors/search-error";
 import { SearchHits } from "../views/search-hits";
 
@@ -60,8 +59,5 @@ export const searchHandler = async ({
             hits: result.data.hits.slice(0, 5),
         },
         query,
-        texts: texts[language],
-        language,
-        context,
-    }).render();
+    }).render({ language, context });
 };

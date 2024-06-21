@@ -10,14 +10,6 @@
     font-weight: var(--a-font-weight-bold);
 }
 
-.quoted::before {
-    content: open-quote;
-}
-
-.quoted::after {
-    content: close-quote;
-}
-
 .link {
     color: var(--a-text-action);
 }
