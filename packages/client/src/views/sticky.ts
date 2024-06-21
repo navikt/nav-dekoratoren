@@ -88,32 +88,25 @@ class Sticky extends HTMLElement {
     };
 
     private preventOverlapOnFocusChange = (e: FocusEvent) => {
-        // Fallback to empty array for browsers without composedPath support
-        const composedPath = e.composedPath?.() || [];
-
-        const focusIsWithinHeader = composedPath.some((path) =>
-            (path as HTMLElement)?.className?.includes(cls.fixedWrapper),
-        );
-
-        if (focusIsWithinHeader) {
-            return;
-        }
-
         const targetElement = e.target as HTMLElement;
         if (!targetElement) {
             return;
         }
 
-        // const isWithin = this.fixedElement.contains(targetElement)
+        // Ensure the header isn't hidden when the header itself gets focus
+        const targetIsInHeader = this.fixedElement.contains(targetElement);
+        if (targetIsInHeader) {
+            return;
+        }
 
         const scrollPos = window.scrollY;
         const targetPos = targetElement.offsetTop;
 
-        const targetIsInHeaderArea =
+        const targetIsOverlappedByHeader =
             targetPos >= scrollPos &&
             targetPos <= scrollPos + this.getHeaderHeight();
 
-        if (targetIsInHeaderArea) {
+        if (targetIsOverlappedByHeader) {
             this.deferStickyBehaviour();
         }
     };
