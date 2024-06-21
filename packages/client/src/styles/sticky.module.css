@@ -1,9 +1,3 @@
-/*
- Note: this custom property is also used by consuming applications for positioning their own
- sticky elements relative to the sticky header. It should specify the visible height of the
- sticky header.
- Do not change the name or value assignment logic of this property without notifying consumers.
-*/
 :root {
     --decorator-sticky-offset: var(--header-height);
 }
@@ -14,7 +8,7 @@
     height: var(--header-height);
 }
 
-.stickyWrapper {
+.absoluteWrapper {
     position: absolute;
     top: 0;
     width: 100%;
