@@ -7,7 +7,7 @@
 .simpleFooterContent {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     gap: var(--a-spacing-4);
 }
 
@@ -22,7 +22,7 @@
 .footerLinkList {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     gap: var(--a-spacing-2);
 }
 
