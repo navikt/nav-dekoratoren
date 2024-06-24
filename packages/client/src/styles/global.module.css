@@ -2,6 +2,10 @@
     color: var(--a-text-action);
 }
 
+[data-theme="dark"] .link {
+    color: var(--a-text-on-inverted);
+}
+
 .linkNeutral {
     color: var(--a-text-default);
 }
@@ -13,10 +17,17 @@
 .link:active,
 .link:focus-visible {
     outline: 2px solid transparent;
-    color: var(--a-text-on-action);
     text-decoration: none;
+    color: var(--a-text-on-action);
     background-color: var(--a-border-focus);
     box-shadow: 0 0 0 2px var(--a-border-focus);
+}
+
+[data-theme="dark"] .link:active,
+[data-theme="dark"] .link:focus-visible {
+    color: var(--a-text-action);
+    background-color: var(--a-surface-default);
+    box-shadow: 0 0 0 2px var(--a-surface-default);
 }
 
 @supports not selector(:focus-visible) {

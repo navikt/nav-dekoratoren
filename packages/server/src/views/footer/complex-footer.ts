@@ -1,4 +1,5 @@
 import cls from "decorator-client/src/styles/complex-footer.module.css";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import utilCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
 import { Features, LinkGroup, Texts } from "decorator-shared/types";
@@ -20,7 +21,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
     return html`
         <footer class="${cls.footer}" data-theme="dark">
             <div class="${cls.footerContent} ${utilCls.contentContainer}">
-                <a class="${cls.link} ${cls.toTop}" href="#">
+                <a class="${globalCls.link} ${cls.toTop}" href="#">
                     ${ArrowUp({ className: cls.arrowUp })} ${texts.to_top}
                 </a>
 
@@ -39,7 +40,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
                                                 ${LenkeMedSporing({
                                                     href: url,
                                                     children: content,
-                                                    className: `${cls.link} ${cls.footerLink}`,
+                                                    className: `${globalCls.link} ${cls.footerLink}`,
                                                     analyticsEventArgs: {
                                                         category:
                                                             "dekorator-footer",
