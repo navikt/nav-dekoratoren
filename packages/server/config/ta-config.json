@@ -1,68 +1,9 @@
 [
     {
-        "id": "03340",
+        "id": "03400",
         "urls": [
             {
-                "url": "https://www.dev.nav.no/no/bedrift",
-                "match": "startsWith"
-            },
-            {
-                "url": "https://www.dev.nav.no/arbeidsgiver",
-                "match": "startsWith"
-            },
-            {
-                "url": "https://arbeidsgiver.dev.nav.no",
-                "match": "startsWith"
-            },
-            {
-                "url": "https://www.dev.nav.no/soknader/nb/bedrift",
-                "match": "startsWith"
-            }
-        ]
-    },
-    {
-        "id": "03237",
-        "duration": { "start": "2023-01-30T08:00", "end": "2023-04-05T14:56" },
-        "selection": 100,
-        "urls": [
-            {
-                "url": "https://www.dev.nav.no/",
-                "match": "exact",
-                "exclude": true
-            },
-            {
-                "url": "https://www.dev.nav.no/no/bedrift",
-                "match": "startsWith",
-                "exclude": true
-            },
-            {
-                "url": "http://www.dev.nav.no/arbeidsgiver",
-                "match": "startsWith",
-                "exclude": true
-            },
-            {
-                "url": "http://www.dev.nav.no/soknader/nb/bedrift",
-                "match": "startsWith",
-                "exclude": true
-            },
-            {
-                "url": "http://arbeidsgiver.nav.no",
-                "match": "startsWith",
-                "exclude": true
-            }
-        ],
-        "audience": ["privatperson", "samarbeidspartner"],
-        "language": ["nb", "nn"]
-    },
-    {
-        "id": "2357",
-        "duration": {
-            "start": "2023-01-30T08:00",
-            "end": "2023-02-28"
-        },
-        "urls": [
-            {
-                "url": "https://www.dev.nav.no/soknader",
+                "url": "http://localhost:8089?test",
                 "match": "startsWith"
             }
         ]
