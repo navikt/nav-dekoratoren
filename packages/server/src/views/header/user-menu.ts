@@ -48,10 +48,9 @@ export const UserMenu = ({
                         <div>
                             ${texts.security_level_info}
                             <a
-                                class="${clsx(
-                                    globalCls.link,
-                                    globalCls.linkNeutral,
-                                )}"
+                                class="${globalCls["navds-link"]} ${globalCls[
+                                    "navds-link--neutral"
+                                ]}"
                                 href="${loginUrl}"
                                 >Logg inn med BankID, Buypass, eller
                                 Commfides</a

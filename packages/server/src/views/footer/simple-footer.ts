@@ -24,7 +24,7 @@ export const SimpleFooter = ({
                     LenkeMedSporing({
                         href: url,
                         children: content,
-                        className: globalCls.link,
+                        className: globalCls["navds-link"],
                         analyticsEventArgs: {
                             category: "dekorator-footer",
                             action: `kontakt/${url}`,

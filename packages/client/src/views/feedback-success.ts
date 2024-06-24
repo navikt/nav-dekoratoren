@@ -14,7 +14,7 @@ export function FeedbackSuccess({ texts }: FeedbackSuccessProps) {
                 ${texts.send_undersokelse_takk}
             </h2>
             <div>${texts.hensikt_med_tilbakemelding}</div>
-            <a class="${globalCls.link}" href="/kontaktoss">
+            <a class="${globalCls["navds-link"]}" href="/kontaktoss">
                 ${texts.hensikt_med_tilbakemelding_lenke}
             </a>
         </div>

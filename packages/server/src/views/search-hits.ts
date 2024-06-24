@@ -30,7 +30,7 @@ export const SearchHits = ({
             </h2>
             <a
                 href="https://www.nav.no/sok?ord=${query}"
-                class="${globalCls.link}"
+                class="${globalCls["navds-link"]}"
             >
                 ${texts.change_search_filter}
             </a>

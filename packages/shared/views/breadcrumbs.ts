@@ -51,7 +51,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                               ${HomeIcon({ className: cls.svg })}
                               <span class="${cls.span}">nav.no</span>
                           `,
-                          className: clsx(cls.link, globalCls.link),
+                          className: clsx(cls.link, globalCls["navds-link"]),
                       })}
                       ${ForwardChevron()}
                   </li>
@@ -71,7 +71,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                                             )}"
                                             ${handleInApp &&
                                             "data-handle-in-app"}
-                                            class="${globalCls.link}"
+                                            class="${globalCls["navds-link"]}"
                                             href="${url}"
                                         >
                                             ${title}

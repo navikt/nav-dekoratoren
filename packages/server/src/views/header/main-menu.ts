@@ -24,7 +24,7 @@ export function MainMenu({
                 <h2 class="${cls.title}">${title}</h2>
                 <lenke-med-sporing
                     href="${frontPageUrl}"
-                    class="${globalCls.link}"
+                    class="${globalCls["navds-link"]}"
                     data-analytics-event-args="${JSON.stringify({
                         category: "dekorator-meny",
                         action: "hovedmeny/forsidelenke",
@@ -44,7 +44,9 @@ export function MainMenu({
                                         html`<li>
                                             <lenke-med-sporing
                                                 href="${url}"
-                                                class="${globalCls.link}"
+                                                class="${globalCls[
+                                                    "navds-link"
+                                                ]}"
                                                 data-analytics-event-args="${JSON.stringify(
                                                     {
                                                         category:

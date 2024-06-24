@@ -141,8 +141,8 @@ export function Notifications({ texts, notifications }: NotificationsProps) {
         <a
             class="${clsx(
                 cls.allNotificationsLink,
-                globalCls.link,
-                globalCls.linkNeutral,
+                globalCls["navds-link"],
+                globalCls["navds-link--neutral"],
             )}"
             href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
         >

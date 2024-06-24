@@ -21,7 +21,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
     return html`
         <footer class="${cls.footer}" data-theme="dark">
             <div class="${cls.footerContent} ${utilCls.contentContainer}">
-                <a class="${globalCls.link} ${cls.toTop}" href="#">
+                <a class="${globalCls["navds-link"]} ${cls.toTop}" href="#">
                     ${ArrowUp({ className: cls.arrowUp })} ${texts.to_top}
                 </a>
 
@@ -40,7 +40,7 @@ export function ComplexFooter({ texts, links, features }: ComplexFooterProps) {
                                                 ${LenkeMedSporing({
                                                     href: url,
                                                     children: content,
-                                                    className: `${globalCls.link} ${cls.footerLink}`,
+                                                    className: `${globalCls["navds-link"]} ${cls.footerLink}`,
                                                     analyticsEventArgs: {
                                                         category:
                                                             "dekorator-footer",
