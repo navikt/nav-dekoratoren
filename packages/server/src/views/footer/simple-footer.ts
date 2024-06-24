@@ -1,9 +1,10 @@
-import { Features, Link, Texts } from "decorator-shared/types";
-import html from "decorator-shared/html";
-import { ScreenshareButton } from "./screenshare-button";
-import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/simple-footer.module.css";
 import utilCls from "decorator-client/src/styles/utilities.module.css";
+import html from "decorator-shared/html";
+import { Features, Link, Texts } from "decorator-shared/types";
+import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
+import { ScreenshareButton } from "./screenshare-button";
 
 export type SimpleFooterProps = {
     links: Link[];
@@ -23,7 +24,7 @@ export const SimpleFooter = ({
                     LenkeMedSporing({
                         href: url,
                         children: content,
-                        className: cls.footerLink,
+                        className: globalCls.link,
                         analyticsEventArgs: {
                             category: "dekorator-footer",
                             action: `kontakt/${url}`,
