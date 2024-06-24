@@ -25,10 +25,6 @@
     gap: var(--a-spacing-3);
 }
 
-.header > .link {
-    font-size: var(--a-font-size-large);
-}
-
 .title {
     font-size: var(--a-font-size-heading-medium);
     line-height: var(--a-font-line-height-heading-medium);
