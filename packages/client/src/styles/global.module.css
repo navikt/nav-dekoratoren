@@ -38,4 +38,10 @@
         background-color: var(--a-border-focus);
         box-shadow: 0 0 0 2px var(--a-border-focus);
     }
+
+    [data-theme="dark"] .link:focus {
+        color: var(--a-text-action);
+        background-color: var(--a-surface-default);
+        box-shadow: 0 0 0 2px var(--a-surface-default);
+    }
 }
