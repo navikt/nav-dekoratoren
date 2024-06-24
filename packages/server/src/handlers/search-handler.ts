@@ -61,7 +61,6 @@ export const searchHandler = async ({
         },
         query,
         texts: texts[language],
-        language,
-        context,
+        context: ["nb", "nn"].includes(language) ? context : 'individuals',
     }).render();
 };
