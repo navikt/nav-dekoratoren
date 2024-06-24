@@ -1,5 +1,6 @@
 @import "@navikt/ds-css/dist/component/link.css";
 
+/* hack: navds-link--neutral class is stripped from elements if it's not defined in a local file */
 [data-theme="dark"] .navds-link--neutral,
 [data-theme="dark"] .navds-link {
     color: var(--a-text-on-inverted);
