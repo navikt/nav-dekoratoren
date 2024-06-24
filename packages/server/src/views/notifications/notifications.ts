@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
 import html from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
@@ -137,7 +139,11 @@ export function Notifications({ texts, notifications }: NotificationsProps) {
                 : NotificationsEmpty({ texts })
             : NotificationsErrorView()}
         <a
-            class="${cls.allNotificationsLink}"
+            class="${clsx(
+                cls.allNotificationsLink,
+                globalCls.link,
+                globalCls.linkNeutral,
+            )}"
             href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
         >
             ${texts.earlier_notifications}
