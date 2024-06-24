@@ -20,7 +20,7 @@ export const SearchHits = ({
     <div class="${cls.searchHits}">
         <div>
             <h2 role="status" class="${cls.heading}">
-                ${total.toString()} ${texts.hits_for}${` `}
+                ${total.toString()} ${texts.hits_for}${" "}
                 <span class="${cls.quoted}">${query}</span>
                 ${` for ${context}`}
             </h2>
