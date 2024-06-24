@@ -2,7 +2,7 @@ import { loadExternalScript } from "./utils";
 
 const loadScript = () =>
     loadExternalScript(
-        "https://account.psplugin.com/83BD7664-B38B-4EEE-8D99-200669A32551/ps.js",
+        "https://account.psplugin.com/C1302192-8BEC-4EA2-84AB-F4EDE8AC6230/ps.js",
     );
 
 // @TODO: Use promise instead of callback?
