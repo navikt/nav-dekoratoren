@@ -2,6 +2,10 @@
     color: var(--a-text-action);
 }
 
+.linkNeutral {
+    color: var(--a-text-default);
+}
+
 .link:hover {
     text-decoration: none;
 }
@@ -24,15 +28,3 @@
         box-shadow: 0 0 0 2px var(--a-border-focus);
     }
 }
-
-/* .navds-link--action {
-    color: var(--ac-link-action-text, var(--a-text-action));
-}
-
-.navds-link--neutral {
-    color: var(--ac-link-neutral-text, var(--a-text-default));
-}
-
-.navds-link--subtle {
-    color: var(--ac-link-subtle-text, var(--a-text-subtle));
-} */
