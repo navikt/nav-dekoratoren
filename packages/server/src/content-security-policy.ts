@@ -5,6 +5,7 @@ import {
     UNSAFE_EVAL,
     UNSAFE_INLINE,
     getCSP,
+    SELF,
 } from "csp-header";
 import { env } from "./env/server";
 
@@ -70,6 +71,7 @@ const directives: Partial<CSPDirectives> = {
     ],
     "img-src": [navNo, vergicScreenSharing, vimeoCdn, hotjarCom, vergicDotCom],
     "frame-src": [hotjarCom, vimeoPlayer, qbrick, navNo],
+    "frame-ancestors": [SELF, vergicScreenSharing],
     "connect-src": [
         navNo,
         boostChatbot,
