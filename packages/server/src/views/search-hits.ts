@@ -4,11 +4,12 @@ import html, { unsafeHtml } from "decorator-shared/html";
 import { ArrowRight } from "decorator-shared/views/icons";
 import { SearchResult } from "../handlers/search-handler";
 import i18n from "../i18n";
+import { Context } from "decorator-shared/params";
 
 export type SearchHitsProps = {
     results: SearchResult;
     query: string;
-    context: string;
+    context: Context;
 };
 
 export const SearchHits = ({

@@ -1,4 +1,4 @@
-import { Environment, Params } from "./params";
+import { Context, Environment, Params } from "./params";
 
 export type Link = {
     content: string;
@@ -73,7 +73,11 @@ export type Texts = ClientTexts & {
     showing: string;
     of: string;
     results: string;
-    search_hits_heading: string;
+    search_hits_heading: (args: {
+        total: number;
+        query: string;
+        context: Context;
+    }) => string;
     more_hits: string;
     to_front_page: string;
     change_search_filter: string;

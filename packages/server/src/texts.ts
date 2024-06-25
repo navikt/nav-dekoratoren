@@ -58,7 +58,8 @@ const nb = {
     showing: "Viser",
     of: "av",
     results: "resultater",
-    search_hits_heading: "{total} treff for «{query}» for {context}",
+    search_hits_heading: ({ total, query, context }) =>
+        `${total} treff for «${query}» for ${context}`,
     more_hits: "Flere treff",
     change_search_filter: "Endre søkefilter for å se andre treff",
     loading_preview: "Laster forhåndsvisning",
@@ -144,7 +145,8 @@ const en = {
     showing: "Showing",
     of: "of",
     results: "results",
-    search_hits_heading: '{total} hits for "{query}" for individuals',
+    search_hits_heading: ({ total, query }) =>
+        `${total} hits for "${query}" for individuals`,
     more_hits: "More hits",
     change_search_filter: "Change search filter to see other hits",
     loading_preview: "Loading preview",
