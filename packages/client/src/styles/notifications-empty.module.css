@@ -22,19 +22,6 @@
     margin-bottom: var(--a-spacing-3);
 }
 
-.link {
-    text-underline-offset: 0.15em;
-    color: var(--a-text-default);
-    cursor: pointer;
-    align-self: center;
-    font-size: var(--a-font-size-medium);
-    line-height: var(--a-font-line-height-large);
-}
-
-.link:hover {
-    text-decoration: none;
-}
-
 .image {
     padding: var(--a-spacing-2);
     height: 96px;

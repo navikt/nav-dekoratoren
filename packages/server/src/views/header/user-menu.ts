@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/user-menu.module.css";
 import html from "decorator-shared/html";
 import { LoginLevel } from "decorator-shared/params";
@@ -45,7 +47,11 @@ export const UserMenu = ({
                     content: html`
                         <div>
                             ${texts.security_level_info}
-                            <a class="${cls.link}" href="${loginUrl}"
+                            <a
+                                class="${globalCls["navds-link"]} ${globalCls[
+                                    "navds-link--neutral"
+                                ]}"
+                                href="${loginUrl}"
                                 >Logg inn med BankID, Buypass, eller
                                 Commfides</a
                             >

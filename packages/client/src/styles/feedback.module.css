@@ -27,11 +27,7 @@
 
 .feedbackSuccess {
     text-align: center;
+    justify-items: center;
     display: grid;
     gap: var(--a-spacing-1);
-}
-
-.link {
-    color: var(--a-surface-action);
-    text-decoration: underline;
 }
