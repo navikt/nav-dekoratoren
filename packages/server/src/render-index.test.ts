@@ -13,6 +13,7 @@ import { env } from "./env/server";
 import testData from "./menu/main-menu-mock.json";
 import renderIndex from "./render-index";
 import { validParams } from "./validateParams";
+import { texts } from "./texts";
 
 let server: SetupServerApi;
 
@@ -30,6 +31,10 @@ afterAll(() => server.close());
 
 test("render-index", async () => {
     expect(
-        await renderIndex({ data: validParams({}), url: "localhost:8089/" }),
+        await renderIndex({
+            data: validParams({}),
+            url: "localhost:8089/",
+            texts: texts.nb,
+        }),
     ).toContain("<!doctype html>");
 });
