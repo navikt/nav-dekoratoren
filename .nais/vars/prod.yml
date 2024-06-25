@@ -39,6 +39,8 @@ env:
     value: https://www.nav.no/person/personopplysninger
   - name: BOOST_ENVIRONMENT
     value: "nav"
+  - name: PUZZEL_CUSTOMER_ID
+    value: 83BD7664-B38B-4EEE-8D99-200669A32551
 replicas:
   min: 2
   max: 40
