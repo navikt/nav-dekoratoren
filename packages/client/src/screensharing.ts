@@ -1,30 +1,41 @@
 import { loadExternalScript } from "./utils";
 import { env } from "./params";
 
+// @TODO: Use promise instead of callback?
+let hasBeenOpened = false;
+
 const loadScript = () =>
     loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
 
-// @TODO: Use promise instead of callback?
-let hasBeenOpened = false;
-export function lazyLoadScreensharing(cb: () => void) {
+export function lazyLoadScreensharing(callback: () => void) {
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
     if (!enabled || hasBeenOpened) {
-        cb();
+        callback();
         return;
     }
 
-    window.vngageReady = () => {
-        cb();
-        hasBeenOpened = true;
-    };
+    loadScript().then(() => {
+        if (!window.vngage) {
+            console.error("vngage not found!");
+            return;
+        }
 
-    loadScript();
+        window.vngage.subscribe(
+            "app.ready",
+            (message: string, data: unknown) => {
+                console.log("app.ready:", message, data);
+
+                callback();
+                hasBeenOpened = true;
+            },
+        );
+    });
 }
 
 export function useLoadIfActiveSession({ userState }: { userState?: string }) {
