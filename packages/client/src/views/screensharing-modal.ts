@@ -33,7 +33,7 @@ export class ScreensharingModal extends HTMLElement {
     }
 
     async connectedCallback() {
-        if (param("shareScreen") == false) {
+        if (!param("shareScreen")) {
             return;
         }
 
