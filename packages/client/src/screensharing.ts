@@ -1,8 +1,9 @@
 import { loadExternalScript } from "./utils";
+import { env } from "./params";
 
 const loadScript = () =>
     loadExternalScript(
-        "https://account.psplugin.com/C1302192-8BEC-4EA2-84AB-F4EDE8AC6230/ps.js",
+        `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
 
 // @TODO: Use promise instead of callback?
