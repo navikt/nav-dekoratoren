@@ -3,20 +3,18 @@
 /* hack: navds-link--neutral class is stripped from elements if it's not defined in a local file */
 [data-theme="dark"] .navds-link--neutral,
 [data-theme="dark"] .navds-link {
-    color: var(--a-text-on-inverted);
+    --ac-link-text: var(--a-text-on-inverted);
 }
 
-[data-theme="dark"] .navds-link:active,
+[data-theme="dark"] .navds-link:focus,
 [data-theme="dark"] .navds-link:focus-visible {
-    color: var(--a-text-action);
-    background-color: var(--a-surface-default);
-    box-shadow: 0 0 0 2px var(--a-surface-default);
+    --ac-link-focus-text: var(--a-text-action);
+    --ac-link-focus-bg: var(--a-surface-default);
+    --ac-link-focus-border: var(--a-surface-default);
 }
 
-@supports not selector(:focus-visible) {
-    [data-theme="dark"] .navds-link:focus {
-        color: var(--a-text-action);
-        background-color: var(--a-surface-default);
-        box-shadow: 0 0 0 2px var(--a-surface-default);
-    }
+[data-theme="dark"] .navds-link:active {
+    --ac-link-active-text: var(--a-text-action);
+    --ac-link-active-bg: var(--a-surface-default);
+    --ac-link-active-border: var(--a-surface-default);
 }
