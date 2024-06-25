@@ -11,7 +11,7 @@ import { match } from "ts-pattern";
 import { clientEnv, env } from "../env/server";
 import { getNotifications } from "../notifications";
 import { texts } from "../texts";
-import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
+import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-menu-dropdown";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { AnchorIconButton } from "../views/icon-button";
 import { SimpleUserMenu } from "../views/simple-user-menu";
@@ -75,9 +75,11 @@ const buildUsermenuHtml = async (
             });
         })
         .with("arbeidsgiver", async () =>
-            ArbeidsgiverUserMenu({
+            ArbeidsgiverUserMenuDropdown({
                 texts: localTexts,
                 href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
+                logoutUrl: logoutUrl as string,
+                name: auth.name,
             }),
         )
         .with("samarbeidspartner", async () =>

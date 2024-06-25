@@ -76,7 +76,7 @@
     border-top: 1px solid var(--a-border-subtle);
     padding-inline: var(--inline-padding);
     position: sticky;
-    bottom: 0;
+    bottom: -2rem;
 }
 
 .alert {
