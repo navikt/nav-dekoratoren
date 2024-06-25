@@ -3,7 +3,6 @@ import { Params } from "decorator-shared/params";
 import { Features, Texts } from "decorator-shared/types";
 import { clientEnv, env } from "./env/server";
 import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu/main-menu";
-import { texts as i18n } from "./texts";
 import { getFeatures } from "./unleash";
 import { Index } from "./views";
 import { DecoratorData } from "./views/decorator-data";

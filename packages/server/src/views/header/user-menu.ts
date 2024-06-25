@@ -59,13 +59,13 @@ export const UserMenu = ({
             </div>
             <a href="${minsideUrl}" class="${cls.menuItem}">
                 ${PersonCircleIcon({ className: cls.menuItemIcon })}
-                <span>Min side</span>
+                <span>${i18n("my_page")}</span>
             </a>
             <a href="${personopplysningerUrl}" class="${cls.menuItem}">
                 ${level === "Level4"
                     ? BadgeIcon({ className: cls.menuItemIcon })
                     : PadlockIcon({ className: cls.menuItemIcon })}
-                <span>Personopplysninger</span>
+                <span>${i18n("personopplysninger")}</span>
             </a>
         </div>
         <div class="${cls.notifications}">
@@ -73,7 +73,7 @@ export const UserMenu = ({
         </div>
         <a href="${logoutUrl}" class="${cls.menuItem} ${cls.logout}">
             ${LogoutIcon({})}
-            <span>Logg ut</span>
+            <span>${i18n("logout")}</span>
         </a>
     </div>
 `;

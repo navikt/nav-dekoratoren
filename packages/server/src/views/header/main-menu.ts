@@ -7,8 +7,8 @@ import i18n from "../../i18n";
 export type MainMenuProps = {
     title: Template;
     frontPageUrl: string;
-    links?: LinkGroup[];
-    contextLinks?: MainMenuContextLink[];
+    links: LinkGroup[];
+    contextLinks: MainMenuContextLink[];
 };
 
 export function MainMenu({
@@ -33,7 +33,7 @@ export function MainMenu({
                 >
             </div>
             <div class="${cls.links}">
-                ${links?.map(
+                ${links.map(
                     ({ heading, children }) => html`
                         <div class="${cls.linkGroup}">
                             <h3 class="${cls.linkGroupHeading}">${heading}</h3>
@@ -64,8 +64,9 @@ export function MainMenu({
                 )}
             </div>
         </div>
-        <div class="${cls.contextLinks}">
-            ${contextLinks?.map(
+        ${contextLinks.length > 0 &&
+        html`<div class="${cls.contextLinks}">
+            ${contextLinks.map(
                 ({ content, url, description }) =>
                     html`<lenke-med-sporing
                         href="${url}"
@@ -83,6 +84,6 @@ export function MainMenu({
                         </div>`}
                     </lenke-med-sporing>`,
             )}
-        </div>
+        </div>`}
     </div>`;
 }

@@ -16,17 +16,9 @@ export const Default: Story = {
     args: {
         header: i18n("delskjerm_modal_hjelpetekst_overskrift"),
         content: html`
-            <div>
-                Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe
-                deg med å finne fram på nav.no.
-            </div>
-            <div>
-                Veilederen ser kun det du ser på nav.no og kan ikke fylle inn
-                opplysninger eller sende inn noe på dine vegne.
-            </div>
-            <div>
-                Det er du som godkjenner skjermdeling. Ingenting blir lagret.
-            </div>
+            <div>${i18n("delskjerm_modal_hjelpetekst_0")}</div>
+            <div>${i18n("delskjerm_modal_hjelpetekst_1")}</div>
+            <div>${i18n("delskjerm_modal_hjelpetekst_2")}</div>
         `,
     },
 };

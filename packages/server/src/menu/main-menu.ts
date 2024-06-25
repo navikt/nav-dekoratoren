@@ -55,11 +55,16 @@ const fetchMenu = async (): Promise<MainMenu> => {
 
 export const mainMenuContextLinks = ({
     context,
+    language,
     bedrift,
 }: {
     context: Context;
+    language: Language;
     bedrift?: string;
 }): MainMenuContextLink[] => {
+    if (language !== "nb") {
+        return [];
+    }
     switch (context) {
         case "privatperson":
             return [

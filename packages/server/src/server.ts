@@ -76,6 +76,17 @@ app.get("/api/csp", ({ json }) => json(cspDirectives));
 app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
 
+    const links = await getMainMenuLinks({
+        language: data.language,
+        context: data.context,
+    });
+    const contextLinks = mainMenuContextLinks({
+        context: data.context,
+        language: data.language,
+        bedrift: data.bedrift,
+    });
+    console.log("links", JSON.stringify(links));
+    console.log("contextLinks", JSON.stringify(contextLinks));
     return html(
         MainMenu({
             title:
@@ -87,14 +98,8 @@ app.get("/main-menu", async ({ req, html }) => {
                 language: data.language,
                 baseUrl: env.XP_BASE_URL,
             }),
-            links: await getMainMenuLinks({
-                language: data.language,
-                context: data.context,
-            }),
-            contextLinks: await mainMenuContextLinks({
-                context: data.context,
-                bedrift: data.bedrift,
-            }),
+            links,
+            contextLinks,
         }).render(data),
     );
 });

@@ -60,11 +60,18 @@ const preview: Preview = {
         (Story, context) => {
             const story = Story();
 
+            const language = context.globals.locale;
+
+            window.__DECORATOR_DATA__ = {
+                params: { language },
+                texts: texts[language],
+            };
+
             if (story === null) {
                 return "";
             } else if (typeof story === "object" && "render" in story) {
                 return html`<div id="decorator-header">${story}</div>`.render({
-                    language: context.globals.locale,
+                    language,
                 });
             } else {
                 const wrapper = document.createElement("div");

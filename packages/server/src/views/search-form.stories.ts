@@ -1,19 +1,13 @@
 import type { StoryObj, Meta } from "@storybook/html";
-import type { SearchFormProps } from "./search-form";
 import { SearchForm } from "./search-form";
-import { texts } from "../texts";
 
-const meta: Meta<SearchFormProps> = {
+const meta: Meta = {
     title: "search/search-form",
     tags: ["autodocs"],
     render: SearchForm,
 };
 
 export default meta;
-type Story = StoryObj<SearchFormProps>;
+type Story = StoryObj;
 
-export const Default: Story = {
-    args: {
-        texts: texts.nb,
-    },
-};
+export const Default: Story = {};
