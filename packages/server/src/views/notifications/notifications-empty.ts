@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/notifications-empty.module.css";
 import html from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
@@ -18,7 +20,10 @@ export function NotificationsEmpty({ texts }: NotificationsEmptyProps) {
                     ${texts.notifications_empty_list_description}
                 </p>
                 <a
-                    class="${cls.link}"
+                    class="${clsx(
+                        globalCls["navds-link"],
+                        globalCls["navds-link--neutral"],
+                    )}"
                     href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
                 >
                     ${texts.notifications_show_all}

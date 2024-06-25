@@ -12,7 +12,8 @@
         "test:watch": "TZ=UTC vitest watch"
     },
     "dependencies": {
-        "@navikt/ds-tokens": "6.1.0",
+        "@navikt/ds-tokens": "6.11.0",
+        "@navikt/ds-css": "6.11.0",
         "amplitude-js": "8.21.9",
         "decorator-shared": "workspace:*",
         "lodash.debounce": "4.0.8",

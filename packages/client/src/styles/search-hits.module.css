@@ -18,10 +18,6 @@
     content: close-quote;
 }
 
-.link {
-    color: var(--a-text-action);
-}
-
 .searchHitList {
     list-style: none;
     margin: 0;

@@ -1,3 +1,4 @@
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
@@ -24,7 +25,10 @@ export const SearchHits = ({
                 <span class="${cls.quoted}">${query}</span>
                 ${` for ${context}`}
             </h2>
-            <a href="https://www.nav.no/sok?ord=${query}" class="${cls.link}">
+            <a
+                href="https://www.nav.no/sok?ord=${query}"
+                class="${globalCls["navds-link"]}"
+            >
                 ${texts.change_search_filter}
             </a>
         </div>

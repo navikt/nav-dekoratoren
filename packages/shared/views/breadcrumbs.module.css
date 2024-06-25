@@ -11,19 +11,27 @@
 .link {
     display: flex;
     align-items: center;
-    gap: var(--a-spacing-1);
-    color: var(--a-text-action);
+    gap: var(--a-spacing-2);
+}
+
+.link .svg {
+    font-size: 2rem;
+    color: var(--a-text-default);
+}
+
+.link:active .svg,
+.link:focus-visible .svg {
+    color: var(--a-text-on-action);
+}
+
+@supports not selector(:focus-visible) {
+    .link:focus .svg {
+        color: var(--a-text-on-action);
+    }
 }
 
 .span {
     text-decoration: underline;
-}
-
-.svg.svg {
-    font-size: 28px;
-    color: var(--a-text-default);
-    stroke: none;
-    margin-right: var(--a-spacing-2);
 }
 
 .listItem {
