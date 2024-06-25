@@ -28,6 +28,8 @@ export const DecoratorUtils = ({
     return html`
         <decorator-utils
             class="${clsx(cls.decoratorUtils, {
+                [cls.hidden]:
+                    availableLanguages.length === 0 && breadcrumbs.length === 0,
                 [cls.white]: utilsBackground === "white",
                 [cls.gray]: utilsBackground === "gray",
             })}"
