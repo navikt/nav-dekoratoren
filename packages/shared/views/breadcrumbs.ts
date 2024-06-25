@@ -1,10 +1,12 @@
-import { Breadcrumb } from "../params";
+import clsx from "clsx";
+import globalCls from "decorator-client/src/styles/global.module.css";
+import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import html from "../html";
+import { Breadcrumb } from "../params";
+import { isNavUrl } from "../utils";
 import cls from "./breadcrumbs.module.css";
 import { ForwardChevron } from "./icons";
 import { HomeIcon } from "./icons/home";
-import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
-import { isNavUrl } from "../utils";
 
 const analyticsEventArgs = {
     category: "dekorator-header",
@@ -49,7 +51,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                               ${HomeIcon({ className: cls.svg })}
                               <span class="${cls.span}">nav.no</span>
                           `,
-                          className: cls.link,
+                          className: clsx(cls.link, globalCls["navds-link"]),
                       })}
                       ${ForwardChevron()}
                   </li>
@@ -69,7 +71,7 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
                                             )}"
                                             ${handleInApp &&
                                             "data-handle-in-app"}
-                                            class="${cls.link}"
+                                            class="${globalCls["navds-link"]}"
                                             href="${url}"
                                         >
                                             ${title}

@@ -59,5 +59,6 @@ export const searchHandler = async ({
             hits: result.data.hits.slice(0, 5),
         },
         query,
+        // context: ["nb", "nn"].includes(language) ? context : 'individuals',
     }).render({ language, context });
 };

@@ -1,3 +1,4 @@
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { ArrowRight } from "decorator-shared/views/icons";
@@ -7,6 +8,7 @@ import i18n from "../i18n";
 export type SearchHitsProps = {
     results: SearchResult;
     query: string;
+    // context: string;
 };
 
 export const SearchHits = ({
@@ -18,7 +20,10 @@ export const SearchHits = ({
             <h2 role="status" class="${cls.heading}">
                 ${i18n("search_hits_heading", { total, query })}
             </h2>
-            <a href="https://www.nav.no/sok?ord=${query}" class="${cls.link}">
+            <a
+                href="https://www.nav.no/sok?ord=${query}"
+                class="${globalCls["navds-link"]}"
+            >
                 ${i18n("change_search_filter")}
             </a>
         </div>

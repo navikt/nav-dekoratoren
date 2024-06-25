@@ -1,6 +1,7 @@
 /// <reference lib="DOM" />
 import type { Preview } from "@storybook/html";
 import "decorator-client/src/main.css";
+import "decorator-client/src/views/breadcrumb";
 import "decorator-client/src/views/dropdown-menu";
 import "decorator-client/src/views/language-selector";
 import "decorator-client/src/views/lenke-med-sporing";
@@ -14,11 +15,14 @@ import {
     INITIAL_VIEWPORTS,
     MINIMAL_VIEWPORTS,
 } from "@storybook/addon-viewport";
+import { texts } from "../packages/server/src/texts";
+import { ClientTexts } from "decorator-shared/types";
 
 declare global {
     interface Window {
         __DECORATOR_DATA__: {
             params: Partial<Params>;
+            texts: ClientTexts;
         };
     }
 }
@@ -35,6 +39,7 @@ window.__DECORATOR_DATA__ = {
     params: {
         language: "nb",
     },
+    texts: texts["nb"],
 };
 
 const preview: Preview = {

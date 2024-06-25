@@ -10,10 +10,6 @@
     font-weight: var(--a-font-weight-bold);
 }
 
-.link {
-    color: var(--a-text-action);
-}
-
 .searchHitList {
     list-style: none;
     margin: 0;

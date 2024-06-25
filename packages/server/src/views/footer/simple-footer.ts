@@ -1,3 +1,4 @@
+import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/simple-footer.module.css";
 import utilCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
@@ -19,7 +20,7 @@ export const SimpleFooter = ({ links, features }: SimpleFooterProps) => html`
                     LenkeMedSporing({
                         href: url,
                         children: content,
-                        className: cls.footerLink,
+                        className: globalCls["navds-link"],
                         analyticsEventArgs: {
                             category: "dekorator-footer",
                             action: `kontakt/${url}`,

@@ -1,6 +1,7 @@
-import type { StoryObj, Meta } from "@storybook/html";
-import { ReadMore, ReadMoreProps } from "./read-more";
+import type { Meta, StoryObj } from "@storybook/html";
 import html from "decorator-shared/html";
+import i18n from "../i18n";
+import { ReadMore, ReadMoreProps } from "./read-more";
 
 const meta: Meta<ReadMoreProps> = {
     title: "read-more",

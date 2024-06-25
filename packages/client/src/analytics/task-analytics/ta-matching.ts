@@ -20,27 +20,30 @@ type Audience = Required<TaskAnalyticsSurvey>["audience"][number];
 type Language = Required<TaskAnalyticsSurvey>["language"][number];
 type Duration = TaskAnalyticsSurvey["duration"];
 
-const removeTrailingSlash = (str: string) => str.replace(/\/$/, "");
-
-const isMatchingUrl = (
-    url: string,
-    currentUrl: string,
+const isMatchingCurrentLocation = (
+    url: URL,
     match: TaskAnalyticsUrlRule["match"],
-) => (match === "startsWith" ? currentUrl.startsWith(url) : currentUrl === url);
+) => {
+    const { origin, pathname, search } = window.location;
+
+    return (
+        url.origin === origin &&
+        (match === "startsWith"
+            ? pathname.startsWith(url.pathname)
+            : url.pathname === pathname) &&
+        (!url.search || url.search === search)
+    );
+};
 
 const isMatchingUrls = (urls: TaskAnalyticsUrlRule[]) => {
-    const currentUrlStr = removeTrailingSlash(
-        `${window.location.origin}${window.location.pathname}`,
-    );
-
     let isMatched: boolean | null = null;
     let isExcluded = false;
 
     urls.every((urlRule) => {
         const { url, match, exclude } = urlRule;
-        const urlToMatch = removeTrailingSlash(url);
+        const urlParsed = new URL(url);
 
-        if (isMatchingUrl(urlToMatch, currentUrlStr, match)) {
+        if (isMatchingCurrentLocation(urlParsed, match)) {
             // If the url is excluded we can stop. If not, we need to continue checking the url-array, in case
             // there are exclusions in the rest of the array
             if (exclude) {

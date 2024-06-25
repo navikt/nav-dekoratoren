@@ -25,32 +25,10 @@
     gap: var(--a-spacing-3);
 }
 
-.header > .link {
-    font-size: var(--a-font-size-large);
-}
-
 .title {
     font-size: var(--a-font-size-heading-medium);
     line-height: var(--a-font-line-height-heading-medium);
     margin-block: 0;
-}
-
-.link {
-    color: var(--a-text-action);
-    text-decoration-color: var(--a-deepblue-200);
-    text-decoration-thickness: 0.0625em;
-    text-underline-offset: 0.15em;
-}
-
-.link:hover {
-    text-decoration: none;
-}
-
-.link:focus {
-    text-decoration: none;
-    background-color: var(--a-border-focus);
-    color: var(--a-text-on-action);
-    outline: none;
 }
 
 .links {
