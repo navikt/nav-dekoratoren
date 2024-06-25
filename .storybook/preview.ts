@@ -65,7 +65,6 @@ const preview: Preview = {
             } else if (typeof story === "object" && "render" in story) {
                 return html`<div id="decorator-header">${story}</div>`.render({
                     language: context.globals.locale,
-                    context: "privatperson",
                 });
             } else {
                 const wrapper = document.createElement("div");

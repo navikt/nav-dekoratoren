@@ -50,7 +50,7 @@ export const searchHandler = async ({
 
     if (!result.ok) {
         console.log(`Error fetching search results: ${result.error.message}`);
-        return SearchErrorView().render({ language, context });
+        return SearchErrorView().render({ language });
     }
 
     return SearchHits({
@@ -59,6 +59,6 @@ export const searchHandler = async ({
             hits: result.data.hits.slice(0, 5),
         },
         query,
-        // context: ["nb", "nn"].includes(language) ? context : 'individuals',
-    }).render({ language, context });
+        context,
+    }).render({ language });
 };

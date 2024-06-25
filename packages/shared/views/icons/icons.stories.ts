@@ -5,7 +5,6 @@ const meta: Meta = {
     title: "icons",
     tags: ["autodocs"],
     render: ({ icon }) => {
-        // @ts-expect-error: document in server-package
         const div = document.createElement("div");
         div.innerHTML = icon;
 
@@ -25,12 +24,12 @@ type Story = StoryObj;
 
 export const Burger: Story = {
     args: {
-        icon: BurgerIcon().render(),
+        icon: BurgerIcon().render({ language: "nb" }),
     },
 };
 
 export const Search: Story = {
     args: {
-        icon: SearchIcon({ menuSearch: true }).render(),
+        icon: SearchIcon({ menuSearch: true }).render({ language: "nb" }),
     },
 };

@@ -8,17 +8,18 @@ import i18n from "../i18n";
 export type SearchHitsProps = {
     results: SearchResult;
     query: string;
-    // context: string;
+    context: string;
 };
 
 export const SearchHits = ({
     results: { hits, total },
     query,
+    context,
 }: SearchHitsProps) => html`
     <div class="${cls.searchHits}">
         <div>
             <h2 role="status" class="${cls.heading}">
-                ${i18n("search_hits_heading", { total, query })}
+                ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
                 href="https://www.nav.no/sok?ord=${query}"

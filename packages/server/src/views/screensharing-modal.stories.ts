@@ -18,11 +18,8 @@ const meta: Meta<GetScreensharingModalOptions> = {
 
         const div = document.createElement("div");
 
-        div.innerHTML = getModal({
-            ...args,
-        }).render({
+        div.innerHTML = getModal({ ...args }).render({
             language: context.globals.locale,
-            context: "privatperson",
         });
 
         return div;

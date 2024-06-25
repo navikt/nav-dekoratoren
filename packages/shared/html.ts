@@ -1,5 +1,5 @@
 import { P, match } from "ts-pattern";
-import { Context, Language } from "./params";
+import { Language } from "./params";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
 
@@ -74,7 +74,7 @@ type TemplateStringValues =
     | null;
 
 export type Template = {
-    render: (params: Params) => string;
+    render: (params: { language: Language }) => string;
 };
 
 const html = (
@@ -111,8 +111,6 @@ export const unsafeHtml = (htmlString: string) => ({
 });
 
 export default html;
-
-type Params = { language: Language; context: Context };
 
 export type AttribueValue = number | string | boolean | string[];
 
