@@ -1,6 +1,7 @@
 import html from "decorator-shared/html";
 import { MainMenuContextLink, LinkGroup, Texts } from "decorator-shared/types";
 import cls from "decorator-client/src/styles/main-menu.module.css";
+import globalCls from "decorator-client/src/styles/global.module.css";
 
 export type MainMenuProps = {
     title: string;
@@ -17,13 +18,13 @@ export function MainMenu({
     links,
     contextLinks,
 }: MainMenuProps) {
-    return html`<div class="${cls.mainMenu}">
+    return html`<div id="decorator-main-menu" class="${cls.mainMenu}">
         <div class="${cls.content}">
             <div class="${cls.header}">
                 <h2 class="${cls.title}">${title}</h2>
                 <lenke-med-sporing
                     href="${frontPageUrl}"
-                    class="${cls.link}"
+                    class="${globalCls["navds-link"]}"
                     data-analytics-event-args="${JSON.stringify({
                         category: "dekorator-meny",
                         action: "hovedmeny/forsidelenke",
@@ -43,7 +44,9 @@ export function MainMenu({
                                         html`<li>
                                             <lenke-med-sporing
                                                 href="${url}"
-                                                class="${cls.link}"
+                                                class="${globalCls[
+                                                    "navds-link"
+                                                ]}"
                                                 data-analytics-event-args="${JSON.stringify(
                                                     {
                                                         category:

@@ -8,14 +8,14 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
+    padding-block: var(--a-spacing-6) var(--a-spacing-8);
     transition-duration: 0.4s;
     transition-property: max-height, opacity;
     transition-timing-function: ease-in;
-    width: 100%;
     background-color: var(--a-surface-default);
     border-radius: 0 0 var(--a-border-radius-medium)
         var(--a-border-radius-medium);
-    overflow: hidden;
+    word-break: break-word;
 }
 
 :where(.dropdownMenuOpen) > .dropdownMenuContainer {

@@ -4,8 +4,8 @@
 
 .searchMenu {
     display: grid;
-    gap: var(--a-spacing-4);
     padding-inline: var(--edge-spacing);
+    grid-gap: var(--a-spacing-4);
 }
 
 @media (min-width: 768px) {

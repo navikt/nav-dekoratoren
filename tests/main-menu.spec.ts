@@ -1,7 +1,7 @@
-import { test, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./fixtures";
 
 test("main menu", async ({ page }) => {
-    await page.goto("http://localhost:8089");
     await page.getByRole("button", { name: "Meny" }).click();
     await expect(page.getByText("Hva kan vi hjelpe deg med?")).toBeVisible();
 });

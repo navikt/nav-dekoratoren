@@ -1,27 +1,26 @@
-/*
- Note: this custom property is also used by consuming applications for positioning their own
- sticky elements relative to the sticky header. It should specify the visible height of the
- sticky header.
- Do not change the name or value assignment logic of this property without notifying consumers.
-*/
 :root {
     --decorator-sticky-offset: var(--header-height);
 }
 
-.headerContent {
-    position: fixed;
-    width: 100%;
-    border-bottom: 1px solid var(--a-border-subtle);
-    background-color: var(--a-surface-default);
-    top: calc(var(--decorator-sticky-offset) - var(--header-height));
-}
-
-.stickyWrapper {
+.placeholder {
     position: relative;
     display: block;
     height: var(--header-height);
 }
 
+.absoluteWrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.fixedWrapper {
+    width: 100%;
+    border-bottom: 1px solid var(--a-border-subtle);
+    background-color: var(--a-surface-default);
+}
+
 .fixed {
+    position: fixed;
     top: 0;
 }

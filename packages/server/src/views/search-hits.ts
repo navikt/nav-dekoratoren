@@ -1,26 +1,39 @@
+import globalCls from "decorator-client/src/styles/global.module.css";
+import cls from "decorator-client/src/styles/search-hits.module.css";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { Texts } from "decorator-shared/types";
-import cls from "decorator-client/src/styles/search-hits.module.css";
-import { ForwardChevron } from "decorator-shared/views/icons";
+import { ArrowRight } from "decorator-shared/views/icons";
 import { SearchResult } from "../handlers/search-handler";
 
 export type SearchHitsProps = {
     results: SearchResult;
     query: string;
     texts: Texts;
+    context: string;
 };
 
 export const SearchHits = ({
     results: { hits, total },
     query,
     texts,
+    context,
 }: SearchHitsProps) => html`
     <div class="${cls.searchHits}">
-        ${total === 0
-            ? html`<h2 class="${cls.title}">
-                  ${texts.no_hits_for} (${query})
-              </h2>`
-            : html`<ul class="${cls.searchHitList}">
+        <div>
+            <h2 role="alert" class="${cls.heading}">
+                ${total.toString()} ${texts.hits_for}${" "}
+                <span class="${cls.quoted}">${query}</span>
+                ${` for ${context}`}
+            </h2>
+            <a
+                href="https://www.nav.no/sok?ord=${query}"
+                class="${globalCls["navds-link"]}"
+            >
+                ${texts.change_search_filter}
+            </a>
+        </div>
+        ${total > 0
+            ? html` <ul class="${cls.searchHitList}">
                       ${hits.map(
                           (hit, index) => html`
                               <li>
@@ -36,30 +49,24 @@ export const SearchHits = ({
                                           },
                                       )}"
                                   >
-                                      ${ForwardChevron({
-                                          className: cls.chevron,
-                                      })}
-                                      <div>
-                                          <h2 class="${cls.title}">
-                                              ${hit.displayName}
-                                          </h2>
-                                          <div>
-                                              ${unsafeHtml(hit.highlight)}
-                                          </div>
-                                      </div>
+                                      <h2 class="${cls.title}">
+                                          ${hit.displayName}
+                                      </h2>
+                                      <div>${unsafeHtml(hit.highlight)}</div>
                                   </lenke-med-sporing>
                               </li>
                           `,
                       )}
                   </ul>
-                  <div>
-                      <div role="status">
-                          ${texts.showing} ${Math.min(total, 5).toString()}
-                          ${texts.of} ${total.toString()} ${texts.results}
-                      </div>
-                      <a href="https://www.nav.no/sok?ord=${query}">
-                          ${texts.see_all_hits} ("${query}")
-                      </a>
-                  </div>`}
+                  <a
+                      class="${cls.searchMoreHits}"
+                      href="https://www.nav.no/sok?ord=${query}"
+                  >
+                      ${texts.more_hits}
+                      ${ArrowRight({
+                          className: cls.searchHitRightArrow,
+                      })}
+                  </a>`
+            : null}
     </div>
 `;

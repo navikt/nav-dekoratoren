@@ -75,8 +75,11 @@ export type Texts = ClientTexts & {
     of: string;
     results: string;
     see_all_hits: string;
+    hits_for: string;
     no_hits_for: string;
+    more_hits: string;
     to_front_page: string;
+    change_search_filter: string;
     footer_del_skjerm: string;
     delskjerm_modal_beskrivelse: string;
     delskjerm_modal_start: string;
