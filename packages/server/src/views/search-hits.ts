@@ -19,7 +19,7 @@ export const SearchHits = ({
 }: SearchHitsProps) => html`
     <div class="${cls.searchHits}">
         <div>
-            <h2 role="status" class="${cls.heading}">
+            <h2 role="alert" class="${cls.heading}">
                 ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
