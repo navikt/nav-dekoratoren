@@ -1,7 +1,6 @@
 import { loadExternalScript } from "./utils";
 import { env } from "./params";
 
-// @TODO: Use promise instead of callback?
 let hasBeenOpened = false;
 
 const loadScript = () =>
@@ -31,8 +30,8 @@ export function lazyLoadScreensharing(callback: () => void) {
             (message: string, data: unknown) => {
                 console.log("app.ready:", message, data);
 
-                callback();
                 hasBeenOpened = true;
+                callback();
             },
         );
     });
