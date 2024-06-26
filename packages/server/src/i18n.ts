@@ -3,6 +3,9 @@ import { Language } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
 import { texts } from "./texts";
 
+export const isNorwegian = (language: Language) =>
+    language === "nb" || language === "nn";
+
 function i18n(key: keyof Texts, args?: never): Template;
 function i18n<Key extends keyof Texts>(
     key: Key,

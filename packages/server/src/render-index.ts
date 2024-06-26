@@ -1,7 +1,7 @@
-import { makeContextLinks } from "decorator-shared/context";
 import { Params } from "decorator-shared/params";
 import { Features, Texts } from "decorator-shared/types";
-import { clientEnv, env } from "./env/server";
+import { makeContextLinks } from "./context";
+import { clientEnv } from "./env/server";
 import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu/main-menu";
 import { getFeatures } from "./unleash";
 import { Index } from "./views";
@@ -67,7 +67,7 @@ export function renderHeader({
               decoratorUtils,
           })
         : ComplexHeader({
-              contextLinks: makeContextLinks(env.XP_BASE_URL),
+              contextLinks: makeContextLinks(language),
               context,
               language,
               decoratorUtils,

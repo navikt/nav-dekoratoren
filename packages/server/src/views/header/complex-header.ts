@@ -56,10 +56,9 @@ export function ComplexHeader({
                                         titleId: "logo-svg-title",
                                     })}
                                 </lenke-med-sporing>
-                                <div class="${cls.arbeidsflate}">
-                                    ${(language === "nb" ||
-                                        language === "nn") &&
-                                    contextLinks?.map(
+                                ${contextLinks.length > 0 &&
+                                html`<div class="${cls.arbeidsflate}">
+                                    ${contextLinks.map(
                                         ({ url, lenkeTekstId, context }) =>
                                             html` <context-link
                                                 href="${url}"
@@ -84,7 +83,7 @@ export function ComplexHeader({
                                                 ${i18n(lenkeTekstId)}
                                             </context-link>`,
                                     )}
-                                </div>
+                                </div>`}
                             </div>
                             <div class="${menuItemsCls.menuItems}">
                                 <user-menu></user-menu>
