@@ -22,14 +22,14 @@ const buildPlatformField = () => {
 export const initAmplitude = async () => {
     const amplitude = await importAmplitude();
 
-    const identify = new amplitude.Identify();
-    identify
+    const identify = new amplitude.Identify()
         .set("skjermbredde", window.screen.width)
         .set("skjermhoyde", window.screen.height)
         .set("vindusbredde", window.innerWidth)
         .set("vindushoyde", window.innerHeight);
 
     amplitude.identify(identify);
+
     amplitude.init("default", "", {
         serverUrl: "amplitude.nav.no/collect-auto",
     });
