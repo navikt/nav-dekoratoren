@@ -25,15 +25,12 @@ export function lazyLoadScreensharing(callback: () => void) {
             return;
         }
 
-        window.vngage.subscribe(
-            "app.ready",
-            (message: string, data: unknown) => {
-                console.log("app.ready:", message, data);
+        window.vngage.subscribe("app.ready", (message, data) => {
+            console.log("Screensharing app ready", message, data);
 
-                hasBeenOpened = true;
-                callback();
-            },
-        );
+            hasBeenOpened = true;
+            callback();
+        });
     });
 }
 
