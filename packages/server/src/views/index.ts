@@ -72,15 +72,15 @@ export const getScripts = async () => {
         const manifest = (
             await import("decorator-client/dist/.vite/manifest.json")
         ).default;
-        const thirdPartyManifest = (
-            await import("decorator-client/dist/.vite/analytics.manifest.json")
-        ).default;
+        // const thirdPartyManifest = (
+        //     await import("decorator-client/dist/.vite/analytics.manifest.json")
+        // ).default;
 
         return [
             script(cdnUrl(manifest[entryPointPath].file)),
-            asyncScript(
-                cdnUrl(thirdPartyManifest[entryPointPathAnalytics].file),
-            ),
+            // asyncScript(
+            //     cdnUrl(thirdPartyManifest[entryPointPathAnalytics].file),
+            // ),
             asyncScript("https://in2.taskanalytics.com/tm.js"),
             asyncScriptInline(hotjarScript),
         ];
@@ -90,7 +90,7 @@ export const getScripts = async () => {
         ...[
             "http://localhost:5173/@vite/client",
             `http://localhost:5173/${entryPointPath}`,
-            `http://localhost:5173/${entryPointPathAnalytics}`,
+            // `http://localhost:5173/${entryPointPathAnalytics}`,
         ].map(script),
         partytownInlineScript(hotjarScript),
     ];

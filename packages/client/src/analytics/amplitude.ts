@@ -1,4 +1,3 @@
-import amplitude from "amplitude-js";
 import { Params } from "decorator-shared/params";
 import { AnalyticsEventArgs } from "./constants";
 import { Auth } from "decorator-shared/auth";
@@ -15,7 +14,10 @@ declare global {
         dekoratorenAmplitude: typeof logEventFromApp;
     }
 }
-export const initAmplitude = () => {
+
+export const initAmplitude = async () => {
+    const amplitude = await import("amplitude-js");
+
     const userProps = {
         skjermbredde: window.screen.width,
         skjermhoyde: window.screen.height,
@@ -111,11 +113,13 @@ export const logPageView = (params: Params, authState: Auth) => {
     });
 };
 
-export const logAmplitudeEvent = (
+export const logAmplitudeEvent = async (
     eventName: string,
     eventData: EventData = {},
     origin = "decorator-next",
 ) => {
+    const amplitude = await import("amplitude-js");
+
     return new Promise((resolve) => {
         amplitude.getInstance().logEvent(
             eventName,

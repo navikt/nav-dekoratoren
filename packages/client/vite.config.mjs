@@ -4,7 +4,7 @@ import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
 import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config.js";
 
-export const mainBundleConfig = defineConfig({
+const mainBundleConfig = defineConfig({
     server: {
         origin: "http://localhost:5173",
     },
@@ -16,7 +16,7 @@ export const mainBundleConfig = defineConfig({
         sourcemap: true,
         rollupOptions: {
             output: {
-                inlineDynamicImports: true,
+                // inlineDynamicImports: true,
                 // @TODO: Burde tweakes i nav-dekoreatoren-moduler for å støtte moduler
                 format: "commonjs",
                 // esModule: true
@@ -37,7 +37,7 @@ export const mainBundleConfig = defineConfig({
     },
 });
 
-export const lazyConfig = defineConfig({
+const lazyConfig = defineConfig({
     build: {
         // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
@@ -49,7 +49,7 @@ export const lazyConfig = defineConfig({
     },
 });
 
-export const csrConfig = defineConfig({
+const csrConfig = defineConfig({
     build: {
         // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
@@ -67,7 +67,7 @@ export default defineConfig(({ mode }) => {
     }
     // Build steps
     if (mode === "main") return mainBundleConfig;
-    if (mode === "lazy") return lazyConfig;
+    // if (mode === "lazy") return lazyConfig;
     if (mode === "csr") return csrConfig;
 
     return mainBundleConfig;
