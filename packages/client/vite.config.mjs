@@ -2,7 +2,7 @@ import { partytownRollup } from "@builder.io/partytown/utils";
 import path from "path";
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
-import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config";
+import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config.js";
 
 const mainConfig = defineConfig({
     server: {
