@@ -9,6 +9,7 @@ import {
 } from "decorator-shared/params";
 import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
 import { LanguageSelector } from "./language-selector";
+import i18n from "../i18n";
 
 export type DecoratorUtilsProps = {
     breadcrumbs: Breadcrumb[];
@@ -36,7 +37,9 @@ export const DecoratorUtils = ({
                     utilsCls.contentContainer,
                 )}"
             >
-                <div>${Breadcrumbs({ breadcrumbs })}</div>
+                <div>
+                    ${Breadcrumbs({ breadcrumbs, label: i18n("breadcrumbs") })}
+                </div>
                 ${LanguageSelector({ availableLanguages })}
             </div>
         </decorator-utils>

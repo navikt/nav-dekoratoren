@@ -3,6 +3,7 @@ import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
 import cls from "../styles/decorator-utils.module.css";
 
 import { LanguageSelector } from "./language-selector";
+import i18n from "../i18n";
 
 class DecoratorUtils extends HTMLElement {
     languageSelector: LanguageSelector;
@@ -30,7 +31,7 @@ class DecoratorUtils extends HTMLElement {
         this.languageSelector.availableLanguages = availableLanguages;
         this.languageSelector.language = language;
         this.breadcrumbs.innerHTML =
-            Breadcrumbs({ breadcrumbs })?.render(
+            Breadcrumbs({ breadcrumbs, label: i18n("breadcrumbs") })?.render(
                 window.__DECORATOR_DATA__.params,
             ) ?? "";
     };
