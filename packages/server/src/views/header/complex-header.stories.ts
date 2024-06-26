@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/html";
-import { makeContextLinks } from "decorator-shared/context";
+import { makeContextLinks } from "../../context";
 import type { ComplexHeaderProps } from "./complex-header";
 import { ComplexHeader } from "./complex-header";
 
@@ -15,14 +15,14 @@ type Story = StoryObj<ComplexHeaderProps>;
 
 export const Default: Story = {
     args: {
-        contextLinks: makeContextLinks(""),
+        contextLinks: makeContextLinks("nb"),
         context: "privatperson",
     },
 };
 
 export const LoggedInPrivatperson: Story = {
     args: {
-        contextLinks: makeContextLinks(""),
+        contextLinks: makeContextLinks("nb"),
         context: "privatperson",
     },
 };
@@ -33,7 +33,7 @@ export const LoggedInPrivatpersonMobile: Story = {
         viewport: { defaultViewport: "mobile" },
     },
     args: {
-        contextLinks: makeContextLinks(""),
+        contextLinks: makeContextLinks("nb"),
         context: "privatperson",
     },
 };
