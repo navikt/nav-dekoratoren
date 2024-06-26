@@ -7,24 +7,20 @@ import {
     Breadcrumb,
     UtilsBackground,
 } from "decorator-shared/params";
-import { Texts } from "decorator-shared/types";
 import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
 import { LanguageSelector } from "./language-selector";
 
 export type DecoratorUtilsProps = {
-    texts: Texts;
     breadcrumbs: Breadcrumb[];
     availableLanguages: AvailableLanguage[];
     utilsBackground: UtilsBackground;
 };
 
 export const DecoratorUtils = ({
-    texts,
     breadcrumbs,
     availableLanguages,
     utilsBackground,
 }: DecoratorUtilsProps) => {
-    const label = texts.breadcrumbs;
     return html`
         <decorator-utils
             class="${clsx(cls.decoratorUtils, {
@@ -40,10 +36,8 @@ export const DecoratorUtils = ({
                     utilsCls.contentContainer,
                 )}"
             >
-                <breadcrumbs>
-                    ${Breadcrumbs({ breadcrumbs, label })}
-                </breadcrumbs>
-                ${LanguageSelector({ availableLanguages, texts })}
+                <div>${Breadcrumbs({ breadcrumbs })}</div>
+                ${LanguageSelector({ availableLanguages })}
             </div>
         </decorator-utils>
     `;

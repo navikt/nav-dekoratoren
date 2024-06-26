@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/html";
-import type { LanguageSelectorProps } from "./language-selector";
-import { LanguageSelector } from "./language-selector";
 import { LanguageSelector as ClientComponent } from "decorator-client/src/views/language-selector";
 import html from "decorator-shared/html";
-import { texts } from "../texts";
+import type { LanguageSelectorProps } from "./language-selector";
+import { LanguageSelector } from "./language-selector";
 
 const meta: Meta<LanguageSelectorProps> = {
     title: "header/language-selector",
@@ -36,6 +35,5 @@ export const Default: Story = {
                 handleInApp: false,
             },
         ],
-        texts: texts["en"],
     },
 };

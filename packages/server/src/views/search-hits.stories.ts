@@ -1,7 +1,6 @@
-import type { StoryObj, Meta } from "@storybook/html";
+import type { Meta, StoryObj } from "@storybook/html";
 import type { SearchHitsProps } from "./search-hits";
 import { SearchHits } from "./search-hits";
-import { texts } from "../texts";
 
 const meta: Meta<SearchHitsProps> = {
     title: "search/search-hits",
@@ -13,8 +12,8 @@ type Story = StoryObj<SearchHitsProps>;
 
 export const Default: Story = {
     args: {
-        language: "nb",
-        context: "privatperson",
+        context: "personbruker",
+        query: "sykepenger",
         results: {
             total: 69,
             hits: [
@@ -53,7 +52,5 @@ export const Default: Story = {
                 },
             ],
         },
-        query: "sykepenger",
-        texts: texts.nb,
     },
 };

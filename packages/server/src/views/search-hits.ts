@@ -1,35 +1,32 @@
 import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import html, { unsafeHtml } from "decorator-shared/html";
-import { Texts } from "decorator-shared/types";
 import { ArrowRight } from "decorator-shared/views/icons";
 import { SearchResult } from "../handlers/search-handler";
+import i18n from "../i18n";
+import { Context } from "decorator-shared/params";
 
 export type SearchHitsProps = {
     results: SearchResult;
     query: string;
-    texts: Texts;
-    context: string;
+    context: Context;
 };
 
 export const SearchHits = ({
     results: { hits, total },
     query,
-    texts,
     context,
 }: SearchHitsProps) => html`
     <div class="${cls.searchHits}">
         <div>
             <h2 role="alert" class="${cls.heading}">
-                ${total.toString()} ${texts.hits_for}${" "}
-                <span class="${cls.quoted}">${query}</span>
-                ${` for ${context}`}
+                ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
                 href="https://www.nav.no/sok?ord=${query}"
                 class="${globalCls["navds-link"]}"
             >
-                ${texts.change_search_filter}
+                ${i18n("change_search_filter")}
             </a>
         </div>
         ${total > 0
@@ -62,7 +59,7 @@ export const SearchHits = ({
                       class="${cls.searchMoreHits}"
                       href="https://www.nav.no/sok?ord=${query}"
                   >
-                      ${texts.more_hits}
+                      ${i18n("more_hits")}
                       ${ArrowRight({
                           className: cls.searchHitRightArrow,
                       })}

@@ -1,11 +1,11 @@
-import html from "../html";
+import html, { Template } from "../html";
 
 export const NavLogo = ({
     title = "NAV logo",
     className,
     titleId,
 }: {
-    title?: string;
+    title?: Template | string;
     className?: string;
     titleId?: string;
 } = {}) =>

@@ -1,7 +1,7 @@
-import html from "decorator-shared/html";
 import cls from "decorator-client/src/styles/screenshare-button.module.css";
+import html, { Template } from "decorator-shared/html";
 
-export const ScreenshareButton = (text: string) => html`
+export const ScreenshareButton = (text: Template) => html`
     <screenshare-button>
         <button class="${cls.screenshareButton}">
             ${text}

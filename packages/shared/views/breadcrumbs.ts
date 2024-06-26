@@ -1,13 +1,13 @@
 import clsx from "clsx";
+import i18n from "decorator-client/src/i18n";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import html from "../html";
 import { Breadcrumb } from "../params";
 import { isNavUrl } from "../utils";
+import cls from "./breadcrumbs.module.css";
 import { ForwardChevron } from "./icons";
 import { HomeIcon } from "./icons/home";
-
-import globalCls from "decorator-client/src/styles/global.module.css";
-import cls from "./breadcrumbs.module.css";
 
 const analyticsEventArgs = {
     category: "dekorator-header",
@@ -16,7 +16,6 @@ const analyticsEventArgs = {
 
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
-    label: string;
 };
 
 const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
@@ -36,12 +35,12 @@ const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     });
 };
 
-export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
     validateBreadcrumbs(breadcrumbs);
 
     return breadcrumbs.length > 0
         ? html`
-              <nav aria-label="${label}">
+              <nav aria-label="${i18n("breadcrumbs")}">
                   <ol class="${cls.list}">
                       <li class="${cls.listItem}">
                           ${LenkeMedSporing({

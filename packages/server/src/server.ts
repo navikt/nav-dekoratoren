@@ -1,24 +1,26 @@
 import { Server } from "bun";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { searchHandler } from "./handlers/search-handler";
 import { headers } from "./headers";
+import i18n from "./i18n";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
-import { texts as i18n } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { getCSRScriptUrl, getClientCSSUrl, getMainScriptUrl } from "./views";
 import { MainMenu } from "./views/header/main-menu";
-import { serveStatic } from "hono/bun";
+import { texts } from "./texts";
+import { clientTextsKeys } from "decorator-shared/types";
 
 const app = new Hono();
 
@@ -73,29 +75,28 @@ app.get("/api/search", async ({ req, html }) =>
 app.get("/api/csp", ({ json }) => json(cspDirectives));
 app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
-    const localTexts = i18n[data.language];
 
     return html(
         MainMenu({
             title:
                 data.context === "privatperson"
-                    ? localTexts.how_can_we_help
-                    : localTexts[`rolle_${data.context}`],
+                    ? i18n("how_can_we_help")
+                    : i18n(`rolle_${data.context}`),
             frontPageUrl: makeFrontpageUrl({
                 context: data.context,
                 language: data.language,
                 baseUrl: env.XP_BASE_URL,
             }),
-            texts: localTexts,
             links: await getMainMenuLinks({
                 language: data.language,
                 context: data.context,
             }),
-            contextLinks: await mainMenuContextLinks({
+            contextLinks: mainMenuContextLinks({
                 context: data.context,
+                language: data.language,
                 bedrift: data.bedrift,
             }),
-        }).render(),
+        }).render(data),
     );
 });
 app.get("/auth", async ({ req, json }) =>
@@ -110,45 +111,32 @@ app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
     const data = validParams(req.query());
 
-    return html(
-        renderHeader({
-            texts: i18n[data.language],
-            data,
-        }).render(),
-    );
+    return html(renderHeader({ data }).render(data));
 });
 app.get("/footer", async ({ req, html }) => {
     const data = validParams(req.query());
 
     return html(
-        (
-            await renderFooter({
-                features: getFeatures(),
-                texts: i18n[data.language],
-                data,
-            })
-        ).render(),
+        (await renderFooter({ features: getFeatures(), data })).render(data),
     );
 });
 app.get("/env", async ({ req, json }) => {
     const data = validParams(req.query());
     const features = getFeatures();
-    const texts = i18n[data.language];
 
     return json({
-        header: renderHeader({
-            data,
-            texts,
-        }).render(),
-        footer: (
-            await renderFooter({
-                data,
-                texts,
-                features,
-            })
-        ).render(),
+        header: renderHeader({ data }).render(data),
+        footer: (await renderFooter({ data, features })).render(data),
         data: {
-            texts,
+            texts: Object.entries(texts[data.language])
+                .filter(([key]) => clientTextsKeys.includes(key as any))
+                .reduce(
+                    (prev, [key, value]) => ({
+                        ...prev,
+                        [key]: value,
+                    }),
+                    {},
+                ),
             params: data,
             features,
             env: clientEnv,
@@ -163,14 +151,17 @@ app.get("/client.js", async ({ redirect }) =>
 app.get("/css/client.css", async ({ redirect }) =>
     redirect(await getClientCSSUrl()),
 );
-app.get("/", async ({ req, html }) =>
-    html(
+app.get("/", async ({ req, html }) => {
+    const data = validParams(req.query());
+
+    return html(
         await renderIndex({
-            data: validParams(req.query()),
+            data,
+            texts: texts[data.language],
             url: req.url,
         }),
-    ),
-);
+    );
+});
 
 app.route("/decorator-next", app);
 

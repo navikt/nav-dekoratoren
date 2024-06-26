@@ -1,8 +1,8 @@
-import html from "decorator-shared/html";
+import html, { Template } from "decorator-shared/html";
 import { IconButton } from "./icon-button";
 import { LoginIcon } from "decorator-shared/views/icons";
 
-export function LoginButton(text: string) {
+export function LoginButton(text: Template) {
     return html`
         <login-button>
             ${IconButton({

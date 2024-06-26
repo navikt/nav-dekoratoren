@@ -1,15 +1,15 @@
 import clsx from "clsx";
-import html from "../../html";
 import cls from "decorator-client/src/styles/button.module.css";
+import html, { Template } from "../../html";
 
 export type ButtonProps = {
-    text: string;
+    text: Template | string;
     variant: "primary" | "secondary" | "outline" | "ghost";
     bigLabel?: boolean;
     wide?: boolean;
     className?: string;
     id?: string;
-    data?: Record<string, string>;
+    data?: Record<string, Template | string>;
 };
 
 export const Button = ({

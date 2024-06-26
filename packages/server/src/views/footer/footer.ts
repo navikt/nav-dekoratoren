@@ -1,9 +1,9 @@
 import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
-import { Features, Link, LinkGroup, Texts } from "decorator-shared/types";
-import { getModal } from "decorator-shared/views/screensharing-modal";
+import { Features, Link, LinkGroup } from "decorator-shared/types";
 import { Feedback } from "../feedback";
 import { LogoutWarning } from "../logout-warning";
+import { getModal } from "../screensharing-modal";
 import { ChatbotWrapper } from "./chatbot-wrapper";
 import { ComplexFooter } from "./complex-footer";
 import { SimpleFooter } from "./simple-footer";
@@ -11,7 +11,6 @@ import { SimpleFooter } from "./simple-footer";
 type FooterProps = {
     data: Params;
     features: Features;
-    texts: Texts;
 } & (
     | {
           simple: true;
@@ -23,23 +22,20 @@ type FooterProps = {
       }
 );
 
-export const Footer = ({ simple, links, data, features, texts }: FooterProps) =>
+export const Footer = ({ simple, links, data, features }: FooterProps) =>
     html`<div id="decorator-footer">
         ${getModal({
             enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
-            texts,
         })}
         ${data.chatbot && ChatbotWrapper(data.chatbotVisible)}
         ${data.logoutWarning ? LogoutWarning() : undefined}
-        ${data.feedback ? Feedback({ texts }) : undefined}
+        ${data.feedback ? Feedback() : undefined}
         ${simple
             ? SimpleFooter({
                   links,
-                  texts,
                   features,
               })
             : ComplexFooter({
-                  texts,
                   links,
                   features,
               })}

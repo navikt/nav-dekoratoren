@@ -15,11 +15,14 @@ import {
     INITIAL_VIEWPORTS,
     MINIMAL_VIEWPORTS,
 } from "@storybook/addon-viewport";
+import { texts } from "../packages/server/src/texts";
+import { ClientTexts } from "decorator-shared/types";
 
 declare global {
     interface Window {
         __DECORATOR_DATA__: {
             params: Partial<Params>;
+            texts: ClientTexts;
         };
     }
 }
@@ -36,17 +39,40 @@ window.__DECORATOR_DATA__ = {
     params: {
         language: "nb",
     },
+    texts: texts["nb"],
 };
 
 const preview: Preview = {
+    globalTypes: {
+        locale: {
+            name: "Locale",
+            defaultValue: "nb",
+            toolbar: {
+                icon: "globe",
+                items: [
+                    { value: "nb", title: "Norsk" },
+                    { value: "en", title: "English" },
+                ],
+            },
+        },
+    },
     decorators: [
-        (Story) => {
+        (Story, context) => {
             const story = Story();
+
+            const language = context.globals.locale;
+
+            window.__DECORATOR_DATA__ = {
+                params: { language },
+                texts: texts[language],
+            };
 
             if (story === null) {
                 return "";
             } else if (typeof story === "object" && "render" in story) {
-                return html`<div id="decorator-header">${story}</div>`.render();
+                return html`<div id="decorator-header">${story}</div>`.render({
+                    language,
+                });
             } else {
                 const wrapper = document.createElement("div");
                 wrapper.setAttribute("id", "decorator-header");

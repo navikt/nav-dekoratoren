@@ -14,13 +14,12 @@ class DecoratorUtils extends HTMLElement {
         this.languageSelector = this.querySelector(
             ":scope > div > language-selector",
         )!;
-        this.breadcrumbs = this.querySelector(":scope > div > breadcrumbs")!;
+        this.breadcrumbs = this.querySelector(":scope > div > :first-child")!;
     }
 
     update = () => {
         const { availableLanguages, language, breadcrumbs, utilsBackground } =
             window.__DECORATOR_DATA__.params;
-        const label = window.__DECORATOR_DATA__.texts.breadcrumbs;
 
         this.classList.toggle(
             cls.hidden,
@@ -31,7 +30,9 @@ class DecoratorUtils extends HTMLElement {
         this.languageSelector.availableLanguages = availableLanguages;
         this.languageSelector.language = language;
         this.breadcrumbs.innerHTML =
-            Breadcrumbs({ breadcrumbs, label })?.render() ?? "";
+            Breadcrumbs({ breadcrumbs })?.render(
+                window.__DECORATOR_DATA__.params,
+            ) ?? "";
     };
 
     set utilsBackground(utilsBackground: UtilsBackground) {

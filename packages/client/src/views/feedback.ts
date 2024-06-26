@@ -17,9 +17,9 @@ class DecoratorFeedback extends HTMLElement {
                 const answer = button.getAttribute("data-answer");
 
                 if (feedbackContent) {
-                    feedbackContent.innerHTML = FeedbackSuccess({
-                        texts: window.__DECORATOR_DATA__.texts,
-                    }).render();
+                    feedbackContent.innerHTML = FeedbackSuccess().render(
+                        window.__DECORATOR_DATA__.params,
+                    );
 
                     logAmplitudeEvent("tilbakemelding", {
                         kilde: "footer",

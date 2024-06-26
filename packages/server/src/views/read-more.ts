@@ -1,9 +1,9 @@
 import cls from "decorator-client/src/styles/read-more.module.css";
-import html, { Template } from "../html";
-import { DownChevronIcon } from "./icons";
+import html, { Template } from "../../../shared/html";
+import { DownChevronIcon } from "../../../shared/views/icons";
 
 export type ReadMoreProps = {
-    header: string;
+    header: Template;
     content: Template;
 };
 

@@ -5,6 +5,7 @@ import { clientEnv, env } from "../env/server";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import { z } from "zod";
 import fallbackData from "./main-menu-mock.json";
+import { isNorwegian } from "../i18n";
 
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;
@@ -55,11 +56,16 @@ const fetchMenu = async (): Promise<MainMenu> => {
 
 export const mainMenuContextLinks = ({
     context,
+    language,
     bedrift,
 }: {
     context: Context;
+    language: Language;
     bedrift?: string;
 }): MainMenuContextLink[] => {
+    if (!isNorwegian(language)) {
+        return [];
+    }
     switch (context) {
         case "privatperson":
             return [

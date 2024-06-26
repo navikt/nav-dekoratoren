@@ -1,8 +1,8 @@
-import html from "../../html";
+import html, { Template } from "../../html";
 
 export type CloseIconProps = {
     className?: string;
-    ariaLabel?: string;
+    ariaLabel?: Template | string;
 };
 
 export function CloseIcon({ className, ariaLabel }: CloseIconProps) {

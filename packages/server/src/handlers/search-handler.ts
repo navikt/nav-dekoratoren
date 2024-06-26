@@ -2,7 +2,6 @@ import { Context, Language } from "decorator-shared/params";
 import { z } from "zod";
 import { env } from "../env/server";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
-import { texts } from "../texts";
 import { SearchErrorView } from "../views/errors/search-error";
 import { SearchHits } from "../views/search-hits";
 
@@ -51,7 +50,7 @@ export const searchHandler = async ({
 
     if (!result.ok) {
         console.log(`Error fetching search results: ${result.error.message}`);
-        return SearchErrorView().render();
+        return SearchErrorView().render({ language });
     }
 
     return SearchHits({
@@ -60,7 +59,6 @@ export const searchHandler = async ({
             hits: result.data.hits.slice(0, 5),
         },
         query,
-        texts: texts[language],
-        context: ["nb", "nn"].includes(language) ? context : "individuals",
-    }).render();
+        context,
+    }).render({ language });
 };
