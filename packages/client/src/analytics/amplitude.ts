@@ -2,7 +2,9 @@ import { Params } from "decorator-shared/params";
 import { AnalyticsEventArgs } from "./constants";
 import { Auth } from "decorator-shared/auth";
 
-const amplitude = await import("amplitude-js").then((module) => module.default);
+// Dynamic import for lazy loading
+const importAmplitude = () =>
+    import("amplitude-js").then((module) => module.default);
 
 type EventData = Record<string, any>;
 
@@ -18,6 +20,8 @@ const buildPlatformField = () => {
 };
 
 export const initAmplitude = async () => {
+    const amplitude = await importAmplitude();
+
     const userProps = {
         skjermbredde: window.screen.width,
         skjermhoyde: window.screen.height,
@@ -38,7 +42,6 @@ export const initAmplitude = async () => {
     window.dekoratorenAmplitude = logEventFromApp;
 };
 
-// Connects to partytown forwarding
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
         context,
@@ -118,6 +121,8 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "decorator-next",
 ) => {
+    const amplitude = await importAmplitude();
+
     return new Promise((resolve) => {
         amplitude.getInstance().logEvent(
             eventName,

@@ -4,9 +4,9 @@ import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
 import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config.js";
 
-const mainBundleConfig = defineConfig({
+const mainConfig = defineConfig({
     server: {
-        origin: "http://localhost:5173",
+        origin: "http://localhost:5173"
     },
     logLevel: "info",
     build: {
@@ -15,38 +15,20 @@ const mainBundleConfig = defineConfig({
         manifest: true,
         sourcemap: true,
         rollupOptions: {
-            output: {
-                // inlineDynamicImports: true,
-                // @TODO: Burde tweakes i nav-dekoreatoren-moduler for å støtte moduler
-                format: "commonjs",
-                // esModule: true
-            },
             plugins: [
                 minifyLiterals(),
                 partytownRollup({
-                    dest: path.join(__dirname, "dist", "~partytown"),
-                }),
+                    dest: path.join(__dirname, "dist", "~partytown")
+                })
             ],
-            input: ["src/main.ts"],
-        },
+            input: ["src/main.ts"]
+        }
     },
     css: {
         modules: {
-            ...cssModulesScopedNameOption,
-        },
-    },
-});
-
-const lazyConfig = defineConfig({
-    build: {
-        // Don't clear the output, we want to keep the main bundle
-        emptyOutDir: false,
-        minify: true,
-        manifest: ".vite/analytics.manifest.json",
-        rollupOptions: {
-            input: ["src/analytics/analytics.ts"],
-        },
-    },
+            ...cssModulesScopedNameOption
+        }
+    }
 });
 
 const csrConfig = defineConfig({
@@ -56,19 +38,11 @@ const csrConfig = defineConfig({
         minify: true,
         manifest: ".vite/csr.manifest.json",
         rollupOptions: {
-            input: ["src/csr.ts"],
-        },
-    },
+            input: ["src/csr.ts"]
+        }
+    }
 });
 
 export default defineConfig(({ mode }) => {
-    if (mode === "development") {
-        return mainBundleConfig;
-    }
-    // Build steps
-    if (mode === "main") return mainBundleConfig;
-    // if (mode === "lazy") return lazyConfig;
-    if (mode === "csr") return csrConfig;
-
-    return mainBundleConfig;
+    return mode === "csr" ? csrConfig : mainConfig;
 });
