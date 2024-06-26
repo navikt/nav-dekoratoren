@@ -2,12 +2,9 @@ import { Params } from "decorator-shared/params";
 import { AnalyticsEventArgs } from "./constants";
 import { Auth } from "decorator-shared/auth";
 
-type EventData = Record<string, any>;
+const amplitude = await import("amplitude-js").then((module) => module.default);
 
-const buildPlatformField = () => {
-    const { origin, pathname, hash } = window.location;
-    return `${origin}${pathname}${hash}`;
-};
+type EventData = Record<string, any>;
 
 declare global {
     interface Window {
@@ -15,9 +12,12 @@ declare global {
     }
 }
 
-export const initAmplitude = async () => {
-    const amplitude = await import("amplitude-js");
+const buildPlatformField = () => {
+    const { origin, pathname, hash } = window.location;
+    return `${origin}${pathname}${hash}`;
+};
 
+export const initAmplitude = async () => {
     const userProps = {
         skjermbredde: window.screen.width,
         skjermhoyde: window.screen.height,
@@ -118,8 +118,6 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "decorator-next",
 ) => {
-    const amplitude = await import("amplitude-js");
-
     return new Promise((resolve) => {
         amplitude.getInstance().logEvent(
             eventName,
