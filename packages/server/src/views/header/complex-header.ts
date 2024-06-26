@@ -37,95 +37,101 @@ export function ComplexHeader({
             <div class="${cls.siteheader}">
                 ${SkipLink(texts.skip_link)}
                 ${Sticky({
-                    children: html` <div
-                        class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
-                    >
-                        <div class="${cls.hovedmenyContent}">
-                            <lenke-med-sporing
-                                href="/"
-                                class="${cls.logo}"
-                                data-analytics
-                                event
-                                args="${JSON.stringify({
-                                    category: "dekorator-header",
-                                    action: "navlogo",
-                                })}"
-                            >
-                                ${NavLogo({
-                                    title: texts.to_front_page,
-                                    titleId: "logo-svg-title",
-                                })}
-                            </lenke-med-sporing>
-                            <div class="${cls.arbeidsflate}">
-                                ${(language === "nb" || language === "nn") &&
-                                contextLinks?.map(
-                                    ({ url, lenkeTekstId, context }) =>
-                                        html` <context-link
-                                            href="${url}"
-                                            data-analytics-event-args="${JSON.stringify(
-                                                {
-                                                    action: "arbeidsflate-valg",
-                                                    category:
-                                                        "dekorator-header",
-                                                    label: context,
-                                                },
-                                            )}"
-                                            class="${clsx(
-                                                cls.headerContextLink,
-                                                {
-                                                    [cls.lenkeActive]:
-                                                        context ===
-                                                        currentContext,
-                                                },
-                                            )}"
-                                            data-context="${context.toLowerCase()}"
-                                        >
-                                            ${texts[lenkeTekstId]}
-                                        </context-link>`,
-                                )}
+                    children: html`
+                        <nav
+                            aria-label="${texts.menu}"
+                            class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
+                        >
+                            <div class="${cls.hovedmenyContent}">
+                                <lenke-med-sporing
+                                    href="/"
+                                    class="${cls.logo}"
+                                    data-analytics
+                                    event
+                                    args="${JSON.stringify({
+                                        category: "dekorator-header",
+                                        action: "navlogo",
+                                    })}"
+                                >
+                                    ${NavLogo({
+                                        title: texts.to_front_page,
+                                        titleId: "logo-svg-title",
+                                    })}
+                                </lenke-med-sporing>
+                                <div class="${cls.arbeidsflate}">
+                                    ${(language === "nb" ||
+                                        language === "nn") &&
+                                    contextLinks?.map(
+                                        ({ url, lenkeTekstId, context }) =>
+                                            html` <context-link
+                                                href="${url}"
+                                                data-analytics-event-args="${JSON.stringify(
+                                                    {
+                                                        action: "arbeidsflate-valg",
+                                                        category:
+                                                            "dekorator-header",
+                                                        label: context,
+                                                    },
+                                                )}"
+                                                class="${clsx(
+                                                    cls.headerContextLink,
+                                                    {
+                                                        [cls.lenkeActive]:
+                                                            context ===
+                                                            currentContext,
+                                                    },
+                                                )}"
+                                                data-context="${context.toLowerCase()}"
+                                            >
+                                                ${texts[lenkeTekstId]}
+                                            </context-link>`,
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                        <div class="${menuItemsCls.menuItems}">
-                            <user-menu></user-menu>
-                            <div
-                                class="${menuItemsCls.menuItemsUniversalLinks}"
-                            >
-                                ${language !== "se" &&
-                                DropdownMenu({
-                                    button: IconButton({
-                                        Icon: BurgerIcon(),
-                                        text: texts.menu,
-                                    }),
-                                    dropdownContent: html`
-                                        <search-menu
-                                            class="${menuCls.searchMenu}"
-                                        >
-                                            ${SearchForm({ texts })}
-                                        </search-menu>
-                                        <main-menu></main-menu>
-                                    `,
-                                })}
-                                ${DropdownMenu({
-                                    button: IconButton({
-                                        Icon: SearchIcon({
-                                            menuSearch: true,
+                            <div class="${menuItemsCls.menuItems}">
+                                <user-menu></user-menu>
+                                <div
+                                    class="${menuItemsCls.menuItemsUniversalLinks}"
+                                >
+                                    ${language !== "se" &&
+                                    DropdownMenu({
+                                        button: IconButton({
+                                            Icon: BurgerIcon(),
+                                            text: texts.menu,
                                         }),
-                                        text: texts.search,
-                                        className: menuItemsCls.searchButton,
-                                    }),
-                                    dropdownClass: menuItemsCls.searchDropdown,
-                                    dropdownContent: html`
-                                        <search-menu
-                                            class="${menuItemsCls.searchMenu}"
-                                            data-auto-focus
-                                        >
-                                            ${SearchForm({ texts })}
-                                        </search-menu>
-                                    `,
-                                })}
+                                        dropdownContent: html`
+                                            <search-menu
+                                                class="${menuCls.searchMenu}"
+                                            >
+                                                ${SearchForm({ texts })}
+                                            </search-menu>
+                                            <main-menu></main-menu>
+                                        `,
+                                    })}
+                                    ${DropdownMenu({
+                                        button: IconButton({
+                                            Icon: SearchIcon({
+                                                menuSearch: true,
+                                            }),
+                                            text: texts.search,
+                                            className:
+                                                menuItemsCls.searchButton,
+                                        }),
+                                        dropdownClass:
+                                            menuItemsCls.searchDropdown,
+                                        dropdownContent: html`
+                                            <search-menu
+                                                class="${menuItemsCls.searchMenu}"
+                                                data-auto-focus
+                                            >
+                                                ${SearchForm({ texts })}
+                                            </search-menu>
+                                        `,
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    </div>`,
+                        </nav>
+                    `,
                 })}
             </div>
             <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>

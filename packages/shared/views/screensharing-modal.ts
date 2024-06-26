@@ -29,9 +29,9 @@ const ScreensharingModal = ({
         >
             ${VeilederIllustration({ className: cls.avatar })}
             <div class="${clsModal.modalWindow} ${cls.content}">
-                <h1 class="${clsModal.modalTitle}">
+                <h2 class="${clsModal.modalTitle}">
                     ${texts.footer_del_skjerm}
-                </h1>
+                </h2>
                 <p>${texts.delskjerm_modal_beskrivelse}</p>
                 ${ReadMore({
                     header: texts.delskjerm_modal_hjelpetekst_overskrift,

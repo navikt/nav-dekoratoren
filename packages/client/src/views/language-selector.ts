@@ -86,7 +86,6 @@ export class LanguageSelector extends HTMLElement {
 
         this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
-
         this.menu = document.createElement("ul");
         this.menu.classList.add(cls.menu, cls.hidden);
         this.container.appendChild(this.menu);
@@ -96,7 +95,6 @@ export class LanguageSelector extends HTMLElement {
         this.button.addEventListener("click", () => {
             this.open = !this.#open;
         });
-
         this.button.addEventListener("blur", this.onBlur);
         this.addEventListener("keyup", (e) => {
             if (e.key === "Escape") {

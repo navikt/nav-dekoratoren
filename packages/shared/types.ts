@@ -12,6 +12,7 @@ export type LinkGroup = {
 };
 
 export const clientTextsKeys = [
+    "breadcrumbs",
     "token_warning_title",
     "token_warning_body",
     "send_undersokelse_takk",

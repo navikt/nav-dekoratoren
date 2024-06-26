@@ -23,23 +23,28 @@ export const DecoratorUtils = ({
     breadcrumbs,
     availableLanguages,
     utilsBackground,
-}: DecoratorUtilsProps) => html`
-    <decorator-utils
-        class="${clsx(cls.decoratorUtils, {
-            [cls.hidden]:
-                availableLanguages.length === 0 && breadcrumbs.length === 0,
-            [cls.white]: utilsBackground === "white",
-            [cls.gray]: utilsBackground === "gray",
-        })}"
-    >
-        <div
-            class="${clsx(
-                cls.decoratorUtilsContent,
-                utilsCls.contentContainer,
-            )}"
+}: DecoratorUtilsProps) => {
+    const label = texts.breadcrumbs;
+    return html`
+        <decorator-utils
+            class="${clsx(cls.decoratorUtils, {
+                [cls.hidden]:
+                    availableLanguages.length === 0 && breadcrumbs.length === 0,
+                [cls.white]: utilsBackground === "white",
+                [cls.gray]: utilsBackground === "gray",
+            })}"
         >
-            <nav>${Breadcrumbs({ breadcrumbs })}</nav>
-            ${LanguageSelector({ availableLanguages, texts })}
-        </div>
-    </decorator-utils>
-`;
+            <div
+                class="${clsx(
+                    cls.decoratorUtilsContent,
+                    utilsCls.contentContainer,
+                )}"
+            >
+                <breadcrumbs>
+                    ${Breadcrumbs({ breadcrumbs, label })}
+                </breadcrumbs>
+                ${LanguageSelector({ availableLanguages, texts })}
+            </div>
+        </decorator-utils>
+    `;
+};
