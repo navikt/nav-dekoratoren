@@ -14,6 +14,7 @@ const nb = {
     login: "Logg inn",
     logout: "Logg ut",
     logged_in: "Logget inn",
+    breadcrumbs: "Du er her",
     language_selector: "Velg språk",
     notifications: "Varsler",
     notifications_empty_list: "Du har ingen nye varsler",
@@ -85,6 +86,7 @@ const nb = {
         "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
     go_to_my_page: "Gå til Min side",
     my_page: "Min side",
+    my_page_employer: "Min side - Arbeidsgiver",
     loading: "Laster",
     personopplysninger: "Personopplysninger",
 } as const satisfies Texts;
@@ -102,6 +104,7 @@ const en = {
     login: "Log in",
     logout: "Log out",
     logged_in: "Logged in",
+    breadcrumbs: "You are here",
     language_selector: "Choose language",
     notifications: "Notifications",
     notifications_empty_list: "You have no new notifications",
@@ -175,6 +178,7 @@ const en = {
         "You are logged in with Min ID. If you log in with a higher security level, you will see more content and additional services.",
     go_to_my_page: "Go to my page",
     my_page: "My page",
+    my_page_employer: "My page - Employer",
     loading: "Loading",
     personopplysninger: "Personal information",
 } as const satisfies Texts;

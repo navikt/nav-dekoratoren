@@ -12,7 +12,6 @@
 }
 
 .button {
-    border: none;
     margin: 0;
     font: inherit;
     font-size: var(--a-font-size-medium);

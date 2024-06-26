@@ -1,4 +1,4 @@
-import { BoostEnviroment } from "decorator-shared/params";
+import { BoostEnviroment, Environment } from "decorator-shared/params";
 import { z } from "zod";
 
 export const serverSchema = z.object({
@@ -39,16 +39,17 @@ export const serverEnv = {
 // This is session URL for prod
 // https://login.nav.no/oauth2/session
 export const client_env = {
-    APP_URL: process.env.HOST,
-    XP_BASE_URL: process.env.XP_BASE_URL,
-    LOGOUT_URL: process.env.LOGOUT_URL,
-    LOGIN_URL: process.env.LOGIN_URL,
-    AUTH_API_URL: process.env.AUTH_API_URL,
-    MIN_SIDE_URL: process.env.MIN_SIDE_URL,
-    MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,
-    PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
-    VARSEL_API_URL: process.env.VARSEL_API_URL,
     API_SESSION_URL: process.env.API_SESSION_URL,
+    APP_URL: process.env.HOST,
+    AUTH_API_URL: process.env.AUTH_API_URL,
     BOOST_ENVIRONMENT: process.env.BOOST_ENVIRONMENT as BoostEnviroment,
     ENV: serverEnv.NODE_ENV,
-};
+    LOGIN_URL: process.env.LOGIN_URL,
+    LOGOUT_URL: process.env.LOGOUT_URL,
+    MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,
+    MIN_SIDE_URL: process.env.MIN_SIDE_URL,
+    PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
+    PUZZEL_CUSTOMER_ID: process.env.PUZZEL_CUSTOMER_ID,
+    VARSEL_API_URL: process.env.VARSEL_API_URL,
+    XP_BASE_URL: process.env.XP_BASE_URL,
+} satisfies Record<keyof Environment, unknown>;

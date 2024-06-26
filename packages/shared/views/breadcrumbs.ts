@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import i18n from "decorator-client/src/i18n";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import html from "../html";
@@ -39,51 +40,58 @@ export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
 
     return breadcrumbs.length > 0
         ? html`
-              <ol class="${cls.list}">
-                  <li class="${cls.listItem}">
-                      ${LenkeMedSporing({
-                          href: "/",
-                          analyticsEventArgs: {
-                              ...analyticsEventArgs,
-                              action: "nav.no",
-                          },
-                          children: html`
-                              ${HomeIcon({ className: cls.svg })}
-                              <span class="${cls.span}">nav.no</span>
+              <nav aria-label="${i18n("breadcrumbs")}">
+                  <ol class="${cls.list}">
+                      <li class="${cls.listItem}">
+                          ${LenkeMedSporing({
+                              href: "/",
+                              analyticsEventArgs: {
+                                  ...analyticsEventArgs,
+                                  action: "nav.no",
+                              },
+                              children: html`
+                                  ${HomeIcon({ className: cls.svg })}
+                                  <span class="${cls.span}">nav.no</span>
+                              `,
+                              className: clsx(
+                                  cls.link,
+                                  globalCls["navds-link"],
+                              ),
+                          })}
+                          ${ForwardChevron()}
+                      </li>
+                      ${breadcrumbs.map(
+                          ({ title, url, handleInApp }, index) => html`
+                              <li class="${cls.listItem}">
+                                  ${index === breadcrumbs.length - 1
+                                      ? title
+                                      : html`
+                                            <d-breadcrumb
+                                                data-analytics-event-args="${JSON.stringify(
+                                                    {
+                                                        ...analyticsEventArgs,
+                                                        label: "[redacted]",
+                                                        action: "[redacted]",
+                                                    },
+                                                )}"
+                                                ${handleInApp &&
+                                                "data-handle-in-app"}
+                                                class="${globalCls[
+                                                    "navds-link"
+                                                ]}"
+                                                href="${url}"
+                                            >
+                                                ${title}
+                                            </d-breadcrumb>
+                                        `}
+                                  ${index === breadcrumbs.length - 1
+                                      ? ""
+                                      : ForwardChevron()}
+                              </li>
                           `,
-                          className: clsx(cls.link, globalCls["navds-link"]),
-                      })}
-                      ${ForwardChevron()}
-                  </li>
-                  ${breadcrumbs.map(
-                      ({ title, url, handleInApp }, index) => html`
-                          <li class="${cls.listItem}">
-                              ${index === breadcrumbs.length - 1
-                                  ? title
-                                  : html`
-                                        <d-breadcrumb
-                                            data-analytics-event-args="${JSON.stringify(
-                                                {
-                                                    ...analyticsEventArgs,
-                                                    label: "[redacted]",
-                                                    action: "[redacted]",
-                                                },
-                                            )}"
-                                            ${handleInApp &&
-                                            "data-handle-in-app"}
-                                            class="${globalCls["navds-link"]}"
-                                            href="${url}"
-                                        >
-                                            ${title}
-                                        </d-breadcrumb>
-                                    `}
-                              ${index === breadcrumbs.length - 1
-                                  ? ""
-                                  : ForwardChevron()}
-                          </li>
-                      `,
-                  )}
-              </ol>
+                      )}
+                  </ol>
+              </nav>
           `
         : null;
 };

@@ -12,7 +12,7 @@ import { clientEnv, env } from "../env/server";
 import i18n from "../i18n";
 import { getNotifications } from "../notifications";
 import { AnchorIconButton } from "../views/anchor-icon-button";
-import { ArbeidsgiverUserMenu } from "../views/header/arbeidsgiver-user-menu";
+import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-menu-dropdown";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 
@@ -72,8 +72,10 @@ const buildUsermenuHtml = async (
             });
         })
         .with("arbeidsgiver", async () =>
-            ArbeidsgiverUserMenu({
+            ArbeidsgiverUserMenuDropdown({
                 href: clientEnv.MIN_SIDE_ARBEIDSGIVER_URL,
+                logoutUrl: logoutUrl as string,
+                name: auth.name,
             }),
         )
         .with("samarbeidspartner", async () =>

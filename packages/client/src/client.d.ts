@@ -13,9 +13,12 @@ declare global {
         TA: any;
         dataLayer: any;
         boostInit: any;
-        vngageReady: () => void;
         vngage: {
             join: (queue: string, options: unknown) => void;
+            subscribe: (
+                type: string,
+                callback: (message: string, data: unknown) => void,
+            ) => void;
         };
         faro?: Faro;
         addEventListener(

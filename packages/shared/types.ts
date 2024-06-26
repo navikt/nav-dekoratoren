@@ -12,6 +12,7 @@ export type LinkGroup = {
 };
 
 export const clientTextsKeys = [
+    "breadcrumbs",
     "token_warning_title",
     "token_warning_body",
     "send_undersokelse_takk",
@@ -96,6 +97,7 @@ export type Texts = ClientTexts & {
     go_to_my_page: string;
     my_page: string;
     personopplysninger: string;
+    my_page_employer: string;
 };
 
 export type OpsMessage = {

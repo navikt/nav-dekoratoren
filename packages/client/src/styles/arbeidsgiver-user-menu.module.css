@@ -1,48 +1,85 @@
 .arbeidsgiverUserMenu {
-    border: none;
+    display: flex;
+    flex-direction: column;
     background-color: var(--a-surface-default);
-    margin: 0;
     font: inherit;
     cursor: pointer;
-    color: var(--a-text-action);
-    text-align: left;
+    color: var(--a-text-default);
+    text-decoration: none;
+    --inline-padding: var(--a-spacing-4);
+}
+
+@media (min-width: 1024px) {
+    .arbeidsgiverUserMenu {
+        --inline-padding: var(--a-spacing-5);
+    }
+}
+
+.menuItems {
+    padding-top: var(--a-spacing-5);
+    padding-inline: var(--inline-padding);
+}
+
+.menuItems > :not(:last-child) {
+    border-bottom: 1px solid var(--a-border-subtle);
+}
+
+.menuHeader {
+    padding-bottom: var(--a-spacing-4);
+}
+
+.loggedIn {
+    text-transform: uppercase;
+    font-size: var(--a-font-size-small);
+    margin-bottom: var(--a-spacing-1);
+    color: var(--a-text-subtle);
+}
+
+.name {
+    font-weight: var(--a-font-weight-bold);
+    font-size: var(--a-font-size-heading-large);
+}
+
+@media (min-width: 768px) {
+    .name {
+        font-size: var(--a-font-size-heading-xlarge);
+    }
+}
+
+.menuItem {
+    font-weight: var(--a-font-weight-bold);
+    color: inherit;
+    text-decoration: none;
+    padding-block: var(--a-spacing-4);
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: var(--a-spacing-2);
-    padding: var(--a-spacing-3);
-    border-radius: var(--a-border-radius-medium);
-    border: 2px solid var(--a-transparent);
+    gap: var(--a-spacing-3);
+    background-color: var(--a-surface-default);
+}
+
+.menuItem:hover {
+    color: var(--a-text-action);
+    text-decoration: underline;
+}
+
+.menuItemIcon {
+    color: var(--a-icon-subtle);
+    font-size: 1.5rem;
+}
+
+.logout {
+    position: sticky;
+    bottom: 0;
+}
+
+.link {
+    margin-top: var(--a-spacing-3);
+    text-underline-offset: 0.15em;
+    color: var(--a-text-default);
+    cursor: pointer;
+    align-self: center;
+}
+
+.link:hover {
     text-decoration: none;
-}
-
-.arbeidsgiverUserMenu:hover {
-    background-color: var(--a-surface-action-subtle-hover);
-}
-
-.arbeidsgiverUserMenu:focus-visible {
-    box-shadow: var(--a-shadow-focus);
-    border-color: var(--text-a-action);
-    outline: none;
-}
-
-.arbeidsgiverUserMenu:active {
-    background-color: var(--a-surface-action-active);
-    color: var(--a-text-on-action);
-}
-
-.arbeidsgiverUserMenu:focus-visible:active {
-    border-color: var(--a-surface-default);
-}
-
-.icon {
-    font-size: 2.5rem;
-}
-
-.heading {
-    font-weight: var(--a-font-weight-bold);
-}
-
-.description {
-    font-size: var(--a-font-size-small);
 }
