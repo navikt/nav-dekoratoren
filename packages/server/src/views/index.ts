@@ -76,8 +76,12 @@ export const getScripts = async () => {
         //     await import("decorator-client/dist/.vite/analytics.manifest.json")
         // ).default;
 
+        const scripts = Object.values(manifest).map((entry) =>
+            script(cdnUrl(entry.file)),
+        );
+
         return [
-            script(cdnUrl(manifest[entryPointPath].file)),
+            ...scripts,
             // asyncScript(
             //     cdnUrl(thirdPartyManifest[entryPointPathAnalytics].file),
             // ),
