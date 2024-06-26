@@ -1,13 +1,10 @@
 import cls from "decorator-client/src/styles/arbeidsgiver-user-menu-dropdown.module.css";
-import html from "decorator-shared/html";
-import { Texts } from "decorator-shared/types";
 import { BriefcaseIcon } from "decorator-shared/views/icons";
 import { DropdownMenu } from "../dropdown-menu";
-import { IconButton } from "../icon-button";
 import { ArbeidsgiverUserMenu } from "./arbeidsgiver-user-menu";
+import { IconButton } from "decorator-shared/views/icon-button";
 
 export type ArbeidsgiverUserMenuProps = {
-    texts: Texts;
     href: string;
     logoutUrl: string;
     name: string;
@@ -15,7 +12,6 @@ export type ArbeidsgiverUserMenuProps = {
 
 //@TODO add test case
 export const ArbeidsgiverUserMenuDropdown = ({
-    texts,
     href,
     logoutUrl,
     name,
@@ -28,7 +24,6 @@ export const ArbeidsgiverUserMenuDropdown = ({
         }),
         dropdownClass: cls.arbeidsgiverMenuDropdown,
         dropdownContent: ArbeidsgiverUserMenu({
-            texts,
             href,
             logoutUrl,
             name,

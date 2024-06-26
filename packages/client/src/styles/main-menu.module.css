@@ -8,7 +8,9 @@
 
 @media (min-width: 1024px) {
     .mainMenu {
-        grid-template-columns: 2fr minmax(340px, 1fr);
+        grid-template-columns: 2fr;
+        grid-auto-columns: minmax(340px, 1fr);
+        grid-auto-flow: column;
     }
 }
 
@@ -32,7 +34,7 @@
 }
 
 .links {
-    columns: 18rem 2;
+    columns: 18rem 4;
     gap: var(--a-spacing-6);
 }
 

@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from "./fixtures";
 
-test("language selector", async ({ page }) => {
+test("decorator utils", async ({ page }) => {
     await page.evaluate(() => {
         window.postMessage({
             source: "decoratorClient",
@@ -10,6 +10,23 @@ test("language selector", async ({ page }) => {
                 availableLanguages: [
                     { locale: "nb", handleInApp: true },
                     { locale: "en", handleInApp: true },
+                ],
+                breadcrumbs: [
+                    {
+                        title: "Min side",
+                        url: "https://www.nav.no/minside",
+                        handleInApp: false,
+                    },
+                    {
+                        title: "Ditt sykefravær",
+                        url: "https://www.nav.no/syk/sykefravaer",
+                        handleInApp: false,
+                    },
+                    {
+                        title: "Sykmeldinger",
+                        url: "/syk/sykmeldinger",
+                        handleInApp: true,
+                    },
                 ],
             },
         });

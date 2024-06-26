@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/html";
-import { texts } from "../../texts";
 import type { NotificationsProps } from "./notifications";
 import { Notifications } from "./notifications";
 
@@ -14,7 +13,6 @@ type Story = StoryObj<NotificationsProps>;
 
 export const Default: Story = {
     args: {
-        texts: texts.nb,
         notifications: [
             {
                 id: "a",

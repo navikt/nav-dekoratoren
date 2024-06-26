@@ -1,7 +1,7 @@
-import html from "decorator-shared/html";
 import cls from "decorator-client/src/styles/skiplink.module.css";
+import html, { Template } from "decorator-shared/html";
 
-export const SkipLink = (text: string) => html`
+export const SkipLink = (text: Template) => html`
     <skip-link
         href="#maincontent"
         class="${cls.skiplink}"

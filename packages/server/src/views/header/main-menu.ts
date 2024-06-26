@@ -1,19 +1,18 @@
-import html from "decorator-shared/html";
-import { MainMenuContextLink, LinkGroup, Texts } from "decorator-shared/types";
-import cls from "decorator-client/src/styles/main-menu.module.css";
 import globalCls from "decorator-client/src/styles/global.module.css";
+import cls from "decorator-client/src/styles/main-menu.module.css";
+import html, { Template } from "decorator-shared/html";
+import { LinkGroup, MainMenuContextLink } from "decorator-shared/types";
+import i18n from "../../i18n";
 
 export type MainMenuProps = {
-    title: string;
-    texts: Texts;
+    title: Template;
     frontPageUrl: string;
-    links?: LinkGroup[];
-    contextLinks?: MainMenuContextLink[];
+    links: LinkGroup[];
+    contextLinks: MainMenuContextLink[];
 };
 
 export function MainMenu({
     title,
-    texts,
     frontPageUrl,
     links,
     contextLinks,
@@ -30,11 +29,11 @@ export function MainMenu({
                         action: "hovedmeny/forsidelenke",
                         label: frontPageUrl,
                     })}"
-                    >${texts.to_front_page}</lenke-med-sporing
+                    >${i18n("to_front_page")}</lenke-med-sporing
                 >
             </div>
             <div class="${cls.links}">
-                ${links?.map(
+                ${links.map(
                     ({ heading, children }) => html`
                         <div class="${cls.linkGroup}">
                             <h3 class="${cls.linkGroupHeading}">${heading}</h3>
@@ -65,8 +64,9 @@ export function MainMenu({
                 )}
             </div>
         </div>
-        <div class="${cls.contextLinks}">
-            ${contextLinks?.map(
+        ${contextLinks.length > 0 &&
+        html`<div class="${cls.contextLinks}">
+            ${contextLinks.map(
                 ({ content, url, description }) =>
                     html`<lenke-med-sporing
                         href="${url}"
@@ -84,6 +84,6 @@ export function MainMenu({
                         </div>`}
                     </lenke-med-sporing>`,
             )}
-        </div>
+        </div>`}
     </div>`;
 }

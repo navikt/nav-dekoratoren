@@ -131,7 +131,7 @@ export function Index({
             <body>
                 <div id="styles" style="display:none">${unsafeHtml(css)}</div>
                 <div id="header-withmenu">${header}</div>
-                <main>${main}</main>
+                <main id="maincontent">${main}</main>
                 <div id="footer-withmenu">${footer}</div>
                 <div id="scripts" style="display:none">
                     ${unsafeHtml(scripts)}${decoratorData}

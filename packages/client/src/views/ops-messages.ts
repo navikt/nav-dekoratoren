@@ -82,7 +82,7 @@ class OpsMessages extends HTMLElement {
 
         this.innerHTML = OpsMessagesTemplate({
             opsMessages: filteredMessages,
-        }).render();
+        }).render(window.__DECORATOR_DATA__.params);
     }
 }
 

@@ -43,7 +43,7 @@ const nb = {
     hensikt_med_tilbakemelding:
         "Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?",
     hensikt_med_tilbakemelding_lenke: "Ring, chat eller skriv til oss",
-    send_undersokelse_takk: "Takk!",
+    send_undersokelse_takk: "Takk for tilbakemeldingen!",
     rolle_privatperson: "Privat",
     rolle_arbeidsgiver: "Arbeidsgiver",
     rolle_samarbeidspartner: "Samarbeidspartner",
@@ -59,16 +59,16 @@ const nb = {
     showing: "Viser",
     of: "av",
     results: "resultater",
-    hits_for: "treff for",
-    see_all_hits: "Se alle treff",
+    search_hits_heading: ({ total, query, context }) =>
+        `${total} treff for «${query}» for ${context}`,
     more_hits: "Flere treff",
     change_search_filter: "Endre søkefilter for å se andre treff",
-    no_hits_for: "Ingen treff for",
     loading_preview: "Laster forhåndsvisning",
     to_front_page: "Til forsiden",
     important_info: "Viktig informasjon: ",
     footer_del_skjerm: "Del skjerm med veileder",
-    delskjerm_modal_beskrivelse: `Gi veilederen du snakker med på telefon tilgang til å se det du ser på nav.no.`,
+    delskjerm_modal_beskrivelse:
+        "Gi veilederen du snakker med på telefon tilgang til å se det du ser på nav.no.",
     delskjerm_modal_start: "Start skjermdeling",
     delskjerm_modal_label: "Skriv inn koden du får fra veilederen",
     delskjerm_modal_avbryt: "Avbryt",
@@ -81,12 +81,14 @@ const nb = {
     delskjerm_modal_hjelpetekst_2:
         "Det er du som godkjenner skjermdeling. Ingenting blir lagret.",
     delskjerm_modal_stengt:
-        "Skjermdeling er for øyeblikket stengt, prøv igjen senere",
+        "Skjermdeling er for øyeblikket stengt, prøv igjen senere.",
     security_level_info:
         "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
     go_to_my_page: "Gå til Min side",
+    my_page: "Min side",
     my_page_employer: "Min side - Arbeidsgiver",
     loading: "Laster",
+    personopplysninger: "Personopplysninger",
 } as const satisfies Texts;
 
 const en = {
@@ -95,7 +97,7 @@ const en = {
     to_top: "To the top",
     menu: "Menu",
     close: "Close",
-    did_you_find: "Fant du det du lette etter?",
+    did_you_find: "Did you find what you were looking for?",
     search: "Search",
     search_nav_no: "Search nav.no",
     clear: "Clear",
@@ -133,7 +135,7 @@ const en = {
     hensikt_med_tilbakemelding:
         "Unfortunately you will not get a reply to your feedback. Do you have questions or need help?",
     hensikt_med_tilbakemelding_lenke: "Call, chat or write to us",
-    send_undersokelse_takk: "Thanks!",
+    send_undersokelse_takk: "Thank you for your feedback!",
     rolle_privatperson: "Private",
     rolle_arbeidsgiver: "Employer",
     rolle_samarbeidspartner: "Collaborator",
@@ -149,34 +151,36 @@ const en = {
     showing: "Showing",
     of: "of",
     results: "results",
-    hits_for: "hits for",
-    see_all_hits: "See all hits",
+    search_hits_heading: ({ total, query }) =>
+        `${total} hits for "${query}" for individuals`,
     more_hits: "More hits",
     change_search_filter: "Change search filter to see other hits",
-    no_hits_for: "No hits for",
     loading_preview: "Loading preview",
     to_front_page: "To the front page",
     important_info: "Imporant information: ",
     footer_del_skjerm: "Share screen with your counsellor",
-    delskjerm_modal_beskrivelse: `Give the counsellor access to see the same content as you on nav.no`,
+    delskjerm_modal_beskrivelse:
+        "Give the counsellor access to see the same content as you on nav.no.",
     delskjerm_modal_start: "Start screen sharing",
     delskjerm_modal_label: "Enter the code you received from the counsellor",
     delskjerm_modal_avbryt: "Cancel",
     delskjerm_modal_feilmelding: "Must be 5 digits",
     delskjerm_modal_hjelpetekst_overskrift: "What is screen sharing?",
     delskjerm_modal_hjelpetekst_0:
-        "When you share your screen, the counsellor can help you navigate nav.no",
+        "When you share your screen, the counsellor can help you navigate nav.no.",
     delskjerm_modal_hjelpetekst_1:
         "The counsellor can only see what you see on nav.no and can't fill in any information or send anything on your behalf.",
     delskjerm_modal_hjelpetekst_2:
         "Screen sharing must be approved by you. Nothing is stored.",
     delskjerm_modal_stengt:
-        "Screen sharing is currently closed, please try again later",
+        "Screen sharing is currently closed, please try again later.",
     security_level_info:
         "You are logged in with Min ID. If you log in with a higher security level, you will see more content and additional services.",
     go_to_my_page: "Go to my page",
+    my_page: "My page",
     my_page_employer: "My page - Employer",
     loading: "Loading",
+    personopplysninger: "Personal information",
 } as const satisfies Texts;
 
 export const texts: Record<Language, Texts> = {

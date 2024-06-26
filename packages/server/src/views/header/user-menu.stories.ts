@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/html";
-import { texts } from "../../texts";
 import type { UserMenuProps } from "./user-menu";
 import { UserMenu } from "./user-menu";
 
@@ -14,7 +13,6 @@ type Story = StoryObj<UserMenuProps>;
 
 export const LowAuthLevel: Story = {
     args: {
-        texts: texts.nb,
         name: "Charlie Jensen",
         notifications: [
             {
@@ -30,7 +28,6 @@ export const LowAuthLevel: Story = {
 
 export const HighAuthLevel: Story = {
     args: {
-        texts: texts.nb,
         name: "Charlie Jensen",
         level: "Level4",
         notifications: [

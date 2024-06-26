@@ -1,13 +1,12 @@
 import clsx from "clsx";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
-import html from "../html";
+import html, { Template } from "../html";
 import { Breadcrumb } from "../params";
 import { isNavUrl } from "../utils";
+import cls from "./breadcrumbs.module.css";
 import { ForwardChevron } from "./icons";
 import { HomeIcon } from "./icons/home";
-
-import globalCls from "decorator-client/src/styles/global.module.css";
-import cls from "./breadcrumbs.module.css";
 
 const analyticsEventArgs = {
     category: "dekorator-header",
@@ -16,7 +15,7 @@ const analyticsEventArgs = {
 
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
-    label: string;
+    label: Template;
 };
 
 const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {

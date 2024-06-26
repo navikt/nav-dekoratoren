@@ -86,7 +86,7 @@ export class Loader extends HTMLElement {
                     />
                 </svg>
             </div>
-        `.render();
+        `.render(window.__DECORATOR_DATA__.params);
     }
 }
 

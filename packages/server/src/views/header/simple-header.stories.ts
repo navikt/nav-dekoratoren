@@ -1,7 +1,6 @@
-import type { StoryObj, Meta } from "@storybook/html";
+import type { Meta, StoryObj } from "@storybook/html";
 import type { SimpleHeaderProps } from "./simple-header";
 import { SimpleHeader } from "./simple-header";
-import { texts } from "../../texts";
 
 const meta: Meta<SimpleHeaderProps> = {
     title: "header/simple",
@@ -12,8 +11,4 @@ const meta: Meta<SimpleHeaderProps> = {
 export default meta;
 type Story = StoryObj<SimpleHeaderProps>;
 
-export const Default: Story = {
-    args: {
-        texts: texts.nb,
-    },
-};
+export const Default: Story = {};
