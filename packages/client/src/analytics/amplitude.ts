@@ -3,8 +3,7 @@ import { AnalyticsEventArgs } from "./constants";
 import { Auth } from "decorator-shared/auth";
 
 // Dynamic import for lazy loading
-const importAmplitude = () =>
-    import("@amplitude/analytics-browser").then((module) => module.default);
+const importAmplitude = () => import("@amplitude/analytics-browser");
 
 type EventData = Record<string, any>;
 
@@ -14,7 +13,7 @@ declare global {
     }
 }
 
-const buildPlatformField = () => {
+const buildLocationString = () => {
     const { origin, pathname, hash } = window.location;
     return `${origin}${pathname}${hash}`;
 };
@@ -28,11 +27,15 @@ export const initAmplitude = async () => {
         .set("vindusbredde", window.innerWidth)
         .set("vindushoyde", window.innerHeight);
 
-    amplitude.identify(identify);
-
-    amplitude.init("default", "", {
-        serverUrl: "amplitude.nav.no/collect-auto",
+    amplitude.init("default", undefined, {
+        defaultTracking: true,
+        serverUrl: "https://amplitude.nav.no/collect-auto",
+        ingestionMetadata: {
+            sourceName: buildLocationString(),
+        },
     });
+
+    amplitude.identify(identify);
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAmplitude = logEventFromApp;
@@ -119,9 +122,9 @@ export const logAmplitudeEvent = async (
 ) => {
     const amplitude = await importAmplitude();
 
-    return amplitude.logEvent(eventName, {
+    return amplitude.track(eventName, {
         ...eventData,
-        platform: buildPlatformField(),
+        platform: buildLocationString(),
         origin,
         originVersion: eventData.originVersion || "unknown",
         viaDekoratoren: true,
