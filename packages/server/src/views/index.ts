@@ -3,7 +3,6 @@ import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
 
 const entryPointPath = "src/main.ts";
-const entryPointPathAnalytics = "src/analytics/analytics.ts";
 
 // https://github.com/BuilderIO/partytown/issues/241
 // See how this works in production
@@ -72,9 +71,6 @@ export const getScripts = async () => {
         const manifest = (
             await import("decorator-client/dist/.vite/manifest.json")
         ).default;
-        // const thirdPartyManifest = (
-        //     await import("decorator-client/dist/.vite/analytics.manifest.json")
-        // ).default;
 
         const scripts = Object.values(manifest).map((entry) =>
             script(cdnUrl(entry.file)),
@@ -82,9 +78,6 @@ export const getScripts = async () => {
 
         return [
             ...scripts,
-            // asyncScript(
-            //     cdnUrl(thirdPartyManifest[entryPointPathAnalytics].file),
-            // ),
             asyncScript("https://in2.taskanalytics.com/tm.js"),
             asyncScriptInline(hotjarScript),
         ];
@@ -94,7 +87,6 @@ export const getScripts = async () => {
         ...[
             "http://localhost:5173/@vite/client",
             `http://localhost:5173/${entryPointPath}`,
-            // `http://localhost:5173/${entryPointPathAnalytics}`,
         ].map(script),
         partytownInlineScript(hotjarScript),
     ];
