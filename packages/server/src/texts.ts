@@ -85,6 +85,7 @@ const nb = {
     security_level_info:
         "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
     go_to_my_page: "Gå til Min side",
+    my_page_employer: "Min side - Arbeidsgiver",
     loading: "Laster",
 } as const satisfies Texts;
 
@@ -174,6 +175,7 @@ const en = {
     security_level_info:
         "You are logged in with Min ID. If you log in with a higher security level, you will see more content and additional services.",
     go_to_my_page: "Go to my page",
+    my_page_employer: "My page - Employer",
     loading: "Loading",
 } as const satisfies Texts;
 
