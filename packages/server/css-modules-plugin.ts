@@ -1,8 +1,6 @@
 import { plugin } from "bun";
 import postcss from "postcss";
-
-// @ts-expect-error js import
-import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config.js";
+import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config";
 
 export async function getPostcssTokens(path: string) {
     try {

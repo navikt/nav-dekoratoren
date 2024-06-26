@@ -2,11 +2,11 @@ import { partytownRollup } from "@builder.io/partytown/utils";
 import path from "path";
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
-import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config.js";
+import { cssModulesScopedNameOption } from "../shared/css-modules-config";
 
 const mainConfig = defineConfig({
     server: {
-        origin: "http://localhost:5173"
+        origin: "http://localhost:5173",
     },
     logLevel: "info",
     build: {
@@ -18,17 +18,17 @@ const mainConfig = defineConfig({
             plugins: [
                 minifyLiterals(),
                 partytownRollup({
-                    dest: path.join(__dirname, "dist", "~partytown")
-                })
+                    dest: path.join(__dirname, "dist", "~partytown"),
+                }),
             ],
-            input: ["src/main.ts"]
-        }
+            input: ["src/main.ts"],
+        },
     },
     css: {
         modules: {
-            ...cssModulesScopedNameOption
-        }
-    }
+            ...cssModulesScopedNameOption,
+        },
+    },
 });
 
 const csrConfig = defineConfig({
@@ -38,9 +38,9 @@ const csrConfig = defineConfig({
         minify: true,
         manifest: ".vite/csr.manifest.json",
         rollupOptions: {
-            input: ["src/csr.ts"]
-        }
-    }
+            input: ["src/csr.ts"],
+        },
+    },
 });
 
 export default defineConfig(({ mode }) => {
