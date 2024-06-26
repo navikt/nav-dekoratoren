@@ -9,15 +9,9 @@ export type LogoutWarningProps = unknown;
 export function LogoutWarning() {
     return html`<dialog class="${clsModal.modal}" id="logout-warning">
         <div class="${clsModal.modalWindow}">
-            <<<<<<< HEAD
             <h1 id="logout-warning-title" class="${clsModal.modalTitle}">
                 ${i18n("token_warning_title")}
             </h1>
-            =======
-            <h2 id="logout-warning-title" class="${clsModal.modalTitle}">
-                Du blir snart logget ut automatisk
-            </h2>
-            >>>>>>> main
             <p id="logout-warning-body" class="${clsModal.modalBody}">
                 ${i18n("token_warning_body")}
             </p>
