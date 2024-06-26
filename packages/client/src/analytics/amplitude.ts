@@ -4,7 +4,7 @@ import { Auth } from "decorator-shared/auth";
 
 // Dynamic import for lazy loading
 const importAmplitude = () =>
-    import("amplitude-js").then((module) => module.default);
+    import("@amplitude/analytics-browser").then((module) => module.default);
 
 type EventData = Record<string, any>;
 
@@ -22,21 +22,17 @@ const buildPlatformField = () => {
 export const initAmplitude = async () => {
     const amplitude = await importAmplitude();
 
-    const userProps = {
-        skjermbredde: window.screen.width,
-        skjermhoyde: window.screen.height,
-        vindusbredde: window.innerWidth,
-        vindushoyde: window.innerHeight,
-    };
+    const identify = new amplitude.Identify();
+    identify
+        .set("skjermbredde", window.screen.width)
+        .set("skjermhoyde", window.screen.height)
+        .set("vindusbredde", window.innerWidth)
+        .set("vindushoyde", window.innerHeight);
 
-    amplitude.getInstance().init("default", "", {
-        apiEndpoint: "amplitude.nav.no/collect-auto",
-        saveEvents: false,
-        includeUtm: true,
-        includeReferrer: true,
-        platform: buildPlatformField(),
+    amplitude.identify(identify);
+    amplitude.init("default", "", {
+        serverUrl: "amplitude.nav.no/collect-auto",
     });
-    amplitude.getInstance().setUserProperties(userProps);
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAmplitude = logEventFromApp;
@@ -123,18 +119,12 @@ export const logAmplitudeEvent = async (
 ) => {
     const amplitude = await importAmplitude();
 
-    return new Promise((resolve) => {
-        amplitude.getInstance().logEvent(
-            eventName,
-            {
-                ...eventData,
-                platform: buildPlatformField(),
-                origin,
-                originVersion: eventData.originVersion || "unknown",
-                viaDekoratoren: true,
-                fromNext: true,
-            },
-            resolve,
-        );
+    return amplitude.logEvent(eventName, {
+        ...eventData,
+        platform: buildPlatformField(),
+        origin,
+        originVersion: eventData.originVersion || "unknown",
+        viaDekoratoren: true,
+        fromNext: true,
     });
 };
