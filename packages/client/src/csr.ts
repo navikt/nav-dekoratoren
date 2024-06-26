@@ -15,6 +15,7 @@ const findOrError = (id: string) => {
 function urlToScript(url: string) {
     const script = document.createElement("script");
     script.src = url;
+    script.type = "module";
     return script;
 }
 

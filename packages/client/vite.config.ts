@@ -2,9 +2,9 @@ import { partytownRollup } from "@builder.io/partytown/utils";
 import path from "path";
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
-import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config";
+import { cssModulesScopedNameOption } from "../shared/css-modules-config";
 
-export const mainBundleConfig = defineConfig({
+const mainConfig = defineConfig({
     server: {
         origin: "http://localhost:5173",
     },
@@ -15,12 +15,6 @@ export const mainBundleConfig = defineConfig({
         manifest: true,
         sourcemap: true,
         rollupOptions: {
-            output: {
-                inlineDynamicImports: true,
-                // @TODO: Burde tweakes i nav-dekoreatoren-moduler for å støtte moduler
-                format: "commonjs",
-                // esModule: true
-            },
             plugins: [
                 minifyLiterals(),
                 partytownRollup({
@@ -37,19 +31,7 @@ export const mainBundleConfig = defineConfig({
     },
 });
 
-export const lazyConfig = defineConfig({
-    build: {
-        // Don't clear the output, we want to keep the main bundle
-        emptyOutDir: false,
-        minify: true,
-        manifest: ".vite/analytics.manifest.json",
-        rollupOptions: {
-            input: ["src/analytics/analytics.ts"],
-        },
-    },
-});
-
-export const csrConfig = defineConfig({
+const csrConfig = defineConfig({
     build: {
         // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
@@ -62,13 +44,5 @@ export const csrConfig = defineConfig({
 });
 
 export default defineConfig(({ mode }) => {
-    if (mode === "development") {
-        return mainBundleConfig;
-    }
-    // Build steps
-    if (mode === "main") return mainBundleConfig;
-    if (mode === "lazy") return lazyConfig;
-    if (mode === "csr") return csrConfig;
-
-    return mainBundleConfig;
+    return mode === "csr" ? csrConfig : mainConfig;
 });
