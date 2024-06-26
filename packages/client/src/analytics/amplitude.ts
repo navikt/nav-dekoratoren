@@ -27,15 +27,15 @@ export const initAmplitude = async () => {
         .set("vindusbredde", window.innerWidth)
         .set("vindushoyde", window.innerHeight);
 
+    amplitude.identify(identify);
+
     amplitude.init("default", undefined, {
-        defaultTracking: true,
         serverUrl: "https://amplitude.nav.no/collect-auto",
         ingestionMetadata: {
             sourceName: buildLocationString(),
         },
+        defaultTracking: false,
     });
-
-    amplitude.identify(identify);
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAmplitude = logEventFromApp;
