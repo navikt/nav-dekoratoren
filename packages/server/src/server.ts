@@ -164,6 +164,7 @@ app.get("/", async ({ req, html }) => {
 });
 
 app.route("/decorator-next", app);
+app.route("/decorator-next/", app);
 
 export default {
     ...app,
