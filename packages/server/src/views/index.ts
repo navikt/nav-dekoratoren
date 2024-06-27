@@ -20,11 +20,19 @@ a.appendChild(r);
 
 const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
 
-export const getCSSUrl = async () => {
+const getCSSUrl = async () => {
     const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
         .default;
 
     return cdnUrl(manifest["src/main.ts"].css[0]);
+};
+
+const getCSRHydrationScriptUrl = async () => {
+    const csrManifest = (
+        await import("decorator-client/dist/.vite/csr.manifest.json")
+    ).default;
+
+    return cdnUrl(csrManifest["src/csr.ts"].file);
 };
 
 const getCssAsString = async () => {
@@ -40,14 +48,6 @@ const getCssAsString = async () => {
             href: await getCSSUrl(),
         },
     });
-};
-
-export const getCSRScriptUrl = async () => {
-    const csrManifest = (
-        await import("decorator-client/dist/.vite/csr.manifest.json")
-    ).default;
-
-    return cdnUrl(csrManifest["src/csr.ts"].file);
 };
 
 const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
@@ -106,10 +106,16 @@ const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
     ];
 };
 
-export const scriptsProps = await getScriptsProps();
+const scriptsProps = await getScriptsProps();
 
 const cssAsString = await getCssAsString();
 const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
+
+export const csrAssets = {
+    cssUrl: await getCSSUrl(),
+    hydrationScriptUrl: await getCSRHydrationScriptUrl(),
+    mainScriptsProps: scriptsProps,
+};
 
 type Props = {
     language: Language;
