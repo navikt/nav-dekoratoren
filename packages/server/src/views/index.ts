@@ -27,7 +27,7 @@ const getCSSUrl = async () => {
     return cdnUrl(manifest["src/main.ts"].css[0]);
 };
 
-const getCSRHydrationScriptUrl = async () => {
+const getCSRScriptUrl = async () => {
     const csrManifest = (
         await import("decorator-client/dist/.vite/csr.manifest.json")
     ).default;
@@ -113,7 +113,7 @@ const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
 
 export const csrAssets = {
     cssUrl: await getCSSUrl(),
-    hydrationScriptUrl: await getCSRHydrationScriptUrl(),
+    csrScriptUrl: await getCSRScriptUrl(),
     mainScriptsProps: scriptsProps,
 };
 
