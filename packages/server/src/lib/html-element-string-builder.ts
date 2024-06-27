@@ -16,5 +16,5 @@ export const buildHtmlElementString = ({
         return `<${tag} ${attribsString} />`;
     }
 
-    return `<${tag} ${attribsString}>${body || ""}</${tag}>`;
+    return `<${tag} ${attribsString}>${body ?? ""}</${tag}>`;
 };
