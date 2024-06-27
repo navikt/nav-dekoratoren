@@ -5,7 +5,7 @@ import type { Manifest as ViteManifest } from "vite";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import { HtmlTagProps } from "decorator-shared/types";
 
-const entryPointPath = "src/main.ts";
+const ENTRY_POINT_PATH = "src/main.ts";
 
 // https://github.com/BuilderIO/partytown/issues/241
 // See how this works in production
@@ -18,6 +18,30 @@ r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
 
+const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
+
+export const getCSSUrl = async () => {
+    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
+        .default;
+
+    return cdnUrl(manifest["src/main.ts"].css[0]);
+};
+
+const getCssAsString = async () => {
+    if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
+        return "";
+    }
+
+    return buildHtmlElementString({
+        tag: "link",
+        attribs: {
+            type: "text/css",
+            rel: "stylesheet",
+            href: await getCSSUrl(),
+        },
+    });
+};
+
 export const getCSRScriptUrl = async () => {
     const csrManifest = (
         await import("decorator-client/dist/.vite/csr.manifest.json")
@@ -26,30 +50,7 @@ export const getCSRScriptUrl = async () => {
     return cdnUrl(csrManifest["src/csr.ts"].file);
 };
 
-export const getClientCSSUrl = async () => {
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default;
-
-    return cdnUrl(manifest["src/main.ts"].css[0]);
-};
-
-const cssLink = (src: string) =>
-    `<link type="text/css" rel="stylesheet" href="${src}" />`;
-
-const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
-
-const getCssAsString = async () => {
-    if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
-        return "";
-    }
-
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default;
-
-    return manifest[entryPointPath].css.map(cdnUrl).map(cssLink).join("");
-};
-
-export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
+const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
     if (env.NODE_ENV === "development") {
         return [
             {
@@ -62,7 +63,7 @@ export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
             {
                 tag: "script",
                 attribs: {
-                    src: `http://localhost:5173/${entryPointPath}`,
+                    src: `http://localhost:5173/${ENTRY_POINT_PATH}`,
                     type: "module",
                 },
             },
@@ -104,14 +105,10 @@ export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
     ];
 };
 
-const getScriptsAsString = async () => {
-    const scriptProps = await getScriptsProps();
+export const scriptsProps = await getScriptsProps();
 
-    return scriptProps.map(buildHtmlElementString).join("");
-};
-
-const css = await getCssAsString();
-const scripts = await getScriptsAsString();
+const cssAsString = await getCssAsString();
+const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
 
 type Props = {
     language: Language;
@@ -147,12 +144,14 @@ export function Index({
                 />
             </head>
             <body>
-                <div id="styles" style="display:none">${unsafeHtml(css)}</div>
+                <div id="styles" style="display:none">
+                    ${unsafeHtml(cssAsString)}
+                </div>
                 <div id="header-withmenu">${header}</div>
                 <main id="maincontent">${main}</main>
                 <div id="footer-withmenu">${footer}</div>
                 <div id="scripts" style="display:none">
-                    ${unsafeHtml(scripts)}${decoratorData}
+                    ${unsafeHtml(scriptsAsString)}${decoratorData}
                     <script>
                         window.__DECORATOR_DATA__ = JSON.parse(
                             document.getElementById("__DECORATOR_DATA__")
