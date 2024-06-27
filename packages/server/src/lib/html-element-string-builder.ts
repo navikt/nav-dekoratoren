@@ -1,4 +1,5 @@
 import { HtmlTagProps } from "decorator-shared/types";
+import { buildHtmlAttribsString } from "decorator-shared/html";
 
 export const buildHtmlElementString = ({
     tag,
@@ -6,11 +7,7 @@ export const buildHtmlElementString = ({
     body,
     selfClosing,
 }: HtmlTagProps) => {
-    const attribsString = Object.entries(attribs)
-        .map(([name, value]) => {
-            return value === "true" ? name : `${name}="${value}"`;
-        })
-        .join(" ");
+    const attribsString = buildHtmlAttribsString(attribs);
 
     if (selfClosing) {
         return `<${tag} ${attribsString} />`;
