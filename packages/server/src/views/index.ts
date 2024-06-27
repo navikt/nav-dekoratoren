@@ -1,8 +1,11 @@
 import html, { Template, unsafeHtml } from "decorator-shared/html";
 import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
+import type { Manifest as ViteManifest } from "vite";
+import { buildHtmlElementString } from "../lib/html-element-string-builder";
+import { HtmlTagProps } from "decorator-shared/types";
 
-const entryPointPath = "src/main.ts";
+const ENTRY_POINT_PATH = "src/main.ts";
 
 // https://github.com/BuilderIO/partytown/issues/241
 // See how this works in production
@@ -15,14 +18,16 @@ r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
 
-export const getMainScriptUrl = async () => {
+const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
+
+const getCSSUrl = async () => {
     const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
         .default;
 
-    return cdnUrl(manifest[entryPointPath].file);
+    return cdnUrl(manifest["src/main.ts"].css[0]);
 };
 
-export const getCSRScriptUrl = async () => {
+const getCSRScriptUrl = async () => {
     const csrManifest = (
         await import("decorator-client/dist/.vite/csr.manifest.json")
     ).default;
@@ -30,70 +35,87 @@ export const getCSRScriptUrl = async () => {
     return cdnUrl(csrManifest["src/csr.ts"].file);
 };
 
-export const getClientCSSUrl = async () => {
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default;
-
-    return cdnUrl(manifest["src/main.ts"].css[0]);
-};
-
-type AssetFormatter = (src: string) => string;
-
-const script: AssetFormatter = (src) =>
-    `<script type="module" src="${src}"></script>`;
-
-const asyncScript: AssetFormatter = (src) =>
-    `<script fetchpriority="low" async type="module" src="${src}"></script>`;
-
-const asyncScriptInline: AssetFormatter = (src) =>
-    `<script fetchpriority="low" async type="module">${src}</script>`;
-
-const partytownInlineScript: AssetFormatter = (code) =>
-    `<script type="text/partytown">${code}</script>`;
-
-const cssLink: AssetFormatter = (src) =>
-    `<link type="text/css" rel="stylesheet" href="${src}" />`;
-
-const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
-
-const getCss = async () => {
+const getCssAsString = async () => {
     if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
-        return [];
+        return "";
     }
 
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default;
-    return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
+    return buildHtmlElementString({
+        tag: "link",
+        attribs: {
+            type: "text/css",
+            rel: "stylesheet",
+            href: await getCSSUrl(),
+        },
+    });
 };
 
-export const getScripts = async () => {
-    if (env.NODE_ENV === "production") {
-        const manifest = (
-            await import("decorator-client/dist/.vite/manifest.json")
-        ).default;
-
-        const scripts = Object.values(manifest).map((entry) =>
-            script(cdnUrl(entry.file)),
-        );
-
+const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
+    if (env.NODE_ENV === "development") {
         return [
-            ...scripts,
-            asyncScript("https://in2.taskanalytics.com/tm.js"),
-            asyncScriptInline(hotjarScript),
+            {
+                tag: "script",
+                attribs: {
+                    src: "http://localhost:5173/@vite/client",
+                    type: "module",
+                },
+            },
+            {
+                tag: "script",
+                attribs: {
+                    src: `http://localhost:5173/${ENTRY_POINT_PATH}`,
+                    type: "module",
+                },
+            },
         ];
     }
 
+    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
+        .default as ViteManifest;
+
+    const appScripts: HtmlTagProps[] = Object.values(manifest).map((item) => ({
+        tag: "script",
+        attribs: {
+            src: cdnUrl(item.file),
+            type: "module",
+            // Load everything except the entry file async
+            ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
+        },
+    }));
+
     return [
-        ...[
-            "http://localhost:5173/@vite/client",
-            `http://localhost:5173/${entryPointPath}`,
-        ].map(script),
-        partytownInlineScript(hotjarScript),
+        ...appScripts,
+        {
+            tag: "script",
+            attribs: {
+                src: "https://in2.taskanalytics.com/tm.js",
+                type: "module",
+                async: "true",
+                fetchpriority: "low",
+            },
+        },
+        {
+            tag: "script",
+            body: hotjarScript,
+            attribs: {
+                type: "module",
+                async: "true",
+                fetchpriority: "low",
+            },
+        },
     ];
 };
 
-const css = (await getCss()).join("");
-const scripts = (await getScripts()).join("");
+const scriptsProps = await getScriptsProps();
+
+const cssAsString = await getCssAsString();
+const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
+
+export const csrAssets = {
+    cssUrl: await getCSSUrl(),
+    csrScriptUrl: await getCSRScriptUrl(),
+    mainScriptsProps: scriptsProps,
+};
 
 type Props = {
     language: Language;
@@ -129,18 +151,21 @@ export function Index({
                 />
             </head>
             <body>
-                <div id="styles" style="display:none">${unsafeHtml(css)}</div>
+                <div id="styles" style="display:none">
+                    ${unsafeHtml(cssAsString)}
+                </div>
                 <div id="header-withmenu">${header}</div>
                 <main id="maincontent">${main}</main>
                 <div id="footer-withmenu">${footer}</div>
                 <div id="scripts" style="display:none">
-                    ${unsafeHtml(scripts)}${decoratorData}
+                    ${decoratorData}
                     <script>
                         window.__DECORATOR_DATA__ = JSON.parse(
                             document.getElementById("__DECORATOR_DATA__")
                                 ?.innerHTML ?? "",
                         );
                     </script>
+                    ${unsafeHtml(scriptsAsString)}
                 </div>
             </body>
         </html>
