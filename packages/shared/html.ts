@@ -132,11 +132,7 @@ export const buildHtmlAttribsString = (
             const nameFinal =
                 name === "className" ? "class" : toKebabCase(name);
 
-            if (value === true) {
-                return nameFinal;
-            }
-
-            return `${nameFinal}="${value}"`;
+            return value === true ? nameFinal : `${nameFinal}="${value}"`;
         })
         .join(" ");
 
