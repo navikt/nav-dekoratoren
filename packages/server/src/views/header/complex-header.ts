@@ -15,6 +15,7 @@ import { IconButton } from "../../../../shared/views/icon-button";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
+import { clientEnv } from "../../env/server";
 
 export type ComplexHeaderProps = {
     context: Context;
@@ -42,7 +43,7 @@ export function ComplexHeader({
                         >
                             <div class="${cls.hovedmenyContent}">
                                 <lenke-med-sporing
-                                    href="/"
+                                    href="${clientEnv.XP_BASE_URL}"
                                     class="${cls.logo}"
                                     data-analytics
                                     event
