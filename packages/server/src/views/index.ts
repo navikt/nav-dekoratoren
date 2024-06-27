@@ -38,14 +38,15 @@ const cssLink = (src: string) =>
 
 const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
 
-const getCss = async () => {
+const getCssAsString = async () => {
     if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
-        return [];
+        return "";
     }
 
     const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
         .default;
-    return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
+
+    return manifest[entryPointPath].css.map(cdnUrl).map(cssLink).join("");
 };
 
 export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
@@ -108,7 +109,7 @@ const getScriptsAsString = async () => {
     return scriptProps.map(buildHtmlElementString).join("");
 };
 
-const css = (await getCss()).join("");
+const css = await getCssAsString();
 const scripts = await getScriptsAsString();
 
 type Props = {
