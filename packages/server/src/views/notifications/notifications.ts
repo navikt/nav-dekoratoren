@@ -15,6 +15,7 @@ import {
 } from "../../notifications";
 import { NotificationsErrorView } from "../errors/notifications-error";
 import { NotificationsEmpty } from "./notifications-empty";
+import { clientEnv } from "../../env/server";
 
 export type NotificationsProps = {
     notifications: Notification[] | null;
@@ -134,7 +135,7 @@ export function Notifications({ notifications }: NotificationsProps) {
                 globalCls["navds-link"],
                 globalCls["navds-link--neutral"],
             )}"
-            href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+            href="${clientEnv.MIN_SIDE_URL}/tidligere-varsler"
         >
             ${i18n("earlier_notifications")}
         </a>
