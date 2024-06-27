@@ -78,6 +78,7 @@ const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
         attribs: {
             src: cdnUrl(item.file),
             type: "module",
+            // Load everything except the entry file async
             ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
         },
     }));
