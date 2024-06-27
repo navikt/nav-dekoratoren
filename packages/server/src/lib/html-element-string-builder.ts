@@ -8,7 +8,7 @@ export const buildHtmlElementString = ({
 }: HtmlTagProps) => {
     const attribsString = Object.entries(attribs)
         .map(([name, value]) => {
-            return value === true ? name : `${name}="${value}"`;
+            return value === "true" ? name : `${name}="${value}"`;
         })
         .join(" ");
 

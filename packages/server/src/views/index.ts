@@ -3,6 +3,7 @@ import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
+import { HtmlTagProps } from "decorator-shared/types";
 
 const entryPointPath = "src/main.ts";
 
@@ -47,58 +48,68 @@ const getCss = async () => {
     return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
 };
 
-type ScriptProps = {
-    type: string;
-    async?: boolean;
-} & ({ src: string; body?: never } | { src?: never; body: string });
-
-export const getScriptProps = async (): Promise<ScriptProps[]> => {
+export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
     if (env.NODE_ENV === "development") {
         return [
-            { src: "http://localhost:5173/@vite/client", type: "module" },
-            { src: `http://localhost:5173/${entryPointPath}`, type: "module" },
-            { body: hotjarScript, type: "text/partytown" },
+            {
+                tag: "script",
+                attribs: {
+                    src: "http://localhost:5173/@vite/client",
+                    type: "module",
+                },
+            },
+            {
+                tag: "script",
+                attribs: {
+                    src: `http://localhost:5173/${entryPointPath}`,
+                    type: "module",
+                },
+            },
         ];
     }
 
     const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
         .default as ViteManifest;
 
-    const appScripts: ScriptProps[] = Object.values(manifest).map((item) => ({
-        src: cdnUrl(item.file),
-        async: !item.isEntry,
-        type: "module",
+    const appScripts: HtmlTagProps[] = Object.values(manifest).map((item) => ({
+        tag: "script",
+        attribs: {
+            src: cdnUrl(item.file),
+            type: "module",
+            ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
+        },
     }));
 
     return [
         ...appScripts,
         {
-            src: "https://in2.taskanalytics.com/tm.js",
-            async: true,
-            type: "module",
+            tag: "script",
+            attribs: {
+                src: "https://in2.taskanalytics.com/tm.js",
+                type: "module",
+                fetchpriority: "low",
+                async: "true",
+            },
         },
-        { body: hotjarScript, type: "module" },
+        {
+            tag: "script",
+            body: hotjarScript,
+            attribs: {
+                type: "module",
+                fetchpriority: "low",
+            },
+        },
     ];
 };
 
-const getScripts = async () => {
-    const scriptProps = await getScriptProps();
+const getScriptsAsString = async () => {
+    const scriptProps = await getScriptsProps();
 
-    return scriptProps.map(({ src, body, type, async }) =>
-        buildHtmlElementString({
-            tag: "script",
-            body,
-            attribs: {
-                type,
-                ...(async && { async: "true", fetchpriority: "low" }),
-                ...(src && { src }),
-            },
-        }),
-    );
+    return scriptProps.map(buildHtmlElementString).join("");
 };
 
 const css = (await getCss()).join("");
-const scripts = (await getScripts()).join("");
+const scripts = await getScriptsAsString();
 
 type Props = {
     language: Language;
