@@ -158,13 +158,14 @@ export function Index({
                 <main id="maincontent">${main}</main>
                 <div id="footer-withmenu">${footer}</div>
                 <div id="scripts" style="display:none">
+                    ${decoratorData}
                     <script>
                         window.__DECORATOR_DATA__ = JSON.parse(
                             document.getElementById("__DECORATOR_DATA__")
                                 ?.innerHTML ?? "",
                         );
                     </script>
-                    ${unsafeHtml(scriptsAsString)}${decoratorData}
+                    ${unsafeHtml(scriptsAsString)}
                 </div>
             </body>
         </html>
