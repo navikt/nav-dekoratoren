@@ -137,6 +137,14 @@ export type CsrPayload = {
     header: string;
     footer: string;
     data: AppState;
-    scripts: string[];
+    scripts: HtmlTagProps[];
     name: string;
 };
+
+export type HtmlTagProps = {
+    tag: string;
+    attribs: Record<string, string>;
+} & (
+    | { body?: string; selfClosing?: never }
+    | { body?: never; selfClosing?: boolean }
+);

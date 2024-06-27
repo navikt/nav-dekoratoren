@@ -17,7 +17,7 @@ import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { getCSRScriptUrl, getClientCSSUrl, getMainScriptUrl } from "./views";
+import { getCSRScriptUrl, getClientCSSUrl, getScriptProps } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { texts } from "./texts";
 import { clientTextsKeys } from "decorator-shared/types";
@@ -141,7 +141,7 @@ app.get("/env", async ({ req, json }) => {
             features,
             env: clientEnv,
         },
-        scripts: [await getMainScriptUrl()],
+        scripts: [await getScriptProps()],
         //TODO: Add css?
     });
 });

@@ -1,6 +1,9 @@
 import html, { Template, unsafeHtml } from "decorator-shared/html";
 import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
+import type { Manifest as ViteManifest } from "vite";
+import { buildHtmlElementString } from "../lib/html-element-string-builder";
+import { ScriptProps } from "decorator-shared/types";
 
 const entryPointPath = "src/main.ts";
 
@@ -14,13 +17,6 @@ r=o.createElement('script');r.async=1;
 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
-
-export const getMainScriptUrl = async () => {
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default;
-
-    return cdnUrl(manifest[entryPointPath].file);
-};
 
 export const getCSRScriptUrl = async () => {
     const csrManifest = (
@@ -37,24 +33,10 @@ export const getClientCSSUrl = async () => {
     return cdnUrl(manifest["src/main.ts"].css[0]);
 };
 
-type AssetFormatter = (src: string) => string;
-
-const script: AssetFormatter = (src) =>
-    `<script type="module" src="${src}"></script>`;
-
-const asyncScript: AssetFormatter = (src) =>
-    `<script fetchpriority="low" async type="module" src="${src}"></script>`;
-
-const asyncScriptInline: AssetFormatter = (src) =>
-    `<script fetchpriority="low" async type="module">${src}</script>`;
-
-const partytownInlineScript: AssetFormatter = (code) =>
-    `<script type="text/partytown">${code}</script>`;
-
-const cssLink: AssetFormatter = (src) =>
+const cssLink = (src: string) =>
     `<link type="text/css" rel="stylesheet" href="${src}" />`;
 
-const cdnUrl: AssetFormatter = (src) => `${env.CDN_URL}/${src}`;
+const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
 
 const getCss = async () => {
     if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
@@ -66,30 +48,54 @@ const getCss = async () => {
     return manifest[entryPointPath].css.map(cdnUrl).map(cssLink);
 };
 
-export const getScripts = async () => {
-    if (env.NODE_ENV === "production") {
-        const manifest = (
-            await import("decorator-client/dist/.vite/manifest.json")
-        ).default;
+type ScriptProps = {
+    type: string;
+    async?: boolean;
+} & ({ src: string; body?: never } | { src?: never; body: string });
 
-        const scripts = Object.values(manifest).map((entry) =>
-            script(cdnUrl(entry.file)),
-        );
-
+export const getScriptProps = async (): Promise<ScriptProps[]> => {
+    if (env.NODE_ENV === "development") {
         return [
-            ...scripts,
-            asyncScript("https://in2.taskanalytics.com/tm.js"),
-            asyncScriptInline(hotjarScript),
+            { src: "http://localhost:5173/@vite/client", type: "module" },
+            { src: `http://localhost:5173/${entryPointPath}`, type: "module" },
+            { body: hotjarScript, type: "text/partytown" },
         ];
     }
 
+    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
+        .default as ViteManifest;
+
+    const appScripts: ScriptProps[] = Object.values(manifest).map((item) => ({
+        src: cdnUrl(item.file),
+        async: !item.isEntry,
+        type: "module",
+    }));
+
     return [
-        ...[
-            "http://localhost:5173/@vite/client",
-            `http://localhost:5173/${entryPointPath}`,
-        ].map(script),
-        partytownInlineScript(hotjarScript),
+        ...appScripts,
+        {
+            src: "https://in2.taskanalytics.com/tm.js",
+            async: true,
+            type: "module",
+        },
+        { body: hotjarScript, type: "module" },
     ];
+};
+
+const getScripts = async () => {
+    const scriptProps = await getScriptProps();
+
+    return scriptProps.map(({ src, body, type, async }) =>
+        buildHtmlElementString({
+            tag: "script",
+            body,
+            attribs: {
+                type,
+                ...(async && { async: "true", fetchpriority: "low" }),
+                ...(src && { src }),
+            },
+        }),
+    );
 };
 
 const css = (await getCss()).join("");
