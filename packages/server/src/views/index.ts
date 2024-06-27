@@ -88,8 +88,8 @@ export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
             attribs: {
                 src: "https://in2.taskanalytics.com/tm.js",
                 type: "module",
-                fetchpriority: "low",
                 async: "true",
+                fetchpriority: "low",
             },
         },
         {
@@ -97,6 +97,7 @@ export const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
             body: hotjarScript,
             attribs: {
                 type: "module",
+                async: "true",
                 fetchpriority: "low",
             },
         },
