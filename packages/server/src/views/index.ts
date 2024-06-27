@@ -3,7 +3,6 @@ import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import { ScriptProps } from "decorator-shared/types";
 
 const entryPointPath = "src/main.ts";
 
