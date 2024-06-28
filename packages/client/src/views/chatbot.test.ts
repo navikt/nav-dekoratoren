@@ -1,8 +1,9 @@
 import { fixture } from "@open-wc/testing";
-import "./chatbot";
 import Cookies from "js-cookie";
-import cls from "./chatbot.module.css";
 import { updateDecoratorParams } from "../params";
+import { reset } from "../utils";
+import "./chatbot";
+import cls from "./chatbot.module.css";
 
 /**
  * load script
@@ -19,6 +20,9 @@ describe("chatbot", () => {
             params: {},
             features: { ["dekoratoren.chatbotscript"]: true },
         } as any;
+    });
+    afterEach(() => {
+        reset();
     });
 
     it("chatbot param changes mounted state", async () => {
@@ -72,5 +76,31 @@ describe("chatbot", () => {
         updateDecoratorParams({ chatbot: true });
         const el = await fixture("<d-chatbot></d-chatbot>");
         expect(el.childNodes.length).toBe(0);
+    });
+
+    describe("external script", async () => {
+        let wasLoaded = false;
+        const old = document.body.appendChild;
+
+        beforeAll(() => {
+            document.body.appendChild = <T extends Node>(node: T): T => {
+                if (node instanceof HTMLScriptElement) {
+                    node.onload?.(new Event("wat"));
+                    wasLoaded = true;
+                }
+                return old.call<HTMLElement, T[], T>(document.body, node);
+            };
+        });
+        afterAll(() => {
+            document.body.appendChild = old;
+        });
+
+        it("loads script", async () => {
+            updateDecoratorParams({ chatbot: true });
+            await fixture("<d-chatbot></d-chatbot>");
+            expect(wasLoaded).toBe(false);
+            updateDecoratorParams({ chatbotVisible: true });
+            expect(wasLoaded).toBe(true);
+        });
     });
 });

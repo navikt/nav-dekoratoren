@@ -1,21 +1,24 @@
-// @NOTE: can maybe use HTML rewriter here to append scripts based on cookies?
-export const loadedScripts = new Set<string>();
+export const loadedScripts = new Map<string, Promise<void>>();
+
+export const reset = () => {
+    loadedScripts.clear();
+};
 
 export const loadExternalScript = (uri: string, async = true) => {
-    return new Promise<void>((resolve) => {
-        if (loadedScripts.has(uri)) {
-            return resolve();
-        }
-
-        loadedScripts.add(uri);
-        const script = document.createElement("script");
-        if (async) {
-            script.async = true;
-        }
-        script.src = uri;
+    if (loadedScripts.has(uri)) {
+        return loadedScripts.get(uri);
+    }
+    const script = document.createElement("script");
+    if (async) {
+        script.async = true;
+    }
+    script.src = uri;
+    const promise = new Promise<void>((resolve) => {
         script.onload = () => {
             resolve();
         };
-        document.body.appendChild(script);
     });
+    loadedScripts.set(uri, promise);
+    document.body.appendChild(script);
+    return promise;
 };

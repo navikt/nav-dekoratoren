@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
 import { Params } from "decorator-shared/params";
+import { loadExternalScript } from "../utils";
 
 class Chatbot extends HTMLElement {
     button: HTMLButtonElement = document.createElement("button");
@@ -12,7 +13,7 @@ class Chatbot extends HTMLElement {
         this.update(window.__DECORATOR_DATA__.params);
     }
 
-    update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
+    async update({ chatbot, chatbotVisible }: Partial<Params>) {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
             chatbot === false
@@ -25,7 +26,13 @@ class Chatbot extends HTMLElement {
             cls.visible,
             chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation"),
         );
-    };
+
+        if (chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation")) {
+            await loadExternalScript(
+                "https://nav.boost.ai/chatPanel/chatPanel.js",
+            );
+        }
+    }
 }
 
 customElements.define("d-chatbot", Chatbot);
