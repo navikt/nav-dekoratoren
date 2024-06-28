@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
 
 class Chatbot extends HTMLElement {
@@ -14,16 +15,22 @@ class Chatbot extends HTMLElement {
             newValue !== null
         ) {
             const button = document.createElement("button");
-            if (this.getAttribute("data-chatbot-visible") !== null) {
+            if (
+                this.getAttribute("data-chatbot-visible") !== null ||
+                Cookies.get("nav-chatbot%3Aconversation")
+            ) {
                 button.classList.add(cls.visible);
             }
             this.appendChild(button);
         } else if (name === "data-chatbot-visible") {
             const button = this.childNodes[0] as HTMLElement | undefined;
-            if (newValue === null) {
-                button?.classList.remove(cls.visible);
-            } else {
+            if (
+                newValue !== null ||
+                Cookies.get("nav-chatbot%3Aconversation")
+            ) {
                 button?.classList.add(cls.visible);
+            } else {
+                button?.classList.remove(cls.visible);
             }
         }
     }

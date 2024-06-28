@@ -1,6 +1,11 @@
 import { fixture } from "@open-wc/testing";
 import "./chatbot";
+import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
+
+/**
+ * Reagere på paramsupdated
+ */
 
 describe("chatbot", () => {
     it("data-chatbot changes mounted state", async () => {
@@ -20,5 +25,30 @@ describe("chatbot", () => {
         expect(child.classList).toContain(cls.visible);
         el.removeAttribute("data-chatbot-visible");
         expect(child.classList).not.toContain(cls.visible);
+    });
+
+    describe("cookies", () => {
+        beforeAll(() => {
+            Cookies.set("nav-chatbot%3Aconversation", "value");
+        });
+
+        afterAll(() => {
+            Cookies.remove("nav-chatbot%3Aconversation");
+        });
+
+        it("is visible when cookie is set", async () => {
+            const el = await fixture("<d-chatbot data-chatbot></d-chatbot>");
+            const child = el.childNodes[0] as HTMLElement;
+            expect(child.classList).toContain(cls.visible);
+        });
+
+        it("doesnt remove visible when cookie is set", async () => {
+            const el = await fixture(
+                "<d-chatbot data-chatbot data-chatbot-visible></d-chatbot>",
+            );
+            el.removeAttribute("data-chatbot-visible");
+            const child = el.childNodes[0] as HTMLElement;
+            expect(child.classList).toContain(cls.visible);
+        });
     });
 });
