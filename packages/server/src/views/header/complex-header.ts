@@ -1,21 +1,22 @@
 import clsx from "clsx";
-import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
-import cls from "decorator-client/src/styles/header.module.css";
 import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import { ContextLink } from "decorator-shared/context";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
-import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
-import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
-import { DropdownMenu } from "../dropdown-menu";
-import { IconButton } from "../../../../shared/views/icon-button";
-import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
+import { NavLogo } from "decorator-shared/views/nav-logo";
+import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
+import { IconButton } from "decorator-shared/views/icon-button";
+import { DropdownMenu } from "../dropdown-menu";
+import { SearchForm } from "../search-form";
 import { clientEnv } from "../../env/server";
+
+import cls from "decorator-client/src/styles/header.module.css";
+import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
 
 export type ComplexHeaderProps = {
     context: Context;
@@ -91,10 +92,14 @@ export function ComplexHeader({
                                 <div
                                     class="${menuItemsCls.menuItemsUniversalLinks}"
                                 >
-                                    ${language !== "se" &&
-                                    DropdownMenu({
+                                    ${DropdownMenu({
                                         button: IconButton({
-                                            Icon: BurgerIcon(),
+                                            Icon:
+                                                language !== "se"
+                                                    ? BurgerIcon()
+                                                    : SearchIcon({
+                                                          menuSearch: true,
+                                                      }),
                                             text: i18n("menu"),
                                         }),
                                         dropdownContent: html`
@@ -103,7 +108,8 @@ export function ComplexHeader({
                                             >
                                                 ${SearchForm()}
                                             </search-menu>
-                                            <main-menu></main-menu>
+                                            ${language !== "se" &&
+                                            html`<main-menu></main-menu>`}
                                         `,
                                     })}
                                     ${DropdownMenu({
