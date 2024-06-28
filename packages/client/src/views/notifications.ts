@@ -31,20 +31,38 @@ class ArchivableNotification extends HTMLElement {
 customElements.define("archivable-notification", ArchivableNotification);
 
 class LinkNotification extends HTMLElement {
+    // TODO: hva skal vi vise hvis poste done-event feiler?
+    private handleError() {}
+
     connectedCallback() {
         const anchorElement = this.querySelector("a");
         if (!anchorElement) {
             return;
         }
 
+        const id = this.getAttribute("data-id");
+        if (!id) {
+            return;
+        }
+
         anchorElement.addEventListener("click", () => {
-            logAmplitudeEvent("navigere", {
-                komponent:
-                    this.getAttribute("data-type") === "task"
-                        ? "varsel-oppgave"
-                        : "varsel-beskjed",
-                kategori: "varselbjelle",
-                destinasjon: anchorElement.href,
+            fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
+                method: "POST",
+            }).then((res) => {
+                if (!res.ok) {
+                    this.handleError();
+                    return;
+                }
+
+                this.parentElement?.remove();
+                logAmplitudeEvent("navigere", {
+                    komponent:
+                        this.getAttribute("data-type") === "task"
+                            ? "varsel-oppgave"
+                            : "varsel-beskjed",
+                    kategori: "varselbjelle",
+                    destinasjon: anchorElement.href,
+                });
             });
         });
     }
