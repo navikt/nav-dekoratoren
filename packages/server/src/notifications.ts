@@ -92,7 +92,7 @@ export const archiveNotification = async ({
             cookie,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(id),
+        body: JSON.stringify({ eventId: id }),
     });
 
     if (!fetchResult.ok) {
