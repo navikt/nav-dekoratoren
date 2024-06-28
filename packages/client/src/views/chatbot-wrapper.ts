@@ -21,6 +21,10 @@ class ChatbotWrapper extends HTMLElement {
     }
 
     connectedCallback() {
+        window.addEventListener("paramsupdated", this.update);
+    }
+
+    update() {
         const hasConversation = Cookies.get(conversationCookieName);
         const chatbotVisibleParam =
             window.__DECORATOR_DATA__.params.chatbotVisible;
@@ -89,6 +93,7 @@ class ChatbotWrapper extends HTMLElement {
     }
 
     disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.update);
         this.boost?.chatPanel.removeEventListener(
             "conversationIdChanged",
             this.handleConversationIdChanged,

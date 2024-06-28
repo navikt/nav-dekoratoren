@@ -82,9 +82,10 @@ window.addEventListener("message", (e) => {
                 "availableLanguages",
                 "utilsBackground",
                 "language",
+                "chatbotVisible",
             ] satisfies ParamKey[]
         ).forEach((key) => {
-            if (payload[key]) {
+            if (payload[key] !== undefined) {
                 updateDecoratorParams({
                     [key]: payload[key],
                 });
