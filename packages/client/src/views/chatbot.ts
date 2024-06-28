@@ -1,70 +1,28 @@
 import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
+import { Params } from "decorator-shared/params";
 
 class Chatbot extends HTMLElement {
+    button: HTMLButtonElement = document.createElement("button");
+
     connectedCallback() {
-        window.addEventListener("paramsupdated", this.update);
+        window.addEventListener("paramsupdated", (event: CustomEvent) =>
+            this.update(event.detail.params),
+        );
+        this.update(window.__DECORATOR_DATA__.params);
     }
 
-    update = (event: CustomEvent) => {
-        const { chatbot, chatbotVisible } = event.detail.params;
-        if (chatbot !== undefined) {
-            if (chatbot === false) {
-                this.innerHTML = "";
-            } else {
-                const button = document.createElement("button");
-                if (
-                    this.getAttribute("data-chatbot-visible") !== null ||
-                    Cookies.get("nav-chatbot%3Aconversation")
-                ) {
-                    button.classList.add(cls.visible);
-                }
-                this.appendChild(button);
-            }
-        }
-        if (chatbotVisible !== undefined) {
-            const button = this.childNodes[0] as HTMLElement | undefined;
-            if (
-                chatbotVisible !== false ||
-                Cookies.get("nav-chatbot%3Aconversation")
-            ) {
-                button?.classList.add(cls.visible);
-            } else {
-                button?.classList.remove(cls.visible);
-            }
-        }
-    };
-
-    static observedAttributes = ["data-chatbot", "data-chatbot-visible"];
-
-    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-        if (name === "data-chatbot" && newValue === null) {
+    update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
+        if (chatbot === false) {
             this.innerHTML = "";
-        } else if (
-            name === "data-chatbot" &&
-            this.innerHTML === "" &&
-            newValue !== null
-        ) {
-            const button = document.createElement("button");
-            if (
-                this.getAttribute("data-chatbot-visible") !== null ||
-                Cookies.get("nav-chatbot%3Aconversation")
-            ) {
-                button.classList.add(cls.visible);
-            }
-            this.appendChild(button);
-        } else if (name === "data-chatbot-visible") {
-            const button = this.childNodes[0] as HTMLElement | undefined;
-            if (
-                newValue !== null ||
-                Cookies.get("nav-chatbot%3Aconversation")
-            ) {
-                button?.classList.add(cls.visible);
-            } else {
-                button?.classList.remove(cls.visible);
-            }
+        } else if (chatbot !== undefined) {
+            this.appendChild(this.button);
         }
-    }
+        this.button.classList.toggle(
+            cls.visible,
+            chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation"),
+        );
+    };
 }
 
 customElements.define("d-chatbot", Chatbot);
