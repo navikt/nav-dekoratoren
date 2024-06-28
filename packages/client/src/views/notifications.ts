@@ -46,7 +46,18 @@ class LinkNotification extends HTMLElement {
             return;
         }
 
+        const type = this.getAttribute("data-type");
+
         anchorElement.addEventListener("click", () => {
+            if (type === "inbox") {
+                logAmplitudeEvent("navigere", {
+                    komponent: "varsel-innboks",
+                    kategori: "varselbjelle",
+                    destinasjon: anchorElement.href,
+                });
+                return;
+            }
+
             fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
                 method: "POST",
                 credentials: "include",

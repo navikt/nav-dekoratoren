@@ -27,6 +27,7 @@ const nb = {
     earlier_notifications: "Tidligere varsler",
     message: "Beskjed",
     task: "Oppgave",
+    inbox: "Beskjed",
     masked_message_text:
         "Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.",
     masked_task_text:
@@ -118,6 +119,7 @@ const en = {
     earlier_notifications: "Earlier notifications",
     message: "Message",
     task: "Task",
+    inbox: "Message",
     masked_message_text:
         "You have a message, please log in with a higher security level to read the message.",
     masked_task_text:
