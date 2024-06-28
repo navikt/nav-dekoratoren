@@ -32,6 +32,8 @@ import "./views/search-menu";
 import "./views/skip-link";
 import "./views/sticky";
 import "./views/user-menu";
+import { headAssetsProps } from "decorator-shared/head";
+import { buildHtmlElement } from "./helpers/html-element-builder";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
@@ -60,10 +62,7 @@ window.addEventListener("paramsupdated", (e) => {
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source } = message;
     // Only allow messages from own window
-    if (window.location.href.indexOf(origin) === 0 && source === window) {
-        return true;
-    }
-    return false;
+    return window.location.href.startsWith(origin) && source === window;
 };
 
 window.addEventListener("message", (e) => {
@@ -126,6 +125,11 @@ window.addEventListener("load", () => {
 });
 
 const init = async () => {
+    headAssetsProps.forEach((props) => {
+        const element = buildHtmlElement(props);
+        document.head.appendChild(element);
+    });
+
     initHistoryEvents();
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");

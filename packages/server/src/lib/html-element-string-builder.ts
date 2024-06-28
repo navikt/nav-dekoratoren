@@ -1,4 +1,4 @@
-import { HtmlTagProps } from "decorator-shared/types";
+import { HtmlElementProps } from "decorator-shared/types";
 import { buildHtmlAttribsString } from "decorator-shared/html";
 
 export const buildHtmlElementString = ({
@@ -6,7 +6,7 @@ export const buildHtmlElementString = ({
     attribs,
     body,
     selfClosing,
-}: HtmlTagProps) => {
+}: HtmlElementProps) => {
     const attribsString = buildHtmlAttribsString(attribs);
 
     if (selfClosing) {
