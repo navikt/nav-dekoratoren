@@ -48,6 +48,7 @@ class LinkNotification extends HTMLElement {
         anchorElement.addEventListener("click", () => {
             fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
                 method: "POST",
+                credentials: "include",
             }).then((res) => {
                 if (!res.ok) {
                     this.handleError();
