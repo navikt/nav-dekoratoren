@@ -73,6 +73,7 @@ export const getNotifications = async ({
         },
         varslerSchema,
     ).then((result) => {
+        console.log(result);
         return result.ok
             ? { ...result, data: varslerToNotifications(result.data) }
             : result;
