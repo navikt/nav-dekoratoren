@@ -4,9 +4,13 @@ export const reset = () => {
     loadedScripts.clear();
 };
 
-export const loadExternalScript = (uri: string, async = true) => {
-    if (loadedScripts.has(uri)) {
-        return loadedScripts.get(uri);
+export const loadExternalScript = (
+    uri: string,
+    async = true,
+): Promise<void> => {
+    const existing = loadedScripts.get(uri);
+    if (existing) {
+        return existing;
     }
     const script = document.createElement("script");
     if (async) {

@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
 import { Params } from "decorator-shared/params";
 import { loadExternalScript } from "../utils";
+import { env, param } from "../params";
 
 class Chatbot extends HTMLElement {
     button: HTMLButtonElement = document.createElement("button");
@@ -28,9 +29,38 @@ class Chatbot extends HTMLElement {
         );
 
         if (chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation")) {
-            await loadExternalScript(
-                "https://nav.boost.ai/chatPanel/chatPanel.js",
-            );
+            loadExternalScript(
+                env("ENV") === "production"
+                    ? "https://nav.boost.ai/chatPanel/chatPanel.js"
+                    : "https://navtest.boost.ai/chatPanel/chatPanel.js",
+            ).then(() => {
+                window.boostInit(
+                    env("ENV") === "production" ? "nav" : "navtest",
+                    {
+                        chatPanel: {
+                            settings: {
+                                removeRememberedConversationOnChatPanelClose:
+                                    true,
+                                conversationId: Cookies.get(
+                                    "nav-chatbot%3Aconversation",
+                                ),
+                                openTextLinksInNewTab: true,
+                            },
+                            styling: { buttons: { multiline: true } },
+                            header: {
+                                filters: {
+                                    filterValues:
+                                        param("context") === "arbeidsgiver"
+                                            ? "arbeidsgiver"
+                                            : param("language") === "nn"
+                                              ? "nynorsk"
+                                              : "bokmal",
+                                },
+                            },
+                        },
+                    },
+                );
+            });
         }
     }
 }
