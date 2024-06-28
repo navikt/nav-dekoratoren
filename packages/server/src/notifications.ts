@@ -95,6 +95,10 @@ export const archiveNotification = async ({
         body: JSON.stringify({ eventId: id }),
     });
 
+    console.log(fetchResult);
+
+    console.log(`${env.VARSEL_API_URL}/beskjed/inaktiver`);
+
     if (!fetchResult.ok) {
         return Result.Error(await fetchResult.text());
     }

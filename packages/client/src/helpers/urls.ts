@@ -11,8 +11,5 @@ export const endpointUrlWithParams = (
         ...params,
     });
 
-    console.log(`${env("APP_URL")}${endpointUrl}?${formattedParams}`);
-    console.log("endpointurl - " + endpointUrl);
-
     return `${env("APP_URL")}${endpointUrl}?${formattedParams}`;
 };
