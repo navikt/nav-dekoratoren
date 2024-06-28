@@ -1,15 +1,12 @@
 import { fixture } from "@open-wc/testing";
+import { BoostConfig } from "decorator-shared/boost-config";
 import Cookies from "js-cookie";
-import { env, updateDecoratorParams } from "../params";
+import { updateDecoratorParams } from "../params";
 import { reset } from "../utils";
 import "./chatbot";
 import cls from "./chatbot.module.css";
-import { BoostConfig } from "decorator-shared/boost-config";
 
 /**
- * init boost
- * env
- *  load prod/script
  * onClick
  *  buffer load
  * view
@@ -108,6 +105,15 @@ describe("chatbot", () => {
             calledWith = [];
             Cookies.remove("nav-chatbot%3Aconversation");
         });
+        const wasCalled = async () =>
+            await new Promise<void>((resolve) => {
+                const interval = setInterval(() => {
+                    if (calledWith.length > 0) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 1);
+            });
 
         it("loads script and inits boost", async () => {
             updateDecoratorParams({ chatbot: true });
@@ -116,10 +122,11 @@ describe("chatbot", () => {
             expect(calledWith).toEqual([]);
             updateDecoratorParams({ chatbotVisible: true });
             Cookies.set("nav-chatbot%3Aconversation", "value");
+
+            await wasCalled();
             expect(loadedSrc).toBe(
                 "https://nav.boost.ai/chatPanel/chatPanel.js",
             );
-            await new Promise((resolve) => setTimeout(resolve, 10));
             expect(calledWith[0]).toBe("nav");
             expect(calledWith[1]).toEqual({
                 chatPanel: {
@@ -144,17 +151,16 @@ describe("chatbot", () => {
             expect(loadedSrc).toBe(
                 "https://navtest.boost.ai/chatPanel/chatPanel.js",
             );
-            await new Promise((resolve) => setTimeout(resolve, 10));
+            await wasCalled();
             expect(calledWith[0]).toBe("navtest");
         });
 
         it("sets preferred filter to arbeidsgiver", async () => {
             window.__DECORATOR_DATA__.params.context = "arbeidsgiver";
             updateDecoratorParams({ chatbot: true, chatbotVisible: true });
-            Cookies.set("nav-chatbot%3Aconversation", "value");
 
             await fixture("<d-chatbot></d-chatbot>");
-            await new Promise((resolve) => setTimeout(resolve, 10));
+            await wasCalled();
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "arbeidsgiver",
             );
@@ -163,10 +169,9 @@ describe("chatbot", () => {
         it("sets preferred filter to nynorsk", async () => {
             window.__DECORATOR_DATA__.params.language = "nn";
             updateDecoratorParams({ chatbot: true, chatbotVisible: true });
-            Cookies.set("nav-chatbot%3Aconversation", "value");
 
             await fixture("<d-chatbot></d-chatbot>");
-            await new Promise((resolve) => setTimeout(resolve, 10));
+            await wasCalled();
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "nynorsk",
             );
