@@ -9,6 +9,7 @@ import cls from "./chatbot.module.css";
 /**
  * onClick
  *  buffer load
+ * boost.chatPanel listeners
  * view
  */
 
@@ -175,6 +176,91 @@ describe("chatbot", () => {
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "nynorsk",
             );
+        });
+    });
+
+    describe("onClick", () => {
+        const old = document.body.appendChild;
+
+        beforeAll(() => {
+            document.body.appendChild = <T extends Node>(node: T): T => {
+                if (node instanceof HTMLScriptElement) {
+                    setTimeout(() => node.onload?.(new Event("wat")), 100);
+                }
+                return old.call<HTMLElement, T[], T>(document.body, node);
+            };
+        });
+        afterAll(() => {
+            document.body.appendChild = old;
+        });
+
+        afterEach(() => {
+            reset();
+        });
+
+        it("toggles chatbot", async () => {
+            let isShown = false;
+            let wasCalled = false;
+
+            const boostInitialized = async () =>
+                await new Promise<void>((resolve) => {
+                    const interval = setInterval(() => {
+                        if (wasCalled) {
+                            clearInterval(interval);
+                            resolve();
+                        }
+                    }, 1);
+                });
+            window.boostInit = () => {
+                wasCalled = true;
+                return {
+                    chatPanel: {
+                        show: () => {
+                            isShown = true;
+                        },
+                    },
+                };
+            };
+            updateDecoratorParams({ chatbot: true, chatbotVisible: true });
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            const button = el.childNodes[0] as HTMLButtonElement;
+            expect(isShown).toBe(false);
+            await boostInitialized();
+            button.click();
+            expect(isShown).toBe(true);
+        });
+
+        it("toggles chatbot after boost init", async () => {
+            let isShown = false;
+            let wasCalled = false;
+
+            const boostInitialized = async () =>
+                await new Promise<void>((resolve) => {
+                    const interval = setInterval(() => {
+                        if (wasCalled) {
+                            clearInterval(interval);
+                            resolve();
+                        }
+                    }, 1);
+                });
+            window.boostInit = () => {
+                wasCalled = true;
+                return {
+                    chatPanel: {
+                        show: () => {
+                            isShown = true;
+                        },
+                    },
+                };
+            };
+            updateDecoratorParams({ chatbot: true, chatbotVisible: true });
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            const button = el.childNodes[0] as HTMLButtonElement;
+            expect(isShown).toBe(false);
+            button.click();
+            expect(isShown).toBe(false);
+            await boostInitialized();
+            expect(isShown).toBe(true);
         });
     });
 });

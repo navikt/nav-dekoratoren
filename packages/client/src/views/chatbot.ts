@@ -1,11 +1,25 @@
 import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
-import { Params } from "decorator-shared/params";
+import { Context, Language, Params } from "decorator-shared/params";
 import { loadExternalScript } from "../utils";
 import { env, param } from "../params";
 
 class Chatbot extends HTMLElement {
-    button: HTMLButtonElement = document.createElement("button");
+    button: HTMLButtonElement;
+    boost?: any;
+    wasClicked = false;
+
+    constructor() {
+        super();
+        this.button = document.createElement("button");
+        this.button.addEventListener("click", () => {
+            if (this.boost) {
+                this.boost.chatPanel.show();
+            } else {
+                this.wasClicked = true;
+            }
+        });
+    }
 
     connectedCallback() {
         window.addEventListener("paramsupdated", (event: CustomEvent) =>
@@ -29,40 +43,56 @@ class Chatbot extends HTMLElement {
         );
 
         if (chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation")) {
-            loadExternalScript(
+            await loadExternalScript(
                 env("ENV") === "production"
                     ? "https://nav.boost.ai/chatPanel/chatPanel.js"
                     : "https://navtest.boost.ai/chatPanel/chatPanel.js",
-            ).then(() => {
-                window.boostInit(
-                    env("ENV") === "production" ? "nav" : "navtest",
-                    {
-                        chatPanel: {
-                            settings: {
-                                removeRememberedConversationOnChatPanelClose:
-                                    true,
-                                conversationId: Cookies.get(
-                                    "nav-chatbot%3Aconversation",
-                                ),
-                                openTextLinksInNewTab: true,
-                            },
-                            styling: { buttons: { multiline: true } },
-                            header: {
-                                filters: {
-                                    filterValues:
-                                        param("context") === "arbeidsgiver"
-                                            ? "arbeidsgiver"
-                                            : param("language") === "nn"
-                                              ? "nynorsk"
-                                              : "bokmal",
-                                },
-                            },
-                        },
-                    },
-                );
-            });
+            );
+            this.boost = window.boostInit(
+                env("ENV") === "production" ? "nav" : "navtest",
+                boostConfig({
+                    conversationId: Cookies.get("nav-chatbot%3Aconversation"),
+                    context: param("context"),
+                    language: param("language"),
+                }),
+            );
+            if (this.wasClicked) {
+                this.wasClicked = false;
+                this.boost.chatPanel.show();
+            }
         }
     }
 }
+
+const boostConfig = ({
+    conversationId,
+    context,
+    language,
+}: {
+    conversationId?: string;
+    context: Context;
+    language: Language;
+}) => {
+    return {
+        chatPanel: {
+            settings: {
+                removeRememberedConversationOnChatPanelClose: true,
+                conversationId,
+                openTextLinksInNewTab: true,
+            },
+            styling: { buttons: { multiline: true } },
+            header: {
+                filters: {
+                    filterValues:
+                        context === "arbeidsgiver"
+                            ? "arbeidsgiver"
+                            : language === "nn"
+                              ? "nynorsk"
+                              : "bokmal",
+                },
+            },
+        },
+    };
+};
 
 customElements.define("d-chatbot", Chatbot);
