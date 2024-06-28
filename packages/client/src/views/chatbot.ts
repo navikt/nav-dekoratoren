@@ -13,9 +13,12 @@ class Chatbot extends HTMLElement {
     }
 
     update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
-        if (chatbot === false) {
+        if (
+            !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
+            chatbot === false
+        ) {
             this.innerHTML = "";
-        } else if (chatbot !== undefined) {
+        } else if (chatbot) {
             this.appendChild(this.button);
         }
         this.button.classList.toggle(

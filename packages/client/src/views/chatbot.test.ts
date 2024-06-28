@@ -10,7 +10,10 @@ import { updateDecoratorParams } from "../params";
 
 describe("chatbot", () => {
     beforeEach(() => {
-        window.__DECORATOR_DATA__ = { params: {} } as any;
+        window.__DECORATOR_DATA__ = {
+            params: {},
+            features: { ["dekoratoren.chatbotscript"]: true },
+        } as any;
     });
 
     it("chatbot param changes mounted state", async () => {
@@ -57,5 +60,12 @@ describe("chatbot", () => {
             const child = el.childNodes[0] as HTMLElement;
             expect(child.classList).toContain(cls.visible);
         });
+    });
+
+    it("doesnt render when feature is not toggled", async () => {
+        window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] = false;
+        updateDecoratorParams({ chatbot: true });
+        const el = await fixture("<d-chatbot></d-chatbot>");
+        expect(el.childNodes.length).toBe(0);
     });
 });
