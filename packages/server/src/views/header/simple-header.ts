@@ -6,6 +6,7 @@ import html, { Template } from "decorator-shared/html";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { SkipLink } from "../skip-link";
+import { clientEnv } from "../../env/server";
 
 export type SimpleHeaderProps = {
     decoratorUtils: Template;
@@ -17,7 +18,7 @@ export const SimpleHeader = ({ decoratorUtils }: SimpleHeaderProps) => html`
             ${SkipLink(i18n("skip_link"))}
             <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
                 <lenke-med-sporing
-                    href="/"
+                    href="${clientEnv.XP_BASE_URL}"
                     class="${cls.logo} ${cls.logoSimple}"
                     data-analytics-event-args="${JSON.stringify({
                         category: "dekorator-header",

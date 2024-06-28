@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import html, {
-    AttribueValue,
+    AttributeValue,
     Template,
     htmlAttributes,
 } from "decorator-shared/html";
@@ -10,7 +10,7 @@ export type DropdownMenuProps = {
     button: Template;
     dropdownContent: Template;
     dropdownClass?: string;
-    attributes?: Record<string, AttribueValue>;
+    attributes?: Record<string, AttributeValue>;
 };
 
 export const DropdownMenu = ({

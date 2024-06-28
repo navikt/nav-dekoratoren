@@ -4,6 +4,7 @@ import cls from "decorator-client/src/styles/notifications-empty.module.css";
 import html from "decorator-shared/html";
 import { KattIngenNotifications } from "decorator-shared/views/illustrations";
 import i18n from "../../i18n";
+import { clientEnv } from "../../env/server";
 
 export function NotificationsEmpty() {
     return html`
@@ -20,7 +21,7 @@ export function NotificationsEmpty() {
                         globalCls["navds-link"],
                         globalCls["navds-link--neutral"],
                     )}"
-                    href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+                    href="${clientEnv.MIN_SIDE_URL}/tidligere-varsler"
                 >
                     ${i18n("notifications_show_all")}
                 </a>
