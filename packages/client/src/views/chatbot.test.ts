@@ -5,7 +5,12 @@ import cls from "./chatbot.module.css";
 import { updateDecoratorParams } from "../params";
 
 /**
- *
+ * load script
+ * init boost
+ * env
+ * onClick
+ *  buffer load
+ * view
  */
 
 describe("chatbot", () => {
