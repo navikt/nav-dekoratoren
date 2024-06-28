@@ -2,9 +2,11 @@ import { fixture } from "@open-wc/testing";
 import "./chatbot";
 import Cookies from "js-cookie";
 import cls from "./chatbot.module.css";
+import { updateDecoratorParams } from "../params";
 
 /**
  * Reagere på paramsupdated
+ * Hva er sannheten, params eller attributter?
  */
 
 describe("chatbot", () => {
@@ -25,6 +27,18 @@ describe("chatbot", () => {
         expect(child.classList).toContain(cls.visible);
         el.removeAttribute("data-chatbot-visible");
         expect(child.classList).not.toContain(cls.visible);
+    });
+
+    it("reacts to paramsupdated", async () => {
+        window.__DECORATOR_DATA__ = { params: {} } as any;
+        const el = await fixture("<d-chatbot></d-chatbot>");
+        updateDecoratorParams({ chatbot: true, chatbotVisible: true });
+        const child = el.childNodes[0] as HTMLElement;
+        expect(child.classList).toContain(cls.visible);
+        updateDecoratorParams({ chatbotVisible: false });
+        expect(child.classList).not.toContain(cls.visible);
+        updateDecoratorParams({ chatbot: false });
+        expect(el.childNodes.length).toBe(0);
     });
 
     describe("cookies", () => {
