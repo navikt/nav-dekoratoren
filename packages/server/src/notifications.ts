@@ -16,7 +16,6 @@ const varselSchema = z.object({
 const varslerSchema = z.object({
     oppgaver: z.array(varselSchema),
     beskjeder: z.array(varselSchema),
-    innboks: z.array(varselSchema),
 });
 
 type Varsel = z.infer<typeof varselSchema>;
