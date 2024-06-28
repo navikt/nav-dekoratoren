@@ -82,11 +82,11 @@ export const getNotifications = async ({
             headers: { cookie },
         },
         varslerSchema,
-    ).then((result) => {
-        return result.ok
+    ).then((result) =>
+        result.ok
             ? { ...result, data: varslerToNotifications(result.data) }
-            : result;
-    });
+            : result,
+    );
 };
 
 export const archiveNotification = async ({
