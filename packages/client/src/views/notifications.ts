@@ -15,6 +15,7 @@ class ArchivableNotification extends HTMLElement {
         this.querySelector("button")?.addEventListener("click", () =>
             fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
                 method: "POST",
+                credentials: "include",
             }).then((res) => {
                 if (!res.ok) {
                     this.handleError();
