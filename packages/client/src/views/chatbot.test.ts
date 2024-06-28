@@ -7,8 +7,6 @@ import "./chatbot";
 import cls from "./chatbot.module.css";
 
 /**
- * onClick
- *  buffer load
  * boost.chatPanel listeners
  * view
  */
@@ -182,7 +180,7 @@ describe("chatbot", () => {
     describe("onClick", () => {
         const old = document.body.appendChild;
 
-        beforeAll(() => {
+        beforeEach(() => {
             document.body.appendChild = <T extends Node>(node: T): T => {
                 if (node instanceof HTMLScriptElement) {
                     setTimeout(() => node.onload?.(new Event("wat")), 100);
@@ -194,11 +192,7 @@ describe("chatbot", () => {
             document.body.appendChild = old;
         });
 
-        afterEach(() => {
-            reset();
-        });
-
-        it("toggles chatbot", async () => {
+        it("toggles chatbot if boost is initialized", async () => {
             let isShown = false;
             let wasCalled = false;
 
@@ -227,6 +221,7 @@ describe("chatbot", () => {
             expect(isShown).toBe(false);
             await boostInitialized();
             button.click();
+            await Promise.resolve();
             expect(isShown).toBe(true);
         });
 

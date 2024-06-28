@@ -4,21 +4,41 @@ import { Context, Language, Params } from "decorator-shared/params";
 import { loadExternalScript } from "../utils";
 import { env, param } from "../params";
 
+type Boost = { chatPanel: { show: () => void } };
+
+const loadScript = () =>
+    loadExternalScript(
+        env("ENV") === "production"
+            ? "https://nav.boost.ai/chatPanel/chatPanel.js"
+            : "https://navtest.boost.ai/chatPanel/chatPanel.js",
+    );
+
 class Chatbot extends HTMLElement {
     button: HTMLButtonElement;
-    boost?: any;
+    boost?: Boost;
     wasClicked = false;
+
+    getBoost = async (): Promise<Boost> => {
+        if (!this.boost) {
+            await loadScript();
+            this.boost = window.boostInit(
+                env("ENV") === "production" ? "nav" : "navtest",
+                boostConfig({
+                    conversationId: Cookies.get("nav-chatbot%3Aconversation"),
+                    context: param("context"),
+                    language: param("language"),
+                }),
+            ) as Boost;
+        }
+        return this.boost;
+    };
 
     constructor() {
         super();
         this.button = document.createElement("button");
-        this.button.addEventListener("click", () => {
-            if (this.boost) {
-                this.boost.chatPanel.show();
-            } else {
-                this.wasClicked = true;
-            }
-        });
+        this.button.addEventListener("click", () =>
+            this.getBoost().then((boost) => boost.chatPanel.show()),
+        );
     }
 
     connectedCallback() {
@@ -43,23 +63,7 @@ class Chatbot extends HTMLElement {
         );
 
         if (chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation")) {
-            await loadExternalScript(
-                env("ENV") === "production"
-                    ? "https://nav.boost.ai/chatPanel/chatPanel.js"
-                    : "https://navtest.boost.ai/chatPanel/chatPanel.js",
-            );
-            this.boost = window.boostInit(
-                env("ENV") === "production" ? "nav" : "navtest",
-                boostConfig({
-                    conversationId: Cookies.get("nav-chatbot%3Aconversation"),
-                    context: param("context"),
-                    language: param("language"),
-                }),
-            );
-            if (this.wasClicked) {
-                this.wasClicked = false;
-                this.boost.chatPanel.show();
-            }
+            this.getBoost();
         }
     }
 }
