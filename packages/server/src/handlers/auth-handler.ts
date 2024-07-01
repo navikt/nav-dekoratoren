@@ -2,7 +2,6 @@ import {
     Auth,
     AuthDataResponse,
     AuthLoggedIn,
-    getLogOutUrl,
     loggedOutResponseData,
 } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
@@ -17,6 +16,18 @@ import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 
 const AUTH_API_URL = `${env.API_DEKORATOREN_URL}/auth`;
+
+export const getLogOutUrl = (params: Params) => {
+    if (params.logoutUrl) {
+        return params.logoutUrl;
+    }
+
+    if (params.redirectToUrlLogout) {
+        return `${clientEnv.LOGOUT_URL}?redirect=${params.redirectToUrlLogout}`;
+    }
+
+    return clientEnv.LOGOUT_URL;
+};
 
 const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
     return fetch(AUTH_API_URL, {
