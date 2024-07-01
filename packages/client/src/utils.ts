@@ -1,9 +1,5 @@
 export const loadedScripts = new Map<string, Promise<void>>();
 
-export const reset = () => {
-    loadedScripts.clear();
-};
-
 export const loadExternalScript = (
     uri: string,
     async = true,

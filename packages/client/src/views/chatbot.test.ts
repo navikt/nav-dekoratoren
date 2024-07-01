@@ -1,12 +1,11 @@
 import { fixture } from "@open-wc/testing";
-import { BoostConfig } from "decorator-shared/boost-config";
 import Cookies from "js-cookie";
 import { updateDecoratorParams } from "../params";
-import { reset } from "../utils";
 import "./chatbot";
 import cls from "./chatbot.module.css";
 
 /**
+ * TODOs:
  * boost.chatPanel listeners
  * view
  */
@@ -14,17 +13,6 @@ import cls from "./chatbot.module.css";
 describe("chatbot", () => {
     const old = document.body.appendChild;
     let loadedSrc = "";
-    let calledWith: any[] = [];
-
-    const wasCalled = async () =>
-        await new Promise<void>((resolve) => {
-            const interval = setInterval(() => {
-                if (calledWith.length > 0) {
-                    clearInterval(interval);
-                    resolve();
-                }
-            }, 1);
-        });
 
     afterAll(() => {
         document.body.appendChild = old;
@@ -33,7 +21,7 @@ describe("chatbot", () => {
     beforeEach(() => {
         document.body.appendChild = <T extends Node>(node: T): T => {
             if (node instanceof HTMLScriptElement) {
-                setTimeout(() => node.onload?.(new Event("wat")), 0);
+                setTimeout(() => node.onload?.(new Event("wat")), 10);
                 loadedSrc = node.src;
             }
             return old.call<HTMLElement, T[], T>(document.body, node);
@@ -43,32 +31,44 @@ describe("chatbot", () => {
             features: { ["dekoratoren.chatbotscript"]: true },
             env: { ENV: "production" },
         } as any;
-        window.boostInit = (urlBase: string, boostConfig: BoostConfig) => {
-            calledWith = [urlBase, boostConfig];
-        };
     });
 
     afterEach(() => {
-        calledWith = [];
         loadedSrc = "";
         Cookies.remove("nav-chatbot%3Aconversation");
-        reset();
     });
 
     it("reacts to paramsupdated", async () => {
+        updateDecoratorParams({ chatbot: false, chatbotVisible: false });
         const el = await fixture("<d-chatbot></d-chatbot>");
+        expect(el.hasChildNodes()).toBe(false);
+
+        updateDecoratorParams({ chatbot: true });
+        expect(el.hasChildNodes()).toBe(true);
         const child = el.childNodes[0] as HTMLElement;
-        expect(child.classList).toContain(cls.visible);
-        updateDecoratorParams({ chatbotVisible: false });
         expect(child.classList).not.toContain(cls.visible);
+        expect(loadedSrc).toBe("");
+
+        updateDecoratorParams({ chatbotVisible: true });
+        expect(child.classList).toContain(cls.visible);
+        expect(loadedSrc).toBe("https://nav.boost.ai/chatPanel/chatPanel.js");
+
         updateDecoratorParams({ chatbot: false });
         expect(el.hasChildNodes()).toBe(false);
     });
 
+    it("uses test url in dev", async () => {
+        window.__DECORATOR_DATA__.env.ENV = "development";
+        await fixture("<d-chatbot></d-chatbot>");
+        expect(loadedSrc).toBe(
+            "https://navtest.boost.ai/chatPanel/chatPanel.js",
+        );
+    });
+
     it("doesnt remove visible when cookie is set", async () => {
         Cookies.set("nav-chatbot%3Aconversation", "value");
-        const el = await fixture("<d-chatbot></d-chatbot>");
         updateDecoratorParams({ chatbotVisible: false });
+        const el = await fixture("<d-chatbot></d-chatbot>");
         const child = el.childNodes[0] as HTMLElement;
         expect(child.classList).toContain(cls.visible);
     });
@@ -79,19 +79,45 @@ describe("chatbot", () => {
         expect(el.hasChildNodes()).toBe(false);
     });
 
-    describe("external script", async () => {
-        it("loads script and inits boost", async () => {
-            updateDecoratorParams({ chatbotVisible: false });
-            await fixture("<d-chatbot></d-chatbot>");
-            expect(loadedSrc).toBe("");
-            expect(calledWith).toEqual([]);
-            updateDecoratorParams({ chatbotVisible: true });
-            Cookies.set("nav-chatbot%3Aconversation", "value");
+    describe("onClick", () => {
+        let isShown = false;
+        let wasCalled = false;
+        let calledWith: any[] = [];
 
-            await wasCalled();
-            expect(loadedSrc).toBe(
-                "https://nav.boost.ai/chatPanel/chatPanel.js",
-            );
+        beforeEach(() => {
+            isShown = false;
+            wasCalled = false;
+            window.boostInit = (a: any, b: any) => {
+                wasCalled = true;
+                calledWith = [a, b];
+                return { chatPanel: { show: () => (isShown = true) } };
+            };
+        });
+
+        const boostInitialized = async () =>
+            await new Promise<void>((resolve) => {
+                const interval = setInterval(() => {
+                    if (wasCalled) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 1);
+            });
+
+        it("initializes boost on click and shows panel after init", async () => {
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            expect(wasCalled).toBe(false);
+            expect(isShown).toBe(false);
+            await boostInitialized();
+            expect(isShown).toBe(true);
+        });
+
+        it("initializes boost with correct config", async () => {
+            Cookies.set("nav-chatbot%3Aconversation", "value");
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            await boostInitialized();
             expect(calledWith[0]).toBe("nav");
             expect(calledWith[1]).toEqual({
                 chatPanel: {
@@ -108,18 +134,17 @@ describe("chatbot", () => {
 
         it("inits boost with dev url base", async () => {
             window.__DECORATOR_DATA__.env.ENV = "development";
-            await fixture("<d-chatbot></d-chatbot>");
-            expect(loadedSrc).toBe(
-                "https://navtest.boost.ai/chatPanel/chatPanel.js",
-            );
-            await wasCalled();
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            await boostInitialized();
             expect(calledWith[0]).toBe("navtest");
         });
 
         it("sets preferred filter to arbeidsgiver", async () => {
             window.__DECORATOR_DATA__.params.context = "arbeidsgiver";
-            await fixture("<d-chatbot></d-chatbot>");
-            await wasCalled();
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            await boostInitialized();
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "arbeidsgiver",
             );
@@ -127,71 +152,12 @@ describe("chatbot", () => {
 
         it("sets preferred filter to nynorsk", async () => {
             window.__DECORATOR_DATA__.params.language = "nn";
-            await fixture("<d-chatbot></d-chatbot>");
-            await wasCalled();
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            await boostInitialized();
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "nynorsk",
             );
-        });
-    });
-
-    describe("onClick", () => {
-        it("toggles chatbot if boost is initialized", async () => {
-            let isShown = false;
-            let wasCalled = false;
-
-            const boostInitialized = async () =>
-                await new Promise<void>((resolve) => {
-                    const interval = setInterval(() => {
-                        if (wasCalled) {
-                            clearInterval(interval);
-                            resolve();
-                        }
-                    }, 1);
-                });
-            window.boostInit = () => {
-                wasCalled = true;
-                return { chatPanel: { show: () => (isShown = true) } };
-            };
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            const button = el.childNodes[0] as HTMLButtonElement;
-            expect(isShown).toBe(false);
-            await boostInitialized();
-            button.click();
-            await Promise.resolve();
-            expect(isShown).toBe(true);
-        });
-
-        it("toggles chatbot after boost init", async () => {
-            let isShown = false;
-            let wasCalled = false;
-
-            const boostInitialized = async () =>
-                await new Promise<void>((resolve) => {
-                    const interval = setInterval(() => {
-                        if (wasCalled) {
-                            clearInterval(interval);
-                            resolve();
-                        }
-                    }, 1);
-                });
-            window.boostInit = () => {
-                wasCalled = true;
-                return {
-                    chatPanel: {
-                        show: () => {
-                            isShown = true;
-                        },
-                    },
-                };
-            };
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            const button = el.childNodes[0] as HTMLButtonElement;
-            expect(isShown).toBe(false);
-            button.click();
-            expect(isShown).toBe(false);
-            await boostInitialized();
-            expect(isShown).toBe(true);
         });
     });
 }, 1000);

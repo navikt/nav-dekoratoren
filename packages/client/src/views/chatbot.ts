@@ -1,8 +1,8 @@
-import Cookies from "js-cookie";
-import cls from "./chatbot.module.css";
 import { Context, Language, Params } from "decorator-shared/params";
-import { loadExternalScript } from "../utils";
+import Cookies from "js-cookie";
 import { env, param } from "../params";
+import { loadExternalScript } from "../utils";
+import cls from "./chatbot.module.css";
 
 type Boost = { chatPanel: { show: () => void } };
 
@@ -63,7 +63,7 @@ class Chatbot extends HTMLElement {
         );
 
         if (chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation")) {
-            this.getBoost();
+            loadScript();
         }
     }
 }
