@@ -1,61 +1,115 @@
 import { ClientTexts } from "decorator-shared/types";
 import {
-    AuthData,
     fakeExpirationTime,
+    transformSessionToAuth,
     fetchRenew,
     fetchSession,
     getSecondsToExpiration,
 } from "./helpers/auth";
 
-export async function setupLogoutWarning(
-    hasLogoutWarning: boolean,
-    texts: ClientTexts,
-) {
-    if (!hasLogoutWarning) {
-        return;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let timeoutHandler: NodeJS.Timeout;
-    let auth: AuthData | undefined;
-    let silenceWarning: boolean = false;
+type Auth = {
+    sessionExpireAtLocal: string;
+    tokenExpireAtLocal: string;
+};
 
-    const TOKEN_WARNING_THRESHOLD = 5 * 60; // 5 minutes
-    const SESSION_WARNING_THRESHOLD = 5 * 60; // 5 minutes
-
-    // Modal elements
-    const logoutWarningDialog = document.getElementById(
+function getDOMElements() {
+    const logoutWarningDialogEl = document.getElementById(
         "logout-warning",
     ) as HTMLDialogElement | null;
-    const title = logoutWarningDialog?.querySelector("#logout-warning-title");
-    const body = logoutWarningDialog?.querySelector("#logout-warning-body");
-    const confirmButton = logoutWarningDialog?.querySelector(
+    const titleEl = logoutWarningDialogEl?.querySelector(
+        "#logout-warning-title",
+    );
+    const bodyEl = logoutWarningDialogEl?.querySelector("#logout-warning-body");
+    const confirmButtonEl = logoutWarningDialogEl?.querySelector(
         "#logout-warning-confirm",
     );
-    const cancelButton = logoutWarningDialog?.querySelector(
+    const cancelButtonEl = logoutWarningDialogEl?.querySelector(
         "#logout-warning-cancel",
     );
 
-    // Session and token fetching from central login service
-    // ---------------------------------------------
-    async function getUpdatedSessionRemote() {
-        const result = await fetchSession();
-        if (result.session && result.tokens) {
-            auth = { ...result }; // Spread to avoid referencing.
-        }
+    return {
+        logoutWarningDialogEl,
+        titleEl,
+        bodyEl,
+        confirmButtonEl,
+        cancelButtonEl,
+    };
+}
+
+function updateLogoutWarningUI(type: "token" | "session", minutes?: number) {
+    const { titleEl, bodyEl, confirmButtonEl, cancelButtonEl } =
+        getDOMElements();
+
+    const texts: ClientTexts = window.__DECORATOR_DATA__.texts;
+
+    if (!titleEl || !bodyEl || !confirmButtonEl || !cancelButtonEl || !texts) {
+        return;
     }
 
-    async function getRenewedTokenRemote() {
-        const result = await fetchRenew();
-        if (result.session && result.tokens) {
-            auth = { ...result }; // Spread to avoid referencing.
+    const title =
+        type === "token"
+            ? texts.token_warning_title
+            : texts.session_warning_title.replace(
+                  "$1",
+                  minutes?.toString() || "",
+              );
+    const body =
+        type === "token"
+            ? texts.token_warning_body
+            : texts.session_warning_body;
+    const confirm = type === "token" ? texts.yes : texts.ok;
+    const cancel = texts.logout;
+
+    titleEl.innerHTML = title;
+    bodyEl.innerHTML = body;
+    confirmButtonEl.innerHTML = confirm;
+    cancelButtonEl.innerHTML = cancel;
+
+    confirmButtonEl.setAttribute("data-type", type);
+    cancelButtonEl.setAttribute("data-type", type);
+}
+
+export async function initLogoutWarning() {
+    let timeoutHandler: NodeJS.Timeout;
+    let auth: Auth | null = null;
+    let silenceWarning: boolean = false;
+
+    const secondsToWarnBeforeExpiration = 5 * 60; // Give user 5 minutes to react to the warning.
+
+    const { logoutWarningDialogEl } = getDOMElements();
+
+    // Session and token fetching from central login service
+    // ---------------------------------------------
+    async function updateAuthFromSession() {
+        const result = await fetchSession();
+        if (!result?.session || !result?.tokens) {
+            auth = null;
+            return;
         }
+
+        auth = transformSessionToAuth(result);
+    }
+
+    async function renewSessionAndUpdateAuth() {
+        const result = await fetchRenew();
+        if (!result?.session && !result?.tokens) {
+            return;
+        }
+        auth = transformSessionToAuth(result);
+    }
+
+    function silenceSessionWarning() {
+        if (logoutWarningDialogEl) {
+            logoutWarningDialogEl.close();
+        }
+        silenceWarning = true;
     }
 
     // Debug functions for testing token and session expiry
     // ---------------------------------------------
     function fakeTokenExpiration(seconds: number) {
-        if (auth?.tokens) {
-            auth.tokens.expire_at = fakeExpirationTime(seconds);
+        if (auth) {
+            auth.tokenExpireAtLocal = fakeExpirationTime(seconds);
         } else {
             console.error(
                 "No tokens found in auth object. Cannot fake token expiry.",
@@ -64,8 +118,8 @@ export async function setupLogoutWarning(
     }
 
     function fakeSessionExpiration(seconds: number) {
-        if (auth?.session) {
-            auth.session.ends_at = fakeExpirationTime(seconds);
+        if (auth) {
+            auth.sessionExpireAtLocal = fakeExpirationTime(seconds);
         } else {
             console.error(
                 "No tokens found in auth object. Cannot fake session expiry.",
@@ -75,99 +129,64 @@ export async function setupLogoutWarning(
 
     // Updaters for the actual modal UI
     // ---------------------------------------------
-    function updateDialogUI(type: "token" | "session", minutes?: number) {
-        if (
-            !title ||
-            !body ||
-            !confirmButton ||
-            !cancelButton ||
-            !logoutWarningDialog
-        ) {
-            return;
-        }
+    function showDialog(type: "token" | "session", minutes?: number) {
+        updateLogoutWarningUI(type, minutes);
 
-        if (type === "token") {
-            title.innerHTML = texts.token_warning_title;
-            body.innerHTML = texts.token_warning_body;
-            confirmButton.innerHTML = texts.yes;
-            cancelButton.innerHTML = texts.logout;
-        } else {
-            title.innerHTML = texts.session_warning_title.replace(
-                "$1",
-                minutes?.toString() || "",
-            );
-            body.innerHTML = texts.session_warning_body;
-            confirmButton.innerHTML = texts.ok;
-            cancelButton.innerHTML = texts.logout;
-        }
-
-        confirmButton.setAttribute("data-type", type);
-        cancelButton.setAttribute("data-type", type);
-
-        if (!logoutWarningDialog.open && !silenceWarning) {
-            logoutWarningDialog.showModal();
+        if (!logoutWarningDialogEl?.open || !silenceWarning) {
+            logoutWarningDialogEl?.showModal();
         }
     }
 
-    function silenceSessionWarning() {
-        if (logoutWarningDialog) {
-            logoutWarningDialog.close();
-        }
-        silenceWarning = true;
-    }
-
-    // Timeout function for checking local session
-    // each second. Tab change or reload will
-    // sync the session with the central login service.
     function periodicalLocalSessionCheck() {
         timeoutHandler = setTimeout(() => {
             periodicalLocalSessionCheck();
         }, 1000);
 
         // User is not logged in, so do nothing and end the timeout
-        // check as a new one will be triggered if the user logs in anyway.
-        if (!auth?.tokens || !auth?.session || !logoutWarningDialog) {
+        if (!auth || !logoutWarningDialogEl) {
             clearTimeout(timeoutHandler);
             return;
         }
 
-        const { tokens, session } = auth;
         const secondsToTokenExpiration = getSecondsToExpiration(
-            tokens.expire_at,
+            auth.tokenExpireAtLocal,
         );
         const secondsToSessionExpiration = getSecondsToExpiration(
-            session.ends_at,
+            auth.sessionExpireAtLocal,
         );
 
         if (secondsToTokenExpiration < 0 || secondsToSessionExpiration < 0) {
             window.location.href = `${window.__DECORATOR_DATA__.env.LOGOUT_URL}`;
         }
 
-        if (secondsToTokenExpiration < TOKEN_WARNING_THRESHOLD) {
-            updateDialogUI("token");
+        if (secondsToTokenExpiration < secondsToWarnBeforeExpiration) {
+            showDialog("token");
             return;
         }
 
-        if (secondsToSessionExpiration < SESSION_WARNING_THRESHOLD) {
+        if (secondsToSessionExpiration < secondsToWarnBeforeExpiration) {
             const minutesToSessionExpiration = Math.ceil(
                 secondsToSessionExpiration / 60,
             );
-            updateDialogUI("session", minutesToSessionExpiration);
+            showDialog("session", minutesToSessionExpiration);
             return;
         }
 
-        if (logoutWarningDialog.open) {
-            logoutWarningDialog.close();
+        // Neither token nor session is about to expire, so close the dialog
+        // if it's open. This could happen if the user has multiple tabs open
+        // and has refreshet the token in one of them.
+        if (logoutWarningDialogEl.open) {
+            logoutWarningDialogEl.close();
         }
     }
 
     // Event handlers
     // ---------------------------------------------
-    function onConfirm(e: Event) {
-        const target = e.target as HTMLButtonElement;
-        const type = target.getAttribute("data-type");
+    function onConfirm() {
+        const { confirmButtonEl } = getDOMElements();
+        const type = confirmButtonEl?.getAttribute("data-type");
         if (type === "token") {
-            getRenewedTokenRemote();
+            renewSessionAndUpdateAuth();
         } else {
             silenceSessionWarning();
         }
@@ -181,7 +200,7 @@ export async function setupLogoutWarning(
 
     function onVisibilityChange() {
         if (document.visibilityState === "visible") {
-            getUpdatedSessionRemote();
+            updateAuthFromSession();
         }
     }
 
@@ -195,13 +214,18 @@ export async function setupLogoutWarning(
     }
 
     function startEventListeners() {
+        const { confirmButtonEl, cancelButtonEl } = getDOMElements();
         window.addEventListener("visibilitychange", onVisibilityChange);
-        confirmButton?.addEventListener("click", onConfirm);
-        cancelButton?.addEventListener("click", onCancel);
+        confirmButtonEl?.addEventListener("click", onConfirm);
+        cancelButtonEl?.addEventListener("click", onCancel);
+    }
+
+    if (!logoutWarningDialog) {
+        return;
     }
 
     startEventListeners();
     setupDebugFunctionality();
-    await getUpdatedSessionRemote();
+    await updateAuthFromSession();
     periodicalLocalSessionCheck();
 }
