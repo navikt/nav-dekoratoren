@@ -1,10 +1,10 @@
-import { LoginButton } from "./views/login-button";
-import { Context, Language, Params } from "./params";
 import { Template } from "./html";
+import { Language, Params } from "./params";
+import { LoginButton } from "./views/login-button";
 
 export const loggedOutResponseData = (
     loginText: Template,
-    params: { language: Language; context: Context },
+    params: { language: Language },
 ): AuthDataResponse => ({
     auth: { authenticated: false },
     usermenuHtml: LoginButton(loginText).render(params),

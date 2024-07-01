@@ -90,6 +90,7 @@ const nb = {
     my_page_employer: "Min side - Arbeidsgiver",
     loading: "Laster",
     personopplysninger: "Personopplysninger",
+    open_chat: "Åpne chat",
 } as const satisfies Texts;
 
 const en = {
@@ -183,6 +184,7 @@ const en = {
     my_page_employer: "My page - Employer",
     loading: "Loading",
     personopplysninger: "Personal information",
+    open_chat: "Open chat",
 } as const satisfies Texts;
 
 export const texts: Record<Language, Texts> = {

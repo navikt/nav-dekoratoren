@@ -27,6 +27,7 @@ export const clientTextsKeys = [
     "important_info",
     "loading_preview",
     "loading",
+    "open_chat",
 ] as const;
 
 export type ClientTexts = {

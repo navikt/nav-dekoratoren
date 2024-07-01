@@ -12,7 +12,7 @@ import "./main.css";
 import { env, hasParam, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 import "./views/breadcrumb";
-import "./views/chatbot-wrapper";
+import "./views/chatbot";
 import "./views/context-link";
 import "./views/decorator-utils";
 import "./views/dropdown-menu";
@@ -82,9 +82,10 @@ window.addEventListener("message", (e) => {
                 "availableLanguages",
                 "utilsBackground",
                 "language",
+                "chatbotVisible",
             ] satisfies ParamKey[]
         ).forEach((key) => {
-            if (payload[key]) {
+            if (payload[key] !== undefined) {
                 updateDecoratorParams({
                     [key]: payload[key],
                 });
