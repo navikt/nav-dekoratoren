@@ -54,13 +54,14 @@ const MaskedNotificationComp = ({
     </div>`;
 
 const NotificationComp = ({
-    notification: { type, date, link, text, channels },
+    notification: { id, type, date, link, text, channels },
 }: {
     notification: UnmaskedNotification;
 }) =>
     html` <link-notification
         class="${cls.notification} ${cls.linkNotification}"
         data-type="${type}"
+        data-id="${id}"
     >
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">

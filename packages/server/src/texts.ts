@@ -27,6 +27,7 @@ const nb = {
     earlier_notifications: "Tidligere varsler",
     message: "Beskjed",
     task: "Oppgave",
+    inbox: "Beskjed",
     masked_message_text:
         "Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.",
     masked_task_text:
@@ -89,6 +90,7 @@ const nb = {
     my_page_employer: "Min side - Arbeidsgiver",
     loading: "Laster",
     personopplysninger: "Personopplysninger",
+    open_chat: "Åpne chat",
 } as const satisfies Texts;
 
 const en = {
@@ -118,6 +120,7 @@ const en = {
     earlier_notifications: "Earlier notifications",
     message: "Message",
     task: "Task",
+    inbox: "Message",
     masked_message_text:
         "You have a message, please log in with a higher security level to read the message.",
     masked_task_text:
@@ -181,6 +184,7 @@ const en = {
     my_page_employer: "My page - Employer",
     loading: "Loading",
     personopplysninger: "Personal information",
+    open_chat: "Open chat",
 } as const satisfies Texts;
 
 export const texts: Record<Language, Texts> = {

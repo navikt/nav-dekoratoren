@@ -17,6 +17,7 @@ import {
 } from "@storybook/addon-viewport";
 import { texts } from "../packages/server/src/texts";
 import { ClientTexts } from "decorator-shared/types";
+import { updateDecoratorParams } from "decorator-client/src/params";
 
 declare global {
     interface Window {
@@ -62,10 +63,8 @@ const preview: Preview = {
 
             const language = context.globals.locale;
 
-            window.__DECORATOR_DATA__ = {
-                params: { language },
-                texts: texts[language],
-            };
+            window.__DECORATOR_DATA__.texts = texts[language];
+            updateDecoratorParams({ language });
 
             if (story === null) {
                 return "";

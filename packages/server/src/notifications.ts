@@ -5,7 +5,7 @@ import { fetchAndValidateJson } from "./lib/fetch-and-validate";
 
 const varselSchema = z.object({
     eventId: z.string(),
-    type: z.enum(["oppgave", "beskjed"]),
+    type: z.enum(["oppgave", "beskjed", "innboks"]),
     tidspunkt: z.string(),
     isMasked: z.boolean(),
     tekst: z.string().nullable(),
@@ -24,7 +24,7 @@ export type Varsler = z.infer<typeof varslerSchema>;
 
 export type MaskedNotification = {
     id: string;
-    type: "task" | "message";
+    type: NotificationType;
     date: string;
     channels: string[];
     masked: true;
@@ -32,7 +32,7 @@ export type MaskedNotification = {
 
 export type UnmaskedNotification = {
     id: string;
-    type: "task" | "message";
+    type: NotificationType;
     date: string;
     channels: string[];
     masked: false;
@@ -42,12 +42,22 @@ export type UnmaskedNotification = {
 
 export type Notification = MaskedNotification | UnmaskedNotification;
 
+type NotificationType = "message" | "task" | "inbox";
+
+const translateNotificationType = {
+    beskjed: "message",
+    oppgave: "task",
+    innboks: "inbox",
+};
+
 const varslerToNotifications = (varsler: Varsler): Notification[] =>
     [varsler.oppgaver, varsler.beskjeder].flatMap((list) =>
         list.map(
             (varsel: Varsel): Notification => ({
                 id: varsel.eventId,
-                type: varsel.type === "beskjed" ? "message" : "task",
+                type: translateNotificationType[
+                    varsel.type
+                ] as NotificationType,
                 date: varsel.tidspunkt,
                 channels: varsel.eksternVarslingKanaler,
                 ...(varsel.isMasked
@@ -92,7 +102,7 @@ export const archiveNotification = async ({
             cookie,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(id),
+        body: JSON.stringify({ eventId: id }),
     });
 
     if (!fetchResult.ok) {

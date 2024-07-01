@@ -6,7 +6,6 @@ export function LoginButton(text: Template) {
     return html`
         <login-button>
             ${IconButton({
-                id: "login-button",
                 Icon: LoginIcon({}),
                 text,
             })}

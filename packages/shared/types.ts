@@ -27,6 +27,7 @@ export const clientTextsKeys = [
     "important_info",
     "loading_preview",
     "loading",
+    "open_chat",
 ] as const;
 
 export type ClientTexts = {
@@ -56,6 +57,7 @@ export type Texts = ClientTexts & {
     earlier_notifications: string;
     message: string;
     task: string;
+    inbox: string;
     masked_message_text: string;
     masked_task_text: string;
     archive: string;
