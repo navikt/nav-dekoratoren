@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { updateDecoratorParams } from "../params";
 import "./chatbot";
 import cls from "./chatbot.module.css";
+import { Boost } from "./chatbot";
 
 /**
  * TODOs:
@@ -83,6 +84,18 @@ describe("chatbot", () => {
         let isShown = false;
         let wasCalled = false;
         let calledWith: any[] = [];
+        let filterValues: string[] = [];
+        let triggeredAction: number;
+        const chatPanel = document.createElement(
+            "div",
+        ) as unknown as Boost["chatPanel"];
+        chatPanel.show = () => (isShown = true);
+        chatPanel.setFilterValues = (f) => {
+            filterValues = f;
+        };
+        chatPanel.triggerAction = (a) => {
+            triggeredAction = a;
+        };
 
         beforeEach(() => {
             isShown = false;
@@ -90,7 +103,7 @@ describe("chatbot", () => {
             window.boostInit = (a: any, b: any) => {
                 wasCalled = true;
                 calledWith = [a, b];
-                return { chatPanel: { show: () => (isShown = true) } };
+                return { chatPanel };
             };
         });
 
@@ -158,6 +171,43 @@ describe("chatbot", () => {
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "nynorsk",
             );
+        });
+
+        it("sets cookie on id changed if present", async () => {
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            chatPanel.dispatchEvent(
+                new CustomEvent("conversationIdChanged", {
+                    detail: { conversationId: "newId" },
+                }),
+            );
+            expect(Cookies.get("nav-chatbot%3Aconversation")).toBe("newId");
+            chatPanel.dispatchEvent(
+                new CustomEvent("conversationIdChanged", {
+                    detail: { conversationId: "" },
+                }),
+            );
+            expect(Cookies.get("nav-chatbot%3Aconversation")).toBe(undefined);
+        });
+
+        it("removes cookie on close", async () => {
+            Cookies.set("nav-chatbot%3Aconversation", "value");
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            chatPanel.dispatchEvent(new CustomEvent("chatPanelClosed"));
+            expect(Cookies.get("nav-chatbot%3Aconversation")).toBe(undefined);
+        });
+
+        it("sets filter value and triggers next actions", async () => {
+            const el = await fixture("<d-chatbot></d-chatbot>");
+            (el.childNodes[0] as HTMLButtonElement).click();
+            chatPanel.dispatchEvent(
+                new CustomEvent("setFilterValue", {
+                    detail: { filterValue: ["filter value"], nextId: 37 },
+                }),
+            );
+            expect(filterValues).toEqual(["filter value"]);
+            expect(triggeredAction).toBe(37);
         });
     });
 }, 1000);

@@ -4,7 +4,24 @@ import { env, param } from "../params";
 import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
 
-type Boost = { chatPanel: { show: () => void } };
+interface CustomEventMap {
+    conversationIdChanged: CustomEvent<{ conversationId: string }>;
+    chatPanelClosed: CustomEvent<undefined>;
+    setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
+}
+
+export type Boost = {
+    chatPanel: {
+        show: () => void;
+        addEventListener: <K extends keyof CustomEventMap>(
+            type: K,
+            listener: (this: Document, ev: CustomEventMap[K]) => void,
+        ) => void;
+        dispatchEvent: (event: CustomEventMap[keyof CustomEventMap]) => void;
+        setFilterValues: (filterValues: string[]) => void;
+        triggerAction: (actionId: number) => void;
+    };
+};
 
 const loadScript = () =>
     loadExternalScript(
@@ -29,6 +46,35 @@ class Chatbot extends HTMLElement {
                     language: param("language"),
                 }),
             ) as Boost;
+            this.boost.chatPanel.addEventListener(
+                "conversationIdChanged",
+                (event) => {
+                    console.log("event", event.detail.conversationId);
+                    if (event.detail.conversationId) {
+                        Cookies.set(
+                            "nav-chatbot%3Aconversation",
+                            event.detail.conversationId,
+                            {
+                                expires: 1,
+                                domain: location.hostname.includes("nav.no")
+                                    ? ".nav.no"
+                                    : undefined,
+                            },
+                        );
+                    } else {
+                        Cookies.remove("nav-chatbot%3Aconversation");
+                    }
+                },
+            );
+            this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
+                this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
+                if (event.detail.nextId) {
+                    this.boost?.chatPanel.triggerAction(event.detail.nextId);
+                }
+            });
+            this.boost.chatPanel.addEventListener("chatPanelClosed", () => {
+                Cookies.remove("nav-chatbot%3Aconversation");
+            });
         }
         return this.boost;
     };
