@@ -8,7 +8,6 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    padding-block: var(--a-spacing-6) var(--a-spacing-8);
     transition-duration: 0.4s;
     transition-property: max-height, opacity;
     transition-timing-function: ease-in;

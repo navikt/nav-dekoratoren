@@ -1,24 +1,23 @@
 import clsx from "clsx";
+import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
+import cls from "decorator-client/src/styles/header.module.css";
 import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
-import { ContextLink } from "decorator-shared/context";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
-import i18n from "../../i18n";
-import { SkipLink } from "../skip-link";
-import { Sticky } from "../sticky";
-import { NavLogo } from "decorator-shared/views/nav-logo";
 import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
-import { IconButton } from "decorator-shared/views/icon-button";
+import { NavLogo } from "decorator-shared/views/nav-logo";
+import { IconButton } from "../../../../shared/views/icon-button";
+import { ContextLink } from "../../context";
+import i18n from "../../i18n";
 import { DropdownMenu } from "../dropdown-menu";
 import { SearchForm } from "../search-form";
-import { clientEnv } from "../../env/server";
-
-import cls from "decorator-client/src/styles/header.module.css";
-import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
+import { SkipLink } from "../skip-link";
+import { Sticky } from "../sticky";
 
 export type ComplexHeaderProps = {
+    frontPageUrl: string;
     context: Context;
     language: Language;
     contextLinks: ContextLink[];
@@ -26,6 +25,7 @@ export type ComplexHeaderProps = {
 };
 
 export function ComplexHeader({
+    frontPageUrl,
     language,
     contextLinks,
     context: currentContext,
@@ -44,7 +44,7 @@ export function ComplexHeader({
                         >
                             <div class="${cls.hovedmenyContent}">
                                 <lenke-med-sporing
-                                    href="${clientEnv.XP_BASE_URL}"
+                                    href="${frontPageUrl}"
                                     class="${cls.logo}"
                                     data-analytics
                                     event

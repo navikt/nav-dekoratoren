@@ -9,7 +9,7 @@ outboundHosts:
 env:
   - name: ENV
     value: prod
-  - name: HOST
+  - name: APP_URL
     value: https://www.nav.no/decorator-next
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
@@ -37,7 +37,7 @@ env:
     value: https://arbeidsgiver.nav.no/min-side-arbeidsgiver/
   - name: PERSONOPPLYSNINGER_URL
     value: https://www.nav.no/person/personopplysninger
-  - name: BOOST_ENVIRONMENT
+  - name: BOOST_ENV
     value: "nav"
   - name: PUZZEL_CUSTOMER_ID
     value: 83BD7664-B38B-4EEE-8D99-200669A32551

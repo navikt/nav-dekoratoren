@@ -80,8 +80,8 @@ export const clientEnvSchema = z.object({
     API_SESSION_URL: z.string(),
     APP_URL: z.string(),
     AUTH_API_URL: z.string(),
-    BOOST_ENVIRONMENT: z.enum(["nav", "navtest"]),
-    ENV: z.enum(["production", "development"]),
+    BOOST_ENV: z.enum(["nav", "navtest"]),
+    ENV: z.enum(["prod", "dev", "localhost"]),
     LOGIN_URL: z.string(),
     LOGOUT_URL: z.string(),
     MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
@@ -93,4 +93,4 @@ export const clientEnvSchema = z.object({
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;
-export type BoostEnviroment = Environment["BOOST_ENVIRONMENT"];
+export type BoostEnviroment = Environment["BOOST_ENV"];

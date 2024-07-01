@@ -12,7 +12,7 @@ import "./main.css";
 import { env, hasParam, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 import "./views/breadcrumb";
-import "./views/chatbot-wrapper";
+import "./views/chatbot";
 import "./views/context-link";
 import "./views/decorator-utils";
 import "./views/dropdown-menu";
@@ -32,6 +32,8 @@ import "./views/search-menu";
 import "./views/skip-link";
 import "./views/sticky";
 import "./views/user-menu";
+import { headAssetsProps } from "decorator-shared/head";
+import { buildHtmlElement } from "./helpers/html-element-builder";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
@@ -60,10 +62,7 @@ window.addEventListener("paramsupdated", (e) => {
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source } = message;
     // Only allow messages from own window
-    if (window.location.href.indexOf(origin) === 0 && source === window) {
-        return true;
-    }
-    return false;
+    return window.location.href.startsWith(origin) && source === window;
 };
 
 window.addEventListener("message", (e) => {
@@ -82,9 +81,10 @@ window.addEventListener("message", (e) => {
                 "availableLanguages",
                 "utilsBackground",
                 "language",
+                "chatbotVisible",
             ] satisfies ParamKey[]
         ).forEach((key) => {
-            if (payload[key]) {
+            if (payload[key] !== undefined) {
                 updateDecoratorParams({
                     [key]: payload[key],
                 });
@@ -125,7 +125,15 @@ window.addEventListener("load", () => {
     addFaroMetaData();
 });
 
+const injectHeadAssets = () => {
+    headAssetsProps.forEach((props) => {
+        const element = buildHtmlElement(props);
+        document.head.appendChild(element);
+    });
+};
+
 const init = async () => {
+    injectHeadAssets();
     initHistoryEvents();
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");

@@ -27,6 +27,7 @@ export const clientTextsKeys = [
     "important_info",
     "loading_preview",
     "loading",
+    "open_chat",
 ] as const;
 
 export type ClientTexts = {
@@ -56,6 +57,7 @@ export type Texts = ClientTexts & {
     earlier_notifications: string;
     message: string;
     task: string;
+    inbox: string;
     masked_message_text: string;
     masked_task_text: string;
     archive: string;
@@ -94,6 +96,7 @@ export type Texts = ClientTexts & {
     delskjerm_modal_hjelpetekst_2: string;
     delskjerm_modal_stengt: string;
     security_level_info: string;
+    security_level_link: string;
     go_to_my_page: string;
     my_page: string;
     personopplysninger: string;
@@ -137,11 +140,11 @@ export type CsrPayload = {
     header: string;
     footer: string;
     data: AppState;
-    scripts: HtmlTagProps[];
+    scripts: HtmlElementProps[];
     name: string;
 };
 
-export type HtmlTagProps = {
+export type HtmlElementProps = {
     tag: string;
     attribs: Record<string, string>;
 } & (
