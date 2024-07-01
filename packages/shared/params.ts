@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidNavUrl } from "./urls";
 
 export const contextSchema = z.enum([
     "privatperson",
@@ -23,18 +24,19 @@ const availableLanguageSchema = z.discriminatedUnion("handleInApp", [
     z.object({
         handleInApp: z.literal(true),
         locale: languageSchema,
+        url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     }),
     z.object({
         handleInApp: z.literal(false),
         locale: languageSchema,
-        url: z.string(),
+        url: z.string().refine(isValidNavUrl),
     }),
 ]);
 export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const breadcrumbSchema = z.object({
     title: z.string(),
-    url: z.string().optional(),
+    url: z.optional(z.string().refine(isValidNavUrl)),
     handleInApp: z.boolean().default(false).optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
@@ -46,15 +48,18 @@ const loginLevel = z.enum(["Level3", "Level4"]);
 export type LoginLevel = z.infer<typeof loginLevel>;
 
 export const paramsSchema = z.object({
-    ssr: z.boolean().default(false),
     context: contextSchema.default("privatperson"),
     simple: z.boolean().default(false),
     simpleHeader: z.boolean().default(false),
     simpleFooter: z.boolean().default(false),
     enforceLogin: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
-    redirectToUrl: z.string().optional(),
-    redirectToUrlLogout: z.string().optional(),
+    redirectToUrl: z
+        .optional(z.string().refine(isValidNavUrl))
+        .catch(undefined),
+    redirectToUrlLogout: z
+        .optional(z.string().refine(isValidNavUrl))
+        .catch(undefined),
     level: loginLevel.default("Level3"),
     language: languageSchema.default("nb"),
     availableLanguages: z.array(availableLanguageSchema).default([]),
@@ -65,11 +70,10 @@ export const paramsSchema = z.object({
     chatbotVisible: z.boolean().default(false),
     urlLookupTable: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
-    logoutUrl: z.string().optional(),
+    logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
-    name: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;

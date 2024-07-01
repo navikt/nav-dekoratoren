@@ -2,6 +2,12 @@ import { describe, expect, it } from "bun:test";
 import { parseBooleanParam, validateParams } from "./validateParams";
 import { formatParams } from "decorator-shared/json";
 
+describe("Validating urls", () => {
+    it("Should validate nav.no urls", () => {
+        const params = validateParams({});
+    });
+});
+
 describe("Parsing boolean query paramters", () => {
     it('"true" should return a boolean true', () => {
         expect(parseBooleanParam("true")).toEqual(true);

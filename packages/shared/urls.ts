@@ -24,3 +24,14 @@ export function makeFrontpageUrl({
             return `${baseUrl}/no/samarbeidspartner`;
     }
 }
+
+const isLocalhost = (url: string) =>
+    /^(https?:\/\/localhost(:\d+)?)/i.test(url);
+const isPath = (url: string) => /^(\/)/i.test(url);
+const isNavOrNais = (url: string) =>
+    /^((https:\/\/([a-z0-9-]+\.)*((nav\.no)|(nais\.io)))($|\/))/i.test(url);
+
+export const isValidNavUrl = (url: string) => {
+    console.log(`Checking ${url}`);
+    return isLocalhost(url) || isPath(url) || isNavOrNais(url);
+};
