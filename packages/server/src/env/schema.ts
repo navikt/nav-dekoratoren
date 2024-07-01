@@ -42,7 +42,6 @@ export const client_env = {
     APP_URL: process.env.APP_URL,
     AUTH_API_URL: process.env.AUTH_API_URL,
     BOOST_ENV: process.env.BOOST_ENV as BoostEnviroment,
-    CDN_URL: process.env.CDN_URL,
     ENV: serverEnv.ENV,
     LOGIN_URL: process.env.LOGIN_URL,
     LOGOUT_URL: process.env.LOGOUT_URL,
