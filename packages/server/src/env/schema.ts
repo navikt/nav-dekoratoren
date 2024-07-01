@@ -51,6 +51,5 @@ export const client_env = {
     MIN_SIDE_URL: process.env.MIN_SIDE_URL,
     PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
     PUZZEL_CUSTOMER_ID: process.env.PUZZEL_CUSTOMER_ID,
-    VARSEL_API_URL: process.env.VARSEL_API_URL,
     XP_BASE_URL: process.env.XP_BASE_URL,
 } satisfies Record<keyof Environment, unknown>;
