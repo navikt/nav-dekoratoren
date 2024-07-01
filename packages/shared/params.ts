@@ -16,6 +16,7 @@ export const languageSchema = z.enum([
     "uk",
     "ru",
 ]);
+
 export type Language = z.infer<typeof languageSchema>;
 
 const availableLanguageSchema = z.discriminatedUnion("handleInApp", [
@@ -52,9 +53,8 @@ export const paramsSchema = z.object({
     simpleFooter: z.boolean().default(false),
     enforceLogin: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
-    // Should maybe not be this
-    redirectToUrl: z.string().default(""),
-    redirectToLogout: z.string().optional().default(""),
+    redirectToUrl: z.string().optional(),
+    redirectToUrlLogout: z.string().optional(),
     level: loginLevel.default("Level3"),
     language: languageSchema.default("nb"),
     availableLanguages: z.array(availableLanguageSchema).default([]),
@@ -65,8 +65,7 @@ export const paramsSchema = z.object({
     chatbotVisible: z.boolean().default(false),
     urlLookupTable: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
-    // @TODO: Validering av domenet
-    logoutUrl: z.string().default(""),
+    logoutUrl: z.string().optional(),
     maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
