@@ -1,9 +1,9 @@
 import { HtmlElementProps } from "./types";
 
-import faviconIco from "./head/favicon.ico";
-import faviconSvg from "./head/favicon.svg";
-import appleTouchIcon from "./head/apple-touch-icon.png";
-import webManifest from "./head/site.webmanifest";
+import faviconIco from "./head-assets/favicon.ico";
+import faviconSvg from "./head-assets/favicon.svg";
+import appleTouchIcon from "./head-assets/apple-touch-icon.png";
+import webManifest from "./head-assets/site.webmanifest";
 
 export const headAssetsProps: HtmlElementProps[] = [
     {

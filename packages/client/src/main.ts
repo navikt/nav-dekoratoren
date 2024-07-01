@@ -125,12 +125,15 @@ window.addEventListener("load", () => {
     addFaroMetaData();
 });
 
-const init = async () => {
+const injectHeadAssets = () => {
     headAssetsProps.forEach((props) => {
         const element = buildHtmlElement(props);
         document.head.appendChild(element);
     });
+};
 
+const init = async () => {
+    injectHeadAssets();
     initHistoryEvents();
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
