@@ -49,8 +49,7 @@ export const UserMenu = ({
                                     "navds-link--neutral"
                                 ]}"
                                 href="${loginUrl}"
-                                >Logg inn med BankID, Buypass, eller
-                                Commfides</a
+                                >${i18n("security_level_link")}</a
                             >
                         </div>
                     `,
