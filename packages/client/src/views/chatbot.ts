@@ -5,7 +5,7 @@ import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
 
 interface CustomEventMap {
-    conversationIdChanged: CustomEvent<{ conversationId: string }>;
+    conversationIdChanged: CustomEvent<{ conversationId?: string }>;
     chatPanelClosed: CustomEvent<undefined>;
     setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
 }
@@ -23,78 +23,31 @@ export type Boost = {
     };
 };
 
-const loadScript = () =>
-    loadExternalScript(
-        env("ENV") === "production"
-            ? "https://nav.boost.ai/chatPanel/chatPanel.js"
-            : "https://navtest.boost.ai/chatPanel/chatPanel.js",
-    );
-
 class Chatbot extends HTMLElement {
     button: HTMLButtonElement;
     boost?: Boost;
-    wasClicked = false;
-
-    getBoost = async (): Promise<Boost> => {
-        if (!this.boost) {
-            await loadScript();
-            this.boost = window.boostInit(
-                env("ENV") === "production" ? "nav" : "navtest",
-                boostConfig({
-                    conversationId: Cookies.get("nav-chatbot%3Aconversation"),
-                    context: param("context"),
-                    language: param("language"),
-                }),
-            ) as Boost;
-            this.boost.chatPanel.addEventListener(
-                "conversationIdChanged",
-                (event) => {
-                    console.log("event", event.detail.conversationId);
-                    if (event.detail.conversationId) {
-                        Cookies.set(
-                            "nav-chatbot%3Aconversation",
-                            event.detail.conversationId,
-                            {
-                                expires: 1,
-                                domain: location.hostname.includes("nav.no")
-                                    ? ".nav.no"
-                                    : undefined,
-                            },
-                        );
-                    } else {
-                        Cookies.remove("nav-chatbot%3Aconversation");
-                    }
-                },
-            );
-            this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
-                this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
-                if (event.detail.nextId) {
-                    this.boost?.chatPanel.triggerAction(event.detail.nextId);
-                }
-            });
-            this.boost.chatPanel.addEventListener("chatPanelClosed", () => {
-                Cookies.remove("nav-chatbot%3Aconversation");
-            });
-        }
-        return this.boost;
-    };
 
     constructor() {
         super();
         this.button = document.createElement("button");
         this.button.addEventListener("click", () =>
-            this.getBoost().then((boost) => boost.chatPanel.show()),
+            this.getBoost().then((boost) => boost?.chatPanel.show()),
         );
     }
 
+    paramsUpdatedListener = (event: CustomEvent) =>
+        this.update(event.detail.params);
+
     connectedCallback() {
-        window.addEventListener("paramsupdated", (event: CustomEvent) =>
-            this.update(event.detail.params),
-        );
+        window.addEventListener("paramsupdated", this.paramsUpdatedListener);
         this.update(window.__DECORATOR_DATA__.params);
     }
 
-    async update({ chatbot, chatbotVisible }: Partial<Params>) {
+    disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.paramsUpdatedListener);
+    }
+
+    update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
             chatbot === false
@@ -103,15 +56,59 @@ class Chatbot extends HTMLElement {
         } else if (chatbot) {
             this.appendChild(this.button);
         }
-        this.button.classList.toggle(
-            cls.visible,
-            chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation"),
-        );
-
-        if (chatbotVisible || !!Cookies.get("nav-chatbot%3Aconversation")) {
+        const isVisible = chatbotVisible || !!this.getCookie();
+        this.button.classList.toggle(cls.visible, isVisible);
+        if (isVisible) {
             loadScript();
         }
-    }
+    };
+
+    getBoost = async (): Promise<Boost | undefined> => {
+        if (
+            !this.boost &&
+            typeof window !== "undefined" &&
+            typeof window.boostInit !== "undefined"
+        ) {
+            await loadScript();
+            this.boost = window.boostInit(
+                env("ENV") === "production" ? "nav" : "navtest",
+                boostConfig({
+                    conversationId: this.getCookie(),
+                    context: param("context"),
+                    language: param("language"),
+                }),
+            ) as Boost;
+            this.boost.chatPanel.addEventListener(
+                "conversationIdChanged",
+                (event) =>
+                    event.detail.conversationId
+                        ? this.setCookie(event.detail.conversationId)
+                        : this.removeCookie(),
+            );
+            this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
+                this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
+                if (event.detail.nextId) {
+                    this.boost?.chatPanel.triggerAction(event.detail.nextId);
+                }
+            });
+            this.boost.chatPanel.addEventListener(
+                "chatPanelClosed",
+                this.removeCookie,
+            );
+        }
+        return this.boost;
+    };
+
+    cookieName = "nav-chatbot%3Aconversation";
+    getCookie = () => Cookies.get(this.cookieName);
+    setCookie = (value: string) =>
+        Cookies.set(this.cookieName, value, {
+            expires: 1,
+            domain: location.hostname.includes("nav.no")
+                ? ".nav.no"
+                : undefined,
+        });
+    removeCookie = () => Cookies.remove(this.cookieName);
 }
 
 const boostConfig = ({
@@ -144,5 +141,12 @@ const boostConfig = ({
         },
     };
 };
+
+const loadScript = () =>
+    loadExternalScript(
+        env("ENV") === "production"
+            ? "https://nav.boost.ai/chatPanel/chatPanel.js"
+            : "https://navtest.boost.ai/chatPanel/chatPanel.js",
+    );
 
 customElements.define("d-chatbot", Chatbot);

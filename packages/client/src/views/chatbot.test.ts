@@ -5,12 +5,6 @@ import "./chatbot";
 import cls from "./chatbot.module.css";
 import { Boost } from "./chatbot";
 
-/**
- * TODOs:
- * boost.chatPanel listeners
- * view
- */
-
 describe("chatbot", () => {
     const old = document.body.appendChild;
     let loadedSrc = "";
@@ -90,13 +84,8 @@ describe("chatbot", () => {
             "div",
         ) as unknown as Boost["chatPanel"];
         chatPanel.show = () => (isShown = true);
-        chatPanel.setFilterValues = (f) => {
-            filterValues = f;
-        };
-        chatPanel.triggerAction = (a) => {
-            triggeredAction = a;
-        };
-
+        chatPanel.setFilterValues = (f) => (filterValues = f);
+        chatPanel.triggerAction = (a) => (triggeredAction = a);
         beforeEach(() => {
             isShown = false;
             wasCalled = false;
