@@ -9,51 +9,79 @@ import { Params } from "decorator-shared/params";
 
 describe("Validating urls", () => {
     it("Should validate nav.no urls", () => {
-        const validate = () =>
-            validParams({
-                redirectToUrl: "https://myapp.nav.no/foo",
-                redirectToUrlLogout: "https://my.app.nav.no/bar",
-                logoutUrl: "https://www.nav.no/qwer",
-                breadcrumbs: JSON.stringify([
-                    {
-                        title: "test",
-                        url: "https://www.nav.no/foobar",
-                    },
-                ]),
-                availableLanguages: JSON.stringify([
-                    {
-                        handleInApp: false,
-                        url: "https://www.nav.no/asdf",
-                        locale: "nb",
-                    },
-                ]),
-            } satisfies Partial<Record<keyof Params, unknown>>);
+        const params = validParams({
+            redirectToUrl: "https://myapp.nav.no/foo",
+            redirectToUrlLogout: "https://my.app.nav.no/bar",
+            logoutUrl: "https://www.nav.no/qwer",
+            breadcrumbs: JSON.stringify([
+                {
+                    handleInApp: false,
+                    title: "test",
+                    url: "https://www.nav.no/foobar",
+                },
+            ]),
+            availableLanguages: JSON.stringify([
+                {
+                    handleInApp: false,
+                    url: "https://www.nav.no/asdf",
+                    locale: "nb",
+                },
+            ]),
+        } satisfies Partial<Record<keyof Params, unknown>>);
 
-        expect(validate).not.toThrow();
+        const {
+            redirectToUrl,
+            redirectToUrlLogout,
+            logoutUrl,
+            breadcrumbs,
+            availableLanguages,
+        } = params;
+
+        expect([
+            redirectToUrl,
+            redirectToUrlLogout,
+            logoutUrl,
+            breadcrumbs[0].url,
+            availableLanguages[0].url,
+        ]).not.toContain(undefined);
     });
 
     it("Should validate paths", () => {
-        const validate = () =>
-            validParams({
-                redirectToUrl: "/foo",
-                redirectToUrlLogout: "/bar",
-                logoutUrl: "/qwer",
-                breadcrumbs: JSON.stringify([
-                    {
-                        title: "test",
-                        url: "/foobar",
-                    },
-                ]),
-                availableLanguages: JSON.stringify([
-                    {
-                        handleInApp: false,
-                        url: "/asdf",
-                        locale: "nb",
-                    },
-                ]),
-            } satisfies Partial<Record<keyof Params, unknown>>);
+        const params = validParams({
+            redirectToUrl: "/foo",
+            redirectToUrlLogout: "/bar",
+            logoutUrl: "/qwer",
+            breadcrumbs: JSON.stringify([
+                {
+                    handleInApp: false,
+                    title: "test",
+                    url: "/foobar",
+                },
+            ]),
+            availableLanguages: JSON.stringify([
+                {
+                    handleInApp: false,
+                    url: "/asdf",
+                    locale: "nb",
+                },
+            ]),
+        } satisfies Partial<Record<keyof Params, unknown>>);
 
-        expect(validate).not.toThrow();
+        const {
+            redirectToUrl,
+            redirectToUrlLogout,
+            logoutUrl,
+            breadcrumbs,
+            availableLanguages,
+        } = params;
+
+        expect([
+            redirectToUrl,
+            redirectToUrlLogout,
+            logoutUrl,
+            breadcrumbs[0].url,
+            availableLanguages[0].url,
+        ]).not.toContain(undefined);
     });
 
     it("Should not validate redirectToUrl with non-nav origin", () => {
@@ -90,7 +118,7 @@ describe("Validating urls", () => {
             ]),
         } satisfies Partial<Record<keyof Params, unknown>>);
 
-        expect(params.breadcrumbs[0].url).toBe("");
+        expect(params.breadcrumbs[0].url).toBeUndefined();
     });
 
     it("Should not validate availableLanguages with non-nav origins", () => {
