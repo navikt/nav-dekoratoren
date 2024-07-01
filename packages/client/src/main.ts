@@ -32,8 +32,9 @@ import "./views/search-menu";
 import "./views/skip-link";
 import "./views/sticky";
 import "./views/user-menu";
-import { headAssetsProps } from "decorator-shared/head";
+import { getHeadAssetsProps } from "decorator-shared/head";
 import { buildHtmlElement } from "./helpers/html-element-builder";
+import { cdnUrl } from "./helpers/urls";
 
 import.meta.glob("./styles/*.css", { eager: true });
 
@@ -126,7 +127,7 @@ window.addEventListener("load", () => {
 });
 
 const injectHeadAssets = () => {
-    headAssetsProps.forEach((props) => {
+    getHeadAssetsProps(cdnUrl).forEach((props) => {
         const element = buildHtmlElement(props);
         document.head.appendChild(element);
     });
