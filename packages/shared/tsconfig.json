@@ -7,6 +7,7 @@
         "allowJs": true,
         "esModuleInterop": true,
         "composite": true,
+        "types": ["vite/client"],
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules"

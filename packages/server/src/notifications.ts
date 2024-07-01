@@ -50,8 +50,14 @@ const translateNotificationType = {
     innboks: "inbox",
 };
 
+const sortVarslerNewestFirst = (a: Varsel, b: Varsel) =>
+    a.tidspunkt > b.tidspunkt ? -1 : 1;
+
 const varslerToNotifications = (varsler: Varsler): Notification[] =>
-    [varsler.oppgaver, varsler.beskjeder].flatMap((list) =>
+    [
+        varsler.oppgaver.sort(sortVarslerNewestFirst),
+        varsler.beskjeder.sort(sortVarslerNewestFirst),
+    ].flatMap((list) =>
         list.map(
             (varsel: Varsel): Notification => ({
                 id: varsel.eventId,

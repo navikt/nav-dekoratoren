@@ -65,20 +65,13 @@ describe("notifications", () => {
     afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
 
-    test("returns task", async () => {
+    test("returns transformed notifications", async () => {
         const result = await getNotifications({
             cookie: "cookie",
         });
 
         expectOK(result);
         expect(result.data).toEqual([
-            {
-                id: "a",
-                type: "task",
-                date: "2023-07-04T11:41:02.280367+02:00",
-                channels: [],
-                masked: true,
-            },
             {
                 id: "b",
                 type: "task",
@@ -87,6 +80,13 @@ describe("notifications", () => {
                 masked: false,
                 text: "wat",
                 link: "http://example.com",
+            },
+            {
+                id: "a",
+                type: "task",
+                date: "2023-07-04T11:41:02.280367+02:00",
+                channels: [],
+                masked: true,
             },
             {
                 id: "c",
