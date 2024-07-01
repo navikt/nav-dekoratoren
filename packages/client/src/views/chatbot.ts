@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { env, param } from "../params";
 import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
+import i18n from "../i18n";
 
 interface CustomEventMap {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
@@ -35,7 +36,10 @@ class Chatbot extends HTMLElement {
             this.getBoost().then((boost) => boost?.chatPanel.show()),
         );
         this.button.id = "chatbot-frida-knapp";
-        this.button.setAttribute("aria-label", "Åpne chat");
+        this.button.setAttribute(
+            "aria-label",
+            i18n("open_chat").render(window.__DECORATOR_DATA__),
+        );
         this.button.classList.add(cls.button);
         const div = document.createElement("div");
         div.classList.add(cls.chatbotWrapper);
