@@ -1,4 +1,5 @@
 import { Context, Language, Params } from "decorator-shared/params";
+import { FridaIcon } from "decorator-shared/views/icons/frida-icon";
 import Cookies from "js-cookie";
 import { env, param } from "../params";
 import { loadExternalScript } from "../utils";
@@ -33,6 +34,15 @@ class Chatbot extends HTMLElement {
         this.button.addEventListener("click", () =>
             this.getBoost().then((boost) => boost?.chatPanel.show()),
         );
+        this.button.id = "chatbot-frida-knapp";
+        this.button.setAttribute("aria-label", "Åpne chat");
+        this.button.classList.add(cls.button);
+        const div = document.createElement("div");
+        div.classList.add(cls.chatbotWrapper);
+        div.innerHTML = FridaIcon({ className: cls.svg }).render(
+            window.__DECORATOR_DATA__.params,
+        );
+        this.button.appendChild(div);
     }
 
     paramsUpdatedListener = (event: CustomEvent) =>
@@ -149,4 +159,6 @@ const loadScript = () =>
             : "https://navtest.boost.ai/chatPanel/chatPanel.js",
     );
 
-customElements.define("d-chatbot", Chatbot);
+if (!customElements.get("d-chatbot")) {
+    customElements.define("d-chatbot", Chatbot);
+}
