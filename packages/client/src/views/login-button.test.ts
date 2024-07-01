@@ -2,9 +2,12 @@ import "./login-button";
 import { fixture } from "@open-wc/testing";
 import { vi } from "vitest";
 
-it("makes the right login URL with parameter", async () => {
+it("makes the right login URL from parameter", async () => {
     window.__DECORATOR_DATA__ = {
-        env: { LOGIN_URL: "https://login.ekstern.dev.nav.no" },
+        env: {
+            LOGIN_URL: "https://login.ekstern.dev.nav.no",
+            MIN_SIDE_URL: "https://www.nav.no/minside",
+        },
         params: {
             level: "Level3",
             language: "en",
@@ -23,7 +26,7 @@ it("makes the right login URL with parameter", async () => {
     );
 });
 
-it("makes the right login with env", async () => {
+it("makes the right login from env", async () => {
     window.__DECORATOR_DATA__ = {
         env: {
             LOGIN_URL: "https://login.ekstern.dev.nav.no",
