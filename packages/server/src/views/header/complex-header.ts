@@ -1,20 +1,21 @@
 import clsx from "clsx";
-import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
-import cls from "decorator-client/src/styles/header.module.css";
-import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
-import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
-import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
 import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
 import { NavLogo } from "decorator-shared/views/nav-logo";
-import { IconButton } from "../../../../shared/views/icon-button";
+import { IconButton } from "decorator-shared/views/icon-button";
 import { ContextLink } from "../../context";
 import i18n from "../../i18n";
 import { DropdownMenu } from "../dropdown-menu";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
+
+import menuCls from "decorator-client/src/styles/complex-header-menu.module.css";
+import cls from "decorator-client/src/styles/header.module.css";
+import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
+import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
+import utilsCls from "decorator-client/src/styles/utilities.module.css";
 
 export type ComplexHeaderProps = {
     frontPageUrl: string;
