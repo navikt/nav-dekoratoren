@@ -73,8 +73,9 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
         .default as ViteManifest;
 
-    const appScripts: HtmlElementProps[] = Object.values(manifest).map(
-        (item) => ({
+    const appScripts: HtmlElementProps[] = Object.values(manifest)
+        .filter((item) => item.file.endsWith(".js"))
+        .map((item) => ({
             tag: "script",
             attribs: {
                 src: cdnUrl(item.file),
@@ -82,8 +83,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 // Load everything except the entry file async
                 ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
             },
-        }),
-    );
+        }));
 
     return [
         ...appScripts,
