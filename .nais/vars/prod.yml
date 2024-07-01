@@ -33,9 +33,9 @@ env:
   - name: API_SESSION_URL
     value: https://login.nav.no/oauth2/session
   - name: MIN_SIDE_URL
-    value: https://www.nav.no/minside/
+    value: https://www.nav.no/minside
   - name: MIN_SIDE_ARBEIDSGIVER_URL
-    value: https://arbeidsgiver.nav.no/min-side-arbeidsgiver/
+    value: https://arbeidsgiver.nav.no/min-side-arbeidsgiver
   - name: PERSONOPPLYSNINGER_URL
     value: https://www.nav.no/person/personopplysninger
   - name: BOOST_ENV
