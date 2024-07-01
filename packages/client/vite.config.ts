@@ -8,6 +8,10 @@ const mainConfig = defineConfig({
     server: {
         origin: "http://localhost:5173",
     },
+    base:
+        process.env.NODE_ENV === "development"
+            ? undefined
+            : "https://cdn.nav.no/personbruker/decorator-next/public",
     logLevel: "info",
     build: {
         minify: true,
