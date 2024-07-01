@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/user-menu.module.css";
 import html from "decorator-shared/html";
@@ -69,7 +68,7 @@ export const UserMenu = ({
             </a>
         </div>
         <div class="${cls.notifications}">
-            ${Notifications({ notifications })}
+            ${Notifications({ notifications, minsideUrl })}
         </div>
         <a href="${logoutUrl}" class="${cls.menuItem} ${cls.logout}">
             ${LogoutIcon({})}

@@ -64,9 +64,11 @@ export function renderHeader({
 
     return simple || simpleHeader
         ? SimpleHeader({
+              frontPageUrl: clientEnv.XP_BASE_URL,
               decoratorUtils,
           })
         : ComplexHeader({
+              frontPageUrl: clientEnv.XP_BASE_URL,
               contextLinks: makeContextLinks(language),
               context,
               language,

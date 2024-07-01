@@ -6,7 +6,7 @@ import { KattIngenNotifications } from "decorator-shared/views/illustrations";
 import i18n from "../../i18n";
 import { clientEnv } from "../../env/server";
 
-export function NotificationsEmpty() {
+export function NotificationsEmpty({ minsideUrl }: { minsideUrl: string }) {
     return html`
         <div class="${cls.notificationsEmpty}">
             <div>
@@ -21,7 +21,7 @@ export function NotificationsEmpty() {
                         globalCls["navds-link"],
                         globalCls["navds-link--neutral"],
                     )}"
-                    href="${clientEnv.MIN_SIDE_URL}/tidligere-varsler"
+                    href="${minsideUrl}/tidligere-varsler"
                 >
                     ${i18n("notifications_show_all")}
                 </a>

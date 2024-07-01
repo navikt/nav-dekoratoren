@@ -15,10 +15,10 @@ import {
 } from "../../notifications";
 import { NotificationsErrorView } from "../errors/notifications-error";
 import { NotificationsEmpty } from "./notifications-empty";
-import { clientEnv } from "../../env/server";
 
 export type NotificationsProps = {
     notifications: Notification[] | null;
+    minsideUrl: string;
 };
 
 const kanalerToMetadata = (kanaler: string[]) => {
@@ -103,7 +103,10 @@ const ArchivableNotification = ({
         </div>
     </archivable-notification>`;
 
-export function Notifications({ notifications }: NotificationsProps) {
+export function Notifications({
+    notifications,
+    minsideUrl,
+}: NotificationsProps) {
     return html` <div class="${cls.notifications}">
         <h2 class="${cls.notificationsHeading}">${i18n("notifications")}</h2>
         ${notifications
@@ -128,7 +131,7 @@ export function Notifications({ notifications }: NotificationsProps) {
                           `,
                       )}
                   </ul>`
-                : NotificationsEmpty()
+                : NotificationsEmpty({ minsideUrl })
             : NotificationsErrorView()}
         <a
             class="${clsx(
@@ -136,7 +139,7 @@ export function Notifications({ notifications }: NotificationsProps) {
                 globalCls["navds-link"],
                 globalCls["navds-link--neutral"],
             )}"
-            href="${clientEnv.MIN_SIDE_URL}/tidligere-varsler"
+            href="${minsideUrl}/tidligere-varsler"
         >
             ${i18n("earlier_notifications")}
         </a>
