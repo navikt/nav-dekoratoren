@@ -27,12 +27,12 @@
     z-index: 1;
     height: calc(100vh - 72px);
     overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 @media (min-width: 768px) {
     :where(.dropdownMenuOpen) > .dropdownMenuContainer {
         height: initial;
-        overflow-y: initial;
         max-height: calc(100vh - 80px);
     }
 }
