@@ -13,3 +13,5 @@ export const endpointUrlWithParams = (
 
     return `${env("APP_URL")}${endpointUrl}?${formattedParams}`;
 };
+
+export const cdnUrl = (src: string) => `${env("CDN_URL")}/${src}`;

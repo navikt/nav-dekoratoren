@@ -50,26 +50,34 @@ const translateNotificationType = {
     innboks: "inbox",
 };
 
+const sortVarslerNewestFirst = (a: Varsel, b: Varsel) =>
+    a.tidspunkt > b.tidspunkt ? -1 : 1;
+
 const varslerToNotifications = (varsler: Varsler): Notification[] =>
-    [varsler.oppgaver, varsler.beskjeder].flatMap((list) =>
-        list.map(
-            (varsel: Varsel): Notification => ({
-                id: varsel.eventId,
-                type: translateNotificationType[
-                    varsel.type
-                ] as NotificationType,
-                date: varsel.tidspunkt,
-                channels: varsel.eksternVarslingKanaler,
-                ...(varsel.isMasked
-                    ? { masked: true }
-                    : {
-                          masked: false,
-                          text: varsel.tekst ?? "",
-                          link: varsel.link ?? undefined,
-                      }),
-            }),
-        ),
-    );
+    [
+        varsler.oppgaver.sort(sortVarslerNewestFirst),
+        varsler.beskjeder.sort(sortVarslerNewestFirst),
+    ]
+        .flatMap((list) =>
+            list.map(
+                (varsel: Varsel): Notification => ({
+                    id: varsel.eventId,
+                    type: translateNotificationType[
+                        varsel.type
+                    ] as NotificationType,
+                    date: varsel.tidspunkt,
+                    channels: varsel.eksternVarslingKanaler,
+                    ...(varsel.isMasked
+                        ? { masked: true }
+                        : {
+                              masked: false,
+                              text: varsel.tekst ?? "",
+                              link: varsel.link ?? undefined,
+                          }),
+                }),
+            ),
+        )
+        .sort((a, b) => (a.date > b.date ? -1 : 1));
 
 export const getNotifications = async ({
     cookie,
