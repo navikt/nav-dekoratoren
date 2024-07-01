@@ -1,7 +1,7 @@
-appName: nav-dekoratoren
-appPath: /dekoratoren
+appName: decorator-next
+appPath: /decorator-next
 ingresses:
-  - https://www.nav.no/dekoratoren
+  - https://www.nav.no/decorator-next
 outboundHosts:
   - www.nav.no
   - navno-unleash-api.nav.cloud.nais.io
@@ -10,7 +10,7 @@ env:
   - name: ENV
     value: prod
   - name: APP_URL
-    value: https://www.nav.no/dekoratoren
+    value: https://www.nav.no/decorator-next
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
