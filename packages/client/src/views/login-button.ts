@@ -19,13 +19,11 @@ const getLoginRedirectUrl = () => {
         return redirectToUrl;
     }
 
-    const redirectToApp = param("redirectToApp");
-    if (redirectToApp) {
+    if (param("redirectToApp")) {
         return `${window.location.origin}${window.location.pathname}`;
     }
 
-    const arbeidsflate = param("context");
-    if (arbeidsflate === "arbeidsgiver") {
+    if (param("context") === "arbeidsgiver") {
         return env("MIN_SIDE_ARBEIDSGIVER_URL");
     }
 
