@@ -140,11 +140,11 @@ export type CsrPayload = {
     header: string;
     footer: string;
     data: AppState;
-    scripts: HtmlTagProps[];
+    scripts: HtmlElementProps[];
     name: string;
 };
 
-export type HtmlTagProps = {
+export type HtmlElementProps = {
     tag: string;
     attribs: Record<string, string>;
 } & (

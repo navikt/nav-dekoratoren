@@ -14,6 +14,8 @@ const mainConfig = defineConfig({
         target: "esnext",
         manifest: true,
         sourcemap: true,
+        // Prevent inlining any asset imports, always import as url
+        assetsInlineLimit: 0,
         rollupOptions: {
             plugins: [
                 minifyLiterals(),
