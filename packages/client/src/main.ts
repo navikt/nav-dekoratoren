@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
 import { initAuth } from "./auth";
-import { logoutWarningController } from "./controllers/logout-warning";
+import { setupLogoutWarning } from "./logout-warning";
 import { createEvent, initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import "./main.css";
@@ -135,7 +135,7 @@ const init = async () => {
     });
 
     if (hasParam("logoutWarning")) {
-        logoutWarningController(
+        setupLogoutWarning(
             param("logoutWarning"),
             window.__DECORATOR_DATA__.texts,
         );

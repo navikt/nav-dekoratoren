@@ -5,9 +5,9 @@ import {
     fetchRenew,
     fetchSession,
     getSecondsToExpiration,
-} from "../helpers/auth";
+} from "./helpers/auth";
 
-export async function logoutWarningController(
+export async function setupLogoutWarning(
     hasLogoutWarning: boolean,
     texts: ClientTexts,
 ) {
