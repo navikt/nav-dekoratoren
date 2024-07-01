@@ -36,7 +36,7 @@ export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const breadcrumbSchema = z.object({
     title: z.string(),
-    url: z.optional(z.string().refine(isValidNavUrl)),
+    url: z.optional(z.string().refine(isValidNavUrl)).catch(""),
     handleInApp: z.boolean().default(false).optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
