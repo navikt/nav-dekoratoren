@@ -1,6 +1,7 @@
 .languageSelector {
     width: fit-content;
     position: relative;
+    z-index: 100;
 }
 
 .languageSelector:only-child {
