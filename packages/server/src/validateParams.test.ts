@@ -134,6 +134,14 @@ describe("Validating urls", () => {
             } satisfies Partial<Record<keyof Params, unknown>>);
         expect(validateAvailableLanguage).toThrow();
     });
+
+    it("Should not validate logoutUrl without protocol prefix", () => {
+        const params = validParams({
+            logoutUrl: "www.nav.no",
+        } satisfies Partial<Record<keyof Params, unknown>>);
+
+        expect(params.logoutUrl).toBeUndefined();
+    });
 });
 
 describe("Parsing boolean query paramters", () => {
