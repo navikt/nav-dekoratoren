@@ -56,6 +56,7 @@ export type Texts = ClientTexts & {
     earlier_notifications: string;
     message: string;
     task: string;
+    inbox: string;
     masked_message_text: string;
     masked_task_text: string;
     archive: string;
