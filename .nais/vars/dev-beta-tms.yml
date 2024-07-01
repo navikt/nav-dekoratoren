@@ -10,7 +10,7 @@ outboundHosts:
 env:
   - name: ENV
     value: dev
-  - name: HOST
+  - name: APP_URL
     value: https://dekoratoren-beta-tms.intern.dev.nav.no
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public

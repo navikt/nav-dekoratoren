@@ -9,7 +9,7 @@ outboundHosts:
 env:
   - name: ENV
     value: prod
-  - name: HOST
+  - name: APP_URL
     value: https://www.nav.no/decorator-next
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
