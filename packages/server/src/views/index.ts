@@ -4,6 +4,7 @@ import { env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import { HtmlElementProps } from "decorator-shared/types";
+import { getHeadAssetsProps } from "decorator-shared/head";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
@@ -108,10 +109,18 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     ];
 };
 
+export const buildHeadSsrElements = () => {
+    return getHeadAssetsProps(cdnUrl)
+        .map((item) => buildHtmlElementString(item))
+        .join("");
+};
+
 const scriptsProps = await getScriptsProps();
 
 const cssAsString = await getCssAsString();
 const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
+
+const headElements = buildHeadSsrElements();
 
 export const csrAssets = {
     cssUrl: await getCSSUrl(),
@@ -151,6 +160,8 @@ export function Index({
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
+
+                ${unsafeHtml(headElements)}
             </head>
             <body>
                 <div id="styles" style="display:none">

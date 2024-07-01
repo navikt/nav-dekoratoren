@@ -128,6 +128,20 @@ window.addEventListener("load", () => {
 
 const injectHeadAssets = () => {
     getHeadAssetsProps(cdnUrl).forEach((props) => {
+        const { tag, attribs } = props;
+
+        const selector = Object.entries(attribs).reduce((acc, [key, value]) => {
+            return `${acc}[${key}="${value}"]`;
+        }, tag);
+
+        console.log("Selector: ", selector);
+
+        const elementExists = !!document.head.querySelector(selector);
+        if (elementExists) {
+            console.log("Element exists already, skipping", tag, attribs);
+            return;
+        }
+
         const element = buildHtmlElement(props);
         document.head.appendChild(element);
     });
