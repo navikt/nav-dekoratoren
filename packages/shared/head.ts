@@ -5,6 +5,8 @@ import faviconSvg from "./head-assets/favicon.svg";
 import appleTouchIcon from "./head-assets/apple-touch-icon.png";
 import webManifest from "./head-assets/site.webmanifest";
 
+// TODO: include these in ssr
+
 export const headAssetsProps: HtmlElementProps[] = [
     {
         tag: "link",
