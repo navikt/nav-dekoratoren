@@ -5,7 +5,7 @@ import { vi } from "vitest";
 it("makes the right login URL", async () => {
     window.__DECORATOR_DATA__ = {
         env: { LOGIN_URL: "https://login.ekstern.dev.nav.no" },
-        params: { level: "Level4" },
+        params: { level: "Level4", redirectToUrl: "https://www.nav.no" },
     } as any;
 
     vi.stubGlobal("location", { href: "https://www.nav.no" });
