@@ -1,6 +1,6 @@
 import { fixture } from "@open-wc/testing";
 import Cookies from "js-cookie";
-import { texts } from "../../../../packages/server/src/texts";
+import { texts } from "decorator-server/src/texts";
 import { updateDecoratorParams } from "../params";
 import "./chatbot";
 import { Boost } from "./chatbot";
@@ -25,7 +25,7 @@ describe("chatbot", () => {
         window.__DECORATOR_DATA__ = {
             params: { chatbot: true, chatbotVisible: true },
             features: { ["dekoratoren.chatbotscript"]: true },
-            env: { ENV: "production" },
+            env: { ENV: "prod", BOOST_ENV: "nav" },
             texts: texts.nb,
         } as any;
     });
@@ -54,8 +54,8 @@ describe("chatbot", () => {
         expect(el.hasChildNodes()).toBe(false);
     });
 
-    it("uses test url in dev", async () => {
-        window.__DECORATOR_DATA__.env.ENV = "development";
+    it("uses test url in navtest environment", async () => {
+        window.__DECORATOR_DATA__.env.BOOST_ENV = "navtest";
         await fixture("<d-chatbot></d-chatbot>");
         expect(loadedSrc).toBe(
             "https://navtest.boost.ai/chatPanel/chatPanel.js",
@@ -137,7 +137,7 @@ describe("chatbot", () => {
         });
 
         it("inits boost with dev url base", async () => {
-            window.__DECORATOR_DATA__.env.ENV = "development";
+            window.__DECORATOR_DATA__.env.BOOST_ENV = "navtest";
             const el = await fixture("<d-chatbot></d-chatbot>");
             (el.childNodes[0] as HTMLButtonElement).click();
             await boostInitialized();

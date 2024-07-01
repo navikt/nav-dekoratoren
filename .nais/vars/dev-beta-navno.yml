@@ -39,7 +39,7 @@ env:
     value: https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver
   - name: PERSONOPPLYSNINGER_URL
     value: https://www.intern.dev.nav.no/person/personopplysninger
-  - name: BOOST_ENVIRONMENT
+  - name: BOOST_ENV
     value: "navtest"
   - name: PUZZEL_CUSTOMER_ID
     value: C1302192-8BEC-4EA2-84AB-F4EDE8AC6230
