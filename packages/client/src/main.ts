@@ -12,7 +12,7 @@ import "./main.css";
 import { env, hasParam, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 import "./views/breadcrumb";
-import "./views/chatbot-wrapper";
+import "./views/chatbot";
 import "./views/context-link";
 import "./views/decorator-utils";
 import "./views/dropdown-menu";
