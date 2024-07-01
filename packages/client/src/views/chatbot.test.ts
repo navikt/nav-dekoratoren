@@ -1,9 +1,10 @@
 import { fixture } from "@open-wc/testing";
 import Cookies from "js-cookie";
+import { texts } from "../../../../packages/server/src/texts";
 import { updateDecoratorParams } from "../params";
 import "./chatbot";
-import cls from "./chatbot.module.css";
 import { Boost } from "./chatbot";
+import cls from "./chatbot.module.css";
 
 describe("chatbot", () => {
     const old = document.body.appendChild;
@@ -25,6 +26,7 @@ describe("chatbot", () => {
             params: { chatbot: true, chatbotVisible: true },
             features: { ["dekoratoren.chatbotscript"]: true },
             env: { ENV: "production" },
+            texts: texts.nb,
         } as any;
     });
 

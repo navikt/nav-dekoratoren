@@ -38,7 +38,7 @@ class Chatbot extends HTMLElement {
         this.button.id = "chatbot-frida-knapp";
         this.button.setAttribute(
             "aria-label",
-            i18n("open_chat").render(window.__DECORATOR_DATA__),
+            i18n("open_chat").render(window.__DECORATOR_DATA__.params),
         );
         this.button.classList.add(cls.button);
         const div = document.createElement("div");
