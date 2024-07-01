@@ -145,8 +145,10 @@ app.get("/env", async ({ req, json }) => {
         //TODO: Add css?
     });
 });
-app.get("/client.js", async ({ redirect }) => redirect(csrAssets.csrScriptUrl));
-app.get("/css/client.css", async ({ redirect }) => redirect(csrAssets.cssUrl));
+app.get("/client*.js", async ({ redirect }) =>
+    redirect(csrAssets.csrScriptUrl),
+);
+app.get("/css/client*.css", async ({ redirect }) => redirect(csrAssets.cssUrl));
 app.get("/", async ({ req, html }) => {
     const data = validParams(req.query());
 

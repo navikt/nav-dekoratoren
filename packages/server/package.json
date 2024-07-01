@@ -17,12 +17,12 @@
         "csp-header": "5.2.1",
         "decorator-client": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.3.7",
+        "hono": "4.4.10",
         "unleash-client": "4.2.1"
     },
     "devDependencies": {
-        "@types/bun": "1.1.2",
-        "postcss": "8.4.38",
+        "@types/bun": "1.1.6",
+        "postcss": "8.4.39",
         "postcss-modules": "6.0.0",
         "postcss-import": "16.1.0"
     }
