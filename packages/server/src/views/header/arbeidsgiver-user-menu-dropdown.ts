@@ -18,7 +18,6 @@ export const ArbeidsgiverUserMenuDropdown = ({
 }: ArbeidsgiverUserMenuProps) => {
     return DropdownMenu({
         button: IconButton({
-            id: "123",
             text: "Arbeidsgiver",
             Icon: BriefcaseIcon({ className: cls.icon }),
         }),
