@@ -85,7 +85,7 @@ class Chatbot extends HTMLElement {
         ) {
             await loadScript();
             this.boost = window.boostInit(
-                env("ENV") === "production" ? "nav" : "navtest",
+                env("BOOST_ENV"),
                 boostConfig({
                     conversationId: this.getCookie(),
                     context: param("context"),
@@ -158,9 +158,7 @@ const boostConfig = ({
 
 const loadScript = () =>
     loadExternalScript(
-        env("ENV") === "production"
-            ? "https://nav.boost.ai/chatPanel/chatPanel.js"
-            : "https://navtest.boost.ai/chatPanel/chatPanel.js",
+        `https://${env("BOOST_ENV")}.boost.ai/chatPanel/chatPanel.js`,
     );
 
 if (!customElements.get("d-chatbot")) {
