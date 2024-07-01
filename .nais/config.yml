@@ -31,6 +31,7 @@ spec:
       rules:
         - application: nav-dekoratoren-api
         - application: navno-search-api
+        - application: tms-varsel-api
       external:
         {{#each outboundHosts as |host|}}
         - host: {{host}}
