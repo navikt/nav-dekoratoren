@@ -5,7 +5,11 @@ import { vi } from "vitest";
 it("makes the right login URL", async () => {
     window.__DECORATOR_DATA__ = {
         env: { LOGIN_URL: "https://login.ekstern.dev.nav.no" },
-        params: { level: "Level4", redirectToUrl: "https://www.nav.no" },
+        params: {
+            level: "Level4",
+            redirectToUrl: "https://www.nav.no",
+            language: "nb",
+        },
     } as any;
 
     vi.stubGlobal("location", { href: "https://www.nav.no" });
@@ -15,7 +19,7 @@ it("makes the right login URL", async () => {
     el.click();
 
     expect(window.location.href).to.equal(
-        "https://login.ekstern.dev.nav.no?redirect=https://www.nav.no&level=Level4",
+        "https://login.ekstern.dev.nav.no?redirect=https://www.nav.no&level=Level4&locale=nb",
     );
 });
 
