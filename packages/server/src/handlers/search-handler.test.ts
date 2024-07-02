@@ -20,7 +20,7 @@ const validHits = new Array(6).fill(0).map((_, i) => ({
 const withInvalidHit = [
     {
         displayName: "Invalid hit",
-        highlight: "Invaligh highlight",
+        highlight: "Invalid highlight",
         href: "notaurl",
     },
     ...validHits,
