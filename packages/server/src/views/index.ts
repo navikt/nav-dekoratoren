@@ -169,6 +169,10 @@ export function Index({
                     </script>
                     ${unsafeHtml(scriptsAsString)}
                 </div>
+
+                <div id="skiplinks"></div>
+                <div id="megamenu-resources"></div>
+                <div id="webstats-ga-notrack"></div>
             </body>
         </html>
     `;
