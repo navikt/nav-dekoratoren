@@ -89,7 +89,7 @@ const varslerToNotifications = (varsler: Varsler): Notification[] =>
             ),
     );
 
-export const getNotifications = async ({
+export const fetchNotifications = async ({
     cookie,
 }: {
     cookie: string;
