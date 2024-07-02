@@ -46,6 +46,7 @@ export async function fetchRenew() {
 }
 
 export function getSecondsToExpiration(isoDate: string) {
+    if (!isoDate) return 0;
     const now = new Date().getTime();
     const expires = new Date(isoDate).getTime();
     return Math.ceil((expires - now) / 1000);

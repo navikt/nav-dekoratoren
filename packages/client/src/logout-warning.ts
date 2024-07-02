@@ -220,7 +220,7 @@ export async function initLogoutWarning() {
         cancelButtonEl?.addEventListener("click", onCancel);
     }
 
-    if (!logoutWarningDialog) {
+    if (!logoutWarningDialogEl) {
         return;
     }
 
