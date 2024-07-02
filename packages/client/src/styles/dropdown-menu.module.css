@@ -25,14 +25,22 @@
     transition-property: max-height;
     transition-timing-function: ease-in-out;
     z-index: 1;
-    height: calc(100vh - 72px);
+    height: calc(100vh - var(--header-height));
     overflow-y: auto;
     overscroll-behavior: contain;
-}
 
-@media (min-width: 768px) {
-    :where(.dropdownMenuOpen) > .dropdownMenuContainer {
+    @media (min-width: 768px) {
         height: initial;
-        max-height: calc(100vh - 80px);
+    }
+
+    /* Quick fix for mobile browser bar etc overlapping the menu container.
+       This component should be rewritten to NOT use vh units
+     */
+    @media (max-width: 768px) {
+        &:after {
+            content: "";
+            display: block;
+            height: 4rem;
+        }
     }
 }
