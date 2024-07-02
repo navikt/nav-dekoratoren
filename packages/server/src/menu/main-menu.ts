@@ -197,7 +197,7 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
 
 const nodeToLink: (node: MenuNode) => Link = ({ displayName, path }) => ({
     content: displayName,
-    url: path ? `${env.XP_BASE_URL}${path}` : "#",
+    url: path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`,
 });
 
 const getContextKey = (context: Context) => {
