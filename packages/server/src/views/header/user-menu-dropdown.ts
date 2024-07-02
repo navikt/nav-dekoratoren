@@ -4,9 +4,9 @@ import {
     PersonCircleIcon,
     PersonCircleNotificationIcon,
 } from "decorator-shared/views/icons";
+import { IconButton } from "../../../../shared/views/icon-button";
 import { Notification } from "../../notifications";
 import { DropdownMenu } from "../dropdown-menu";
-import { IconButton } from "../../../../shared/views/icon-button";
 import { UserMenu } from "./user-menu";
 
 export type UserMenuDropdownProps = {

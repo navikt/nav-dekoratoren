@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidNavUrl } from "./urls";
 
 export const contextSchema = z.enum([
     "privatperson",
@@ -16,24 +17,26 @@ export const languageSchema = z.enum([
     "uk",
     "ru",
 ]);
+
 export type Language = z.infer<typeof languageSchema>;
 
 const availableLanguageSchema = z.discriminatedUnion("handleInApp", [
     z.object({
         handleInApp: z.literal(true),
         locale: languageSchema,
+        url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     }),
     z.object({
         handleInApp: z.literal(false),
         locale: languageSchema,
-        url: z.string(),
+        url: z.string().refine(isValidNavUrl),
     }),
 ]);
 export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const breadcrumbSchema = z.object({
     title: z.string(),
-    url: z.string().optional(),
+    url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     handleInApp: z.boolean().default(false).optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
@@ -45,16 +48,18 @@ const loginLevel = z.enum(["Level3", "Level4"]);
 export type LoginLevel = z.infer<typeof loginLevel>;
 
 export const paramsSchema = z.object({
-    ssr: z.boolean().default(false),
     context: contextSchema.default("privatperson"),
     simple: z.boolean().default(false),
     simpleHeader: z.boolean().default(false),
     simpleFooter: z.boolean().default(false),
     enforceLogin: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
-    // Should maybe not be this
-    redirectToUrl: z.string().default(""),
-    redirectToLogout: z.string().optional().default(""),
+    redirectToUrl: z
+        .optional(z.string().refine(isValidNavUrl))
+        .catch(undefined),
+    redirectToUrlLogout: z
+        .optional(z.string().refine(isValidNavUrl))
+        .catch(undefined),
     level: loginLevel.default("Level3"),
     language: languageSchema.default("nb"),
     availableLanguages: z.array(availableLanguageSchema).default([]),
@@ -65,12 +70,10 @@ export const paramsSchema = z.object({
     chatbotVisible: z.boolean().default(false),
     urlLookupTable: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
-    // @TODO: Validering av domenet
-    logoutUrl: z.string().default(""),
+    logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
-    name: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -80,17 +83,17 @@ export const clientEnvSchema = z.object({
     API_SESSION_URL: z.string(),
     APP_URL: z.string(),
     AUTH_API_URL: z.string(),
-    BOOST_ENVIRONMENT: z.enum(["nav", "navtest"]),
-    ENV: z.enum(["production", "development"]),
+    BOOST_ENV: z.enum(["nav", "navtest"]),
+    CDN_URL: z.string(),
+    ENV: z.enum(["prod", "dev", "localhost"]),
     LOGIN_URL: z.string(),
     LOGOUT_URL: z.string(),
     MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
     MIN_SIDE_URL: z.string(),
     PERSONOPPLYSNINGER_URL: z.string(),
     PUZZEL_CUSTOMER_ID: z.string(),
-    VARSEL_API_URL: z.string(),
     XP_BASE_URL: z.string(),
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;
-export type BoostEnviroment = Environment["BOOST_ENVIRONMENT"];
+export type BoostEnviroment = Environment["BOOST_ENV"];

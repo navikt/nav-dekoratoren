@@ -15,10 +15,10 @@ import {
 } from "../../notifications";
 import { NotificationsErrorView } from "../errors/notifications-error";
 import { NotificationsEmpty } from "./notifications-empty";
-import { clientEnv } from "../../env/server";
 
 export type NotificationsProps = {
     notifications: Notification[] | null;
+    minsideUrl: string;
 };
 
 const kanalerToMetadata = (kanaler: string[]) => {
@@ -54,13 +54,14 @@ const MaskedNotificationComp = ({
     </div>`;
 
 const NotificationComp = ({
-    notification: { type, date, link, text, channels },
+    notification: { id, type, date, link, text, channels },
 }: {
     notification: UnmaskedNotification;
 }) =>
     html` <link-notification
         class="${cls.notification} ${cls.linkNotification}"
         data-type="${type}"
+        data-id="${id}"
     >
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">
@@ -102,7 +103,10 @@ const ArchivableNotification = ({
         </div>
     </archivable-notification>`;
 
-export function Notifications({ notifications }: NotificationsProps) {
+export function Notifications({
+    notifications,
+    minsideUrl,
+}: NotificationsProps) {
     return html` <div class="${cls.notifications}">
         <h2 class="${cls.notificationsHeading}">${i18n("notifications")}</h2>
         ${notifications
@@ -127,7 +131,7 @@ export function Notifications({ notifications }: NotificationsProps) {
                           `,
                       )}
                   </ul>`
-                : NotificationsEmpty()
+                : NotificationsEmpty({ minsideUrl })
             : NotificationsErrorView()}
         <a
             class="${clsx(
@@ -135,7 +139,7 @@ export function Notifications({ notifications }: NotificationsProps) {
                 globalCls["navds-link"],
                 globalCls["navds-link--neutral"],
             )}"
-            href="${clientEnv.MIN_SIDE_URL}/tidligere-varsler"
+            href="${minsideUrl}/tidligere-varsler"
         >
             ${i18n("earlier_notifications")}
         </a>

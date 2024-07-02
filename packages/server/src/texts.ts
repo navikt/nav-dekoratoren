@@ -27,6 +27,7 @@ const nb = {
     earlier_notifications: "Tidligere varsler",
     message: "Beskjed",
     task: "Oppgave",
+    inbox: "Beskjed",
     masked_message_text:
         "Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.",
     masked_task_text:
@@ -84,11 +85,13 @@ const nb = {
         "Skjermdeling er for øyeblikket stengt, prøv igjen senere.",
     security_level_info:
         "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
+    security_level_link: "Logg inn med BankID, Buypass, eller Commfides.",
     go_to_my_page: "Gå til Min side",
     my_page: "Min side",
     my_page_employer: "Min side - Arbeidsgiver",
     loading: "Laster",
     personopplysninger: "Personopplysninger",
+    open_chat: "Åpne chat",
 } as const satisfies Texts;
 
 const en = {
@@ -118,6 +121,7 @@ const en = {
     earlier_notifications: "Earlier notifications",
     message: "Message",
     task: "Task",
+    inbox: "Message",
     masked_message_text:
         "You have a message, please log in with a higher security level to read the message.",
     masked_task_text:
@@ -176,11 +180,13 @@ const en = {
         "Screen sharing is currently closed, please try again later.",
     security_level_info:
         "You are logged in with Min ID. If you log in with a higher security level, you will see more content and additional services.",
+    security_level_link: "Log in with BankID, Buypass, or Commfides.",
     go_to_my_page: "Go to my page",
     my_page: "My page",
     my_page_employer: "My page - Employer",
     loading: "Loading",
     personopplysninger: "Personal information",
+    open_chat: "Open chat",
 } as const satisfies Texts;
 
 export const texts: Record<Language, Texts> = {

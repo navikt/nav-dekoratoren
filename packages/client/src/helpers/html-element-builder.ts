@@ -1,6 +1,6 @@
-import { HtmlTagProps } from "decorator-shared/types";
+import { HtmlElementProps } from "decorator-shared/types";
 
-export const buildHtmlElement = ({ tag, attribs, body }: HtmlTagProps) => {
+export const buildHtmlElement = ({ tag, attribs, body }: HtmlElementProps) => {
     const element = document.createElement(tag);
 
     Object.entries(attribs).forEach(([name, value]) => {

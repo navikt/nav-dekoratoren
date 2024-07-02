@@ -3,7 +3,7 @@ import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import { HtmlTagProps } from "decorator-shared/types";
+import { HtmlElementProps } from "decorator-shared/types";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
@@ -50,7 +50,7 @@ const getCssAsString = async () => {
     });
 };
 
-const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
+const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     if (env.NODE_ENV === "development") {
         return [
             {
@@ -73,15 +73,17 @@ const getScriptsProps = async (): Promise<HtmlTagProps[]> => {
     const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
         .default as ViteManifest;
 
-    const appScripts: HtmlTagProps[] = Object.values(manifest).map((item) => ({
-        tag: "script",
-        attribs: {
-            src: cdnUrl(item.file),
-            type: "module",
-            // Load everything except the entry file async
-            ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
-        },
-    }));
+    const appScripts: HtmlElementProps[] = Object.values(manifest)
+        .filter((item) => item.file.endsWith(".js"))
+        .map((item) => ({
+            tag: "script",
+            attribs: {
+                src: cdnUrl(item.file),
+                type: "module",
+                // Load everything except the entry file async
+                ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
+            },
+        }));
 
     return [
         ...appScripts,
