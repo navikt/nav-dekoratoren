@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "lib": ["ESNext"],
+        "module": "esnext",
+        "target": "esnext",
+        "moduleResolution": "bundler",
+        "moduleDetection": "force",
+        "strict": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": false,
+        "paths": {
+            "decorator-shared/*": ["../shared/*"],
+            "decorator-client/*": ["../client/*"]
+        },
+        "typeRoots": ["bun-types"],
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules"
+            }
+        ]
+    },
+    "exclude": ["**/*.stories.ts"]
+}

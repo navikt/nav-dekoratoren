@@ -1,11 +1,10 @@
 import html, { Template } from "../../../shared/html";
-
 import clsInputs from "decorator-client/src/styles/inputs.module.css";
 import clsModal from "decorator-client/src/styles/modal.module.css";
 import cls from "decorator-client/src/styles/screensharing-modal.module.css";
 import { VeilederIllustration } from "decorator-shared/views/illustrations";
 import { match } from "ts-pattern";
-import { Alert } from "../../../shared/views/alert";
+import { Alert } from "./alert";
 import { Button } from "../../../shared/views/components/button";
 import i18n from "../i18n";
 import { ReadMore } from "./read-more";

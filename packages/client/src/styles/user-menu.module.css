@@ -25,6 +25,8 @@
 
 .menuHeader {
     padding-bottom: var(--a-spacing-4);
+    display: grid;
+    gap: var(--a-spacing-4);
 }
 
 .loggedIn {
@@ -77,10 +79,6 @@
     padding-inline: var(--inline-padding);
     position: sticky;
     bottom: 0;
-}
-
-.alert {
-    margin-top: var(--a-spacing-4);
 }
 
 .loader {
