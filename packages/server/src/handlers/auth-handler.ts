@@ -9,7 +9,7 @@ import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import { match } from "ts-pattern";
 import { clientEnv, env } from "../env/server";
 import i18n from "../i18n";
-import { getNotifications } from "../notifications";
+import { fetchNotifications } from "../notifications";
 import { AnchorIconButton } from "../views/anchor-icon-button";
 import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-menu-dropdown";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
@@ -68,7 +68,7 @@ const buildUsermenuHtml = async (
     // @TODO: Tests for important urls, like logout
     const template = await match(params.context)
         .with("privatperson", async () => {
-            const notificationsResult = await getNotifications({ cookie });
+            const notificationsResult = await fetchNotifications({ cookie });
 
             return UserMenuDropdown({
                 name: auth.name,
