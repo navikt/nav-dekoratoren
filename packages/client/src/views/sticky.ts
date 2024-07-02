@@ -30,7 +30,7 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        const scrollPos = window.scrollY;
+        const scrollPos = this.getScrollPosition();
 
         const newOffset = Math.min(
             Math.max(
@@ -44,7 +44,7 @@ class Sticky extends HTMLElement {
     };
 
     private setStickyPosition = (position: number) => {
-        const scrollPos = window.scrollY;
+        const scrollPos = this.getScrollPosition();
 
         this.setFixed(position === scrollPos || this.menuIsOpen);
 
@@ -99,7 +99,7 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        const scrollPos = window.scrollY;
+        const scrollPos = this.getScrollPosition();
         const targetPos = targetElement.offsetTop;
 
         const targetIsOverlappedByHeader =
@@ -122,7 +122,7 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        const scrollPos = window.scrollY;
+        const scrollPos = this.getScrollPosition();
         const targetPos = targetElement.offsetTop;
 
         const targetIsAboveHeader =
@@ -131,6 +131,12 @@ class Sticky extends HTMLElement {
         if (targetIsAboveHeader) {
             this.deferStickyBehaviour();
         }
+    };
+
+    // Ensure negative scroll position is never used, which may happen on devices
+    // with scroll bouncing effects
+    private getScrollPosition = () => {
+        return Math.max(0, window.scrollY);
     };
 
     private getHeaderHeight = () => {
@@ -148,7 +154,7 @@ class Sticky extends HTMLElement {
 
     private onMenuClose = () => {
         this.menuIsOpen = false;
-        this.absoluteElement.style.top = `${window.scrollY}px`;
+        this.absoluteElement.style.top = `${this.getScrollPosition()}px`;
         this.calculateAndUpdatePosition();
     };
 

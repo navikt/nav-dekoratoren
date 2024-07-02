@@ -36,4 +36,8 @@ async function hydrate() {
         .forEach((script) => document.body.appendChild(script));
 }
 
-hydrate();
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hydrate);
+} else {
+    hydrate();
+}

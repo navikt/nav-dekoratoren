@@ -10,11 +10,20 @@ export type SearchResult = z.infer<typeof resultSchema>;
 const resultSchema = z.object({
     total: z.number(),
     hits: z.array(
-        z.object({
-            displayName: z.string(),
-            highlight: z.string(),
-            href: z.string().url(),
-        }),
+        z
+            .optional(
+                z.object({
+                    displayName: z.string(),
+                    highlight: z.string(),
+                    href: z.string().url(),
+                }),
+            )
+            .catch((ctx) => {
+                console.error(
+                    `Error validating search hit - ${ctx.error.message}`,
+                );
+                return undefined;
+            }),
     ),
 });
 
@@ -49,14 +58,19 @@ export const searchHandler = async ({
     });
 
     if (!result.ok) {
-        console.log(`Error fetching search results: ${result.error.message}`);
+        console.log(
+            `Error fetching search results for ${query} - ${result.error.message}`,
+        );
         return SearchErrorView().render({ language });
     }
 
+    // zod does not seem to generate a correct return type with a catch clause included
+    const hits = (result.data as SearchResult).hits.filter(Boolean).slice(0, 5);
+
     return SearchHits({
         results: {
-            ...result.data,
-            hits: result.data.hits.slice(0, 5),
+            total: hits.length,
+            hits,
         },
         query,
         context,
