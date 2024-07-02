@@ -21,7 +21,6 @@ import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { texts } from "./texts";
 import { clientTextsKeys } from "decorator-shared/types";
-import { trimTrailingSlash } from "hono/trailing-slash";
 
 const app = new Hono();
 
@@ -35,7 +34,6 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
 }
 
 app.use(headers);
-app.use(trimTrailingSlash());
 
 app.get("/public/assets/*", serveStatic({}));
 
@@ -166,8 +164,11 @@ app.get("/", async ({ req, html }) => {
 });
 
 app.route("/decorator-next", app);
+app.route("/decorator-next/", app);
 app.route("/dekoratoren", app);
+app.route("/dekoratoren/", app);
 app.route("/common-html/v4/navno", app);
+app.route("/common-html/v4/navno/", app);
 
 export default {
     ...app,
