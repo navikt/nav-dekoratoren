@@ -35,6 +35,12 @@ describe("getSimpleFooterLinks", () => {
         ).toBe("Personvern og informasjonskapsler");
     });
 
+    test("urls start with XP_BASE_URL", async () => {
+        expect(
+            (await getSimpleFooterLinks({ language: "nb" }))?.at(0)?.url,
+        ).toStartWith(env.XP_BASE_URL);
+    });
+
     test("returns english", async () => {
         expect(
             (await getSimpleFooterLinks({ language: "en" }))?.at(0)?.content,
