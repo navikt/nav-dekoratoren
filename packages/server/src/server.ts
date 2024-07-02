@@ -22,7 +22,9 @@ import { MainMenu } from "./views/header/main-menu";
 import { texts } from "./texts";
 import { clientTextsKeys } from "decorator-shared/types";
 
-const app = new Hono();
+const app = new Hono({
+    strict: false,
+});
 
 if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     console.log("Setting up mocks");
@@ -164,11 +166,8 @@ app.get("/", async ({ req, html }) => {
 });
 
 app.route("/decorator-next", app);
-app.route("/decorator-next/", app);
 app.route("/dekoratoren", app);
-app.route("/dekoratoren/", app);
 app.route("/common-html/v4/navno", app);
-app.route("/common-html/v4/navno/", app);
 
 export default {
     ...app,
