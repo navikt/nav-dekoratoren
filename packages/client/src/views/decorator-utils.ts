@@ -6,17 +6,8 @@ import { LanguageSelector } from "./language-selector";
 import i18n from "../i18n";
 
 class DecoratorUtils extends HTMLElement {
-    languageSelector: LanguageSelector;
-    breadcrumbs: HTMLElement;
-
-    constructor() {
-        super();
-
-        this.languageSelector = this.querySelector(
-            ":scope > div > language-selector",
-        )!;
-        this.breadcrumbs = this.querySelector(":scope > div > :first-child")!;
-    }
+    languageSelector!: LanguageSelector;
+    breadcrumbs!: HTMLElement;
 
     update = () => {
         const { availableLanguages, language, breadcrumbs, utilsBackground } =
@@ -42,6 +33,11 @@ class DecoratorUtils extends HTMLElement {
     }
 
     connectedCallback() {
+        this.languageSelector = this.querySelector(
+            ":scope > div > language-selector",
+        )!;
+        this.breadcrumbs = this.querySelector(":scope > div > :first-child")!;
+
         window.addEventListener("paramsupdated", this.update);
         setTimeout(this.update, 0);
     }
