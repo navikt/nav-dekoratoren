@@ -5,6 +5,8 @@ import { amplitudeEvent } from "../analytics/amplitude";
 
 export class LenkeMedSporingElement extends CustomLinkElement {
     connectedCallback() {
+        super.connectedCallback();
+
         const rawEventArgs = this.getAttribute("data-analytics-event-args");
         const eventArgs = tryParse<AnalyticsEventArgs, null>(
             rawEventArgs,

@@ -29,7 +29,9 @@ class SkipLinkElement extends LenkeMedSporingElement {
         setTimeout(() => observer.disconnect(), DEFERRED_UPDATE_TIME);
     }
 
-    private connectedCallback() {
+    connectedCallback() {
+        super.connectedCallback();
+
         this.updateDisplay();
         if (!this.hasMainContent()) {
             this.deferredUpdate();

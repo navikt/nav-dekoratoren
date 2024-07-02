@@ -2,6 +2,8 @@ import { LenkeMedSporingElement } from "./lenke-med-sporing";
 
 class Breadcrumb extends LenkeMedSporingElement {
     connectedCallback() {
+        super.connectedCallback();
+
         if (this.getAttribute("data-handle-in-app") !== null) {
             this.addEventListener("click", (e) => {
                 e.preventDefault();
