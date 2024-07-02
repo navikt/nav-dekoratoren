@@ -12,9 +12,9 @@ const parseAndValidateResponse = <ResponseData>(
     const validatedResponse = schema.safeParse(response);
 
     if (!validatedResponse.success) {
-        return Result.Error(
-            `Error parsing response - ${validatedResponse.error}`,
-        );
+        const msg = `Error parsing response - ${validatedResponse.error}`;
+        console.error(msg);
+        return Result.Error(msg);
     }
 
     return Result.Ok(validatedResponse.data);
@@ -38,5 +38,7 @@ export const fetchAndValidateJson: FetchAndValidate = async (
                 .then((json) => parseAndValidateResponse(json, schema));
         })
         .catch((err) => {
-            return Result.Error(`Failed to fetch from ${url}: ${err}`);
+            const msg = `Failed to fetch from ${url}: ${err}`;
+            console.error(msg);
+            return Result.Error(msg);
         });
