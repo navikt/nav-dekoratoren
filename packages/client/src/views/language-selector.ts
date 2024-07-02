@@ -9,9 +9,9 @@ declare global {
 }
 
 export class LanguageSelector extends HTMLElement {
-    menu;
-    container: HTMLDivElement;
-    button: HTMLButtonElement;
+    menu!: HTMLElement;
+    container!: HTMLDivElement;
+    button!: HTMLButtonElement;
     #open = false;
     options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
     #language?: Language;
@@ -81,17 +81,13 @@ export class LanguageSelector extends HTMLElement {
         );
     }
 
-    constructor() {
-        super();
-
-        this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
+    connectedCallback() {
+        this.button = this.querySelector(`.${cls.button}`)!;
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
         this.menu = document.createElement("ul");
         this.menu.classList.add(cls.menu, cls.hidden);
         this.container.appendChild(this.menu);
-    }
 
-    connectedCallback() {
         this.button.addEventListener("click", () => {
             this.open = !this.#open;
         });

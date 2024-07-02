@@ -11,21 +11,17 @@ const Loader = () => html`
 `;
 
 class UserMenu extends HTMLElement {
-    constructor() {
-        super();
-        this.innerHTML = Loader().render(window.__DECORATOR_DATA__.params);
-    }
-
     private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
         this.classList.add(cls.userMenuContainer);
         this.innerHTML = e.detail.usermenuHtml;
     };
 
-    private connectedCallback() {
+    connectedCallback() {
+        this.innerHTML = Loader().render(window.__DECORATOR_DATA__.params);
         window.addEventListener("authupdated", this.onAuthUpdated);
     }
 
-    private disconnectedCallback() {
+    disconnectedCallback() {
         window.removeEventListener("authupdated", this.onAuthUpdated);
     }
 }
