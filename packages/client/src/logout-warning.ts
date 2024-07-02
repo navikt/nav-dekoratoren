@@ -5,7 +5,7 @@ import {
     fetchSession,
 } from "./helpers/auth";
 
-import { fakeExpirationTime, getSecondsToDate } from "./helpers/time";
+import { addSecondsFromNow, getSecondsRemaining } from "./helpers/time";
 
 type Auth = {
     sessionExpireAtLocal: string;
@@ -109,7 +109,7 @@ export async function initLogoutWarning() {
     // ---------------------------------------------
     function fakeTokenExpiration(seconds: number) {
         if (auth) {
-            auth.tokenExpireAtLocal = fakeExpirationTime(seconds);
+            auth.tokenExpireAtLocal = addSecondsFromNow(seconds);
         } else {
             console.error(
                 "No tokens found in auth object. Cannot fake token expiry.",
@@ -119,7 +119,7 @@ export async function initLogoutWarning() {
 
     function fakeSessionExpiration(seconds: number) {
         if (auth) {
-            auth.sessionExpireAtLocal = fakeExpirationTime(seconds);
+            auth.sessionExpireAtLocal = addSecondsFromNow(seconds);
         } else {
             console.error(
                 "No tokens found in auth object. Cannot fake session expiry.",
@@ -148,10 +148,10 @@ export async function initLogoutWarning() {
             return;
         }
 
-        const secondsToTokenExpiration = getSecondsToDate(
+        const secondsToTokenExpiration = getSecondsRemaining(
             auth.tokenExpireAtLocal,
         );
-        const secondsToSessionExpiration = getSecondsToDate(
+        const secondsToSessionExpiration = getSecondsRemaining(
             auth.sessionExpireAtLocal,
         );
 

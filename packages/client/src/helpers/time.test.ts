@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
-    isoDateNow,
-    oneHourFromNow,
-    sixHoursFromNow,
-    getSecondsToDate,
-    fakeExpirationTime,
+    nowISOString,
+    addOneHourFromNow,
+    addSixHoursFromNow,
+    getSecondsRemaining,
+    addSecondsFromNow,
 } from "./time";
 
 describe("Mock helpers", () => {
-    describe("getSecondsToExpiration", () => {
+    describe("getSecondsRemaining", () => {
         it("correctly calculates seconds", () => {
             const mockCurrentISODate = "2021-10-10T10:00:00.000Z";
             const mockFutureISODate = "2021-10-10T11:04:00.000Z";
@@ -16,7 +16,7 @@ describe("Mock helpers", () => {
             vi.useFakeTimers();
             vi.setSystemTime(mockCurrentISODate);
 
-            const seconds = getSecondsToDate(mockFutureISODate);
+            const seconds = getSecondsRemaining(mockFutureISODate);
 
             expect(seconds).toBe(3840);
         });
@@ -28,24 +28,12 @@ describe("Mock helpers", () => {
             vi.useFakeTimers();
             vi.setSystemTime(mockCurrentISODate);
 
-            const seconds = getSecondsToDate(mockPastISODate);
+            const seconds = getSecondsRemaining(mockPastISODate);
 
             expect(seconds).toBe(-3600);
         });
 
-        it("correctly calculates negative seconds", () => {
-            const mockCurrentISODate = "2021-10-10T00:05:00.000Z";
-            const mockPastISODate = "2021-10-09T23:05:00.000Z";
-
-            vi.useFakeTimers();
-            vi.setSystemTime(mockCurrentISODate);
-
-            const seconds = getSecondsToDate(mockPastISODate);
-
-            expect(seconds).toBe(-3600);
-        });
-
-        it("correctly handles lack of input date", () => {
+        it("correctly handles undefined input", () => {
             const mockCurrentISODate = "2021-10-10T00:05:00.000Z";
             const mockUndefinedDate = undefined;
 
@@ -53,55 +41,71 @@ describe("Mock helpers", () => {
             vi.setSystemTime(mockCurrentISODate);
 
             // @ts-expect-error Testing undefined input
-            const seconds = getSecondsToDate(mockUndefinedDate);
+            const seconds = getSecondsRemaining(mockUndefinedDate);
 
             expect(seconds).toBe(0);
         });
     });
 
-    describe("isoDateNow", () => {
-        it("isoDateNow() returns expected date", () => {
+    describe("nowISOString", () => {
+        it("returns expected date", () => {
             const mockNow = new Date("2021-10-10T10:00:00.000Z");
             vi.useFakeTimers();
             vi.setSystemTime(mockNow);
 
-            const result = isoDateNow();
+            const result = nowISOString();
 
             expect(result).toBe("2021-10-10T10:00:00.000Z");
         });
     });
 
-    it("oneHourFromNow() returns expected date", () => {
-        const mockNow = new Date("2021-10-10T10:00:00.000Z");
-        vi.useFakeTimers();
-        vi.setSystemTime(mockNow);
+    describe("addOneHourFromNow", () => {
+        it("returns expected date", () => {
+            const mockNow = new Date("2021-10-10T10:00:00.000Z");
+            vi.useFakeTimers();
+            vi.setSystemTime(mockNow);
 
-        const result = oneHourFromNow();
+            const result = addOneHourFromNow();
 
-        expect(result).toBe("2021-10-10T11:00:00.000Z");
+            expect(result).toBe("2021-10-10T11:00:00.000Z");
+        });
     });
 
-    it("sixHoursFromNow() returns expected date", () => {
-        const mockNow = new Date("2021-10-10T10:15:00.000Z");
-        vi.useFakeTimers();
-        vi.setSystemTime(mockNow);
+    describe("addSixHoursFromNow", () => {
+        it("returns expected date", () => {
+            const mockNow = new Date("2021-10-10T10:15:00.000Z");
+            vi.useFakeTimers();
+            vi.setSystemTime(mockNow);
 
-        const result = sixHoursFromNow();
+            const result = addSixHoursFromNow();
 
-        expect(result).toBe("2021-10-10T16:15:00.000Z");
+            expect(result).toBe("2021-10-10T16:15:00.000Z");
+        });
     });
 
-    describe("fakeExpirationTime", () => {
-        it("correctly calculates future date", () => {
+    describe("addSecondsFromNow", () => {
+        it("correctly calculates future time", () => {
             const mockCurrentISODate = "2021-10-10T15:05:00.000Z";
             const mockSeconds = 63;
 
             vi.useFakeTimers();
             vi.setSystemTime(mockCurrentISODate);
 
-            const futureDate = fakeExpirationTime(mockSeconds);
+            const futureDate = addSecondsFromNow(mockSeconds);
 
             expect(futureDate).toBe("2021-10-10T15:06:03.000Z");
+        });
+
+        it("correctly calculates past time", () => {
+            const mockCurrentISODate = "2021-10-10T15:05:00.000Z";
+            const mockSeconds = -63;
+
+            vi.useFakeTimers();
+            vi.setSystemTime(mockCurrentISODate);
+
+            const futureDate = addSecondsFromNow(mockSeconds);
+
+            expect(futureDate).toBe("2021-10-10T15:03:57.000Z");
         });
     });
 });
