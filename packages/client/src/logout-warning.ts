@@ -51,7 +51,7 @@ function updateLogoutWarningUI(type: "token" | "session", minutes?: number) {
             ? texts.token_warning_title
             : texts.session_warning_title.replace(
                   "$1",
-                  minutes?.toString() || "",
+                  minutes?.toString() ?? "",
               );
     const body =
         type === "token"

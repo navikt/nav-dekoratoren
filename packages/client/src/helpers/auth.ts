@@ -41,7 +41,7 @@ export async function fetchRenew() {
 
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        null;
+        return null;
     }
 }
 
