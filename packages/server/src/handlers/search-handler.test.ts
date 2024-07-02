@@ -58,7 +58,7 @@ describe("Search handler", () => {
         expect(html).not.toContain("highlight 5");
     });
 
-    test("Should not validate invalid hits", async () => {
+    test("Should not include invalid hits", async () => {
         server.use(
             http.get(env.SEARCH_API, () =>
                 HttpResponse.json({
