@@ -11,30 +11,43 @@ import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "../env/server";
 import { searchHandler } from "./search-handler";
 
-const hits = new Array(6).fill(0).map((_, i) => ({
+const validHits = new Array(6).fill(0).map((_, i) => ({
     displayName: `Hit ${i}`,
     highlight: `highlight ${i}`,
     href: "https://example.com",
 }));
 
+const withInvalidHit = [
+    {
+        displayName: "Invalid hit",
+        highlight: "Invalid highlight",
+        href: "notaurl",
+    },
+    ...validHits,
+];
+
 describe("Search handler", () => {
     let server: SetupServerApi;
 
     beforeAll(() => {
-        server = setupServer(
-            http.get(env.SEARCH_API, () =>
-                HttpResponse.json({
-                    hits,
-                    total: hits.length,
-                }),
-            ),
-        );
+        server = setupServer();
         server.listen();
     });
+
     afterEach(() => server.resetHandlers());
+
     afterAll(() => server.close());
 
     test("Should return html containing first 5 hits only", async () => {
+        server.use(
+            http.get(env.SEARCH_API, () =>
+                HttpResponse.json({
+                    hits: validHits,
+                    total: validHits.length,
+                }),
+            ),
+        );
+
         const html = await searchHandler({
             context: "privatperson",
             language: "nb",
@@ -43,5 +56,25 @@ describe("Search handler", () => {
 
         expect(html).toContain("highlight 4");
         expect(html).not.toContain("highlight 5");
+    });
+
+    test("Should not include invalid hits", async () => {
+        server.use(
+            http.get(env.SEARCH_API, () =>
+                HttpResponse.json({
+                    hits: withInvalidHit,
+                    total: withInvalidHit.length,
+                }),
+            ),
+        );
+
+        const html = await searchHandler({
+            context: "privatperson",
+            language: "nb",
+            query: "",
+        });
+
+        expect(html).toContain("Hit 4");
+        expect(html).not.toContain("Invalid hit");
     });
 });
