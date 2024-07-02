@@ -1,11 +1,11 @@
 import { ClientTexts } from "decorator-shared/types";
 import {
-    fakeExpirationTime,
     transformSessionToAuth,
     fetchRenew,
     fetchSession,
-    getSecondsToExpiration,
 } from "./helpers/auth";
+
+import { fakeExpirationTime, getSecondsToDate } from "./helpers/time";
 
 type Auth = {
     sessionExpireAtLocal: string;
@@ -148,10 +148,10 @@ export async function initLogoutWarning() {
             return;
         }
 
-        const secondsToTokenExpiration = getSecondsToExpiration(
+        const secondsToTokenExpiration = getSecondsToDate(
             auth.tokenExpireAtLocal,
         );
-        const secondsToSessionExpiration = getSecondsToExpiration(
+        const secondsToSessionExpiration = getSecondsToDate(
             auth.sessionExpireAtLocal,
         );
 
