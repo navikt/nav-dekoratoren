@@ -6,11 +6,11 @@ import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
 import i18n from "../i18n";
 
-interface CustomEventMap {
+type CustomEventMap = {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
     chatPanelClosed: CustomEvent<undefined>;
     setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
-}
+};
 
 export type Boost = {
     chatPanel: {
@@ -26,11 +26,13 @@ export type Boost = {
 };
 
 class Chatbot extends HTMLElement {
-    button: HTMLButtonElement;
-    boost?: Boost;
+    private readonly button: HTMLButtonElement;
+    private boost?: Boost;
+    private readonly cookieName = "nav-chatbot%3Aconversation";
 
     constructor() {
         super();
+
         this.button = document.createElement("button");
         this.button.addEventListener("click", () =>
             this.getBoost().then((boost) => boost?.chatPanel.show()),
@@ -41,6 +43,7 @@ class Chatbot extends HTMLElement {
             i18n("open_chat").render(window.__DECORATOR_DATA__.params),
         );
         this.button.classList.add(cls.button);
+
         const div = document.createElement("div");
         div.classList.add(cls.chatbotWrapper);
         div.innerHTML = FridaIcon({ className: cls.svg }).render(
@@ -48,9 +51,6 @@ class Chatbot extends HTMLElement {
         );
         this.button.appendChild(div);
     }
-
-    paramsUpdatedListener = (event: CustomEvent) =>
-        this.update(event.detail.params);
 
     connectedCallback() {
         window.addEventListener("paramsupdated", this.paramsUpdatedListener);
@@ -61,7 +61,10 @@ class Chatbot extends HTMLElement {
         window.removeEventListener("paramsupdated", this.paramsUpdatedListener);
     }
 
-    update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
+    private paramsUpdatedListener = (event: CustomEvent) =>
+        this.update(event.detail.params);
+
+    private update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
             chatbot === false
@@ -70,14 +73,20 @@ class Chatbot extends HTMLElement {
         } else if (chatbot) {
             this.appendChild(this.button);
         }
+
         const isVisible = chatbotVisible || !!this.getCookie();
         this.button.classList.toggle(cls.visible, isVisible);
+
         if (isVisible) {
             loadScript();
         }
     };
 
-    getBoost = async (): Promise<Boost | undefined> => {
+    private getBoost = async (): Promise<Boost | undefined> => {
+        if (this.boost) {
+            return this.boost;
+        }
+
         if (
             !this.boost &&
             typeof window !== "undefined" &&
@@ -110,19 +119,21 @@ class Chatbot extends HTMLElement {
                 this.removeCookie,
             );
         }
+
         return this.boost;
     };
 
-    cookieName = "nav-chatbot%3Aconversation";
-    getCookie = () => Cookies.get(this.cookieName);
-    setCookie = (value: string) =>
+    private getCookie = () => Cookies.get(this.cookieName);
+
+    private setCookie = (value: string) =>
         Cookies.set(this.cookieName, value, {
             expires: 1,
             domain: location.hostname.includes("nav.no")
                 ? ".nav.no"
                 : undefined,
         });
-    removeCookie = () => Cookies.remove(this.cookieName);
+
+    private removeCookie = () => Cookies.remove(this.cookieName);
 }
 
 const boostConfig = ({
@@ -161,6 +172,4 @@ const loadScript = () =>
         `https://${env("BOOST_ENV")}.boost.ai/chatPanel/chatPanel.js`,
     );
 
-if (!customElements.get("d-chatbot")) {
-    customElements.define("d-chatbot", Chatbot);
-}
+customElements.define("d-chatbot", Chatbot);
