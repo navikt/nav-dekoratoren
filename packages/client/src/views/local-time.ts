@@ -1,3 +1,5 @@
+import { addCustomElement } from "../custom-elements";
+
 class LocalTime extends HTMLElement {
     connectedCallback() {
         const datetime = this.getAttribute("datetime");
@@ -17,4 +19,4 @@ class LocalTime extends HTMLElement {
     }
 }
 
-customElements.define("local-time", LocalTime);
+addCustomElement("local-time", LocalTime);

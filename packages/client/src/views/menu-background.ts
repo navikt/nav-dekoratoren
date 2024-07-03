@@ -1,4 +1,5 @@
 import cls from "./menu-background.module.css";
+import { addCustomElement } from "../custom-elements";
 
 class MenuBackground extends HTMLElement {
     openCount = 0;
@@ -22,4 +23,4 @@ class MenuBackground extends HTMLElement {
     }
 }
 
-customElements.define("menu-background", MenuBackground);
+addCustomElement("menu-background", MenuBackground);

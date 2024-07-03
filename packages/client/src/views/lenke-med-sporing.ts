@@ -2,6 +2,7 @@ import type { AnalyticsEventArgs } from "../analytics/constants";
 import { tryParse } from "decorator-shared/json";
 import { CustomLinkElement } from "../helpers/custom-link-element";
 import { amplitudeEvent } from "../analytics/amplitude";
+import { addCustomElement } from "../custom-elements";
 
 export class LenkeMedSporingElement extends CustomLinkElement {
     connectedCallback() {
@@ -25,4 +26,4 @@ export class LenkeMedSporingElement extends CustomLinkElement {
     }
 }
 
-customElements.define("lenke-med-sporing", LenkeMedSporingElement);
+addCustomElement("lenke-med-sporing", LenkeMedSporingElement);

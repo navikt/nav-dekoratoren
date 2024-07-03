@@ -3,6 +3,7 @@ import { CustomEvents } from "../events";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { param } from "../params";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { addCustomElement } from "../custom-elements";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -53,4 +54,4 @@ class MainMenu extends HTMLElement {
     }
 }
 
-customElements.define("main-menu", MainMenu);
+addCustomElement("main-menu", MainMenu);

@@ -1,5 +1,6 @@
 import cls from "../styles/dropdown-menu.module.css";
 import { createEvent } from "../events";
+import { addCustomElement } from "../custom-elements";
 
 class DropdownMenu extends HTMLElement {
     button: HTMLElement | null = null;
@@ -47,4 +48,4 @@ class DropdownMenu extends HTMLElement {
     }
 }
 
-customElements.define("dropdown-menu", DropdownMenu);
+addCustomElement("dropdown-menu", DropdownMenu);

@@ -1,6 +1,7 @@
 import feedbackClasses from "../styles/feedback.module.css";
 import { FeedbackSuccess } from "./feedback-success";
 import { logAmplitudeEvent } from "../analytics/amplitude";
+import { addCustomElement } from "../custom-elements";
 
 class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
@@ -31,4 +32,4 @@ class DecoratorFeedback extends HTMLElement {
     }
 }
 
-customElements.define("d-feedback", DecoratorFeedback);
+addCustomElement("d-feedback", DecoratorFeedback);
