@@ -5,11 +5,11 @@ import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
 import { initAuth } from "./auth";
-import { logoutWarningController } from "./controllers/logout-warning";
+import { initLogoutWarning } from "./logout-warning";
 import { createEvent, initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import "./main.css";
-import { env, hasParam, param, updateDecoratorParams } from "./params";
+import { env, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 import { getHeadAssetsProps } from "decorator-shared/head";
 import { buildHtmlElement } from "./helpers/html-element-builder";
@@ -127,11 +127,8 @@ const init = () => {
         initAnalytics(auth);
     });
 
-    if (hasParam("logoutWarning")) {
-        logoutWarningController(
-            param("logoutWarning"),
-            window.__DECORATOR_DATA__.texts,
-        );
+    if (param("logoutWarning")) {
+        initLogoutWarning();
     }
 };
 
