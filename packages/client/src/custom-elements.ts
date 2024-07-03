@@ -1,14 +1,6 @@
-type CustomElementProps = {
-    name: string;
-    element: CustomElementConstructor;
-    options?: ElementDefinitionOptions;
-};
+type DefineCustomElement = CustomElementRegistry["define"];
 
-const _defineCustomElement = ({
-    name,
-    element,
-    options,
-}: CustomElementProps) => {
+const _defineCustomElement: DefineCustomElement = (name, element, options) => {
     try {
         window.customElements.define(name, element, options);
     } catch (e) {
@@ -18,18 +10,16 @@ const _defineCustomElement = ({
 
 // Custom elements should not be defined until the DOM is fully loaded. This prevents
 // certain inconsistent behaviours and potential bugs in the lifecycle of custom elements
-export const defineCustomElement = (
-    name: string,
-    element: CustomElementConstructor,
-    options?: ElementDefinitionOptions,
+export const defineCustomElement: DefineCustomElement = (
+    name,
+    element,
+    options,
 ) => {
-    const props = { name, element, options };
-
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () =>
-            _defineCustomElement(props),
+            _defineCustomElement(name, element, options),
         );
     } else {
-        _defineCustomElement(props);
+        _defineCustomElement(name, element, options);
     }
 };
