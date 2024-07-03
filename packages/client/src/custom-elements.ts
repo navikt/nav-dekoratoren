@@ -4,13 +4,17 @@ type CustomElementProps = {
     options?: ElementDefinitionOptions;
 };
 
-const customElementsInitQueue: Record<string, CustomElementProps> = {};
+const customElementsRegisterQueue: Record<string, CustomElementProps> = {};
 
-const initCustomElement = ({ name, element, options }: CustomElementProps) => {
+const defineCustomElement = ({
+    name,
+    element,
+    options,
+}: CustomElementProps) => {
     try {
         window.customElements.define(name, element, options);
     } catch (e) {
-        console.error(`Failed to register custom element for "${name}" - ${e}`);
+        console.error(`Failed to define custom element for "${name}" - ${e}`);
     }
 };
 
@@ -21,7 +25,7 @@ export const registerCustomElement = (
     element: CustomElementConstructor,
     options?: ElementDefinitionOptions,
 ) => {
-    if (customElementsInitQueue[name]) {
+    if (customElementsRegisterQueue[name]) {
         console.error(`Custom element for ${name} was already registered!`);
         return;
     }
@@ -29,12 +33,12 @@ export const registerCustomElement = (
     const props = { name, element, options };
 
     if (document.readyState === "loading") {
-        customElementsInitQueue[name] = props;
+        customElementsRegisterQueue[name] = props;
     } else {
-        initCustomElement(props);
+        defineCustomElement(props);
     }
 };
 
-export const initCustomElements = () => {
-    Object.values(customElementsInitQueue).forEach(initCustomElement);
+export const processCustomElementsRegisterQueue = () => {
+    Object.values(customElementsRegisterQueue).forEach(defineCustomElement);
 };
