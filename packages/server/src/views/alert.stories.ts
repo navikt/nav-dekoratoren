@@ -18,7 +18,7 @@ export const Info: Story = {
     },
 };
 
-export const Error: Story = {
+export const Danger: Story = {
     args: {
         variant: "error",
         content: i18n("notifications_error"),
