@@ -8,13 +8,7 @@ export type AlertProps = {
 };
 
 export const Alert = ({ variant, content }: AlertProps) => html`
-    <div
-        class="${clsx(
-            cls.wat,
-            cls["navds-alert"],
-            cls[`navds-alert--${variant}`],
-        )}"
-    >
+    <div class="${clsx(cls["navds-alert"], cls[`navds-alert--${variant}`])}">
         ${icons[variant]}
         <span class="${cls.text}">${content}</span>
     </div>

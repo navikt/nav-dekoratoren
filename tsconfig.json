@@ -13,12 +13,7 @@
             "decorator-shared/*": ["../shared/*"],
             "decorator-client/*": ["../client/*"]
         },
-        "typeRoots": ["bun-types"],
-        "plugins": [
-            {
-                "name": "typescript-plugin-css-modules"
-            }
-        ]
+        "typeRoots": ["bun-types"]
     },
     "exclude": ["**/*.stories.ts"]
 }

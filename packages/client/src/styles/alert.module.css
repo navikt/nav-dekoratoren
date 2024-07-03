@@ -1,13 +1,4 @@
 @import "@navikt/ds-css/dist/component/alert.css";
-@import "test.module.css";
-
-.wat {
-    background-color: green;
-}
-
-.navds-alert--info,
-.navds-alert--error {
-}
 
 .text {
     font-size: var(--a-font-size-large);
