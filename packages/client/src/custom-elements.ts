@@ -4,20 +4,25 @@ type CustomElementProps = {
     options?: ElementDefinitionOptions;
 };
 
-const customElements: CustomElementProps[] = [];
+const customElements: Record<string, CustomElementProps> = {};
 
 export const registerCustomElement = (
     name: string,
     element: CustomElementConstructor,
     options?: ElementDefinitionOptions,
 ) => {
-    customElements.push({ name, element, options });
+    if (customElements[name]) {
+        console.error(`Custom element for ${name} was already registered!`);
+        return;
+    }
+
+    customElements[name] = { name, element, options };
 };
 
 // Custom elements should not be defined until the DOM is fully loaded. This prevents
 // certain inconsistent behaviours and potential bugs in the lifecycle of custom elements
 export const initCustomElements = () => {
-    customElements.forEach(({ name, element, options }) => {
+    Object.values(customElements).forEach(({ name, element, options }) => {
         try {
             window.customElements.define(name, element, options);
         } catch (e) {
