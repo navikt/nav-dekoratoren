@@ -28,7 +28,7 @@ env:
   - name: LOGOUT_URL
     value: https://login.ekstern.dev.nav.no/oauth2/logout
   - name: VARSEL_API_URL
-    value: http://tms-varsel-api
+    value: http://tms-varsel-api/tms-varsel-api
   - name: API_DEKORATOREN_URL
     value: http://nav-dekoratoren-api/person/nav-dekoratoren-api
   - name: API_SESSION_URL
