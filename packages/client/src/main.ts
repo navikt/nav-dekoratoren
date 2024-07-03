@@ -14,7 +14,6 @@ import { useLoadIfActiveSession } from "./screensharing";
 import { getHeadAssetsProps } from "decorator-shared/head";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { cdnUrl } from "./helpers/urls";
-import { processCustomElementsRegisterQueue } from "./custom-elements";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -116,7 +115,6 @@ const injectHeadAssets = () => {
 
 const init = () => {
     injectHeadAssets();
-    processCustomElementsRegisterQueue();
     initHistoryEvents();
 
     if (param("maskHotjar")) {

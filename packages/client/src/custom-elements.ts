@@ -4,8 +4,6 @@ type CustomElementProps = {
     options?: ElementDefinitionOptions;
 };
 
-const customElementsRegisterQueue: Record<string, CustomElementProps> = {};
-
 const defineCustomElement = ({
     name,
     element,
@@ -28,12 +26,10 @@ export const registerCustomElement = (
     const props = { name, element, options };
 
     if (document.readyState === "loading") {
-        customElementsRegisterQueue[name] = props;
+        document.addEventListener("DOMContentLoaded", () =>
+            defineCustomElement(props),
+        );
     } else {
         defineCustomElement(props);
     }
-};
-
-export const processCustomElementsRegisterQueue = () => {
-    Object.values(customElementsRegisterQueue).forEach(defineCustomElement);
 };
