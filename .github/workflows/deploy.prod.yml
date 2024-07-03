@@ -122,3 +122,14 @@ jobs:
           RESOURCE: .nais/config.yml
           VAR: image=${{ needs.build-and-test.outputs.image }}
           VARS: .nais/vars/prod.yml
+  publish-image:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Tag and push image to ghcr.io for use by other developers locally
+        run: |
+          docker tag ${{ needs.build-and-test.outputs.image }} ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:latest
