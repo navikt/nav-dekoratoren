@@ -25,11 +25,6 @@ export const registerCustomElement = (
     element: CustomElementConstructor,
     options?: ElementDefinitionOptions,
 ) => {
-    if (customElementsRegisterQueue[name]) {
-        console.error(`Custom element for ${name} was already registered!`);
-        return;
-    }
-
     const props = { name, element, options };
 
     if (document.readyState === "loading") {
