@@ -169,7 +169,7 @@ export function Index({
                     </script>
                     ${unsafeHtml(scriptsAsString)}
                 </div>
-
+                <!-- The elements below are needed for backwards compatibility with certain older implementations -->
                 <div id="skiplinks"></div>
                 <div id="megamenu-resources"></div>
                 <div id="webstats-ga-notrack"></div>

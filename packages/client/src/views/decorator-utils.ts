@@ -4,6 +4,7 @@ import cls from "../styles/decorator-utils.module.css";
 
 import { LanguageSelector } from "./language-selector";
 import i18n from "../i18n";
+import { defineCustomElement } from "../custom-elements";
 
 class DecoratorUtils extends HTMLElement {
     languageSelector!: LanguageSelector;
@@ -47,4 +48,4 @@ class DecoratorUtils extends HTMLElement {
     }
 }
 
-customElements.define("decorator-utils", DecoratorUtils);
+defineCustomElement("decorator-utils", DecoratorUtils);
