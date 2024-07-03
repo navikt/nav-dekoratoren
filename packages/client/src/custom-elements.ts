@@ -14,6 +14,8 @@ export const registerCustomElement = (
     customElements.push({ name, element, options });
 };
 
+// Custom elements should not be defined until the DOM is fully loaded. This prevents
+// certain inconsistent behaviours and potential bugs in the lifecycle of custom elements
 export const initCustomElements = () => {
     customElements.forEach(({ name, element, options }) => {
         try {
