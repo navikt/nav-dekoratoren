@@ -27,7 +27,7 @@ env:
   - name: LOGOUT_URL
     value: https://login.nav.no/oauth2/logout
   - name: VARSEL_API_URL
-    value: https://www.nav.no/tms-varsel-api
+    value: http://tms-varsel-api.min-side/tms-varsel-api
   - name: API_DEKORATOREN_URL
     value: http://nav-dekoratoren-api/person/nav-dekoratoren-api
   - name: API_SESSION_URL
@@ -47,7 +47,7 @@ replicas:
   max: 40
 resources:
   requests:
-    cpu: 1000m
+    cpu: 500m
     memory: 512Mi
   limits:
     memory: 2048Mi
