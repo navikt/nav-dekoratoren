@@ -3,7 +3,7 @@ import { CustomEvents } from "../events";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { param } from "../params";
 import { endpointUrlWithParams } from "../helpers/urls";
-import { registerCustomElement } from "../custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -54,4 +54,4 @@ class MainMenu extends HTMLElement {
     }
 }
 
-registerCustomElement("main-menu", MainMenu);
+defineCustomElement("main-menu", MainMenu);

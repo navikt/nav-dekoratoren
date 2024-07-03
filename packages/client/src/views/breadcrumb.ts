@@ -1,5 +1,5 @@
 import { LenkeMedSporingElement } from "./lenke-med-sporing";
-import { registerCustomElement } from "../custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 class Breadcrumb extends LenkeMedSporingElement {
     connectedCallback() {
@@ -23,4 +23,4 @@ class Breadcrumb extends LenkeMedSporingElement {
     }
 }
 
-registerCustomElement("d-breadcrumb", Breadcrumb);
+defineCustomElement("d-breadcrumb", Breadcrumb);

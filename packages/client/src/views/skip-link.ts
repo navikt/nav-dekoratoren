@@ -1,5 +1,5 @@
 import { LenkeMedSporingElement } from "./lenke-med-sporing";
-import { registerCustomElement } from "../custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 const DEFERRED_UPDATE_TIME = 5000;
 
@@ -40,4 +40,4 @@ class SkipLinkElement extends LenkeMedSporingElement {
     }
 }
 
-registerCustomElement("skip-link", SkipLinkElement);
+defineCustomElement("skip-link", SkipLinkElement);

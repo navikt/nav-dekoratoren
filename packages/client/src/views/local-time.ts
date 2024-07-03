@@ -1,4 +1,4 @@
-import { registerCustomElement } from "../custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 class LocalTime extends HTMLElement {
     connectedCallback() {
@@ -19,4 +19,4 @@ class LocalTime extends HTMLElement {
     }
 }
 
-registerCustomElement("local-time", LocalTime);
+defineCustomElement("local-time", LocalTime);

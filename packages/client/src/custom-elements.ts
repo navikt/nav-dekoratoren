@@ -4,7 +4,7 @@ type CustomElementProps = {
     options?: ElementDefinitionOptions;
 };
 
-const defineCustomElement = ({
+const _defineCustomElement = ({
     name,
     element,
     options,
@@ -18,7 +18,7 @@ const defineCustomElement = ({
 
 // Custom elements should not be defined until the DOM is fully loaded. This prevents
 // certain inconsistent behaviours and potential bugs in the lifecycle of custom elements
-export const registerCustomElement = (
+export const defineCustomElement = (
     name: string,
     element: CustomElementConstructor,
     options?: ElementDefinitionOptions,
@@ -27,9 +27,9 @@ export const registerCustomElement = (
 
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () =>
-            defineCustomElement(props),
+            _defineCustomElement(props),
         );
     } else {
-        defineCustomElement(props);
+        _defineCustomElement(props);
     }
 };

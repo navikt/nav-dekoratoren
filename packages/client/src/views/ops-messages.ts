@@ -4,7 +4,7 @@ import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
 import { InfoIcon, WarningIcon } from "decorator-shared/views/icons";
 import { env } from "../params";
-import { registerCustomElement } from "../custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
@@ -87,4 +87,4 @@ class OpsMessages extends HTMLElement {
     }
 }
 
-registerCustomElement("ops-messages", OpsMessages);
+defineCustomElement("ops-messages", OpsMessages);

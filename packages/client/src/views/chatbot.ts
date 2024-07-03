@@ -5,7 +5,7 @@ import { env, param } from "../params";
 import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
 import i18n from "../i18n";
-import { registerCustomElement } from "../custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 interface CustomEventMap {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
@@ -162,4 +162,4 @@ const loadScript = () =>
         `https://${env("BOOST_ENV")}.boost.ai/chatPanel/chatPanel.js`,
     );
 
-registerCustomElement("d-chatbot", Chatbot);
+defineCustomElement("d-chatbot", Chatbot);
