@@ -1,12 +1,12 @@
-import html, { Template } from "../../../shared/html";
 import clsInputs from "decorator-client/src/styles/inputs.module.css";
 import clsModal from "decorator-client/src/styles/modal.module.css";
 import cls from "decorator-client/src/styles/screensharing-modal.module.css";
+import html, { Template } from "decorator-shared/html";
 import { VeilederIllustration } from "decorator-shared/views/illustrations";
 import { match } from "ts-pattern";
-import { Alert } from "./alert";
-import { Button } from "../../../shared/views/components/button";
 import i18n from "../i18n";
+import { Alert } from "./alert";
+import { Button } from "./button";
 import { ReadMore } from "./read-more";
 
 export type ScreensharingModalProps = {
@@ -56,7 +56,7 @@ const ScreensharingEnabled = () => {
                 >
                 <input
                     id="screensharing_code"
-                    class="${clsInputs.textInput} ${cls.codeInput}"
+                    class="${clsInputs.textInput}"
                     type="text"
                     maxlength="5"
                     autocomplete="off"
@@ -67,16 +67,12 @@ const ScreensharingEnabled = () => {
             </div>
             <div class="${cls.buttonsWrapper}">
                 ${Button({
-                    text: i18n("delskjerm_modal_start"),
+                    content: i18n("delskjerm_modal_start"),
                     variant: "primary",
-                    bigLabel: true,
-                    className: cls.confirmButton,
                 })}
                 ${Button({
-                    text: i18n("delskjerm_modal_avbryt"),
-                    variant: "ghost",
-                    bigLabel: true,
-                    className: cls.cancelButton,
+                    content: i18n("delskjerm_modal_avbryt"),
+                    variant: "tertiary",
                 })}
             </div>
         `,

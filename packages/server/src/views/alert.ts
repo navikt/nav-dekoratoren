@@ -3,8 +3,8 @@ import cls from "decorator-client/src/styles/alert.module.css";
 import html, { Template } from "../../../shared/html";
 
 export type AlertProps = {
-    variant: "error" | "info";
     content: Template;
+    variant: "error" | "info";
 };
 
 export const Alert = ({ variant, content }: AlertProps) => html`
