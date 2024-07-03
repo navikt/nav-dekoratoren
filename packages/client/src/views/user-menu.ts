@@ -3,7 +3,7 @@ import html from "decorator-shared/html";
 import cls from "decorator-client/src/styles/user-menu.module.css";
 import iconButtonCls from "decorator-client/src/styles/icon-button.module.css";
 import i18n from "../i18n";
-import { addCustomElement } from "../custom-elements";
+import { registerCustomElement } from "../custom-elements";
 
 const Loader = () => html`
     <span class="${cls.loader} ${iconButtonCls.iconButtonSpan}"
@@ -27,4 +27,4 @@ class UserMenu extends HTMLElement {
     }
 }
 
-addCustomElement("user-menu", UserMenu);
+registerCustomElement("user-menu", UserMenu);

@@ -1,6 +1,6 @@
 import { env, param } from "../params";
 import { Language } from "decorator-shared/params";
-import { addCustomElement } from "../custom-elements";
+import { registerCustomElement } from "../custom-elements";
 
 type IdPortenLocale = "nb" | "nn" | "en" | "se";
 
@@ -46,4 +46,4 @@ class LoginButton extends HTMLElement {
     }
 }
 
-addCustomElement("login-button", LoginButton);
+registerCustomElement("login-button", LoginButton);

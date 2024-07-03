@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
-import { addCustomElement } from "../custom-elements";
+import { registerCustomElement } from "../custom-elements";
 
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should
@@ -196,4 +196,4 @@ class Sticky extends HTMLElement {
     }
 }
 
-addCustomElement("d-sticky", Sticky);
+registerCustomElement("d-sticky", Sticky);

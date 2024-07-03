@@ -1,6 +1,6 @@
 import cls from "../styles/search-form.module.css";
 import { createEvent } from "../events";
-import { addCustomElement } from "../custom-elements";
+import { registerCustomElement } from "../custom-elements";
 
 class SearchInput extends HTMLElement {
     clearButton: HTMLButtonElement | null = null;
@@ -27,4 +27,4 @@ class SearchInput extends HTMLElement {
     }
 }
 
-addCustomElement("search-input", SearchInput);
+registerCustomElement("search-input", SearchInput);

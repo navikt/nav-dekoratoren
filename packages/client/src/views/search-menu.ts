@@ -3,7 +3,7 @@ import debounce from "lodash.debounce";
 import cls from "../styles/search-form.module.css";
 import { env, param } from "../params";
 import { amplitudeEvent } from "../analytics/amplitude";
-import { addCustomElement } from "../custom-elements";
+import { registerCustomElement } from "../custom-elements";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -102,4 +102,4 @@ class SearchMenu extends HTMLElement {
     }
 }
 
-addCustomElement("search-menu", SearchMenu);
+registerCustomElement("search-menu", SearchMenu);

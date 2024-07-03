@@ -6,7 +6,7 @@ type CustomElementProps = {
 
 const customElements: CustomElementProps[] = [];
 
-export const addCustomElement = (
+export const registerCustomElement = (
     name: string,
     element: CustomElementConstructor,
     options?: ElementDefinitionOptions,
@@ -17,7 +17,6 @@ export const addCustomElement = (
 export const initCustomElements = () => {
     customElements.forEach(({ name, element, options }) => {
         try {
-            console.log(`Defining element for ${name}`);
             window.customElements.define(name, element, options);
         } catch (e) {
             console.error(
