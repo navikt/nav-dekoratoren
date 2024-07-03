@@ -1,10 +1,8 @@
-import html from "decorator-shared/html";
-import { Alert } from "decorator-shared/views/alert";
+import i18n from "../../i18n";
+import { Alert } from "../alert";
 
-// TODO: add texts/translations
-export const SearchErrorView = () => {
-    return html`${Alert({
+export const SearchErrorView = () =>
+    Alert({
         variant: "error",
-        content: html` <div>Åh nei, søket feilet!</div>`,
-    })}`;
-};
+        content: i18n("search_error"),
+    });

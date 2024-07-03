@@ -55,7 +55,8 @@ const nb = {
     meny_bunnlenke_samarbeidspartner_stikkord:
         "Helsepersonell, tiltaksarrangører, fylker og kommuner",
     loading_notifications: "Laster varslinger",
-    notifications_error: "Feil ved lasting av varsler",
+    notifications_error: "Feil ved lasting av varsler.",
+    search_error: "Feil ved lasting av søkeresultater.",
     how_can_we_help: "Hva kan vi hjelpe deg med?",
     showing: "Viser",
     of: "av",
@@ -150,7 +151,8 @@ const en = {
     meny_bunnlenke_samarbeidspartner_stikkord:
         "Health personnel, intervention organizers, counties and municipalities",
     loading_notifications: "Loading notifications",
-    notifications_error: "Error loading notifications",
+    notifications_error: "Error loading notifications.",
+    search_error: "Error loading search results.",
     how_can_we_help: "How can we help you?",
     showing: "Showing",
     of: "of",
