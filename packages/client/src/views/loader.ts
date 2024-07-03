@@ -1,9 +1,7 @@
 import html from "decorator-shared/html";
 
 export class Loader extends HTMLElement {
-    constructor() {
-        super();
-
+    connectedCallback() {
         const shadowRoot = this.attachShadow({ mode: "open" });
         const title = this.getAttribute("title") ?? "Laster forhåndsvisning";
 

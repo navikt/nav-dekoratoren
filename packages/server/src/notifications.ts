@@ -15,8 +15,10 @@ const varselSchema = z
     })
     .nullable()
     .catch((ctx) => {
+        // Don't log fields which may contain sensitive information
+        const redactedInput = { ...ctx.input, tekst: null, link: null };
         console.error(
-            `Error validating notification - ${JSON.stringify(ctx.input)}`,
+            `Error validating notification - ${JSON.stringify(redactedInput)}`,
         );
         return null;
     });

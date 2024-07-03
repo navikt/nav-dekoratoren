@@ -21,9 +21,10 @@ import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { texts } from "./texts";
 import { clientTextsKeys } from "decorator-shared/types";
-import { trimTrailingSlash } from "hono/trailing-slash";
 
-const app = new Hono();
+const app = new Hono({
+    strict: false,
+});
 
 if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     console.log("Setting up mocks");
@@ -35,7 +36,6 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
 }
 
 app.use(headers);
-app.use(trimTrailingSlash());
 
 app.get("/public/assets/*", serveStatic({}));
 
