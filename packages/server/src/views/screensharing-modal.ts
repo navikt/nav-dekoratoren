@@ -48,33 +48,38 @@ const ScreensharingEnabled = () => {
     return ScreensharingModal({
         status: "enabled",
         children: html`
-            <div>
-                <label
-                    for="screensharing_code"
-                    class="${clsInputs.textInputLabel}"
-                    >${i18n("delskjerm_modal_label")}</label
-                >
-                <input
-                    id="screensharing_code"
-                    class="${clsInputs.textInput}"
-                    type="text"
-                    maxlength="5"
-                    autocomplete="off"
-                />
-                <ul class="${clsInputs.errorList}">
-                    <li>${i18n("delskjerm_modal_feilmelding")}</li>
-                </ul>
-            </div>
-            <div class="${cls.buttonsWrapper}">
-                ${Button({
-                    content: i18n("delskjerm_modal_start"),
-                    variant: "primary",
-                })}
-                ${Button({
-                    content: i18n("delskjerm_modal_avbryt"),
-                    variant: "tertiary",
-                })}
-            </div>
+            <form>
+                <div>
+                    <label
+                        for="screensharing_code"
+                        class="${clsInputs.textInputLabel}"
+                        >${i18n("delskjerm_modal_label")}</label
+                    >
+                    <input
+                        id="screensharing_code"
+                        name="screensharing_code"
+                        class="${clsInputs.textInput}"
+                        type="text"
+                        maxlength="5"
+                        autocomplete="off"
+                    />
+                    <ul class="${clsInputs.errorList}">
+                        <li>${i18n("delskjerm_modal_feilmelding")}</li>
+                    </ul>
+                </div>
+                <div class="${cls.buttonsWrapper}">
+                    ${Button({
+                        content: i18n("delskjerm_modal_start"),
+                        variant: "primary",
+                        type: "submit",
+                    })}
+                    ${Button({
+                        content: i18n("delskjerm_modal_avbryt"),
+                        variant: "tertiary",
+                        attributes: { ["data-type"]: "cancel" },
+                    })}
+                </div>
+            </form>
         `,
     });
 };

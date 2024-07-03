@@ -9,16 +9,19 @@ import html, {
 export type ButtonProps = {
     content: Template;
     variant: "primary" | "secondary" | "tertiary";
+    type?: "button" | "submit" | "reset";
     attributes?: Record<string, AttributeValue>;
 };
 
 export const Button = ({
     content,
     variant,
+    type = "button",
     attributes = {},
 }: ButtonProps) => html`
     <button
         ${htmlAttributes(attributes)}
+        type="${type}"
         class="${clsx(
             cls["navds-button"],
             cls["navds-label"],
