@@ -1,4 +1,4 @@
-export type AuthData = {
+export type SessionData = {
     session: {
         created_at: string;
         ends_at: string;
@@ -25,14 +25,9 @@ export async function fetchSession() {
             credentials: "include",
         });
 
-        return await sessionResponse.json();
+        return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        console.log(`User is not logged in`);
-        return {
-            authenticated: false,
-            name: "",
-            securityLevel: "",
-        };
+        return null;
     }
 }
 
@@ -44,23 +39,25 @@ export async function fetchRenew() {
             credentials: "include",
         });
 
-        return await sessionResponse.json();
+        return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        console.log(`User is not logged in`);
-        return {
-            authenticated: false,
-            name: "",
-            securityLevel: "",
-        };
+        return null;
     }
 }
 
-export function getSecondsToExpiration(expiration: string) {
-    const now = new Date().getTime();
-    const expires = new Date(expiration).getTime();
-    return Math.ceil((expires - now) / 1000);
-}
+export function transformSessionToAuth(session: SessionData) {
+    const sessionExpireInSeconds = session.session.ends_in_seconds;
+    const tokenExpireInSeconds = session.tokens.expire_in_seconds;
 
-export function fakeExpirationTime(seconds: number) {
-    return new Date(Date.now() + seconds * 1000).toISOString();
+    const sessionExpireAtLocal = new Date(
+        new Date().getTime() + sessionExpireInSeconds * 1000,
+    ).toISOString();
+    const tokenExpireAtLocal = new Date(
+        new Date().getTime() + tokenExpireInSeconds * 1000,
+    ).toISOString();
+
+    return {
+        sessionExpireAtLocal,
+        tokenExpireAtLocal,
+    };
 }

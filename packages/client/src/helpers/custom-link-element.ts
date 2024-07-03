@@ -8,9 +8,10 @@ export class CustomLinkElement extends HTMLElement {
         this.anchor.href = this.getAttribute("href") || "";
         this.anchor.innerHTML = this.innerHTML;
         this.anchor.classList.add(...this.classList);
+    }
 
+    connectedCallback() {
         this.classList.remove(...this.classList);
-
         this.innerHTML = "";
         this.appendChild(this.anchor);
     }

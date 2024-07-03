@@ -20,7 +20,7 @@ const resultSchema = z.object({
             )
             .catch((ctx) => {
                 console.error(
-                    `Error validating search hit - ${ctx.error.message}`,
+                    `Error validating search hit - ${JSON.stringify(ctx.input)}`,
                 );
                 return undefined;
             }),

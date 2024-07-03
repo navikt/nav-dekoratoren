@@ -148,7 +148,5 @@ export type CsrPayload = {
 export type HtmlElementProps = {
     tag: string;
     attribs: Record<string, string>;
-} & (
-    | { body?: string; selfClosing?: never }
-    | { body?: never; selfClosing?: boolean }
-);
+    body?: string;
+};

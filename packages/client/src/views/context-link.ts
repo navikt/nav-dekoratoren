@@ -47,6 +47,8 @@ class ContextLink extends CustomLinkElement {
     };
 
     connectedCallback() {
+        super.connectedCallback();
+
         window.addEventListener("activecontext", this.handleActiveContext);
         this.addEventListener("click", this.handleClick);
     }

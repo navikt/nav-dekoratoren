@@ -85,7 +85,7 @@ const nb = {
     delskjerm_modal_stengt:
         "Skjermdeling er for øyeblikket stengt, prøv igjen senere.",
     security_level_info:
-        "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
+        "Du har logget inn med MinID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
     security_level_link: "Logg inn med BankID, Buypass, eller Commfides.",
     go_to_my_page: "Gå til Min side",
     my_page: "Min side",
@@ -181,7 +181,7 @@ const en = {
     delskjerm_modal_stengt:
         "Screen sharing is currently closed, please try again later.",
     security_level_info:
-        "You are logged in with Min ID. If you log in with a higher security level, you will see more content and additional services.",
+        "You are logged in with MinID. If you log in with a higher security level, you will see more content and additional services.",
     security_level_link: "Log in with BankID, Buypass, or Commfides.",
     go_to_my_page: "Go to my page",
     my_page: "My page",

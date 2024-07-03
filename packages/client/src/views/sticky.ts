@@ -3,16 +3,12 @@ import cls from "decorator-client/src/styles/sticky.module.css";
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should
     // update when the scroll position changes.
-    private readonly absoluteElement: HTMLElement = this.querySelector(
-        `.${cls.absoluteWrapper}`,
-    )!;
+    private absoluteElement!: HTMLElement;
 
     // This element is nested under the absolute element, and is set to a fixed
     // position when the header is fully scrolled into view. This prevents the
     // header from sometimes moving erratically when the user is scrolling upwards.
-    private readonly fixedElement: HTMLElement = this.querySelector(
-        `.${cls.fixedWrapper}`,
-    )!;
+    private fixedElement!: HTMLElement;
 
     // Why we use two levels of positioning in this implementation:
     // 1. Using only fixed positioning (and hiding the header with a negative top position)
@@ -159,10 +155,20 @@ class Sticky extends HTMLElement {
     };
 
     connectedCallback() {
-        if (!this.absoluteElement || !this.fixedElement) {
+        const fixedElement = this.querySelector(
+            `.${cls.fixedWrapper}`,
+        ) as HTMLElement | null;
+        const absoluteElement = this.querySelector(
+            `.${cls.absoluteWrapper}`,
+        ) as HTMLElement | null;
+
+        if (!absoluteElement || !fixedElement) {
             console.error("Required elements not found!");
             return;
         }
+
+        this.fixedElement = fixedElement;
+        this.absoluteElement = absoluteElement;
 
         window.addEventListener("scroll", this.calculateAndUpdatePosition);
         window.addEventListener("resize", this.calculateAndUpdatePosition);
