@@ -1,10 +1,7 @@
-import { buildHtmlElement } from "./helpers/html-element-builder";
+import { buildHtmlElement, htmlElementExists } from "./helpers/html-elements";
 import type { CsrPayload } from "decorator-shared/types";
 
-export const fetchAndRenderClientSide = async (
-    url: string,
-    htmlOnly?: boolean,
-) => {
+export const fetchAndRenderClientSide = async (url: string) => {
     const csrAssets = await fetch(url)
         .then((res) => res.json() as Promise<CsrPayload>)
         .catch((e) => {
@@ -27,17 +24,19 @@ export const fetchAndRenderClientSide = async (
         footerEl.outerHTML = csrAssets.footer;
     }
 
-    if (htmlOnly) {
-        return;
-    }
-
     window.__DECORATOR_DATA__ = csrAssets.data;
 
-    csrAssets.css.map(buildHtmlElement).forEach((cssElement) => {
-        document.head.appendChild(cssElement);
-    });
+    csrAssets.css
+        .filter((props) => !htmlElementExists(props))
+        .map(buildHtmlElement)
+        .forEach((cssElement) => {
+            document.head.appendChild(cssElement);
+        });
 
-    csrAssets.scripts.map(buildHtmlElement).forEach((scriptElement) => {
-        document.body.appendChild(scriptElement);
-    });
+    csrAssets.scripts
+        .filter((props) => !htmlElementExists(props))
+        .map(buildHtmlElement)
+        .forEach((scriptElement) => {
+            document.body.appendChild(scriptElement);
+        });
 };

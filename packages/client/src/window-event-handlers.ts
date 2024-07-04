@@ -20,7 +20,6 @@ export const initWindowEventHandlers = () => {
         if (language || context) {
             fetchAndRenderClientSide(
                 `${env("APP_URL")}/env?${formatParams(window.__DECORATOR_DATA__.params)}`,
-                true,
             );
         }
     });

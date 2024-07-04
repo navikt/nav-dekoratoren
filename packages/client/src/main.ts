@@ -8,7 +8,7 @@ import { initHistoryEvents } from "./events";
 import "./main.css";
 import { env, param, updateDecoratorParams } from "./params";
 import { getHeadAssetsProps } from "decorator-shared/head";
-import { buildHtmlElement } from "./helpers/html-element-builder";
+import { buildHtmlElement, htmlElementExists } from "./helpers/html-elements";
 import { cdnUrl } from "./helpers/urls";
 import { fetchAndRenderClientSide } from "./csr";
 import { initWindowEventHandlers } from "./window-event-handlers";
@@ -19,10 +19,11 @@ import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 updateDecoratorParams({});
 
 const injectHeadAssets = () => {
-    getHeadAssetsProps(cdnUrl).forEach((props) => {
-        const element = buildHtmlElement(props);
-        document.head.appendChild(element);
-    });
+    getHeadAssetsProps(cdnUrl)
+        .filter((props) => !htmlElementExists(props))
+        .forEach((props) => {
+            document.head.appendChild(buildHtmlElement(props));
+        });
 };
 
 const maskDocumentFromHotjar = () => {
