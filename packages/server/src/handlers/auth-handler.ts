@@ -71,7 +71,7 @@ const buildUsermenuHtml = async (
                     ? notificationsResult.data
                     : null,
                 level: `Level${auth.securityLevel}`,
-                loginUrl: clientEnv.LOGIN_URL,
+                loginUrl: env.LOGIN_URL,
                 logoutUrl: logoutUrl as string,
                 minsideUrl: clientEnv.MIN_SIDE_URL,
                 personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
