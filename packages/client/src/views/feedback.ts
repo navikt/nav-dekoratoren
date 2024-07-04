@@ -1,13 +1,17 @@
+import cls from "decorator-client/src/styles/feedback.module.css";
+import globalCls from "decorator-client/src/styles/global.module.css";
 import { logAmplitudeEvent } from "../analytics/amplitude";
-import { FeedbackSuccess } from "./feedback-success";
 import { defineCustomElement } from "../custom-elements";
 
 class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
         this.querySelectorAll("button").forEach((button) =>
             button.addEventListener("click", () => {
-                this.innerHTML = FeedbackSuccess().render(
-                    window.__DECORATOR_DATA__.params,
+                this.querySelector(`.${cls.feedbackContent}`)?.classList.add(
+                    globalCls.hidden,
+                );
+                this.querySelector(`.${cls.feedbackSuccess}`)?.classList.remove(
+                    globalCls.hidden,
                 );
                 logAmplitudeEvent("tilbakemelding", {
                     kilde: "footer",
