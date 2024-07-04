@@ -1,13 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/html";
+import { createEvent } from "decorator-client/src/events";
+import { isNorwegian } from "../../i18n";
 import type { ComplexHeaderProps } from "./complex-header";
 import { ComplexHeader } from "./complex-header";
-import { isNorwegian } from "../../i18n";
 
 const meta: Meta<ComplexHeaderProps> = {
     title: "header/complex-header",
     tags: ["autodocs"],
-    render: (args, context) =>
-        ComplexHeader({
+    render: (args, context) => {
+        setTimeout(() => {
+            dispatchEvent(
+                createEvent("authupdated", {
+                    detail: { auth: { authenticated: args.auth } },
+                }),
+            );
+        }, 1000);
+        return ComplexHeader({
             ...args,
             contextLinks: isNorwegian(context.globals.locale)
                 ? [
@@ -29,21 +37,24 @@ const meta: Meta<ComplexHeaderProps> = {
                   ]
                 : [],
             language: context.globals.locale,
-        }),
+        });
+    },
 };
 
 export default meta;
-type Story = StoryObj<ComplexHeaderProps>;
+type Story = StoryObj;
 
 export const Default: Story = {
     args: {
         context: "privatperson",
+        auth: false,
     },
 };
 
 export const LoggedInPrivatperson: Story = {
     args: {
         context: "privatperson",
+        auth: true,
     },
 };
 
@@ -54,5 +65,6 @@ export const LoggedInPrivatpersonMobile: Story = {
     },
     args: {
         context: "privatperson",
+        auth: true,
     },
 };

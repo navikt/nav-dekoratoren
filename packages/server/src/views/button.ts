@@ -11,6 +11,7 @@ export type ButtonProps = {
     icon?: Template;
     variant: "primary" | "secondary" | "tertiary";
     type?: "button" | "submit" | "reset";
+    className?: string;
     attributes?: Record<string, AttributeValue>;
 };
 
@@ -19,6 +20,7 @@ export const Button = ({
     icon,
     variant,
     type = "button",
+    className,
     attributes = {},
 }: ButtonProps) => html`
     <button
@@ -31,11 +33,11 @@ export const Button = ({
                 [cls["navds-button--secondary"]]: variant === "secondary",
                 [cls["navds-button--tertiary"]]: variant === "tertiary",
             },
-            attributes.className,
+            className,
         )}"
     >
         ${icon &&
         html`<span class="${cls["navds-button__icon"]}">${icon}</span>`}
-        <span class="${cls["navds-label"]}"> ${content} </span>
+        <span class="${cls["navds-label"]}">${content}</span>
     </button>
 `;

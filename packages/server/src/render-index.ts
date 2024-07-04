@@ -1,7 +1,7 @@
 import { Params } from "decorator-shared/params";
 import { Features, Texts } from "decorator-shared/types";
 import { makeContextLinks } from "./context";
-import { clientEnv } from "./env/server";
+import { clientEnv, env } from "./env/server";
 import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu/main-menu";
 import { getFeatures } from "./unleash";
 import { Index } from "./views";
@@ -66,6 +66,7 @@ export function renderHeader({
         ? SimpleHeader({
               frontPageUrl: clientEnv.XP_BASE_URL,
               decoratorUtils,
+              loginUrl: env.LOGIN_URL,
           })
         : ComplexHeader({
               frontPageUrl: clientEnv.XP_BASE_URL,
@@ -73,6 +74,7 @@ export function renderHeader({
               context,
               language,
               decoratorUtils,
+              loginUrl: env.LOGIN_URL,
           });
 }
 

@@ -1,48 +1,52 @@
-import { env, param } from "../params";
-import { Language } from "decorator-shared/params";
-
-type IdPortenLocale = "nb" | "nn" | "en" | "se";
-
-const idPortenLocaleMap: Record<Language, IdPortenLocale> = {
-    nb: "nb",
-    nn: "nn",
-    se: "se",
-    en: "en",
-    pl: "en",
-    uk: "en",
-    ru: "en",
-};
-
-const getLoginRedirectUrl = () => {
-    const redirectToUrl = param("redirectToUrl");
-    if (redirectToUrl) {
-        return redirectToUrl;
-    }
-
-    if (param("redirectToApp")) {
-        return `${window.location.origin}${window.location.pathname}`;
-    }
-
-    if (param("context") === "arbeidsgiver") {
-        return env("MIN_SIDE_ARBEIDSGIVER_URL");
-    }
-
-    return env("MIN_SIDE_URL");
-};
-
-const getLoginUrl = () => {
-    const locale = idPortenLocaleMap[param("language")];
-    const redirectUrl = getLoginRedirectUrl();
-
-    return `${env("LOGIN_URL")}?redirect=${redirectUrl}&level=${param("level")}&locale=${locale}`;
-};
+import { env } from "../params";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {
-        this.addEventListener("click", () => {
-            window.location.href = getLoginUrl();
-        });
+        window.addEventListener("paramsupdated", this.update);
+        this.update();
     }
+
+    disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.update);
+    }
+
+    update = () => {
+        const link = this.querySelector("a");
+        const href = link?.getAttribute("href") ?? "";
+        if (URL.canParse(href)) {
+            const { redirectToApp, redirectToUrl, context, level, language } =
+                window.__DECORATOR_DATA__.params;
+
+            const getRedirectUrl = () => {
+                if (redirectToUrl) {
+                    return redirectToUrl;
+                } else if (redirectToApp) {
+                    return `${window.location.origin}${window.location.pathname}`;
+                } else if (context === "arbeidsgiver") {
+                    return env("MIN_SIDE_ARBEIDSGIVER_URL");
+                } else {
+                    return env("MIN_SIDE_URL");
+                }
+            };
+
+            const url = new URL(href);
+            url.searchParams.set("redirect", getRedirectUrl());
+            url.searchParams.set("level", level);
+            url.searchParams.set(
+                "locale",
+                {
+                    nb: "nb",
+                    nn: "nn",
+                    se: "se",
+                    en: "en",
+                    pl: "en",
+                    uk: "en",
+                    ru: "en",
+                }[language],
+            );
+            link?.setAttribute("href", url.toString());
+        }
+    };
 }
 
 customElements.define("login-button", LoginButton);

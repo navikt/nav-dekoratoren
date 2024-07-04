@@ -1,9 +1,4 @@
-import {
-    Auth,
-    AuthDataResponse,
-    AuthLoggedIn,
-    loggedOutResponseData,
-} from "decorator-shared/auth";
+import { Auth, AuthDataResponse, AuthLoggedIn } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import { match } from "ts-pattern";
@@ -109,12 +104,12 @@ export const authHandler = async ({
     cookie: string;
 }): Promise<AuthDataResponse> => {
     if (!cookie) {
-        return loggedOutResponseData(i18n("login"), params);
+        return { auth: { authenticated: false } };
     }
 
     const auth = await fetchAuth(cookie);
     if (!auth?.authenticated) {
-        return loggedOutResponseData(i18n("login"), params);
+        return { auth: { authenticated: false } };
     }
 
     const usermenuHtml = await buildUsermenuHtml(auth, cookie, params);

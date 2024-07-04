@@ -1,20 +1,22 @@
 import cls from "decorator-client/src/styles/header.module.css";
-import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import html, { Template } from "decorator-shared/html";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { SkipLink } from "../skip-link";
+import { UserMenu } from "../user-menu";
 
 export type SimpleHeaderProps = {
     decoratorUtils: Template;
     frontPageUrl: string;
+    loginUrl: string;
 };
 
 export const SimpleHeader = ({
     decoratorUtils,
     frontPageUrl,
+    loginUrl,
 }: SimpleHeaderProps) => html`
     <header id="decorator-header">
         <div class="${cls.siteheader}">
@@ -33,7 +35,7 @@ export const SimpleHeader = ({
                         titleId: "logo-svg-title",
                     })}
                 </lenke-med-sporing>
-                <user-menu class="${menuItemsCls.menuItems}"></user-menu>
+                ${UserMenu({ loginUrl })}
             </div>
         </div>
         <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>

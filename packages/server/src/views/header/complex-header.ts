@@ -8,13 +8,14 @@ import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
 import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
 import { NavLogo } from "decorator-shared/views/nav-logo";
-import { IconButton } from "../../../../shared/views/icon-button";
 import { ContextLink } from "../../context";
 import i18n from "../../i18n";
+import { Button } from "../button";
 import { DropdownMenu } from "../dropdown-menu";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
+import { UserMenu } from "../user-menu";
 
 export type ComplexHeaderProps = {
     frontPageUrl: string;
@@ -22,6 +23,7 @@ export type ComplexHeaderProps = {
     language: Language;
     contextLinks: ContextLink[];
     decoratorUtils: Template;
+    loginUrl: string;
 };
 
 export function ComplexHeader({
@@ -30,6 +32,7 @@ export function ComplexHeader({
     contextLinks,
     context: currentContext,
     decoratorUtils,
+    loginUrl,
 }: ComplexHeaderProps) {
     // @TODO: Need id here for css vars.
     return html`
@@ -88,15 +91,17 @@ export function ComplexHeader({
                                 </div>`}
                             </div>
                             <div class="${menuItemsCls.menuItems}">
-                                <user-menu></user-menu>
+                                ${UserMenu({ loginUrl })}
                                 <div
                                     class="${menuItemsCls.menuItemsUniversalLinks}"
                                 >
                                     ${language !== "se" &&
                                     DropdownMenu({
-                                        button: IconButton({
-                                            Icon: BurgerIcon(),
-                                            text: i18n("menu"),
+                                        button: Button({
+                                            content: i18n("menu"),
+                                            icon: BurgerIcon(),
+                                            variant: "tertiary",
+                                            className: menuItemsCls.menuItem,
                                         }),
                                         dropdownContent: html`
                                             <search-menu
@@ -108,11 +113,12 @@ export function ComplexHeader({
                                         `,
                                     })}
                                     ${DropdownMenu({
-                                        button: IconButton({
-                                            Icon: SearchIcon({
+                                        button: Button({
+                                            content: i18n("search"),
+                                            icon: SearchIcon({
                                                 menuSearch: true,
                                             }),
-                                            text: i18n("search"),
+                                            variant: "tertiary",
                                             className:
                                                 menuItemsCls.searchButton,
                                         }),
