@@ -32,5 +32,5 @@ const updateAuthOnContextSwitch = (
 export const initAuth = () =>
     updateAuthData().then((authResponse) => {
         window.addEventListener("paramsupdated", updateAuthOnContextSwitch);
-        return authResponse.auth;
+        return authResponse;
     });

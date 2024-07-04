@@ -156,18 +156,24 @@ const injectHeadAssets = () => {
 };
 
 const init = async () => {
-    await csrFallback();
-
+    console.log("Initing");
     injectHeadAssets();
+
+    const authResponse = await initAuth();
+    if (authResponse.buildId !== env("BUILD_ID")) {
+        console.log(
+            `Client build id ${env("BUILD_ID")} differs from server build id ${authResponse.buildId}`,
+        );
+        csrFallback();
+        return;
+    }
+
+    initAnalytics(authResponse.auth);
     initHistoryEvents();
 
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
-
-    initAuth().then((auth) => {
-        initAnalytics(auth);
-    });
 
     if (param("logoutWarning")) {
         initLogoutWarning();

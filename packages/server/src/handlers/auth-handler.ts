@@ -104,15 +104,15 @@ export const authHandler = async ({
     cookie: string;
 }): Promise<AuthDataResponse> => {
     if (!cookie) {
-        return { auth: { authenticated: false } };
+        return { auth: { authenticated: false }, buildId: env.BUILD_ID };
     }
 
     const auth = await fetchAuth(cookie);
     if (!auth?.authenticated) {
-        return { auth: { authenticated: false } };
+        return { auth: { authenticated: false }, buildId: env.BUILD_ID };
     }
 
     const usermenuHtml = await buildUsermenuHtml(auth, cookie, params);
 
-    return { auth, usermenuHtml };
+    return { auth, buildId: "qwer", usermenuHtml };
 };

@@ -161,7 +161,6 @@ app.get("/", async ({ req, html }) => {
             data,
             texts: texts[data.language],
             url: req.url,
-            isSsr: true,
         }),
     );
 });

@@ -12,5 +12,6 @@ export type Auth = AuthLoggedIn | AuthLoggedOut;
 
 export type AuthDataResponse = {
     auth: Auth;
+    buildId: string;
     usermenuHtml?: string;
 };
