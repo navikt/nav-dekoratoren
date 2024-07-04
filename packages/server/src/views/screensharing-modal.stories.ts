@@ -3,6 +3,7 @@ import "decorator-client/src/views/screensharing-modal";
 import { ScreensharingModal } from "decorator-client/src/views/screensharing-modal";
 import type { GetScreensharingModalOptions } from "./screensharing-modal";
 import { getModal } from "./screensharing-modal";
+import { updateDecoratorParams } from "decorator-client/src/params";
 
 const meta: Meta<GetScreensharingModalOptions> = {
     title: "screensharing-modal",
@@ -20,6 +21,10 @@ const meta: Meta<GetScreensharingModalOptions> = {
 
         div.innerHTML = getModal({ ...args }).render({
             language: context.globals.locale,
+        });
+
+        updateDecoratorParams({
+            shareScreen: true,
         });
 
         return div;

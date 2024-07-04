@@ -82,6 +82,7 @@
 }
 
 .loader {
+    padding-inline: var(--a-spacing-3);
     color: var(--a-text-action);
     visibility: hidden;
     opacity: 0;
@@ -103,6 +104,12 @@
         animation-timing-function: linear;
         animation-iteration-count: infinite;
         animation-direction: normal;
+    }
+}
+
+@media (min-width: 768px) {
+    .loader {
+        padding-inline: var(--a-spacing-5);
     }
 }
 

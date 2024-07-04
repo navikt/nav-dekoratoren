@@ -8,15 +8,12 @@
     }
 }
 
-.userMenuButton span {
+.name {
+    display: inline-block;
     text-overflow: ellipsis;
-    max-width: 99px;
+    max-width: 124px;
     white-space: nowrap;
-    overflow: hidden;
-}
-
-.icon {
-    font-size: 1.5rem;
+    overflow: clip;
 }
 
 .iconWrapper {

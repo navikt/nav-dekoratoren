@@ -2,6 +2,7 @@
 import type { Preview } from "@storybook/html";
 import "decorator-client/src/main.css";
 import "decorator-client/src/views/breadcrumb";
+import "decorator-client/src/views/user-menu";
 import "decorator-client/src/views/dropdown-menu";
 import "decorator-client/src/views/language-selector";
 import "decorator-client/src/views/lenke-med-sporing";
