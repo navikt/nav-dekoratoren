@@ -32,6 +32,7 @@ spec:
         - application: nav-dekoratoren-api
         - application: navno-search-api
         - application: tms-varsel-api
+          namespace: min-side
       external:
         {{#each outboundHosts as |host|}}
         - host: {{host}}

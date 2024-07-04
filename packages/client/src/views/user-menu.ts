@@ -1,4 +1,5 @@
 import cls from "decorator-client/src/styles/user-menu.module.css";
+import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../events";
 
 class UserMenu extends HTMLElement {
@@ -21,4 +22,4 @@ class UserMenu extends HTMLElement {
     }
 }
 
-customElements.define("user-menu", UserMenu);
+defineCustomElement("user-menu", UserMenu);

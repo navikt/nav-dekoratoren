@@ -78,21 +78,6 @@ jobs:
           VAR: image=${{ needs.build-and-test.outputs.image }}
           VARS: .nais/vars/dev-beta-navno.yml
 
-  deploy-sandbox:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }}
-          VARS: .nais/vars/dev-sandbox.yml
-
   deploy-prod-next:
     runs-on: ubuntu-latest
     needs: build-and-test

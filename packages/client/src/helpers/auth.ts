@@ -18,7 +18,7 @@ export type SessionData = {
 };
 
 export async function fetchSession() {
-    const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session`;
+    const sessionUrl = window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL;
 
     try {
         const sessionResponse = await fetch(sessionUrl, {
@@ -32,10 +32,10 @@ export async function fetchSession() {
 }
 
 export async function fetchRenew() {
-    const sessionUrl = `${window.__DECORATOR_DATA__.env.AUTH_API_URL}/oauth2/session/refresh`;
+    const sessionRefreshUrl = `${window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL}/refresh`;
 
     try {
-        const sessionResponse = await fetch(sessionUrl, {
+        const sessionResponse = await fetch(sessionRefreshUrl, {
             credentials: "include",
         });
 

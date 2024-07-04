@@ -1,6 +1,7 @@
 import { logAmplitudeEvent } from "../analytics/amplitude";
 import { analyticsEvents } from "../analytics/constants";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { defineCustomElement } from "../custom-elements";
 
 class ArchivableNotification extends HTMLElement {
     // TODO: hva skal vi vise hvis arkivering feiler?
@@ -29,7 +30,7 @@ class ArchivableNotification extends HTMLElement {
     }
 }
 
-customElements.define("archivable-notification", ArchivableNotification);
+defineCustomElement("archivable-notification", ArchivableNotification);
 
 class LinkNotification extends HTMLElement {
     // TODO: hva skal vi vise hvis poste done-event feiler?
@@ -81,4 +82,4 @@ class LinkNotification extends HTMLElement {
     }
 }
 
-customElements.define("link-notification", LinkNotification);
+defineCustomElement("link-notification", LinkNotification);

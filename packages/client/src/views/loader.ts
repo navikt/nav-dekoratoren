@@ -1,4 +1,5 @@
 import html from "decorator-shared/html";
+import { defineCustomElement } from "../custom-elements";
 
 export class Loader extends HTMLElement {
     connectedCallback() {
@@ -88,4 +89,4 @@ export class Loader extends HTMLElement {
     }
 }
 
-customElements.define("decorator-loader", Loader);
+defineCustomElement("decorator-loader", Loader);

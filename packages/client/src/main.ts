@@ -11,32 +11,12 @@ import { addFaroMetaData } from "./faro";
 import "./main.css";
 import { env, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
-import "./views/breadcrumb";
-import "./views/chatbot";
-import "./views/context-link";
-import "./views/decorator-utils";
-import "./views/dropdown-menu";
-import "./views/feedback";
-import "./views/language-selector";
-import "./views/lenke-med-sporing";
-import "./views/loader";
-import "./views/local-time";
-import "./views/login-button";
-import "./views/main-menu";
-import "./views/menu-background";
-import "./views/notifications";
-import "./views/ops-messages";
-import "./views/screensharing-modal";
-import "./views/search-input";
-import "./views/search-menu";
-import "./views/skip-link";
-import "./views/sticky";
-import "./views/user-menu";
 import { getHeadAssetsProps } from "decorator-shared/head";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { cdnUrl } from "./helpers/urls";
 
 import.meta.glob("./styles/*.css", { eager: true });
+import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 
 updateDecoratorParams({});
 
@@ -133,12 +113,14 @@ const injectHeadAssets = () => {
     });
 };
 
-const init = async () => {
+const init = () => {
     injectHeadAssets();
     initHistoryEvents();
+
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
+
     initAuth().then((auth) => {
         initAnalytics(auth);
     });
@@ -148,7 +130,7 @@ const init = async () => {
     }
 };
 
-async function enableMocking() {
+const enableMocking = async () => {
     if (process.env.NODE_ENV !== "development") {
         return;
     }
@@ -165,6 +147,12 @@ async function enableMocking() {
     return worker.start({
         onUnhandledRequest: "bypass",
     });
-}
+};
 
-enableMocking().then(() => init());
+enableMocking().then(() => {
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+});

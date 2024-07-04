@@ -80,12 +80,11 @@ export type Params = z.infer<typeof paramsSchema>;
 export type ParamKey = keyof Params;
 
 export const clientEnvSchema = z.object({
-    API_SESSION_URL: z.string(),
     APP_URL: z.string(),
-    AUTH_API_URL: z.string(),
     BOOST_ENV: z.enum(["nav", "navtest"]),
     CDN_URL: z.string(),
     ENV: z.enum(["prod", "dev", "localhost"]),
+    LOGIN_SESSION_API_URL: z.string(),
     LOGIN_URL: z.string(),
     LOGOUT_URL: z.string(),
     MIN_SIDE_ARBEIDSGIVER_URL: z.string(),

@@ -10,7 +10,7 @@ import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 
-const AUTH_API_URL = `${env.API_DEKORATOREN_URL}/auth`;
+const AUTH_API_URL = `${env.DEKORATOREN_API_URL}/auth`;
 
 export const getLogOutUrl = (params: Params) => {
     if (params.logoutUrl) {

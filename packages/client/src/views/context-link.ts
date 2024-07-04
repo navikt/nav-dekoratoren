@@ -6,6 +6,7 @@ import { createEvent, CustomEvents } from "../events";
 import { Context } from "decorator-shared/params";
 import { CustomLinkElement } from "../helpers/custom-link-element";
 import { amplitudeEvent } from "../analytics/amplitude";
+import { defineCustomElement } from "../custom-elements";
 
 class ContextLink extends CustomLinkElement {
     handleActiveContext = (
@@ -58,4 +59,4 @@ class ContextLink extends CustomLinkElement {
     }
 }
 
-customElements.define("context-link", ContextLink);
+defineCustomElement("context-link", ContextLink);

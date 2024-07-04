@@ -1,3 +1,4 @@
+import { defineCustomElement } from "../custom-elements";
 import { env } from "../params";
 
 class LoginButton extends HTMLElement {
@@ -49,4 +50,4 @@ class LoginButton extends HTMLElement {
     };
 }
 
-customElements.define("login-button", LoginButton);
+defineCustomElement("login-button", LoginButton);
