@@ -30,7 +30,13 @@ const getCSRScriptUrl = async () => {
         await import("decorator-client/dist/.vite/csr.manifest.json")
     ).default;
 
-    return cdnUrl(csrManifest["src/csr.ts"].file);
+    const csrFile = Object.values(csrManifest).find((item) => item.isEntry);
+
+    if (!csrFile) {
+        throw Error("CSR bundle file not found!");
+    }
+
+    return cdnUrl(csrFile.file);
 };
 
 const getCssAsString = async () => {

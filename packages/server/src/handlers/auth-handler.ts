@@ -114,5 +114,5 @@ export const authHandler = async ({
 
     const usermenuHtml = await buildUsermenuHtml(auth, cookie, params);
 
-    return { auth, buildId: "qwer", usermenuHtml };
+    return { auth, buildId: env.BUILD_ID, usermenuHtml };
 };
