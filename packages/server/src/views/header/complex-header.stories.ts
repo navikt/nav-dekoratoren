@@ -1,22 +1,36 @@
 import type { Meta, StoryObj } from "@storybook/html";
 import { createEvent } from "decorator-client/src/events";
+import html from "decorator-shared/html";
 import { isNorwegian } from "../../i18n";
-import type { ComplexHeaderProps } from "./complex-header";
 import { ComplexHeader } from "./complex-header";
+import { UserMenuDropdown } from "./user-menu-dropdown";
 
-const meta: Meta<ComplexHeaderProps> = {
+const meta: Meta = {
     title: "header/complex-header",
-    tags: ["autodocs"],
     render: (args, context) => {
         setTimeout(() => {
             dispatchEvent(
                 createEvent("authupdated", {
-                    detail: { auth: { authenticated: args.auth } },
+                    detail: {
+                        auth: { authenticated: args.auth },
+                        usermenuHtml: UserMenuDropdown({
+                            name: "Ola Nordmann",
+                            notifications: [],
+                            level: "Level3",
+                            loginUrl: "/logginn",
+                            logoutUrl: "/loggut",
+                            minsideUrl: "/minside",
+                            personopplysningerUrl: "/personopplysninger",
+                        }).render({ language: context.globals.locale }),
+                    },
                 }),
             );
         }, 1000);
         return ComplexHeader({
-            ...args,
+            frontPageUrl: "/",
+            context: "privatperson",
+            decoratorUtils: html``,
+            loginUrl: "/logginn",
             contextLinks: isNorwegian(context.globals.locale)
                 ? [
                       {
@@ -45,26 +59,9 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
-    args: {
-        context: "privatperson",
-        auth: false,
-    },
+    args: { auth: false },
 };
 
 export const LoggedInPrivatperson: Story = {
-    args: {
-        context: "privatperson",
-        auth: true,
-    },
-};
-
-export const LoggedInPrivatpersonMobile: Story = {
-    parameters: {
-        layout: "fullscreen",
-        viewport: { defaultViewport: "mobile" },
-    },
-    args: {
-        context: "privatperson",
-        auth: true,
-    },
+    args: { auth: true },
 };
