@@ -8,7 +8,7 @@
         "build-storybook": "storybook build",
         "test": "bun run --cwd packages/shared test && bun run --cwd packages/client test && bun run --cwd packages/server test",
         "dev": "concurrently \"bun run --cwd packages/client dev\" \"bun run --cwd packages/server dev\"",
-        "build": "bun run --cwd packages/client build && bun run --cwd packages/server build && bun run copy-assets && bun run copy-to-old-prod-build-file",
+        "build": "bun run --cwd packages/client build && bun run --cwd packages/server build && bun run copy-assets",
         "copy-assets": "mkdir -p packages/server/public && cp -r packages/client/dist/assets packages/server/public/ && bun run copy-assets-temp",
         "copy-assets-temp": "bun run copy-97 && bun run copy-96 && bun run copy-95 && bun run copy-94",
         "copy-97": "cp packages/client/dist/assets/csr-*.js packages/client/dist/assets/main-GjdQNcNv.js",
