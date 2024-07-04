@@ -112,7 +112,7 @@ export function ComplexHeader({
                                         `,
                                     })}
                                     ${DropdownMenu({
-                                        button: Button({
+                                        button: HeaderButton({
                                             content: i18n("search"),
                                             icon: SearchIcon({
                                                 menuSearch: true,
