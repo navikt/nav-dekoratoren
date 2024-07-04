@@ -60,7 +60,6 @@ const ScreensharingEnabled = () => {
                         name="screensharing_code"
                         class="${clsInputs.textInput}"
                         type="text"
-                        maxlength="5"
                         autocomplete="off"
                     />
                     <ul class="${clsInputs.errorList}">

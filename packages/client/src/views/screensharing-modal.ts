@@ -13,7 +13,7 @@ export class ScreensharingModal extends HTMLElement {
     }
 
     validateInput(code: string) {
-        if (!code || code.length !== 5 || !code.match(/^[0-9]+$/)) {
+        if (!/^\d{5}$/.exec(code)) {
             this.input.classList.add(clsInputs.invalid);
             this.errorList.classList.add(clsInputs.showErrors);
             return false;
@@ -38,8 +38,8 @@ export class ScreensharingModal extends HTMLElement {
         const form = this.querySelector("form")!;
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            const code = `${new FormData(form).get("screensharing_code") ?? ""}`;
-            if (this.validateInput(code)) {
+            const code = new FormData(form).get("screensharing_code");
+            if (typeof code === "string" && this.validateInput(code)) {
                 startCall(code);
                 this.dialog.close();
             }
