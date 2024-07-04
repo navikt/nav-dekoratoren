@@ -27,9 +27,7 @@ const updateClientState = () =>
 const updateOnContextSwitch = (
     e: CustomEvent<CustomEvents["paramsupdated"]>,
 ) => {
-    const { context } = e.detail.params;
-
-    if (context && context !== param("context")) {
+    if (e.detail.params.context) {
         updateClientState();
     }
 };

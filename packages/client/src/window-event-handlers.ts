@@ -7,10 +7,6 @@ import Cookies from "js-cookie";
 import { addFaroMetaData } from "./faro";
 import { fetchAndRenderClientSide } from "./csr";
 
-const shouldReRender = ({ language, context }: Partial<Params>) =>
-    (language && language !== param("language")) ||
-    (context && context !== param("context"));
-
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source } = message;
     // Only allow messages from own window
@@ -19,9 +15,12 @@ const msgSafetyCheck = (message: MessageEvent) => {
 
 export const initWindowEventHandlers = () => {
     window.addEventListener("paramsupdated", (e) => {
-        if (shouldReRender(e.detail.params)) {
+        const { language, context } = e.detail.params;
+
+        if (language || context) {
             fetchAndRenderClientSide(
                 `${env("APP_URL")}/env?${formatParams(window.__DECORATOR_DATA__.params)}`,
+                true,
             );
         }
     });

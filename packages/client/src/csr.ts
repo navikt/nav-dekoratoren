@@ -1,7 +1,10 @@
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import type { CsrPayload } from "decorator-shared/types";
 
-export const fetchAndRenderClientSide = async (url: string) => {
+export const fetchAndRenderClientSide = async (
+    url: string,
+    htmlOnly?: boolean,
+) => {
     const csrAssets = await fetch(url)
         .then((res) => res.json() as Promise<CsrPayload>)
         .catch((e) => {
@@ -22,6 +25,10 @@ export const fetchAndRenderClientSide = async (url: string) => {
     const footerEl = document.getElementById("decorator-footer");
     if (footerEl) {
         footerEl.outerHTML = csrAssets.footer;
+    }
+
+    if (htmlOnly) {
+        return;
     }
 
     window.__DECORATOR_DATA__ = csrAssets.data;
