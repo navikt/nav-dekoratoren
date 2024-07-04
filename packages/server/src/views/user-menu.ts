@@ -1,11 +1,10 @@
 import clsx from "clsx";
 import akselCls from "decorator-client/src/styles/aksel.module.css";
-import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import cls from "decorator-client/src/styles/user-menu.module.css";
 import html from "decorator-shared/html";
 import { LoginIcon } from "decorator-shared/views/icons";
 import i18n from "../i18n";
-import { Button } from "./button";
+import { HeaderButton } from "./header-button";
 
 export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
     <user-menu>
@@ -13,10 +12,9 @@ export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
             ${i18n("loading")}
         </span>
         <login-button class="${cls.hidden}">
-            ${Button({
+            ${HeaderButton({
                 content: i18n("login"),
                 icon: LoginIcon({}),
-                className: menuItemsCls.menuItem,
                 href: loginUrl,
             })}
         </login-button>

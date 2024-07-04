@@ -12,6 +12,7 @@ import { ContextLink } from "../../context";
 import i18n from "../../i18n";
 import { Button } from "../button";
 import { DropdownMenu } from "../dropdown-menu";
+import { HeaderButton } from "../header-button";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
@@ -97,10 +98,9 @@ export function ComplexHeader({
                                 >
                                     ${language !== "se" &&
                                     DropdownMenu({
-                                        button: Button({
+                                        button: HeaderButton({
                                             content: i18n("menu"),
                                             icon: BurgerIcon(),
-                                            className: menuItemsCls.menuItem,
                                         }),
                                         dropdownContent: html`
                                             <search-menu

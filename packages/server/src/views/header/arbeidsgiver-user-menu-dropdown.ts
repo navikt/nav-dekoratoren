@@ -1,10 +1,9 @@
 import cls from "decorator-client/src/styles/arbeidsgiver-user-menu-dropdown.module.css";
 import { BriefcaseIcon } from "decorator-shared/views/icons";
 import i18n from "../../i18n";
-import { Button } from "../button";
 import { DropdownMenu } from "../dropdown-menu";
+import { HeaderButton } from "../header-button";
 import { ArbeidsgiverUserMenu } from "./arbeidsgiver-user-menu";
-import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 
 export type ArbeidsgiverUserMenuProps = {
     href: string;
@@ -19,10 +18,9 @@ export const ArbeidsgiverUserMenuDropdown = ({
     name,
 }: ArbeidsgiverUserMenuProps) => {
     return DropdownMenu({
-        button: Button({
+        button: HeaderButton({
             content: i18n("rolle_arbeidsgiver"),
             icon: BriefcaseIcon(),
-            className: menuItemsCls.menuItem,
         }),
         dropdownClass: cls.arbeidsgiverMenuDropdown,
         dropdownContent: ArbeidsgiverUserMenu({

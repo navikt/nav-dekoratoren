@@ -1,15 +1,14 @@
 import cls from "decorator-client/src/styles/user-menu-dropdown.module.css";
+import html from "decorator-shared/html";
 import { LoginLevel } from "decorator-shared/params";
-import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import {
     PersonCircleIcon,
     PersonCircleNotificationIcon,
 } from "decorator-shared/views/icons";
 import { Notification } from "../../notifications";
-import { Button } from "../button";
 import { DropdownMenu } from "../dropdown-menu";
+import { HeaderButton } from "../header-button";
 import { UserMenu } from "./user-menu";
-import clsx from "clsx";
 
 export type UserMenuDropdownProps = {
     name: string;
@@ -31,17 +30,12 @@ export const UserMenuDropdown = ({
     personopplysningerUrl,
 }: UserMenuDropdownProps) => {
     return DropdownMenu({
-        button: Button({
-            className: clsx(cls.userMenuButton, menuItemsCls.menuItem),
-            content: { render: () => name },
+        button: HeaderButton({
+            content: html`<span class="${cls.name}">${name}</span>`,
             icon:
                 notifications && notifications.length > 0
-                    ? PersonCircleNotificationIcon({
-                          className: cls.icon,
-                      })
-                    : PersonCircleIcon({
-                          className: cls.icon,
-                      }),
+                    ? PersonCircleNotificationIcon({})
+                    : PersonCircleIcon({}),
         }),
         dropdownClass: cls.userMenuDropdown,
         dropdownContent: UserMenu({

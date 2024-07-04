@@ -1,4 +1,3 @@
-import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import { Auth, AuthDataResponse, AuthLoggedIn } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
@@ -6,7 +5,7 @@ import { match } from "ts-pattern";
 import { clientEnv, env } from "../env/server";
 import i18n from "../i18n";
 import { fetchNotifications } from "../notifications";
-import { Button } from "../views/button";
+import { HeaderButton } from "../views/header-button";
 import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-menu-dropdown";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
@@ -86,10 +85,9 @@ const buildUsermenuHtml = async (
             }),
         )
         .with("samarbeidspartner", async () =>
-            Button({
+            HeaderButton({
                 content: i18n("logout"),
                 icon: LogoutIcon({}),
-                className: menuItemsCls.menuItem,
                 href: logoutUrl,
             }),
         )
