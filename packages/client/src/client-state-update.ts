@@ -17,11 +17,11 @@ const fetchClientState = async (): Promise<ClientStateResponse> => {
 };
 
 const updateClientState = () =>
-    fetchClientState().then((authResponse) => {
+    fetchClientState().then((response) => {
         dispatchEvent(
-            createEvent("client-state-updated", { detail: authResponse }),
+            createEvent("client-state-updated", { detail: response }),
         );
-        return authResponse;
+        return response;
     });
 
 const updateAuthOnContextSwitch = (
