@@ -10,7 +10,7 @@ type AuthLoggedOut = {
 
 export type Auth = AuthLoggedIn | AuthLoggedOut;
 
-export type AuthDataResponse = {
+export type ClientStateResponse = {
     auth: Auth;
     buildId: string;
     usermenuHtml?: string;

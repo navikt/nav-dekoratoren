@@ -1,12 +1,12 @@
 import { Context, Params } from "decorator-shared/params";
-import { AuthDataResponse } from "decorator-shared/auth";
+import { ClientStateResponse } from "decorator-shared/auth";
 
 export type CustomEvents = {
     activecontext: { context: Context };
     paramsupdated: {
         params: Partial<Params>;
     };
-    authupdated: AuthDataResponse;
+    "client-state-updated": ClientStateResponse;
     menuopened: void;
     menuclosed: void;
     clearsearch: void;

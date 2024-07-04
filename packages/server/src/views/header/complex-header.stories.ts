@@ -10,7 +10,7 @@ const meta: Meta = {
     render: (args, context) => {
         setTimeout(() => {
             dispatchEvent(
-                createEvent("authupdated", {
+                createEvent("client-state-updated", {
                     detail: {
                         auth: { authenticated: args.auth },
                         usermenuHtml: UserMenuDropdown({
@@ -22,6 +22,7 @@ const meta: Meta = {
                             minsideUrl: "/minside",
                             personopplysningerUrl: "/personopplysninger",
                         }).render({ language: context.globals.locale }),
+                        buildId: "1234asdf",
                     },
                 }),
             );

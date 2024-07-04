@@ -4,7 +4,9 @@ import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../events";
 
 class UserMenu extends HTMLElement {
-    private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
+    private onAuthUpdated = (
+        e: CustomEvent<CustomEvents["client-state-updated"]>,
+    ) => {
         this.classList.add(cls.userMenuContainer);
         this.querySelector(`.${cls.loader}`)?.classList.add(globalCls.hidden);
         if (e.detail.auth.authenticated) {
@@ -17,11 +19,11 @@ class UserMenu extends HTMLElement {
     };
 
     connectedCallback() {
-        window.addEventListener("authupdated", this.onAuthUpdated);
+        window.addEventListener("client-state-updated", this.onAuthUpdated);
     }
 
     disconnectedCallback() {
-        window.removeEventListener("authupdated", this.onAuthUpdated);
+        window.removeEventListener("client-state-updated", this.onAuthUpdated);
     }
 }
 

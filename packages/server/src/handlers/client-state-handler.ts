@@ -1,4 +1,4 @@
-import { Auth, AuthDataResponse, AuthLoggedIn } from "decorator-shared/auth";
+import { Auth, ClientStateResponse, AuthLoggedIn } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import { match } from "ts-pattern";
@@ -11,8 +11,9 @@ import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 
 const AUTH_API_URL = `${env.DEKORATOREN_API_URL}/auth`;
+const BUILD_ID = env.BUILD_ID;
 
-export const getLogOutUrl = (params: Params) => {
+const getLogOutUrl = (params: Params) => {
     if (params.logoutUrl) {
         return params.logoutUrl;
     }
@@ -60,7 +61,6 @@ const buildUsermenuHtml = async (
         }).render(params);
     }
 
-    // @TODO: Tests for important urls, like logout
     const template = await match(params.context)
         .with("privatperson", async () => {
             const notificationsResult = await fetchNotifications({ cookie });
@@ -96,23 +96,23 @@ const buildUsermenuHtml = async (
     return template.render(params);
 };
 
-export const authHandler = async ({
+export const clientStateHandler = async ({
     params,
     cookie,
 }: {
     params: Params;
     cookie: string;
-}): Promise<AuthDataResponse> => {
+}): Promise<ClientStateResponse> => {
     if (!cookie) {
-        return { auth: { authenticated: false }, buildId: env.BUILD_ID };
+        return { auth: { authenticated: false }, buildId: BUILD_ID };
     }
 
     const auth = await fetchAuth(cookie);
     if (!auth?.authenticated) {
-        return { auth: { authenticated: false }, buildId: env.BUILD_ID };
+        return { auth: { authenticated: false }, buildId: BUILD_ID };
     }
 
     const usermenuHtml = await buildUsermenuHtml(auth, cookie, params);
 
-    return { auth, buildId: env.BUILD_ID, usermenuHtml };
+    return { auth, buildId: BUILD_ID, usermenuHtml };
 };

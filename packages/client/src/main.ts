@@ -2,7 +2,7 @@
 import { formatParams } from "decorator-shared/json";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
-import { initAuth } from "./auth";
+import { initClientState } from "./client-state-update";
 import { initLogoutWarning } from "./logout-warning";
 import { initHistoryEvents } from "./events";
 import "./main.css";
@@ -35,11 +35,11 @@ const init = async () => {
     maskDocumentFromHotjar();
     injectHeadAssets();
 
-    const authResponse = await initAuth();
+    const clientState = await initClientState();
 
-    if (authResponse.buildId !== env("BUILD_ID")) {
+    if (clientState.buildId !== env("BUILD_ID")) {
         console.log(
-            `Client build id ${env("BUILD_ID")} differs from server build id ${authResponse.buildId}`,
+            `Local build id "${env("BUILD_ID")}" differs from expected build id "${clientState.buildId}" - fetching current version and re-rendering`,
         );
         await fetchAndRenderClientSide(
             `${env("APP_URL")}/env?${formatParams(window.__DECORATOR_DATA__.params)}`,
@@ -48,7 +48,7 @@ const init = async () => {
     }
 
     initWindowEventHandlers();
-    initAnalytics(authResponse.auth);
+    initAnalytics(clientState.auth);
     initHistoryEvents();
 
     if (param("logoutWarning")) {

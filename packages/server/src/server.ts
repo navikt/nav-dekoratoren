@@ -5,7 +5,7 @@ import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
-import { authHandler } from "./handlers/auth-handler";
+import { clientStateHandler } from "./handlers/client-state-handler";
 import { searchHandler } from "./handlers/search-handler";
 import { headers } from "./headers";
 import i18n from "./i18n";
@@ -101,9 +101,9 @@ app.get("/main-menu", async ({ req, html }) => {
         }).render(data),
     );
 });
-app.get("/auth", async ({ req, json }) =>
+app.get("/client-state", async ({ req, json }) =>
     json(
-        await authHandler({
+        await clientStateHandler({
             params: validParams(req.query()),
             cookie: req.header("Cookie") ?? "",
         }),
