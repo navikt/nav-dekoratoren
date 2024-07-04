@@ -142,7 +142,7 @@ export type CsrPayload = {
     footer: string;
     data: AppState;
     scripts: HtmlElementProps[];
-    name: string;
+    cssUrl: string;
 };
 
 export type HtmlElementProps = {

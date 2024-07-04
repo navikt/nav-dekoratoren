@@ -144,7 +144,7 @@ app.get("/env", async ({ req, json }) => {
             env: clientEnv,
         },
         scripts: csrAssets.mainScriptsProps,
-        //TODO: Add css?
+        cssUrl: csrAssets.cssUrl,
     });
 });
 app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
@@ -161,6 +161,7 @@ app.get("/", async ({ req, html }) => {
             data,
             texts: texts[data.language],
             url: req.url,
+            isSsr: true,
         }),
     );
 });
