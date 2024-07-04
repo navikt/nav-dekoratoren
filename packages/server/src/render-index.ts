@@ -102,5 +102,6 @@ export async function renderFooter({
               }),
         data,
         features,
+        contactUrl: `${env.XP_BASE_URL}/kontaktoss`,
     });
 }

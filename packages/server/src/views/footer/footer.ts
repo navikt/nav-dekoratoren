@@ -10,6 +10,7 @@ import { SimpleFooter } from "./simple-footer";
 type FooterProps = {
     data: Params;
     features: Features;
+    contactUrl: string;
 } & (
     | {
           simple: true;
@@ -21,14 +22,20 @@ type FooterProps = {
       }
 );
 
-export const Footer = ({ simple, links, data, features }: FooterProps) =>
+export const Footer = ({
+    simple,
+    links,
+    data,
+    features,
+    contactUrl,
+}: FooterProps) =>
     html`<div id="decorator-footer">
         ${getModal({
             enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
         })}
         <d-chatbot></d-chatbot>
         ${data.logoutWarning ? LogoutWarning() : undefined}
-        ${data.feedback ? Feedback() : undefined}
+        ${data.feedback ? Feedback({ contactUrl }) : undefined}
         ${simple
             ? SimpleFooter({
                   links,
