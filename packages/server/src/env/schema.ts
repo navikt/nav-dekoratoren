@@ -2,12 +2,12 @@ import { BoostEnviroment, Environment } from "decorator-shared/params";
 import { z } from "zod";
 
 export const serverSchema = z.object({
-    API_DEKORATOREN_URL: z.string().url(),
     APP_URL: z.string().url(),
     CDN_URL: z.string().url(),
+    DEKORATOREN_API_URL: z.string().url(),
     ENONICXP_SERVICES: z.string().url(),
     ENV: z.enum(["localhost", "dev", "prod"]),
-    HAS_EXTERNAL_DEV_CONSUMER: z.boolean(),
+    HAS_EXTERNAL_DEV_CONSUMER: z.boolean().optional(),
     IS_LOCAL_PROD: z.boolean().optional(),
     LOGIN_URL: z.string().url(),
     NODE_ENV: z.enum(["production", "development"]),
@@ -19,9 +19,9 @@ export const serverSchema = z.object({
 });
 
 export const serverEnv = {
-    API_DEKORATOREN_URL: process.env.API_DEKORATOREN_URL,
     APP_URL: process.env.APP_URL,
     CDN_URL: process.env.CDN_URL,
+    DEKORATOREN_API_URL: process.env.DEKORATOREN_API_URL,
     ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
     ENV: process.env.ENV,
     HAS_EXTERNAL_DEV_CONSUMER: process.env.HAS_EXTERNAL_DEV_CONSUMER === "true",
@@ -39,9 +39,8 @@ export const serverEnv = {
 // This is session URL for prod
 // https://login.nav.no/oauth2/session
 export const client_env = {
-    API_SESSION_URL: process.env.API_SESSION_URL,
+    LOGIN_SESSION_API_URL: process.env.LOGIN_SESSION_API_URL,
     APP_URL: process.env.APP_URL,
-    AUTH_API_URL: process.env.AUTH_API_URL,
     BOOST_ENV: process.env.BOOST_ENV as BoostEnviroment,
     CDN_URL: process.env.CDN_URL,
     ENV: process.env.ENV,
