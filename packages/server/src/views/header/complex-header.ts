@@ -11,7 +11,7 @@ import { NavLogo } from "decorator-shared/views/nav-logo";
 import { ContextLink } from "../../context";
 import i18n from "../../i18n";
 import { DropdownMenu } from "../dropdown-menu";
-import { HeaderButton } from "../header-button";
+import { HeaderButton } from "../components/header-button";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";

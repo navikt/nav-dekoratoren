@@ -10,7 +10,7 @@ import {
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
 import i18n from "../../i18n";
 import { Notification } from "../../notifications";
-import { Alert } from "../alert";
+import { Alert } from "../components/alert";
 import { Notifications } from "../notifications/notifications";
 
 export type UserMenuProps = {

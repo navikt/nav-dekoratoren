@@ -5,8 +5,8 @@ import html, { Template } from "decorator-shared/html";
 import { VeilederIllustration } from "decorator-shared/views/illustrations";
 import { match } from "ts-pattern";
 import i18n from "../i18n";
-import { Alert } from "./alert";
-import { Button } from "./button";
+import { Alert } from "./components/alert";
+import { Button } from "./components/button";
 import { ReadMore } from "./read-more";
 
 export type ScreensharingModalProps = {

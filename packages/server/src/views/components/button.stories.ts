@@ -1,8 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/html";
 import html from "decorator-shared/html";
-import { LoginIcon, PersonCircleIcon } from "decorator-shared/views/icons";
-import type { ButtonProps } from "./button";
-import { Button } from "./button";
+import {
+    BurgerIcon,
+    LoginIcon,
+    PersonCircleIcon,
+} from "decorator-shared/views/icons";
+import { Button, ButtonProps } from "./button";
+import { HeaderButton } from "./header-button";
+import i18n from "../../i18n";
 
 const Buttons = (props: Partial<ButtonProps> = {}) =>
     html`<div style="display: flex; gap: 1rem;padding: 1rem;">
@@ -19,13 +24,21 @@ const Buttons = (props: Partial<ButtonProps> = {}) =>
     </div>`;
 
 const meta: Meta = {
-    title: "button",
-    tags: ["autodocs"],
+    title: "components/button",
     render: () => {
         return html`${[
             Buttons(),
             Buttons({ icon: PersonCircleIcon({}) }),
             Buttons({ icon: LoginIcon({}), href: "#" }),
+            HeaderButton({
+                content: i18n("login"),
+                icon: LoginIcon({}),
+                href: "#",
+            }),
+            HeaderButton({
+                content: i18n("menu"),
+                icon: BurgerIcon(),
+            }),
         ]}`;
     },
 };

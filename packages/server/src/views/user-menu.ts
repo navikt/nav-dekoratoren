@@ -5,7 +5,7 @@ import cls from "decorator-client/src/styles/user-menu.module.css";
 import html from "decorator-shared/html";
 import { LoginIcon } from "decorator-shared/views/icons";
 import i18n from "../i18n";
-import { HeaderButton } from "./header-button";
+import { HeaderButton } from "./components/header-button";
 
 export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
     <user-menu>

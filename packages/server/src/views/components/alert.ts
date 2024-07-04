@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import cls from "decorator-client/src/styles/alert.module.css";
-import html, { Template } from "../../../shared/html";
+import html, { Template } from "decorator-shared/html";
 
 export type AlertProps = {
     content: Template;
