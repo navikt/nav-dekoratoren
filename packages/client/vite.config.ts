@@ -34,7 +34,7 @@ const csrConfig = defineConfig({
         minify: true,
         manifest: ".vite/csr.manifest.json",
         rollupOptions: {
-            input: ["src/csr.ts"],
+            input: ["src/csr-bundle.ts"],
         },
     },
 });

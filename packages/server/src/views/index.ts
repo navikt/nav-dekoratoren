@@ -107,12 +107,24 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
 };
 
 const scriptsProps = await getScriptsProps();
-
-const cssAsString = await getCssAsString();
 const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
 
+const cssAsString = await getCssAsString();
+const cssUrl = await getCSSUrl();
+const cssProps = [
+    {
+        tag: "link",
+        attribs: {
+            rel: "stylesheet",
+            as: "style",
+            href: cssUrl,
+        },
+    },
+];
+
 export const csrAssets = {
-    cssUrl: await getCSSUrl(),
+    cssUrl,
+    cssProps,
     csrScriptUrl: await getCSRScriptUrl(),
     mainScriptsProps: scriptsProps,
 };

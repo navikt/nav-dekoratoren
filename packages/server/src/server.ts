@@ -144,7 +144,7 @@ app.get("/env", async ({ req, json }) => {
             env: clientEnv,
         },
         scripts: csrAssets.mainScriptsProps,
-        cssUrl: csrAssets.cssUrl,
+        css: csrAssets.cssProps,
     });
 });
 app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>

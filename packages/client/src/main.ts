@@ -14,53 +14,12 @@ import { useLoadIfActiveSession } from "./screensharing";
 import { getHeadAssetsProps } from "decorator-shared/head";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { cdnUrl } from "./helpers/urls";
-import { CsrPayload } from "decorator-shared/types";
+import { fetchAndRenderClientSide } from "./csr";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 
 updateDecoratorParams({});
-
-const csrFallback = async () => {
-    const csrAssets = await fetch(
-        `${env("APP_URL")}/env?${formatParams(window.__DECORATOR_DATA__.params)}`,
-    )
-        .then((res) => res.json() as Promise<CsrPayload>)
-        .catch((e) => {
-            console.log("Oh noes", e);
-            return null;
-        });
-
-    if (!csrAssets) {
-        console.error("Failed to fetch CSR assets");
-        return;
-    }
-
-    const headerEl = document.getElementById("decorator-header");
-    if (headerEl) {
-        headerEl.outerHTML = csrAssets.header;
-    }
-
-    const footerEl = document.getElementById("decorator-footer");
-    if (footerEl) {
-        footerEl.outerHTML = csrAssets.footer;
-    }
-
-    document.head.appendChild(
-        buildHtmlElement({
-            tag: "link",
-            attribs: {
-                rel: "stylesheet",
-                as: "style",
-                href: csrAssets.cssUrl,
-            },
-        }),
-    );
-
-    csrAssets.scripts.forEach((script) => {
-        document.body.appendChild(buildHtmlElement(script));
-    });
-};
 
 window.addEventListener("paramsupdated", (e) => {
     if (e.detail.params.language) {
@@ -171,7 +130,9 @@ const init = async () => {
         console.log(
             `Client build id ${env("BUILD_ID")} differs from server build id ${authResponse.buildId}`,
         );
-        await csrFallback();
+        await fetchAndRenderClientSide(
+            `${env("APP_URL")}/env?${formatParams(window.__DECORATOR_DATA__.params)}`,
+        );
         return;
     }
 
