@@ -24,7 +24,7 @@ export const fetchAndRenderClientSide = async (url: string) => {
         footerEl.outerHTML = csrAssets.footer;
     }
 
-    window.__DECORATOR_DATA__ = elements.data;
+    window.__DECORATOR_DATA__ = csrAssets.data;
 
     csrAssets.css.map(buildHtmlElement).forEach((cssElement) => {
         document.head.appendChild(cssElement);
