@@ -11,7 +11,7 @@ export const serverSchema = z.object({
     IS_LOCAL_PROD: z.boolean().optional(),
     LOGIN_URL: z.string().url(),
     NODE_ENV: z.enum(["production", "development"]),
-    SEARCH_API: z.string().url(),
+    SEARCH_API_URL: z.string().url(),
     VARSEL_API_URL: z.string().url(),
     UNLEASH_SERVER_API_TOKEN: z.string(),
     UNLEASH_SERVER_API_URL: z.string().url(),
@@ -29,7 +29,7 @@ export const serverEnv = {
     LOGIN_URL: process.env.LOGIN_URL,
     NODE_ENV:
         process.env.NODE_ENV === "test" ? "development" : process.env.NODE_ENV,
-    SEARCH_API: process.env.SEARCH_API,
+    SEARCH_API_URL: process.env.SEARCH_API_URL,
     UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
     UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,
     VARSEL_API_URL: process.env.VARSEL_API_URL,
