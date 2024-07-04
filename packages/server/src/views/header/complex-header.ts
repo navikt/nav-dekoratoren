@@ -10,7 +10,6 @@ import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import { ContextLink } from "../../context";
 import i18n from "../../i18n";
-import { Button } from "../button";
 import { DropdownMenu } from "../dropdown-menu";
 import { HeaderButton } from "../header-button";
 import { SearchForm } from "../search-form";
