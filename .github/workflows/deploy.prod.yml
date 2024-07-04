@@ -1,6 +1,5 @@
 name: Deploy to prod
 
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
