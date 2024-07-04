@@ -13,6 +13,7 @@ export type ButtonProps = {
     type?: "button" | "submit" | "reset";
     className?: string;
     attributes?: Record<string, AttributeValue>;
+    href?: string;
 };
 
 export const Button = ({
@@ -22,10 +23,11 @@ export const Button = ({
     type = "button",
     className,
     attributes = {},
+    href,
 }: ButtonProps) => html`
-    <button
+    <${href ? "a" : "button"}
         ${htmlAttributes(attributes)}
-        type="${type}"
+        ${href ? `href=${href}` : `type="${type}"`}
         class="${clsx(
             cls["navds-button"],
             {
@@ -36,8 +38,10 @@ export const Button = ({
             className,
         )}"
     >
-        ${icon &&
-        html`<span class="${cls["navds-button__icon"]}">${icon}</span>`}
+        ${
+            icon &&
+            html`<span class="${cls["navds-button__icon"]}">${icon}</span>`
+        }
         <span class="${cls["navds-label"]}">${content}</span>
-    </button>
+    </${href ? "a" : "button"}>
 `;

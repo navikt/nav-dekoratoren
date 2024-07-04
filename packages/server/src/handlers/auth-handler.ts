@@ -1,3 +1,4 @@
+import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import { Auth, AuthDataResponse, AuthLoggedIn } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
 import { LogoutIcon } from "decorator-shared/views/icons/logout";
@@ -5,7 +6,7 @@ import { match } from "ts-pattern";
 import { clientEnv, env } from "../env/server";
 import i18n from "../i18n";
 import { fetchNotifications } from "../notifications";
-import { AnchorIconButton } from "../views/anchor-icon-button";
+import { Button } from "../views/button";
 import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-menu-dropdown";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
@@ -85,10 +86,12 @@ const buildUsermenuHtml = async (
             }),
         )
         .with("samarbeidspartner", async () =>
-            AnchorIconButton({
-                Icon: LogoutIcon({}),
+            Button({
+                content: i18n("logout"),
+                icon: LogoutIcon({}),
+                variant: "tertiary",
+                className: menuItemsCls.menuItem,
                 href: logoutUrl,
-                text: i18n("logout"),
             }),
         )
         .exhaustive();

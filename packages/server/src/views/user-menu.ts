@@ -5,27 +5,21 @@ import cls from "decorator-client/src/styles/user-menu.module.css";
 import html from "decorator-shared/html";
 import { LoginIcon } from "decorator-shared/views/icons";
 import i18n from "../i18n";
+import { Button } from "./button";
 
-// TODO: loginbutton styles. reuse Button?
-export function UserMenu({ loginUrl }: { loginUrl: string }) {
-    return html`<user-menu>
-        <span class="${clsx(cls.loader, akselCls["navds-label"])}"
-            >${i18n("loading")}</span
-        >
+export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
+    <user-menu>
+        <span class="${clsx(cls.loader, akselCls["navds-label"])}">
+            ${i18n("loading")}
+        </span>
         <login-button class="${cls.hidden}">
-            <a
-                href="${loginUrl}"
-                class="${clsx(
-                    akselCls["navds-button"],
-                    akselCls["navds-button--tertiary"],
-                    menuItemsCls.menuItem,
-                )}"
-            >
-                <span class="${akselCls["navds-button__icon"]}">
-                    ${LoginIcon({})}
-                </span>
-                <span class="${akselCls["navds-label"]}">${i18n("login")}</span>
-            </a>
+            ${Button({
+                content: i18n("login"),
+                icon: LoginIcon({}),
+                variant: "tertiary",
+                className: menuItemsCls.menuItem,
+                href: loginUrl,
+            })}
         </login-button>
-    </user-menu>`;
-}
+    </user-menu>
+`;
