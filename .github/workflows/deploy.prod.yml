@@ -1,9 +1,5 @@
 name: Deploy to prod
 
-on:
-  push:
-    branches:
-      - main
 
 jobs:
   build-and-test:
