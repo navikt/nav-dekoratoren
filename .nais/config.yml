@@ -43,7 +43,7 @@ spec:
           namespace: "*"
   env:
     - name: BUILD_ID
-      value: {{buildId}}
+      value: {{BUILD_ID}}
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}

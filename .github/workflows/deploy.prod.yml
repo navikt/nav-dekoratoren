@@ -60,7 +60,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VAR: image=${{ needs.build-and-test.outputs.image }},BUILD_ID=${{ github.sha }}
           VARS: .nais/vars/dev-stable.yml
 
   deploy-beta-navno:
@@ -75,7 +75,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VAR: image=${{ needs.build-and-test.outputs.image }},BUILD_ID=${{ github.sha }}
           VARS: .nais/vars/dev-beta-navno.yml
 
   deploy-prod-next:
@@ -90,7 +90,7 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VAR: image=${{ needs.build-and-test.outputs.image }},BUILD_ID=${{ github.sha }}
           VARS: .nais/vars/prod-next.yml
 
   deploy-prod:
@@ -105,5 +105,5 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }}
+          VAR: image=${{ needs.build-and-test.outputs.image }},BUILD_ID=${{ github.sha }}
           VARS: .nais/vars/prod.yml
