@@ -39,11 +39,11 @@ export const serverEnv = {
 // This is session URL for prod
 // https://login.nav.no/oauth2/session
 export const client_env = {
-    LOGIN_SESSION_API_URL: process.env.LOGIN_SESSION_API_URL,
     APP_URL: process.env.APP_URL,
     BOOST_ENV: process.env.BOOST_ENV as BoostEnviroment,
     CDN_URL: process.env.CDN_URL,
     ENV: process.env.ENV,
+    LOGIN_SESSION_API_URL: process.env.LOGIN_SESSION_API_URL,
     LOGIN_URL: process.env.LOGIN_URL,
     LOGOUT_URL: process.env.LOGOUT_URL,
     MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,
