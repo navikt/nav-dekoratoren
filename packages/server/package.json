@@ -13,7 +13,6 @@
         "test": "bun test --env-file=./.env.sample"
     },
     "dependencies": {
-        "@builder.io/partytown": "0.10.2",
         "csp-header": "5.2.1",
         "decorator-client": "workspace:*",
         "decorator-shared": "workspace:*",
