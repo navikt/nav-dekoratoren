@@ -1,7 +1,7 @@
 import { ClientStateResponse } from "decorator-shared/auth";
 import { CustomEvents, createEvent } from "./events";
 import { endpointUrlWithParams } from "./helpers/urls";
-import { env } from "./params";
+import { env, param } from "./params";
 
 const fetchClientState = async (): Promise<ClientStateResponse> => {
     const url = endpointUrlWithParams("/client-state");
@@ -24,16 +24,18 @@ const updateClientState = () =>
         return response;
     });
 
-const updateAuthOnContextSwitch = (
+const updateOnContextSwitch = (
     e: CustomEvent<CustomEvents["paramsupdated"]>,
 ) => {
-    if (e.detail.params.context) {
+    const { context } = e.detail.params;
+
+    if (context && context !== param("context")) {
         updateClientState();
     }
 };
 
 export const initClientState = () =>
     updateClientState().then((response) => {
-        window.addEventListener("paramsupdated", updateAuthOnContextSwitch);
+        window.addEventListener("paramsupdated", updateOnContextSwitch);
         return response;
     });
