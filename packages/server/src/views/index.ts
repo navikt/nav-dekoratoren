@@ -7,8 +7,6 @@ import { HtmlElementProps } from "decorator-shared/types";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
-// https://github.com/BuilderIO/partytown/issues/241
-// See how this works in production
 const hotjarScript = `(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};

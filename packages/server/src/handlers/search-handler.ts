@@ -37,7 +37,7 @@ const fetchSearch = async ({
     language: string;
 }) =>
     fetchAndValidateJson(
-        `${env.SEARCH_API}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
+        `${env.SEARCH_API_URL}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
         undefined,
         resultSchema,
     );

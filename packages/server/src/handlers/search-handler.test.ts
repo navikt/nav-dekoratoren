@@ -40,7 +40,7 @@ describe("Search handler", () => {
 
     test("Should return html containing first 5 hits only", async () => {
         server.use(
-            http.get(env.SEARCH_API, () =>
+            http.get(env.SEARCH_API_URL, () =>
                 HttpResponse.json({
                     hits: validHits,
                     total: validHits.length,
@@ -60,7 +60,7 @@ describe("Search handler", () => {
 
     test("Should not include invalid hits", async () => {
         server.use(
-            http.get(env.SEARCH_API, () =>
+            http.get(env.SEARCH_API_URL, () =>
                 HttpResponse.json({
                     hits: withInvalidHit,
                     total: withInvalidHit.length,
