@@ -1,7 +1,3 @@
-.hidden {
-    display: none;
-}
-
 .userMenuContainer {
     animation-name: fadeIn;
     animation-duration: 500ms;
