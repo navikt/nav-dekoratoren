@@ -75,7 +75,6 @@ const ScreensharingEnabled = () => {
                     })}
                     ${Button({
                         content: i18n("delskjerm_modal_avbryt"),
-                        variant: "tertiary",
                         attributes: { ["data-type"]: "cancel" },
                     })}
                 </div>

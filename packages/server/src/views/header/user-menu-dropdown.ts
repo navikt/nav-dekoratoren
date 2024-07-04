@@ -42,7 +42,6 @@ export const UserMenuDropdown = ({
                     : PersonCircleIcon({
                           className: cls.icon,
                       }),
-            variant: "tertiary",
         }),
         dropdownClass: cls.userMenuDropdown,
         dropdownContent: UserMenu({

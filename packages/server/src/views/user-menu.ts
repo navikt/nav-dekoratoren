@@ -16,7 +16,6 @@ export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
             ${Button({
                 content: i18n("login"),
                 icon: LoginIcon({}),
-                variant: "tertiary",
                 className: menuItemsCls.menuItem,
                 href: loginUrl,
             })}

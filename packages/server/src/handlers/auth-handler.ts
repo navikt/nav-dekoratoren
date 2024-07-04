@@ -89,7 +89,6 @@ const buildUsermenuHtml = async (
             Button({
                 content: i18n("logout"),
                 icon: LogoutIcon({}),
-                variant: "tertiary",
                 className: menuItemsCls.menuItem,
                 href: logoutUrl,
             }),

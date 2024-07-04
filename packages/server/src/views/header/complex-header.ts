@@ -100,7 +100,6 @@ export function ComplexHeader({
                                         button: Button({
                                             content: i18n("menu"),
                                             icon: BurgerIcon(),
-                                            variant: "tertiary",
                                             className: menuItemsCls.menuItem,
                                         }),
                                         dropdownContent: html`
@@ -118,7 +117,6 @@ export function ComplexHeader({
                                             icon: SearchIcon({
                                                 menuSearch: true,
                                             }),
-                                            variant: "tertiary",
                                             className:
                                                 menuItemsCls.searchButton,
                                         }),

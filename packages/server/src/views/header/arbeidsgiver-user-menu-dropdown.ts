@@ -22,7 +22,6 @@ export const ArbeidsgiverUserMenuDropdown = ({
         button: Button({
             content: i18n("rolle_arbeidsgiver"),
             icon: BriefcaseIcon(),
-            variant: "tertiary",
             className: menuItemsCls.menuItem,
         }),
         dropdownClass: cls.arbeidsgiverMenuDropdown,

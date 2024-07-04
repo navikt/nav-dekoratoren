@@ -9,7 +9,7 @@ import html, {
 export type ButtonProps = {
     content: Template;
     icon?: Template;
-    variant: "primary" | "secondary" | "tertiary";
+    variant?: "primary" | "secondary" | "tertiary";
     type?: "button" | "submit" | "reset";
     className?: string;
     attributes?: Record<string, AttributeValue>;
@@ -19,7 +19,7 @@ export type ButtonProps = {
 export const Button = ({
     content,
     icon,
-    variant,
+    variant = "tertiary",
     type = "button",
     className,
     attributes = {},
