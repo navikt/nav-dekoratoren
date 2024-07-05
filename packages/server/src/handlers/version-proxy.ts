@@ -8,6 +8,7 @@ const fetchFromBuildVersion = async (request: HonoRequest) => {
     const reqBuildId = request.query(BUILD_ID_HEADER);
 
     const newUrl = new URL(request.url);
+    newUrl.protocol = "https:";
     newUrl.pathname = `/${reqBuildId}${newUrl.pathname}`;
     newUrl.searchParams.set("is-proxied-req", "true");
 
