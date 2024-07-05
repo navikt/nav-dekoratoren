@@ -20,8 +20,6 @@ class Header extends HTMLElement {
         if (e.data.source === "decoratorClient" && e.data.event == "params") {
             const payload = e.data.payload;
 
-            console.log("handling message", payload);
-
             (
                 [
                     "breadcrumbs",
@@ -29,6 +27,7 @@ class Header extends HTMLElement {
                     "utilsBackground",
                     "language",
                     "chatbotVisible",
+                    "context",
                 ] satisfies ParamKey[]
             ).forEach((key) => {
                 if (payload[key] !== undefined) {
@@ -37,26 +36,6 @@ class Header extends HTMLElement {
                     });
                 }
             });
-
-            if (e.data.payload.context) {
-                const context = e.data.payload.context;
-                if (
-                    [
-                        "privatperson",
-                        "arbeidsgiver",
-                        "samarbeidspartner",
-                    ].includes(context)
-                ) {
-                    window.dispatchEvent(
-                        createEvent("activecontext", {
-                            bubbles: true,
-                            detail: { context },
-                        }),
-                    );
-                } else {
-                    console.warn("Unrecognized context", context);
-                }
-            }
         }
     };
 

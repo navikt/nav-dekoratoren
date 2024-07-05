@@ -19,12 +19,6 @@ import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 
 updateDecoratorParams({});
 
-window.addEventListener("activecontext", (event) => {
-    updateDecoratorParams({
-        context: (event as CustomEvent<{ context: Context }>).detail.context,
-    });
-});
-
 // @TODO: Refactor loaders
 window.addEventListener("load", () => {
     useLoadIfActiveSession({
