@@ -9,6 +9,7 @@ describe("Endpoint urls", () => {
             },
             env: {
                 APP_URL: "http://localhost:3000",
+                BUILD_ID: "1234",
             },
         } as typeof window.__DECORATOR_DATA__;
 
@@ -19,7 +20,7 @@ describe("Endpoint urls", () => {
         });
 
         expect(url).toBe(
-            "http://localhost:3000/user-menu?simple=true&feedback=true",
+            "http://localhost:3000/user-menu?simple=true&feedback=true&build-id=1234",
         );
     });
 });
