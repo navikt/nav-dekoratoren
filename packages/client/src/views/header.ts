@@ -1,8 +1,6 @@
-import { ParamKey } from "decorator-shared/params";
+import { formatParams } from "decorator-shared/json";
 import { defineCustomElement } from "../custom-elements";
 import { env, updateDecoratorParams } from "../params";
-import { createEvent } from "../events";
-import { formatParams } from "decorator-shared/json";
 
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source } = message;
@@ -13,11 +11,15 @@ class Header extends HTMLElement {
     handleMessage = (e: MessageEvent) => {
         if (!msgSafetyCheck(e)) {
             return;
-        }
-        if (e.data.source === "decoratorClient" && e.data.event === "ready") {
+        } else if (
+            e.data.source === "decoratorClient" &&
+            e.data.event === "ready"
+        ) {
             window.postMessage({ source: "decorator", event: "ready" });
-        }
-        if (e.data.source === "decoratorClient" && e.data.event == "params") {
+        } else if (
+            e.data.source === "decoratorClient" &&
+            e.data.event == "params"
+        ) {
             const payload = e.data.payload;
 
             [
