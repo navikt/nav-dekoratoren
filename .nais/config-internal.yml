@@ -24,7 +24,9 @@ spec:
     enabled: true
     path: /metrics
   ingresses:
-    - https://dekoratoren.ekstern.dev.nav.no/{{BUILD_ID}}
+  {{#each ingresses as |url|}}
+    - {{url}}/{{BUILD_ID}}
+  {{/each}}
   accessPolicy:
     outbound:
       rules:
