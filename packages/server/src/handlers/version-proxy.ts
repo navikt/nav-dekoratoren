@@ -32,11 +32,8 @@ const fetchFromBuildVersion = async (request: HonoRequest) => {
 
 export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
     const reqBuildId = c.req.query(BUILD_ID_HEADER);
-    const isProxyReq = c.req.query("is-proxied-req");
 
-    console.log(`${reqBuildId} - ${isProxyReq}`);
-
-    if (!reqBuildId || reqBuildId === serverBuildId || isProxyReq) {
+    if (!reqBuildId || reqBuildId === serverBuildId) {
         return next();
     }
 
