@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const serverSchema = z.object({
     APP_URL: z.string().url(),
+    BUILD_ID: z.string(),
     CDN_URL: z.string().url(),
     DEKORATOREN_API_URL: z.string().url(),
     ENONICXP_SERVICES: z.string().url(),
@@ -16,10 +17,11 @@ export const serverSchema = z.object({
     UNLEASH_SERVER_API_TOKEN: z.string(),
     UNLEASH_SERVER_API_URL: z.string().url(),
     XP_BASE_URL: z.string().url(),
-});
+} satisfies Record<keyof typeof serverEnv, unknown>);
 
 export const serverEnv = {
     APP_URL: process.env.APP_URL,
+    BUILD_ID: process.env.BUILD_ID,
     CDN_URL: process.env.CDN_URL,
     DEKORATOREN_API_URL: process.env.DEKORATOREN_API_URL,
     ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
@@ -41,6 +43,7 @@ export const serverEnv = {
 export const client_env = {
     APP_URL: process.env.APP_URL,
     BOOST_ENV: process.env.BOOST_ENV as BoostEnviroment,
+    BUILD_ID: process.env.BUILD_ID,
     CDN_URL: process.env.CDN_URL,
     ENV: process.env.ENV,
     LOGIN_SESSION_API_URL: process.env.LOGIN_SESSION_API_URL,
