@@ -30,7 +30,7 @@ spec:
     outbound:
       rules:
         - application: "*"
-          namespace: personbruker
+          namespace: "*"
         - application: tms-varsel-api
           namespace: min-side
       external:
