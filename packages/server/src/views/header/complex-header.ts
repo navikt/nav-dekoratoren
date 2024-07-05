@@ -88,7 +88,7 @@ export function ComplexHeader({
                                                 ${i18n(lenkeTekstId)}
                                             </context-link>`,
                                     )}
-                                    Nyere versjon
+                                    Enda nyere versjon!
                                 </div>`}
                             </div>
                             <div class="${menuItemsCls.menuItems}">

@@ -20,7 +20,7 @@ export function MainMenu({
     return html`<div id="decorator-main-menu" class="${cls.mainMenu}">
         <div class="${cls.content}">
             <div class="${cls.header}">
-                <h2 class="${cls.titleNew3}">${title} nyere versjon</h2>
+                <h2 class="${cls.titleNew4}">${title} enda nyere versjon</h2>
                 <lenke-med-sporing
                     href="${frontPageUrl}"
                     class="${globalCls["navds-link"]}"
