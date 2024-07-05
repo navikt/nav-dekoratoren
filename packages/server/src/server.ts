@@ -171,17 +171,17 @@ app.get("/", async ({ req, html }) => {
     );
 });
 
-if (process.env.IS_INTERNAL_APP) {
-    const prefix = `/${process.env.BUILD_ID}`;
-    app.route(prefix, app);
-    app.route(`${prefix}/decorator-next`, app);
-    app.route(`${prefix}/dekoratoren`, app);
-    app.route(`${prefix}/common-html/v4/navno`, app);
-} else {
-    app.route("/decorator-next", app);
-    app.route("/dekoratoren", app);
-    app.route("/common-html/v4/navno", app);
-}
+// if (process.env.IS_INTERNAL_APP) {
+//     const prefix = `/${process.env.BUILD_ID}`;
+//     app.route(prefix, app);
+//     app.route(`${prefix}/decorator-next`, app);
+//     app.route(`${prefix}/dekoratoren`, app);
+//     app.route(`${prefix}/common-html/v4/navno`, app);
+// } else {
+app.route("/decorator-next", app);
+app.route("/dekoratoren", app);
+app.route("/common-html/v4/navno", app);
+// }
 
 export default {
     ...app,
