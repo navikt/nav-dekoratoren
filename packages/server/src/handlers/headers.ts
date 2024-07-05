@@ -15,23 +15,31 @@ const isAllowedOrigin = (origin?: string) =>
     (ALLOWED_DOMAINS.some((domain) => origin.endsWith(domain)) ||
         origin.includes("localhost:"));
 
+export const getHeaders = (origin: string) => {
+    const headers: Record<string, string> = {};
+
+    if (isAllowedOrigin(origin)) {
+        headers["Access-Control-Allow-Origin"] = origin;
+        headers["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT";
+        headers["Access-Control-Allow-Credentials"] = "true";
+        headers["Access-Control-Allow-Headers"] =
+            "cookie,Content-Type,Authorization";
+    }
+
+    headers["Content-Security-Policy"] = csp;
+    headers["Cache-Control"] = "private, no-cache, no-store, must-revalidate";
+    headers["Pragma"] = "no-cache";
+    headers["Expires"] = "-1";
+
+    return headers;
+};
+
 export const headers: MiddlewareHandler = async (c, next) => {
     await next();
 
     const origin = c.req.header("origin");
 
-    if (isAllowedOrigin(origin)) {
-        c.header("Access-Control-Allow-Origin", origin);
-        c.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-        c.header("Access-Control-Allow-Credentials", "true");
-        c.header(
-            "Access-Control-Allow-Headers",
-            "cookie,Content-Type,Authorization",
-        );
-    }
-
-    c.header("Content-Security-Policy", csp);
-    c.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-    c.header("Pragma", "no-cache");
-    c.header("Expires", "-1");
+    Object.entries(getHeaders(origin)).forEach(([name, value]) =>
+        c.header(name, value),
+    );
 };

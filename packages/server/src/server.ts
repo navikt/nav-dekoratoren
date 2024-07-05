@@ -116,6 +116,7 @@ app.get("/auth", async ({ req, json }) =>
 );
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
+    console.log("Running header");
     const data = validParams(req.query());
 
     return html(renderHeader({ data }).render(data));

@@ -1,5 +1,6 @@
 import { Hono, HonoRequest, MiddlewareHandler } from "hono";
 import { BUILD_ID_HEADER } from "decorator-shared/constants";
+import { getHeaders } from "./headers";
 
 const serverBuildId = process.env.BUILD_ID as string;
 
@@ -43,7 +44,13 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
 
     const response = await fetchFromBuildVersion(c.req);
     if (response) {
-        console.log("Returning response ", response);
+        console.log("Returning response ", {
+            ...response,
+            headers: {
+                ...response.headers,
+                ...getHeaders(c.req.header("origin")),
+            },
+        });
         return response;
     }
 
