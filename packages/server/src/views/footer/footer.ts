@@ -2,10 +2,10 @@ import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
 import { Features, Link, LinkGroup } from "decorator-shared/types";
 import { Feedback } from "../feedback";
-import { LogoutWarning } from "../logout-warning";
 import { getModal } from "../screensharing-modal";
 import { ComplexFooter } from "./complex-footer";
 import { SimpleFooter } from "./simple-footer";
+import { LogoutWarning } from "../logout-warning";
 
 type FooterProps = {
     data: Params;
@@ -34,7 +34,7 @@ export const Footer = ({
             enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
         })}
         <d-chatbot></d-chatbot>
-        ${data.logoutWarning ? LogoutWarning() : undefined}
+        ${LogoutWarning()}
         ${data.feedback ? Feedback({ contactUrl }) : undefined}
         ${simple
             ? SimpleFooter({

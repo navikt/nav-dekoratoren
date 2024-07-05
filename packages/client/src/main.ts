@@ -1,19 +1,18 @@
 /// <reference types="./client.d.ts" />
+import { getHeadAssetsProps } from "decorator-shared/head";
 import { formatParams } from "decorator-shared/json";
 import { type Context, type ParamKey } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
 import { initAuth } from "./auth";
-import { initLogoutWarning } from "./logout-warning";
 import { createEvent, initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
+import { buildHtmlElement } from "./helpers/html-element-builder";
+import { cdnUrl } from "./helpers/urls";
 import "./main.css";
 import { env, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
-import { getHeadAssetsProps } from "decorator-shared/head";
-import { buildHtmlElement } from "./helpers/html-element-builder";
-import { cdnUrl } from "./helpers/urls";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -124,35 +123,10 @@ const init = () => {
     initAuth().then((auth) => {
         initAnalytics(auth);
     });
-
-    if (param("logoutWarning")) {
-        initLogoutWarning();
-    }
 };
 
-const enableMocking = async () => {
-    if (process.env.NODE_ENV !== "development") {
-        return;
-    }
-
-    if (window.location.origin !== env("APP_URL")) {
-        console.log(
-            "Skipping mock worker as current origin is not decorator origin",
-        );
-        return;
-    }
-
-    const { worker } = await import("./mocks");
-
-    return worker.start({
-        onUnhandledRequest: "bypass",
-    });
-};
-
-enableMocking().then(() => {
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
-});
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
+}

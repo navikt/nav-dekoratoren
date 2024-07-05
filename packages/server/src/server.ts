@@ -33,6 +33,8 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
         "/mockServiceWorker.js",
         serveStatic({ path: "./public/mockServiceWorker.js" }),
     );
+    app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
+    app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
 }
 
 app.use(headers);

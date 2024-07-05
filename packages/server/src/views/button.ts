@@ -27,7 +27,7 @@ export const Button = ({
 }: ButtonProps) => html`
     <${href ? "a" : "button"}
         ${htmlAttributes(attributes)}
-        ${href ? `href=${href}` : `type="${type}"`}
+        ${href ? html`href="${href}"` : html`type="${type}"`}
         class="${clsx(
             cls["navds-button"],
             {
