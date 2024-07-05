@@ -18,27 +18,25 @@ export const SimpleHeader = ({
     frontPageUrl,
     loginUrl,
 }: SimpleHeaderProps) => html`
-    <header id="decorator-header">
-        <div class="${cls.siteheader}">
-            ${SkipLink(i18n("skip_link"))}
-            <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-                <lenke-med-sporing
-                    href="${frontPageUrl}"
-                    class="${cls.logo} ${cls.logoSimple}"
-                    data-analytics-event-args="${JSON.stringify({
-                        category: "dekorator-header",
-                        action: "navlogo",
-                    })}"
-                >
-                    ${NavLogo({
-                        title: i18n("to_front_page"),
-                        titleId: "logo-svg-title",
-                    })}
-                </lenke-med-sporing>
-                ${UserMenu({ loginUrl })}
-            </div>
+    <div class="${cls.siteheader}">
+        ${SkipLink(i18n("skip_link"))}
+        <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+            <lenke-med-sporing
+                href="${frontPageUrl}"
+                class="${cls.logo} ${cls.logoSimple}"
+                data-analytics-event-args="${JSON.stringify({
+                    category: "dekorator-header",
+                    action: "navlogo",
+                })}"
+            >
+                ${NavLogo({
+                    title: i18n("to_front_page"),
+                    titleId: "logo-svg-title",
+                })}
+            </lenke-med-sporing>
+            ${UserMenu({ loginUrl })}
         </div>
-        <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-        ${decoratorUtils}
-    </header>
+    </div>
+    <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+    ${decoratorUtils}
 `;

@@ -21,6 +21,7 @@ import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { texts } from "./texts";
 import { clientTextsKeys } from "decorator-shared/types";
+import html from "decorator-shared/html";
 
 const app = new Hono({
     strict: false,
@@ -127,8 +128,18 @@ app.get("/env", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: renderHeader({ data }).render(data),
-        footer: (await renderFooter({ data, features })).render(data),
+        header: html`
+            <header id="decorator-header">
+                <decorator-header>${renderHeader({ data })}</decorator-header>
+            </header>
+        `.render(data),
+        footer: html`
+            <div id="decorator-footer">
+                <decorator-footer>
+                    ${await renderFooter({ data, features })}
+                </decorator-footer>
+            </div>
+        `.render(data),
         data: {
             texts: Object.entries(texts[data.language])
                 .filter(([key]) => clientTextsKeys.includes(key as any))
