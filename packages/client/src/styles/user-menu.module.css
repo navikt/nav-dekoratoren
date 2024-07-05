@@ -36,13 +36,13 @@
     color: var(--a-text-subtle);
 }
 
-.nameTest {
+.nameTestNew {
     font-weight: var(--a-font-weight-bold);
     font-size: var(--a-font-size-heading-large);
 }
 
 @media (min-width: 768px) {
-    .nameTest {
+    .nameTestNew {
         font-size: var(--a-font-size-heading-xlarge);
     }
 }
