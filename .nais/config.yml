@@ -29,8 +29,8 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: "*"
-          namespace: "*"
+        - application: nav-dekoratoren-api
+        - application: navno-search-api
         - application: tms-varsel-api
           namespace: min-side
       external:

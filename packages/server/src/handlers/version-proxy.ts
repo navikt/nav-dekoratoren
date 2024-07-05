@@ -1,4 +1,4 @@
-import { Hono, HonoRequest, MiddlewareHandler } from "hono";
+import { HonoRequest, MiddlewareHandler } from "hono";
 import { BUILD_ID_HEADER } from "decorator-shared/constants";
 import { getHeaders } from "./headers";
 
@@ -8,8 +8,7 @@ const fetchFromBuildVersion = async (request: HonoRequest) => {
     const reqBuildId = request.query(BUILD_ID_HEADER);
 
     const newUrl = new URL(request.url);
-    newUrl.host = `nav-dekoratoren-${reqBuildId}`;
-    newUrl.protocol = "http:";
+    newUrl.pathname = `/${reqBuildId}${newUrl.pathname}`;
     newUrl.searchParams.set("is-proxied-req", "true");
 
     console.log(`New url:`, newUrl.toString());

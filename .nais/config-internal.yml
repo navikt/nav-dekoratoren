@@ -23,11 +23,13 @@ spec:
   prometheus:
     enabled: true
     path: /metrics
+  ingresses:
+    - url: https://dekoratoren.ekstern.dev.nav.no/{{BUILD_ID}}
   accessPolicy:
     outbound:
       rules:
-        - application: "*"
-          namespace: "*"
+        - application: nav-dekoratoren-api
+        - application: navno-search-api
         - application: tms-varsel-api
           namespace: min-side
       external:
