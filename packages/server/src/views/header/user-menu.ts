@@ -37,7 +37,7 @@ export const UserMenu = ({
             <div class="${cls.menuHeader}">
                 <div>
                     <div class="${cls.loggedIn}">${i18n("logged_in")}</div>
-                    <div class="${cls.name}">${name}</div>
+                    <div class="${cls.nameTest}">${name} McNameson</div>
                 </div>
                 ${level !== "Level4" &&
                 Alert({
