@@ -41,6 +41,8 @@ spec:
   env:
     - name: BUILD_ID
       value: {{BUILD_ID}}
+    - name: IS_INTERNAL_APP
+      value: "true"
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}
