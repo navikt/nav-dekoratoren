@@ -6,6 +6,7 @@ metadata:
   namespace: personbruker
   labels:
     team: personbruker
+    dekoratorenType: external
   annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "256M"
       nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
