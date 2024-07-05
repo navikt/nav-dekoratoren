@@ -20,17 +20,16 @@ class Header extends HTMLElement {
         if (e.data.source === "decoratorClient" && e.data.event == "params") {
             const payload = e.data.payload;
 
-            (
-                [
-                    "breadcrumbs",
-                    "availableLanguages",
-                    "utilsBackground",
-                    "language",
-                    "chatbotVisible",
-                    "context",
-                ] satisfies ParamKey[]
-            ).forEach((key) => {
+            [
+                "breadcrumbs",
+                "availableLanguages",
+                "utilsBackground",
+                "language",
+                "chatbotVisible",
+                "context",
+            ].forEach((key) => {
                 if (payload[key] !== undefined) {
+                    // TODO: validation
                     updateDecoratorParams({
                         [key]: payload[key],
                     });
