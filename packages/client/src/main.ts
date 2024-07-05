@@ -1,6 +1,5 @@
 /// <reference types="./client.d.ts" />
 import { getHeadAssetsProps } from "decorator-shared/head";
-import { type Context } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
