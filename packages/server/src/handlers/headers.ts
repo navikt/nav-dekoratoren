@@ -15,10 +15,10 @@ const isAllowedOrigin = (origin?: string) =>
     (ALLOWED_DOMAINS.some((domain) => origin.endsWith(domain)) ||
         origin.includes("localhost:"));
 
-export const getHeaders = (origin: string) => {
+export const getHeaders = (origin?: string) => {
     const headers: Record<string, string> = {};
 
-    if (isAllowedOrigin(origin)) {
+    if (origin && isAllowedOrigin(origin)) {
         headers["Access-Control-Allow-Origin"] = origin;
         headers["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT";
         headers["Access-Control-Allow-Credentials"] = "true";

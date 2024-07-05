@@ -8,8 +8,8 @@ const fetchFromBuildVersion = async (request: HonoRequest) => {
     const reqBuildId = request.query(BUILD_ID_HEADER);
 
     const newUrl = new URL(request.url);
-    newUrl.protocol = "https:";
-    newUrl.pathname = `/${reqBuildId}${newUrl.pathname}`;
+    newUrl.protocol = "http:";
+    newUrl.host = `nav-dekoratoren-${reqBuildId}`;
     newUrl.searchParams.set("is-proxied-req", "true");
 
     console.log(`New url:`, newUrl.toString());

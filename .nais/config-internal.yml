@@ -24,10 +24,6 @@ spec:
   prometheus:
     enabled: true
     path: /metrics
-  ingresses:
-  {{#each ingresses as |url|}}
-    - {{url}}/{{BUILD_ID}}
-  {{/each}}
   accessPolicy:
     outbound:
       rules:

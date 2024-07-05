@@ -13,6 +13,6 @@ spec:
     - Egress
   egress:
     - to:
-      - namespaceSelector:
+      - podSelector:
           matchLabels:
             dekoratorenType: internal
