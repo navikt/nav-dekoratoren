@@ -1,5 +1,4 @@
 /// <reference types="./client.d.ts" />
-import { formatParams } from "decorator-shared/json";
 import { type Context, type ParamKey } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
@@ -13,7 +12,7 @@ import { env, param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 import { getHeadAssetsProps } from "decorator-shared/head";
 import { buildHtmlElement } from "./helpers/html-element-builder";
-import { cdnUrl } from "./helpers/urls";
+import { cdnUrl, endpointUrlWithParams } from "./helpers/urls";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -24,9 +23,9 @@ window.addEventListener("paramsupdated", (e) => {
     if (e.detail.params.language) {
         Promise.all(
             ["header", "footer"].map((key) =>
-                fetch(
-                    `${env("APP_URL")}/${key}?${formatParams(window.__DECORATOR_DATA__.params)}`,
-                ).then((res) => res.text()),
+                fetch(endpointUrlWithParams(`/${key}`)).then((res) =>
+                    res.text(),
+                ),
             ),
         ).then(([header, footer]) => {
             const headerEl = document.getElementById("decorator-header");
