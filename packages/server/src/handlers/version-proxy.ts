@@ -48,7 +48,5 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
         return next();
     }
 
-    console.log("Returning response ", response);
-
     return response;
 };
