@@ -47,13 +47,18 @@ const fetchFromOtherVersion = async (
     console.log(`Attemping to proxy request to ${url}`);
 
     try {
-        console.log("request to proxy: ", request);
-
-        const response = await fetch(url, {
+        const init = {
             method: request.method,
             headers: { ...request.raw.headers, [LOOPBACK_HEADER]: "true" },
             body: request.raw.body,
-        });
+        };
+        console.log(`request to proxy: ${JSON.stringify(request)}`);
+        console.log(`init to proxy: ${JSON.stringify(init)}`);
+        console.log(
+            `Cookie: ${request.header("cookie")} ${request.header("Cookie")}`,
+        );
+
+        const response = await fetch(url, init);
 
         console.log(
             `Response from ${url} - ${response.status} ${response.statusText}`,
