@@ -7,7 +7,7 @@ import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { searchHandler } from "./handlers/search-handler";
-import { headers } from "./handlers/headers";
+import { headersMiddleware } from "./handlers/headers";
 import i18n from "./i18n";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
@@ -36,7 +36,7 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     );
 }
 
-app.use(headers);
+app.use(headersMiddleware);
 
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
@@ -116,7 +116,6 @@ app.get("/auth", async ({ req, json }) =>
 );
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
-    console.log("Running header");
     const data = validParams(req.query());
 
     return html(renderHeader({ data }).render(data));

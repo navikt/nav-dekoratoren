@@ -52,11 +52,11 @@ jobs:
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config.yml
-          VAR: image=${{ steps.docker-push.outputs.image }},VERSION_ID=${{ github.sha }}
+          VAR: image=${{ steps.docker-push.outputs.image }},versionId=${{ github.sha }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ steps.docker-push.outputs.image }},VERSION_ID=${{ github.sha }}
+          VAR: image=${{ steps.docker-push.outputs.image }},versionId=${{ github.sha }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml

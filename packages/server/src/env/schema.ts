@@ -4,7 +4,6 @@ import { z } from "zod";
 export const serverSchema = z.object({
     APP_NAME: z.string(),
     APP_URL: z.string().url(),
-    VERSION_ID: z.string(),
     CDN_URL: z.string().url(),
     DEKORATOREN_API_URL: z.string().url(),
     ENONICXP_SERVICES: z.string().url(),
@@ -18,13 +17,13 @@ export const serverSchema = z.object({
     VARSEL_API_URL: z.string().url(),
     UNLEASH_SERVER_API_TOKEN: z.string(),
     UNLEASH_SERVER_API_URL: z.string().url(),
+    VERSION_ID: z.string(),
     XP_BASE_URL: z.string().url(),
 } satisfies Record<keyof typeof serverEnv, unknown>);
 
 export const serverEnv = {
     APP_NAME: process.env.APP_NAME,
     APP_URL: process.env.APP_URL,
-    VERSION_ID: process.env.VERSION_ID,
     CDN_URL: process.env.CDN_URL,
     DEKORATOREN_API_URL: process.env.DEKORATOREN_API_URL,
     ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
@@ -39,6 +38,7 @@ export const serverEnv = {
     UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
     UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,
     VARSEL_API_URL: process.env.VARSEL_API_URL,
+    VERSION_ID: process.env.VERSION_ID,
     XP_BASE_URL: process.env.XP_BASE_URL,
 };
 
@@ -47,7 +47,6 @@ export const serverEnv = {
 export const client_env = {
     APP_URL: process.env.APP_URL,
     BOOST_ENV: process.env.BOOST_ENV as BoostEnviroment,
-    VERSION_ID: process.env.VERSION_ID,
     CDN_URL: process.env.CDN_URL,
     ENV: process.env.ENV,
     LOGIN_SESSION_API_URL: process.env.LOGIN_SESSION_API_URL,
@@ -56,5 +55,6 @@ export const client_env = {
     MIN_SIDE_URL: process.env.MIN_SIDE_URL,
     PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
     PUZZEL_CUSTOMER_ID: process.env.PUZZEL_CUSTOMER_ID,
+    VERSION_ID: process.env.VERSION_ID,
     XP_BASE_URL: process.env.XP_BASE_URL,
 } satisfies Record<keyof Environment, unknown>;

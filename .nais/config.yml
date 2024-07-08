@@ -44,7 +44,7 @@ spec:
           namespace: "*"
   env:
     - name: VERSION_ID
-      value: {{VERSION_ID}}
+      value: {{versionId}}
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}

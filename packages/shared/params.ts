@@ -82,7 +82,6 @@ export type ParamKey = keyof Params;
 export const clientEnvSchema = z.object({
     APP_URL: z.string(),
     BOOST_ENV: z.enum(["nav", "navtest"]),
-    VERSION_ID: z.string(),
     CDN_URL: z.string(),
     ENV: z.enum(["prod", "dev", "localhost"]),
     LOGIN_SESSION_API_URL: z.string(),
@@ -91,6 +90,7 @@ export const clientEnvSchema = z.object({
     MIN_SIDE_URL: z.string(),
     PERSONOPPLYSNINGER_URL: z.string(),
     PUZZEL_CUSTOMER_ID: z.string(),
+    VERSION_ID: z.string(),
     XP_BASE_URL: z.string(),
 });
 
