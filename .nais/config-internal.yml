@@ -37,8 +37,8 @@ spec:
         {{/each}}
     inbound:
       rules:
-        - application: "*"
-          namespace: "*"
+        - application: {{appName}}
+          namespace: personbruker
   env:
     - name: APP_NAME
       value: {{appName}}
@@ -58,7 +58,7 @@ spec:
       mountPath: /app/config
   replicas:
   {{#with replicas}}
-    min: {{min}}
+    min: 1
     max: {{max}}
   {{/with}}
   resources:
