@@ -1,7 +1,7 @@
 import { Params } from "decorator-shared/params";
 import { formatParams } from "decorator-shared/json";
 import { env } from "../params";
-import { VERSION_ID_HEADER } from "decorator-shared/constants";
+import { VERSION_ID_PARAM } from "decorator-shared/constants";
 
 export const endpointUrlWithParams = (
     endpointUrl: `/${string}`,
@@ -12,7 +12,7 @@ export const endpointUrlWithParams = (
         ...params,
     });
 
-    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_HEADER}=${env("VERSION_ID")}`;
+    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}`;
 };
 
 export const cdnUrl = (url: string) => `${env("CDN_URL")}${url}`;
