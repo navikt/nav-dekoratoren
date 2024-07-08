@@ -47,9 +47,11 @@ const fetchFromOtherVersion = async (
     console.log(`Attemping to proxy request to ${url}`);
 
     try {
+        request.raw.headers.set(LOOPBACK_HEADER, "true");
+
         const response = await fetch(url, {
             method: request.method,
-            headers: { ...request.raw.headers, [LOOPBACK_HEADER]: "true" },
+            headers: request.raw.headers,
             body: request.raw.body,
         });
 
@@ -75,10 +77,6 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
     if (reqVersionId === SERVER_VERSION_ID || isLoopback || !reqVersionId) {
         return next();
     }
-
-    console.log(
-        `Version id did not match this server version - got ${reqVersionId}, expected ${SERVER_VERSION_ID}`,
-    );
 
     const response = await fetchFromOtherVersion(c.req, reqVersionId);
 
