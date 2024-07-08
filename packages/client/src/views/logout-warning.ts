@@ -1,12 +1,11 @@
-import { defineCustomElement } from "../custom-elements";
 import clsModal from "decorator-client/src/styles/modal.module.css";
+import { defineCustomElement } from "../custom-elements";
 import {
     fetchRenew,
     fetchSession,
     transformSessionToAuth,
 } from "../helpers/auth";
 import { addSecondsFromNow, getSecondsRemaining } from "../helpers/time";
-import { M } from "vite/dist/node/types.d-jgA8ss1A";
 import { env, param } from "../params";
 
 type Auth = {
@@ -109,13 +108,9 @@ class LogoutWarning extends HTMLElement {
                             secondsToSessionExpiration / 60,
                         );
                         const el = sessionDialog.querySelector(
-                            `.${clsModal.modalTitle}`,
+                            `.${clsModal.modalTitle} > .session-time-remaining`,
                         )!;
-                        console.log(el.innerHTML);
-                        el.innerHTML = el.innerHTML.replace(
-                            "$1",
-                            minutesToSessionExpiration.toString(),
-                        );
+                        el.innerHTML = minutesToSessionExpiration.toString();
                         sessionDialog.showModal();
                         return;
                     }
