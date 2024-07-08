@@ -14,7 +14,7 @@ metadata:
 spec:
   image: {{image}}
   port: 8089
-  ttl: 1h
+  ttl: {{ttlInternal}}
   liveness:
     path: /api/isAlive
     initialDelay: 10
