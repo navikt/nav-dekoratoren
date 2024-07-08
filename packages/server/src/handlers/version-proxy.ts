@@ -58,7 +58,7 @@ const fetchFromOtherVersion = async (
 
         return new Response(response.body, response);
     } catch (e) {
-        console.log(`Request failed for ${url}`, e);
+        console.error(`Request failed for ${url}`, e);
         return null;
     }
 };
