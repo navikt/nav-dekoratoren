@@ -58,7 +58,7 @@ const fetchFromOtherVersion = async (
 
         return new Response(response.body, response);
     } catch (e) {
-        console.error(`Proxy request failed for ${url}`, e);
+        console.error(`Proxy request failed for ${url} - ${e}`);
         return null;
     }
 };
