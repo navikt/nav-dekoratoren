@@ -47,6 +47,8 @@ const fetchFromOtherVersion = async (
     console.log(`Attemping to proxy request to ${url}`);
 
     try {
+        console.log("request to proxy: ", request);
+
         const response = await fetch(url, {
             method: request.method,
             headers: { ...request.raw.headers, [LOOPBACK_HEADER]: "true" },
@@ -55,6 +57,7 @@ const fetchFromOtherVersion = async (
 
         console.log(
             `Response from ${url} - ${response.status} ${response.statusText}`,
+            response,
         );
 
         // This header won't always match what we actually return in our response and can cause client errors
