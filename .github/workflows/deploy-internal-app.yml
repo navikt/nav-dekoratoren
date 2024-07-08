@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       versionId:
-        description: "Version id"
+        description: "App version id"
         required: true
         type: string
       deployInstance:
