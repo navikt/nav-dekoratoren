@@ -49,23 +49,11 @@ const fetchFromOtherVersion = async (
     try {
         request.raw.headers.set(LOOPBACK_HEADER, "true");
 
-        const init = {
+        const response = await fetch(url, {
             method: request.method,
             headers: request.raw.headers,
             body: request.raw.body,
-        };
-        console.log(`request to proxy: ${JSON.stringify(request)}`);
-        console.log(`init to proxy: ${JSON.stringify(init)}`);
-        console.log(
-            `Cookie: ${request.header("cookie")} ${request.header("Cookie")}`,
-        );
-
-        const response = await fetch(url, init);
-
-        console.log(
-            `Response from ${url} - ${response.status} ${response.statusText}`,
-            response,
-        );
+        });
 
         // This header won't always match what we actually return in our response and can cause client errors
         response.headers.delete("content-encoding");
@@ -89,10 +77,6 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
     if (reqVersionId === SERVER_VERSION_ID || isLoopback || !reqVersionId) {
         return next();
     }
-
-    console.log(
-        `Version id did not match this server version - got ${reqVersionId}, expected ${SERVER_VERSION_ID}`,
-    );
 
     const response = await fetchFromOtherVersion(c.req, reqVersionId);
 
