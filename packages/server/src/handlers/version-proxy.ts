@@ -1,15 +1,15 @@
 import { HonoRequest, MiddlewareHandler } from "hono";
-import { BUILD_ID_HEADER } from "decorator-shared/constants";
-import { getHeaders } from "./headers";
+import { VERSION_ID_HEADER } from "decorator-shared/constants";
 
-const serverBuildId = process.env.BUILD_ID as string;
+const serverBuildId = process.env.VERSION_ID as string;
+const appName = process.env.APP_NAME;
 
 const fetchFromBuildVersion = async (request: HonoRequest) => {
-    const reqBuildId = request.query(BUILD_ID_HEADER);
+    const reqBuildId = request.query(VERSION_ID_HEADER);
 
     const newUrl = new URL(request.url);
     newUrl.protocol = "http:";
-    newUrl.host = `nav-dekoratoren-${reqBuildId}`;
+    newUrl.host = `${appName}-${reqBuildId}`;
     newUrl.searchParams.set("is-proxied-req", "true");
 
     console.log(`New url:`, newUrl.toString());
@@ -32,7 +32,7 @@ const fetchFromBuildVersion = async (request: HonoRequest) => {
 };
 
 export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
-    const reqBuildId = c.req.query(BUILD_ID_HEADER);
+    const reqBuildId = c.req.query(VERSION_ID_HEADER);
     const isProxied = c.req.query("is-proxied-req");
 
     if (!reqBuildId || reqBuildId === serverBuildId || isProxied) {
@@ -44,16 +44,11 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
     );
 
     const response = await fetchFromBuildVersion(c.req);
-    if (response) {
-        console.log("Returning response ", {
-            ...response,
-            headers: {
-                ...response.headers,
-                ...getHeaders(c.req.header("origin")),
-            },
-        });
-        return response;
+    if (!response) {
+        return next();
     }
 
-    return next();
+    console.log("Returning response ", response);
+
+    return response;
 };

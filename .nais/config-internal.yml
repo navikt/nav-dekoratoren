@@ -2,7 +2,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: nav-dekoratoren-{{BUILD_ID}}
+  name: {{appName}}-{{VERSION_ID}}
   namespace: personbruker
   labels:
     team: personbruker
@@ -40,8 +40,10 @@ spec:
         - application: "*"
           namespace: "*"
   env:
-    - name: BUILD_ID
-      value: {{BUILD_ID}}
+    - name: APP_NAME
+      value: {{appName}}
+    - name: VERSION_ID
+      value: {{VERSION_ID}}
     - name: IS_INTERNAL_APP
       value: "true"
   {{#each env as |var|}}

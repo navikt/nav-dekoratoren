@@ -9,7 +9,7 @@ describe("Endpoint urls", () => {
             },
             env: {
                 APP_URL: "http://localhost:3000",
-                BUILD_ID: "1234",
+                VERSION_ID: "1234",
             },
         } as typeof window.__DECORATOR_DATA__;
 
