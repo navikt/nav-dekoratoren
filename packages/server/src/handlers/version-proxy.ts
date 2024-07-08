@@ -47,9 +47,11 @@ const fetchFromOtherVersion = async (
     console.log(`Attemping to proxy request to ${url}`);
 
     try {
+        request.raw.headers.set(LOOPBACK_HEADER, "true");
+
         const init = {
             method: request.method,
-            headers: { ...request.raw.headers, [LOOPBACK_HEADER]: "true" },
+            headers: request.raw.headers,
             body: request.raw.body,
         };
         console.log(`request to proxy: ${JSON.stringify(request)}`);
