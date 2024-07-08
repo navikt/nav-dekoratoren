@@ -53,6 +53,10 @@ const fetchFromOtherVersion = async (
             body: request.raw.body,
         });
 
+        console.log(
+            `Response from ${url} - ${response.status} ${response.statusText}`,
+        );
+
         // This header won't always match what we actually return in our response and can cause client errors
         response.headers.delete("content-encoding");
 
