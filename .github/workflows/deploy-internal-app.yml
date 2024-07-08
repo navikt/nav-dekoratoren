@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       image:
-        description: "Image version"
+        description: "Image version (last segment of GAR tag)"
         required: true
         type: string
       versionId:
