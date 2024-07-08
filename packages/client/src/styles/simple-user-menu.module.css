@@ -4,12 +4,12 @@
     gap: var(--a-spacing-2);
 }
 
-.nameTestNew4 {
+.name {
     display: grid;
 }
 
 @media (min-width: 768px) {
-    .nameTestNew4 {
+    .name {
         grid-auto-flow: column;
         gap: var(--a-spacing-1);
     }
