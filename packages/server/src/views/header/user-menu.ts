@@ -12,6 +12,7 @@ import i18n from "../../i18n";
 import { Notification } from "../../notifications";
 import { Alert } from "../alert";
 import { Notifications } from "../notifications/notifications";
+import { TEST_VERSION_LABEL } from "decorator-shared/constants";
 
 export type UserMenuProps = {
     name: string;
@@ -37,7 +38,7 @@ export const UserMenu = ({
             <div class="${cls.menuHeader}">
                 <div>
                     <div class="${cls.loggedIn}">${i18n("logged_in")}</div>
-                    <div class="${cls.name}">${name} version 8:40</div>
+                    <div class="${cls.name}">${name} ${TEST_VERSION_LABEL}</div>
                 </div>
                 ${level !== "Level4" &&
                 Alert({
