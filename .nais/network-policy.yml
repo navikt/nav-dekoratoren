@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: nav-dekoratoren-internal
+  namespace: personbruker
+  labels:
+    team: personbruker
+spec:
+  podSelector:
+    matchLabels:
+      dekoratorenType: external
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            dekoratorenType: internal

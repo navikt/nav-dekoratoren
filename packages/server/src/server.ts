@@ -7,7 +7,7 @@ import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { searchHandler } from "./handlers/search-handler";
-import { headers } from "./headers";
+import { headers } from "./handlers/headers";
 import i18n from "./i18n";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
@@ -21,6 +21,7 @@ import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { texts } from "./texts";
 import { clientTextsKeys } from "decorator-shared/types";
+import { versionProxyHandler } from "./handlers/version-proxy";
 
 const app = new Hono({
     strict: false,
@@ -36,6 +37,10 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
 }
 
 app.use(headers);
+
+if (!process.env.IS_INTERNAL_APP) {
+    app.use(versionProxyHandler);
+}
 
 app.get("/public/assets/*", serveStatic({}));
 

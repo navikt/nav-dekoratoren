@@ -5,6 +5,7 @@ ingresses:
 outboundHosts:
   - www.nav.no
   - www.intern.dev.nav.no
+  - dekoratoren-beta.intern.dev.nav.no
   - www-q6.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
@@ -41,6 +42,7 @@ env:
     value: "navtest"
   - name: PUZZEL_CUSTOMER_ID
     value: C1302192-8BEC-4EA2-84AB-F4EDE8AC6230
+ttlInternal: 1h
 replicas:
   min: 1
   max: 1
