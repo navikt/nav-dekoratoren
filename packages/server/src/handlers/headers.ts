@@ -35,11 +35,11 @@ export const getHeaders = (origin?: string) => {
 };
 
 export const headersMiddleware: MiddlewareHandler = async (c, next) => {
+    await next();
+
     const origin = c.req.header("origin");
 
     Object.entries(getHeaders(origin)).forEach(([name, value]) =>
         c.header(name, value),
     );
-
-    return next();
 };

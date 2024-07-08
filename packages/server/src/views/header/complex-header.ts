@@ -16,7 +16,6 @@ import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
 import { UserMenu } from "../user-menu";
-import { TEST_VERSION_LABEL } from "decorator-shared/constants";
 
 export type ComplexHeaderProps = {
     frontPageUrl: string;
@@ -89,7 +88,6 @@ export function ComplexHeader({
                                                 ${i18n(lenkeTekstId)}
                                             </context-link>`,
                                     )}
-                                    ${TEST_VERSION_LABEL}
                                 </div>`}
                             </div>
                             <div class="${menuItemsCls.menuItems}">

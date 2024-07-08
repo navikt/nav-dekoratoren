@@ -3,7 +3,6 @@ import cls from "decorator-client/src/styles/main-menu.module.css";
 import html, { Template } from "decorator-shared/html";
 import { LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import i18n from "../../i18n";
-import { TEST_VERSION_LABEL } from "decorator-shared/constants";
 
 export type MainMenuProps = {
     title: Template;
@@ -21,7 +20,7 @@ export function MainMenu({
     return html`<div id="decorator-main-menu" class="${cls.mainMenu}">
         <div class="${cls.content}">
             <div class="${cls.header}">
-                <h2 class="${cls.title}">${title} ${TEST_VERSION_LABEL}</h2>
+                <h2 class="${cls.title}">${title}</h2>
                 <lenke-med-sporing
                     href="${frontPageUrl}"
                     class="${globalCls["navds-link"]}"
