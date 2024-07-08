@@ -7,7 +7,7 @@ import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { searchHandler } from "./handlers/search-handler";
-import { headersMiddleware } from "./handlers/headers";
+import { headers } from "./handlers/headers";
 import i18n from "./i18n";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
@@ -36,7 +36,7 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     );
 }
 
-app.use(headersMiddleware);
+app.use(headers);
 
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
