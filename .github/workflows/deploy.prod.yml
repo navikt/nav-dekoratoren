@@ -1,7 +1,8 @@
 name: Deploy to prod
 on:
-  workflow_dispatch:
-
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-test:
