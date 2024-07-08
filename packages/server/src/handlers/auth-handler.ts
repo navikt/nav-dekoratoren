@@ -104,15 +104,18 @@ export const authHandler = async ({
     cookie: string;
 }): Promise<AuthDataResponse> => {
     if (!cookie) {
+        console.log("No cookie!");
         return { auth: { authenticated: false } };
     }
 
     const auth = await fetchAuth(cookie);
     if (!auth?.authenticated) {
+        console.log("Not authed");
         return { auth: { authenticated: false } };
     }
 
     const usermenuHtml = await buildUsermenuHtml(auth, cookie, params);
+    console.log("Authed!");
 
     return { auth, usermenuHtml };
 };
