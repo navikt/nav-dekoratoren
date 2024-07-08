@@ -3,22 +3,15 @@ on:
   workflow_dispatch:
     inputs:
       image:
-        description: "Docker image"
+        description: "Image version"
         required: true
         type: string
       versionId:
         description: "Version id"
         required: true
         type: string
-      cluster:
-        description: 'Cluster'
-        required: true
-        type: choice
-        options:
-          - prod-gcp
-          - dev-gcp
-      varsFile:
-        description: 'Vars file'
+      deployInstance:
+        description: 'Deploy instance'
         required: true
         type: choice
         options:
@@ -40,7 +33,7 @@ jobs:
       - name: Deploy internal versioned app
         uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: ${{ inputs.cluster }}
+          CLUSTER: ${{ inputs.deployInstance == 'prod' && 'prod-gcp' || 'dev-gcp' }}
           RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ inputs.image }},versionId=${{ inputs.versionId }}
-          VARS: .nais/vars/${{ inputs.varsFile }}.yml
+          VAR: image=europe-north1-docker.pkg.dev/nais-management-233d/personbruker/${{ inputs.image }},versionId=${{ inputs.versionId }}
+          VARS: .nais/vars/${{ inputs.deployInstance }}.yml
