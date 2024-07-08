@@ -5,9 +5,34 @@ const SERVER_VERSION_ID = process.env.VERSION_ID as string;
 const APP_NAME = process.env.APP_NAME;
 const LOOPBACK_HEADER = "x-is-proxy-req";
 
-// Temporarily used to handle requests from previous versions, which did not submit the version-id param
-// Can be removed once the "lastversion" instance no longer receives requests
-const VERSION_ID_TEMP_FALLBACK = "lastversion";
+const pathsToProxy = [
+    "/api/search",
+    "/main-menu",
+    "/auth",
+    "/header",
+    "/footer",
+];
+
+const pathsToProxyOnEmptyVersionId = new Set([
+    ...pathsToProxy,
+    ...pathsToProxy.map((path) => `/dekoratoren${path}`),
+    ...pathsToProxy.map((path) => `/common-html/v4/navno${path}`),
+]);
+
+// We temporarily need to handle requests for some paths from previous versions, which does not submit the version-id param
+// The "lastversion" instance of the internal server has been deployed for this purpose
+// Can be removed once the lastversion instance no longer receives requests
+const getVersionId = (req: HonoRequest) => {
+    const reqVersionId = req.query(VERSION_ID_PARAM);
+
+    if (!reqVersionId) {
+        return pathsToProxyOnEmptyVersionId.has(req.path)
+            ? "lastversion"
+            : undefined;
+    }
+
+    return reqVersionId;
+};
 
 const fetchFromOtherVersion = async (
     request: HonoRequest,
@@ -28,6 +53,7 @@ const fetchFromOtherVersion = async (
             body: request.raw.body,
         });
 
+        // This header won't always match what we actually return in our response and can cause client errors
         response.headers.delete("content-encoding");
 
         return new Response(response.body, response);
@@ -38,7 +64,7 @@ const fetchFromOtherVersion = async (
 };
 
 export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
-    const reqVersionId = c.req.query(VERSION_ID_PARAM);
+    const reqVersionId = getVersionId(c.req);
 
     // Prevent request loops. Shouldn't happen, but just in case. :)
     const isLoopback = c.req.header(LOOPBACK_HEADER);
@@ -46,14 +72,7 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
         console.error(`Loopback for request to version id ${reqVersionId}!`);
     }
 
-    const isClientRequest = !!c.req.header("referer");
-
-    if (
-        reqVersionId === SERVER_VERSION_ID ||
-        isLoopback ||
-        // Requests from clients should be proxied to the fallback instance for now (see comment above)
-        (!reqVersionId && !isClientRequest)
-    ) {
+    if (reqVersionId === SERVER_VERSION_ID || isLoopback || !reqVersionId) {
         return next();
     }
 
@@ -61,10 +80,7 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
         `Version id did not match this server version - got ${reqVersionId}, expected ${SERVER_VERSION_ID}`,
     );
 
-    const response = await fetchFromOtherVersion(
-        c.req,
-        reqVersionId || VERSION_ID_TEMP_FALLBACK,
-    );
+    const response = await fetchFromOtherVersion(c.req, reqVersionId);
 
     return response || next();
 };
