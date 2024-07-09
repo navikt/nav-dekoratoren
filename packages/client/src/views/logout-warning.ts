@@ -1,47 +1,70 @@
 import { defineCustomElement } from "../custom-elements";
-import { fetchSession, transformSessionToAuth } from "../helpers/auth";
+import {
+    SessionData,
+    fetchRenew,
+    fetchSession,
+    transformSessionToAuth,
+} from "../helpers/auth";
+import { addSecondsFromNow } from "../helpers/time";
 import { param } from "../params";
+import { SessionDialog } from "./session-dialog";
 import { TokenDialog } from "./token-dialog";
 
-type Auth = {
-    sessionExpireAtLocal: string;
-    tokenExpireAtLocal: string;
-};
-
 class LogoutWarning extends HTMLElement {
-    auth: Auth | null = null;
-    silenceWarning: boolean = false;
-    tokenDialog!: TokenDialog;
+    private tokenDialog!: TokenDialog;
+    private sessionDialog!: SessionDialog;
 
-    onVisibilityChange = () => {
+    private onVisibilityChange = async () => {
         if (param("logoutWarning") && document.visibilityState === "visible") {
-            this.updateAuthFromSession();
+            this.updateDialogs(await fetchSession());
         }
     };
 
-    updateAuthFromSession = async () => {
-        const result = await fetchSession();
-        if (!result?.session || !result?.tokens) {
-            this.auth = null;
-            return;
+    private updateDialogs = (sessionData: SessionData | null) => {
+        if (sessionData) {
+            const { sessionExpireAtLocal, tokenExpireAtLocal } =
+                transformSessionToAuth(sessionData);
+            this.sessionDialog.sessionExpireAtLocal = sessionExpireAtLocal;
+            this.tokenDialog.tokenExpireAtLocal = tokenExpireAtLocal;
+        } else {
+            this.sessionDialog.sessionExpireAtLocal = undefined;
+            this.tokenDialog.tokenExpireAtLocal = undefined;
         }
-
-        this.auth = transformSessionToAuth(result);
-        return this.auth;
     };
 
-    handleParamsUpdated = (event: CustomEvent) => {
+    private init = async () => {
+        this.updateDialogs(await fetchSession());
+
+        window.loginDebug = {
+            expireToken: (seconds: number) => {
+                this.tokenDialog.tokenExpireAtLocal =
+                    addSecondsFromNow(seconds);
+            },
+            expireSession: (seconds: number) => {
+                this.sessionDialog.sessionExpireAtLocal =
+                    addSecondsFromNow(seconds);
+            },
+        };
+    };
+
+    private handleParamsUpdated = (event: CustomEvent) => {
         if (event.detail.params.logoutWarning) {
-            this.updateAuthFromSession().then((auth) => {
-                this.tokenDialog.tokenExpireAtLocal = auth?.tokenExpireAtLocal;
-            });
+            this.init();
         }
     };
 
     connectedCallback() {
         window.addEventListener("visibilitychange", this.onVisibilityChange);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        if (param("logoutWarning")) {
+            this.init();
+        }
+
+        this.sessionDialog = this.querySelector("session-dialog")!;
         this.tokenDialog = this.querySelector("token-dialog")!;
+        this.tokenDialog.addEventListener("renew", async () =>
+            this.updateDialogs(await fetchRenew()),
+        );
     }
 
     disconnectedCallback() {

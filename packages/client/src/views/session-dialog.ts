@@ -2,13 +2,14 @@ import { defineCustomElement } from "../custom-elements";
 import { getSecondsRemaining } from "../helpers/time";
 import { env } from "../params";
 
-export class TokenDialog extends HTMLElement {
-    tokenExpireAtLocal?: string;
+export class SessionDialog extends HTMLElement {
+    sessionExpireAtLocal?: string;
     private interval?: number;
+    private silenceWarning = false;
 
     private get secondsRemaining() {
-        return this.tokenExpireAtLocal
-            ? getSecondsRemaining(this.tokenExpireAtLocal)
+        return this.sessionExpireAtLocal
+            ? getSecondsRemaining(this.sessionExpireAtLocal)
             : Infinity;
     }
 
@@ -20,7 +21,7 @@ export class TokenDialog extends HTMLElement {
             event.preventDefault();
             const action = new FormData(form, event.submitter).get("action");
             if (action === "renew") {
-                this.dispatchEvent(new Event("renew"));
+                this.silenceWarning = true;
                 dialog.close();
             } else {
                 window.location.href = `${env("LOGOUT_URL")}`;
@@ -30,7 +31,10 @@ export class TokenDialog extends HTMLElement {
         this.interval = window.setInterval(() => {
             if (this.secondsRemaining < 0) {
                 window.location.href = `${env("LOGOUT_URL")}`;
-            } else if (this.secondsRemaining < 5 * 60) {
+            } else if (!this.silenceWarning && this.secondsRemaining < 5 * 60) {
+                dialog.querySelector(".session-time-remaining")!.innerHTML =
+                    Math.ceil(this.secondsRemaining / 60).toString();
+
                 dialog.showModal();
             } else {
                 dialog.close();
@@ -43,4 +47,4 @@ export class TokenDialog extends HTMLElement {
     }
 }
 
-defineCustomElement("token-dialog", TokenDialog);
+defineCustomElement("session-dialog", SessionDialog);
