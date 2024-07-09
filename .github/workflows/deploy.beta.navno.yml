@@ -21,6 +21,6 @@ jobs:
       DEPLOY_INSTANCE: dev-beta-navno
       CLUSTER: dev-gcp
       IMAGE: ${{ needs.build.outputs.image }}
-      DEPLOY_INTERNAL: false
+      DEPLOY_INTERNAL: true
     secrets:
       VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}

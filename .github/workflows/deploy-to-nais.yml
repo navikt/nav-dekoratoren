@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Deploy internal versioned app
         uses: nais/deploy/actions/deploy@v2
-        if: inputs.DEPLOY_INTERNAL == true
+        if: inputs.DEPLOY_INTERNAL == true && env.prevVersionId != '' && env.prevImage != ''
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
