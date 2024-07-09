@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build-image.yml
+    uses: ./.github/workflows/build-and-test.yml
     permissions:
       id-token: write
       contents: read

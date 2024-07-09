@@ -3,8 +3,11 @@ on:
   workflow_call:
     inputs:
       IMAGE_SUFFIX:
-        required: true
+        required: false
         type: string
+      TEST_ONLY:
+        required: false
+        type: boolean
     outputs:
       IMAGE:
         description: "Docker image"
@@ -48,6 +51,7 @@ jobs:
       #  run: bunx playwright test
       - name: Upload static files to NAV CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
+        if: inputs.TEST_ONLY != true
         with:
           team: personbruker
           source: './packages/server/public'
@@ -56,6 +60,7 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
+        if: inputs.TEST_ONLY != true
         id: docker-push
         with:
           team: personbruker

@@ -1,10 +1,15 @@
 name: Deploy to Team nav.no beta
 on:
   workflow_dispatch:
+    inputs:
+      DEPLOY_INTERNAL:
+        description: "Deploy previous version to internal"
+        required: false
+        type: boolean
 
 jobs:
   build:
-    uses: ./.github/workflows/build-image.yml
+    uses: ./.github/workflows/build-and-test.yml
     permissions:
       id-token: write
       contents: read
@@ -21,6 +26,6 @@ jobs:
       DEPLOY_INSTANCE: dev-beta-navno
       CLUSTER: dev-gcp
       IMAGE: ${{ needs.build.outputs.IMAGE }}
-      DEPLOY_INTERNAL: true
+      DEPLOY_INTERNAL: ${{ inputs.DEPLOY_INTERNAL == true && true || false }}
     secrets:
       VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
