@@ -7,13 +7,15 @@ import cls from "./chatbot.module.css";
 import i18n from "../i18n";
 import { defineCustomElement } from "../custom-elements";
 
-interface CustomEventMap {
+type CustomEventMap = {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
     chatPanelClosed: CustomEvent<undefined>;
     setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
-}
+};
 
-export type Boost = {
+export type BoostConfig = ReturnType<typeof buildBoostConfig>;
+
+export type BoostClient = {
     chatPanel: {
         show: () => void;
         addEventListener: <K extends keyof CustomEventMap>(
@@ -27,11 +29,13 @@ export type Boost = {
 };
 
 class Chatbot extends HTMLElement {
-    button: HTMLButtonElement;
-    boost?: Boost;
+    private readonly button: HTMLButtonElement;
+    private boost?: BoostClient;
+    private readonly cookieName = "nav-chatbot%3Aconversation";
 
     constructor() {
         super();
+
         this.button = document.createElement("button");
         this.button.addEventListener("click", () =>
             this.getBoost().then((boost) => boost?.chatPanel.show()),
@@ -42,6 +46,7 @@ class Chatbot extends HTMLElement {
             i18n("open_chat").render(window.__DECORATOR_DATA__.params),
         );
         this.button.classList.add(cls.button);
+
         const div = document.createElement("div");
         div.classList.add(cls.chatbotWrapper);
         div.innerHTML = FridaIcon({ className: cls.svg }).render(
@@ -49,9 +54,6 @@ class Chatbot extends HTMLElement {
         );
         this.button.appendChild(div);
     }
-
-    paramsUpdatedListener = (event: CustomEvent) =>
-        this.update(event.detail.params);
 
     connectedCallback() {
         window.addEventListener("paramsupdated", this.paramsUpdatedListener);
@@ -62,7 +64,10 @@ class Chatbot extends HTMLElement {
         window.removeEventListener("paramsupdated", this.paramsUpdatedListener);
     }
 
-    update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
+    private paramsUpdatedListener = (event: CustomEvent) =>
+        this.update(event.detail.params);
+
+    private update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
             chatbot === false
@@ -71,28 +76,35 @@ class Chatbot extends HTMLElement {
         } else if (chatbot) {
             this.appendChild(this.button);
         }
+
         const isVisible = chatbotVisible || !!this.getCookie();
         this.button.classList.toggle(cls.visible, isVisible);
+
         if (isVisible) {
             loadScript();
         }
     };
 
-    getBoost = async (): Promise<Boost | undefined> => {
-        if (
-            !this.boost &&
-            typeof window !== "undefined" &&
-            typeof window.boostInit !== "undefined"
-        ) {
-            await loadScript();
+    private getBoost = async (): Promise<BoostClient | undefined> => {
+        if (this.boost) {
+            return this.boost;
+        }
+
+        return loadScript().then(() => {
+            if (!window.boostInit) {
+                console.error("Boost init function not found!");
+                return undefined;
+            }
+
             this.boost = window.boostInit(
                 env("BOOST_ENV"),
-                boostConfig({
+                buildBoostConfig({
                     conversationId: this.getCookie(),
                     context: param("context"),
                     language: param("language"),
                 }),
-            ) as Boost;
+            );
+
             this.boost.chatPanel.addEventListener(
                 "conversationIdChanged",
                 (event) =>
@@ -100,33 +112,37 @@ class Chatbot extends HTMLElement {
                         ? this.setCookie(event.detail.conversationId)
                         : this.removeCookie(),
             );
+
             this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
                 this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
                 if (event.detail.nextId) {
                     this.boost?.chatPanel.triggerAction(event.detail.nextId);
                 }
             });
+
             this.boost.chatPanel.addEventListener(
                 "chatPanelClosed",
                 this.removeCookie,
             );
-        }
-        return this.boost;
+
+            return this.boost;
+        });
     };
 
-    cookieName = "nav-chatbot%3Aconversation";
-    getCookie = () => Cookies.get(this.cookieName);
-    setCookie = (value: string) =>
+    private getCookie = () => Cookies.get(this.cookieName);
+
+    private setCookie = (value: string) =>
         Cookies.set(this.cookieName, value, {
             expires: 1,
             domain: location.hostname.includes("nav.no")
                 ? ".nav.no"
                 : undefined,
         });
-    removeCookie = () => Cookies.remove(this.cookieName);
+
+    private removeCookie = () => Cookies.remove(this.cookieName);
 }
 
-const boostConfig = ({
+const buildBoostConfig = ({
     conversationId,
     context,
     language,

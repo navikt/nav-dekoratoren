@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { texts } from "decorator-server/src/texts";
 import { updateDecoratorParams } from "../params";
 import "./chatbot";
-import { Boost } from "./chatbot";
+import { BoostClient } from "./chatbot";
 import cls from "./chatbot.module.css";
 
 describe("chatbot", () => {
@@ -84,7 +84,7 @@ describe("chatbot", () => {
         let triggeredAction: number;
         const chatPanel = document.createElement(
             "div",
-        ) as unknown as Boost["chatPanel"];
+        ) as unknown as BoostClient["chatPanel"];
         chatPanel.show = () => (isShown = true);
         chatPanel.setFilterValues = (f) => (filterValues = f);
         chatPanel.triggerAction = (a) => (triggeredAction = a);
