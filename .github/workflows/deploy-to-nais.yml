@@ -1,18 +1,22 @@
-name: Deploy to nais
+name: Deploy app to nais
 on:
   workflow_call:
-    DEPLOY_INSTANCE:
-      required: true
-      type: string
-    CLUSTER:
-      required: true
-      type: string
-    IMAGE:
-      required: true
-      type: string
-    DEPLOY_INTERNAL:
-      required: false
-      type: boolean
+    inputs:
+      DEPLOY_INSTANCE:
+        required: true
+        type: string
+      CLUSTER:
+        required: true
+        type: string
+      IMAGE:
+        required: true
+        type: string
+      DEPLOY_INTERNAL:
+        required: false
+        type: boolean
+    secrets:
+      VARS_UPDATE_TOKEN:
+        required: true
 
 jobs:
   deploy_to_nais:

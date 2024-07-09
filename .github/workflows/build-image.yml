@@ -17,7 +17,7 @@ on:
 
 jobs:
   build_image:
-    name: Build and deploy
+    name: Build image
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
     permissions:

@@ -19,3 +19,5 @@ jobs:
       CLUSTER: dev-gcp
       IMAGE: ${{ needs.build.outputs.image }}
       DEPLOY_INTERNAL: false
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
