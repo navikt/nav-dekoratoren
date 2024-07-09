@@ -1,4 +1,4 @@
-name: Build and deploy to nais
+name: Build docker image
 on:
   workflow_call:
     inputs:
@@ -8,15 +8,21 @@ on:
       CLUSTER:
         required: true
         type: string
+    outputs:
+      image:
+        description: "Docker image"
+        value: ${{ jobs.build_image.outputs.image }}
 
 jobs:
-  build_and_deploy:
+  build_image:
     name: Build and deploy
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
     permissions:
       contents: read
       id-token: write
+    outputs:
+      image: ${{ steps.docker-push.outputs.image }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -30,8 +36,13 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build app
         run: bun run build
-      - name: Run tests
+      - name: Run unit tests
         run: bun run test
+      - name: Run playwright tests
+        run: |
+          bunx playwright install --with-deps
+          cp packages/server/.env.sample packages/server/.env
+          bunx playwright test
       - name: Upload static files to NAV CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:

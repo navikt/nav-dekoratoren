@@ -1,0 +1,25 @@
+name: Deploy to nais
+on:
+  workflow_call:
+    deployInstance:
+      required: true
+      type: string
+    cluster:
+      required: true
+      type: string
+    image:
+      required: true
+      type: string
+
+
+jobs:
+  deploy_to_nais:
+    name: Deploy to nais
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.DEPLOY_INSTANCE }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
