@@ -1,23 +1,14 @@
-import { erNavDekoratoren } from "decorator-shared/urls";
-import headerClasses from "../styles/header.module.css";
 import { tryParse } from "decorator-shared/json";
-import { type AnalyticsEventArgs } from "../analytics/constants";
-import { createEvent, CustomEvents } from "../events";
 import { Context } from "decorator-shared/params";
-import { CustomLinkElement } from "../helpers/custom-link-element";
+import { erNavDekoratoren } from "decorator-shared/urls";
 import { amplitudeEvent } from "../analytics/amplitude";
+import { type AnalyticsEventArgs } from "../analytics/constants";
 import { defineCustomElement } from "../custom-elements";
+import { CustomLinkElement } from "../helpers/custom-link-element";
+import { updateDecoratorParams } from "../params";
+import headerClasses from "../styles/header.module.css";
 
 class ContextLink extends CustomLinkElement {
-    handleActiveContext = (
-        event: CustomEvent<CustomEvents["activecontext"]>,
-    ) => {
-        this.anchor.classList.toggle(
-            headerClasses.lenkeActive,
-            this.getAttribute("data-context") === event.detail.context,
-        );
-    };
-
     handleClick = (e: MouseEvent) => {
         if (erNavDekoratoren(window.location.href)) {
             e.preventDefault();
@@ -29,14 +20,9 @@ class ContextLink extends CustomLinkElement {
             null,
         );
 
-        this.dispatchEvent(
-            createEvent("activecontext", {
-                bubbles: true,
-                detail: {
-                    context: this.getAttribute("data-context") as Context,
-                },
-            }),
-        );
+        updateDecoratorParams({
+            context: this.getAttribute("data-context") as Context,
+        });
 
         if (eventArgs) {
             const payload = {
@@ -47,15 +33,25 @@ class ContextLink extends CustomLinkElement {
         }
     };
 
+    handleParamsUpdated = (event: CustomEvent) => {
+        if (event.detail.params.context) {
+            this.anchor.classList.toggle(
+                headerClasses.lenkeActive,
+                this.getAttribute("data-context") ===
+                    event.detail.params.context,
+            );
+        }
+    };
+
     connectedCallback() {
         super.connectedCallback();
 
-        window.addEventListener("activecontext", this.handleActiveContext);
         this.addEventListener("click", this.handleClick);
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }
 
     disconnectedCallback() {
-        window.removeEventListener("activecontext", this.handleActiveContext);
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
 
