@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Set VERSION_ID from short commit hash
+      - name: Set version id from short commit hash
         run: |
           shortSha=$(git rev-parse --short ${{ github.sha }})
           echo "VERSION_ID=$shortSha" >> $GITHUB_ENV
@@ -42,14 +42,14 @@ jobs:
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ env.PREV_IMAGE }},VERSION_ID=${{ env.PREV_VERSION_ID }}
+          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
       - name: Deploy external app
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config.yml
-          VAR: image=${{ inputs.IMAGE }},VERSION_ID=${{ env.VERSION_ID }}
+          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
       - name: Update vars
         env:
