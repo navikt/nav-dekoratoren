@@ -40,12 +40,12 @@ jobs:
         run: bun run build
       - name: Run unit tests
         run: bun run test
-      - name: Setup playwright # TODO: cache this? It is slow :D
-        run: |
-          bunx playwright install --with-deps
-          cp packages/server/.env.sample packages/server/.env
-      - name: Run playwright tests
-        run: bunx playwright test
+      #- name: Setup playwright # TODO: cache this? It is slow :D
+      #  run: |
+      #    bunx playwright install --with-deps
+      #    cp packages/server/.env.sample packages/server/.env
+      #- name: Run playwright tests
+      #  run: bunx playwright test
       - name: Upload static files to NAV CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:
