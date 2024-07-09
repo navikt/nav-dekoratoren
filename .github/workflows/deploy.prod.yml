@@ -5,6 +5,43 @@ on:
       - main
 
 jobs:
+  build:
+    uses: ./.github/workflows/build-image.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      IMAGE_SUFFIX: prod
+    secrets: inherit
+
+  deploy-prod:
+    uses: ./.github/workflows/deploy-to-nais.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: prod
+      CLUSTER: prod-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+      DEPLOY_INTERNAL: true
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-dev-stable:
+    uses: ./.github/workflows/deploy-to-nais.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: prod
+      CLUSTER: prod-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+      DEPLOY_INTERNAL: true
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
   build-and-test:
     runs-on: ubuntu-latest
     outputs:

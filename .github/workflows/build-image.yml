@@ -2,11 +2,11 @@ name: Build docker image
 on:
   workflow_call:
     inputs:
-      DEPLOY_INSTANCE:
+      IMAGE_SUFFIX:
         required: true
         type: string
     outputs:
-      image:
+      IMAGE:
         description: "Docker image"
         value: ${{ jobs.build_image.outputs.image }}
     secrets:
@@ -61,4 +61,4 @@ jobs:
           team: personbruker
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          image_suffix: ${{ inputs.DEPLOY_INSTANCE }}
+          image_suffix: ${{ inputs.IMAGE_SUFFIX }}
