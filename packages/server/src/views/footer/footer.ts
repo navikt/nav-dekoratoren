@@ -28,21 +28,20 @@ export const Footer = ({
     data,
     features,
     contactUrl,
-}: FooterProps) =>
-    html`<div id="decorator-footer">
-        ${getModal({
-            enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
-        })}
-        <d-chatbot></d-chatbot>
-        ${data.logoutWarning ? LogoutWarning() : undefined}
-        ${data.feedback ? Feedback({ contactUrl }) : undefined}
-        ${simple
-            ? SimpleFooter({
-                  links,
-                  features,
-              })
-            : ComplexFooter({
-                  links,
-                  features,
-              })}
-    </div>`;
+}: FooterProps) => html`
+    ${getModal({
+        enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
+    })}
+    <d-chatbot></d-chatbot>
+    ${data.logoutWarning ? LogoutWarning() : undefined}
+    ${data.feedback ? Feedback({ contactUrl }) : undefined}
+    ${simple
+        ? SimpleFooter({
+              links,
+              features,
+          })
+        : ComplexFooter({
+              links,
+              features,
+          })}
+`;
