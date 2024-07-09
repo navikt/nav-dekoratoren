@@ -1,6 +1,6 @@
-import { formatParams } from "decorator-shared/json";
 import { defineCustomElement } from "../custom-elements";
-import { env, updateDecoratorParams } from "../params";
+import { endpointUrlWithParams } from "../helpers/urls";
+import { updateDecoratorParams } from "../params";
 
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source } = message;
@@ -42,9 +42,7 @@ class Header extends HTMLElement {
 
     handleParamsUpdated = (e: CustomEvent) => {
         if (e.detail.params.language) {
-            fetch(
-                `${env("APP_URL")}/header?${formatParams(window.__DECORATOR_DATA__.params)}`,
-            )
+            fetch(endpointUrlWithParams("/header"))
                 .then((res) => res.text())
                 .then((header) => (this.innerHTML = header));
         }

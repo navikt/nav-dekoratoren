@@ -1,13 +1,10 @@
-import { formatParams } from "decorator-shared/json";
 import { defineCustomElement } from "../custom-elements";
-import { env } from "../params";
+import { endpointUrlWithParams } from "../helpers/urls";
 
 class Footer extends HTMLElement {
     handleParamsUpdated = (e: CustomEvent) => {
-        if (e.detail.params.language) {
-            fetch(
-                `${env("APP_URL")}/footer?${formatParams(window.__DECORATOR_DATA__.params)}`,
-            )
+        if (e.detail.params.language || e.detail.params.context) {
+            fetch(endpointUrlWithParams("/footer"))
                 .then((res) => res.text())
                 .then((footer) => (this.innerHTML = footer));
         }
