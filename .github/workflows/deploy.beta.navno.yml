@@ -3,12 +3,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    uses: ./.github/workflows/build-and-deploy.yml
+  build:
+    uses: ./.github/workflows/build-image.yml
     permissions:
       id-token: write
       contents: read
     with:
       DEPLOY_INSTANCE: dev-beta-navno
-      CLUSTER: dev-gcp
     secrets: inherit
+  deploy:
+    uses: ./.github/workflows/deploy-to-nais.yml
+    needs: build
+    with:
+      DEPLOY_INSTANCE: dev-beta-navno
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.image }}
+      DEPLOY_INTERNAL: false

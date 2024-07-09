@@ -5,9 +5,6 @@ on:
       DEPLOY_INSTANCE:
         required: true
         type: string
-      CLUSTER:
-        required: true
-        type: string
     outputs:
       image:
         description: "Docker image"
