@@ -13,7 +13,9 @@ type CustomEventMap = {
     setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
 };
 
-export type Boost = {
+export type BoostConfig = ReturnType<typeof buildBoostConfig>;
+
+export type BoostClient = {
     chatPanel: {
         show: () => void;
         addEventListener: <K extends keyof CustomEventMap>(
@@ -28,7 +30,7 @@ export type Boost = {
 
 class Chatbot extends HTMLElement {
     private readonly button: HTMLButtonElement;
-    private boost?: Boost;
+    private boost?: BoostClient;
     private readonly cookieName = "nav-chatbot%3Aconversation";
 
     constructor() {
@@ -83,25 +85,26 @@ class Chatbot extends HTMLElement {
         }
     };
 
-    private getBoost = async (): Promise<Boost | undefined> => {
+    private getBoost = async (): Promise<BoostClient | undefined> => {
         if (this.boost) {
             return this.boost;
         }
 
-        if (
-            !this.boost &&
-            typeof window !== "undefined" &&
-            typeof window.boostInit !== "undefined"
-        ) {
-            await loadScript();
+        return loadScript().then(() => {
+            if (!window.boostInit) {
+                console.error("Boost init function not found!");
+                return undefined;
+            }
+
             this.boost = window.boostInit(
                 env("BOOST_ENV"),
-                boostConfig({
+                buildBoostConfig({
                     conversationId: this.getCookie(),
                     context: param("context"),
                     language: param("language"),
                 }),
-            ) as Boost;
+            );
+
             this.boost.chatPanel.addEventListener(
                 "conversationIdChanged",
                 (event) =>
@@ -109,19 +112,21 @@ class Chatbot extends HTMLElement {
                         ? this.setCookie(event.detail.conversationId)
                         : this.removeCookie(),
             );
+
             this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
                 this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
                 if (event.detail.nextId) {
                     this.boost?.chatPanel.triggerAction(event.detail.nextId);
                 }
             });
+
             this.boost.chatPanel.addEventListener(
                 "chatPanelClosed",
                 this.removeCookie,
             );
-        }
 
-        return this.boost;
+            return this.boost;
+        });
     };
 
     private getCookie = () => Cookies.get(this.cookieName);
@@ -137,7 +142,7 @@ class Chatbot extends HTMLElement {
     private removeCookie = () => Cookies.remove(this.cookieName);
 }
 
-const boostConfig = ({
+const buildBoostConfig = ({
     conversationId,
     context,
     language,

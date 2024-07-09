@@ -1,6 +1,7 @@
 import { Faro } from "@grafana/faro-web-sdk";
 import { AppState } from "decorator-shared/types";
 import { CustomEvents, MessageEvents } from "./events";
+import { BoostClient, BoostConfig } from "./views/chatbot";
 
 declare global {
     interface Window {
@@ -12,7 +13,7 @@ declare global {
         // For task analytics, should have better types?
         TA: any;
         dataLayer: any;
-        boostInit: any;
+        boostInit?: (env: string, config: BoostConfig) => BoostClient;
         vngage: {
             join: (queue: string, options: unknown) => void;
             subscribe: (
