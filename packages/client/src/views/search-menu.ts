@@ -4,6 +4,7 @@ import cls from "../styles/search-form.module.css";
 import { env, param } from "../params";
 import { amplitudeEvent } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
+import { endpointUrlWithParams } from "../helpers/urls";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -47,13 +48,11 @@ class SearchMenu extends HTMLElement {
         });
 
         const fetchSearch = (query: string) => {
-            const url = `${env("APP_URL")}/api/search?${Object.entries({
+            const url = endpointUrlWithParams("/api/search", {
                 language: param("language"),
                 context: param("context"),
                 q: encodeURIComponent(query),
-            })
-                .map(([key, value]) => `${key}=${value}`)
-                .join("&")}`;
+            });
 
             amplitudeEvent({
                 eventName: "søk",

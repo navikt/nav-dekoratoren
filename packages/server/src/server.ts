@@ -1,4 +1,6 @@
 import { Server } from "bun";
+import html from "decorator-shared/html";
+import { clientTextsKeys } from "decorator-shared/types";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
@@ -6,8 +8,9 @@ import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
+import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
-import { headers } from "./headers";
+import { versionProxyHandler } from "./handlers/version-proxy";
 import i18n from "./i18n";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
@@ -15,13 +18,11 @@ import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
+import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
-import { texts } from "./texts";
-import { clientTextsKeys } from "decorator-shared/types";
-import html from "decorator-shared/html";
 
 const app = new Hono({
     strict: false,
@@ -37,6 +38,10 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
 }
 
 app.use(headers);
+
+if (!process.env.IS_INTERNAL_APP) {
+    app.use(versionProxyHandler);
+}
 
 app.get("/public/assets/*", serveStatic({}));
 

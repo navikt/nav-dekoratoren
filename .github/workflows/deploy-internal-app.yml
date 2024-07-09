@@ -1,0 +1,39 @@
+name: Deploy intern app-versjon
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: "Image version (last segment of GAR tag)"
+        required: true
+        type: string
+      versionId:
+        description: "App version id"
+        required: true
+        type: string
+      deployInstance:
+        description: 'Deploy instance'
+        required: true
+        type: choice
+        options:
+          - dev-beta-navno
+          - dev-stable
+          - prod
+
+jobs:
+  deploy_internal:
+    name: Deploy intern app-versjon
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.DEPLOY_INSTANCE }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Deploy internal versioned app
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: ${{ inputs.deployInstance == 'prod' && 'prod-gcp' || 'dev-gcp' }}
+          RESOURCE: .nais/config-internal.yml
+          VAR: image=europe-north1-docker.pkg.dev/nais-management-233d/personbruker/${{ inputs.image }},versionId=${{ inputs.versionId }}
+          VARS: .nais/vars/${{ inputs.deployInstance }}.yml

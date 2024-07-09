@@ -2,11 +2,11 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: {{appName}}
+  name: {{appName}}-{{versionId}}
   namespace: personbruker
   labels:
     team: personbruker
-    dekoratorenType: external
+    dekoratorenType: internal
   annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "256M"
       nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
@@ -14,19 +14,16 @@ metadata:
 spec:
   image: {{image}}
   port: 8089
+  ttl: {{ttlInternal}}
   liveness:
-    path: {{appPath}}/api/isAlive
+    path: /api/isAlive
     initialDelay: 10
   readiness:
-    path: {{appPath}}/api/isReady
+    path: /api/isReady
     initialDelay: 10
   prometheus:
     enabled: true
-    path: {{appPath}}/metrics
-  ingresses:
-  {{#each ingresses as |url|}}
-    - {{url}}
-  {{/each}}
+    path: /metrics
   accessPolicy:
     outbound:
       rules:
@@ -40,13 +37,15 @@ spec:
         {{/each}}
     inbound:
       rules:
-        - application: "*"
-          namespace: "*"
+        - application: {{appName}}
+          namespace: personbruker
   env:
     - name: APP_NAME
       value: {{appName}}
     - name: VERSION_ID
       value: {{versionId}}
+    - name: IS_INTERNAL_APP
+      value: "true"
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}
@@ -59,7 +58,7 @@ spec:
       mountPath: /app/config
   replicas:
   {{#with replicas}}
-    min: {{min}}
+    min: 1
     max: {{max}}
   {{/with}}
   resources:

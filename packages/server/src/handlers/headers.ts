@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from "hono";
-import { csp } from "./content-security-policy";
+import { csp } from "../content-security-policy";
 
 const ALLOWED_DOMAINS = [
     ".nav.no",
