@@ -1,4 +1,4 @@
-name: PR Test
+name: Run tests on PR
 on:
   pull_request:
     branches:
@@ -6,24 +6,11 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    name: Build and run tests
+    uses: ./.github/workflows/build-and-test.yml
     permissions:
+      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.14.0
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: 1.1.11
-      - name: Install dependencies
-        run: bun install --immutable --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - run: bun run build
-      - run: bun run test
-
-      - run: bunx playwright install --with-deps
-      - run: cp packages/server/.env.sample packages/server/.env
-      - run: bunx playwright test
+    with:
+      TEST_ONLY: true
+    secrets: inherit

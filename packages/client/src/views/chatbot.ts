@@ -5,6 +5,7 @@ import { env, param } from "../params";
 import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
 import i18n from "../i18n";
+import { defineCustomElement } from "../custom-elements";
 
 type CustomEventMap = {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
@@ -172,4 +173,4 @@ const loadScript = () =>
         `https://${env("BOOST_ENV")}.boost.ai/chatPanel/chatPanel.js`,
     );
 
-customElements.define("d-chatbot", Chatbot);
+defineCustomElement("d-chatbot", Chatbot);

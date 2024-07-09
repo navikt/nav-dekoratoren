@@ -1,26 +1,19 @@
-import { lazyLoadScreensharing, startCall } from "../screensharing";
-import cls from "../styles/screensharing-modal.module.css";
-import clsInputs from "../styles/inputs.module.css";
+import { defineCustomElement } from "../custom-elements";
 import { param } from "../params";
+import { lazyLoadScreensharing, startCall } from "../screensharing";
+import clsInputs from "../styles/inputs.module.css";
 
 export class ScreensharingModal extends HTMLElement {
     dialog!: HTMLDialogElement;
     input!: HTMLInputElement;
-    confirmButton!: HTMLButtonElement;
-    cancelButton!: HTMLButtonElement;
-    errorList!: HTMLUListElement;
-    code: string = "";
+    errorList!: HTMLElement;
 
     showModal() {
         this.dialog.showModal();
     }
 
-    validateInput() {
-        if (
-            !this.code ||
-            this.code.length !== 5 ||
-            !this.code.match(/^[0-9]+$/)
-        ) {
+    validateInput(code: string) {
+        if (!/^\d{5}$/.exec(code)) {
             this.input.classList.add(clsInputs.invalid);
             this.errorList.classList.add(clsInputs.showErrors);
             return false;
@@ -37,55 +30,41 @@ export class ScreensharingModal extends HTMLElement {
             return;
         }
 
-        this.dialog = this.querySelector("dialog") as HTMLDialogElement;
-        this.input = this.querySelector(
-            "input#screensharing_code",
-        ) as HTMLInputElement;
-        this.confirmButton = this.querySelector(
-            `.${cls.confirmButton}`,
-        ) as HTMLButtonElement;
-        this.cancelButton = this.querySelector(
-            `.${cls.cancelButton}`,
-        ) as HTMLButtonElement;
-        this.errorList = this.querySelector("ul") as HTMLUListElement;
+        this.dialog = this.querySelector("dialog")!;
+        this.errorList = this.querySelector("ul")!;
+        this.input = this.querySelector("input")!;
+        this.input.addEventListener("input", () => this.clearErrors());
 
-        this.input.addEventListener("input", () => {
-            this.clearErrors();
-            this.code = this.input.value;
-        });
-
-        this.confirmButton.addEventListener("click", () => {
-            if (this.validateInput()) {
-                startCall(this.code);
+        const form = this.querySelector("form")!;
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const code = new FormData(form).get("screensharing_code");
+            if (typeof code === "string" && this.validateInput(code)) {
+                startCall(code);
                 this.dialog.close();
             }
         });
 
-        this.cancelButton.addEventListener("click", () => {
-            this.dialog.close();
-        });
+        this.querySelector("button[data-type=cancel]")?.addEventListener(
+            "click",
+            () => this.dialog.close(),
+        );
     }
 }
 
 class ScreenshareButton extends HTMLElement {
-    handleClick() {
-        const dialog = document.querySelector(
-            "screensharing-modal",
-        ) as HTMLDialogElement;
-
-        lazyLoadScreensharing(() => {
-            dialog.showModal();
-        });
-    }
-
     connectedCallback() {
-        this.addEventListener("click", this.handleClick);
-    }
+        this.addEventListener("click", () =>
+            lazyLoadScreensharing(() => {
+                const dialog = document.querySelector(
+                    "screensharing-modal",
+                ) as HTMLDialogElement;
 
-    disonnectedCallback() {
-        this.removeEventListener("click", this.handleClick);
+                dialog.showModal();
+            }),
+        );
     }
 }
 
-customElements.define("screensharing-modal", ScreensharingModal);
-customElements.define("screenshare-button", ScreenshareButton);
+defineCustomElement("screensharing-modal", ScreensharingModal);
+defineCustomElement("screenshare-button", ScreenshareButton);

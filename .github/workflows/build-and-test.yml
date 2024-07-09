@@ -1,22 +1,33 @@
-name: Build and deploy to nais
+name: Build, test and prepare for deploy
 on:
   workflow_call:
     inputs:
-      DEPLOY_INSTANCE:
-        required: true
+      IMAGE_SUFFIX:
+        required: false
         type: string
-      CLUSTER:
+      TEST_ONLY:
+        required: false
+        type: boolean
+    outputs:
+      IMAGE:
+        description: "Docker image"
+        value: ${{ jobs.build.outputs.image }}
+    secrets:
+      READER_TOKEN:
         required: true
-        type: string
+      NAIS_WORKLOAD_IDENTITY_PROVIDER:
+        required: true
 
 jobs:
-  build_and_deploy:
-    name: Build and deploy
+  build:
+    name: Build and test
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
     permissions:
       contents: read
       id-token: write
+    outputs:
+      IMAGE: ${{ steps.docker-push.outputs.image }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -30,27 +41,29 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build app
         run: bun run build
-      - name: Run tests
+      - name: Run unit tests
         run: bun run test
+      - name: Setup playwright # TODO: can this be cached? It is slow :D
+        run: |
+          bunx playwright install --with-deps
+          cp packages/server/.env.sample packages/server/.env
+      - name: Run playwright tests
+        run: bunx playwright test
       - name: Upload static files to NAV CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
+        if: inputs.TEST_ONLY != true
         with:
           team: personbruker
           source: './packages/server/public'
           destination: '/decorator-next'
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Secret
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Variable
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
+        if: inputs.TEST_ONLY != true
         id: docker-push
         with:
           team: personbruker
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          image_suffix: ${{ inputs.DEPLOY_INSTANCE }}
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ inputs.CLUSTER }}
-          RESOURCE: .nais/config.yml
-          VAR: image=${{ steps.docker-push.outputs.image }}
-          VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
+          image_suffix: ${{ inputs.IMAGE_SUFFIX }}

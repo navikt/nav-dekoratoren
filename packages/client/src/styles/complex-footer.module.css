@@ -44,10 +44,10 @@
 }
 
 .footerLinkHeading {
+    font-size: var(--a-font-size-large);
     color: var(--a-deepblue-200);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-size: var(--a-font-size-small);
     margin-top: 0;
     margin-bottom: var(--a-spacing-2);
 }

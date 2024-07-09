@@ -1,0 +1,6 @@
+@import "@navikt/ds-css/dist/component/typography.css";
+@import "@navikt/ds-css/dist/component/button.css";
+
+.navds-button {
+    font: inherit;
+}

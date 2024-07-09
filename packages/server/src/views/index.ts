@@ -7,8 +7,6 @@ import { HtmlElementProps } from "decorator-shared/types";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
-// https://github.com/BuilderIO/partytown/issues/241
-// See how this works in production
 const hotjarScript = `(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};
@@ -156,9 +154,17 @@ export function Index({
                 <div id="styles" style="display:none">
                     ${unsafeHtml(cssAsString)}
                 </div>
-                <div id="header-withmenu">${header}</div>
+                <div id="header-withmenu">
+                    <header id="decorator-header">
+                        <decorator-header>${header}</decorator-header>
+                    </header>
+                </div>
                 <main id="maincontent">${main}</main>
-                <div id="footer-withmenu">${footer}</div>
+                <div id="footer-withmenu">
+                    <div id="decorator-footer">
+                        <decorator-footer>${footer}</decorator-footer>
+                    </div>
+                </div>
                 <div id="scripts" style="display:none">
                     ${decoratorData}
                     <script>
@@ -169,7 +175,7 @@ export function Index({
                     </script>
                     ${unsafeHtml(scriptsAsString)}
                 </div>
-
+                <!-- The elements below are needed for backwards compatibility with certain older implementations -->
                 <div id="skiplinks"></div>
                 <div id="megamenu-resources"></div>
                 <div id="webstats-ga-notrack"></div>

@@ -1,8 +1,7 @@
-import { partytownRollup } from "@builder.io/partytown/utils";
-import path from "path";
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
 import { cssModulesScopedNameOption } from "../shared/css-modules-config";
+import { InputPluginOption } from "rollup";
 
 const mainConfig = defineConfig({
     server: {
@@ -17,12 +16,7 @@ const mainConfig = defineConfig({
         // Prevent inlining any asset imports, always import as url
         assetsInlineLimit: 0,
         rollupOptions: {
-            plugins: [
-                minifyLiterals(),
-                partytownRollup({
-                    dest: path.join(__dirname, "dist", "~partytown"),
-                }),
-            ],
+            plugins: [minifyLiterals() as InputPluginOption],
             input: ["src/main.ts"],
         },
     },

@@ -23,7 +23,7 @@ const result = await Bun.build({
 });
 
 const [output] = result.outputs;
-console.log(`Build output: ${output}`);
+console.log(`Build output: ${JSON.stringify(output)}`);
 
 if (output) {
     const text = await output.text();

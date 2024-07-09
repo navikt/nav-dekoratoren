@@ -1,10 +1,8 @@
-import html from "decorator-shared/html";
-import { Alert } from "decorator-shared/views/alert";
+import i18n from "../../i18n";
+import { Alert } from "../alert";
 
-// TODO: add texts/translations
-export const NotificationsErrorView = () => {
-    return html`${Alert({
+export const NotificationsErrorView = () =>
+    Alert({
         variant: "error",
-        content: html` <div>Åh nei, kunne ikke laste varsler!</div>`,
-    })}`;
-};
+        content: i18n("notifications_error"),
+    });

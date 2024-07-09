@@ -16,7 +16,12 @@
         "typeRoots": ["bun-types"],
         "plugins": [
             {
-                "name": "typescript-plugin-css-modules"
+                "name": "typescript-plugin-css-modules",
+                "options": {
+                    "postcssOptions": {
+                        "useConfig": true
+                    }
+                }
             }
         ]
     },

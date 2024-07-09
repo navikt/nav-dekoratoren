@@ -1,6 +1,7 @@
 import { AvailableLanguage, Language } from "decorator-shared/params";
 import cls from "../styles/language-selector.module.css";
 import { updateDecoratorParams } from "../params";
+import { defineCustomElement } from "../custom-elements";
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -114,4 +115,4 @@ export class LanguageSelector extends HTMLElement {
     }
 }
 
-customElements.define("language-selector", LanguageSelector);
+defineCustomElement("language-selector", LanguageSelector);
