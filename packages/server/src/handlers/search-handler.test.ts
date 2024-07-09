@@ -5,8 +5,9 @@ import {
     describe,
     expect,
     test,
+    jest,
 } from "bun:test";
-import { HttpResponse, http } from "msw";
+import { HttpResponse, http, HttpResponseResolver } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "../env/server";
 import { searchHandler } from "./search-handler";
@@ -76,5 +77,37 @@ describe("Search handler", () => {
 
         expect(html).toContain("Hit 4");
         expect(html).not.toContain("Invalid hit");
+    });
+
+    test("Should encode/decode the query as appropriate", async () => {
+        const resolverSpy = jest.fn(() => {
+            return HttpResponse.json({
+                hits: validHits,
+                total: validHits.length,
+            });
+        });
+
+        server.use(http.get(env.SEARCH_API_URL, resolverSpy));
+
+        const query = "Grunnbeløpet";
+
+        const html = await searchHandler({
+            context: "privatperson",
+            language: "nb",
+            query,
+        });
+
+        const encodedQuery = encodeURIComponent(query);
+
+        expect(resolverSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                request: expect.objectContaining({
+                    url: expect.stringMatching(encodedQuery),
+                }),
+            }),
+        );
+
+        expect(html).toContain(query);
+        expect(html).not.toContain(encodedQuery);
     });
 });
