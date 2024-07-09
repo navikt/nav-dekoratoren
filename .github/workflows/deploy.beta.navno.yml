@@ -12,7 +12,7 @@ jobs:
       IMAGE_SUFFIX: dev-beta-navno
     secrets: inherit
   deploy:
-    uses: ./.github/workflows/deploy-to-nais.yml
+    uses: ./.github/workflows/deploy-application.yml
     needs: build
     permissions:
       id-token: write
