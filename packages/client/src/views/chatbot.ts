@@ -120,9 +120,8 @@ class Chatbot extends HTMLElement {
                 }
             });
 
-            this.boost.chatPanel.addEventListener(
-                "chatPanelClosed",
-                this.removeCookie,
+            this.boost.chatPanel.addEventListener("chatPanelClosed", () =>
+                this.removeCookie(),
             );
 
             return this.boost;
