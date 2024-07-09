@@ -6,30 +6,32 @@ import i18n from "../i18n";
 
 export const LogoutWarning = () => html`
     <logout-warning>
-        <dialog class="${clsModal.modal}" data-type="token">
-            <form class="${clsModal.modalWindow}">
-                <h1 class="${clsModal.modalTitle}">
-                    ${i18n("token_warning_title")}
-                </h1>
-                <p class="${clsModal.modalBody}">
-                    ${i18n("token_warning_body")}
-                </p>
-                <div class="${cls.buttonWrapper}">
-                    ${Button({
-                        content: i18n("yes"),
-                        variant: "primary",
-                        attributes: { name: "action", value: "renew" },
-                        type: "submit",
-                    })}
-                    ${Button({
-                        content: i18n("logout"),
-                        variant: "secondary",
-                        attributes: { name: "action", value: "logout" },
-                        type: "submit",
-                    })}
-                </div>
-            </form>
-        </dialog>
+        <token-dialog>
+            <dialog class="${clsModal.modal}" data-type="token">
+                <form class="${clsModal.modalWindow}">
+                    <h1 class="${clsModal.modalTitle}">
+                        ${i18n("token_warning_title")}
+                    </h1>
+                    <p class="${clsModal.modalBody}">
+                        ${i18n("token_warning_body")}
+                    </p>
+                    <div class="${cls.buttonWrapper}">
+                        ${Button({
+                            content: i18n("yes"),
+                            variant: "primary",
+                            attributes: { name: "action", value: "renew" },
+                            type: "submit",
+                        })}
+                        ${Button({
+                            content: i18n("logout"),
+                            variant: "secondary",
+                            attributes: { name: "action", value: "logout" },
+                            type: "submit",
+                        })}
+                    </div>
+                </form>
+            </dialog>
+        </token-dialog>
         <dialog class="${clsModal.modal}" data-type="session">
             <form class="${clsModal.modalWindow}">
                 <h1 class="${clsModal.modalTitle}">
