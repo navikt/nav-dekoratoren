@@ -1,4 +1,4 @@
-import { Context } from "decorator-shared/params";
+import { Context, Params } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { param } from "../params";
@@ -38,19 +38,19 @@ class MainMenu extends HTMLElement {
             });
     };
 
-    private onContextChange = (
-        e: CustomEvent<CustomEvents["activecontext"]>,
-    ) => {
-        this.updateMenuContent(e.detail.context);
+    handleParamsUpdated = (event: CustomEvent) => {
+        if (event.detail.params.context) {
+            this.updateMenuContent(event.detail.params.context);
+        }
     };
 
-    private connectedCallback() {
+    connectedCallback() {
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
         this.updateMenuContent(param("context"));
-        window.addEventListener("activecontext", this.onContextChange);
     }
 
-    private disconnectedCallback() {
-        window.removeEventListener("activecontext", this.onContextChange);
+    disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
 

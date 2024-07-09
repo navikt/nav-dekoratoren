@@ -34,111 +34,106 @@ export function ComplexHeader({
     decoratorUtils,
     loginUrl,
 }: ComplexHeaderProps) {
-    // @TODO: Need id here for css vars.
     return html`
-        <header id="decorator-header">
-            <div class="${cls.siteheader}">
-                ${SkipLink(i18n("skip_link"))}
-                ${Sticky({
-                    children: html`
-                        <nav
-                            aria-label="${i18n("menu")}"
-                            class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
-                        >
-                            <div class="${cls.hovedmenyContent}">
-                                <lenke-med-sporing
-                                    href="${frontPageUrl}"
-                                    class="${cls.logo}"
-                                    data-analytics
-                                    event
-                                    args="${JSON.stringify({
-                                        category: "dekorator-header",
-                                        action: "navlogo",
-                                    })}"
-                                >
-                                    ${NavLogo({
-                                        title: i18n("to_front_page"),
-                                        titleId: "logo-svg-title",
-                                    })}
-                                </lenke-med-sporing>
-                                ${contextLinks.length > 0 &&
-                                html`<div class="${cls.arbeidsflate}">
-                                    ${contextLinks.map(
-                                        ({ url, lenkeTekstId, context }) =>
-                                            html` <context-link
-                                                href="${url}"
-                                                data-analytics-event-args="${JSON.stringify(
-                                                    {
-                                                        action: "arbeidsflate-valg",
-                                                        category:
-                                                            "dekorator-header",
-                                                        label: context,
-                                                    },
-                                                )}"
-                                                class="${clsx(
-                                                    cls.headerContextLink,
-                                                    {
-                                                        [cls.lenkeActive]:
-                                                            context ===
-                                                            currentContext,
-                                                    },
-                                                )}"
-                                                data-context="${context.toLowerCase()}"
-                                            >
-                                                ${i18n(lenkeTekstId)}
-                                            </context-link>`,
-                                    )}
-                                </div>`}
-                            </div>
-                            <div class="${menuItemsCls.menuItems}">
-                                ${UserMenu({ loginUrl })}
-                                <div
-                                    class="${menuItemsCls.menuItemsUniversalLinks}"
-                                >
-                                    ${language !== "se" &&
-                                    DropdownMenu({
-                                        button: HeaderButton({
-                                            content: i18n("menu"),
-                                            icon: BurgerIcon(),
+        <div class="${cls.siteheader}">
+            ${SkipLink(i18n("skip_link"))}
+            ${Sticky({
+                children: html`
+                    <nav
+                        aria-label="${i18n("menu")}"
+                        class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
+                    >
+                        <div class="${cls.hovedmenyContent}">
+                            <lenke-med-sporing
+                                href="${frontPageUrl}"
+                                class="${cls.logo}"
+                                data-analytics
+                                event
+                                args="${JSON.stringify({
+                                    category: "dekorator-header",
+                                    action: "navlogo",
+                                })}"
+                            >
+                                ${NavLogo({
+                                    title: i18n("to_front_page"),
+                                    titleId: "logo-svg-title",
+                                })}
+                            </lenke-med-sporing>
+                            ${contextLinks.length > 0 &&
+                            html`<div class="${cls.arbeidsflate}">
+                                ${contextLinks.map(
+                                    ({ url, lenkeTekstId, context }) =>
+                                        html` <context-link
+                                            href="${url}"
+                                            data-analytics-event-args="${JSON.stringify(
+                                                {
+                                                    action: "arbeidsflate-valg",
+                                                    category:
+                                                        "dekorator-header",
+                                                    label: context,
+                                                },
+                                            )}"
+                                            class="${clsx(
+                                                cls.headerContextLink,
+                                                {
+                                                    [cls.lenkeActive]:
+                                                        context ===
+                                                        currentContext,
+                                                },
+                                            )}"
+                                            data-context="${context.toLowerCase()}"
+                                        >
+                                            ${i18n(lenkeTekstId)}
+                                        </context-link>`,
+                                )}
+                            </div>`}
+                        </div>
+                        <div class="${menuItemsCls.menuItems}">
+                            ${UserMenu({ loginUrl })}
+                            <div
+                                class="${menuItemsCls.menuItemsUniversalLinks}"
+                            >
+                                ${language !== "se" &&
+                                DropdownMenu({
+                                    button: HeaderButton({
+                                        content: i18n("menu"),
+                                        icon: BurgerIcon(),
+                                    }),
+                                    dropdownContent: html`
+                                        <search-menu
+                                            class="${menuCls.searchMenu}"
+                                        >
+                                            ${SearchForm()}
+                                        </search-menu>
+                                        <main-menu></main-menu>
+                                    `,
+                                })}
+                                ${DropdownMenu({
+                                    button: HeaderButton({
+                                        content: i18n("search"),
+                                        icon: SearchIcon({
+                                            menuSearch: true,
                                         }),
-                                        dropdownContent: html`
-                                            <search-menu
-                                                class="${menuCls.searchMenu}"
-                                            >
-                                                ${SearchForm()}
-                                            </search-menu>
-                                            <main-menu></main-menu>
-                                        `,
-                                    })}
-                                    ${DropdownMenu({
-                                        button: HeaderButton({
-                                            content: i18n("search"),
-                                            icon: SearchIcon({
-                                                menuSearch: true,
-                                            }),
-                                            className:
-                                                menuItemsCls.searchButton,
-                                        }),
-                                        dropdownClass:
-                                            menuItemsCls.searchDropdown,
-                                        dropdownContent: html`
-                                            <search-menu
-                                                class="${menuItemsCls.searchMenu}"
-                                                data-auto-focus
-                                            >
-                                                ${SearchForm()}
-                                            </search-menu>
-                                        `,
-                                    })}
-                                </div>
+                                        className: menuItemsCls.searchButton,
+                                    }),
+                                    dropdownClass: menuItemsCls.searchDropdown,
+                                    dropdownContent: html`
+                                        <search-menu
+                                            class="${menuItemsCls.searchMenu}"
+                                            data-auto-focus
+                                        >
+                                            ${SearchForm()}
+                                        </search-menu>
+                                    `,
+                                })}
                             </div>
-                        </nav>
-                    `,
-                })}
-            </div>
-            <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
-            ${decoratorUtils}
-            <menu-background></menu-background>
-        </header>
+                        </div>
+                    </nav>
+                `,
+            })}
+        </div>
+        <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
+        ${decoratorUtils}
+        <menu-background></menu-background>
     `;
 }
