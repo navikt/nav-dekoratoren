@@ -1,4 +1,4 @@
-name: Build, test and prepare deploy
+name: Build, test and prepare for deploy
 on:
   workflow_call:
     inputs:
