@@ -37,7 +37,7 @@ const fetchSearch = async ({
     language: string;
 }) =>
     fetchAndValidateJson(
-        `${env.SEARCH_API_URL}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
+        `${env.SEARCH_API_URL}?ord=${query}&f=${context}&preferredLanguage=${language}`,
         undefined,
         resultSchema,
     );
@@ -51,14 +51,18 @@ export const searchHandler = async ({
     context: Context;
     language: Language;
 }): Promise<string> => {
+    // Always decode first to ensure the query is never double-encoded
+    const queryDecoded = decodeURIComponent(query);
+    const queryEncoded = encodeURIComponent(queryDecoded);
+
     const result = await fetchSearch({
-        query,
+        query: queryEncoded,
         language,
         context,
     });
 
     if (!result.ok) {
-        console.log(
+        console.error(
             `Error fetching search results for ${query} - ${result.error.message}`,
         );
         return SearchErrorView().render({ language });
@@ -72,7 +76,7 @@ export const searchHandler = async ({
             total: hits.length,
             hits,
         },
-        query,
+        query: queryDecoded,
         context,
     }).render({ language });
 };
