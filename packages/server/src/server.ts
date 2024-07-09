@@ -1,4 +1,6 @@
 import { Server } from "bun";
+import html from "decorator-shared/html";
+import { clientTextsKeys } from "decorator-shared/types";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
@@ -6,8 +8,9 @@ import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
 import { clientEnv, env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
+import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
-import { headers } from "./headers";
+import { versionProxyHandler } from "./handlers/version-proxy";
 import i18n from "./i18n";
 import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
@@ -15,12 +18,11 @@ import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
+import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
-import { texts } from "./texts";
-import { clientTextsKeys } from "decorator-shared/types";
 
 const app = new Hono({
     strict: false,
@@ -38,6 +40,10 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
 }
 
 app.use(headers);
+
+if (!process.env.IS_INTERNAL_APP) {
+    app.use(versionProxyHandler);
+}
 
 app.get("/public/assets/*", serveStatic({}));
 
@@ -129,8 +135,18 @@ app.get("/env", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: renderHeader({ data }).render(data),
-        footer: (await renderFooter({ data, features })).render(data),
+        header: html`
+            <header id="decorator-header">
+                <decorator-header>${renderHeader({ data })}</decorator-header>
+            </header>
+        `.render(data),
+        footer: html`
+            <div id="decorator-footer">
+                <decorator-footer>
+                    ${await renderFooter({ data, features })}
+                </decorator-footer>
+            </div>
+        `.render(data),
         data: {
             texts: Object.entries(texts[data.language])
                 .filter(([key]) => clientTextsKeys.includes(key as any))

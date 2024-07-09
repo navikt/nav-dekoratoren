@@ -154,9 +154,17 @@ export function Index({
                 <div id="styles" style="display:none">
                     ${unsafeHtml(cssAsString)}
                 </div>
-                <div id="header-withmenu">${header}</div>
+                <div id="header-withmenu">
+                    <header id="decorator-header">
+                        <decorator-header>${header}</decorator-header>
+                    </header>
+                </div>
                 <main id="maincontent">${main}</main>
-                <div id="footer-withmenu">${footer}</div>
+                <div id="footer-withmenu">
+                    <div id="decorator-footer">
+                        <decorator-footer>${footer}</decorator-footer>
+                    </div>
+                </div>
                 <div id="scripts" style="display:none">
                     ${decoratorData}
                     <script>
