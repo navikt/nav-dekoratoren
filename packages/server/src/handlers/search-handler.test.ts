@@ -7,7 +7,7 @@ import {
     test,
     jest,
 } from "bun:test";
-import { HttpResponse, http, HttpResponseResolver } from "msw";
+import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "../env/server";
 import { searchHandler } from "./search-handler";
