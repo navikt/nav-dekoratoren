@@ -54,5 +54,4 @@ jobs:
         run: |
           gh variable set PREV_VERSION_ID --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ env.versionId }}"
           gh variable set PREV_IMAGE --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ inputs.IMAGE }}"
-          gh variable list
-
+          gh variable list --env ${{ inputs.DEPLOY_INSTANCE }}
