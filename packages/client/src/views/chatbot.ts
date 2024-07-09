@@ -30,8 +30,8 @@ export type BoostClient = {
 
 class Chatbot extends HTMLElement {
     private readonly button: HTMLButtonElement;
+    private readonly cookieName = "nav-chatbot:conversation";
     private boost?: BoostClient;
-    private readonly cookieName = "nav-chatbot%3Aconversation";
 
     constructor() {
         super();
