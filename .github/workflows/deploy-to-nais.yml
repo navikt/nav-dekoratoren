@@ -10,16 +10,37 @@ on:
     image:
       required: true
       type: string
-
+    deployInternal:
+      required: false
+      type: boolean
 
 jobs:
   deploy_to_nais:
     name: Deploy to nais
     runs-on: ubuntu-latest
-    environment: ${{ inputs.DEPLOY_INSTANCE }}
+    environment: ${{ inputs.deployInstance }}
+    env:
+      versionId: ${{ github.sha }}
+      prevVersionId: ${{ vars.prevVersionId }}
+      prevImage: ${{ vars.prevImage }}
     permissions:
       contents: read
       id-token: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Deploy internal versioned app
+        uses: nais/deploy/actions/deploy@v2
+        if: inputs.deployInternal == true
+        env:
+          CLUSTER: ${{ inputs.cluster }}
+          RESOURCE: .nais/config-internal.yml
+          VAR: image=${{ inputs.prevImage }},versionId=${{ env.prevVersionId }}
+          VARS: .nais/vars/${{ inputs.deployInstance }}.yml
+      - name: Deploy external app
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: ${{ inputs.cluster }}
+          RESOURCE: .nais/config.yml
+          VAR: image=${{ inputs.image }},versionId=${{ env.versionId }}
+          VARS: .nais/vars/${{ inputs.deployInstance }}.yml
