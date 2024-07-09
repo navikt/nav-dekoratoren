@@ -1,4 +1,4 @@
-name: Build and test
+name: Build, test and prepare deploy
 on:
   workflow_call:
     inputs:
@@ -11,7 +11,7 @@ on:
     outputs:
       IMAGE:
         description: "Docker image"
-        value: ${{ jobs.build_image.outputs.image }}
+        value: ${{ jobs.build.outputs.image }}
     secrets:
       READER_TOKEN:
         required: true
@@ -19,8 +19,8 @@ on:
         required: true
 
 jobs:
-  build_image:
-    name: Build image
+  build:
+    name: Build and test
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
     permissions:
@@ -43,12 +43,12 @@ jobs:
         run: bun run build
       - name: Run unit tests
         run: bun run test
-      #- name: Setup playwright # TODO: cache this? It is slow :D
-      #  run: |
-      #    bunx playwright install --with-deps
-      #    cp packages/server/.env.sample packages/server/.env
-      #- name: Run playwright tests
-      #  run: bunx playwright test
+      - name: Setup playwright # TODO: cache this? It is slow :D
+        run: |
+          bunx playwright install --with-deps
+          cp packages/server/.env.sample packages/server/.env
+      - name: Run playwright tests
+        run: bunx playwright test
       - name: Upload static files to NAV CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         if: inputs.TEST_ONLY != true
