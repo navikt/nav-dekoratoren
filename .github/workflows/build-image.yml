@@ -12,6 +12,11 @@ on:
       image:
         description: "Docker image"
         value: ${{ jobs.build_image.outputs.image }}
+    secrets:
+      READER_TOKEN:
+        required: true
+      NAIS_WORKLOAD_IDENTITY_PROVIDER:
+        required: true
 
 jobs:
   build_image:
@@ -59,17 +64,3 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           image_suffix: ${{ inputs.DEPLOY_INSTANCE }}
-      - name: Deploy external app
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ inputs.CLUSTER }}
-          RESOURCE: .nais/config.yml
-          VAR: image=${{ steps.docker-push.outputs.image }},versionId=${{ github.sha }}
-          VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
-      - name: Deploy internal versioned app
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ inputs.CLUSTER }}
-          RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ steps.docker-push.outputs.image }},versionId=${{ github.sha }}
-          VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
