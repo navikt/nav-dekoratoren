@@ -24,6 +24,8 @@ import { validParams } from "./validateParams";
 import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 
+const startupTime = Date.now();
+
 const app = new Hono({
     strict: false,
 });
@@ -47,6 +49,9 @@ app.get("/public/assets/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
+app.get("/api/version", ({ json }) =>
+    json({ versionId: env.VERSION_ID, started: startupTime }),
+);
 app.get("/api/ta", async ({ json }) => {
     const result = await getTaskAnalyticsConfig();
     if (result.ok) {
