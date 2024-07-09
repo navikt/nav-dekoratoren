@@ -80,14 +80,14 @@ describe("Search handler", () => {
     });
 
     test("Should encode/decode the query as appropriate", async () => {
-        const resolverSpy = jest.fn(() => {
+        const resolver = jest.fn(() => {
             return HttpResponse.json({
                 hits: validHits,
                 total: validHits.length,
             });
         });
 
-        server.use(http.get(env.SEARCH_API_URL, resolverSpy));
+        server.use(http.get(env.SEARCH_API_URL, resolver));
 
         const query = "Grunnbeløpet";
 
@@ -99,7 +99,7 @@ describe("Search handler", () => {
 
         const encodedQuery = encodeURIComponent(query);
 
-        expect(resolverSpy).toHaveBeenCalledWith(
+        expect(resolver).toHaveBeenCalledWith(
             expect.objectContaining({
                 request: expect.objectContaining({
                     url: expect.stringMatching(encodedQuery),
