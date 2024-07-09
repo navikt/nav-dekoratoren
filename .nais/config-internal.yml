@@ -43,7 +43,8 @@ spec:
     - name: APP_NAME
       value: {{appName}}
     - name: VERSION_ID
-      value: {{versionId}}
+      # Ensure this is always parsed as string!
+      value: "{{versionId}}"
     - name: IS_INTERNAL_APP
       value: "true"
   {{#each env as |var|}}

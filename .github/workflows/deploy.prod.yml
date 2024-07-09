@@ -3,125 +3,68 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - ./README.md
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    outputs:
-      image: ${{ steps.docker-push.outputs.image }}
+  build:
+    uses: ./.github/workflows/build-and-test.yml
     permissions:
-      contents: read
       id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.14.0
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: 1.1.11
-      - name: Install dependencies
-        run: bun install --immutable --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - run: bun run build
-      - run: bun run test
-
-      - run: bunx playwright install --with-deps
-      - run: cp packages/server/.env.sample packages/server/.env
-      - run: bunx playwright test
-
-      - name: Upload to CDN
-        uses: nais/deploy/actions/cdn-upload/v2@master
-        with:
-          team: personbruker
-          source: './packages/server/public'
-          destination: '/decorator-next'
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-      - name: Build and push docker image
-        uses: nais/docker-build-push@v0
-        id: docker-push
-        with:
-          team: personbruker
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-
-  deploy-network-policy:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    permissions:
       contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy to prod
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/network-policy.yml
-      - name: Deploy to dev
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/network-policy.yml
-
-  deploy-dev:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }},versionId=${{ github.sha }}
-          VARS: .nais/vars/dev-stable.yml
-
-  deploy-beta-navno:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }},versionId=${{ github.sha }}
-          VARS: .nais/vars/dev-beta-navno.yml
-
-  deploy-prod-internal:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }},versionId=${{ github.sha }}
-          VARS: .nais/vars/prod.yml
+    with:
+      IMAGE_SUFFIX: prod
+    secrets: inherit
 
   deploy-prod:
-    runs-on: ubuntu-latest
-    needs: build-and-test
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
     permissions:
-      contents: read
       id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/config.yml
-          VAR: image=${{ needs.build-and-test.outputs.image }},versionId=${{ github.sha }}
-          VARS: .nais/vars/prod.yml
+      contents: read
+    with:
+      DEPLOY_INSTANCE: prod
+      CLUSTER: prod-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+      DEPLOY_INTERNAL: true
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-dev-stable:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-stable
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-beta-navno:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-beta-navno
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-beta-tms:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-beta-tms
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
