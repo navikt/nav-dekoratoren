@@ -35,7 +35,7 @@ jobs:
       - name: Set versionId from short commit hash
         run: |
           shortSha=$(git rev-parse --short ${{ github.sha }})
-          echo "versionId=19838e4" >> $GITHUB_ENV
+          echo "versionId=$shortSha" >> $GITHUB_ENV
       - name: Deploy internal versioned app
         uses: nais/deploy/actions/deploy@v2
         if: inputs.DEPLOY_INTERNAL == true && env.prevVersionId != '' && env.prevImage != ''

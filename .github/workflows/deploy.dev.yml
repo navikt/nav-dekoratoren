@@ -1,14 +1,31 @@
-name: Deploy to dev
+name: Deploy to stable dev
 on:
   workflow_dispatch:
+    inputs:
+      DEPLOY_INTERNAL:
+        description: "Deploy previous version to internal"
+        required: false
+        type: boolean
 
 jobs:
+  build:
+    uses: ./.github/workflows/build-and-test.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      IMAGE_SUFFIX: dev-stable
+    secrets: inherit
   deploy:
-    uses: ./.github/workflows/build-and-deploy.yml
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
     permissions:
       id-token: write
       contents: read
     with:
       DEPLOY_INSTANCE: dev-stable
       CLUSTER: dev-gcp
-    secrets: inherit
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+      DEPLOY_INTERNAL: ${{ inputs.DEPLOY_INTERNAL }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
