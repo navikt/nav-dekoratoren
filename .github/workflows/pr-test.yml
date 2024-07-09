@@ -1,7 +1,5 @@
 name: Run tests on PR
 on:
-  workflow_dispatch:
-
   pull_request:
     branches:
       - main
