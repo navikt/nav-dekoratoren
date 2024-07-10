@@ -96,7 +96,7 @@ app.get("/main-menu", async ({ req, html }) => {
             title:
                 data.context === "privatperson"
                     ? i18n("how_can_we_help")
-                    : i18n(`rolle_${data.context}`),
+                    : i18n(data.context),
             frontPageUrl: makeFrontpageUrl({
                 context: data.context,
                 language: data.language,
