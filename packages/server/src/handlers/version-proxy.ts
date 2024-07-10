@@ -19,22 +19,28 @@ const pathsToProxyOnEmptyVersionId = new Set([
     ...pathsToProxy.map((path) => `/common-html/v4/navno${path}`),
 ]);
 
-// We temporarily need to handle requests for some paths from previous versions, which does not submit the version-id param
-// The "lastversion" instance of the internal server has been deployed for this purpose
-// Can be removed once the lastversion instance no longer receives requests
+// Version id should be a commit hash (7 chars short or 40 chars full)
+const validVersionIdPattern = new RegExp(/^([a-f0-9]{7}|[a-f0-9]{40})$/);
+
+const isValidVersionId = (versionId: string) =>
+    validVersionIdPattern.test(versionId);
+
 const getVersionId = (req: HonoRequest) => {
     const reqVersionId = req.query(VERSION_ID_PARAM);
 
     if (!reqVersionId) {
+        // We temporarily need to handle requests for some paths from previous versions, which does not submit the version-id param
+        // The "lastversion" instance of the internal server has been deployed for this purpose
+        // Can be removed once the lastversion instance no longer receives requests
         return pathsToProxyOnEmptyVersionId.has(req.path)
             ? "lastversion"
-            : undefined;
+            : null;
     }
 
-    return reqVersionId;
+    return isValidVersionId(reqVersionId) ? reqVersionId : null;
 };
 
-const fetchFromOtherVersion = async (
+const fetchFromInternalVersionApp = async (
     request: HonoRequest,
     targetVersionId: string,
 ) => {
@@ -78,7 +84,7 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
         return next();
     }
 
-    const response = await fetchFromOtherVersion(c.req, reqVersionId);
+    const response = await fetchFromInternalVersionApp(c.req, reqVersionId);
 
     return response || next();
 };
