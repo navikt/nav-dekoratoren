@@ -33,21 +33,9 @@ const meta: Meta = {
             loginUrl: "/logginn",
             contextLinks: isNorwegian(context.globals.locale)
                 ? [
-                      {
-                          url: "",
-                          lenkeTekstId: "rolle_privatperson",
-                          context: "privatperson",
-                      },
-                      {
-                          url: "",
-                          lenkeTekstId: "rolle_arbeidsgiver",
-                          context: "arbeidsgiver",
-                      },
-                      {
-                          url: "",
-                          lenkeTekstId: "rolle_samarbeidspartner",
-                          context: "samarbeidspartner",
-                      },
+                      { url: "", context: "privatperson" },
+                      { url: "", context: "arbeidsgiver" },
+                      { url: "", context: "samarbeidspartner" },
                   ]
                 : [],
             language: context.globals.locale,

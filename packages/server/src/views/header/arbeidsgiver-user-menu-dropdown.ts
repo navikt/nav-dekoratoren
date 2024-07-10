@@ -19,7 +19,7 @@ export const ArbeidsgiverUserMenuDropdown = ({
 }: ArbeidsgiverUserMenuProps) => {
     return DropdownMenu({
         button: HeaderButton({
-            content: i18n("rolle_arbeidsgiver"),
+            content: i18n("arbeidsgiver"),
             icon: BriefcaseIcon(),
         }),
         dropdownClass: cls.arbeidsgiverMenuDropdown,

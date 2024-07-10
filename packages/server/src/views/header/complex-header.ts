@@ -60,25 +60,25 @@ export function ComplexHeader({
                                 })}
                             </lenke-med-sporing>
                             ${contextLinks.length > 0 &&
-                            html`<context-links class="${cls.arbeidsflate}">
-                                ${contextLinks.map(
-                                    ({ url, lenkeTekstId, context }) =>
-                                        html`<a
-                                            href="${url}"
-                                            class="${clsx(
-                                                cls.headerContextLink,
-                                                {
-                                                    [cls.lenkeActive]:
-                                                        context ===
-                                                        currentContext,
-                                                },
-                                            )}"
-                                            data-context="${context.toLowerCase()}"
-                                        >
-                                            ${i18n(lenkeTekstId)}
-                                        </a>`,
-                                )}
-                            </context-links>`}
+                            html`
+                                <context-links class="${cls.arbeidsflate}"
+                                    >${contextLinks.map(
+                                        ({ url, context }) => html`
+                                            <a
+                                                href="${url}"
+                                                class="${clsx(
+                                                    cls.headerContextLink,
+                                                    context ===
+                                                        currentContext &&
+                                                        cls.lenkeActive,
+                                                )}"
+                                                data-context="${context}"
+                                                >${i18n(context)}</a
+                                            >
+                                        `,
+                                    )}</context-links
+                                >
+                            `}
                         </div>
                         <div class="${menuItemsCls.menuItems}">
                             ${UserMenu({ loginUrl })}
