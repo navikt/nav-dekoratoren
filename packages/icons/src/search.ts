@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/search.module.css";
-import html from "../../html";
+import html from "decorator-shared/html";
 
 export const SearchIcon = () => html`
     <svg

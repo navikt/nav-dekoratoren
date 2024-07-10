@@ -1,11 +1,13 @@
 import cls from "decorator-client/src/styles/user-menu-dropdown.module.css";
+import {
+    PersonCircleIcon,
+    PersonCircleNotificationIcon,
+} from "decorator-icons";
 import html from "decorator-shared/html";
 import { LoginLevel } from "decorator-shared/params";
-import { PersonCircleIcon } from "decorator-icons";
-import { PersonCircleNotificationIcon } from "decorator-shared/views/icons";
 import { Notification } from "../../notifications";
-import { DropdownMenu } from "../dropdown-menu";
 import { HeaderButton } from "../components/header-button";
+import { DropdownMenu } from "../dropdown-menu";
 import { UserMenu } from "./user-menu";
 
 export type UserMenuDropdownProps = {

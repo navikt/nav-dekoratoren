@@ -32,7 +32,10 @@ Object.keys(metadata).forEach(async (name) => {
 
 Bun.write(
     "./dist/index.ts",
-    Object.keys(metadata)
-        .map((name) => `export * from "./${name}";`)
-        .join("\n"),
+    `
+export * from '../src';
+${Object.keys(metadata)
+    .map((name) => `export * from "./${name}";`)
+    .join("\n")}
+`,
 );

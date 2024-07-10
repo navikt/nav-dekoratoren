@@ -1,4 +1,4 @@
-import html, { htmlAttributes } from "../../html";
+import html, { htmlAttributes } from "decorator-shared/html";
 
 export const FridaIcon = (props: { className?: string } = {}) => html`
     <svg

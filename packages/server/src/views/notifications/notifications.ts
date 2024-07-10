@@ -1,9 +1,8 @@
 import clsx from "clsx";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
+import { ChevronRightIcon, MessageIcon, TaskIcon } from "decorator-icons";
 import html from "decorator-shared/html";
-import { ChevronRightIcon } from "decorator-icons";
-import { MessageIcon, TaskIcon } from "decorator-shared/views/icons";
 import i18n from "../../i18n";
 import {
     MaskedNotification,
