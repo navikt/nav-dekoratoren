@@ -1,11 +1,5 @@
 {
     "name": "decorator-shared",
     "version": "0.0.1",
-    "type": "module",
-    "scripts": {
-        "test": "bun test"
-    },
-    "dependencies": {
-        "@navikt/aksel-icons": "6.13.0"
-    }
+    "type": "module"
 }
