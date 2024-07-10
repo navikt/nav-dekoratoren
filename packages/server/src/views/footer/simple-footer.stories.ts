@@ -4,7 +4,6 @@ import { SimpleFooter } from "./simple-footer";
 
 const meta: Meta<SimpleFooterProps> = {
     title: "footer/simple",
-    tags: ["autodocs"],
     render: (_, context) => {
         const args = {
             features: {

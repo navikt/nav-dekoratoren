@@ -27,7 +27,7 @@ body {
         --header-height: 72px;
 
         font-family: var(--a-font-family);
-        line-height: 1.333;
+        line-height: calc(4 / 3);
         font-size: 1.125rem;
         color: var(--a-text-default);
 
