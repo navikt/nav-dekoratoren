@@ -1,28 +1,17 @@
 import { tryParse } from "decorator-shared/json";
-import { Context } from "decorator-shared/params";
-import { erNavDekoratoren } from "decorator-shared/urls";
 import { amplitudeEvent } from "../analytics/amplitude";
 import { type AnalyticsEventArgs } from "../analytics/constants";
 import { defineCustomElement } from "../custom-elements";
 import { CustomLinkElement } from "../helpers/custom-link-element";
-import { updateDecoratorParams } from "../params";
 import headerClasses from "../styles/header.module.css";
 
 class ContextLink extends CustomLinkElement {
-    handleClick = (e: MouseEvent) => {
-        if (erNavDekoratoren(window.location.href)) {
-            e.preventDefault();
-        }
-
+    handleClick = () => {
         const rawEventArgs = this.getAttribute("data-analytics-event-args");
         const eventArgs = tryParse<AnalyticsEventArgs, null>(
             rawEventArgs,
             null,
         );
-
-        updateDecoratorParams({
-            context: this.getAttribute("data-context") as Context,
-        });
 
         if (eventArgs) {
             const payload = {
