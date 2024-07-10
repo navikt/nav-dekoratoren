@@ -32,8 +32,8 @@ class ContextLinks extends HTMLElement {
     };
 
     connectedCallback() {
-        this.addEventListener("click", this.handleClick),
-            window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.addEventListener("click", this.handleClick);
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }
 
     disconnectedCallback() {
