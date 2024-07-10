@@ -30,6 +30,7 @@
 }
 
 [data-theme="dark"] .screenshareButton {
+    font-weight: var(--a-font-weight-bold);
     color: var(--a-text-on-inverted);
     padding-inline: var(--a-spacing-4) var(--a-spacing-3);
     background-color: var(--a-deepblue-700);
@@ -56,4 +57,8 @@
 
 .screenshareButton svg {
     font-size: 1.25rem;
+}
+
+[data-theme="dark"] .screenshareButton svg {
+    font-size: 1.5rem;
 }
