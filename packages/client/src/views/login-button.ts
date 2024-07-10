@@ -18,6 +18,7 @@ class LoginButton extends HTMLElement {
 
         const url = parseUrl(href);
         if (!url) {
+            console.error(`Invalid URL for login: ${href}`);
             return;
         }
 
