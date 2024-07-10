@@ -16,3 +16,11 @@ export const endpointUrlWithParams = (
 };
 
 export const cdnUrl = (url: string) => `${env("CDN_URL")}${url}`;
+
+export const parseUrl = (url: string) => {
+    try {
+        return new URL(url);
+    } catch (e) {
+        return null;
+    }
+};
