@@ -1,10 +1,10 @@
 import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import html, { unsafeHtml } from "decorator-shared/html";
-import { ArrowRight } from "decorator-shared/views/icons";
+import { Context } from "decorator-shared/params";
+import { ArrowRightIcon } from "decorator-shared/views/icons";
 import { SearchResult } from "../handlers/search-handler";
 import i18n from "../i18n";
-import { Context } from "decorator-shared/params";
 
 export type SearchHitsProps = {
     results: SearchResult;
@@ -60,7 +60,7 @@ export const SearchHits = ({
                       href="https://www.nav.no/sok?ord=${query}"
                   >
                       ${i18n("more_hits")}
-                      ${ArrowRight({
+                      ${ArrowRightIcon({
                           className: cls.searchHitRightArrow,
                       })}
                   </a>`

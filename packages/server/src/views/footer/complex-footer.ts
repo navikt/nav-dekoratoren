@@ -3,7 +3,7 @@ import globalCls from "decorator-client/src/styles/global.module.css";
 import utilCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
 import { Features, LinkGroup } from "decorator-shared/types";
-import { ArrowUp } from "decorator-shared/views/icons";
+import { ArrowUpIcon } from "decorator-shared/views/icons";
 import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
@@ -22,7 +22,7 @@ export function ComplexFooter({ links, features }: ComplexFooterProps) {
         <footer class="${cls.footer}" data-theme="dark">
             <div class="${cls.footerContent} ${utilCls.contentContainer}">
                 <a class="${globalCls["navds-link"]} ${cls.toTop}" href="#">
-                    ${ArrowUp({ className: cls.arrowUp })} ${i18n("to_top")}
+                    ${ArrowUpIcon({ className: cls.arrowUp })} ${i18n("to_top")}
                 </a>
 
                 <ul class="${cls.footerLinks}">

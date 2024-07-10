@@ -1,6 +1,6 @@
 import cls from "decorator-client/src/styles/search-form.module.css";
 import html from "decorator-shared/html";
-import { CloseIcon } from "decorator-shared/views/icons";
+import { XMarkIcon } from "decorator-shared/views/icons";
 import { SearchIcon } from "decorator-shared/views/icons/search";
 import i18n from "../i18n";
 
@@ -19,7 +19,7 @@ export const SearchForm = () => {
                     autocomplete="off"
                 />
                 <button type="button" class="${cls.clear}">
-                    ${CloseIcon({ ariaLabel: i18n("clear") })}
+                    ${XMarkIcon({ ariaLabel: i18n("clear") })}
                 </button>
             </search-input>
             <button class="${cls.submit}">
