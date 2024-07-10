@@ -70,7 +70,7 @@ export const UserMenu = ({
             ${Notifications({ notifications, minsideUrl })}
         </div>
         <a href="${logoutUrl}" class="${cls.menuItem} ${cls.logout}">
-            ${LeaveIcon()}
+            ${LeaveIcon({ className: cls.menuItemIcon })}
             <span>${i18n("logout")}</span>
         </a>
     </div>

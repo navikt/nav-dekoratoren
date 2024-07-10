@@ -1,6 +1,6 @@
 import cls from "decorator-client/src/styles/search-form.module.css";
+import { MagnifyingGlassIcon, XMarkIcon } from "decorator-icons";
 import html from "decorator-shared/html";
-import { XMarkIcon, MagnifyingGlassIcon } from "decorator-icons";
 import i18n from "../i18n";
 
 export const SearchForm = () => {

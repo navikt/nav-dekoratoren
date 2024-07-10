@@ -25,7 +25,7 @@ export const ArbeidsgiverUserMenu = ({
                 <span>${i18n("my_page_employer")}</span>
             </a>
             <a href="${logoutUrl}" class="${cls.menuItem}">
-                ${LeaveIcon()}
+                ${LeaveIcon({ className: cls.menuItemIcon })}
                 <span>${i18n("logout")}</span>
             </a>
         </div>
