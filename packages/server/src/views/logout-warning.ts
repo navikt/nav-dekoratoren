@@ -1,7 +1,7 @@
 import cls from "decorator-client/src/styles/logout-warning.module.css";
 import clsModal from "decorator-client/src/styles/modal.module.css";
 import html from "decorator-shared/html";
-import { Button } from "./button";
+import { Button } from "./components/button";
 import i18n from "../i18n";
 
 export const LogoutWarning = () => html`

@@ -59,14 +59,7 @@
 }
 
 .footerLink {
-    display: inline-block;
-    padding-block: var(--a-spacing-1);
-}
-
-@media (min-width: 768px) {
-    .footerLink {
-        padding-block: var(--a-spacing-2);
-    }
+    padding-block: 0.625rem;
 }
 
 .complexFooterOrg {

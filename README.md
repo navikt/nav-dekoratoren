@@ -3,15 +3,18 @@ Applikasjon for header og footer på nav.no.
 
 decorator-next er en full omskrivning av [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren), med mål om bedre performance og betydelig mindre client-side javascript.
 
-Denne versjonen av dekoratøren er nå i bruk i alle dev-miljøer. Gi oss gjerne beskjed på slack i `#dekoratøren_på_navno` dersom du opplever problemer eller har andre innspill.
-
-I produksjon benyttes fremdeles den gamle [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren).
+Denne versjonen av dekoratøren er nå i bruk i alle miljøer. Gi oss gjerne beskjed på slack i `#dekoratøren_på_navno` dersom du opplever problemer eller har andre innspill.
 
 ## Bruk av dekoratøren
 
 Oppdatert doc kommer! Decorator-next skal være bakoverkompatibel med alle tjenester som beskrevet i README for [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren) og [@navikt/nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 ### Ingresser
+
+**Produksjon**
+
+-   http://nav-dekoratoren.personbruker (service host)
+-   https://www.nav.no/dekoratoren
 
 **Dev (stable)**
 
@@ -32,11 +35,6 @@ Team min side:
 
 _Merk:_ Beta-instansene av dekoratøren er ment for intern testing i team personbruker. Disse kan være ustabile i lengre perioder.
 
-**Dev (sandbox)**
-
-- https://decorator-next.ekstern.dev.nav.no
-
-Denne er kun for testing av dekoratøren isolert, og skal ikke konsumeres av andre apper.
 
 ---
 

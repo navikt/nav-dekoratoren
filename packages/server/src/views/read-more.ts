@@ -1,6 +1,6 @@
 import cls from "decorator-client/src/styles/read-more.module.css";
-import html, { Template } from "../../../shared/html";
-import { DownChevronIcon } from "../../../shared/views/icons";
+import html, { Template } from "decorator-shared/html";
+import { ChevronDownIcon } from "decorator-icons";
 
 export type ReadMoreProps = {
     header: Template;
@@ -11,7 +11,7 @@ export const ReadMore = (props: ReadMoreProps) => {
     return html`
         <details class="${cls.details}">
             <summary class="${cls.summary}">
-                ${DownChevronIcon({ className: cls.icon })}
+                ${ChevronDownIcon({ className: cls.icon })}
                 <div>${props.header}</div>
             </summary>
             <div class="${cls.answer}">${props.content}</div>

@@ -20,7 +20,7 @@ export const SimpleFooter = ({ links, features }: SimpleFooterProps) => html`
                     LenkeMedSporing({
                         href: url,
                         children: content,
-                        className: globalCls["navds-link"],
+                        className: `${globalCls["navds-link"]} ${cls.footerLink}`,
                         analyticsEventArgs: {
                             category: "dekorator-footer",
                             action: `kontakt/${url}`,

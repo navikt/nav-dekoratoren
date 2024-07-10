@@ -15,6 +15,7 @@
     "dependencies": {
         "csp-header": "5.2.1",
         "decorator-client": "workspace:*",
+        "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
         "hono": "4.4.10",
         "unleash-client": "4.2.1"

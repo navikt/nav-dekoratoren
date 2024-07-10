@@ -102,6 +102,8 @@ export type Texts = ClientTexts & {
     my_page: string;
     personopplysninger: string;
     my_page_employer: string;
+    info: string;
+    error: string;
 };
 
 export type OpsMessage = {

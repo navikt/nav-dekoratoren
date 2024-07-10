@@ -7,6 +7,9 @@
         "allowJs": true,
         "esModuleInterop": true,
         "composite": true,
+        "module": "esnext",
+        "moduleResolution": "Bundler",
+        "moduleDetection": "force",
         "types": ["vite/client"],
         "plugins": [
             {

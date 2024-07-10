@@ -1,5 +1,5 @@
 import i18n from "../../i18n";
-import { Alert } from "../alert";
+import { Alert } from "../components/alert";
 
 export const SearchErrorView = () =>
     Alert({

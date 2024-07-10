@@ -1,0 +1,17 @@
+{
+    "name": "decorator-icons",
+    "version": "0.0.1",
+    "type": "module",
+    "exports": {
+        ".": "./dist/index.ts"
+    },
+    "scripts": {
+        "build": "bun run build-icons.ts"
+    },
+    "dependencies": {
+        "decorator-shared": "workspace:*"
+    },
+    "devDependencies": {
+        "@navikt/aksel-icons": "6.13.0"
+    }
+}

@@ -1,8 +1,8 @@
 import cls from "decorator-client/src/styles/arbeidsgiver-user-menu-dropdown.module.css";
-import { BriefcaseIcon } from "decorator-shared/views/icons";
+import { BriefcaseIcon } from "decorator-icons";
 import i18n from "../../i18n";
+import { HeaderButton } from "../components/header-button";
 import { DropdownMenu } from "../dropdown-menu";
-import { HeaderButton } from "../header-button";
 import { ArbeidsgiverUserMenu } from "./arbeidsgiver-user-menu";
 
 export type ArbeidsgiverUserMenuProps = {

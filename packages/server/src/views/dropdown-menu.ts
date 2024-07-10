@@ -18,10 +18,11 @@ export const DropdownMenu = ({
     dropdownContent,
     dropdownClass,
     attributes = {},
-}: DropdownMenuProps) =>
-    html`<dropdown-menu ${htmlAttributes(attributes)}>
+}: DropdownMenuProps) => html`
+    <dropdown-menu ${htmlAttributes(attributes)} aria-expanded="false">
         ${button}
         <div class="${clsx(cls.dropdownMenuContainer, dropdownClass)}">
             ${dropdownContent}
         </div>
-    </dropdown-menu>`;
+    </dropdown-menu>
+`;

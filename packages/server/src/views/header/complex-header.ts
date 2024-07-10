@@ -4,14 +4,14 @@ import cls from "decorator-client/src/styles/header.module.css";
 import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import { BurgerIcon, SearchIcon } from "decorator-icons";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
-import { BurgerIcon, SearchIcon } from "decorator-shared/views/icons";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import { ContextLink } from "../../context";
 import i18n from "../../i18n";
+import { HeaderButton } from "../components/header-button";
 import { DropdownMenu } from "../dropdown-menu";
-import { HeaderButton } from "../header-button";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
@@ -111,9 +111,7 @@ export function ComplexHeader({
                                 ${DropdownMenu({
                                     button: HeaderButton({
                                         content: i18n("search"),
-                                        icon: SearchIcon({
-                                            menuSearch: true,
-                                        }),
+                                        icon: SearchIcon(),
                                         className: menuItemsCls.searchButton,
                                     }),
                                     dropdownClass: menuItemsCls.searchDropdown,
