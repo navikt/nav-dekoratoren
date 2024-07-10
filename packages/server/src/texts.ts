@@ -45,9 +45,9 @@ const nb = {
         "Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?",
     hensikt_med_tilbakemelding_lenke: "Ring, chat eller skriv til oss",
     send_undersokelse_takk: "Takk for tilbakemeldingen!",
-    rolle_privatperson: "Privat",
-    rolle_arbeidsgiver: "Arbeidsgiver",
-    rolle_samarbeidspartner: "Samarbeidspartner",
+    privatperson: "Privat",
+    arbeidsgiver: "Arbeidsgiver",
+    samarbeidspartner: "Samarbeidspartner",
     meny_bunnlenke_minside_stikkord:
         "Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester",
     meny_bunnlenke_arbeidsgiver_stikkord:
@@ -143,9 +143,9 @@ const en = {
         "Unfortunately you will not get a reply to your feedback. Do you have questions or need help?",
     hensikt_med_tilbakemelding_lenke: "Call, chat or write to us",
     send_undersokelse_takk: "Thank you for your feedback!",
-    rolle_privatperson: "Private",
-    rolle_arbeidsgiver: "Employer",
-    rolle_samarbeidspartner: "Collaborator",
+    privatperson: "Private",
+    arbeidsgiver: "Employer",
+    samarbeidspartner: "Collaborator",
     meny_bunnlenke_minside_stikkord:
         "Your cases, payments, messages, report cards, activity plan, personal information and more services",
     meny_bunnlenke_arbeidsgiver_stikkord:

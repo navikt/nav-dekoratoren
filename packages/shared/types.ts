@@ -64,9 +64,9 @@ export type Texts = ClientTexts & {
     notifications_tasks_title: string;
     no: string;
     search_nav_no: string;
-    rolle_privatperson: string;
-    rolle_arbeidsgiver: string;
-    rolle_samarbeidspartner: string;
+    privatperson: string;
+    arbeidsgiver: string;
+    samarbeidspartner: string;
     meny_bunnlenke_minside_stikkord: string;
     meny_bunnlenke_arbeidsgiver_stikkord: string;
     meny_bunnlenke_samarbeidspartner_stikkord: string;
