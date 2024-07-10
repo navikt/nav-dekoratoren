@@ -9,10 +9,6 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": false,
-        "paths": {
-            "decorator-shared/*": ["../shared/*"],
-            "decorator-client/*": ["../client/*"]
-        },
         "typeRoots": ["bun-types"],
         "plugins": [
             {

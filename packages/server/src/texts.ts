@@ -93,6 +93,8 @@ const nb = {
     loading: "Laster",
     personopplysninger: "Personopplysninger",
     open_chat: "Åpne chat",
+    info: "Informasjon",
+    error: "Feil",
 } as const satisfies Texts;
 
 const en = {
@@ -189,6 +191,8 @@ const en = {
     loading: "Loading",
     personopplysninger: "Personal information",
     open_chat: "Open chat",
+    info: "Information",
+    error: "Error",
 } as const satisfies Texts;
 
 export const texts: Record<Language, Texts> = {

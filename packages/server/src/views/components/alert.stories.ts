@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/html";
+import i18n from "../../i18n";
 import { Alert, type AlertProps } from "./alert";
-import i18n from "../i18n";
 
 const meta: Meta<AlertProps> = {
-    title: "alert",
-    tags: ["autodocs"],
+    title: "components/alert",
     render: Alert,
 };
 

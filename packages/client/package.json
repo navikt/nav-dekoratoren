@@ -15,6 +15,7 @@
         "@navikt/ds-tokens": "6.11.0",
         "@navikt/ds-css": "6.11.0",
         "amplitude-js": "8.21.9",
+        "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
         "lodash.debounce": "4.0.8",
         "js-cookie": "3.0.5",

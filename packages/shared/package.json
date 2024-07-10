@@ -2,7 +2,7 @@
     "name": "decorator-shared",
     "version": "0.0.1",
     "type": "module",
-    "scripts": {
-        "test": "bun test"
+    "dependencies": {
+        "decorator-icons": "workspace:*"
     }
 }

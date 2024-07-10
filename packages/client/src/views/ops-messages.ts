@@ -2,7 +2,10 @@ import cls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
-import { InfoIcon, WarningIcon } from "decorator-shared/views/icons";
+import {
+    InformationSquareIcon,
+    ExclamationmarkTriangleIcon,
+} from "decorator-icons";
 import { env } from "../params";
 import { defineCustomElement } from "../custom-elements";
 
@@ -23,7 +26,9 @@ export const OpsMessagesTemplate = ({
                     href="${url}"
                     class="${cls.opsMessage}"
                 >
-                    ${type === "prodstatus" ? WarningIcon() : InfoIcon()}
+                    ${type === "prodstatus"
+                        ? ExclamationmarkTriangleIcon()
+                        : InformationSquareIcon()}
                     <span>${heading}</span>
                 </lenke-med-sporing>`,
         )}

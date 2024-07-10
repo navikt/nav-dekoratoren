@@ -1,11 +1,11 @@
 import { Auth, AuthDataResponse, AuthLoggedIn } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
-import { LogoutIcon } from "decorator-shared/views/icons/logout";
+import { LeaveIcon } from "decorator-icons";
 import { match } from "ts-pattern";
 import { clientEnv, env } from "../env/server";
 import i18n from "../i18n";
 import { fetchNotifications } from "../notifications";
-import { HeaderButton } from "../views/header-button";
+import { HeaderButton } from "../views/components/header-button";
 import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-menu-dropdown";
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
@@ -87,7 +87,7 @@ const buildUsermenuHtml = async (
         .with("samarbeidspartner", async () =>
             HeaderButton({
                 content: i18n("logout"),
-                icon: LogoutIcon({}),
+                icon: LeaveIcon(),
                 href: logoutUrl,
             }),
         )
