@@ -33,8 +33,7 @@ export const Footer = ({
         enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
     })}
     <d-chatbot></d-chatbot>
-    ${data.logoutWarning ? LogoutWarning() : undefined}
-    ${data.feedback ? Feedback({ contactUrl }) : undefined}
+    ${LogoutWarning()} ${data.feedback ? Feedback({ contactUrl }) : undefined}
     ${simple
         ? SimpleFooter({
               links,

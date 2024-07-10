@@ -8,9 +8,8 @@ import { initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { cdnUrl } from "./helpers/urls";
-import { initLogoutWarning } from "./logout-warning";
 import "./main.css";
-import { env, param, updateDecoratorParams } from "./params";
+import { param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
 
 import.meta.glob("./styles/*.css", { eager: true });
@@ -44,35 +43,10 @@ const init = () => {
     initAuth().then((auth) => {
         initAnalytics(auth);
     });
-
-    if (param("logoutWarning")) {
-        initLogoutWarning();
-    }
 };
 
-const enableMocking = async () => {
-    if (process.env.NODE_ENV !== "development") {
-        return;
-    }
-
-    if (window.location.origin !== env("APP_URL")) {
-        console.log(
-            "Skipping mock worker as current origin is not decorator origin",
-        );
-        return;
-    }
-
-    const { worker } = await import("./mocks");
-
-    return worker.start({
-        onUnhandledRequest: "bypass",
-    });
-};
-
-enableMocking().then(() => {
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
-});
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
+}
