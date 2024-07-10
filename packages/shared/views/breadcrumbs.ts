@@ -53,7 +53,7 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                   <span class="${cls.span}">nav.no</span>
                               `,
                               className: clsx(
-                                  cls.link,
+                                  cls.homeLink,
                                   globalCls["navds-link"],
                               ),
                           })}
@@ -75,9 +75,10 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                                 )}"
                                                 ${handleInApp &&
                                                 "data-handle-in-app"}
-                                                class="${globalCls[
-                                                    "navds-link"
-                                                ]}"
+                                                class="${clsx(
+                                                    cls.link,
+                                                    globalCls["navds-link"],
+                                                )}"
                                                 href="${url}"
                                             >
                                                 ${title}
