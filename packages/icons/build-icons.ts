@@ -2,7 +2,7 @@ import * as prettier from "prettier";
 import metadata from "@navikt/aksel-icons/metadata";
 
 const jsString =
-    '${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props, })} ${ariaLabel && html`aria-label="${ariaLabel}"`}';
+    'focusable="false" role="img" ${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props, })} ${ariaLabel && html`aria-label="${ariaLabel}"`}';
 
 const fileTemplate = ({ svg, name }: { svg: string; name: string }) => `
 import html, { htmlAttributes } from "decorator-shared/html";

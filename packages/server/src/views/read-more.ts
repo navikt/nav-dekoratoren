@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/read-more.module.css";
-import html, { Template } from "../../../shared/html";
+import html, { Template } from "decorator-shared/html";
 import { ChevronDownIcon } from "decorator-icons";
 
 export type ReadMoreProps = {

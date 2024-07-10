@@ -1,11 +1,10 @@
-import html from "../../html";
+import html, { htmlAttributes } from "../../html";
 
-export const PersonCircleNotificationIcon = ({
-    className,
-}: {
-    className?: string;
-}) =>
+export const PersonCircleNotificationIcon = (
+    props: { className?: string } = {},
+) =>
     html`<svg
+        ${htmlAttributes(props)}
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -14,7 +13,6 @@ export const PersonCircleNotificationIcon = ({
         focusable="false"
         aria-hidden="true"
         role="img"
-        ${className && html`class="${className}"`}
     >
         <path
             fill-rule="evenodd"

@@ -1,6 +1,6 @@
 import cls from "decorator-client/src/styles/simple-user-menu.module.css";
 import html from "decorator-shared/html";
-import { LogoutIcon } from "decorator-shared/views/icons/logout";
+import { LeaveIcon } from "decorator-icons";
 import i18n from "../i18n";
 import { HeaderButton } from "./components/header-button";
 
@@ -17,7 +17,7 @@ export const SimpleUserMenu = ({ name, logoutUrl }: SimpleUserMenuProps) =>
         </span>
         ${HeaderButton({
             content: i18n("logout"),
-            icon: LogoutIcon({}),
+            icon: LeaveIcon(),
             href: logoutUrl,
         })}
     </div>`;

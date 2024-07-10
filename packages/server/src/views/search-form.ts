@@ -1,7 +1,6 @@
 import cls from "decorator-client/src/styles/search-form.module.css";
 import html from "decorator-shared/html";
-import { XMarkIcon } from "decorator-shared/views/icons";
-import { SearchIcon } from "decorator-shared/views/icons/search";
+import { XMarkIcon, MagnifyingGlassIcon } from "decorator-icons";
 import i18n from "../i18n";
 
 export const SearchForm = () => {
@@ -23,7 +22,10 @@ export const SearchForm = () => {
                 </button>
             </search-input>
             <button class="${cls.submit}">
-                ${SearchIcon({ ariaLabel: i18n("search") })}
+                ${MagnifyingGlassIcon({
+                    ariaLabel: i18n("search"),
+                    className: cls.searchIcon,
+                })}
             </button>
         </div>
     </form>`;

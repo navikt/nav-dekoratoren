@@ -2,7 +2,7 @@ import clsx from "clsx";
 import cls from "decorator-client/src/styles/language-selector.module.css";
 import html from "decorator-shared/html";
 import { AvailableLanguage } from "decorator-shared/params";
-import { ChevronDownIcon, GlobeIcon } from "decorator-shared/views/icons";
+import { ChevronDownIcon, GlobeIcon } from "decorator-icons";
 import i18n from "../i18n";
 
 export type LanguageSelectorProps = {

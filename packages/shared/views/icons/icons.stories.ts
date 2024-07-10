@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/html";
-import { BurgerIcon, SearchIcon } from ".";
+import * as icons from ".";
 
 const meta: Meta = {
     title: "icons",
-    tags: ["autodocs"],
-    render: ({ icon }) => {
+    render: (_, context) => {
         const div = document.createElement("div");
-        div.innerHTML = icon;
+        div.style.display = "flex";
+        div.style.gap = "1rem";
 
         setInterval(() => {
             div.setAttribute(
@@ -15,6 +15,14 @@ const meta: Meta = {
             );
         }, 1000);
 
+        div.innerHTML = Object.values(icons)
+            .map((icon) =>
+                icon().render({
+                    language: context.globals.locale,
+                }),
+            )
+            .join("");
+
         return div;
     },
 };
@@ -22,14 +30,4 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const Burger: Story = {
-    args: {
-        icon: BurgerIcon().render({ language: "nb" }),
-    },
-};
-
-export const Search: Story = {
-    args: {
-        icon: SearchIcon({ menuSearch: true }).render({ language: "nb" }),
-    },
-};
+export const Default: Story = {};

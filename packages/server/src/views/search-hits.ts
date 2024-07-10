@@ -2,7 +2,7 @@ import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { Context } from "decorator-shared/params";
-import { ArrowRightIcon } from "decorator-shared/views/icons";
+import { ArrowRightIcon } from "decorator-icons";
 import { SearchResult } from "../handlers/search-handler";
 import i18n from "../i18n";
 

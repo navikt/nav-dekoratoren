@@ -2,11 +2,8 @@ import clsx from "clsx";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
 import html from "decorator-shared/html";
-import { ForwardChevron } from "decorator-shared/views/icons";
-import {
-    MessageIcon,
-    TaskIcon,
-} from "decorator-shared/views/icons/notifications";
+import { ChevronRightIcon } from "decorator-icons";
+import { MessageIcon, TaskIcon } from "decorator-shared/views/icons";
 import i18n from "../../i18n";
 import {
     MaskedNotification,
@@ -70,7 +67,7 @@ const NotificationComp = ({
             </div>
             <div class="${cls.headerRight}">
                 <local-time datetime="${date}" class="${cls.date}"></local-time>
-                ${ForwardChevron({ className: cls.chevron })}
+                ${ChevronRightIcon({ className: cls.chevron })}
             </div>
         </div>
         <a href="${link}" class="${cls.text}">${text}</a>

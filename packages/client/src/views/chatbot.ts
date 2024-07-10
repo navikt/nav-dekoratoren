@@ -1,5 +1,5 @@
 import { Context, Language, Params } from "decorator-shared/params";
-import { FridaIcon } from "decorator-shared/views/icons/frida-icon";
+import { FridaIcon } from "decorator-shared/views/icons";
 import Cookies from "js-cookie";
 import { env, param } from "../params";
 import { loadExternalScript } from "../utils";

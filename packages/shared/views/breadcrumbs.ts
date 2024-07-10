@@ -1,12 +1,11 @@
 import clsx from "clsx";
 import globalCls from "decorator-client/src/styles/global.module.css";
+import { ChevronRightIcon, HouseIcon } from "decorator-icons";
 import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import html, { Template } from "../html";
 import { Breadcrumb } from "../params";
 import { isNavUrl } from "../utils";
 import cls from "./breadcrumbs.module.css";
-import { ForwardChevron } from "./icons";
-import { HomeIcon } from "./icons/home";
 
 const analyticsEventArgs = {
     category: "dekorator-header",
@@ -50,7 +49,7 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                   action: "nav.no",
                               },
                               children: html`
-                                  ${HomeIcon({ className: cls.svg })}
+                                  ${HouseIcon({ className: cls.svg })}
                                   <span class="${cls.span}">nav.no</span>
                               `,
                               className: clsx(
@@ -58,7 +57,7 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                   globalCls["navds-link"],
                               ),
                           })}
-                          ${ForwardChevron()}
+                          ${ChevronRightIcon()}
                       </li>
                       ${breadcrumbs.map(
                           ({ title, url, handleInApp }, index) => html`
@@ -86,7 +85,7 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                         `}
                                   ${index === breadcrumbs.length - 1
                                       ? ""
-                                      : ForwardChevron()}
+                                      : ChevronRightIcon()}
                               </li>
                           `,
                       )}
