@@ -1,42 +1,39 @@
-import { tryParse } from "decorator-shared/json";
 import { amplitudeEvent } from "../analytics/amplitude";
-import { type AnalyticsEventArgs } from "../analytics/constants";
 import { defineCustomElement } from "../custom-elements";
-import { CustomLinkElement } from "../helpers/custom-link-element";
+import { param } from "../params";
 import headerClasses from "../styles/header.module.css";
 
-class ContextLink extends CustomLinkElement {
-    handleClick = () => {
-        const rawEventArgs = this.getAttribute("data-analytics-event-args");
-        const eventArgs = tryParse<AnalyticsEventArgs, null>(
-            rawEventArgs,
-            null,
-        );
+class ContextLinks extends HTMLElement {
+    handleClick(event: MouseEvent) {
+        if (event.target instanceof HTMLAnchorElement) {
+            const context = event.target.getAttribute("data-context");
 
-        if (eventArgs) {
-            const payload = {
-                context: window.__DECORATOR_DATA__.params.context,
-                ...eventArgs,
-            };
-            amplitudeEvent(payload);
+            if (context) {
+                amplitudeEvent({
+                    context: param("context"),
+                    action: "arbeidsflate-valg",
+                    category: "dekorator-header",
+                    label: context,
+                });
+            }
         }
-    };
+    }
 
     handleParamsUpdated = (event: CustomEvent) => {
         if (event.detail.params.context) {
-            this.anchor.classList.toggle(
-                headerClasses.lenkeActive,
-                this.getAttribute("data-context") ===
-                    event.detail.params.context,
-            );
+            this.querySelectorAll("a").forEach((anchor) => {
+                anchor.classList.toggle(
+                    headerClasses.lenkeActive,
+                    anchor.getAttribute("data-context") ===
+                        event.detail.params.context,
+                );
+            });
         }
     };
 
     connectedCallback() {
-        super.connectedCallback();
-
-        this.addEventListener("click", this.handleClick);
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.addEventListener("click", this.handleClick),
+            window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }
 
     disconnectedCallback() {
@@ -44,4 +41,4 @@ class ContextLink extends CustomLinkElement {
     }
 }
 
-defineCustomElement("context-link", ContextLink);
+defineCustomElement("context-links", ContextLinks);

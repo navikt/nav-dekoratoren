@@ -60,19 +60,11 @@ export function ComplexHeader({
                                 })}
                             </lenke-med-sporing>
                             ${contextLinks.length > 0 &&
-                            html`<div class="${cls.arbeidsflate}">
+                            html`<context-links class="${cls.arbeidsflate}">
                                 ${contextLinks.map(
                                     ({ url, lenkeTekstId, context }) =>
-                                        html` <context-link
+                                        html`<a
                                             href="${url}"
-                                            data-analytics-event-args="${JSON.stringify(
-                                                {
-                                                    action: "arbeidsflate-valg",
-                                                    category:
-                                                        "dekorator-header",
-                                                    label: context,
-                                                },
-                                            )}"
                                             class="${clsx(
                                                 cls.headerContextLink,
                                                 {
@@ -84,9 +76,9 @@ export function ComplexHeader({
                                             data-context="${context.toLowerCase()}"
                                         >
                                             ${i18n(lenkeTekstId)}
-                                        </context-link>`,
+                                        </a>`,
                                 )}
-                            </div>`}
+                            </context-links>`}
                         </div>
                         <div class="${menuItemsCls.menuItems}">
                             ${UserMenu({ loginUrl })}
