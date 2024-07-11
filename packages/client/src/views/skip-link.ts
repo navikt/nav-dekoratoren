@@ -1,11 +1,11 @@
-import { LenkeMedSporingElement } from "./lenke-med-sporing";
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
 
 const DEFERRED_UPDATE_TIME = 5000;
 
 // TODO: add event listener for SPA navigation
 
-class SkipLinkElement extends LenkeMedSporingElement {
+class SkipLinkElement extends HTMLElement {
     private hasMainContent() {
         return !!document.getElementById("maincontent");
     }
@@ -31,7 +31,13 @@ class SkipLinkElement extends LenkeMedSporingElement {
     }
 
     connectedCallback() {
-        super.connectedCallback();
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(() => ({
+                category: "dekorator-header",
+                action: "skiplink",
+            })),
+        );
 
         this.updateDisplay();
         if (!this.hasMainContent()) {
