@@ -9,6 +9,7 @@ import cls from "./breadcrumbs.module.css";
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
     label: Template;
+    frontPageUrl: string;
 };
 
 const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
@@ -28,7 +29,11 @@ const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     });
 };
 
-export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({
+    breadcrumbs,
+    label,
+    frontPageUrl,
+}: BreadcrumbsProps) => {
     validateBreadcrumbs(breadcrumbs);
 
     return breadcrumbs.length > 0
@@ -37,7 +42,7 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                   <ol class="${cls.list}">
                       <li class="${cls.listItem}">
                           <a
-                              href="/"
+                              href="${frontPageUrl}"
                               class="${clsx(
                                   cls.homeLink,
                                   globalCls["navds-link"],

@@ -3,7 +3,7 @@ import { Breadcrumbs as BreadcrumbsTemplate } from "decorator-shared/views/bread
 import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../events";
 import i18n from "../i18n";
-import { param } from "../params";
+import { env, param } from "../params";
 import { amplitudeEvent } from "../analytics/amplitude";
 
 class Breadcrumbs extends HTMLElement {
@@ -12,6 +12,7 @@ class Breadcrumbs extends HTMLElement {
             BreadcrumbsTemplate({
                 breadcrumbs,
                 label: i18n("breadcrumbs"),
+                frontPageUrl: env("XP_BASE_URL"),
             })?.render({ language: param("language") }) ?? "";
     };
 

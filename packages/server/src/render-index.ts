@@ -56,20 +56,23 @@ export function renderHeader({
 }: {
     data: Params;
 }) {
+    const frontPageUrl = clientEnv.XP_BASE_URL;
+
     const decoratorUtils = DecoratorUtils({
         breadcrumbs,
         availableLanguages,
         utilsBackground,
+        frontPageUrl,
     });
 
     return simple || simpleHeader
         ? SimpleHeader({
-              frontPageUrl: clientEnv.XP_BASE_URL,
+              frontPageUrl,
               decoratorUtils,
               loginUrl: env.LOGIN_URL,
           })
         : ComplexHeader({
-              frontPageUrl: clientEnv.XP_BASE_URL,
+              frontPageUrl,
               contextLinks: makeContextLinks(language),
               context,
               language,

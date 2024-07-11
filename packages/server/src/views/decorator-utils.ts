@@ -15,12 +15,14 @@ export type DecoratorUtilsProps = {
     breadcrumbs: Breadcrumb[];
     availableLanguages: AvailableLanguage[];
     utilsBackground: UtilsBackground;
+    frontPageUrl: string;
 };
 
 export const DecoratorUtils = ({
     breadcrumbs,
     availableLanguages,
     utilsBackground,
+    frontPageUrl,
 }: DecoratorUtilsProps) => {
     return html`
         <decorator-utils
@@ -41,6 +43,7 @@ export const DecoratorUtils = ({
                     >${Breadcrumbs({
                         breadcrumbs,
                         label: i18n("breadcrumbs"),
+                        frontPageUrl,
                     })}</d-breadcrumbs
                 >
                 ${LanguageSelector({ availableLanguages })}
