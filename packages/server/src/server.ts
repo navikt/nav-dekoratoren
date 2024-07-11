@@ -19,6 +19,7 @@ import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { IndexTemplate } from "./views";
 import { MainMenu } from "./views/header/main-menu";
+import { prometheus } from "@hono/prometheus";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
 import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
@@ -47,6 +48,11 @@ app.use(headers);
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
 }
+
+const { printMetrics, registerMetrics } = prometheus();
+
+app.use("*", registerMetrics);
+app.get("/metrics", printMetrics);
 
 app.get("/public/assets/*", serveStatic({}));
 

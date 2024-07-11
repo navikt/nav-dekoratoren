@@ -1,13 +1,14 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import {
+    ExclamationmarkTriangleIcon,
+    InformationSquareIcon,
+} from "decorator-icons";
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
-import {
-    InformationSquareIcon,
-    ExclamationmarkTriangleIcon,
-} from "decorator-icons";
-import { env } from "../params";
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
+import { env } from "../params";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
@@ -16,21 +17,14 @@ export const OpsMessagesTemplate = ({
 }) => html`
     <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
         ${opsMessages.map(
-            ({ heading, url, type }) =>
-                html` <lenke-med-sporing
-                    data-analytics-event-args="${JSON.stringify({
-                        category: "dekorator-header",
-                        action: "driftsmeldinger",
-                        label: url,
-                    })}"
-                    href="${url}"
-                    class="${cls.opsMessage}"
-                >
+            ({ heading, url, type }) => html`
+                <a href="${url}" class="${cls.opsMessage}">
                     ${type === "prodstatus"
-                        ? ExclamationmarkTriangleIcon()
-                        : InformationSquareIcon()}
-                    <span>${heading}</span>
-                </lenke-med-sporing>`,
+                        ? ExclamationmarkTriangleIcon({ className: cls.icon })
+                        : InformationSquareIcon({ className: cls.icon })}
+                    ${heading}
+                </a>
+            `,
         )}
     </section>
 `;
@@ -53,6 +47,13 @@ class OpsMessages extends HTMLElement {
 
         window.addEventListener("historyPush", () => this.render());
         window.addEventListener("popstate", () => this.render());
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(() => ({
+                action: "driftsmeldinger",
+                category: "dekorator-header",
+            })),
+        );
     }
 
     private render() {

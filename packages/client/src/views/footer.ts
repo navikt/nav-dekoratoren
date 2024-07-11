@@ -1,3 +1,4 @@
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
 
@@ -11,6 +12,18 @@ class Footer extends HTMLElement {
     };
 
     connectedCallback() {
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(({ href }) =>
+                href && href !== "#"
+                    ? {
+                          action: `kontakt/${href}`,
+                          category: "dekorator-footer",
+                      }
+                    : null,
+            ),
+        );
+
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }
 

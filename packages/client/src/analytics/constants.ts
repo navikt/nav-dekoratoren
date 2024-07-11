@@ -17,7 +17,8 @@ type AnalyticsActions =
     | "[redacted]"
     | "nav.no"
     | "arbeidsflate-valg"
-    | `${string}/${string}`;
+    | `${string}/${string}`
+    | string;
 
 export const analyticsEvents = {
     arkivertBeskjed: [
