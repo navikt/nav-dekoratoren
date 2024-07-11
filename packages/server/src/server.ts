@@ -172,6 +172,8 @@ app.get("/ssr", async ({ req, json }) => {
         head: "coming soon!",
     });
 });
+// /env is used for CSR
+// TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.get("/env", async ({ req, json }) => {
     const params = validParams(req.query());
     const features = getFeatures();
