@@ -1,6 +1,7 @@
 import html, { json, Template, unsafeHtml } from "decorator-shared/html";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import {
+    ClientTexts,
     clientTextsKeys,
     Features,
     HtmlElementProps,
@@ -9,6 +10,7 @@ import { clientEnv, env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
 import { Params } from "decorator-shared/params";
 import { texts } from "../texts";
+import { buildCdnUrl } from "../urls";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
@@ -20,8 +22,6 @@ r=o.createElement('script');r.async=1;
 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
-
-const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
 
 const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     if (env.NODE_ENV === "development") {
@@ -51,7 +51,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
         .map((item) => ({
             tag: "script",
             attribs: {
-                src: cdnUrl(item.file),
+                src: buildCdnUrl(item.file),
                 type: "module",
                 // Load everything except the entry file async
                 ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
@@ -83,7 +83,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
 
 export const scriptsProps = await getScriptsProps();
 
-const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
+const scripts = unsafeHtml(scriptsProps.map(buildHtmlElementString).join(""));
 
 type DecoratorDataProps = {
     features: Features;
@@ -93,7 +93,9 @@ type DecoratorDataProps = {
 export const buildDecoratorData = ({ features, params }: DecoratorDataProps) =>
     json({
         texts: Object.entries(texts[params.language])
-            .filter(([key]) => clientTextsKeys.includes(key))
+            .filter(([key]) =>
+                clientTextsKeys.includes(key as keyof ClientTexts),
+            )
             .reduce(
                 (prev, [key, value]) => ({
                     ...prev,
@@ -116,6 +118,6 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );
         </script>
-        ${unsafeHtml(scriptsAsString)}
+        ${scripts}
     `;
 };

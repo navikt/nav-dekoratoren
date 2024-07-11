@@ -1,46 +1,20 @@
-import html, { unsafeHtml } from "decorator-shared/html";
+import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
-import { env } from "../env/server";
-import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import { ScriptsTemplate, scriptsProps } from "./scripts";
 import { getFeatures } from "../unleash";
 import { HeaderTemplate } from "./header/header";
 import { FooterTemplate } from "./footer/footer";
 import { getSplashPage } from "./splash-page";
-
-const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
-
-const getCSSUrl = async () => {
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default;
-
-    return cdnUrl(manifest["src/main.ts"].css[0]);
-};
+import { getCSSUrl, StylesTemplate } from "./styles";
+import { buildCdnUrl } from "../urls";
 
 const getCSRScriptUrl = async () => {
     const csrManifest = (
         await import("decorator-client/dist/.vite/csr.manifest.json")
     ).default;
 
-    return cdnUrl(csrManifest["src/csr.ts"].file);
+    return buildCdnUrl(csrManifest["src/csr.ts"].file);
 };
-
-const getCssAsString = async () => {
-    if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
-        return "";
-    }
-
-    return buildHtmlElementString({
-        tag: "link",
-        attribs: {
-            type: "text/css",
-            rel: "stylesheet",
-            href: await getCSSUrl(),
-        },
-    });
-};
-
-const cssAsString = await getCssAsString();
 
 export const csrAssets = {
     cssUrl: await getCSSUrl(),
@@ -76,9 +50,7 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
                 />
             </head>
             <body>
-                <div id="styles" style="display:none">
-                    ${unsafeHtml(cssAsString)}
-                </div>
+                <div id="styles" style="display:none">${StylesTemplate()}</div>
                 <div id="header-withmenu">
                     ${HeaderTemplate({
                         params,

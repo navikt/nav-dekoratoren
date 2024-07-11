@@ -22,6 +22,7 @@ import { MainMenu } from "./views/header/main-menu";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
 import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
+import { StylesTemplate } from "./views/styles";
 
 const startupTime = Date.now();
 
@@ -159,6 +160,7 @@ app.get("/ssr", async ({ req, json }) => {
             })
         ).render(params),
         scripts: ScriptsTemplate({ features, params }).render(params),
+        styles: StylesTemplate().render(params),
     });
 });
 app.get("/env", async ({ req, json }) => {
