@@ -8,6 +8,7 @@ import {
 } from "decorator-icons";
 import { env } from "../params";
 import { defineCustomElement } from "../custom-elements";
+import { amplitudeEvent } from "../analytics/amplitude";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
@@ -16,21 +17,14 @@ export const OpsMessagesTemplate = ({
 }) => html`
     <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
         ${opsMessages.map(
-            ({ heading, url, type }) =>
-                html` <lenke-med-sporing
-                    data-analytics-event-args="${JSON.stringify({
-                        category: "dekorator-header",
-                        action: "driftsmeldinger",
-                        label: url,
-                    })}"
-                    href="${url}"
-                    class="${cls.opsMessage}"
-                >
+            ({ heading, url, type }) => html`
+                <a href="${url}" class="${cls.opsMessage}">
                     ${type === "prodstatus"
-                        ? ExclamationmarkTriangleIcon()
-                        : InformationSquareIcon()}
-                    <span>${heading}</span>
-                </lenke-med-sporing>`,
+                        ? ExclamationmarkTriangleIcon({ className: cls.icon })
+                        : InformationSquareIcon({ className: cls.icon })}
+                    ${heading}
+                </a>
+            `,
         )}
     </section>
 `;
@@ -53,7 +47,18 @@ class OpsMessages extends HTMLElement {
 
         window.addEventListener("historyPush", () => this.render());
         window.addEventListener("popstate", () => this.render());
+        this.addEventListener("click", this.handleClick);
     }
+
+    private handleClick = (event: MouseEvent) => {
+        if (event.target instanceof HTMLAnchorElement) {
+            amplitudeEvent({
+                category: "dekorator-header",
+                action: "driftsmeldinger",
+                label: event.target.getAttribute("href") ?? "",
+            });
+        }
+    };
 
     private render() {
         const filteredMessages = this.messages.filter(
