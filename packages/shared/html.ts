@@ -91,12 +91,9 @@ const html = (
             } else if (typeof item === "string") {
                 // Escape strings
                 return escapeHtml(item);
-            } else if (typeof item === "number") {
-                // Convert numbers to string
+            } else if (typeof item === "number" || item === true) {
+                // Convert numbers and true to string
                 return String(item);
-            } else if (item === true) {
-                // Make "true" into true string
-                return "true";
             } else {
                 // Render template
                 return item.render(params).trim();
