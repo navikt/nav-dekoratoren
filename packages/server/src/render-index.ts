@@ -5,8 +5,8 @@ import { getFeatures } from "./unleash";
 import { Index } from "./views";
 import { DecoratorData } from "./views/decorator-data";
 import { getSplashPage } from "./views/splash-page";
-import { HeaderContainer } from "./views/header/header-container";
-import { FooterContainer } from "./views/footer/footer-container";
+import { Header } from "./views/header/header";
+import { Footer } from "./views/footer/footer";
 
 export default async ({
     data,
@@ -22,10 +22,10 @@ export default async ({
 
     return Index({
         language,
-        header: HeaderContainer({
+        header: Header({
             params: data,
         }),
-        footer: await FooterContainer({
+        footer: await Footer({
             params: data,
             features,
         }),

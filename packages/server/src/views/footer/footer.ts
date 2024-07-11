@@ -1,46 +1,64 @@
-import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
-import { Features, Link, LinkGroup } from "decorator-shared/types";
-import { Feedback } from "../feedback";
-import { LogoutWarning } from "../logout-warning";
+import { Features } from "decorator-shared/types";
+import {
+    getComplexFooterLinks,
+    getSimpleFooterLinks,
+} from "../../menu/main-menu";
+import { env } from "../../env/server";
+import html, { Template } from "decorator-shared/html";
 import { getModal } from "../screensharing-modal";
-import { ComplexFooter } from "./complex-footer";
+import { LogoutWarning } from "../logout-warning";
+import { Feedback } from "../feedback";
 import { SimpleFooter } from "./simple-footer";
+import { ComplexFooter } from "./complex-footer";
 
-type FooterProps = {
+const CONTACT_URL = `${env.XP_BASE_URL}/kontaktoss`;
+
+type Props = {
     params: Params;
     features: Features;
-    contactUrl: string;
-} & (
-    | {
-          simple: true;
-          links: Link[];
-      }
-    | {
-          simple: false;
-          links: LinkGroup[];
-      }
-);
+    withContainers?: boolean;
+};
 
-export const Footer = ({
-    simple,
-    links,
+export const Footer = async ({
     params,
     features,
-    contactUrl,
-}: FooterProps) => html`
-    ${getModal({
-        enabled: params.shareScreen && features["dekoratoren.skjermdeling"],
-    })}
-    <d-chatbot></d-chatbot>
-    ${LogoutWarning()} ${params.feedback ? Feedback({ contactUrl }) : undefined}
-    ${simple
-        ? SimpleFooter({
-              links,
-              features,
-          })
-        : ComplexFooter({
-              links,
-              features,
-          })}
-`;
+    withContainers,
+}: Props): Promise<Template> => {
+    const { shareScreen, feedback, simple, simpleFooter, language, context } =
+        params;
+
+    const footerContent =
+        simple || simpleFooter
+            ? SimpleFooter({
+                  links: await getSimpleFooterLinks({
+                      language,
+                  }),
+                  features,
+              })
+            : ComplexFooter({
+                  links: await getComplexFooterLinks({
+                      language,
+                      context,
+                  }),
+                  features,
+              });
+
+    const footer = html`
+        ${getModal({
+            enabled: shareScreen && features["dekoratoren.skjermdeling"],
+        })}
+        <d-chatbot></d-chatbot>
+        ${LogoutWarning()}
+        ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}
+        ${footerContent}
+    `;
+
+    return withContainers
+        ? html`
+              <div id="decorator-footer">
+                  <decorator-footer>${footer}</decorator-footer>
+              </div>
+          `
+        : footer;
+};

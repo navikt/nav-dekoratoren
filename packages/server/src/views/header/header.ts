@@ -6,13 +6,12 @@ import { clientEnv, env } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
 
-export const HeaderContainer = ({
-    params,
-    withOuterElements,
-}: {
+type Props = {
     params: Params;
-    withOuterElements?: boolean;
-}): Template => {
+    withContainers?: boolean;
+};
+
+export const Header = ({ params, withContainers }: Props): Template => {
     const {
         breadcrumbs,
         availableLanguages,
@@ -45,7 +44,7 @@ export const HeaderContainer = ({
                   loginUrl: env.LOGIN_URL,
               });
 
-    return withOuterElements
+    return withContainers
         ? html`
               <header id="decorator-header">
                   <decorator-header>${headerContent}</decorator-header>
