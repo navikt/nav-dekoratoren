@@ -9,11 +9,10 @@ import {
 import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
-import { env } from "./env/server";
-import testData from "./menu/main-menu-mock.json";
-import renderIndex from "./render-index";
-import { validParams } from "./validateParams";
-import { texts } from "./texts";
+import testData from "../menu/main-menu-mock.json";
+import { IndexTemplate } from "./index";
+import { validParams } from "../validateParams";
+import { env } from "../env/server";
 
 let server: SetupServerApi;
 
@@ -29,12 +28,15 @@ beforeEach(() => clearCache());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test("render-index", async () => {
-    expect(
-        await renderIndex({
-            data: validParams({}),
+test("Index component should render", async () => {
+    const params = validParams({});
+
+    const indexContent = (
+        await IndexTemplate({
+            params,
             url: "localhost:8089/",
-            texts: texts.nb,
-        }),
-    ).toContain("<!doctype html>");
+        })
+    ).render(params);
+
+    expect(indexContent).toContain("<!doctype html>");
 });
