@@ -1,7 +1,6 @@
-import { amplitudeEvent } from "../analytics/amplitude";
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
-import { param } from "../params";
 
 class Footer extends HTMLElement {
     handleParamsUpdated = (e: CustomEvent) => {
@@ -13,20 +12,17 @@ class Footer extends HTMLElement {
     };
 
     connectedCallback() {
-        this.addEventListener("click", (event: MouseEvent) => {
-            if (event.target instanceof HTMLAnchorElement) {
-                const url = event.target.getAttribute("href");
-
-                if (url && url !== "#") {
-                    amplitudeEvent({
-                        context: param("context"),
-                        action: `kontakt/${url}`,
-                        category: "dekorator-footer",
-                        label: url,
-                    });
-                }
-            }
-        });
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(({ href }) =>
+                href && href !== "#"
+                    ? {
+                          action: `kontakt/${href}`,
+                          category: "dekorator-footer",
+                      }
+                    : null,
+            ),
+        );
 
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }

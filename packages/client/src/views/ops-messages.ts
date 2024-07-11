@@ -8,7 +8,7 @@ import {
 } from "decorator-icons";
 import { env } from "../params";
 import { defineCustomElement } from "../custom-elements";
-import { amplitudeEvent } from "../analytics/amplitude";
+import { amplitudeClickListener, amplitudeEvent } from "../analytics/amplitude";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
@@ -47,18 +47,14 @@ class OpsMessages extends HTMLElement {
 
         window.addEventListener("historyPush", () => this.render());
         window.addEventListener("popstate", () => this.render());
-        this.addEventListener("click", this.handleClick);
-    }
-
-    private handleClick = (event: MouseEvent) => {
-        if (event.target instanceof HTMLAnchorElement) {
-            amplitudeEvent({
-                category: "dekorator-header",
+        this.addEventListener(
+            "click",
+            amplitudeClickListener({
                 action: "driftsmeldinger",
-                label: event.target.getAttribute("href") ?? "",
-            });
-        }
-    };
+                category: "dekorator-header",
+            }),
+        );
+    }
 
     private render() {
         const filteredMessages = this.messages.filter(

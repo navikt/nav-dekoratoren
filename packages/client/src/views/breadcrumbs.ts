@@ -4,7 +4,7 @@ import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../events";
 import i18n from "../i18n";
 import { env, param } from "../params";
-import { amplitudeEvent } from "../analytics/amplitude";
+import { amplitudeClickListener, amplitudeEvent } from "../analytics/amplitude";
 
 class Breadcrumbs extends HTMLElement {
     update = (breadcrumbs: Breadcrumb[]) => {
@@ -25,29 +25,23 @@ class Breadcrumbs extends HTMLElement {
     };
 
     handleClick = (event: MouseEvent) => {
-        if (event.target instanceof HTMLAnchorElement) {
-            const url = event.target.getAttribute("href") ?? undefined;
-            const title =
-                event.target.getAttribute("data-title") ??
-                event.target.textContent?.trim() ??
-                "";
-
-            amplitudeEvent({
-                category: "dekorator-header",
-                komponent: "brødsmule",
-                action: title,
-                label: url,
+        if (
+            event.target instanceof HTMLAnchorElement &&
+            event.target.getAttribute("data-handle-in-app") !== null
+        ) {
+            event.preventDefault();
+            window.postMessage({
+                source: "decorator",
+                event: "breadcrumbClick",
+                payload: {
+                    url: event.target.href,
+                    title:
+                        event.target.getAttribute("data-title") ??
+                        event.target.textContent?.trim() ??
+                        "",
+                    handleInApp: true,
+                },
             });
-
-            if (event.target.getAttribute("data-handle-in-app") !== null) {
-                event.preventDefault();
-
-                window.postMessage({
-                    source: "decorator",
-                    event: "breadcrumbClick",
-                    payload: { url, title, handleInApp: true },
-                });
-            }
         }
     };
 
@@ -55,6 +49,17 @@ class Breadcrumbs extends HTMLElement {
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         this.update(param("breadcrumbs"));
         this.addEventListener("click", this.handleClick);
+        this.addEventListener(
+            "click",
+            amplitudeClickListener((anchor) => ({
+                category: "dekorator-header",
+                komponent: "brødsmule",
+                action:
+                    anchor.getAttribute("data-title") ??
+                    anchor.textContent?.trim() ??
+                    "",
+            })),
+        );
     }
 
     disconnectedCallback() {
