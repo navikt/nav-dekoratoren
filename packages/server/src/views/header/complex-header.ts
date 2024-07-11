@@ -44,21 +44,12 @@ export function ComplexHeader({
                         class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
                     >
                         <div class="${cls.hovedmenyContent}">
-                            <lenke-med-sporing
-                                href="${frontPageUrl}"
-                                class="${cls.logo}"
-                                data-analytics
-                                event
-                                args="${JSON.stringify({
-                                    category: "dekorator-header",
-                                    action: "navlogo",
-                                })}"
-                            >
-                                ${NavLogo({
+                            <a href="${frontPageUrl}" class="${cls.logo}"
+                                >${NavLogo({
                                     title: i18n("to_front_page"),
                                     titleId: "logo-svg-title",
-                                })}
-                            </lenke-med-sporing>
+                                })}</a
+                            >
                             ${contextLinks.length > 0 &&
                             html`
                                 <context-links class="${cls.arbeidsflate}"
