@@ -44,7 +44,7 @@ export const csrAssets = {
     mainScriptsProps: scriptsProps,
 };
 
-type Props = {
+type IndexProps = {
     language: Language;
     header: Template;
     footer: Template;
@@ -52,7 +52,7 @@ type Props = {
     main?: Template;
 };
 
-export function Index({ language, header, footer, scripts, main }: Props) {
+export function Index({ language, header, footer, scripts, main }: IndexProps) {
     return html`
         <!doctype html>
         <html lang="${language}">

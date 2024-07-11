@@ -14,7 +14,7 @@ import { ComplexFooter } from "./complex-footer";
 
 const CONTACT_URL = `${env.XP_BASE_URL}/kontaktoss`;
 
-type Props = {
+type FooterProps = {
     params: Params;
     features: Features;
     withContainers: boolean;
@@ -24,7 +24,7 @@ export const Footer = async ({
     params,
     features,
     withContainers,
-}: Props): Promise<Template> => {
+}: FooterProps): Promise<Template> => {
     const { shareScreen, feedback, simple, simpleFooter, language, context } =
         params;
 

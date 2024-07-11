@@ -6,12 +6,12 @@ import { clientEnv, env } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
 
-type Props = {
+type HeaderProps = {
     params: Params;
     withContainers: boolean;
 };
 
-export const Header = ({ params, withContainers }: Props): Template => {
+export const Header = ({ params, withContainers }: HeaderProps): Template => {
     const {
         breadcrumbs,
         availableLanguages,

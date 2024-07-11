@@ -1,11 +1,10 @@
 import { Server } from "bun";
-import { clientTextsKeys } from "decorator-shared/types";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
-import { clientEnv, env } from "./env/server";
+import { env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
@@ -17,14 +16,13 @@ import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import renderIndex from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
-import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { Header } from "./views/header/header";
 import { Footer } from "./views/footer/footer";
-import { Scripts } from "./views/scripts";
+import { buildDecoratorData, Scripts } from "./views/scripts";
 
 const startupTime = Date.now();
 
@@ -126,19 +124,21 @@ app.get("/auth", async ({ req, json }) =>
 );
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
-    const data = validParams(req.query());
-    return html(Header({ params: data, withContainers: false }).render(data));
+    const params = validParams(req.query());
+
+    return html(Header({ params, withContainers: false }).render(params));
 });
 app.get("/footer", async ({ req, html }) => {
-    const data = validParams(req.query());
+    const params = validParams(req.query());
+
     return html(
         (
             await Footer({
                 features: getFeatures(),
-                params: data,
+                params,
                 withContainers: false,
             })
-        ).render(data),
+        ).render(params),
     );
 });
 app.get("/ssr", async ({ req, json }) => {
@@ -157,7 +157,7 @@ app.get("/ssr", async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        scripts: Scripts({ features, params }),
+        scripts: Scripts({ features, params }).render(params),
     });
 });
 app.get("/env", async ({ req, json }) => {
@@ -176,20 +176,7 @@ app.get("/env", async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        data: {
-            texts: Object.entries(texts[params.language])
-                .filter(([key]) => clientTextsKeys.includes(key as any))
-                .reduce(
-                    (prev, [key, value]) => ({
-                        ...prev,
-                        [key]: value,
-                    }),
-                    {},
-                ),
-            params,
-            features,
-            env: clientEnv,
-        },
+        data: buildDecoratorData({ params, features }),
         scripts: csrAssets.mainScriptsProps,
         //TODO: Add css?
     });

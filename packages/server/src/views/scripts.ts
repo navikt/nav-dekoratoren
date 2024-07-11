@@ -1,10 +1,14 @@
-import html, { Template, unsafeHtml } from "decorator-shared/html";
+import html, { json, Template, unsafeHtml } from "decorator-shared/html";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import { Features, HtmlElementProps } from "decorator-shared/types";
-import { env } from "../env/server";
+import {
+    clientTextsKeys,
+    Features,
+    HtmlElementProps,
+} from "decorator-shared/types";
+import { clientEnv, env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
-import { DecoratorData } from "./decorator-data";
 import { Params } from "decorator-shared/params";
+import { texts } from "../texts";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
@@ -81,17 +85,32 @@ export const scriptsProps = await getScriptsProps();
 
 const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
 
-type Props = {
+type DecoratorDataProps = {
     features: Features;
     params: Params;
 };
 
-export const Scripts = ({ features, params }: Props): Template => {
+export const buildDecoratorData = ({ features, params }: DecoratorDataProps) =>
+    json({
+        texts: Object.entries(texts[params.language])
+            .filter(([key]) => clientTextsKeys.includes(key))
+            .reduce(
+                (prev, [key, value]) => ({
+                    ...prev,
+                    [key]: value,
+                }),
+                {},
+            ),
+        params,
+        features,
+        env: clientEnv,
+    });
+
+export const Scripts = (props: DecoratorDataProps): Template => {
     return html`
-        ${DecoratorData({
-            features,
-            params,
-        })}
+        <script type="application/json" id="__DECORATOR_DATA__">
+            ${buildDecoratorData(props)}
+        </script>
         <script>
             window.__DECORATOR_DATA__ = JSON.parse(
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
