@@ -36,10 +36,6 @@
     }
 }
 
-.span {
-    text-decoration: underline;
-}
-
 .listItem {
     display: flex;
     align-items: center;
