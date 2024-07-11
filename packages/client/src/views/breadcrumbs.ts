@@ -27,7 +27,7 @@ class Breadcrumbs extends HTMLElement {
     handleClick = (e: MouseEvent) => {
         const anchor =
             e.target instanceof Element ? e.target.closest("a") : null;
-        if (anchor && anchor.getAttribute("data-handle-in-app") !== null) {
+        if (anchor && anchor.hasAttribute("data-handle-in-app")) {
             e.preventDefault();
             window.postMessage({
                 source: "decorator",

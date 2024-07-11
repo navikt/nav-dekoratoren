@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import { ChevronRightIcon, HouseIcon } from "decorator-icons";
-import html, { Template } from "../html";
+import html, { Template, htmlAttributes } from "../html";
 import { Breadcrumb } from "../params";
 import { isNavUrl } from "../utils";
 import cls from "./breadcrumbs.module.css";
@@ -58,13 +58,15 @@ export const Breadcrumbs = ({
                                       ? title
                                       : html`
                                             <a
-                                                ${handleInApp &&
-                                                "data-handle-in-app"}
-                                                class="${clsx(
-                                                    cls.link,
-                                                    globalCls["navds-link"],
-                                                )}"
-                                                href="${url}"
+                                                ${htmlAttributes({
+                                                    className: clsx(
+                                                        cls.link,
+                                                        globalCls["navds-link"],
+                                                    ),
+                                                    ["data-handle-in-app"]:
+                                                        handleInApp ?? false,
+                                                    href: url ?? "#",
+                                                })}
                                                 >${title}</a
                                             >
                                         `}
