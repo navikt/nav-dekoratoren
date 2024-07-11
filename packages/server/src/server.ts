@@ -162,6 +162,7 @@ app.get("/ssr", async ({ req, json }) => {
         ).render(params),
         scripts: ScriptsTemplate({ features, params }).render(params),
         styles: StylesTemplate().render(params),
+        // TODO: add head-elements
     });
 });
 app.get("/env", async ({ req, json }) => {
