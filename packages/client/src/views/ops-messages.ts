@@ -49,10 +49,10 @@ class OpsMessages extends HTMLElement {
         window.addEventListener("popstate", () => this.render());
         this.addEventListener(
             "click",
-            amplitudeClickListener({
+            amplitudeClickListener(() => ({
                 action: "driftsmeldinger",
                 category: "dekorator-header",
-            }),
+            })),
         );
     }
 

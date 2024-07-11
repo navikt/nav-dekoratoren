@@ -141,14 +141,10 @@ export const logAmplitudeEvent = async (
 };
 
 export const amplitudeClickListener =
-    (
-        fn:
-            | ((el: HTMLAnchorElement) => AnalyticsEventArgs | null)
-            | AnalyticsEventArgs,
-    ) =>
+    (fn: (el: HTMLAnchorElement) => AnalyticsEventArgs | null) =>
     (event: MouseEvent) => {
         if (event.target instanceof HTMLAnchorElement) {
-            const args = typeof fn === "function" ? fn(event.target) : fn;
+            const args = fn(event.target);
             if (args) {
                 amplitudeEvent({
                     context: param("context"),
