@@ -1,3 +1,5 @@
+import cls from "../styles/header.module.css";
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { updateDecoratorParams } from "../params";
@@ -51,6 +53,15 @@ class Header extends HTMLElement {
     connectedCallback() {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+
+        this.addEventListener(
+            "click",
+            amplitudeClickListener((anchor) =>
+                anchor.classList.contains(cls.logo)
+                    ? { category: "dekorator-header", action: "navlogo" }
+                    : null,
+            ),
+        );
     }
 
     disconnectedCallback() {

@@ -21,19 +21,12 @@ export const SimpleHeader = ({
     <div class="${cls.siteheader}">
         ${SkipLink(i18n("skip_link"))}
         <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-            <lenke-med-sporing
-                href="${frontPageUrl}"
-                class="${cls.logo} ${cls.logoSimple}"
-                data-analytics-event-args="${JSON.stringify({
-                    category: "dekorator-header",
-                    action: "navlogo",
-                })}"
-            >
-                ${NavLogo({
+            <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"
+                >${NavLogo({
                     title: i18n("to_front_page"),
                     titleId: "logo-svg-title",
-                })}
-            </lenke-med-sporing>
+                })}</a
+            >
             ${UserMenu({ loginUrl })}
         </div>
     </div>

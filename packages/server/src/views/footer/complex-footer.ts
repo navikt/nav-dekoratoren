@@ -4,7 +4,6 @@ import utilCls from "decorator-client/src/styles/utilities.module.css";
 import { ArrowUpIcon } from "decorator-icons";
 import html from "decorator-shared/html";
 import { Features, LinkGroup } from "decorator-shared/types";
-import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { ScreenshareButton } from "./screenshare-button";
