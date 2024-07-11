@@ -23,6 +23,7 @@
     ],
     "dependencies": {
         "@grafana/faro-web-sdk": "1.7.2",
+        "@hono/prometheus": "^1.0.1",
         "@navikt/nav-dekoratoren-moduler": "2.1.5",
         "clsx": "2.1.1",
         "esbuild-minify-templates": "0.11.0",

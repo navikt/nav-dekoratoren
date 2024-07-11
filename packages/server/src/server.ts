@@ -23,6 +23,7 @@ import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
+import { prometheus } from "@hono/prometheus";
 
 const startupTime = Date.now();
 
@@ -46,6 +47,11 @@ app.use(headers);
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
 }
+
+const { printMetrics, registerMetrics } = prometheus();
+
+app.use("*", registerMetrics);
+app.get("/metrics", printMetrics);
 
 app.get("/public/assets/*", serveStatic({}));
 
