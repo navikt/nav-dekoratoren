@@ -1,14 +1,14 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import {
+    ExclamationmarkTriangleIcon,
+    InformationSquareIcon,
+} from "decorator-icons";
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
-import {
-    InformationSquareIcon,
-    ExclamationmarkTriangleIcon,
-} from "decorator-icons";
-import { env } from "../params";
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
-import { amplitudeClickListener, amplitudeEvent } from "../analytics/amplitude";
+import { env } from "../params";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
