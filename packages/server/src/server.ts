@@ -1,5 +1,4 @@
 import { Server } from "bun";
-import html from "decorator-shared/html";
 import { clientTextsKeys } from "decorator-shared/types";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
@@ -16,13 +15,15 @@ import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import renderIndex, { renderFooter, renderHeader } from "./render-index";
+import renderIndex from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
+import { HeaderContainer } from "./views/header/header-container";
+import { FooterContainer } from "./views/footer/footer-container";
 
 const startupTime = Date.now();
 
@@ -125,35 +126,55 @@ app.get("/auth", async ({ req, json }) =>
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
     const data = validParams(req.query());
-
-    return html(renderHeader({ data }).render(data));
+    return html(HeaderContainer({ params: data }).render(data));
 });
 app.get("/footer", async ({ req, html }) => {
     const data = validParams(req.query());
-
     return html(
-        (await renderFooter({ features: getFeatures(), data })).render(data),
+        (
+            await FooterContainer({
+                features: getFeatures(),
+                params: data,
+            })
+        ).render(data),
     );
 });
-app.get("/env", async ({ req, json }) => {
-    const data = validParams(req.query());
+app.get("/ssr", async ({ req, json }) => {
+    const params = validParams(req.query());
     const features = getFeatures();
 
     return json({
-        header: html`
-            <header id="decorator-header">
-                <decorator-header>${renderHeader({ data })}</decorator-header>
-            </header>
-        `.render(data),
-        footer: html`
-            <div id="decorator-footer">
-                <decorator-footer>
-                    ${await renderFooter({ data, features })}
-                </decorator-footer>
-            </div>
-        `.render(data),
+        header: HeaderContainer({
+            params,
+            withOuterElements: true,
+        }).render(params),
+        footer: (
+            await FooterContainer({
+                params,
+                features,
+                withOuterElements: true,
+            })
+        ).render(params),
+    });
+});
+app.get("/env", async ({ req, json }) => {
+    const params = validParams(req.query());
+    const features = getFeatures();
+
+    return json({
+        header: HeaderContainer({
+            params,
+            withOuterElements: true,
+        }).render(params),
+        footer: (
+            await FooterContainer({
+                params,
+                features,
+                withOuterElements: true,
+            })
+        ).render(params),
         data: {
-            texts: Object.entries(texts[data.language])
+            texts: Object.entries(texts[params.language])
                 .filter(([key]) => clientTextsKeys.includes(key as any))
                 .reduce(
                     (prev, [key, value]) => ({
@@ -162,7 +183,7 @@ app.get("/env", async ({ req, json }) => {
                     }),
                     {},
                 ),
-            params: data,
+            params,
             features,
             env: clientEnv,
         },

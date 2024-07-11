@@ -1,16 +1,12 @@
 import { Params } from "decorator-shared/params";
-import { Features, Texts } from "decorator-shared/types";
-import { makeContextLinks } from "./context";
-import { clientEnv, env } from "./env/server";
-import { getComplexFooterLinks, getSimpleFooterLinks } from "./menu/main-menu";
+import { Texts } from "decorator-shared/types";
+import { clientEnv } from "./env/server";
 import { getFeatures } from "./unleash";
 import { Index } from "./views";
 import { DecoratorData } from "./views/decorator-data";
-import { DecoratorUtils } from "./views/decorator-utils";
-import { Footer } from "./views/footer/footer";
-import { ComplexHeader } from "./views/header/complex-header";
-import { SimpleHeader } from "./views/header/simple-header";
 import { getSplashPage } from "./views/splash-page";
+import { HeaderContainer } from "./views/header/header-container";
+import { FooterContainer } from "./views/footer/footer-container";
 
 export default async ({
     data,
@@ -26,11 +22,11 @@ export default async ({
 
     return Index({
         language,
-        header: renderHeader({
-            data,
+        header: HeaderContainer({
+            params: data,
         }),
-        footer: await renderFooter({
-            data,
+        footer: await FooterContainer({
+            params: data,
             features,
         }),
         decoratorData: DecoratorData({
@@ -42,66 +38,3 @@ export default async ({
         main: getSplashPage(url),
     }).render(data);
 };
-
-export function renderHeader({
-    data: {
-        breadcrumbs,
-        availableLanguages,
-        utilsBackground,
-        simple,
-        simpleHeader,
-        context,
-        language,
-    },
-}: {
-    data: Params;
-}) {
-    const decoratorUtils = DecoratorUtils({
-        breadcrumbs,
-        availableLanguages,
-        utilsBackground,
-    });
-
-    return simple || simpleHeader
-        ? SimpleHeader({
-              frontPageUrl: clientEnv.XP_BASE_URL,
-              decoratorUtils,
-              loginUrl: env.LOGIN_URL,
-          })
-        : ComplexHeader({
-              frontPageUrl: clientEnv.XP_BASE_URL,
-              contextLinks: makeContextLinks(language),
-              context,
-              language,
-              decoratorUtils,
-              loginUrl: env.LOGIN_URL,
-          });
-}
-
-export async function renderFooter({
-    features,
-    data,
-}: {
-    data: Params;
-    features: Features;
-}) {
-    return Footer({
-        ...(data.simple || data.simpleFooter
-            ? {
-                  simple: true,
-                  links: await getSimpleFooterLinks({
-                      language: data.language,
-                  }),
-              }
-            : {
-                  simple: false,
-                  links: await getComplexFooterLinks({
-                      language: data.language,
-                      context: data.context,
-                  }),
-              }),
-        data,
-        features,
-        contactUrl: `${env.XP_BASE_URL}/kontaktoss`,
-    });
-}

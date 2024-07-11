@@ -8,7 +8,7 @@ import { ComplexFooter } from "./complex-footer";
 import { SimpleFooter } from "./simple-footer";
 
 type FooterProps = {
-    data: Params;
+    params: Params;
     features: Features;
     contactUrl: string;
 } & (
@@ -25,15 +25,15 @@ type FooterProps = {
 export const Footer = ({
     simple,
     links,
-    data,
+    params,
     features,
     contactUrl,
 }: FooterProps) => html`
     ${getModal({
-        enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
+        enabled: params.shareScreen && features["dekoratoren.skjermdeling"],
     })}
     <d-chatbot></d-chatbot>
-    ${LogoutWarning()} ${data.feedback ? Feedback({ contactUrl }) : undefined}
+    ${LogoutWarning()} ${params.feedback ? Feedback({ contactUrl }) : undefined}
     ${simple
         ? SimpleFooter({
               links,
