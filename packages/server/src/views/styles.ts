@@ -25,8 +25,8 @@ const getCssElementAsString = async () => {
     });
 };
 
-const cssElementAsString = await getCssElementAsString();
+const cssHtml = unsafeHtml(`${await getCssElementAsString()}`);
 
 export const StylesTemplate = () => {
-    return unsafeHtml(`${cssElementAsString}`);
+    return cssHtml;
 };

@@ -81,11 +81,9 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     ];
 };
 
-const scriptsProps = await getScriptsProps();
-
-export const scriptsAsString = scriptsProps
-    .map(buildHtmlElementString)
-    .join("");
+export const scriptsAsString = await getScriptsProps().then((scriptsProps) =>
+    scriptsProps.map(buildHtmlElementString).join(""),
+);
 
 const scriptsHtml = unsafeHtml(scriptsAsString);
 
