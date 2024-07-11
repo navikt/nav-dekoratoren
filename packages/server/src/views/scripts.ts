@@ -81,9 +81,13 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     ];
 };
 
-export const scriptsProps = await getScriptsProps();
+const scriptsProps = await getScriptsProps();
 
-const scripts = unsafeHtml(scriptsProps.map(buildHtmlElementString).join(""));
+export const scriptsAsString = scriptsProps
+    .map(buildHtmlElementString)
+    .join("");
+
+const scriptsHtml = unsafeHtml(scriptsAsString);
 
 type DecoratorDataProps = {
     features: Features;
@@ -118,6 +122,6 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );
         </script>
-        ${scripts}
+        ${scriptsHtml}
     `;
 };

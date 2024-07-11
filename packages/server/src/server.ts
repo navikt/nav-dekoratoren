@@ -17,12 +17,13 @@ import { fetchOpsMessages } from "./ops-msgs";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { csrAssets, IndexTemplate } from "./views";
+import { IndexTemplate } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
 import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
+import { csrAssets } from "./csr";
 
 const startupTime = Date.now();
 
@@ -180,7 +181,7 @@ app.get("/env", async ({ req, json }) => {
             })
         ).render(params),
         data: buildDecoratorData({ params, features }),
-        scripts: csrAssets.mainScriptsProps,
+        scripts: csrAssets.mainScripts,
         //TODO: Add css?
     });
 });

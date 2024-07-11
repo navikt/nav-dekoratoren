@@ -1,26 +1,11 @@
 import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
-import { ScriptsTemplate, scriptsProps } from "./scripts";
+import { ScriptsTemplate } from "./scripts";
 import { getFeatures } from "../unleash";
 import { HeaderTemplate } from "./header/header";
 import { FooterTemplate } from "./footer/footer";
 import { getSplashPage } from "./splash-page";
-import { getCSSUrl, StylesTemplate } from "./styles";
-import { buildCdnUrl } from "../urls";
-
-const getCSRScriptUrl = async () => {
-    const csrManifest = (
-        await import("decorator-client/dist/.vite/csr.manifest.json")
-    ).default;
-
-    return buildCdnUrl(csrManifest["src/csr.ts"].file);
-};
-
-export const csrAssets = {
-    cssUrl: await getCSSUrl(),
-    csrScriptUrl: await getCSRScriptUrl(),
-    mainScriptsProps: scriptsProps,
-};
+import { StylesTemplate } from "./styles";
 
 type IndexProps = {
     params: Params;
