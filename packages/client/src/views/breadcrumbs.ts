@@ -34,10 +34,7 @@ class Breadcrumbs extends HTMLElement {
                 event: "breadcrumbClick",
                 payload: {
                     url: anchor.href,
-                    title:
-                        anchor.getAttribute("data-title") ??
-                        anchor.textContent?.trim() ??
-                        "",
+                    title: anchor.textContent?.trim() ?? "",
                     handleInApp: true,
                 },
             });
@@ -53,10 +50,7 @@ class Breadcrumbs extends HTMLElement {
             amplitudeClickListener((anchor) => ({
                 category: "dekorator-header",
                 komponent: "brødsmule",
-                action:
-                    anchor.getAttribute("data-title") ??
-                    anchor.textContent?.trim() ??
-                    "",
+                action: anchor.textContent?.trim() ?? "",
             })),
         );
     }
