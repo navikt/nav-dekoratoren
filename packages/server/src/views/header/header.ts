@@ -6,6 +6,8 @@ import { clientEnv, env } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
 
+const frontPageUrl = clientEnv.XP_BASE_URL;
+
 type HeaderProps = {
     params: Params;
     withContainers: boolean;
@@ -29,22 +31,23 @@ export const HeaderTemplate = ({
         breadcrumbs,
         availableLanguages,
         utilsBackground,
+        frontPageUrl,
     });
 
     const headerContent =
         simple || simpleHeader
             ? SimpleHeader({
-                  frontPageUrl: clientEnv.XP_BASE_URL,
+                  frontPageUrl,
                   decoratorUtils,
                   loginUrl: env.LOGIN_URL,
               })
             : ComplexHeader({
-                  frontPageUrl: clientEnv.XP_BASE_URL,
+                  frontPageUrl,
+                  decoratorUtils,
+                  loginUrl: env.LOGIN_URL,
                   contextLinks: makeContextLinks(language),
                   context,
                   language,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
               });
 
     return withContainers

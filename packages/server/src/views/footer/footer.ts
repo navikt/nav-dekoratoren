@@ -28,8 +28,14 @@ export const FooterTemplate = async ({
     const { shareScreen, feedback, simple, simpleFooter, language, context } =
         params;
 
-    const footerContent =
-        simple || simpleFooter
+    const footerContent = html`
+        ${getModal({
+            enabled: shareScreen && features["dekoratoren.skjermdeling"],
+        })}
+        <d-chatbot></d-chatbot>
+        ${LogoutWarning()}
+        ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}
+        ${simple || simpleFooter
             ? SimpleFooter({
                   links: await getSimpleFooterLinks({
                       language,
@@ -42,23 +48,14 @@ export const FooterTemplate = async ({
                       context,
                   }),
                   features,
-              });
-
-    const footer = html`
-        ${getModal({
-            enabled: shareScreen && features["dekoratoren.skjermdeling"],
-        })}
-        <d-chatbot></d-chatbot>
-        ${LogoutWarning()}
-        ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}
-        ${footerContent}
+              })}
     `;
 
     return withContainers
         ? html`
               <div id="decorator-footer">
-                  <decorator-footer>${footer}</decorator-footer>
+                  <decorator-footer>${footerContent}</decorator-footer>
               </div>
           `
-        : footer;
+        : footerContent;
 };
