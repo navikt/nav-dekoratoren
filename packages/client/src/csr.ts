@@ -1,4 +1,5 @@
 import { CsrPayload } from "decorator-shared/types";
+import { buildHtmlElement } from "./helpers/html-element-builder";
 
 const findOrError = (id: string) => {
     const el = document.getElementById(`decorator-${id}`);
@@ -19,7 +20,9 @@ const hydrate = () =>
             );
             window.__DECORATOR_DATA__ = elements.data;
 
-            document.body.insertAdjacentHTML("beforeend", elements.scripts);
+            elements.scripts
+                .map(buildHtmlElement)
+                .forEach((script) => document.body.appendChild(script));
         });
 
 if (document.readyState === "loading") {

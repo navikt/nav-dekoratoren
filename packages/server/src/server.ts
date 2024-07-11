@@ -25,6 +25,7 @@ import { FooterTemplate } from "./views/footer/footer";
 import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
+import { CsrPayload } from "decorator-shared/types";
 
 const startupTime = Date.now();
 
@@ -193,7 +194,7 @@ app.get("/env", async ({ req, json }) => {
         data: buildDecoratorData({ params, features }),
         scripts: csrAssets.mainScripts,
         //TODO: Add css?
-    });
+    } satisfies CsrPayload);
 });
 app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
     redirect(csrAssets.csrScriptUrl),

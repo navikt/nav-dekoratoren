@@ -1,6 +1,6 @@
 import { buildCdnUrl } from "./urls";
 import { getCSSUrl } from "./views/styles";
-import { scriptsAsString } from "./views/scripts";
+import { scriptsProps } from "./views/scripts";
 
 const getCSRScriptUrl = async () => {
     const csrManifest = (
@@ -13,5 +13,5 @@ const getCSRScriptUrl = async () => {
 export const csrAssets = {
     cssUrl: await getCSSUrl(),
     csrScriptUrl: await getCSRScriptUrl(),
-    mainScripts: scriptsAsString,
+    mainScripts: scriptsProps,
 } as const;

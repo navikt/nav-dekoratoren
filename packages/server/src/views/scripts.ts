@@ -1,6 +1,7 @@
 import html, { json, Template, unsafeHtml } from "decorator-shared/html";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import {
+    AppState,
     ClientTexts,
     clientTextsKeys,
     Features,
@@ -81,39 +82,39 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     ];
 };
 
-export const scriptsAsString = await getScriptsProps().then((scriptsProps) =>
+export const scriptsProps = await getScriptsProps();
+
+const scriptsHtml = unsafeHtml(
     scriptsProps.map(buildHtmlElementString).join(""),
 );
-
-const scriptsHtml = unsafeHtml(scriptsAsString);
 
 type DecoratorDataProps = {
     features: Features;
     params: Params;
 };
 
-export const buildDecoratorData = ({ features, params }: DecoratorDataProps) =>
-    json({
-        texts: Object.entries(texts[params.language])
-            .filter(([key]) =>
-                clientTextsKeys.includes(key as keyof ClientTexts),
-            )
-            .reduce(
-                (prev, [key, value]) => ({
-                    ...prev,
-                    [key]: value,
-                }),
-                {},
-            ),
-        params,
-        features,
-        env: clientEnv,
-    });
+export const buildDecoratorData = ({
+    features,
+    params,
+}: DecoratorDataProps): AppState => ({
+    texts: Object.entries(texts[params.language])
+        .filter(([key]) => clientTextsKeys.includes(key as keyof ClientTexts))
+        .reduce(
+            (prev, [key, value]) => ({
+                ...prev,
+                [key]: value,
+            }),
+            {},
+        ) as ClientTexts,
+    params,
+    features,
+    env: clientEnv,
+});
 
 export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
     return html`
         <script type="application/json" id="__DECORATOR_DATA__">
-            ${buildDecoratorData(props)}
+            ${json(buildDecoratorData(props))}
         </script>
         <script>
             window.__DECORATOR_DATA__ = JSON.parse(
