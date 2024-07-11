@@ -1,6 +1,3 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import {
     taskAnalyticsGetState,
     taskAnalyticsSetSurveyMatched,
@@ -10,11 +7,6 @@ import {
     TaskAnalyticsSurvey,
     TaskAnalyticsUrlRule,
 } from "decorator-server/src/task-analytics-config";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-const norwayTz = "Europe/Oslo";
 
 type Audience = Required<TaskAnalyticsSurvey>["audience"][number];
 type Language = Required<TaskAnalyticsSurvey>["language"][number];
@@ -70,17 +62,17 @@ const isMatchingAudience = (currentAudience: Audience, audience?: Audience[]) =>
 const isMatchingLanguage = (currentLanguage: Language, language?: Language[]) =>
     !language || language.some((lang) => lang === currentLanguage);
 
-const isMatchingDuration = (duration: Duration) => {
+export const isMatchingDuration = (duration: Duration) => {
     if (!duration) {
         return true;
     }
 
     const { start, end } = duration;
-    const now = dayjs().tz(norwayTz);
+    const now = new Date();
 
     return (
-        (!start || now.isAfter(dayjs.tz(start, norwayTz))) &&
-        (!end || now.isBefore(dayjs.tz(end, norwayTz)))
+        (!start || now.getTime() > new Date(start).getTime()) &&
+        (!end || now.getTime() < new Date(end).getTime())
     );
 };
 
@@ -90,6 +82,8 @@ export const taskAnalyticsIsMatchingSurvey = (
     currentAudience: Audience,
 ) => {
     const { urls, audience, language, duration } = survey;
+
+    console.log(duration);
 
     return (
         (!urls || isMatchingUrls(urls)) &&
