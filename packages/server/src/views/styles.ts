@@ -1,6 +1,6 @@
 import { env } from "../env/server";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import html from "decorator-shared/html";
+import { unsafeHtml } from "decorator-shared/html";
 import { buildCdnUrl } from "../urls";
 
 export const getCSSUrl = async () => {
@@ -10,7 +10,7 @@ export const getCSSUrl = async () => {
     return buildCdnUrl(manifest["src/main.ts"].css[0]);
 };
 
-const getCssAsString = async () => {
+const getCssElementAsString = async () => {
     if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
         return "";
     }
@@ -25,8 +25,8 @@ const getCssAsString = async () => {
     });
 };
 
-const cssTemplate = html`${await getCssAsString()}`;
+const cssElementAsString = await getCssElementAsString();
 
 export const StylesTemplate = () => {
-    return cssTemplate;
+    return unsafeHtml(`${cssElementAsString}`);
 };
