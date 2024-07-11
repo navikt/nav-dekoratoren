@@ -8,7 +8,7 @@ import { makeContextLinks } from "../../context";
 
 type Props = {
     params: Params;
-    withContainers?: boolean;
+    withContainers: boolean;
 };
 
 export const Header = ({ params, withContainers }: Props): Template => {

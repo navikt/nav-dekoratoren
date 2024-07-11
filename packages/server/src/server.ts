@@ -24,7 +24,7 @@ import { csrAssets } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { Header } from "./views/header/header";
 import { Footer } from "./views/footer/footer";
-import { ScriptsContainer } from "./views/scripts";
+import { Scripts } from "./views/scripts";
 
 const startupTime = Date.now();
 
@@ -127,7 +127,7 @@ app.get("/auth", async ({ req, json }) =>
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
     const data = validParams(req.query());
-    return html(Header({ params: data }).render(data));
+    return html(Header({ params: data, withContainers: false }).render(data));
 });
 app.get("/footer", async ({ req, html }) => {
     const data = validParams(req.query());
@@ -136,6 +136,7 @@ app.get("/footer", async ({ req, html }) => {
             await Footer({
                 features: getFeatures(),
                 params: data,
+                withContainers: false,
             })
         ).render(data),
     );
@@ -156,7 +157,7 @@ app.get("/ssr", async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        scripts: ScriptsContainer(),
+        scripts: Scripts({ features, params }),
     });
 });
 app.get("/env", async ({ req, json }) => {
@@ -200,12 +201,9 @@ app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
 app.get("/", async ({ req, html }) => {
-    const data = validParams(req.query());
-
     return html(
         await renderIndex({
-            data,
-            texts: texts[data.language],
+            params: validParams(req.query()),
             url: req.url,
         }),
     );

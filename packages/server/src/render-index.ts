@@ -1,40 +1,35 @@
 import { Params } from "decorator-shared/params";
-import { Texts } from "decorator-shared/types";
-import { clientEnv } from "./env/server";
 import { getFeatures } from "./unleash";
 import { Index } from "./views";
-import { DecoratorData } from "./views/decorator-data";
 import { getSplashPage } from "./views/splash-page";
 import { Header } from "./views/header/header";
 import { Footer } from "./views/footer/footer";
+import { Scripts } from "./views/scripts";
 
-export default async ({
-    data,
-    texts,
-    url,
-}: {
-    data: Params;
-    texts: Texts;
+type Props = {
+    params: Params;
     url: string;
-}) => {
-    const { language } = data;
+};
+
+export default async ({ params, url }: Props) => {
+    const { language } = params;
     const features = getFeatures();
 
     return Index({
         language,
         header: Header({
-            params: data,
+            params,
+            withContainers: true,
         }),
         footer: await Footer({
-            params: data,
+            params,
             features,
+            withContainers: true,
         }),
-        decoratorData: DecoratorData({
-            texts,
-            params: data,
+        scripts: Scripts({
+            params,
             features,
-            environment: clientEnv,
         }),
         main: getSplashPage(url),
-    }).render(data);
+    }).render(params);
 };

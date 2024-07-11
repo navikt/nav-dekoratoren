@@ -32,7 +32,7 @@ afterAll(() => server.close());
 test("render-index", async () => {
     expect(
         await renderIndex({
-            data: validParams({}),
+            params: validParams({}),
             url: "localhost:8089/",
             texts: texts.nb,
         }),

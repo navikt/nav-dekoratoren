@@ -1,20 +1,8 @@
 import html, { Template, unsafeHtml } from "decorator-shared/html";
 import { Language } from "decorator-shared/params";
 import { env } from "../env/server";
-import type { Manifest as ViteManifest } from "vite";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import { HtmlElementProps } from "decorator-shared/types";
-
-const ENTRY_POINT_PATH = "src/main.ts";
-
-const hotjarScript = `(function(h,o,t,j,a,r){
-h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-h._hjSettings={hjid:118350,hjsv:6};
-a=o.getElementsByTagName('head')[0];
-r=o.createElement('script');r.async=1;
-r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-a.appendChild(r);
-})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
+import { scriptsProps } from "./scripts";
 
 const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
 
@@ -48,68 +36,7 @@ const getCssAsString = async () => {
     });
 };
 
-const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
-    if (env.NODE_ENV === "development") {
-        return [
-            {
-                tag: "script",
-                attribs: {
-                    src: "http://localhost:5173/@vite/client",
-                    type: "module",
-                },
-            },
-            {
-                tag: "script",
-                attribs: {
-                    src: `http://localhost:5173/${ENTRY_POINT_PATH}`,
-                    type: "module",
-                },
-            },
-        ];
-    }
-
-    const manifest = (await import("decorator-client/dist/.vite/manifest.json"))
-        .default as ViteManifest;
-
-    const appScripts: HtmlElementProps[] = Object.values(manifest)
-        .filter((item) => item.file.endsWith(".js"))
-        .map((item) => ({
-            tag: "script",
-            attribs: {
-                src: cdnUrl(item.file),
-                type: "module",
-                // Load everything except the entry file async
-                ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
-            },
-        }));
-
-    return [
-        ...appScripts,
-        {
-            tag: "script",
-            attribs: {
-                src: "https://in2.taskanalytics.com/tm.js",
-                type: "module",
-                async: "true",
-                fetchpriority: "low",
-            },
-        },
-        {
-            tag: "script",
-            body: hotjarScript,
-            attribs: {
-                type: "module",
-                async: "true",
-                fetchpriority: "low",
-            },
-        },
-    ];
-};
-
-const scriptsProps = await getScriptsProps();
-
 const cssAsString = await getCssAsString();
-const scriptsAsString = scriptsProps.map(buildHtmlElementString).join("");
 
 export const csrAssets = {
     cssUrl: await getCSSUrl(),
@@ -121,17 +48,11 @@ type Props = {
     language: Language;
     header: Template;
     footer: Template;
-    decoratorData: Template;
+    scripts: Template;
     main?: Template;
 };
 
-export function Index({
-    language,
-    header,
-    footer,
-    decoratorData,
-    main,
-}: Props) {
+export function Index({ language, header, footer, scripts, main }: Props) {
     return html`
         <!doctype html>
         <html lang="${language}">
@@ -154,27 +75,10 @@ export function Index({
                 <div id="styles" style="display:none">
                     ${unsafeHtml(cssAsString)}
                 </div>
-                <div id="header-withmenu">
-                    <header id="decorator-header">
-                        <decorator-header>${header}</decorator-header>
-                    </header>
-                </div>
+                <div id="header-withmenu">${header}</div>
                 <main id="maincontent">${main}</main>
-                <div id="footer-withmenu">
-                    <div id="decorator-footer">
-                        <decorator-footer>${footer}</decorator-footer>
-                    </div>
-                </div>
-                <div id="scripts" style="display:none">
-                    ${decoratorData}
-                    <script>
-                        window.__DECORATOR_DATA__ = JSON.parse(
-                            document.getElementById("__DECORATOR_DATA__")
-                                ?.innerHTML ?? "",
-                        );
-                    </script>
-                    ${unsafeHtml(scriptsAsString)}
-                </div>
+                <div id="footer-withmenu">${footer}</div>
+                <div id="scripts" style="display:none">${scripts}</div>
                 <!-- The elements below are needed for backwards compatibility with certain older implementations -->
                 <div id="skiplinks"></div>
                 <div id="megamenu-resources"></div>

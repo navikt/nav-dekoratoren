@@ -17,7 +17,7 @@ const CONTACT_URL = `${env.XP_BASE_URL}/kontaktoss`;
 type Props = {
     params: Params;
     features: Features;
-    withContainers?: boolean;
+    withContainers: boolean;
 };
 
 export const Footer = async ({
