@@ -106,7 +106,7 @@ export const buildDecoratorData = ({ features, params }: DecoratorDataProps) =>
         env: clientEnv,
     });
 
-export const Scripts = (props: DecoratorDataProps): Template => {
+export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
     return html`
         <script type="application/json" id="__DECORATOR_DATA__">
             ${buildDecoratorData(props)}

@@ -1,8 +1,12 @@
-import html, { Template, unsafeHtml } from "decorator-shared/html";
-import { Language } from "decorator-shared/params";
+import html, { unsafeHtml } from "decorator-shared/html";
+import { Params } from "decorator-shared/params";
 import { env } from "../env/server";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import { scriptsProps } from "./scripts";
+import { ScriptsTemplate, scriptsProps } from "./scripts";
+import { getFeatures } from "../unleash";
+import { HeaderTemplate } from "./header/header";
+import { FooterTemplate } from "./footer/footer";
+import { getSplashPage } from "./splash-page";
 
 const cdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
 
@@ -45,14 +49,14 @@ export const csrAssets = {
 };
 
 type IndexProps = {
-    language: Language;
-    header: Template;
-    footer: Template;
-    scripts: Template;
-    main?: Template;
+    params: Params;
+    url: string;
 };
 
-export function Index({ language, header, footer, scripts, main }: IndexProps) {
+export const IndexTemplate = async ({ params, url }: IndexProps) => {
+    const { language } = params;
+    const features = getFeatures();
+
     return html`
         <!doctype html>
         <html lang="${language}">
@@ -75,10 +79,26 @@ export function Index({ language, header, footer, scripts, main }: IndexProps) {
                 <div id="styles" style="display:none">
                     ${unsafeHtml(cssAsString)}
                 </div>
-                <div id="header-withmenu">${header}</div>
-                <main id="maincontent">${main}</main>
-                <div id="footer-withmenu">${footer}</div>
-                <div id="scripts" style="display:none">${scripts}</div>
+                <div id="header-withmenu">
+                    ${HeaderTemplate({
+                        params,
+                        withContainers: true,
+                    })}
+                </div>
+                <main id="maincontent">${getSplashPage(url)}</main>
+                <div id="footer-withmenu">
+                    ${await FooterTemplate({
+                        params,
+                        features,
+                        withContainers: true,
+                    })}
+                </div>
+                <div id="scripts" style="display:none">
+                    ${ScriptsTemplate({
+                        params,
+                        features,
+                    })}
+                </div>
                 <!-- The elements below are needed for backwards compatibility with certain older implementations -->
                 <div id="skiplinks"></div>
                 <div id="megamenu-resources"></div>
@@ -86,4 +106,4 @@ export function Index({ language, header, footer, scripts, main }: IndexProps) {
             </body>
         </html>
     `;
-}
+};

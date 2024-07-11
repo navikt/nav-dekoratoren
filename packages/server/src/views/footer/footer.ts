@@ -20,7 +20,7 @@ type FooterProps = {
     withContainers: boolean;
 };
 
-export const Footer = async ({
+export const FooterTemplate = async ({
     params,
     features,
     withContainers,

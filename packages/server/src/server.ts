@@ -14,15 +14,14 @@ import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import renderIndex from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { csrAssets } from "./views";
+import { csrAssets, IndexTemplate } from "./views";
 import { MainMenu } from "./views/header/main-menu";
-import { Header } from "./views/header/header";
-import { Footer } from "./views/footer/footer";
-import { buildDecoratorData, Scripts } from "./views/scripts";
+import { HeaderTemplate } from "./views/header/header";
+import { FooterTemplate } from "./views/footer/footer";
+import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 
 const startupTime = Date.now();
 
@@ -126,14 +125,16 @@ app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
     const params = validParams(req.query());
 
-    return html(Header({ params, withContainers: false }).render(params));
+    return html(
+        HeaderTemplate({ params, withContainers: false }).render(params),
+    );
 });
 app.get("/footer", async ({ req, html }) => {
     const params = validParams(req.query());
 
     return html(
         (
-            await Footer({
+            await FooterTemplate({
                 features: getFeatures(),
                 params,
                 withContainers: false,
@@ -146,18 +147,18 @@ app.get("/ssr", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: Header({
+        header: HeaderTemplate({
             params,
             withContainers: true,
         }).render(params),
         footer: (
-            await Footer({
+            await FooterTemplate({
                 params,
                 features,
                 withContainers: true,
             })
         ).render(params),
-        scripts: Scripts({ features, params }).render(params),
+        scripts: ScriptsTemplate({ features, params }).render(params),
     });
 });
 app.get("/env", async ({ req, json }) => {
@@ -165,12 +166,12 @@ app.get("/env", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: Header({
+        header: HeaderTemplate({
             params,
             withContainers: true,
         }).render(params),
         footer: (
-            await Footer({
+            await FooterTemplate({
                 params,
                 features,
                 withContainers: true,
@@ -188,11 +189,15 @@ app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
 app.get("/", async ({ req, html }) => {
+    const params = validParams(req.query());
+
     return html(
-        await renderIndex({
-            params: validParams(req.query()),
-            url: req.url,
-        }),
+        (
+            await IndexTemplate({
+                params,
+                url: req.url,
+            })
+        ).render(params),
     );
 });
 

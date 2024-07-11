@@ -11,7 +11,10 @@ type HeaderProps = {
     withContainers: boolean;
 };
 
-export const Header = ({ params, withContainers }: HeaderProps): Template => {
+export const HeaderTemplate = ({
+    params,
+    withContainers,
+}: HeaderProps): Template => {
     const {
         breadcrumbs,
         availableLanguages,
