@@ -24,20 +24,19 @@ class Breadcrumbs extends HTMLElement {
         }
     };
 
-    handleClick = (event: MouseEvent) => {
-        if (
-            event.target instanceof HTMLAnchorElement &&
-            event.target.getAttribute("data-handle-in-app") !== null
-        ) {
-            event.preventDefault();
+    handleClick = (e: MouseEvent) => {
+        const anchor =
+            e.target instanceof Element ? e.target.closest("a") : null;
+        if (anchor && anchor.getAttribute("data-handle-in-app") !== null) {
+            e.preventDefault();
             window.postMessage({
                 source: "decorator",
                 event: "breadcrumbClick",
                 payload: {
-                    url: event.target.href,
+                    url: anchor.href,
                     title:
-                        event.target.getAttribute("data-title") ??
-                        event.target.textContent?.trim() ??
+                        anchor.getAttribute("data-title") ??
+                        anchor.textContent?.trim() ??
                         "",
                     handleInApp: true,
                 },

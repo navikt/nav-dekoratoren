@@ -109,7 +109,8 @@ class Sticky extends HTMLElement {
     };
 
     private preventOverlapOnAnchorClick = (e: MouseEvent) => {
-        const targetHash = (e.target as HTMLAnchorElement)?.closest("a")?.hash;
+        const targetHash =
+            e.target instanceof Element ? e.target.closest("a")?.hash : null;
         if (!targetHash) {
             return;
         }
