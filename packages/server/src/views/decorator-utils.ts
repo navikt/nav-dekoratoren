@@ -37,9 +37,12 @@ export const DecoratorUtils = ({
                     utilsCls.contentContainer,
                 )}"
             >
-                <div>
-                    ${Breadcrumbs({ breadcrumbs, label: i18n("breadcrumbs") })}
-                </div>
+                <d-breadcrumbs
+                    >${Breadcrumbs({
+                        breadcrumbs,
+                        label: i18n("breadcrumbs"),
+                    })}</d-breadcrumbs
+                >
                 ${LanguageSelector({ availableLanguages })}
             </div>
         </decorator-utils>

@@ -20,7 +20,7 @@ test("decorator utils", async ({ page }) => {
                     {
                         title: "Ditt sykefravær",
                         url: "https://www.nav.no/syk/sykefravaer",
-                        handleInApp: false,
+                        handleInApp: true,
                     },
                     {
                         title: "Sykmeldinger",
@@ -43,4 +43,24 @@ test("decorator utils", async ({ page }) => {
         });
     });
     await expect(page.getByRole("button", { name: "Meny" })).toBeVisible();
+    const payload = page.evaluate(
+        () =>
+            new Promise((resolve) => {
+                window.addEventListener("message", (event: MessageEvent) => {
+                    if (
+                        event.data.source === "decorator" &&
+                        event.data.event === "breadcrumbClick"
+                    ) {
+                        resolve(event.data.payload);
+                    }
+                });
+            }),
+    );
+
+    await page.getByText("Ditt sykefravær").click();
+    expect(await payload).toEqual({
+        url: "https://www.nav.no/syk/sykefravaer",
+        title: "Ditt sykefravær",
+        handleInApp: true,
+    });
 });

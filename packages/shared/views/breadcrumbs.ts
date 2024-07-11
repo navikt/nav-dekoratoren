@@ -1,16 +1,10 @@
 import clsx from "clsx";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import { ChevronRightIcon, HouseIcon } from "decorator-icons";
-import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
 import html, { Template } from "../html";
 import { Breadcrumb } from "../params";
 import { isNavUrl } from "../utils";
 import cls from "./breadcrumbs.module.css";
-
-const analyticsEventArgs = {
-    category: "dekorator-header",
-    komponent: "brødsmule",
-} as const;
 
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
@@ -42,21 +36,14 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
               <nav aria-label="${label}">
                   <ol class="${cls.list}">
                       <li class="${cls.listItem}">
-                          ${LenkeMedSporing({
-                              href: "/",
-                              analyticsEventArgs: {
-                                  ...analyticsEventArgs,
-                                  action: "nav.no",
-                              },
-                              children: html`
-                                  ${HouseIcon({ className: cls.svg })}
-                                  <span class="${cls.span}">nav.no</span>
-                              `,
-                              className: clsx(
+                          <a
+                              href="/"
+                              class="${clsx(
                                   cls.homeLink,
                                   globalCls["navds-link"],
-                              ),
-                          })}
+                              )}"
+                              >${HouseIcon({ className: cls.svg })} nav.no
+                          </a>
                           ${ChevronRightIcon()}
                       </li>
                       ${breadcrumbs.map(
@@ -65,14 +52,7 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                   ${index === breadcrumbs.length - 1
                                       ? title
                                       : html`
-                                            <d-breadcrumb
-                                                data-analytics-event-args="${JSON.stringify(
-                                                    {
-                                                        ...analyticsEventArgs,
-                                                        label: "[redacted]",
-                                                        action: "[redacted]",
-                                                    },
-                                                )}"
+                                            <a
                                                 ${handleInApp &&
                                                 "data-handle-in-app"}
                                                 class="${clsx(
@@ -80,9 +60,8 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
                                                     globalCls["navds-link"],
                                                 )}"
                                                 href="${url}"
+                                                >${title}</a
                                             >
-                                                ${title}
-                                            </d-breadcrumb>
                                         `}
                                   ${index === breadcrumbs.length - 1
                                       ? ""
