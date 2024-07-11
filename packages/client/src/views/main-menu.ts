@@ -1,9 +1,9 @@
-import { Context, Params } from "decorator-shared/params";
-import { CustomEvents } from "../events";
+import { Context } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
-import { param } from "../params";
-import { endpointUrlWithParams } from "../helpers/urls";
+import { amplitudeClickListener } from "../analytics/amplitude";
 import { defineCustomElement } from "../custom-elements";
+import { endpointUrlWithParams } from "../helpers/urls";
+import { param } from "../params";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -47,6 +47,16 @@ class MainMenu extends HTMLElement {
     connectedCallback() {
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         this.updateMenuContent(param("context"));
+        this.addEventListener(
+            "click",
+            amplitudeClickListener((anchor) => ({
+                category: "dekorator-meny",
+                action:
+                    anchor.getAttribute("data-action") ??
+                    "hovedmeny/forsidelenke",
+                label: anchor.getAttribute("data-label") ?? anchor.href,
+            })),
+        );
     }
 
     disconnectedCallback() {
