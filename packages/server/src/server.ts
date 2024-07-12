@@ -41,6 +41,7 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
         "/mockServiceWorker.js",
         serveStatic({ path: "./mockServiceWorker.js" }),
     );
+    app.get("/public/*", serveStatic({}));
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
 }
@@ -55,8 +56,6 @@ const { printMetrics, registerMetrics } = prometheus();
 
 app.use("*", registerMetrics);
 app.get("/metrics", printMetrics);
-
-app.get("/public/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
