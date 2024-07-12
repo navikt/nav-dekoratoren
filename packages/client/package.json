@@ -12,14 +12,13 @@
         "test:watch": "TZ=UTC vitest watch"
     },
     "dependencies": {
-        "@navikt/ds-tokens": "6.11.0",
         "@navikt/ds-css": "6.11.0",
+        "@navikt/ds-tokens": "6.11.0",
         "amplitude-js": "8.21.9",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "lodash.debounce": "4.0.8",
         "js-cookie": "3.0.5",
-        "dayjs": "1.11.11"
+        "lodash.debounce": "4.0.8"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "5.0.0",
