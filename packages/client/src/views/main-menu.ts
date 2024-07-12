@@ -46,7 +46,11 @@ class MainMenu extends HTMLElement {
 
     connectedCallback() {
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
-        this.updateMenuContent(param("context"));
+
+        if (!param("ssrMainMenu")) {
+            this.updateMenuContent(param("context"));
+        }
+
         this.addEventListener(
             "click",
             amplitudeClickListener((anchor) => ({
