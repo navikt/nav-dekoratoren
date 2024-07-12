@@ -96,36 +96,28 @@ type DecoratorDataProps = {
 export const buildDecoratorData = ({
     features,
     params,
-}: DecoratorDataProps): AppState => {
-    const res = {
-        texts: Object.entries(texts[params.language])
-            .filter(([key]) =>
-                clientTextsKeys.includes(key as keyof ClientTexts),
-            )
-            .reduce(
-                (prev, [key, value]) => ({
-                    ...prev,
-                    [key]: value,
-                }),
-                {},
-            ) as ClientTexts,
-        params: Object.entries(params)
-            .filter(([key]) =>
-                clientParamKeys.includes(key as keyof ClientParams),
-            )
-            .reduce(
-                (prev, [key, value]) => ({
-                    ...prev,
-                    [key]: value,
-                }),
-                {},
-            ) as ClientParams,
-        features,
-        env: clientEnv,
-    };
-    console.log("res", res);
-    return res;
-};
+}: DecoratorDataProps): AppState => ({
+    texts: Object.entries(texts[params.language])
+        .filter(([key]) => clientTextsKeys.includes(key as keyof ClientTexts))
+        .reduce(
+            (prev, [key, value]) => ({
+                ...prev,
+                [key]: value,
+            }),
+            {},
+        ) as ClientTexts,
+    params: Object.entries(params)
+        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
+        .reduce(
+            (prev, [key, value]) => ({
+                ...prev,
+                [key]: value,
+            }),
+            {},
+        ) as ClientParams,
+    features,
+    env: clientEnv,
+});
 
 export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
     return html`

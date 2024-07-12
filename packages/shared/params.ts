@@ -98,9 +98,6 @@ export const clientParamKeys = [
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 
-const filterKeys = Object.keys({} as ClientParams) as Array<keyof ClientParams>;
-console.log("filterKeys", filterKeys);
-
 export const clientEnvSchema = z.object({
     APP_URL: z.string(),
     BOOST_ENV: z.enum(["nav", "navtest"]),
