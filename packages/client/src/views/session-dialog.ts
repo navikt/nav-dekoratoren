@@ -1,4 +1,5 @@
 import { defineCustomElement } from "../custom-elements";
+import { logout } from "../helpers/auth";
 import { getSecondsRemaining } from "../helpers/time";
 import { env } from "../params";
 
@@ -24,13 +25,13 @@ export class SessionDialog extends HTMLElement {
                 this.silenceWarning = true;
                 dialog.close();
             } else {
-                window.location.href = `${env("LOGOUT_URL")}`;
+                logout();
             }
         });
 
         this.interval = window.setInterval(() => {
             if (this.secondsRemaining < 0) {
-                window.location.href = `${env("LOGOUT_URL")}`;
+                logout();
             } else if (!this.silenceWarning && this.secondsRemaining < 5 * 60) {
                 dialog.querySelector(".session-time-remaining")!.innerHTML =
                     Math.ceil(this.secondsRemaining / 60).toString();

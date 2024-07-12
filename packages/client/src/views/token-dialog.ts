@@ -1,4 +1,5 @@
 import { defineCustomElement } from "../custom-elements";
+import { logout } from "../helpers/auth";
 import { getSecondsRemaining } from "../helpers/time";
 import { env } from "../params";
 
@@ -23,13 +24,13 @@ export class TokenDialog extends HTMLElement {
                 this.dispatchEvent(new Event("renew"));
                 dialog.close();
             } else {
-                window.location.href = `${env("LOGOUT_URL")}`;
+                logout();
             }
         });
 
         this.interval = window.setInterval(() => {
             if (this.secondsRemaining < 0) {
-                window.location.href = `${env("LOGOUT_URL")}`;
+                logout();
             } else if (this.secondsRemaining < 5 * 60) {
                 dialog.showModal();
             } else {
