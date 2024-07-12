@@ -1,7 +1,6 @@
 import { defineCustomElement } from "../custom-elements";
 import { logout } from "../helpers/auth";
 import { getSecondsRemaining } from "../helpers/time";
-import { env } from "../params";
 
 export class TokenDialog extends HTMLElement {
     tokenExpireAtLocal?: string;
