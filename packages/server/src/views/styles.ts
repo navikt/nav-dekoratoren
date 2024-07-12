@@ -12,7 +12,7 @@ export const getCSSUrl = async () => {
 
 const getCssElementAsString = async () => {
     if (env.NODE_ENV === "development") {
-        return "";
+        return "<!-- non-empty css response to make nav-dekoratoren-moduler happy -->";
     }
 
     return buildHtmlElementString({
