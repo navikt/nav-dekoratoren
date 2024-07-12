@@ -9,7 +9,7 @@ import {
 } from "decorator-shared/types";
 import { clientEnv, env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
-import { Params } from "decorator-shared/params";
+import { clientParamKeys, ClientParams, Params } from "decorator-shared/params";
 import { texts } from "../texts";
 import { buildCdnUrl } from "../urls";
 
@@ -108,7 +108,15 @@ export const buildDecoratorData = ({
             }),
             {},
         ) as ClientTexts,
-    params,
+    params: Object.entries(params)
+        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
+        .reduce(
+            (prev, [key, value]) => ({
+                ...prev,
+                [key]: value,
+            }),
+            {},
+        ) as ClientParams,
     features,
     env: clientEnv,
     headAssets,

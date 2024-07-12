@@ -1,4 +1,4 @@
-import { Context, Language, Params } from "decorator-shared/params";
+import { Context, Language, ClientParams } from "decorator-shared/params";
 import { FridaIcon } from "decorator-icons";
 import Cookies from "js-cookie";
 import { env, param } from "../params";
@@ -67,7 +67,7 @@ class Chatbot extends HTMLElement {
     private paramsUpdatedListener = (event: CustomEvent) =>
         this.update(event.detail.params);
 
-    private update = ({ chatbot, chatbotVisible }: Partial<Params>) => {
+    private update = ({ chatbot, chatbotVisible }: Partial<ClientParams>) => {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
             chatbot === false
