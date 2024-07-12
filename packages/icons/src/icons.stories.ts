@@ -1,5 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/html";
 import * as icons from ".";
+import {
+    FridaIcon,
+    MessageIcon,
+    PersonCircleNotificationIcon,
+    TaskIcon,
+} from "../dist";
 
 const meta: Meta = {
     title: "icons",
@@ -15,7 +21,13 @@ const meta: Meta = {
             );
         }, 1000);
 
-        div.innerHTML = Object.values(icons)
+        div.innerHTML = [
+            ...Object.values(icons),
+            FridaIcon,
+            MessageIcon,
+            PersonCircleNotificationIcon,
+            TaskIcon,
+        ]
             .map((icon) =>
                 icon().render({
                     language: context.globals.locale,

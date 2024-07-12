@@ -112,7 +112,7 @@ export const unsafeHtml = (htmlString: string) => ({
 
 export default html;
 
-export type AttributeValue = number | string | boolean | string[];
+export type AttributeValue = undefined | number | string | boolean | string[];
 
 const toKebabCase = (str: string) =>
     str.replace(
