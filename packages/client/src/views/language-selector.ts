@@ -1,17 +1,12 @@
 import { AvailableLanguage, Language } from "decorator-shared/params";
 import cls from "../styles/language-selector.module.css";
-import { updateDecoratorParams } from "../params";
-
-declare global {
-    interface HTMLElementTagNameMap {
-        "language-selector": LanguageSelector;
-    }
-}
+import { param, updateDecoratorParams } from "../params";
+import { defineCustomElement } from "../custom-elements";
+import { CustomEvents } from "../events";
 
 export class LanguageSelector extends HTMLElement {
-    menu;
-    container: HTMLDivElement;
-    button: HTMLButtonElement;
+    menu!: HTMLElement;
+    container!: HTMLDivElement;
     #open = false;
     options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
     #language?: Language;
@@ -81,27 +76,46 @@ export class LanguageSelector extends HTMLElement {
         );
     }
 
-    constructor() {
-        super();
-
-        this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
-        this.container = this.querySelector(`.${cls.languageSelector}`)!;
+    connectedCallback() {
         this.menu = document.createElement("ul");
         this.menu.classList.add(cls.menu, cls.hidden);
-        this.container.appendChild(this.menu);
-    }
 
-    connectedCallback() {
-        this.button.addEventListener("click", () => {
+        this.container = this.querySelector(`.${cls.languageSelector}`)!;
+        this.container.appendChild(this.menu);
+
+        const button = this.querySelector(
+            `.${cls.button}`,
+        ) as HTMLButtonElement;
+        button.addEventListener("click", () => {
             this.open = !this.#open;
         });
-        this.button.addEventListener("blur", this.onBlur);
+        button.addEventListener("blur", this.onBlur);
+
         this.addEventListener("keyup", (e) => {
             if (e.key === "Escape") {
                 this.open = false;
             }
         });
+
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.language = param("language");
+        this.availableLanguages = param("availableLanguages");
     }
+
+    disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+    }
+
+    handleParamsUpdated = (
+        event: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        if (event.detail.params.language) {
+            this.language = event.detail.params.language;
+        }
+        if (event.detail.params.availableLanguages) {
+            this.availableLanguages = event.detail.params.availableLanguages;
+        }
+    };
 
     onBlur = (e: FocusEvent) => {
         if (
@@ -118,4 +132,4 @@ export class LanguageSelector extends HTMLElement {
     }
 }
 
-customElements.define("language-selector", LanguageSelector);
+defineCustomElement("language-selector", LanguageSelector);

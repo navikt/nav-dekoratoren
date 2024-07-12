@@ -64,14 +64,15 @@ export type Texts = ClientTexts & {
     notifications_tasks_title: string;
     no: string;
     search_nav_no: string;
-    rolle_privatperson: string;
-    rolle_arbeidsgiver: string;
-    rolle_samarbeidspartner: string;
+    privatperson: string;
+    arbeidsgiver: string;
+    samarbeidspartner: string;
     meny_bunnlenke_minside_stikkord: string;
     meny_bunnlenke_arbeidsgiver_stikkord: string;
     meny_bunnlenke_samarbeidspartner_stikkord: string;
     loading_notifications: string;
     notifications_error: string;
+    search_error: string;
     how_can_we_help: string;
     showing: string;
     of: string;
@@ -101,6 +102,8 @@ export type Texts = ClientTexts & {
     my_page: string;
     personopplysninger: string;
     my_page_employer: string;
+    info: string;
+    error: string;
 };
 
 export type OpsMessage = {
@@ -141,13 +144,10 @@ export type CsrPayload = {
     footer: string;
     data: AppState;
     scripts: HtmlElementProps[];
-    name: string;
 };
 
 export type HtmlElementProps = {
     tag: string;
     attribs: Record<string, string>;
-} & (
-    | { body?: string; selfClosing?: never }
-    | { body?: never; selfClosing?: boolean }
-);
+    body?: string;
+};

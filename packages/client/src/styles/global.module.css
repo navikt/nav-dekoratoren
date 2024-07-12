@@ -9,3 +9,7 @@
     --ac-link-active-bg: var(--a-surface-default);
     --ac-link-active-border: var(--a-surface-default);
 }
+
+.hidden {
+    display: none !important;
+}

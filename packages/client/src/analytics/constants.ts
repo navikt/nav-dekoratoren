@@ -17,7 +17,8 @@ type AnalyticsActions =
     | "[redacted]"
     | "nav.no"
     | "arbeidsflate-valg"
-    | `${string}/${string}`;
+    | `${string}/${string}`
+    | string;
 
 export const analyticsEvents = {
     arkivertBeskjed: [
@@ -31,8 +32,8 @@ export const analyticsEvents = {
 
 export type AnalyticsEventArgs = {
     eventName?: string;
-    category: AnalyticsCategory;
-    action: AnalyticsActions;
+    category?: AnalyticsCategory;
+    action?: AnalyticsActions;
     context?: Context;
     destination?: string;
     label?: string;

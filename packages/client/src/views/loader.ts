@@ -1,9 +1,8 @@
 import html from "decorator-shared/html";
+import { defineCustomElement } from "../custom-elements";
 
 export class Loader extends HTMLElement {
-    constructor() {
-        super();
-
+    connectedCallback() {
         const shadowRoot = this.attachShadow({ mode: "open" });
         const title = this.getAttribute("title") ?? "Laster forhåndsvisning";
 
@@ -90,4 +89,4 @@ export class Loader extends HTMLElement {
     }
 }
 
-customElements.define("decorator-loader", Loader);
+defineCustomElement("decorator-loader", Loader);

@@ -25,6 +25,7 @@ jobs:
         run: bun install --immutable
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - run: bun run build
       - name: Build Storybook
         run: bun run build-storybook
       - name: Upload artifact

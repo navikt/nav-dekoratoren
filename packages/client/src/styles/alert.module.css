@@ -1,38 +1,5 @@
-.alert {
-    border: 1px solid;
-    border-radius: var(--a-border-radius-medium);
-    padding: var(--a-spacing-4);
-    display: flex;
-    gap: var(--a-spacing-3);
-}
+@import "@navikt/ds-css/dist/component/alert.css";
 
-.alert svg {
-    height: var(--a-font-line-height-xlarge);
-    font-size: 1.5rem;
-    flex-shrink: 0;
-}
-
-.alert.warning {
-}
-.alert.success {
-}
-.alert.info {
-    background-color: var(--a-surface-info-subtle);
-    border-color: var(--a-border-info);
-}
-.alert.error {
-    background-color: var(--a-surface-danger-subtle);
-    border-color: var(--a-border-danger);
-}
-.alert.error svg {
-    color: var(--a-icon-danger);
-}
-
-.alert.info svg {
-    color: var(--a-icon-info);
-}
-
-/* Consolidate text */
 .text {
     font-size: var(--a-font-size-large);
     font-weight: var(--a-font-weight-regular);

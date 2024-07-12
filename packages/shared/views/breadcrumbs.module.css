@@ -9,29 +9,31 @@
 }
 
 .link {
+    padding-block: 0.625rem;
+}
+
+.homeLink {
     display: flex;
     align-items: center;
     gap: var(--a-spacing-2);
+    padding-block: 6px;
 }
 
-.link .svg {
+.homeLink .svg {
     font-size: 2rem;
     color: var(--a-text-default);
+    line-height: 0;
 }
 
-.link:active .svg,
-.link:focus-visible .svg {
+.homeLink:active .svg,
+.homeLink:focus-visible .svg {
     color: var(--a-text-on-action);
 }
 
 @supports not selector(:focus-visible) {
-    .link:focus .svg {
+    .homeLink:focus .svg {
         color: var(--a-text-on-action);
     }
-}
-
-.span {
-    text-decoration: underline;
 }
 
 .listItem {

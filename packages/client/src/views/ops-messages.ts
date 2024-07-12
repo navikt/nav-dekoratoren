@@ -1,9 +1,14 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import {
+    ExclamationmarkTriangleIcon,
+    InformationSquareIcon,
+} from "decorator-icons";
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
-import { InfoIcon, WarningIcon } from "decorator-shared/views/icons";
-import { env } from "../params";
+import { amplitudeClickListener } from "../analytics/amplitude";
+import { defineCustomElement } from "../custom-elements";
+import { endpointUrlWithParams } from "../helpers/urls";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
@@ -12,19 +17,14 @@ export const OpsMessagesTemplate = ({
 }) => html`
     <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
         ${opsMessages.map(
-            ({ heading, url, type }) =>
-                html` <lenke-med-sporing
-                    data-analytics-event-args="${JSON.stringify({
-                        category: "dekorator-header",
-                        action: "driftsmeldinger",
-                        label: url,
-                    })}"
-                    href="${url}"
-                    class="${cls.opsMessage}"
-                >
-                    ${type === "prodstatus" ? WarningIcon() : InfoIcon()}
-                    <span>${heading}</span>
-                </lenke-med-sporing>`,
+            ({ heading, url, type }) => html`
+                <a href="${url}" class="${cls.opsMessage}">
+                    ${type === "prodstatus"
+                        ? ExclamationmarkTriangleIcon({ className: cls.icon })
+                        : InformationSquareIcon({ className: cls.icon })}
+                    ${heading}
+                </a>
+            `,
         )}
     </section>
 `;
@@ -38,7 +38,7 @@ class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 
     connectedCallback() {
-        fetch(`${env("APP_URL")}/ops-messages`)
+        fetch(endpointUrlWithParams("/ops-messages"))
             .then((res) => res.json())
             .then((opsMessages) => {
                 this.messages = opsMessages;
@@ -47,6 +47,13 @@ class OpsMessages extends HTMLElement {
 
         window.addEventListener("historyPush", () => this.render());
         window.addEventListener("popstate", () => this.render());
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(() => ({
+                action: "driftsmeldinger",
+                category: "dekorator-header",
+            })),
+        );
     }
 
     private render() {
@@ -86,4 +93,4 @@ class OpsMessages extends HTMLElement {
     }
 }
 
-customElements.define("ops-messages", OpsMessages);
+defineCustomElement("ops-messages", OpsMessages);

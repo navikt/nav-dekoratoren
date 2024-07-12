@@ -1,6 +1,7 @@
-import { Params } from "decorator-shared/params";
-import { AnalyticsEventArgs } from "./constants";
 import { Auth } from "decorator-shared/auth";
+import { Params } from "decorator-shared/params";
+import { param } from "../params";
+import { AnalyticsEventArgs } from "./constants";
 
 // Dynamic import for lazy loading
 const importAmplitude = () =>
@@ -138,3 +139,20 @@ export const logAmplitudeEvent = async (
         );
     });
 };
+
+export const amplitudeClickListener =
+    (fn: (el: HTMLAnchorElement) => AnalyticsEventArgs | null) =>
+    (e: MouseEvent) => {
+        const anchor =
+            e.target instanceof Element ? e.target.closest("a") : null;
+        if (anchor) {
+            const args = fn(anchor);
+            if (args) {
+                amplitudeEvent({
+                    context: param("context"),
+                    label: anchor.href,
+                    ...args,
+                });
+            }
+        }
+    };

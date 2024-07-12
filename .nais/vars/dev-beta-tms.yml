@@ -16,21 +16,19 @@ env:
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
     value: https://www.dev.nav.no/_/service
-  - name: SEARCH_API
+  - name: SEARCH_API_URL
     value: http://navno-search-api/content/decorator-search
   - name: XP_BASE_URL
     value: https://www.ansatt.dev.nav.no
-  - name: AUTH_API_URL
-    value: https://login.ekstern.dev.nav.no
   - name: LOGIN_URL
     value: https://login.ekstern.dev.nav.no/oauth2/login
   - name: LOGOUT_URL
     value: https://login.ekstern.dev.nav.no/oauth2/logout
   - name: VARSEL_API_URL
-    value: https://www.intern.dev.nav.no/tms-varsel-api
-  - name: API_DEKORATOREN_URL
+    value: http://tms-varsel-api.min-side/tms-varsel-api
+  - name: DEKORATOREN_API_URL
     value: http://nav-dekoratoren-api/person/nav-dekoratoren-api
-  - name: API_SESSION_URL
+  - name: LOGIN_SESSION_API_URL
     value: https://login.ekstern.dev.nav.no/oauth2/session
   - name: MIN_SIDE_URL
     value: https://www.intern.dev.nav.no/minside
@@ -42,6 +40,7 @@ env:
     value: "navtest"
   - name: PUZZEL_CUSTOMER_ID
     value: C1302192-8BEC-4EA2-84AB-F4EDE8AC6230
+ttlInternal: 1h
 replicas:
   min: 1
   max: 1

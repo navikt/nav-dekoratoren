@@ -25,6 +25,8 @@
 
 .menuHeader {
     padding-bottom: var(--a-spacing-4);
+    display: grid;
+    gap: var(--a-spacing-4);
 }
 
 .loggedIn {
@@ -62,7 +64,6 @@
 }
 
 .menuItemIcon {
-    color: var(--a-icon-subtle);
     font-size: 1.5rem;
 }
 
@@ -79,11 +80,8 @@
     bottom: 0;
 }
 
-.alert {
-    margin-top: var(--a-spacing-4);
-}
-
 .loader {
+    padding-inline: var(--a-spacing-3);
     color: var(--a-text-action);
     visibility: hidden;
     opacity: 0;
@@ -105,6 +103,12 @@
         animation-timing-function: linear;
         animation-iteration-count: infinite;
         animation-direction: normal;
+    }
+}
+
+@media (min-width: 768px) {
+    .loader {
+        padding-inline: var(--a-spacing-5);
     }
 }
 

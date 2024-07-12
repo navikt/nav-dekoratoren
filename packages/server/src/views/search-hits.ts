@@ -1,13 +1,19 @@
 import globalCls from "decorator-client/src/styles/global.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
+import { ArrowRightIcon } from "decorator-icons";
 import html, { unsafeHtml } from "decorator-shared/html";
-import { ArrowRight } from "decorator-shared/views/icons";
-import { SearchResult } from "../handlers/search-handler";
-import i18n from "../i18n";
 import { Context } from "decorator-shared/params";
+import i18n from "../i18n";
 
 export type SearchHitsProps = {
-    results: SearchResult;
+    results: {
+        total: number;
+        hits: {
+            displayName: string;
+            highlight: string;
+            href: string;
+        }[];
+    };
     query: string;
     context: Context;
 };
@@ -30,27 +36,24 @@ export const SearchHits = ({
             </a>
         </div>
         ${total > 0
-            ? html` <ul class="${cls.searchHitList}">
+            ? html`
+                  <ul class="${cls.searchHitList}">
                       ${hits.map(
-                          (hit, index) => html`
+                          (hit) => html`
                               <li>
-                                  <lenke-med-sporing
-                                      href="${hit.href}"
-                                      class="${cls.searchHit}"
-                                      data-analytics-event-args="${JSON.stringify(
-                                          {
-                                              eventName: "resultat-klikk",
-                                              destinasjon: "[redacted]",
-                                              sokeord: "[redacted]",
-                                              treffnr: index + 1,
-                                          },
-                                      )}"
-                                  >
-                                      <h2 class="${cls.title}">
-                                          ${hit.displayName}
-                                      </h2>
-                                      <div>${unsafeHtml(hit.highlight)}</div>
-                                  </lenke-med-sporing>
+                                  <search-hit>
+                                      <a
+                                          href="${hit.href}"
+                                          class="${cls.searchHit}"
+                                      >
+                                          <h2 class="${cls.title}">
+                                              ${hit.displayName}
+                                          </h2>
+                                          <div>
+                                              ${unsafeHtml(hit.highlight)}
+                                          </div>
+                                      </a>
+                                  </search-hit>
                               </li>
                           `,
                       )}
@@ -60,10 +63,11 @@ export const SearchHits = ({
                       href="https://www.nav.no/sok?ord=${query}"
                   >
                       ${i18n("more_hits")}
-                      ${ArrowRight({
+                      ${ArrowRightIcon({
                           className: cls.searchHitRightArrow,
                       })}
-                  </a>`
+                  </a>
+              `
             : null}
     </div>
 `;

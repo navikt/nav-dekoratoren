@@ -1,8 +1,9 @@
 import { Context } from "decorator-shared/params";
-import { CustomEvents } from "../events";
 import { ResponseCache } from "decorator-shared/response-cache";
-import { param } from "../params";
+import { amplitudeClickListener } from "../analytics/amplitude";
+import { defineCustomElement } from "../custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { param } from "../params";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -37,20 +38,30 @@ class MainMenu extends HTMLElement {
             });
     };
 
-    private onContextChange = (
-        e: CustomEvent<CustomEvents["activecontext"]>,
-    ) => {
-        this.updateMenuContent(e.detail.context);
+    handleParamsUpdated = (event: CustomEvent) => {
+        if (event.detail.params.context) {
+            this.updateMenuContent(event.detail.params.context);
+        }
     };
 
-    private connectedCallback() {
+    connectedCallback() {
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
         this.updateMenuContent(param("context"));
-        window.addEventListener("activecontext", this.onContextChange);
+        this.addEventListener(
+            "click",
+            amplitudeClickListener((anchor) => ({
+                category: "dekorator-meny",
+                action:
+                    anchor.getAttribute("data-action") ??
+                    "hovedmeny/forsidelenke",
+                label: anchor.getAttribute("data-label") ?? anchor.href,
+            })),
+        );
     }
 
-    private disconnectedCallback() {
-        window.removeEventListener("activecontext", this.onContextChange);
+    disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
 
-customElements.define("main-menu", MainMenu);
+defineCustomElement("main-menu", MainMenu);

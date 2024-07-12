@@ -36,7 +36,8 @@ const nb = {
     notifications_tasks_title: "Oppgaver",
     token_warning_title: "Du blir snart logget ut automatisk",
     token_warning_body: "Vil du fortsatt være innlogget?",
-    session_warning_title: "Du blir logget ut automatisk om ca $1 minutter",
+    session_warning_title:
+        'Du blir logget ut automatisk om ca. <span class="session-time-remaining">$1</span> minutter',
     session_warning_body: "Avslutt det du jobber med og logg inn igjen.",
     yes: "Ja",
     no: "Nei",
@@ -45,9 +46,9 @@ const nb = {
         "Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?",
     hensikt_med_tilbakemelding_lenke: "Ring, chat eller skriv til oss",
     send_undersokelse_takk: "Takk for tilbakemeldingen!",
-    rolle_privatperson: "Privat",
-    rolle_arbeidsgiver: "Arbeidsgiver",
-    rolle_samarbeidspartner: "Samarbeidspartner",
+    privatperson: "Privat",
+    arbeidsgiver: "Arbeidsgiver",
+    samarbeidspartner: "Samarbeidspartner",
     meny_bunnlenke_minside_stikkord:
         "Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester",
     meny_bunnlenke_arbeidsgiver_stikkord:
@@ -55,7 +56,8 @@ const nb = {
     meny_bunnlenke_samarbeidspartner_stikkord:
         "Helsepersonell, tiltaksarrangører, fylker og kommuner",
     loading_notifications: "Laster varslinger",
-    notifications_error: "Feil ved lasting av varsler",
+    notifications_error: "Feil ved lasting av varsler.",
+    search_error: "Feil ved lasting av søkeresultater.",
     how_can_we_help: "Hva kan vi hjelpe deg med?",
     showing: "Viser",
     of: "av",
@@ -84,7 +86,7 @@ const nb = {
     delskjerm_modal_stengt:
         "Skjermdeling er for øyeblikket stengt, prøv igjen senere.",
     security_level_info:
-        "Du har logget inn med Min ID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
+        "Du har logget inn med MinID. Hvis du logger inn med et høyere sikkerhetsnivå, får du se mer innhold og flere tjenester.",
     security_level_link: "Logg inn med BankID, Buypass, eller Commfides.",
     go_to_my_page: "Gå til Min side",
     my_page: "Min side",
@@ -92,6 +94,8 @@ const nb = {
     loading: "Laster",
     personopplysninger: "Personopplysninger",
     open_chat: "Åpne chat",
+    info: "Informasjon",
+    error: "Feil",
 } as const satisfies Texts;
 
 const en = {
@@ -131,7 +135,7 @@ const en = {
     token_warning_title: "You will soon be logged out automatically",
     token_warning_body: "Would you like to stay logged in?",
     session_warning_title:
-        "You will be logged out automatically in about $1 minutes",
+        'You will be logged out automatically in about <span class="session-time-remaining">$1</span> minutes',
     session_warning_body: "Avslutt det du jobber med og logg inn igjen.",
     yes: "Yes",
     no: "No",
@@ -140,9 +144,9 @@ const en = {
         "Unfortunately you will not get a reply to your feedback. Do you have questions or need help?",
     hensikt_med_tilbakemelding_lenke: "Call, chat or write to us",
     send_undersokelse_takk: "Thank you for your feedback!",
-    rolle_privatperson: "Private",
-    rolle_arbeidsgiver: "Employer",
-    rolle_samarbeidspartner: "Collaborator",
+    privatperson: "Private",
+    arbeidsgiver: "Employer",
+    samarbeidspartner: "Collaborator",
     meny_bunnlenke_minside_stikkord:
         "Your cases, payments, messages, report cards, activity plan, personal information and more services",
     meny_bunnlenke_arbeidsgiver_stikkord:
@@ -150,7 +154,8 @@ const en = {
     meny_bunnlenke_samarbeidspartner_stikkord:
         "Health personnel, intervention organizers, counties and municipalities",
     loading_notifications: "Loading notifications",
-    notifications_error: "Error loading notifications",
+    notifications_error: "Error loading notifications.",
+    search_error: "Error loading search results.",
     how_can_we_help: "How can we help you?",
     showing: "Showing",
     of: "of",
@@ -179,7 +184,7 @@ const en = {
     delskjerm_modal_stengt:
         "Screen sharing is currently closed, please try again later.",
     security_level_info:
-        "You are logged in with Min ID. If you log in with a higher security level, you will see more content and additional services.",
+        "You are logged in with MinID. If you log in with a higher security level, you will see more content and additional services.",
     security_level_link: "Log in with BankID, Buypass, or Commfides.",
     go_to_my_page: "Go to my page",
     my_page: "My page",
@@ -187,6 +192,8 @@ const en = {
     loading: "Loading",
     personopplysninger: "Personal information",
     open_chat: "Open chat",
+    info: "Information",
+    error: "Error",
 } as const satisfies Texts;
 
 export const texts: Record<Language, Texts> = {
