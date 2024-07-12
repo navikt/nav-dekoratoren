@@ -83,8 +83,6 @@ export const taskAnalyticsIsMatchingSurvey = (
 ) => {
     const { urls, audience, language, duration } = survey;
 
-    console.log(duration);
-
     return (
         (!urls || isMatchingUrls(urls)) &&
         isMatchingAudience(currentAudience, audience) &&
