@@ -1,12 +1,10 @@
 import { Server } from "bun";
-import html from "decorator-shared/html";
-import { clientTextsKeys } from "decorator-shared/types";
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
-import { clientEnv, env } from "./env/server";
+import { env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
@@ -16,14 +14,18 @@ import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import renderIndex, { renderFooter, renderHeader } from "./render-index";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
-import { texts } from "./texts";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
-import { csrAssets } from "./views";
+import { IndexTemplate } from "./views";
 import { MainMenu } from "./views/header/main-menu";
 import { prometheus } from "@hono/prometheus";
+import { HeaderTemplate } from "./views/header/header";
+import { FooterTemplate } from "./views/footer/footer";
+import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
+import { StylesTemplate } from "./views/styles";
+import { csrAssets } from "./csr";
+import { CsrPayload } from "decorator-shared/types";
 
 const startupTime = Date.now();
 
@@ -130,51 +132,69 @@ app.get("/auth", async ({ req, json }) =>
 );
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
-    const data = validParams(req.query());
-
-    return html(renderHeader({ data }).render(data));
-});
-app.get("/footer", async ({ req, html }) => {
-    const data = validParams(req.query());
+    const params = validParams(req.query());
 
     return html(
-        (await renderFooter({ features: getFeatures(), data })).render(data),
+        HeaderTemplate({ params, withContainers: false }).render(params),
     );
 });
-app.get("/env", async ({ req, json }) => {
-    const data = validParams(req.query());
+app.get("/footer", async ({ req, html }) => {
+    const params = validParams(req.query());
+
+    return html(
+        (
+            await FooterTemplate({
+                features: getFeatures(),
+                params,
+                withContainers: false,
+            })
+        ).render(params),
+    );
+});
+app.get("/ssr", async ({ req, json }) => {
+    const params = validParams(req.query());
     const features = getFeatures();
 
     return json({
-        header: html`
-            <header id="decorator-header">
-                <decorator-header>${renderHeader({ data })}</decorator-header>
-            </header>
-        `.render(data),
-        footer: html`
-            <div id="decorator-footer">
-                <decorator-footer>
-                    ${await renderFooter({ data, features })}
-                </decorator-footer>
-            </div>
-        `.render(data),
-        data: {
-            texts: Object.entries(texts[data.language])
-                .filter(([key]) => clientTextsKeys.includes(key as any))
-                .reduce(
-                    (prev, [key, value]) => ({
-                        ...prev,
-                        [key]: value,
-                    }),
-                    {},
-                ),
-            params: data,
-            features,
-            env: clientEnv,
-        },
-        scripts: csrAssets.mainScriptsProps,
-        //TODO: Add css?
+        header: HeaderTemplate({
+            params,
+            withContainers: true,
+        }).render(params),
+        footer: (
+            await FooterTemplate({
+                params,
+                features,
+                withContainers: true,
+            })
+        ).render(params),
+        scripts: ScriptsTemplate({ features, params }).render(params),
+        styles: StylesTemplate().render(),
+        // TODO: add head-elements
+        head: "coming soon!",
     });
+});
+// /env is used for CSR
+// TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
+app.get("/env", async ({ req, json }) => {
+    const params = validParams(req.query());
+    const features = getFeatures();
+
+    return json({
+        header: HeaderTemplate({
+            params,
+            withContainers: true,
+        }).render(params),
+        footer: (
+            await FooterTemplate({
+                params,
+                features,
+                withContainers: true,
+            })
+        ).render(params),
+        data: buildDecoratorData({ params, features }),
+        scripts: csrAssets.mainScripts,
+        //TODO: Add css?
+    } satisfies CsrPayload);
 });
 app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
     redirect(csrAssets.csrScriptUrl),
@@ -183,14 +203,15 @@ app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
 app.get("/", async ({ req, html }) => {
-    const data = validParams(req.query());
+    const params = validParams(req.query());
 
     return html(
-        await renderIndex({
-            data,
-            texts: texts[data.language],
-            url: req.url,
-        }),
+        (
+            await IndexTemplate({
+                params,
+                url: req.url,
+            })
+        ).render(params),
     );
 });
 

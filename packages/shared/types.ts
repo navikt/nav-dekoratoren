@@ -144,7 +144,6 @@ export type CsrPayload = {
     footer: string;
     data: AppState;
     scripts: HtmlElementProps[];
-    name: string;
 };
 
 export type HtmlElementProps = {
