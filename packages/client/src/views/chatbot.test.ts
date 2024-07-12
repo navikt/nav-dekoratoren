@@ -27,7 +27,7 @@ describe("chatbot", () => {
         window.__DECORATOR_DATA__ = {
             params: { chatbot: true, chatbotVisible: true },
             features: { ["dekoratoren.chatbotscript"]: true },
-            env: { ENV: "prod", BOOST_ENV: "nav" },
+            env: { BOOST_ENV: "nav" },
             texts: texts.nb,
         } as any;
     });

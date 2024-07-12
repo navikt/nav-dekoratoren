@@ -8,8 +8,6 @@ outboundHosts:
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
 env:
-  - name: ENV
-    value: prod
   - name: APP_URL
     value: https://www.nav.no/dekoratoren
   - name: CDN_URL
