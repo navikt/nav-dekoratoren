@@ -87,7 +87,6 @@ export const clientEnvSchema = z.object({
     LOGOUT_URL: z.string(),
     MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
     MIN_SIDE_URL: z.string(),
-    PERSONOPPLYSNINGER_URL: z.string(),
     PUZZEL_CUSTOMER_ID: z.string(),
     VERSION_ID: z.string(),
     XP_BASE_URL: z.string(),

@@ -12,6 +12,7 @@ export const serverSchema = z.object({
     IS_LOCAL_PROD: z.boolean().optional(),
     LOGIN_URL: z.string().url(),
     NODE_ENV: z.enum(["production", "development"]),
+    PERSONOPPLYSNINGER_URL: z.string(),
     SEARCH_API_URL: z.string().url(),
     VARSEL_API_URL: z.string().url(),
     UNLEASH_SERVER_API_TOKEN: z.string(),
@@ -32,6 +33,7 @@ export const serverEnv = {
     LOGIN_URL: process.env.LOGIN_URL,
     NODE_ENV:
         process.env.NODE_ENV === "test" ? "development" : process.env.NODE_ENV,
+    PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
     SEARCH_API_URL: process.env.SEARCH_API_URL,
     UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
     UNLEASH_SERVER_API_URL: process.env.UNLEASH_SERVER_API_URL,
@@ -50,7 +52,6 @@ export const client_env = {
     LOGOUT_URL: process.env.LOGOUT_URL,
     MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,
     MIN_SIDE_URL: process.env.MIN_SIDE_URL,
-    PERSONOPPLYSNINGER_URL: process.env.PERSONOPPLYSNINGER_URL,
     PUZZEL_CUSTOMER_ID: process.env.PUZZEL_CUSTOMER_ID,
     VERSION_ID: process.env.VERSION_ID,
     XP_BASE_URL: process.env.XP_BASE_URL,

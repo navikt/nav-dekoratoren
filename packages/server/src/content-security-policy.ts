@@ -89,7 +89,8 @@ const localDirectives = Object.entries(directives).reduce(
     {},
 );
 
-export const cspDirectives =
-    env.NODE_ENV === "development" ? localDirectives : directives;
+export const cspDirectives = env.APP_URL.includes("/localhost:")
+    ? localDirectives
+    : directives;
 
 export const csp = getCSP({ presets: [cspDirectives] });
