@@ -34,6 +34,8 @@ const app = new Hono({
     strict: false,
 });
 
+app.use(headers);
+
 if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     console.log("Setting up mocks");
     setupMocks();
@@ -45,8 +47,6 @@ if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
 }
-
-app.use(headers);
 
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
