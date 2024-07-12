@@ -27,6 +27,7 @@ import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
 import { HeadAssetsTemplate } from "./head";
+import { isLocalhost } from "./urls";
 
 const startupTime = Date.now();
 
@@ -36,7 +37,7 @@ const app = new Hono({
 
 app.use(headers);
 
-if (env.NODE_ENV === "development" || env.APP_URL.includes("/localhost:")) {
+if (env.NODE_ENV === "development" || isLocalhost()) {
     console.log("Setting up mocks");
     setupMocks();
     app.get(
