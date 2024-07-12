@@ -8,7 +8,6 @@ export const serverSchema = z.object({
     DEKORATOREN_API_URL: z.string().url(),
     ENONICXP_SERVICES: z.string().url(),
     IS_INTERNAL_APP: z.boolean(),
-    IS_LOCAL_PROD: z.boolean().optional(),
     LOGIN_URL: z.string().url(),
     NODE_ENV: z.enum(["production", "development"]),
     PERSONOPPLYSNINGER_URL: z.string(),
@@ -27,7 +26,6 @@ export const serverEnv = {
     DEKORATOREN_API_URL: process.env.DEKORATOREN_API_URL,
     ENONICXP_SERVICES: process.env.ENONICXP_SERVICES,
     IS_INTERNAL_APP: process.env.IS_INTERNAL_APP === "true",
-    IS_LOCAL_PROD: process.env.IS_LOCAL_PROD === "true",
     LOGIN_URL: process.env.LOGIN_URL,
     NODE_ENV:
         process.env.NODE_ENV === "test" ? "development" : process.env.NODE_ENV,
