@@ -7,7 +7,7 @@ import { buildCdnUrl } from "./urls";
 const faviconIco = "favicon.ico";
 const faviconSvg = "favicon.svg";
 const appleTouchIcon = "apple-touch-icon.png";
-const webManifest = "site.webmanifest";
+const webManifest = "site2.webmanifest";
 
 export const headAssets: HtmlElementProps[] = [
     {
