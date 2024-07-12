@@ -77,7 +77,29 @@ export const paramsSchema = z.object({
 });
 
 export type Params = z.infer<typeof paramsSchema>;
-export type ParamKey = keyof Params;
+
+export const clientParamKeys = [
+    "context",
+    "simple",
+    "simpleHeader",
+    "redirectToApp",
+    "redirectToUrl",
+    "level",
+    "language",
+    "availableLanguages",
+    "breadcrumbs",
+    "utilsBackground",
+    "chatbot",
+    "chatbotVisible",
+    "shareScreen",
+    "maskHotjar",
+    "logoutWarning",
+] as const;
+
+export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
+
+const filterKeys = Object.keys({} as ClientParams) as Array<keyof ClientParams>;
+console.log("filterKeys", filterKeys);
 
 export const clientEnvSchema = z.object({
     APP_URL: z.string(),

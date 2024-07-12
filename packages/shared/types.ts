@@ -1,4 +1,4 @@
-import { Context, Environment, Params } from "./params";
+import { Context, Environment, ClientParams } from "./params";
 
 export type Link = {
     content: string;
@@ -127,7 +127,7 @@ export type Features = {
  */
 export type AppState = {
     texts: ClientTexts;
-    params: Params;
+    params: ClientParams;
     env: Environment;
     features: Features;
 };

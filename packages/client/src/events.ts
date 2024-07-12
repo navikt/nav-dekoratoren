@@ -1,10 +1,10 @@
-import { Context, Params } from "decorator-shared/params";
+import { Context, ClientParams } from "decorator-shared/params";
 import { AuthDataResponse } from "decorator-shared/auth";
 
 export type CustomEvents = {
     activecontext: { context: Context };
     paramsupdated: {
-        params: Partial<Params>;
+        params: Partial<ClientParams>;
     };
     authupdated: AuthDataResponse;
     menuopened: void;
@@ -22,7 +22,7 @@ export type MessageEvents =
     | {
           source: "decoratorClient";
           event: "params";
-          payload: Partial<Params>;
+          payload: Partial<ClientParams>;
       };
 
 export function createEvent<TName extends keyof CustomEvents>(
