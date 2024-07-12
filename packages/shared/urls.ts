@@ -1,4 +1,4 @@
-import { Params } from "./params";
+import { ClientParams } from "./params";
 
 export function erNavDekoratoren(url: string) {
     return url.includes("dekoratoren") || url.includes("localhost:8089");
@@ -8,7 +8,7 @@ export function makeFrontpageUrl({
     context,
     language,
     baseUrl,
-}: Pick<Params, "context" | "language"> & {
+}: Pick<ClientParams, "context" | "language"> & {
     baseUrl: string;
 }) {
     if (language === "en") {

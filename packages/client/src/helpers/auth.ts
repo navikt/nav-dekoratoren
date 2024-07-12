@@ -1,3 +1,5 @@
+import { env } from "../params";
+
 export type SessionData = {
     session: {
         created_at: string;
@@ -61,3 +63,5 @@ export function transformSessionToAuth(session: SessionData) {
         tokenExpireAtLocal,
     };
 }
+
+export const logout = () => (window.location.href = `${env("LOGOUT_URL")}`);

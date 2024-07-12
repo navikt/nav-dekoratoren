@@ -74,7 +74,7 @@ const buildUsermenuHtml = async (
                 loginUrl: env.LOGIN_URL,
                 logoutUrl: logoutUrl as string,
                 minsideUrl: clientEnv.MIN_SIDE_URL,
-                personopplysningerUrl: clientEnv.PERSONOPPLYSNINGER_URL,
+                personopplysningerUrl: env.PERSONOPPLYSNINGER_URL,
             });
         })
         .with("arbeidsgiver", async () =>
