@@ -6,7 +6,7 @@ import { HeaderTemplate } from "./header/header";
 import { FooterTemplate } from "./footer/footer";
 import { getSplashPage } from "./splash-page";
 import { StylesTemplate } from "./styles";
-import { headAssets, HeadAssetsTemplate } from "./head";
+import { headAssets, HeadAssetsTemplate } from "../head";
 
 type IndexProps = {
     params: Params;

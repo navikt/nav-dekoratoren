@@ -1,11 +1,13 @@
-import { buildHtmlElementString } from "../lib/html-element-string-builder";
+import { buildHtmlElementString } from "./lib/html-element-string-builder";
 import { unsafeHtml } from "decorator-shared/html";
 import { HtmlElementProps } from "decorator-shared/types";
+import { buildCdnUrl } from "./urls";
 
-import faviconIco from "./head-assets/favicon.ico";
-import faviconSvg from "./head-assets/favicon.svg";
-import appleTouchIcon from "./head-assets/apple-touch-icon.png";
-import webManifest from "./head-assets/site.webmanifest";
+// Assets from public folder
+const faviconIco = "favicon.ico";
+const faviconSvg = "favicon.svg";
+const appleTouchIcon = "apple-touch-icon.png";
+const webManifest = "site.webmanifest";
 
 export const headAssets: HtmlElementProps[] = [
     {

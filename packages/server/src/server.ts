@@ -26,7 +26,7 @@ import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
-import { HeadAssetsTemplate } from "./views/head";
+import { HeadAssetsTemplate } from "./head";
 
 const startupTime = Date.now();
 
@@ -56,7 +56,7 @@ const { printMetrics, registerMetrics } = prometheus();
 app.use("*", registerMetrics);
 app.get("/metrics", printMetrics);
 
-app.get("/public/assets/*", serveStatic({}));
+app.get("/public/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
