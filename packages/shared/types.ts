@@ -131,6 +131,10 @@ export type AppState = {
     params: Params;
     env: Environment;
     features: Features;
+    // Head assets are included here only for legacy implementations, where they are injected on the client-side.
+    // In the new implemention, head elements are included in the payload from the /ssr endpoint instead
+    // and should be included in the server-HTML of consuming applications
+    headAssets?: HtmlElementProps[];
 };
 
 export type MainMenuContextLink = {

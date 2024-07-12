@@ -6,7 +6,7 @@ import { HeaderTemplate } from "./header/header";
 import { FooterTemplate } from "./footer/footer";
 import { getSplashPage } from "./splash-page";
 import { StylesTemplate } from "./styles";
-import { HeadTemplate } from "./head";
+import { headAssets, HeadAssetsTemplate } from "./head";
 
 type IndexProps = {
     params: Params;
@@ -27,7 +27,7 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                ${HeadTemplate()}
+                ${HeadAssetsTemplate()}
             </head>
             <body>
                 <div id="styles" style="display:none">${StylesTemplate()}</div>
@@ -49,6 +49,7 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
                     ${ScriptsTemplate({
                         params,
                         features,
+                        headAssets,
                     })}
                 </div>
                 <!-- The elements below are needed for backwards compatibility with certain older implementations -->
