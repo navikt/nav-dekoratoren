@@ -11,7 +11,7 @@ export const getCSSUrl = async () => {
 };
 
 const getCssElementAsString = async () => {
-    if (env.NODE_ENV === "development" && !env.HAS_EXTERNAL_DEV_CONSUMER) {
+    if (env.NODE_ENV === "development") {
         return "";
     }
 
