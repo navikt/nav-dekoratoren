@@ -1,15 +1,16 @@
-import { taskAnalyticsSelectSurvey } from "./ta-selection";
+import { TaskAnalyticsSurvey } from "decorator-server/src/task-analytics-config";
+import { Context, Language } from "decorator-shared/params";
+import { endpointUrlWithParams } from "../../helpers/urls";
 import {
-    taskAnalyticsRefreshState,
     taskAnalyticsGetSelectedSurveyId,
+    taskAnalyticsRefreshState,
     taskAnalyticsSetSelected,
 } from "./ta-cookies";
 import {
     taskAnalyticsGetMatchingSurveys,
     taskAnalyticsIsMatchingSurvey,
 } from "./ta-matching";
-import { Context, Language } from "decorator-shared/params";
-import { TaskAnalyticsSurvey } from "decorator-server/src/task-analytics-config";
+import { taskAnalyticsSelectSurvey } from "./ta-selection";
 
 let fetchedSurveys: TaskAnalyticsSurvey[] | null = null;
 
@@ -78,7 +79,7 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurvey[]) => {
 };
 
 const fetchAndStart = async () => {
-    return fetch(`${window.__DECORATOR_DATA__.env.APP_URL}/api/ta`)
+    return fetch(endpointUrlWithParams("/api/ta"))
         .then((res) => {
             if (!res.ok) {
                 throw Error(`${res.status} ${res.statusText}`);
