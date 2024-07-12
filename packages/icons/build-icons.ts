@@ -9,15 +9,14 @@ const files = [];
 for await (const path of glob.scan(".")) {
     files.push({ name: /([^/]+)\.svg$/.exec(path)?.[1] ?? "wat", path });
 }
-
 const jsString =
-    'focusable="false" role="img" ${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props, })} ${ariaLabel && html`aria-label="${ariaLabel}"`}';
+    '${htmlAttributes({ ariaHidden: props.ariaLabel ? "false" : "true", ...props })}';
 
 const fileTemplate = ({ svg, name }: { svg: string; name: string }) => `
 import html, { htmlAttributes } from "decorator-shared/html";
 import type { IconProps } from "./types";
 
-export const ${name}Icon = ({ ariaLabel, ...props }: IconProps = {}) => html\`
+export const ${name}Icon = (props: IconProps = {}) => html\`
 ${svg}
 \`;
 `;
@@ -31,7 +30,21 @@ ${svg}
 ].forEach(async ({ name, path }) => {
     const iconPath = (await import(path)).default;
     const icon = await Bun.file(iconPath).text();
-    const result = optimize(icon, { path: iconPath });
+    const result = optimize(icon, {
+        path: iconPath,
+        plugins: [
+            "preset-default",
+            {
+                name: "addAttributesToSVGElement",
+                params: {
+                    attribute: {
+                        focusable: "false",
+                        role: "img",
+                    },
+                },
+            },
+        ],
+    });
 
     const optimizedSvgString = result.data;
 
