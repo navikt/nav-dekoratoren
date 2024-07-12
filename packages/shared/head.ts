@@ -5,11 +5,20 @@ import faviconSvg from "./head-assets/favicon.svg";
 import appleTouchIcon from "./head-assets/apple-touch-icon.png";
 import webManifest from "./head-assets/site.webmanifest";
 
-// TODO: include these in ssr
 export const getHeadAssetsProps = (
     cdUrlResolver: (url: string) => string,
 ): HtmlElementProps[] =>
     [
+        {
+            tag: "link",
+            attribs: {
+                rel: "preload",
+                href: "https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2",
+                as: "font",
+                type: "font/woff2",
+                crossorigin: "anonymous",
+            },
+        },
         {
             tag: "link",
             attribs: {

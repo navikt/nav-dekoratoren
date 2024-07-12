@@ -6,6 +6,7 @@ import { HeaderTemplate } from "./header/header";
 import { FooterTemplate } from "./footer/footer";
 import { getSplashPage } from "./splash-page";
 import { StylesTemplate } from "./styles";
+import { HeadTemplate } from "./head";
 
 type IndexProps = {
     params: Params;
@@ -20,21 +21,13 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
         <!doctype html>
         <html lang="${language}">
             <head>
-                <title>${"NAV Dekoratør"}</title>
-                <link
-                    rel="preload"
-                    href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
-                    as="font"
-                    type="font/woff2"
-                    crossorigin="anonymous"
-                />
+                <title>NAV Dekoratør</title>
                 <meta charset="utf-8" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-
-                ${unsafeHtml(headElements)}
+                ${HeadTemplate()}
             </head>
             <body>
                 <div id="styles" style="display:none">${StylesTemplate()}</div>

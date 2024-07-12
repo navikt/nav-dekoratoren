@@ -26,6 +26,7 @@ import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
+import { HeadTemplate } from "./views/head";
 
 const startupTime = Date.now();
 
@@ -169,8 +170,7 @@ app.get("/ssr", async ({ req, json }) => {
         ).render(params),
         scripts: ScriptsTemplate({ features, params }).render(params),
         styles: StylesTemplate().render(),
-        // TODO: add head-elements
-        head: "coming soon!",
+        head: HeadTemplate().render(),
     });
 });
 // /env is used for CSR
