@@ -1,4 +1,3 @@
-import { P, match } from "ts-pattern";
 import { Language } from "./params";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
@@ -82,23 +81,24 @@ const html = (
     ...values: TemplateStringValues[]
 ): Template => ({
     render: (params) => {
-        const renderValue = (item: TemplateStringValues): string =>
-            match(item)
+        const renderValue = (item: TemplateStringValues): string => {
+            if (Array.isArray(item)) {
                 // Join arrays
-                .with(P.array(P.any), (items) =>
-                    items.map(renderValue).join(""),
-                )
+                return item.map(renderValue).join("");
+            } else if (item === false || item === null || item === undefined) {
                 // Nullish values to empty string
-                .with(P.union(false, P.nullish), () => "")
+                return "";
+            } else if (typeof item === "string") {
                 // Escape strings
-                .with(P.string, (str) => escapeHtml(str))
-                // Convert numbers to string
-                .with(P.number, (num) => String(num))
-                // Make "true" into true string
-                .with(true, () => "true")
+                return escapeHtml(item);
+            } else if (typeof item === "number" || item === true) {
+                // Convert numbers and true to string
+                return String(item);
+            } else {
                 // Render template
-                .with(P.select(), (template) => template.render(params).trim())
-                .exhaustive();
+                return item.render(params).trim();
+            }
+        };
 
         return String.raw({ raw: strings }, ...values.map(renderValue));
     },
