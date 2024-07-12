@@ -15,6 +15,7 @@ const defaultFeatures = {
     "dekoratoren.chatbotscript": true,
 };
 
+// TODO: Features should be loaded on the client to avoid caching.
 export const getFeatures = () => {
     if (unleash?.isSynchronized()) {
         return {
