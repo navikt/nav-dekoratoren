@@ -74,6 +74,7 @@ export const paramsSchema = z.object({
     maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
+    ssrMainMenu: z.boolean().default(false),
 });
 
 export type Params = z.infer<typeof paramsSchema>;

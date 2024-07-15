@@ -32,7 +32,7 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
             <body>
                 <div id="styles" style="display:none">${StylesTemplate()}</div>
                 <div id="header-withmenu">
-                    ${HeaderTemplate({
+                    ${await HeaderTemplate({
                         params,
                         withContainers: true,
                     })}

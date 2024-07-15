@@ -18,7 +18,7 @@ import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { IndexTemplate } from "./views";
-import { MainMenu } from "./views/header/main-menu";
+import { MainMenu, MainMenuTemplate } from "./views/header/main-menu";
 import { prometheus } from "@hono/prometheus";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
@@ -101,26 +101,11 @@ app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
 
     return html(
-        MainMenu({
-            title:
-                data.context === "privatperson"
-                    ? i18n("how_can_we_help")
-                    : i18n(data.context),
-            frontPageUrl: makeFrontpageUrl({
-                context: data.context,
-                language: data.language,
-                baseUrl: env.XP_BASE_URL,
-            }),
-            links: await getMainMenuLinks({
-                language: data.language,
-                context: data.context,
-            }),
-            contextLinks: mainMenuContextLinks({
-                context: data.context,
-                language: data.language,
-                bedrift: data.bedrift,
-            }),
-        }).render(data),
+        (
+            await MainMenuTemplate({
+                data,
+            })
+        ).render(data),
     );
 });
 app.get("/auth", async ({ req, json }) =>
@@ -136,7 +121,9 @@ app.get("/header", async ({ req, html }) => {
     const params = validParams(req.query());
 
     return html(
-        HeaderTemplate({ params, withContainers: false }).render(params),
+        (await HeaderTemplate({ params, withContainers: false })).render(
+            params,
+        ),
     );
 });
 app.get("/footer", async ({ req, html }) => {
@@ -157,10 +144,12 @@ app.get("/ssr", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: HeaderTemplate({
-            params,
-            withContainers: true,
-        }).render(params),
+        header: (
+            await HeaderTemplate({
+                params,
+                withContainers: true,
+            })
+        ).render(params),
         footer: (
             await FooterTemplate({
                 params,
@@ -180,10 +169,12 @@ app.get("/env", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: HeaderTemplate({
-            params,
-            withContainers: true,
-        }).render(params),
+        header: (
+            await HeaderTemplate({
+                params,
+                withContainers: true,
+            })
+        ).render(params),
         footer: (
             await FooterTemplate({
                 params,
