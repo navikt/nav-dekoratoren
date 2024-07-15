@@ -27,7 +27,7 @@ jobs:
     name: Deploy previous version
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
-    if: inputs.DEPLOY_INTERNAL == true && vars.PREV_VERSION_ID != '' && vars.PREV_IMAGE != ''
+    if: inputs.DEPLOY_INTERNAL == true # && vars.PREV_VERSION_ID != '' && vars.PREV_IMAGE != ''
     env:
       PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }} # Should be the commit SHA of the previously deployed version
       PREV_IMAGE: ${{ vars.PREV_IMAGE }}
