@@ -5,6 +5,7 @@ import { SimpleHeader } from "./simple-header";
 import { clientEnv, env } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
+import { MainMenuTemplate } from "./main-menu";
 
 const frontPageUrl = clientEnv.XP_BASE_URL;
 
@@ -13,10 +14,10 @@ type HeaderProps = {
     withContainers: boolean;
 };
 
-export const HeaderTemplate = ({
+export const HeaderTemplate = async ({
     params,
     withContainers,
-}: HeaderProps): Template => {
+}: HeaderProps): Promise<Template> => {
     const {
         breadcrumbs,
         availableLanguages,
@@ -48,6 +49,9 @@ export const HeaderTemplate = ({
                   contextLinks: makeContextLinks(language),
                   context,
                   language,
+                  mainMenu: params.ssrMainMenu
+                      ? await MainMenuTemplate({ data: params })
+                      : null,
               });
 
     return withContainers

@@ -18,7 +18,7 @@ import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { validParams } from "./validateParams";
 import { IndexTemplate } from "./views";
-import { MainMenu } from "./views/header/main-menu";
+import { MainMenu, MainMenuTemplate } from "./views/header/main-menu";
 import { prometheus } from "@hono/prometheus";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
@@ -26,6 +26,8 @@ import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
+import { headAssets, HeadAssetsTemplate } from "./head";
+import { isLocalhost } from "./urls";
 
 const startupTime = Date.now();
 
@@ -33,18 +35,19 @@ const app = new Hono({
     strict: false,
 });
 
-if (env.NODE_ENV === "development" || env.APP_URL.includes("/localhost:")) {
+app.use(headers);
+
+if (env.NODE_ENV === "development" || isLocalhost()) {
     console.log("Setting up mocks");
     setupMocks();
     app.get(
         "/mockServiceWorker.js",
-        serveStatic({ path: "./public/mockServiceWorker.js" }),
+        serveStatic({ path: "./mockServiceWorker.js" }),
     );
+    app.get("/public/*", serveStatic({}));
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
 }
-
-app.use(headers);
 
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
@@ -54,8 +57,6 @@ const { printMetrics, registerMetrics } = prometheus();
 
 app.use("*", registerMetrics);
 app.get("/metrics", printMetrics);
-
-app.get("/public/assets/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
@@ -100,26 +101,11 @@ app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
 
     return html(
-        MainMenu({
-            title:
-                data.context === "privatperson"
-                    ? i18n("how_can_we_help")
-                    : i18n(data.context),
-            frontPageUrl: makeFrontpageUrl({
-                context: data.context,
-                language: data.language,
-                baseUrl: env.XP_BASE_URL,
-            }),
-            links: await getMainMenuLinks({
-                language: data.language,
-                context: data.context,
-            }),
-            contextLinks: mainMenuContextLinks({
-                context: data.context,
-                language: data.language,
-                bedrift: data.bedrift,
-            }),
-        }).render(data),
+        (
+            await MainMenuTemplate({
+                data,
+            })
+        ).render(data),
     );
 });
 app.get("/auth", async ({ req, json }) =>
@@ -135,7 +121,9 @@ app.get("/header", async ({ req, html }) => {
     const params = validParams(req.query());
 
     return html(
-        HeaderTemplate({ params, withContainers: false }).render(params),
+        (await HeaderTemplate({ params, withContainers: false })).render(
+            params,
+        ),
     );
 });
 app.get("/footer", async ({ req, html }) => {
@@ -156,10 +144,12 @@ app.get("/ssr", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: HeaderTemplate({
-            params,
-            withContainers: true,
-        }).render(params),
+        header: (
+            await HeaderTemplate({
+                params,
+                withContainers: true,
+            })
+        ).render(params),
         footer: (
             await FooterTemplate({
                 params,
@@ -169,8 +159,7 @@ app.get("/ssr", async ({ req, json }) => {
         ).render(params),
         scripts: ScriptsTemplate({ features, params }).render(params),
         styles: StylesTemplate().render(),
-        // TODO: add head-elements
-        head: "coming soon!",
+        headAssets: HeadAssetsTemplate().render(),
     });
 });
 // /env is used for CSR
@@ -180,10 +169,12 @@ app.get("/env", async ({ req, json }) => {
     const features = getFeatures();
 
     return json({
-        header: HeaderTemplate({
-            params,
-            withContainers: true,
-        }).render(params),
+        header: (
+            await HeaderTemplate({
+                params,
+                withContainers: true,
+            })
+        ).render(params),
         footer: (
             await FooterTemplate({
                 params,
@@ -191,7 +182,7 @@ app.get("/env", async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        data: buildDecoratorData({ params, features }),
+        data: buildDecoratorData({ params, features, headAssets }),
         scripts: csrAssets.mainScripts,
         //TODO: Add css?
     } satisfies CsrPayload);

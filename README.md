@@ -54,10 +54,6 @@ bun install
 
 Run `bun run dev` to start development server. The application is then available at http://localhost:8089.
 
-### Updating snapshots
-
-To update snapshots when you've made changes to the markup that is produced. Run: `bun test --update-snapshots`
-
 ## Styling
 
 Styling documentation.

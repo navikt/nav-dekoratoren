@@ -7,7 +7,8 @@ import {
     getCSP,
     SELF,
 } from "csp-header";
-import { clientEnv, env } from "./env/server";
+import { clientEnv } from "./env/server";
+import { isLocalhost } from "./urls";
 
 const navNo = "*.nav.no";
 const cdnNavNo = "cdn.nav.no";
@@ -89,8 +90,6 @@ const localDirectives = Object.entries(directives).reduce(
     {},
 );
 
-export const cspDirectives = env.APP_URL.includes("/localhost:")
-    ? localDirectives
-    : directives;
+export const cspDirectives = isLocalhost() ? localDirectives : directives;
 
 export const csp = getCSP({ presets: [cspDirectives] });
