@@ -20,16 +20,6 @@ type AnalyticsActions =
     | `${string}/${string}`
     | string;
 
-export const analyticsEvents = {
-    arkivertBeskjed: [
-        "arkivert-beskjed",
-        {
-            komponent: "varsler-beskjed-arkiverbar",
-            category: "varsler" satisfies AnalyticsCategory,
-        },
-    ],
-} as const;
-
 export type AnalyticsEventArgs = {
     eventName?: string;
     category?: AnalyticsCategory;

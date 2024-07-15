@@ -1,7 +1,6 @@
 import { logAmplitudeEvent } from "../analytics/amplitude";
-import { analyticsEvents } from "../analytics/constants";
-import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "../custom-elements";
+import { endpointUrlWithParams } from "../helpers/urls";
 
 class ArchivableNotification extends HTMLElement {
     // TODO: hva skal vi vise hvis arkivering feiler?
@@ -24,7 +23,10 @@ class ArchivableNotification extends HTMLElement {
                 }
 
                 this.parentElement?.remove();
-                logAmplitudeEvent(...analyticsEvents.arkivertBeskjed);
+                logAmplitudeEvent("arkivert-beskjed", {
+                    komponent: "varsler-beskjed-arkiverbar",
+                    category: "varsler",
+                });
             }),
         );
     }
