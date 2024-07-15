@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/html";
 import * as icons from ".";
-import {
-    FridaIcon,
-    MessageIcon,
-    PersonCircleNotificationIcon,
-    TaskIcon,
-} from "../dist";
+import { MessageIcon, PersonCircleNotificationIcon, TaskIcon } from "../dist";
 
 const meta: Meta = {
     title: "icons",
@@ -23,7 +18,6 @@ const meta: Meta = {
 
         div.innerHTML = [
             ...Object.values(icons),
-            FridaIcon,
             MessageIcon,
             PersonCircleNotificationIcon,
             TaskIcon,

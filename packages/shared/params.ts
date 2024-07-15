@@ -102,6 +102,7 @@ export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 
 export const clientEnvSchema = z.object({
     APP_URL: z.string(),
+    CDN_URL: z.string(),
     BOOST_ENV: z.enum(["nav", "navtest"]),
     LOGIN_SESSION_API_URL: z.string(),
     LOGOUT_URL: z.string(),
