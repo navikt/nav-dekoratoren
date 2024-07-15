@@ -54,7 +54,6 @@ spec:
   envFrom:
     - secret: nav-dekoratoren
     - secret: nav-dekoratoren-unleash-api-token
-    - configmap: dekoratoren-version-authority
   filesFrom:
     - configmap: dekoratoren-config
       mountPath: /app/config
