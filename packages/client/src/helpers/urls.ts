@@ -16,7 +16,7 @@ export const endpointUrlWithParams = (
 };
 
 export const cdnUrl = (url: string) =>
-    `${import.meta.env.DEV ? "" : env("CDN_URL")}${url}`;
+    import.meta.env.DEV ? url : `${env("CDN_URL")}${url}`;
 
 export const parseUrl = (url: string) => {
     try {
