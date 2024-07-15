@@ -6,6 +6,10 @@ on:
         description: "Deploy previous version to internal"
         required: false
         type: boolean
+      SKIP_TESTS:
+        description: "Skip tests"
+        required: false
+        type: boolean
 
 jobs:
   build:
@@ -15,6 +19,7 @@ jobs:
       contents: read
     with:
       IMAGE_SUFFIX: dev-stable
+      SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
     secrets: inherit
   deploy:
     uses: ./.github/workflows/deploy-application.yml
