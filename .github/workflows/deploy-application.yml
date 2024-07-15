@@ -27,7 +27,7 @@ jobs:
     name: Deploy previous version
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
-    if: inputs.DEPLOY_INTERNAL == true # && vars.PREV_VERSION_ID != '' && vars.PREV_IMAGE != ''
+    if: inputs.DEPLOY_INTERNAL == true
     env:
       PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }} # Should be the commit SHA of the previously deployed version
       PREV_IMAGE: ${{ vars.PREV_IMAGE }}
@@ -38,6 +38,7 @@ jobs:
           ref: ${{ env.PREV_VERSION_ID }}
       - name: Deploy internal versioned app
         uses: nais/deploy/actions/deploy@v2
+        if: env.PREV_VERSION_ID != '' && env.PREV_IMAGE != ''
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
