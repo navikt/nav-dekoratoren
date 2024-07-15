@@ -6,7 +6,7 @@ export const serverSchema = z.object({
     APP_URL: z.string().url(),
     CDN_URL: z.string().url(),
     DEKORATOREN_API_URL: z.string().url(),
-    DEPLOY_TS: z.number(),
+    DEPLOY_TS: z.string().transform(Number),
     ENONICXP_SERVICES: z.string().url(),
     IS_INTERNAL_APP: z.boolean(),
     LOGIN_URL: z.string().url(),
