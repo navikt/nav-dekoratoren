@@ -6,4 +6,8 @@ metadata:
   labels:
     team: personbruker
 data:
-  AUTHORITATIVE_VERSION_ID: "{{versionId}}"
+  version-authority.json: |
+    {
+      "AUTHORITATIVE_VERSION_ID": "{{versionId}}"
+    }
+

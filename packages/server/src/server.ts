@@ -55,10 +55,14 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
-app.get("/api/version", ({ json }) =>
+app.get("/api/version", async ({ json }) =>
     json({
         localVersion: env.VERSION_ID,
-        authoritativeVersion: process.env.AUTHORITATIVE_VERSION_ID,
+        authoritativeVersion: (
+            await Bun.file(
+                `${process.cwd()}/config/version-authority.json`,
+            ).json()
+        )?.AUTHORITATIVE_VERSION_ID,
     }),
 );
 app.get("/api/ta", async ({ json }) => {
