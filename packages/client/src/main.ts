@@ -2,9 +2,9 @@
 import { getHeadAssetsProps } from "decorator-shared/head";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
-import { initAuth } from "./auth";
 import { initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
+import { initAuth } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { cdnUrl } from "./helpers/urls";
 import "./main.css";
