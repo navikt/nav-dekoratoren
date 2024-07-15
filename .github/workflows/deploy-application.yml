@@ -18,32 +18,41 @@ on:
       VARS_UPDATE_TOKEN:
         required: true
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
-  deploy_to_nais:
-    name: Deploy to nais
+  deploy_previous:
+    name: Deploy previous version
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
+    if: inputs.DEPLOY_INTERNAL == true && vars.PREV_VERSION_ID != '' && vars.PREV_IMAGE != ''
     env:
-      PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+      PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }} # Should be the commit SHA of the previously deployed version
       PREV_IMAGE: ${{ vars.PREV_IMAGE }}
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Set version id from short commit hash
-        run: |
-          shortSha=$(git rev-parse --short ${{ github.sha }})
-          echo "VERSION_ID=$shortSha" >> $GITHUB_ENV
+        with:
+          ref: ${{ env.PREV_VERSION_ID }}
       - name: Deploy internal versioned app
         uses: nais/deploy/actions/deploy@v2
-        if: inputs.DEPLOY_INTERNAL == true && env.PREV_VERSION_ID != '' && env.PREV_IMAGE != ''
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
           VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
+
+  deploy_current:
+    name: Deploy current version
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.DEPLOY_INSTANCE }}
+    env:
+      VERSION_ID: ${{ github.sha }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - name: Deploy external app
         uses: nais/deploy/actions/deploy@v2
         env:
