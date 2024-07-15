@@ -1,7 +1,7 @@
 import { Context } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { param } from "../params";
 

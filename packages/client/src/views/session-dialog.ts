@@ -1,4 +1,4 @@
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import { logout } from "../helpers/auth";
 import { getSecondsRemaining } from "../helpers/time";
 

@@ -1,7 +1,7 @@
 import { AvailableLanguage, Language } from "decorator-shared/params";
 import cls from "../styles/language-selector.module.css";
 import { param, updateDecoratorParams } from "../params";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import { CustomEvents } from "../events";
 
 export class LanguageSelector extends HTMLElement {

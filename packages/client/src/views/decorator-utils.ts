@@ -1,4 +1,4 @@
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import { CustomEvents } from "../events";
 import { param } from "../params";
 import cls from "../styles/decorator-utils.module.css";

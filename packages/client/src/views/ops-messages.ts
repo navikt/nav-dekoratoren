@@ -7,7 +7,7 @@ import {
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
 
 export const OpsMessagesTemplate = ({

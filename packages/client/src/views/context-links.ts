@@ -1,5 +1,5 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import headerClasses from "../styles/header.module.css";
 
 class ContextLinks extends HTMLElement {

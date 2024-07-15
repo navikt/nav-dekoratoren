@@ -1,4 +1,4 @@
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import {
     SessionData,
     fetchRenew,

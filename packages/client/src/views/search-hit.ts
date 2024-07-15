@@ -1,5 +1,5 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 
 class SearchHit extends HTMLElement {
     connectedCallback() {

@@ -1,10 +1,10 @@
 import { FridaIcon } from "decorator-icons";
 import { ClientParams, Context, Language } from "decorator-shared/params";
 import Cookies from "js-cookie";
-import { defineCustomElement } from "../custom-elements";
 import i18n from "../i18n";
-import loadExternalScript from "../load-external-script";
-import { env, param } from "../params";
+import loadExternalScript from "../../load-external-script";
+import { env, param } from "../../params";
+import { defineCustomElement } from "../custom-elements";
 import cls from "./chatbot.module.css";
 
 type CustomEventMap = {
@@ -105,7 +105,7 @@ class Chatbot extends HTMLElement {
                 }),
             );
 
-            this.boost.chatPanel.addEventListener(
+            this.boost?.chatPanel.addEventListener(
                 "conversationIdChanged",
                 (event) =>
                     event.detail.conversationId
@@ -113,14 +113,21 @@ class Chatbot extends HTMLElement {
                         : this.removeCookie(),
             );
 
-            this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
-                this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
-                if (event.detail.nextId) {
-                    this.boost?.chatPanel.triggerAction(event.detail.nextId);
-                }
-            });
+            this.boost?.chatPanel.addEventListener(
+                "setFilterValue",
+                (event) => {
+                    this.boost?.chatPanel.setFilterValues(
+                        event.detail.filterValue,
+                    );
+                    if (event.detail.nextId) {
+                        this.boost?.chatPanel.triggerAction(
+                            event.detail.nextId,
+                        );
+                    }
+                },
+            );
 
-            this.boost.chatPanel.addEventListener("chatPanelClosed", () =>
+            this.boost?.chatPanel.addEventListener("chatPanelClosed", () =>
                 this.removeCookie(),
             );
 

@@ -1,6 +1,6 @@
 import cls from "../styles/user-menu.module.css";
 import globalCls from "../styles/global.module.css";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 import { CustomEvents } from "../events";
 import { AuthDataResponse } from "decorator-shared/auth";
 
