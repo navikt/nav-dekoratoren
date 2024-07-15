@@ -26,7 +26,7 @@ import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
-import { HeadAssetsTemplate } from "./head";
+import { headAssets, HeadAssetsTemplate } from "./head";
 import { isLocalhost } from "./urls";
 
 const startupTime = Date.now();
@@ -191,7 +191,7 @@ app.get("/env", async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        data: buildDecoratorData({ params, features }),
+        data: buildDecoratorData({ params, features, headAssets }),
         scripts: csrAssets.mainScripts,
         //TODO: Add css?
     } satisfies CsrPayload);

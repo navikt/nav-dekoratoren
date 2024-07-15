@@ -25,7 +25,17 @@ window.addEventListener("load", () => {
 
 const injectHeadAssets = () => {
     window.__DECORATOR_DATA__.headAssets?.forEach((props) => {
-        document.head.appendChild(buildHtmlElement(props));
+        const attribsSelector = Object.entries(props.attribs)
+            .map(([name, value]) => `[${name}="${value}"]`)
+            .join("");
+
+        const elementExists = document.head.querySelector(
+            `${props.tag}${attribsSelector}`,
+        );
+
+        if (!elementExists) {
+            document.head.appendChild(buildHtmlElement(props));
+        }
     });
 };
 
