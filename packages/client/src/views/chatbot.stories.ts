@@ -11,7 +11,6 @@ const meta: Meta = {
         window.__DECORATOR_DATA__ = {
             params: { chatbot: true, chatbotVisible: true },
             features: { ["dekoratoren.chatbotscript"]: true },
-            env: { ENV: "prod" },
         } as any;
 
         return wrapper;

@@ -13,7 +13,7 @@ const ALLOWED_DOMAINS = [
 const isAllowedOrigin = (origin?: string) =>
     origin &&
     (ALLOWED_DOMAINS.some((domain) => origin.endsWith(domain)) ||
-        origin.includes("localhost:"));
+        origin.includes("/localhost:"));
 
 export const headers: MiddlewareHandler = async (c, next) => {
     await next();

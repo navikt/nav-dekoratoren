@@ -33,7 +33,7 @@ const app = new Hono({
     strict: false,
 });
 
-if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
+if (env.NODE_ENV === "development" || env.APP_URL.includes("/localhost:")) {
     console.log("Setting up mocks");
     setupMocks();
     app.get(

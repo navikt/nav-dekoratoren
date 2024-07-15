@@ -1,4 +1,4 @@
-import { Context, Environment, Params } from "./params";
+import { Context, Environment, ClientParams } from "./params";
 
 export type Link = {
     content: string;
@@ -13,17 +13,6 @@ export type LinkGroup = {
 
 export const clientTextsKeys = [
     "breadcrumbs",
-    "token_warning_title",
-    "token_warning_body",
-    "send_undersokelse_takk",
-    "hensikt_med_tilbakemelding",
-    "hensikt_med_tilbakemelding_lenke",
-    "session_warning_title",
-    "session_warning_body",
-    "ok",
-    "yes",
-    "logout",
-    "login",
     "important_info",
     "loading_preview",
     "loading",
@@ -35,6 +24,17 @@ export type ClientTexts = {
 };
 
 export type Texts = ClientTexts & {
+    token_warning_title: string;
+    token_warning_body: string;
+    send_undersokelse_takk: string;
+    hensikt_med_tilbakemelding: string;
+    hensikt_med_tilbakemelding_lenke: string;
+    session_warning_title: string;
+    session_warning_body: string;
+    ok: string;
+    yes: string;
+    logout: string;
+    login: string;
     skip_link: string;
     share_screen: string;
     to_top: string;
@@ -43,7 +43,6 @@ export type Texts = ClientTexts & {
     did_you_find: string;
     search: string;
     clear: string;
-    login: string;
     logged_in: string;
     language_selector: string;
     notifications: string;
@@ -128,7 +127,7 @@ export type Features = {
  */
 export type AppState = {
     texts: ClientTexts;
-    params: Params;
+    params: ClientParams;
     env: Environment;
     features: Features;
 };

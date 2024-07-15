@@ -1,11 +1,11 @@
-import { Params } from "decorator-shared/params";
+import { ClientParams } from "decorator-shared/params";
 import { formatParams } from "decorator-shared/json";
 import { env } from "../params";
 import { VERSION_ID_PARAM } from "decorator-shared/constants";
 
 export const endpointUrlWithParams = (
     endpointUrl: `/${string}`,
-    params?: Partial<Params> & Record<string, unknown>,
+    params?: Partial<ClientParams> & Record<string, unknown>,
 ) => {
     const formattedParams = formatParams({
         ...window.__DECORATOR_DATA__.params,

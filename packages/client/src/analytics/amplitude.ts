@@ -1,5 +1,5 @@
 import { Auth } from "decorator-shared/auth";
-import { Params } from "decorator-shared/params";
+import { ClientParams } from "decorator-shared/params";
 import { param } from "../params";
 import { AnalyticsEventArgs } from "./constants";
 
@@ -101,7 +101,7 @@ const logEventFromApp = (params?: {
     }
 };
 
-export const logPageView = (params: Params, authState: Auth) => {
+export const logPageView = (params: ClientParams, authState: Auth) => {
     return logAmplitudeEvent("besøk", {
         sidetittel: document.title,
         innlogging: authState.authenticated ? authState.securityLevel : false,
