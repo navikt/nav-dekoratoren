@@ -1,13 +1,53 @@
 import Cookies from "js-cookie";
 import { defineCustomElement } from "../custom-elements";
-import { param } from "../params";
-import {
-    lazyLoadScreensharing,
-    loadScript,
-    startCall,
-    useLoadIfActiveSession,
-} from "../screensharing";
+import loadExternalScript from "../load-external-script";
+import { env, param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
+
+let hasBeenOpened = false;
+
+const loadScript = () =>
+    loadExternalScript(
+        `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
+    );
+
+function lazyLoadScreensharing(callback: () => void) {
+    // Check if it is already loaded to avoid layout shift
+    const enabled =
+        window.__DECORATOR_DATA__.params.shareScreen &&
+        window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
+
+    if (!enabled || hasBeenOpened) {
+        callback();
+        return;
+    }
+
+    loadScript().then(() => {
+        if (!window.vngage) {
+            console.error("vngage not found!");
+            return;
+        }
+
+        window.vngage.subscribe("app.ready", (message, data) => {
+            console.log("Screensharing app ready", message, data);
+
+            hasBeenOpened = true;
+            callback();
+        });
+    });
+}
+
+function startCall(code: string) {
+    window.vngage.join("queue", {
+        opportunityId: "615FF5E7-37B7-4697-A35F-72598B0DC53B",
+        solutionId: "5EB316A1-11E2-460A-B4E3-F82DBD13E21D",
+        caseTypeId: "66D660EF-6F14-44B4-8ADE-A70A127202D0",
+        category: "Phone2Web",
+        message: "Phone2Web",
+        groupId: "A034081B-6B73-46B7-BE27-23B8E9CE3079",
+        startCode: code,
+    });
+}
 
 export class ScreensharingModal extends HTMLElement {
     dialog!: HTMLDialogElement;
