@@ -69,7 +69,7 @@ export class LanguageSelector extends HTMLElement {
 
         this.options = [];
         this.container.classList.toggle(
-            cls.empty,
+            utils.hidden,
             availableLanguages.length === 0,
         );
         this.menu.replaceChildren(
