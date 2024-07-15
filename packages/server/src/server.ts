@@ -55,6 +55,12 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
+app.get("/api/version", ({ json }) =>
+    json({
+        localVersion: env.VERSION_ID,
+        authoritativeVersion: process.env.AUTHORITATIVE_VERSION_ID,
+    }),
+);
 app.get("/api/ta", async ({ json }) => {
     const result = await getTaskAnalyticsConfig();
     if (result.ok) {
