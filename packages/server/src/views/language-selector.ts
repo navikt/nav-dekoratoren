@@ -21,11 +21,11 @@ export const LanguageSelector = ({
             aria-label="${i18n("language_selector")}"
         >
             <button type="button" class="${cls.button}">
-                ${GlobeIcon({ className: cls.icon })}
+                ${GlobeIcon({ className: utils.icon })}
                 <span class="${cls.label}">
                     <span lang="nb">Språk</span>/<span lang="en">Language</span>
                 </span>
-                ${ChevronDownIcon({ className: cls.icon })}
+                ${ChevronDownIcon({ className: utils.icon })}
             </button>
         </nav>
     </language-selector>

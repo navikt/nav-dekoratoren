@@ -25,7 +25,7 @@ export const SearchForm = () => {
             <button class="${cls.submit}">
                 ${MagnifyingGlassIcon({
                     ariaLabel: i18n("search"),
-                    className: cls.searchIcon,
+                    className: utils.icon,
                 })}
             </button>
         </div>

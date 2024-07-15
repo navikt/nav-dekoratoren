@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
-import utilsCls from "decorator-client/src/styles/utils.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
 import {
     ExclamationmarkTriangleIcon,
     InformationSquareIcon,
@@ -15,13 +15,13 @@ export const OpsMessagesTemplate = ({
 }: {
     opsMessages: OpsMessage[];
 }) => html`
-    <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
+    <section class="${cls.opsMessagesContent} ${utils.contentContainer}">
         ${opsMessages.map(
             ({ heading, url, type }) => html`
                 <a href="${url}" class="${cls.opsMessage}">
                     ${type === "prodstatus"
-                        ? ExclamationmarkTriangleIcon({ className: cls.icon })
-                        : InformationSquareIcon({ className: cls.icon })}
+                        ? ExclamationmarkTriangleIcon({ className: utils.icon })
+                        : InformationSquareIcon({ className: utils.icon })}
                     ${heading}
                 </a>
             `,

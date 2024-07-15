@@ -63,10 +63,6 @@
     text-decoration: underline;
 }
 
-.menuItemIcon {
-    font-size: 1.5rem;
-}
-
 .notifications {
     padding-block: var(--a-spacing-5) var(--a-spacing-8);
     padding-inline: var(--inline-padding);

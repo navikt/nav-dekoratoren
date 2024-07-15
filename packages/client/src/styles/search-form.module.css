@@ -3,10 +3,6 @@
     gap: var(--a-spacing-2);
 }
 
-.searchIcon {
-    font-size: 1.5rem;
-}
-
 .label {
     justify-self: start;
     font-size: var(--a-font-size-large);
