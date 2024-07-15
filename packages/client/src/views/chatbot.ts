@@ -1,11 +1,11 @@
-import { Context, Language, ClientParams } from "decorator-shared/params";
 import { FridaIcon } from "decorator-icons";
+import { ClientParams, Context, Language } from "decorator-shared/params";
 import Cookies from "js-cookie";
-import { env, param } from "../params";
-import { loadExternalScript } from "../utils";
-import cls from "./chatbot.module.css";
-import i18n from "../i18n";
 import { defineCustomElement } from "../custom-elements";
+import i18n from "../i18n";
+import loadExternalScript from "../load-external-script";
+import { env, param } from "../params";
+import cls from "./chatbot.module.css";
 
 type CustomEventMap = {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;

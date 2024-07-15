@@ -1,4 +1,4 @@
-import { loadExternalScript } from "./utils";
+import loadExternalScript from "./load-external-script";
 import { env } from "./params";
 
 let hasBeenOpened = false;
