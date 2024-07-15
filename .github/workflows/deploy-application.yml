@@ -59,14 +59,14 @@ jobs:
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config.yml
-          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},env=${{ inputs.DEPLOY_INSTANCE }}
+          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
       - name: Update version authority configmap
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/version-authority-configmap.yml
-          VAR: versionId=${{ env.VERSION_ID }},env=${{ inputs.DEPLOY_INSTANCE }}
+          VAR: versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
       - name: Update vars
         env:
           GITHUB_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }} # This is a PAT with repo or Variables permission
