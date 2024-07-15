@@ -48,6 +48,8 @@ spec:
     - name: VERSION_ID
       # Ensure this is always parsed as string!
       value: "{{versionId}}"
+    - name: DEPLOY_TS
+      value: "{{deployTs}}"
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}

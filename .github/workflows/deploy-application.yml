@@ -36,13 +36,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ env.PREV_VERSION_ID }}
+      - name: Set deploy timestamp
+        run: echo "DEPLOY_TS=$(date +%s)" >> $GITHUB_ENV
       - name: Deploy internal versioned app
         uses: nais/deploy/actions/deploy@v2
         if: env.PREV_VERSION_ID != '' && env.PREV_IMAGE != ''
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }}
+          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }},deployTs=${{ env.DEPLOY_TS }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
   deploy_current:
@@ -54,12 +56,14 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Set deploy timestamp
+        run: echo "DEPLOY_TS=$(date +%s)" >> $GITHUB_ENV
       - name: Deploy external app
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config.yml
-          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }}
+          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployTs=${{ env.DEPLOY_TS }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
       - name: Update vars
         env:
