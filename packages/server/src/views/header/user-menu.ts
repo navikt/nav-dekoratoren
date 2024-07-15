@@ -1,13 +1,14 @@
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/user-menu.module.css";
-import html from "decorator-shared/html";
-import { LoginLevel } from "decorator-shared/params";
+import utils from "decorator-client/src/styles/utils.module.css";
 import {
     BagdeIcon,
     LeaveIcon,
     PadlockLockedIcon,
     PersonCircleIcon,
 } from "decorator-icons";
+import html from "decorator-shared/html";
+import { LoginLevel } from "decorator-shared/params";
 import i18n from "../../i18n";
 import { Notification } from "../../notifications";
 import { Alert } from "../components/alert";
@@ -45,7 +46,7 @@ export const UserMenu = ({
                     content: html`
                         <div>${i18n("security_level_info")}</div>
                         <a
-                            class="${globalCls["navds-link"]} ${globalCls[
+                            class="${aksel["navds-link"]} ${aksel[
                                 "navds-link--neutral"
                             ]}"
                             href="${loginUrl}"
@@ -56,13 +57,13 @@ export const UserMenu = ({
                 })}
             </div>
             <a href="${minsideUrl}" class="${cls.menuItem}">
-                ${PersonCircleIcon({ className: cls.menuItemIcon })}
+                ${PersonCircleIcon({ className: utils.icon })}
                 <span>${i18n("my_page")}</span>
             </a>
             <a href="${personopplysningerUrl}" class="${cls.menuItem}">
                 ${level === "Level4"
-                    ? BagdeIcon({ className: cls.menuItemIcon })
-                    : PadlockLockedIcon({ className: cls.menuItemIcon })}
+                    ? BagdeIcon({ className: utils.icon })
+                    : PadlockLockedIcon({ className: utils.icon })}
                 <span>${i18n("personopplysninger")}</span>
             </a>
         </div>
@@ -70,7 +71,7 @@ export const UserMenu = ({
             ${Notifications({ notifications, minsideUrl })}
         </div>
         <a href="${logoutUrl}" class="${cls.menuItem} ${cls.logout}">
-            ${LeaveIcon({ className: cls.menuItemIcon })}
+            ${LeaveIcon({ className: utils.icon })}
             <span>${i18n("logout")}</span>
         </a>
     </div>

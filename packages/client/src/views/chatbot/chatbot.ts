@@ -1,10 +1,10 @@
 import { ClientParams, Context, Language } from "decorator-shared/params";
 import Cookies from "js-cookie";
+import loadExternalScript from "../../helpers/load-external-script";
+import { cdnUrl } from "../../helpers/urls";
+import { env, param } from "../../params";
 import { defineCustomElement } from "../custom-elements";
-import { cdnUrl } from "../helpers/urls";
 import i18n from "../i18n";
-import { env, param } from "../params";
-import { loadExternalScript } from "../utils";
 import cls from "./chatbot.module.css";
 import frida from "./frida.svg";
 
@@ -109,7 +109,7 @@ class Chatbot extends HTMLElement {
                 }),
             );
 
-            this.boost.chatPanel.addEventListener(
+            this.boost?.chatPanel.addEventListener(
                 "conversationIdChanged",
                 (event) =>
                     event.detail.conversationId
@@ -117,14 +117,21 @@ class Chatbot extends HTMLElement {
                         : this.removeCookie(),
             );
 
-            this.boost.chatPanel.addEventListener("setFilterValue", (event) => {
-                this.boost?.chatPanel.setFilterValues(event.detail.filterValue);
-                if (event.detail.nextId) {
-                    this.boost?.chatPanel.triggerAction(event.detail.nextId);
-                }
-            });
+            this.boost?.chatPanel.addEventListener(
+                "setFilterValue",
+                (event) => {
+                    this.boost?.chatPanel.setFilterValues(
+                        event.detail.filterValue,
+                    );
+                    if (event.detail.nextId) {
+                        this.boost?.chatPanel.triggerAction(
+                            event.detail.nextId,
+                        );
+                    }
+                },
+            );
 
-            this.boost.chatPanel.addEventListener("chatPanelClosed", () =>
+            this.boost?.chatPanel.addEventListener("chatPanelClosed", () =>
                 this.removeCookie(),
             );
 

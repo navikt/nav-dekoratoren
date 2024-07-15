@@ -95,6 +95,7 @@ export const clientParamKeys = [
     "shareScreen",
     "maskHotjar",
     "logoutWarning",
+    "feedback",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;

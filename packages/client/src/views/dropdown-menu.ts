@@ -1,6 +1,6 @@
-import cls from "../styles/dropdown-menu.module.css";
 import { createEvent } from "../events";
-import { defineCustomElement } from "../custom-elements";
+import cls from "../styles/dropdown-menu.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class DropdownMenu extends HTMLElement {
     private button!: HTMLElement;

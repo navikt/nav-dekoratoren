@@ -1,10 +1,14 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "../custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { defineCustomElement } from "./custom-elements";
 
 class Footer extends HTMLElement {
     handleParamsUpdated = (e: CustomEvent) => {
-        if (e.detail.params.language || e.detail.params.context) {
+        if (
+            e.detail.params.language ||
+            e.detail.params.context ||
+            e.detail.params.feedback !== undefined
+        ) {
             fetch(endpointUrlWithParams("/footer"))
                 .then((res) => res.text())
                 .then((footer) => (this.innerHTML = footer));

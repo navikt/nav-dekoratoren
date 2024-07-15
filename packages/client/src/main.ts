@@ -1,14 +1,12 @@
 /// <reference types="./client.d.ts" />
-import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
-import { initAuth } from "./auth";
 import { initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
+import { initAuth } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import "./main.css";
 import { param, updateDecoratorParams } from "./params";
-import { useLoadIfActiveSession } from "./screensharing";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -17,9 +15,6 @@ updateDecoratorParams({});
 
 // @TODO: Refactor loaders
 window.addEventListener("load", () => {
-    useLoadIfActiveSession({
-        userState: Cookies.get("psCurrentState"),
-    });
     addFaroMetaData();
 });
 

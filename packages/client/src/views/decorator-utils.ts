@@ -1,12 +1,13 @@
-import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../events";
 import { param } from "../params";
 import cls from "../styles/decorator-utils.module.css";
+import utils from "../styles/utils.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class DecoratorUtils extends HTMLElement {
     update = () => {
         this.classList.toggle(
-            cls.hidden,
+            utils.hidden,
             param("availableLanguages").length === 0 &&
                 param("breadcrumbs").length === 0,
         );

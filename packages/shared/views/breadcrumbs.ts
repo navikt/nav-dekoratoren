@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import { ChevronRightIcon, HouseIcon } from "decorator-icons";
 import html, { Template, htmlAttributes } from "../html";
 import { Breadcrumb } from "../params";
@@ -43,10 +43,7 @@ export const Breadcrumbs = ({
                       <li class="${cls.listItem}">
                           <a
                               href="${frontPageUrl}"
-                              class="${clsx(
-                                  cls.homeLink,
-                                  globalCls["navds-link"],
-                              )}"
+                              class="${clsx(cls.homeLink, aksel["navds-link"])}"
                               >${HouseIcon({ className: cls.svg })} nav.no
                           </a>
                           ${ChevronRightIcon()}
@@ -61,7 +58,7 @@ export const Breadcrumbs = ({
                                                 ${htmlAttributes({
                                                     className: clsx(
                                                         cls.link,
-                                                        globalCls["navds-link"],
+                                                        aksel["navds-link"],
                                                     ),
                                                     ["data-handle-in-app"]:
                                                         handleInApp ?? false,

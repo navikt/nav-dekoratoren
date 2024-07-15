@@ -8,10 +8,6 @@
     margin-left: auto;
 }
 
-.empty {
-    display: none;
-}
-
 .button {
     margin: 0;
     font: inherit;
@@ -38,10 +34,6 @@
     margin-right: var(--a-spacing-2);
 }
 
-.icon {
-    font-size: 1.5rem;
-}
-
 .menu {
     position: absolute;
     width: 100%;
@@ -54,16 +46,13 @@
     margin-top: 1px;
     border-bottom-right-radius: var(--a-border-radius-medium);
     border-bottom-left-radius: var(--a-border-radius-medium);
-    overflow: hidden; /* fallback for browser that don't support clip */
+    overflow: hidden;
+    /* fallback for browser that don't support clip */
     overflow: clip;
 }
 
 .menu > :not(:last-child) {
     border-bottom: 1px solid var(--a-gray-200);
-}
-
-.menu.hidden {
-    display: none;
 }
 
 .option {

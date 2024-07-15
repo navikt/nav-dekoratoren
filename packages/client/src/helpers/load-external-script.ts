@@ -1,9 +1,6 @@
 export const loadedScripts = new Map<string, Promise<void>>();
 
-export const loadExternalScript = (
-    uri: string,
-    async = true,
-): Promise<void> => {
+export default (uri: string, async = true): Promise<void> => {
     const existing = loadedScripts.get(uri);
     if (existing) {
         return existing;

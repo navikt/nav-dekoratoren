@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
 import { ChevronRightIcon, MessageIcon, TaskIcon } from "decorator-icons";
 import html from "decorator-shared/html";
@@ -132,8 +132,8 @@ export function Notifications({
         <a
             class="${clsx(
                 cls.allNotificationsLink,
-                globalCls["navds-link"],
-                globalCls["navds-link--neutral"],
+                aksel["navds-link"],
+                aksel["navds-link--neutral"],
             )}"
             href="${minsideUrl}/tidligere-varsler"
         >

@@ -1,5 +1,5 @@
 import html from "decorator-shared/html";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 
 export class Loader extends HTMLElement {
     connectedCallback() {

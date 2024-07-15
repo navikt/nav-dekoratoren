@@ -1,4 +1,4 @@
-import cls from "decorator-client/src/styles/arbeidsgiver-user-menu-dropdown.module.css";
+import cls from "decorator-client/src/styles/arbeidsgiver-user-menu.module.css";
 import { BriefcaseIcon } from "decorator-icons";
 import i18n from "../../i18n";
 import { HeaderButton } from "../components/header-button";

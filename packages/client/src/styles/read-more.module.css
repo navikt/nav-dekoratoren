@@ -20,10 +20,6 @@
     background-color: var(--a-surface-active);
 }
 
-.icon {
-    font-size: 1.5rem;
-}
-
 .details[open] .icon {
     transform: rotate(180deg);
 }
