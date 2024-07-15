@@ -2,7 +2,7 @@ import { FridaIcon } from "decorator-icons";
 import { ClientParams, Context, Language } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import i18n from "../i18n";
-import loadExternalScript from "../../load-external-script";
+import loadExternalScript from "../../helpers/load-external-script";
 import { env, param } from "../../params";
 import { defineCustomElement } from "../custom-elements";
 import cls from "./chatbot.module.css";

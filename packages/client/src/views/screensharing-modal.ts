@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import loadExternalScript from "../load-external-script";
+import loadExternalScript from "../helpers/load-external-script";
 import { env, param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
