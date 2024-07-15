@@ -1,12 +1,10 @@
 /// <reference types="./client.d.ts" />
-import { getHeadAssetsProps } from "decorator-shared/head";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
 import { initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { initAuth } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
-import { cdnUrl } from "./helpers/urls";
 import "./main.css";
 import { param, updateDecoratorParams } from "./params";
 
@@ -21,9 +19,18 @@ window.addEventListener("load", () => {
 });
 
 const injectHeadAssets = () => {
-    getHeadAssetsProps(cdnUrl).forEach((props) => {
-        const element = buildHtmlElement(props);
-        document.head.appendChild(element);
+    window.__DECORATOR_DATA__.headAssets?.forEach((props) => {
+        const attribsSelector = Object.entries(props.attribs)
+            .map(([name, value]) => `[${name}="${value}"]`)
+            .join("");
+
+        const elementExists = document.head.querySelector(
+            `${props.tag}${attribsSelector}`,
+        );
+
+        if (!elementExists) {
+            document.head.appendChild(buildHtmlElement(props));
+        }
     });
 };
 

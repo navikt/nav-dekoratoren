@@ -24,6 +24,7 @@ export type ComplexHeaderProps = {
     contextLinks: ContextLink[];
     decoratorUtils: Template;
     loginUrl: string;
+    mainMenu: Template | null;
 };
 
 export function ComplexHeader({
@@ -33,6 +34,7 @@ export function ComplexHeader({
     context: currentContext,
     decoratorUtils,
     loginUrl,
+    mainMenu,
 }: ComplexHeaderProps) {
     return html`
         <div class="${cls.siteheader}">
@@ -88,7 +90,7 @@ export function ComplexHeader({
                                         >
                                             ${SearchForm()}
                                         </search-menu>
-                                        <main-menu></main-menu>
+                                        <main-menu>${mainMenu}</main-menu>
                                     `,
                                 })}
                                 ${DropdownMenu({

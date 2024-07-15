@@ -15,8 +15,6 @@ export const endpointUrlWithParams = (
     return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}`;
 };
 
-export const cdnUrl = (url: string) => `${env("CDN_URL")}${url}`;
-
 export const parseUrl = (url: string) => {
     try {
         return new URL(url);

@@ -7,7 +7,12 @@ const glob = new Glob("./src/*.svg");
 
 const files = [];
 for await (const path of glob.scan(".")) {
-    files.push({ name: /([^/]+)\.svg$/.exec(path)?.[1] ?? "wat", path });
+    // Prevent build errors on windows file systems
+    const unixPath = path.replaceAll("\\", "/");
+    files.push({
+        name: /([^/]+)\.svg$/.exec(unixPath)?.[1] ?? "wat",
+        path: unixPath,
+    });
 }
 const jsString =
     '${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props })} ${ariaLabel ? html`aria-label="${ariaLabel}"` : ""}';

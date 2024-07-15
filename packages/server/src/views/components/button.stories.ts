@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/html";
 import {
     ClothingHangerIcon,
     EnterIcon,
-    PersonCircleIcon,
+    PersonCircleNotificationIcon,
     RockingHorseIcon,
 } from "decorator-icons";
 import html from "decorator-shared/html";
@@ -38,7 +38,7 @@ const meta: Meta = {
             }),
             HeaderButton({
                 content: i18n("menu"),
-                icon: PersonCircleIcon(),
+                icon: PersonCircleNotificationIcon(),
             }),
         ]}`;
     },

@@ -74,6 +74,7 @@ export const paramsSchema = z.object({
     maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(false),
     bedrift: z.string().optional(),
+    ssrMainMenu: z.boolean().default(false),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -101,7 +102,6 @@ export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 export const clientEnvSchema = z.object({
     APP_URL: z.string(),
     BOOST_ENV: z.enum(["nav", "navtest"]),
-    CDN_URL: z.string(),
     LOGIN_SESSION_API_URL: z.string(),
     LOGOUT_URL: z.string(),
     MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
