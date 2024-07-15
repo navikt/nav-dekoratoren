@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/html";
 import {
     ClothingHangerIcon,
     EnterIcon,
-    PersonCircleIcon,
     PersonCircleNotificationIcon,
     RockingHorseIcon,
 } from "decorator-icons";
