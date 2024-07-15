@@ -1,5 +1,4 @@
 /// <reference types="./client.d.ts" />
-import { getHeadAssetsProps } from "decorator-shared/head";
 import Cookies from "js-cookie";
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
@@ -7,7 +6,6 @@ import { initAuth } from "./auth";
 import { initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { buildHtmlElement } from "./helpers/html-element-builder";
-import { cdnUrl } from "./helpers/urls";
 import "./main.css";
 import { param, updateDecoratorParams } from "./params";
 import { useLoadIfActiveSession } from "./screensharing";
@@ -26,9 +24,18 @@ window.addEventListener("load", () => {
 });
 
 const injectHeadAssets = () => {
-    getHeadAssetsProps(cdnUrl).forEach((props) => {
-        const element = buildHtmlElement(props);
-        document.head.appendChild(element);
+    window.__DECORATOR_DATA__.headAssets?.forEach((props) => {
+        const attribsSelector = Object.entries(props.attribs)
+            .map(([name, value]) => `[${name}="${value}"]`)
+            .join("");
+
+        const elementExists = document.head.querySelector(
+            `${props.tag}${attribsSelector}`,
+        );
+
+        if (!elementExists) {
+            document.head.appendChild(buildHtmlElement(props));
+        }
     });
 };
 

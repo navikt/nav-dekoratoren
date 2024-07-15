@@ -43,7 +43,6 @@ export const serverEnv = {
 export const client_env = {
     APP_URL: process.env.APP_URL,
     BOOST_ENV: process.env.BOOST_ENV as BoostEnviroment,
-    CDN_URL: process.env.CDN_URL,
     LOGIN_SESSION_API_URL: process.env.LOGIN_SESSION_API_URL,
     LOGOUT_URL: process.env.LOGOUT_URL,
     MIN_SIDE_ARBEIDSGIVER_URL: process.env.MIN_SIDE_ARBEIDSGIVER_URL,

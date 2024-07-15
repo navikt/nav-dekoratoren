@@ -91,11 +91,13 @@ const scriptsHtml = unsafeHtml(
 type DecoratorDataProps = {
     features: Features;
     params: Params;
+    headAssets?: HtmlElementProps[];
 };
 
 export const buildDecoratorData = ({
     features,
     params,
+    headAssets,
 }: DecoratorDataProps): AppState => ({
     texts: Object.entries(texts[params.language])
         .filter(([key]) => clientTextsKeys.includes(key as keyof ClientTexts))
@@ -117,6 +119,7 @@ export const buildDecoratorData = ({
         ) as ClientParams,
     features,
     env: clientEnv,
+    headAssets,
 });
 
 export const ScriptsTemplate = (props: DecoratorDataProps): Template => {

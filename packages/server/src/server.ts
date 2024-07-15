@@ -26,6 +26,8 @@ import { buildDecoratorData, ScriptsTemplate } from "./views/scripts";
 import { StylesTemplate } from "./views/styles";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
+import { headAssets, HeadAssetsTemplate } from "./head";
+import { isLocalhost } from "./urls";
 
 const startupTime = Date.now();
 
@@ -33,18 +35,19 @@ const app = new Hono({
     strict: false,
 });
 
-if (env.NODE_ENV === "development" || env.APP_URL.includes("/localhost:")) {
+app.use(headers);
+
+if (env.NODE_ENV === "development" || isLocalhost()) {
     console.log("Setting up mocks");
     setupMocks();
     app.get(
         "/mockServiceWorker.js",
-        serveStatic({ path: "./public/mockServiceWorker.js" }),
+        serveStatic({ path: "./mockServiceWorker.js" }),
     );
+    app.get("/public/*", serveStatic({}));
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
 }
-
-app.use(headers);
 
 if (!process.env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
@@ -54,8 +57,6 @@ const { printMetrics, registerMetrics } = prometheus();
 
 app.use("*", registerMetrics);
 app.get("/metrics", printMetrics);
-
-app.get("/public/assets/*", serveStatic({}));
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
@@ -169,8 +170,7 @@ app.get("/ssr", async ({ req, json }) => {
         ).render(params),
         scripts: ScriptsTemplate({ features, params }).render(params),
         styles: StylesTemplate().render(),
-        // TODO: add head-elements
-        head: "coming soon!",
+        headAssets: HeadAssetsTemplate().render(),
     });
 });
 // /env is used for CSR
@@ -191,7 +191,7 @@ app.get("/env", async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        data: buildDecoratorData({ params, features }),
+        data: buildDecoratorData({ params, features, headAssets }),
         scripts: csrAssets.mainScripts,
         //TODO: Add css?
     } satisfies CsrPayload);
