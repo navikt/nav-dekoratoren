@@ -3,7 +3,7 @@ import { env } from "./params";
 
 let hasBeenOpened = false;
 
-const loadScript = () =>
+export const loadScript = () =>
     loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
@@ -32,12 +32,6 @@ export function lazyLoadScreensharing(callback: () => void) {
             callback();
         });
     });
-}
-
-export function useLoadIfActiveSession({ userState }: { userState?: string }) {
-    if (userState && userState !== "Ready") {
-        loadScript();
-    }
 }
 
 export function startCall(code: string) {

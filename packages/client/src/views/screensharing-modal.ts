@@ -1,6 +1,12 @@
+import Cookies from "js-cookie";
 import { defineCustomElement } from "../custom-elements";
 import { param } from "../params";
-import { lazyLoadScreensharing, startCall } from "../screensharing";
+import {
+    lazyLoadScreensharing,
+    loadScript,
+    startCall,
+    useLoadIfActiveSession,
+} from "../screensharing";
 import clsInputs from "../styles/inputs.module.css";
 
 export class ScreensharingModal extends HTMLElement {
@@ -53,7 +59,22 @@ export class ScreensharingModal extends HTMLElement {
 }
 
 class ScreenshareButton extends HTMLElement {
+    loadScriptIfActiveSession = () => {
+        const userState = Cookies.get("psCurrentState");
+        if (userState && userState !== "Ready") {
+            loadScript();
+        }
+    };
+
     connectedCallback() {
+        if (document.readyState == "complete") {
+            this.loadScriptIfActiveSession();
+        } else {
+            window.addEventListener("load", () => {
+                this.loadScriptIfActiveSession();
+            });
+        }
+
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
                 const dialog = document.querySelector(
