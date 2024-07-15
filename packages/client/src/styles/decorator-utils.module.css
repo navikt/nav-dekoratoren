@@ -2,10 +2,6 @@
     display: block;
 }
 
-.decoratorUtils.hidden {
-    display: none;
-}
-
 .decoratorUtilsContent {
     display: flex;
     align-items: center;

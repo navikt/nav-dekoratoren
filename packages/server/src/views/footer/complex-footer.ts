@@ -1,6 +1,6 @@
 import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/complex-footer.module.css";
-import utilCls from "decorator-client/src/styles/utilities.module.css";
+import utilCls from "decorator-client/src/styles/utils.module.css";
 import { ArrowUpIcon } from "decorator-icons";
 import html from "decorator-shared/html";
 import { Features, LinkGroup } from "decorator-shared/types";

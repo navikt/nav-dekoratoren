@@ -1,6 +1,6 @@
 import cls from "decorator-client/src/styles/feedback.module.css";
-import globalCls from "decorator-client/src/styles/global.module.css";
 import { logAmplitudeEvent } from "../analytics/amplitude";
+import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 class DecoratorFeedback extends HTMLElement {
@@ -8,10 +8,10 @@ class DecoratorFeedback extends HTMLElement {
         this.querySelectorAll("button").forEach((button) =>
             button.addEventListener("click", () => {
                 this.querySelector(`.${cls.feedbackContent}`)?.classList.add(
-                    globalCls.hidden,
+                    utils.hidden,
                 );
                 this.querySelector(`.${cls.feedbackSuccess}`)?.classList.remove(
-                    globalCls.hidden,
+                    utils.hidden,
                 );
                 logAmplitudeEvent("tilbakemelding", {
                     kilde: "footer",

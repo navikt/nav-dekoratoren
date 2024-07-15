@@ -3,7 +3,7 @@ import menuCls from "decorator-client/src/styles/complex-header-menu.module.css"
 import cls from "decorator-client/src/styles/header.module.css";
 import menuItemsCls from "decorator-client/src/styles/menu-items.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
-import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import utilsCls from "decorator-client/src/styles/utils.module.css";
 import { BurgerIcon, SearchIcon } from "decorator-icons";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";

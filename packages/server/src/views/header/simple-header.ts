@@ -1,6 +1,6 @@
 import cls from "decorator-client/src/styles/header.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
-import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import utilsCls from "decorator-client/src/styles/utils.module.css";
 import html, { Template } from "decorator-shared/html";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";

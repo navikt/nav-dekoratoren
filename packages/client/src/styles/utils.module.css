@@ -6,3 +6,7 @@
         padding-inline: var(--edge-spacing);
     }
 }
+
+.hidden {
+    display: none !important;
+}

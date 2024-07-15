@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
-import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import utilsCls from "decorator-client/src/styles/utils.module.css";
 import {
     ExclamationmarkTriangleIcon,
     InformationSquareIcon,

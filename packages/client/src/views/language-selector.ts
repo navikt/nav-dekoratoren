@@ -2,6 +2,7 @@ import { AvailableLanguage, Language } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { param, updateDecoratorParams } from "../params";
 import cls from "../styles/language-selector.module.css";
+import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 export class LanguageSelector extends HTMLElement {
@@ -78,7 +79,7 @@ export class LanguageSelector extends HTMLElement {
 
     connectedCallback() {
         this.menu = document.createElement("ul");
-        this.menu.classList.add(cls.menu, cls.hidden);
+        this.menu.classList.add(cls.menu, utils.hidden);
 
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
         this.container.appendChild(this.menu);
@@ -128,7 +129,7 @@ export class LanguageSelector extends HTMLElement {
 
     set open(open: boolean) {
         this.#open = open;
-        this.menu.classList.toggle(cls.hidden, !open);
+        this.menu.classList.toggle(utils.hidden, !open);
     }
 }
 
