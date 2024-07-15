@@ -60,7 +60,7 @@ app.get("/api/version", async ({ json }) =>
         localVersion: env.VERSION_ID,
         authoritativeVersion: (
             await Bun.file(
-                `${process.cwd()}/config/version-authority.json`,
+                `${process.cwd()}/version-authority/version-authority.json`,
             ).json()
         )?.AUTHORITATIVE_VERSION_ID,
     }),
