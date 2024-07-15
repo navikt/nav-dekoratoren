@@ -1,6 +1,6 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { defineCustomElement } from "./custom-elements";
 
 class Footer extends HTMLElement {
     handleParamsUpdated = (e: CustomEvent) => {

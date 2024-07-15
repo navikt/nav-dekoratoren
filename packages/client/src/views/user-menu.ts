@@ -1,8 +1,8 @@
-import cls from "../styles/user-menu.module.css";
-import globalCls from "../styles/global.module.css";
-import { defineCustomElement } from "./custom-elements";
-import { CustomEvents } from "../events";
 import { AuthDataResponse } from "decorator-shared/auth";
+import { CustomEvents } from "../events";
+import globalCls from "../styles/global.module.css";
+import cls from "../styles/user-menu.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 let auth: AuthDataResponse;
 
@@ -20,8 +20,7 @@ class UserMenu extends HTMLElement {
     };
 
     private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
-        auth = e.detail;
-        this.update(auth);
+        this.update((auth = e.detail));
     };
 
     connectedCallback() {

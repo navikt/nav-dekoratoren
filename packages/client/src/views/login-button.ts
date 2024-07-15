@@ -1,6 +1,6 @@
-import { defineCustomElement } from "./custom-elements";
-import { env } from "../params";
 import { parseUrl } from "../helpers/urls";
+import { env } from "../params";
+import { defineCustomElement } from "./custom-elements";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {

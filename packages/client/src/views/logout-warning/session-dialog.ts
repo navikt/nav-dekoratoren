@@ -1,6 +1,6 @@
-import { defineCustomElement } from "./custom-elements";
-import { logout } from "../helpers/auth";
-import { getSecondsRemaining } from "../helpers/time";
+import { logout } from "../../helpers/auth";
+import { getSecondsRemaining } from "../../helpers/time";
+import { defineCustomElement } from "../custom-elements";
 
 export class SessionDialog extends HTMLElement {
     sessionExpireAtLocal?: string;

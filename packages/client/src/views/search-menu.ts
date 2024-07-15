@@ -1,10 +1,10 @@
 import html from "decorator-shared/html";
 import debounce from "lodash.debounce";
-import cls from "../styles/search-form.module.css";
-import { env, param } from "../params";
 import { amplitudeEvent } from "../analytics/amplitude";
-import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { env, param } from "../params";
+import cls from "../styles/search-form.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;

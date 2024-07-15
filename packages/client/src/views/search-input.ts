@@ -1,5 +1,5 @@
-import cls from "../styles/search-form.module.css";
 import { createEvent } from "../events";
+import cls from "../styles/search-form.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 class SearchInput extends HTMLElement {

@@ -1,6 +1,6 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "./custom-elements";
 import headerClasses from "../styles/header.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class ContextLinks extends HTMLElement {
     handleParamsUpdated = (event: CustomEvent) => {

@@ -1,5 +1,5 @@
-import "./local-time";
 import { fixture } from "@open-wc/testing";
+import "./local-time";
 
 it("norwegian", async () => {
     window.__DECORATOR_DATA__ = {

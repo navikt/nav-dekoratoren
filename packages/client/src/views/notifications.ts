@@ -1,6 +1,6 @@
 import { logAmplitudeEvent } from "../analytics/amplitude";
-import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { defineCustomElement } from "./custom-elements";
 
 class ArchivableNotification extends HTMLElement {
     // TODO: hva skal vi vise hvis arkivering feiler?

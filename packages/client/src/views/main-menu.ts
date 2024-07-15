@@ -1,9 +1,9 @@
 import { Context } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { param } from "../params";
+import { defineCustomElement } from "./custom-elements";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 

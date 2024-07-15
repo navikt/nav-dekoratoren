@@ -1,4 +1,4 @@
-import { defineCustomElement } from "./custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 class LocalTime extends HTMLElement {
     connectedCallback() {

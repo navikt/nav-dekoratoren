@@ -1,5 +1,5 @@
 import cls from "./menu-background.module.css";
-import { defineCustomElement } from "./custom-elements";
+import { defineCustomElement } from "../custom-elements";
 
 class MenuBackground extends HTMLElement {
     openCount = 0;

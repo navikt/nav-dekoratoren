@@ -1,8 +1,8 @@
-import cls from "../styles/header.module.css";
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "./custom-elements";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { updateDecoratorParams } from "../params";
+import cls from "../styles/header.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source } = message;

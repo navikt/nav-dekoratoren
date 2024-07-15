@@ -1,12 +1,12 @@
-import { defineCustomElement } from "./custom-elements";
 import {
     SessionData,
     fetchRenew,
     fetchSession,
     transformSessionToAuth,
-} from "../helpers/auth";
-import { addSecondsFromNow } from "../helpers/time";
-import { param } from "../params";
+} from "../../helpers/auth";
+import { addSecondsFromNow } from "../../helpers/time";
+import { param } from "../../params";
+import { defineCustomElement } from "../custom-elements";
 import { SessionDialog } from "./session-dialog";
 import { TokenDialog } from "./token-dialog";
 
