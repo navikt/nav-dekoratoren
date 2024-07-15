@@ -18,7 +18,7 @@ class UserMenu extends HTMLElement {
     };
 
     private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
-        this.update((auth = e.detail));
+        this.update(e.detail);
     };
 
     connectedCallback() {
