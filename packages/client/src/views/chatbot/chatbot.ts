@@ -1,11 +1,12 @@
-import { FridaIcon } from "decorator-icons";
 import { ClientParams, Context, Language } from "decorator-shared/params";
 import Cookies from "js-cookie";
-import i18n from "../i18n";
 import loadExternalScript from "../../helpers/load-external-script";
+import { cdnUrl } from "../../helpers/urls";
 import { env, param } from "../../params";
 import { defineCustomElement } from "../custom-elements";
+import i18n from "../i18n";
 import cls from "./chatbot.module.css";
+import frida from "./frida.svg";
 
 type CustomEventMap = {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
@@ -49,9 +50,12 @@ class Chatbot extends HTMLElement {
 
         const div = document.createElement("div");
         div.classList.add(cls.chatbotWrapper);
-        div.innerHTML = FridaIcon({ className: cls.svg }).render(
-            window.__DECORATOR_DATA__.params,
-        );
+        const img = document.createElement("img");
+        img.src = cdnUrl(frida);
+        img.alt = "";
+        img.classList.add(cls.frida);
+        div.appendChild(img);
+
         this.button.appendChild(div);
     }
 
