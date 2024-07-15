@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/feedback.module.css";
 import globalCls from "decorator-client/src/styles/global.module.css";
 import html from "decorator-shared/html";
@@ -27,7 +28,7 @@ export const Feedback = ({ contactUrl }: { contactUrl: string }) => html`
                 ${i18n("send_undersokelse_takk")}
             </h2>
             <div>${i18n("hensikt_med_tilbakemelding")}</div>
-            <a class="${globalCls["navds-link"]}" href="${contactUrl}">
+            <a class="${aksel["navds-link"]}" href="${contactUrl}">
                 ${i18n("hensikt_med_tilbakemelding_lenke")}
             </a>
         </div>

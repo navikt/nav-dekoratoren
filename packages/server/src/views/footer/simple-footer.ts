@@ -1,4 +1,4 @@
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/simple-footer.module.css";
 import utilCls from "decorator-client/src/styles/utilities.module.css";
 import html from "decorator-shared/html";
@@ -20,7 +20,7 @@ export const SimpleFooter = ({
                     ({ url, content }) => html`
                         <a
                             href="${url}"
-                            class="${globalCls["navds-link"]} ${cls.footerLink}"
+                            class="${aksel["navds-link"]} ${cls.footerLink}"
                             >${content}</a
                         >
                     `,

@@ -1,4 +1,4 @@
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/main-menu.module.css";
 import html, { Template } from "decorator-shared/html";
 import { LinkGroup, MainMenuContextLink } from "decorator-shared/types";
@@ -22,7 +22,7 @@ export function MainMenu({
             <div class="${cls.content}">
                 <div class="${cls.header}">
                     <h2 class="${cls.title}">${title}</h2>
-                    <a href="${frontPageUrl}" class="${globalCls["navds-link"]}"
+                    <a href="${frontPageUrl}" class="${aksel["navds-link"]}"
                         >${i18n("to_front_page")}</a
                     >
                 </div>
@@ -39,7 +39,7 @@ export function MainMenu({
                                             <li>
                                                 <a
                                                     href="${url}"
-                                                    class="${globalCls[
+                                                    class="${aksel[
                                                         "navds-link"
                                                     ]}"
                                                     data-action="${heading}/${content}"
