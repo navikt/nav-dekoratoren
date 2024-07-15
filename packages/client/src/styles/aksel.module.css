@@ -1,5 +1,16 @@
 @import "@navikt/ds-css/dist/component/typography.css";
 @import "@navikt/ds-css/dist/component/button.css";
+@import "@navikt/ds-css/dist/component/link.css";
+
+[data-theme="dark"] .navds-link {
+    --ac-link-text: var(--a-text-on-inverted);
+    --ac-link-focus-text: var(--a-text-action);
+    --ac-link-focus-bg: var(--a-surface-default);
+    --ac-link-focus-border: var(--a-surface-default);
+    --ac-link-active-text: var(--a-text-action);
+    --ac-link-active-bg: var(--a-surface-default);
+    --ac-link-active-border: var(--a-surface-default);
+}
 
 .navds-button {
     font: inherit;

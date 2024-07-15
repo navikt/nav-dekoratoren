@@ -1,6 +1,6 @@
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/complex-footer.module.css";
-import globalCls from "decorator-client/src/styles/global.module.css";
-import utilCls from "decorator-client/src/styles/utilities.module.css";
+import utilCls from "decorator-client/src/styles/utils.module.css";
 import { ArrowUpIcon } from "decorator-icons";
 import html from "decorator-shared/html";
 import { Features, LinkGroup } from "decorator-shared/types";
@@ -17,7 +17,7 @@ export const ComplexFooter = ({
 }) => html`
     <footer class="${cls.footer}" data-theme="dark">
         <div class="${cls.footerContent} ${utilCls.contentContainer}">
-            <a class="${globalCls["navds-link"]} ${cls.toTop}" href="#"
+            <a class="${aksel["navds-link"]} ${cls.toTop}" href="#"
                 >${ArrowUpIcon({ className: cls.arrowUp })}${i18n("to_top")}</a
             >
             <ul class="${cls.footerLinks}">
@@ -34,7 +34,7 @@ export const ComplexFooter = ({
                                         <li>
                                             <a
                                                 href="${url}"
-                                                class="${globalCls[
+                                                class="${aksel[
                                                     "navds-link"
                                                 ]} ${cls.footerLink}"
                                                 >${content}</a

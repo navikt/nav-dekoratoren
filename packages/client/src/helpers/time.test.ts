@@ -1,11 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-    nowISOString,
-    addOneHourFromNow,
-    addSixHoursFromNow,
-    getSecondsRemaining,
-    addSecondsFromNow,
-} from "./time";
+import { addSecondsFromNow, getSecondsRemaining } from "./time";
 
 describe("Mock helpers", () => {
     describe("getSecondsRemaining", () => {
@@ -44,42 +38,6 @@ describe("Mock helpers", () => {
             const seconds = getSecondsRemaining(mockUndefinedDate);
 
             expect(seconds).toBe(0);
-        });
-    });
-
-    describe("nowISOString", () => {
-        it("returns expected date", () => {
-            const mockNow = new Date("2021-10-10T10:00:00.000Z");
-            vi.useFakeTimers();
-            vi.setSystemTime(mockNow);
-
-            const result = nowISOString();
-
-            expect(result).toBe("2021-10-10T10:00:00.000Z");
-        });
-    });
-
-    describe("addOneHourFromNow", () => {
-        it("returns expected date", () => {
-            const mockNow = new Date("2021-10-10T10:00:00.000Z");
-            vi.useFakeTimers();
-            vi.setSystemTime(mockNow);
-
-            const result = addOneHourFromNow();
-
-            expect(result).toBe("2021-10-10T11:00:00.000Z");
-        });
-    });
-
-    describe("addSixHoursFromNow", () => {
-        it("returns expected date", () => {
-            const mockNow = new Date("2021-10-10T10:15:00.000Z");
-            vi.useFakeTimers();
-            vi.setSystemTime(mockNow);
-
-            const result = addSixHoursFromNow();
-
-            expect(result).toBe("2021-10-10T16:15:00.000Z");
         });
     });
 

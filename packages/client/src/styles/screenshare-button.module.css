@@ -57,7 +57,3 @@
 .screenshareButton svg {
     font-size: 1.25rem;
 }
-
-[data-theme="dark"] .screenshareButton svg {
-    font-size: 1.5rem;
-}

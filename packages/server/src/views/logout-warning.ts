@@ -1,5 +1,4 @@
-import cls from "decorator-client/src/styles/logout-warning.module.css";
-import clsModal from "decorator-client/src/styles/modal.module.css";
+import cls from "decorator-client/src/styles/modal.module.css";
 import html from "decorator-shared/html";
 import { Button } from "./components/button";
 import i18n from "../i18n";
@@ -7,12 +6,12 @@ import i18n from "../i18n";
 export const LogoutWarning = () => html`
     <logout-warning>
         <token-dialog>
-            <dialog class="${clsModal.modal}">
-                <form class="${clsModal.modalWindow}">
-                    <h1 class="${clsModal.modalTitle}">
+            <dialog class="${cls.modal}">
+                <form class="${cls.modalWindow}">
+                    <h1 class="${cls.modalTitle}">
                         ${i18n("token_warning_title")}
                     </h1>
-                    <p class="${clsModal.modalBody}">
+                    <p class="${cls.modalBody}">
                         ${i18n("token_warning_body")}
                     </p>
                     <div class="${cls.buttonWrapper}">
@@ -33,12 +32,12 @@ export const LogoutWarning = () => html`
             </dialog>
         </token-dialog>
         <session-dialog>
-            <dialog class="${clsModal.modal}">
-                <form class="${clsModal.modalWindow}">
-                    <h1 class="${clsModal.modalTitle}">
+            <dialog class="${cls.modal}">
+                <form class="${cls.modalWindow}">
+                    <h1 class="${cls.modalTitle}">
                         ${i18n("session_warning_title")}
                     </h1>
-                    <p class="${clsModal.modalBody}">
+                    <p class="${cls.modalBody}">
                         ${i18n("session_warning_body")}
                     </p>
                     <div class="${cls.buttonWrapper}">

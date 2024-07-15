@@ -1,7 +1,6 @@
 import { Auth } from "decorator-shared/auth";
-import { ClientParams } from "decorator-shared/params";
+import { ClientParams, Context } from "decorator-shared/params";
 import { param } from "../params";
-import { AnalyticsEventArgs } from "./constants";
 
 // Dynamic import for lazy loading
 const importAmplitude = () =>
@@ -41,6 +40,35 @@ export const initAmplitude = async () => {
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAmplitude = logEventFromApp;
+};
+
+type AnalyticsCategory =
+    | "dekorator-header"
+    | "dekorator-footer"
+    | "dekorator-meny"
+    | "varsler";
+
+type AnalyticsActions =
+    | "søk-dynamisk"
+    | "navlogo"
+    | "lenke"
+    | "lenkegruppe"
+    | "hovedmeny/forsidelenke"
+    | "[redacted]"
+    | "nav.no"
+    | "arbeidsflate-valg"
+    | `${string}/${string}`
+    | string;
+
+type AnalyticsEventArgs = {
+    eventName?: string;
+    category?: AnalyticsCategory;
+    action?: AnalyticsActions;
+    context?: Context;
+    destination?: string;
+    label?: string;
+    komponent?: string;
+    lenkegruppe?: "innlogget meny";
 };
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {

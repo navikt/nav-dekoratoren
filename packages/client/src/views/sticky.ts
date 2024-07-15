@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
-import { defineCustomElement } from "../custom-elements";
+import { defineCustomElement } from "./custom-elements";
 
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should

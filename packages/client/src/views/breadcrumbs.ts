@@ -1,10 +1,10 @@
 import { Breadcrumb } from "decorator-shared/params";
 import { Breadcrumbs as BreadcrumbsTemplate } from "decorator-shared/views/breadcrumbs";
 import { amplitudeClickListener } from "../analytics/amplitude";
-import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../events";
-import i18n from "../i18n";
 import { env, param } from "../params";
+import { defineCustomElement } from "./custom-elements";
+import i18n from "./i18n";
 
 class Breadcrumbs extends HTMLElement {
     update = (breadcrumbs: Breadcrumb[]) => {

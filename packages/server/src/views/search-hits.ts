@@ -1,5 +1,6 @@
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowRightIcon } from "decorator-icons";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { Context } from "decorator-shared/params";
@@ -30,7 +31,7 @@ export const SearchHits = ({
             </h2>
             <a
                 href="https://www.nav.no/sok?ord=${query}"
-                class="${globalCls["navds-link"]}"
+                class="${aksel["navds-link"]}"
             >
                 ${i18n("change_search_filter")}
             </a>
@@ -64,7 +65,7 @@ export const SearchHits = ({
                   >
                       ${i18n("more_hits")}
                       ${ArrowRightIcon({
-                          className: cls.searchHitRightArrow,
+                          className: utils.icons,
                       })}
                   </a>
               `

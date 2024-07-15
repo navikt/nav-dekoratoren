@@ -15,13 +15,13 @@ for await (const path of glob.scan(".")) {
     });
 }
 const jsString =
-    '${htmlAttributes({ ariaHidden: props.ariaLabel ? "false" : "true", ...props })}';
+    '${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props })} ${ariaLabel ? html`aria-label="${ariaLabel}"` : ""}';
 
 const fileTemplate = ({ svg, name }: { svg: string; name: string }) => `
 import html, { htmlAttributes } from "decorator-shared/html";
 import type { IconProps } from "./types";
 
-export const ${name}Icon = (props: IconProps = {}) => html\`
+export const ${name}Icon = ({ ariaLabel, ...props}: IconProps = {}) => html\`
 ${svg}
 \`;
 `;
