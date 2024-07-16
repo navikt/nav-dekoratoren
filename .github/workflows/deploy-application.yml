@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   deploy_previous:
-    name: Deploy previous version
+    name: Deploy previous
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
     if: inputs.DEPLOY_INTERNAL == true
@@ -46,7 +46,7 @@ jobs:
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
   deploy_current:
-    name: Deploy current version
+    name: Deploy current
     runs-on: ubuntu-latest
     environment: ${{ inputs.DEPLOY_INSTANCE }}
     env:
@@ -61,12 +61,6 @@ jobs:
           RESOURCE: .nais/config.yml
           VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
-      - name: Update version authority configmap
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ inputs.CLUSTER }}
-          RESOURCE: .nais/version-authority-configmap.yml
-          VAR: versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
       - name: Update vars
         env:
           GITHUB_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }} # This is a PAT with repo or Variables permission
@@ -74,3 +68,9 @@ jobs:
           gh variable set PREV_VERSION_ID --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ env.VERSION_ID }}"
           gh variable set PREV_IMAGE --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ inputs.IMAGE }}"
           gh variable list --env ${{ inputs.DEPLOY_INSTANCE }}
+      - name: Update version authority configmap
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: ${{ inputs.CLUSTER }}
+          RESOURCE: .nais/version-authority-configmap.yml
+          VAR: versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}

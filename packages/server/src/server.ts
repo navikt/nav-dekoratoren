@@ -25,6 +25,7 @@ import { CsrPayload } from "decorator-shared/types";
 import { headAssets } from "./head";
 import { isLocalhost } from "./urls";
 import { ssrApiHandler } from "./handlers/ssr-api";
+import { versionApiHandler } from "./handlers/version-api-handler";
 
 const app = new Hono({
     strict: false,
@@ -55,16 +56,7 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
-app.get("/api/version", async ({ json }) =>
-    json({
-        localVersion: env.VERSION_ID,
-        authoritativeVersion: (
-            await Bun.file(
-                `${process.cwd()}/version-authority/version-authority.json`,
-            ).json()
-        )?.AUTHORITATIVE_VERSION_ID,
-    }),
-);
+app.get("/api/version", versionApiHandler);
 app.get("/api/ta", async ({ json }) => {
     const result = await getTaskAnalyticsConfig();
     if (result.ok) {
