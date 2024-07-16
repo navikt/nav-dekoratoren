@@ -2,12 +2,8 @@ import clsx from "clsx";
 import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/main-menu.module.css";
 import html, { Template } from "decorator-shared/html";
-import { Params } from "decorator-shared/params";
 import { LinkGroup, MainMenuContextLink } from "decorator-shared/types";
-import { makeFrontpageUrl } from "decorator-shared/urls";
-import { env } from "../../env/server";
 import i18n from "../../i18n";
-import { getMainMenuLinks, mainMenuContextLinks } from "../../menu/main-menu";
 
 export type MainMenuProps = {
     title: Template;
@@ -95,27 +91,4 @@ export function MainMenu({
             </div>`}
         </div>
     `;
-}
-
-export async function MainMenuTemplate({ data }: { data: Params }) {
-    return MainMenu({
-        title:
-            data.context === "privatperson"
-                ? i18n("how_can_we_help")
-                : i18n(data.context),
-        frontPageUrl: makeFrontpageUrl({
-            context: data.context,
-            language: data.language,
-            baseUrl: env.XP_BASE_URL,
-        }),
-        links: await getMainMenuLinks({
-            language: data.language,
-            context: data.context,
-        }),
-        contextLinks: mainMenuContextLinks({
-            context: data.context,
-            language: data.language,
-            bedrift: data.bedrift,
-        }),
-    });
 }

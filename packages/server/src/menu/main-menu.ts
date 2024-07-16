@@ -1,11 +1,11 @@
-import { ResponseCache } from "decorator-shared/response-cache";
 import { Context, Language } from "decorator-shared/params";
+import { ResponseCache } from "decorator-shared/response-cache";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
-import { clientEnv, env } from "../env/server";
-import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import { z } from "zod";
-import fallbackData from "./main-menu-mock.json";
+import { clientEnv, env } from "../env/server";
 import { isNorwegian } from "../i18n";
+import { fetchAndValidateJson } from "../lib/fetch-and-validate";
+import fallbackData from "./main-menu-mock.json";
 
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;
