@@ -1,4 +1,4 @@
-import { watch } from "fs";
+import { watch } from "node:fs";
 import { env } from "../env/server";
 import { Handler } from "hono";
 
