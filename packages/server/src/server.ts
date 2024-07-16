@@ -1,3 +1,4 @@
+import { prometheus } from "@hono/prometheus";
 import { Server } from "bun";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
@@ -8,25 +9,24 @@ import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
 import { versionProxyHandler } from "./handlers/version-proxy";
+import { headAssets } from "./head";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import { getTaskAnalyticsConfig } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
+import { isLocalhost } from "./urls";
 import { validParams } from "./validateParams";
 import { IndexTemplate } from "./views";
-import { MainMenuTemplate } from "./views/header/main-menu";
-import { prometheus } from "@hono/prometheus";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
 import { buildDecoratorData } from "./views/scripts";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
-import { headAssets } from "./head";
-import { isLocalhost } from "./urls";
 import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
 import { versionSyncHandler } from "./handlers/version-sync-handler";
+import { MainMenuTemplate } from "./views/header/render-main-menu";
 
 const app = new Hono({
     strict: false,

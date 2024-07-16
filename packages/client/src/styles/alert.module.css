@@ -1,9 +1,0 @@
-@import "@navikt/ds-css/dist/component/alert.css";
-
-.text {
-    font-size: var(--a-font-size-large);
-    font-weight: var(--a-font-weight-regular);
-    letter-spacing: 0;
-    line-height: var(--a-font-line-height-xlarge);
-    margin: 0;
-}

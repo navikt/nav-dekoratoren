@@ -33,7 +33,7 @@ class Breadcrumbs extends HTMLElement {
                 source: "decorator",
                 event: "breadcrumbClick",
                 payload: {
-                    url: anchor.href,
+                    url: anchor.getAttribute("href"),
                     title: anchor.textContent?.trim() ?? "",
                     handleInApp: true,
                 },

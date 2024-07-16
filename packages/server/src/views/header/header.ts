@@ -5,7 +5,7 @@ import { SimpleHeader } from "./simple-header";
 import { clientEnv, env } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
-import { MainMenuTemplate } from "./main-menu";
+import { MainMenuTemplate } from "./render-main-menu";
 
 const frontPageUrl = clientEnv.XP_BASE_URL;
 

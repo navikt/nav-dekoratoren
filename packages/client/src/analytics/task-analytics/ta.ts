@@ -11,6 +11,7 @@ import {
     taskAnalyticsIsMatchingSurvey,
 } from "./ta-matching";
 import { taskAnalyticsSelectSurvey } from "./ta-selection";
+import loadExternalScript from "../../helpers/load-external-script";
 
 let fetchedSurveys: TaskAnalyticsSurvey[] | null = null;
 
@@ -21,7 +22,9 @@ const taFallback = (...args: any[]) => {
 
 const startSurvey = (surveyId: string) => {
     console.log(`Starting TA survey ${surveyId}`);
-    window.TA("start", surveyId);
+    loadExternalScript("https://in2.taskanalytics.com/tm.js").then(() => {
+        window.TA("start", surveyId);
+    });
 };
 
 const startSurveyIfMatching = (
@@ -64,6 +67,7 @@ const findAndStartSurvey = (surveys: TaskAnalyticsSurvey[]) => {
         params.language,
         params.context,
     );
+
     if (!matchingSurveys) {
         return;
     }
