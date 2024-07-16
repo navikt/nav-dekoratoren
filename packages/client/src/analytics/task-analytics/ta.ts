@@ -34,7 +34,6 @@ const startSurveyIfMatching = (
     currentAudience: Context,
 ) => {
     const survey = surveys.find((s) => s.id === surveyId);
-    console.log("survey", survey);
     if (
         survey &&
         taskAnalyticsIsMatchingSurvey(survey, currentLanguage, currentAudience)
