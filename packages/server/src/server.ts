@@ -26,6 +26,7 @@ import { headAssets } from "./head";
 import { isLocalhost } from "./urls";
 import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
+import { versionSyncHandler } from "./handlers/version-sync-handler";
 
 const app = new Hono({
     strict: false,
@@ -56,7 +57,9 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
+app.get("/api/versionSync", versionSyncHandler);
 app.get("/api/version", versionApiHandler);
+
 app.get("/api/ta", async ({ json }) => {
     const result = await getTaskAnalyticsConfig();
     if (result.ok) {

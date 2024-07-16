@@ -23,6 +23,7 @@ spec:
   prometheus:
     enabled: true
     path: {{appPath}}/metrics
+  leaderElection: true
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
