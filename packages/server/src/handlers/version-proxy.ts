@@ -1,44 +1,16 @@
 import { HonoRequest, MiddlewareHandler } from "hono";
 import { VERSION_ID_PARAM } from "decorator-shared/constants";
+import { env } from "../env/server";
 
-const SERVER_VERSION_ID = process.env.VERSION_ID as string;
-const APP_NAME = process.env.APP_NAME;
-const LOOPBACK_HEADER = "x-is-proxy-req";
-
-const pathsToProxy = [
-    "/api/search",
-    "/main-menu",
-    "/auth",
-    "/header",
-    "/footer",
-];
-
-const pathsToProxyOnEmptyVersionId = new Set([
-    ...pathsToProxy,
-    ...pathsToProxy.map((path) => `/dekoratoren${path}`),
-    ...pathsToProxy.map((path) => `/common-html/v4/navno${path}`),
-]);
+const SERVER_VERSION_ID = env.VERSION_ID;
+const APP_NAME = env.APP_NAME;
+const LOOPBACK_HEADER = "is-dekoratoren-proxy-req";
 
 // Version id should be a commit hash (7 chars short or 40 chars full)
 const validVersionIdPattern = new RegExp(/^([a-f0-9]{7}|[a-f0-9]{40})$/);
 
-const isValidVersionId = (versionId: string) =>
-    validVersionIdPattern.test(versionId);
-
-const getVersionId = (req: HonoRequest) => {
-    const reqVersionId = req.query(VERSION_ID_PARAM);
-
-    if (!reqVersionId) {
-        // We temporarily need to handle requests for some paths from previous versions, which does not submit the version-id param
-        // The "lastversion" instance of the internal server has been deployed for this purpose
-        // Can be removed once the lastversion instance no longer receives requests
-        return pathsToProxyOnEmptyVersionId.has(req.path)
-            ? "lastversion"
-            : null;
-    }
-
-    return isValidVersionId(reqVersionId) ? reqVersionId : null;
-};
+const isValidVersionId = (versionId?: string): versionId is string =>
+    !!(versionId && validVersionIdPattern.test(versionId));
 
 const fetchFromInternalVersionApp = async (
     request: HonoRequest,
@@ -50,7 +22,9 @@ const fetchFromInternalVersionApp = async (
 
     const url = urlObj.toString();
 
-    console.log(`Attemping to proxy request to ${url}`);
+    console.log(
+        `Proxy request to: ${urlObj.host}${urlObj.pathname} - Referer: ${request.header("referer")}`,
+    );
 
     try {
         request.raw.headers.set(LOOPBACK_HEADER, "true");
@@ -72,15 +46,19 @@ const fetchFromInternalVersionApp = async (
 };
 
 export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
-    const reqVersionId = getVersionId(c.req);
+    const reqVersionId = c.req.query(VERSION_ID_PARAM);
 
-    // Prevent request loops. Shouldn't happen, but just in case. :)
+    // Prevent request loops. Shouldn't happen, but it does! :thinking:
     const isLoopback = c.req.header(LOOPBACK_HEADER);
     if (isLoopback) {
         console.error(`Loopback for request to version id ${reqVersionId}!`);
     }
 
-    if (reqVersionId === SERVER_VERSION_ID || isLoopback || !reqVersionId) {
+    if (
+        reqVersionId === SERVER_VERSION_ID ||
+        isLoopback ||
+        !isValidVersionId(reqVersionId)
+    ) {
         return next();
     }
 
