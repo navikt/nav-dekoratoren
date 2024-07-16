@@ -82,26 +82,3 @@ export function MainMenu({
         </div>
     `;
 }
-
-export async function MainMenuTemplate({ data }: { data: Params }) {
-    return MainMenu({
-        title:
-            data.context === "privatperson"
-                ? i18n("how_can_we_help")
-                : i18n(data.context),
-        frontPageUrl: makeFrontpageUrl({
-            context: data.context,
-            language: data.language,
-            baseUrl: env.XP_BASE_URL,
-        }),
-        links: await getMainMenuLinks({
-            language: data.language,
-            context: data.context,
-        }),
-        contextLinks: mainMenuContextLinks({
-            context: data.context,
-            language: data.language,
-            bedrift: data.bedrift,
-        }),
-    });
-}
