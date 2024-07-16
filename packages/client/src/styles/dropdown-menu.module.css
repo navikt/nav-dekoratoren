@@ -27,7 +27,7 @@
     z-index: 1;
     /* fallback to vh units for older browsers without dvh support */
     height: calc(100vh - var(--header-height) - 6rem);
-    @media (min-width: 0dvh) {
+    @media (min-height: 0dvh) {
         height: calc(100dvh - var(--header-height));
     }
     overflow-y: auto;
