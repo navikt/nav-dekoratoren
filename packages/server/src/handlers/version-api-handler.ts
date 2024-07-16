@@ -6,26 +6,31 @@ const filename = `${process.cwd()}/version-authority/version-authority.json`;
 
 const getAuthoritativeVersion = async () => {
     try {
-        const file = await Bun.file(filename).json();
-        return file.AUTHORITATIVE_VERSION_ID;
+        const id = (await Bun.file(filename).json())?.AUTHORITATIVE_VERSION_ID;
+        return typeof id === "string" ? id : null;
     } catch (e) {
-        console.log("Error: ", e);
+        console.log(`Error reading file ${filename} - ${e}`);
         return null;
     }
 };
 
-const watcher = watch(filename, (event, filename) => {
-    console.log(`Watcher event for ${filename} - ${event}`);
-    const currentAuthoritativeVersion = getAuthoritativeVersion();
-    if (currentAuthoritativeVersion) {
-        versionData.authoritativeVersion = currentAuthoritativeVersion;
-    }
-});
+try {
+    const watcher = watch(filename, (event, filename) => {
+        console.log(`Watcher event for ${filename} - ${event}`);
+        getAuthoritativeVersion().then((result) => {
+            if (result) {
+                versionData.authoritativeVersion = result;
+            }
+        });
+    });
 
-process.on("SIGINT", () => {
-    console.log(`Closing watcher for ${filename}`);
-    watcher.close();
-});
+    process.on("SIGINT", () => {
+        console.log(`Closing watcher for file ${filename}`);
+        watcher.close();
+    });
+} catch (e) {
+    console.log(`Error watching file ${filename} - ${e}`);
+}
 
 const versionData = {
     localVersion: env.VERSION_ID,
