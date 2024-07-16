@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import cls from "decorator-client/src/styles/alert.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import html, { Template } from "decorator-shared/html";
 import {
     InformationSquareFillIcon,
@@ -13,16 +13,18 @@ export type AlertProps = {
 };
 
 export const Alert = ({ variant, content }: AlertProps) => html`
-    <div class="${clsx(cls["navds-alert"], cls[`navds-alert--${variant}`])}">
+    <div
+        class="${clsx(aksel["navds-alert"], aksel[`navds-alert--${variant}`])}"
+    >
         ${variant === "info"
             ? InformationSquareFillIcon({
-                  className: cls["navds-alert__icon"],
+                  className: aksel["navds-alert__icon"],
                   ariaLabel: i18n("info"),
               })
             : XMarkOctagonFillIcon({
-                  className: cls["navds-alert__icon"],
+                  className: aksel["navds-alert__icon"],
                   ariaLabel: i18n("error"),
               })}
-        <span class="${cls.text}">${content}</span>
+        <span class="${aksel["navds-body-long"]}">${content}</span>
     </div>
 `;
