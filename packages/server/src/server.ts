@@ -25,7 +25,6 @@ import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
 import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
-import { versionSyncHandler } from "./handlers/version-sync-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 
 const app = new Hono({
@@ -57,7 +56,6 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
-app.get("/api/versionSync", versionSyncHandler);
 app.get("/api/version", versionApiHandler);
 
 app.get("/api/ta", async ({ json }) => {
