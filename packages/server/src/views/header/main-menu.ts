@@ -3,10 +3,6 @@ import cls from "decorator-client/src/styles/main-menu.module.css";
 import html, { Template } from "decorator-shared/html";
 import { LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import i18n from "../../i18n";
-import { makeFrontpageUrl } from "decorator-shared/urls";
-import { env } from "../../env/server";
-import { getMainMenuLinks, mainMenuContextLinks } from "../../menu/main-menu";
-import { Params } from "decorator-shared/params";
 
 export type MainMenuProps = {
     title: Template;
