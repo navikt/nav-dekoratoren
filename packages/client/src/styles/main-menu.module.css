@@ -23,12 +23,6 @@
     gap: var(--a-spacing-3);
 }
 
-.title {
-    font-size: var(--a-font-size-heading-medium);
-    line-height: var(--a-font-line-height-heading-medium);
-    margin-block: 0;
-}
-
 .links {
     columns: 18rem 4;
     gap: var(--a-spacing-6);
@@ -40,8 +34,6 @@
 }
 
 .linkGroupHeading {
-    font-size: var(--a-font-size-heading-small);
-    line-height: var(--a-font-line-height-heading-small);
     margin-block: 0 var(--a-spacing-3);
 }
 

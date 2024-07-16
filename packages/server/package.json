@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "bun --watch src/server.ts",
+        "inspect": "bun --inspect src/server.ts",
         "postinstall": "cp .env.sample .env",
         "serve": "NODE_ENV=production bun dist/server.js",
         "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 bun --watch src/server.ts",
@@ -13,19 +14,20 @@
         "test": "bun test --env-file=./.env.sample"
     },
     "dependencies": {
+        "@hono/prometheus": "^1.0.1",
         "csp-header": "5.2.1",
         "decorator-client": "workspace:*",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.4.10",
-        "ts-pattern": "5.1.1",
+        "hono": "4.4.13",
+        "ts-pattern": "5.2.0",
         "unleash-client": "4.2.1"
     },
     "devDependencies": {
         "@types/bun": "1.1.6",
+        "msw": "2.3.1",
         "postcss": "8.4.39",
         "postcss-modules": "6.0.0",
-        "postcss-import": "16.1.0",
-        "msw": "2.3.1"
+        "postcss-import": "16.1.0"
     }
 }

@@ -1,12 +1,13 @@
 import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/complex-footer.module.css";
-import utilCls from "decorator-client/src/styles/utils.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowUpIcon } from "decorator-icons";
 import html from "decorator-shared/html";
 import { Features, LinkGroup } from "decorator-shared/types";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { ScreenshareButton } from "./screenshare-button";
+import clsx from "clsx";
 
 export const ComplexFooter = ({
     links,
@@ -16,16 +17,29 @@ export const ComplexFooter = ({
     features: Features;
 }) => html`
     <footer class="${cls.footer}" data-theme="dark">
-        <div class="${cls.footerContent} ${utilCls.contentContainer}">
-            <a class="${aksel["navds-link"]} ${cls.toTop}" href="#"
-                >${ArrowUpIcon({ className: cls.arrowUp })}${i18n("to_top")}</a
+        <div class="${cls.footerContent} ${utils.contentContainer}">
+            <a
+                class="${clsx(
+                    aksel["navds-link"],
+                    aksel["navds-body-short"],
+                    aksel["navds-body-short--large"],
+                    cls.toTop,
+                )}"
+                href="#"
+                >${ArrowUpIcon({ className: utils.icon })}${i18n("to_top")}</a
             >
             <ul class="${cls.footerLinks}">
                 ${links.map(
                     ({ heading, children }) => html`
                         <li class="${cls.footerLinkGroup}">
                             ${heading &&
-                            html`<h2 class="${cls.footerLinkHeading}">
+                            html`<h2
+                                class="${clsx(
+                                    aksel["navds-heading"],
+                                    aksel["navds-heading--xsmall"],
+                                    cls.footerLinkHeading,
+                                )}"
+                            >
                                 ${heading}
                             </h2>`}
                             <ul class="${cls.footerInnerLinkList}">

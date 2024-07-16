@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/main-menu.module.css";
 import html, { Template } from "decorator-shared/html";
@@ -21,7 +22,14 @@ export function MainMenu({
         <div id="decorator-main-menu" class="${cls.mainMenu}">
             <div class="${cls.content}">
                 <div class="${cls.header}">
-                    <h2 class="${cls.title}">${title}</h2>
+                    <h2
+                        class="${clsx(
+                            aksel["navds-heading"],
+                            aksel["navds-heading--medium"],
+                        )}"
+                    >
+                        ${title}
+                    </h2>
                     <a href="${frontPageUrl}" class="${aksel["navds-link"]}"
                         >${i18n("to_front_page")}</a
                     >
@@ -30,7 +38,13 @@ export function MainMenu({
                     ${links.map(
                         ({ heading, children }) => html`
                             <div class="${cls.linkGroup}">
-                                <h3 class="${cls.linkGroupHeading}">
+                                <h3
+                                    class="${clsx(
+                                        aksel["navds-heading"],
+                                        aksel["navds-heading--small"],
+                                        cls.linkGroupHeading,
+                                    )}"
+                                >
                                     ${heading}
                                 </h3>
                                 <ul class="${cls.linkList}">
