@@ -11,11 +11,12 @@ type ConstructorProps<FileContent> = {
     onUpdate?: OnUpdateCallback<FileContent>;
 };
 
-const getFullPath = (mountPath: string, filename: string) =>
-    `${process.cwd()}${isLocalhost() ? "/config" : mountPath}/${filename}`;
+const getFullPath = (mountPath: string) =>
+    `${process.cwd()}${isLocalhost() ? "/config" : mountPath}`;
 
 export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
-    private readonly fullPath: string;
+    private readonly mountPath: string;
+    private readonly filePath: string;
     private readonly watcher: FSWatcher;
 
     private fileContent: FileContent | null = null;
@@ -25,11 +26,12 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
         filename,
         onUpdate,
     }: ConstructorProps<FileContent>) {
-        this.fullPath = getFullPath(mountPath, filename);
+        this.mountPath = getFullPath(mountPath);
+        this.filePath = `${this.mountPath}/${filename}`;
 
         this.updateFileContent();
 
-        this.watcher = watch(this.fullPath, (event, filename) => {
+        this.watcher = watch(this.mountPath, (event, filename) => {
             console.log(`ConfigMap file ${filename} was updated (${event})`);
 
             this.updateFileContent().then((updatedContent) => {
@@ -39,10 +41,10 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             });
         });
 
-        console.log(`Watching for updates on configmap file ${this.fullPath}`);
+        console.log(`Watching for updates on configmap file ${this.filePath}`);
 
         process.on("SIGINT", () => {
-            console.log(`Closing watcher for configmap file ${this.fullPath}`);
+            console.log(`Closing watcher for configmap file ${this.filePath}`);
             this.watcher.close();
         });
     }
@@ -58,12 +60,12 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
     private updateFileContent = async () => {
         try {
             this.fileContent = (await Bun.file(
-                this.fullPath,
+                this.filePath,
             ).json()) as FileContent;
             return this.fileContent;
         } catch (e) {
             console.error(
-                `Error reading configmap file ${this.fullPath} - ${e}`,
+                `Error reading configmap file ${this.filePath} - ${e}`,
             );
             return null;
         }
