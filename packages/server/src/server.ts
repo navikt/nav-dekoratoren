@@ -84,7 +84,6 @@ app.get("/api/search", async ({ req, html }) =>
     ),
 );
 app.get("/api/csp", ({ json }) => json(cspDirectives));
-app.get("/api/ssr", ssrApiHandler);
 app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
 
@@ -127,6 +126,7 @@ app.get("/footer", async ({ req, html }) => {
         ).render(params),
     );
 });
+app.get("/ssr", ssrApiHandler);
 // /env is used for CSR
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.get("/env", async ({ req, json }) => {
