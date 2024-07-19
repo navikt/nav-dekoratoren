@@ -10,8 +10,7 @@ const configMapWatcher = new ConfigMapWatcher<ConfigMapType>({
     mountPath: "/version-authority",
     filename: "version-authority.json",
     onUpdate: (fileContent) => {
-        versionData.authoritativeVersion =
-            fileContent?.AUTHORITATIVE_VERSION_ID;
+        versionData.latestVersion = fileContent?.AUTHORITATIVE_VERSION_ID;
     },
 });
 
@@ -23,7 +22,7 @@ const getAuthoritativeVersion = async () => {
 
 const versionData = {
     localVersion: env.VERSION_ID,
-    authoritativeVersion: await getAuthoritativeVersion(),
+    latestVersion: await getAuthoritativeVersion(),
 };
 
 export const versionApiHandler: Handler = async ({ json }) => json(versionData);
