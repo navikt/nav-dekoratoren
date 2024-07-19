@@ -34,13 +34,13 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             mountPathFull,
             { recursive: true },
             (event, fileOrDir) => {
-                console.log(`Watcher event ${event} for ${fileOrDir}`);
-
                 if (path.basename(fileOrDir) !== filename) {
                     return;
                 }
 
-                console.log(`Configmap file ${this.filePath} was updated`);
+                console.log(
+                    `Configmap file ${this.filePath} was updated (${event})`,
+                );
 
                 this.updateFileContent().then((updatedContent) => {
                     if (onUpdate && updatedContent) {
