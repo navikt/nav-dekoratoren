@@ -68,6 +68,7 @@ jobs:
           gh variable set PREV_VERSION_ID --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ env.VERSION_ID }}"
           gh variable set PREV_IMAGE --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ inputs.IMAGE }}"
           gh variable list --env ${{ inputs.DEPLOY_INSTANCE }}
+      # We use a configmap to signal the latest fully deployed version.
       - name: Update version authority configmap
         uses: nais/deploy/actions/deploy@v2
         env:
