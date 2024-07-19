@@ -1,7 +1,6 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
-import { Result, ResultType } from "./result";
-import { ResponseCache } from "decorator-shared/response-cache";
+import { ConfigMapWatcher } from "./lib/config-map-watcher";
 
 export type TaskAnalyticsSurvey = z.infer<typeof taSurveySchema>;
 export type TaskAnalyticsUrlRule = z.infer<typeof taUrlRuleSchema>;
@@ -28,29 +27,34 @@ const taSurveySchema = z.object({
 
 const configSchema = z.array(taSurveySchema);
 
-const TEN_SECONDS_MS = 10 * 1000;
-
-const cache = new ResponseCache<TaskAnalyticsSurvey[]>({
-    ttl: TEN_SECONDS_MS,
+const configMapWatcher = new ConfigMapWatcher<TaskAnalyticsSurvey>({
+    mountPath: "/config",
+    filename: "ta-config.json",
+    onUpdate: (fileContent) => {
+        const validated = validateSurveys(fileContent);
+        if (validated) {
+            config.surveys = validated;
+        }
+    },
 });
 
-export const getTaskAnalyticsConfig = async (): Promise<
-    ResultType<TaskAnalyticsSurvey[]>
-> =>
-    cache
-        .get("task-analytics-config", async () => {
-            const json = await Bun.file(
-                `${process.cwd()}/config/ta-config.json`,
-            ).json();
+const validateSurveys = (surveys: unknown) => {
+    const result = configSchema.safeParse(surveys);
 
-            const result = configSchema.safeParse(json);
-
-            if (!result.success) {
-                throw result.error;
-            }
-
-            return result.data;
-        })
-        .then((config) =>
-            config ? Result.Ok(config) : Result.Error("Failed to fetch config"),
+    if (!result.success) {
+        console.error(
+            `Failed to validate TA surveys - ${result.error.errors.map((error) => error.path).join("\n")}`,
         );
+        return null;
+    }
+
+    return result.data;
+};
+
+const config: { surveys: TaskAnalyticsSurvey[] } = {
+    surveys: validateSurveys(await configMapWatcher.getFileContent()) || [],
+};
+
+export const getTaskAnalyticsSurveys = (): TaskAnalyticsSurvey[] => {
+    return config.surveys;
+};
