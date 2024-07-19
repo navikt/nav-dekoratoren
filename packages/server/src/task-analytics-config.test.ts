@@ -1,13 +1,12 @@
 import { describe, expect, test } from "bun:test";
 import { getTaskAnalyticsSurveys } from "./task-analytics-config";
-import { expectOK } from "./test-expect";
 
 describe("task analytics", () => {
     test("returns config", async () => {
-        const result = await getTaskAnalyticsSurveys();
-        expectOK(result);
-        expect(result.data.length).toBe(3);
-        expect(result.data[2]).toEqual({
+        const result = getTaskAnalyticsSurveys();
+
+        expect(result.length).toBe(3);
+        expect(result[2]).toEqual({
             duration: {
                 end: "2023-02-28",
                 start: "2023-01-30T08:00",
@@ -23,11 +22,9 @@ describe("task analytics", () => {
     });
 
     test("caches config", async () => {
-        const res1 = await getTaskAnalyticsSurveys();
-        const res3 = await getTaskAnalyticsSurveys();
+        const res1 = getTaskAnalyticsSurveys();
+        const res2 = getTaskAnalyticsSurveys();
 
-        expectOK(res1);
-        expectOK(res3);
-        expect(res1.data).toBe(res3.data);
+        expect(res1).toBe(res2);
     });
 });
