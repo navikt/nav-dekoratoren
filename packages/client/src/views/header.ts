@@ -3,35 +3,44 @@ import { endpointUrlWithParams } from "../helpers/urls";
 import { updateDecoratorParams } from "../params";
 import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { refreshAuthData } from "../helpers/auth";
+import { ClientParams } from "decorator-shared/params";
+import { CustomEvents } from "../events";
 
 const msgSafetyCheck = (message: MessageEvent) => {
-    const { origin, source } = message;
-    return window.location.href.startsWith(origin) && source === window;
+    const { origin, source, data } = message;
+    return (
+        data.source === "decoratorClient" &&
+        window.location.href.startsWith(origin) &&
+        source === window
+    );
 };
 
+// TODO: this should probably include more params
+const paramsUpdatesToHandle: Array<keyof ClientParams> = [
+    "breadcrumbs",
+    "availableLanguages",
+    "utilsBackground",
+    "language",
+    "chatbotVisible",
+    "context",
+] as const;
+
 class Header extends HTMLElement {
-    handleMessage = (e: MessageEvent) => {
+    private handleMessage = (e: MessageEvent) => {
         if (!msgSafetyCheck(e)) {
             return;
-        } else if (
-            e.data.source === "decoratorClient" &&
-            e.data.event === "ready"
-        ) {
-            window.postMessage({ source: "decorator", event: "ready" });
-        } else if (
-            e.data.source === "decoratorClient" &&
-            e.data.event == "params"
-        ) {
-            const payload = e.data.payload;
+        }
 
-            [
-                "breadcrumbs",
-                "availableLanguages",
-                "utilsBackground",
-                "language",
-                "chatbotVisible",
-                "context",
-            ].forEach((key) => {
+        const { event, payload } = e.data;
+
+        if (event === "ready") {
+            window.postMessage({ source: "decorator", event: "ready" });
+            return;
+        }
+
+        if (event == "params") {
+            paramsUpdatesToHandle.forEach((key) => {
                 if (payload[key] !== undefined) {
                     // TODO: validation
                     updateDecoratorParams({
@@ -42,11 +51,24 @@ class Header extends HTMLElement {
         }
     };
 
-    handleParamsUpdated = (e: CustomEvent) => {
-        if (e.detail.params.language) {
-            fetch(endpointUrlWithParams("/header"))
-                .then((res) => res.text())
-                .then((header) => (this.innerHTML = header));
+    private refreshHeader = () => {
+        fetch(endpointUrlWithParams("/header"))
+            .then((res) => res.text())
+            .then((header) => (this.innerHTML = header))
+            .then(() => refreshAuthData());
+    };
+
+    private handleParamsUpdated = (
+        e: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        const { context, language } = e.detail.params;
+
+        if (language) {
+            this.refreshHeader();
+        }
+
+        if (context) {
+            refreshAuthData();
         }
     };
 
