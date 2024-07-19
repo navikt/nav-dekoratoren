@@ -25,24 +25,18 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             process.cwd(),
             isLocalhost() ? "/config" : mountPath,
         );
-        const parentPath = path.dirname(mountPathFull);
 
         this.filePath = path.join(mountPathFull, filename);
 
         this.updateFileContent();
 
-        // Kubernetes deletes and recreates the mount directory for the configmap
-        // when it is redeployed, so we need to watch the parent directory
         const watcher = fs.watch(
-            parentPath,
+            mountPathFull,
             { recursive: true },
             (event, fileOrDir) => {
                 console.log(`Watcher event ${event} for ${fileOrDir}`);
 
-                if (
-                    event !== "change" ||
-                    path.basename(fileOrDir) !== filename
-                ) {
+                if (path.basename(fileOrDir) !== filename) {
                     return;
                 }
 
@@ -56,9 +50,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             },
         );
 
-        console.log(
-            `Watching for updates on ${parentPath} for ${this.filePath}`,
-        );
+        console.log(`Watching for updates on ${mountPathFull} for ${filename}`);
 
         process.on("SIGINT", () => {
             console.log(`Closing watcher for configmap file ${this.filePath}`);
