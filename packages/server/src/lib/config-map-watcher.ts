@@ -31,7 +31,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 
         this.updateFileContent();
 
-        // Kubernetes deletes and recreates the directory for the configmap
+        // Kubernetes deletes and recreates the mount directory for the configmap
         // when it is redeployed, so we need to watch the parent directory
         const watcher = fs.watch(
             parentPath,
@@ -54,7 +54,9 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             },
         );
 
-        console.log(`Watching for updates on configmap file ${this.filePath}`);
+        console.log(
+            `Watching for updates on ${parentPath} for ${this.filePath}`,
+        );
 
         process.on("SIGINT", () => {
             console.log(`Closing watcher for configmap file ${this.filePath}`);
