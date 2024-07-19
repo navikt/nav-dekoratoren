@@ -1,5 +1,5 @@
 import { AuthDataResponse } from "decorator-shared/auth";
-import { CustomEvents, createEvent } from "../events";
+import { createEvent } from "../events";
 import { env } from "../params";
 import { endpointUrlWithParams } from "./urls";
 
@@ -82,22 +82,8 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
         });
 };
 
-const updateAuthData = () =>
+export const refreshAuthData = () =>
     fetchAuthData().then((authResponse) => {
         dispatchEvent(createEvent("authupdated", { detail: authResponse }));
         return authResponse;
-    });
-
-const updateAuthOnContextSwitch = (
-    e: CustomEvent<CustomEvents["paramsupdated"]>,
-) => {
-    if (e.detail.params.context) {
-        updateAuthData();
-    }
-};
-
-export const initAuth = () =>
-    updateAuthData().then((authResponse) => {
-        window.addEventListener("paramsupdated", updateAuthOnContextSwitch);
-        return authResponse.auth;
     });
