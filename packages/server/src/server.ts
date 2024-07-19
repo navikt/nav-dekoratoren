@@ -13,7 +13,7 @@ import { headAssets } from "./head";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import { getTaskAnalyticsConfig } from "./task-analytics-config";
+import { getTaskAnalyticsSurveys } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { isLocalhost } from "./urls";
 import { validParams } from "./validateParams";
@@ -56,18 +56,10 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
-app.get("/api/version", versionApiHandler);
 
-app.get("/api/ta", async ({ json }) => {
-    const result = await getTaskAnalyticsConfig();
-    if (result.ok) {
-        return json(result.data);
-    } else {
-        throw new HTTPException(500, {
-            message: result.error.message,
-            cause: result.error,
-        });
-    }
+app.get("/api/version", versionApiHandler);
+app.get("/api/ta", ({ json }) => {
+    return json(getTaskAnalyticsSurveys());
 });
 app.post("/api/notifications/:id/archive", async ({ req, json }) => {
     const result = await archiveNotification({
@@ -92,6 +84,7 @@ app.get("/api/search", async ({ req, html }) =>
     ),
 );
 app.get("/api/csp", ({ json }) => json(cspDirectives));
+app.get("/api/ssr", ssrApiHandler);
 app.get("/main-menu", async ({ req, html }) => {
     const data = validParams(req.query());
 
@@ -134,7 +127,6 @@ app.get("/footer", async ({ req, html }) => {
         ).render(params),
     );
 });
-app.get("/ssr", ssrApiHandler);
 // /env is used for CSR
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.get("/env", async ({ req, json }) => {
