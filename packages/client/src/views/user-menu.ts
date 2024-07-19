@@ -4,8 +4,6 @@ import cls from "../styles/user-menu.module.css";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
 
-let auth: AuthDataResponse;
-
 class UserMenu extends HTMLElement {
     private update = (auth: AuthDataResponse) => {
         this.classList.add(cls.userMenuContainer);
@@ -23,9 +21,6 @@ class UserMenu extends HTMLElement {
 
     connectedCallback() {
         window.addEventListener("authupdated", this.onAuthUpdated);
-        if (auth) {
-            this.update(auth);
-        }
     }
 
     disconnectedCallback() {

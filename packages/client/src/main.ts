@@ -3,7 +3,7 @@ import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
 import { initHistoryEvents } from "./events";
 import { addFaroMetaData } from "./faro";
-import { initAuth } from "./helpers/auth";
+import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import "./main.css";
 import { param, updateDecoratorParams } from "./params";
@@ -42,8 +42,8 @@ const init = () => {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
 
-    initAuth().then((auth) => {
-        initAnalytics(auth);
+    refreshAuthData().then((response) => {
+        initAnalytics(response.auth);
     });
 };
 
