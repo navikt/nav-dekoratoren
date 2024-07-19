@@ -65,6 +65,7 @@ class Header extends HTMLElement {
 
         if (language) {
             this.refreshHeader();
+            return;
         }
 
         if (context) {
