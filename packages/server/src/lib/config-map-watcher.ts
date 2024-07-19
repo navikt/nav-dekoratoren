@@ -37,6 +37,8 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             parentPath,
             { recursive: true },
             (event, fileOrDir) => {
+                console.log(`Watcher event ${event} for ${fileOrDir}`);
+
                 if (
                     event !== "change" ||
                     path.basename(fileOrDir) !== filename
