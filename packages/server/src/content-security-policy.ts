@@ -13,6 +13,8 @@ import { isLocalhost } from "./urls";
 const navNo = "*.nav.no";
 const cdnNavNo = "cdn.nav.no";
 
+const uxsignals = "uxsignals-frontend.uxsignals.app.iterate.no";
+const uxsignalsApi = "api.uxsignals.com";
 const vergicScreenSharing = "*.psplugin.com";
 const vergicDotCom = "www.vergic.com"; // seems to only be used for a single placeholder image
 const boostChatbot = "*.boost.ai";
@@ -37,6 +39,7 @@ const styleSrc = [
 
 const scriptSrc = [
     navNo,
+    uxsignals,
     vergicScreenSharing,
     hotjarCom,
     taskAnalytics,
@@ -69,11 +72,19 @@ const directives: Partial<CSPDirectives> = {
         googleFontsStatic,
         DATA, // ds-css
     ],
-    "img-src": [navNo, vergicScreenSharing, vimeoCdn, hotjarCom, vergicDotCom],
+    "img-src": [
+        navNo,
+        uxsignals,
+        vergicScreenSharing,
+        vimeoCdn,
+        hotjarCom,
+        vergicDotCom,
+    ],
     "frame-src": [hotjarCom, vimeoPlayer, qbrick, navNo],
     "frame-ancestors": [SELF, vergicScreenSharing],
     "connect-src": [
         navNo,
+        uxsignalsApi,
         boostChatbot,
         vergicScreenSharing,
         hotjarCom,
