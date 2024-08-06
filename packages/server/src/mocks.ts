@@ -34,7 +34,7 @@ const getSecondsRemaining = (futureDate: string) => {
 
 export const setupMocks = () =>
     setupServer(
-        http.get("http://bs-local.com:8089/api/oauth2/session", () =>
+        http.get("http://localhost:8089/api/oauth2/session", () =>
             HttpResponse.json({
                 session: {
                     created_at: nowISOString(),
@@ -55,7 +55,7 @@ export const setupMocks = () =>
                 },
             }),
         ),
-        http.get("http://bs-local.com:8089/api/oauth2/session/refresh", () =>
+        http.get("http://localhost:8089/api/oauth2/session/refresh", () =>
             HttpResponse.json({
                 session: {
                     created_at: nowISOString(),
@@ -79,10 +79,10 @@ export const setupMocks = () =>
         http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
             HttpResponse.json(testData),
         ),
-        http.get("http://bs-local.com:8089/api/varselbjelle/varsler", () =>
+        http.get("http://localhost:8089/api/varselbjelle/varsler", () =>
             HttpResponse.json(notificationsMock),
         ),
-        http.get("http://bs-local.com:8089/api/auth", () =>
+        http.get("http://localhost:8089/api/auth", () =>
             HttpResponse.json({
                 authenticated: true,
                 name: "Charlie Jensen",
@@ -98,7 +98,7 @@ export const setupMocks = () =>
                 //     heading: "Ustabile tjenester søndag 15. januar",
                 //     url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
                 //     type: "prodstatus",
-                //     urlscope: ["http://bs-local.com:3000/arbeid"],
+                //     urlscope: ["http://localhost:3000/arbeid"],
                 // },
                 // {
                 //     heading: "Svindelforsøk via SMS - vær oppmerksom",

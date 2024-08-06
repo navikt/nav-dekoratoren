@@ -8,7 +8,7 @@
         "inspect": "bun --inspect src/server.ts",
         "postinstall": "cp .env.sample .env",
         "serve": "NODE_ENV=production bun dist/server.js",
-        "serve-local": "NODE_ENV=production APP_URL=http://bs-local.com:8089 bun --watch src/server.ts",
+        "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 bun --watch src/server.ts",
         "clean": "rm -rf ./public/assets",
         "build": "bun run clean && NODE_ENV=production bun run build.ts",
         "test": "bun test --env-file=./.env.sample"

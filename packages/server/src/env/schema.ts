@@ -4,7 +4,7 @@ import { z } from "zod";
 export const serverSchema = z.object({
     APP_NAME: z.string(),
     APP_URL: z.string().url(),
-    CDN_URL: z.string(),
+    CDN_URL: z.string().url(),
     DEKORATOREN_API_URL: z.string().url(),
     ENONICXP_SERVICES: z.string().url(),
     IS_INTERNAL_APP: z.boolean(),
