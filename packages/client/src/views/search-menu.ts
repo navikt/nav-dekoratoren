@@ -44,7 +44,9 @@ class SearchMenu extends HTMLElement {
         this.form?.addEventListener("submit", (e) => {
             e.preventDefault();
             const xpOrigin = env("XP_BASE_URL");
-            window.location.assign(`${xpOrigin}/sok?ord=${this.input?.value}`);
+            window.location.assign(
+                `${xpOrigin}/sok?ord=${this.input?.value}&f=${param("context")}`,
+            );
         });
 
         const fetchSearch = (query: string) => {
