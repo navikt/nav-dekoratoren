@@ -30,7 +30,7 @@ export const SearchHits = ({
                 ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
-                href="https://www.nav.no/sok?ord=${query}"
+                href="https://www.nav.no/sok?ord=${query}&f=${context}"
                 class="${aksel["navds-link"]}"
             >
                 ${i18n("change_search_filter")}
@@ -61,7 +61,7 @@ export const SearchHits = ({
                   </ul>
                   <a
                       class="${cls.searchMoreHits}"
-                      href="https://www.nav.no/sok?ord=${query}"
+                      href="https://www.nav.no/sok?ord=${query}&f=${context}"
                   >
                       ${i18n("more_hits")}
                       ${ArrowRightIcon({
