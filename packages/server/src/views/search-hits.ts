@@ -4,6 +4,7 @@ import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowRightIcon } from "decorator-icons";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { Context } from "decorator-shared/params";
+import { env } from "../env/server";
 import i18n from "../i18n";
 
 export type SearchHitsProps = {
@@ -30,7 +31,7 @@ export const SearchHits = ({
                 ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
-                href="https://www.nav.no/sok?ord=${query}"
+                href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
                 class="${aksel["navds-link"]}"
             >
                 ${i18n("change_search_filter")}
@@ -61,7 +62,7 @@ export const SearchHits = ({
                   </ul>
                   <a
                       class="${cls.searchMoreHits}"
-                      href="https://www.nav.no/sok?ord=${query}"
+                      href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
                   >
                       ${i18n("more_hits")}
                       ${ArrowRightIcon({
