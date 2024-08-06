@@ -96,7 +96,9 @@ const directives: Partial<CSPDirectives> = {
 const localDirectives = Object.entries(directives).reduce(
     (acc, [key, value]) => ({
         ...acc,
-        [key]: Array.isArray(value) ? [...value, "localhost:* ws:"] : value,
+        [key]: Array.isArray(value)
+            ? [...value, "bs-local.com:8089", "localhost"]
+            : value,
     }),
     {},
 );

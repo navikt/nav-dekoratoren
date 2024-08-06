@@ -33,6 +33,7 @@ const app = new Hono({
 
 app.use(headers);
 
+console.log("Starting server", isLocalhost(), env.NODE_ENV);
 if (env.NODE_ENV === "development" || isLocalhost()) {
     console.log("Setting up mocks");
     setupMocks();
@@ -57,7 +58,7 @@ app.get("/metrics", printMetrics);
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
 
-app.get("/api/version", versionApiHandler);
+// app.get("/api/version", versionApiHandler);
 app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
 });
