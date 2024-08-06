@@ -63,6 +63,15 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
         ...appScripts,
         {
             tag: "script",
+            attribs: {
+                src: "https://in2.taskanalytics.com/tm.js",
+                type: "module",
+                async: "true",
+                fetchpriority: "low",
+            },
+        },
+        {
+            tag: "script",
             body: hotjarScript,
             attribs: {
                 type: "module",

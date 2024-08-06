@@ -5,7 +5,6 @@
     "type": "module",
     "scripts": {
         "dev": "bun --watch src/server.ts",
-        "inspect": "bun --inspect src/server.ts",
         "postinstall": "cp .env.sample .env",
         "serve": "NODE_ENV=production bun dist/server.js",
         "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 bun --watch src/server.ts",
