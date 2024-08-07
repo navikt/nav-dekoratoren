@@ -1,3 +1,4 @@
+import { logAmplitudeEvent } from "../../analytics/amplitude";
 import { logout } from "../../helpers/auth";
 import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
@@ -20,9 +21,11 @@ export class TokenDialog extends HTMLElement {
             event.preventDefault();
             const action = new FormData(form, event.submitter).get("action");
             if (action === "renew") {
+                logAmplitudeEvent("token dialog renew");
                 this.dispatchEvent(new Event("renew"));
                 dialog.close();
             } else {
+                logAmplitudeEvent("token dialog logout");
                 logout();
             }
         });
@@ -31,7 +34,10 @@ export class TokenDialog extends HTMLElement {
             if (this.secondsRemaining < 0) {
                 logout();
             } else if (this.secondsRemaining < 5 * 60) {
-                dialog.showModal();
+                if (!dialog.open) {
+                    logAmplitudeEvent("token dialog shown");
+                    dialog.showModal();
+                }
             } else {
                 dialog.close();
             }
