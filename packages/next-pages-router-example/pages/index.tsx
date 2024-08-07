@@ -22,6 +22,7 @@ export default function Home() {
             </Head>
             <main className={`${styles.main} ${inter.className}`}>
                 <div className={styles.description}>
+                    <h1>Welcome!</h1>
                     <p>
                         Get started by editing&nbsp;
                         <code className={styles.code}>pages/index.tsx</code>

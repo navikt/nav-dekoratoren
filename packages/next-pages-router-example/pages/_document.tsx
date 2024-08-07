@@ -27,7 +27,7 @@ class _Document extends Document<{ decorator: DecoratorComponents }> {
     render() {
         const { Styles, Scripts, Header, Footer } = this.props.decorator;
         return (
-            <Html>
+            <Html lang="no">
                 <Head />
                 <Styles />
                 <Scripts />
