@@ -1,3 +1,4 @@
+import { logAmplitudeEvent } from "../../analytics/amplitude";
 import { logout } from "../../helpers/auth";
 import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
@@ -21,9 +22,11 @@ export class SessionDialog extends HTMLElement {
             event.preventDefault();
             const action = new FormData(form, event.submitter).get("action");
             if (action === "renew") {
+                logAmplitudeEvent("session dialog renew");
                 this.silenceWarning = true;
                 dialog.close();
             } else {
+                logAmplitudeEvent("session dialog logout");
                 logout();
             }
         });
@@ -35,7 +38,10 @@ export class SessionDialog extends HTMLElement {
                 dialog.querySelector(".session-time-remaining")!.innerHTML =
                     Math.ceil(this.secondsRemaining / 60).toString();
 
-                dialog.showModal();
+                if (!dialog.open) {
+                    dialog.showModal();
+                    logAmplitudeEvent("session dialog shown");
+                }
             } else {
                 dialog.close();
             }
