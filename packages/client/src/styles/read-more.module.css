@@ -20,6 +20,10 @@
     background-color: var(--a-surface-active);
 }
 
+.summary::-webkit-details-marker {
+    display: none;
+}
+
 .details[open] .icon {
     transform: rotate(180deg);
 }
