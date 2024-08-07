@@ -9,6 +9,8 @@ import "decorator-client/src/views/loader";
 import "decorator-client/src/views/local-time/local-time";
 import "decorator-client/src/views/menu-background/menu-background";
 import "decorator-client/src/views/search-input";
+import "decorator-client/src/views/logout-warning/session-dialog";
+import "decorator-client/src/views/logout-warning/token-dialog";
 import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
 import {
