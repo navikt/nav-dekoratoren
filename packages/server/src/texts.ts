@@ -42,6 +42,7 @@ const nb = {
     yes: "Ja",
     no: "Nei",
     ok: "OK",
+    feedback: "Tilbakemelding",
     hensikt_med_tilbakemelding:
         "Du får dessverre ikke svar på tilbakemeldingen din. Har du spørsmål eller trenger du hjelp?",
     hensikt_med_tilbakemelding_lenke: "Ring, chat eller skriv til oss",
@@ -140,6 +141,7 @@ const en = {
     yes: "Yes",
     no: "No",
     ok: "OK",
+    feedback: "Feedback",
     hensikt_med_tilbakemelding:
         "Unfortunately you will not get a reply to your feedback. Do you have questions or need help?",
     hensikt_med_tilbakemelding_lenke: "Call, chat or write to us",

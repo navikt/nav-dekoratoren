@@ -26,6 +26,7 @@ export type ClientTexts = {
 export type Texts = ClientTexts & {
     token_warning_title: string;
     token_warning_body: string;
+    feedback: string;
     send_undersokelse_takk: string;
     hensikt_med_tilbakemelding: string;
     hensikt_med_tilbakemelding_lenke: string;
