@@ -8,7 +8,7 @@ import { Button } from "./components/button";
 
 export const Feedback = ({ contactUrl }: { contactUrl: string }) => html`
     <d-feedback class="${cls.feedback}" xmlns="http://www.w3.org/1999/html">
-        <section aria-label="${i18n("feedback")}"
+        <section aria-label="${i18n("feedback")} ${i18n("did_you_find")}"
             <div class="${cls.feedbackContent}">
                 <h2
                     class="${clsx(
