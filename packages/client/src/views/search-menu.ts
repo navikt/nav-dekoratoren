@@ -1,6 +1,10 @@
-import html from 'decorator-shared/html';
-import debounce from 'lodash.debounce';
-import cls from '../styles/search-form.module.css';
+import html from "decorator-shared/html";
+import debounce from "lodash.debounce";
+import { amplitudeEvent } from "../analytics/amplitude";
+import { endpointUrlWithParams } from "../helpers/urls";
+import { env, param } from "../params";
+import cls from "../styles/search-form.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -10,14 +14,16 @@ class SearchMenu extends HTMLElement {
 
     constructor() {
         super();
-        this.hits = document.createElement('div');
+        this.hits = document.createElement("div");
     }
 
     clearSearch = () => {
+        const mainMenu = document.getElementById("decorator-main-menu");
         this.hits.remove();
         if (this.input) {
-            this.input.value = '';
+            this.input.value = "";
         }
+        mainMenu && mainMenu.classList.remove("hidden");
     };
 
     focus = () => this.input?.focus();
@@ -25,35 +31,37 @@ class SearchMenu extends HTMLElement {
     connectedCallback() {
         this.form = this.querySelector(`.${cls.searchForm}`);
         this.input = this.querySelector(`.${cls.searchInput}`);
-        this.parentDropdown = this.closest('dropdown-menu');
+        this.parentDropdown = this.closest("dropdown-menu");
 
-        if (this.getAttribute('data-auto-focus') !== null) {
-            this.parentDropdown?.addEventListener('menuopened', this.focus);
+        if (this.getAttribute("data-auto-focus") !== null) {
+            this.parentDropdown?.addEventListener("menuopened", this.focus);
         }
 
-        this.parentDropdown?.addEventListener('menuclosed', this.clearSearch);
+        this.parentDropdown?.addEventListener("menuclosed", this.clearSearch);
 
-        this.addEventListener('clearsearch', this.clearSearch);
+        this.addEventListener("clearsearch", this.clearSearch);
 
-        this.form?.addEventListener('submit', (e) => {
+        this.form?.addEventListener("submit", (e) => {
             e.preventDefault();
-            window.location.assign(`${window.location.origin}/sok?ord=${this.input?.value}`);
+            const xpOrigin = env("XP_BASE_URL");
+            window.location.assign(
+                `${xpOrigin}/sok?ord=${this.input?.value}&f=${param("context")}`,
+            );
         });
 
         const fetchSearch = (query: string) => {
-            const url = `${window.__DECORATOR_DATA__.env.APP_URL}/api/search?${Object.entries({
-                language: window.__DECORATOR_DATA__.params.language,
-                q: query,
-            })
-                .map(([key, value]) => `${key}=${value}`)
-                .join('&')}`;
+            const url = endpointUrlWithParams("/api/search", {
+                language: param("language"),
+                context: param("context"),
+                q: encodeURIComponent(query),
+            });
 
-            window.analyticsEvent({
-                eventName: 'søk',
+            amplitudeEvent({
+                eventName: "søk",
                 destination: url,
-                category: 'dekorator-header',
-                label: query,
-                action: 'søk-dynamisk',
+                category: "dekorator-header",
+                label: "[redacted]",
+                action: "søk-dynamisk",
             });
 
             return fetch(url)
@@ -67,26 +75,32 @@ class SearchMenu extends HTMLElement {
 
         const fetchSearchDebounced = debounce(fetchSearch, 500);
 
-        this.input?.addEventListener('input', (e) => {
+        this.input?.addEventListener("input", (e) => {
+            const mainMenu = document.getElementById("decorator-main-menu");
             const { value } = e.target as HTMLInputElement;
             if (value.length > 2) {
                 this.append(this.hits);
-                this.hits.innerHTML = html`<decorator-loader title="${window.__DECORATOR_DATA__.texts.loading_preview}" />`.render();
-
+                this.hits.innerHTML = html`<decorator-loader
+                    title="${window.__DECORATOR_DATA__.texts.loading_preview}"
+                />`.render(window.__DECORATOR_DATA__.params);
+                mainMenu && mainMenu.classList.add("hidden");
                 fetchSearchDebounced(value);
             } else {
+                mainMenu && mainMenu.classList.remove("hidden");
                 this.hits.remove();
             }
         });
     }
 
     disconnectedCallback() {
-        if (this.getAttribute('data-auto-focus') !== null) {
-            this.parentDropdown?.removeEventListener('menuopened', this.focus);
+        if (this.getAttribute("data-auto-focus") !== null) {
+            this.parentDropdown?.removeEventListener("menuopened", this.focus);
         }
-
-        this.parentDropdown?.removeEventListener('menuclosed', this.clearSearch);
+        this.parentDropdown?.removeEventListener(
+            "menuclosed",
+            this.clearSearch,
+        );
     }
 }
 
-customElements.define('search-menu', SearchMenu);
+defineCustomElement("search-menu", SearchMenu);

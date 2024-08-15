@@ -1,0 +1,16 @@
+name: Run tests on PR
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and run tests
+    uses: ./.github/workflows/build-and-test.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      TEST_ONLY: true
+    secrets: inherit

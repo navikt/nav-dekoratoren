@@ -6,17 +6,11 @@
 
 .feedbackContent {
     margin-inline: auto;
-    max-width: 48rem /* 768px */;
+    /* 768px */
+    max-width: 48rem;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.feedbackTitle {
-    font-size: 20px;
-    line-height: 28px;
-    font-weight: var(--a-font-weight-regular);
-    margin-block: 0;
 }
 
 .buttonWrapper {
@@ -27,11 +21,7 @@
 
 .feedbackSuccess {
     text-align: center;
+    justify-items: center;
     display: grid;
     gap: var(--a-spacing-1);
-}
-
-.link {
-    color: var(--a-surface-action);
-    text-decoration: underline;
 }

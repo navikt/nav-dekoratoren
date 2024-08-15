@@ -1,21 +1,13 @@
-import type { StoryObj, Meta } from '@storybook/html';
-import type { NotificationsEmptyProps } from './notifications-empty';
-import { NotificationsEmpty } from './notifications-empty';
-import { texts } from '../../texts';
+import type { Meta, StoryObj } from "@storybook/html";
+import { NotificationsEmpty } from "./notifications-empty";
 
-const meta: Meta<NotificationsEmptyProps> = {
-    title: 'notifications/empty',
-    tags: ['autodocs'],
-    render: (args) => {
-        return NotificationsEmpty(args);
-    },
+const meta: Meta = {
+    title: "notifications/empty",
+    tags: ["autodocs"],
+    render: NotificationsEmpty,
 };
 
 export default meta;
-type Story = StoryObj<NotificationsEmptyProps>;
+type Story = StoryObj;
 
-export const Default: Story = {
-    args: {
-        texts: texts.nb,
-    },
-};
+export const Default: Story = {};

@@ -6,6 +6,20 @@
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "esModuleInterop": true,
-        "composite": true
+        "composite": true,
+        "module": "esnext",
+        "moduleResolution": "Bundler",
+        "moduleDetection": "force",
+        "types": ["vite/client"],
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules",
+                "options": {
+                    "postcssOptions": {
+                        "useConfig": true
+                    }
+                }
+            }
+        ]
     }
 }

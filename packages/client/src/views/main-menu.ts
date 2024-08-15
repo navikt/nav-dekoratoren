@@ -1,31 +1,36 @@
-import { Context } from 'decorator-shared/params';
-import { CustomEvents } from '../events';
-import { ClientSideCache } from '../helpers/cache';
-import { param } from '../params';
+import { Context } from "decorator-shared/params";
+import { ResponseCache } from "decorator-shared/response-cache";
+import { amplitudeClickListener } from "../analytics/amplitude";
+import { endpointUrlWithParams } from "../helpers/urls";
+import { param } from "../params";
+import { defineCustomElement } from "./custom-elements";
+
+const TEN_MIN_MS = 10 * 60 * 1000;
 
 class MainMenu extends HTMLElement {
-    private readonly responseCache = new ClientSideCache();
+    private readonly responseCache = new ResponseCache<string>({
+        ttl: TEN_MIN_MS,
+    });
 
     private async fetchMenuContent(context: Context) {
-        const url = window.makeEndpoint('/main-menu', { context });
+        const url = endpointUrlWithParams("/main-menu", { context });
         return fetch(url).then((res) => res.text());
     }
 
     private buildCacheKey(context: Context) {
-        return `${context}_${param('language')}`;
+        return `${context}_${param("language")}`;
     }
 
-    private updateMenuContent = (context?: Context) => {
-        const contextActual = context || param('context');
-        const cacheKey = this.buildCacheKey(contextActual);
+    private updateMenuContent = (context: Context) => {
+        const cacheKey = this.buildCacheKey(context);
 
         this.responseCache
-            .get(cacheKey, () => this.fetchMenuContent(contextActual))
+            .get(cacheKey, () => this.fetchMenuContent(context))
             .then((html) => {
                 if (!html) {
                     // TODO: better error handling
-                    console.error('Failed to fetch content for main-menu');
-                    this.innerHTML = 'Kunne ikke laste meny-innhold';
+                    console.error("Failed to fetch content for main-menu");
+                    this.innerHTML = "Kunne ikke laste meny-innhold";
                     return;
                 }
 
@@ -33,18 +38,34 @@ class MainMenu extends HTMLElement {
             });
     };
 
-    private onContextChange = (e: CustomEvent<CustomEvents['activecontext']>) => {
-        this.updateMenuContent(e.detail.context);
+    handleParamsUpdated = (event: CustomEvent) => {
+        if (event.detail.params.context) {
+            this.updateMenuContent(event.detail.params.context);
+        }
     };
 
-    private connectedCallback() {
-        window.addEventListener('activecontext', this.onContextChange);
-        setTimeout(() => this.updateMenuContent(), 0);
+    connectedCallback() {
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+
+        if (!param("ssrMainMenu")) {
+            this.updateMenuContent(param("context"));
+        }
+
+        this.addEventListener(
+            "click",
+            amplitudeClickListener((anchor) => ({
+                category: "dekorator-meny",
+                action:
+                    anchor.getAttribute("data-action") ??
+                    "hovedmeny/forsidelenke",
+                label: anchor.getAttribute("data-label") ?? anchor.href,
+            })),
+        );
     }
 
-    private disconnectedCallback() {
-        window.removeEventListener('activecontext', this.onContextChange);
+    disconnectedCallback() {
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
 
-customElements.define('main-menu', MainMenu);
+defineCustomElement("main-menu", MainMenu);

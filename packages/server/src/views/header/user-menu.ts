@@ -1,52 +1,78 @@
-import html from 'decorator-shared/html';
-import { Texts } from 'decorator-shared/types';
-import { PadlockIcon, BadgeIcon, PersonCircleIcon } from 'decorator-shared/views/icons';
-import { LogoutIcon } from 'decorator-shared/views/icons/logout';
-import cls from 'decorator-client/src/styles/user-menu.module.css';
-import { Notifications, Notification } from '../notifications/notifications';
-import { LoginLevel } from 'decorator-shared/params';
-import { Alert } from 'decorator-shared/views/alert';
+import aksel from "decorator-client/src/styles/aksel.module.css";
+import cls from "decorator-client/src/styles/user-menu.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
+import {
+    BagdeIcon,
+    LeaveIcon,
+    PadlockLockedIcon,
+    PersonCircleIcon,
+} from "decorator-icons";
+import html from "decorator-shared/html";
+import { LoginLevel } from "decorator-shared/params";
+import i18n from "../../i18n";
+import { Notification } from "../../notifications";
+import { Alert } from "../components/alert";
+import { Notifications } from "../notifications/notifications";
 
 export type UserMenuProps = {
-    texts: Texts;
-    name?: string;
-    notifications?: Notification[];
+    name: string;
+    notifications: Notification[] | null;
     level: LoginLevel;
+    loginUrl: string;
     logoutUrl: string;
     minsideUrl: string;
     personopplysningerUrl: string;
 };
 
-export const UserMenu = ({ texts, name, level, notifications, logoutUrl, minsideUrl, personopplysningerUrl }: UserMenuProps) =>
-    html`<div class="${cls.userMenu}">
+export const UserMenu = ({
+    name,
+    level,
+    notifications,
+    loginUrl,
+    logoutUrl,
+    minsideUrl,
+    personopplysningerUrl,
+}: UserMenuProps) => html`
+    <div class="${cls.userMenu}">
         <div class="${cls.menuItems}">
             <div class="${cls.menuHeader}">
-                <div class="${cls.loggedIn}">${texts.logged_in}</div>
-                <div class="${cls.name}">${name}</div>
-                ${level !== 'Level4' &&
+                <div>
+                    <div class="${cls.loggedIn}">${i18n("logged_in")}</div>
+                    <div class="${cls.name}">${name}</div>
+                </div>
+                ${level !== "Level4" &&
                 Alert({
-                    className: cls.alert,
-                    variant: 'info',
+                    variant: "info",
                     content: html`
-                        <div>
-                            ${texts.security_level_info}
-                            <a class="${cls.link}" href="#TODO">Logg inn med BankID, Buypass, eller Commfides</a>
-                        </div>
+                        <div>${i18n("security_level_info")}</div>
+                        <a
+                            class="${aksel["navds-link"]} ${aksel[
+                                "navds-link--neutral"
+                            ]}"
+                            href="${loginUrl}"
+                        >
+                            ${i18n("security_level_link")}
+                        </a>
                     `,
                 })}
             </div>
             <a href="${minsideUrl}" class="${cls.menuItem}">
-                ${PersonCircleIcon({ className: cls.menuItemIcon })}
-                <span>Min side</span>
+                ${PersonCircleIcon({ className: utils.icon })}
+                <span>${i18n("my_page")}</span>
             </a>
             <a href="${personopplysningerUrl}" class="${cls.menuItem}">
-                ${level === 'Level4' ? BadgeIcon({ className: cls.menuItemIcon }) : PadlockIcon({ className: cls.menuItemIcon })}
-                <span>Personopplysninger</span>
+                ${level === "Level4"
+                    ? BagdeIcon({ className: utils.icon })
+                    : PadlockLockedIcon({ className: utils.icon })}
+                <span>${i18n("personopplysninger")}</span>
             </a>
         </div>
-        <div class="${cls.notifications}">${Notifications({ texts, notifications })}</div>
+        <div class="${cls.notifications}">
+            ${Notifications({ notifications, minsideUrl })}
+        </div>
         <a href="${logoutUrl}" class="${cls.menuItem} ${cls.logout}">
-            ${LogoutIcon({})}
-            <span>Logg ut</span>
+            ${LeaveIcon({ className: utils.icon })}
+            <span>${i18n("logout")}</span>
         </a>
-    </div>`;
+    </div>
+`;

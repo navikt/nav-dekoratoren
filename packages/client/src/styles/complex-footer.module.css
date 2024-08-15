@@ -10,40 +10,13 @@
     gap: var(--a-spacing-12);
 }
 
-.link {
-    color: inherit;
-    text-decoration-color: var(--a-deepblue-200);
-    text-decoration-thickness: 0.0625em;
-    text-underline-offset: 0.15em;
-}
-
-.link:hover {
-    text-decoration: none;
-}
-
-.link:focus {
-    text-decoration: none;
-    background-color: var(--a-surface-default);
-    color: var(--a-text-action);
-    outline: none;
-}
-
 .toTop {
     align-self: flex-start;
-    font-size: var(--a-font-size-xlarge);
     display: flex;
     align-items: center;
     gap: var(--a-spacing-2);
     padding: var(--a-spacing-4);
     padding-left: 0;
-}
-
-.arrowUp {
-    stroke: var(--a-text-on-inverted);
-}
-
-.toTop:focus .arrowUp {
-    stroke: var(--a-text-action);
 }
 
 .footerLinks {
@@ -65,9 +38,7 @@
     color: var(--a-deepblue-200);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-size: var(--a-font-size-small);
-    margin-top: 0;
-    margin-bottom: var(--a-spacing-2);
+    margin-block: 0 var(--a-spacing-2);
 }
 
 .footerInnerLinkList {
@@ -77,14 +48,7 @@
 }
 
 .footerLink {
-    display: inline-block;
-    padding-block: var(--a-spacing-1);
-}
-
-@media (min-width: 768px) {
-    .footerLink {
-        padding-block: var(--a-spacing-2);
-    }
+    padding-block: 0.625rem;
 }
 
 .complexFooterOrg {

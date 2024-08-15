@@ -10,14 +10,21 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
         "types": ["vite/client", "vitest/globals"],
-        "paths": {
-            "decorator-shared/*": ["../shared/*"]
-        }
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules",
+                "options": {
+                    "postcssOptions": {
+                        "useConfig": true
+                    }
+                }
+            }
+        ]
     },
     "exclude": ["node_modules", "dist"]
 }

@@ -1,44 +1,40 @@
-import { UtilsBackground } from 'decorator-shared/params';
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import cls from '../styles/decorator-utils.module.css';
-
-import { LanguageSelector } from './language-selector';
+import { CustomEvents } from "../events";
+import { param } from "../params";
+import cls from "../styles/decorator-utils.module.css";
+import utils from "../styles/utils.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class DecoratorUtils extends HTMLElement {
-    languageSelector: LanguageSelector;
-    breadcrumbs: HTMLElement;
-
-    constructor() {
-        super();
-
-        this.languageSelector = this.querySelector(':scope > language-selector')!;
-        this.breadcrumbs = this.querySelector(':scope > nav')!;
-    }
-
     update = () => {
-        const { availableLanguages, language, breadcrumbs, utilsBackground } = window.__DECORATOR_DATA__.params;
+        this.classList.toggle(
+            utils.hidden,
+            param("availableLanguages").length === 0 &&
+                param("breadcrumbs").length === 0,
+        );
 
-        this.classList.toggle(cls.hidden, availableLanguages.length === 0 && breadcrumbs.length === 0);
-        this.utilsBackground = utilsBackground;
-
-        this.languageSelector.availableLanguages = availableLanguages;
-        this.languageSelector.language = language;
-        this.breadcrumbs.innerHTML = Breadcrumbs({ breadcrumbs })?.render() ?? '';
+        const utilsBackground = param("utilsBackground");
+        this.classList.toggle(cls.white, utilsBackground === "white");
+        this.classList.toggle(cls.gray, utilsBackground === "gray");
     };
 
-    set utilsBackground(utilsBackground: UtilsBackground) {
-        this.classList.toggle(cls.white, utilsBackground === 'white');
-        this.classList.toggle(cls.gray, utilsBackground === 'gray');
-    }
-
     connectedCallback() {
-        window.addEventListener('paramsupdated', this.update);
-        setTimeout(this.update, 0);
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.update();
     }
 
     disconnectedCallback() {
-        window.removeEventListener('paramsupdated', this.update);
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
+
+    handleParamsUpdated = (
+        event: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        const { availableLanguages, breadcrumbs, utilsBackground } =
+            event.detail.params;
+        if (availableLanguages || breadcrumbs || utilsBackground) {
+            this.update();
+        }
+    };
 }
 
-customElements.define('decorator-utils', DecoratorUtils);
+defineCustomElement("decorator-utils", DecoratorUtils);

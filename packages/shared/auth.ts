@@ -1,9 +1,16 @@
-import { Params } from './params';
+export type AuthLoggedIn = {
+    authenticated: true;
+    name: string;
+    securityLevel: "3" | "4";
+};
 
-export const getLogOutUrl = (params: Params) => {
-    if (params.redirectToLogout) {
-        return `${params.logoutUrl}?redirect=${params.redirectToUrl}`;
-    }
+type AuthLoggedOut = {
+    authenticated: false;
+};
 
-    return params.logoutUrl;
+export type Auth = AuthLoggedIn | AuthLoggedOut;
+
+export type AuthDataResponse = {
+    auth: Auth;
+    usermenuHtml?: string;
 };

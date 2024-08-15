@@ -5,19 +5,15 @@
 @media (min-width: 768px) {
     .userMenuDropdown {
         max-height: 80vh;
-        overflow-y: auto;
     }
 }
 
-.userMenuButton span {
+.name {
+    display: inline-block;
     text-overflow: ellipsis;
-    max-width: 99px;
+    max-width: 124px;
     white-space: nowrap;
-    overflow: hidden;
-}
-
-.icon {
-    font-size: 1.5rem;
+    overflow: clip;
 }
 
 .iconWrapper {
@@ -26,7 +22,7 @@
 
 .iconWrapper::after {
     position: absolute;
-    content: '';
+    content: "";
     display: block;
     top: 0;
     right: 0;

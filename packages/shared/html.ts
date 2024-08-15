@@ -1,4 +1,4 @@
-import { P, match } from 'ts-pattern';
+import { Language } from "./params";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
 
@@ -18,7 +18,7 @@ export function spreadProps(props: Props) {
 const matchHtmlRegExp = /["'&<>]/;
 
 function escapeHtml(string: string) {
-    const str = '' + string;
+    const str = "" + string;
     const match = matchHtmlRegExp.exec(str);
 
     if (!match) {
@@ -26,26 +26,26 @@ function escapeHtml(string: string) {
     }
 
     let escape;
-    let html = '';
+    let html = "";
     let index;
     let lastIndex = 0;
 
     for (index = match.index; index < str.length; index++) {
         switch (str.charCodeAt(index)) {
             case 34: // "
-                escape = '&quot;';
+                escape = "&quot;";
                 break;
             case 38: // &
-                escape = '&amp;';
+                escape = "&amp;";
                 break;
             case 39: // '
-                escape = '&#x27;'; // modified from escape-html; used to be '&#39'
+                escape = "&#x27;"; // modified from escape-html; used to be '&#39'
                 break;
             case 60: // <
-                escape = '&lt;';
+                escape = "&lt;";
                 break;
             case 62: // >
-                escape = '&gt;';
+                escape = "&gt;";
                 break;
             default:
                 continue;
@@ -62,14 +62,46 @@ function escapeHtml(string: string) {
     return lastIndex !== index ? html + str.slice(lastIndex, index) : html;
 }
 
-type TemplateStringValues = string | string[] | Template | Template[] | boolean | number | undefined | null;
+type TemplateStringValues =
+    | string
+    | string[]
+    | Template
+    | Template[]
+    | boolean
+    | number
+    | undefined
+    | null;
 
 export type Template = {
-    render: () => string;
+    render: (params: { language: Language }) => string;
 };
 
-const html = (strings: TemplateStringsArray, ...values: TemplateStringValues[]): Template => ({
-    render: () => String.raw({ raw: strings }, ...values.map(renderValue)),
+const html = (
+    strings: TemplateStringsArray,
+    ...values: TemplateStringValues[]
+): Template => ({
+    render: (params) => {
+        const renderValue = (item: TemplateStringValues): string => {
+            if (Array.isArray(item)) {
+                // Join arrays
+                return item.map(renderValue).join("");
+            } else if (item === false || item === null || item === undefined) {
+                // Nullish values to empty string
+                return "";
+            } else if (typeof item === "string") {
+                // Escape strings
+                return escapeHtml(item);
+            } else if (typeof item === "number" || item === true) {
+                // Convert numbers and true to string
+                return String(item);
+            } else {
+                // Render template
+                return item.render(params).trim();
+            }
+        };
+
+        return String.raw({ raw: strings }, ...values.map(renderValue));
+    },
 });
 
 export const json = (value: any): Template => unsafeHtml(JSON.stringify(value));
@@ -80,34 +112,32 @@ export const unsafeHtml = (htmlString: string) => ({
 
 export default html;
 
-const renderValue = (item: TemplateStringValues): string =>
-    match(item)
-        // Join arrays
-        .with(P.array(P.any), (items) => items.map(renderValue).join(''))
-        // Nullish values to empty string
-        .with(P.union(false, P.nullish), () => '')
-        // Escape strings
-        .with(P.string, (str) => escapeHtml(str))
-        // Convert numbers to string
-        .with(P.number, (num) => String(num))
-        // Make "true" into true string
-        .with(true, () => 'true')
-        // Render template
-        .with(P.select(), (template) => template.render().trim())
-        .exhaustive();
-// .otherwise((template) => template.render());
+export type AttributeValue = undefined | number | string | boolean | string[];
 
-type AttribueValue = number | string | boolean | string[];
-
-const toKebabCase = (str: string) => str.replace(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, (match) => '-' + match.toLowerCase());
-
-export const htmlAttributes = (attributes: Record<string, AttribueValue>): Template => {
-    return unsafeHtml(
-        Object.entries(attributes)
-            .filter(([, value]) => value !== undefined && value !== null)
-            .map(([name, value]: [string, AttribueValue]): [string, AttribueValue] => [name === 'className' ? 'class' : name, value])
-            .map(([name, value]) => (typeof value === 'boolean' ? (value ? toKebabCase(name) : '') : `${toKebabCase(name)}="${value}"`))
-            .filter(Boolean)
-            .join(' ')
+const toKebabCase = (str: string) =>
+    str.replace(
+        /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g,
+        (match) => "-" + match.toLowerCase(),
     );
+
+export const buildHtmlAttribsString = (
+    attributes: Record<string, AttributeValue>,
+) =>
+    Object.entries(attributes)
+        .filter(
+            ([, value]) =>
+                value !== undefined && value !== null && value !== false,
+        )
+        .map(([name, value]) => {
+            const nameFinal =
+                name === "className" ? "class" : toKebabCase(name);
+
+            return value === true ? nameFinal : `${nameFinal}="${value}"`;
+        })
+        .join(" ");
+
+export const htmlAttributes = (
+    attributes: Record<string, AttributeValue>,
+): Template => {
+    return unsafeHtml(buildHtmlAttribsString(attributes));
 };

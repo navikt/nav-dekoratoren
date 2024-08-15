@@ -1,28 +1,25 @@
-import { Breadcrumb } from '../params';
-import html from '../html';
-import cls from './breadcrumbs.module.css';
-import { ForwardChevron } from './icons';
-import { HomeIcon } from './icons/home';
-import { LenkeMedSporing } from 'decorator-shared/views/lenke-med-sporing-helpers';
-import { isNavUrl } from '../utils';
-
-const analyticsEventArgs = {
-    category: 'dekorator-header',
-    komponent: 'brødsmule',
-} as const;
+import clsx from "clsx";
+import aksel from "decorator-client/src/styles/aksel.module.css";
+import { ChevronRightIcon, HouseIcon } from "decorator-icons";
+import html, { Template, htmlAttributes } from "../html";
+import { Breadcrumb } from "../params";
+import { isNavUrl } from "../utils";
+import cls from "./breadcrumbs.module.css";
 
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
+    label: Template;
+    frontPageUrl: string;
 };
 
-export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
+const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     breadcrumbs.forEach((breadcrumb) => {
         if (!breadcrumb.title) {
-            const error = 'breadcrumbs.title supports string';
+            const error = "breadcrumbs.title supports string";
             throw Error(error);
         }
         if (!breadcrumb.url) {
-            const error = 'breadcrumbs.url supports string';
+            const error = "breadcrumbs.url supports string";
             throw Error(error);
         }
         if (!isNavUrl(breadcrumb.url)) {
@@ -32,51 +29,52 @@ export const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     });
 };
 
-export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({
+    breadcrumbs,
+    label,
+    frontPageUrl,
+}: BreadcrumbsProps) => {
     validateBreadcrumbs(breadcrumbs);
 
     return breadcrumbs.length > 0
         ? html`
-              <ol class="${cls.list}">
-                  <li class="${cls.listItem}">
-                      ${LenkeMedSporing({
-                          href: '/',
-                          analyticsEventArgs: {
-                              ...analyticsEventArgs,
-                              action: 'nav.no',
-                          },
-                          children: html`
-                              ${HomeIcon({ className: cls.svg })}
-                              <span class="${cls.span}">nav.no</span>
+              <nav aria-label="${label}">
+                  <ol class="${cls.list}">
+                      <li class="${cls.listItem}">
+                          <a
+                              href="${frontPageUrl}"
+                              class="${clsx(cls.homeLink, aksel["navds-link"])}"
+                              >${HouseIcon({ className: cls.svg })} nav.no
+                          </a>
+                          ${ChevronRightIcon()}
+                      </li>
+                      ${breadcrumbs.map(
+                          ({ title, url, handleInApp }, index) => html`
+                              <li class="${cls.listItem}">
+                                  ${index === breadcrumbs.length - 1
+                                      ? title
+                                      : html`
+                                            <a
+                                                ${htmlAttributes({
+                                                    className: clsx(
+                                                        cls.link,
+                                                        aksel["navds-link"],
+                                                    ),
+                                                    ["data-handle-in-app"]:
+                                                        handleInApp ?? false,
+                                                    href: url ?? "#",
+                                                })}
+                                                >${title}</a
+                                            >
+                                        `}
+                                  ${index === breadcrumbs.length - 1
+                                      ? ""
+                                      : ChevronRightIcon()}
+                              </li>
                           `,
-                          className: cls.link,
-                      })}
-                      ${ForwardChevron()}
-                  </li>
-                  ${breadcrumbs.map(
-                      ({ title, url, handleInApp }, index) => html`
-                          <li class="${cls.listItem}">
-                              ${index === breadcrumbs.length - 1
-                                  ? title
-                                  : html`
-                                        <d-breadcrumb
-                                            data-analytics-event-args="${JSON.stringify({
-                                                ...analyticsEventArgs,
-                                                label: '[redacted]',
-                                                action: '[redacted]',
-                                            })}"
-                                            ${handleInApp && 'data-handle-in-app'}
-                                            class="${cls.link}"
-                                            href="${url}"
-                                        >
-                                            ${title}
-                                        </d-breadcrumb>
-                                    `}
-                              ${index === breadcrumbs.length - 1 ? '' : ForwardChevron()}
-                          </li>
-                      `
-                  )}
-              </ol>
+                      )}
+                  </ol>
+              </nav>
           `
         : null;
 };

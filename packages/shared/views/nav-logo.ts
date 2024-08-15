@@ -1,7 +1,14 @@
-import html from '../html';
-import { DecoratorId } from '../types';
+import html, { Template } from "../html";
 
-export const NavLogo = ({ title, className, id }: { title?: string; className?: string; id: DecoratorId }) =>
+export const NavLogo = ({
+    title = "NAV logo",
+    className,
+    titleId,
+}: {
+    title?: Template | string;
+    className?: string;
+    titleId?: string;
+} = {}) =>
     html`<svg
         xmlns="http://www.w3.org/2000/svg"
         width="64"
@@ -9,11 +16,11 @@ export const NavLogo = ({ title, className, id }: { title?: string; className?: 
         fill="none"
         viewBox="0 0 64 20"
         focusable="false"
-        aria-labelledby="${id}"
         role="img"
         ${className && html`class="${className}"`}
+        ${titleId && html`aria-labelledby="${titleId}"`}
     >
-        <title id="${id}">${title || 'NAV logo'}</title>
+        <title ${titleId && html`id="${titleId}"`}>${title}</title>
         <path
             fill-rule="evenodd"
             clip-rule="evenodd"

@@ -1,48 +1,50 @@
-import cls from '../styles/dropdown-menu.module.css';
-import { createEvent } from '../events';
+import { createEvent } from "../events";
+import cls from "../styles/dropdown-menu.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class DropdownMenu extends HTMLElement {
-    button: HTMLElement | null = null;
-    #open: boolean = false;
+    private button!: HTMLElement;
+    private isOpen: boolean = false;
 
-    handleWindowClick = (e: MouseEvent) => {
+    private handleWindowClick = (e: MouseEvent) => {
         if (!this.contains(e.target as Node)) {
-            this.open = false;
+            this.close();
         }
     };
 
-    set open(open: boolean) {
-        if (open === this.#open) {
-            return;
+    private close = () => this.toggle(false);
+
+    private toggle = (force?: boolean) => {
+        if (force === undefined) {
+            this.toggle(!this.isOpen);
+        } else {
+            if (force === this.isOpen) {
+                return;
+            }
+
+            this.classList.toggle(cls.dropdownMenuOpen, force);
+            this.button.setAttribute("aria-expanded", force.toString());
+            this.dispatchEvent(
+                createEvent(force ? "menuopened" : "menuclosed", {
+                    bubbles: true,
+                }),
+            );
+            this.isOpen = force;
         }
-
-        this.classList.toggle(cls.dropdownMenuOpen, open);
-        this.button?.setAttribute('aria-expanded', JSON.stringify(open));
-        this.#open = open;
-        this.dispatchEvent(createEvent(open ? 'menuopened' : 'menuclosed', { bubbles: true }));
-    }
-
-    close = () => {
-        this.open = false;
     };
 
     connectedCallback() {
-        this.button = this.querySelector(':scope > button');
-        if (this.button) {
-            this.button.addEventListener('click', () => {
-                this.open = !this.#open;
-            });
-            this.button.setAttribute('aria-expanded', 'false');
-        }
+        this.button = this.querySelector(":scope > button")!;
+        this.button.addEventListener("click", () => this.toggle());
 
-        window.addEventListener('click', this.handleWindowClick);
-        window.addEventListener('closemenus', this.close);
+        window.addEventListener("click", this.handleWindowClick);
+        window.addEventListener("closemenus", this.close);
     }
 
     disconnectedCallback() {
-        window.removeEventListener('click', this.handleWindowClick);
-        window.removeEventListener('closemenus', this.close);
+        window.removeEventListener("click", this.handleWindowClick);
+        window.removeEventListener("closemenus", this.close);
     }
 }
 
-customElements.define('dropdown-menu', DropdownMenu);
+defineCustomElement("dropdown-menu", DropdownMenu);

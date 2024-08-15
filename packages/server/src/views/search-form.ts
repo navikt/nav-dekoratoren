@@ -1,24 +1,33 @@
-import html from 'decorator-shared/html';
-import { CloseIcon } from 'decorator-shared/views/icons';
-import { SearchIcon } from 'decorator-shared/views/icons/search';
-import cls from 'decorator-client/src/styles/search-form.module.css';
-import { Texts } from 'decorator-shared/types';
+import cls from "decorator-client/src/styles/search-form.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
+import { MagnifyingGlassIcon, XMarkIcon } from "decorator-icons";
+import html from "decorator-shared/html";
+import i18n from "../i18n";
 
-export type SearchFormProps = {
-    texts: Texts;
-};
-
-export const SearchForm = ({ texts }: SearchFormProps) => {
+export const SearchForm = () => {
     const id = `search-${Math.random()}`;
 
     return html`<form class="${cls.searchForm}">
-        <label class="${cls.label}" for="${id}">${texts.search_nav_no}</label>
+        <label class="${cls.label}" for="${id}">${i18n("search_nav_no")}</label>
         <div class="${cls.searchWrapper}">
             <search-input class="${cls.searchWrapperInner}">
-                <input class="${cls.searchInput}" type="text" name="search" id="${id}" autocomplete="off" />
-                <button type="button" class="${cls.clear}">${CloseIcon({ ariaLabel: texts.clear })}</button>
+                <input
+                    class="${cls.searchInput}"
+                    type="text"
+                    name="search"
+                    id="${id}"
+                    autocomplete="off"
+                />
+                <button type="button" class="${cls.clear} ${utils.hidden}">
+                    ${XMarkIcon({ ariaLabel: i18n("clear") })}
+                </button>
             </search-input>
-            <button class="${cls.submit}">${SearchIcon({ ariaLabel: texts.search })}</button>
+            <button class="${cls.submit}">
+                ${MagnifyingGlassIcon({
+                    ariaLabel: i18n("search"),
+                    className: utils.icon,
+                })}
+            </button>
         </div>
     </form>`;
 };

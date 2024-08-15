@@ -1,6 +1,11 @@
+.userMenuContainer {
+    animation-name: fadeIn;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
 .userMenu {
     --inline-padding: var(--a-spacing-4);
-    background-color: var(--a-surface-default);
 }
 
 @media (min-width: 1024px) {
@@ -20,6 +25,8 @@
 
 .menuHeader {
     padding-bottom: var(--a-spacing-4);
+    display: grid;
+    gap: var(--a-spacing-4);
 }
 
 .loggedIn {
@@ -48,16 +55,12 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: var(--a-spacing-3);
+    background-color: var(--a-surface-default);
 }
 
 .menuItem:hover {
     color: var(--a-text-action);
     text-decoration: underline;
-}
-
-.menuItemIcon {
-    color: var(--a-icon-subtle);
-    font-size: 1.5rem;
 }
 
 .notifications {
@@ -67,21 +70,70 @@
 }
 
 .logout {
-    margin-inline: var(--inline-padding);
+    border-top: 1px solid var(--a-border-subtle);
+    padding-inline: var(--inline-padding);
+    position: sticky;
+    bottom: 0;
 }
 
-.alert {
-    margin-top: var(--a-spacing-4);
+.loader {
+    padding-inline: var(--a-spacing-3);
+    color: var(--a-text-action);
+    visibility: hidden;
+    opacity: 0;
+
+    animation-name: fadeIn;
+    animation-duration: 500ms;
+    /* Delay the loader for a second. We only want to display the loader if the auth response is slow */
+    animation-delay: 1000ms;
+    animation-fill-mode: forwards;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        min-width: 0.9375rem;
+        text-align: left;
+
+        animation-name: ellipses;
+        animation-duration: 1500ms;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+    }
 }
 
-.link {
-    margin-top: var(--a-spacing-3);
-    text-underline-offset: 0.15em;
-    color: var(--a-text-default);
-    cursor: pointer;
-    align-self: center;
+@media (min-width: 768px) {
+    .loader {
+        padding-inline: var(--a-spacing-5);
+    }
 }
 
-.link:hover {
-    text-decoration: none;
+@keyframes fadeIn {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@keyframes ellipses {
+    0% {
+        content: "";
+    }
+
+    25% {
+        content: "." / "";
+    }
+
+    50% {
+        content: ".." / "";
+    }
+
+    75% {
+        content: "..." / "";
+    }
 }

@@ -1,29 +1,53 @@
-import clsx from 'clsx';
-import cls from 'decorator-client/src/styles/decorator-utils.module.css';
-import html from 'decorator-shared/html';
-import { AvailableLanguage, Breadcrumb, UtilsBackground } from 'decorator-shared/params';
-import { Texts } from 'decorator-shared/types';
-import utilsCls from 'decorator-client/src/styles/utilities.module.css';
-import { Breadcrumbs } from 'decorator-shared/views/breadcrumbs';
-import { LanguageSelector } from './language-selector';
+import clsx from "clsx";
+import cls from "decorator-client/src/styles/decorator-utils.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
+import html from "decorator-shared/html";
+import {
+    AvailableLanguage,
+    Breadcrumb,
+    UtilsBackground,
+} from "decorator-shared/params";
+import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
+import i18n from "../i18n";
+import { LanguageSelector } from "./language-selector";
 
 export type DecoratorUtilsProps = {
     breadcrumbs: Breadcrumb[];
     availableLanguages: AvailableLanguage[];
-    localTexts: Texts;
     utilsBackground: UtilsBackground;
-    hidden: boolean;
+    frontPageUrl: string;
 };
 
-export const DecoratorUtils = ({ breadcrumbs, availableLanguages, localTexts, utilsBackground, hidden }: DecoratorUtilsProps) => html`
-    <decorator-utils
-        class="${clsx(utilsCls.contentContainer, cls.decoratorUtils, {
-            [cls.hidden]: (availableLanguages.length === 0 && breadcrumbs.length === 0) || hidden,
-            [cls.white]: utilsBackground === 'white',
-            [cls.gray]: utilsBackground === 'gray',
-        })}"
-    >
-        <nav>${Breadcrumbs({ breadcrumbs })}</nav>
-        ${LanguageSelector({ availableLanguages, localTexts })}
-    </decorator-utils>
-`;
+export const DecoratorUtils = ({
+    breadcrumbs,
+    availableLanguages,
+    utilsBackground,
+    frontPageUrl,
+}: DecoratorUtilsProps) => {
+    return html`
+        <decorator-utils
+            class="${clsx(cls.decoratorUtils, {
+                [utils.hidden]:
+                    availableLanguages.length === 0 && breadcrumbs.length === 0,
+                [cls.white]: utilsBackground === "white",
+                [cls.gray]: utilsBackground === "gray",
+            })}"
+        >
+            <div
+                class="${clsx(
+                    cls.decoratorUtilsContent,
+                    utils.contentContainer,
+                )}"
+            >
+                <d-breadcrumbs
+                    >${Breadcrumbs({
+                        breadcrumbs,
+                        label: i18n("breadcrumbs"),
+                        frontPageUrl,
+                    })}</d-breadcrumbs
+                >
+                ${LanguageSelector({ availableLanguages })}
+            </div>
+        </decorator-utils>
+    `;
+};

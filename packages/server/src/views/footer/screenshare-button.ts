@@ -1,11 +1,13 @@
-import html from 'decorator-shared/html';
-import cls from 'decorator-client/src/styles/screenshare-button.module.css';
+import cls from "decorator-client/src/styles/screenshare-button.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
+import html, { Template } from "decorator-shared/html";
 
-export const ScreenshareButton = (text: string) => html`
+export const ScreenshareButton = (text: Template) => html`
     <screenshare-button>
-        <button is="screenshare-button" class="${cls.screenshareButton}">
+        <button class="${cls.screenshareButton}">
             ${text}
             <svg
+                class="${utils.icon}"
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"

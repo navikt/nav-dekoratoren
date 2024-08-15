@@ -1,16 +1,70 @@
 name: Deploy to prod
 on:
-  release:
-    types: [released]
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
 
 jobs:
-  deploy:
+  build:
+    uses: ./.github/workflows/build-and-test.yml
     permissions:
       id-token: write
       contents: read
-    if: github.event.release.target_commitish == 'main'
-    uses: ./.github/workflows/build-and-deploy.yml
+    with:
+      IMAGE_SUFFIX: prod
+    secrets: inherit
+
+  deploy-prod:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
     with:
       DEPLOY_INSTANCE: prod
       CLUSTER: prod-gcp
-    secrets: inherit
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+      DEPLOY_INTERNAL: true
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-dev-stable:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-stable
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-beta-navno:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-beta-navno
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  deploy-beta-tms:
+    uses: ./.github/workflows/deploy-application.yml
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      DEPLOY_INSTANCE: dev-beta-tms
+      CLUSTER: dev-gcp
+      IMAGE: ${{ needs.build.outputs.IMAGE }}
+    secrets:
+      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}

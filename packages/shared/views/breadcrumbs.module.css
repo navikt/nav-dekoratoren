@@ -9,21 +9,31 @@
 }
 
 .link {
+    padding-block: 0.625rem;
+}
+
+.homeLink {
     display: flex;
     align-items: center;
-    gap: var(--a-spacing-1);
-    color: var(--a-text-action);
+    gap: var(--a-spacing-2);
+    padding-block: 6px;
 }
 
-.span {
-    text-decoration: underline;
-}
-
-.svg.svg {
-    font-size: 28px;
+.homeLink .svg {
+    font-size: 2rem;
     color: var(--a-text-default);
-    stroke: none;
-    margin-right: var(--a-spacing-2);
+    line-height: 0;
+}
+
+.homeLink:active .svg,
+.homeLink:focus-visible .svg {
+    color: var(--a-text-on-action);
+}
+
+@supports not selector(:focus-visible) {
+    .homeLink:focus .svg {
+        color: var(--a-text-on-action);
+    }
 }
 
 .listItem {

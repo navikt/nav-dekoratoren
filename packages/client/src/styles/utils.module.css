@@ -1,0 +1,16 @@
+@layer utilities {
+    .contentContainer {
+        width: 100%;
+        max-width: 1440px;
+        margin-inline: auto;
+        padding-inline: var(--edge-spacing);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.icon {
+    font-size: 1.5rem;
+}

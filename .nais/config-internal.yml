@@ -1,0 +1,72 @@
+---
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: {{appName}}-{{versionId}}
+  namespace: personbruker
+  labels:
+    team: personbruker
+    dekoratorenType: internal
+  annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "256M"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+spec:
+  image: {{image}}
+  port: 8089
+  ttl: {{ttlInternal}}
+  liveness:
+    path: /api/isAlive
+    initialDelay: 10
+  readiness:
+    path: /api/isReady
+    initialDelay: 10
+  prometheus:
+    enabled: true
+    path: /metrics
+  accessPolicy:
+    outbound:
+      rules:
+        - application: nav-dekoratoren-api
+        - application: navno-search-api
+        - application: tms-varsel-api
+          namespace: min-side
+      external:
+        {{#each outboundHosts as |host|}}
+        - host: {{host}}
+        {{/each}}
+    inbound:
+      rules:
+        - application: {{appName}}
+          namespace: personbruker
+  env:
+    - name: APP_NAME
+      value: {{appName}}
+    - name: VERSION_ID
+      # Ensure this is always parsed as string!
+      value: "{{versionId}}"
+    - name: IS_INTERNAL_APP
+      value: "true"
+  {{#each env as |var|}}
+    - name: {{var.name}}
+      value: {{var.value}}
+  {{/each}}
+  envFrom:
+    - secret: nav-dekoratoren
+    - secret: nav-dekoratoren-unleash-api-token
+  filesFrom:
+    - configmap: dekoratoren-config
+      mountPath: /app/config
+  replicas:
+  {{#with replicas}}
+    min: 1
+    max: {{max}}
+  {{/with}}
+  resources:
+  {{#with resources}}
+    requests:
+      cpu: {{requests.cpu}}
+      memory: {{requests.memory}}
+    limits:
+      memory: {{limits.memory}}
+  {{/with}}
