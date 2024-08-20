@@ -35,7 +35,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         # Checkout the previous version to ensure matching nais config is used
-        # (Temporarily disabled as the previous version
+        # (Temporarily disabled as the previous version is missing a required field!)
 #        with:
 #          ref: ${{ env.PREV_VERSION_ID }}
       - name: Deploy internal versioned app
