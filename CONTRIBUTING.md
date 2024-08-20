@@ -1,4 +1,5 @@
-# Hvordan bidra til dekoratøren eller starte den lokalt på maskinen
+# Slik bidrar du til dekoratøren
+Det er Team Personbruker som har det daglige ansvaret for dekoratøren, men vi er glade for innspill, forslag or PR'er fra andre!
 
 
 ## Starte Dekoratøren lokalt
