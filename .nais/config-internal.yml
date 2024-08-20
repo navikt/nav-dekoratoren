@@ -57,6 +57,8 @@ spec:
   filesFrom:
     - configmap: dekoratoren-config
       mountPath: /app/config
+    - configmap: dekoratoren-version-authority-{{deployInstance}}
+      mountPath: /app/version-authority
   replicas:
   {{#with replicas}}
     min: 1

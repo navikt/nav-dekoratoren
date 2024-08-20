@@ -72,7 +72,7 @@ export const paramsSchema = z.object({
     shareScreen: z.boolean().default(true),
     logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     maskHotjar: z.boolean().default(true),
-    logoutWarning: z.boolean().default(false),
+    logoutWarning: z.boolean().default(true),
     bedrift: z.string().optional(),
     ssrMainMenu: z.boolean().default(false),
 });
