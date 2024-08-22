@@ -84,11 +84,11 @@ export const setupMocks = () =>
         ),
         http.get(`${env.APP_URL}/api/auth`, () =>
             HttpResponse.json(
-                process.env.MOCK_AUTH_LOGGED_IN === "true"
+                process.env.MOCK_AUTH_LEVEL
                     ? {
                           authenticated: true,
                           name: "Charlie Jensen",
-                          securityLevel: "4",
+                          securityLevel: process.env.MOCK_AUTH_LEVEL,
                       }
                     : { authenticated: false },
             ),
