@@ -114,11 +114,9 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 | simple              | boolean                                                | false            | Shows a simplified header and footer                                           |
 | simpleHeader        | boolean                                                | false            | Shows a simplified header                                                      |
 | simpleFooter        | boolean                                                | false            | Shows a simplified footer                                                      |
-| enforceLogin        | boolean                                                | false            | Checks that the user is logged in to a certain level (see config for "level")  |
 | redirectToApp       | boolean                                                | false            | Directs the user back to current URL after login                               |
 | redirectToUrl       | string                                                 | undefined        | Directs the user to the url after login                                        |
 | redirectToUrlLogout | string                                                 | undefined        | Directs the user to the url after logout                                       |
-| level               | Level3 / Level4                                        | Level3           | Ensures that the user is logged in at the proper level                         |
 | language            | nb / nn / en / se / pl / uk / ru                       | nb               | Sets the current language                                                      |
 | availableLanguages  | [{ locale: nb / nn / en / se / pl, url: string, handleInApp?: string }]   | [ ]              | Sets the available languages that are selectable via the language selector     |
 | breadcrumbs         | [{ title: string, url: string, handleInApp?: string }] | [ ]              | Sets the bread crumbs                                                          |
@@ -126,7 +124,6 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 | feedback            | boolean                                                | false            | Show or hide the feedback component                                            |
 | chatbot             | boolean                                                | true             | Activate or deactivate the chatbot (Frida)                                     |
 | chatbotVisible      | boolean                                                | false            | Show or hide the chatbot (Frida     )                                          |
-| urlLookupTable      | boolean                                                | false            | Activate or deactivate the URL lookup table                                    |
 | shareScreen         | boolean                                                | true             | Activate or deactivate the screen sharing feature in the footer                |
 | logoutUrl           | string                                                 | undefined        | Sets the URL for logging out                                                   |
 | maskHotjar          | boolean                                                | true             | Mask the entire HTML DOM for HotJar                                            |
@@ -134,9 +131,6 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 
 
 ### Details
-
-#### enforceLogin
-Combined with **level**, **redirectToApp**, and [EnforceLoginLoader](https://github.com/navikt/nav-dekoratoren-moduler#readme) if needed.
 
 #### redirectToApp
 This applies to both automatic login and when the login button is clicked. The default setting is `false`, which will redirect the user to the "Mitt NAV" application after login.
@@ -170,10 +164,6 @@ If this is set to false, the chatbot will not be initialized. This means that it
 #### chatbotVisible
 Shows or hides Chatbot Frida. If this is set to `true`, the floating chatbot icon will always be visible. When set to `false`, the chatbot will only be visible if the user has an active chat session. Please note that `chatbotVisible` will have no effect if the `chatbot` argument above is set to false.
 
-#### urlLookupTable
-Maps production URLs to development URLs based on the [url-lookup-table](https://github.com/navikt/nav-dekoratoren-moduler/blob/master/src/csr/url-lookup-table/table.ts).
-NEED MORE EXPLANATION
-
 #### logoutUrl
 If set, the Decorator will delegate all logout handling to the specified URL. This means that **everything related to logout must be handled by the app!** This includes, but is not limited to, cookie clearing and session invalidation. Use with care!
 
@@ -194,13 +184,10 @@ If you choose to disable this feature, you will need to implement a similar logo
 Example 1 - Set context:<br>
 https://www.nav.no/dekoratoren/?context=arbeidsgiver
 
-Example 2 - Enforce login at level 4:<br>
-https://www.nav.no/dekoratoren/?enforceLogin=true&level=Level4&redirectToApp=true
-
-Example 3 - Language selector:<br>
+Example 2 - Language selector:<br>
 [https://www.nav.no/dekoratoren/?availableLanguages=\[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}\] ](https://www.nav.no/dekoratoren/?availableLanguages=[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}])
 
-Example 4 - Bread crumbs:<br>
+Example 3 - Bread crumbs:<br>
 [https://www.nav.no/dekoratoren/?breadcrumbs=\[{"url":"https://www.nav.no/person/dittnav","title":"Ditt NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt oss"}\] ](https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}])
 
 ## Other built-in features

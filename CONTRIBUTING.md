@@ -1,91 +1,92 @@
-# Slik bidrar du til dekoratøren
-Det er Team Personbruker som har det daglige ansvaret for dekoratøren, men vi er glade for innspill, forslag or PR'er fra andre!
+# Contributing to the Decorator
+It is Team Personbruker has the daily responsibility for the Decorator, but we welcome input, suggestions, or PRs from others! This documentation details how to start the Decorator locally, add an issue to the Github repository or submit a pull request.
 
+## Starting the Decorator locally
 
-## Starte Dekoratøren lokalt
-
-Slik starter du opp Dekoratøren lokalt på maskinen din
-
-### 1. Klon dekoratøren lokalt:
+### 1. Clone the Decorator:
 
   ```bash
   git clone https://github.com/navikt/decorator-next.git
   ```
 
-### 2. Sett opp NODE_AUTH_TOKEN med din egen PAT
-Enkelte av avhengighetene ligger i et privat container-register. For å kunne installere disse, må du sette opp en Personal Access Token (PAT).
+### 2. Set up NODE_AUTH_TOKEN with your own PAT (Personal Access Token)
+Some of the dependencies are located in a private container registry. To be able to install these, you need to set up a Github Personal Access Token (PAT).
 
-1. Gå til [Github-innstillinger for tokens](https://github.com/settings/tokens) og opprett en ny PAT dersom du ikke allerede har en fra før. Husk scope `packages:read` og autoriser ```navikt``` (Configure SSO -> "Authorize navikt").
+1. Go to [Github token settings](https://github.com/settings/tokens) and create a new PAT if you don't already have one. Remember to include the `packages:read` scope and authorize ```navikt``` (Configure SSO -> "Authorize navikt").
 
-2. Gjør PAT tilgjengelig som `NODE_AUTH_TOKEN`-variabel: `export NODE_AUTH_TOKEN=din-path-med-korrekt-scope`.
+2. Make the PAT available as the `NODE_AUTH_TOKEN`:<br>In Terminal: `export NODE_AUTH_TOKEN=your-path-with-correct-scope`<br>Windows Powershell: `$env:NODE_AUTH_TOKEN="your-path-with-correct-scope"`
+.
 
-### 3. Dekoratøren bruker [Bun](https://bun.sh) som Javascript runtime istedet for NodeJS. Du kan installere Bun globalt på maskinen din slik:
+**Tip**: Step 2 will set the `NODE_AUTH_TOKEN` environment for that particular Terminal or PowersShell session. If you'd like to permanently make your PAT available, consider using [1Password to load secrets into the environment](https://developer.1password.com/docs/cli/secrets-environment-variables/) or equivalent. Do not write your PAT directly to `.bash_profile` for security reasons.
+
+### 3. The Decorator uses [Bun](https://bun.sh) as the Javascript runtime instead of NodeJS.
+If you already have Bun installed on your machine, skip this step.
+
+You can install Bun globally on your machine like this:
 
   ```bash
   npm install -g bun
   ```
-(Du kan også installere Bun med Brew, curl etc: https://bun.sh/docs/installation).
+
+(You can also install Bun with Brew, curl, etc: https://bun.sh/docs/installation).
 
 
-### 4. Naviger til roten av repoet
+### 4. Navigate to the root of the repository and install dependencies
 
   ```bash
   cd decorator-next
-  ```
 
-### 5. Installer avhengigheter og bygg dekoratøren
-
-  ```bash
   bun install | bun run build
   ```
 
-### 6. Start dekoratøren lokalt
+### 5. Start the Decorator locally
 
   ```bash
   bun run dev
   ```
 
-### 7. Du skal nå kunne åpne dekoratøren på http://localhost:8089/.
+You should now be able to open the Decorator at http://localhost:8089/.
 
-## Om arkitektur og teknisk løsning
-(TBC: informasjon om arktekturen kommer snart!)
+## About architecture and technical solution
+This section aims to explain how the Decorator is enginered:
+- Overall architecture
+- Key concepts
+- Web components and styling
+- Serverside vs Clientside rendring
+- Caching
 
-## Generelt om utvikling
-
-
-### Partytown
-
-Partytown er et bibliotek ment for å optimalisere innlasting av dekoratøren. Det har mest nytte i dev og prod, men dersom du ønsker å kjøre Partytown lokalt: `bun run partytown`. Deretter bygger du applikasjonen med `bun run build`.
+## General development information
 
 ### Styling
 
-//Todo: Er denne relevant fortsatt?
+//Todo: Is this still relevant?
 
 _Troubleshooting_:
 
 -   If you're having trouble with design tokens not being loaded, it may be because your element is not in the scope of the elements defined in postcss.config.js [prefixer configuration](https://github.com/navikt/decorator-next/blob/main/packages/client/postcss.config.js)
 
 ### Storybook
-Du finner oversikt og dokumentasjon for hver enkelt komponent i
+You can find an overview and documentation for each component in
 [Storybook](https://navikt.github.io/decorator-next/?path=/docs/feedback-success--docs).
 
-### Ressurser
+### Resources
 
--   [Typescript-dokumentasjon for Bun](https://bun.sh/docs/typescript)
+-   [Typescript documentation for Bun](https://bun.sh/docs/typescript)
 
 ## Testing
-Dekoratøren bruker Snapshot-tester. Disse kan feile dersom du gjør endringer i markup. For å oppdatere snapshots etter at du har gjort endringer, kjør
+The Decorator uses Snapshot tests. These may fail if you make changes to the markup. To update snapshots after making changes, run
 
 ```bash
 bun test --update-snapshots
 ```
 
-## Retningslinjer for bidrag:
+## Contribution guidelines:
 
-Vi vil gjerne ha bidrag og PR! Før du setter i gang:
+We welcome contributions and PRs! Before you get started:
 
-- sjekk at det ikke finnes en lignende åpen PR fra før.
-- link evt eksisterende issue til PR'en din slik at det er lett å holde oversikt.
-- skriv tydelige commit-meldinger (dvs ikke "fix stuff again").
-- be om hjelp hvis du er usikker eller trenger hjelp til å teste!
-- dev-ingressen brukes av mange applikasjoner. Derfor bør branches som deployes hit være mest mulig stabile, selv når de fortsatt er i test.
+- check if there is a similar open PR already.
+- link any existing issues to your PR for easy tracking.
+- write clear commit messages (i.e., not "fix stuff again").
+- ask for help if you're unsure or need assistance with testing!
+- the dev ingress is used by many applications. Therefore, branches that are deployed here should be as stable as possible, even when they are still in testing.
+
