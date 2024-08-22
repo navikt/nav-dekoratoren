@@ -43,6 +43,7 @@ if (env.NODE_ENV === "development" || isLocalhost()) {
     app.get("/public/*", serveStatic({}));
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
+    app.get("/api/auth", async ({ req }) => fetch(req.url));
 }
 
 if (!process.env.IS_INTERNAL_APP) {

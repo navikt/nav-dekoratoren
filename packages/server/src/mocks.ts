@@ -83,11 +83,15 @@ export const setupMocks = () =>
             HttpResponse.json(notificationsMock),
         ),
         http.get(`${env.APP_URL}/api/auth`, () =>
-            HttpResponse.json({
-                authenticated: true,
-                name: "Charlie Jensen",
-                securityLevel: "3",
-            }),
+            HttpResponse.json(
+                process.env.MOCK_AUTH_LEVEL
+                    ? {
+                          authenticated: true,
+                          name: "Charlie Jensen",
+                          securityLevel: process.env.MOCK_AUTH_LEVEL,
+                      }
+                    : { authenticated: false },
+            ),
         ),
         http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
             HttpResponse.json({ success: true }),
