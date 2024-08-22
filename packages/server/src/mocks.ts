@@ -34,7 +34,7 @@ const getSecondsRemaining = (futureDate: string) => {
 
 export const setupMocks = () =>
     setupServer(
-        http.get("http://localhost:8089/api/oauth2/session", () =>
+        http.get(`${env.APP_URL}/api/oauth2/session`, () =>
             HttpResponse.json({
                 session: {
                     created_at: nowISOString(),
@@ -55,7 +55,7 @@ export const setupMocks = () =>
                 },
             }),
         ),
-        http.get("http://localhost:8089/api/oauth2/session/refresh", () =>
+        http.get(`${env.APP_URL}/api/oauth2/session/refresh`, () =>
             HttpResponse.json({
                 session: {
                     created_at: nowISOString(),
@@ -79,10 +79,10 @@ export const setupMocks = () =>
         http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
             HttpResponse.json(testData),
         ),
-        http.get("http://localhost:8089/api/varselbjelle/varsler", () =>
+        http.get(`${env.APP_URL}/api/varselbjelle/varsler`, () =>
             HttpResponse.json(notificationsMock),
         ),
-        http.get("http://localhost:8089/api/auth", () =>
+        http.get(`${env.APP_URL}/api/auth`, () =>
             HttpResponse.json({
                 authenticated: true,
                 name: "Charlie Jensen",

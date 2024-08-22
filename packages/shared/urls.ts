@@ -1,9 +1,5 @@
 import { ClientParams } from "./params";
 
-export function erNavDekoratoren(url: string) {
-    return url.includes("dekoratoren") || url.includes("localhost:8089");
-}
-
 export function makeFrontpageUrl({
     context,
     language,
