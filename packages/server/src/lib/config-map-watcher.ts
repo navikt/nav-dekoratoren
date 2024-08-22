@@ -28,6 +28,17 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 
         this.filePath = path.join(mountPathFull, filename);
 
+        const mountPathStats = fs.statSync(mountPathFull, {
+            throwIfNoEntry: false,
+        });
+
+        if (!mountPathStats) {
+            console.error(
+                `Mount path ${mountPathFull} for ${filename} does not exist - configmap file will not be watched`,
+            );
+            return;
+        }
+
         this.updateFileContent();
 
         const watcher = fs.watch(

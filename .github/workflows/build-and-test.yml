@@ -11,6 +11,9 @@ on:
       SKIP_TESTS:
         required: false
         type: boolean
+      TAG_LATEST:
+        required: false
+        type: boolean
     outputs:
       IMAGE:
         description: "Docker image"
@@ -73,3 +76,4 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           image_suffix: ${{ inputs.IMAGE_SUFFIX }}
+          tag: ${{ inputs.TAG_LATEST && 'latest' || '' }}
