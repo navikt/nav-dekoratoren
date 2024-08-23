@@ -43,7 +43,7 @@ jobs:
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }}
+          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
   deploy_current:
