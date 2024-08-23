@@ -4,7 +4,7 @@ import { Handler } from "hono";
 const versionData = {
     localVersion: env.VERSION_ID, //
     latestVersion: env.VERSION_ID, // remove these after updating ndm + xp-frontend
-    version: env.VERSION_ID,
+    versionId: env.VERSION_ID,
     timestamp: env.DEPLOY_TIME,
 } as const;
 

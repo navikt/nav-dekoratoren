@@ -39,5 +39,6 @@ export const ssrApiHandler: Handler = async ({ req, json }) => {
         styles: StylesTemplate().render(),
         headAssets: HeadAssetsTemplate().render(),
         versionId: env.VERSION_ID,
+        timestamp: env.DEPLOY_TIME,
     } satisfies SsrPayload);
 };

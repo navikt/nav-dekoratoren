@@ -19,13 +19,14 @@ spec:
     initialDelay: 10
   readiness:
     path: {{appPath}}/api/isReady
-    initialDelay: 10
+    initialDelay: 60
   prometheus:
     enabled: true
     path: {{appPath}}/metrics
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
+    - {{url}}/{{versionId}}
   {{/each}}
   accessPolicy:
     outbound:

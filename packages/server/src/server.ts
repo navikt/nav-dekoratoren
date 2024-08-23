@@ -127,7 +127,8 @@ app.get("/footer", async ({ req, html }) => {
         ).render(params),
     );
 });
-app.get("/ssr", ssrApiHandler);
+// Include a version-specific route to allow calling this api on a specific deploy version
+app.on("GET", ["/ssr", `/${env.VERSION_ID}/ssr`], ssrApiHandler);
 // /env is used for CSR
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.get("/env", async ({ req, json }) => {

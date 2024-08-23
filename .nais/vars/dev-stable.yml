@@ -42,7 +42,7 @@ env:
     value: 83BD7664-B38B-4EEE-8D99-200669A32551
 ttlInternal: 1h
 replicas:
-  min: 1
+  min: 4
   max: 4
 resources:
   requests:
