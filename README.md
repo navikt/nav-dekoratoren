@@ -19,7 +19,7 @@
    - [Login](#login)
    - [Logout warning](#logout-warning)
    - [Analytics with Amplitude](#analytics-with-amplitude)
-   - [Surveys with HotJar](#surveys-with-hotjar)
+   - [Surveys with Task Analytics](#surveys-with-task-analytics)
 
 
 ## About the Decorator
@@ -240,5 +240,5 @@ The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratore
 #### Amplitude for custom implementations
 The Amplitude client is exposed on `window.dekoratorenAmplitude`. Please see [logEventFromApp](https://github.com/navikt/decorator-next/blob/332e92fca6e6aa7f0de36a62a87232533d6c9d45/packages/client/src/analytics/amplitude.ts#L101) for the code.
 
-#### Surveys with HotJar
+#### Surveys with Task Analytics
 Surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Personbruker for more information.
