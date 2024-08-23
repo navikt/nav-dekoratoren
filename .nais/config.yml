@@ -46,8 +46,10 @@ spec:
     - name: APP_NAME
       value: {{appName}}
     - name: VERSION_ID
-      # Ensure this is always parsed as string!
+      # Ensure this is always parsed as string, as it may be formatted as a number
       value: "{{versionId}}"
+    - name: DEPLOY_TIME
+      value: {{deployTime}}
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}
@@ -58,8 +60,6 @@ spec:
   filesFrom:
     - configmap: dekoratoren-config
       mountPath: /app/config
-    - configmap: dekoratoren-version-authority-{{deployInstance}}
-      mountPath: /app/version-authority
   replicas:
   {{#with replicas}}
     min: {{min}}

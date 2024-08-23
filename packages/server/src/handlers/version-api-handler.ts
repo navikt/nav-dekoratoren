@@ -1,28 +1,13 @@
 import { env } from "../env/server";
 import { Handler } from "hono";
-import { ConfigMapWatcher } from "../lib/config-map-watcher";
-
-type ConfigMapType = {
-    AUTHORITATIVE_VERSION_ID: string;
-};
-
-const configMapWatcher = new ConfigMapWatcher<ConfigMapType>({
-    mountPath: "/version-authority",
-    filename: "version-authority.json",
-    onUpdate: (fileContent) => {
-        versionData.latestVersion = fileContent?.AUTHORITATIVE_VERSION_ID;
-    },
-});
-
-const getAuthoritativeVersion = async () => {
-    return configMapWatcher
-        .getFileContent()
-        .then((fileContent) => fileContent?.AUTHORITATIVE_VERSION_ID);
-};
 
 const versionData = {
-    localVersion: env.VERSION_ID,
-    latestVersion: await getAuthoritativeVersion(),
-};
+    localVersion: env.VERSION_ID, //
+    latestVersion: env.VERSION_ID, // remove these after updating ndm + xp-frontend
+    version: env.VERSION_ID,
+    timestamp: env.DEPLOY_TIME,
+} as const;
+
+console.log(`Deploy time: ${env.DEPLOY_TIME}`);
 
 export const versionApiHandler: Handler = async ({ json }) => json(versionData);

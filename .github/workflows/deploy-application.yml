@@ -43,7 +43,7 @@ jobs:
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config-internal.yml
-          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
+          VAR: image=${{ env.PREV_IMAGE }},versionId=${{ env.PREV_VERSION_ID }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
   deploy_current:
@@ -53,6 +53,8 @@ jobs:
     env:
       VERSION_ID: ${{ github.sha }}
     steps:
+      - name: Set timestamp
+        run: echo "DEPLOY_TIME=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Deploy external app
@@ -60,7 +62,7 @@ jobs:
         env:
           CLUSTER: ${{ inputs.CLUSTER }}
           RESOURCE: .nais/config.yml
-          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
+          VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployTime=${{ env.DEPLOY_TIME }}
           VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
       - name: Update vars
         env:
@@ -69,10 +71,3 @@ jobs:
           gh variable set PREV_VERSION_ID --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ env.VERSION_ID }}"
           gh variable set PREV_IMAGE --env ${{ inputs.DEPLOY_INSTANCE }} --body "${{ inputs.IMAGE }}"
           gh variable list --env ${{ inputs.DEPLOY_INSTANCE }}
-      # We use a configmap to signal the latest fully deployed version.
-      - name: Update version authority configmap
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ inputs.CLUSTER }}
-          RESOURCE: .nais/version-authority-configmap.yml
-          VAR: versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
