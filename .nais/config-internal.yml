@@ -17,10 +17,10 @@ spec:
   ttl: {{ttlInternal}}
   liveness:
     path: /api/isAlive
-    initialDelay: 10
+    initialDelay: 5
   readiness:
     path: /api/isReady
-    initialDelay: 10
+    initialDelay: 5
   prometheus:
     enabled: true
     path: /metrics

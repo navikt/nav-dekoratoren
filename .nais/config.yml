@@ -16,10 +16,10 @@ spec:
   port: 8089
   liveness:
     path: {{appPath}}/api/isAlive
-    initialDelay: 10
+    initialDelay: 5
   readiness:
     path: {{appPath}}/api/isReady
-    initialDelay: 60
+    initialDelay: 5
   prometheus:
     enabled: true
     path: {{appPath}}/metrics
