@@ -49,7 +49,10 @@ export const Breadcrumbs = ({
                           ${ChevronRightIcon()}
                       </li>
                       ${breadcrumbs.map(
-                          ({ title, url, handleInApp }, index) => html`
+                          (
+                              { title, url, handleInApp, analyticsTitle },
+                              index,
+                          ) => html`
                               <li class="${cls.listItem}">
                                   ${index === breadcrumbs.length - 1
                                       ? title
@@ -62,6 +65,8 @@ export const Breadcrumbs = ({
                                                     ),
                                                     ["data-handle-in-app"]:
                                                         handleInApp ?? false,
+                                                    ["data-analytics-title"]:
+                                                        analyticsTitle,
                                                     href: url ?? "#",
                                                 })}
                                                 >${title}</a
