@@ -1,4 +1,4 @@
-import { expect } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { test } from "./fixtures";
 
 test("decorator utils", async ({ page }) => {
@@ -65,10 +65,10 @@ test("decorator utils", async ({ page }) => {
     });
 });
 
-const clickAndAwaitAmplitudeReq = async (page) => {
-    await page.route("https://amplitude.nav.no/collect-auto", (route) => {
-        return route.fulfill({ status: 200 });
-    });
+const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
+    await page.route("https://amplitude.nav.no/collect-auto", (route) =>
+        route.fulfill({ status: 200 }),
+    );
 
     const amplitudeEventDataPromise = page
         .waitForRequest(
@@ -76,7 +76,7 @@ const clickAndAwaitAmplitudeReq = async (page) => {
                 request.url() === "https://amplitude.nav.no/collect-auto" &&
                 request.postDataJSON().e.includes("brødsmule"),
         )
-        .then((req) => req.postDataJSON().e);
+        .then((request) => request.postDataJSON().e);
 
     await page.getByText("Ola Nordmann").click();
 
@@ -107,7 +107,8 @@ test("Breadcrumbs without analyticsTitle should redact the title when logging", 
         });
     });
 
-    const amplitudeEventData = await clickAndAwaitAmplitudeReq(page);
+    const amplitudeEventData =
+        await clickBreadcrumbAndGetAmplitudeEventData(page);
 
     expect(amplitudeEventData).toContain("[redacted]");
     expect(amplitudeEventData).not.toContain("Ola Nordmann");
@@ -138,7 +139,8 @@ test("Breadcrumbs with analyticsTitle should log this in place of the title", as
         });
     });
 
-    const amplitudeEventData = await clickAndAwaitAmplitudeReq(page);
+    const amplitudeEventData =
+        await clickBreadcrumbAndGetAmplitudeEventData(page);
 
     expect(amplitudeEventData).toContain("Min analytics title");
     expect(amplitudeEventData).not.toContain("Ola Nordmann");
