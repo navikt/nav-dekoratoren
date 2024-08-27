@@ -64,3 +64,82 @@ test("decorator utils", async ({ page }) => {
         handleInApp: true,
     });
 });
+
+const clickAndAwaitAmplitudeReq = async (page) => {
+    await page.route("https://amplitude.nav.no/collect-auto", (route) => {
+        return route.fulfill({ status: 200 });
+    });
+
+    const amplitudeEventDataPromise = page
+        .waitForRequest(
+            (request) =>
+                request.url() === "https://amplitude.nav.no/collect-auto" &&
+                request.postDataJSON().e.includes("brødsmule"),
+        )
+        .then((req) => req.postDataJSON().e);
+
+    await page.getByText("Ola Nordmann").click();
+
+    return amplitudeEventDataPromise;
+};
+
+test("Breadcrumbs without analyticsTitle should redact the title when logging", async ({
+    page,
+}) => {
+    await page.evaluate(() => {
+        window.postMessage({
+            source: "decoratorClient",
+            event: "params",
+            payload: {
+                breadcrumbs: [
+                    {
+                        title: "Ola Nordmann",
+                        url: "/syk/sykmeldinger/foo",
+                        handleInApp: true,
+                    },
+                    {
+                        title: "Mine sykmeldinger",
+                        url: "/syk/sykmeldinger/foo/bar",
+                        handleInApp: true,
+                    },
+                ],
+            },
+        });
+    });
+
+    const amplitudeEventData = await clickAndAwaitAmplitudeReq(page);
+
+    expect(amplitudeEventData).toContain("[redacted]");
+    expect(amplitudeEventData).not.toContain("Ola Nordmann");
+});
+
+test("Breadcrumbs with analyticsTitle should log this in place of the title", async ({
+    page,
+}) => {
+    await page.evaluate(() => {
+        window.postMessage({
+            source: "decoratorClient",
+            event: "params",
+            payload: {
+                breadcrumbs: [
+                    {
+                        title: "Ola Nordmann",
+                        analyticsTitle: "Min analytics title",
+                        url: "/syk/sykmeldinger/foo",
+                        handleInApp: true,
+                    },
+                    {
+                        title: "Mine sykmeldinger",
+                        url: "/syk/sykmeldinger/foo/bar",
+                        handleInApp: true,
+                    },
+                ],
+            },
+        });
+    });
+
+    const amplitudeEventData = await clickAndAwaitAmplitudeReq(page);
+
+    expect(amplitudeEventData).toContain("Min analytics title");
+    expect(amplitudeEventData).not.toContain("Ola Nordmann");
+});
