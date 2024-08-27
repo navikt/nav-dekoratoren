@@ -47,10 +47,11 @@ class Breadcrumbs extends HTMLElement {
         this.addEventListener("click", this.handleClick);
         this.addEventListener(
             "click",
-            amplitudeClickListener((anchor) => ({
+            amplitudeClickListener(() => ({
                 category: "dekorator-header",
                 komponent: "brødsmule",
-                action: anchor.textContent?.trim() ?? "",
+                // TODO: support logging analyticsTitle from breadcrumbs
+                action: "[redacted]",
             })),
         );
     }
