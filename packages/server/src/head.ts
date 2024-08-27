@@ -2,6 +2,7 @@ import { buildHtmlElementString } from "./lib/html-element-string-builder";
 import { unsafeHtml } from "decorator-shared/html";
 import { HtmlElementProps } from "decorator-shared/types";
 import { buildCdnUrl } from "./urls";
+import { cssLink } from "./views/styles";
 
 // Assets from public folder
 const faviconIco = "favicon.ico";
@@ -10,6 +11,7 @@ const appleTouchIcon = "apple-touch-icon.png";
 const webManifest = "site2.webmanifest";
 
 export const headAssets: HtmlElementProps[] = [
+    cssLink,
     {
         tag: "link",
         attribs: {

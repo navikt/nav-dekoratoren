@@ -128,9 +128,8 @@ app.get("/footer", async ({ req, html }) => {
     );
 });
 app.get("/ssr", ssrApiHandler);
-// /env is used for CSR
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
-app.get("/env", async ({ req, json }) => {
+app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
     const params = validParams(req.query());
     const features = getFeatures();
 
