@@ -38,6 +38,7 @@ const breadcrumbSchema = z.object({
     title: z.string(),
     url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     handleInApp: z.boolean().default(false).optional(),
+    analyticsTitle: z.string().optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 
