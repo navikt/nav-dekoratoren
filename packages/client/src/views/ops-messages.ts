@@ -29,10 +29,11 @@ export const OpsMessagesTemplate = ({
     </section>
 `;
 
-const exactPathTerminator = "$";
+// If the scoped url of a message ends with a literal "$"
+// it should only be shown on that exact url
 
-const removeTrailingChars = (url?: string) =>
-    url?.replace(`${exactPathTerminator}$`, "").replace(/\/$/, "");
+const removeTrailingChars = (url: string) =>
+    url.replace(/\$$/, "").replace(/\/$/, "");
 
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
@@ -60,18 +61,15 @@ class OpsMessages extends HTMLElement {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
                 const currentUrl = removeTrailingChars(window.location.href);
+
                 return (
                     !opsMessage.urlscope ||
-                    !currentUrl ||
                     opsMessage.urlscope.length === 0 ||
-                    opsMessage.urlscope.some((rawUrl) => {
-                        const url = removeTrailingChars(rawUrl);
-                        return (
-                            url &&
-                            (rawUrl.endsWith(exactPathTerminator)
-                                ? currentUrl === url
-                                : currentUrl.startsWith(url))
-                        );
+                    opsMessage.urlscope.some((rawScopedUrl) => {
+                        const scopedUrl = removeTrailingChars(rawScopedUrl);
+                        return rawScopedUrl.endsWith("$")
+                            ? currentUrl === scopedUrl
+                            : currentUrl.startsWith(scopedUrl);
                     })
                 );
             },
