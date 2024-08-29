@@ -53,7 +53,6 @@ export const paramsSchema = z.object({
     simple: z.boolean().default(false),
     simpleHeader: z.boolean().default(false),
     simpleFooter: z.boolean().default(false),
-    enforceLogin: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
     redirectToUrl: z
         .optional(z.string().refine(isValidNavUrl))
@@ -61,7 +60,6 @@ export const paramsSchema = z.object({
     redirectToUrlLogout: z
         .optional(z.string().refine(isValidNavUrl))
         .catch(undefined),
-    level: loginLevel.default("Level3"),
     language: languageSchema.default("nb"),
     availableLanguages: z.array(availableLanguageSchema).default([]),
     breadcrumbs: z.array(breadcrumbSchema).default([]),
@@ -69,7 +67,6 @@ export const paramsSchema = z.object({
     feedback: z.boolean().default(false),
     chatbot: z.boolean().default(true),
     chatbotVisible: z.boolean().default(false),
-    urlLookupTable: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
     logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     maskHotjar: z.boolean().default(true),
@@ -86,7 +83,6 @@ export const clientParamKeys = [
     "simpleHeader",
     "redirectToApp",
     "redirectToUrl",
-    "level",
     "language",
     "availableLanguages",
     "breadcrumbs",
