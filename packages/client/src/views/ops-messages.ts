@@ -46,8 +46,14 @@ class OpsMessages extends HTMLElement {
                 this.render();
             });
 
-        window.addEventListener("historyPush", () => this.render());
-        window.addEventListener("popstate", () => this.render());
+        window.addEventListener("historyPush", () => {
+            console.log("re-rendering ops messages on historyPush");
+            this.render();
+        });
+        window.addEventListener("popstate", () => {
+            console.log("re-rendering ops messages on popstate");
+            this.render();
+        });
         this.addEventListener(
             "click",
             amplitudeClickListener(() => ({
@@ -58,6 +64,8 @@ class OpsMessages extends HTMLElement {
     }
 
     private render() {
+        console.log("re-rendering ops messages");
+
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
                 const currentUrl = removeTrailingChars(window.location.href);

@@ -98,18 +98,18 @@ export const setupMocks = () =>
         ),
         http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`, () =>
             HttpResponse.json([
-                // {
-                //     heading: "Ustabile tjenester søndag 15. januar",
-                //     url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
-                //     type: "prodstatus",
-                //     urlscope: ["http://localhost:8089/dekoratoren$"],
-                // },
-                // {
-                //     heading: "Svindelforsøk via SMS - vær oppmerksom",
-                //     url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
-                //     type: "info",
-                //     urlscope: [],
-                // },
+                {
+                    heading: "Ustabile tjenester søndag 15. januar",
+                    url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
+                    type: "prodstatus",
+                    urlscope: ["http://localhost:3000/$"],
+                },
+                {
+                    heading: "Svindelforsøk via SMS - vær oppmerksom",
+                    url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
+                    type: "info",
+                    urlscope: [],
+                },
             ]),
         ),
     ).listen({
