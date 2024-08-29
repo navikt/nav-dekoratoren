@@ -55,7 +55,9 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 src: buildCdnUrl(item.file),
                 type: "module",
                 // Load everything except the entry file async
-                ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
+                ...(item.isEntry
+                    ? { defer: "true" }
+                    : { async: "true", fetchpriority: "low" }),
             },
         }));
 
