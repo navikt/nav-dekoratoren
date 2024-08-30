@@ -3,6 +3,7 @@ import { setupServer } from "msw/node";
 import notificationsMock from "./notifications-mock.json";
 import { env } from "./env/server";
 import testData from "./menu/main-menu-mock.json";
+import { OpsMessage } from "decorator-shared/types";
 
 const nowISOString = () => {
     return new Date().toISOString();
@@ -110,7 +111,7 @@ export const setupMocks = () =>
                     type: "info",
                     urlscope: ["http://localhost:8089/dekoratoren/$"],
                 },
-            ]),
+            ] satisfies OpsMessage[]),
         ),
     ).listen({
         onUnhandledRequest: "bypass",
