@@ -31,7 +31,6 @@ export const OpsMessagesTemplate = ({
 
 // If the scoped url of a message ends with a literal "$"
 // it should only be shown on that exact url
-
 const removeTrailingChars = (url: string) =>
     url.replace(/\$$/, "").replace(/\/$/, "");
 
