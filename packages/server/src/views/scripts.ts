@@ -57,7 +57,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 // Load everything except the entry file async
                 ...(item.isEntry
                     ? { defer: "true" }
-                    : { async: "true", fetchpriority: "low" }),
+                    : { async: "true", fetchPriority: "low" }),
             },
         }));
 
@@ -69,7 +69,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 src: "https://in2.taskanalytics.com/tm.js",
                 type: "module",
                 async: "true",
-                fetchpriority: "low",
+                fetchPriority: "low",
             },
         },
         {
@@ -78,7 +78,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             attribs: {
                 type: "module",
                 async: "true",
-                fetchpriority: "low",
+                fetchPriority: "low",
             },
         },
     ];
