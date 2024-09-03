@@ -295,7 +295,7 @@ const nbPrivatpersonLinks = [
 ];
 
 const nbPrivatpersonContextLinks = [
-    { content: "Min side", url: "https://www.intern.dev.nav.no/minside" },
+    { content: "Min side", url: "https://www.ansatt.dev.nav.no/minside" },
     {
         content: "Arbeidsgiver",
         url: "https://www.ansatt.dev.nav.no/no/bedrift",
