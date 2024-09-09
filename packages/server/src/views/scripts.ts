@@ -57,7 +57,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 // Load everything except the entry file async
                 ...(item.isEntry
                     ? { defer: "true" }
-                    : { async: "true", fetchpriority: "low" }),
+                    : { async: "true", fetchPriority: "low" }),
             },
         }));
 
@@ -69,16 +69,17 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 src: "https://in2.taskanalytics.com/tm.js",
                 type: "module",
                 async: "true",
-                fetchpriority: "low",
+                fetchPriority: "low",
             },
         },
         {
             tag: "script",
             body: hotjarScript,
             attribs: {
+                id: "d-hotjar-container",
                 type: "module",
                 async: "true",
-                fetchpriority: "low",
+                fetchPriority: "low",
             },
         },
     ];
@@ -129,7 +130,7 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
         <script type="application/json" id="__DECORATOR_DATA__">
             ${json(buildDecoratorData(props))}
         </script>
-        <script>
+        <script id="d-data-parser">
             window.__DECORATOR_DATA__ = JSON.parse(
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );
