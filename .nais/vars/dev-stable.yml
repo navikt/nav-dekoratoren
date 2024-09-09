@@ -31,11 +31,11 @@ env:
   - name: LOGIN_SESSION_API_URL
     value: https://login.ekstern.dev.nav.no/oauth2/session
   - name: MIN_SIDE_URL
-    value: https://www.intern.dev.nav.no/minside
+    value: https://www.ansatt.dev.nav.no/minside
   - name: MIN_SIDE_ARBEIDSGIVER_URL
     value: https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver
   - name: PERSONOPPLYSNINGER_URL
-    value: https://www.intern.dev.nav.no/person/personopplysninger
+    value: https://www.ansatt.dev.nav.no/person/personopplysninger
   - name: BOOST_ENV
     value: "navtest"
   - name: PUZZEL_CUSTOMER_ID
