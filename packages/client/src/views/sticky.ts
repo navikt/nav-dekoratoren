@@ -81,7 +81,7 @@ class Sticky extends HTMLElement {
 
         setTimeout(() => {
             this.deferUpdates = false;
-        }, 500);
+        }, 1000);
     };
 
     private preventOverlapOnFocusChange = (e: FocusEvent) => {
@@ -96,14 +96,7 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        const scrollPos = this.getScrollPosition();
-        const targetPos = targetElement.offsetTop;
-
-        const targetIsOverlappedByHeader =
-            targetPos >= scrollPos &&
-            targetPos <= scrollPos + this.getHeaderHeight();
-
-        if (targetIsOverlappedByHeader) {
+        if (this.isElementAboveHeader(targetElement)) {
             this.deferStickyBehaviour();
         }
     };
@@ -120,15 +113,15 @@ class Sticky extends HTMLElement {
             return;
         }
 
-        const scrollPos = this.getScrollPosition();
-        const targetPos = targetElement.offsetTop;
-
-        const targetIsAboveHeader =
-            targetPos <= scrollPos + this.getHeaderHeight();
-
-        if (targetIsAboveHeader) {
+        if (this.isElementAboveHeader(targetElement)) {
             this.deferStickyBehaviour();
         }
+    };
+
+    private isElementAboveHeader = (element: HTMLElement) => {
+        const scrollPos = this.getScrollPosition();
+        const targetPos = scrollPos + element.getBoundingClientRect().top;
+        return targetPos <= scrollPos + this.getHeaderHeight();
     };
 
     // Ensure negative scroll position is never used, which may happen on devices
@@ -138,7 +131,7 @@ class Sticky extends HTMLElement {
     };
 
     private getHeaderHeight = () => {
-        return this.fixedElement.clientHeight;
+        return this.fixedElement.offsetHeight;
     };
 
     private getHeaderOffset = () => {
