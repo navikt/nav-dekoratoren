@@ -12,6 +12,10 @@ export type CustomEvents = {
     clearsearch: void;
     closemenus: void; // Currently fired only from other apps
     historyPush: void;
+    scrollTo: {
+        top?: number;
+        left?: number;
+    };
 };
 
 export type MessageEvents =
@@ -85,4 +89,68 @@ export const initHistoryEvents = () => {
         handleHistoryStateChange(args[2]);
         return result;
     };
+};
+
+type ScrollArgs = [ScrollToOptions] | [x?: number, y?: number];
+
+// Emits events on programmatic scrolling
+export const initScrollEvents = () => {
+    // Skip this functionality for ancient browsers to avoid having to handle old scroll implementations
+    // Should be a very small % of users :D
+    if (!window.scrollTo) {
+        return;
+    }
+
+    const scrollActual = window.scroll.bind(window);
+    const scrollToActual = window.scrollTo.bind(window);
+    const scrollByActual = window.scrollBy.bind(window);
+
+    const normalizeArgs = (...args: ScrollArgs) => {
+        const [optionsOrXCoord, undefinedOrYCoord] = args;
+
+        const xCoord =
+            typeof optionsOrXCoord === "number"
+                ? optionsOrXCoord
+                : optionsOrXCoord?.left;
+        const yCoord =
+            typeof optionsOrXCoord === "number"
+                ? undefinedOrYCoord
+                : optionsOrXCoord?.top;
+
+        return { top: yCoord, left: xCoord };
+    };
+
+    const dispatchOnScrollTo = (...args: ScrollArgs) => {
+        dispatchEvent(
+            createEvent("scrollTo", { detail: normalizeArgs(...args) }),
+        );
+    };
+
+    const dispatchOnScrollBy = (...args: ScrollArgs) => {
+        const { top, left } = normalizeArgs(...args);
+
+        dispatchEvent(
+            createEvent("scrollTo", {
+                detail: {
+                    top: top !== undefined ? top + window.scrollY : top,
+                    left: left !== undefined ? left + window.scrollX : left,
+                },
+            }),
+        );
+    };
+
+    window.scroll = ((...args: ScrollArgs) => {
+        dispatchOnScrollTo(...args);
+        return scrollActual(...(args as [ScrollToOptions]));
+    }) as typeof window.scroll;
+
+    window.scrollTo = ((...args: ScrollArgs) => {
+        dispatchOnScrollTo(...args);
+        return scrollToActual(...(args as [ScrollToOptions]));
+    }) as typeof window.scrollTo;
+
+    window.scrollBy = ((...args: ScrollArgs) => {
+        dispatchOnScrollBy(...args);
+        return scrollByActual(...(args as [ScrollToOptions]));
+    }) as typeof window.scrollBy;
 };

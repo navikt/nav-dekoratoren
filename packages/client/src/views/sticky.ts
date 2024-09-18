@@ -1,5 +1,6 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { CustomEvents } from "../events";
 
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should
@@ -118,6 +119,20 @@ class Sticky extends HTMLElement {
         }
     };
 
+    private preventOverlapOnScrollTo = (
+        e: CustomEvent<CustomEvents["scrollTo"]>,
+    ) => {
+        if (typeof e.detail.top !== "number") {
+            return;
+        }
+
+        const isAboveHeader =
+            e.detail.top < this.getScrollPosition() + this.getHeaderHeight();
+        if (isAboveHeader) {
+            this.deferStickyBehaviour();
+        }
+    };
+
     private isElementAboveHeader = (element: HTMLElement) => {
         const scrollPos = this.getScrollPosition();
         const targetPos = scrollPos + element.getBoundingClientRect().top;
@@ -171,6 +186,7 @@ class Sticky extends HTMLElement {
         window.addEventListener("menuopened", this.onMenuOpen);
         window.addEventListener("menuclosed", this.onMenuClose);
 
+        window.addEventListener("scrollTo", this.preventOverlapOnScrollTo);
         document.addEventListener("focusin", this.preventOverlapOnFocusChange);
         document.addEventListener("click", this.preventOverlapOnAnchorClick);
     }
@@ -182,6 +198,7 @@ class Sticky extends HTMLElement {
         window.removeEventListener("menuopened", this.onMenuOpen);
         window.removeEventListener("menuclosed", this.onMenuClose);
 
+        window.removeEventListener("scrollTo", this.preventOverlapOnScrollTo);
         document.removeEventListener(
             "focusin",
             this.preventOverlapOnFocusChange,
