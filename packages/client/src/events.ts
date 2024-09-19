@@ -94,30 +94,18 @@ export const initHistoryEvents = () => {
 type ScrollArgs = [ScrollToOptions] | [x?: number, y?: number];
 
 // Emits events on programmatic scrolling
-export const initScrollEvents = () => {
-    // Skip this functionality for ancient browsers to avoid having to handle old scroll implementations
-    // Should be a very small % of users :D
-    if (!window.scrollTo) {
-        return;
-    }
-
-    const scrollActual = window.scroll.bind(window);
-    const scrollToActual = window.scrollTo.bind(window);
-    const scrollByActual = window.scrollBy.bind(window);
-
+export const initScrollToEvents = () => {
     const normalizeArgs = (...args: ScrollArgs) => {
         const [optionsOrXCoord, undefinedOrYCoord] = args;
+        const isOptions =
+            optionsOrXCoord && typeof optionsOrXCoord === "object";
 
-        const xCoord =
-            typeof optionsOrXCoord === "number"
-                ? optionsOrXCoord
-                : optionsOrXCoord?.left;
-        const yCoord =
-            typeof optionsOrXCoord === "number"
-                ? undefinedOrYCoord
-                : optionsOrXCoord?.top;
-
-        return { top: yCoord, left: xCoord };
+        return isOptions
+            ? { top: optionsOrXCoord.top, left: optionsOrXCoord.left }
+            : {
+                  top: undefinedOrYCoord,
+                  left: optionsOrXCoord,
+              };
     };
 
     const dispatchOnScrollTo = (...args: ScrollArgs) => {
@@ -138,6 +126,10 @@ export const initScrollEvents = () => {
             }),
         );
     };
+
+    const scrollActual = window.scroll.bind(window);
+    const scrollToActual = window.scrollTo.bind(window);
+    const scrollByActual = window.scrollBy.bind(window);
 
     window.scroll = ((...args: ScrollArgs) => {
         dispatchOnScrollTo(...args);
