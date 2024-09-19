@@ -63,12 +63,8 @@ class Sticky extends HTMLElement {
         );
     };
 
-    private setFixed = (fixed: boolean) => {
-        if (fixed) {
-            this.fixedElement.classList.add(cls.fixed);
-        } else {
-            this.fixedElement.classList.remove(cls.fixed);
-        }
+    private setFixed = (isFixed: boolean) => {
+        this.fixedElement.classList.toggle(cls.fixed, isFixed);
     };
 
     // Set the header position to the top of the page and pause updates for a bit
