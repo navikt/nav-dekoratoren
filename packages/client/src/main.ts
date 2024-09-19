@@ -1,7 +1,7 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
-import { initHistoryEvents } from "./events";
+import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
@@ -37,6 +37,7 @@ const injectHeadAssets = () => {
 const init = () => {
     injectHeadAssets();
     initHistoryEvents();
+    initScrollToEvents();
 
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
