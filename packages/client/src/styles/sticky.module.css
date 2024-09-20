@@ -8,6 +8,19 @@
     height: var(--header-height);
 }
 
+/*
+    Disables sticky behaviour when viewed from vergic co-browsing UI.
+    (The vergic client removes script tags from head) */
+html:not(:has(head > script)) {
+    .absoluteWrapper {
+        top: 0 !important;
+    }
+
+    .fixed {
+        position: revert !important;
+    }
+}
+
 .absoluteWrapper {
     position: absolute;
     top: 0;
