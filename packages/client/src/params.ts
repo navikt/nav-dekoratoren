@@ -60,12 +60,14 @@ const getLanguageFromUrl = (): Language | undefined => {
 };
 
 export const setInitialParams = () => {
+    const reqParams = window.__DECORATOR_DATA__.reqParams;
+
     const language =
-        param("language") ||
+        reqParams?.language ||
         getLanguageFromUrl() ||
         (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
 
-    const context = param("context") || Cookies.get(CONTEXT_COOKIE);
+    const context = reqParams?.context || Cookies.get(CONTEXT_COOKIE);
 
     updateDecoratorParams({ language, context });
 };
