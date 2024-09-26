@@ -24,7 +24,7 @@
 
 
 ## About the Decorator
-This is a frontend application that provides a unified header/footer for applications running on nav.no. All frontend applications that target the public  should use the Decorator to create a cohesive user experience on nav.no.
+This is a frontend application that provides a unified header/footer for applications running on nav.no. All frontend applications that target the public should use the Decorator to create a cohesive user experience on nav.no.
 
 The Decorator also offers common functionality such as login, analytics, logout warning, search functionality, etc as explained in this documentation.
 
@@ -38,39 +38,33 @@ Important announcements are posted on `#dekoratøren_på_navno`, so we encourage
 You can use the Decorator through both SSR (server-side rendering) and CSR (client-side rendering). We recommend implementing the Decorator via SSR because it results in fewer [layout shifts](https://web.dev/articles/cls) when your application loads, thereby providing a better user experience.
 
 ### @navikt/nav-dekoratoren-moduler
-We recommend using the NPM package `@navikt/nav-dekoratoren-moduler`, which offers several useful methods for the easy implementation of both the Decorator and other features.
+We recommend using the NPM package [@navikt/nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler), which offers several useful functions for implementating the Decorator and related features.
 
-### Custom implementation
-The Decorator consists of four elements that you need to extract from the document and inject into your application:
+### Custom implementation with server-side rendering
+The Decorator consists of four HTML strings which must be injected into the HTML of your application. These are served from the `/ssr` endpoint of the Decorator:
 
-| Element     | id                |
-| ----------- | ----------------- |
-| Header HTML | `header-withmenu` |
-| Footer HTML | `footer-withmenu` |
-| Scropts     | `scripts`         |
-| CSS         | `styles`          |
+```json
+{
+    "headAssets": "CSS, favicons, etc. Should be injected into the <head> element",
+    "header": "Header content, should be injected just before your app content",
+    "footer": "Footer content, should be injected just after your app content",
+    "scripts": "<script> elements, can be injected anywhere"
+}
+```
 
-Example of what a custom implementation might look like where you fetch the document and inject the elements server-side into your application:
+Example:
 ```javascript
-fetch("{INGRESS_URL}/?{PARAMETERS}")
-    .then(res => res.text())
-    .then(html => {
-      const parser = new DOMParser();
-      const dom = parser.parseFromString(html, 'text/html');
-
-      const styles = document.getElementById("styles")?.innerHTML;
-      const scripts = document.getElementById("scripts")?.innerHTML;
-      const header = document.getElementById("header-withmenu")?.innerHTML;
-      const footer = document.getElementById("footer-withmenu")?.innerHTML;
-
-      /*
-      ...now, inject these four elements into your application,
-      either manually or via an template engine.
-      */
+fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
+    .then(res => res.json())
+    .then(decoratorElements => {
+        const { headAssets, header, footer, scripts } = decoratorElements;
+        /*
+            inject these four elements into your applications HTML response
+        */
   });
 ```
 
-### Custom implementation via client-side rendring (CSR). Not recommended:
+### [Not recommended] Custom implementation with client-side rendering (CSR)
 CSR can cause layout shifts as well as multiple asset requests, which might delay the First Contentful Paint (FCP) in your application.
 
 ```html
