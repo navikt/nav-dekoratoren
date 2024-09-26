@@ -20,6 +20,7 @@
    - [Logout warning](#logout-warning)
    - [Analytics with Amplitude](#analytics-with-amplitude)
    - [Surveys with Task Analytics](#surveys-with-task-analytics)
+   - [Skip-link to main content](#skip-link-to-main-content)
 
 
 ## About the Decorator
@@ -242,3 +243,11 @@ The Amplitude client is exposed on `window.dekoratorenAmplitude`. Please see [lo
 
 #### Surveys with Task Analytics
 Surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Personbruker for more information.
+
+### Skip-link to main content
+A skip-link is rendered in the header if an element with the id `maincontent` exists in the document. Clicking the skip-link will set focus to the maincontent element. The element must be focusable, which can be accomplished by setting the attribute `tabindex="-1"`.
+
+Example:
+```html
+<main id="maincontent" tabindex="-1"><!-- app html goes here! --></main>
+```
