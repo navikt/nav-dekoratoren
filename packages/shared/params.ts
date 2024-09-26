@@ -78,7 +78,7 @@ export const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export const clientParamKeys = [
+export const clientParamKeys: Array<keyof Params> = [
     "context",
     "simple",
     "simpleHeader",
@@ -95,7 +95,7 @@ export const clientParamKeys = [
     "maskHotjar",
     "logoutWarning",
     "feedback",
-] as const satisfies Array<keyof Params>;
+] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 

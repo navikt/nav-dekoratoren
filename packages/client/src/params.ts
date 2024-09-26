@@ -1,5 +1,10 @@
 import Cookies from "js-cookie";
-import { ClientParams, Environment, Language } from "decorator-shared/params";
+import {
+    ClientParams,
+    Context,
+    Environment,
+    Language,
+} from "decorator-shared/params";
 import { createEvent } from "./events";
 
 type ParamKey = keyof ClientParams;
@@ -51,35 +56,16 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
     );
 };
 
-const pathSegmentsToLanguage: Record<string, Language> = {
-    nb: "nb",
-    no: "nb",
-    nn: "nn",
-    en: "en",
-    se: "se",
-} as const;
-
-const getLanguageFromUrl = (): Language | undefined => {
-    const pathSegments = window.location.pathname.split("/");
-
-    for (const segment in pathSegments) {
-        const language = pathSegmentsToLanguage[segment];
-
-        if (language) {
-            return language;
-        }
-    }
-};
-
 export const setInitialParams = () => {
     const reqParams = window.__DECORATOR_DATA__.reqParams;
 
     const language =
         reqParams?.language ||
-        getLanguageFromUrl() ||
         (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
 
-    const context = reqParams?.context || Cookies.get(CONTEXT_COOKIE);
+    const context =
+        reqParams?.context ||
+        (Cookies.get(CONTEXT_COOKIE) as Context | undefined);
 
     updateDecoratorParams({ language, context });
 };
