@@ -10,8 +10,7 @@ import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import testData from "../menu/main-menu-mock.json";
-import { IndexTemplate } from "./index";
-import { parseAndValidateParams } from "../validateParams";
+import { IndexHtml } from "./index";
 import { env } from "../env/server";
 
 let server: SetupServerApi;
@@ -29,14 +28,10 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("Index component should render", async () => {
-    const params = parseAndValidateParams({});
-
-    const indexContent = (
-        await IndexTemplate({
-            params,
-            url: "localhost:8089/",
-        })
-    ).render(params);
+    const indexContent = await IndexHtml({
+        reqParams: {},
+        url: "localhost:8089/",
+    });
 
     expect(indexContent).toContain("<!doctype html>");
 });

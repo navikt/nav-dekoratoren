@@ -95,7 +95,7 @@ export const clientParamKeys = [
     "maskHotjar",
     "logoutWarning",
     "feedback",
-] as const;
+] as const satisfies Array<keyof Params>;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 

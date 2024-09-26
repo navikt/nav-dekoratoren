@@ -17,7 +17,7 @@ import { getTaskAnalyticsSurveys } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { isLocalhost } from "./urls";
 import { parseAndValidateParams } from "./validateParams";
-import { IndexTemplate } from "./views";
+import { IndexHtml } from "./views";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
 import { buildDecoratorData } from "./views/scripts";
@@ -130,7 +130,8 @@ app.get("/footer", async ({ req, html }) => {
 app.get("/ssr", ssrApiHandler);
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
-    const params = parseAndValidateParams(req.query());
+    const query = req.query();
+    const params = parseAndValidateParams(query);
     const features = getFeatures();
 
     return json({
@@ -147,9 +148,13 @@ app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        data: buildDecoratorData({ params, features, headAssets }),
+        data: buildDecoratorData({
+            params,
+            reqParams: query,
+            features,
+            headAssets,
+        }),
         scripts: csrAssets.mainScripts,
-        //TODO: Add css?
     } satisfies CsrPayload);
 });
 app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
@@ -158,18 +163,14 @@ app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
 app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
-app.get("/", async ({ req, html }) => {
-    const params = parseAndValidateParams(req.query());
-
-    return html(
-        (
-            await IndexTemplate({
-                params,
-                url: req.url,
-            })
-        ).render(params),
-    );
-});
+app.get("/", async ({ req, html }) =>
+    html(
+        IndexHtml({
+            reqParams: req.query(),
+            url: req.url,
+        }),
+    ),
+);
 
 app.route("/decorator-next", app);
 app.route("/dekoratoren", app);

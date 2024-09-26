@@ -1,4 +1,4 @@
-import { Context, Environment, ClientParams } from "./params";
+import { Context, Environment, ClientParams, clientParamKeys } from "./params";
 
 export type Link = {
     content: string;
@@ -17,13 +17,16 @@ export const clientTextsKeys = [
     "loading_preview",
     "loading",
     "open_chat",
-] as const;
+] as const satisfies keyof Texts;
 
-export type ClientTexts = {
-    [K in (typeof clientTextsKeys)[number]]: string;
-};
+export type ClientTexts = Pick<Texts, (typeof clientParamKeys)[number]>;
 
-export type Texts = ClientTexts & {
+export type Texts = {
+    breadcrumbs: string;
+    important_info: string;
+    loading_preview: string;
+    loading: string;
+    open_chat: string;
     token_warning_title: string;
     token_warning_body: string;
     feedback: string;
@@ -113,11 +116,6 @@ export type OpsMessage = {
     urlscope: string[];
 };
 
-export type TextKey = keyof Texts;
-export type WithTexts<T = object> = T & {
-    texts: Texts;
-};
-
 export type Features = {
     "dekoratoren.skjermdeling": boolean;
     "dekoratoren.chatbotscript": boolean;
@@ -129,6 +127,9 @@ export type Features = {
 export type AppState = {
     texts: ClientTexts;
     params: ClientParams;
+    // These are parameters explicitly set in the request from the consuming application
+    // Does not include default fallback values for required params
+    reqParams?: Partial<ClientParams>;
     env: Environment;
     features: Features;
     // Head assets are included here only for legacy implementations, where they are injected on the client-side.

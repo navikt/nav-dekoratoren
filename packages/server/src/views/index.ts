@@ -1,5 +1,4 @@
 import html from "decorator-shared/html";
-import { Params } from "decorator-shared/params";
 import { ScriptsTemplate } from "./scripts";
 import { getFeatures } from "../unleash";
 import { HeaderTemplate } from "./header/header";
@@ -7,19 +6,20 @@ import { FooterTemplate } from "./footer/footer";
 import { getSplashPage } from "./splash-page";
 import { StylesTemplate } from "./styles";
 import { headAssets, HeadAssetsTemplate } from "../head";
+import { parseAndValidateParams } from "../validateParams";
 
 type IndexProps = {
-    params: Params;
+    reqParams: Record<string, string>;
     url: string;
 };
 
-export const IndexTemplate = async ({ params, url }: IndexProps) => {
-    const { language } = params;
+export const IndexHtml = async ({ reqParams, url }: IndexProps) => {
+    const params = parseAndValidateParams(reqParams);
     const features = getFeatures();
 
     return html`
         <!doctype html>
-        <html lang="${language}">
+        <html lang="${params.language}">
             <head>
                 <title>NAV Dekoratør</title>
                 <meta charset="utf-8" />
@@ -48,6 +48,7 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
                 <div id="scripts" style="display:none">
                     ${ScriptsTemplate({
                         params,
+                        reqParams: reqParams,
                         features,
                         headAssets,
                     })}
@@ -58,5 +59,5 @@ export const IndexTemplate = async ({ params, url }: IndexProps) => {
                 <div id="webstats-ga-notrack"></div>
             </body>
         </html>
-    `;
+    `.render(params);
 };

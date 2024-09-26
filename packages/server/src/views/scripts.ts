@@ -94,12 +94,14 @@ const scriptsHtml = unsafeHtml(
 type DecoratorDataProps = {
     features: Features;
     params: Params;
+    reqParams: Record<string, string>;
     headAssets?: HtmlElementProps[];
 };
 
 export const buildDecoratorData = ({
     features,
     params,
+    reqParams,
     headAssets,
 }: DecoratorDataProps): AppState => ({
     texts: Object.entries(texts[params.language])
@@ -112,7 +114,7 @@ export const buildDecoratorData = ({
             {},
         ) as ClientTexts,
     params: Object.entries(params)
-        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
+        .filter(([key]) => clientParamKeys.includes(key))
         .reduce(
             (prev, [key, value]) => ({
                 ...prev,
@@ -120,6 +122,7 @@ export const buildDecoratorData = ({
             }),
             {},
         ) as ClientParams,
+    reqParams,
     features,
     env: clientEnv,
     headAssets,
