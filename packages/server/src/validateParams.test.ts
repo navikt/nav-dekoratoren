@@ -2,14 +2,14 @@ import { describe, expect, it } from "bun:test";
 import {
     parseBooleanParam,
     validateParams,
-    validParams,
+    parseAndValidateParams,
 } from "./validateParams";
 import { formatParams } from "decorator-shared/json";
 import { Params } from "decorator-shared/params";
 
 describe("Validating urls", () => {
     it("Should validate nav.no urls", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             redirectToUrl: "https://myapp.nav.no/foo",
             redirectToUrlLogout: "https://my.app.nav.no/bar",
             logoutUrl: "https://www.nav.no/qwer",
@@ -47,7 +47,7 @@ describe("Validating urls", () => {
     });
 
     it("Should validate paths", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             redirectToUrl: "/foo",
             redirectToUrlLogout: "/bar",
             logoutUrl: "/qwer",
@@ -85,7 +85,7 @@ describe("Validating urls", () => {
     });
 
     it("Should not validate redirectToUrl with non-nav origin", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             redirectToUrl: "https://www.vg.no",
         } satisfies Partial<Record<keyof Params, unknown>>);
 
@@ -93,7 +93,7 @@ describe("Validating urls", () => {
     });
 
     it("Should not validate redirectToUrlLogout with non-nav origins", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             redirectToUrlLogout: "https://navv.no",
         } satisfies Partial<Record<keyof Params, unknown>>);
 
@@ -101,7 +101,7 @@ describe("Validating urls", () => {
     });
 
     it("Should not validate logoutUrl with non-nav origins", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             logoutUrl: "https://www.notevilatall.no",
         } satisfies Partial<Record<keyof Params, unknown>>);
 
@@ -109,7 +109,7 @@ describe("Validating urls", () => {
     });
 
     it("Should not validate breadcrumbs with non-nav origins", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             breadcrumbs: JSON.stringify([
                 {
                     title: "test",
@@ -123,7 +123,7 @@ describe("Validating urls", () => {
 
     it("Should not validate availableLanguages with non-nav origins", () => {
         const validateAvailableLanguage = () =>
-            validParams({
+            parseAndValidateParams({
                 availableLanguages: JSON.stringify([
                     {
                         handleInApp: false,
@@ -136,7 +136,7 @@ describe("Validating urls", () => {
     });
 
     it("Should not validate logoutUrl without protocol prefix", () => {
-        const params = validParams({
+        const params = parseAndValidateParams({
             logoutUrl: "www.nav.no",
         } satisfies Partial<Record<keyof Params, unknown>>);
 
