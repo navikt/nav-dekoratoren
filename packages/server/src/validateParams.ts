@@ -1,10 +1,14 @@
-import { paramsSchema, type Params } from "decorator-shared/params";
+import {
+    paramsSchema,
+    type Params,
+    AvailableLanguage,
+} from "decorator-shared/params";
 import { clientEnv } from "./env/server";
 import { P, match } from "ts-pattern";
 import { ZodBoolean, ZodDefault } from "zod";
 
-export const getBooleans = () =>
-    Object.entries(paramsSchema.shape).reduce((prev, [key, value]) => {
+const booleans = Object.entries(paramsSchema.shape).reduce<string[]>(
+    (prev, [key, value]) => {
         if (
             value instanceof ZodDefault &&
             value._def.innerType instanceof ZodBoolean
@@ -12,7 +16,9 @@ export const getBooleans = () =>
             return [...prev, key];
         }
         return prev;
-    }, new Array<string>());
+    },
+    [],
+);
 
 export const parseBooleanParam = (param?: unknown): boolean =>
     match(param)
@@ -20,15 +26,12 @@ export const parseBooleanParam = (param?: unknown): boolean =>
         .with(P.boolean, (param) => param)
         .otherwise(() => false);
 
-const booleans = getBooleans();
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const validateParams = (params: Record<string, string>) => {
     const reduced = booleans.reduce((prev, key) => {
         const exists = params[key] !== undefined;
-        const isOptional =
-            paramsSchema.shape[key as keyof Params] instanceof ZodDefault ===
-            false;
+        const isOptional = !(
+            paramsSchema.shape[key as keyof Params] instanceof ZodDefault
+        );
         const shouldParse = exists || isOptional;
 
         return {
@@ -38,6 +41,7 @@ export const validateParams = (params: Record<string, string>) => {
                 : paramsSchema.shape[key as keyof Params].parse(params[key]),
         };
     }, {});
+
     return {
         ...params,
         ...reduced,
@@ -48,15 +52,19 @@ export const validateParams = (params: Record<string, string>) => {
             .with(P.string, (breadcrumbs) => JSON.parse(breadcrumbs))
             .otherwise(() => []),
         availableLanguages: params.availableLanguages
-            ? JSON.parse(params.availableLanguages).map((language: any) => ({
-                  ...language,
-                  handleInApp: parseBooleanParam(language.handleInApp),
-              }))
+            ? JSON.parse(params.availableLanguages).map(
+                  (language: AvailableLanguage) => ({
+                      ...language,
+                      handleInApp: parseBooleanParam(language.handleInApp),
+                  }),
+              )
             : params.availableLanguages,
     } as Params;
 };
 
-export const validParams = (query: Record<string, string>): Params => {
+export const parseAndValidateParams = (
+    query: Record<string, string>,
+): Params => {
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {

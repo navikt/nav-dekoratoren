@@ -16,7 +16,7 @@ import { fetchOpsMessages } from "./ops-msgs";
 import { getTaskAnalyticsSurveys } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { isLocalhost } from "./urls";
-import { validParams } from "./validateParams";
+import { parseAndValidateParams } from "./validateParams";
 import { IndexTemplate } from "./views";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
@@ -79,14 +79,14 @@ app.post("/api/notifications/:id/archive", async ({ req, json }) => {
 app.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
-            ...validParams(req.query()),
+            ...parseAndValidateParams(req.query()),
             query: req.query("q") ?? "",
         }),
     ),
 );
 app.get("/api/csp", ({ json }) => json(cspDirectives));
 app.get("/main-menu", async ({ req, html }) => {
-    const data = validParams(req.query());
+    const data = parseAndValidateParams(req.query());
 
     return html(
         (
@@ -99,14 +99,14 @@ app.get("/main-menu", async ({ req, html }) => {
 app.get("/auth", async ({ req, json }) =>
     json(
         await authHandler({
-            params: validParams(req.query()),
+            params: parseAndValidateParams(req.query()),
             cookie: req.header("Cookie") ?? "",
         }),
     ),
 );
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
-    const params = validParams(req.query());
+    const params = parseAndValidateParams(req.query());
 
     return html(
         (await HeaderTemplate({ params, withContainers: false })).render(
@@ -115,7 +115,7 @@ app.get("/header", async ({ req, html }) => {
     );
 });
 app.get("/footer", async ({ req, html }) => {
-    const params = validParams(req.query());
+    const params = parseAndValidateParams(req.query());
 
     return html(
         (
@@ -130,7 +130,7 @@ app.get("/footer", async ({ req, html }) => {
 app.get("/ssr", ssrApiHandler);
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
-    const params = validParams(req.query());
+    const params = parseAndValidateParams(req.query());
     const features = getFeatures();
 
     return json({
@@ -159,7 +159,7 @@ app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
 app.get("/", async ({ req, html }) => {
-    const params = validParams(req.query());
+    const params = parseAndValidateParams(req.query());
 
     return html(
         (

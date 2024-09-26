@@ -1,4 +1,4 @@
-import { validParams } from "../validateParams";
+import { parseAndValidateParams } from "../validateParams";
 import { getFeatures } from "../unleash";
 import { HeaderTemplate } from "../views/header/header";
 import { FooterTemplate } from "../views/footer/footer";
@@ -16,7 +16,7 @@ type SsrPayload = {
 };
 
 export const ssrApiHandler: Handler = async ({ req, json }) => {
-    const params = validParams(req.query());
+    const params = parseAndValidateParams(req.query());
     const features = getFeatures();
 
     return json({

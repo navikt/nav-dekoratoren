@@ -11,7 +11,7 @@ import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import testData from "../menu/main-menu-mock.json";
 import { IndexTemplate } from "./index";
-import { validParams } from "../validateParams";
+import { parseAndValidateParams } from "../validateParams";
 import { env } from "../env/server";
 
 let server: SetupServerApi;
@@ -29,7 +29,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("Index component should render", async () => {
-    const params = validParams({});
+    const params = parseAndValidateParams({});
 
     const indexContent = (
         await IndexTemplate({

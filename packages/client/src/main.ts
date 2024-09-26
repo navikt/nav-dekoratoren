@@ -5,15 +5,12 @@ import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
+import { param, setInitialParams } from "./params";
 import "./main.css";
-import { param, updateDecoratorParams } from "./params";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 
-updateDecoratorParams({});
-
-// @TODO: Refactor loaders
 window.addEventListener("load", () => {
     addFaroMetaData();
 });
@@ -35,6 +32,7 @@ const injectHeadAssets = () => {
 };
 
 const init = () => {
+    setInitialParams();
     injectHeadAssets();
     initHistoryEvents();
     initScrollToEvents();

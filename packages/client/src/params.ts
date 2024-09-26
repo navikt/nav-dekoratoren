@@ -1,24 +1,26 @@
-import { ClientParams, Environment } from "decorator-shared/params";
+import Cookies from "js-cookie";
+import { ClientParams, Environment, Language } from "decorator-shared/params";
 import { createEvent } from "./events";
 
-export const hasParam = (paramKey: keyof ClientParams): boolean => {
-    return window.__DECORATOR_DATA__.params[paramKey] !== undefined;
+type ParamKey = keyof ClientParams;
+
+const CONTEXT_COOKIE = "decorator-context";
+const LANGUAGE_COOKIE = "decorator-language";
+
+export const param = (paramKey: keyof ClientParams) => {
+    return window.__DECORATOR_DATA__.params[paramKey];
 };
 
-export const param = <TKey extends keyof ClientParams>(paramKey: TKey) => {
-    return window.__DECORATOR_DATA__.params[paramKey] as ClientParams[TKey];
-};
-
-export const env = <TKey extends keyof Environment>(envKey: TKey): string => {
-    return window.__DECORATOR_DATA__.env[envKey] as Environment[TKey];
+export const env = (envKey: keyof Environment) => {
+    return window.__DECORATOR_DATA__.env[envKey];
 };
 
 export const updateDecoratorParams = (params: Partial<ClientParams>) => {
-    const updatedParams = params;
+    const updatedParams = { ...params };
 
-    Object.entries(params).map(([key, value]) => {
-        if (param(key as keyof ClientParams) === value) {
-            delete updatedParams[key as keyof ClientParams];
+    Object.entries(params).forEach(([key, value]) => {
+        if (param(key as ParamKey) === value) {
+            delete updatedParams[key as ParamKey];
         }
     });
 
@@ -34,4 +36,35 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
             }),
         );
     }
+};
+
+const pathSegmentsToLanguage: Record<string, Language> = {
+    nb: "nb",
+    no: "nb",
+    nn: "nn",
+    en: "en",
+    se: "se",
+} as const;
+
+const getLanguageFromUrl = (): Language | undefined => {
+    const pathSegments = window.location.pathname.split("/");
+
+    for (const segment in pathSegments) {
+        const language = pathSegmentsToLanguage[segment];
+
+        if (language) {
+            return language;
+        }
+    }
+};
+
+export const setInitialParams = () => {
+    const language =
+        param("language") ||
+        getLanguageFromUrl() ||
+        (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
+
+    const context = param("context") || Cookies.get(CONTEXT_COOKIE);
+
+    updateDecoratorParams({ language, context });
 };
