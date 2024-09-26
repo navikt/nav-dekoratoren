@@ -25,18 +25,30 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
         }
     });
 
-    if (Object.keys(updatedParams).length > 0) {
-        window.__DECORATOR_DATA__.params = {
-            ...window.__DECORATOR_DATA__.params,
-            ...updatedParams,
-        };
-
-        window.dispatchEvent(
-            createEvent("paramsupdated", {
-                detail: { params: updatedParams },
-            }),
-        );
+    if (Object.keys(updatedParams).length === 0) {
+        return;
     }
+
+    window.__DECORATOR_DATA__.params = {
+        ...window.__DECORATOR_DATA__.params,
+        ...updatedParams,
+    };
+
+    const { context, language } = updatedParams;
+
+    if (context) {
+        Cookies.set(CONTEXT_COOKIE, context);
+    }
+
+    if (language) {
+        Cookies.set(LANGUAGE_COOKIE, language);
+    }
+
+    window.dispatchEvent(
+        createEvent("paramsupdated", {
+            detail: { params: updatedParams },
+        }),
+    );
 };
 
 const pathSegmentsToLanguage: Record<string, Language> = {
