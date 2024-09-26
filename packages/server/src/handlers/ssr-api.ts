@@ -34,7 +34,7 @@ export const ssrApiHandler: Handler = async ({ req, json }) => {
                 withContainers: true,
             })
         ).render(params),
-        scripts: ScriptsTemplate({ features, params, reqParams: query }).render(
+        scripts: ScriptsTemplate({ features, params, rawParams: query }).render(
             params,
         ),
         headAssets: HeadAssetsTemplate().render(),

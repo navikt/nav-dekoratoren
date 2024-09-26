@@ -9,12 +9,12 @@ import { headAssets, HeadAssetsTemplate } from "../head";
 import { parseAndValidateParams } from "../validateParams";
 
 type IndexProps = {
-    reqParams: Record<string, string>;
+    rawParams: Record<string, string>;
     url: string;
 };
 
-export const IndexHtml = async ({ reqParams, url }: IndexProps) => {
-    const params = parseAndValidateParams(reqParams);
+export const IndexHtml = async ({ rawParams, url }: IndexProps) => {
+    const params = parseAndValidateParams(rawParams);
     const features = getFeatures();
 
     return html`
@@ -48,7 +48,7 @@ export const IndexHtml = async ({ reqParams, url }: IndexProps) => {
                 <div id="scripts" style="display:none">
                     ${ScriptsTemplate({
                         params,
-                        reqParams: reqParams,
+                        rawParams,
                         features,
                         headAssets,
                     })}

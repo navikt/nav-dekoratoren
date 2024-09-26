@@ -1,4 +1,4 @@
-import { Context, Environment, ClientParams, clientParamKeys } from "./params";
+import { Context, Environment, ClientParams } from "./params";
 
 export type Link = {
     content: string;
@@ -17,9 +17,9 @@ export const clientTextsKeys = [
     "loading_preview",
     "loading",
     "open_chat",
-] as const satisfies keyof Texts;
+] as const satisfies Array<keyof Texts>;
 
-export type ClientTexts = Pick<Texts, (typeof clientParamKeys)[number]>;
+export type ClientTexts = Pick<Texts, (typeof clientTextsKeys)[number]>;
 
 export type Texts = {
     breadcrumbs: string;
@@ -128,8 +128,9 @@ export type AppState = {
     texts: ClientTexts;
     params: ClientParams;
     // These are parameters explicitly set in the request from the consuming application
-    // Does not include default fallback values for required params
-    reqParams?: Partial<ClientParams>;
+    // Does not include default fallback values for required params, and only includes a few select
+    // params for which this data is needed in the client
+    rawParams?: Partial<ClientParams>;
     env: Environment;
     features: Features;
     // Head assets are included here only for legacy implementations, where they are injected on the client-side.

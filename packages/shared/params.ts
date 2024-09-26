@@ -114,3 +114,13 @@ export const clientEnvSchema = z.object({
 
 export type Environment = z.infer<typeof clientEnvSchema>;
 export type BoostEnviroment = Environment["BOOST_ENV"];
+
+export const validateRawParams = (query: Record<string, string>) => {
+    const contextParsed = contextSchema.safeParse(query.context);
+    const languageParsed = languageSchema.safeParse(query.language);
+
+    return {
+        context: contextParsed.success ? contextParsed.data : undefined,
+        language: languageParsed.success ? languageParsed.data : undefined,
+    };
+};

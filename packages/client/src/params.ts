@@ -57,14 +57,14 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
 };
 
 export const setInitialParams = () => {
-    const reqParams = window.__DECORATOR_DATA__.reqParams;
+    const rawParams = window.__DECORATOR_DATA__.rawParams;
 
     const language =
-        reqParams?.language ||
+        rawParams?.language ||
         (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
 
     const context =
-        reqParams?.context ||
+        rawParams?.context ||
         (Cookies.get(CONTEXT_COOKIE) as Context | undefined);
 
     updateDecoratorParams({ language, context });

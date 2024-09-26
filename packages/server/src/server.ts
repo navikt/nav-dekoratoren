@@ -150,7 +150,7 @@ app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
         ).render(params),
         data: buildDecoratorData({
             params,
-            reqParams: query,
+            rawParams: query,
             features,
             headAssets,
         }),
@@ -166,7 +166,7 @@ app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
 app.get("/", async ({ req, html }) =>
     html(
         IndexHtml({
-            reqParams: req.query(),
+            rawParams: req.query(),
             url: req.url,
         }),
     ),

@@ -9,7 +9,12 @@ import {
 } from "decorator-shared/types";
 import { clientEnv, env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
-import { clientParamKeys, ClientParams, Params } from "decorator-shared/params";
+import {
+    clientParamKeys,
+    ClientParams,
+    Params,
+    validateRawParams,
+} from "decorator-shared/params";
 import { texts } from "../texts";
 import { buildCdnUrl } from "../urls";
 
@@ -94,14 +99,14 @@ const scriptsHtml = unsafeHtml(
 type DecoratorDataProps = {
     features: Features;
     params: Params;
-    reqParams: Record<string, string>;
+    rawParams: Record<string, string>;
     headAssets?: HtmlElementProps[];
 };
 
 export const buildDecoratorData = ({
     features,
     params,
-    reqParams,
+    rawParams,
     headAssets,
 }: DecoratorDataProps): AppState => ({
     texts: Object.entries(texts[params.language])
@@ -114,7 +119,7 @@ export const buildDecoratorData = ({
             {},
         ) as ClientTexts,
     params: Object.entries(params)
-        .filter(([key]) => clientParamKeys.includes(key))
+        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
         .reduce(
             (prev, [key, value]) => ({
                 ...prev,
@@ -122,7 +127,7 @@ export const buildDecoratorData = ({
             }),
             {},
         ) as ClientParams,
-    reqParams,
+    rawParams: validateRawParams(rawParams),
     features,
     env: clientEnv,
     headAssets,

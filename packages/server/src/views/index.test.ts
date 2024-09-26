@@ -29,7 +29,7 @@ afterAll(() => server.close());
 
 test("Index component should render", async () => {
     const indexContent = await IndexHtml({
-        reqParams: {},
+        rawParams: {},
         url: "localhost:8089/",
     });
 
