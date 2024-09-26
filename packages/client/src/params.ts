@@ -3,15 +3,16 @@ import { ClientParams, Environment, Language } from "decorator-shared/params";
 import { createEvent } from "./events";
 
 type ParamKey = keyof ClientParams;
+type EnvKey = keyof Environment;
 
 const CONTEXT_COOKIE = "decorator-context";
 const LANGUAGE_COOKIE = "decorator-language";
 
-export const param = (paramKey: keyof ClientParams) => {
+export const param = <TKey extends ParamKey>(paramKey: TKey) => {
     return window.__DECORATOR_DATA__.params[paramKey];
 };
 
-export const env = (envKey: keyof Environment) => {
+export const env = <TKey extends EnvKey>(envKey: TKey) => {
     return window.__DECORATOR_DATA__.env[envKey];
 };
 
