@@ -5,7 +5,7 @@ import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
-import { param, setInitialParams } from "./params";
+import { param, initParams } from "./params";
 import "./main.css";
 
 import.meta.glob("./styles/*.css", { eager: true });
@@ -32,7 +32,7 @@ const injectHeadAssets = () => {
 };
 
 const init = () => {
-    setInitialParams();
+    initParams();
     injectHeadAssets();
     initHistoryEvents();
     initScrollToEvents();

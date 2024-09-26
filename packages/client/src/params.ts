@@ -30,33 +30,24 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
         }
     });
 
-    if (Object.keys(updatedParams).length === 0) {
-        return;
-    }
-
     window.__DECORATOR_DATA__.params = {
         ...window.__DECORATOR_DATA__.params,
         ...updatedParams,
     };
 
-    const { context, language } = updatedParams;
+    Cookies.set(CONTEXT_COOKIE, param("context"));
+    Cookies.set(LANGUAGE_COOKIE, param("language"));
 
-    if (context) {
-        Cookies.set(CONTEXT_COOKIE, context);
+    if (Object.keys(updatedParams).length > 0) {
+        window.dispatchEvent(
+            createEvent("paramsupdated", {
+                detail: { params: updatedParams },
+            }),
+        );
     }
-
-    if (language) {
-        Cookies.set(LANGUAGE_COOKIE, language);
-    }
-
-    window.dispatchEvent(
-        createEvent("paramsupdated", {
-            detail: { params: updatedParams },
-        }),
-    );
 };
 
-export const setInitialParams = () => {
+export const initParams = () => {
     const rawParams = window.__DECORATOR_DATA__.rawParams;
 
     const initialParams: Partial<ClientParams> = {};
