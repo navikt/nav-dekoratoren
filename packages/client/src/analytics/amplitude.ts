@@ -150,6 +150,10 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "decorator-next",
 ) => {
+    // Always build the url for the platform field as early as possible.
+    // The dynamic import seems to always take at least one tick
+    // and the url may be wrong at that time
+    const platform = buildPlatformField();
     const amplitude = await importAmplitude();
 
     return new Promise((resolve) => {
@@ -157,7 +161,7 @@ export const logAmplitudeEvent = async (
             eventName,
             {
                 ...eventData,
-                platform: buildPlatformField(),
+                platform,
                 origin,
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,

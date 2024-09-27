@@ -38,7 +38,7 @@ class LoginButton extends HTMLElement {
         };
 
         url.searchParams.set("redirect", getRedirectUrl());
-        url.searchParams.set("level", level);
+        url.searchParams.set("level", level || "Level3");
         url.searchParams.set(
             "locale",
             {
