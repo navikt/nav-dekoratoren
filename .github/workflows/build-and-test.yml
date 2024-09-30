@@ -77,3 +77,4 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           image_suffix: ${{ inputs.IMAGE_SUFFIX }}
           tag: ${{ inputs.TAG_LATEST && 'latest' || '' }}
+          platforms: linux/amd64${{ inputs.TAG_LATEST && ',linux/arm64' || '' }}
