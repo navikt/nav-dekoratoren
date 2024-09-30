@@ -77,4 +77,5 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           image_suffix: ${{ inputs.IMAGE_SUFFIX }}
           tag: ${{ inputs.TAG_LATEST && 'latest' || '' }}
+#         Build the latest image to arm64 as well, to enable usage on arm mac developer machines
           platforms: linux/amd64${{ inputs.TAG_LATEST && ',linux/arm64' || '' }}
