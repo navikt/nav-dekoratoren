@@ -13,7 +13,7 @@
     The #vngageDOMCSS4 element is presently only be rendered when viewed from co-browsing
     but there's no guarantee this assumption will hold in the future. :D
 */
-html:has(head > #vngageDOMCSS4) {
+html:has(head > :global(#vngageDOMCSS4)) {
     .absoluteWrapper {
         top: 0 !important;
     }
