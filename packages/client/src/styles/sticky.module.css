@@ -9,9 +9,11 @@
 }
 
 /*
-    Disables sticky behaviour when viewed from vergic co-browsing UI.
-    (The vergic client removes script tags from head) */
-html:not(:has(head > script)) {
+    Disable sticky behaviour when viewed from vergic co-browsing UI.
+    The #vngageDOMCSS4 element is presently only be rendered when viewed from co-browsing
+    but there's no guarantee this assumption will hold in the future. :D
+*/
+html:has(head > #vngageDOMCSS4) {
     .absoluteWrapper {
         top: 0 !important;
     }
