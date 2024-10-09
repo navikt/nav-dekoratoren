@@ -16,6 +16,7 @@ import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
 import { Sticky } from "../sticky";
 import { UserMenu } from "../user-menu";
+import { ChangedUserDialog } from "../changed-user-dialog";
 
 export type ComplexHeaderProps = {
     frontPageUrl: string;
@@ -38,7 +39,7 @@ export function ComplexHeader({
 }: ComplexHeaderProps) {
     return html`
         <div class="${cls.siteheader}">
-            ${SkipLink(i18n("skip_link"))}
+            ${ChangedUserDialog()} ${SkipLink(i18n("skip_link"))}
             ${Sticky({
                 children: html`
                     <nav

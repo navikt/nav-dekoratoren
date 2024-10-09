@@ -1,7 +1,7 @@
-import { Language } from "decorator-shared/params";
+import { Language, Context } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
 
-const nb = {
+export const nb = {
     skip_link: "Hopp til hovedinnhold",
     share_screen: "Del skjerm med veileder",
     to_top: "Til toppen",
@@ -36,6 +36,9 @@ const nb = {
     notifications_tasks_title: "Oppgaver",
     token_warning_title: "Du blir snart logget ut automatisk",
     token_warning_body: "Vil du fortsatt være innlogget?",
+    changed_user_warning_title:
+        "Du har logget inn med en annen bruker i en annen fane",
+    changed_user_warning_body: "Siden blir lastet på nytt igjen.",
     session_warning_title:
         'Du blir logget ut automatisk om ca. <span class="session-time-remaining">$1</span> minutter',
     session_warning_body: "Avslutt det du jobber med og logg inn igjen.",
@@ -63,8 +66,15 @@ const nb = {
     showing: "Viser",
     of: "av",
     results: "resultater",
-    search_hits_heading: ({ total, query, context }) =>
-        `${total} treff for «${query}» for ${context}`,
+    search_hits_heading: ({
+        total,
+        query,
+        context,
+    }: {
+        total: number;
+        query: string;
+        context: Context;
+    }) => `${total} treff for «${query}» for ${context}`,
     more_hits: "Flere treff",
     change_search_filter: "Endre søkefilter for å se andre treff",
     loading_preview: "Laster forhåndsvisning",
@@ -97,9 +107,9 @@ const nb = {
     open_chat: "Åpne chat",
     info: "Informasjon",
     error: "Feil",
-} as const satisfies Texts;
+};
 
-const en = {
+const en: Texts = {
     skip_link: "Go to main content",
     share_screen: "Share screen with your counsellor",
     to_top: "To the top",
@@ -133,6 +143,9 @@ const en = {
         "You have a task, please log in with a higher security level to see the task.",
     archive: "Archive",
     notifications_tasks_title: "Tasks",
+    changed_user_warning_title:
+        "You have logged in with a different user in another tab",
+    changed_user_warning_body: "The page will be reloaded.",
     token_warning_title: "You will soon be logged out automatically",
     token_warning_body: "Would you like to stay logged in?",
     session_warning_title:

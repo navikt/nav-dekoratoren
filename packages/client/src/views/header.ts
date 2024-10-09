@@ -73,9 +73,14 @@ class Header extends HTMLElement {
         }
     };
 
+    private handleFocus = async () => {
+        await refreshAuthData();
+    };
+
     connectedCallback() {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.addEventListener("focus", this.handleFocus);
 
         this.addEventListener(
             "click",
@@ -89,7 +94,8 @@ class Header extends HTMLElement {
 
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("focus", this.handleFocus);
     }
 }
 

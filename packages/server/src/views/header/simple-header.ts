@@ -6,6 +6,7 @@ import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { SkipLink } from "../skip-link";
 import { UserMenu } from "../user-menu";
+import { ChangedUserDialog } from "../changed-user-dialog";
 
 export type SimpleHeaderProps = {
     decoratorUtils: Template;
@@ -19,7 +20,7 @@ export const SimpleHeader = ({
     loginUrl,
 }: SimpleHeaderProps) => html`
     <div class="${cls.siteheader}">
-        ${SkipLink(i18n("skip_link"))}
+        ${ChangedUserDialog()} ${SkipLink(i18n("skip_link"))}
         <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
             <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"
                 >${NavLogo({
