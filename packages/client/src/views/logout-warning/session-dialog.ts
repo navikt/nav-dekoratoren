@@ -1,5 +1,6 @@
 import { logAmplitudeEvent } from "../../analytics/amplitude";
 import { logout } from "../../helpers/auth";
+import { isDialogDefined } from "../../helpers/dialog-util";
 import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
 
@@ -17,6 +18,10 @@ export class SessionDialog extends HTMLElement {
     connectedCallback() {
         const dialog = this.querySelector("dialog") as HTMLDialogElement;
         const form = dialog.querySelector("form") as HTMLFormElement;
+
+        if (!isDialogDefined(dialog)) {
+            return;
+        }
 
         form.addEventListener("submit", (event: SubmitEvent) => {
             event.preventDefault();
