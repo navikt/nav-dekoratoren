@@ -39,26 +39,18 @@ class DropdownMenu extends HTMLElement {
         }
     };
 
-    private handleFocusOut = (e: FocusEvent) => {
-        if (!this.contains(e.target as Node)) {
-            this.close();
-        }
-    };
-
     connectedCallback() {
         this.button = this.querySelector(":scope > button")!;
         this.button.addEventListener("click", () => this.toggle());
         window.addEventListener("click", this.handleWindowClick);
         window.addEventListener("closemenus", this.close);
         window.addEventListener("keydown", this.handleButtonClick);
-        window.addEventListener("focusout", this.handleFocusOut);
     }
 
     disconnectedCallback() {
         window.removeEventListener("click", this.handleWindowClick);
         window.removeEventListener("closemenus", this.close);
         window.removeEventListener("keydown", this.handleButtonClick);
-        window.removeEventListener("focusout", this.handleFocusOut);
     }
 }
 

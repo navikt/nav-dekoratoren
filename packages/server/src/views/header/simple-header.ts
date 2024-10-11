@@ -18,18 +18,20 @@ export const SimpleHeader = ({
     frontPageUrl,
     loginUrl,
 }: SimpleHeaderProps) => html`
-    <div class="${cls.siteheader}">
-        ${SkipLink(i18n("skip_link"))}
-        <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
-            <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"
-                >${NavLogo({
-                    title: i18n("to_front_page"),
-                    titleId: "logo-svg-title",
-                })}</a
-            >
-            ${UserMenu({ loginUrl })}
+    <header-content>
+        <div class="${cls.siteheader}">
+            ${SkipLink(i18n("skip_link"))}
+            <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
+                <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"
+                    >${NavLogo({
+                        title: i18n("to_front_page"),
+                        titleId: "logo-svg-title",
+                    })}</a
+                >
+                ${UserMenu({ loginUrl })}
+            </div>
         </div>
-    </div>
+    </header-content>
     <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
     ${decoratorUtils}
 `;
