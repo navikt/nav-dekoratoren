@@ -73,9 +73,17 @@ class Header extends HTMLElement {
         }
     };
 
+    private handleFocusOut = (e: FocusEvent) => {
+        const headerContent = this.querySelector(`.${cls.siteheader}`);
+        if (!headerContent?.contains(e.relatedTarget as Node)) {
+            this.dispatchEvent(new Event("closemenus", { bubbles: true }));
+        }
+    };
+
     connectedCallback() {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.addEventListener("focusout", this.handleFocusOut);
 
         this.addEventListener(
             "click",
@@ -90,6 +98,7 @@ class Header extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("focusout", this.handleFocusOut);
     }
 }
 
