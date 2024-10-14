@@ -3,6 +3,7 @@ import loadExternalScript from "../helpers/load-external-script";
 import { env, param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { isDialogDefined } from "../helpers/dialog-util";
 
 let hasBeenOpened = false;
 
@@ -79,6 +80,10 @@ export class ScreensharingModal extends HTMLElement {
         this.dialog = this.querySelector("dialog")!;
         this.errorList = this.querySelector("ul")!;
         this.input = this.querySelector("input")!;
+        if (!isDialogDefined(this.dialog)) {
+            return;
+        }
+
         this.input.addEventListener("input", () => this.clearErrors());
 
         const form = this.querySelector("form")!;
