@@ -104,7 +104,7 @@ export const nb = {
     open_chat: "Åpne chat",
     info: "Informasjon",
     error: "Feil",
-};
+} as const;
 
 const en: Texts = {
     skip_link: "Go to main content",

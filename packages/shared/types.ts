@@ -22,9 +22,11 @@ export const clientTextsKeys = [
 
 export type ClientTexts = Pick<Texts, (typeof clientTextsKeys)[number]>;
 
-type NBTextKeys = keyof typeof nb;
-type NBTextVals = (typeof nb)[NBTextKeys];
-export type Texts = { [key in NBTextKeys]: NBTextVals };
+type NBTexts = typeof nb;
+type NBTextKeys = keyof NBTexts;
+export type Texts = {
+    [key in NBTextKeys]: NBTexts[key] extends string ? string : NBTexts[key];
+};
 
 export type OpsMessage = {
     heading: string;
