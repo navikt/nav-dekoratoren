@@ -33,17 +33,24 @@ class DropdownMenu extends HTMLElement {
         }
     };
 
+    private handleButtonClick = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+            this.close();
+        }
+    };
+
     connectedCallback() {
         this.button = this.querySelector(":scope > button")!;
         this.button.addEventListener("click", () => this.toggle());
-
         window.addEventListener("click", this.handleWindowClick);
         window.addEventListener("closemenus", this.close);
+        window.addEventListener("keydown", this.handleButtonClick);
     }
 
     disconnectedCallback() {
         window.removeEventListener("click", this.handleWindowClick);
         window.removeEventListener("closemenus", this.close);
+        window.removeEventListener("keydown", this.handleButtonClick);
     }
 }
 
