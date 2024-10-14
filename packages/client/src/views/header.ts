@@ -1,6 +1,6 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
-import { updateDecoratorParams } from "../params";
+import { env, updateDecoratorParams } from "../params";
 import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
@@ -28,6 +28,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 
 class Header extends HTMLElement {
     private headerContent?: HTMLElement | null;
+    private userId?: string;
 
     private handleMessage = (e: MessageEvent) => {
         if (!msgSafetyCheck(e)) {
@@ -75,12 +76,28 @@ class Header extends HTMLElement {
         }
     };
 
+    private handleAuthUpdated = (
+        e: CustomEvent<CustomEvents["authupdated"]>,
+    ) => {
+        const currAuthUserId = e.detail.auth.authenticated
+            ? e.detail.auth.userId
+            : undefined;
+        const storedUserId = this.userId;
+
+        this.userId = currAuthUserId;
+
+        if (storedUserId && storedUserId !== currAuthUserId) {
+            this.userId = currAuthUserId;
+            window.location.href = `${env("APP_URL")}`;
+        }
+    };
+
     private handleFocus = async () => {
         await refreshAuthData();
     };
 
-    private handleFocusOut = (e: FocusEvent) => {
-        if (!this.headerContent?.contains(e.relatedTarget as Node)) {
+    private handleFocusIn = (e: FocusEvent) => {
+        if (!this.headerContent?.contains(e.target as Node)) {
             this.dispatchEvent(new Event("closemenus", { bubbles: true }));
         }
     };
@@ -90,7 +107,8 @@ class Header extends HTMLElement {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         window.addEventListener("focus", this.handleFocus);
-        window.addEventListener("focusout", this.handleFocusOut);
+        window.addEventListener("authupdated", this.handleAuthUpdated);
+        window.addEventListener("focusin", this.handleFocusIn);
 
         this.addEventListener(
             "click",
@@ -106,7 +124,7 @@ class Header extends HTMLElement {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
         window.removeEventListener("focus", this.handleFocus);
-        window.removeEventListener("focusout", this.handleFocusOut);
+        window.removeEventListener("focusin", this.handleFocusIn);
     }
 }
 
