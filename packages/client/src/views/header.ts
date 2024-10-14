@@ -75,8 +75,8 @@ class Header extends HTMLElement {
         }
     };
 
-    private handleFocusOut = (e: FocusEvent) => {
-        if (!this.headerContent?.contains(e.relatedTarget as Node)) {
+    private handleFocusIn = (e: FocusEvent) => {
+        if (!this.headerContent?.contains(e.target as Node)) {
             this.dispatchEvent(new Event("closemenus", { bubbles: true }));
         }
     };
@@ -85,7 +85,7 @@ class Header extends HTMLElement {
         this.headerContent = this.querySelector(`.${cls.siteheader}`);
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
-        window.addEventListener("focusout", this.handleFocusOut);
+        window.addEventListener("focusin", this.handleFocusIn);
 
         this.addEventListener(
             "click",
@@ -100,7 +100,7 @@ class Header extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
-        window.removeEventListener("focusout", this.handleFocusOut);
+        window.removeEventListener("focusin", this.handleFocusIn);
     }
 }
 
