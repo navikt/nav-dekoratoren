@@ -88,7 +88,7 @@ class Header extends HTMLElement {
 
         if (storedUserId && storedUserId !== currAuthUserId) {
             this.userId = currAuthUserId;
-            window.location.href = `${env("APP_URL")}`;
+            window.location.href = `${env("XP_BASE_URL")}`;
         }
     };
 
