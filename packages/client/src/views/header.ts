@@ -88,7 +88,7 @@ class Header extends HTMLElement {
 
         if (storedUserId && storedUserId !== currAuthUserId) {
             this.userId = currAuthUserId;
-            window.location.href = `${env("XP_BASE_URL")}`;
+            window.location.href = env("XP_BASE_URL");
         }
     };
 
@@ -123,6 +123,7 @@ class Header extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("authupdated", this.handleAuthUpdated);
         window.removeEventListener("focus", this.handleFocus);
         window.removeEventListener("focusin", this.handleFocusIn);
     }
