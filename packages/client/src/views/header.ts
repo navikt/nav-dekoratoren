@@ -1,6 +1,6 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
-import { env, updateDecoratorParams } from "../params";
+import { env, param, updateDecoratorParams } from "../params";
 import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
@@ -24,6 +24,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "language",
     "chatbotVisible",
     "context",
+    "redirectOnUserChange",
 ] as const;
 
 class Header extends HTMLElement {
@@ -106,9 +107,12 @@ class Header extends HTMLElement {
         this.headerContent = this.querySelector(`.${cls.siteheader}`);
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
-        window.addEventListener("focus", this.handleFocus);
-        window.addEventListener("authupdated", this.handleAuthUpdated);
         window.addEventListener("focusin", this.handleFocusIn);
+
+        if (param("redirectOnUserChange")) {
+            window.addEventListener("focus", this.handleFocus);
+            window.addEventListener("authupdated", this.handleAuthUpdated);
+        }
 
         this.addEventListener(
             "click",

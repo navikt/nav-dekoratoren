@@ -123,6 +123,7 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 | logoutUrl           | string                                                 | undefined        | Sets the URL for logging out                                                   |
 | maskHotjar          | boolean                                                | true             | Mask the entire HTML DOM for HotJar                                            |
 | logoutWarning       | boolean                                                | true             | Activate or deactivate the Logout Warning                                      |
+| redirectOnUserChange| boolean                                                | false            | Redirects to nav.no if different user is logged in                             |
 
 
 ### Details
@@ -173,6 +174,9 @@ The Decorator’s own elements that contain personal information are masked rega
 A modal will display after 55 minutes of login time, allowing the user to extend the session by another 60 minutes or to log out immediately. This serves both as a convenience for the user and to meet WCAG accessibility requirements.
 
 If you choose to disable this feature, you will need to implement a similar logout warning yourself.
+
+#### redirectOnUserChange
+If set to true, the page will redirect to nav.no if there is a change of current user in header and authenticated user on server. May occur if user has multiple windows open, and a new user logs in in one of them, and then navigates to a window the old user had open.
 
 ### Examples
 
