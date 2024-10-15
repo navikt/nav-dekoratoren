@@ -1,6 +1,6 @@
 import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
-import { updateDecoratorParams } from "../params";
+import { env, param, updateDecoratorParams } from "../params";
 import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
@@ -24,10 +24,12 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "language",
     "chatbotVisible",
     "context",
+    "redirectOnUserChange",
 ] as const;
 
 class Header extends HTMLElement {
     private headerContent?: HTMLElement | null;
+    private userId?: string;
 
     private handleMessage = (e: MessageEvent) => {
         if (!msgSafetyCheck(e)) {
@@ -75,6 +77,26 @@ class Header extends HTMLElement {
         }
     };
 
+    private handleAuthUpdated = (
+        e: CustomEvent<CustomEvents["authupdated"]>,
+    ) => {
+        const currAuthUserId = e.detail.auth.authenticated
+            ? e.detail.auth.userId
+            : undefined;
+        const storedUserId = this.userId;
+
+        this.userId = currAuthUserId;
+
+        if (storedUserId && storedUserId !== currAuthUserId) {
+            this.userId = currAuthUserId;
+            window.location.href = env("XP_BASE_URL");
+        }
+    };
+
+    private handleFocus = async () => {
+        await refreshAuthData();
+    };
+
     private handleFocusIn = (e: FocusEvent) => {
         if (!this.headerContent?.contains(e.target as Node)) {
             this.dispatchEvent(new Event("closemenus", { bubbles: true }));
@@ -86,6 +108,11 @@ class Header extends HTMLElement {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         window.addEventListener("focusin", this.handleFocusIn);
+
+        if (param("redirectOnUserChange")) {
+            window.addEventListener("focus", this.handleFocus);
+            window.addEventListener("authupdated", this.handleAuthUpdated);
+        }
 
         this.addEventListener(
             "click",
@@ -100,6 +127,8 @@ class Header extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("authupdated", this.handleAuthUpdated);
+        window.removeEventListener("focus", this.handleFocus);
         window.removeEventListener("focusin", this.handleFocusIn);
     }
 }

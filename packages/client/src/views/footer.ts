@@ -32,7 +32,7 @@ class Footer extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
 

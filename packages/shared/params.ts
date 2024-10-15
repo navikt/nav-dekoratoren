@@ -74,6 +74,7 @@ export const paramsSchema = z.object({
     logoutWarning: z.boolean().default(true),
     bedrift: z.string().optional(),
     ssrMainMenu: z.boolean().default(false),
+    redirectOnUserChange: z.boolean().default(false),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -95,6 +96,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "maskHotjar",
     "logoutWarning",
     "feedback",
+    "redirectOnUserChange",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
