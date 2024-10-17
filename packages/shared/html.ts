@@ -1,4 +1,3 @@
-import { P, match } from "ts-pattern";
 import { Language } from "./params";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
@@ -82,23 +81,24 @@ const html = (
     ...values: TemplateStringValues[]
 ): Template => ({
     render: (params) => {
-        const renderValue = (item: TemplateStringValues): string =>
-            match(item)
+        const renderValue = (item: TemplateStringValues): string => {
+            if (Array.isArray(item)) {
                 // Join arrays
-                .with(P.array(P.any), (items) =>
-                    items.map(renderValue).join(""),
-                )
+                return item.map(renderValue).join("");
+            } else if (item === false || item === null || item === undefined) {
                 // Nullish values to empty string
-                .with(P.union(false, P.nullish), () => "")
+                return "";
+            } else if (typeof item === "string") {
                 // Escape strings
-                .with(P.string, (str) => escapeHtml(str))
-                // Convert numbers to string
-                .with(P.number, (num) => String(num))
-                // Make "true" into true string
-                .with(true, () => "true")
+                return escapeHtml(item);
+            } else if (typeof item === "number" || item === true) {
+                // Convert numbers and true to string
+                return String(item);
+            } else {
                 // Render template
-                .with(P.select(), (template) => template.render(params).trim())
-                .exhaustive();
+                return item.render(params).trim();
+            }
+        };
 
         return String.raw({ raw: strings }, ...values.map(renderValue));
     },
@@ -112,7 +112,7 @@ export const unsafeHtml = (htmlString: string) => ({
 
 export default html;
 
-export type AttribueValue = number | string | boolean | string[];
+export type AttributeValue = undefined | number | string | boolean | string[];
 
 const toKebabCase = (str: string) =>
     str.replace(
@@ -120,26 +120,24 @@ const toKebabCase = (str: string) =>
         (match) => "-" + match.toLowerCase(),
     );
 
+export const buildHtmlAttribsString = (
+    attributes: Record<string, AttributeValue>,
+) =>
+    Object.entries(attributes)
+        .filter(
+            ([, value]) =>
+                value !== undefined && value !== null && value !== false,
+        )
+        .map(([name, value]) => {
+            const nameFinal =
+                name === "className" ? "class" : toKebabCase(name);
+
+            return value === true ? nameFinal : `${nameFinal}="${value}"`;
+        })
+        .join(" ");
+
 export const htmlAttributes = (
-    attributes: Record<string, AttribueValue>,
+    attributes: Record<string, AttributeValue>,
 ): Template => {
-    return unsafeHtml(
-        Object.entries(attributes)
-            .filter(([, value]) => value !== undefined && value !== null)
-            .map(
-                ([name, value]: [string, AttribueValue]): [
-                    string,
-                    AttribueValue,
-                ] => [name === "className" ? "class" : name, value],
-            )
-            .map(([name, value]) =>
-                typeof value === "boolean"
-                    ? value
-                        ? toKebabCase(name)
-                        : ""
-                    : `${toKebabCase(name)}="${value}"`,
-            )
-            .filter(Boolean)
-            .join(" "),
-    );
+    return unsafeHtml(buildHtmlAttribsString(attributes));
 };

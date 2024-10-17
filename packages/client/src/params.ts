@@ -1,37 +1,77 @@
-import { Params, type ParamKey, Environment } from "decorator-shared/params";
+import Cookies from "js-cookie";
+import {
+    ClientParams,
+    Context,
+    Environment,
+    Language,
+} from "decorator-shared/params";
 import { createEvent } from "./events";
 
-export const hasParam = (paramKey: ParamKey): boolean => {
-    return window.__DECORATOR_DATA__.params[paramKey] !== undefined;
+type ParamKey = keyof ClientParams;
+type EnvKey = keyof Environment;
+
+const CONTEXT_COOKIE = "decorator-context";
+const LANGUAGE_COOKIE = "decorator-language";
+
+export const param = <TKey extends ParamKey>(paramKey: TKey) => {
+    return window.__DECORATOR_DATA__.params[paramKey];
 };
 
-export const param = <TKey extends keyof Params>(paramKey: TKey) => {
-    return window.__DECORATOR_DATA__.params[paramKey] as Params[TKey];
+export const env = <TKey extends EnvKey>(envKey: TKey) => {
+    return window.__DECORATOR_DATA__.env[envKey];
 };
 
-export const env = <TKey extends keyof Environment>(envKey: TKey): string => {
-    return window.__DECORATOR_DATA__.env[envKey] as Environment[TKey];
-};
+export const updateDecoratorParams = (params: Partial<ClientParams>) => {
+    const updatedParams = { ...params };
 
-export const updateDecoratorParams = (params: Partial<Params>) => {
-    const updatedParams = params;
-
-    Object.entries(params).map(([key, value]) => {
-        if (param(key as keyof Params) === value) {
-            delete updatedParams[key as keyof Params];
+    Object.entries(params).forEach(([key, value]) => {
+        if (param(key as ParamKey) === value) {
+            delete updatedParams[key as ParamKey];
         }
     });
 
-    if (Object.keys(updatedParams).length > 0) {
-        window.__DECORATOR_DATA__.params = {
-            ...window.__DECORATOR_DATA__.params,
-            ...updatedParams,
-        };
+    window.__DECORATOR_DATA__.params = {
+        ...window.__DECORATOR_DATA__.params,
+        ...updatedParams,
+    };
 
+    const { context, language } = window.__DECORATOR_DATA__.params;
+
+    if (context) {
+        Cookies.set(CONTEXT_COOKIE, context);
+    }
+
+    if (language) {
+        Cookies.set(LANGUAGE_COOKIE, language);
+    }
+
+    if (Object.keys(updatedParams).length > 0) {
         window.dispatchEvent(
             createEvent("paramsupdated", {
                 detail: { params: updatedParams },
             }),
         );
     }
+};
+
+export const initParams = () => {
+    const rawParams = window.__DECORATOR_DATA__.rawParams;
+
+    const initialParams: Partial<ClientParams> = {};
+
+    const language =
+        rawParams?.language ||
+        (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
+    if (language) {
+        initialParams.language = language;
+    }
+
+    const context =
+        rawParams?.context ||
+        (Cookies.get(CONTEXT_COOKIE) as Context | undefined);
+    if (context) {
+        initialParams.context = context;
+    }
+
+    updateDecoratorParams(initialParams);
 };

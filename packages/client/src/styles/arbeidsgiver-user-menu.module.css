@@ -62,24 +62,6 @@
     text-decoration: underline;
 }
 
-.menuItemIcon {
-    color: var(--a-icon-subtle);
-    font-size: 1.5rem;
-}
-
-.logout {
-    position: sticky;
-    bottom: 0;
-}
-
-.link {
-    margin-top: var(--a-spacing-3);
-    text-underline-offset: 0.15em;
-    color: var(--a-text-default);
-    cursor: pointer;
-    align-self: center;
-}
-
-.link:hover {
-    text-decoration: none;
+.arbeidsgiverMenuDropdown.arbeidsgiverMenuDropdown {
+    max-width: 520px;
 }

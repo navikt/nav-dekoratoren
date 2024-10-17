@@ -6,6 +6,7 @@ metadata:
   namespace: personbruker
   labels:
     team: personbruker
+    dekoratorenType: external
   annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "256M"
       nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
@@ -31,6 +32,8 @@ spec:
       rules:
         - application: nav-dekoratoren-api
         - application: navno-search-api
+        - application: tms-varsel-api
+          namespace: min-side
       external:
         {{#each outboundHosts as |host|}}
         - host: {{host}}
@@ -40,6 +43,11 @@ spec:
         - application: "*"
           namespace: "*"
   env:
+    - name: APP_NAME
+      value: {{appName}}
+    - name: VERSION_ID
+      # Ensure this is always parsed as string!
+      value: "{{versionId}}"
   {{#each env as |var|}}
     - name: {{var.name}}
       value: {{var.value}}
@@ -50,6 +58,8 @@ spec:
   filesFrom:
     - configmap: dekoratoren-config
       mountPath: /app/config
+    - configmap: dekoratoren-version-authority-{{deployInstance}}
+      mountPath: /app/version-authority
   replicas:
   {{#with replicas}}
     min: {{min}}

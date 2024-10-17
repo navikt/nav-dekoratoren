@@ -1,6 +1,8 @@
 name: Deploy unleash-apitoken
 on:
   push:
+    branches:
+      - main
     paths:
       - ".nais/unleash-api-token.dev.yaml"
       - ".nais/unleash-api-token.prod.yaml"
@@ -26,7 +28,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4

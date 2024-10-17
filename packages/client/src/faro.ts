@@ -2,7 +2,9 @@
  * This adds information about decorator parameters to the Grafana faro. To aid with debugging.
  * */
 export function addFaroMetaData() {
-    if (!window.faro) return;
+    if (!window.faro) {
+        return;
+    }
 
     window.faro.api.setSession({
         attributes: {
@@ -10,6 +12,4 @@ export function addFaroMetaData() {
             decorator_params: JSON.stringify(window.__DECORATOR_DATA__.params),
         },
     });
-
-    console.log("Faro: Adding metadata");
 }

@@ -1,5 +1,4 @@
 .screenshareButton {
-    border: none;
     background: none;
     padding: 0;
     margin: 0;
@@ -14,7 +13,8 @@
     text-decoration-color: var(--a-deepblue-200);
     text-decoration-thickness: 0.0625em;
     text-underline-offset: 0.15em;
-    padding-block: var(--a-spacing-1);
+    padding-block: 0.5625rem;
+    border: 1px solid transparent;
 }
 
 .screenshareButton:hover {
@@ -28,18 +28,11 @@
     outline: none;
 }
 
-@media (min-width: 768px) {
-    .screenshareButton {
-        padding-block: var(--a-spacing-2);
-    }
-}
-
 [data-theme="dark"] .screenshareButton {
+    font-weight: var(--a-font-weight-bold);
     color: var(--a-text-on-inverted);
-    padding-block: var(--a-spacing-2);
     padding-inline: var(--a-spacing-4) var(--a-spacing-3);
     background-color: var(--a-deepblue-700);
-    border: 1px solid var(--a-deepblue-500);
     border-radius: var(--a-border-radius-medium);
     align-items: center;
     transition:

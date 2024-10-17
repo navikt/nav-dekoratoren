@@ -8,7 +8,6 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    padding-block: var(--a-spacing-6) var(--a-spacing-8);
     transition-duration: 0.4s;
     transition-property: max-height, opacity;
     transition-timing-function: ease-in;
@@ -26,14 +25,15 @@
     transition-property: max-height;
     transition-timing-function: ease-in-out;
     z-index: 1;
-    height: calc(100vh - 72px);
+    /* fallback to vh units for older browsers without dvh support */
+    height: calc(100vh - var(--header-height, 72px) - 6rem);
+    @media (min-height: 0dvh) {
+        height: calc(100dvh - var(--header-height));
+    }
     overflow-y: auto;
-}
+    overscroll-behavior: contain;
 
-@media (min-width: 768px) {
-    :where(.dropdownMenuOpen) > .dropdownMenuContainer {
+    @media (min-width: 768px) {
         height: initial;
-        overflow-y: initial;
-        max-height: calc(100vh - 80px);
     }
 }

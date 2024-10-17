@@ -1,4 +1,4 @@
-import { expect } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { test } from "./fixtures";
 
 test("decorator utils", async ({ page }) => {
@@ -20,7 +20,7 @@ test("decorator utils", async ({ page }) => {
                     {
                         title: "Ditt sykefravær",
                         url: "https://www.nav.no/syk/sykefravaer",
-                        handleInApp: false,
+                        handleInApp: true,
                     },
                     {
                         title: "Sykmeldinger",
@@ -43,4 +43,101 @@ test("decorator utils", async ({ page }) => {
         });
     });
     await expect(page.getByRole("button", { name: "Meny" })).toBeVisible();
+    const payload = page.evaluate(
+        () =>
+            new Promise((resolve) => {
+                window.addEventListener("message", (event: MessageEvent) => {
+                    if (
+                        event.data.source === "decorator" &&
+                        event.data.event === "breadcrumbClick"
+                    ) {
+                        resolve(event.data.payload);
+                    }
+                });
+            }),
+    );
+
+    await page.getByText("Ditt sykefravær").click();
+    expect(await payload).toEqual({
+        url: "https://www.nav.no/syk/sykefravaer",
+        title: "Ditt sykefravær",
+        handleInApp: true,
+    });
+});
+
+const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
+    const amplitudeEventDataPromise = page
+        .waitForRequest(
+            (request) =>
+                request.url() === "https://amplitude.nav.no/collect-auto" &&
+                request.postDataJSON().e.includes("brødsmule"),
+        )
+        .then((request) => request.postDataJSON().e);
+
+    await page.getByText("Ola Nordmann").click();
+
+    return amplitudeEventDataPromise;
+};
+
+test("Breadcrumbs without analyticsTitle should redact the title when logging", async ({
+    page,
+}) => {
+    await page.evaluate(() => {
+        window.postMessage({
+            source: "decoratorClient",
+            event: "params",
+            payload: {
+                breadcrumbs: [
+                    {
+                        title: "Ola Nordmann",
+                        url: "/syk/sykmeldinger/foo",
+                        handleInApp: true,
+                    },
+                    {
+                        title: "Mine sykmeldinger",
+                        url: "/syk/sykmeldinger/foo/bar",
+                        handleInApp: true,
+                    },
+                ],
+            },
+        });
+    });
+
+    const amplitudeEventData =
+        await clickBreadcrumbAndGetAmplitudeEventData(page);
+
+    expect(amplitudeEventData).toContain("[redacted]");
+    expect(amplitudeEventData).not.toContain("Ola Nordmann");
+});
+
+test("Breadcrumbs with analyticsTitle should log this in place of the title", async ({
+    page,
+}) => {
+    await page.evaluate(() => {
+        window.postMessage({
+            source: "decoratorClient",
+            event: "params",
+            payload: {
+                breadcrumbs: [
+                    {
+                        title: "Ola Nordmann",
+                        analyticsTitle: "Min analytics title",
+                        url: "/syk/sykmeldinger/foo",
+                        handleInApp: true,
+                    },
+                    {
+                        title: "Mine sykmeldinger",
+                        url: "/syk/sykmeldinger/foo/bar",
+                        handleInApp: true,
+                    },
+                ],
+            },
+        });
+    });
+
+    const amplitudeEventData =
+        await clickBreadcrumbAndGetAmplitudeEventData(page);
+
+    expect(amplitudeEventData).toContain("Min analytics title");
+    expect(amplitudeEventData).not.toContain("Ola Nordmann");
 });

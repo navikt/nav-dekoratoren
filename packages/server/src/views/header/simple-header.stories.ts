@@ -3,7 +3,7 @@ import type { SimpleHeaderProps } from "./simple-header";
 import { SimpleHeader } from "./simple-header";
 
 const meta: Meta<SimpleHeaderProps> = {
-    title: "header/simple",
+    title: "header/simple-header",
     tags: ["autodocs"],
     render: SimpleHeader,
 };

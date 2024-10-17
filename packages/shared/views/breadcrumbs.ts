@@ -1,21 +1,15 @@
 import clsx from "clsx";
-import globalCls from "decorator-client/src/styles/global.module.css";
-import { LenkeMedSporing } from "decorator-shared/views/lenke-med-sporing-helpers";
-import html, { Template } from "../html";
+import aksel from "decorator-client/src/styles/aksel.module.css";
+import { ChevronRightIcon, HouseIcon } from "decorator-icons";
+import html, { Template, htmlAttributes } from "../html";
 import { Breadcrumb } from "../params";
 import { isNavUrl } from "../utils";
 import cls from "./breadcrumbs.module.css";
-import { ForwardChevron } from "./icons";
-import { HomeIcon } from "./icons/home";
-
-const analyticsEventArgs = {
-    category: "dekorator-header",
-    komponent: "brødsmule",
-} as const;
 
 export type BreadcrumbsProps = {
     breadcrumbs: Breadcrumb[];
     label: Template;
+    frontPageUrl: string;
 };
 
 const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
@@ -35,7 +29,11 @@ const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
     });
 };
 
-export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({
+    breadcrumbs,
+    label,
+    frontPageUrl,
+}: BreadcrumbsProps) => {
     validateBreadcrumbs(breadcrumbs);
 
     return breadcrumbs.length > 0
@@ -43,50 +41,40 @@ export const Breadcrumbs = ({ breadcrumbs, label }: BreadcrumbsProps) => {
               <nav aria-label="${label}">
                   <ol class="${cls.list}">
                       <li class="${cls.listItem}">
-                          ${LenkeMedSporing({
-                              href: "/",
-                              analyticsEventArgs: {
-                                  ...analyticsEventArgs,
-                                  action: "nav.no",
-                              },
-                              children: html`
-                                  ${HomeIcon({ className: cls.svg })}
-                                  <span class="${cls.span}">nav.no</span>
-                              `,
-                              className: clsx(
-                                  cls.link,
-                                  globalCls["navds-link"],
-                              ),
-                          })}
-                          ${ForwardChevron()}
+                          <a
+                              href="${frontPageUrl}"
+                              class="${clsx(cls.homeLink, aksel["navds-link"])}"
+                              >${HouseIcon({ className: cls.svg })} nav.no
+                          </a>
+                          ${ChevronRightIcon()}
                       </li>
                       ${breadcrumbs.map(
-                          ({ title, url, handleInApp }, index) => html`
+                          (
+                              { title, url, handleInApp, analyticsTitle },
+                              index,
+                          ) => html`
                               <li class="${cls.listItem}">
                                   ${index === breadcrumbs.length - 1
                                       ? title
                                       : html`
-                                            <d-breadcrumb
-                                                data-analytics-event-args="${JSON.stringify(
-                                                    {
-                                                        ...analyticsEventArgs,
-                                                        label: "[redacted]",
-                                                        action: "[redacted]",
-                                                    },
-                                                )}"
-                                                ${handleInApp &&
-                                                "data-handle-in-app"}
-                                                class="${globalCls[
-                                                    "navds-link"
-                                                ]}"
-                                                href="${url}"
+                                            <a
+                                                ${htmlAttributes({
+                                                    className: clsx(
+                                                        cls.link,
+                                                        aksel["navds-link"],
+                                                    ),
+                                                    ["data-handle-in-app"]:
+                                                        handleInApp ?? false,
+                                                    ["data-analytics-title"]:
+                                                        analyticsTitle,
+                                                    href: url ?? "#",
+                                                })}
+                                                >${title}</a
                                             >
-                                                ${title}
-                                            </d-breadcrumb>
                                         `}
                                   ${index === breadcrumbs.length - 1
                                       ? ""
-                                      : ForwardChevron()}
+                                      : ChevronRightIcon()}
                               </li>
                           `,
                       )}

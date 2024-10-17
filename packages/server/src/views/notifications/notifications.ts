@@ -1,12 +1,8 @@
 import clsx from "clsx";
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
+import { ChevronRightIcon, MessageIcon, TaskIcon } from "decorator-icons";
 import html from "decorator-shared/html";
-import { ForwardChevron } from "decorator-shared/views/icons";
-import {
-    MessageIcon,
-    TaskIcon,
-} from "decorator-shared/views/icons/notifications";
 import i18n from "../../i18n";
 import {
     MaskedNotification,
@@ -18,6 +14,7 @@ import { NotificationsEmpty } from "./notifications-empty";
 
 export type NotificationsProps = {
     notifications: Notification[] | null;
+    minsideUrl: string;
 };
 
 const kanalerToMetadata = (kanaler: string[]) => {
@@ -53,13 +50,14 @@ const MaskedNotificationComp = ({
     </div>`;
 
 const NotificationComp = ({
-    notification: { type, date, link, text, channels },
+    notification: { id, type, date, link, text, channels },
 }: {
     notification: UnmaskedNotification;
 }) =>
     html` <link-notification
         class="${cls.notification} ${cls.linkNotification}"
         data-type="${type}"
+        data-id="${id}"
     >
         <div class="${cls.header}">
             <div class="${cls.headerLeft}">
@@ -68,7 +66,7 @@ const NotificationComp = ({
             </div>
             <div class="${cls.headerRight}">
                 <local-time datetime="${date}" class="${cls.date}"></local-time>
-                ${ForwardChevron({ className: cls.chevron })}
+                ${ChevronRightIcon({ className: cls.chevron })}
             </div>
         </div>
         <a href="${link}" class="${cls.text}">${text}</a>
@@ -101,7 +99,10 @@ const ArchivableNotification = ({
         </div>
     </archivable-notification>`;
 
-export function Notifications({ notifications }: NotificationsProps) {
+export function Notifications({
+    notifications,
+    minsideUrl,
+}: NotificationsProps) {
     return html` <div class="${cls.notifications}">
         <h2 class="${cls.notificationsHeading}">${i18n("notifications")}</h2>
         ${notifications
@@ -126,15 +127,15 @@ export function Notifications({ notifications }: NotificationsProps) {
                           `,
                       )}
                   </ul>`
-                : NotificationsEmpty()
+                : NotificationsEmpty({ minsideUrl })
             : NotificationsErrorView()}
         <a
             class="${clsx(
                 cls.allNotificationsLink,
-                globalCls["navds-link"],
-                globalCls["navds-link--neutral"],
+                aksel["navds-link"],
+                aksel["navds-link--neutral"],
             )}"
-            href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+            href="${minsideUrl}/tidligere-varsler"
         >
             ${i18n("earlier_notifications")}
         </a>

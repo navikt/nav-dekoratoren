@@ -1,8 +1,10 @@
 import html from "decorator-shared/html";
 import debounce from "lodash.debounce";
-import cls from "../styles/search-form.module.css";
-import { env, param } from "../params";
 import { amplitudeEvent } from "../analytics/amplitude";
+import { endpointUrlWithParams } from "../helpers/urls";
+import { env, param } from "../params";
+import cls from "../styles/search-form.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -42,17 +44,17 @@ class SearchMenu extends HTMLElement {
         this.form?.addEventListener("submit", (e) => {
             e.preventDefault();
             const xpOrigin = env("XP_BASE_URL");
-            window.location.assign(`${xpOrigin}/sok?ord=${this.input?.value}`);
+            window.location.assign(
+                `${xpOrigin}/sok?ord=${this.input?.value}&f=${param("context")}`,
+            );
         });
 
         const fetchSearch = (query: string) => {
-            const url = `${env("APP_URL")}/api/search?${Object.entries({
+            const url = endpointUrlWithParams("/api/search", {
                 language: param("language"),
                 context: param("context"),
                 q: encodeURIComponent(query),
-            })
-                .map(([key, value]) => `${key}=${value}`)
-                .join("&")}`;
+            });
 
             amplitudeEvent({
                 eventName: "søk",
@@ -101,4 +103,4 @@ class SearchMenu extends HTMLElement {
     }
 }
 
-customElements.define("search-menu", SearchMenu);
+defineCustomElement("search-menu", SearchMenu);

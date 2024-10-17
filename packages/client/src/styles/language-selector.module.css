@@ -1,28 +1,24 @@
 .languageSelector {
     width: fit-content;
     position: relative;
+    z-index: 100;
 }
 
 .languageSelector:only-child {
     margin-left: auto;
 }
 
-.empty {
-    display: none;
-}
-
 .button {
     margin: 0;
     font: inherit;
-    font-size: var(--a-font-size-medium);
-    line-height: 22px;
+    font-size: var(--a-font-size-large);
     color: inherit;
     cursor: pointer;
     background-color: var(--a-surface-default);
-    padding: var(--a-spacing-2);
+    padding: 0.5625rem;
     display: grid;
     grid-auto-flow: column;
-    gap: var(--a-spacing-1);
+    gap: var(--a-spacing-2);
     align-items: center;
     border: 1px solid var(--a-gray-600);
     border-radius: var(--a-border-radius-medium);
@@ -38,10 +34,6 @@
     margin-right: var(--a-spacing-2);
 }
 
-.icon {
-    font-size: var(--a-font-size-xlarge);
-}
-
 .menu {
     position: absolute;
     width: 100%;
@@ -54,16 +46,13 @@
     margin-top: 1px;
     border-bottom-right-radius: var(--a-border-radius-medium);
     border-bottom-left-radius: var(--a-border-radius-medium);
-    overflow: hidden; /* fallback for browser that don't support clip */
+    overflow: hidden;
+    /* fallback for browser that don't support clip */
     overflow: clip;
 }
 
 .menu > :not(:last-child) {
     border-bottom: 1px solid var(--a-gray-200);
-}
-
-.menu.hidden {
-    display: none;
 }
 
 .option {

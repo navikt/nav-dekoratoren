@@ -42,7 +42,7 @@
     display: none;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
     .arbeidsflate {
         display: flex;
         height: 100%;

@@ -1,33 +1,31 @@
+import { AuthDataResponse } from "decorator-shared/auth";
 import { CustomEvents } from "../events";
-import html from "decorator-shared/html";
-import cls from "decorator-client/src/styles/user-menu.module.css";
-import iconButtonCls from "decorator-client/src/styles/icon-button.module.css";
-import i18n from "../i18n";
-
-const Loader = () => html`
-    <span class="${cls.loader} ${iconButtonCls.iconButtonSpan}"
-        >${i18n("loading")}</span
-    >
-`;
+import cls from "../styles/user-menu.module.css";
+import utils from "../styles/utils.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class UserMenu extends HTMLElement {
-    constructor() {
-        super();
-        this.innerHTML = Loader().render(window.__DECORATOR_DATA__.params);
-    }
-
-    private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
+    private update = (auth: AuthDataResponse) => {
         this.classList.add(cls.userMenuContainer);
-        this.innerHTML = e.detail.usermenuHtml;
+        this.querySelector(`.${cls.loader}`)?.classList.add(utils.hidden);
+        if (auth.auth.authenticated) {
+            this.innerHTML = auth.usermenuHtml!;
+        } else {
+            this.querySelector("login-button")?.classList.remove(utils.hidden);
+        }
     };
 
-    private connectedCallback() {
+    private onAuthUpdated = (e: CustomEvent<CustomEvents["authupdated"]>) => {
+        this.update(e.detail);
+    };
+
+    connectedCallback() {
         window.addEventListener("authupdated", this.onAuthUpdated);
     }
 
-    private disconnectedCallback() {
+    disconnectedCallback() {
         window.removeEventListener("authupdated", this.onAuthUpdated);
     }
 }
 
-customElements.define("user-menu", UserMenu);
+defineCustomElement("user-menu", UserMenu);

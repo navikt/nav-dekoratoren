@@ -1,14 +1,10 @@
-import { Params } from "./params";
-
-export function erNavDekoratoren(url: string) {
-    return url.includes("dekoratoren") || url.includes("localhost:8089");
-}
+import { ClientParams } from "./params";
 
 export function makeFrontpageUrl({
     context,
     language,
     baseUrl,
-}: Pick<Params, "context" | "language"> & {
+}: Pick<ClientParams, "context" | "language"> & {
     baseUrl: string;
 }) {
     if (language === "en") {
@@ -24,3 +20,13 @@ export function makeFrontpageUrl({
             return `${baseUrl}/no/samarbeidspartner`;
     }
 }
+
+const isLocalhost = (url: string) =>
+    /^(https?:\/\/localhost(:\d+)?)/i.test(url);
+const isPath = (url: string) => /^(\/)/i.test(url);
+const isNavOrNais = (url: string) =>
+    /^((https:\/\/([a-z0-9-]+\.)*((nav\.no)|(nais\.io)))($|\/))/i.test(url);
+
+export const isValidNavUrl = (url: string) => {
+    return isLocalhost(url) || isPath(url) || isNavOrNais(url);
+};

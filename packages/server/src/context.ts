@@ -1,11 +1,11 @@
 import { Context, Language } from "decorator-shared/params";
-import { TextKey } from "decorator-shared/types";
 import { env } from "./env/server";
 import { isNorwegian } from "./i18n";
 
+const isDevMode = env.NODE_ENV === "development";
+
 export type ContextLink = {
     url: string;
-    lenkeTekstId: TextKey;
     context: Context;
 };
 
@@ -13,18 +13,19 @@ export const makeContextLinks = (language: Language): ContextLink[] =>
     isNorwegian(language)
         ? [
               {
-                  url: `${env.XP_BASE_URL}`,
-                  lenkeTekstId: "rolle_privatperson",
+                  url: isDevMode ? "?context=privatperson" : env.XP_BASE_URL,
                   context: "privatperson",
               },
               {
-                  url: `${env.XP_BASE_URL}/no/bedrift`,
-                  lenkeTekstId: "rolle_arbeidsgiver",
+                  url: isDevMode
+                      ? "?context=arbeidsgiver"
+                      : `${env.XP_BASE_URL}/no/bedrift`,
                   context: "arbeidsgiver",
               },
               {
-                  url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
-                  lenkeTekstId: "rolle_samarbeidspartner",
+                  url: isDevMode
+                      ? "?context=samarbeidspartner"
+                      : `${env.XP_BASE_URL}/no/samarbeidspartner`,
                   context: "samarbeidspartner",
               },
           ]

@@ -1,13 +1,21 @@
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/search-hits.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
+import { ArrowRightIcon } from "decorator-icons";
 import html, { unsafeHtml } from "decorator-shared/html";
-import { ArrowRight } from "decorator-shared/views/icons";
-import { SearchResult } from "../handlers/search-handler";
-import i18n from "../i18n";
 import { Context } from "decorator-shared/params";
+import { env } from "../env/server";
+import i18n from "../i18n";
 
 export type SearchHitsProps = {
-    results: SearchResult;
+    results: {
+        total: number;
+        hits: {
+            displayName: string;
+            highlight: string;
+            href: string;
+        }[];
+    };
     query: string;
     context: Context;
 };
@@ -23,47 +31,45 @@ export const SearchHits = ({
                 ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
-                href="https://www.nav.no/sok?ord=${query}"
-                class="${globalCls["navds-link"]}"
+                href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
+                class="${aksel["navds-link"]}"
             >
                 ${i18n("change_search_filter")}
             </a>
         </div>
         ${total > 0
-            ? html` <ul class="${cls.searchHitList}">
+            ? html`
+                  <ul class="${cls.searchHitList}">
                       ${hits.map(
-                          (hit, index) => html`
+                          (hit) => html`
                               <li>
-                                  <lenke-med-sporing
-                                      href="${hit.href}"
-                                      class="${cls.searchHit}"
-                                      data-analytics-event-args="${JSON.stringify(
-                                          {
-                                              eventName: "resultat-klikk",
-                                              destinasjon: "[redacted]",
-                                              sokeord: "[redacted]",
-                                              treffnr: index + 1,
-                                          },
-                                      )}"
-                                  >
-                                      <h2 class="${cls.title}">
-                                          ${hit.displayName}
-                                      </h2>
-                                      <div>${unsafeHtml(hit.highlight)}</div>
-                                  </lenke-med-sporing>
+                                  <search-hit>
+                                      <a
+                                          href="${hit.href}"
+                                          class="${cls.searchHit}"
+                                      >
+                                          <h2 class="${cls.title}">
+                                              ${hit.displayName}
+                                          </h2>
+                                          <div>
+                                              ${unsafeHtml(hit.highlight)}
+                                          </div>
+                                      </a>
+                                  </search-hit>
                               </li>
                           `,
                       )}
                   </ul>
                   <a
                       class="${cls.searchMoreHits}"
-                      href="https://www.nav.no/sok?ord=${query}"
+                      href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
                   >
                       ${i18n("more_hits")}
-                      ${ArrowRight({
-                          className: cls.searchHitRightArrow,
+                      ${ArrowRightIcon({
+                          className: utils.icons,
                       })}
-                  </a>`
+                  </a>
+              `
             : null}
     </div>
 `;

@@ -1,42 +1,61 @@
-import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
-import { Features, Link, LinkGroup } from "decorator-shared/types";
-import { Feedback } from "../feedback";
-import { LogoutWarning } from "../logout-warning";
+import { Features } from "decorator-shared/types";
+import {
+    getComplexFooterLinks,
+    getSimpleFooterLinks,
+} from "../../menu/main-menu";
+import { env } from "../../env/server";
+import html, { Template } from "decorator-shared/html";
 import { getModal } from "../screensharing-modal";
-import { ChatbotWrapper } from "./chatbot-wrapper";
-import { ComplexFooter } from "./complex-footer";
+import { LogoutWarning } from "../logout-warning";
+import { Feedback } from "../feedback";
 import { SimpleFooter } from "./simple-footer";
+import { ComplexFooter } from "./complex-footer";
+
+const CONTACT_URL = `${env.XP_BASE_URL}/kontaktoss`;
 
 type FooterProps = {
-    data: Params;
+    params: Params;
     features: Features;
-} & (
-    | {
-          simple: true;
-          links: Link[];
-      }
-    | {
-          simple: false;
-          links: LinkGroup[];
-      }
-);
+    withContainers: boolean;
+};
 
-export const Footer = ({ simple, links, data, features }: FooterProps) =>
-    html`<div id="decorator-footer">
+export const FooterTemplate = async ({
+    params,
+    features,
+    withContainers,
+}: FooterProps): Promise<Template> => {
+    const { shareScreen, feedback, simple, simpleFooter, language, context } =
+        params;
+
+    const footerContent = html`
         ${getModal({
-            enabled: data.shareScreen && features["dekoratoren.skjermdeling"],
+            enabled: shareScreen && features["dekoratoren.skjermdeling"],
         })}
-        ${data.chatbot && ChatbotWrapper(data.chatbotVisible)}
-        ${data.logoutWarning ? LogoutWarning() : undefined}
-        ${data.feedback ? Feedback() : undefined}
-        ${simple
+        <d-chatbot></d-chatbot>
+        ${LogoutWarning()}
+        ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}
+        ${simple || simpleFooter
             ? SimpleFooter({
-                  links,
+                  links: await getSimpleFooterLinks({
+                      language,
+                  }),
                   features,
               })
             : ComplexFooter({
-                  links,
+                  links: await getComplexFooterLinks({
+                      language,
+                      context,
+                  }),
                   features,
               })}
-    </div>`;
+    `;
+
+    return withContainers
+        ? html`
+              <div id="decorator-footer">
+                  <decorator-footer>${footerContent}</decorator-footer>
+              </div>
+          `
+        : footerContent;
+};

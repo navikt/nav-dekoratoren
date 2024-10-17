@@ -1,6 +1,6 @@
-import { Params } from "decorator-shared/params";
-import { AnalyticsEventArgs } from "./constants";
 import { Auth } from "decorator-shared/auth";
+import { ClientParams, Context } from "decorator-shared/params";
+import { param } from "../params";
 
 // Dynamic import for lazy loading
 const importAmplitude = () => import("@amplitude/analytics-browser");
@@ -39,6 +39,35 @@ export const initAmplitude = async () => {
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAmplitude = logEventFromApp;
+};
+
+type AnalyticsCategory =
+    | "dekorator-header"
+    | "dekorator-footer"
+    | "dekorator-meny"
+    | "varsler";
+
+type AnalyticsActions =
+    | "søk-dynamisk"
+    | "navlogo"
+    | "lenke"
+    | "lenkegruppe"
+    | "hovedmeny/forsidelenke"
+    | "[redacted]"
+    | "nav.no"
+    | "arbeidsflate-valg"
+    | `${string}/${string}`
+    | string;
+
+type AnalyticsEventArgs = {
+    eventName?: string;
+    category?: AnalyticsCategory;
+    action?: AnalyticsActions;
+    context?: Context;
+    destination?: string;
+    label?: string;
+    komponent?: string;
+    lenkegruppe?: "innlogget meny";
 };
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
@@ -99,7 +128,7 @@ const logEventFromApp = (params?: {
     }
 };
 
-export const logPageView = (params: Params, authState: Auth) => {
+export const logPageView = (params: ClientParams, authState: Auth) => {
     return logAmplitudeEvent("besøk", {
         sidetittel: document.title,
         innlogging: authState.authenticated ? authState.securityLevel : false,
@@ -120,14 +149,35 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "decorator-next",
 ) => {
+    // Always build the url for the platform field as early as possible.
+    // The dynamic import seems to always take at least one tick
+    // and the url may be wrong at that time
+    const platform = buildPlatformField();
     const amplitude = await importAmplitude();
 
     return amplitude.track(eventName, {
         ...eventData,
-        platform: buildLocationString(),
+        platform,
         origin,
         originVersion: eventData.originVersion || "unknown",
         viaDekoratoren: true,
         fromNext: true,
     });
 };
+
+export const amplitudeClickListener =
+    (fn: (el: HTMLAnchorElement) => AnalyticsEventArgs | null) =>
+    (e: MouseEvent) => {
+        const anchor =
+            e.target instanceof Element ? e.target.closest("a") : null;
+        if (anchor) {
+            const args = fn(anchor);
+            if (args) {
+                amplitudeEvent({
+                    context: param("context"),
+                    label: anchor.href,
+                    ...args,
+                });
+            }
+        }
+    };

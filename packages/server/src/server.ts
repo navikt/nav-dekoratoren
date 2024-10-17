@@ -1,54 +1,66 @@
+import { prometheus } from "@hono/prometheus";
 import { Server } from "bun";
-import { makeFrontpageUrl } from "decorator-shared/urls";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
-import { clientEnv, env } from "./env/server";
+import { env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
+import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
-import { headers } from "./headers";
-import i18n from "./i18n";
-import { getMainMenuLinks, mainMenuContextLinks } from "./menu/main-menu";
+import { versionProxyHandler } from "./handlers/version-proxy";
+import { headAssets } from "./head";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import renderIndex, { renderFooter, renderHeader } from "./render-index";
-import { getTaskAnalyticsConfig } from "./task-analytics-config";
+import { getTaskAnalyticsSurveys } from "./task-analytics-config";
 import { getFeatures } from "./unleash";
-import { validParams } from "./validateParams";
-import { getCSRScriptUrl, getClientCSSUrl, getMainScriptUrl } from "./views";
-import { MainMenu } from "./views/header/main-menu";
-import { texts } from "./texts";
-import { clientTextsKeys } from "decorator-shared/types";
+import { isLocalhost } from "./urls";
+import { parseAndValidateParams } from "./validateParams";
+import { IndexHtml } from "./views";
+import { HeaderTemplate } from "./views/header/header";
+import { FooterTemplate } from "./views/footer/footer";
+import { buildDecoratorData } from "./views/scripts";
+import { csrAssets } from "./csr";
+import { CsrPayload } from "decorator-shared/types";
+import { ssrApiHandler } from "./handlers/ssr-api";
+import { versionApiHandler } from "./handlers/version-api-handler";
+import { MainMenuTemplate } from "./views/header/render-main-menu";
 
-const app = new Hono();
+const app = new Hono({
+    strict: false,
+});
 
-if (env.NODE_ENV === "development" || env.IS_LOCAL_PROD) {
+app.use(headers);
+
+if (env.NODE_ENV === "development" || isLocalhost()) {
     console.log("Setting up mocks");
     setupMocks();
     app.get(
         "/mockServiceWorker.js",
-        serveStatic({ path: "./public/mockServiceWorker.js" }),
+        serveStatic({ path: "./mockServiceWorker.js" }),
     );
+    app.get("/public/*", serveStatic({}));
+    app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
+    app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
+    app.get("/api/auth", async ({ req }) => fetch(req.url));
 }
 
-app.use(headers);
+if (!process.env.IS_INTERNAL_APP) {
+    app.use(versionProxyHandler);
+}
 
-app.get("/public/assets/*", serveStatic({}));
+const { printMetrics, registerMetrics } = prometheus();
+
+app.use("*", registerMetrics);
+app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
-app.get("/api/ta", async ({ json }) => {
-    const result = await getTaskAnalyticsConfig();
-    if (result.ok) {
-        return json(result.data);
-    } else {
-        throw new HTTPException(500, {
-            message: result.error.message,
-            cause: result.error,
-        });
-    }
+
+app.get("/api/version", versionApiHandler);
+app.get("/api/ta", ({ json }) => {
+    return json(getTaskAnalyticsSurveys());
 });
 app.post("/api/notifications/:id/archive", async ({ req, json }) => {
     const result = await archiveNotification({
@@ -67,104 +79,102 @@ app.post("/api/notifications/:id/archive", async ({ req, json }) => {
 app.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
-            ...validParams(req.query()),
+            ...parseAndValidateParams(req.query()),
             query: req.query("q") ?? "",
         }),
     ),
 );
 app.get("/api/csp", ({ json }) => json(cspDirectives));
 app.get("/main-menu", async ({ req, html }) => {
-    const data = validParams(req.query());
+    const data = parseAndValidateParams(req.query());
 
     return html(
-        MainMenu({
-            title:
-                data.context === "privatperson"
-                    ? i18n("how_can_we_help")
-                    : i18n(`rolle_${data.context}`),
-            frontPageUrl: makeFrontpageUrl({
-                context: data.context,
-                language: data.language,
-                baseUrl: env.XP_BASE_URL,
-            }),
-            links: await getMainMenuLinks({
-                language: data.language,
-                context: data.context,
-            }),
-            contextLinks: mainMenuContextLinks({
-                context: data.context,
-                language: data.language,
-                bedrift: data.bedrift,
-            }),
-        }).render(data),
+        (
+            await MainMenuTemplate({
+                data,
+            })
+        ).render(data),
     );
 });
 app.get("/auth", async ({ req, json }) =>
     json(
         await authHandler({
-            params: validParams(req.query()),
+            params: parseAndValidateParams(req.query()),
             cookie: req.header("Cookie") ?? "",
         }),
     ),
 );
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
-    const data = validParams(req.query());
-
-    return html(renderHeader({ data }).render(data));
-});
-app.get("/footer", async ({ req, html }) => {
-    const data = validParams(req.query());
+    const params = parseAndValidateParams(req.query());
 
     return html(
-        (await renderFooter({ features: getFeatures(), data })).render(data),
+        (await HeaderTemplate({ params, withContainers: false })).render(
+            params,
+        ),
     );
 });
-app.get("/env", async ({ req, json }) => {
-    const data = validParams(req.query());
+app.get("/footer", async ({ req, html }) => {
+    const params = parseAndValidateParams(req.query());
+
+    return html(
+        (
+            await FooterTemplate({
+                features: getFeatures(),
+                params,
+                withContainers: false,
+            })
+        ).render(params),
+    );
+});
+app.get("/ssr", ssrApiHandler);
+// TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
+app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
+    const query = req.query();
+    const params = parseAndValidateParams(query);
     const features = getFeatures();
 
     return json({
-        header: renderHeader({ data }).render(data),
-        footer: (await renderFooter({ data, features })).render(data),
-        data: {
-            texts: Object.entries(texts[data.language])
-                .filter(([key]) => clientTextsKeys.includes(key as any))
-                .reduce(
-                    (prev, [key, value]) => ({
-                        ...prev,
-                        [key]: value,
-                    }),
-                    {},
-                ),
-            params: data,
+        header: (
+            await HeaderTemplate({
+                params,
+                withContainers: true,
+            })
+        ).render(params),
+        footer: (
+            await FooterTemplate({
+                params,
+                features,
+                withContainers: true,
+            })
+        ).render(params),
+        data: buildDecoratorData({
+            params,
+            rawParams: query,
             features,
-            env: clientEnv,
-        },
-        scripts: [await getMainScriptUrl()],
-        //TODO: Add css?
-    });
+            headAssets,
+        }),
+        scripts: csrAssets.mainScripts,
+    } satisfies CsrPayload);
 });
-app.get("/client.js", async ({ redirect }) =>
-    redirect(await getCSRScriptUrl()),
+app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
+    redirect(csrAssets.csrScriptUrl),
 );
-app.get("/css/client.css", async ({ redirect }) =>
-    redirect(await getClientCSSUrl()),
+app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
+    redirect(csrAssets.cssUrl),
 );
-app.get("/", async ({ req, html }) => {
-    const data = validParams(req.query());
-
-    return html(
-        await renderIndex({
-            data,
-            texts: texts[data.language],
+app.get("/", async ({ req, html }) =>
+    html(
+        IndexHtml({
+            rawParams: req.query(),
             url: req.url,
         }),
-    );
-});
+    ),
+);
 
 app.route("/decorator-next", app);
-app.route("/decorator-next/", app);
+app.route("/dekoratoren", app);
+app.route("/common-html/v4/navno", app);
 
 export default {
     ...app,

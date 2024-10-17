@@ -10,11 +10,20 @@ export type SearchResult = z.infer<typeof resultSchema>;
 const resultSchema = z.object({
     total: z.number(),
     hits: z.array(
-        z.object({
-            displayName: z.string(),
-            highlight: z.string(),
-            href: z.string().url(),
-        }),
+        z
+            .optional(
+                z.object({
+                    displayName: z.string(),
+                    highlight: z.string(),
+                    href: z.string().url(),
+                }),
+            )
+            .catch((ctx) => {
+                console.error(
+                    `Error validating search hit - ${JSON.stringify(ctx.input)}`,
+                );
+                return undefined;
+            }),
     ),
 });
 
@@ -28,7 +37,7 @@ const fetchSearch = async ({
     language: string;
 }) =>
     fetchAndValidateJson(
-        `${env.SEARCH_API}?ord=${encodeURIComponent(query)}&f=${context}&preferredLanguage=${language}`,
+        `${env.SEARCH_API_URL}?ord=${query}&f=${context}&preferredLanguage=${language}`,
         undefined,
         resultSchema,
     );
@@ -42,23 +51,34 @@ export const searchHandler = async ({
     context: Context;
     language: Language;
 }): Promise<string> => {
+    // Always decode first to ensure the query is never double-encoded
+    const queryDecoded = decodeURIComponent(query);
+    const queryEncoded = encodeURIComponent(queryDecoded);
+
     const result = await fetchSearch({
-        query,
+        query: queryEncoded,
         language,
         context,
     });
 
     if (!result.ok) {
-        console.log(`Error fetching search results: ${result.error.message}`);
+        console.error(
+            `Error fetching search results for ${query} - ${result.error.message}`,
+        );
         return SearchErrorView().render({ language });
     }
 
+    // zod does not seem to generate a correct return type with a catch clause included
+    const hits = (result.data as SearchResult).hits
+        .filter((result) => !!result)
+        .slice(0, 5);
+
     return SearchHits({
         results: {
-            ...result.data,
-            hits: result.data.hits.slice(0, 5),
+            total: hits.length,
+            hits,
         },
-        query,
+        query: queryDecoded,
         context,
     }).render({ language });
 };

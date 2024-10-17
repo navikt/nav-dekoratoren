@@ -4,7 +4,6 @@ import { ComplexFooter } from "./complex-footer";
 
 const meta: Meta<ComplexFooterProps> = {
     title: "footer/complex",
-    tags: ["autodocs"],
     render: (_, context) => {
         const args = {
             features: {

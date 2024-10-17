@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import globalCls from "decorator-client/src/styles/global.module.css";
+import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/notifications-empty.module.css";
 import html from "decorator-shared/html";
 import { KattIngenNotifications } from "decorator-shared/views/illustrations";
 import i18n from "../../i18n";
 
-export function NotificationsEmpty() {
+export function NotificationsEmpty({ minsideUrl }: { minsideUrl: string }) {
     return html`
         <div class="${cls.notificationsEmpty}">
             <div>
@@ -17,10 +17,10 @@ export function NotificationsEmpty() {
                 </p>
                 <a
                     class="${clsx(
-                        globalCls["navds-link"],
-                        globalCls["navds-link--neutral"],
+                        aksel["navds-link"],
+                        aksel["navds-link--neutral"],
                     )}"
-                    href="${process.env.VITE_MIN_SIDE_URL}/tidligere-varsler"
+                    href="${minsideUrl}/tidligere-varsler"
                 >
                     ${i18n("notifications_show_all")}
                 </a>

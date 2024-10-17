@@ -1,13 +1,27 @@
 import type { StoryObj, Meta } from "@storybook/html";
-import type { LogoutWarningProps } from "./logout-warning";
+import { SessionDialog } from "decorator-client/src/views/logout-warning/session-dialog";
+import { TokenDialog } from "decorator-client/src/views/logout-warning/token-dialog";
 import { LogoutWarning } from "./logout-warning";
+import { addSecondsFromNow } from "decorator-client/src/helpers/time";
 
-const meta: Meta<LogoutWarningProps> = {
+const meta: Meta = {
     title: "logout-warning",
-    render: () => {
+    render: ({ variant }) => {
         setTimeout(() => {
-            // @ts-expect-error: document in server-package
-            document.getElementById("logout-warning").showModal();
+            const tokenDialog = document.querySelector(
+                "token-dialog",
+            ) as TokenDialog;
+            const sessionDialog = document.querySelector(
+                "session-dialog",
+            ) as SessionDialog;
+            switch (variant) {
+                case "token":
+                    tokenDialog.tokenExpireAtLocal = addSecondsFromNow(256);
+                    break;
+                case "session":
+                    sessionDialog.sessionExpireAtLocal = addSecondsFromNow(256);
+                    break;
+            }
         }, 0);
 
         return LogoutWarning();
@@ -15,6 +29,7 @@ const meta: Meta<LogoutWarningProps> = {
 };
 
 export default meta;
-type Story = StoryObj<LogoutWarningProps>;
+type Story = StoryObj;
 
-export const Default: Story = {};
+export const TokenExpiration: Story = { args: { variant: "token" } };
+export const SessionExpiration: Story = { args: { variant: "session" } };

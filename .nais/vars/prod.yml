@@ -1,52 +1,50 @@
-appName: decorator-next
-appPath: /decorator-next
+appName: nav-dekoratoren
+appPath: /dekoratoren
 ingresses:
-  - https://www.nav.no/decorator-next
+  - https://www.nav.no/dekoratoren
+  - https://appres.nav.no/common-html/v4/navno
 outboundHosts:
   - www.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
 env:
-  - name: ENV
-    value: prod
-  - name: HOST
-    value: https://www.nav.no/decorator-next
+  - name: APP_URL
+    value: https://www.nav.no/dekoratoren
   - name: CDN_URL
     value: https://cdn.nav.no/personbruker/decorator-next/public
   - name: ENONICXP_SERVICES
     value: https://www.nav.no/_/service
-  - name: SEARCH_API
+  - name: SEARCH_API_URL
     value: http://navno-search-api/content/decorator-search
   - name: XP_BASE_URL
     value: https://www.nav.no
-  - name: AUTH_API_URL
-    value: https://login.nav.no
   - name: LOGIN_URL
     value: https://login.nav.no/oauth2/login
   - name: LOGOUT_URL
     value: https://login.nav.no/oauth2/logout
   - name: VARSEL_API_URL
-    value: https://www.nav.no/tms-varsel-api
-  - name: API_DEKORATOREN_URL
+    value: http://tms-varsel-api.min-side/tms-varsel-api
+  - name: DEKORATOREN_API_URL
     value: http://nav-dekoratoren-api/person/nav-dekoratoren-api
-  - name: API_SESSION_URL
+  - name: LOGIN_SESSION_API_URL
     value: https://login.nav.no/oauth2/session
   - name: MIN_SIDE_URL
-    value: https://www.nav.no/minside/
+    value: https://www.nav.no/minside
   - name: MIN_SIDE_ARBEIDSGIVER_URL
-    value: https://arbeidsgiver.nav.no/min-side-arbeidsgiver/
+    value: https://arbeidsgiver.nav.no/min-side-arbeidsgiver
   - name: PERSONOPPLYSNINGER_URL
     value: https://www.nav.no/person/personopplysninger
-  - name: BOOST_ENVIRONMENT
+  - name: BOOST_ENV
     value: "nav"
   - name: PUZZEL_CUSTOMER_ID
     value: 83BD7664-B38B-4EEE-8D99-200669A32551
+ttlInternal: 168h
 replicas:
   min: 2
   max: 40
 resources:
   requests:
-    cpu: 100m
-    memory: 384Mi
+    cpu: 500m
+    memory: 512Mi
   limits:
-    memory: 1024Mi
+    memory: 2048Mi

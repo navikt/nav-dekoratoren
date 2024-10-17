@@ -1,14 +1,16 @@
 /// <reference lib="DOM" />
 import type { Preview } from "@storybook/html";
 import "decorator-client/src/main.css";
-import "decorator-client/src/views/breadcrumb";
+import "decorator-client/src/views/breadcrumbs";
+import "decorator-client/src/views/user-menu";
 import "decorator-client/src/views/dropdown-menu";
 import "decorator-client/src/views/language-selector";
-import "decorator-client/src/views/lenke-med-sporing";
 import "decorator-client/src/views/loader";
-import "decorator-client/src/views/local-time";
-import "decorator-client/src/views/menu-background";
+import "decorator-client/src/views/local-time/local-time";
+import "decorator-client/src/views/menu-background/menu-background";
 import "decorator-client/src/views/search-input";
+import "decorator-client/src/views/logout-warning/session-dialog";
+import "decorator-client/src/views/logout-warning/token-dialog";
 import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
 import {
@@ -17,6 +19,7 @@ import {
 } from "@storybook/addon-viewport";
 import { texts } from "../packages/server/src/texts";
 import { ClientTexts } from "decorator-shared/types";
+import { updateDecoratorParams } from "decorator-client/src/params";
 
 declare global {
     interface Window {
@@ -62,10 +65,8 @@ const preview: Preview = {
 
             const language = context.globals.locale;
 
-            window.__DECORATOR_DATA__ = {
-                params: { language },
-                texts: texts[language],
-            };
+            window.__DECORATOR_DATA__.texts = texts[language];
+            updateDecoratorParams({ language });
 
             if (story === null) {
                 return "";

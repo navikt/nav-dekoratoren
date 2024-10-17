@@ -1,10 +1,10 @@
-import { Context, Params } from "decorator-shared/params";
+import { Context, ClientParams } from "decorator-shared/params";
 import { AuthDataResponse } from "decorator-shared/auth";
 
 export type CustomEvents = {
     activecontext: { context: Context };
     paramsupdated: {
-        params: Partial<Params>;
+        params: Partial<ClientParams>;
     };
     authupdated: AuthDataResponse;
     menuopened: void;
@@ -12,6 +12,10 @@ export type CustomEvents = {
     clearsearch: void;
     closemenus: void; // Currently fired only from other apps
     historyPush: void;
+    scrollTo: {
+        top?: number;
+        left?: number;
+    };
 };
 
 export type MessageEvents =
@@ -22,7 +26,7 @@ export type MessageEvents =
     | {
           source: "decoratorClient";
           event: "params";
-          payload: Partial<Params>;
+          payload: Partial<ClientParams>;
       };
 
 export function createEvent<TName extends keyof CustomEvents>(
@@ -85,4 +89,60 @@ export const initHistoryEvents = () => {
         handleHistoryStateChange(args[2]);
         return result;
     };
+};
+
+type ScrollArgs = [ScrollToOptions] | [x?: number, y?: number];
+
+// Emits events on programmatic scrolling
+export const initScrollToEvents = () => {
+    const normalizeArgs = (...args: ScrollArgs) => {
+        const [optionsOrXCoord, undefinedOrYCoord] = args;
+        const isOptions =
+            optionsOrXCoord && typeof optionsOrXCoord === "object";
+
+        return isOptions
+            ? { top: optionsOrXCoord.top, left: optionsOrXCoord.left }
+            : {
+                  top: undefinedOrYCoord,
+                  left: optionsOrXCoord,
+              };
+    };
+
+    const dispatchOnScrollTo = (...args: ScrollArgs) => {
+        dispatchEvent(
+            createEvent("scrollTo", { detail: normalizeArgs(...args) }),
+        );
+    };
+
+    const dispatchOnScrollBy = (...args: ScrollArgs) => {
+        const { top, left } = normalizeArgs(...args);
+
+        dispatchEvent(
+            createEvent("scrollTo", {
+                detail: {
+                    top: top !== undefined ? top + window.scrollY : top,
+                    left: left !== undefined ? left + window.scrollX : left,
+                },
+            }),
+        );
+    };
+
+    const scrollActual = window.scroll.bind(window);
+    const scrollToActual = window.scrollTo.bind(window);
+    const scrollByActual = window.scrollBy.bind(window);
+
+    window.scroll = ((...args: ScrollArgs) => {
+        dispatchOnScrollTo(...args);
+        return scrollActual(...(args as [ScrollToOptions]));
+    }) as typeof window.scroll;
+
+    window.scrollTo = ((...args: ScrollArgs) => {
+        dispatchOnScrollTo(...args);
+        return scrollToActual(...(args as [ScrollToOptions]));
+    }) as typeof window.scrollTo;
+
+    window.scrollBy = ((...args: ScrollArgs) => {
+        dispatchOnScrollBy(...args);
+        return scrollByActual(...(args as [ScrollToOptions]));
+    }) as typeof window.scrollBy;
 };

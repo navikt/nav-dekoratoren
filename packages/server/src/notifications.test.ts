@@ -12,7 +12,7 @@ import { env } from "./env/server";
 import {
     Varsler,
     archiveNotification,
-    getNotifications,
+    fetchNotifications,
 } from "./notifications";
 import { expectOK } from "./test-expect";
 
@@ -42,6 +42,15 @@ describe("notifications", () => {
                             tekst: "wat",
                             link: "http://example.com",
                         },
+                        {
+                            eventId: "c",
+                            type: "invalidtype",
+                            tidspunkt: "2023-07-05T11:43:02.280367+02:00",
+                            isMasked: false,
+                            eksternVarslingKanaler: ["SMS", "EPOST"],
+                            tekst: "Invalid oppgave",
+                            link: "http://example.com",
+                        },
                     ],
                     beskjeder: [
                         {
@@ -65,20 +74,13 @@ describe("notifications", () => {
     afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
 
-    test("returns task", async () => {
-        const result = await getNotifications({
+    test("returns transformed notifications", async () => {
+        const result = await fetchNotifications({
             cookie: "cookie",
         });
 
         expectOK(result);
         expect(result.data).toEqual([
-            {
-                id: "a",
-                type: "task",
-                date: "2023-07-04T11:41:02.280367+02:00",
-                channels: [],
-                masked: true,
-            },
             {
                 id: "b",
                 type: "task",
@@ -87,6 +89,13 @@ describe("notifications", () => {
                 masked: false,
                 text: "wat",
                 link: "http://example.com",
+            },
+            {
+                id: "a",
+                type: "task",
+                date: "2023-07-04T11:41:02.280367+02:00",
+                channels: [],
+                masked: true,
             },
             {
                 id: "c",
@@ -107,5 +116,14 @@ describe("notifications", () => {
         });
         expectOK(response);
         expect(response.data).toEqual("eventId");
+    });
+
+    test("Should filter out invalid notification", async () => {
+        const response = await fetchNotifications({
+            cookie: "cookie",
+        });
+
+        expectOK(response);
+        expect(response.data).not.toContain({ tekst: "Invalid oppgave" });
     });
 });

@@ -7,16 +7,18 @@ import {
     getCSP,
     SELF,
 } from "csp-header";
-import { env } from "./env/server";
+import { clientEnv } from "./env/server";
+import { isLocalhost } from "./urls";
 
 const navNo = "*.nav.no";
 const cdnNavNo = "cdn.nav.no";
 
+const uxsignals = "uxsignals-frontend.uxsignals.app.iterate.no";
+const uxsignalsApi = "api.uxsignals.com";
 const vergicScreenSharing = "*.psplugin.com";
 const vergicDotCom = "www.vergic.com"; // seems to only be used for a single placeholder image
 const boostChatbot = "*.boost.ai";
-const boostScript =
-    process.env.ENV === "prod" ? "nav.boost.ai" : "navtest.boost.ai";
+const boostScript = `${clientEnv.BOOST_ENV}.boost.ai`;
 const vimeoPlayer = "player.vimeo.com"; // used for inline videos in the chat client
 const qbrick = "video.qbrick.com"; // used for inline videos in the chat client
 const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
@@ -37,6 +39,7 @@ const styleSrc = [
 
 const scriptSrc = [
     navNo,
+    uxsignals,
     vergicScreenSharing,
     hotjarCom,
     taskAnalytics,
@@ -69,11 +72,19 @@ const directives: Partial<CSPDirectives> = {
         googleFontsStatic,
         DATA, // ds-css
     ],
-    "img-src": [navNo, vergicScreenSharing, vimeoCdn, hotjarCom, vergicDotCom],
+    "img-src": [
+        navNo,
+        uxsignals,
+        vergicScreenSharing,
+        vimeoCdn,
+        hotjarCom,
+        vergicDotCom,
+    ],
     "frame-src": [hotjarCom, vimeoPlayer, qbrick, navNo],
     "frame-ancestors": [SELF, vergicScreenSharing],
     "connect-src": [
         navNo,
+        uxsignalsApi,
         boostChatbot,
         vergicScreenSharing,
         hotjarCom,
@@ -90,7 +101,6 @@ const localDirectives = Object.entries(directives).reduce(
     {},
 );
 
-export const cspDirectives =
-    env.ENV === "localhost" ? localDirectives : directives;
+export const cspDirectives = isLocalhost() ? localDirectives : directives;
 
 export const csp = getCSP({ presets: [cspDirectives] });

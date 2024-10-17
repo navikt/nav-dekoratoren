@@ -1,34 +1,25 @@
-import feedbackClasses from "../styles/feedback.module.css";
-import { FeedbackSuccess } from "./feedback-success";
+import cls from "decorator-client/src/styles/feedback.module.css";
 import { logAmplitudeEvent } from "../analytics/amplitude";
+import utils from "../styles/utils.module.css";
+import { defineCustomElement } from "./custom-elements";
 
 class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
-        const buttons = document.querySelectorAll(
-            `.${feedbackClasses.feedbackContent} button`,
-        );
-
-        buttons.forEach((button) => {
-            button.addEventListener("click", async () => {
-                const feedbackContent = document.querySelector(
-                    `.${feedbackClasses.feedbackContent}`,
+        this.querySelectorAll("button").forEach((button) =>
+            button.addEventListener("click", () => {
+                this.querySelector(`.${cls.feedbackContent}`)?.classList.add(
+                    utils.hidden,
                 );
-
-                const answer = button.getAttribute("data-answer");
-
-                if (feedbackContent) {
-                    feedbackContent.innerHTML = FeedbackSuccess().render(
-                        window.__DECORATOR_DATA__.params,
-                    );
-
-                    logAmplitudeEvent("tilbakemelding", {
-                        kilde: "footer",
-                        svar: answer,
-                    });
-                }
-            });
-        });
+                this.querySelector(`.${cls.feedbackSuccess}`)?.classList.remove(
+                    utils.hidden,
+                );
+                logAmplitudeEvent("tilbakemelding", {
+                    kilde: "footer",
+                    svar: button.getAttribute("data-svar"),
+                });
+            }),
+        );
     }
 }
 
-customElements.define("d-feedback", DecoratorFeedback);
+defineCustomElement("d-feedback", DecoratorFeedback);

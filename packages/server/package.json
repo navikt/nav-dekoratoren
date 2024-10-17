@@ -7,22 +7,25 @@
         "dev": "bun --watch src/server.ts",
         "postinstall": "cp .env.sample .env",
         "serve": "NODE_ENV=production bun dist/server.js",
-        "serve-local": "NODE_ENV=production HOST=http://localhost:8089 IS_LOCAL_PROD='true' bun --watch src/server.ts",
+        "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 bun --watch src/server.ts",
         "clean": "rm -rf ./public/assets",
         "build": "bun run clean && NODE_ENV=production bun run build.ts",
         "test": "bun test --env-file=./.env.sample"
     },
     "dependencies": {
-        "@builder.io/partytown": "0.10.2",
+        "@hono/prometheus": "^1.0.1",
         "csp-header": "5.2.1",
         "decorator-client": "workspace:*",
+        "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.3.7",
+        "hono": "4.4.13",
+        "ts-pattern": "5.2.0",
         "unleash-client": "4.2.1"
     },
     "devDependencies": {
-        "@types/bun": "1.1.2",
-        "postcss": "8.4.38",
+        "@types/bun": "1.1.6",
+        "msw": "2.3.1",
+        "postcss": "8.4.39",
         "postcss-modules": "6.0.0",
         "postcss-import": "16.1.0"
     }

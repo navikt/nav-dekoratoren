@@ -1,70 +1,78 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
-import utilsCls from "decorator-client/src/styles/utilities.module.css";
+import utils from "decorator-client/src/styles/utils.module.css";
+import {
+    ExclamationmarkTriangleIcon,
+    InformationSquareIcon,
+} from "decorator-icons";
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
-import { InfoIcon, WarningIcon } from "decorator-shared/views/icons";
-import { env } from "../params";
+import { amplitudeClickListener } from "../analytics/amplitude";
+import { endpointUrlWithParams } from "../helpers/urls";
+import { defineCustomElement } from "./custom-elements";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
 }: {
     opsMessages: OpsMessage[];
 }) => html`
-    <section class="${cls.opsMessagesContent} ${utilsCls.contentContainer}">
+    <section class="${cls.opsMessagesContent} ${utils.contentContainer}">
         ${opsMessages.map(
-            ({ heading, url, type }) =>
-                html` <lenke-med-sporing
-                    data-analytics-event-args="${JSON.stringify({
-                        category: "dekorator-header",
-                        action: "driftsmeldinger",
-                        label: url,
-                    })}"
-                    href="${url}"
-                    class="${cls.opsMessage}"
-                >
-                    ${type === "prodstatus" ? WarningIcon() : InfoIcon()}
-                    <span>${heading}</span>
-                </lenke-med-sporing>`,
+            ({ heading, url, type }) => html`
+                <a href="${url}" class="${cls.opsMessage}">
+                    ${type === "prodstatus"
+                        ? ExclamationmarkTriangleIcon({ className: utils.icon })
+                        : InformationSquareIcon({ className: utils.icon })}
+                    ${heading}
+                </a>
+            `,
         )}
     </section>
 `;
 
-const exactPathTerminator = "$";
-
-const removeTrailingChars = (url?: string) =>
-    url?.replace(`${exactPathTerminator}$`, "").replace(/\/$/, "");
+// If the scoped url of a message ends with a literal "$"
+// it should only be shown on that exact url
+const removeTrailingChars = (url: string) =>
+    url.replace(/\$$/, "").replace(/\/$/, "");
 
 class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 
     connectedCallback() {
-        fetch(`${env("APP_URL")}/ops-messages`)
+        fetch(endpointUrlWithParams("/ops-messages"))
             .then((res) => res.json())
             .then((opsMessages) => {
                 this.messages = opsMessages;
                 this.render();
             });
 
-        window.addEventListener("historyPush", () => this.render());
-        window.addEventListener("popstate", () => this.render());
+        window.addEventListener("historyPush", () => {
+            this.render();
+        });
+        window.addEventListener("popstate", () => {
+            this.render();
+        });
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(() => ({
+                action: "driftsmeldinger",
+                category: "dekorator-header",
+            })),
+        );
     }
 
     private render() {
         const filteredMessages = this.messages.filter(
             (opsMessage: OpsMessage) => {
                 const currentUrl = removeTrailingChars(window.location.href);
+
                 return (
                     !opsMessage.urlscope ||
-                    !currentUrl ||
                     opsMessage.urlscope.length === 0 ||
-                    opsMessage.urlscope.some((rawUrl) => {
-                        const url = removeTrailingChars(rawUrl);
-                        return (
-                            url &&
-                            (rawUrl.endsWith(exactPathTerminator)
-                                ? currentUrl === url
-                                : currentUrl.startsWith(url))
-                        );
+                    opsMessage.urlscope.some((rawScopedUrl) => {
+                        const scopedUrl = removeTrailingChars(rawScopedUrl);
+                        return rawScopedUrl.endsWith("$")
+                            ? currentUrl === scopedUrl
+                            : currentUrl.startsWith(scopedUrl);
                     })
                 );
             },
@@ -72,6 +80,7 @@ class OpsMessages extends HTMLElement {
 
         if (filteredMessages.length === 0) {
             this.removeAttribute("aria-label");
+            this.innerHTML = "";
             return;
         }
 
@@ -86,4 +95,4 @@ class OpsMessages extends HTMLElement {
     }
 }
 
-customElements.define("ops-messages", OpsMessages);
+defineCustomElement("ops-messages", OpsMessages);

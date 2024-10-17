@@ -1,8 +1,9 @@
 import { Unleash, initialize } from "unleash-client";
 import { env } from "./env/server";
+import { isLocalhost } from "./urls";
 
 let unleash: Unleash;
-if (env.NODE_ENV === "production" && !env.IS_LOCAL_PROD) {
+if (env.NODE_ENV === "production" && !isLocalhost()) {
     unleash = initialize({
         url: `${env.UNLEASH_SERVER_API_URL}/api/`,
         appName: "nav-dekoratoren",
@@ -15,6 +16,7 @@ const defaultFeatures = {
     "dekoratoren.chatbotscript": true,
 };
 
+// TODO: Features should be loaded on the client to avoid caching.
 export const getFeatures = () => {
     if (unleash?.isSynchronized()) {
         return {
