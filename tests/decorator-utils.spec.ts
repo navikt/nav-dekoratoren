@@ -67,12 +67,25 @@ test("decorator utils", async ({ page }) => {
 
 const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
     const amplitudeEventDataPromise = page
-        .waitForRequest(
-            (request) =>
+        .waitForRequest((request) => {
+            return (
                 request.url() === "https://amplitude.nav.no/collect-auto" &&
-                request.postDataJSON().e.includes("brødsmule"),
-        )
-        .then((request) => request.postDataJSON().e);
+                request
+                    .postDataJSON()
+                    .events.some(
+                        (event: any) =>
+                            event.event_properties?.komponent === "brødsmule",
+                    )
+            );
+        })
+        .then((request) =>
+            request
+                .postDataJSON()
+                .events.find(
+                    (event: any) =>
+                        event.event_properties?.komponent === "brødsmule",
+                ),
+        );
 
     await page.getByText("Ola Nordmann").click();
 
@@ -103,11 +116,12 @@ test("Breadcrumbs without analyticsTitle should redact the title when logging", 
         });
     });
 
-    const amplitudeEventData =
-        await clickBreadcrumbAndGetAmplitudeEventData(page);
+    const amplitudeEvent = await clickBreadcrumbAndGetAmplitudeEventData(page);
 
-    expect(amplitudeEventData).toContain("[redacted]");
-    expect(amplitudeEventData).not.toContain("Ola Nordmann");
+    expect(amplitudeEvent.event_properties.lenketekst).toContain("[redacted]");
+    expect(amplitudeEvent.event_properties.lenketekst).not.toContain(
+        "Ola Nordmann",
+    );
 });
 
 test("Breadcrumbs with analyticsTitle should log this in place of the title", async ({
@@ -135,9 +149,12 @@ test("Breadcrumbs with analyticsTitle should log this in place of the title", as
         });
     });
 
-    const amplitudeEventData =
-        await clickBreadcrumbAndGetAmplitudeEventData(page);
+    const amplitudeEvent = await clickBreadcrumbAndGetAmplitudeEventData(page);
 
-    expect(amplitudeEventData).toContain("Min analytics title");
-    expect(amplitudeEventData).not.toContain("Ola Nordmann");
+    expect(amplitudeEvent.event_properties.lenketekst).toContain(
+        "Min analytics title",
+    );
+    expect(amplitudeEvent.event_properties.lenketekst).not.toContain(
+        "Ola Nordmann",
+    );
 });
