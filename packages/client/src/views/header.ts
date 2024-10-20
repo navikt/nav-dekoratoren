@@ -28,7 +28,6 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 ] as const;
 
 class Header extends HTMLElement {
-    private headerContent?: HTMLElement | null;
     private userId?: string;
 
     private handleMessage = (e: MessageEvent) => {
@@ -98,13 +97,13 @@ class Header extends HTMLElement {
     };
 
     private handleFocusIn = (e: FocusEvent) => {
-        if (!this.headerContent?.contains(e.target as Node)) {
+        const headerContent = this.querySelector(`.${cls.siteheader}`);
+        if (!headerContent?.contains(e.target as Node)) {
             this.dispatchEvent(new Event("closemenus", { bubbles: true }));
         }
     };
 
     connectedCallback() {
-        this.headerContent = this.querySelector(`.${cls.siteheader}`);
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         window.addEventListener("focusin", this.handleFocusIn);
