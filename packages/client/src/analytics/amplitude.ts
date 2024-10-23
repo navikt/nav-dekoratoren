@@ -63,7 +63,14 @@ export const initAmplitude = async () => {
         ingestionMetadata: {
             sourceName: buildLocationString(),
         },
-        autocapture: false,
+        autocapture: {
+            attribution: true,
+            fileDownloads: false,
+            formInteractions: false,
+            pageViews: false,
+            sessions: true,
+            elementInteractions: false,
+        },
     });
 
     // This function is exposed for use from consuming applications
