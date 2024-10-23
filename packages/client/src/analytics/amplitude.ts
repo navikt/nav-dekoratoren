@@ -83,7 +83,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     } = props;
     const actionFinal = `${context ? context + "/" : ""}${action}`;
 
-    logAmplitudeEvent(
+    return logAmplitudeEvent(
         eventName || "navigere",
         {
             destinasjon: destination || label,
