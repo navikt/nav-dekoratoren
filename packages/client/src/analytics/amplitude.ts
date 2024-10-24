@@ -3,44 +3,9 @@ import { ClientParams, Context } from "decorator-shared/params";
 import { param } from "../params";
 
 // Dynamic import for lazy loading
-const importAmplitude = () =>
-    import("amplitude-js").then((module) => module.default);
+const importAmplitude = () => import("@amplitude/analytics-browser");
 
 type EventData = Record<string, any>;
-
-declare global {
-    interface Window {
-        dekoratorenAmplitude: typeof logEventFromApp;
-    }
-}
-
-const buildPlatformField = () => {
-    const { origin, pathname, hash } = window.location;
-    return `${origin}${pathname}${hash}`;
-};
-
-export const initAmplitude = async () => {
-    const amplitude = await importAmplitude();
-
-    const userProps = {
-        skjermbredde: window.screen.width,
-        skjermhoyde: window.screen.height,
-        vindusbredde: window.innerWidth,
-        vindushoyde: window.innerHeight,
-    };
-
-    amplitude.getInstance().init("default", "", {
-        apiEndpoint: "amplitude.nav.no/collect-auto",
-        saveEvents: false,
-        includeUtm: true,
-        includeReferrer: true,
-        platform: buildPlatformField(),
-    });
-    amplitude.getInstance().setUserProperties(userProps);
-
-    // This function is exposed for use from consuming applications
-    window.dekoratorenAmplitude = logEventFromApp;
-};
 
 type AnalyticsCategory =
     | "dekorator-header"
@@ -71,6 +36,47 @@ type AnalyticsEventArgs = {
     lenkegruppe?: "innlogget meny";
 };
 
+declare global {
+    interface Window {
+        dekoratorenAmplitude: typeof logEventFromApp;
+    }
+}
+
+const buildLocationString = () => {
+    const { origin, pathname, hash } = window.location;
+    return `${origin}${pathname}${hash}`;
+};
+
+export const initAmplitude = async () => {
+    const amplitude = await importAmplitude();
+
+    const identify = new amplitude.Identify()
+        .set("skjermbredde", window.screen.width)
+        .set("skjermhoyde", window.screen.height)
+        .set("vindusbredde", window.innerWidth)
+        .set("vindushoyde", window.innerHeight);
+
+    amplitude.identify(identify);
+
+    amplitude.init("default", undefined, {
+        serverUrl: "https://amplitude.nav.no/collect",
+        ingestionMetadata: {
+            sourceName: buildLocationString(),
+        },
+        autocapture: {
+            attribution: true,
+            fileDownloads: false,
+            formInteractions: false,
+            pageViews: true,
+            sessions: true,
+            elementInteractions: false,
+        },
+    });
+
+    // This function is exposed for use from consuming applications
+    window.dekoratorenAmplitude = logEventFromApp;
+};
+
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
         context,
@@ -84,7 +90,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     } = props;
     const actionFinal = `${context ? context + "/" : ""}${action}`;
 
-    logAmplitudeEvent(
+    return logAmplitudeEvent(
         eventName || "navigere",
         {
             destinasjon: destination || label,
@@ -153,22 +159,15 @@ export const logAmplitudeEvent = async (
     // Always build the url for the platform field as early as possible.
     // The dynamic import seems to always take at least one tick
     // and the url may be wrong at that time
-    const platform = buildPlatformField();
+    const platform = buildLocationString();
     const amplitude = await importAmplitude();
 
-    return new Promise((resolve) => {
-        amplitude.getInstance().logEvent(
-            eventName,
-            {
-                ...eventData,
-                platform,
-                origin,
-                originVersion: eventData.originVersion || "unknown",
-                viaDekoratoren: true,
-                fromNext: true,
-            },
-            resolve,
-        );
+    return amplitude.track(eventName, {
+        ...eventData,
+        platform,
+        origin,
+        originVersion: eventData.originVersion || "unknown",
+        viaDekoratoren: true,
     });
 };
 
