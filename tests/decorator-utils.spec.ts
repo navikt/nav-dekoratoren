@@ -69,7 +69,7 @@ const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
     const amplitudeEventDataPromise = page
         .waitForRequest((request) => {
             return (
-                request.url() === "https://amplitude.nav.no/collect" &&
+                request.url() === "https://amplitude.nav.no/collect-auto" &&
                 request
                     .postDataJSON()
                     .events.some(
