@@ -156,19 +156,26 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "decorator-next",
 ) => {
-    // Always build the url for the platform field as early as possible.
+    // Always build the url for the source_name field as early as possible.
     // The dynamic import seems to always take at least one tick
-    // and the url may be wrong at that time
-    const platform = buildLocationString();
+    // and the url may have changed in SPAs at that time
+    const source_name = buildLocationString();
     const amplitude = await importAmplitude();
 
-    return amplitude.track(eventName, {
-        ...eventData,
-        platform,
-        origin,
-        originVersion: eventData.originVersion || "unknown",
-        viaDekoratoren: true,
-    });
+    return amplitude.track(
+        eventName,
+        {
+            ...eventData,
+            origin,
+            originVersion: eventData.originVersion || "unknown",
+            viaDekoratoren: true,
+        },
+        {
+            ingestion_metadata: {
+                source_name,
+            },
+        },
+    );
 };
 
 export const amplitudeClickListener =
