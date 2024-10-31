@@ -1,10 +1,25 @@
 import { createEvent } from "../events";
 import cls from "../styles/dropdown-menu.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { amplitudeEvent } from "../analytics/amplitude";
+
+export type MenuType = "main" | "user" | "search" | undefined;
+const analyticsLabel = {
+    main: "Meny",
+    user: "[Brukernavn]",
+    search: "Søk",
+} as const;
+const analyticsCategory = {
+    main: "dekorator-meny",
+    user: "dekorator-brukermeny",
+    search: "dekorator-sok",
+} as const;
 
 class DropdownMenu extends HTMLElement {
     private button!: HTMLElement;
     private isOpen: boolean = false;
+    private menuType =
+        (this.getAttribute("menu-type") as MenuType) || undefined;
 
     private handleWindowClick = (e: MouseEvent) => {
         if (!this.contains(e.target as Node)) {
@@ -30,6 +45,13 @@ class DropdownMenu extends HTMLElement {
                 }),
             );
             this.isOpen = force;
+            amplitudeEvent({
+                eventName: force ? "accordion åpnet" : "accordion lukket",
+                context: window.__DECORATOR_DATA__.params.context,
+                label: this.menuType && analyticsLabel[this.menuType],
+                category: this.menuType && analyticsCategory[this.menuType],
+                komponent: "DropDownMenu",
+            });
         }
     };
 

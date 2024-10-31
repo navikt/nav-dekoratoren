@@ -30,6 +30,7 @@ export const ArbeidsgiverUserMenuDropdown = ({
         }),
         attributes: {
             ["data-hj-suppress"]: true,
+            ["menu-type"]: "user",
         },
     });
 };

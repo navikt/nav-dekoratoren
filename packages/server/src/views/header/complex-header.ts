@@ -92,6 +92,9 @@ export function ComplexHeader({
                                         </search-menu>
                                         <main-menu>${mainMenu}</main-menu>
                                     `,
+                                    attributes: {
+                                        ["menu-type"]: "menu",
+                                    },
                                 })}
                                 ${DropdownMenu({
                                     button: HeaderButton({
@@ -108,6 +111,9 @@ export function ComplexHeader({
                                             ${SearchForm()}
                                         </search-menu>
                                     `,
+                                    attributes: {
+                                        ["menu-type"]: "search",
+                                    },
                                 })}
                             </div>
                         </div>
