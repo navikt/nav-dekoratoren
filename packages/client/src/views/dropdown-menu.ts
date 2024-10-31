@@ -3,7 +3,7 @@ import cls from "../styles/dropdown-menu.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { amplitudeEvent } from "../analytics/amplitude";
 
-export type MenuType = "main" | "user" | "search" | undefined;
+type MenuType = "main" | "user" | "search";
 const analyticsLabel = {
     main: "Meny",
     user: "[Brukernavn]",
@@ -18,8 +18,7 @@ const analyticsCategory = {
 class DropdownMenu extends HTMLElement {
     private button!: HTMLElement;
     private isOpen: boolean = false;
-    private menuType =
-        (this.getAttribute("menu-type") as MenuType) || undefined;
+    private menuType!: MenuType;
 
     private handleWindowClick = (e: MouseEvent) => {
         if (!this.contains(e.target as Node)) {
@@ -64,6 +63,7 @@ class DropdownMenu extends HTMLElement {
     connectedCallback() {
         this.button = this.querySelector(":scope > button")!;
         this.button.addEventListener("click", () => this.toggle());
+        this.menuType = this.getAttribute("menu-type") as MenuType;
         window.addEventListener("click", this.handleWindowClick);
         window.addEventListener("closemenus", this.close);
         window.addEventListener("keydown", this.handleButtonClick);

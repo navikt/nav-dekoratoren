@@ -115,7 +115,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         context,
         destinasjon: destination,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst: label || action ? actionFinal : undefined,
+        lenketekst: label || (action ? actionFinal : undefined),
         kategori: category,
         komponent: komponent || action,
         lenkegruppe,
