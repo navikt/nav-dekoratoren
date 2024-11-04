@@ -1,9 +1,14 @@
-import { AvailableLanguage, Language } from "decorator-shared/params";
+import {
+    AvailableLanguage,
+    Language,
+    languageLabels,
+} from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { param, updateDecoratorParams } from "../params";
 import cls from "../styles/language-selector.module.css";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { amplitudeEvent } from "../analytics/amplitude";
 
 export class LanguageSelector extends HTMLElement {
     menu!: HTMLElement;
@@ -13,6 +18,8 @@ export class LanguageSelector extends HTMLElement {
     #language?: Language;
 
     set language(language: Language) {
+        const { params } = window.__DECORATOR_DATA__;
+
         this.options.forEach((option) => {
             option.classList.toggle(
                 cls.selected,
@@ -20,6 +27,14 @@ export class LanguageSelector extends HTMLElement {
             );
         });
         this.#language = language;
+
+        amplitudeEvent({
+            eventName: "navigere",
+            context: params.context,
+            label: languageLabels[language],
+            category: "dekorator-sprakvelger",
+            komponent: "LanguageSelector",
+        });
     }
 
     set availableLanguages(availableLanguages: AvailableLanguage[]) {
@@ -53,15 +68,7 @@ export class LanguageSelector extends HTMLElement {
                 cls.selected,
                 language.locale === this.#language,
             );
-            option.innerHTML = {
-                nb: "Norsk (bokmål)",
-                nn: "Norsk (nynorsk)",
-                en: "English",
-                se: "Sámegiel (samisk)",
-                pl: "Polski (polsk)",
-                uk: "Українська (ukrainsk)",
-                ru: "Русский (russisk)",
-            }[language.locale];
+            option.innerHTML = languageLabels[language.locale];
             this.options.push(option);
             li.appendChild(option);
             return li;
@@ -128,8 +135,16 @@ export class LanguageSelector extends HTMLElement {
     };
 
     set open(open: boolean) {
+        const { params } = window.__DECORATOR_DATA__;
         this.#open = open;
         this.menu.classList.toggle(utils.hidden, !open);
+        amplitudeEvent({
+            eventName: open ? "accordion åpnet" : "accordion lukket",
+            context: params.context,
+            label: "Språk/Language",
+            category: "dekorator-sprakvelger",
+            komponent: "LanguageSelector",
+        });
     }
 }
 

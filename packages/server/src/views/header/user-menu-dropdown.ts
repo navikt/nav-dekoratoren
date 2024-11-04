@@ -49,6 +49,7 @@ export const UserMenuDropdown = ({
         }),
         attributes: {
             ["data-hj-suppress"]: true,
+            ["menu-type"]: "user",
         },
     });
 };

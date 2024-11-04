@@ -25,7 +25,7 @@ class ArchivableNotification extends HTMLElement {
                 this.parentElement?.remove();
                 logAmplitudeEvent("arkivert-beskjed", {
                     komponent: "varsler-beskjed-arkiverbar",
-                    category: "varsler",
+                    category: "dekorator-varsler",
                 });
             }),
         );

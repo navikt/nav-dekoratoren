@@ -1,10 +1,24 @@
 import { createEvent } from "../events";
 import cls from "../styles/dropdown-menu.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { amplitudeEvent } from "../analytics/amplitude";
+
+type MenuType = "menu" | "user" | "search";
+const analyticsLabel = {
+    menu: "Meny",
+    user: "[Brukernavn]",
+    search: "Søk",
+} as const;
+const analyticsCategory = {
+    menu: "dekorator-meny",
+    user: "dekorator-brukermeny",
+    search: "dekorator-sok",
+} as const;
 
 class DropdownMenu extends HTMLElement {
     private button!: HTMLElement;
     private isOpen: boolean = false;
+    private menuType!: MenuType;
 
     private handleWindowClick = (e: MouseEvent) => {
         if (!this.contains(e.target as Node)) {
@@ -21,7 +35,6 @@ class DropdownMenu extends HTMLElement {
             if (force === this.isOpen) {
                 return;
             }
-
             this.classList.toggle(cls.dropdownMenuOpen, force);
             this.button.setAttribute("aria-expanded", force.toString());
             this.dispatchEvent(
@@ -29,6 +42,13 @@ class DropdownMenu extends HTMLElement {
                     bubbles: true,
                 }),
             );
+            amplitudeEvent({
+                eventName: force ? "accordion åpnet" : "accordion lukket",
+                context: window.__DECORATOR_DATA__.params.context,
+                label: this.menuType && analyticsLabel[this.menuType],
+                category: this.menuType && analyticsCategory[this.menuType],
+                komponent: "DropDownMenu",
+            });
             this.isOpen = force;
         }
     };
@@ -42,6 +62,7 @@ class DropdownMenu extends HTMLElement {
     connectedCallback() {
         this.button = this.querySelector(":scope > button")!;
         this.button.addEventListener("click", () => this.toggle());
+        this.menuType = this.getAttribute("menu-type") as MenuType;
         window.addEventListener("click", this.handleWindowClick);
         window.addEventListener("closemenus", this.close);
         window.addEventListener("keydown", this.handleButtonClick);

@@ -10,8 +10,11 @@ type EventData = Record<string, any>;
 type AnalyticsCategory =
     | "dekorator-header"
     | "dekorator-footer"
+    | "dekorator-brukermeny"
     | "dekorator-meny"
-    | "varsler";
+    | "dekorator-sok"
+    | "dekorator-varsler"
+    | "dekorator-sprakvelger";
 
 type AnalyticsActions =
     | "søk-dynamisk"
@@ -33,7 +36,7 @@ type AnalyticsEventArgs = {
     destination?: string;
     label?: string;
     komponent?: string;
-    lenkegruppe?: "innlogget meny";
+    lenkegruppe?: string;
 };
 
 declare global {
@@ -108,18 +111,15 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     } = props;
     const actionFinal = `${context ? context + "/" : ""}${action}`;
 
-    return logAmplitudeEvent(
-        eventName || "navigere",
-        {
-            destinasjon: destination || label,
-            søkeord: eventName === "søk" ? "[redacted]" : undefined,
-            lenketekst: actionFinal,
-            kategori: category,
-            komponent: komponent || action,
-            lenkegruppe,
-        },
-        "decorator_next",
-    );
+    return logAmplitudeEvent(eventName || "navigere", {
+        context,
+        destinasjon: destination,
+        søkeord: eventName === "søk" ? "[redacted]" : undefined,
+        lenketekst: label || (action ? actionFinal : undefined),
+        kategori: category,
+        komponent: komponent || action,
+        lenkegruppe,
+    });
 };
 
 const logEventFromApp = (params?: {
@@ -172,7 +172,7 @@ export const logPageView = (params: ClientParams, authState: Auth) => {
 export const logAmplitudeEvent = async (
     eventName: string,
     eventData: EventData = {},
-    origin = "decorator-next",
+    origin = "nav-dekoratoren",
 ) => {
     // Always build the url for the source_name field as early as possible.
     // The dynamic import seems to always take at least one tick
