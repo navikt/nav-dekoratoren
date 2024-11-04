@@ -3,14 +3,14 @@ import cls from "../styles/dropdown-menu.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { amplitudeEvent } from "../analytics/amplitude";
 
-type MenuType = "main" | "user" | "search";
+type MenuType = "menu" | "user" | "search";
 const analyticsLabel = {
-    main: "Meny",
+    menu: "Meny",
     user: "[Brukernavn]",
     search: "Søk",
 } as const;
 const analyticsCategory = {
-    main: "dekorator-meny",
+    menu: "dekorator-meny",
     user: "dekorator-brukermeny",
     search: "dekorator-sok",
 } as const;
@@ -35,7 +35,6 @@ class DropdownMenu extends HTMLElement {
             if (force === this.isOpen) {
                 return;
             }
-
             this.classList.toggle(cls.dropdownMenuOpen, force);
             this.button.setAttribute("aria-expanded", force.toString());
             this.dispatchEvent(
@@ -43,7 +42,6 @@ class DropdownMenu extends HTMLElement {
                     bubbles: true,
                 }),
             );
-            this.isOpen = force;
             amplitudeEvent({
                 eventName: force ? "accordion åpnet" : "accordion lukket",
                 context: window.__DECORATOR_DATA__.params.context,
@@ -51,6 +49,7 @@ class DropdownMenu extends HTMLElement {
                 category: this.menuType && analyticsCategory[this.menuType],
                 komponent: "DropDownMenu",
             });
+            this.isOpen = force;
         }
     };
 
