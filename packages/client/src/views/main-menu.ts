@@ -1,4 +1,4 @@
-import { Context } from "decorator-shared/params";
+import { type Context } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";

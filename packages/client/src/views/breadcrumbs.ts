@@ -1,4 +1,4 @@
-import { Breadcrumb } from "decorator-shared/params";
+import type { Breadcrumb } from "decorator-shared/params";
 import { Breadcrumbs as BreadcrumbsTemplate } from "decorator-shared/views/breadcrumbs";
 import { amplitudeClickListener } from "../analytics/amplitude";
 import { CustomEvents } from "../events";
