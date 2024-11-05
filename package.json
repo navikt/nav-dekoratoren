@@ -33,7 +33,6 @@
         "@storybook/blocks": "8.1.11",
         "@storybook/html": "8.1.11",
         "@storybook/html-vite": "8.1.11",
-        "@types/amplitude-js": "8.16.5",
         "@typescript-eslint/eslint-plugin": "7.9.0",
         "@typescript-eslint/parser": "7.9.0",
         "concurrently": "8.2.2",
