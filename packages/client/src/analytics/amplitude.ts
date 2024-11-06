@@ -119,6 +119,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         kategori: category,
         komponent: komponent || action,
         lenkegruppe,
+        url: buildLocationString(),
     });
 };
 
