@@ -109,6 +109,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         komponent,
         lenkegruppe,
     } = props;
+
     return logAmplitudeEvent(eventName || "navigere", {
         context,
         destinasjon: destination,
@@ -182,6 +183,10 @@ export const logAmplitudeEvent = async (
         eventName,
         {
             ...eventData,
+            // This field was set for use in the old amplitude-proxy
+            // In the current proxy version, source_name serves the same purpose
+            // Some teams still use the platform field for their own tracking, so just keep it for now
+            platform: source_name,
             origin,
             originVersion: eventData.originVersion || "unknown",
             viaDekoratoren: true,
