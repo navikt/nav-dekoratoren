@@ -109,15 +109,14 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         komponent,
         lenkegruppe,
     } = props;
-    const actionFinal = `${context ? context + "/" : ""}${action}`;
 
     return logAmplitudeEvent(eventName || "navigere", {
         context,
         destinasjon: destination,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst: label || (action ? actionFinal : undefined),
+        lenketekst: action || label,
         kategori: category,
-        komponent: komponent || action,
+        komponent,
         lenkegruppe,
     });
 };
