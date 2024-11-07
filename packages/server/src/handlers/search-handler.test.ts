@@ -39,7 +39,7 @@ describe("Search handler", () => {
 
     afterAll(() => server.close());
 
-    test("Should return html containing first 5 hits only", async () => {
+    test("Should return html containing first 5 hits only, but show total hits", async () => {
         server.use(
             http.get(env.SEARCH_API_URL, () =>
                 HttpResponse.json({
@@ -55,6 +55,7 @@ describe("Search handler", () => {
             query: "",
         });
 
+        expect(html).toContain("6 treff for");
         expect(html).toContain("highlight 4");
         expect(html).not.toContain("highlight 5");
     });
