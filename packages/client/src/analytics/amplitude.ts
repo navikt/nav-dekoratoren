@@ -10,9 +10,7 @@ type EventData = Record<string, any>;
 type AnalyticsCategory =
     | "dekorator-header"
     | "dekorator-footer"
-    | "dekorator-brukermeny"
     | "dekorator-meny"
-    | "dekorator-sok"
     | "dekorator-varsler"
     | "dekorator-sprakvelger";
 
