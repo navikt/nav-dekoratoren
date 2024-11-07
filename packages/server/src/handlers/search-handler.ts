@@ -69,13 +69,12 @@ export const searchHandler = async ({
     }
 
     // zod does not seem to generate a correct return type with a catch clause included
-    const hits = (result.data as SearchResult).hits
-        .filter((result) => !!result)
-        .slice(0, 5);
+    const searchResult = result.data as SearchResult;
+    const hits = searchResult.hits.filter((result) => !!result);
 
     return SearchHits({
         results: {
-            total: hits.length,
+            total: searchResult.total,
             hits,
         },
         query: queryDecoded,
