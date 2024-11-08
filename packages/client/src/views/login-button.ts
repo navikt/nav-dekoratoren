@@ -1,11 +1,20 @@
 import { parseUrl } from "../helpers/urls";
 import { env } from "../params";
 import { defineCustomElement } from "./custom-elements";
+import { amplitudeClickListener } from "../analytics/amplitude";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {
         window.addEventListener("paramsupdated", this.update);
         this.update();
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(() => ({
+                category: "dekorator-meny",
+                action: "Logg inn",
+                komponent: "LoginButton",
+            })),
+        );
     }
 
     disconnectedCallback() {
