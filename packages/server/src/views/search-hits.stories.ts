@@ -27,7 +27,7 @@ export const Default: Story = {
                     displayName: "Dekking av sykepenger i arbeidsgiverperioden",
                     href: "https://www.nav.no/kronisk-syk-eller-gravid",
                     highlight:
-                        "NAV dekker sykepenger i arbeidsgiverperioden hvis du har hyppig sykefravær fordi du er kronisk syk eller gravid.",
+                        "Nav dekker sykepenger i arbeidsgiverperioden hvis du har hyppig sykefravær fordi du er kronisk syk eller gravid.",
                 },
                 {
                     displayName:

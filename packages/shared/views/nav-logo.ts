@@ -1,7 +1,7 @@
 import html, { Template } from "../html";
 
 export const NavLogo = ({
-    title = "NAV logo",
+    title = "Nav logo",
     className,
     titleId,
 }: {
