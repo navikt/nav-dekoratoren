@@ -117,7 +117,10 @@ class Header extends HTMLElement {
             "click",
             amplitudeClickListener((anchor) =>
                 anchor.classList.contains(cls.logo)
-                    ? { category: "dekorator-header", action: "navlogo" }
+                    ? {
+                          kategori: "dekorator-header",
+                          lenketekst: "navlogo",
+                      }
                     : null,
             ),
         );

@@ -18,8 +18,6 @@ export class LanguageSelector extends HTMLElement {
     #language?: Language;
 
     set language(language: Language) {
-        const { params } = window.__DECORATOR_DATA__;
-
         this.options.forEach((option) => {
             option.classList.toggle(
                 cls.selected,
@@ -27,14 +25,6 @@ export class LanguageSelector extends HTMLElement {
             );
         });
         this.#language = language;
-
-        amplitudeEvent({
-            eventName: "navigere",
-            context: params.context,
-            label: languageLabels[language],
-            category: "dekorator-sprakvelger",
-            komponent: "LanguageSelector",
-        });
     }
 
     set availableLanguages(availableLanguages: AvailableLanguage[]) {
@@ -47,12 +37,17 @@ export class LanguageSelector extends HTMLElement {
 
                 option.addEventListener("click", (e) => {
                     e.preventDefault();
-
                     updateDecoratorParams({ language: language.locale });
                     window.postMessage({
                         source: "decorator",
                         event: "languageSelect",
                         payload: language,
+                    });
+                    amplitudeEvent({
+                        eventName: "navigere",
+                        kategori: "dekorator-sprakvelger",
+                        lenketekst: languageLabels[language.locale],
+                        komponent: "LanguageSelector",
                     });
                     this.open = false;
                 });
@@ -135,14 +130,13 @@ export class LanguageSelector extends HTMLElement {
     };
 
     set open(open: boolean) {
-        const { params } = window.__DECORATOR_DATA__;
         this.#open = open;
         this.menu.classList.toggle(utils.hidden, !open);
         amplitudeEvent({
             eventName: open ? "accordion åpnet" : "accordion lukket",
-            context: params.context,
-            label: "Språk/Language",
-            category: "dekorator-sprakvelger",
+            context: window.__DECORATOR_DATA__.params.context,
+            kategori: "dekorator-sprakvelger",
+            lenketekst: "Språk/Language",
             komponent: "LanguageSelector",
         });
     }
