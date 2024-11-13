@@ -54,8 +54,8 @@ export function ComplexHeader({
                             >
                             ${contextLinks.length > 0 &&
                             html`
-                                <context-links class="${cls.arbeidsflate}"
-                                    >${contextLinks.map(
+                                <context-links class="${cls.arbeidsflate}">
+                                    ${contextLinks.map(
                                         ({ url, context }) => html`
                                             <a
                                                 href="${url}"
@@ -65,12 +65,14 @@ export function ComplexHeader({
                                                         currentContext &&
                                                         cls.lenkeActive,
                                                 )}"
+                                                data-kategori="dekorator-header"
                                                 data-context="${context}"
-                                                >${i18n(context)}</a
                                             >
+                                                ${i18n(context)}
+                                            </a>
                                         `,
-                                    )}</context-links
-                                >
+                                    )}
+                                </context-links>
                             `}
                         </div>
                         <div class="${menuItemsCls.menuItems}">

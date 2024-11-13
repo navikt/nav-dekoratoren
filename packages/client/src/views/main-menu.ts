@@ -54,11 +54,10 @@ class MainMenu extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener((anchor) => ({
-                category: "dekorator-meny",
-                action:
-                    anchor.getAttribute("data-action") ??
-                    "hovedmeny/forsidelenke",
-                label: anchor.getAttribute("data-label") ?? anchor.href,
+                kategori: "dekorator-meny",
+                lenkegruppe:
+                    anchor.getAttribute("data-lenkegruppe") ?? undefined,
+                lenketekst: anchor.getAttribute("data-lenketekst") ?? undefined,
             })),
         );
     }

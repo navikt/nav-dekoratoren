@@ -19,9 +19,9 @@ class ContextLinks extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener((anchor) => ({
-                action: "arbeidsflate-valg",
-                category: "dekorator-header",
-                label: anchor.getAttribute("data-context") ?? undefined,
+                kategori: "dekorator-header",
+                lenkegruppe: "arbeidsflate-valg",
+                lenketekst: anchor.getAttribute("data-context") ?? undefined,
             })),
         );
         window.addEventListener("paramsupdated", this.handleParamsUpdated);

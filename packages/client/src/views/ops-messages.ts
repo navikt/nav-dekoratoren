@@ -54,8 +54,9 @@ class OpsMessages extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener(() => ({
-                action: "driftsmeldinger",
-                category: "dekorator-header",
+                kategori: "dekorator-driftsmeldinger",
+                lenketekst: "driftsmelding",
+                komponent: "OpsMessages",
             })),
         );
     }

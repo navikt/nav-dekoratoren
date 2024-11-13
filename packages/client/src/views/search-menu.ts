@@ -58,10 +58,10 @@ class SearchMenu extends HTMLElement {
 
             amplitudeEvent({
                 eventName: "søk",
-                destination: url,
-                category: "dekorator-header",
-                label: "[redacted]",
-                action: "søk-dynamisk",
+                destinasjon: url,
+                kategori: "dekorator-header",
+                lenketekst: "[redacted]",
+                komponent: "SearchMenu",
             });
 
             return fetch(url)

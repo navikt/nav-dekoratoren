@@ -7,34 +7,22 @@ const importAmplitude = () => import("@amplitude/analytics-browser");
 
 type EventData = Record<string, any>;
 
-type AnalyticsCategory =
+type AmplitudeKategori =
     | "dekorator-header"
     | "dekorator-footer"
     | "dekorator-meny"
     | "dekorator-varsler"
+    | "dekorator-driftsmeldinger"
     | "dekorator-sprakvelger";
 
-type AnalyticsActions =
-    | "søk-dynamisk"
-    | "navlogo"
-    | "lenke"
-    | "lenkegruppe"
-    | "hovedmeny/forsidelenke"
-    | "[redacted]"
-    | "nav.no"
-    | "arbeidsflate-valg"
-    | `${string}/${string}`
-    | string;
-
 type AnalyticsEventArgs = {
-    eventName?: string;
-    category?: AnalyticsCategory;
-    action?: AnalyticsActions;
     context?: Context;
-    destination?: string;
-    label?: string;
-    komponent?: string;
+    eventName?: string;
+    kategori?: AmplitudeKategori;
+    destinasjon?: string;
+    lenketekst?: string;
     lenkegruppe?: string;
+    komponent?: string;
 };
 
 declare global {
@@ -100,22 +88,21 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
         context,
         eventName,
-        destination,
-        category,
-        action,
-        label,
-        komponent,
+        kategori,
+        destinasjon,
+        lenketekst,
         lenkegruppe,
+        komponent,
     } = props;
 
     return logAmplitudeEvent(eventName || "navigere", {
         context,
-        destinasjon: destination,
+        destinasjon,
+        kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst: action || label,
-        kategori: category,
-        komponent,
+        lenketekst,
         lenkegruppe,
+        komponent,
     });
 };
 
@@ -183,7 +170,7 @@ export const logAmplitudeEvent = async (
             ...eventData,
             // This field was set for use in the old amplitude-proxy
             // In the current proxy version, source_name serves the same purpose
-            // Some teams still use the platform field for their own tracking, so just keep it for now
+            // Many teams still use the platform field for continuous data series
             platform: source_name,
             origin,
             originVersion: eventData.originVersion || "unknown",
@@ -207,8 +194,11 @@ export const amplitudeClickListener =
             if (args) {
                 amplitudeEvent({
                     context: param("context"),
-                    label: anchor.href,
-                    ...args,
+                    destinasjon: anchor.href,
+                    kategori: args.kategori,
+                    lenkegruppe: args.lenkegruppe,
+                    lenketekst: args.lenketekst,
+                    komponent: args.komponent,
                 });
             }
         }

@@ -56,9 +56,12 @@ export function MainMenu({
                                                     class="${aksel[
                                                         "navds-link"
                                                     ]}"
-                                                    data-action="${heading}/${content}"
-                                                    >${content}</a
+                                                    data-kategori="dekorator-meny"
+                                                    data-lenkegruppe="${heading}"
+                                                    data-lenketekst="${content}"
                                                 >
+                                                    ${content}
+                                                </a>
                                             </li>
                                         `,
                                     )}
@@ -75,8 +78,9 @@ export function MainMenu({
                         <a
                             href="${url}"
                             class="${cls.contextLink}"
-                            data-action="arbeidsflate-valg"
-                            data-label="${content}"
+                            data-kategori="dekorator-meny"
+                            data-lenkegruppe="arbeidsflate-valg"
+                            data-lenketekst="${content}"
                         >
                             <div class="${cls.contextLinkTitle}">
                                 ${content}
