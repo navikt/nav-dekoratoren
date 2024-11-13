@@ -48,9 +48,9 @@ class Breadcrumbs extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener((anchor) => ({
-                category: "dekorator-header",
+                kategori: "dekorator-header",
                 komponent: "brødsmule",
-                action:
+                lenketekst:
                     anchor.getAttribute("data-analytics-title") || "[redacted]",
             })),
         );

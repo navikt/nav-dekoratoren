@@ -66,7 +66,7 @@ export function ComplexHeader({
                                                         cls.lenkeActive,
                                                 )}"
                                                 data-kategori="dekorator-header"
-                                                data-context="${context}"
+                                                data-context="${i18n(context)}"
                                             >
                                                 ${i18n(context)}
                                             </a>
