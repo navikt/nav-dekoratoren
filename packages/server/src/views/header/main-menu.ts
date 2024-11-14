@@ -30,9 +30,9 @@ export function MainMenu({
                     >
                         ${title}
                     </h2>
-                    <a href="${frontPageUrl}" class="${aksel["navds-link"]}"
-                        >${i18n("to_front_page")}</a
-                    >
+                    <a href="${frontPageUrl}" class="${aksel["navds-link"]}">
+                        ${i18n("to_front_page")}
+                    </a>
                 </div>
                 <div class="${cls.links}">
                     ${links.map(
@@ -57,7 +57,6 @@ export function MainMenu({
                                                         "navds-link"
                                                     ]}"
                                                     data-lenkegruppe="${heading}"
-                                                    data-lenketekst="${content}"
                                                 >
                                                     ${content}
                                                 </a>
@@ -78,7 +77,7 @@ export function MainMenu({
                             href="${url}"
                             class="${cls.contextLink}"
                             data-lenkegruppe="arbeidsflate-valg"
-                            data-lenketekst="${content}"
+                            data-context="${content}"
                         >
                             <div class="${cls.contextLinkTitle}">
                                 ${content}

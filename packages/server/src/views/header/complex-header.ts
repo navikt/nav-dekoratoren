@@ -46,12 +46,12 @@ export function ComplexHeader({
                         class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
                     >
                         <div class="${cls.hovedmenyContent}">
-                            <a href="${frontPageUrl}" class="${cls.logo}"
-                                >${NavLogo({
+                            <a href="${frontPageUrl}" class="${cls.logo}">
+                                ${NavLogo({
                                     title: i18n("to_front_page"),
                                     titleId: "logo-svg-title",
-                                })}</a
-                            >
+                                })}
+                            </a>
                             ${contextLinks.length > 0 &&
                             html`
                                 <context-links class="${cls.arbeidsflate}">
@@ -65,8 +65,7 @@ export function ComplexHeader({
                                                         currentContext &&
                                                         cls.lenkeActive,
                                                 )}"
-                                                data-kategori="dekorator-header"
-                                                data-context="${i18n(context)}"
+                                                data-context="${context}"
                                             >
                                                 ${i18n(context)}
                                             </a>

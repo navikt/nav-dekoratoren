@@ -39,8 +39,8 @@ class Breadcrumbs extends HTMLElement {
                 },
             });
             amplitudeEvent({
-                kategori: "dekorator-header",
-                komponent: "brødsmule",
+                kategori: "dekorator-brodsmuler",
+                komponent: "Breadcrumbs",
                 lenketekst:
                     anchor.getAttribute("data-analytics-title") || "[redacted]",
             });

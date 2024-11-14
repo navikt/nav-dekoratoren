@@ -52,7 +52,6 @@ export const ComplexFooter = ({
                                                     "navds-link"
                                                 ]} ${cls.footerLink}"
                                                 data-lenkegruppe="${heading}"
-                                                data-lenketekst="${content}"
                                             >
                                                 ${content}
                                             </a>

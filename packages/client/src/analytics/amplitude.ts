@@ -13,6 +13,7 @@ type AmplitudeKategori =
     | "dekorator-meny"
     | "dekorator-varsler"
     | "dekorator-driftsmeldinger"
+    | "dekorator-brodsmuler"
     | "dekorator-sprakvelger";
 
 type AnalyticsEventArgs = {

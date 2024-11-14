@@ -57,7 +57,7 @@ class MainMenu extends HTMLElement {
                 kategori: "dekorator-meny",
                 lenkegruppe:
                     anchor.getAttribute("data-lenkegruppe") ?? undefined,
-                lenketekst: anchor.getAttribute("data-lenketekst") ?? undefined,
+                lenketekst: anchor.innerText,
             })),
         );
     }

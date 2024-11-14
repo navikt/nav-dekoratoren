@@ -10,8 +10,8 @@ class LoginButton extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener(() => ({
-                category: "dekorator-meny",
-                action: "Logg inn",
+                kategori: "dekorator-header",
+                lenketekst: "Logg inn",
                 komponent: "LoginButton",
             })),
         );
