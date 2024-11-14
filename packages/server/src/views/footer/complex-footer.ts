@@ -51,8 +51,11 @@ export const ComplexFooter = ({
                                                 class="${aksel[
                                                     "navds-link"
                                                 ]} ${cls.footerLink}"
-                                                >${content}</a
+                                                data-lenkegruppe="${heading}"
+                                                data-lenketekst="${content}"
                                             >
+                                                ${content}
+                                            </a>
                                         </li>
                                     `,
                                 )}

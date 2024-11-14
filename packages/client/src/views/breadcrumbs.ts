@@ -1,6 +1,6 @@
 import { Breadcrumb } from "decorator-shared/params";
 import { Breadcrumbs as BreadcrumbsTemplate } from "decorator-shared/views/breadcrumbs";
-import { amplitudeClickListener } from "../analytics/amplitude";
+import { amplitudeEvent } from "../analytics/amplitude";
 import { CustomEvents } from "../events";
 import { env, param } from "../params";
 import { defineCustomElement } from "./custom-elements";
@@ -38,6 +38,12 @@ class Breadcrumbs extends HTMLElement {
                     handleInApp: true,
                 },
             });
+            amplitudeEvent({
+                kategori: "dekorator-header",
+                komponent: "brødsmule",
+                lenketekst:
+                    anchor.getAttribute("data-analytics-title") || "[redacted]",
+            });
         }
     };
 
@@ -45,15 +51,6 @@ class Breadcrumbs extends HTMLElement {
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         this.update(param("breadcrumbs"));
         this.addEventListener("click", this.handleClick);
-        this.addEventListener(
-            "click",
-            amplitudeClickListener((anchor) => ({
-                kategori: "dekorator-header",
-                komponent: "brødsmule",
-                lenketekst:
-                    anchor.getAttribute("data-analytics-title") || "[redacted]",
-            })),
-        );
     }
 
     disconnectedCallback() {
