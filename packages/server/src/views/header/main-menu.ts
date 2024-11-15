@@ -77,6 +77,7 @@ export function MainMenu({
                             href="${url}"
                             class="${cls.contextLink}"
                             data-kategori="dekorator-meny"
+                            data-lenkegruppe="arbeidsflate-valg"
                             data-context="${content}"
                         >
                             <div class="${cls.contextLinkTitle}">
