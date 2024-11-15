@@ -44,6 +44,7 @@ export class LanguageSelector extends HTMLElement {
                         payload: language,
                     });
                     amplitudeEvent({
+                        context: window.__DECORATOR_DATA__.params.context,
                         eventName: "navigere",
                         kategori: "dekorator-sprakvelger",
                         lenketekst: languageLabels[language.locale],

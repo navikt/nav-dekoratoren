@@ -38,12 +38,6 @@ class Breadcrumbs extends HTMLElement {
                     handleInApp: true,
                 },
             });
-            amplitudeClickListener((anchor) => ({
-                kategori: "dekorator-brodsmuler",
-                komponent: "Breadcrumbs",
-                lenketekst:
-                    anchor.getAttribute("data-analytics-title") || "[redacted]",
-            }));
         }
     };
 
@@ -51,6 +45,15 @@ class Breadcrumbs extends HTMLElement {
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         this.update(param("breadcrumbs"));
         this.addEventListener("click", this.handleClick);
+        this.addEventListener(
+            "click",
+            amplitudeClickListener((anchor) => ({
+                kategori: "dekorator-brodsmuler",
+                komponent: "Breadcrumbs",
+                lenketekst:
+                    anchor.getAttribute("data-analytics-title") || "[redacted]",
+            })),
+        );
     }
 
     disconnectedCallback() {
