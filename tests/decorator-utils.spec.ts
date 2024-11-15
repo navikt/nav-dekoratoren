@@ -74,7 +74,7 @@ const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
                     .postDataJSON()
                     .events.some(
                         (event: any) =>
-                            event.event_properties?.komponent === "brødsmule",
+                            event.event_properties?.komponent === "Breadcrumbs",
                     )
             );
         })
@@ -83,7 +83,7 @@ const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
                 .postDataJSON()
                 .events.find(
                     (event: any) =>
-                        event.event_properties?.komponent === "brødsmule",
+                        event.event_properties?.komponent === "Breadcrumbs",
                 ),
         );
 

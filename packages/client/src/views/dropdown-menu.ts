@@ -40,8 +40,8 @@ class DropdownMenu extends HTMLElement {
             amplitudeEvent({
                 eventName: force ? "accordion åpnet" : "accordion lukket",
                 context: window.__DECORATOR_DATA__.params.context,
-                label: this.menuType && analyticsLabel[this.menuType],
-                category: "dekorator-meny",
+                kategori: "dekorator-header",
+                lenketekst: this.menuType && analyticsLabel[this.menuType],
                 komponent: "DropDownMenu",
             });
             this.isOpen = force;
