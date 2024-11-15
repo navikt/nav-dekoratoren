@@ -7,7 +7,7 @@ const importAmplitude = () => import("@amplitude/analytics-browser");
 
 type EventData = Record<string, any>;
 
-type AmplitudeKategori =
+export type AmplitudeKategori =
     | "dekorator-header"
     | "dekorator-footer"
     | "dekorator-meny"
