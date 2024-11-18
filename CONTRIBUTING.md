@@ -55,7 +55,7 @@ Some kind reminders before you start:
 - Link any existing issues to your PR for easy tracking.
 - Write clear commit messages and PR descriptions (e.g., not "fix stuff again"). Note that PRs only allow squashing when merging into main.
 - Ask for help if you're unsure or need assistance with testing!
-- The dev ingress is used by many applications in NAV and is expected to be stable. If you're unsure about your changes, there is a beta ingress where things are allowed to break. See the Action `Deploy to Team Nav.no beta`.
+- The dev ingress is used by many applications in Nav and is expected to be stable. If you're unsure about your changes, there is a beta ingress where things are allowed to break. See the Action `Deploy to Team Nav.no beta`.
 
 ### Linting and testing
 Husky runs linting when you commit your changes. You may also run `bunx lint-staged --config package.json` on your staged files.

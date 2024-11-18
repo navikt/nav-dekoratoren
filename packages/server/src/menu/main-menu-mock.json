@@ -169,7 +169,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Kurs fra NAV",
+                                                "displayName": "Kurs fra Nav",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
                                                 "id": "e0b328f5-f509-4fd8-879d-79679b3b1667",
                                                 "hasChildren": false,
@@ -310,7 +310,7 @@
                                         "hasChildren": true,
                                         "children": [
                                             {
-                                                "displayName": "Meld fra til NAV",
+                                                "displayName": "Meld fra til Nav",
                                                 "path": "https://arbeidsgiver.nav.no/permittering/",
                                                 "id": "5ec73cb2-6061-4739-b515-44e8919354cb",
                                                 "hasChildren": false,
@@ -574,7 +574,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Send beskjed til NAV",
+                                        "displayName": "Send beskjed til Nav",
                                         "path": "/person/kontakt-oss/",
                                         "displayLock": false,
                                         "isMyPageMenu": true,
@@ -794,7 +794,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "NAV i ditt fylke",
+                                                "displayName": "Nav i ditt fylke",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -803,7 +803,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Kurs fra NAV",
+                                                "displayName": "Kurs fra Nav",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
                                                 "id": "31c4c269-c7f0-4c88-8287-dcd0401804db",
                                                 "hasChildren": false,
@@ -838,7 +838,7 @@
                                         ]
                                     },
                                     {
-                                        "displayName": "NAV og samfunn",
+                                        "displayName": "Nav og samfunn",
                                         "path": "",
                                         "id": "3e980cde-dc39-46ab-ad4e-9f547293c16b",
                                         "hasChildren": true,
@@ -859,7 +859,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Om NAV",
+                                                "displayName": "Om Nav",
                                                 "path": "/annet/om-nav",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -919,7 +919,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "NAV i ditt fylke",
+                                                "displayName": "Nav i ditt fylke",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -928,7 +928,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Søk opp NAV-kontor",
+                                                "displayName": "Søk opp Nav-kontor",
                                                 "path": "https://www.nav.no/person/kontakt-oss/finnkontor",
                                                 "displayLock": false,
                                                 "id": "6da31757-b514-44fe-8065-642c5ab10e56",
@@ -936,7 +936,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Kurs fra NAV",
+                                                "displayName": "Kurs fra Nav",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
                                                 "id": "a7c523d9-156c-4a37-8ddf-dabf0fe7603a",
                                                 "hasChildren": false,
@@ -952,7 +952,7 @@
                                         ]
                                     },
                                     {
-                                        "displayName": "NAV og samfunn",
+                                        "displayName": "Nav og samfunn",
                                         "path": "",
                                         "displayLock": false,
                                         "id": "61ab2ded-7cfc-416f-bdbc-e88726256a82",
@@ -983,7 +983,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Om NAV",
+                                                "displayName": "Om Nav",
                                                 "path": "/annet/om-nav",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -992,7 +992,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Jobb i NAV",
+                                                "displayName": "Jobb i Nav",
                                                 "path": "/sok-jobb-i-nav",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -1049,7 +1049,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "NAV i ditt fylke",
+                                                "displayName": "Nav i ditt fylke",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -1058,7 +1058,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Søk opp NAV-kontor",
+                                                "displayName": "Søk opp Nav-kontor",
                                                 "path": "https://www.nav.no/person/kontakt-oss/finnkontor",
                                                 "displayLock": false,
                                                 "id": "3e9d63cf-35b4-4f8e-b426-04fbac053353",
@@ -1066,7 +1066,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Kurs fra NAV",
+                                                "displayName": "Kurs fra Nav",
                                                 "path": "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
                                                 "id": "a1ee1585-975c-48ea-aecb-b91ba1861c38",
                                                 "hasChildren": false,
@@ -1082,7 +1082,7 @@
                                         ]
                                     },
                                     {
-                                        "displayName": "NAV og samfunn",
+                                        "displayName": "Nav og samfunn",
                                         "path": "",
                                         "displayLock": false,
                                         "id": "d2685148-742e-4c8d-badb-46b133cb9393",
@@ -1113,7 +1113,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Om NAV",
+                                                "displayName": "Om Nav",
                                                 "path": "/no/nav-og-samfunn/om-nav/om-nav",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -1122,7 +1122,7 @@
                                                 "children": []
                                             },
                                             {
-                                                "displayName": "Jobb i NAV",
+                                                "displayName": "Jobb i Nav",
                                                 "path": "/sok-jobb-i-nav",
                                                 "displayLock": false,
                                                 "flatten": false,
@@ -1282,7 +1282,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Send message to NAV",
+                                        "displayName": "Send message to Nav",
                                         "path": "https://www.nav.no/person/kontakt-oss/en/",
                                         "displayLock": false,
                                         "isMyPageMenu": true,
@@ -1741,7 +1741,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Your local NAV office",
+                                        "displayName": "Your local Nav office",
                                         "path": "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                         "displayLock": false,
                                         "flatten": false,
@@ -1760,7 +1760,7 @@
                                 ]
                             },
                             {
-                                "displayName": "NAV and society",
+                                "displayName": "Nav and society",
                                 "path": "",
                                 "displayLock": false,
                                 "id": "0ae60aea-aeae-4984-8f0b-04ab2e97289a",
@@ -1791,7 +1791,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "About NAV",
+                                        "displayName": "About Nav",
                                         "path": "/hva-er-nav/en",
                                         "displayLock": false,
                                         "flatten": false,
@@ -1934,7 +1934,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "NAV i ditt fylke",
+                                        "displayName": "Nav i ditt fylke",
                                         "path": "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                         "displayLock": false,
                                         "flatten": false,
@@ -1943,7 +1943,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Kurs fra NAV",
+                                        "displayName": "Kurs fra Nav",
                                         "path": "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
                                         "displayLock": false,
                                         "id": "566e8668-9273-44dd-bd00-52442c59da7f",
@@ -1961,7 +1961,7 @@
                                 ]
                             },
                             {
-                                "displayName": "NAV og samfunn",
+                                "displayName": "Nav og samfunn",
                                 "path": "",
                                 "id": "1b9e8d59-61bd-410f-baeb-b78935a5b8ac",
                                 "hasChildren": true,
@@ -1991,7 +1991,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Om NAV",
+                                        "displayName": "Om Nav",
                                         "path": "/annet/om-nav",
                                         "displayLock": false,
                                         "flatten": false,
@@ -2000,7 +2000,7 @@
                                         "children": []
                                     },
                                     {
-                                        "displayName": "Jobbe i NAV",
+                                        "displayName": "Jobbe i Nav",
                                         "path": "/sok-jobb-i-nav",
                                         "displayLock": false,
                                         "flatten": false,

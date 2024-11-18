@@ -21,7 +21,7 @@ export const IndexHtml = async ({ rawParams, url }: IndexProps) => {
         <!doctype html>
         <html lang="${params.language}">
             <head>
-                <title>NAV Dekoratør</title>
+                <title>Nav Dekoratør</title>
                 <meta charset="utf-8" />
                 <meta
                     name="viewport"
