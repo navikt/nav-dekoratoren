@@ -97,7 +97,8 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     } = props;
 
     return logAmplitudeEvent(eventName || "navigere", {
-        context,
+        // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
+        målgruppe: context,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
@@ -140,6 +141,7 @@ const logEventFromApp = (params?: {
 
 export const logPageView = (params: ClientParams, authState: Auth) => {
     return logAmplitudeEvent("besøk", {
+        målgruppe: params.context,
         sidetittel: document.title,
         innlogging: authState.authenticated ? authState.securityLevel : false,
         parametre: {
