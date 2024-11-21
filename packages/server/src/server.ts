@@ -157,10 +157,10 @@ app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
         scripts: csrAssets.mainScripts,
     } satisfies CsrPayload);
 });
-app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
+app.get("/csr/:clientWithId{client(.*).js}", async ({ redirect }) =>
     redirect(csrAssets.csrScriptUrl),
 );
-app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
+app.get("/csr/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
 app.get("/", async ({ req, html }) =>
