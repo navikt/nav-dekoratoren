@@ -163,6 +163,13 @@ app.get("/csr/:clientWithId{client(.*).js}", async ({ redirect }) =>
 app.get("/csr/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
+app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
+    redirect(csrAssets.csrScriptUrl),
+);
+app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
+    redirect(csrAssets.cssUrl),
+);
+
 app.get("/", async ({ req, html }) =>
     html(
         IndexHtml({
