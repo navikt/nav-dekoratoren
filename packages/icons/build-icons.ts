@@ -1,19 +1,21 @@
 import * as prettier from "prettier";
 import metadata from "@navikt/aksel-icons/metadata";
 import { optimize } from "svgo";
-import { Glob } from "bun";
+import * as fs from "fs";
 
-const glob = new Glob("./src/*.svg");
-
+const items = fs.readdirSync("./src");
 const files = [];
-for await (const path of glob.scan(".")) {
-    // Prevent build errors on windows file systems
-    const unixPath = path.replaceAll("\\", "/");
-    files.push({
-        name: /([^/]+)\.svg$/.exec(unixPath)?.[1] ?? "wat",
-        path: unixPath,
-    });
+for (const item of items) {
+    if (item.endsWith(".svg")) {
+        const filePath = `./src/${item}`;
+        const unixPath = filePath.replaceAll("\\", "/");
+        files.push({
+            name: /([^/]+)\.svg$/.exec(unixPath)?.[1] ?? "wat",
+            path: unixPath,
+        });
+    }
 }
+
 const jsString =
     '${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props })} ${ariaLabel ? html`aria-label="${ariaLabel}"` : ""}';
 
@@ -33,8 +35,8 @@ ${svg}
     })),
     ...files,
 ].forEach(async ({ name, path }) => {
-    const iconPath = (await import(path)).default;
-    const icon = await Bun.file(iconPath).text();
+    const iconPath = require.resolve(path);
+    const icon = fs.readFileSync(iconPath, "utf-8");
     const result = optimize(icon, {
         path: iconPath,
         plugins: [
@@ -53,7 +55,7 @@ ${svg}
 
     const optimizedSvgString = result.data;
 
-    Bun.write(
+    fs.writeFileSync(
         `./dist/${name}.ts`,
         await prettier.format(
             fileTemplate({
@@ -65,7 +67,8 @@ ${svg}
     );
 });
 
-Bun.write(
+fs.mkdirSync("./dist", { recursive: true });
+fs.writeFileSync(
     "./dist/index.ts",
     `
 export * from '../src';
@@ -75,5 +78,4 @@ ${[...Object.keys(metadata), ...files.map(({ name }) => name)]
 `,
 );
 
-const file = Bun.file("./src/types.ts");
-await Bun.write("./dist/types.ts", file);
+fs.copyFileSync("./src/types.ts", "./dist/types.ts");
