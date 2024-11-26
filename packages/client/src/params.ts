@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import {
+import type {
     ClientParams,
     Context,
     Environment,
