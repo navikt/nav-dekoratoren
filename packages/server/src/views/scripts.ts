@@ -61,8 +61,8 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 type: "module",
                 // Load everything except the entry file async
                 ...(item.isEntry
-                    ? { defer: "true" }
-                    : { async: "true", fetchPriority: "low" }),
+                    ? {} // Do not need defer here, as type: "module" automatically behaves like defer
+                    : { async: "async" }),
             },
         }));
 
@@ -73,8 +73,8 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             attribs: {
                 src: "https://in2.taskanalytics.com/tm.js",
                 type: "module",
-                async: "true",
                 fetchPriority: "low",
+                async: "async",
             },
         },
         {
@@ -83,7 +83,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             attribs: {
                 id: "d-hotjar-container",
                 type: "module",
-                async: "true",
+                async: "async",
                 fetchPriority: "low",
             },
         },
