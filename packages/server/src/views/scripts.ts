@@ -73,7 +73,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             attribs: {
                 src: "https://in2.taskanalytics.com/tm.js",
                 type: "module",
-                fetchPriority: "low",
+                fetchpriority: "low",
                 async: "async",
             },
         },
@@ -84,7 +84,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 id: "d-hotjar-container",
                 type: "module",
                 async: "async",
-                fetchPriority: "low",
+                fetchpriority: "low",
             },
         },
     ];
