@@ -15,6 +15,7 @@ export const SearchForm = () => {
                     class="${cls.searchInput}"
                     type="text"
                     name="search"
+                    maxlength="100"
                     id="${id}"
                     autocomplete="off"
                 />
