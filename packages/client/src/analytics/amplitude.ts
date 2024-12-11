@@ -75,7 +75,7 @@ export const initAmplitude = async () => {
             attribution: true,
             fileDownloads: false,
             formInteractions: false,
-            pageViews: true,
+            pageViews: false,
             sessions: true,
             elementInteractions: false,
         },
