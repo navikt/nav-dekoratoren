@@ -17,8 +17,8 @@ export type AmplitudeKategori =
     | "dekorator-sprakvelger";
 
 type AnalyticsEventArgs = {
+    eventName: string;
     context?: Context;
-    eventName?: string;
     kategori?: AmplitudeKategori;
     destinasjon?: string;
     lenketekst?: string;
@@ -87,8 +87,8 @@ export const initAmplitude = async () => {
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
-        context,
         eventName,
+        context,
         kategori,
         destinasjon,
         lenketekst,
@@ -96,13 +96,14 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         komponent,
     } = props;
 
-    return logAmplitudeEvent(eventName || "navigere", {
+    return logAmplitudeEvent(eventName, {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst,
+        lenketekst: eventName === "navigere" ? lenketekst : undefined,
+        tekst: eventName !== "navigere" ? lenketekst : undefined,
         lenkegruppe,
         komponent,
     });
@@ -196,6 +197,7 @@ export const amplitudeClickListener =
             const args = fn(anchor);
             if (args) {
                 amplitudeEvent({
+                    eventName: "navigere",
                     context: param("context"),
                     destinasjon: anchor.href,
                     kategori: args.kategori,
