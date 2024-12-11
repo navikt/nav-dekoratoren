@@ -1,8 +1,5 @@
-import {
-    AvailableLanguage,
-    Language,
-    languageLabels,
-} from "decorator-shared/params";
+import { type AvailableLanguage, type Language } from "decorator-shared/params";
+import { languageLabels } from "decorator-shared/constants";
 import { CustomEvents } from "../events";
 import { param, updateDecoratorParams } from "../params";
 import cls from "../styles/language-selector.module.css";

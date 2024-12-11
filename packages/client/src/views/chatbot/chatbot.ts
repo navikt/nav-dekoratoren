@@ -1,4 +1,4 @@
-import { ClientParams, Context, Language } from "decorator-shared/params";
+import type { ClientParams, Context, Language } from "decorator-shared/params";
 import Cookies from "js-cookie";
 import loadExternalScript from "../../helpers/load-external-script";
 import { cdnUrl } from "../../helpers/urls";
