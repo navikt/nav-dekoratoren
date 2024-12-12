@@ -142,7 +142,7 @@ const logEventFromApp = (params?: {
 
 export const logPageView = (params: ClientParams, authState: Auth) => {
     return logAmplitudeEvent("besøk", {
-        målgruppe: params.context,
+        målgruppe: window.__DECORATOR_DATA__.params.context,
         sidetittel: document.title,
         innlogging: authState.authenticated ? authState.securityLevel : false,
         parametre: {
