@@ -141,20 +141,25 @@ const logEventFromApp = (params?: {
 };
 
 export const logPageView = (params: ClientParams, authState: Auth) => {
-    return logAmplitudeEvent("besøk", {
-        målgruppe: window.__DECORATOR_DATA__.params.context,
-        sidetittel: document.title,
-        innlogging: authState.authenticated ? authState.securityLevel : false,
-        parametre: {
-            ...params,
-            BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
-            ...(params.availableLanguages && {
-                availableLanguages: params.availableLanguages.map(
-                    (lang) => lang.locale,
-                ),
-            }),
-        },
-    });
+    setTimeout(() => {
+        return logAmplitudeEvent("besøk", {
+            målgruppe: window.__DECORATOR_DATA__.params.context,
+            sidetittel: document.title,
+            innlogging: authState.authenticated
+                ? authState.securityLevel
+                : false,
+            parametre: {
+                ...params,
+                BREADCRUMBS:
+                    params.breadcrumbs && params.breadcrumbs.length > 0,
+                ...(params.availableLanguages && {
+                    availableLanguages: params.availableLanguages.map(
+                        (lang) => lang.locale,
+                    ),
+                }),
+            },
+        });
+    }, 50);
 };
 
 export const logAmplitudeEvent = async (
