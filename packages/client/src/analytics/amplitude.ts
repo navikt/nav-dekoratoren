@@ -17,8 +17,8 @@ export type AmplitudeKategori =
     | "dekorator-sprakvelger";
 
 type AnalyticsEventArgs = {
-    context?: Context;
     eventName?: string;
+    context?: Context;
     kategori?: AmplitudeKategori;
     destinasjon?: string;
     lenketekst?: string;
@@ -75,7 +75,7 @@ export const initAmplitude = async () => {
             attribution: true,
             fileDownloads: false,
             formInteractions: false,
-            pageViews: true,
+            pageViews: false,
             sessions: true,
             elementInteractions: false,
         },
@@ -87,8 +87,8 @@ export const initAmplitude = async () => {
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
+        eventName: optionalEventName,
         context,
-        eventName,
         kategori,
         destinasjon,
         lenketekst,
@@ -96,13 +96,15 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         komponent,
     } = props;
 
-    return logAmplitudeEvent(eventName || "navigere", {
+    const eventName = optionalEventName || "navigere";
+    return logAmplitudeEvent(eventName, {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst,
+        lenketekst: eventName === "navigere" ? lenketekst : undefined,
+        tekst: eventName !== "navigere" ? lenketekst : undefined,
         lenkegruppe,
         komponent,
     });
@@ -140,20 +142,25 @@ const logEventFromApp = (params?: {
 };
 
 export const logPageView = (params: ClientParams, authState: Auth) => {
-    return logAmplitudeEvent("besøk", {
-        målgruppe: params.context,
-        sidetittel: document.title,
-        innlogging: authState.authenticated ? authState.securityLevel : false,
-        parametre: {
-            ...params,
-            BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
-            ...(params.availableLanguages && {
-                availableLanguages: params.availableLanguages.map(
-                    (lang) => lang.locale,
-                ),
-            }),
-        },
-    });
+    setTimeout(() => {
+        return logAmplitudeEvent("besøk", {
+            målgruppe: window.__DECORATOR_DATA__.params.context,
+            sidetittel: document.title,
+            innlogging: authState.authenticated
+                ? authState.securityLevel
+                : false,
+            parametre: {
+                ...params,
+                BREADCRUMBS:
+                    params.breadcrumbs && params.breadcrumbs.length > 0,
+                ...(params.availableLanguages && {
+                    availableLanguages: params.availableLanguages.map(
+                        (lang) => lang.locale,
+                    ),
+                }),
+            },
+        });
+    }, 50);
 };
 
 export const logAmplitudeEvent = async (
