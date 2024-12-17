@@ -146,6 +146,7 @@ export const logPageView = (params: ClientParams, authState: Auth) => {
         return logAmplitudeEvent("besøk", {
             målgruppe: window.__DECORATOR_DATA__.params.context,
             sidetittel: document.title,
+            innholdsype: params.pageType,
             innlogging: authState.authenticated
                 ? authState.securityLevel
                 : false,
