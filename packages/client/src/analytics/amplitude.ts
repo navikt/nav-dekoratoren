@@ -1,5 +1,5 @@
 import { Auth } from "decorator-shared/auth";
-import { ClientParams, Context } from "decorator-shared/params";
+import { Context } from "decorator-shared/params";
 import { param } from "../params";
 
 // Dynamic import for lazy loading
@@ -19,6 +19,7 @@ export type AmplitudeKategori =
 type AnalyticsEventArgs = {
     eventName?: string;
     context?: Context;
+    pageType?: string;
     kategori?: AmplitudeKategori;
     destinasjon?: string;
     lenketekst?: string;
@@ -89,6 +90,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
         eventName: optionalEventName,
         context,
+        pageType,
         kategori,
         destinasjon,
         lenketekst,
@@ -100,6 +102,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     return logAmplitudeEvent(eventName, {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
+        innholdstype: pageType,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
@@ -141,13 +144,13 @@ const logEventFromApp = (params?: {
     }
 };
 
-export const logPageView = (params: ClientParams, authState: Auth) => {
+export const logPageView = (authState: Auth) => {
     setTimeout(() => {
-        const decoratorParams = window.__DECORATOR_DATA__.params;
+        const params = window.__DECORATOR_DATA__.params;
         return logAmplitudeEvent("besøk", {
-            målgruppe: decoratorParams.context,
+            målgruppe: params.context,
+            innholdstype: params.pageType,
             sidetittel: document.title,
-            innholdstype: decoratorParams.pageType,
             innlogging: authState.authenticated
                 ? authState.securityLevel
                 : false,
@@ -206,6 +209,7 @@ export const amplitudeClickListener =
             if (args) {
                 amplitudeEvent({
                     context: param("context"),
+                    pageType: param("pageType"),
                     destinasjon: anchor.href,
                     kategori: args.kategori,
                     lenkegruppe: args.lenkegruppe,
