@@ -142,11 +142,12 @@ const logEventFromApp = (params?: {
 };
 
 export const logPageView = (params: ClientParams, authState: Auth) => {
+    const decoratorParams = window.__DECORATOR_DATA__.params;
     setTimeout(() => {
         return logAmplitudeEvent("besøk", {
-            målgruppe: window.__DECORATOR_DATA__.params.context,
+            målgruppe: decoratorParams.context,
             sidetittel: document.title,
-            innholdsype: params.pageType,
+            innholdstype: decoratorParams.pageType,
             innlogging: authState.authenticated
                 ? authState.securityLevel
                 : false,
