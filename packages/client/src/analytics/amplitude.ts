@@ -145,6 +145,7 @@ const logEventFromApp = (params?: {
 };
 
 export const logPageView = (authState: Auth) => {
+    // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {
         const params = window.__DECORATOR_DATA__.params;
         return logAmplitudeEvent("besøk", {
@@ -165,7 +166,7 @@ export const logPageView = (authState: Auth) => {
                 }),
             },
         });
-    }, 50);
+    }, 100);
 };
 
 export const logAmplitudeEvent = async (
