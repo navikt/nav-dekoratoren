@@ -142,8 +142,8 @@ const logEventFromApp = (params?: {
 };
 
 export const logPageView = (params: ClientParams, authState: Auth) => {
-    const decoratorParams = window.__DECORATOR_DATA__.params;
     setTimeout(() => {
+        const decoratorParams = window.__DECORATOR_DATA__.params;
         return logAmplitudeEvent("besøk", {
             målgruppe: decoratorParams.context,
             sidetittel: document.title,
