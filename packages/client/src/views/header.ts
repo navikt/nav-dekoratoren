@@ -25,6 +25,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "chatbotVisible",
     "context",
     "redirectOnUserChange",
+    "pageType",
 ] as const;
 
 class Header extends HTMLElement {
