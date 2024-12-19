@@ -1,0 +1,43 @@
+.consentBanner {
+  overflow: visible;
+  border: none;
+  max-width: 560px;
+  width: 100%;
+}
+
+.title {
+  font-size: var(--a-font-size-large);
+  font-weight: bold;
+  margin-bottom: var(--a-spacing-2);
+}
+
+.text {
+  font-size: var(--a-font-size-medium);
+  margin-bottom: var(--a-spacing-2);
+}
+
+.button {
+  margin: 0;
+  font: inherit;
+  font-size: var(--a-font-size-large);
+  color: inherit;
+  cursor: pointer;
+  background-color: var(--a-surface-default);
+  padding: 0.5625rem;
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--a-spacing-2);
+  align-items: center;
+  border: 1px solid var(--a-gray-600);
+  border-radius: var(--a-border-radius-medium);
+}
+
+.buttonPrimary {
+  font-size: var(--a-font-size-medium);
+  color: var(--a-primary-500);
+  cursor: pointer;
+}
+
+.buttonDetails {
+  color: pink;
+}
