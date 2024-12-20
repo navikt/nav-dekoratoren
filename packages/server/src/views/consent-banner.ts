@@ -5,33 +5,39 @@ import { ChevronDownIcon, GlobeIcon } from "decorator-icons";
 import html from "decorator-shared/html";
 import { AvailableLanguage } from "decorator-shared/params";
 import i18n from "../i18n";
+import { Button } from "./components/button";
 
 export type ConsentBannerProps = {
-  foo: string;
+    foo: string;
 };
+
 export const ConsentBanner = ({ foo }: ConsentBannerProps) => html`
-  <consent-banner>
-    <dialog class="${cls.consentBanner}">
-      <h1>Denne siden bruker informasjonskapsler (cookies)</h1>
-      <p>
-        Når du besøker nav.no lagres anonymiserte data i nettleseren din, enten
-        via informasjonskapsler (cookies) eller andre teknologier.
-      </p>
-      <p>
-        Noen av disse er nødvendige for at løsningene på nav.no skal fungere
-        teknisk. Annen anonymisert informasjon bruker vi for å lære mer om
-        hvordan nav.no brukes gjennom brukerstatistikk, klikk, navigasjon og
-        besøksmønster. Dette kalles ofte webanalyse.
-      </p>
-      <p>
-        Det gjør vi for å kunne fortsette å lage gode brukeropplevelser og
-        tydelig innhold for innbyggerne. Du kan når som helst trekke samtykket
-        ditt ved å klikke lenken "Samtykke til informasjonskapsler" nederst på
-        nav.no.
-      </p>
-      <button class="${clsx(cls.button, cls.buttonMain)}">
-        Samtykke til informasjonskapsler
-      </button>
-    </dialog>
-  </consent-banner>
+    <consent-banner>
+        <dialog
+            class="${cls.consentBanner}"
+            aria-labelledby="consent_banner_title"
+        >
+            <h1 id="consent_banner_title">${i18n("consent_banner_title")}</h1>
+            ${i18n("consent_banner_text")}
+            <div class="${cls.buttonContainer}">
+                ${Button({
+                    content: i18n("consent_banner_consent_all"),
+                    variant: "primary",
+                    attributes: { ["data-name"]: "consent-banner-all" },
+                })}
+                ${Button({
+                    content: i18n("consent_banner_refuse_optional"),
+                    variant: "primary",
+                    attributes: {
+                        ["data-name"]: "consent-banner-refuse-optional",
+                    },
+                })}
+                ${Button({
+                    content: i18n("consent_banner_configure"),
+                    variant: "secondary",
+                    attributes: { ["data-name"]: "consent-banner-configure" },
+                })}
+            </div>
+        </dialog>
+    </consent-banner>
 `;

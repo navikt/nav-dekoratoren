@@ -10,6 +10,30 @@ export const nb = {
     did_you_find: "Fant du det du lette etter?",
     search: "Søk",
     search_nav_no: "Søk på nav.no",
+    consent_banner_title: "Denne siden bruker informasjonskapsler (cookies)",
+    consent_banner_text: `
+    <p>
+        Når du besøker nav.no lagres anonymiserte data i nettleseren
+        din, enten via informasjonskapsler (cookies) eller andre
+        teknologier.
+    </p>
+    <p>
+        Noen av disse er nødvendige for at løsningene på nav.no skal
+        fungere teknisk. Annen anonymisert informasjon bruker vi for å
+        lære mer om hvordan nav.no brukes gjennom brukerstatistikk,
+        klikk, navigasjon og besøksmønster. Dette kalles ofte
+        webanalyse.
+    </p>
+    <p>
+        Det gjør vi for å kunne fortsette å lage gode brukeropplevelser
+        og tydelig innhold for innbyggerne. Du kan når som helst trekke
+        samtykket ditt ved å klikke lenken "Samtykke til
+        informasjonskapsler" nederst på nav.no.
+    </p>
+    `,
+    consent_banner_consent_all: "Godkjenn alle",
+    consent_banner_refuse_optional: "Avvis valgfrie",
+    consent_banner_configure: "Tilpass",
     clear: "Tøm",
     login: "Logg inn",
     logout: "Logg ut",
@@ -111,6 +135,21 @@ const en: Texts = {
     share_screen: "Share screen with your counsellor",
     to_top: "To the top",
     menu: "Menu",
+    consent_banner_title: "This page uses cookies",
+    consent_banner_text: `
+    <p>
+        When you visit nav.no, anonymized data is stored in your browser, either through cookies or other technologies.
+    </p>
+    <p>
+        Some of these are necessary for the technical functioning of the solutions on nav.no. Other anonymized information is used to learn more about how nav.no is used through user statistics, clicks, navigation, and visit patterns. This is often referred to as web analytics.
+    </p>
+    <p>
+        We do this to continue creating good user experiences and clear content for citizens. You can withdraw your consent at any time by clicking the link "Consent to cookies" at the bottom of nav.no.
+    </p>
+    `,
+    consent_banner_consent_all: "Consent to all",
+    consent_banner_refuse_optional: "Refuse optional",
+    consent_banner_configure: "Configure",
     close: "Close",
     did_you_find: "Did you find what you were looking for?",
     search: "Search",

@@ -15,10 +15,17 @@ export class ConsentBanner extends HTMLElement {
     dialog!: HTMLDialogElement;
     input!: HTMLInputElement;
     errorList!: HTMLElement;
+    buttonConsentAll!: HTMLElement | null;
+    buttonRefuseOptional!: HTMLElement | null;
+    buttonConfigure!: HTMLElement | null;
+
+    handleResponse = (
+        response: "CONSENT_ALL" | "REFUSE_OPTIONAL" | "CONFIGURE",
+    ) => {
+        console.log(response);
+    };
 
     showModal() {
-        console.log("show modal");
-        console.log(this.dialog);
         this.dialog.showModal();
         amplitudeEvent({
             eventName: "modal åpnet",
@@ -43,10 +50,38 @@ export class ConsentBanner extends HTMLElement {
         if (!isDialogDefined(this.dialog)) {
             return;
         }
+
+        this.buttonConsentAll = document.querySelector(
+            '[data-name="consent-banner-all"]',
+        );
+        this.buttonRefuseOptional = document.querySelector(
+            '[data-name="consent-banner-refuse-optional"]',
+        );
+        this.buttonConfigure = document.querySelector(
+            '[data-name="consent-banner-configure"]',
+        );
+
+        this.buttonConsentAll?.addEventListener("click", () =>
+            this.handleResponse("CONSENT_ALL"),
+        );
+        this.buttonRefuseOptional?.addEventListener("click", () =>
+            this.handleResponse("REFUSE_OPTIONAL"),
+        );
+        this.buttonConfigure?.addEventListener("click", () =>
+            this.handleResponse("CONFIGURE"),
+        );
     }
 
     disconnectedCallback() {
-        console.log("disconnected");
+        this.buttonConsentAll?.removeEventListener("click", () =>
+            this.handleResponse("CONSENT_ALL"),
+        );
+        this.buttonRefuseOptional?.removeEventListener("click", () =>
+            this.handleResponse("REFUSE_OPTIONAL"),
+        );
+        this.buttonConfigure?.removeEventListener("click", () =>
+            this.handleResponse("CONFIGURE"),
+        );
     }
 }
 
