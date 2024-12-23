@@ -44,7 +44,9 @@ export const Breadcrumbs = ({
                           <a
                               href="${frontPageUrl}"
                               class="${clsx(cls.homeLink, aksel["navds-link"])}"
-                              >${HouseIcon({ className: cls.svg })} nav.no
+                              data-analytics-title="nav.no"
+                          >
+                              ${HouseIcon({ className: cls.svg })} nav.no
                           </a>
                           ${ChevronRightIcon()}
                       </li>

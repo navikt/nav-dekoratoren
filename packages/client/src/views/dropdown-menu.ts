@@ -9,11 +9,6 @@ const analyticsLabel = {
     user: "[Brukernavn]",
     search: "Søk",
 } as const;
-const analyticsCategory = {
-    menu: "dekorator-meny",
-    user: "dekorator-brukermeny",
-    search: "dekorator-sok",
-} as const;
 
 class DropdownMenu extends HTMLElement {
     private button!: HTMLElement;
@@ -45,8 +40,8 @@ class DropdownMenu extends HTMLElement {
             amplitudeEvent({
                 eventName: force ? "accordion åpnet" : "accordion lukket",
                 context: window.__DECORATOR_DATA__.params.context,
-                label: this.menuType && analyticsLabel[this.menuType],
-                category: this.menuType && analyticsCategory[this.menuType],
+                kategori: "dekorator-header",
+                lenketekst: this.menuType && analyticsLabel[this.menuType],
                 komponent: "DropDownMenu",
             });
             this.isOpen = force;

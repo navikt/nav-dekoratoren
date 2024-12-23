@@ -66,7 +66,7 @@ export const SearchHits = ({
                   >
                       ${i18n("more_hits")}
                       ${ArrowRightIcon({
-                          className: utils.icons,
+                          className: utils.icon,
                       })}
                   </a>
               `

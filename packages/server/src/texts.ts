@@ -86,7 +86,7 @@ export const nb = {
     delskjerm_modal_feilmelding: "Må bestå av 5 siffer",
     delskjerm_modal_hjelpetekst_overskrift: "Hva er skjermdeling?",
     delskjerm_modal_hjelpetekst_0:
-        "Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.",
+        "Når du deler skjerm med Nav kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.",
     delskjerm_modal_hjelpetekst_1:
         "Veilederen ser kun det du ser på nav.no og kan ikke fylle inn opplysninger eller sende inn noe på dine vegne.",
     delskjerm_modal_hjelpetekst_2:

@@ -25,6 +25,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "chatbotVisible",
     "context",
     "redirectOnUserChange",
+    "pageType",
 ] as const;
 
 class Header extends HTMLElement {
@@ -117,7 +118,10 @@ class Header extends HTMLElement {
             "click",
             amplitudeClickListener((anchor) =>
                 anchor.classList.contains(cls.logo)
-                    ? { category: "dekorator-header", action: "navlogo" }
+                    ? {
+                          kategori: "dekorator-header",
+                          lenketekst: "navlogo",
+                      }
                     : null,
             ),
         );

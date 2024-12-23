@@ -14,7 +14,7 @@ export const ReadMore = (props: ReadMoreProps) => {
         <details class="${cls.details}">
             <summary class="${cls.summary}">
                 ${ChevronDownIcon({ className: clsx(cls.icon, utils.icon) })}
-                <div>${props.header}</div>
+                <span>${props.header}</span>
             </summary>
             <div class="${cls.answer}">${props.content}</div>
         </details>

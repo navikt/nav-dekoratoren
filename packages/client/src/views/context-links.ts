@@ -1,4 +1,7 @@
-import { amplitudeClickListener } from "../analytics/amplitude";
+import {
+    AmplitudeKategori,
+    amplitudeClickListener,
+} from "../analytics/amplitude";
 import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 
@@ -19,9 +22,12 @@ class ContextLinks extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener((anchor) => ({
-                action: "arbeidsflate-valg",
-                category: "dekorator-header",
-                label: anchor.getAttribute("data-context") ?? undefined,
+                kategori:
+                    (anchor.getAttribute(
+                        "data-kategori",
+                    ) as AmplitudeKategori) ?? undefined,
+                lenkegruppe: "arbeidsflate-valg",
+                lenketekst: anchor.getAttribute("data-context") ?? undefined,
             })),
         );
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
