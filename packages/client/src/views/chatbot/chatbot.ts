@@ -150,7 +150,11 @@ class Chatbot extends HTMLElement {
         });
 
     private removeCookie = () =>
-        Cookies.remove(this.cookieName, { path: "/", domain: ".nav.no" });
+        Cookies.remove(this.cookieName, {
+            domain: location.hostname.includes("nav.no")
+                ? ".nav.no"
+                : undefined,
+        });
 }
 
 const buildBoostConfig = ({
