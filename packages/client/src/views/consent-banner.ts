@@ -22,7 +22,9 @@ export class ConsentBanner extends HTMLElement {
     handleResponse = (
         response: "CONSENT_ALL" | "REFUSE_OPTIONAL" | "CONFIGURE",
     ) => {
-        console.log(response);
+        if (response === "CONSENT_ALL") {
+            // Separate cookie controller?
+        }
     };
 
     showModal() {
