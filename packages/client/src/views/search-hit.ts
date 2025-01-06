@@ -7,7 +7,6 @@ class SearchHit extends HTMLElement {
             "click",
             amplitudeClickListener(() => ({
                 eventName: "resultat-klikk",
-                destinasjon: "[redacted]",
                 sokeord: "[redacted]",
                 treffnr:
                     [...this.closest("ul")!.children].findIndex((el) =>
