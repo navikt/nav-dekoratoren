@@ -23,7 +23,7 @@ class SearchMenu extends HTMLElement {
         if (this.input) {
             this.input.value = "";
         }
-        mainMenu && mainMenu.classList.remove("hidden");
+        mainMenu?.classList.remove("hidden");
     };
 
     focus = () => this.input?.focus();
@@ -58,9 +58,7 @@ class SearchMenu extends HTMLElement {
 
             amplitudeEvent({
                 eventName: "søk",
-                destinasjon: url,
                 kategori: "dekorator-header",
-                lenketekst: "[redacted]",
                 komponent: "SearchMenu",
             });
 
@@ -83,10 +81,10 @@ class SearchMenu extends HTMLElement {
                 this.hits.innerHTML = html`<decorator-loader
                     title="${window.__DECORATOR_DATA__.texts.loading_preview}"
                 />`.render(window.__DECORATOR_DATA__.params);
-                mainMenu && mainMenu.classList.add("hidden");
+                mainMenu?.classList.add("hidden");
                 fetchSearchDebounced(value);
             } else {
-                mainMenu && mainMenu.classList.remove("hidden");
+                mainMenu?.classList.remove("hidden");
                 this.hits.remove();
             }
         });

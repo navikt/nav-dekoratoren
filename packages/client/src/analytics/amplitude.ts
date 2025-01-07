@@ -1,5 +1,5 @@
 import { Auth } from "decorator-shared/auth";
-import { ClientParams, Context } from "decorator-shared/params";
+import { Context } from "decorator-shared/params";
 import { param } from "../params";
 
 // Dynamic import for lazy loading
@@ -17,8 +17,9 @@ export type AmplitudeKategori =
     | "dekorator-sprakvelger";
 
 type AnalyticsEventArgs = {
-    context?: Context;
     eventName?: string;
+    context?: Context;
+    pageType?: string;
     kategori?: AmplitudeKategori;
     destinasjon?: string;
     lenketekst?: string;
@@ -75,7 +76,7 @@ export const initAmplitude = async () => {
             attribution: true,
             fileDownloads: false,
             formInteractions: false,
-            pageViews: true,
+            pageViews: false,
             sessions: true,
             elementInteractions: false,
         },
@@ -87,8 +88,9 @@ export const initAmplitude = async () => {
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
+        eventName: optionalEventName,
         context,
-        eventName,
+        pageType,
         kategori,
         destinasjon,
         lenketekst,
@@ -96,13 +98,16 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         komponent,
     } = props;
 
-    return logAmplitudeEvent(eventName || "navigere", {
+    const eventName = optionalEventName || "navigere";
+    return logAmplitudeEvent(eventName, {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
+        innholdstype: pageType,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst,
+        lenketekst: lenketekst,
+        tekst: lenketekst,
         lenkegruppe,
         komponent,
     });
@@ -139,21 +144,29 @@ const logEventFromApp = (params?: {
     }
 };
 
-export const logPageView = (params: ClientParams, authState: Auth) => {
-    return logAmplitudeEvent("besøk", {
-        målgruppe: params.context,
-        sidetittel: document.title,
-        innlogging: authState.authenticated ? authState.securityLevel : false,
-        parametre: {
-            ...params,
-            BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
-            ...(params.availableLanguages && {
-                availableLanguages: params.availableLanguages.map(
-                    (lang) => lang.locale,
-                ),
-            }),
-        },
-    });
+export const logPageView = (authState: Auth) => {
+    // Må vente litt med logging for å sikre at window-objektet er oppdatert.
+    setTimeout(() => {
+        const params = window.__DECORATOR_DATA__.params;
+        return logAmplitudeEvent("besøk", {
+            målgruppe: params.context,
+            innholdstype: params.pageType,
+            sidetittel: document.title,
+            innlogging: authState.authenticated
+                ? authState.securityLevel
+                : false,
+            parametre: {
+                ...params,
+                BREADCRUMBS:
+                    params.breadcrumbs && params.breadcrumbs.length > 0,
+                ...(params.availableLanguages && {
+                    availableLanguages: params.availableLanguages.map(
+                        (lang) => lang.locale,
+                    ),
+                }),
+            },
+        });
+    }, 100);
 };
 
 export const logAmplitudeEvent = async (
@@ -197,6 +210,7 @@ export const amplitudeClickListener =
             if (args) {
                 amplitudeEvent({
                     context: param("context"),
+                    pageType: param("pageType"),
                     destinasjon: anchor.href,
                     kategori: args.kategori,
                     lenkegruppe: args.lenkegruppe,

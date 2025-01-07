@@ -4,7 +4,7 @@ import { env, param, updateDecoratorParams } from "../params";
 import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
-import { ClientParams } from "decorator-shared/params";
+import { type ClientParams } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 
 const msgSafetyCheck = (message: MessageEvent) => {
@@ -25,6 +25,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "chatbotVisible",
     "context",
     "redirectOnUserChange",
+    "pageType",
 ] as const;
 
 class Header extends HTMLElement {
