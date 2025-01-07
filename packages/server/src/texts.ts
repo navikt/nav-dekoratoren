@@ -21,14 +21,7 @@ export const nb = {
         Noen av disse er nødvendige for at løsningene på nav.no skal
         fungere teknisk. Annen anonymisert informasjon bruker vi for å
         lære mer om hvordan nav.no brukes gjennom brukerstatistikk,
-        klikk, navigasjon og besøksmønster. Dette kalles ofte
-        webanalyse.
-    </p>
-    <p>
-        Det gjør vi for å kunne fortsette å lage gode brukeropplevelser
-        og tydelig innhold for innbyggerne. Du kan når som helst trekke
-        samtykket ditt ved å klikke lenken "Samtykke til
-        informasjonskapsler" nederst på nav.no.
+        klikk, navigasjon og besøksmønster. <a href="http://www.nav.no/informasjonskapsler">Se oversikt over informasjonskapsler her</a>.
     </p>
     `,
     consent_banner_consent_all: "Godkjenn alle",
@@ -141,10 +134,7 @@ const en: Texts = {
         When you visit nav.no, anonymized data is stored in your browser, either through cookies or other technologies.
     </p>
     <p>
-        Some of these are necessary for the technical functioning of the solutions on nav.no. Other anonymized information is used to learn more about how nav.no is used through user statistics, clicks, navigation, and visit patterns. This is often referred to as web analytics.
-    </p>
-    <p>
-        We do this to continue creating good user experiences and clear content for citizens. You can withdraw your consent at any time by clicking the link "Consent to cookies" at the bottom of nav.no.
+        Some of these are necessary for the technical functioning of the solutions on nav.no. Other anonymized information is used to learn more about how nav.no is used through user statistics, clicks, navigation, and visit patterns. This is often referred to as web analytics. <a href="http://www.nav.no/informasjonskapsler/en">See overview of cookies here</a>.
     </p>
     `,
     consent_banner_consent_all: "Consent to all",

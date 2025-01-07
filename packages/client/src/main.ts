@@ -7,6 +7,7 @@ import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { param, initParams } from "./params";
 import "./main.css";
+import { WebStorageController } from "./webStorage";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -32,18 +33,23 @@ const injectHeadAssets = () => {
 };
 
 const init = () => {
+    window.webstorageController = new WebStorageController();
     initParams();
     injectHeadAssets();
     initHistoryEvents();
     initScrollToEvents();
 
-    if (param("maskHotjar")) {
-        document.documentElement.setAttribute("data-hj-suppress", "");
-    }
+    const { allowOptional } = window.webstorageController.checkConsent();
 
-    refreshAuthData().then((response) => {
-        initAnalytics(response.auth);
-    });
+    if (allowOptional) {
+        if (param("maskHotjar")) {
+            document.documentElement.setAttribute("data-hj-suppress", "");
+        }
+
+        refreshAuthData().then((response) => {
+            initAnalytics(response.auth);
+        });
+    }
 };
 
 if (document.readyState === "loading") {

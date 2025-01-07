@@ -1,10 +1,7 @@
-import { AvailableLanguage, Language } from "decorator-shared/params";
-import { CustomEvents } from "../events";
-import { param, updateDecoratorParams } from "../params";
+import { createEvent } from "../events";
 import cls from "../styles/consent-banner.module.css";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
-import { amplitudeEvent } from "../analytics/amplitude";
 import { isDialogDefined } from "../helpers/dialog-util";
 
 export class ConsentBanner extends HTMLElement {
@@ -14,36 +11,41 @@ export class ConsentBanner extends HTMLElement {
     buttonConsentAll!: HTMLElement | null;
     buttonRefuseOptional!: HTMLElement | null;
 
-    handleResponse = (response: "CONSENT_ALL" | "REFUSE_OPTIONAL") => {
-        if (response === "CONSENT_ALL") {
-            // Separate cookie controller?
+    handleResponse = (
+        response: "CONSENT_ALL_WEB_STORAGE" | "REFUSE_OPTIONAL_WEB_STORAGE",
+    ) => {
+        if (response === "CONSENT_ALL_WEB_STORAGE") {
+            window.dispatchEvent(createEvent("consentAllWebStorage", {}));
+        } else {
+            window.dispatchEvent(createEvent("refuseOptionalWebStorage", {}));
         }
+        this.closeModal();
     };
 
     showModal() {
         this.dialog.showModal();
-        console.log("showModal");
-        amplitudeEvent({
-            eventName: "modal åpnet",
-            kategori: "dekorator-footer",
-            lenketekst: "Vis samtykkebanner",
-            komponent: "ConsentBanner",
-        });
+        this.buttonConsentAll?.focus();
     }
 
     closeModal() {
         this.dialog.close();
-        amplitudeEvent({
-            eventName: "modal lukket",
-            kategori: "dekorator-footer",
-            lenketekst: "Skjul samtykkebanner",
-            komponent: "ConsentBanner",
-        });
+    }
+
+    checkOrWaitForWebStorageController() {
+        if (window.webstorageController) {
+            const givenConsent = window.webstorageController?.checkConsent();
+            if (givenConsent === null) {
+                this.showModal();
+            }
+        }
+
+        setTimeout(() => {
+            this.checkOrWaitForWebStorageController();
+        }, 100);
     }
 
     async connectedCallback() {
         this.dialog = this.querySelector("dialog")!;
-        console.log(this);
         if (!isDialogDefined(this.dialog)) {
             return;
         }
@@ -56,21 +58,21 @@ export class ConsentBanner extends HTMLElement {
         );
 
         this.buttonConsentAll?.addEventListener("click", () =>
-            this.handleResponse("CONSENT_ALL"),
+            this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
         );
         this.buttonRefuseOptional?.addEventListener("click", () =>
-            this.handleResponse("REFUSE_OPTIONAL"),
+            this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
 
-        this.showModal();
+        this.checkOrWaitForWebStorageController();
     }
 
     disconnectedCallback() {
         this.buttonConsentAll?.removeEventListener("click", () =>
-            this.handleResponse("CONSENT_ALL"),
+            this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
         );
         this.buttonRefuseOptional?.removeEventListener("click", () =>
-            this.handleResponse("REFUSE_OPTIONAL"),
+            this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
     }
 }

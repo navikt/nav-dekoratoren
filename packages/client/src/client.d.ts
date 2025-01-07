@@ -2,6 +2,7 @@ import { Faro } from "@grafana/faro-web-sdk";
 import { AppState } from "decorator-shared/types";
 import { CustomEvents, MessageEvents } from "./events";
 import { BoostClient, BoostConfig } from "./views/chatbot";
+import { WebStorageController } from "./webStorage";
 
 declare global {
     interface Window {
@@ -44,5 +45,6 @@ declare global {
                 ev: CustomEvent<CustomEvents[K]>,
             ) => void,
         ): void;
+        webstorageController: WebStorageController;
     }
 }

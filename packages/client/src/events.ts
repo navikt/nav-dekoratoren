@@ -12,6 +12,9 @@ export type CustomEvents = {
     clearsearch: void;
     closemenus: void; // Currently fired only from other apps
     historyPush: void;
+    consentAllWebStorage: void;
+    refuseOptionalWebStorage: void;
+    showConsentBanner: void;
     scrollTo: {
         top?: number;
         left?: number;
