@@ -1,8 +1,4 @@
-import {
-    AvailableLanguage,
-    Language,
-    languageLabels,
-} from "decorator-shared/params";
+import { AvailableLanguage, Language } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { param, updateDecoratorParams } from "../params";
 import cls from "../styles/consent-banner.module.css";
@@ -17,11 +13,8 @@ export class ConsentBanner extends HTMLElement {
     errorList!: HTMLElement;
     buttonConsentAll!: HTMLElement | null;
     buttonRefuseOptional!: HTMLElement | null;
-    buttonConfigure!: HTMLElement | null;
 
-    handleResponse = (
-        response: "CONSENT_ALL" | "REFUSE_OPTIONAL" | "CONFIGURE",
-    ) => {
+    handleResponse = (response: "CONSENT_ALL" | "REFUSE_OPTIONAL") => {
         if (response === "CONSENT_ALL") {
             // Separate cookie controller?
         }
@@ -29,6 +22,7 @@ export class ConsentBanner extends HTMLElement {
 
     showModal() {
         this.dialog.showModal();
+        console.log("showModal");
         amplitudeEvent({
             eventName: "modal åpnet",
             kategori: "dekorator-footer",
@@ -49,6 +43,7 @@ export class ConsentBanner extends HTMLElement {
 
     async connectedCallback() {
         this.dialog = this.querySelector("dialog")!;
+        console.log(this);
         if (!isDialogDefined(this.dialog)) {
             return;
         }
@@ -59,9 +54,6 @@ export class ConsentBanner extends HTMLElement {
         this.buttonRefuseOptional = document.querySelector(
             '[data-name="consent-banner-refuse-optional"]',
         );
-        this.buttonConfigure = document.querySelector(
-            '[data-name="consent-banner-configure"]',
-        );
 
         this.buttonConsentAll?.addEventListener("click", () =>
             this.handleResponse("CONSENT_ALL"),
@@ -69,9 +61,8 @@ export class ConsentBanner extends HTMLElement {
         this.buttonRefuseOptional?.addEventListener("click", () =>
             this.handleResponse("REFUSE_OPTIONAL"),
         );
-        this.buttonConfigure?.addEventListener("click", () =>
-            this.handleResponse("CONFIGURE"),
-        );
+
+        this.showModal();
     }
 
     disconnectedCallback() {
@@ -80,9 +71,6 @@ export class ConsentBanner extends HTMLElement {
         );
         this.buttonRefuseOptional?.removeEventListener("click", () =>
             this.handleResponse("REFUSE_OPTIONAL"),
-        );
-        this.buttonConfigure?.removeEventListener("click", () =>
-            this.handleResponse("CONFIGURE"),
         );
     }
 }

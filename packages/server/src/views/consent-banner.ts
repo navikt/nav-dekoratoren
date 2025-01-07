@@ -32,11 +32,6 @@ export const ConsentBanner = ({ foo }: ConsentBannerProps) => html`
                         ["data-name"]: "consent-banner-refuse-optional",
                     },
                 })}
-                ${Button({
-                    content: i18n("consent_banner_configure"),
-                    variant: "secondary",
-                    attributes: { ["data-name"]: "consent-banner-configure" },
-                })}
             </div>
         </dialog>
     </consent-banner>
