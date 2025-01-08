@@ -8,6 +8,7 @@ const mainConfig = defineConfig({
         origin: "http://localhost:5173",
     },
     logLevel: "info",
+    // optimizeDeps: { exclude: ["decorator-client"] },
     build: {
         minify: true,
         target: "esnext",
@@ -16,6 +17,7 @@ const mainConfig = defineConfig({
         // Prevent inlining any asset imports, always import as url
         assetsInlineLimit: 0,
         rollupOptions: {
+            treeshake: false,
             plugins: [minifyLiterals() as InputPluginOption],
             input: ["src/main.ts"],
         },
