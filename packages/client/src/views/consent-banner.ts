@@ -31,19 +31,6 @@ export class ConsentBanner extends HTMLElement {
         this.dialog.close();
     }
 
-    checkOrWaitForWebStorageController() {
-        if (window.webstorageController) {
-            const givenConsent = window.webstorageController?.checkConsent();
-            if (givenConsent === null) {
-                this.showModal();
-            }
-        }
-
-        setTimeout(() => {
-            this.checkOrWaitForWebStorageController();
-        }, 100);
-    }
-
     async connectedCallback() {
         this.dialog = this.querySelector("dialog")!;
         if (!isDialogDefined(this.dialog)) {
@@ -64,7 +51,9 @@ export class ConsentBanner extends HTMLElement {
             this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
 
-        this.checkOrWaitForWebStorageController();
+        window.addEventListener("showConsentBanner", () => {
+            this.showModal();
+        });
     }
 
     disconnectedCallback() {
@@ -74,6 +63,10 @@ export class ConsentBanner extends HTMLElement {
         this.buttonRefuseOptional?.removeEventListener("click", () =>
             this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
+
+        window.removeEventListener("showConsentBanner", () => {
+            this.showModal();
+        });
     }
 }
 

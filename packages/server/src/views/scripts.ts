@@ -1,22 +1,10 @@
 import html, { json, Template, unsafeHtml } from "decorator-shared/html";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import {
-    AppState,
-    ClientTexts,
-    clientTextsKeys,
-    Features,
-    HtmlElementProps,
-} from "decorator-shared/types";
-import { clientEnv, env } from "../env/server";
+import { HtmlElementProps } from "decorator-shared/types";
+import { env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
-import {
-    clientParamKeys,
-    ClientParams,
-    Params,
-    validateRawParams,
-} from "decorator-shared/params";
-import { texts } from "../texts";
 import { buildCdnUrl } from "../urls";
+import { buildDecoratorData, DecoratorDataProps } from "../decorator-data";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
@@ -95,43 +83,6 @@ export const scriptsProps = await getScriptsProps();
 const scriptsHtml = unsafeHtml(
     scriptsProps.map(buildHtmlElementString).join(""),
 );
-
-type DecoratorDataProps = {
-    features: Features;
-    params: Params;
-    rawParams: Record<string, string>;
-    headAssets?: HtmlElementProps[];
-};
-
-export const buildDecoratorData = ({
-    features,
-    params,
-    rawParams,
-    headAssets,
-}: DecoratorDataProps): AppState => ({
-    texts: Object.entries(texts[params.language])
-        .filter(([key]) => clientTextsKeys.includes(key as keyof ClientTexts))
-        .reduce(
-            (prev, [key, value]) => ({
-                ...prev,
-                [key]: value,
-            }),
-            {},
-        ) as ClientTexts,
-    params: Object.entries(params)
-        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
-        .reduce(
-            (prev, [key, value]) => ({
-                ...prev,
-                [key]: value,
-            }),
-            {},
-        ) as ClientParams,
-    rawParams: validateRawParams(rawParams),
-    features,
-    env: clientEnv,
-    headAssets,
-});
 
 export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
     return html`

@@ -20,12 +20,12 @@ import { parseAndValidateParams } from "./validateParams";
 import { IndexHtml } from "./views";
 import { HeaderTemplate } from "./views/header/header";
 import { FooterTemplate } from "./views/footer/footer";
-import { buildDecoratorData } from "./views/scripts";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
 import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
+import { buildDecoratorData } from "./decorator-data";
 
 const app = new Hono({
     strict: false,

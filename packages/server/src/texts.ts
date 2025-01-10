@@ -25,7 +25,7 @@ export const nb = {
     </p>
     `,
     consent_banner_consent_all: "Godkjenn alle",
-    consent_banner_refuse_optional: "Avvis valgfrie",
+    consent_banner_refuse_optional: "Bare nødvendige",
     consent_banner_configure: "Tilpass",
     clear: "Tøm",
     login: "Logg inn",
@@ -138,7 +138,7 @@ const en: Texts = {
     </p>
     `,
     consent_banner_consent_all: "Consent to all",
-    consent_banner_refuse_optional: "Refuse optional",
+    consent_banner_refuse_optional: "Necessary only",
     consent_banner_configure: "Configure",
     close: "Close",
     did_you_find: "Did you find what you were looking for?",

@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { createEvent } from "./events";
 
 type ConsentType =
     | "CONSENT_ALL_WEB_STORAGE"
@@ -6,22 +7,32 @@ type ConsentType =
     | null;
 
 export class WebStorageController {
-    consentVersion: string = "1.0.0";
+    consentVersion: string = "1.0.1";
     consentKey: string = `navno-consent-${this.consentVersion}`;
 
     constructor() {
         this.initEventListeners();
-        this.checkConsent();
+        this.checkAndTriggerConsentBanner();
         console.log("WebStorageController initialized");
     }
 
     private handleConsentAllWebStorage = () => {
-        Cookies.set(this.consentKey, "CONSENT_ALL_WEB_STORAGE");
+        Cookies.set(this.consentKey, "CONSENT_ALL_WEB_STORAGE", {
+            expires: 365,
+        });
     };
 
     private refuseOptionalWebStorage = () => {
-        Cookies.set(this.consentKey, "REFUSE_OPTIONAL_WEB_STORAGE");
+        Cookies.set(this.consentKey, "REFUSE_OPTIONAL_WEB_STORAGE", {
+            expires: 365,
+        });
+
+        this.deleteOptionalWebStorage();
     };
+
+    private deleteOptionalWebStorage() {
+        // Delete optional web storage
+    }
 
     // Initialize event listeners
     private initEventListeners() {
@@ -48,9 +59,19 @@ export class WebStorageController {
         }
     }
 
+    private checkAndTriggerConsentBanner() {
+        const { shouldShowBanner } = this.checkConsent();
+        if (shouldShowBanner) {
+            window.dispatchEvent(createEvent("showConsentBanner", {}));
+        }
+    }
+
     public checkConsent() {
         const givenConsent = this.validateConsent(Cookies.get(this.consentKey));
-        return { allowOptional: givenConsent === "CONSENT_ALL_WEB_STORAGE" };
+        return {
+            shouldShowBanner: givenConsent === null,
+            allowOptional: givenConsent === "CONSENT_ALL_WEB_STORAGE",
+        };
     }
 
     // Cleanup when no longer needed

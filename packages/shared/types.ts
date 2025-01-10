@@ -56,6 +56,7 @@ export type AppState = {
     // In the new implemention, head elements are included in the payload from the /ssr endpoint instead
     // and should be included in the server-HTML of consuming applications
     headAssets?: HtmlElementProps[];
+    allowedStorage: string[];
 };
 
 export type MainMenuContextLink = {
