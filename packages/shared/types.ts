@@ -1,4 +1,4 @@
-import { Context, Environment, ClientParams } from "./params";
+import { Context, Environment, ClientParams, Params } from "./params";
 import { nb } from "decorator-server/src/texts";
 
 export type Link = {
@@ -56,7 +56,7 @@ export type AppState = {
     // In the new implemention, head elements are included in the payload from the /ssr endpoint instead
     // and should be included in the server-HTML of consuming applications
     headAssets?: HtmlElementProps[];
-    allowedStorage: string[];
+    allowedStorage: PublicStorage[];
 };
 
 export type MainMenuContextLink = {
@@ -76,4 +76,28 @@ export type HtmlElementProps = {
     tag: string;
     attribs: Record<string, string>;
     body?: string;
+};
+
+type StorageType = "cookie" | "localstorage" | "sessionstorage";
+
+export type StorageConfig = {
+    name: string;
+    type: StorageType[];
+    service: string;
+    description: string;
+    optional: boolean;
+};
+
+export type DecoratorDataProps = {
+    features: Features;
+    params: Params;
+    rawParams: Record<string, string>;
+    headAssets?: HtmlElementProps[];
+};
+
+export type PublicStorage = Pick<
+    StorageConfig,
+    "name" | "optional" | "type"
+> & {
+    type: StorageType;
 };

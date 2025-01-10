@@ -1,35 +1,19 @@
-type StorageType = "cookie" | "localstorage" | "sessionstorage";
-
-export type StorageConfig = {
-    name: string;
-    type: StorageType[];
-    service: string;
-    description: string;
-    optional: boolean;
-};
 import {
     AppState,
     ClientTexts,
     clientTextsKeys,
-    Features,
-    HtmlElementProps,
+    DecoratorDataProps,
+    PublicStorage,
+    StorageConfig,
 } from "decorator-shared/types";
 import {
     clientParamKeys,
     ClientParams,
-    Params,
     validateRawParams,
 } from "decorator-shared/params";
 
 import { clientEnv } from "./env/server";
 import { texts } from "./texts";
-
-export type DecoratorDataProps = {
-    features: Features;
-    params: Params;
-    rawParams: Record<string, string>;
-    headAssets?: HtmlElementProps[];
-};
 
 const storageDictionary: Set<StorageConfig> = new Set([
     {
@@ -151,13 +135,6 @@ const storageDictionary: Set<StorageConfig> = new Set([
         optional: true,
     },
 ]);
-
-export type PublicStorage = Pick<
-    StorageConfig,
-    "name" | "optional" | "type"
-> & {
-    type: StorageType;
-};
 
 const buildAllowedStorage = () => {
     const allAllowedStorage: PublicStorage[] = Array.from(
