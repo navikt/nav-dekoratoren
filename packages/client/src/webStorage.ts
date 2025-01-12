@@ -1,5 +1,9 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
+import {
+    getAllowedStorage,
+    awaitDecoratorData,
+} from "@navikt/nav-dekoratoren-moduler";
 
 type ConsentType =
     | "CONSENT_ALL_WEB_STORAGE"
@@ -13,6 +17,7 @@ export class WebStorageController {
     constructor() {
         this.initEventListeners();
         this.checkAndTriggerConsentBanner();
+
         console.log("WebStorageController initialized");
     }
 
@@ -46,6 +51,32 @@ export class WebStorageController {
         );
     }
 
+    private async clearKnownStorage() {
+        await awaitDecoratorData();
+        const allowedStorage = getAllowedStorage();
+
+        const optionalStorage = allowedStorage.filter(
+            (storage) => storage.optional,
+        );
+
+        const storedCookies = document.cookie.split(";").map((cookie) => {
+            const [name, value] = cookie.trim().split("=");
+            return { name, value };
+        });
+
+        optionalStorage.forEach((storage) => {
+            const optionalStorageBase = storage.name.replace("*", "");
+            const storedCookie = storedCookies.find((cookie) =>
+                cookie.name.startsWith(optionalStorageBase),
+            );
+
+            if (storedCookie?.name.startsWith(optionalStorageBase)) {
+                console.log(`Deleting ${storedCookie.name}`);
+                Cookies.remove(storedCookie.name);
+            }
+        });
+    }
+
     private validateConsent(consent: string | undefined): ConsentType {
         if (consent === undefined) {
             return null;
@@ -63,6 +94,7 @@ export class WebStorageController {
         const { shouldShowBanner } = this.checkConsent();
         if (shouldShowBanner) {
             window.dispatchEvent(createEvent("showConsentBanner", {}));
+            this.clearKnownStorage();
         }
     }
 
