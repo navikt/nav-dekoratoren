@@ -1,9 +1,5 @@
-import clsx from "clsx";
 import cls from "decorator-client/src/styles/consent-banner.module.css";
-import utils from "decorator-client/src/styles/utils.module.css";
-import { ChevronDownIcon, GlobeIcon } from "decorator-icons";
 import html from "decorator-shared/html";
-import { AvailableLanguage } from "decorator-shared/params";
 import i18n from "../i18n";
 import { Button } from "./components/button";
 

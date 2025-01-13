@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/html";
 import { ConsentBanner as ClientComponent } from "decorator-client/src/views/consent-banner";
-import type { ConsentBannerProps } from "./consent-banner";
 import { ConsentBanner } from "./consent-banner";
 
-const meta: Meta<ConsentBannerProps> = {
+const meta: Meta = {
     title: "consent-banner",
     tags: ["autodocs"],
     render: () => {
@@ -20,7 +19,7 @@ const meta: Meta<ConsentBannerProps> = {
 };
 
 export default meta;
-type Story = StoryObj<ConsentBannerProps>;
+type Story = StoryObj;
 
 export const Default: Story = {
     args: {

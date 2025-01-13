@@ -1,6 +1,4 @@
 import { createEvent } from "../events";
-import cls from "../styles/consent-banner.module.css";
-import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 
