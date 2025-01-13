@@ -10,18 +10,11 @@ export const nb = {
     did_you_find: "Fant du det du lette etter?",
     search: "Søk",
     search_nav_no: "Søk på nav.no",
-    consent_banner_title: "Denne siden bruker informasjonskapsler (cookies)",
+    consent_banner_title: "Informasjonskapsler (cookies) på nav.no",
     consent_banner_text: `
     <p>
-        Når du besøker nav.no lagres anonymiserte data i nettleseren
-        din, enten via informasjonskapsler (cookies) eller andre
-        teknologier.
-    </p>
-    <p>
-        Noen av disse er nødvendige for at løsningene på nav.no skal
-        fungere teknisk. Annen anonymisert informasjon bruker vi for å
-        lære mer om hvordan nav.no brukes gjennom brukerstatistikk,
-        klikk, navigasjon og besøksmønster. <a href="http://www.nav.no/informasjonskapsler">Se oversikt over informasjonskapsler her</a>.
+        Vi har informasjonskapsler som samler informasjon om hvordan sidene våre brukes. Informasjonen bruker vi til å forbedre sidene slik at de fungerer best mulig.
+        <a href="https://www.ansatt.dev.nav.no/informasjonskapsler">Les om informasjonskapsler</a>.
     </p>
     `,
     consent_banner_consent_all: "Godkjenn alle",
@@ -128,13 +121,11 @@ const en: Texts = {
     share_screen: "Share screen with your counsellor",
     to_top: "To the top",
     menu: "Menu",
-    consent_banner_title: "This page uses cookies",
+    consent_banner_title: "Cookies on nav.no",
     consent_banner_text: `
     <p>
-        When you visit nav.no, anonymized data is stored in your browser, either through cookies or other technologies.
-    </p>
-    <p>
-        Some of these are necessary for the technical functioning of the solutions on nav.no. Other anonymized information is used to learn more about how nav.no is used through user statistics, clicks, navigation, and visit patterns. This is often referred to as web analytics. <a href="http://www.nav.no/informasjonskapsler/en">See overview of cookies here</a>.
+        We use cookies that collect information about how our pages are used. We use this information to improve the overall user experience on nav.no.
+        <a href="https://www.ansatt.dev.nav.no/informasjonskapsler">Read about cookies</a>.
     </p>
     `,
     consent_banner_consent_all: "Consent to all",
