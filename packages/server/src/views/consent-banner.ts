@@ -7,11 +7,7 @@ import { AvailableLanguage } from "decorator-shared/params";
 import i18n from "../i18n";
 import { Button } from "./components/button";
 
-export type ConsentBannerProps = {
-    foo: string;
-};
-
-export const ConsentBanner = ({ foo }: ConsentBannerProps) => html`
+export const ConsentBanner = () => html`
     <consent-banner>
         <dialog
             class="${cls.consentBanner}"

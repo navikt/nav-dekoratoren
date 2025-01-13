@@ -33,7 +33,7 @@ export const FooterTemplate = async ({
         ${getModal({
             enabled: shareScreen && features["dekoratoren.skjermdeling"],
         })}
-        ${ConsentBanner({ foo: "bar" })}
+        ${ConsentBanner()}
         <d-chatbot></d-chatbot>
         ${LogoutWarning()}
         ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}

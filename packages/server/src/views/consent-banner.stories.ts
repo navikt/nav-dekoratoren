@@ -15,7 +15,7 @@ const meta: Meta<ConsentBannerProps> = {
             modal.showModal();
         }, 0);
 
-        return ConsentBanner({ foo: "bar" });
+        return ConsentBanner();
     },
 };
 
