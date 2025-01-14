@@ -78,7 +78,7 @@ export type HtmlElementProps = {
     body?: string;
 };
 
-type StorageType = "cookie" | "localstorage" | "sessionstorage";
+export type StorageType = "cookie" | "localstorage" | "sessionstorage";
 
 export type StorageConfig = {
     name: string;

@@ -126,8 +126,8 @@ export class WebStorageController {
         const { version } = meta;
 
         if (!userActionTaken || version < this.currentConsentVersion) {
-            window.dispatchEvent(createEvent("showConsentBanner", {}));
             this.clearKnownStorage();
+            window.dispatchEvent(createEvent("showConsentBanner", {}));
         }
     }
 
