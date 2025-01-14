@@ -3,16 +3,13 @@ import { createEvent } from "./events";
 import {
     getAllowedStorage,
     awaitDecoratorData,
+    getCurrentConsent,
 } from "@navikt/nav-dekoratoren-moduler";
-
-type ConsentType =
-    | "CONSENT_ALL_WEB_STORAGE"
-    | "REFUSE_OPTIONAL_WEB_STORAGE"
-    | null;
+import { ConsentAction, Consent } from "decorator-shared/types";
 
 export class WebStorageController {
-    consentVersion: string = "1.0.1";
-    consentKey: string = `navno-consent-${this.consentVersion}`;
+    currentConsentVersion: number = 1;
+    consentKey: string = "navno-consent";
 
     constructor() {
         this.initEventListeners();
@@ -21,23 +18,70 @@ export class WebStorageController {
         console.log("WebStorageController initialized");
     }
 
+    // Default consent object ensures that nothing is allowed until user has
+    // given and explicit consent.
+    private buildDefaultConsent = () => {
+        return {
+            consent: {
+                analytics: false,
+                surveys: false,
+            },
+            userActionTaken: false,
+            meta: {
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                version: this.currentConsentVersion,
+            },
+        };
+    };
+
+    private buildConsentObject = (consent: ConsentAction) => {
+        // User either consent or refuse all for now. Differentiate between analytics and surveys
+        // in order to be scalable in the future.
+        const analytics = consent === "CONSENT_ALL_WEB_STORAGE";
+        const surveys = consent === "CONSENT_ALL_WEB_STORAGE";
+
+        const currentConsent =
+            getCurrentConsent() ?? this.buildDefaultConsent();
+
+        return {
+            ...currentConsent,
+            consent: {
+                ...currentConsent.consent,
+                analytics,
+                surveys,
+            },
+            userActionTaken: true,
+            meta: {
+                createdAt:
+                    currentConsent.meta?.createdAt ?? new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                version: this.currentConsentVersion,
+            },
+        };
+    };
+
     private handleConsentAllWebStorage = () => {
-        Cookies.set(this.consentKey, "CONSENT_ALL_WEB_STORAGE", {
-            expires: 365,
+        const consentObject = JSON.stringify(
+            this.buildConsentObject("CONSENT_ALL_WEB_STORAGE"),
+        );
+
+        Cookies.set(this.consentKey, consentObject, {
+            expires: 90,
         });
     };
 
     private refuseOptionalWebStorage = () => {
-        Cookies.set(this.consentKey, "REFUSE_OPTIONAL_WEB_STORAGE", {
-            expires: 365,
+        const consentObject = JSON.stringify(
+            this.buildConsentObject("REFUSE_OPTIONAL_WEB_STORAGE"),
+        );
+
+        Cookies.set(this.consentKey, consentObject, {
+            expires: 90,
         });
 
-        this.deleteOptionalWebStorage();
+        this.clearKnownStorage();
     };
-
-    private deleteOptionalWebStorage() {
-        // Delete optional web storage
-    }
 
     // Initialize event listeners
     private initEventListeners() {
@@ -77,33 +121,19 @@ export class WebStorageController {
         });
     }
 
-    private validateConsent(consent: string | undefined): ConsentType {
-        if (consent === undefined) {
-            return null;
-        } else {
-            return [
-                "CONSENT_ALL_WEB_STORAGE",
-                "REFUSE_OPTIONAL_WEB_STORAGE",
-            ].includes(consent)
-                ? (consent as ConsentType)
-                : null;
-        }
-    }
-
     private checkAndTriggerConsentBanner() {
-        const { shouldShowBanner } = this.checkConsent();
-        if (shouldShowBanner) {
+        const { userActionTaken, meta } = this.checkConsent();
+        const { version } = meta;
+
+        if (!userActionTaken || version < this.currentConsentVersion) {
             window.dispatchEvent(createEvent("showConsentBanner", {}));
             this.clearKnownStorage();
         }
     }
 
-    public checkConsent() {
-        const givenConsent = this.validateConsent(Cookies.get(this.consentKey));
-        return {
-            shouldShowBanner: givenConsent === null,
-            allowOptional: givenConsent === "CONSENT_ALL_WEB_STORAGE",
-        };
+    public checkConsent(): Consent {
+        const currentConsent = getCurrentConsent();
+        return currentConsent ?? this.buildDefaultConsent();
     }
 
     // Cleanup when no longer needed

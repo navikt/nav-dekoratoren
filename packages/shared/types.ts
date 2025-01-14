@@ -101,3 +101,21 @@ export type PublicStorage = Pick<
 > & {
     type: StorageType;
 };
+
+export type ConsentAction =
+    | "CONSENT_ALL_WEB_STORAGE"
+    | "REFUSE_OPTIONAL_WEB_STORAGE"
+    | null;
+
+export type Consent = {
+    consent: {
+        analytics: boolean;
+        surveys: boolean;
+    };
+    userActionTaken: boolean;
+    meta: {
+        createdAt: string;
+        updatedAt: string;
+        version: number;
+    };
+};
