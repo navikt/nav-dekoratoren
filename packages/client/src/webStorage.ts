@@ -132,7 +132,8 @@ export class WebStorageController {
     }
 
     public checkConsent(): Consent {
-        const currentConsent = getCurrentConsent();
+        const consentString = Cookies.get(this.consentKey);
+        const currentConsent = consentString ? JSON.parse(consentString) : null;
         return currentConsent ?? this.buildDefaultConsent();
     }
 
