@@ -46,5 +46,6 @@ declare global {
             ) => void,
         ): void;
         webstorageController: WebStorageController;
+        initContitionalHotjar: () => void;
     }
 }

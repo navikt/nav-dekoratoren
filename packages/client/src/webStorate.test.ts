@@ -23,6 +23,11 @@ const mockStorageDictionary: PublicStorage[] = [
         type: "cookie",
         optional: true,
     },
+    {
+        name: "_hjSession*",
+        type: "cookie",
+        optional: true,
+    },
 ] as PublicStorage[];
 
 describe("Tester webStorage", () => {
@@ -33,6 +38,7 @@ describe("Tester webStorage", () => {
 
         Cookies.set("usertest-1234", "foobar");
         Cookies.set("AMP_1234", "foobar");
+        Cookies.set("_hjSessionUser_118350", "foobar");
         Cookies.set("amp_abcdef", "foobar");
         Cookies.set("selvbetjening-idtoken", "foobar");
         Cookies.set("ta-dekoratoren-1234", "foobar");
@@ -55,6 +61,7 @@ describe("Tester webStorage", () => {
     it("kjente frivillige cookies slettes når cookie-banner vises", async () => {
         expect(Cookies.get("usertest-1234")).toBe("foobar");
         expect(Cookies.get("AMP_1234")).toBe("foobar");
+        expect(Cookies.get("_hjSessionUser_118350")).toBe("foobar");
         expect(Cookies.get("amp_abcdef")).toBe("foobar");
         expect(Cookies.get("ta-dekoratoren-1234")).toBe("foobar");
 
@@ -64,6 +71,7 @@ describe("Tester webStorage", () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         expect(Cookies.get("usertest-1234")).toBe(undefined);
         expect(Cookies.get("AMP_1234")).toBe(undefined);
+        expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
         expect(Cookies.get("amp_abcdef")).toBe(undefined);
         expect(Cookies.get("ta-dekoratoren-1234")).toBe(undefined);
     });
