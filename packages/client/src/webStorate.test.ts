@@ -61,11 +61,12 @@ describe("Tester webStorage", () => {
 
         Cookies.set("usertest-1234", "foobar");
         Cookies.set("AMP_1234", "foobar");
-        Cookies.set("selvbetjeningidtoken", "foobar");
+        Cookies.set("amp_abcdef", "foobar");
+        Cookies.set("selvbetjening-idtoken", "foobar");
         Cookies.set("ta-dekoratoren-1234", "foobar");
         Cookies.set("ukjent-cookie", "foobar");
     });
-    it("Tester at kontrolleren sender event om å åpne cookie-banner ved manglende samtykke-handling", () => {
+    it("kontrolleren sender event om å åpne cookie-banner ved manglende samtykke-handling", () => {
         const triggerEvent = vi.fn();
         window.addEventListener("showConsentBanner", triggerEvent);
         new WebStorageController();
@@ -73,21 +74,38 @@ describe("Tester webStorage", () => {
         expect(triggerEvent).toHaveBeenCalled();
     });
 
-    it("Tester at kjente frivillige cookies slettes når cookie-banner vises", async () => {
+    it("kjente frivillige cookies slettes når cookie-banner vises", async () => {
         expect(Cookies.get("usertest-1234")).toBe("foobar");
         expect(Cookies.get("AMP_1234")).toBe("foobar");
-        expect(Cookies.get("selvbetjeningidtoken")).toBe("foobar");
+        expect(Cookies.get("amp_abcdef")).toBe("foobar");
         expect(Cookies.get("ta-dekoratoren-1234")).toBe("foobar");
+
+        new WebStorageController();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(Cookies.get("usertest-1234")).toBe(undefined);
+        expect(Cookies.get("AMP_1234")).toBe(undefined);
+        expect(Cookies.get("amp_abcdef")).toBe(undefined);
+        expect(Cookies.get("ta-dekoratoren-1234")).toBe(undefined);
+    });
+    it("kjente nødvendige cookies slettes ikkenår cookie-banner vises", async () => {
+        expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
+
+        new WebStorageController();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
+    });
+
+    it("ukjente cookies slettes ikke når cookie-banner vises", async () => {
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
 
         new WebStorageController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(Cookies.get("selvbetjeningidtoken")).toBe("foobar");
-        expect(Cookies.get("usertest-1234")).toBe(undefined);
-        expect(Cookies.get("AMP_1234")).toBe(undefined);
-        expect(Cookies.get("ta-dekoratoren-1234")).toBe(undefined);
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
     });
 });

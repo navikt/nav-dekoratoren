@@ -99,7 +99,7 @@ export class WebStorageController {
         await awaitDecoratorData();
         const allowedStorage = getAllowedStorage();
 
-        const optionalStorage = allowedStorage.filter(
+        const allOptionalStorage = allowedStorage.filter(
             (storage) => storage.optional,
         );
 
@@ -108,16 +108,15 @@ export class WebStorageController {
             return { name, value };
         });
 
-        optionalStorage.forEach((storage) => {
+        allOptionalStorage.forEach((storage) => {
             const optionalStorageBase = storage.name.replace("*", "");
-            const storedCookie = storedCookies.find((cookie) =>
-                cookie.name.startsWith(optionalStorageBase),
+            const matchedCookiesForDeletion = storedCookies.filter((cookie) =>
+                new RegExp(`^${optionalStorageBase}`, "i").test(cookie.name),
             );
 
-            if (storedCookie?.name.startsWith(optionalStorageBase)) {
-                console.log(`Deleting ${storedCookie.name}`);
-                Cookies.remove(storedCookie.name);
-            }
+            matchedCookiesForDeletion.forEach((cookie) => {
+                Cookies.remove(cookie.name);
+            });
         });
     }
 
