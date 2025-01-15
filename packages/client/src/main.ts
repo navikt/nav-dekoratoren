@@ -8,7 +8,6 @@ import { buildHtmlElement } from "./helpers/html-element-builder";
 import { param, initParams } from "./params";
 import "./main.css";
 import { WebStorageController } from "./webStorage";
-import { getCurrentConsent } from "@navikt/nav-dekoratoren-moduler";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -40,17 +39,16 @@ const init = () => {
     initHistoryEvents();
     initScrollToEvents();
 
-    const consent = window.webstorageController.checkConsent();
+    const { consent } = window.webstorageController.getCurrentConsent();
 
     if (
         typeof window.initContitionalHotjar === "function" &&
-        consent?.consent?.analytics
+        consent?.analytics
     ) {
         window.initContitionalHotjar();
     }
 
-    if (consent?.consent?.analytics) {
-        window.initContitionalHotjar();
+    if (consent?.analytics) {
         if (param("maskHotjar")) {
             document.documentElement.setAttribute("data-hj-suppress", "");
         }

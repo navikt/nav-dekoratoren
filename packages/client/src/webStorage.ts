@@ -1,11 +1,8 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
-import {
-    getAllowedStorage,
-    awaitDecoratorData,
-    getCurrentConsent,
-} from "@navikt/nav-dekoratoren-moduler";
 import { ConsentAction, Consent, PublicStorage } from "decorator-shared/types";
+
+const DECORATOR_DATA_TIMEOUT = 5000;
 
 export class WebStorageController {
     currentConsentVersion: number = 1;
@@ -35,6 +32,15 @@ export class WebStorageController {
         };
     };
 
+    private getStorageDictionaryFromEnv = (): PublicStorage[] => {
+        if (!window.__DECORATOR_DATA__) {
+            throw new Error(
+                "Decorator data not available. Use the async 'isDecoratorDataAvailable' function to await for the data is available.",
+            );
+        }
+        return window.__DECORATOR_DATA__.allowedStorage || [];
+    };
+
     private buildConsentObject = (consent: ConsentAction) => {
         // User either consent or refuse all for now. Differentiate between analytics and surveys
         // in order to be scalable in the future.
@@ -42,7 +48,7 @@ export class WebStorageController {
         const surveys = consent === "CONSENT_ALL_WEB_STORAGE";
 
         const currentConsent =
-            getCurrentConsent() ?? this.buildDefaultConsent();
+            this.getCurrentConsent() ?? this.buildDefaultConsent();
 
         return {
             ...currentConsent,
@@ -61,7 +67,7 @@ export class WebStorageController {
         };
     };
 
-    private handleConsentAllWebStorage = () => {
+    private consentAllStorageHandler = () => {
         const consentObject = JSON.stringify(
             this.buildConsentObject("CONSENT_ALL_WEB_STORAGE"),
         );
@@ -71,7 +77,7 @@ export class WebStorageController {
         });
     };
 
-    private refuseOptionalWebStorage = () => {
+    private refuseOptionalStorageHandler = () => {
         const consentObject = JSON.stringify(
             this.buildConsentObject("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
@@ -80,22 +86,21 @@ export class WebStorageController {
             expires: 90,
         });
 
-        this.clearKnownStorage();
+        this.clearOptionalStorage();
     };
 
-    // Initialize event listeners
     private initEventListeners() {
         window.addEventListener(
             "consentAllWebStorage",
-            this.handleConsentAllWebStorage,
+            this.consentAllStorageHandler,
         );
         window.addEventListener(
             "refuseOptionalWebStorage",
-            this.refuseOptionalWebStorage,
+            this.refuseOptionalStorageHandler,
         );
     }
 
-    private clearKnownCookies(allOptionalStorage: PublicStorage[]) {
+    private clearOptionalCookies(allOptionalStorage: PublicStorage[]) {
         const storedCookies = document.cookie.split(";").map((cookie) => {
             const [name, value] = cookie.trim().split("=");
             return { name, value };
@@ -113,7 +118,7 @@ export class WebStorageController {
         });
     }
 
-    private clearKnownLocalAndSessionStorage(
+    private clearOptionalLocalAndSessionStorage(
         allOptionalStorage: PublicStorage[],
     ) {
         const deleteStorage = (storage: Storage, name: string) => {
@@ -130,42 +135,85 @@ export class WebStorageController {
         });
     }
 
-    private async clearKnownStorage() {
-        await awaitDecoratorData();
-        const allowedStorage = getAllowedStorage() as PublicStorage[];
+    private awaitDecoratorData = async () => {
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(
+                    new Error(
+                        `Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is infact loading.`,
+                    ),
+                );
+            }, DECORATOR_DATA_TIMEOUT);
+
+            const checkForDecoratorData = () => {
+                if (window.__DECORATOR_DATA__) {
+                    clearTimeout(timeout);
+                    resolve(true);
+                } else {
+                    setTimeout(checkForDecoratorData, 50);
+                }
+            };
+
+            checkForDecoratorData();
+        });
+    };
+
+    private async clearOptionalStorage() {
+        await this.awaitDecoratorData();
+        const allowedStorage = this.getAllowedStorage() as PublicStorage[];
         const allOptionalStorage = allowedStorage.filter(
             (storage) => storage.optional,
         );
 
-        this.clearKnownCookies(allOptionalStorage);
-        this.clearKnownLocalAndSessionStorage(allOptionalStorage);
+        this.clearOptionalCookies(allOptionalStorage);
+        this.clearOptionalLocalAndSessionStorage(allOptionalStorage);
     }
 
     private checkAndTriggerConsentBanner() {
-        const { userActionTaken, meta } = this.checkConsent();
+        const { userActionTaken, meta } = this.getCurrentConsent();
         const { version } = meta;
 
         if (!userActionTaken || version < this.currentConsentVersion) {
-            this.clearKnownStorage();
+            this.clearOptionalStorage();
             window.dispatchEvent(createEvent("showConsentBanner", {}));
         }
     }
 
-    public checkConsent(): Consent {
-        const consentString = Cookies.get(this.consentKey);
-        const currentConsent = consentString ? JSON.parse(consentString) : null;
-        return currentConsent ?? this.buildDefaultConsent();
-    }
+    /* -----------------------------------------------------------------------
+     * Public methods
+     * ----------------------------------------------------------------------- */
+
+    public getCurrentConsent = () => {
+        const currentConsent = Cookies.get("navno-consent");
+        return currentConsent
+            ? JSON.parse(currentConsent)
+            : this.buildDefaultConsent();
+    };
+
+    public isStorageKeyAllowed = (key: string) => {
+        const storageDictionary = this.getStorageDictionaryFromEnv();
+        const isAllowed = storageDictionary.some((allowedItem) => {
+            const baseName = key.split(/[-*]/)[0];
+            return allowedItem.name.startsWith(baseName);
+        });
+
+        return isAllowed;
+    };
+
+    public getAllowedStorage = () => {
+        const storageDictionary = this.getStorageDictionaryFromEnv();
+        return Array.from(storageDictionary);
+    };
 
     // Cleanup when no longer needed
     destroy() {
         window.removeEventListener(
             "consentAllWebStorage",
-            this.handleConsentAllWebStorage,
+            this.consentAllStorageHandler,
         );
         window.removeEventListener(
             "refuseOptionalWebStorage",
-            this.refuseOptionalWebStorage,
+            this.refuseOptionalStorageHandler,
         );
     }
 }
