@@ -25,34 +25,6 @@ const mockStorageDictionary: PublicStorage[] = [
     },
 ] as PublicStorage[];
 
-const localStorageMock = (function () {
-    let store: { [key: string]: string } = {};
-
-    return {
-        getItem(key: string): string | null {
-            return store[key] || null;
-        },
-
-        setItem(key: string, value: string): void {
-            store[key] = value;
-        },
-
-        clear(): void {
-            store = {};
-        },
-
-        removeItem(key: string): void {
-            delete store[key];
-        },
-
-        getAll(): { [key: string]: string } {
-            return store;
-        },
-    };
-})();
-
-Object.defineProperty(window, "localStorage", { value: localStorageMock });
-
 describe("Tester webStorage", () => {
     beforeEach(() => {
         window.__DECORATOR_DATA__ = {
@@ -65,6 +37,12 @@ describe("Tester webStorage", () => {
         Cookies.set("selvbetjening-idtoken", "foobar");
         Cookies.set("ta-dekoratoren-1234", "foobar");
         Cookies.set("ukjent-cookie", "foobar");
+
+        window.localStorage.setItem("usertest-1234", "foobar");
+        window.localStorage.setItem("ukjentdata", "foobar");
+
+        window.sessionStorage.setItem("usertest-1234", "foobar");
+        window.sessionStorage.setItem("ukjentdata", "foobar");
     });
     it("kontrolleren sender event om å åpne cookie-banner ved manglende samtykke-handling", () => {
         const triggerEvent = vi.fn();
@@ -107,5 +85,42 @@ describe("Tester webStorage", () => {
 
         await new Promise((resolve) => setTimeout(resolve, 100));
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
+    });
+
+    it("kjente frivillige localStorage-elementer slettes når cookie-banner vises", async () => {
+        expect(window.localStorage.getItem("usertest-1234")).toBe("foobar");
+
+        new WebStorageController();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(window.localStorage.getItem("usertest-1234")).toBe(null);
+    });
+    it("ukjente localStorage-elementer slettes ikke når cookie-banner vises", async () => {
+        expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
+
+        new WebStorageController();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
+    });
+    it("kjente frivillige sessionStorage-elementer slettes når cookie-banner vises", async () => {
+        expect(window.sessionStorage.getItem("usertest-1234")).toBe("foobar");
+
+        new WebStorageController();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(window.sessionStorage.getItem("usertest-1234")).toBe(null);
+    });
+    it("ukjente sessionStorage-elementer slettes ikke når cookie-banner vises", async () => {
+        expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
+
+        new WebStorageController();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
     });
 });

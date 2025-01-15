@@ -5,7 +5,7 @@ import {
     awaitDecoratorData,
     getCurrentConsent,
 } from "@navikt/nav-dekoratoren-moduler";
-import { ConsentAction, Consent } from "decorator-shared/types";
+import { ConsentAction, Consent, PublicStorage } from "decorator-shared/types";
 
 export class WebStorageController {
     currentConsentVersion: number = 1;
@@ -95,14 +95,7 @@ export class WebStorageController {
         );
     }
 
-    private async clearKnownStorage() {
-        await awaitDecoratorData();
-        const allowedStorage = getAllowedStorage();
-
-        const allOptionalStorage = allowedStorage.filter(
-            (storage) => storage.optional,
-        );
-
+    private clearKnownCookies(allOptionalStorage: PublicStorage[]) {
         const storedCookies = document.cookie.split(";").map((cookie) => {
             const [name, value] = cookie.trim().split("=");
             return { name, value };
@@ -118,6 +111,34 @@ export class WebStorageController {
                 Cookies.remove(cookie.name);
             });
         });
+    }
+
+    private clearKnownLocalAndSessionStorage(
+        allOptionalStorage: PublicStorage[],
+    ) {
+        const deleteStorage = (storage: Storage, name: string) => {
+            const optionalStorageBase = name.replace("*", "");
+            Object.keys(storage).forEach((key) => {
+                if (new RegExp(`^${optionalStorageBase}`, "i").test(key)) {
+                    storage.removeItem(key);
+                }
+            });
+        };
+        allOptionalStorage.forEach((storage) => {
+            deleteStorage(localStorage, storage.name);
+            deleteStorage(sessionStorage, storage.name);
+        });
+    }
+
+    private async clearKnownStorage() {
+        await awaitDecoratorData();
+        const allowedStorage = getAllowedStorage() as PublicStorage[];
+        const allOptionalStorage = allowedStorage.filter(
+            (storage) => storage.optional,
+        );
+
+        this.clearKnownCookies(allOptionalStorage);
+        this.clearKnownLocalAndSessionStorage(allOptionalStorage);
     }
 
     private checkAndTriggerConsentBanner() {
