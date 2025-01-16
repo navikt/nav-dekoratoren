@@ -16,6 +16,8 @@ window.addEventListener("load", () => {
     addFaroMetaData();
 });
 
+window.webStorageController = new WebStorageController();
+
 const injectHeadAssets = () => {
     window.__DECORATOR_DATA__.headAssets?.forEach((props) => {
         const attribsSelector = Object.entries(props.attribs)
@@ -33,13 +35,12 @@ const injectHeadAssets = () => {
 };
 
 const init = () => {
-    window.webstorageController = new WebStorageController();
     initParams();
     injectHeadAssets();
     initHistoryEvents();
     initScrollToEvents();
 
-    const { consent } = window.webstorageController.getCurrentConsent();
+    const { consent } = window.webStorageController.getCurrentConsent();
 
     if (
         typeof window.initContitionalHotjar === "function" &&

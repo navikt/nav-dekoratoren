@@ -45,7 +45,7 @@ declare global {
                 ev: CustomEvent<CustomEvents[K]>,
             ) => void,
         ): void;
-        webstorageController: WebStorageController;
+        webStorageController: WebStorageController;
         initContitionalHotjar: () => void;
     }
 }

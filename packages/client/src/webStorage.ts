@@ -183,7 +183,7 @@ export class WebStorageController {
      * Public methods
      * ----------------------------------------------------------------------- */
 
-    public getCurrentConsent = () => {
+    public getCurrentConsent = (): Consent => {
         const currentConsent = Cookies.get("navno-consent");
         return currentConsent
             ? JSON.parse(currentConsent)
