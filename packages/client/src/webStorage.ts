@@ -114,7 +114,11 @@ export class WebStorageController {
 
             matchedCookiesForDeletion.forEach((cookie) => {
                 console.log(`Deleting cookie: ${cookie.name}`);
-                Cookies.remove(cookie.name);
+                Cookies.remove(cookie.name, {
+                    domain: ".nav.no",
+                    path: "/",
+                    expires: 0,
+                });
             });
         });
     }
