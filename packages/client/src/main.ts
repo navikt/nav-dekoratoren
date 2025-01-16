@@ -35,6 +35,10 @@ const injectHeadAssets = () => {
 };
 
 const initTrackingServices = () => {
+    if (param("maskHotjar")) {
+        document.documentElement.setAttribute("data-hj-suppress", "");
+    }
+
     if (typeof window.initContitionalHotjar === "function") {
         window.initContitionalHotjar();
     }
@@ -45,6 +49,8 @@ const initTrackingServices = () => {
     });
 };
 
+/* Triggers if the user has been presented with the
+ * consent banner and gives consent */
 const initConsentListener = () => {
     window.addEventListener("consentAllWebStorage", () => {
         initTrackingServices();
@@ -62,12 +68,6 @@ const init = () => {
     initConsentListener();
 
     const { consent } = window.webStorageController.getCurrentConsent();
-
-    // This is just a parameter, so does not affect or interfer with users
-    // cookie consent or withdrawal of consent.
-    if (param("maskHotjar")) {
-        document.documentElement.setAttribute("data-hj-suppress", "");
-    }
 
     if (consent?.analytics) {
         initTrackingServices();
