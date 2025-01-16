@@ -107,7 +107,7 @@ export class WebStorageController {
         });
 
         allOptionalStorage.forEach((storage) => {
-            const optionalStorageBase = storage.name.replace("*", "");
+            const optionalStorageBase = storage.name.replace(/\*$/, "");
             const matchedCookiesForDeletion = storedCookies.filter((cookie) =>
                 new RegExp(`^${optionalStorageBase}`, "i").test(cookie.name),
             );
@@ -122,7 +122,7 @@ export class WebStorageController {
         allOptionalStorage: PublicStorage[],
     ) {
         const deleteStorage = (storage: Storage, name: string) => {
-            const optionalStorageBase = name.replace("*", "");
+            const optionalStorageBase = name.replace(/\*$/, "");
             Object.keys(storage).forEach((key) => {
                 if (new RegExp(`^${optionalStorageBase}`, "i").test(key)) {
                     storage.removeItem(key);
