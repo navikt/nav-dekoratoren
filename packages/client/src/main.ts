@@ -34,29 +34,43 @@ const injectHeadAssets = () => {
     });
 };
 
+const initTrackingServices = () => {
+    if (typeof window.initContitionalHotjar === "function") {
+        window.initContitionalHotjar();
+    }
+
+    refreshAuthData().then((response) => {
+        console.log("initing analytics");
+        initAnalytics(response.auth);
+    });
+};
+
+const initConsentListener = () => {
+    window.addEventListener("consentAllWebStorage", () => {
+        initTrackingServices();
+        window.removeEventListener("consentAllWebStorage", () => {
+            initTrackingServices();
+        });
+    });
+};
+
 const init = () => {
     initParams();
     injectHeadAssets();
     initHistoryEvents();
     initScrollToEvents();
+    initConsentListener();
 
     const { consent } = window.webStorageController.getCurrentConsent();
 
-    if (
-        typeof window.initContitionalHotjar === "function" &&
-        consent?.analytics
-    ) {
-        window.initContitionalHotjar();
+    // This is just a parameter, so does not affect or interfer with users
+    // cookie consent or withdrawal of consent.
+    if (param("maskHotjar")) {
+        document.documentElement.setAttribute("data-hj-suppress", "");
     }
 
     if (consent?.analytics) {
-        if (param("maskHotjar")) {
-            document.documentElement.setAttribute("data-hj-suppress", "");
-        }
-
-        refreshAuthData().then((response) => {
-            initAnalytics(response.auth);
-        });
+        initTrackingServices();
     }
 };
 

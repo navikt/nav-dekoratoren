@@ -113,9 +113,16 @@ export class WebStorageController {
             );
 
             matchedCookiesForDeletion.forEach((cookie) => {
-                console.log(`Deleting cookie: ${cookie.name}`);
+                const domain = location.hostname.includes("nav.no")
+                    ? ".nav.no"
+                    : location.hostname;
+
+                if (domain.includes("localhost")) {
+                    console.log(`Deleting cookie: ${cookie.name}`);
+                }
+
                 Cookies.remove(cookie.name, {
-                    domain: ".nav.no",
+                    domain,
                     path: "/",
                     expires: 0,
                 });
