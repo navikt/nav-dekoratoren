@@ -1,4 +1,4 @@
-import { logAmplitudeEvent } from "../../analytics/amplitude";
+import { logAnalyticsEvent } from "../../analytics/analytics";
 import { logout } from "../../helpers/auth";
 import { isDialogDefined } from "../../helpers/dialog-util";
 import { getSecondsRemaining } from "../../helpers/time";
@@ -27,11 +27,11 @@ export class SessionDialog extends HTMLElement {
             event.preventDefault();
             const action = new FormData(form, event.submitter).get("action");
             if (action === "renew") {
-                logAmplitudeEvent("session dialog renew");
+                logAnalyticsEvent("session dialog renew");
                 this.silenceWarning = true;
                 dialog.close();
             } else {
-                logAmplitudeEvent("session dialog logout");
+                logAnalyticsEvent("session dialog logout");
                 logout();
             }
         });
@@ -45,7 +45,7 @@ export class SessionDialog extends HTMLElement {
 
                 if (!dialog.open) {
                     dialog.showModal();
-                    logAmplitudeEvent("session dialog shown");
+                    logAnalyticsEvent("session dialog shown");
                 }
             } else {
                 dialog.close();

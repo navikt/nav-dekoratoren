@@ -6,9 +6,9 @@ import {
 } from "decorator-icons";
 import html from "decorator-shared/html";
 import { OpsMessage } from "decorator-shared/types";
-import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
+import { analyticsClickListener } from "../analytics/analytics";
 
 export const OpsMessagesTemplate = ({
     opsMessages,
@@ -53,7 +53,7 @@ class OpsMessages extends HTMLElement {
         });
         this.addEventListener(
             "click",
-            amplitudeClickListener(() => ({
+            analyticsClickListener(() => ({
                 kategori: "dekorator-driftsmeldinger",
                 lenketekst: "driftsmelding",
                 komponent: "OpsMessages",

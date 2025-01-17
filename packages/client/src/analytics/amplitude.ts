@@ -1,31 +1,10 @@
 import { Auth } from "decorator-shared/auth";
-import { Context } from "decorator-shared/params";
 import { param } from "../params";
+import { buildLocationString } from "./analytics";
+import { AnalyticsEventArgs, EventData } from "./types";
 
 // Dynamic import for lazy loading
 const importAmplitude = () => import("@amplitude/analytics-browser");
-
-type EventData = Record<string, any>;
-
-export type AmplitudeKategori =
-    | "dekorator-header"
-    | "dekorator-footer"
-    | "dekorator-meny"
-    | "dekorator-varsler"
-    | "dekorator-driftsmeldinger"
-    | "dekorator-brodsmuler"
-    | "dekorator-sprakvelger";
-
-type AnalyticsEventArgs = {
-    eventName?: string;
-    context?: Context;
-    pageType?: string;
-    kategori?: AmplitudeKategori;
-    destinasjon?: string;
-    lenketekst?: string;
-    lenkegruppe?: string;
-    komponent?: string;
-};
 
 declare global {
     interface Window {
@@ -49,11 +28,6 @@ const getApiKey = () => {
         return API_KEYS.Local;
     }
     return API_KEYS.Other;
-};
-
-const buildLocationString = () => {
-    const { origin, pathname, hash } = window.location;
-    return `${origin}${pathname}${hash}`;
 };
 
 export const initAmplitude = async () => {
@@ -199,24 +173,3 @@ export const logAmplitudeEvent = async (
         },
     );
 };
-
-export const amplitudeClickListener =
-    (fn: (el: HTMLAnchorElement) => AnalyticsEventArgs | null) =>
-    (e: MouseEvent) => {
-        const anchor =
-            e.target instanceof Element ? e.target.closest("a") : null;
-        if (anchor) {
-            const args = fn(anchor);
-            if (args) {
-                amplitudeEvent({
-                    context: param("context"),
-                    pageType: param("pageType"),
-                    destinasjon: anchor.href,
-                    kategori: args.kategori,
-                    lenkegruppe: args.lenkegruppe,
-                    lenketekst: args.lenketekst,
-                    komponent: args.komponent,
-                });
-            }
-        }
-    };
