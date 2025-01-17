@@ -1,7 +1,7 @@
 import { createEvent } from "../events";
 import cls from "../styles/dropdown-menu.module.css";
 import { defineCustomElement } from "./custom-elements";
-import { amplitudeEvent } from "../analytics/amplitude";
+import { analyticsEvent } from "../analytics/analytics";
 
 type MenuType = "menu" | "user" | "search";
 const analyticsLabel = {
@@ -37,7 +37,7 @@ class DropdownMenu extends HTMLElement {
                     bubbles: true,
                 }),
             );
-            amplitudeEvent({
+            analyticsEvent({
                 eventName: force ? "accordion åpnet" : "accordion lukket",
                 context: window.__DECORATOR_DATA__.params.context,
                 kategori: "dekorator-header",

@@ -1,5 +1,3 @@
-import { Auth } from "decorator-shared/auth";
-import { param } from "../params";
 import { buildLocationString } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
@@ -116,31 +114,6 @@ const logEventFromApp = (params?: {
     } catch (e) {
         return Promise.reject(`Unexpected Amplitude error: ${e}`);
     }
-};
-
-export const logPageView = (authState: Auth) => {
-    // Må vente litt med logging for å sikre at window-objektet er oppdatert.
-    setTimeout(() => {
-        const params = window.__DECORATOR_DATA__.params;
-        return logAmplitudeEvent("besøk", {
-            målgruppe: params.context,
-            innholdstype: params.pageType,
-            sidetittel: document.title,
-            innlogging: authState.authenticated
-                ? authState.securityLevel
-                : false,
-            parametre: {
-                ...params,
-                BREADCRUMBS:
-                    params.breadcrumbs && params.breadcrumbs.length > 0,
-                ...(params.availableLanguages && {
-                    availableLanguages: params.availableLanguages.map(
-                        (lang) => lang.locale,
-                    ),
-                }),
-            },
-        });
-    }, 100);
 };
 
 export const logAmplitudeEvent = async (

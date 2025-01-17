@@ -1,14 +1,5 @@
-import {
-    amplitudeEvent,
-    initAmplitude,
-    logAmplitudeEvent,
-    logPageView,
-} from "./amplitude";
-import {
-    createUmamiEvent,
-    logPageView as logPageViewUmami,
-    logUmamiEvent,
-} from "./umami";
+import { amplitudeEvent, initAmplitude, logAmplitudeEvent } from "./amplitude";
+import { createUmamiEvent, logUmamiEvent } from "./umami";
 import { initTaskAnalytics } from "./task-analytics/ta";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
@@ -19,15 +10,46 @@ export const initAnalytics = (auth: Auth) => {
     initTaskAnalytics();
 
     logPageView(auth);
-    logPageViewUmami();
 
     window.addEventListener("historyPush", () => logPageView(auth));
-    window.addEventListener("historyPush", () => logPageViewUmami());
 };
 
 export const buildLocationString = () => {
     const { origin, pathname, hash } = window.location;
     return `${origin}${pathname}${hash}`;
+};
+
+const logPageView = (authState: Auth) => {
+    // Må vente litt med logging for å sikre at window-objektet er oppdatert.
+    setTimeout(() => {
+        const params = window.__DECORATOR_DATA__.params;
+        const eventData = {
+            målgruppe: params.context,
+            innholdstype: params.pageType,
+            sidetittel: document.title,
+            innlogging: authState.authenticated
+                ? authState.securityLevel
+                : false,
+            parametre: {
+                ...params,
+                BREADCRUMBS:
+                    params.breadcrumbs && params.breadcrumbs.length > 0,
+                ...(params.availableLanguages && {
+                    availableLanguages: params.availableLanguages.map(
+                        (lang) => lang.locale,
+                    ),
+                }),
+            },
+        };
+        logAmplitudeEvent("besøk", eventData);
+        logUmamiEvent("besøk", eventData);
+    }, 100);
+};
+
+// TODO: Vurder disse to under her, trenger man to forskjellige?
+export const analyticsEvent = (props: AnalyticsEventArgs) => {
+    amplitudeEvent(props);
+    createUmamiEvent(props);
 };
 
 export const logAnalyticsEvent = async (

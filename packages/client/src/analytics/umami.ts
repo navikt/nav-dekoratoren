@@ -1,9 +1,5 @@
 import { AnalyticsEventArgs, EventData } from "./types";
 
-export const logPageView = () => {
-    umami.track("besøk", { besok: "dekoratoren" });
-};
-
 export const logUmamiEvent = async (
     eventName: string,
     eventData: EventData = {},
