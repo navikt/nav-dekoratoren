@@ -34,29 +34,34 @@ const injectHeadAssets = () => {
     });
 };
 
-const initTrackingServices = () => {
+const startTrackingServices = () => {
+    console.log("Starting tracking services");
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
 
-    if (typeof window.initContitionalHotjar === "function") {
-        window.initContitionalHotjar();
+    if (typeof window.initConditionalHotjar === "function") {
+        window.initConditionalHotjar();
     }
 
     refreshAuthData().then((response) => {
-        console.log("initing analytics");
         initAnalytics(response.auth);
     });
+};
+
+const stopTrackingServices = () => {
+    console.log("Stopping tracking services");
+    window.location.reload();
 };
 
 /* Triggers if the user has been presented with the
  * consent banner and gives consent */
 const initConsentListener = () => {
     window.addEventListener("consentAllWebStorage", () => {
-        initTrackingServices();
-        window.removeEventListener("consentAllWebStorage", () => {
-            initTrackingServices();
-        });
+        startTrackingServices();
+    });
+    window.addEventListener("refuseOptionalWebStorage", () => {
+        stopTrackingServices();
     });
 };
 
@@ -70,7 +75,7 @@ const init = () => {
     const { consent } = window.webStorageController.getCurrentConsent();
 
     if (consent?.analytics) {
-        initTrackingServices();
+        startTrackingServices();
     }
 };
 

@@ -56,7 +56,7 @@ export type AppState = {
     // In the new implemention, head elements are included in the payload from the /ssr endpoint instead
     // and should be included in the server-HTML of consuming applications
     headAssets?: HtmlElementProps[];
-    allowedStorage: PublicStorage[];
+    allowedStorage: PublicStorageItem[];
 };
 
 export type MainMenuContextLink = {
@@ -80,7 +80,7 @@ export type HtmlElementProps = {
 
 export type StorageType = "cookie" | "localstorage" | "sessionstorage";
 
-export type StorageConfig = {
+export type AllowedStorageItem = {
     name: string;
     type: StorageType[];
     service: string;
@@ -95,9 +95,9 @@ export type DecoratorDataProps = {
     headAssets?: HtmlElementProps[];
 };
 
-export type PublicStorage = Pick<
-    StorageConfig,
-    "name" | "optional" | "type"
+export type PublicStorageItem = Pick<
+    AllowedStorageItem,
+    "name" | "optional"
 > & {
     type: StorageType;
 };

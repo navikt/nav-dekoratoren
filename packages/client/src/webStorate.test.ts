@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
-import { AppState, PublicStorage } from "decorator-shared/types";
+import { AppState, PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
 
-const mockStorageDictionary: PublicStorage[] = [
+const mockStorageDictionary: PublicStorageItem[] = [
     {
         name: "selvbetjening-idtoken",
         type: "cookie",
@@ -28,7 +28,7 @@ const mockStorageDictionary: PublicStorage[] = [
         type: "cookie",
         optional: true,
     },
-] as PublicStorage[];
+] as PublicStorageItem[];
 
 describe("Tester webStorage", () => {
     beforeEach(() => {

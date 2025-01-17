@@ -3,8 +3,8 @@ import {
     ClientTexts,
     clientTextsKeys,
     DecoratorDataProps,
-    PublicStorage,
-    StorageConfig,
+    PublicStorageItem,
+    AllowedStorageItem,
 } from "decorator-shared/types";
 import {
     clientParamKeys,
@@ -15,7 +15,7 @@ import {
 import { clientEnv } from "./env/server";
 import { texts } from "./texts";
 
-const storageDictionary: Set<StorageConfig> = new Set([
+const storageDictionary: Set<AllowedStorageItem> = new Set([
     {
         name: "BIGipServerpool_pr_gcp_navno_lb_https",
         type: ["cookie"],
@@ -137,17 +137,17 @@ const storageDictionary: Set<StorageConfig> = new Set([
 ]);
 
 const buildAllowedStorage = () => {
-    const allAllowedStorage: PublicStorage[] = Array.from(
+    const allAllowedStorage: PublicStorageItem[] = Array.from(
         storageDictionary,
     ).reduce((all, item) => {
         const subList = item.type.map((type) => ({
             name: item.name,
             optional: item.optional,
             type,
-        })) as PublicStorage[];
+        })) as PublicStorageItem[];
 
         return all.concat(subList);
-    }, [] as PublicStorage[]);
+    }, [] as PublicStorageItem[]);
 
     return allAllowedStorage;
 };

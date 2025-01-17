@@ -1,6 +1,10 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
-import { ConsentAction, Consent, PublicStorage } from "decorator-shared/types";
+import {
+    ConsentAction,
+    Consent,
+    PublicStorageItem,
+} from "decorator-shared/types";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -32,7 +36,7 @@ export class WebStorageController {
         };
     };
 
-    private getStorageDictionaryFromEnv = (): PublicStorage[] => {
+    private getStorageDictionaryFromEnv = (): PublicStorageItem[] => {
         if (!window.__DECORATOR_DATA__) {
             throw new Error(
                 "Decorator data not available. Use the async 'isDecoratorDataAvailable' function to await for the data is available.",
@@ -100,7 +104,7 @@ export class WebStorageController {
         );
     }
 
-    private clearOptionalCookies(allOptionalStorage: PublicStorage[]) {
+    private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
         const storedCookies = document.cookie.split(";").map((cookie) => {
             const [name, value] = cookie.trim().split("=");
             return { name, value };
@@ -131,7 +135,7 @@ export class WebStorageController {
     }
 
     private clearOptionalLocalAndSessionStorage(
-        allOptionalStorage: PublicStorage[],
+        allOptionalStorage: PublicStorageItem[],
     ) {
         const deleteStorage = (storage: Storage, name: string) => {
             const optionalStorageBase = name.replace(/\*$/, "");
@@ -172,7 +176,7 @@ export class WebStorageController {
 
     private async clearOptionalStorage() {
         await this.awaitDecoratorData();
-        const allowedStorage = this.getAllowedStorage() as PublicStorage[];
+        const allowedStorage = this.getAllowedStorage() as PublicStorageItem[];
         const allOptionalStorage = allowedStorage.filter(
             (storage) => storage.optional,
         );
@@ -187,13 +191,17 @@ export class WebStorageController {
 
         if (!userActionTaken || version < this.currentConsentVersion) {
             this.clearOptionalStorage();
-            window.dispatchEvent(createEvent("showConsentBanner", {}));
+            this.showConsentBanner();
         }
     }
 
     /* -----------------------------------------------------------------------
      * Public methods
      * ----------------------------------------------------------------------- */
+
+    public showConsentBanner = () => {
+        window.dispatchEvent(createEvent("showConsentBanner", {}));
+    };
 
     public getCurrentConsent = (): Consent => {
         const currentConsent = Cookies.get("navno-consent");
