@@ -5,8 +5,16 @@ import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
 
+declare global {
+    interface Window {
+        dekoratorenAnalytics: typeof logAnalyticsEventFromApp;
+    }
+}
+
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
+    // This function is exposed for use from consuming applications
+    window.dekoratorenAnalytics = logAnalyticsEventFromApp;
     initTaskAnalytics();
 
     logPageView(auth);
@@ -83,3 +91,34 @@ export const analyticsClickListener =
             }
         }
     };
+
+const logAnalyticsEventFromApp = (params?: {
+    origin: unknown | string;
+    eventName: unknown | string;
+    eventData?: unknown | EventData;
+}): Promise<any> => {
+    try {
+        if (!params || params.constructor !== Object) {
+            return Promise.reject(
+                "Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, any>}",
+            );
+        }
+
+        const { origin, eventName, eventData = {} } = params;
+        if (!eventName || typeof eventName !== "string") {
+            return Promise.reject('Parameter "eventName" must be a string');
+        }
+        if (!origin || typeof origin !== "string") {
+            return Promise.reject('Parameter "origin" must be a string');
+        }
+        if (!eventData || eventData.constructor !== Object) {
+            return Promise.reject(
+                'Parameter "eventData" must be a plain object',
+            );
+        }
+
+        return logAnalyticsEvent(eventName, eventData, origin);
+    } catch (e) {
+        return Promise.reject(`Unexpected Amplitude error: ${e}`);
+    }
+};
