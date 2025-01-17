@@ -14,7 +14,7 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        "types": ["vite/client", "vitest/globals"],
+        "types": ["vite/client", "vitest/globals", "@types/umami"],
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",

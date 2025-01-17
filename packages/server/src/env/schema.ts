@@ -17,6 +17,7 @@ export const serverSchema = z.object({
     UNLEASH_SERVER_API_URL: z.string().url(),
     VERSION_ID: z.string(),
     XP_BASE_URL: z.string().url(),
+    UMAMI_WEBSITE_ID: z.string(),
 } satisfies Record<keyof typeof serverEnv, unknown>);
 
 export const serverEnv = {
@@ -36,6 +37,7 @@ export const serverEnv = {
     VARSEL_API_URL: process.env.VARSEL_API_URL,
     VERSION_ID: process.env.VERSION_ID,
     XP_BASE_URL: process.env.XP_BASE_URL,
+    UMAMI_WEBSITE_ID: process.env.UMAMI_WEBSITE_ID,
 };
 
 // This is session URL for prod
