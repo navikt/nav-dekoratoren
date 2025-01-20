@@ -1,9 +1,9 @@
 import { type Context } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
-import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { param } from "../params";
 import { defineCustomElement } from "./custom-elements";
+import { analyticsClickListener } from "../analytics/analytics";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -53,7 +53,7 @@ class MainMenu extends HTMLElement {
 
         this.addEventListener(
             "click",
-            amplitudeClickListener((anchor) => ({
+            analyticsClickListener((anchor) => ({
                 kategori: "dekorator-meny",
                 lenkegruppe:
                     anchor.getAttribute("data-lenkegruppe") ?? undefined,

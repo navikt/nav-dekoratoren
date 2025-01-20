@@ -1,4 +1,4 @@
-import { amplitudeClickListener } from "../analytics/amplitude";
+import { analyticsClickListener } from "../analytics/analytics";
 import { defineCustomElement } from "./custom-elements";
 
 const DEFERRED_UPDATE_TIME = 5000;
@@ -33,7 +33,7 @@ class SkipLinkElement extends HTMLElement {
     connectedCallback() {
         this.addEventListener(
             "click",
-            amplitudeClickListener(() => ({
+            analyticsClickListener(() => ({
                 kategori: "dekorator-header",
                 lenketekst: "skiplink",
             })),

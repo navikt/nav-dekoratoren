@@ -1,4 +1,4 @@
-import { logAmplitudeEvent } from "../analytics/amplitude";
+import { logAnalyticsEvent } from "../analytics/analytics";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
@@ -23,7 +23,7 @@ class ArchivableNotification extends HTMLElement {
                 }
 
                 this.parentElement?.remove();
-                logAmplitudeEvent("arkivert-beskjed", {
+                logAnalyticsEvent("arkivert-beskjed", {
                     kategori: "dekorator-varsler",
                     komponent: "varsler-beskjed-arkiverbar",
                 });
@@ -53,7 +53,7 @@ class LinkNotification extends HTMLElement {
 
         anchorElement.addEventListener("click", () => {
             if (type === "inbox") {
-                logAmplitudeEvent("navigere", {
+                logAnalyticsEvent("navigere", {
                     komponent: "varsel-innboks",
                     kategori: "varselbjelle",
                     destinasjon: anchorElement.href,
@@ -71,7 +71,7 @@ class LinkNotification extends HTMLElement {
                 }
 
                 this.parentElement?.remove();
-                logAmplitudeEvent("navigere", {
+                logAnalyticsEvent("navigere", {
                     komponent:
                         this.getAttribute("data-type") === "task"
                             ? "varsel-oppgave"

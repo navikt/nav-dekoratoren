@@ -40,6 +40,8 @@ env:
     value: "navtest"
   - name: PUZZEL_CUSTOMER_ID
     value: C1302192-8BEC-4EA2-84AB-F4EDE8AC6230
+  - name: UMAMI_WEBSITE_ID
+    value: 2e5225a1-7d6c-4c2f-a0a1-f731d8f77fee
 ttlInternal: 1h
 replicas:
   min: 1

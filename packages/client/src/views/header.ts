@@ -1,4 +1,3 @@
-import { amplitudeClickListener } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { env, param, updateDecoratorParams } from "../params";
 import cls from "../styles/header.module.css";
@@ -6,6 +5,7 @@ import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
 import { type ClientParams } from "decorator-shared/params";
 import { CustomEvents } from "../events";
+import { analyticsClickListener } from "../analytics/analytics";
 
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source, data } = message;
@@ -116,7 +116,7 @@ class Header extends HTMLElement {
 
         this.addEventListener(
             "click",
-            amplitudeClickListener((anchor) =>
+            analyticsClickListener((anchor) =>
                 anchor.classList.contains(cls.logo)
                     ? {
                           kategori: "dekorator-header",

@@ -1,10 +1,10 @@
 import html from "decorator-shared/html";
 import debounce from "lodash.debounce";
-import { amplitudeEvent } from "../analytics/amplitude";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { env, param } from "../params";
 import cls from "../styles/search-form.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { analyticsEvent } from "../analytics/analytics";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
@@ -56,7 +56,7 @@ class SearchMenu extends HTMLElement {
                 q: encodeURIComponent(query),
             });
 
-            amplitudeEvent({
+            analyticsEvent({
                 eventName: "søk",
                 kategori: "dekorator-header",
                 komponent: "SearchMenu",

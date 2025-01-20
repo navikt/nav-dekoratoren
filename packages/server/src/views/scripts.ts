@@ -143,6 +143,13 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );
         </script>
+        <script
+            defer
+            src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+            data-host-url="https://umami.nav.no"
+            data-website-id="${process.env.UMAMI_WEBSITE_ID}"
+            data-auto-track="false"
+        ></script>
         ${scriptsHtml}
     `;
 };

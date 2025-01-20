@@ -1,7 +1,7 @@
 import { parseUrl } from "../helpers/urls";
 import { env } from "../params";
 import { defineCustomElement } from "./custom-elements";
-import { amplitudeClickListener } from "../analytics/amplitude";
+import { analyticsClickListener } from "../analytics/analytics";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {
@@ -9,7 +9,7 @@ class LoginButton extends HTMLElement {
         this.update();
         this.addEventListener(
             "click",
-            amplitudeClickListener(() => ({
+            analyticsClickListener(() => ({
                 kategori: "dekorator-header",
                 lenketekst: "Logg inn",
                 komponent: "LoginButton",
