@@ -6,9 +6,7 @@ export const initAnalytics = (auth: Auth) => {
     initAmplitude();
     initTaskAnalytics();
 
-    logPageView(window.__DECORATOR_DATA__.params, auth);
+    logPageView(auth);
 
-    window.addEventListener("historyPush", () =>
-        logPageView(window.__DECORATOR_DATA__.params, auth),
-    );
+    window.addEventListener("historyPush", () => logPageView(auth));
 };

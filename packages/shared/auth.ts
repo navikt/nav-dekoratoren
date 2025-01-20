@@ -1,6 +1,7 @@
 export type AuthLoggedIn = {
     authenticated: true;
     name: string;
+    userId: string;
     securityLevel: "3" | "4";
 };
 

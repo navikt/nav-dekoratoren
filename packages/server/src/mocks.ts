@@ -3,6 +3,7 @@ import { setupServer } from "msw/node";
 import notificationsMock from "./notifications-mock.json";
 import { env } from "./env/server";
 import testData from "./menu/main-menu-mock.json";
+import { OpsMessage } from "decorator-shared/types";
 
 const nowISOString = () => {
     return new Date().toISOString();
@@ -89,6 +90,7 @@ export const setupMocks = () =>
                           authenticated: true,
                           name: "Charlie Jensen",
                           securityLevel: process.env.MOCK_AUTH_LEVEL,
+                          userId: "12345612345",
                       }
                     : { authenticated: false },
             ),
@@ -98,19 +100,19 @@ export const setupMocks = () =>
         ),
         http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`, () =>
             HttpResponse.json([
-                // {
-                //     heading: "Ustabile tjenester søndag 15. januar",
-                //     url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
-                //     type: "prodstatus",
-                //     urlscope: ["http://localhost:3000/arbeid"],
-                // },
-                // {
-                //     heading: "Svindelforsøk via SMS - vær oppmerksom",
-                //     url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
-                //     type: "info",
-                //     urlscope: [],
-                // },
-            ]),
+                {
+                    heading: "Ustabile tjenester søndag 15. januar",
+                    url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
+                    type: "prodstatus",
+                    urlscope: ["http://localhost:8089"],
+                },
+                {
+                    heading: "Svindelforsøk via SMS - vær oppmerksom",
+                    url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
+                    type: "info",
+                    urlscope: ["http://localhost:8089/dekoratoren/$"],
+                },
+            ] satisfies OpsMessage[]),
         ),
     ).listen({
         onUnhandledRequest: "bypass",

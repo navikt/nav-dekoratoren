@@ -3,6 +3,8 @@ import loadExternalScript from "../helpers/load-external-script";
 import { env, param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { isDialogDefined } from "../helpers/dialog-util";
+import { amplitudeEvent } from "../analytics/amplitude";
 
 let hasBeenOpened = false;
 
@@ -47,6 +49,11 @@ function startCall(code: string) {
         groupId: "A034081B-6B73-46B7-BE27-23B8E9CE3079",
         startCode: code,
     });
+    amplitudeEvent({
+        eventName: "skjermdeling",
+        kategori: "dekorator-footer",
+        komponent: "ScreensharingModal",
+    });
 }
 
 export class ScreensharingModal extends HTMLElement {
@@ -56,6 +63,21 @@ export class ScreensharingModal extends HTMLElement {
 
     showModal() {
         this.dialog.showModal();
+        amplitudeEvent({
+            eventName: "modal åpnet",
+            kategori: "dekorator-footer",
+            lenketekst: "Start skjermdeling",
+            komponent: "ScreensharingModal",
+        });
+    }
+    closeModal() {
+        this.dialog.close();
+        amplitudeEvent({
+            eventName: "modal lukket",
+            kategori: "dekorator-footer",
+            lenketekst: "Start skjermdeling",
+            komponent: "ScreensharingModal",
+        });
     }
 
     validateInput(code: string) {
@@ -79,6 +101,10 @@ export class ScreensharingModal extends HTMLElement {
         this.dialog = this.querySelector("dialog")!;
         this.errorList = this.querySelector("ul")!;
         this.input = this.querySelector("input")!;
+        if (!isDialogDefined(this.dialog)) {
+            return;
+        }
+
         this.input.addEventListener("input", () => this.clearErrors());
 
         const form = this.querySelector("form")!;
@@ -87,13 +113,13 @@ export class ScreensharingModal extends HTMLElement {
             const code = new FormData(form).get("screensharing_code");
             if (typeof code === "string" && this.validateInput(code)) {
                 startCall(code);
-                this.dialog.close();
+                this.closeModal();
             }
         });
 
         this.querySelector("button[data-type=cancel]")?.addEventListener(
             "click",
-            () => this.dialog.close(),
+            () => this.closeModal(),
         );
     }
 }

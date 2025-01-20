@@ -192,7 +192,7 @@ const nbArbeidsgiverLinks = [
         heading: "Permittere og nedbemanne",
         children: [
             {
-                content: "Meld fra til NAV",
+                content: "Meld fra til Nav",
                 url: "https://arbeidsgiver.nav.no/permittering/",
             },
             {
@@ -283,7 +283,7 @@ const nbPrivatpersonLinks = [
                 url: "/registrer-arbeidssoker",
             },
             {
-                content: "Kurs fra NAV",
+                content: "Kurs fra Nav",
                 url: "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
             },
             {
@@ -295,7 +295,7 @@ const nbPrivatpersonLinks = [
 ];
 
 const nbPrivatpersonContextLinks = [
-    { content: "Min side", url: "https://www.intern.dev.nav.no/minside" },
+    { content: "Min side", url: "https://www.ansatt.dev.nav.no/minside" },
     {
         content: "Arbeidsgiver",
         url: "https://www.ansatt.dev.nav.no/no/bedrift",

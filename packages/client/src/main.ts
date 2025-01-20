@@ -1,19 +1,16 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
 import { initAnalytics } from "./analytics/analytics";
-import { initHistoryEvents } from "./events";
+import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
+import { param, initParams } from "./params";
 import "./main.css";
-import { param, updateDecoratorParams } from "./params";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 
-updateDecoratorParams({});
-
-// @TODO: Refactor loaders
 window.addEventListener("load", () => {
     addFaroMetaData();
 });
@@ -35,8 +32,10 @@ const injectHeadAssets = () => {
 };
 
 const init = () => {
+    initParams();
     injectHeadAssets();
     initHistoryEvents();
+    initScrollToEvents();
 
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");

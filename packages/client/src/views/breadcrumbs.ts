@@ -1,4 +1,4 @@
-import { Breadcrumb } from "decorator-shared/params";
+import type { Breadcrumb } from "decorator-shared/params";
 import { Breadcrumbs as BreadcrumbsTemplate } from "decorator-shared/views/breadcrumbs";
 import { amplitudeClickListener } from "../analytics/amplitude";
 import { CustomEvents } from "../events";
@@ -48,9 +48,10 @@ class Breadcrumbs extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener((anchor) => ({
-                category: "dekorator-header",
-                komponent: "brødsmule",
-                action: anchor.textContent?.trim() ?? "",
+                kategori: "dekorator-brodsmuler",
+                komponent: "Breadcrumbs",
+                lenketekst:
+                    anchor.getAttribute("data-analytics-title") || "[redacted]",
             })),
         );
     }

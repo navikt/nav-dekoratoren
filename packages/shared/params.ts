@@ -17,7 +17,6 @@ export const languageSchema = z.enum([
     "uk",
     "ru",
 ]);
-
 export type Language = z.infer<typeof languageSchema>;
 
 const availableLanguageSchema = z.discriminatedUnion("handleInApp", [
@@ -38,6 +37,7 @@ const breadcrumbSchema = z.object({
     title: z.string(),
     url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     handleInApp: z.boolean().default(false).optional(),
+    analyticsTitle: z.string().optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 
@@ -52,7 +52,6 @@ export const paramsSchema = z.object({
     simple: z.boolean().default(false),
     simpleHeader: z.boolean().default(false),
     simpleFooter: z.boolean().default(false),
-    enforceLogin: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
     redirectToUrl: z
         .optional(z.string().refine(isValidNavUrl))
@@ -68,18 +67,19 @@ export const paramsSchema = z.object({
     feedback: z.boolean().default(false),
     chatbot: z.boolean().default(true),
     chatbotVisible: z.boolean().default(false),
-    urlLookupTable: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
     logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     maskHotjar: z.boolean().default(true),
     logoutWarning: z.boolean().default(true),
     bedrift: z.string().optional(),
     ssrMainMenu: z.boolean().default(false),
+    redirectOnUserChange: z.boolean().default(false),
+    pageType: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export const clientParamKeys = [
+export const clientParamKeys: Array<keyof Params> = [
     "context",
     "simple",
     "simpleHeader",
@@ -96,6 +96,8 @@ export const clientParamKeys = [
     "maskHotjar",
     "logoutWarning",
     "feedback",
+    "redirectOnUserChange",
+    "pageType",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
@@ -115,3 +117,19 @@ export const clientEnvSchema = z.object({
 
 export type Environment = z.infer<typeof clientEnvSchema>;
 export type BoostEnviroment = Environment["BOOST_ENV"];
+
+export const validateRawParams = (query: Record<string, string>) => {
+    const rawParams: Partial<ClientParams> = {};
+
+    const contextParsed = contextSchema.safeParse(query.context);
+    if (contextParsed.success) {
+        rawParams.context = contextParsed.data;
+    }
+
+    const languageParsed = languageSchema.safeParse(query.language);
+    if (languageParsed.success) {
+        rawParams.language = languageParsed.data;
+    }
+
+    return rawParams;
+};

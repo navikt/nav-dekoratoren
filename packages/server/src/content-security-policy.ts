@@ -13,7 +13,7 @@ import { isLocalhost } from "./urls";
 const navNo = "*.nav.no";
 const cdnNavNo = "cdn.nav.no";
 
-const uxsignals = "uxsignals-frontend.uxsignals.app.iterate.no";
+const uxsignals = "widget.uxsignals.com";
 const uxsignalsApi = "api.uxsignals.com";
 const vergicScreenSharing = "*.psplugin.com";
 const vergicDotCom = "www.vergic.com"; // seems to only be used for a single placeholder image

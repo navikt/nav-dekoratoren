@@ -58,7 +58,7 @@ jobs:
       - name: Run playwright tests
         if: inputs.SKIP_TESTS != true
         run: bunx playwright test
-      - name: Upload static files to NAV CDN
+      - name: Upload static files to Nav CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         if: inputs.TEST_ONLY != true
         with:
@@ -77,3 +77,5 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           image_suffix: ${{ inputs.IMAGE_SUFFIX }}
           tag: ${{ inputs.TAG_LATEST && 'latest' || '' }}
+#         Build the latest image to arm64 as well, to enable usage on arm mac developer machines
+          platforms: linux/amd64${{ inputs.TAG_LATEST && ',linux/arm64' || '' }}

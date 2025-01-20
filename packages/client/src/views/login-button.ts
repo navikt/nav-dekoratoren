@@ -1,11 +1,20 @@
 import { parseUrl } from "../helpers/urls";
 import { env } from "../params";
 import { defineCustomElement } from "./custom-elements";
+import { amplitudeClickListener } from "../analytics/amplitude";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {
         window.addEventListener("paramsupdated", this.update);
         this.update();
+        this.addEventListener(
+            "click",
+            amplitudeClickListener(() => ({
+                kategori: "dekorator-header",
+                lenketekst: "Logg inn",
+                komponent: "LoginButton",
+            })),
+        );
     }
 
     disconnectedCallback() {
@@ -38,7 +47,7 @@ class LoginButton extends HTMLElement {
         };
 
         url.searchParams.set("redirect", getRedirectUrl());
-        url.searchParams.set("level", level);
+        url.searchParams.set("level", level || "Level3");
         url.searchParams.set(
             "locale",
             {

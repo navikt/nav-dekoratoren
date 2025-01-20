@@ -3,7 +3,8 @@ import { defineCustomElement } from "./custom-elements";
 
 export class Loader extends HTMLElement {
     connectedCallback() {
-        const shadowRoot = this.attachShadow({ mode: "open" });
+        const shadowRoot =
+            this.shadowRoot || this.attachShadow({ mode: "open" });
         const title = this.getAttribute("title") ?? "Laster forhåndsvisning";
 
         shadowRoot.innerHTML = html`

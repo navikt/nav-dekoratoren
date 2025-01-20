@@ -34,8 +34,8 @@ class SkipLinkElement extends HTMLElement {
         this.addEventListener(
             "click",
             amplitudeClickListener(() => ({
-                category: "dekorator-header",
-                action: "skiplink",
+                kategori: "dekorator-header",
+                lenketekst: "skiplink",
             })),
         );
 

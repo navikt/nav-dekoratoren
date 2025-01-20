@@ -9,7 +9,12 @@ import {
 } from "decorator-shared/types";
 import { clientEnv, env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
-import { clientParamKeys, ClientParams, Params } from "decorator-shared/params";
+import {
+    clientParamKeys,
+    ClientParams,
+    Params,
+    validateRawParams,
+} from "decorator-shared/params";
 import { texts } from "../texts";
 import { buildCdnUrl } from "../urls";
 
@@ -55,7 +60,9 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
                 src: buildCdnUrl(item.file),
                 type: "module",
                 // Load everything except the entry file async
-                ...(!item.isEntry && { async: "true", fetchpriority: "low" }),
+                ...(item.isEntry
+                    ? {} // Do not need defer here, as type: "module" automatically behaves like defer
+                    : { async: "async" }),
             },
         }));
 
@@ -66,16 +73,17 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             attribs: {
                 src: "https://in2.taskanalytics.com/tm.js",
                 type: "module",
-                async: "true",
                 fetchpriority: "low",
+                async: "async",
             },
         },
         {
             tag: "script",
             body: hotjarScript,
             attribs: {
+                id: "d-hotjar-container",
                 type: "module",
-                async: "true",
+                async: "async",
                 fetchpriority: "low",
             },
         },
@@ -91,12 +99,14 @@ const scriptsHtml = unsafeHtml(
 type DecoratorDataProps = {
     features: Features;
     params: Params;
+    rawParams: Record<string, string>;
     headAssets?: HtmlElementProps[];
 };
 
 export const buildDecoratorData = ({
     features,
     params,
+    rawParams,
     headAssets,
 }: DecoratorDataProps): AppState => ({
     texts: Object.entries(texts[params.language])
@@ -117,6 +127,7 @@ export const buildDecoratorData = ({
             }),
             {},
         ) as ClientParams,
+    rawParams: validateRawParams(rawParams),
     features,
     env: clientEnv,
     headAssets,
@@ -127,7 +138,7 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
         <script type="application/json" id="__DECORATOR_DATA__">
             ${json(buildDecoratorData(props))}
         </script>
-        <script>
+        <script id="d-data-parser">
             window.__DECORATOR_DATA__ = JSON.parse(
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );

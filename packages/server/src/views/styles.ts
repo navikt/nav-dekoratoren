@@ -10,19 +10,21 @@ export const getCSSUrl = async () => {
     return buildCdnUrl(manifest["src/main.ts"].css[0]);
 };
 
+export const cssLink = {
+    tag: "link",
+    attribs: {
+        type: "text/css",
+        rel: "stylesheet",
+        href: await getCSSUrl(),
+    },
+};
+
 const getCssElementAsString = async () => {
     if (env.NODE_ENV === "development") {
         return "<!-- non-empty css response to make nav-dekoratoren-moduler happy -->";
     }
 
-    return buildHtmlElementString({
-        tag: "link",
-        attribs: {
-            type: "text/css",
-            rel: "stylesheet",
-            href: await getCSSUrl(),
-        },
-    });
+    return buildHtmlElementString(cssLink);
 };
 
 const cssHtml = unsafeHtml(await getCssElementAsString());
