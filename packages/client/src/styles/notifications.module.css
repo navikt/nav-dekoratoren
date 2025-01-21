@@ -37,25 +37,10 @@
     background-color: var(--a-surface-default);
 }
 
-/* .notifications :is(:first-child) .notification {
-    border-top-left-radius: var(--a-border-radius-xlarge);
-    border-top-right-radius: var(--a-border-radius-xlarge);
-}
-
-.notifications :is(:last-child) .notification {
-    border-bottom-left-radius: var(--a-border-radius-xlarge);
-    border-bottom-right-radius: var(--a-border-radius-xlarge);
-} */
-
 .notification:has(a:focus-visible) {
     box-shadow: var(--a-shadow-focus);
     border-radius: var(--a-border-radius-xlarge);
 }
-
-/* .notification:has(a:hover) {
-    color: var(--a-text-action);
-    box-shadow: var(--a-shadow-small);
-} */
 
 .notification:has(a:hover) a {
     text-decoration: none;
