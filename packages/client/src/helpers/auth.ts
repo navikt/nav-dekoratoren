@@ -67,7 +67,7 @@ export function transformSessionToAuth(session: SessionData) {
     };
 }
 
-export const logout = () => (window.location.href = `${env("LOGOUT_URL")}`);
+export const logout = () => (window.location.href = env("LOGOUT_URL"));
 
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");

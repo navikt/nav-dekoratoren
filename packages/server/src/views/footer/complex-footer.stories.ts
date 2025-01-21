@@ -21,7 +21,7 @@ const meta: Meta<ComplexFooterProps> = {
                                       url: "/redirects/footer-contactus-en",
                                   },
                                   {
-                                      content: "Your local NAV office",
+                                      content: "Your local Nav office",
                                       url: "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                   },
                                   {
@@ -31,7 +31,7 @@ const meta: Meta<ComplexFooterProps> = {
                               ],
                           },
                           {
-                              heading: "NAV and society",
+                              heading: "Nav and society",
                               children: [
                                   {
                                       content: "Statistics, analysis and R&D",
@@ -47,7 +47,7 @@ const meta: Meta<ComplexFooterProps> = {
                                       url: "https://lovdata.no/nav/",
                                   },
                                   {
-                                      content: "About NAV",
+                                      content: "About Nav",
                                       url: "/hva-er-nav/en",
                                   },
                                   {
@@ -89,11 +89,11 @@ const meta: Meta<ComplexFooterProps> = {
                                       url: "/person/kontakt-oss/nb",
                                   },
                                   {
-                                      content: "NAV i ditt fylke",
+                                      content: "Nav i ditt fylke",
                                       url: "/no/nav-og-samfunn/kontakt-nav/nav-i-ditt-fylke",
                                   },
                                   {
-                                      content: "Kurs fra NAV",
+                                      content: "Kurs fra Nav",
                                       url: "/no/nav-og-samfunn/kontakt-nav/kurs-fra-nav",
                                   },
                                   {
@@ -113,7 +113,7 @@ const meta: Meta<ComplexFooterProps> = {
                               ],
                           },
                           {
-                              heading: "NAV og samfunn",
+                              heading: "Nav og samfunn",
                               children: [
                                   {
                                       content: "Statistikk, analyse og FoU",
@@ -124,7 +124,7 @@ const meta: Meta<ComplexFooterProps> = {
                                       url: "https://lovdata.no/nav/",
                                   },
                                   {
-                                      content: "Om NAV",
+                                      content: "Om Nav",
                                       url: "/no/nav-og-samfunn/om-nav/om-nav",
                                   },
                               ],

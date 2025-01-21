@@ -1,7 +1,7 @@
-import { Language } from "decorator-shared/params";
+import { Language, Context } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
 
-const nb = {
+export const nb = {
     skip_link: "Hopp til hovedinnhold",
     share_screen: "Del skjerm med veileder",
     to_top: "Til toppen",
@@ -63,8 +63,15 @@ const nb = {
     showing: "Viser",
     of: "av",
     results: "resultater",
-    search_hits_heading: ({ total, query, context }) =>
-        `${total} treff for «${query}» for ${context}`,
+    search_hits_heading: ({
+        total,
+        query,
+        context,
+    }: {
+        total: number;
+        query: string;
+        context: Context;
+    }) => `${total} treff for «${query}» for ${context}`,
     more_hits: "Flere treff",
     change_search_filter: "Endre søkefilter for å se andre treff",
     loading_preview: "Laster forhåndsvisning",
@@ -79,7 +86,7 @@ const nb = {
     delskjerm_modal_feilmelding: "Må bestå av 5 siffer",
     delskjerm_modal_hjelpetekst_overskrift: "Hva er skjermdeling?",
     delskjerm_modal_hjelpetekst_0:
-        "Når du deler skjerm med NAV kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.",
+        "Når du deler skjerm med Nav kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.",
     delskjerm_modal_hjelpetekst_1:
         "Veilederen ser kun det du ser på nav.no og kan ikke fylle inn opplysninger eller sende inn noe på dine vegne.",
     delskjerm_modal_hjelpetekst_2:
@@ -97,9 +104,9 @@ const nb = {
     open_chat: "Åpne chat",
     info: "Informasjon",
     error: "Feil",
-} as const satisfies Texts;
+} as const;
 
-const en = {
+const en: Texts = {
     skip_link: "Go to main content",
     share_screen: "Share screen with your counsellor",
     to_top: "To the top",

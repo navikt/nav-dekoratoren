@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import {
+import type {
     ClientParams,
     Context,
     Environment,
@@ -35,8 +35,15 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
         ...updatedParams,
     };
 
-    Cookies.set(CONTEXT_COOKIE, param("context"));
-    Cookies.set(LANGUAGE_COOKIE, param("language"));
+    const { context, language } = window.__DECORATOR_DATA__.params;
+
+    if (context) {
+        Cookies.set(CONTEXT_COOKIE, context);
+    }
+
+    if (language) {
+        Cookies.set(LANGUAGE_COOKIE, language);
+    }
 
     if (Object.keys(updatedParams).length > 0) {
         window.dispatchEvent(

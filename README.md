@@ -1,4 +1,4 @@
-# NAV Decorator
+# Nav Decorator
 
 ## Table of Contents
 
@@ -123,12 +123,14 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 | logoutUrl           | string                                                 | undefined        | Sets the URL for logging out                                                   |
 | maskHotjar          | boolean                                                | true             | Mask the entire HTML DOM for HotJar                                            |
 | logoutWarning       | boolean                                                | true             | Activate or deactivate the Logout Warning                                      |
+| redirectOnUserChange| boolean                                                | false            | Redirects to nav.no if different user is logged in                             |
+| pageType            | string                                                 | undefined        | For lgging av sidetype for sidevsning i Analytics                              |
 
 
 ### Details
 
 #### redirectToApp
-This applies to both automatic login and when the login button is clicked. The default setting is `false`, which will redirect the user to the "Mitt NAV" application after login.
+This applies to both automatic login and when the login button is clicked. The default setting is `false`, which will redirect the user to the "Mitt Nav" application after login.
 
 #### redirectToUrl
 This will redirect the browser to the specified URL after login. This will override the `redirectToApp` configuration that was set. This applies to both automatic login and when the login button is clicked.
@@ -174,6 +176,9 @@ A modal will display after 55 minutes of login time, allowing the user to extend
 
 If you choose to disable this feature, you will need to implement a similar logout warning yourself.
 
+#### redirectOnUserChange
+If set to true, the page will redirect to nav.no if there is a change of current user in header and authenticated user on server. May occur if user has multiple windows open, and a new user logs in in one of them, and then navigates to a window the old user had open.
+
 ### Examples
 
 Example 1 - Set context:<br>
@@ -183,7 +188,7 @@ Example 2 - Language selector:<br>
 [https://www.nav.no/dekoratoren/?availableLanguages=\[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}\] ](https://www.nav.no/dekoratoren/?availableLanguages=[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}])
 
 Example 3 - Bread crumbs:<br>
-[https://www.nav.no/dekoratoren/?breadcrumbs=\[{"url":"https://www.nav.no/person/dittnav","title":"Ditt NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt oss"}\] ](https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}])
+[https://www.nav.no/dekoratoren/?breadcrumbs=\[{"url":"https://www.nav.no/person/dittnav","title":"Ditt Nav"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt oss"}\] ](https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}])
 
 ## Other built-in features
 The Decorator provides a range of functionalities so that you don't have to build them yourself.
@@ -227,7 +232,7 @@ The logoout warning is activated by default. You can disable this feature by set
 - Currently, the user is presented with the logout warning regardless of activity. We are exploring auto-renewal based on user activity (e.g., mouse movement, keyboard strokes, page changes, etc.). Security and user privacy considerations must be taken into account before proceeding further.
 
 ### Analytics with Amplitude
-NAV uses Amplitude for analytics and tracking user events. To properly safeguard privacy, all analytics data must go through [amplitude-proxy](https://github.com/navikt/amplitude-proxy), which cleans out trackable personal information before sending the data to Amplitude. The Decorator handles this process for you.
+Nav uses Amplitude for analytics and tracking user events. To properly safeguard privacy, all analytics data must go through [amplitude-proxy](https://github.com/navikt/amplitude-proxy), which cleans out trackable personal information before sending the data to Amplitude. The Decorator handles this process for you.
 
 #### Amplitude when using nav-dekoratoren-moduler
 The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Amplitude logging. Please refer to the README for documentation and getting started guides.

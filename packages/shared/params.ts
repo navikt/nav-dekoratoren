@@ -17,7 +17,6 @@ export const languageSchema = z.enum([
     "uk",
     "ru",
 ]);
-
 export type Language = z.infer<typeof languageSchema>;
 
 const availableLanguageSchema = z.discriminatedUnion("handleInApp", [
@@ -74,6 +73,8 @@ export const paramsSchema = z.object({
     logoutWarning: z.boolean().default(true),
     bedrift: z.string().optional(),
     ssrMainMenu: z.boolean().default(false),
+    redirectOnUserChange: z.boolean().default(false),
+    pageType: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -95,6 +96,8 @@ export const clientParamKeys: Array<keyof Params> = [
     "maskHotjar",
     "logoutWarning",
     "feedback",
+    "redirectOnUserChange",
+    "pageType",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;

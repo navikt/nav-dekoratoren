@@ -6,7 +6,7 @@ The Team Personbruker has the daily responsibility for the Decorator, but we wel
 ### 1. Clone the Decorator:
 
   ```bash
-  git clone https://github.com/navikt/decorator-next.git
+  git clone https://github.com/navikt/nav-dekoratoren.git
   ```
 
 ### 2. Set up NODE_AUTH_TOKEN with your own PAT (Personal Access Token)
@@ -34,7 +34,7 @@ You can install Bun globally on your machine like this:
 ### 4. Navigate to the root of the repository and install dependencies
 
   ```bash
-  cd decorator-next
+  cd nav-dekoratoren
 
   bun install | bun run build
   ```
@@ -55,7 +55,7 @@ Some kind reminders before you start:
 - Link any existing issues to your PR for easy tracking.
 - Write clear commit messages and PR descriptions (e.g., not "fix stuff again"). Note that PRs only allow squashing when merging into main.
 - Ask for help if you're unsure or need assistance with testing!
-- The dev ingress is used by many applications in NAV and is expected to be stable. If you're unsure about your changes, there is a beta ingress where things are allowed to break. See the Action `Deploy to Team Nav.no beta`.
+- The dev ingress is used by many applications in Nav and is expected to be stable. If you're unsure about your changes, there is a beta ingress where things are allowed to break. See the Action `Deploy to Team Nav.no beta`.
 
 ### Linting and testing
 Husky runs linting when you commit your changes. You may also run `bunx lint-staged --config package.json` on your staged files.

@@ -1,4 +1,5 @@
 import { Context, Environment, ClientParams } from "./params";
+import { nb } from "decorator-server/src/texts";
 
 export type Link = {
     content: string;
@@ -21,92 +22,10 @@ export const clientTextsKeys = [
 
 export type ClientTexts = Pick<Texts, (typeof clientTextsKeys)[number]>;
 
+type NBTexts = typeof nb;
+type NBTextKeys = keyof NBTexts;
 export type Texts = {
-    breadcrumbs: string;
-    important_info: string;
-    loading_preview: string;
-    loading: string;
-    open_chat: string;
-    token_warning_title: string;
-    token_warning_body: string;
-    feedback: string;
-    send_undersokelse_takk: string;
-    hensikt_med_tilbakemelding: string;
-    hensikt_med_tilbakemelding_lenke: string;
-    session_warning_title: string;
-    session_warning_body: string;
-    ok: string;
-    yes: string;
-    logout: string;
-    login: string;
-    skip_link: string;
-    share_screen: string;
-    to_top: string;
-    menu: string;
-    close: string;
-    did_you_find: string;
-    search: string;
-    clear: string;
-    logged_in: string;
-    language_selector: string;
-    notifications: string;
-    notifications_empty_list: string;
-    notifications_empty_list_description: string;
-    notifications_show_all: string;
-    notifications_messages_title: string;
-    notified_EPOST: string;
-    notified_SMS: string;
-    notified_SMS_and_EPOST: string;
-    earlier_notifications: string;
-    message: string;
-    task: string;
-    inbox: string;
-    masked_message_text: string;
-    masked_task_text: string;
-    archive: string;
-    notifications_tasks_title: string;
-    no: string;
-    search_nav_no: string;
-    privatperson: string;
-    arbeidsgiver: string;
-    samarbeidspartner: string;
-    meny_bunnlenke_minside_stikkord: string;
-    meny_bunnlenke_arbeidsgiver_stikkord: string;
-    meny_bunnlenke_samarbeidspartner_stikkord: string;
-    loading_notifications: string;
-    notifications_error: string;
-    search_error: string;
-    how_can_we_help: string;
-    showing: string;
-    of: string;
-    results: string;
-    search_hits_heading: (args: {
-        total: number;
-        query: string;
-        context: Context;
-    }) => string;
-    more_hits: string;
-    to_front_page: string;
-    change_search_filter: string;
-    footer_del_skjerm: string;
-    delskjerm_modal_beskrivelse: string;
-    delskjerm_modal_start: string;
-    delskjerm_modal_label: string;
-    delskjerm_modal_avbryt: string;
-    delskjerm_modal_feilmelding: string;
-    delskjerm_modal_hjelpetekst_overskrift: string;
-    delskjerm_modal_hjelpetekst_0: string;
-    delskjerm_modal_hjelpetekst_1: string;
-    delskjerm_modal_hjelpetekst_2: string;
-    delskjerm_modal_stengt: string;
-    security_level_info: string;
-    security_level_link: string;
-    go_to_my_page: string;
-    my_page: string;
-    personopplysninger: string;
-    my_page_employer: string;
-    info: string;
-    error: string;
+    [key in NBTextKeys]: NBTexts[key] extends string ? string : NBTexts[key];
 };
 
 export type OpsMessage = {

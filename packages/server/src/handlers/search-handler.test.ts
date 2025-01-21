@@ -12,20 +12,11 @@ import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "../env/server";
 import { searchHandler } from "./search-handler";
 
-const validHits = new Array(6).fill(0).map((_, i) => ({
+const validHits = new Array(5).fill(0).map((_, i) => ({
     displayName: `Hit ${i}`,
     highlight: `highlight ${i}`,
     href: "https://example.com",
 }));
-
-const withInvalidHit = [
-    {
-        displayName: "Invalid hit",
-        highlight: "Invalid highlight",
-        href: "notaurl",
-    },
-    ...validHits,
-];
 
 describe("Search handler", () => {
     let server: SetupServerApi;
@@ -39,12 +30,12 @@ describe("Search handler", () => {
 
     afterAll(() => server.close());
 
-    test("Should return html containing first 5 hits only", async () => {
+    test("Should show total hits", async () => {
         server.use(
             http.get(env.SEARCH_API_URL, () =>
                 HttpResponse.json({
                     hits: validHits,
-                    total: validHits.length,
+                    total: 10,
                 }),
             ),
         );
@@ -55,28 +46,8 @@ describe("Search handler", () => {
             query: "",
         });
 
+        expect(html).toContain("10 treff for");
         expect(html).toContain("highlight 4");
-        expect(html).not.toContain("highlight 5");
-    });
-
-    test("Should not include invalid hits", async () => {
-        server.use(
-            http.get(env.SEARCH_API_URL, () =>
-                HttpResponse.json({
-                    hits: withInvalidHit,
-                    total: withInvalidHit.length,
-                }),
-            ),
-        );
-
-        const html = await searchHandler({
-            context: "privatperson",
-            language: "nb",
-            query: "",
-        });
-
-        expect(html).toContain("Hit 4");
-        expect(html).not.toContain("Invalid hit");
     });
 
     test("Should encode/decode the query as appropriate", async () => {

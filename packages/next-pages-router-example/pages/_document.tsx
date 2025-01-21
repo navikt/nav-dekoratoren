@@ -6,9 +6,9 @@ import Document, {
     Head,
 } from "next/document";
 import {
-    DecoratorComponents,
     fetchDecoratorReact,
     DecoratorEnvProps,
+    DecoratorComponentsReact,
 } from "@navikt/nav-dekoratoren-moduler/ssr";
 import React from "react";
 
@@ -17,25 +17,25 @@ const decoratorParams: DecoratorEnvProps = {
     localUrl: "http://localhost:8089",
 };
 
-class _Document extends Document<{ decorator: DecoratorComponents }> {
+class _Document extends Document<{ Decorator: DecoratorComponentsReact }> {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
-        const decorator = await fetchDecoratorReact(decoratorParams);
-        return { ...initialProps, decorator };
+        const Decorator = await fetchDecoratorReact(decoratorParams);
+        return { ...initialProps, Decorator };
     }
 
     render() {
-        const { Styles, Scripts, Header, Footer } = this.props.decorator;
+        const { Decorator } = this.props;
         return (
             <Html lang="no">
-                <Head />
-                <Styles />
-                <Scripts />
-
+                <Head>
+                    <Decorator.HeadAssets />
+                </Head>
                 <body>
-                    <Header />
+                    <Decorator.Header />
                     <Main />
-                    <Footer />
+                    <Decorator.Footer />
+                    <Decorator.Scripts />
                     <NextScript />
                 </body>
             </Html>

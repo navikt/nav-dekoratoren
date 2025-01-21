@@ -90,6 +90,7 @@ export const setupMocks = () =>
                           authenticated: true,
                           name: "Charlie Jensen",
                           securityLevel: process.env.MOCK_AUTH_LEVEL,
+                          userId: "12345612345",
                       }
                     : { authenticated: false },
             ),

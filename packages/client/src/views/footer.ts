@@ -18,21 +18,19 @@ class Footer extends HTMLElement {
     connectedCallback() {
         this.addEventListener(
             "click",
-            amplitudeClickListener(({ href }) =>
-                href && href !== "#"
-                    ? {
-                          action: `kontakt/${href}`,
-                          category: "dekorator-footer",
-                      }
-                    : null,
-            ),
+            amplitudeClickListener((anchor) => ({
+                kategori: "dekorator-footer",
+                lenkegruppe:
+                    anchor.getAttribute("data-lenkegruppe") ?? undefined,
+                lenketekst: anchor.innerText ?? undefined,
+            })),
         );
 
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }
 
     disconnectedCallback() {
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
 
