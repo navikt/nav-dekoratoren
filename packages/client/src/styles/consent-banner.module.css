@@ -5,9 +5,9 @@
     bottom: 0;
     right: 0;
     inset: 2rem;
-    margin: auto 0 0 auto;
+    margin: auto auto 0 0;
     width: calc(660px - 4rem);
-    padding: 2rem;
+    padding: 0;
     border-radius: var(--a-border-radius-large);
     background-color: var(--a-surface-action);
 
@@ -15,6 +15,67 @@
         width: 100%;
         inset: 0;
         margin: auto auto 2rem auto;
+    }
+}
+
+.consentBanner::backdrop {
+    width: 0;
+    height: 0;
+    display: none;
+    pointer-events: none;
+}
+
+:global(.minimized) > .miniContent {
+    display: flex;
+}
+
+:global(.minimized) > .content {
+    display: none;
+}
+
+.miniContent {
+    display: none;
+}
+
+.expandButton {
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    text-align: left;
+}
+
+.expandIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.expandButton span {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.content {
+    margin: 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr; /* Two equal-width columns */
+    gap: 10px;
+
+    @media (max-width: 768px) {
+        gap: 0px;
+    }
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoIcon {
+    color: white;
+    margin: 0.3rem 0 0 0;
+    @media (max-width: 768px) {
+        display: none;
     }
 }
 

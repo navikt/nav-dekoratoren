@@ -8,6 +8,7 @@ export class ConsentBanner extends HTMLElement {
     errorList!: HTMLElement;
     buttonConsentAll!: HTMLElement | null;
     buttonRefuseOptional!: HTMLElement | null;
+    buttonExpand!: HTMLElement | null;
 
     handleResponse = (
         response: "CONSENT_ALL_WEB_STORAGE" | "REFUSE_OPTIONAL_WEB_STORAGE",
@@ -29,6 +30,14 @@ export class ConsentBanner extends HTMLElement {
         this.dialog.close();
     }
 
+    minimizeModal() {
+        this.dialog.classList.add("minimized");
+    }
+
+    maximizeModal() {
+        this.dialog.classList.remove("minimized");
+    }
+
     async connectedCallback() {
         this.dialog = this.querySelector("dialog")!;
         if (!isDialogDefined(this.dialog)) {
@@ -41,6 +50,9 @@ export class ConsentBanner extends HTMLElement {
         this.buttonRefuseOptional = document.querySelector(
             '[data-name="consent-banner-refuse-optional"]',
         );
+        this.buttonExpand = document.querySelector(
+            '[data-name="consent-banner-expand"]',
+        );
 
         this.buttonConsentAll?.addEventListener("click", () =>
             this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
@@ -48,9 +60,16 @@ export class ConsentBanner extends HTMLElement {
         this.buttonRefuseOptional?.addEventListener("click", () =>
             this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
+        this.buttonExpand?.addEventListener("click", () => {
+            this.maximizeModal();
+        });
 
         window.addEventListener("showConsentBanner", () => {
             this.showModal();
+
+            if (window.location.hash.includes("minimize")) {
+                this.minimizeModal();
+            }
         });
     }
 
@@ -61,6 +80,9 @@ export class ConsentBanner extends HTMLElement {
         this.buttonRefuseOptional?.removeEventListener("click", () =>
             this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
+        this.buttonExpand?.removeEventListener("click", () => {
+            this.maximizeModal();
+        });
 
         window.removeEventListener("showConsentBanner", () => {
             this.showModal();
