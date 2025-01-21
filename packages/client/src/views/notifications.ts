@@ -61,24 +61,30 @@ class LinkNotification extends HTMLElement {
                 return;
             }
 
-            fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
-                method: "POST",
-                credentials: "include",
-            }).then((res) => {
-                if (!res.ok) {
-                    this.handleError();
-                    return;
-                }
+            if (type === "message") {
+                fetch(
+                    endpointUrlWithParams(`/api/notifications/${id}/archive`),
+                    {
+                        method: "POST",
+                        credentials: "include",
+                    },
+                ).then((res) => {
+                    if (!res.ok) {
+                        this.handleError();
+                        return;
+                    }
 
-                this.parentElement?.remove();
-                logAmplitudeEvent("navigere", {
-                    komponent:
-                        this.getAttribute("data-type") === "task"
-                            ? "varsel-oppgave"
-                            : "varsel-beskjed",
-                    kategori: "varselbjelle",
-                    destinasjon: anchorElement.href,
+                    this.parentElement?.remove();
                 });
+            }
+
+            logAmplitudeEvent("navigere", {
+                komponent:
+                    this.getAttribute("data-type") === "task"
+                        ? "varsel-oppgave"
+                        : "varsel-beskjed",
+                kategori: "varselbjelle",
+                destinasjon: anchorElement.href,
             });
         });
     }

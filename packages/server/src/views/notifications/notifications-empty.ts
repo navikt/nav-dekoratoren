@@ -15,15 +15,6 @@ export function NotificationsEmpty({ minsideUrl }: { minsideUrl: string }) {
                 <p class="${cls.description}">
                     ${i18n("notifications_empty_list_description")}
                 </p>
-                <a
-                    class="${clsx(
-                        aksel["navds-link"],
-                        aksel["navds-link--neutral"],
-                    )}"
-                    href="${minsideUrl}/tidligere-varsler"
-                >
-                    ${i18n("notifications_show_all")}
-                </a>
             </div>
             ${KattIngenNotifications({ className: cls.image })}
         </div>
