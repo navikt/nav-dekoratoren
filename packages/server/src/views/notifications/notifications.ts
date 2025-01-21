@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/notifications.module.css";
-import { ChevronRightIcon, MessageIcon, TaskIcon } from "decorator-icons";
+import { ChatElipsisIcon, ClipboardIcon } from "decorator-icons";
 import html from "decorator-shared/html";
 import i18n from "../../i18n";
 import {
@@ -35,17 +35,26 @@ const MaskedNotificationComp = ({
     notification: MaskedNotification;
 }) =>
     html` <div class="${cls.notification}">
-        <div class="${cls.header}">
-            <div class="${cls.headerLeft}">
-                ${type === "task" ? TaskIcon() : MessageIcon()}
-                <div>${i18n(type)}</div>
-            </div>
-            <local-time datetime="${date}" class="${cls.date}"></local-time>
+        <div class="${cls.icon}">
+            ${type === "task" ? ClipboardIcon() : ChatElipsisIcon()}
         </div>
-        <div>
-            ${type === "task"
-                ? i18n("masked_task_text")
-                : i18n("masked_message_text")}
+        <div class="${cls.content}">
+            <p class="${cls.text}">
+                ${type === "task"
+                    ? i18n("masked_task_text")
+                    : i18n("masked_message_text")}
+            </p>
+            <p class="${cls.metadata}">
+                <local-time datetime="${date}" class="${cls.date}"></local-time>
+                •<span
+                    class="${clsx(
+                        aksel["navds-tag"],
+                        aksel["navds-tag--neutral-moderate"],
+                        aksel["navds-tag--xsmall"],
+                    )}"
+                    >${i18n(type)}</span
+                >
+            </p>
         </div>
     </div>`;
 
@@ -55,25 +64,24 @@ const NotificationComp = ({
     notification: UnmaskedNotification;
 }) =>
     html` <link-notification
-        class="${cls.notification} ${cls.linkNotification}"
+        class="${cls.notification}"
         data-type="${type}"
         data-id="${id}"
     >
-        <div class="${cls.header}">
-            <div class="${cls.headerLeft}">
-                ${type === "task" ? TaskIcon() : MessageIcon()}
+        <div class="${cls.icon}">
+            ${type === "task" ? ClipboardIcon() : ChatElipsisIcon()}
+        </div>
+        <div class="${cls.content}">
+            <div class="${cls.text}">
+                <a href="${link}">${text}</a>
+            </div>
+            <div class="${cls.metadata}">
+                <local-time datetime="${date}" class="${cls.date}"></local-time>
+                ${channels.length > 0 &&
+                html` <div class="">${kanalerToMetadata(channels)}</div>`}
                 <div>${i18n(type)}</div>
             </div>
-            <div class="${cls.headerRight}">
-                <local-time datetime="${date}" class="${cls.date}"></local-time>
-                ${ChevronRightIcon({ className: cls.chevron })}
-            </div>
         </div>
-        <a href="${link}" class="${cls.text}">${text}</a>
-        ${channels.length > 0 &&
-        html` <div class="${cls.metadata}">
-            ${kanalerToMetadata(channels)}
-        </div>`}
     </link-notification>`;
 
 const ArchivableNotification = ({
@@ -82,20 +90,38 @@ const ArchivableNotification = ({
     notification: UnmaskedNotification;
 }) =>
     html` <archivable-notification class="${cls.notification}" data-id="${id}">
-        <div class="${cls.header}">
-            <div class="${cls.headerLeft}">
-                ${type === "task" ? TaskIcon() : MessageIcon()}
-                <div>${i18n(type)}</div>
-            </div>
-            <local-time datetime="${date}" class="${cls.date}"></local-time>
+        <div class="${cls.icon}">
+            ${type === "task" ? ClipboardIcon() : ChatElipsisIcon()}
         </div>
-        <div>${text}</div>
-        <div class="${cls.bottom}">
-            ${channels.length > 0 &&
-            html` <div class="${cls.metadata}">
-                ${kanalerToMetadata(channels)}
-            </div>`}
-            <button class="${cls.button}">${i18n("archive")}</button>
+        <div class="${cls.content}">
+            <div class="${cls.text}">${text}</div>
+            <div class="${cls.metadata}">
+                <local-time datetime="${date}" class="${cls.date}"></local-time>
+                ${channels.length > 0 &&
+                html` •
+                    <span class="channels"
+                        >${kanalerToMetadata(channels)}</span
+                    >`}
+                •
+                <span
+                    class="${clsx(
+                        aksel["navds-tag"],
+                        aksel["navds-tag--neutral-moderate"],
+                        aksel["navds-tag--xsmall"],
+                    )}"
+                    >${i18n(type)}</span
+                >
+            </div>
+            <button
+                class="${clsx(
+                    aksel["navds-button"],
+                    aksel["navds-button--secondary"],
+                    aksel["navds-button--small"],
+                    cls.button,
+                )}"
+            >
+                ${i18n("archive")}
+            </button>
         </div>
     </archivable-notification>`;
 
