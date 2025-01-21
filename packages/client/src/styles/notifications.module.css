@@ -94,6 +94,8 @@
 
 .text {
     font-weight: var(--a-font-weight-bold);
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .metadata {
@@ -102,24 +104,13 @@
     line-height: var(--a-font-line-height-medium);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--a-spacing-4);
+    gap: var(--a-spacing-2);
     align-items: center;
     justify-items: start;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .button {
-    border: none;
-    border-radius: var(--a-border-radius-medium);
-    background-color: none;
-    color: var(--a-text-action);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: var(--a-font-size-medium);
-    font-weight: var(--a-font-weight-bold);
-    margin: var(--a-spacing-2) 0 0 0;
-    padding: 0 var(--a-spacing-2);
-}
-
-.button:hover {
-    background-color: var(--a-surface-action-subtle-hover);
+    margin-top: var(--a-spacing-2);
 }

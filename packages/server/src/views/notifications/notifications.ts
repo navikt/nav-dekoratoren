@@ -39,15 +39,22 @@ const MaskedNotificationComp = ({
             ${type === "task" ? ClipboardIcon() : ChatElipsisIcon()}
         </div>
         <div class="${cls.content}">
-            <div class="${cls.text}">
+            <p class="${cls.text}">
                 ${type === "task"
                     ? i18n("masked_task_text")
                     : i18n("masked_message_text")}
-            </div>
-            <div class="${cls.metadata}">
+            </p>
+            <p class="${cls.metadata}">
                 <local-time datetime="${date}" class="${cls.date}"></local-time>
-                <div>${i18n(type)}</div>
-            </div>
+                •<span
+                    class="${clsx(
+                        aksel["navds-tag"],
+                        aksel["navds-tag--neutral-moderate"],
+                        aksel["navds-tag--xsmall"],
+                    )}"
+                    >${i18n(type)}</span
+                >
+            </p>
         </div>
     </div>`;
 
@@ -91,10 +98,30 @@ const ArchivableNotification = ({
             <div class="${cls.metadata}">
                 <local-time datetime="${date}" class="${cls.date}"></local-time>
                 ${channels.length > 0 &&
-                html` <div class="">${kanalerToMetadata(channels)}</div>`}
-                <div>${i18n(type)}</div>
+                html` •
+                    <span class="channels"
+                        >${kanalerToMetadata(channels)}</span
+                    >`}
+                •
+                <span
+                    class="${clsx(
+                        aksel["navds-tag"],
+                        aksel["navds-tag--neutral-moderate"],
+                        aksel["navds-tag--xsmall"],
+                    )}"
+                    >${i18n(type)}</span
+                >
             </div>
-            <button class="${cls.button}">${i18n("archive")}</button>
+            <button
+                class="${clsx(
+                    aksel["navds-button"],
+                    aksel["navds-button--secondary"],
+                    aksel["navds-button--small"],
+                    cls.button,
+                )}"
+            >
+                ${i18n("archive")}
+            </button>
         </div>
     </archivable-notification>`;
 
