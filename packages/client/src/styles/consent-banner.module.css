@@ -1,21 +1,19 @@
 .consentBanner {
+    background-color: var(--a-surface-action);
+    border-radius: var(--a-border-radius-large);
     display: none;
-    border: none;
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    height: fit-content;
     inset: 2rem;
     margin: auto auto 0 0;
-    width: calc(660px - 4rem);
-    padding: 0;
-    border-radius: var(--a-border-radius-large);
-    background-color: var(--a-surface-action);
+    position: fixed;
+    width: 41rem;
     z-index: 1000;
-    height: fit-content;
+
     @media (max-width: 768px) {
         width: 100%;
         inset: 0;
-        margin: auto auto 2rem auto;
+        width: calc(100% - 2rem);
+        margin: auto 1rem 1rem 1rem;
     }
 }
 
@@ -117,7 +115,6 @@
     margin: 0;
     font: inherit;
     font-size: var(--a-font-size-large);
-    color: inherit;
     cursor: pointer;
     background-color: var(--a-surface-default);
     color: var(--a-blue-500);
