@@ -2,6 +2,7 @@
 @import "@navikt/ds-css/dist/component/alert.css";
 @import "@navikt/ds-css/dist/component/button.css";
 @import "@navikt/ds-css/dist/component/link.css";
+@import "@navikt/ds-css/dist/component/tag.css";
 
 [data-theme="dark"] .navds-link {
     --ac-link-text: var(--a-text-on-inverted);

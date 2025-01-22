@@ -124,6 +124,7 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 | maskHotjar          | boolean                                                | true             | Mask the entire HTML DOM for HotJar                                            |
 | logoutWarning       | boolean                                                | true             | Activate or deactivate the Logout Warning                                      |
 | redirectOnUserChange| boolean                                                | false            | Redirects to nav.no if different user is logged in                             |
+| pageType            | string                                                 | undefined        | For lgging av sidetype for sidevsning i Analytics                              |
 
 
 ### Details
