@@ -176,7 +176,7 @@ export class WebStorageController {
 
     private async clearOptionalStorage() {
         await this.awaitDecoratorData();
-        const allowedStorage = this.getAllowedStorage() as PublicStorageItem[];
+        const allowedStorage = this.getAllowedStorage();
         const allOptionalStorage = allowedStorage.filter(
             (storage) => storage.optional,
         );
