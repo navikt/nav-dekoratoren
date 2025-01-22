@@ -10,10 +10,9 @@
     z-index: 1000;
 
     @media (max-width: 768px) {
-        width: 100%;
         inset: 0;
-        width: calc(100% - 2rem);
         margin: auto 1rem 1rem 1rem;
+        width: calc(100% - 2rem);
     }
 }
 
@@ -112,18 +111,18 @@
 
 .button,
 .button:hover {
-    margin: 0;
-    font: inherit;
-    font-size: var(--a-font-size-large);
-    cursor: pointer;
-    background-color: var(--a-surface-default);
-    color: var(--a-blue-500);
-    padding: 0.5625rem;
-    display: grid;
-    grid-auto-flow: column;
-    gap: var(--a-spacing-2);
     align-items: center;
+    background-color: var(--a-surface-default);
     border-radius: var(--a-border-radius-medium);
+    color: var(--a-blue-500);
+    cursor: pointer;
+    display: grid;
+    font-size: var(--a-font-size-large);
+    font: inherit;
+    gap: var(--a-spacing-2);
+    grid-auto-flow: column;
+    margin: 0;
+    padding: 0.5625rem;
 }
 
 .button:focus-visible {
