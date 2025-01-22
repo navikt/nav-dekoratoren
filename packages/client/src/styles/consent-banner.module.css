@@ -27,12 +27,15 @@
     pointer-events: none;
 }
 
-:global(.minimized) > .miniContent {
-    display: flex;
-}
-
-:global(.minimized) > .content {
-    display: none;
+:global(.minimized-on-mobile) {
+    @media (max-width: 768px) {
+        .miniContent {
+            display: flex;
+        }
+        .content {
+            display: none;
+        }
+    }
 }
 
 .miniContent {

@@ -30,11 +30,11 @@ export class ConsentBanner extends HTMLElement {
     }
 
     minimizeOnMobile() {
-        this.dialog.classList.add("minimized");
+        this.dialog.classList.add("minimized-on-mobile");
     }
 
     maximizeModal() {
-        this.dialog.classList.remove("minimized");
+        this.dialog.classList.remove("minimized-on-mobile");
     }
 
     async connectedCallback() {
