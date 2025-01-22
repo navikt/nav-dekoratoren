@@ -1,9 +1,8 @@
 import { createEvent } from "../events";
 import { defineCustomElement } from "./custom-elements";
-import { isDialogDefined } from "../helpers/dialog-util";
 
 export class ConsentBanner extends HTMLElement {
-    dialog!: HTMLDialogElement;
+    dialog!: HTMLDivElement;
     input!: HTMLInputElement;
     errorList!: HTMLElement;
     buttonConsentAll!: HTMLElement | null;
@@ -22,12 +21,12 @@ export class ConsentBanner extends HTMLElement {
     };
 
     showModal() {
-        this.dialog.showModal();
+        this.dialog.classList.add("consentBanner--open");
         this.buttonConsentAll?.focus();
     }
 
     closeModal() {
-        this.dialog.close();
+        this.dialog.classList.remove("consentBanner--open");
     }
 
     minimizeModal() {
@@ -39,10 +38,13 @@ export class ConsentBanner extends HTMLElement {
     }
 
     async connectedCallback() {
-        this.dialog = this.querySelector("dialog")!;
-        if (!isDialogDefined(this.dialog)) {
+        const dialog = this.querySelector("#consent-banner-dialog");
+        if (!dialog) {
+            console.log("no dialog found");
             return;
         }
+
+        this.dialog = dialog as HTMLDivElement;
 
         this.buttonConsentAll = document.querySelector(
             '[data-name="consent-banner-all"]',

@@ -1,5 +1,5 @@
 .consentBanner {
-    overflow: visible;
+    display: none;
     border: none;
     position: fixed;
     bottom: 0;
@@ -10,12 +10,17 @@
     padding: 0;
     border-radius: var(--a-border-radius-large);
     background-color: var(--a-surface-action);
-
+    z-index: 1000;
+    height: fit-content;
     @media (max-width: 768px) {
         width: 100%;
         inset: 0;
         margin: auto auto 2rem auto;
     }
+}
+
+:global(.consentBanner--open) {
+    display: flex;
 }
 
 .consentBanner::backdrop {

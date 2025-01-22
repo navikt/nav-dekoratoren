@@ -134,6 +134,54 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
             "Husker hvilken variasjon av brukerundersøkelse som vises til brukeren.",
         optional: true,
     },
+    {
+        name: "language",
+        type: ["sessionStorage"],
+        service: "Minside",
+        description:
+            "Brukes for å kommunisere språk på tvers av innhold på Min side. Dataene angir hvilket språk brukeren har valgt på Min side.",
+        optional: false,
+    },
+    {
+        name: "innlogget-part",
+        type: ["cookie"],
+        service: "Tiltaksgjennomføring",
+        description:
+            "Hvilken avtalepart bruker er logget inn som (feks ‘deltaker’ eller 'arbeidsgiver') i Tiltaksgjennomføring (avtaleløsningen).",
+        optional: false,
+    },
+    {
+        name: "antallLesteNyheter",
+        type: ["localStorage"],
+        service: "Tiltaksgjennomføring",
+        description:
+            "Holder telling på om en bruker har lest alle nyhetsmeldingene i tiltaksgjennomføring.",
+        optional: false,
+    },
+    {
+        name: "virksomhetsvelger_bedrift",
+        type: ["localStorage"],
+        service: "Tiltaksgjennomføring",
+        description:
+            "Lagre hvilken virksomhet en arbeidsgiver har valgt i bedriftsvalgmenyen",
+        optional: false,
+    },
+    {
+        name: "klang-*",
+        type: ["sessionStorage"],
+        service: "Klage og anke",
+        description:
+            "Mellomlagring av uferdige saker for ikke-innloggede brukere av innsendingsløsningen for klager, anker og ettersendelser.",
+        optional: false,
+    },
+    {
+        name: "no.sosialhjelp.wonderwall.session",
+        type: ["cookie"],
+        service: "Digisos",
+        description:
+            "Brukes for å huske hvem som eventuelt er logget inn på nav.no i nettleseren. Dette er en nøkkel som gjør at brukeren kan kommunisere med nav.no, sende informasjon og oppdatere Nav om situasjonen sin på en sikker måte. Den slettes når brukeren logger ut eller at tiden for innlogging har gått ut.",
+        optional: false,
+    },
 ]);
 
 const buildAllowedStorage = () => {
