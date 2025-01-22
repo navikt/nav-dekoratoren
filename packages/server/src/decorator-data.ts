@@ -98,8 +98,15 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         optional: true,
     },
     {
-        name: "_tajs03412",
-        type: ["sessionstorage"],
+        name: "_taj*",
+        type: ["sessionstorage", "localstorage"],
+        service: "Task Analytics",
+        description: "Husker hvilke undersøkelser brukeren har takket ja til.",
+        optional: true,
+    },
+    {
+        name: "_tau",
+        type: ["sessionstorage", "localstorage"],
         service: "Task Analytics",
         description: "Husker hvilke undersøkelser brukeren har takket ja til.",
         optional: true,
@@ -148,14 +155,6 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         service: "Tiltaksgjennomføring",
         description:
             "Hvilken avtalepart bruker er logget inn som (feks ‘deltaker’ eller 'arbeidsgiver') i Tiltaksgjennomføring (avtaleløsningen).",
-        optional: false,
-    },
-    {
-        name: "antallLesteNyheter",
-        type: ["localStorage"],
-        service: "Tiltaksgjennomføring",
-        description:
-            "Holder telling på om en bruker har lest alle nyhetsmeldingene i tiltaksgjennomføring.",
         optional: false,
     },
     {

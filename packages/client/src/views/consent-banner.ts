@@ -29,7 +29,7 @@ export class ConsentBanner extends HTMLElement {
         this.dialog.classList.remove("consentBanner--open");
     }
 
-    minimizeModal() {
+    minimizeOnMobile() {
         this.dialog.classList.add("minimized");
     }
 
@@ -69,8 +69,8 @@ export class ConsentBanner extends HTMLElement {
         window.addEventListener("showConsentBanner", () => {
             this.showModal();
 
-            if (window.location.hash.includes("minimize")) {
-                this.minimizeModal();
+            if (window.location.pathname.includes("informasjonskapsler")) {
+                this.minimizeOnMobile();
             }
         });
     }
@@ -83,7 +83,7 @@ export class ConsentBanner extends HTMLElement {
             this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
         this.buttonExpand?.removeEventListener("click", () => {
-            this.maximizeModal();
+            this.minimizeOnMobile();
         });
 
         window.removeEventListener("showConsentBanner", () => {

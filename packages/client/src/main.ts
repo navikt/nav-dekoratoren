@@ -6,8 +6,8 @@ import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { param, initParams } from "./params";
-import "./main.css";
 import { WebStorageController } from "./webStorage";
+import "./main.css";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -54,8 +54,7 @@ const stopTrackingServices = () => {
     window.location.reload();
 };
 
-/* Triggers if the user has been presented with the
- * consent banner and gives consent */
+/* Listen for consent events sent from the consent-banner */
 const initConsentListener = () => {
     window.addEventListener("consentAllWebStorage", () => {
         startTrackingServices();

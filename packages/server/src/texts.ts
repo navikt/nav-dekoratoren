@@ -14,7 +14,7 @@ export const nb = {
     consent_banner_text: `
     <p>
         Vi har informasjonskapsler som samler informasjon om hvordan sidene våre brukes. Informasjonen bruker vi til å forbedre sidene slik at de fungerer best mulig.
-        <a href="https://www.ansatt.dev.nav.no/informasjonskapsler">Les om informasjonskapsler</a>.
+        <a href="/informasjonskapsler">Les om informasjonskapsler</a>.
     </p>
     `,
     consent_banner_consent_all: "Godkjenn alle",
@@ -124,7 +124,7 @@ const en: Texts = {
     consent_banner_text: `
     <p>
         We use cookies that collect information about how our pages are used. We use this information to improve the overall user experience on nav.no.
-        <a href="https://www.ansatt.dev.nav.no/informasjonskapsler">Read about cookies</a>.
+        <a href="/informasjonskapsler">Read about cookies</a>.
     </p>
     `,
     consent_banner_consent_all: "Consent to all",
