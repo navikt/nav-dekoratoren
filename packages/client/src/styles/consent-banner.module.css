@@ -118,7 +118,6 @@
     cursor: pointer;
     display: grid;
     font-size: var(--a-font-size-large);
-    font: inherit;
     gap: var(--a-spacing-2);
     grid-auto-flow: column;
     margin: 0;
