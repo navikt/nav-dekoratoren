@@ -189,6 +189,11 @@ export class WebStorageController {
         const { userActionTaken, meta } = this.getCurrentConsent();
         const { version } = meta;
 
+        // Don't show cookie banner for nav.no editors
+        if (window.location.hostname.includes("oera.no")) {
+            return;
+        }
+
         if (!userActionTaken || version < this.currentConsentVersion) {
             this.clearOptionalStorage();
             this.showConsentBanner();

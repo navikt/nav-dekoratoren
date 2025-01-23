@@ -121,10 +121,10 @@ const en: Texts = {
     share_screen: "Share screen with your counsellor",
     to_top: "To the top",
     menu: "Menu",
-    consent_banner_title: "Cookies on nav.no",
+    consent_banner_title: "Choose which cookies we can use",
     consent_banner_text: `
     <p>
-        The necessary ones are needed for the website to function and be secure. Others we use for statistics and analysis. By accepting all, you help us create better websites and services.
+        We need the essential cookies for the website to function and be secure. We use others for statistics and analysis. By accepting all, you help us create better websites and services.
     </p>
     `,
     consent_banner_consent_all: "Consent to all",
