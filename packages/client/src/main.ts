@@ -31,6 +31,8 @@ const injectHeadAssets = () => {
     });
 };
 
+const foo = () => 'bar'
+
 const init = () => {
     initParams();
     injectHeadAssets();
@@ -44,6 +46,7 @@ const init = () => {
     refreshAuthData().then((response) => {
         initAnalytics(response.auth);
     });
+    foo();
 };
 
 if (document.readyState === "loading") {
