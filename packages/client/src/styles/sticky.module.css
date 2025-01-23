@@ -36,6 +36,6 @@ html:has(head > :global(#vngageDOMCSS4)) {
 }
 
 .fixed {
-    position: fixed;
     top: 0;
+    position: fixed;
 }
