@@ -69,7 +69,10 @@ export class ConsentBanner extends HTMLElement {
         window.addEventListener("showConsentBanner", () => {
             this.showModal();
 
-            if (window.location.pathname.includes("informasjonskapsler")) {
+            if (
+                window.location.pathname.includes("informasjonskapsler") ||
+                window.location.hash.includes("informasjonskapsler")
+            ) {
                 this.minimizeOnMobile();
             }
         });

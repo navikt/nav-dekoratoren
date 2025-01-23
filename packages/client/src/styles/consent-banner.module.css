@@ -40,24 +40,27 @@
 
 .miniContent {
     display: none;
+    width: 100%;
 }
 
 .expandButton {
     background-color: transparent;
-    color: white;
-    width: 100%;
+    color: var(--a-white);
     text-align: left;
-}
-
-.expandIcon {
-    width: 1.5rem;
-    height: 1.5rem;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .expandButton span {
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
+}
+
+.expandIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1rem;
 }
 
 .content {
@@ -78,7 +81,7 @@
 
 .infoIcon {
     color: white;
-    margin: 0.3rem 0 0 0;
+    margin: 0.4rem 0 0 0;
     @media (max-width: 768px) {
         display: none;
     }
@@ -109,7 +112,15 @@
 .buttonContainer {
     display: flex;
     justify-content: flex-start;
-    gap: var(--a-spacing-2);
+    gap: var(--a-spacing-3);
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        > * {
+            width: 100%;
+        }
+    }
 }
 
 .button,
@@ -133,4 +144,11 @@
                 )
             ),
         var(--a-shadow-focus);
+}
+
+.aboutLink,
+.aboutLink:hover {
+    color: var(--a-white);
+    margin: 0;
+    text-align: center;
 }

@@ -15,7 +15,8 @@ export const ConsentBanner = () => html`
         >
             <div class="${cls.miniContent}">
                 ${Button({
-                    content: html`<span>${i18n("consent_banner_title")}</span
+                    content: html`<span
+                            >${i18n("consent_banner_minimized")}</span
                         >${ExpandIcon({
                             className: cls.expandIcon,
                         })}`,
@@ -51,6 +52,9 @@ export const ConsentBanner = () => html`
                             },
                             className: cls.button,
                         })}
+                        <a href="/informasjonskapsler" class="${cls.aboutLink}">
+                            ${i18n("consent_banner_about_cookies")}
+                        </a>
                     </div>
                 </div>
             </div>
