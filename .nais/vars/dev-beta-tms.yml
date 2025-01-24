@@ -5,6 +5,8 @@ ingresses:
 outboundHosts:
   - www.nav.no
   - www.intern.dev.nav.no
+  - dekoratoren-beta-tms.intern.dev.nav.no
+  - www-q6.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
 env:
