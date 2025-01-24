@@ -10,7 +10,6 @@ import { getModal } from "../screensharing-modal";
 import { LogoutWarning } from "../logout-warning";
 import { Feedback } from "../feedback";
 import { SimpleFooter } from "./simple-footer";
-import { ConsentBanner } from "../consent-banner";
 import { ComplexFooter } from "./complex-footer";
 
 const CONTACT_URL = `${env.XP_BASE_URL}/kontaktoss`;
@@ -33,7 +32,6 @@ export const FooterTemplate = async ({
         ${getModal({
             enabled: shareScreen && features["dekoratoren.skjermdeling"],
         })}
-        ${ConsentBanner()}
         <d-chatbot></d-chatbot>
         ${LogoutWarning()}
         ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}
