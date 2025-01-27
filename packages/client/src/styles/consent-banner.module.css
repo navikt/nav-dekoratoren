@@ -20,13 +20,6 @@
     display: flex;
 }
 
-.consentBanner::backdrop {
-    width: 0;
-    height: 0;
-    display: none;
-    pointer-events: none;
-}
-
 :global(.minimized-on-mobile) {
     @media (max-width: 768px) {
         .miniContent {
@@ -49,6 +42,7 @@
     text-align: left;
     align-items: flex-start;
     width: 100%;
+    text-wrap: balance;
 }
 
 .expandButton span {
@@ -96,7 +90,7 @@
 
 .text {
     font-size: var(--a-font-size-large);
-    margin: 0 0 var(--a-spacing-8) 0;
+    margin: 0 var(--a-spacing-8) var(--a-spacing-8) 0;
     color: var(--a-surface-default);
 }
 
@@ -112,7 +106,7 @@
 .buttonContainer {
     display: flex;
     justify-content: flex-start;
-    gap: var(--a-spacing-3);
+    gap: var(--a-spacing-4);
     align-items: center;
 
     @media screen and (max-width: 768px) {
@@ -130,7 +124,6 @@
     cursor: pointer;
     font-size: var(--a-font-size-large);
     margin: 0;
-    padding: 0.5625rem;
 }
 
 .button:focus-visible {
@@ -149,6 +142,6 @@
 .aboutLink,
 .aboutLink:hover {
     color: var(--a-white);
-    margin: 0;
+    margin: 0 0 0 var(--a-spacing-3);
     text-align: center;
 }
