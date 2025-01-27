@@ -143,7 +143,7 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
     },
     {
         name: "language",
-        type: ["sessionStorage"],
+        type: ["sessionstorage"],
         service: "Minside",
         description:
             "Brukes for å kommunisere språk på tvers av innhold på Min side. Dataene angir hvilket språk brukeren har valgt på Min side.",
@@ -159,7 +159,7 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
     },
     {
         name: "virksomhetsvelger_bedrift",
-        type: ["localStorage"],
+        type: ["sessionstorage"],
         service: "Tiltaksgjennomføring",
         description:
             "Lagre hvilken virksomhet en arbeidsgiver har valgt i bedriftsvalgmenyen",
@@ -167,7 +167,7 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
     },
     {
         name: "klang-*",
-        type: ["sessionStorage"],
+        type: ["sessionstorage"],
         service: "Klage og anke",
         description:
             "Mellomlagring av uferdige saker for ikke-innloggede brukere av innsendingsløsningen for klager, anker og ettersendelser.",

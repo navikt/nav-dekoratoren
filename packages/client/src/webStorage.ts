@@ -219,12 +219,27 @@ export class WebStorageController {
 
     public isStorageKeyAllowed = (key: string) => {
         const storageDictionary = this.getStorageDictionaryFromEnv();
-        const isAllowed = storageDictionary.some((allowedItem) => {
-            const baseName = key.split(/[-*]/)[0];
-            return allowedItem.name.startsWith(baseName);
+        const { consent } = this.getCurrentConsent();
+        const foundStorageObject = storageDictionary.find((storage) => {
+            if (storage.name.endsWith("*")) {
+                // Use regex for wildcard (*) names
+                const baseName = storage.name.slice(0, -1); // Remove '*'
+                return new RegExp(`^${baseName}`, "i").test(key); // Case-insensitive match
+            } else {
+                // Case-insensitive exact match
+                return storage.name.toLowerCase() === key.toLowerCase();
+            }
         });
 
-        return isAllowed;
+        if (!foundStorageObject) {
+            return false;
+        }
+
+        if (!foundStorageObject.optional) {
+            return true;
+        }
+
+        return consent.analytics && consent.surveys;
     };
 
     public getAllowedStorage = () => {
