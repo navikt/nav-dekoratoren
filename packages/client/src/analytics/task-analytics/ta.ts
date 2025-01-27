@@ -123,11 +123,14 @@ export const stopTaskAnalytics = () => {
     if (!window.TA) {
         return;
     }
-    window.TA.resetUser();
-    window.TA.optOut();
-    window.TA.flush();
 
     window.removeEventListener("historyPush", startTaskAnalyticsSurvey);
+
+    const taScript = document.querySelector('script[src*="taskanalytics.com"]');
+
+    if (taScript) {
+        taScript.remove();
+    }
 
     delete window.TA;
 };
