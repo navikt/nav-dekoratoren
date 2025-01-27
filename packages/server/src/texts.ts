@@ -11,11 +11,8 @@ export const nb = {
     search: "Søk",
     search_nav_no: "Søk på nav.no",
     consent_banner_title: "Informasjonskapsler på nav.no",
-    consent_banner_text: `
-    <p>
-       De nødvendige må vi ha for at nettstedet skal fungere og være sikkert. Andre bruker vi til statistikk og analyse. Ved å godkjenne alle, hjelper du oss å lage bedre nettsider og tjenester.
-    </p>
-    `,
+    consent_banner_text:
+        "De nødvendige må vi ha for at nettstedet skal fungere og være sikkert. Andre bruker vi til statistikk og analyse. Ved å godkjenne alle, hjelper du oss å lage bedre nettsider og tjenester.",
     consent_banner_consent_all: "Godkjenn alle",
     consent_banner_refuse_optional: "Bare nødvendige",
     consent_banner_about_cookies: "Om informasjonskapsler",
@@ -122,11 +119,8 @@ const en: Texts = {
     to_top: "To the top",
     menu: "Menu",
     consent_banner_title: "Choose which cookies we can use",
-    consent_banner_text: `
-    <p>
-        We need the essential cookies for the website to function and be secure. We use others for statistics and analysis. By accepting all, you help us create better websites and services.
-    </p>
-    `,
+    consent_banner_text:
+        "We need the essential cookies for the website to function and be secure. We use others for statistics and analysis. By accepting all, you help us create better websites and services.",
     consent_banner_consent_all: "Consent to all",
     consent_banner_refuse_optional: "Necessary only",
     consent_banner_about_cookies: "About cookies",

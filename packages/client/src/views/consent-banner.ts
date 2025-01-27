@@ -40,7 +40,9 @@ export class ConsentBanner extends HTMLElement {
     async connectedCallback() {
         const dialog = this.querySelector("#consent-banner-dialog");
         if (!dialog) {
-            console.log("no dialog found");
+            console.error(
+                "Could not find cookie consent banner dialog element",
+            );
             return;
         }
 

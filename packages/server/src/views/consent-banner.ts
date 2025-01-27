@@ -34,9 +34,7 @@ export const ConsentBanner = () => html`
                     <h1 id="consent_banner_title" class="${cls.title}">
                         ${i18n("consent_banner_title")}
                     </h1>
-                    <div class="${cls.text}">
-                        ${i18n("consent_banner_text")}
-                    </div>
+                    <p class="${cls.text}">${i18n("consent_banner_text")}</p>
                     <div class="${cls.buttonContainer}">
                         ${Button({
                             content: i18n("consent_banner_consent_all"),

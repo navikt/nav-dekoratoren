@@ -122,10 +122,6 @@ export class WebStorageController {
                     ? ".nav.no"
                     : location.hostname;
 
-                if (domain.includes("localhost")) {
-                    console.log(`Deleting cookie: ${cookie.name}`);
-                }
-
                 Cookies.remove(cookie.name, {
                     domain,
                     path: "/",
