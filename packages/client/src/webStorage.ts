@@ -187,7 +187,7 @@ export class WebStorageController {
         const { version } = meta;
 
         // Don't show cookie banner for nav.no editors
-        if (window.location.hostname.includes("oera.no")) {
+        if (window.location.hostname.includes("oera.no") || window.location.hostname.includes("cms-arkiv.ansatt") {
             return;
         }
 
