@@ -5,6 +5,7 @@ import {
     Consent,
     PublicStorageItem,
 } from "decorator-shared/types";
+import { isProd } from "./helpers/env";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -191,6 +192,11 @@ export class WebStorageController {
 
         // Don't show cookie banner for nav.no editors
         if (window.location.hostname.includes("oera.no")) {
+            return;
+        }
+
+        // TODO: remove this on release
+        if (isProd()) {
             return;
         }
 

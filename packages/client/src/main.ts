@@ -9,6 +9,7 @@ import { param, initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import "./main.css";
 import { initHotjar, stopHotjar } from "./analytics/hotjar";
+import { isProd } from "./helpers/env";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -76,7 +77,8 @@ const init = () => {
 
     const { consent } = window.webStorageController.getCurrentConsent();
 
-    if (consent?.analytics) {
+    // TODO: Remove isProd check on release.
+    if (consent?.analytics || isProd()) {
         startTrackingServices();
     }
 };

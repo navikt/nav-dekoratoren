@@ -14,6 +14,11 @@ declare global {
         // For task analytics, should have better types?
         TA: any;
         hj: any;
+        _hjSettings: any;
+        hjBootstrap: any;
+        hjBootstrapCalled: any;
+        hjLazyModules: any;
+        hjSiteSettings: any;
         dataLayer: any;
         boostInit?: (env: string, config: BoostConfig) => BoostClient;
         vngage: {
