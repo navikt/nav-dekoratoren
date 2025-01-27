@@ -22,6 +22,7 @@ export class ConsentBanner extends HTMLElement {
 
     showModal() {
         this.dialog.classList.add("consentBanner--open");
+        this.dialog.focus();
         this.buttonConsentAll?.focus();
     }
 
