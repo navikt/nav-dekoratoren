@@ -1,6 +1,6 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
-import { initAnalytics } from "./analytics/analytics";
+import { initAnalytics, stopAnalytics } from "./analytics/analytics";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
@@ -8,6 +8,7 @@ import { buildHtmlElement } from "./helpers/html-element-builder";
 import { param, initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import "./main.css";
+import { initHotjar, stopHotjar } from "./analytics/hotjar";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -40,9 +41,7 @@ const startTrackingServices = () => {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
 
-    if (typeof window.initConditionalHotjar === "function") {
-        window.initConditionalHotjar();
-    }
+    initHotjar();
 
     refreshAuthData().then((response) => {
         initAnalytics(response.auth);
@@ -50,8 +49,12 @@ const startTrackingServices = () => {
 };
 
 const stopTrackingServices = () => {
-    console.log("Stopping tracking services");
-    window.location.reload();
+    console.log("Stopping tracking and survey services");
+    stopHotjar();
+
+    refreshAuthData().then((response) => {
+        stopAnalytics(response.auth);
+    });
 };
 
 /* Listen for consent events sent from the consent-banner */

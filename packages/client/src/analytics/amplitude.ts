@@ -86,6 +86,13 @@ export const initAmplitude = async () => {
     window.dekoratorenAmplitude = logEventFromApp;
 };
 
+export const stopAmplitude = async () => {
+    const amplitude = await importAmplitude();
+    amplitude.reset();
+    amplitude.flush();
+    amplitude.setOptOut(true);
+};
+
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
         eventName: optionalEventName,

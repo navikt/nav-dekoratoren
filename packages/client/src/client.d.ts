@@ -13,6 +13,7 @@ declare global {
         };
         // For task analytics, should have better types?
         TA: any;
+        hj: any;
         dataLayer: any;
         boostInit?: (env: string, config: BoostConfig) => BoostClient;
         vngage: {

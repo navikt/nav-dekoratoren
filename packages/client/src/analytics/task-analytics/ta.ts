@@ -118,3 +118,16 @@ export const initTaskAnalytics = () => {
     startTaskAnalyticsSurvey();
     window.addEventListener("historyPush", startTaskAnalyticsSurvey);
 };
+
+export const stopTaskAnalytics = () => {
+    if (!window.TA) {
+        return;
+    }
+    window.TA.resetUser();
+    window.TA.optOut();
+    window.TA.flush();
+
+    window.removeEventListener("historyPush", startTaskAnalyticsSurvey);
+
+    delete window.TA;
+};
