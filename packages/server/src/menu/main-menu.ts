@@ -195,9 +195,16 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
     children: children.map(nodeToLink),
 });
 
+const getUrl = (path: string | undefined) => {
+    if (path?.includes("endre-samtykke-for-informasjonskapsler")) {
+        return `javascript:window.webStorageController.showConsentBanner()`;
+    }
+    return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
+};
+
 const nodeToLink: (node: MenuNode) => Link = ({ displayName, path }) => ({
     content: displayName,
-    url: path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`,
+    url: getUrl(path),
 });
 
 const getContextKey = (context: Context) => {
