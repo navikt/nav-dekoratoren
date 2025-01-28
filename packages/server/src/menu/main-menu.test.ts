@@ -32,7 +32,7 @@ describe("getSimpleFooterLinks", () => {
     test("returns norwegian", async () => {
         expect(
             (await getSimpleFooterLinks({ language: "nb" })).at(0)?.content,
-        ).toBe("Personvern og informasjonskapsler");
+        ).toBe("Personvern og sikkerhet");
     });
 
     test("urls start with XP_BASE_URL", async () => {

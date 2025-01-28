@@ -197,7 +197,7 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
 });
 
 const getUrl = (path: string | undefined, specialID: string | undefined) => {
-    if (specialID?.toUpperCase() === "INFORMASJONSKAPSLER") {
+    if (specialID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE") {
         return `javascript:window.webStorageController.showConsentBanner()`;
     }
     return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
