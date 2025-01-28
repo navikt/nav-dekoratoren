@@ -75,8 +75,9 @@ const init = () => {
     initScrollToEvents();
     initConsentListener();
 
-    const { consent } = window.webStorageController.getCurrentConsent();
     refreshAuthData();
+
+    const { consent } = window.webStorageController.getCurrentConsent();
 
     // TODO: Remove isProd check on release.
     if (consent?.analytics || isProd()) {
