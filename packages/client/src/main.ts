@@ -76,6 +76,7 @@ const init = () => {
     initConsentListener();
 
     const { consent } = window.webStorageController.getCurrentConsent();
+    refreshAuthData();
 
     // TODO: Remove isProd check on release.
     if (consent?.analytics || isProd()) {
