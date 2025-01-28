@@ -38,6 +38,7 @@ export type OpsMessage = {
 export type Features = {
     "dekoratoren.skjermdeling": boolean;
     "dekoratoren.chatbotscript": boolean;
+    "dekoratoren.umami": boolean;
 };
 
 /**

@@ -39,3 +39,6 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         komponent,
     });
 };
+export const stopUmami = () => {
+    // TODO: Sammenlign med hotjar-slett script. Sjekk om noe ligger i window, legg isådfall tupen til i client.d.ts
+};
