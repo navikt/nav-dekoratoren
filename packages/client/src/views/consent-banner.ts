@@ -25,9 +25,7 @@ export class ConsentBanner extends HTMLElement {
         if (header) {
             header.focus();
         }
-        console.log(header);
         this.dialog.classList.add("consentBanner--open");
-        this.buttonConsentAll?.focus();
     }
 
     closeModal() {
