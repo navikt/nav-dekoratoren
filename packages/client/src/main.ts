@@ -1,12 +1,15 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
-import { initAnalytics } from "./analytics/analytics";
+import { initAnalytics, stopAnalytics } from "./analytics/analytics";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { param, initParams } from "./params";
+import { WebStorageController } from "./webStorage";
 import "./main.css";
+import { initHotjar, stopHotjar } from "./analytics/hotjar";
+import { isProd } from "./helpers/env";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -14,6 +17,8 @@ import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
 window.addEventListener("load", () => {
     addFaroMetaData();
 });
+
+window.webStorageController = new WebStorageController();
 
 const injectHeadAssets = () => {
     window.__DECORATOR_DATA__.headAssets?.forEach((props) => {
@@ -31,19 +36,51 @@ const injectHeadAssets = () => {
     });
 };
 
+const startTrackingServices = () => {
+    console.log("Starting tracking services");
+    if (param("maskHotjar")) {
+        document.documentElement.setAttribute("data-hj-suppress", "");
+    }
+
+    initHotjar();
+
+    refreshAuthData().then((response) => {
+        initAnalytics(response.auth);
+    });
+};
+
+const stopTrackingServices = () => {
+    console.log("Stopping tracking and survey services");
+    stopHotjar();
+
+    refreshAuthData().then((response) => {
+        stopAnalytics(response.auth);
+    });
+};
+
+/* Listen for consent events sent from the consent-banner */
+const initConsentListener = () => {
+    window.addEventListener("consentAllWebStorage", () => {
+        startTrackingServices();
+    });
+    window.addEventListener("refuseOptionalWebStorage", () => {
+        stopTrackingServices();
+    });
+};
+
 const init = () => {
     initParams();
     injectHeadAssets();
     initHistoryEvents();
     initScrollToEvents();
+    initConsentListener();
 
-    if (param("maskHotjar")) {
-        document.documentElement.setAttribute("data-hj-suppress", "");
+    const { consent } = window.webStorageController.getCurrentConsent();
+
+    // TODO: Remove isProd check on release.
+    if (consent?.analytics || isProd()) {
+        startTrackingServices();
     }
-
-    refreshAuthData().then((response) => {
-        initAnalytics(response.auth);
-    });
 };
 
 if (document.readyState === "loading") {

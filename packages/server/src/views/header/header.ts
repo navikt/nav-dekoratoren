@@ -6,6 +6,7 @@ import { clientEnv, env } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
 import { MainMenuTemplate } from "./render-main-menu";
+import { ConsentBanner } from "../consent-banner";
 
 const frontPageUrl = clientEnv.XP_BASE_URL;
 
@@ -57,6 +58,7 @@ export const HeaderTemplate = async ({
     return withContainers
         ? html`
               <header id="decorator-header">
+                  ${ConsentBanner()}
                   <decorator-header>${headerContent}</decorator-header>
               </header>
           `
