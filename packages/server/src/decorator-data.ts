@@ -181,6 +181,141 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
             "Brukes for å huske hvem som eventuelt er logget inn på nav.no i nettleseren. Dette er en nøkkel som gjør at brukeren kan kommunisere med nav.no, sende informasjon og oppdatere Nav om situasjonen sin på en sikker måte. Den slettes når brukeren logger ut eller at tiden for innlogging har gått ut.",
         optional: false,
     },
+    {
+        name: "sist_lest",
+        type: ["localstorage"],
+        service: "Min side arbeidsgiver",
+        description: "Tidspunkt for når bjella ble sist klikket  på - widget",
+        optional: false,
+    },
+    {
+        name: "virksomhetsvelger_bedrift",
+        type: ["localstorage"],
+        service: "Min side arbeidsgiver",
+        description:
+            "Husker hvilket organisasjonsnummer som er valgt slik at bruker slipper å velge på nytt ved hver sidelasting.",
+        optional: false,
+    },
+    {
+        name: "msa-info-boks-*",
+        type: ["localstorage"],
+        service: "Min side arbeidsgiver",
+        description:
+            "Husker om brukeren har valgt å lukke infoboks, slik at denne ikke vises igjen ved hver sidelasting.",
+        optional: false,
+    },
+    {
+        name: "skyra.state",
+        type: ["cookie"],
+        service: "ResearchOps",
+        description:
+            "Ved hjelp av denne kan Skyra huske brukeren og hvorvidt undersøkelser er åpne/lukket/fullført",
+        optional: true,
+    },
+    {
+        name: "skyra*",
+        type: ["cookie"],
+        service: "ResearchOps",
+        description:
+            "Denne informasjonskapselen lagrer svarene brukeren har gitt mens svarene gis. Avhengig av oppsett på undersøkelsen er dette enten en sesjonskapsel ell",
+        optional: true,
+    },
+    {
+        name: "FORSTEGANGSSOKNAD_SESSION",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Brukes for å kalle alderspensjonssøknadens backend for å sjekke om en borger har en alderspensjon / pågående søknad. Sikkerhetskoden i backend for før",
+        optional: false,
+    },
+    {
+        name: "nav-obo",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Er kun i bruk dersom en borger har fullmakt og byttet til bruker. Cookie slettes dersom borgeren bytter tilbake til seg selv.",
+        optional: false,
+    },
+    {
+        name: "nav-obo-omraade",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Er kun i bruk dersom en borger har fullmakt og byttet til bruker. Cookie slettes dersom borgeren bytter tilbake til seg selv.",
+        optional: false,
+    },
+    {
+        name: "language",
+        type: ["localstorage"],
+        service: "Pensjon",
+        description:
+            "Brukes for at mottaker skal kunne endre språk i skjema (NB/NN/EN)",
+        optional: false,
+    },
+    {
+        name: "SESSION_PSELV",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Pselv bruker gammel JSF teknologi i frontend og dette er tungt avhengig av HTTP sessions. I det Spring oppretter en sesjon vil rammverket automatisk r",
+        optional: false,
+    },
+    {
+        name: "persist:root",
+        type: ["sessionstorage"],
+        service: "Yrkesskade Skademelding",
+        description:
+            "Brukes for å mellomlagre tilstand på skjema og kunne fortsette skjema dersom innmelder går ut av skjemaet.",
+        optional: false,
+    },
+    {
+        name: "persist:root",
+        type: ["sessionstorage"],
+        service: "Yrkesskade Skadeforklaring og Ettersendelse",
+        description:
+            "Brukes for å mellomlagre tilstand på skjema og kunne fortsette skjema dersom innmelder går ut av skjemaet.",
+        optional: false,
+    },
+    {
+        name: "filter-veileder-*",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker hvilket filtreringsvalg som brukeren har gjort i menyene til neste besøk.",
+        optional: false,
+    },
+    {
+        name: "filter-deltakerliste-*",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker hvilket filtreringsvalg som brukeren har gjort i menyene til neste besøk.",
+        optional: false,
+    },
+    {
+        name: "alert-message-last-message",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker siste viste informasjonsmelding fra Nav til neste besøk.",
+        optional: false,
+    },
+    {
+        name: "alert-message-hide",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker om brukeren har valgt å skjule siste informasjonsmelding.",
+        optional: false,
+    },
+    {
+        name: "kontonr-result",
+        type: ["cookie", "sessionstorage", "localstorage"],
+        service: "Personopplysninger",
+        description:
+            "Denne brukes for å huske om endring av kontonummer var vellykket etter at du ble returnert fra ekstra innlogging som en sikkerhetsforanstaltning.",
+        optional: false,
+    },
 ]);
 
 const buildAllowedStorage = () => {

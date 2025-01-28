@@ -198,6 +198,11 @@ export class WebStorageController {
             return;
         }
 
+        if (window.location.hash.includes("consent-reset")) {
+            this.clearOptionalStorage();
+            this.showConsentBanner();
+        }
+
         if (!userActionTaken || version < this.currentConsentVersion) {
             this.clearOptionalStorage();
             this.showConsentBanner();
