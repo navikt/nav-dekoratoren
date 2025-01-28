@@ -46,7 +46,7 @@ export class WebStorageController {
         return window.__DECORATOR_DATA__.allowedStorage || [];
     };
 
-    private buildConsentObject = (consent: ConsentAction) => {
+    private buildUpdatedConsentObject = (consent: ConsentAction) => {
         // User either consent or refuse all for now. Differentiate between analytics and surveys
         // in order to be scalable in the future.
         const analytics = consent === "CONSENT_ALL_WEB_STORAGE";
@@ -56,9 +56,7 @@ export class WebStorageController {
             this.getCurrentConsent() ?? this.buildDefaultConsent();
 
         return {
-            ...currentConsent,
             consent: {
-                ...currentConsent.consent,
                 analytics,
                 surveys,
             },
@@ -74,7 +72,7 @@ export class WebStorageController {
 
     private consentAllStorageHandler = () => {
         const consentObject = JSON.stringify(
-            this.buildConsentObject("CONSENT_ALL_WEB_STORAGE"),
+            this.buildUpdatedConsentObject("CONSENT_ALL_WEB_STORAGE"),
         );
 
         Cookies.set(this.consentKey, consentObject, {
@@ -84,7 +82,7 @@ export class WebStorageController {
 
     private refuseOptionalStorageHandler = () => {
         const consentObject = JSON.stringify(
-            this.buildConsentObject("REFUSE_OPTIONAL_WEB_STORAGE"),
+            this.buildUpdatedConsentObject("REFUSE_OPTIONAL_WEB_STORAGE"),
         );
 
         Cookies.set(this.consentKey, consentObject, {
