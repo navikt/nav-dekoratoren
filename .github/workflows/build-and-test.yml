@@ -50,11 +50,11 @@ jobs:
       - name: Run unit tests
         if: inputs.SKIP_TESTS != true
         run: bun run test
-      - name: Setup playwright # TODO: can this be cached? It is slow :D
-        if: inputs.SKIP_TESTS != true
-        run: |
-          bunx playwright install --with-deps
-          cp packages/server/.env.sample packages/server/.env
+      # - name: Setup playwright # TODO: can this be cached? It is slow :D
+      #  if: inputs.SKIP_TESTS != true
+      #  run: |
+      #    bunx playwright install --with-deps
+      #    cp packages/server/.env.sample packages/server/.env
       - name: Run playwright tests
         if: inputs.SKIP_TESTS != true
         run: bunx playwright test
