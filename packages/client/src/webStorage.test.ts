@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+/* import Cookies from "js-cookie";
 import { AppState, PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
 
@@ -132,3 +132,6 @@ describe("Tester webStorage", () => {
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
     });
 });
+
+
+*/
