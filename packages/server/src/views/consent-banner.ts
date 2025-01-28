@@ -37,7 +37,9 @@ export const ConsentBanner = () => html`
                     >
                         ${i18n("consent_banner_title")}
                     </h2>
-                    <p class="${cls.text}">${i18n("consent_banner_text")}</p>
+                    <div class="${cls.text}">
+                        ${i18n("consent_banner_text")}
+                    </div>
                     <div class="${cls.buttonContainer}">
                         ${Button({
                             content: i18n("consent_banner_consent_all"),
@@ -53,9 +55,6 @@ export const ConsentBanner = () => html`
                             },
                             className: cls.button,
                         })}
-                        <a href="/informasjonskapsler" class="${cls.aboutLink}">
-                            ${i18n("consent_banner_about_cookies")}
-                        </a>
                     </div>
                 </div>
             </div>
