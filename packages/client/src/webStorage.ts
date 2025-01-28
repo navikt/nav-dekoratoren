@@ -39,9 +39,10 @@ export class WebStorageController {
 
     private getStorageDictionaryFromEnv = (): PublicStorageItem[] => {
         if (!window.__DECORATOR_DATA__) {
-            throw new Error(
-                "Decorator data not available. Use the async 'isDecoratorDataAvailable' function to await for the data is available.",
+            console.error(
+                "Decorator data not available. Make sure decorator is loaded correctly.",
             );
+            return [];
         }
         return window.__DECORATOR_DATA__.allowedStorage || [];
     };
