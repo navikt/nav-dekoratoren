@@ -21,6 +21,7 @@ const menuCache = new ResponseCache<MainMenu>({
 const baseMainMenuNode = z.object({
     id: z.string(),
     displayName: z.string(),
+    specialID: z.string().optional(),
     path: z.string().optional(),
     flatten: z.boolean().optional(),
     isMyPageMenu: z.boolean().optional(),
@@ -195,16 +196,20 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
     children: children.map(nodeToLink),
 });
 
-const getUrl = (path: string | undefined) => {
-    if (path?.includes("endre-samtykke-for-informasjonskapsler")) {
+const getUrl = (path: string | undefined, specialID: string | undefined) => {
+    if (specialID?.toUpperCase() === "INFORMASJONSKAPSLER") {
         return `javascript:window.webStorageController.showConsentBanner()`;
     }
     return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
 };
 
-const nodeToLink: (node: MenuNode) => Link = ({ displayName, path }) => ({
+const nodeToLink: (node: MenuNode) => Link = ({
+    displayName,
+    path,
+    specialID,
+}) => ({
     content: displayName,
-    url: getUrl(path),
+    url: getUrl(path, specialID),
 });
 
 const getContextKey = (context: Context) => {
