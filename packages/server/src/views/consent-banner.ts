@@ -30,7 +30,11 @@ export const ConsentBanner = () => html`
                     ${InformationSquareFillIcon({ className: cls.infoIcon })}
                 </div>
                 <div class="${cls.column}">
-                    <h2 id="consent_banner_title" class="${cls.title}">
+                    <h2
+                        id="consent_banner_title"
+                        class="${cls.title}"
+                        tabindex="-1"
+                    >
                         ${i18n("consent_banner_title")}
                     </h2>
                     <p class="${cls.text}">${i18n("consent_banner_text")}</p>
