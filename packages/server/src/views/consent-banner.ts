@@ -10,7 +10,6 @@ export const ConsentBanner = () => html`
         <div
             class="${cls.consentBanner}"
             aria-labelledby="consent_banner_title"
-            role="dialog"
             id="consent-banner-dialog"
         >
             <div class="${cls.miniContent}">
@@ -31,10 +30,16 @@ export const ConsentBanner = () => html`
                     ${InformationSquareFillIcon({ className: cls.infoIcon })}
                 </div>
                 <div class="${cls.column}">
-                    <h1 id="consent_banner_title" class="${cls.title}">
+                    <h2
+                        id="consent_banner_title"
+                        class="${cls.title}"
+                        tabindex="-1"
+                    >
                         ${i18n("consent_banner_title")}
-                    </h1>
-                    <p class="${cls.text}">${i18n("consent_banner_text")}</p>
+                    </h2>
+                    <div class="${cls.text}">
+                        ${i18n("consent_banner_text")}
+                    </div>
                     <div class="${cls.buttonContainer}">
                         ${Button({
                             content: i18n("consent_banner_consent_all"),
@@ -50,9 +55,6 @@ export const ConsentBanner = () => html`
                             },
                             className: cls.button,
                         })}
-                        <a href="/informasjonskapsler" class="${cls.aboutLink}">
-                            ${i18n("consent_banner_about_cookies")}
-                        </a>
                     </div>
                 </div>
             </div>

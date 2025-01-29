@@ -75,6 +75,8 @@ const init = () => {
     initScrollToEvents();
     initConsentListener();
 
+    refreshAuthData();
+
     const { consent } = window.webStorageController.getCurrentConsent();
 
     // TODO: Remove isProd check on release.

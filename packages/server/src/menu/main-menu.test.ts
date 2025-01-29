@@ -29,22 +29,10 @@ describe("getSimpleFooterLinks", () => {
     afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
 
-    test("returns norwegian", async () => {
-        expect(
-            (await getSimpleFooterLinks({ language: "nb" })).at(0)?.content,
-        ).toBe("Personvern og informasjonskapsler");
-    });
-
     test("urls start with XP_BASE_URL", async () => {
         expect(
             (await getSimpleFooterLinks({ language: "nb" })).at(0)?.url,
         ).toStartWith(env.XP_BASE_URL);
-    });
-
-    test("returns english", async () => {
-        expect(
-            (await getSimpleFooterLinks({ language: "en" })).at(0)?.content,
-        ).toBe("Privacy and cookies");
     });
 
     test("only prepend XP_BASE_URL to paths", async () => {

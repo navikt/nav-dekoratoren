@@ -90,7 +90,9 @@ export class WebStorageController {
             expires: 90,
         });
 
-        this.clearOptionalStorage();
+        setTimeout(() => {
+            this.clearOptionalStorage();
+        }, 1000);
     };
 
     private initEventListeners() {
@@ -196,6 +198,13 @@ export class WebStorageController {
         // TODO: remove this on release
         if (isProd()) {
             return;
+        }
+
+        // Denne brukes for å sende en lenke hvor cookie-banneret trigges umiddelbart.
+        // Brukes i hovedsak i innkjøringsfasen. Kan vurderes fjernet etterhvert.
+        if (window.location.hash.includes("consent-reset")) {
+            this.clearOptionalStorage();
+            this.showConsentBanner();
         }
 
         if (!userActionTaken || version < this.currentConsentVersion) {

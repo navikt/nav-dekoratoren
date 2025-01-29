@@ -138,10 +138,3 @@
             ),
         var(--a-shadow-focus);
 }
-
-.aboutLink,
-.aboutLink:hover {
-    color: var(--a-white);
-    margin: 0 0 0 var(--a-spacing-3);
-    text-align: center;
-}
