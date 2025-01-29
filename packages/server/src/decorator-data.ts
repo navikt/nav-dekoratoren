@@ -316,6 +316,135 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
             "Denne brukes for å huske om endring av kontonummer var vellykket etter at du ble returnert fra ekstra innlogging som en sikkerhetsforanstaltning.",
         optional: false,
     },
+    {
+        name: "PreferredLanguage*",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes til å lagre brukerens språkpreferanse for språkdeteksjon og en lokaltilpasset brukeropplevelse",
+        optional: false,
+    },
+    {
+        name: "CookieConsentPolicy",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes til å anvende samtykkepreferanser for informasjonskapsler.",
+        optional: false,
+    },
+    {
+        name: "__Secure-has-sid",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description: "Oppdager en brukers innloggingsstatus på klientsiden",
+        optional: false,
+    },
+    {
+        name: "oid",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Lagrer siste innloggede organisasjon for omdirigering og logging av informasjonskapsel i gjestebrukerforespørsler.",
+        optional: false,
+    },
+    {
+        name: "idccsrf",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Sporer validering av Cross-Site Request Forgery for visse SSO-flyter",
+        optional: false,
+    },
+    {
+        name: "inst",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Omdirigerer forespørsler mellom instanser ved bokmerker, hardkodede URL-er, org-migreringer eller URL-oppdateringer.",
+        optional: false,
+    },
+    {
+        name: "sid_Client",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes til å oppdage og forhindre manipulering av sesjoner.",
+        optional: false,
+    },
+    {
+        name: "oinfo",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Statistikk for bruk av Salesforce-plattformen.",
+        optional: true,
+    },
+    {
+        name: "guest_uuid_essential_*",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Tildeler unik ID til gjestebrukere i Experience Cloud-nettsteder, utløper ett år etter siste besøk.",
+        optional: false,
+    },
+    {
+        name: "LSKey-c$CookieConsentPolicy",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "LSKEY-c$-informasjonskapsler er kopier av originalen, opprettet for nettsteder med Locker Service aktivert, siden denne begrenser klientlesing av informasjonskapsler.",
+        optional: false,
+    },
+    {
+        name: "sid",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes for å skille de forskjellige enhetene som besøker siden fra hverandre.",
+        optional: false,
+    },
+    {
+        name: "autocomplete",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Bestemmer om innloggingssiden husker brukerens brukernavn.",
+        optional: false,
+    },
+    {
+        name: "clientSrc",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description: "Brukes for sikkerhetsbeskyttelse.",
+        optional: false,
+    },
+    {
+        name: "apex_*",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description: "Innlogging og sikkerhet.",
+        optional: false,
+    },
+    {
+        name: "sdfcstream",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Innlogging og sikkerhet.",
+        optional: false,
+    },
+    {
+        name: "pctrk",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Innlogging og sikkerhet.",
+        optional: false,
+    },
+    {
+        name: "RUIDC",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Sporer unike sidevisninger i Experiences",
+        optional: false,
+    },
 ]);
 
 const buildAllowedStorage = () => {
