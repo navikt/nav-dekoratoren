@@ -79,8 +79,7 @@ const init = () => {
 
     const { consent } = window.webStorageController.getCurrentConsent();
 
-    // TODO: Remove isProd check on release.
-    if (consent?.analytics || isProd()) {
+    if (consent?.analytics) {
         startTrackingServices();
     }
 };
