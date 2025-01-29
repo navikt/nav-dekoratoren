@@ -21,7 +21,7 @@ const menuCache = new ResponseCache<MainMenu>({
 const baseMainMenuNode = z.object({
     id: z.string(),
     displayName: z.string(),
-    specialID: z.string().optional(),
+    frontendEventID: z.string().optional(),
     path: z.string().optional(),
     flatten: z.boolean().optional(),
     isMyPageMenu: z.boolean().optional(),
@@ -196,8 +196,11 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
     children: children.map(nodeToLink),
 });
 
-const getUrl = (path: string | undefined, specialID: string | undefined) => {
-    if (specialID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE") {
+const getUrl = (
+    path: string | undefined,
+    frontendEventID: string | undefined,
+) => {
+    if (frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE") {
         return `javascript:window.webStorageController.showConsentBanner()`;
     }
     return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
@@ -206,10 +209,10 @@ const getUrl = (path: string | undefined, specialID: string | undefined) => {
 const nodeToLink: (node: MenuNode) => Link = ({
     displayName,
     path,
-    specialID,
+    frontendEventID,
 }) => ({
     content: displayName,
-    url: getUrl(path, specialID),
+    url: getUrl(path, frontendEventID),
 });
 
 const getContextKey = (context: Context) => {
