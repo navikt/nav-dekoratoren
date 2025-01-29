@@ -154,7 +154,7 @@ export class WebStorageController {
             const timeout = setTimeout(() => {
                 reject(
                     new Error(
-                        `Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is infact loading.`,
+                        `Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is loading.`,
                     ),
                 );
             }, DECORATOR_DATA_TIMEOUT);
