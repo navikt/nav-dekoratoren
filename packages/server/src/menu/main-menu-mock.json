@@ -1177,6 +1177,7 @@
                                 "displayName": "Endre samtykke for informasjonskapsler",
                                 "path": "/endre-samtykke-for-informasjonskapsler",
                                 "displayLock": false,
+                                "frontendEventID": "ENDRE_COOKIE_SAMTYKKE",
                                 "flatten": false,
                                 "id": "5cbedb3a-b9e0-4b99-aff1-4e12d695223210c",
                                 "hasChildren": false,

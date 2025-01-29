@@ -198,6 +198,8 @@ export class WebStorageController {
             return;
         }
 
+        // Denne brukes for å sende en lenke hvor cookie-banneret trigges umiddelbart.
+        // Brukes i hovedsak i innkjøringsfasen. Kan vurderes fjernet etterhvert.
         if (window.location.hash.includes("consent-reset")) {
             this.clearOptionalStorage();
             this.showConsentBanner();
