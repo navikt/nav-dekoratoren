@@ -90,7 +90,9 @@ export class WebStorageController {
             expires: 90,
         });
 
-        this.clearOptionalStorage();
+        setTimeout(() => {
+            this.clearOptionalStorage();
+        }, 1000);
     };
 
     private initEventListeners() {
