@@ -2,6 +2,7 @@ import { Faro } from "@grafana/faro-web-sdk";
 import { AppState } from "decorator-shared/types";
 import { CustomEvents, MessageEvents } from "./events";
 import { BoostClient, BoostConfig } from "./views/chatbot";
+import { WebStorageController } from "./webStorage";
 
 declare global {
     interface Window {
@@ -12,6 +13,12 @@ declare global {
         };
         // For task analytics, should have better types?
         TA: any;
+        hj: any;
+        _hjSettings: any;
+        hjBootstrap: any;
+        hjBootstrapCalled: any;
+        hjLazyModules: any;
+        hjSiteSettings: any;
         dataLayer: any;
         boostInit?: (env: string, config: BoostConfig) => BoostClient;
         vngage: {
@@ -44,5 +51,7 @@ declare global {
                 ev: CustomEvent<CustomEvents[K]>,
             ) => void,
         ): void;
+        webStorageController: WebStorageController;
+        initConditionalHotjar: () => void;
     }
 }

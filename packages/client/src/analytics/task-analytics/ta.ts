@@ -118,3 +118,19 @@ export const initTaskAnalytics = () => {
     startTaskAnalyticsSurvey();
     window.addEventListener("historyPush", startTaskAnalyticsSurvey);
 };
+
+export const stopTaskAnalytics = () => {
+    if (!window.TA) {
+        return;
+    }
+
+    window.removeEventListener("historyPush", startTaskAnalyticsSurvey);
+
+    const taScript = document.querySelector('script[src*="taskanalytics.com"]');
+
+    if (taScript) {
+        taScript.remove();
+    }
+
+    delete window.TA;
+};

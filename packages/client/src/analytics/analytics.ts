@@ -1,6 +1,11 @@
-import { amplitudeEvent, initAmplitude, logAmplitudeEvent } from "./amplitude";
+import {
+    amplitudeEvent,
+    initAmplitude,
+    logAmplitudeEvent,
+    stopAmplitude,
+} from "./amplitude";
 import { createUmamiEvent, logUmamiEvent } from "./umami";
-import { initTaskAnalytics } from "./task-analytics/ta";
+import { initTaskAnalytics, stopTaskAnalytics } from "./task-analytics/ta";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
@@ -11,6 +16,8 @@ declare global {
     }
 }
 
+const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
+
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
     // This function is exposed for use from consuming applications
@@ -19,7 +26,16 @@ export const initAnalytics = (auth: Auth) => {
 
     logPageView(auth);
 
-    window.addEventListener("historyPush", () => logPageView(auth));
+    // Pass the callback as a function reference
+    window.addEventListener("historyPush", logPageViewCallback(auth));
+};
+
+export const stopAnalytics = (auth: Auth) => {
+    stopAmplitude();
+    stopTaskAnalytics();
+
+    // Pass the same function reference
+    window.removeEventListener("historyPush", logPageViewCallback(auth));
 };
 
 export const buildLocationString = () => {

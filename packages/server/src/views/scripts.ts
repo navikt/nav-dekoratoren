@@ -1,33 +1,21 @@
 import html, { json, Template, unsafeHtml } from "decorator-shared/html";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
-import {
-    AppState,
-    ClientTexts,
-    clientTextsKeys,
-    Features,
-    HtmlElementProps,
-} from "decorator-shared/types";
-import { clientEnv, env } from "../env/server";
+import { DecoratorDataProps, HtmlElementProps } from "decorator-shared/types";
+import { env } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
-import {
-    clientParamKeys,
-    ClientParams,
-    Params,
-    validateRawParams,
-} from "decorator-shared/params";
-import { texts } from "../texts";
 import { buildCdnUrl } from "../urls";
+import { buildDecoratorData } from "../decorator-data";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
-const hotjarScript = `(function(h,o,t,j,a,r){
+const hotjarScript = `window.initConditionalHotjar = function() {(function(h,o,t,j,a,r){
 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
 h._hjSettings={hjid:118350,hjsv:6};
 a=o.getElementsByTagName('head')[0];
 r=o.createElement('script');r.async=1;
 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
-})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')`;
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')}`;
 
 const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     if (env.NODE_ENV === "development") {
@@ -95,43 +83,6 @@ export const scriptsProps = await getScriptsProps();
 const scriptsHtml = unsafeHtml(
     scriptsProps.map(buildHtmlElementString).join(""),
 );
-
-type DecoratorDataProps = {
-    features: Features;
-    params: Params;
-    rawParams: Record<string, string>;
-    headAssets?: HtmlElementProps[];
-};
-
-export const buildDecoratorData = ({
-    features,
-    params,
-    rawParams,
-    headAssets,
-}: DecoratorDataProps): AppState => ({
-    texts: Object.entries(texts[params.language])
-        .filter(([key]) => clientTextsKeys.includes(key as keyof ClientTexts))
-        .reduce(
-            (prev, [key, value]) => ({
-                ...prev,
-                [key]: value,
-            }),
-            {},
-        ) as ClientTexts,
-    params: Object.entries(params)
-        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
-        .reduce(
-            (prev, [key, value]) => ({
-                ...prev,
-                [key]: value,
-            }),
-            {},
-        ) as ClientParams,
-    rawParams: validateRawParams(rawParams),
-    features,
-    env: clientEnv,
-    headAssets,
-});
 
 export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
     return html`

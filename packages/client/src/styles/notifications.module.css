@@ -15,10 +15,12 @@
 .notificationList {
     display: flex;
     flex-direction: column;
-    gap: var(--a-spacing-3);
+    gap: 1px;
     list-style: none;
     margin-block: 0;
     padding-left: 0;
+    border-radius: var(--a-border-radius-xlarge);
+    overflow: clip;
 }
 
 .allNotificationsLink {
@@ -27,107 +29,73 @@
 
 .notification {
     display: grid;
+    grid-template-columns: [icon] auto [content] 1fr;
     position: relative;
-    gap: var(--a-spacing-1);
-    border-radius: var(--a-border-radius-xlarge);
+    gap: var(--a-spacing-3);
+    border-radius: var(--a-border-radius-small);
     padding: var(--a-spacing-4);
     background-color: var(--a-surface-default);
-    box-shadow: var(--a-shadow-xsmall);
 }
 
-.linkNotification:hover {
-    box-shadow: var(--a-shadow-small);
+.notification:has(a:focus-visible) {
+    box-shadow: var(--a-shadow-focus);
+    border-radius: var(--a-border-radius-xlarge);
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.headerLeft {
-    display: flex;
-    gap: var(--a-spacing-2);
-    align-items: center;
-}
-
-.headerRight {
-    display: flex;
-    gap: var(--a-spacing-1);
-    align-items: center;
-}
-
-.text {
-    color: inherit;
+.notification:has(a:hover) a {
     text-decoration: none;
-    display: block;
-    font-weight: var(--a-font-weight-bold);
 }
 
-.text::after {
+.notification a::after {
     content: "";
     position: absolute;
     inset: 0;
 }
 
-.notification:hover .text {
-    color: var(--a-text-action);
-}
-
-.text:focus {
+.notification a:focus {
     outline: none;
     color: var(--a-text-action);
 }
 
-.text:focus-visible::after {
-    box-shadow: var(--a-shadow-focus);
+.icon {
     border-radius: var(--a-border-radius-xlarge);
+    background-color: var(--a-surface-subtle);
+    grid-column: icon;
+    align-self: start;
+    padding: var(--a-spacing-2);
+    display: grid;
+    place-items: center;
+    font-size: var(--a-font-size-heading-medium);
+    color: var(--a-icon-subtle);
 }
 
-.date {
-    color: var(--a-text-subtle);
-    font-size: var(--a-font-size-medium);
-    line-height: var(--a-font-line-height-medium);
+.content {
+    grid-column: content;
+    display: grid;
+    justify-items: start;
+    align-content: start;
+    gap: var(--a-spacing-1);
 }
 
-.chevron {
-    font-size: var(--a-font-size-xlarge);
-    color: var(--a-text-subtle);
-    transition: transform 0.1s ease-in-out;
-}
-
-.notification:hover .chevron {
-    transform: translateX(2px);
+.text {
+    font-weight: var(--a-font-weight-bold);
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .metadata {
+    color: var(--a-text-subtle);
     font-size: var(--a-font-size-medium);
     line-height: var(--a-font-line-height-medium);
-}
-
-.bottom {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     gap: var(--a-spacing-2);
-}
-
-.bottom > :last-child {
-    margin-left: auto;
+    align-items: center;
+    justify-items: start;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .button {
-    border: none;
-    background: none;
-    margin: 0;
-    font: inherit;
-    cursor: pointer;
-    color: var(--a-text-action);
-    border-radius: var(--a-border-radius-medium);
-    padding: 0 var(--a-spacing-2);
-    font-size: var(--a-font-size-medium);
-    font-weight: var(--a-font-weight-bold);
-}
-
-.button:hover {
-    background-color: var(--a-surface-action-subtle-hover);
+    margin-top: var(--a-spacing-2);
 }
