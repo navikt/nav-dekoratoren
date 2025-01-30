@@ -80,6 +80,7 @@ const init = () => {
 
     refreshAuthData();
 
+    // Blir overskrevet dersom vi får ov til å starte Amplitude etter samtykke
     window.dekoratorenAmplitude = mockAmplitude;
 
     const { consent } = window.webStorageController.getCurrentConsent();
