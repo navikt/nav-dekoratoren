@@ -82,7 +82,6 @@ const logPageView = (authState: Auth) => {
     }, 100);
 };
 
-// TODO: Vurder disse to under her, trenger man to forskjellige?
 export const analyticsEvent = (props: AnalyticsEventArgs) => {
     amplitudeEvent(props);
     createUmamiEvent(props);

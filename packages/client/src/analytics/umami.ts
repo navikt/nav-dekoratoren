@@ -28,7 +28,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         komponent,
     } = props;
 
-    const eventName = optionalEventName || "navigere";
+    const eventName = optionalEventName ?? "navigere";
     return logUmamiEvent(eventName, {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
