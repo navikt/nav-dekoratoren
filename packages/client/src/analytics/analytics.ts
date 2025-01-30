@@ -4,6 +4,13 @@ import { Auth } from "decorator-shared/auth";
 
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
+export const mockAmplitude = () =>
+    new Promise<any>((resolve, reject) => {
+        reject(
+            "Amplitude is not initialized. Please check for user analytics concent",
+        );
+    });
+
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
     initTaskAnalytics();
@@ -17,6 +24,8 @@ export const initAnalytics = (auth: Auth) => {
 export const stopAnalytics = (auth: Auth) => {
     stopAmplitude();
     stopTaskAnalytics();
+
+    window.dekoratorenAmplitude = mockAmplitude;
 
     // Pass the same function reference
     window.removeEventListener("historyPush", logPageViewCallback(auth));

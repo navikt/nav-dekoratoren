@@ -1,6 +1,10 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
-import { initAnalytics, stopAnalytics } from "./analytics/analytics";
+import {
+    initAnalytics,
+    mockAmplitude,
+    stopAnalytics,
+} from "./analytics/analytics";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
@@ -75,6 +79,8 @@ const init = () => {
     initConsentListener();
 
     refreshAuthData();
+
+    window.dekoratorenAmplitude = mockAmplitude;
 
     const { consent } = window.webStorageController.getCurrentConsent();
 
