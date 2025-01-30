@@ -106,10 +106,9 @@ export class WebStorageController {
     }
 
     private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
-        const storedCookies = document.cookie.split(";").map((cookie) => {
-            const [name, value] = cookie.trim().split("=");
-            return { name, value };
-        });
+        const storedCookies = Object.entries(Cookies.get()).map(
+            ([name, value]) => ({ name, value }),
+        );
 
         allOptionalStorage.forEach((storage) => {
             const optionalStorageBase = storage.name.replace(/\*$/, "");
