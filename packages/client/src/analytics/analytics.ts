@@ -4,7 +4,7 @@ import {
     logAmplitudeEvent,
     stopAmplitude,
 } from "./amplitude";
-import { createUmamiEvent, logUmamiEvent } from "./umami";
+import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
 import { initTaskAnalytics, stopTaskAnalytics } from "./task-analytics/ta";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
@@ -24,6 +24,8 @@ export const initAnalytics = (auth: Auth) => {
     window.dekoratorenAnalytics = logAnalyticsEventFromApp;
     initTaskAnalytics();
 
+    initUmami();
+
     logPageView(auth);
 
     // Pass the callback as a function reference
@@ -32,8 +34,8 @@ export const initAnalytics = (auth: Auth) => {
 
 export const stopAnalytics = (auth: Auth) => {
     stopAmplitude();
+    stopUmami();
     stopTaskAnalytics();
-
     // Pass the same function reference
     window.removeEventListener("historyPush", logPageViewCallback(auth));
 };

@@ -1,3 +1,4 @@
+import { env } from "../params";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 export const logUmamiEvent = async (
@@ -5,12 +6,14 @@ export const logUmamiEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
-    return umami.track(eventName, {
-        ...eventData,
-        origin,
-        originVersion: eventData.originVersion || "unknown",
-        viaDekoratoren: true,
-    });
+    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
+        return umami.track(eventName, {
+            ...eventData,
+            origin,
+            originVersion: eventData.originVersion || "unknown",
+            viaDekoratoren: true,
+        });
+    }
 };
 
 export const createUmamiEvent = (props: AnalyticsEventArgs) => {
@@ -39,6 +42,25 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         komponent,
     });
 };
+
+export const initUmami = () => {
+    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
+        const script = document.createElement("script");
+        script.src = "https://cdn.nav.no/team-researchops/sporing/sporing.js";
+        script.defer = true;
+        script.setAttribute("data-host-url", "https://umami.nav.no");
+        script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
+        script.setAttribute("data-auto-track", "false");
+        document.head.appendChild(script);
+    }
+};
+
 export const stopUmami = () => {
-    // TODO: Sammenlign med hotjar-slett script. Sjekk om noe ligger i window, legg isådfall tupen til i client.d.ts
+    const umamiScript = document.querySelector(
+        'script[src="https://cdn.nav.no/team-researchops/sporing/sporing.js"]',
+    );
+
+    if (umamiScript) {
+        umamiScript.remove();
+    }
 };
