@@ -37,7 +37,6 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
         lenketekst,
-        // tekst: lenketekst, TODO: Kan vi fjerne denne siden vi er i nytt verktøy?
         lenkegruppe,
         komponent,
     });
