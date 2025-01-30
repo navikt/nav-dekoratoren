@@ -1,6 +1,10 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
-import { initAnalytics, stopAnalytics } from "./analytics/analytics";
+import {
+    initAnalytics,
+    mockAmplitude,
+    stopAnalytics,
+} from "./analytics/analytics";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
@@ -9,7 +13,6 @@ import { param, initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import "./main.css";
 import { initHotjar, stopHotjar } from "./analytics/hotjar";
-import { isProd } from "./helpers/env";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -75,10 +78,14 @@ const init = () => {
     initScrollToEvents();
     initConsentListener();
 
+    refreshAuthData();
+
+    // Blir overskrevet dersom vi får ov til å starte Amplitude etter samtykke
+    window.dekoratorenAmplitude = mockAmplitude;
+
     const { consent } = window.webStorageController.getCurrentConsent();
 
-    // TODO: Remove isProd check on release.
-    if (consent?.analytics || isProd()) {
+    if (consent?.analytics) {
         startTrackingServices();
     }
 };

@@ -5,7 +5,6 @@ import {
     Consent,
     PublicStorageItem,
 } from "decorator-shared/types";
-import { isProd } from "./helpers/env";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -90,7 +89,9 @@ export class WebStorageController {
             expires: 90,
         });
 
-        this.clearOptionalStorage();
+        setTimeout(() => {
+            this.clearOptionalStorage();
+        }, 1000);
     };
 
     private initEventListeners() {
@@ -105,10 +106,9 @@ export class WebStorageController {
     }
 
     private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
-        const storedCookies = document.cookie.split(";").map((cookie) => {
-            const [name, value] = cookie.trim().split("=");
-            return { name, value };
-        });
+        const storedCookies = Object.entries(Cookies.get()).map(
+            ([name, value]) => ({ name, value }),
+        );
 
         allOptionalStorage.forEach((storage) => {
             const optionalStorageBase = storage.name.replace(/\*$/, "");
@@ -152,7 +152,7 @@ export class WebStorageController {
             const timeout = setTimeout(() => {
                 reject(
                     new Error(
-                        `Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is infact loading.`,
+                        `Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is loading.`,
                     ),
                 );
             }, DECORATOR_DATA_TIMEOUT);
@@ -193,9 +193,11 @@ export class WebStorageController {
             return;
         }
 
-        // TODO: remove this on release
-        if (isProd()) {
-            return;
+        // Denne brukes for å sende en lenke hvor cookie-banneret trigges umiddelbart.
+        // Brukes i hovedsak i innkjøringsfasen. Kan vurderes fjernet etterhvert.
+        if (window.location.hash.includes("consent-reset")) {
+            this.clearOptionalStorage();
+            this.showConsentBanner();
         }
 
         if (!userActionTaken || version < this.currentConsentVersion) {

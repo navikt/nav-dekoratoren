@@ -18,6 +18,13 @@ declare global {
 
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
+export const mockAmplitude = () =>
+    new Promise<any>((resolve, reject) => {
+        reject(
+            "Amplitude is not initialized. Please check for user analytics consent",
+        );
+    });
+
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
     // This function is exposed for use from consuming applications
@@ -36,6 +43,9 @@ export const stopAnalytics = (auth: Auth) => {
     stopAmplitude();
     stopUmami();
     stopTaskAnalytics();
+
+    window.dekoratorenAmplitude = mockAmplitude;
+
     // Pass the same function reference
     window.removeEventListener("historyPush", logPageViewCallback(auth));
 };

@@ -181,6 +181,270 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
             "Brukes for å huske hvem som eventuelt er logget inn på nav.no i nettleseren. Dette er en nøkkel som gjør at brukeren kan kommunisere med nav.no, sende informasjon og oppdatere Nav om situasjonen sin på en sikker måte. Den slettes når brukeren logger ut eller at tiden for innlogging har gått ut.",
         optional: false,
     },
+    {
+        name: "sist_lest",
+        type: ["localstorage"],
+        service: "Min side arbeidsgiver",
+        description: "Tidspunkt for når bjella ble sist klikket  på - widget",
+        optional: false,
+    },
+    {
+        name: "virksomhetsvelger_bedrift",
+        type: ["localstorage"],
+        service: "Min side arbeidsgiver",
+        description:
+            "Husker hvilket organisasjonsnummer som er valgt slik at bruker slipper å velge på nytt ved hver sidelasting.",
+        optional: false,
+    },
+    {
+        name: "msa-info-boks-*",
+        type: ["localstorage"],
+        service: "Min side arbeidsgiver",
+        description:
+            "Husker om brukeren har valgt å lukke infoboks, slik at denne ikke vises igjen ved hver sidelasting.",
+        optional: false,
+    },
+    {
+        name: "skyra.state",
+        type: ["cookie"],
+        service: "ResearchOps",
+        description:
+            "Ved hjelp av denne kan Skyra huske brukeren og hvorvidt undersøkelser er åpne/lukket/fullført",
+        optional: true,
+    },
+    {
+        name: "skyra*",
+        type: ["cookie"],
+        service: "ResearchOps",
+        description:
+            "Denne informasjonskapselen lagrer svarene brukeren har gitt mens svarene gis. Avhengig av oppsett på undersøkelsen er dette enten en sesjonskapsel ell",
+        optional: true,
+    },
+    {
+        name: "FORSTEGANGSSOKNAD_SESSION",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Brukes for å kalle alderspensjonssøknadens backend for å sjekke om en borger har en alderspensjon / pågående søknad. Sikkerhetskoden i backend for før",
+        optional: false,
+    },
+    {
+        name: "nav-obo",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Er kun i bruk dersom en borger har fullmakt og byttet til bruker. Cookie slettes dersom borgeren bytter tilbake til seg selv.",
+        optional: false,
+    },
+    {
+        name: "nav-obo-omraade",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Er kun i bruk dersom en borger har fullmakt og byttet til bruker. Cookie slettes dersom borgeren bytter tilbake til seg selv.",
+        optional: false,
+    },
+    {
+        name: "language",
+        type: ["localstorage"],
+        service: "Pensjon",
+        description:
+            "Brukes for at mottaker skal kunne endre språk i skjema (NB/NN/EN)",
+        optional: false,
+    },
+    {
+        name: "SESSION_PSELV",
+        type: ["cookie"],
+        service: "Pensjon",
+        description:
+            "Pselv bruker gammel JSF teknologi i frontend og dette er tungt avhengig av HTTP sessions. I det Spring oppretter en sesjon vil rammverket automatisk r",
+        optional: false,
+    },
+    {
+        name: "persist:root",
+        type: ["sessionstorage"],
+        service: "Yrkesskade Skademelding",
+        description:
+            "Brukes for å mellomlagre tilstand på skjema og kunne fortsette skjema dersom innmelder går ut av skjemaet.",
+        optional: false,
+    },
+    {
+        name: "persist:root",
+        type: ["sessionstorage"],
+        service: "Yrkesskade Skadeforklaring og Ettersendelse",
+        description:
+            "Brukes for å mellomlagre tilstand på skjema og kunne fortsette skjema dersom innmelder går ut av skjemaet.",
+        optional: false,
+    },
+    {
+        name: "filter-veileder-*",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker hvilket filtreringsvalg som brukeren har gjort i menyene til neste besøk.",
+        optional: false,
+    },
+    {
+        name: "filter-deltakerliste-*",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker hvilket filtreringsvalg som brukeren har gjort i menyene til neste besøk.",
+        optional: false,
+    },
+    {
+        name: "alert-message-last-message",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker siste viste informasjonsmelding fra Nav til neste besøk.",
+        optional: false,
+    },
+    {
+        name: "alert-message-hide",
+        type: ["localstorage"],
+        service: "Tiltaksarrangør",
+        description:
+            "Husker om brukeren har valgt å skjule siste informasjonsmelding.",
+        optional: false,
+    },
+    {
+        name: "kontonr-result",
+        type: ["cookie", "sessionstorage", "localstorage"],
+        service: "Personopplysninger",
+        description:
+            "Denne brukes for å huske om endring av kontonummer var vellykket etter at du ble returnert fra ekstra innlogging som en sikkerhetsforanstaltning.",
+        optional: false,
+    },
+    {
+        name: "PreferredLanguage*",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes til å lagre brukerens språkpreferanse for språkdeteksjon og en lokaltilpasset brukeropplevelse",
+        optional: false,
+    },
+    {
+        name: "CookieConsentPolicy",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes til å anvende samtykkepreferanser for informasjonskapsler.",
+        optional: false,
+    },
+    {
+        name: "__Secure-has-sid",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description: "Oppdager en brukers innloggingsstatus på klientsiden",
+        optional: false,
+    },
+    {
+        name: "oid",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Lagrer siste innloggede organisasjon for omdirigering og logging av informasjonskapsel i gjestebrukerforespørsler.",
+        optional: false,
+    },
+    {
+        name: "idccsrf",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Sporer validering av Cross-Site Request Forgery for visse SSO-flyter",
+        optional: false,
+    },
+    {
+        name: "inst",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Omdirigerer forespørsler mellom instanser ved bokmerker, hardkodede URL-er, org-migreringer eller URL-oppdateringer.",
+        optional: false,
+    },
+    {
+        name: "sid_Client",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes til å oppdage og forhindre manipulering av sesjoner.",
+        optional: false,
+    },
+    {
+        name: "oinfo",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Statistikk for bruk av Salesforce-plattformen.",
+        optional: true,
+    },
+    {
+        name: "guest_uuid_essential_*",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Tildeler unik ID til gjestebrukere i Experience Cloud-nettsteder, utløper ett år etter siste besøk.",
+        optional: false,
+    },
+    {
+        name: "LSKey-c$CookieConsentPolicy",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "LSKEY-c$-informasjonskapsler er kopier av originalen, opprettet for nettsteder med Locker Service aktivert, siden denne begrenser klientlesing av informasjonskapsler.",
+        optional: false,
+    },
+    {
+        name: "sid",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description:
+            "Brukes for å skille de forskjellige enhetene som besøker siden fra hverandre.",
+        optional: false,
+    },
+    {
+        name: "autocomplete",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description:
+            "Bestemmer om innloggingssiden husker brukerens brukernavn.",
+        optional: false,
+    },
+    {
+        name: "clientSrc",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description: "Brukes for sikkerhetsbeskyttelse.",
+        optional: false,
+    },
+    {
+        name: "apex_*",
+        type: ["sessionstorage"],
+        service: "NKS / Innboks",
+        description: "Innlogging og sikkerhet.",
+        optional: false,
+    },
+    {
+        name: "sdfcstream",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Innlogging og sikkerhet.",
+        optional: false,
+    },
+    {
+        name: "pctrk",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Innlogging og sikkerhet.",
+        optional: false,
+    },
+    {
+        name: "RUIDC",
+        type: ["cookie"],
+        service: "NKS / Innboks",
+        description: "Sporer unike sidevisninger i Experiences",
+        optional: false,
+    },
 ]);
 
 const buildAllowedStorage = () => {
