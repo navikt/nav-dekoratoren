@@ -5,7 +5,6 @@ import {
     Consent,
     PublicStorageItem,
 } from "decorator-shared/types";
-import { isProd } from "./helpers/env";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -192,11 +191,6 @@ export class WebStorageController {
             window.location.hostname.includes("oera.no") ||
             window.location.hostname.includes("cms-arkiv.ansatt")
         ) {
-            return;
-        }
-
-        // TODO: remove this on release
-        if (isProd()) {
             return;
         }
 
