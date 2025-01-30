@@ -5,6 +5,7 @@ import {
     Consent,
     PublicStorageItem,
 } from "decorator-shared/types";
+import { endpointUrlWithoutParams } from "./helpers/urls";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -71,27 +72,42 @@ export class WebStorageController {
     };
 
     private consentAllStorageHandler = () => {
-        const consentObject = JSON.stringify(
-            this.buildUpdatedConsentObject("CONSENT_ALL_WEB_STORAGE"),
+        const consentObject = this.buildUpdatedConsentObject(
+            "CONSENT_ALL_WEB_STORAGE",
         );
 
-        Cookies.set(this.consentKey, consentObject, {
+        Cookies.set(this.consentKey, JSON.stringify(consentObject), {
             expires: 90,
         });
+        this.pingConsentBack(consentObject);
     };
 
     private refuseOptionalStorageHandler = () => {
-        const consentObject = JSON.stringify(
-            this.buildUpdatedConsentObject("REFUSE_OPTIONAL_WEB_STORAGE"),
+        const consentObject = this.buildUpdatedConsentObject(
+            "REFUSE_OPTIONAL_WEB_STORAGE",
         );
 
-        Cookies.set(this.consentKey, consentObject, {
+        Cookies.set(this.consentKey, JSON.stringify(consentObject), {
             expires: 90,
         });
+
+        this.pingConsentBack(consentObject);
 
         setTimeout(() => {
             this.clearOptionalStorage();
         }, 1000);
+    };
+
+    private pingConsentBack = (consent: Consent) => {
+        const pingBody = {
+            consentResult: consent,
+            urlOrigin: window.location.href,
+        };
+        fetch(endpointUrlWithoutParams(`/api/consentping`), {
+            method: "POST",
+            credentials: "omit",
+            body: JSON.stringify(pingBody),
+        });
     };
 
     private initEventListeners() {
