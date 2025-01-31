@@ -13,7 +13,10 @@ export const mockAmplitude = () =>
 
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
-    initTaskAnalytics();
+
+    setTimeout(() => {
+        initTaskAnalytics();
+    }, 1000);
 
     logPageView(auth);
 

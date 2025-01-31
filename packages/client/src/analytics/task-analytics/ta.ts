@@ -111,8 +111,24 @@ const startTaskAnalyticsSurvey = () => {
     }
 };
 
+const waitForTAToBeLoaded = () => {
+    if (window.TA) {
+        initTaskAnalytics();
+    } else {
+        console.log("Waiting for Task Analytics to be loaded");
+        setTimeout(waitForTAToBeLoaded, 1000);
+    }
+};
+
 export const initTaskAnalytics = () => {
-    window.TA = window.TA || taFallback;
+    if (
+        !window.TA &&
+        typeof window.initConditionalTaskAnalytics === "function"
+    ) {
+        window.initConditionalTaskAnalytics();
+        waitForTAToBeLoaded();
+    }
+
     window.dataLayer = window.dataLayer || [];
 
     startTaskAnalyticsSurvey();
