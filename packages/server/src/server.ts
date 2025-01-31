@@ -62,6 +62,23 @@ app.get("/api/version", versionApiHandler);
 app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
 });
+
+app.post("/api/consentping", async ({ req, json }) => {
+    const consentPingbackUrl = `${env.DEKORATOREN_API_URL}/consent`;
+    const body = await req.json();
+
+    await fetch(consentPingbackUrl, {
+        body: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+        credentials: "omit",
+    });
+
+    return json({ result: "ok" });
+});
+
 app.post("/api/notifications/:id/archive", async ({ req, json }) => {
     const result = await archiveNotification({
         cookie: req.header("cookie") ?? "",
