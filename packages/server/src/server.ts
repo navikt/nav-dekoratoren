@@ -67,13 +67,15 @@ app.post("/api/consentping", async ({ req, json }) => {
     const consentPingbackUrl = `${env.DEKORATOREN_API_URL}/consent`;
     const body = await req.json();
 
-    console.log(body);
-
     await fetch(consentPingbackUrl, {
-        body,
+        body: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+        },
         method: "POST",
         credentials: "omit",
     });
+
     return json({ result: "ok" });
 });
 
