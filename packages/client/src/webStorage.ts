@@ -100,8 +100,8 @@ export class WebStorageController {
 
     private pingConsentBack = (consent: Consent) => {
         const pingBody = {
-            consentResult: consent,
-            urlOrigin: window.location.href,
+            consentObject: consent,
+            originUrl: window.location.href,
         };
         fetch(endpointUrlWithoutParams(`/api/consentping`), {
             method: "POST",

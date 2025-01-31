@@ -64,15 +64,17 @@ app.get("/api/ta", ({ json }) => {
 });
 
 app.post("/api/consentping", async ({ req, json }) => {
-    const consentPingbackUrl = `${env.DEKORATOREN_API_URL}/consentping`;
+    const consentPingbackUrl = `${env.DEKORATOREN_API_URL}/consent`;
     const body = await req.json();
+
+    console.log(body);
 
     fetch(consentPingbackUrl, {
         body: JSON.stringify(body),
         method: "POST",
         credentials: "omit",
     });
-    return json({});
+    return json({ result: "ok" });
 });
 
 app.post("/api/notifications/:id/archive", async ({ req, json }) => {
