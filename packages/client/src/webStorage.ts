@@ -103,6 +103,7 @@ export class WebStorageController {
             consentObject: consent,
             originUrl: window.location.href,
         };
+
         fetch(endpointUrlWithoutParams(`/api/consentping`), {
             method: "POST",
             credentials: "omit",

@@ -69,8 +69,8 @@ app.post("/api/consentping", async ({ req, json }) => {
 
     console.log(body);
 
-    fetch(consentPingbackUrl, {
-        body: JSON.stringify(body),
+    await fetch(consentPingbackUrl, {
+        body,
         method: "POST",
         credentials: "omit",
     });
