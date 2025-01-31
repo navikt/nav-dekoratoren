@@ -27,12 +27,10 @@ export const mockAmplitude = () =>
 
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
+    initUmami();
     // This function is exposed for use from consuming applications
     window.dekoratorenAnalytics = logAnalyticsEventFromApp;
     initTaskAnalytics();
-
-    initUmami();
-
     logPageView(auth);
 
     // Pass the callback as a function reference
