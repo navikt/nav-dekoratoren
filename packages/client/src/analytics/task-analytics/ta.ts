@@ -111,12 +111,16 @@ const startTaskAnalyticsSurvey = () => {
     }
 };
 
-const waitForTAToBeLoaded = () => {
+const waitForTAToBeLoaded = (retries = 10) => {
     if (window.TA) {
         initTaskAnalytics();
+    } else if (retries > 0) {
+        console.log(
+            `Waiting for Task Analytics to be loaded (${retries} retries left)`,
+        );
+        setTimeout(() => waitForTAToBeLoaded(retries - 1), 300);
     } else {
-        console.log("Waiting for Task Analytics to be loaded");
-        setTimeout(waitForTAToBeLoaded, 1000);
+        console.error("Task Analytics failed to load after multiple attempts.");
     }
 };
 
