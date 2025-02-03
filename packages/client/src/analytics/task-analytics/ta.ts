@@ -117,7 +117,7 @@ const waitForTAToBeLoaded = (retries = 10) => {
     if (window.TA) {
         startTaskAnalyticsSurvey();
     } else if (retries > 0) {
-        setTimeout(() => waitForTAToBeLoaded(retries - 1), 300);
+        setTimeout(() => waitForTAToBeLoaded(retries - 1), 500);
     } else {
         window.TA = taFallback;
         console.error("Task Analytics failed to load after multiple attempts.");
