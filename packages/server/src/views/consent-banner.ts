@@ -7,7 +7,7 @@ import { Button } from "./components/button";
 
 export const ConsentBanner = () => html`
     <consent-banner>
-        <div
+        <section
             class="${cls.consentBanner}"
             aria-labelledby="consent_banner_title"
             id="consent-banner-dialog"
@@ -58,6 +58,6 @@ export const ConsentBanner = () => html`
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </consent-banner>
 `;
