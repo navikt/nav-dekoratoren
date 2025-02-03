@@ -121,6 +121,7 @@ const waitForTAToBeLoaded = (retries = 10) => {
     } else if (retries > 0) {
         setTimeout(() => waitForTAToBeLoaded(retries - 1), 300);
     } else {
+        taFallback();
         console.error("Task Analytics failed to load after multiple attempts.");
     }
 };
