@@ -1,4 +1,4 @@
-import { amplitudeClickListener } from "../analytics/amplitude";
+import { analyticsClickListener } from "../analytics/analytics";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
@@ -18,7 +18,7 @@ class Footer extends HTMLElement {
     connectedCallback() {
         this.addEventListener(
             "click",
-            amplitudeClickListener((anchor) => ({
+            analyticsClickListener((anchor) => ({
                 kategori: "dekorator-footer",
                 lenkegruppe:
                     anchor.getAttribute("data-lenkegruppe") ?? undefined,

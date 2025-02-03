@@ -1,11 +1,11 @@
-import { amplitudeClickListener } from "../analytics/amplitude";
+import { analyticsClickListener } from "../analytics/analytics";
 import { defineCustomElement } from "./custom-elements";
 
 class SearchHit extends HTMLElement {
     connectedCallback() {
         this.addEventListener(
             "click",
-            amplitudeClickListener(() => ({
+            analyticsClickListener(() => ({
                 eventName: "resultat-klikk",
                 sokeord: "[redacted]",
                 treffnr:

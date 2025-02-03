@@ -9,6 +9,7 @@ const meta: Meta<ComplexFooterProps> = {
             features: {
                 "dekoratoren.skjermdeling": true,
                 "dekoratoren.chatbotscript": false,
+                "dekoratoren.umami": false,
             },
             links:
                 context.globals.locale === "en"

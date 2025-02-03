@@ -72,12 +72,15 @@ const preview: Preview = {
             if (story === null) {
                 return "";
             } else if (typeof story === "object" && "render" in story) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 return html`<div id="decorator-header">${story}</div>`.render({
                     language,
                 });
             } else {
                 const wrapper = document.createElement("div");
                 wrapper.setAttribute("id", "decorator-header");
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 wrapper.appendChild(story);
                 return wrapper;

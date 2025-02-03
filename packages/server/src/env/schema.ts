@@ -51,4 +51,5 @@ export const client_env = {
     PUZZEL_CUSTOMER_ID: process.env.PUZZEL_CUSTOMER_ID,
     VERSION_ID: process.env.VERSION_ID,
     XP_BASE_URL: process.env.XP_BASE_URL,
+    UMAMI_WEBSITE_ID: process.env.UMAMI_WEBSITE_ID,
 } satisfies Record<keyof Environment, unknown>;
