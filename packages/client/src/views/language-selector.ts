@@ -5,7 +5,7 @@ import { param, updateDecoratorParams } from "../params";
 import cls from "../styles/language-selector.module.css";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
-import { amplitudeEvent } from "../analytics/amplitude";
+import { analyticsEvent } from "../analytics/analytics";
 
 export class LanguageSelector extends HTMLElement {
     menu!: HTMLElement;
@@ -40,7 +40,7 @@ export class LanguageSelector extends HTMLElement {
                         event: "languageSelect",
                         payload: language,
                     });
-                    amplitudeEvent({
+                    analyticsEvent({
                         context: window.__DECORATOR_DATA__.params.context,
                         eventName: "navigere",
                         kategori: "dekorator-sprakvelger",
@@ -130,7 +130,7 @@ export class LanguageSelector extends HTMLElement {
     set open(open: boolean) {
         this.#open = open;
         this.menu.classList.toggle(utils.hidden, !open);
-        amplitudeEvent({
+        analyticsEvent({
             eventName: open ? "accordion åpnet" : "accordion lukket",
             context: window.__DECORATOR_DATA__.params.context,
             kategori: "dekorator-sprakvelger",

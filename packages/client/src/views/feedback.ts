@@ -1,7 +1,7 @@
 import cls from "decorator-client/src/styles/feedback.module.css";
-import { logAmplitudeEvent } from "../analytics/amplitude";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { logAnalyticsEvent } from "../analytics/analytics";
 
 class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
@@ -13,7 +13,7 @@ class DecoratorFeedback extends HTMLElement {
                 this.querySelector(`.${cls.feedbackSuccess}`)?.classList.remove(
                     utils.hidden,
                 );
-                logAmplitudeEvent("tilbakemelding", {
+                logAnalyticsEvent("tilbakemelding", {
                     kilde: "footer",
                     svar: button.getAttribute("data-svar"),
                 });

@@ -104,6 +104,7 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );
         </script>
+
         ${scriptsHtml}
     `;
 };

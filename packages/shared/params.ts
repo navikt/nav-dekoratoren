@@ -111,6 +111,7 @@ export const clientEnvSchema = z.object({
     MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
     MIN_SIDE_URL: z.string(),
     PUZZEL_CUSTOMER_ID: z.string(),
+    UMAMI_WEBSITE_ID: z.string().optional(),
     VERSION_ID: z.string(),
     XP_BASE_URL: z.string(),
 });

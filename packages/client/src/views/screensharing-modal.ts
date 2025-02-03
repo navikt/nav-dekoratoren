@@ -4,7 +4,7 @@ import { env, param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
-import { amplitudeEvent } from "../analytics/amplitude";
+import { analyticsEvent } from "../analytics/analytics";
 
 let hasBeenOpened = false;
 
@@ -49,7 +49,7 @@ function startCall(code: string) {
         groupId: "A034081B-6B73-46B7-BE27-23B8E9CE3079",
         startCode: code,
     });
-    amplitudeEvent({
+    analyticsEvent({
         eventName: "skjermdeling",
         kategori: "dekorator-footer",
         komponent: "ScreensharingModal",
@@ -63,7 +63,7 @@ export class ScreensharingModal extends HTMLElement {
 
     showModal() {
         this.dialog.showModal();
-        amplitudeEvent({
+        analyticsEvent({
             eventName: "modal åpnet",
             kategori: "dekorator-footer",
             lenketekst: "Start skjermdeling",
@@ -72,7 +72,7 @@ export class ScreensharingModal extends HTMLElement {
     }
     closeModal() {
         this.dialog.close();
-        amplitudeEvent({
+        analyticsEvent({
             eventName: "modal lukket",
             kategori: "dekorator-footer",
             lenketekst: "Start skjermdeling",

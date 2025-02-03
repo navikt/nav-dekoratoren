@@ -1,7 +1,5 @@
-import {
-    AmplitudeKategori,
-    amplitudeClickListener,
-} from "../analytics/amplitude";
+import { analyticsClickListener } from "../analytics/analytics";
+import { AnalyticsKategori } from "../analytics/types";
 import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 
@@ -21,11 +19,11 @@ class ContextLinks extends HTMLElement {
     connectedCallback() {
         this.addEventListener(
             "click",
-            amplitudeClickListener((anchor) => ({
+            analyticsClickListener((anchor) => ({
                 kategori:
                     (anchor.getAttribute(
                         "data-kategori",
-                    ) as AmplitudeKategori) ?? undefined,
+                    ) as AnalyticsKategori) ?? undefined,
                 lenkegruppe: "arbeidsflate-valg",
                 lenketekst: anchor.getAttribute("data-context") ?? undefined,
             })),
