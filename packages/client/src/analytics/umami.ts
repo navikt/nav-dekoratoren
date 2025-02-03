@@ -6,7 +6,10 @@ export const logUmamiEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
-    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
+    if (
+        window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
+        typeof umami !== "undefined"
+    ) {
         return umami.track(eventName, {
             ...eventData,
             origin,
