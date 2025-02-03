@@ -205,7 +205,8 @@ export class WebStorageController {
         // Don't show cookie banner for nav.no editors
         if (
             window.location.hostname.includes("oera.no") ||
-            window.location.hostname.includes("cms-arkiv.ansatt")
+            window.location.hostname.includes("cms-arkiv.ansatt") ||
+            window.location.hostname.includes("siteimprove.com")
         ) {
             return;
         }
