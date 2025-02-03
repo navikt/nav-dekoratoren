@@ -102,6 +102,10 @@ const fetchAndStart = async () => {
 };
 
 const startTaskAnalyticsSurvey = () => {
+    window.dataLayer = window.dataLayer || [];
+
+    window.addEventListener("historyPush", startTaskAnalyticsSurvey);
+
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
@@ -113,18 +117,15 @@ const startTaskAnalyticsSurvey = () => {
 
 const waitForTAToBeLoaded = (retries = 10) => {
     if (window.TA) {
-        initTaskAnalytics();
+        startTaskAnalyticsSurvey();
     } else if (retries > 0) {
-        console.log(
-            `Waiting for Task Analytics to be loaded (${retries} retries left)`,
-        );
         setTimeout(() => waitForTAToBeLoaded(retries - 1), 300);
     } else {
         console.error("Task Analytics failed to load after multiple attempts.");
     }
 };
 
-export const initTaskAnalytics = () => {
+export const initTaskAnalyticsScript = () => {
     if (
         !window.TA &&
         typeof window.initConditionalTaskAnalytics === "function"
@@ -132,11 +133,6 @@ export const initTaskAnalytics = () => {
         window.initConditionalTaskAnalytics();
         waitForTAToBeLoaded();
     }
-
-    window.dataLayer = window.dataLayer || [];
-
-    startTaskAnalyticsSurvey();
-    window.addEventListener("historyPush", startTaskAnalyticsSurvey);
 };
 
 export const stopTaskAnalytics = () => {

@@ -1,5 +1,8 @@
 import { initAmplitude, logPageView, stopAmplitude } from "./amplitude";
-import { initTaskAnalytics, stopTaskAnalytics } from "./task-analytics/ta";
+import {
+    initTaskAnalyticsScript,
+    stopTaskAnalytics,
+} from "./task-analytics/ta";
 import { Auth } from "decorator-shared/auth";
 
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
@@ -13,10 +16,7 @@ export const mockAmplitude = () =>
 
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
-
-    setTimeout(() => {
-        initTaskAnalytics();
-    }, 1000);
+    initTaskAnalyticsScript();
 
     logPageView(auth);
 
