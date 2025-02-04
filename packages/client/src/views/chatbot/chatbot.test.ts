@@ -5,6 +5,8 @@ import "./chatbot";
 import { BoostClient } from "./chatbot";
 import cls from "./chatbot.module.css";
 
+const STORAGE_KEY = "boostai.conversation.id";
+
 describe("chatbot", () => {
     const old = document.body.appendChild;
     let loadedSrc = "";
@@ -30,6 +32,7 @@ describe("chatbot", () => {
     });
 
     afterEach(() => {
+        window.localStorage.removeItem(STORAGE_KEY);
         loadedSrc = "";
     });
 
@@ -58,6 +61,14 @@ describe("chatbot", () => {
         expect(loadedSrc).toBe(
             "https://navtest.boost.ai/chatPanel/chatPanel.js",
         );
+    });
+
+    it("doesnt remove visible when conversationid is set", async () => {
+        localStorage.setItem(STORAGE_KEY, "123");
+        updateDecoratorParams({ chatbotVisible: false });
+        const el = await fixture("<d-chatbot></d-chatbot>");
+        const child = el.childNodes[0] as HTMLElement;
+        expect(child.classList).toContain(cls.visible);
     });
 
     it("doesnt mount when feature is not toggled", async () => {
@@ -116,7 +127,6 @@ describe("chatbot", () => {
                 chatPanel: {
                     settings: {
                         removeRememberedConversationOnChatPanelClose: true,
-                        conversationId: "value",
                         openTextLinksInNewTab: true,
                     },
                     styling: { buttons: { multiline: true } },
