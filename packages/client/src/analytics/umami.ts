@@ -1,4 +1,5 @@
 import { env } from "../params";
+import { buildLocationString } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 export const logUmamiEvent = async (
@@ -6,10 +7,24 @@ export const logUmamiEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
+    const source_name = buildLocationString();
+
     if (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
+        umami.track({
+            website: env("UMAMI_WEBSITE_ID") || "",
+            url: source_name,
+            name: eventName,
+            title: window.document.title,
+            data: {
+                ...eventData,
+                origin,
+                originVersion: eventData.originVersion || "unknown",
+                viaDekoratoren: true,
+            },
+        });
         return umami.track(eventName, {
             ...eventData,
             origin,
