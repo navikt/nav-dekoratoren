@@ -30,6 +30,7 @@ export type BoostClient = {
 
 class Chatbot extends HTMLElement {
     private readonly button: HTMLButtonElement;
+    private readonly storageKey = "boostai.conversation.id";
     private boost?: BoostClient;
 
     constructor() {
@@ -79,9 +80,10 @@ class Chatbot extends HTMLElement {
             this.appendChild(this.button);
         }
 
-        this.button.classList.toggle(cls.visible, chatbotVisible);
+        const isVisible = chatbotVisible || !!this.getActiveConversationId();
+        this.button.classList.toggle(cls.visible, isVisible);
 
-        if (chatbotVisible) {
+        if (isVisible) {
             loadScript();
         }
     };
@@ -122,6 +124,10 @@ class Chatbot extends HTMLElement {
             return this.boost;
         });
     };
+
+    private getActiveConversationId = () =>
+        window.localStorage.getItem(this.storageKey) ??
+        window.sessionStorage.getItem(this.storageKey);
 }
 
 const buildBoostConfig = ({
