@@ -15,6 +15,7 @@ export const logUmamiEvent = async (
             name: eventName,
             url: window.location.pathname,
             title: window.document.title,
+            referrer: props.referrer.split("?")[0],
             data: {
                 ...eventData,
                 origin,
