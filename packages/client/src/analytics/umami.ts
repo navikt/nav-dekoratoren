@@ -13,7 +13,7 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
-        umami.track({
+        return umami.track({
             website: env("UMAMI_WEBSITE_ID") || "",
             url: source_name,
             name: eventName,
@@ -24,12 +24,6 @@ export const logUmamiEvent = async (
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,
             },
-        });
-        return umami.track(eventName, {
-            ...eventData,
-            origin,
-            originVersion: eventData.originVersion || "unknown",
-            viaDekoratoren: true,
         });
     }
 };
