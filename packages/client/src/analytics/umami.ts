@@ -12,7 +12,7 @@ export const logUmamiEvent = async (
     ) {
         return umami.track((props) => ({
             ...props,
-            name: eventName,
+            name: eventName === "besøk" ? undefined : eventName,
             url: window.location.pathname,
             title: window.document.title,
             referrer: undefined,
