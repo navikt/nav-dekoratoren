@@ -10,12 +10,19 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
-        return umami.track(eventName, {
-            ...eventData,
-            origin,
-            originVersion: eventData.originVersion || "unknown",
-            viaDekoratoren: true,
-        });
+        return umami.track((props) => ({
+            ...props,
+            name: eventName === "besøk" ? undefined : eventName,
+            url: window.location.pathname,
+            title: window.document.title,
+            referrer: undefined,
+            data: {
+                ...eventData,
+                origin,
+                originVersion: eventData.originVersion || "unknown",
+                viaDekoratoren: true,
+            },
+        }));
     }
 };
 
