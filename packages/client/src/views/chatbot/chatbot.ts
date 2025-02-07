@@ -1,5 +1,4 @@
 import type { ClientParams, Context, Language } from "decorator-shared/params";
-import Cookies from "js-cookie";
 import loadExternalScript from "../../helpers/load-external-script";
 import { cdnUrl } from "../../helpers/urls";
 import { env, param } from "../../params";
@@ -31,7 +30,7 @@ export type BoostClient = {
 
 class Chatbot extends HTMLElement {
     private readonly button: HTMLButtonElement;
-    private readonly cookieName = "nav-chatbot:conversation";
+    private readonly storageKey = "boostai.conversation.id";
     private boost?: BoostClient;
 
     constructor() {
@@ -81,7 +80,7 @@ class Chatbot extends HTMLElement {
             this.appendChild(this.button);
         }
 
-        const isVisible = chatbotVisible || !!this.getCookie();
+        const isVisible = chatbotVisible || !!this.getActiveConversationId();
         this.button.classList.toggle(cls.visible, isVisible);
 
         if (isVisible) {
@@ -103,18 +102,9 @@ class Chatbot extends HTMLElement {
             this.boost = window.boostInit(
                 env("BOOST_ENV"),
                 buildBoostConfig({
-                    conversationId: this.getCookie(),
                     context: param("context"),
                     language: param("language"),
                 }),
-            );
-
-            this.boost?.chatPanel.addEventListener(
-                "conversationIdChanged",
-                (event) =>
-                    event.detail.conversationId
-                        ? this.setCookie(event.detail.conversationId)
-                        : this.removeCookie(),
             );
 
             this.boost?.chatPanel.addEventListener(
@@ -131,38 +121,19 @@ class Chatbot extends HTMLElement {
                 },
             );
 
-            this.boost?.chatPanel.addEventListener("chatPanelClosed", () =>
-                this.removeCookie(),
-            );
-
             return this.boost;
         });
     };
 
-    private getCookie = () => Cookies.get(this.cookieName);
-
-    private setCookie = (value: string) =>
-        Cookies.set(this.cookieName, value, {
-            expires: 1,
-            domain: location.hostname.includes("nav.no")
-                ? ".nav.no"
-                : undefined,
-        });
-
-    private removeCookie = () =>
-        Cookies.remove(this.cookieName, {
-            domain: location.hostname.includes("nav.no")
-                ? ".nav.no"
-                : undefined,
-        });
+    private getActiveConversationId = () =>
+        window.localStorage.getItem(this.storageKey) ??
+        window.sessionStorage.getItem(this.storageKey);
 }
 
 const buildBoostConfig = ({
-    conversationId,
     context,
     language,
 }: {
-    conversationId?: string;
     context: Context;
     language: Language;
 }) => {
@@ -170,7 +141,6 @@ const buildBoostConfig = ({
         chatPanel: {
             settings: {
                 removeRememberedConversationOnChatPanelClose: true,
-                conversationId,
                 openTextLinksInNewTab: true,
             },
             styling: { buttons: { multiline: true } },
