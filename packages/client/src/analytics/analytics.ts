@@ -19,11 +19,7 @@ declare global {
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
 export const mockAmplitude = () =>
-    new Promise<any>((resolve) => {
-        resolve(
-            "Amplitude is not initialized. Please check for user analytics consent",
-        );
-    });
+    Promise.resolve("Amplitude is disabled and mocked due to missing consent.");
 
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
