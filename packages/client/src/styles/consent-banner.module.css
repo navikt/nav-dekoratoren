@@ -17,7 +17,7 @@
 }
 
 :global(.consentBanner--open) {
-    display: flex;
+    display: block;
 }
 
 :global(.minimized-on-mobile) {
