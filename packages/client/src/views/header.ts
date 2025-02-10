@@ -16,6 +16,15 @@ const msgSafetyCheck = (message: MessageEvent) => {
     );
 };
 
+const msgFromNks = (message: MessageEvent) => {
+    const { origin, source, data } = message;
+    return (
+        data.source === "nksInnboks" &&
+        window.location.href.startsWith(origin) &&
+        source === window
+    );
+};
+
 // TODO: this should probably include more params
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "breadcrumbs",
@@ -26,12 +35,23 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "context",
     "redirectOnUserChange",
     "pageType",
+    "pageTheme",
 ] as const;
 
 class Header extends HTMLElement {
     private userId?: string;
 
     private handleMessage = (e: MessageEvent) => {
+        if (msgFromNks(e)) {
+            const {
+                event,
+                payload: { pageType, pageTheme },
+            } = e.data;
+            if (event === "params" && (pageType || pageTheme)) {
+                updateDecoratorParams({ pageTheme, pageType });
+            }
+        }
+
         if (!msgSafetyCheck(e)) {
             return;
         }
