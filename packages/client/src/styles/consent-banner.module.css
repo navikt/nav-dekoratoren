@@ -72,6 +72,7 @@
     font-weight: bold;
     margin: 0 0 var(--a-spacing-4) 0;
     color: var(--a-surface-default);
+    text-wrap: pretty;
 }
 
 .text {
