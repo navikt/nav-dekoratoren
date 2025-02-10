@@ -59,26 +59,11 @@
 
 .content {
     margin: 2rem;
-    display: grid;
-    grid-template-columns: auto 1fr; /* Two equal-width columns */
-    gap: 10px;
-
-    @media (max-width: 768px) {
-        gap: 0px;
-    }
 }
 
 .column {
     display: flex;
     flex-direction: column;
-}
-
-.infoIcon {
-    color: white;
-    margin: 0.4rem 0 0 0;
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 .title {

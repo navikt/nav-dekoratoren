@@ -27,9 +27,6 @@ export const ConsentBanner = () => html`
             </div>
             <div class="${cls.content}">
                 <div class="${cls.column}">
-                    ${InformationSquareFillIcon({ className: cls.infoIcon })}
-                </div>
-                <div class="${cls.column}">
                     <h2
                         id="consent_banner_title"
                         class="${cls.title}"
