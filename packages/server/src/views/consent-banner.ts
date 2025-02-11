@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/consent-banner.module.css";
-import { InformationSquareFillIcon, ExpandIcon } from "decorator-icons";
+import { ExpandIcon } from "decorator-icons";
 
 import html from "decorator-shared/html";
 import i18n from "../i18n";
