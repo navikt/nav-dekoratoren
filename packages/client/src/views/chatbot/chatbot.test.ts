@@ -1,12 +1,11 @@
 import { fixture } from "@open-wc/testing";
-import Cookies from "js-cookie";
 import { texts } from "decorator-server/src/texts";
 import { updateDecoratorParams } from "../../params";
 import "./chatbot";
 import { BoostClient } from "./chatbot";
 import cls from "./chatbot.module.css";
 
-const COOKIE_NAME = "nav-chatbot:conversation";
+const STORAGE_KEY = "boostai.conversation.id";
 
 describe("chatbot", () => {
     const old = document.body.appendChild;
@@ -33,8 +32,8 @@ describe("chatbot", () => {
     });
 
     afterEach(() => {
+        window.localStorage.removeItem(STORAGE_KEY);
         loadedSrc = "";
-        Cookies.remove(COOKIE_NAME);
     });
 
     it("reacts to paramsupdated", async () => {
@@ -64,8 +63,8 @@ describe("chatbot", () => {
         );
     });
 
-    it("doesnt remove visible when cookie is set", async () => {
-        Cookies.set(COOKIE_NAME, "value");
+    it("doesnt remove visible when conversationid is set", async () => {
+        localStorage.setItem(STORAGE_KEY, "123");
         updateDecoratorParams({ chatbotVisible: false });
         const el = await fixture("<d-chatbot></d-chatbot>");
         const child = el.childNodes[0] as HTMLElement;
@@ -120,7 +119,6 @@ describe("chatbot", () => {
         });
 
         it("initializes boost with correct config", async () => {
-            Cookies.set(COOKIE_NAME, "value");
             const el = await fixture("<d-chatbot></d-chatbot>");
             (el.childNodes[0] as HTMLButtonElement).click();
             await boostInitialized();
@@ -129,7 +127,6 @@ describe("chatbot", () => {
                 chatPanel: {
                     settings: {
                         removeRememberedConversationOnChatPanelClose: true,
-                        conversationId: "value",
                         openTextLinksInNewTab: true,
                     },
                     styling: { buttons: { multiline: true } },
@@ -164,31 +161,6 @@ describe("chatbot", () => {
             expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
                 "nynorsk",
             );
-        });
-
-        it("sets cookie on id changed if present", async () => {
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            chatPanel.dispatchEvent(
-                new CustomEvent("conversationIdChanged", {
-                    detail: { conversationId: "newId" },
-                }),
-            );
-            expect(Cookies.get(COOKIE_NAME)).toBe("newId");
-            chatPanel.dispatchEvent(
-                new CustomEvent("conversationIdChanged", {
-                    detail: { conversationId: "" },
-                }),
-            );
-            expect(Cookies.get(COOKIE_NAME)).toBe(undefined);
-        });
-
-        it("removes cookie on close", async () => {
-            Cookies.set(COOKIE_NAME, "value");
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            chatPanel.dispatchEvent(new CustomEvent("chatPanelClosed"));
-            expect(Cookies.get(COOKIE_NAME)).toBe(undefined);
         });
 
         it("sets filter value and triggers next actions", async () => {
