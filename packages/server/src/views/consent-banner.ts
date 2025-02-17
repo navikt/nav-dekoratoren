@@ -1,5 +1,5 @@
 import cls from "decorator-client/src/styles/consent-banner.module.css";
-import { InformationSquareFillIcon, ExpandIcon } from "decorator-icons";
+import { ExpandIcon } from "decorator-icons";
 
 import html from "decorator-shared/html";
 import i18n from "../i18n";
@@ -26,9 +26,6 @@ export const ConsentBanner = () => html`
                 })}
             </div>
             <div class="${cls.content}">
-                <div class="${cls.column}">
-                    ${InformationSquareFillIcon({ className: cls.infoIcon })}
-                </div>
                 <div class="${cls.column}">
                     <h2
                         id="consent_banner_title"
