@@ -71,6 +71,12 @@ export class WebStorageController {
         };
     };
 
+    private getConsentDomain = () => {
+        return window.location.hostname.includes("nav.no")
+            ? ".nav.no"
+            : window.location.hostname;
+    };
+
     private consentAllStorageHandler = () => {
         const consentObject = this.buildUpdatedConsentObject(
             "CONSENT_ALL_WEB_STORAGE",
@@ -78,6 +84,7 @@ export class WebStorageController {
 
         Cookies.set(this.consentKey, JSON.stringify(consentObject), {
             expires: 90,
+            domain: this.getConsentDomain(),
         });
         this.pingConsentBack(consentObject);
     };
@@ -89,6 +96,7 @@ export class WebStorageController {
 
         Cookies.set(this.consentKey, JSON.stringify(consentObject), {
             expires: 90,
+            domain: this.getConsentDomain(),
         });
 
         this.pingConsentBack(consentObject);
