@@ -102,6 +102,8 @@ const fetchAndStart = async () => {
 };
 
 const startTaskAnalyticsSurvey = () => {
+    window.dataLayer = window.dataLayer || [];
+    window.addEventListener("historyPush", startTaskAnalyticsSurvey);
     taskAnalyticsRefreshState();
 
     if (fetchedSurveys) {
@@ -111,12 +113,25 @@ const startTaskAnalyticsSurvey = () => {
     }
 };
 
-export const initTaskAnalytics = () => {
-    window.TA = window.TA || taFallback;
-    window.dataLayer = window.dataLayer || [];
+const waitForTAToBeLoaded = (retries = 10) => {
+    if (window.TA) {
+        startTaskAnalyticsSurvey();
+    } else if (retries > 0) {
+        setTimeout(() => waitForTAToBeLoaded(retries - 1), 500);
+    } else {
+        window.TA = taFallback;
+        console.error("Task Analytics failed to load after multiple attempts.");
+    }
+};
 
-    startTaskAnalyticsSurvey();
-    window.addEventListener("historyPush", startTaskAnalyticsSurvey);
+export const initTaskAnalyticsScript = () => {
+    if (
+        !window.TA &&
+        typeof window.initConditionalTaskAnalytics === "function"
+    ) {
+        window.initConditionalTaskAnalytics();
+        waitForTAToBeLoaded();
+    }
 };
 
 export const stopTaskAnalytics = () => {

@@ -17,6 +17,14 @@ r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
 a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')}`;
 
+const taskAnalyticsScript = `window.initConditionalTaskAnalytics = function () {
+    var head = document.getElementsByTagName("head")[0];
+    var taScript = document.createElement("script");
+    taScript.async = true;
+    taScript.src = "https://in2.taskanalytics.com/tm.js";
+    head.appendChild(taScript);
+};`;
+
 const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     if (env.NODE_ENV === "development") {
         return [
@@ -54,15 +62,15 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             },
         }));
 
-    return [
-        ...appScripts,
+    const analyticsScripts = [
         {
             tag: "script",
+            body: taskAnalyticsScript,
             attribs: {
-                src: "https://in2.taskanalytics.com/tm.js",
+                id: "d-task-analytics-container",
                 type: "module",
-                fetchpriority: "low",
                 async: "async",
+                fetchpriority: "low",
             },
         },
         {
@@ -76,6 +84,8 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             },
         },
     ];
+
+    return [...appScripts, ...analyticsScripts];
 };
 
 export const scriptsProps = await getScriptsProps();

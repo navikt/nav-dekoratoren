@@ -1,11 +1,14 @@
 import {
+    initTaskAnalyticsScript,
+    stopTaskAnalytics,
+} from "./task-analytics/ta";
+import {
     amplitudeEvent,
     initAmplitude,
     logAmplitudeEvent,
     stopAmplitude,
 } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
-import { initTaskAnalytics, stopTaskAnalytics } from "./task-analytics/ta";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
@@ -23,10 +26,11 @@ export const mockAmplitude = () =>
 
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
+    initTaskAnalyticsScript();
     initUmami();
+
     // This function is exposed for use from consuming applications
     window.dekoratorenAnalytics = logAnalyticsEventFromApp;
-    initTaskAnalytics();
     logPageView(auth);
 
     // Pass the callback as a function reference
