@@ -101,6 +101,7 @@ export const analyticsClickListener =
                 const analyticsEvent = {
                     context: param("context"),
                     pageType: param("pageType"),
+                    tema: param("pageTheme"),
                     destinasjon: anchor.href,
                     kategori: args.kategori,
                     lenkegruppe: args.lenkegruppe,

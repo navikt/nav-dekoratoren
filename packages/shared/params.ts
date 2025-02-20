@@ -76,6 +76,7 @@ export const paramsSchema = z.object({
     redirectOnUserChange: z.boolean().default(false),
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
+    pageTitle: z.string().optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -100,6 +101,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "redirectOnUserChange",
     "pageType",
     "pageTheme",
+    "pageTitle",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;

@@ -45,10 +45,18 @@ class Header extends HTMLElement {
         if (msgFromNks(e)) {
             const {
                 event,
-                payload: { pageType, pageTheme },
+                payload: { pageType, pageTheme, pageTitle, breadcrumbs },
             } = e.data;
-            if (event === "params" && (pageType || pageTheme)) {
-                updateDecoratorParams({ pageTheme, pageType });
+            if (
+                event === "params" &&
+                (pageType || pageTheme || pageTitle || breadcrumbs)
+            ) {
+                updateDecoratorParams({
+                    pageTheme,
+                    pageType,
+                    pageTitle,
+                    breadcrumbs,
+                });
             }
         }
 
