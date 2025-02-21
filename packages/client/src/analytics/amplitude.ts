@@ -119,7 +119,22 @@ const logEventFromApp = (params?: {
             );
         }
 
-        return logAmplitudeEvent(eventName, eventData, origin);
+        const decoratorParams = window.__DECORATOR_DATA__.params;
+
+        const nksParams =
+            origin === "crm-innboks"
+                ? {
+                      innholdstype: decoratorParams.pageType,
+                      sidetittel: decoratorParams.pageTitle || document.title,
+                      tema: decoratorParams.pageTheme,
+                  }
+                : {};
+
+        return logAmplitudeEvent(
+            eventName,
+            { ...nksParams, ...eventData },
+            origin,
+        );
     } catch (e) {
         return Promise.reject(`Unexpected Amplitude error: ${e}`);
     }

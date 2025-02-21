@@ -57,6 +57,7 @@ const logPageView = (authState: Auth) => {
             målgruppe: params.context,
             innholdstype: params.pageType,
             sidetittel: params.pageTitle || document.title,
+            tema: params.pageTheme,
             innlogging: authState.authenticated
                 ? authState.securityLevel
                 : false,
