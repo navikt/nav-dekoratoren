@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**.md'
+      - "**.md"
 
 jobs:
   build:
@@ -69,3 +69,23 @@ jobs:
       IMAGE: ${{ needs.build.outputs.IMAGE }}
     secrets:
       VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+
+  release:
+    name: Create a new release
+    needs: deploy-prod
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Generate unique tag name
+        run: echo "TAG_NAME=$(date +%s)" >> $GITHUB_ENV
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          target_commitish: main
+          tag_name: release/prod@${{ env.TAG_NAME }} # Generates a unique tag using timestamp
+          name: Release ${{ github.ref_name }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }} # This is a PAT with repo permissions
