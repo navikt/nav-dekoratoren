@@ -70,6 +70,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         eventName: optionalEventName,
         context,
         pageType,
+        pageTheme,
         kategori,
         destinasjon,
         lenketekst,
@@ -82,6 +83,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
         innholdstype: pageType,
+        tema: pageTheme,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,

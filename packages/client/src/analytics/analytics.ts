@@ -56,7 +56,7 @@ const logPageView = (authState: Auth) => {
         const eventData = {
             målgruppe: params.context,
             innholdstype: params.pageType,
-            sidetittel: document.title,
+            sidetittel: params.pageTitle || document.title,
             innlogging: authState.authenticated
                 ? authState.securityLevel
                 : false,
@@ -98,10 +98,10 @@ export const analyticsClickListener =
         if (anchor) {
             const args = fn(anchor);
             if (args) {
-                const analyticsEvent = {
+                const analyticsEvent: AnalyticsEventArgs = {
                     context: param("context"),
                     pageType: param("pageType"),
-                    tema: param("pageTheme"),
+                    pageTheme: param("pageTheme"),
                     destinasjon: anchor.href,
                     kategori: args.kategori,
                     lenkegruppe: args.lenkegruppe,
