@@ -47,14 +47,15 @@ class Header extends HTMLElement {
                 event,
                 payload: { pageType, pageTheme, pageTitle, breadcrumbs },
             } = e.data;
-            if (
-                event === "params" &&
-                (pageType || pageTheme || pageTitle || breadcrumbs)
-            ) {
+            if (event === "params" && (pageType || pageTheme || pageTitle)) {
                 updateDecoratorParams({
                     pageTheme,
                     pageType,
                     pageTitle,
+                });
+            }
+            if (event === "params" && breadcrumbs) {
+                updateDecoratorParams({
                     breadcrumbs,
                 });
             }
