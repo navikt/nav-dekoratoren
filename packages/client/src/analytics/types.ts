@@ -13,6 +13,7 @@ export type AnalyticsEventArgs = {
     eventName?: string;
     context?: Context;
     pageType?: string;
+    pageTheme?: string;
     kategori?: AnalyticsKategori;
     destinasjon?: string;
     lenketekst?: string;

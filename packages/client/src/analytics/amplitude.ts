@@ -70,6 +70,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         eventName: optionalEventName,
         context,
         pageType,
+        pageTheme,
         kategori,
         destinasjon,
         lenketekst,
@@ -82,6 +83,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
         innholdstype: pageType,
+        tema: pageTheme,
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
@@ -117,7 +119,22 @@ const logEventFromApp = (params?: {
             );
         }
 
-        return logAmplitudeEvent(eventName, eventData, origin);
+        const decoratorParams = window.__DECORATOR_DATA__.params;
+
+        const nksParams =
+            origin === "crm-innboks"
+                ? {
+                      innholdstype: decoratorParams.pageType,
+                      sidetittel: decoratorParams.pageTitle || document.title,
+                      tema: decoratorParams.pageTheme,
+                  }
+                : {};
+
+        return logAmplitudeEvent(
+            eventName,
+            { ...nksParams, ...eventData },
+            origin,
+        );
     } catch (e) {
         return Promise.reject(`Unexpected Amplitude error: ${e}`);
     }
