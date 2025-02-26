@@ -206,16 +206,29 @@ export class WebStorageController {
         this.clearOptionalLocalAndSessionStorage(allOptionalStorage);
     }
 
+    private shouldDisableConsentBanner = (): boolean => {
+        const disabledPatterns = {
+            hostnames: ["oera.no", "cms-arkiv.ansatt", "siteimprove.com"],
+            userAgents: ["siteimprove.com"],
+        };
+
+        const hostnameMatched = disabledPatterns.hostnames.some((pattern) =>
+            window.location.hostname.includes(pattern),
+        );
+
+        const userAgentMatched = disabledPatterns.userAgents.some((pattern) =>
+            navigator.userAgent.includes(pattern),
+        );
+
+        return hostnameMatched || userAgentMatched;
+    };
+
     private checkAndTriggerConsentBanner() {
         const { userActionTaken, meta } = this.getCurrentConsent();
         const { version } = meta;
 
         // Don't show cookie banner for nav.no editors
-        if (
-            window.location.hostname.includes("oera.no") ||
-            window.location.hostname.includes("cms-arkiv.ansatt") ||
-            window.location.hostname.includes("siteimprove.com")
-        ) {
+        if (this.shouldDisableConsentBanner()) {
             return;
         }
 
