@@ -217,7 +217,7 @@ export class WebStorageController {
         );
 
         const userAgentMatched = disabledPatterns.userAgents.some((pattern) =>
-            navigator.userAgent.includes(pattern),
+            navigator.userAgent?.toLowerCase().includes(pattern),
         );
 
         return hostnameMatched || userAgentMatched;
