@@ -19,6 +19,7 @@ export const headers: MiddlewareHandler = async (c, next) => {
     await next();
 
     const origin = c.req.header("origin");
+    c.res.headers.delete("Date");
 
     if (isAllowedOrigin(origin)) {
         c.header("Access-Control-Allow-Origin", origin);
