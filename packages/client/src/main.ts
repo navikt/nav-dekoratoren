@@ -80,6 +80,7 @@ const init = () => {
 
     refreshAuthData();
 
+    window.dekoratorenIsReady = () => true;
     // Blir overskrevet dersom vi får ov til å starte Amplitude etter samtykke
     window.dekoratorenAmplitude = mockAmplitude;
 

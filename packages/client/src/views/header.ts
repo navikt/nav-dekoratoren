@@ -7,12 +7,6 @@ import { type ClientParams } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
 
-declare global {
-    interface Window {
-        dekoratorenIsReady(): true;
-    }
-}
-
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source, data } = message;
     return (
@@ -75,7 +69,6 @@ class Header extends HTMLElement {
 
         if (event === "ready") {
             window.postMessage({ source: "decorator", event: "ready" });
-            window.dekoratorenIsReady = () => true;
             return;
         }
 
