@@ -17,9 +17,9 @@ body {
     overflow-y: scroll;
 }
 
-@layer base, utilities;
+@layer d-base, d-utilities;
 
-@layer base {
+@layer d-base {
     #decorator-header,
     #decorator-footer {
         --edge-spacing: var(--a-spacing-4);
