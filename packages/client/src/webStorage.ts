@@ -16,18 +16,13 @@ export class WebStorageController {
     constructor() {
         this.initEventListeners();
         this.checkAndTriggerConsentBanner();
-
-        console.log("WebStorageController initialized");
     }
 
     // Default consent object ensures that nothing is allowed until user has
     // given and explicit consent.
     private buildDefaultConsent = () => {
         return {
-            consent: {
-                analytics: false,
-                surveys: false,
-            },
+            consent: { analytics: false, surveys: false },
             userActionTaken: false,
             meta: {
                 createdAt: new Date().toISOString(),
@@ -57,10 +52,7 @@ export class WebStorageController {
             this.getCurrentConsent() ?? this.buildDefaultConsent();
 
         return {
-            consent: {
-                analytics,
-                surveys,
-            },
+            consent: { analytics, surveys },
             userActionTaken: true,
             meta: {
                 createdAt:
@@ -146,11 +138,7 @@ export class WebStorageController {
                     ? ".nav.no"
                     : location.hostname;
 
-                Cookies.remove(cookie.name, {
-                    domain,
-                    path: "/",
-                    expires: 0,
-                });
+                Cookies.remove(cookie.name, { domain, path: "/", expires: 0 });
             });
         });
     }
