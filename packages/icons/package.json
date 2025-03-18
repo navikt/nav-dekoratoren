@@ -9,10 +9,10 @@
         "build": "bun run build-icons.ts"
     },
     "dependencies": {
-        "decorator-shared": "workspace:*"
+        "decorator-shared": "workspace:*",
+        "@navikt/aksel-icons": "7.17.1"
     },
     "devDependencies": {
-        "@navikt/aksel-icons": "7.17.1",
         "svgo": "3.3.2"
     }
 }
