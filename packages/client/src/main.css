@@ -46,7 +46,7 @@ body {
     @media (min-width: 1024px) {
         #decorator-header,
         #decorator-footer {
-            --edge-spacing: var(--a-spacing-10);
+            --edge-spacing: var(--a-spacing-12);
         }
     }
 }
