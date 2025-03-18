@@ -40,7 +40,6 @@ const injectHeadAssets = () => {
 };
 
 const startTrackingServices = () => {
-    console.log("Starting tracking services");
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
@@ -53,7 +52,6 @@ const startTrackingServices = () => {
 };
 
 const stopTrackingServices = () => {
-    console.log("Stopping tracking and survey services");
     stopHotjar();
 
     refreshAuthData().then((response) => {

@@ -20,7 +20,6 @@ const taFallback = (...args: any[]) => {
 };
 
 const startSurvey = (surveyId: string) => {
-    console.log(`Starting TA survey ${surveyId}`);
     window.TA("start", surveyId);
 };
 
