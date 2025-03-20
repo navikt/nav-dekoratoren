@@ -39,12 +39,9 @@ env:
   - name: PUZZEL_CUSTOMER_ID
     value: 83BD7664-B38B-4EEE-8D99-200669A32551
 ttlInternal: 168h
-replicas:
-  min: 2
-  max: 40
 resources:
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 400m
+    memory: 128Mi
   limits:
-    memory: 2048Mi
+    memory: 512Mi
