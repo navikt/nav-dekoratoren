@@ -1,4 +1,4 @@
-appName: nav-dekoratoren-dev
+appName: nav-dekoratoren
 ingresses:
   - https://dekoratoren.ekstern.dev.nav.no
 outboundHosts:
