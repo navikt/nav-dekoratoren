@@ -1,5 +1,4 @@
-appName: nav-dekoratoren
-appPath: ''
+appName: nav-dekoratoren-dev
 ingresses:
   - https://dekoratoren.ekstern.dev.nav.no
 outboundHosts:
@@ -43,12 +42,9 @@ env:
   - name: UMAMI_WEBSITE_ID
     value: c44a6db3-c974-4316-b433-214f87e80b4d
 ttlInternal: 1h
-replicas:
-  min: 1
-  max: 4
 resources:
   requests:
-    cpu: 100m
-    memory: 384Mi
+    cpu: 250m
+    memory: 256Mi
   limits:
-    memory: 1024Mi
+    memory: 512Mi
