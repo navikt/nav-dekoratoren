@@ -45,7 +45,7 @@ env:
 ttlInternal: 1h
 resources:
   requests:
-    cpu: 250m
-    memory: 256Mi
+    cpu: 200m
+    memory: 128Mi
   limits:
-    memory: 512Mi
+    memory: 384Mi
