@@ -16,6 +16,7 @@ export type AnalyticsEventArgs = {
     pageTheme?: string;
     kategori?: AnalyticsKategori;
     destinasjon?: string;
+    tekst?: string;
     lenketekst?: string;
     lenkegruppe?: string;
     komponent?: string;
