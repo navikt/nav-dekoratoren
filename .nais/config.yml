@@ -65,6 +65,7 @@ spec:
     - configmap: dekoratoren-version-authority-{{deployInstance}}
       mountPath: /app/version-authority
   replicas:
+    disableAutoScaling: true
   {{#with replicas}}
     min: {{min}}
     max: {{max}}
