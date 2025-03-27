@@ -66,7 +66,7 @@ export class ScreensharingModal extends HTMLElement {
         analyticsEvent({
             eventName: "modal åpnet",
             kategori: "dekorator-footer",
-            lenketekst: "Start skjermdeling",
+            tekst: "Start skjermdeling",
             komponent: "ScreensharingModal",
         });
     }
@@ -75,7 +75,7 @@ export class ScreensharingModal extends HTMLElement {
         analyticsEvent({
             eventName: "modal lukket",
             kategori: "dekorator-footer",
-            lenketekst: "Start skjermdeling",
+            tekst: "Start skjermdeling",
             komponent: "ScreensharingModal",
         });
     }
