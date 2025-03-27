@@ -111,6 +111,7 @@ export const analyticsClickListener =
                     kategori: args.kategori,
                     lenkegruppe: args.lenkegruppe,
                     lenketekst: args.lenketekst,
+                    tekst: args.tekst,
                     komponent: args.komponent,
                 };
                 amplitudeEvent(analyticsEvent);
