@@ -74,6 +74,7 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         kategori,
         destinasjon,
         lenketekst,
+        tekst,
         lenkegruppe,
         komponent,
     } = props;
@@ -87,8 +88,8 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         destinasjon,
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst: lenketekst,
-        tekst: lenketekst,
+        lenketekst,
+        tekst,
         lenkegruppe,
         komponent,
     });

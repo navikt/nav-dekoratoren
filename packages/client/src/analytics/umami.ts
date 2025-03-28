@@ -34,6 +34,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         kategori,
         destinasjon,
         lenketekst,
+        tekst,
         lenkegruppe,
         komponent,
     } = props;
@@ -47,6 +48,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
         lenketekst,
+        tekst,
         lenkegruppe,
         komponent,
     });
