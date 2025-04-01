@@ -14,6 +14,9 @@ on:
       DEPLOY_INTERNAL:
         required: false
         type: boolean
+      HPA_FILE:
+        required: false
+        type: string
     secrets:
       VARS_UPDATE_TOKEN:
         required: true
@@ -55,6 +58,14 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Deploy HPA
+        if: ${{ inputs.HPA_FILE }}
+        uses: nais/deploy/actions/deploy@v2
+        timeout-minutes: 1
+        continue-on-error: true
+        env:
+          CLUSTER: ${{ inputs.CLUSTER }}
+          RESOURCE: .nais/hpa/${{inputs.HPA_FILE}}
       - name: Deploy external app
         uses: nais/deploy/actions/deploy@v2
         env:

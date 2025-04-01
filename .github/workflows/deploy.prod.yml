@@ -28,6 +28,7 @@ jobs:
       CLUSTER: prod-gcp
       IMAGE: ${{ needs.build.outputs.IMAGE }}
       DEPLOY_INTERNAL: true
+      HPA_FILE: hpa-prod.yml
     secrets:
       VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
 
@@ -41,6 +42,7 @@ jobs:
       DEPLOY_INSTANCE: dev-stable
       CLUSTER: dev-gcp
       IMAGE: ${{ needs.build.outputs.IMAGE }}
+      HPA_FILE: hpa-dev-stable.yml
     secrets:
       VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
 
