@@ -25,7 +25,7 @@ const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
 
 const hotjarCom = "*.hotjar.com";
 const hotjarIo = "*.hotjar.io";
-const skyra = "survey.skyra.no";
+const skyra = "*.skyra.no";
 const taskAnalytics = "*.taskanalytics.com";
 const googleFonts = "*.googleapis.com";
 const googleFontsStatic = "*.gstatic.com";
@@ -69,6 +69,7 @@ const directives: Partial<CSPDirectives> = {
     "font-src": [
         vergicScreenSharing,
         hotjarCom,
+        skyra,
         cdnNavNo,
         googleFonts,
         googleFontsStatic,
@@ -80,6 +81,7 @@ const directives: Partial<CSPDirectives> = {
         vergicScreenSharing,
         vimeoCdn,
         hotjarCom,
+        skyra,
         vergicDotCom,
     ],
     "frame-src": [hotjarCom, vimeoPlayer, qbrick, navNo],
@@ -91,6 +93,7 @@ const directives: Partial<CSPDirectives> = {
         vergicScreenSharing,
         hotjarCom,
         hotjarIo,
+        skyra,
         taskAnalytics,
     ],
 };
