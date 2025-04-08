@@ -13,6 +13,7 @@ import { param, initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import "./main.css";
 import { initHotjar, stopHotjar } from "./analytics/hotjar";
+import { initSkyra, stopSkyra } from "./analytics/skyra";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -45,6 +46,7 @@ const startTrackingServices = () => {
     }
 
     initHotjar();
+    initSkyra();
 
     refreshAuthData().then((response) => {
         initAnalytics(response.auth);
@@ -53,6 +55,7 @@ const startTrackingServices = () => {
 
 const stopTrackingServices = () => {
     stopHotjar();
+    stopSkyra();
 
     refreshAuthData().then((response) => {
         stopAnalytics(response.auth);
