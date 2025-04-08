@@ -10,19 +10,19 @@ export const initSkyra = () => {
 };
 
 export const stopSkyra = () => {
-    if (typeof window.skyra !== "undefined") {
-        // Disable tracking by Hotjar
-        window.hj("trigger", "stop_tracking");
-        window.hj("clearSession");
+    if (typeof window.skyra?.controller?.stop !== "function") {
+        // Disable surveys by Skyra
+        window.skyra.controller.stop();
     }
 
-    // Remove Hotjar script from the DOM
+    // Remove Skyra script from DOM
     const skyraScript = document.querySelector('script[src*="skyra"]');
 
     if (skyraScript) {
         skyraScript.remove();
     }
 
+    // Remove Skyra object from window
     if (typeof window.skyra === "object") {
         delete window.skyra;
     }
