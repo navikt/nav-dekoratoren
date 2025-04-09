@@ -25,7 +25,7 @@ const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
 
 const hotjarCom = "*.hotjar.com";
 const hotjarIo = "*.hotjar.io";
-const skyra = "*.skyra.no";
+const skyra = "survey.skyra.no";
 const taskAnalytics = "*.taskanalytics.com";
 const googleFonts = "*.googleapis.com";
 const googleFontsStatic = "*.gstatic.com";
