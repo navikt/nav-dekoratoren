@@ -6,6 +6,7 @@ export const initSkyra = () => {
         window.skyra.start({
             org: "arbeids-og-velferdsetaten-nav",
         });
+        window.skyra.setConsent(true);
     };
     document.body.appendChild(script);
 };
@@ -13,7 +14,7 @@ export const initSkyra = () => {
 export const stopSkyra = () => {
     if (typeof window.skyra?.controller?.stop === "function") {
         // Disable surveys by Skyra
-        window.skyra.controller.stop();
+        window.skyra.setConsent(false);
     }
 
     // Remove Skyra script from DOM
