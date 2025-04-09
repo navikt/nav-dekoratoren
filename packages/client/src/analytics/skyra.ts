@@ -16,7 +16,9 @@ export const stopSkyra = () => {
     }
 
     // Remove Skyra script from DOM
-    const skyraScript = document.querySelector('script[src*="skyra"]');
+    const skyraScript = document.querySelector(
+        'script[src*="skyra-survey.js"]',
+    );
 
     if (skyraScript) {
         skyraScript.remove();
