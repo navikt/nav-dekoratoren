@@ -19,6 +19,8 @@ declare global {
         hjBootstrapCalled: any;
         hjLazyModules: any;
         hjSiteSettings: any;
+        skyra: any;
+        skyraSurvey: any;
         dataLayer: any;
         boostInit?: (env: string, config: BoostConfig) => BoostClient;
         vngage: {
