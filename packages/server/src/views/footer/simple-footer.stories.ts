@@ -9,7 +9,7 @@ const meta: Meta<SimpleFooterProps> = {
             features: {
                 "dekoratoren.skjermdeling": true,
                 "dekoratoren.chatbotscript": false,
-                "dekoratoren.umami": false,
+                "dekoratoren.umami": true,
             },
             links:
                 context.globals.locale === "en"
