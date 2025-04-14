@@ -38,6 +38,8 @@ env:
     value: "nav"
   - name: PUZZEL_CUSTOMER_ID
     value: 83BD7664-B38B-4EEE-8D99-200669A32551
+  - name: UMAMI_WEBSITE_ID
+    value: 35abb2b7-3f97-42ce-931b-cf547d40d967
 ttlInternal: 168h
 resources:
   requests:
