@@ -14,7 +14,7 @@ if (env.NODE_ENV === "production" && !isLocalhost()) {
 const defaultFeatures = {
     "dekoratoren.skjermdeling": true,
     "dekoratoren.chatbotscript": true,
-    "dekoratoren.umami": false,
+    "dekoratoren.umami": true,
 };
 
 // TODO: Features should be loaded on the client to avoid caching.
