@@ -11,10 +11,10 @@ import clsx from "clsx";
 
 export const ComplexFooter = ({
     links,
-    features,
+    shareScreen,
 }: {
     links: LinkGroup[];
-    features: Features;
+    shareScreen: boolean;
 }) => html`
     <footer class="${cls.footer}" data-theme="dark">
         <div class="${cls.footerContent} ${utils.contentContainer}">
@@ -62,7 +62,7 @@ export const ComplexFooter = ({
                         </li>
                     `,
                 )}
-                ${features["dekoratoren.skjermdeling"] &&
+                ${shareScreen &&
                 html`<li>${ScreenshareButton(i18n("share_screen"))}</li>`}
             </ul>
             <div class="${cls.complexFooterOrg}">
