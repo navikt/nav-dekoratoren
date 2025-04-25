@@ -3,7 +3,7 @@ import cls from "decorator-client/src/styles/complex-footer.module.css";
 import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowUpIcon } from "decorator-icons";
 import html from "decorator-shared/html";
-import { Features, LinkGroup } from "decorator-shared/types";
+import { LinkGroup } from "decorator-shared/types";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { ScreenshareButton } from "./screenshare-button";
@@ -11,10 +11,10 @@ import clsx from "clsx";
 
 export const ComplexFooter = ({
     links,
-    features,
+    shareScreen,
 }: {
     links: LinkGroup[];
-    features: Features;
+    shareScreen: boolean;
 }) => html`
     <footer class="${cls.footer}" data-theme="dark">
         <div class="${cls.footerContent} ${utils.contentContainer}">
@@ -62,7 +62,7 @@ export const ComplexFooter = ({
                         </li>
                     `,
                 )}
-                ${features["dekoratoren.skjermdeling"] &&
+                ${shareScreen &&
                 html`<li>${ScreenshareButton(i18n("share_screen"))}</li>`}
             </ul>
             <div class="${cls.complexFooterOrg}">

@@ -40,14 +40,14 @@ export const FooterTemplate = async ({
                   links: await getSimpleFooterLinks({
                       language,
                   }),
-                  features,
+                  shareScreen,
               })
             : ComplexFooter({
                   links: await getComplexFooterLinks({
                       language,
                       context,
                   }),
-                  features,
+                  shareScreen,
               })}
     `;
 
