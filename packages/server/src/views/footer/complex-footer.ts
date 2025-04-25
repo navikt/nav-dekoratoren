@@ -3,7 +3,7 @@ import cls from "decorator-client/src/styles/complex-footer.module.css";
 import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowUpIcon } from "decorator-icons";
 import html from "decorator-shared/html";
-import { Features, LinkGroup } from "decorator-shared/types";
+import { LinkGroup } from "decorator-shared/types";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { ScreenshareButton } from "./screenshare-button";
