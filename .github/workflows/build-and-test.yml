@@ -65,8 +65,6 @@ jobs:
           team: personbruker
           source: "./packages/server/public"
           destination: "/decorator-next"
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
         if: inputs.TEST_ONLY != true
@@ -74,8 +72,6 @@ jobs:
         with:
           team: personbruker
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          image_suffix: ${{ inputs.IMAGE_SUFFIX }}
           tag: ${{ inputs.TAG_LATEST && 'latest' || '' }}
           #         Build the latest image to arm64 as well, to enable usage on arm mac developer machines
           platforms: linux/amd64${{ inputs.TAG_LATEST && ',linux/arm64' || '' }}
