@@ -64,7 +64,7 @@ jobs:
           source: "./packages/server/public"
           destination: "/decorator-next"
       - name: Prune deps
-        run: bun remove --omit=dev
+        run: bun install --omit=dev
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
         if: inputs.TEST_ONLY != true
