@@ -14,19 +14,19 @@
     },
     "dependencies": {
         "@hono/prometheus": "^1.0.1",
-        "csp-header": "6.0.1",
+        "csp-header": "6.1.0",
         "decorator-client": "workspace:*",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.7.4",
-        "ts-pattern": "5.6.2",
+        "hono": "4.7.8",
+        "ts-pattern": "5.7.0",
         "unleash-client": "6.6.0"
     },
     "dependencyComments": {
         "msw": "2.4.3: There's an issue with bun and any versions higher than 2.4.3 for now. Keeping the version, possibly removing bun or mocking in future."
     },
     "devDependencies": {
-        "@types/bun": "1.2.4",
+        "@types/bun": "1.2.11",
         "msw": "2.4.3",
         "postcss": "8.5.3",
         "postcss-modules": "6.0.1",
