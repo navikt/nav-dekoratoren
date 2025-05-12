@@ -53,9 +53,12 @@ export const ConsentBanner = () => html`
                 <p class="${cls.text}">
                     ${i18n("consent_banner_change_consent")}
                 </p>
-                <div class="${cls.text}">
+                <p class="${cls.text}">
                     ${i18n("consent_banner_additional_cookies_info")}
-                </div>
+                    <a href="/informasjonskapsler">
+                        ${i18n("consent_banner_additional_cookies_link")}
+                    </a>
+                </p>
             </div>
         </section>
     </consent-banner>

@@ -18,7 +18,9 @@ export const nb = {
     consent_banner_about_cookies: "Om informasjonskapsler",
     consent_banner_change_consent:
         "Du kan når som helst endre samtykket ditt via lenken i bunnmenyen.",
-    consent_banner_additional_cookies_info: `<p>Vi har også nødvendige informasjonskapsler, som ikke velges bort. <a href="/informasjonskapsler">Om informasjonskapslene våre.</a><p>`,
+    consent_banner_additional_cookies_info:
+        "Vi har også nødvendige informasjonskapsler, som ikke velges bort.",
+    consent_banner_additional_cookies_link: "Om informasjonskapslene våre.",
     consent_banner_minimized:
         "Velg hvilke informasjons&shy;kapsler Nav kan bruke.",
     clear: "Tøm",
@@ -129,7 +131,9 @@ const en: Texts = {
     consent_banner_refuse_optional: "No",
     consent_banner_change_consent:
         "You can  change your consent at any time through the link in the footer menu.",
-    consent_banner_additional_cookies_info: `<p>We also use essential cookies that you cannot opt out of. <a href="/informasjonskapsler">About our cookies.</a><p>`,
+    consent_banner_additional_cookies_info:
+        "We also use essential cookies that you cannot opt out of.",
+    consent_banner_additional_cookies_link: "About our cookies.",
     consent_banner_about_cookies: "About cookies",
     consent_banner_minimized: "Choose which cookies Nav can use.",
     close: "Close",
