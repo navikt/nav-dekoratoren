@@ -100,8 +100,8 @@
     color: var(--a-blue-500);
     cursor: pointer;
     font-size: var(--a-font-size-large);
-    padding: var(--a-spacing-3)
-        clamp(var(--a-spacing-4), 10vw, var(--a-spacing-14));
+    flex: 1;
+    max-width: 8rem;
 }
 
 .button:focus-visible {
