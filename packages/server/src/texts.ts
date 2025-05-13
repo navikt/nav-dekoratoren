@@ -19,7 +19,7 @@ export const nb = {
     consent_banner_change_consent:
         "Du kan når som helst endre samtykket ditt via lenken i bunnmenyen.",
     consent_banner_additional_cookies_info:
-        "Vi har også nødvendige informasjonskapsler, som ikke velges bort.",
+        "Vi har også nødvendige informasjonskapsler, som ikke kan velges bort.",
     consent_banner_additional_cookies_link: "Om informasjonskapslene våre.",
     consent_banner_minimized:
         "Velg hvilke informasjons&shy;kapsler Nav kan bruke.",
