@@ -12,7 +12,7 @@ export const nb = {
     search_nav_no: "Søk på nav.no",
     consent_banner_title: "Får vi bruke valgfrie informasjon&shy;skapsler?",
     consent_banner_text:
-        "Hvis du svarer ja, bruker vi informasjons­­kapsler og lignende teknologi til statistikk, analyse, spørreundersøkelser og bruker­-tester. Målet er å forstå hvordan du og andre bruker nav.no, slik at vi kan forbedre nettsidene og tjenestene våre.",
+        "Hvis du svarer ja, bruker vi informasjons­­kapsler og lignende teknologi til statistikk, analyse, spørreundersøkelser og bruker­tester. Målet er å forstå hvordan du og andre bruker nav.no, slik at vi kan forbedre nettsidene og tjenestene våre.",
     consent_banner_consent_all: "Ja",
     consent_banner_refuse_optional: "Nei",
     consent_banner_about_cookies: "Om informasjonskapsler",
