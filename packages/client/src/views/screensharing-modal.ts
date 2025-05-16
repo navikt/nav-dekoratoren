@@ -6,21 +6,21 @@ import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
 
-let hasBeenOpened = false;
+let scriptHasLoaded = false;
 
 const loadScript = () =>
     loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
 
-function lazyLoadScreensharing(callback: () => void) {
+function lazyLoadScreensharing(openModal: () => void) {
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
-    if (!enabled || hasBeenOpened) {
-        callback();
+    if (!enabled || scriptHasLoaded) {
+        openModal();
         return;
     }
 
@@ -33,8 +33,8 @@ function lazyLoadScreensharing(callback: () => void) {
         window.vngage.subscribe("app.ready", (message, data) => {
             console.log("Screensharing app ready", message, data);
 
-            hasBeenOpened = true;
-            callback();
+            scriptHasLoaded = true;
+            openModal();
         });
     });
 }

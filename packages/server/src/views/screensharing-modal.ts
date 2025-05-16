@@ -82,6 +82,7 @@ const ScreensharingEnabled = () => {
     });
 };
 
+// Vises hvis unleash er skrudd av, men skrudd på i features.
 const ScreensharingDisabledModal = () => {
     return ScreensharingModal({
         status: "disabled",
