@@ -1,4 +1,5 @@
 export const initSkyra = () => {
+    window.SKYRA_CONFIG = { org: "arbeids-og-velferdsetaten-nav" };
     const script = document.createElement("script");
     script.src = "https://survey.skyra.no/skyra-survey.js";
     script.async = true;

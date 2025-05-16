@@ -20,6 +20,9 @@ declare global {
         hjLazyModules: any;
         hjSiteSettings: any;
         skyra: any;
+        SKYRA_CONFIG: {
+            org: string;
+        };
         skyraSurvey: any;
         dataLayer: any;
         boostInit?: (env: string, config: BoostConfig) => BoostClient;
