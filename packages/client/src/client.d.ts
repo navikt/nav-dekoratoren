@@ -22,6 +22,7 @@ declare global {
         skyra: any;
         SKYRA_CONFIG: {
             org: string;
+            cookieConsent: boolean;
         };
         skyraSurvey: any;
         dataLayer: any;
