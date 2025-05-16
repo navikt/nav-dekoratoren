@@ -3,12 +3,10 @@ export const initSkyra = () => {
         org: "arbeids-og-velferdsetaten-nav",
         cookieConsent: true,
     };
+
     const script = document.createElement("script");
     script.src = "https://survey.skyra.no/skyra-survey.js";
     script.async = true;
-    script.onload = function () {
-        window.skyra.setConsent(true);
-    };
     document.body.appendChild(script);
 };
 
