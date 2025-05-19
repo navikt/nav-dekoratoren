@@ -58,7 +58,7 @@ export const HeaderTemplate = async ({
     return withContainers
         ? html`
               <header id="decorator-header">
-                  ${ConsentBanner()}
+                  ${ConsentBanner({ language })}
                   <decorator-header>${headerContent}</decorator-header>
               </header>
           `
