@@ -284,9 +284,11 @@ If the user has not given consent to tracking and analytics, Amplitude will not 
 
 The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Amplitude logging. Please refer to the README for documentation and getting started guides.
 
-### 4.8 Surveys using Skyra 📋
+### 4.8 Surveys using Task Analytics and Skyra 📋
 
-Skyra is used to conduct surveys on nav.no. (This is a replacement for Task Analytics, which will be discontinued in june 2025.) Dekoratøren will load the required Skyra scripts, but only if the user has given consent to surveys. For now, other aspects of your survey (URLs, dates etc) are controlled in your Skyra Dashboard. You can find [more information about Skyra here](https://www.skyra.no/no). Your surveys should display automatically when properly set up in your Skyra dashboard.
+Task Analytics and Skyra are used to conduct surveys on nav.no. Dekoratøren will load the required scripts for both services, but only if the user has given consent to surveys. Task Analytics surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Personbruker for more information.
+
+For Skyra, all surveys are controlled in your dashboard. You can find [more information about Skyra here](https://www.skyra.no/no). Your surveys should display automatically when properly configured in your Skyra dashboard.
 
 ### 4.9 Skip-link to main content 🔗
 
