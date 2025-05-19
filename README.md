@@ -88,7 +88,7 @@ The Decorator is served through both service hosts and regular ingresses. If you
 | `beta`      | http://nav-dekoratoren-beta.personbruker     | https://dekoratoren-beta.intern.dev.nav.no     |
 | `beta-tms`  | http://nav-dekoratoren-beta-tms.personbruker | https://dekoratoren-beta-tms.intern.dev.nav.no |
 
-**Note:** The beta instances of the Decorator are intended for internal testing by Team Personbruker. These instances may be unstable for extended periods.
+**Note:** The beta instances of the Decorator are intended for internal testing by Team Nav.no or Team Minside. These instances may be unstable for extended periods.
 
 ---
 
@@ -286,7 +286,7 @@ The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratore
 
 ### 4.8 Surveys using Task Analytics and Skyra 📋
 
-Task Analytics and Skyra are used to conduct surveys on nav.no. Dekoratøren will load the required scripts for both services, but only if the user has given consent to surveys. Task Analytics surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Personbruker for more information.
+Task Analytics and Skyra are used to conduct surveys on nav.no. Dekoratøren will load the required scripts for both services, but only if the user has given consent to surveys. Task Analytics surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Nav.no for more information.
 
 For Skyra, all surveys are controlled in your dashboard. You can find [more information about Skyra here](https://www.skyra.no/no). Your surveys should display automatically when properly configured in your Skyra dashboard.
 
