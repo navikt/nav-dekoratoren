@@ -11,7 +11,7 @@ type ConsentBannerProps = {
 };
 
 export const ConsentBanner = ({ language }: ConsentBannerProps) => {
-    const languageSuffix = language === "nb" ? "" : `/${language}`;
+    const languageSuffix = language === "en" ? `/${language}` : "";
     const moreUrl = `/informasjonskapsler${languageSuffix}`;
 
     return html`
