@@ -21,6 +21,10 @@ export const stopSkyra = () => {
         'script[src*="skyra-survey.js"]',
     );
 
+    if (window.SKYRA_CONFIG) {
+        delete window.SKYRA_CONFIG;
+    }
+
     if (skyraScript) {
         skyraScript.remove();
     }

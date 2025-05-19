@@ -20,7 +20,7 @@ declare global {
         hjLazyModules: any;
         hjSiteSettings: any;
         skyra: any;
-        SKYRA_CONFIG: {
+        SKYRA_CONFIG?: {
             org: string;
             cookieConsent: boolean;
         };
