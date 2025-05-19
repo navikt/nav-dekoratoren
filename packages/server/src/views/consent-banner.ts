@@ -12,7 +12,7 @@ type ConsentBannerProps = {
 
 export const ConsentBanner = ({ language }: ConsentBannerProps) => {
     const languageSuffix = language === "nb" ? "" : `/${language}`;
-    const moreUrl = `https://www.nav.no/informasjonskapsler${languageSuffix}`;
+    const moreUrl = `/informasjonskapsler${languageSuffix}`;
 
     return html`
         <consent-banner>
