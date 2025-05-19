@@ -109,3 +109,7 @@
         inset 0 0 0 2px var(--a-border-action),
         var(--a-shadow-focus);
 }
+
+.moreLink {
+    white-space: nowrap;
+}
