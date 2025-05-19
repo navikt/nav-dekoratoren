@@ -19,7 +19,11 @@ declare global {
         hjBootstrapCalled: any;
         hjLazyModules: any;
         hjSiteSettings: any;
-        skyra: any;
+        skyra?: any;
+        SKYRA_CONFIG?: {
+            org: string;
+            cookieConsent: boolean;
+        };
         skyraSurvey: any;
         dataLayer: any;
         boostInit?: (env: string, config: BoostConfig) => BoostClient;
