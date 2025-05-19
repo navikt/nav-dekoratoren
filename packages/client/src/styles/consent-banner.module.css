@@ -62,15 +62,10 @@
     margin: 2rem;
 }
 
-.column {
-    display: flex;
-    flex-direction: column;
-}
-
 .title {
     font-size: var(--a-font-size-heading-medium);
     font-weight: bold;
-    margin: 0 0 var(--a-spacing-4) 0;
+    margin-bottom: var(--a-spacing-4);
     color: var(--a-surface-default);
     text-wrap: pretty;
 }
@@ -78,7 +73,7 @@
 .text {
     font-size: var(--a-font-size-large);
     line-height: 1.5;
-    margin: 0 var(--a-spacing-8) var(--a-spacing-8) 0;
+    margin-bottom: var(--a-spacing-8);
     color: var(--a-surface-default);
 }
 
@@ -96,13 +91,7 @@
     justify-content: flex-start;
     gap: var(--a-spacing-4);
     align-items: center;
-
-    @media screen and (max-width: 768px) {
-        flex-direction: column;
-        > * {
-            width: 100%;
-        }
-    }
+    margin-bottom: var(--a-spacing-3);
 }
 
 .button,
@@ -111,7 +100,8 @@
     color: var(--a-blue-500);
     cursor: pointer;
     font-size: var(--a-font-size-large);
-    margin: 0;
+    flex: 1;
+    max-width: 8rem;
 }
 
 .button:focus-visible {
