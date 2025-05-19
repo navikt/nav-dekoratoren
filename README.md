@@ -88,7 +88,7 @@ The Decorator is served through both service hosts and regular ingresses. If you
 | `beta`      | http://nav-dekoratoren-beta.personbruker     | https://dekoratoren-beta.intern.dev.nav.no     |
 | `beta-tms`  | http://nav-dekoratoren-beta-tms.personbruker | https://dekoratoren-beta-tms.intern.dev.nav.no |
 
-**Note:** The beta instances of the Decorator are intended for internal testing by Team Nav.no or Team Minside. These instances may be unstable for extended periods.
+**Note:** The beta instances of the Decorator are intended for internal testing by Team Nav.no or Team Min side. These instances may be unstable for extended periods.
 
 ---
 
