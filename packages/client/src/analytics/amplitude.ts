@@ -1,10 +1,8 @@
 import { buildLocationString } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
-// Dynamic import for lazy loading
-const importAmplitude = () => {
-    const libName = "@amplitude/analytics-browser";
-    return import(libName);
+const importAmplitude = async () => {
+    return await import(/* @vite-ignore */ "@amplitude/analytics-browser");
 };
 
 declare global {
