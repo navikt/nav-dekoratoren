@@ -31,6 +31,7 @@ const getApiKey = () => {
 
 export const initAmplitude = async () => {
     const amplitude = await importAmplitude();
+    console.log(`Initializing Amplitude`);
 
     amplitude.identify(
         new amplitude.Identify()
