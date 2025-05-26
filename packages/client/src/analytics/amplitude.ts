@@ -2,7 +2,10 @@ import { buildLocationString } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 // Dynamic import for lazy loading
-const importAmplitude = () => import("@amplitude/analytics-browser");
+const importAmplitude = () => {
+    const libName = "@amplitude/analytics-browser";
+    return import(libName);
+};
 
 declare global {
     interface Window {
