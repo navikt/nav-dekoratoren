@@ -27,6 +27,10 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: nodejs
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
