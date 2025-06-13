@@ -14,6 +14,7 @@ export type CustomEvents = {
     historyPush: void;
     consentAllWebStorage: void;
     refuseOptionalWebStorage: void;
+    recheckConsentBanner: void;
     showConsentBanner: void;
     scrollTo: {
         top?: number;

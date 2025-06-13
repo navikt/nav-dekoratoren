@@ -113,6 +113,11 @@ export class WebStorageController {
 
     private initEventListeners() {
         window.addEventListener(
+            "recheckConsentBanner",
+            this.checkAndTriggerConsentBanner,
+        );
+
+        window.addEventListener(
             "consentAllWebStorage",
             this.consentAllStorageHandler,
         );
@@ -280,6 +285,11 @@ export class WebStorageController {
 
     // Cleanup when no longer needed
     destroy() {
+        window.removeEventListener(
+            "recheckConsentBanner",
+            this.checkAndTriggerConsentBanner,
+        );
+
         window.removeEventListener(
             "consentAllWebStorage",
             this.consentAllStorageHandler,
