@@ -217,8 +217,9 @@ export class WebStorageController {
     };
 
     private checkAndTriggerConsentBanner() {
-        const { userActionTaken, meta } =
-            this.getCurrentConsent() || this.buildDefaultConsent();
+        const { userActionTaken, meta } = this.getCurrentConsent
+            ? this.getCurrentConsent()
+            : this.buildDefaultConsent();
         const { version } = meta;
 
         // Don't show cookie banner for nav.no editors
