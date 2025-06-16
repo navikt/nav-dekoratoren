@@ -90,11 +90,9 @@ class Header extends HTMLElement {
             .then((header) => (this.innerHTML = header))
             .then(() => refreshAuthData())
             .then(() =>
-                setTimeout(() => {
-                    this.dispatchEvent(
-                        new Event("recheckConsentBanner", { bubbles: true }),
-                    );
-                }, 1000),
+                this.dispatchEvent(
+                    new Event("recheckConsentBanner", { bubbles: true }),
+                ),
             );
     };
 
