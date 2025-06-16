@@ -114,7 +114,7 @@ export class WebStorageController {
     private initEventListeners() {
         window.addEventListener(
             "recheckConsentBanner",
-            this.checkAndTriggerConsentBanner,
+            this.checkAndTriggerConsentBanner.bind(this),
         );
 
         window.addEventListener(
