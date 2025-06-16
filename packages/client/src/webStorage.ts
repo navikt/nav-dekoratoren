@@ -114,7 +114,7 @@ export class WebStorageController {
     private initEventListeners() {
         window.addEventListener(
             "recheckConsentBanner",
-            this.checkAndTriggerConsentBanner.bind(this),
+            this.checkAndTriggerConsentBanner,
         );
 
         window.addEventListener(
@@ -216,7 +216,7 @@ export class WebStorageController {
         return hostnameMatched || userAgentMatched;
     };
 
-    private checkAndTriggerConsentBanner() {
+    private checkAndTriggerConsentBanner = () => {
         const { userActionTaken, meta } = this.getCurrentConsent
             ? this.getCurrentConsent()
             : this.buildDefaultConsent();
@@ -238,7 +238,7 @@ export class WebStorageController {
             this.clearOptionalStorage();
             this.showConsentBanner();
         }
-    }
+    };
 
     /* -----------------------------------------------------------------------
      * Public methods
