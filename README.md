@@ -2,11 +2,11 @@
 
 ## Table of Contents
 
--   [Table of Contents](#table-of-contents)
--   [About the Decorator](#about-the-decorator)
--   [How to use the Decorator in your application](#how-to-use-the-decorator-in-your-application)
--   [Configuring the Decorator to your needs](#configuring-the-decorator-to-your-needs)
--   [Other built-in features](#other-built-in-features)
+- [Table of Contents](#table-of-contents)
+- [About the Decorator](#about-the-decorator)
+- [How to use the Decorator in your application](#how-to-use-the-decorator-in-your-application)
+- [Configuring the Decorator to your needs](#configuring-the-decorator-to-your-needs)
+- [Other built-in features](#other-built-in-features)
 
 ## 1. About the Decorator ℹ️
 
@@ -88,7 +88,7 @@ The Decorator is served through both service hosts and regular ingresses. If you
 | `beta`      | http://nav-dekoratoren-beta.personbruker     | https://dekoratoren-beta.intern.dev.nav.no     |
 | `beta-tms`  | http://nav-dekoratoren-beta-tms.personbruker | https://dekoratoren-beta-tms.intern.dev.nav.no |
 
-**Note:** The beta instances of the Decorator are intended for internal testing by Team Personbruker. These instances may be unstable for extended periods.
+**Note:** The beta instances of the Decorator are intended for internal testing by Team Nav.no or Team Min side. These instances may be unstable for extended periods.
 
 ---
 
@@ -230,9 +230,9 @@ The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratore
 
 The user interface (header, menu, footer, etc.) supports three languages:
 
--   Norsk bokmål
--   English
--   Sami (partial)
+- Norsk bokmål
+- English
+- Sami (partial)
 
 You can provide `availableLanguages` to populate the language selector (`språkvelger`), depending on how many languages your application supports (see the section for parameters). However, the actual UI in the header and footer will only be displayed in one of the three languages mentioned above.
 
@@ -260,13 +260,13 @@ The logoout warning is activated by default. You can disable this feature by set
 
 You can find out more about tokens in the [NAIS documentation](https://docs.nais.io/auth/). Below is a summary, explaining how the logout warning behaves:
 
--   Tokens are valid for 60 minutes if not refreshed.
--   Session is valid for 6 hours and cannot be refreshed, ie the user has to log out and then back in.
--   5 minutes before token is set to expire, the user is presented with options to either continue being logged in or log out immediately.
--   These renewals extend the session by an additional 60 minutes.
--   After another 55 minutes, the user will be presented with the logout warning again.
--   After a total of 6 hours (session expiration) of being logged in, the user is required to log in again.
--   Currently, the user is presented with the logout warning regardless of activity.
+- Tokens are valid for 60 minutes if not refreshed.
+- Session is valid for 6 hours and cannot be refreshed, ie the user has to log out and then back in.
+- 5 minutes before token is set to expire, the user is presented with options to either continue being logged in or log out immediately.
+- These renewals extend the session by an additional 60 minutes.
+- After another 55 minutes, the user will be presented with the logout warning again.
+- After a total of 6 hours (session expiration) of being logged in, the user is required to log in again.
+- Currently, the user is presented with the logout warning regardless of activity.
 
 ### 4.7 Analytics with Amplitude 📊
 
@@ -284,9 +284,11 @@ If the user has not given consent to tracking and analytics, Amplitude will not 
 
 The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Amplitude logging. Please refer to the README for documentation and getting started guides.
 
-### 4.8 Surveys with Task Analytics 📋
+### 4.8 Surveys using Task Analytics and Skyra 📋
 
-Surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Personbruker for more information. Note that Task Analytics will not start if user has not given consent.
+Task Analytics and Skyra are used to conduct surveys on nav.no. Dekoratøren will load the required scripts for both services, but only if the user has given consent to surveys. Task Analytics surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Nav.no for more information.
+
+For Skyra, all surveys are controlled in your dashboard. You can find [more information about Skyra here](https://www.skyra.no/no). Your surveys should display automatically when properly configured in your Skyra dashboard.
 
 ### 4.9 Skip-link to main content 🔗
 
@@ -300,6 +302,6 @@ Example:
 
 ### 4.10 Consent banner 👌
 
-Users will be presented with a consent banner asking for consent for tracking and analytics. This affects all types of storage (cookies, localStorage, sessionStorage) on the users device. If the user does not consent, only required ("strictly neccessary") storage is allowed. This means that Amplitude, Hotjar, Task Analytics etc will not start.
+Users will be presented with a consent banner asking for consent for tracking and analytics. This affects all types of storage (cookies, localStorage, sessionStorage) on the users device. If the user does not consent, only required ("strictly neccessary") storage is allowed. This means that Amplitude, Hotjar, Skyra etc will not start.
 
 The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for checking for current user consent. It also provides helper functions for setting and reading cookies, which ensures that only allowed cookies can be set.
