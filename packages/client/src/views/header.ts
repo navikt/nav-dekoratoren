@@ -1,11 +1,12 @@
 import { endpointUrlWithParams } from "../helpers/urls";
+import { type ClientParams } from "decorator-shared/params";
 import { env, param, updateDecoratorParams } from "../params";
-import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
-import { type ClientParams } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
+
+import cls from "../styles/header.module.css";
 
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source, data } = message;
@@ -36,6 +37,8 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "redirectOnUserChange",
     "pageType",
     "pageTheme",
+    "simple",
+    "simpleHeader",
 ] as const;
 
 class Header extends HTMLElement {
@@ -94,13 +97,12 @@ class Header extends HTMLElement {
     private handleParamsUpdated = (
         e: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        const { context, language } = e.detail.params;
+        const { context, language, simple, simpleHeader } = e.detail.params;
 
-        if (language) {
+        if (language || simple || simpleHeader) {
             this.refreshHeader();
             return;
         }
-
         if (context) {
             refreshAuthData();
         }

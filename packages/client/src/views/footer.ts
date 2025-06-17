@@ -1,17 +1,47 @@
+import type { ClientParams } from "decorator-shared/params";
+import { updateDecoratorParams } from "../params";
 import { analyticsClickListener } from "../analytics/analytics";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
+const paramsUpdatesToHandle: Array<keyof ClientParams> = [
+    "simple",
+    "simpleFooter",
+] as const;
+
 class Footer extends HTMLElement {
+    private handleMessage = (e: MessageEvent) => {
+        const { event, payload } = e.data;
+        if (event == "params") {
+            paramsUpdatesToHandle.forEach((key) => {
+                if (payload[key] !== undefined) {
+                    // TODO: validation
+                    updateDecoratorParams({
+                        [key]: payload[key],
+                    });
+                }
+            });
+        }
+    };
+
+    private refreshFooter = () => {
+        fetch(endpointUrlWithParams("/footer"))
+            .then((res) => res.text())
+            .then((footer) => (this.innerHTML = footer));
+    };
+
     handleParamsUpdated = (e: CustomEvent) => {
+        const { context, language, feedback, simple, simpleFooter } =
+            e.detail.params;
+
         if (
-            e.detail.params.language ||
-            e.detail.params.context ||
-            e.detail.params.feedback !== undefined
+            simple ||
+            simpleFooter ||
+            language ||
+            context ||
+            feedback !== undefined
         ) {
-            fetch(endpointUrlWithParams("/footer"))
-                .then((res) => res.text())
-                .then((footer) => (this.innerHTML = footer));
+            this.refreshFooter();
         }
     };
 
@@ -25,11 +55,12 @@ class Footer extends HTMLElement {
                 lenketekst: anchor.innerText ?? undefined,
             })),
         );
-
+        window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
     }
 
     disconnectedCallback() {
+        window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
     }
 }
