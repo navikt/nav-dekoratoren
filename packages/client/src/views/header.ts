@@ -99,7 +99,10 @@ class Header extends HTMLElement {
     ) => {
         const { context, language, simple, simpleHeader } = e.detail.params;
 
-        if (language || simple || simpleHeader) {
+        const isSimpleChange = typeof simple === "boolean";
+        const isSimpleHeaderChange = typeof simpleHeader === "boolean";
+
+        if (language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
             return;
         }

@@ -31,12 +31,16 @@ class Footer extends HTMLElement {
     };
 
     handleParamsUpdated = (e: CustomEvent) => {
+        console.log(e.detail.params);
         const { context, language, feedback, simple, simpleFooter } =
             e.detail.params;
 
+        const isSimpleChange = typeof simple === "boolean";
+        const isSimpleFooterChange = typeof simpleFooter === "boolean";
+
         if (
-            simple ||
-            simpleFooter ||
+            isSimpleChange ||
+            isSimpleFooterChange ||
             language ||
             context ||
             feedback !== undefined
