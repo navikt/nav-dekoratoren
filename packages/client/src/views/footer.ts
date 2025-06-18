@@ -5,12 +5,13 @@ import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
+    "feedback",
     "simple",
     "simpleFooter",
 ] as const;
 
 class Footer extends HTMLElement {
-    private handleMessage = (e: MessageEvent) => {
+    private readonly handleMessage = (e: MessageEvent) => {
         const { event, payload } = e.data;
         if (event == "params") {
             paramsUpdatesToHandle.forEach((key) => {
@@ -24,26 +25,25 @@ class Footer extends HTMLElement {
         }
     };
 
-    private refreshFooter = () => {
+    private readonly refreshFooter = () => {
         fetch(endpointUrlWithParams("/footer"))
             .then((res) => res.text())
             .then((footer) => (this.innerHTML = footer));
     };
 
-    handleParamsUpdated = (e: CustomEvent) => {
-        console.log(e.detail.params);
+    private readonly handleParamsUpdated = (e: CustomEvent) => {
         const { context, language, feedback, simple, simpleFooter } =
             e.detail.params;
-
-        const isSimpleChange = typeof simple === "boolean";
-        const isSimpleFooterChange = typeof simpleFooter === "boolean";
+        const isFeedbackChange = feedback !== undefined;
+        const isSimpleChange = simple !== undefined;
+        const isSimpleFooterChange = simpleFooter !== undefined;
 
         if (
-            isSimpleChange ||
-            isSimpleFooterChange ||
-            language ||
             context ||
-            feedback !== undefined
+            language ||
+            isFeedbackChange ||
+            isSimpleChange ||
+            isSimpleFooterChange
         ) {
             this.refreshFooter();
         }
