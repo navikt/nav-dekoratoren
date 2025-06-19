@@ -47,7 +47,12 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
                         ${Button({
                             content: i18n("consent_banner_consent_all"),
                             variant: "primary",
-                            attributes: { ["data-name"]: "consent-banner-all" },
+                            attributes: {
+                                ["data-name"]: "consent-banner-all",
+                                // data-testid brukes av Playwright i andre team for styring av cookiebanner
+                                // den må ikke endres uten at de andre teamene er informert
+                                ["data-testid"]: "consent-banner-all",
+                            },
                             className: cls.button,
                         })}
                         ${Button({
@@ -55,6 +60,8 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
                             variant: "primary",
                             attributes: {
                                 ["data-name"]: "consent-banner-refuse-optional",
+                                ["data-testid"]:
+                                    "consent-banner-refuse-optional",
                             },
                             className: cls.button,
                         })}
