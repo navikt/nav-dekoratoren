@@ -1874,6 +1874,16 @@
                                 "children": []
                             },
                             {
+                                "displayName": "Change cookie consent",
+                                "path": "/endre-samtykke-for-informasjonskapsler",
+                                "displayLock": false,
+                                "frontendEventID": "ENDRE_COOKIE_SAMTYKKE",
+                                "flatten": false,
+                                "id": "5cbedb3a-b9e0-4b99-aff1-4e12d695223210c",
+                                "hasChildren": false,
+                                "children": []
+                            },
+                            {
                                 "displayName": "Accessibility at nav.no",
                                 "path": "/tilgjengelighet/en",
                                 "displayLock": false,
@@ -2057,6 +2067,16 @@
                                 "path": "/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten",
                                 "displayLock": false,
                                 "id": "6c2aa26f-c4b2-4c98-a046-3a74c90ce9c4",
+                                "hasChildren": false,
+                                "children": []
+                            },
+                            {
+                                "displayName": "Endre samtykke for informasjonskapsler",
+                                "path": "/endre-samtykke-for-informasjonskapsler",
+                                "displayLock": false,
+                                "frontendEventID": "ENDRE_COOKIE_SAMTYKKE",
+                                "flatten": false,
+                                "id": "5cbedb3a-b9e0-4b99-aff1-4e12d695223210c",
                                 "hasChildren": false,
                                 "children": []
                             },

@@ -113,6 +113,11 @@ export class WebStorageController {
 
     private initEventListeners() {
         window.addEventListener(
+            "recheckConsentBanner",
+            this.checkAndTriggerConsentBanner,
+        );
+
+        window.addEventListener(
             "consentAllWebStorage",
             this.consentAllStorageHandler,
         );
@@ -211,7 +216,7 @@ export class WebStorageController {
         return hostnameMatched || userAgentMatched;
     };
 
-    private checkAndTriggerConsentBanner() {
+    private checkAndTriggerConsentBanner = () => {
         const { userActionTaken, meta } = this.getCurrentConsent();
         const { version } = meta;
 
@@ -231,7 +236,7 @@ export class WebStorageController {
             this.clearOptionalStorage();
             this.showConsentBanner();
         }
-    }
+    };
 
     /* -----------------------------------------------------------------------
      * Public methods
@@ -280,6 +285,11 @@ export class WebStorageController {
 
     // Cleanup when no longer needed
     destroy() {
+        window.removeEventListener(
+            "recheckConsentBanner",
+            this.checkAndTriggerConsentBanner,
+        );
+
         window.removeEventListener(
             "consentAllWebStorage",
             this.consentAllStorageHandler,

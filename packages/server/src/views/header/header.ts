@@ -36,8 +36,9 @@ export const HeaderTemplate = async ({
         frontPageUrl,
     });
 
-    const headerContent =
-        simple || simpleHeader
+    const headerContent = html`
+        ${ConsentBanner({ language })}
+        ${simple || simpleHeader
             ? SimpleHeader({
                   frontPageUrl,
                   decoratorUtils,
@@ -53,12 +54,12 @@ export const HeaderTemplate = async ({
                   mainMenu: params.ssrMainMenu
                       ? await MainMenuTemplate({ data: params })
                       : null,
-              });
+              })}
+    `;
 
     return withContainers
         ? html`
               <header id="decorator-header">
-                  ${ConsentBanner({ language })}
                   <decorator-header>${headerContent}</decorator-header>
               </header>
           `

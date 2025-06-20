@@ -91,7 +91,12 @@ class Header extends HTMLElement {
         fetch(endpointUrlWithParams("/header"))
             .then((res) => res.text())
             .then((header) => (this.innerHTML = header))
-            .then(() => refreshAuthData());
+            .then(() => refreshAuthData())
+            .then(() =>
+                this.dispatchEvent(
+                    new Event("recheckConsentBanner", { bubbles: true }),
+                ),
+            );
     };
 
     private readonly handleParamsUpdated = (
