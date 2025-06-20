@@ -1,11 +1,12 @@
 import { endpointUrlWithParams } from "../helpers/urls";
+import { type ClientParams } from "decorator-shared/params";
 import { env, param, updateDecoratorParams } from "../params";
-import cls from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
-import { type ClientParams } from "decorator-shared/params";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
+
+import cls from "../styles/header.module.css";
 
 const msgSafetyCheck = (message: MessageEvent) => {
     const { origin, source, data } = message;
@@ -36,12 +37,14 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "redirectOnUserChange",
     "pageType",
     "pageTheme",
+    "simple",
+    "simpleHeader",
 ] as const;
 
 class Header extends HTMLElement {
     private userId?: string;
 
-    private handleMessage = (e: MessageEvent) => {
+    private readonly handleMessage = (e: MessageEvent) => {
         if (msgFromNks(e)) {
             const {
                 event,
@@ -84,29 +87,30 @@ class Header extends HTMLElement {
         }
     };
 
-    private refreshHeader = () => {
+    private readonly refreshHeader = () => {
         fetch(endpointUrlWithParams("/header"))
             .then((res) => res.text())
             .then((header) => (this.innerHTML = header))
             .then(() => refreshAuthData());
     };
 
-    private handleParamsUpdated = (
+    private readonly handleParamsUpdated = (
         e: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        const { context, language } = e.detail.params;
+        const { context, language, simple, simpleHeader } = e.detail.params;
+        const isSimpleChange = simple !== undefined;
+        const isSimpleHeaderChange = simpleHeader !== undefined;
 
-        if (language) {
+        if (language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
             return;
         }
-
         if (context) {
             refreshAuthData();
         }
     };
 
-    private handleAuthUpdated = (
+    private readonly handleAuthUpdated = (
         e: CustomEvent<CustomEvents["authupdated"]>,
     ) => {
         const currAuthUserId = e.detail.auth.authenticated
@@ -122,11 +126,11 @@ class Header extends HTMLElement {
         }
     };
 
-    private handleFocus = async () => {
+    private readonly handleFocus = async () => {
         await refreshAuthData();
     };
 
-    private handleFocusIn = (e: FocusEvent) => {
+    private readonly handleFocusIn = (e: FocusEvent) => {
         const headerContent = this.querySelector(`.${cls.siteheader}`);
         if (!headerContent?.contains(e.target as Node)) {
             this.dispatchEvent(new Event("closemenus", { bubbles: true }));
