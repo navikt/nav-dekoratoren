@@ -6,35 +6,23 @@ import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
 
-let hasBeenOpened = false;
+let scriptHasLoaded = false;
 
-const loadScript = () =>
-    loadExternalScript(
+const loadScript = () => {
+    console.log("env", env("PUZZEL_CUSTOMER_ID"));
+    return loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
+};
 
-/**
-
-<script type="text/javascript">
-	(function (a, b) {
-	var loader = a.createElement('script');
-	loader.type = 'text/javascript';
-	loader.src = 'https://app-cdn.puzzel.com/public/js/pzl_loader.js';
-	loader.setAttribute('id', 'pzlModuleLoader');
-	loader.setAttribute('data-customer-id', b);
-	a.body.append(loader);
-})(document, '41155');
-</script>
-     */
-
-function lazyLoadScreensharing(callback: () => void) {
+function lazyLoadScreensharing(openModal: () => void) {
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
-    if (!enabled || hasBeenOpened) {
-        callback();
+    if (!enabled || scriptHasLoaded) {
+        openModal();
         return;
     }
 
@@ -47,8 +35,8 @@ function lazyLoadScreensharing(callback: () => void) {
         window.vngage.subscribe("app.ready", (message, data) => {
             console.log("Screensharing app ready", message, data);
 
-            hasBeenOpened = true;
-            callback();
+            scriptHasLoaded = true;
+            openModal();
         });
     });
 }
@@ -158,7 +146,7 @@ class ScreenshareButton extends HTMLElement {
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
                 const dialog = document.querySelector(
-                    "screensharing-modal",
+                    "screensharing-modal-old",
                 ) as HTMLDialogElement;
 
                 dialog.showModal();
@@ -167,5 +155,5 @@ class ScreenshareButton extends HTMLElement {
     }
 }
 
-defineCustomElement("screensharing-modal", ScreensharingModal);
-defineCustomElement("screenshare-button", ScreenshareButton);
+defineCustomElement("screensharing-modal-old", ScreensharingModal);
+defineCustomElement("screenshare-button-old", ScreenshareButton);

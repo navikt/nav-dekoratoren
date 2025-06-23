@@ -34,6 +34,33 @@ declare global {
                 callback: (message: string, data: unknown) => void,
             ) => void;
         };
+        pzl?: {
+            version: {
+                moduleLoader: string;
+                renderModule: string;
+                chatModule: string;
+            };
+            info?: {
+                status: string;
+                loadedModules: {
+                    moduleLoader: string;
+                    renderModule: string;
+                    chatModule: string;
+                };
+                siteMappingName: string;
+                configId: string;
+                configVersion: string;
+                configName: string;
+                activeChains: {
+                    [key: string]: {
+                        chainId: string;
+                        ruleId: string;
+                        ruleName: string;
+                        currentInteractionId: string;
+                    };
+                };
+            };
+        };
         faro?: Faro;
         addEventListener(
             type: "message",
