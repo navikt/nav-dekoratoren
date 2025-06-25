@@ -272,9 +272,9 @@ You can find out more about tokens in the [NAIS documentation](https://docs.nais
 
 Nav uses Amplitude for analytics and tracking user events. To properly safeguard privacy, all analytics data must go through [amplitude-proxy](https://github.com/navikt/amplitude-proxy), which cleans out trackable personal information before sending the data to Amplitude. The Decorator handles this process for you.
 
-#### 4.7.1 Migration to Umami 🚀
+#### 4.7.1 Migration to a new analytics tool 🚀
 
-There are work in progress for migrating to Umami. Amplitude will be discontinued for Nav by December 31st 2025.
+There are work in progress for migrating to a new analytics tool. As of June 2025, data is also being logged to Umami as part of testing this alternative.. Amplitude is planned to be discontinued for Nav by December 31st 2025.
 
 #### 4.7.2 Amplitude and consent 👍👎
 
