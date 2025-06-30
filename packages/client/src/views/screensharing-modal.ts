@@ -6,6 +6,13 @@ import { analyticsEvent } from "../analytics/analytics";
 
 let scriptLoaded: Promise<void> | undefined;
 
+/**
+ * TODO:
+ * 1. Fikse den avslutt-chat boksen
+ * 2. Fikse så vi kan teste i prod/ha flere knapper tilgjengelig
+ * 3. Teste i dev2 med innringing
+ * 4. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
+ */
 const loadScript = (): Promise<void> => {
     console.log("Loading Puzzel script");
     if (scriptLoaded) {
@@ -46,21 +53,19 @@ function lazyLoadScreensharing(callback: () => void) {
 }
 
 function startCall(code: string) {
-    console.log("start call", code);
-    // window.vngage.join("queue", {
-    //     opportunityId: "615FF5E7-37B7-4697-A35F-72598B0DC53B",
-    //     solutionId: "5EB316A1-11E2-460A-B4E3-F82DBD13E21D",
-    //     caseTypeId: "66D660EF-6F14-44B4-8ADE-A70A127202D0",
-    //     category: "Phone2Web",
-    //     message: "Phone2Web",
-    //     groupId: "A034081B-6B73-46B7-BE27-23B8E9CE3079",
-    //     startCode: code,
-    // });
-    // analyticsEvent({
-    //     eventName: "skjermdeling",
-    //     kategori: "dekorator-footer",
-    //     komponent: "ScreensharingModal",
-    // });
+    window.pzl?.api.showInteraction({
+        interactionId: "7d05c34f-0db4-4fc3-b370-9eb1812a40ca",
+        queueKey: "q_cobrowsing_demo",
+        formValues: {
+            pzlStartChatCode: code,
+        },
+    });
+
+    analyticsEvent({
+        eventName: "skjermdeling",
+        kategori: "dekorator-footer",
+        komponent: "ScreensharingModal",
+    });
 }
 
 export class ScreensharingModal extends HTMLElement {
@@ -88,7 +93,7 @@ export class ScreensharingModal extends HTMLElement {
     }
 
     validateInput(code: string) {
-        if (!/^\d{5}$/.exec(code)) {
+        if (!/^\d{6}$/.exec(code)) {
             this.input.classList.add(clsInputs.invalid);
             this.errorList.classList.add(clsInputs.showErrors);
             return false;
@@ -132,22 +137,7 @@ export class ScreensharingModal extends HTMLElement {
 }
 
 class ScreenshareButton extends HTMLElement {
-    // loadScriptIfActiveSession = () => {
-    //     const userState = Cookies.get("psCurrentState");
-    //     if (userState && userState !== "Ready") {
-    //         loadScript();
-    //     }
-    // };
-
     connectedCallback() {
-        // if (document.readyState == "complete") {
-        //     this.loadScriptIfActiveSession();
-        // } else {
-        //     window.addEventListener("load", () => {
-        //         this.loadScriptIfActiveSession();
-        //     });
-        // }
-
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
                 const dialog = document.querySelector(

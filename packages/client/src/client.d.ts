@@ -60,6 +60,13 @@ declare global {
                     };
                 };
             };
+            api: {
+                showInteraction: ({
+                    interactionId: string,
+                    queueKey: string,
+                    formValues: { pzlStartChatCode: string },
+                }) => void;
+            };
         };
         faro?: Faro;
         addEventListener(
