@@ -1,6 +1,5 @@
-import { env, param } from "../params";
+import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
-import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
 
@@ -8,10 +7,10 @@ let scriptLoaded: Promise<void> | undefined;
 
 /**
  * TODO:
- * 1. Fikse den avslutt-chat boksen
- * 2. Fikse så vi kan teste i prod/ha flere knapper tilgjengelig
- * 3. Teste i dev2 med innringing
- * 4. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
+ * 1. Fikse den avslutt-chat boksen (ish, må testes)
+ * 2. Fikse så vi kan teste i prod, styrt med url param ✓
+ * 3. Teste i dev2 med innringing ✓
+ * 4. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId (før produksjon)
  */
 const loadScript = (): Promise<void> => {
     console.log("Loading Puzzel script");
@@ -36,7 +35,7 @@ const loadScript = (): Promise<void> => {
 };
 
 function lazyLoadScreensharing(callback: () => void) {
-    console.log("Lazy loading screensharing");
+    console.log("Lazy loading puzzel screensharing");
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
@@ -46,7 +45,7 @@ function lazyLoadScreensharing(callback: () => void) {
         callback();
         return;
     }
-    console.log("Screensharing enabled, loading script");
+    console.log("Screensharing enabled, loading puzzel script");
     callback();
 
     loadScript();
@@ -68,7 +67,7 @@ function startCall(code: string) {
     });
 }
 
-export class ScreensharingModal extends HTMLElement {
+export class ScreensharingModalPuzzel extends HTMLElement {
     dialog!: HTMLDialogElement;
     input!: HTMLInputElement;
     errorList!: HTMLElement;
@@ -136,20 +135,17 @@ export class ScreensharingModal extends HTMLElement {
     }
 }
 
-class ScreenshareButton extends HTMLElement {
+export class ScreenshareButtonPuzzel extends HTMLElement {
     connectedCallback() {
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
                 const dialog = document.querySelector(
                     "screensharing-modal",
                 ) as HTMLDialogElement;
-                console.log("Opening screensharing modal");
+                console.log("Opening puzzel screensharing modal");
 
                 dialog.showModal();
             }),
         );
     }
 }
-
-defineCustomElement("screensharing-modal", ScreensharingModal);
-defineCustomElement("screenshare-button", ScreenshareButton);

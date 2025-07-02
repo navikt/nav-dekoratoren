@@ -5,11 +5,14 @@ import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
+import {
+    ScreenshareButtonPuzzel,
+    ScreensharingModalPuzzel,
+} from "./screensharing-modal-vergic";
 
 let scriptHasLoaded = false;
 
 const loadScript = () => {
-    console.log("env", env("PUZZEL_CUSTOMER_ID"));
     return loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
@@ -33,7 +36,7 @@ function lazyLoadScreensharing(openModal: () => void) {
         }
 
         window.vngage.subscribe("app.ready", (message, data) => {
-            console.log("Screensharing app ready", message, data);
+            console.log("Screensharing app vergic ready", message, data);
 
             scriptHasLoaded = true;
             openModal();
@@ -145,8 +148,9 @@ class ScreenshareButton extends HTMLElement {
 
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
+                console.log("Opening vergic screensharing modal");
                 const dialog = document.querySelector(
-                    "screensharing-modal-old",
+                    "screensharing-modal",
                 ) as HTMLDialogElement;
 
                 dialog.showModal();
@@ -155,5 +159,19 @@ class ScreenshareButton extends HTMLElement {
     }
 }
 
-defineCustomElement("screensharing-modal-old", ScreensharingModal);
-defineCustomElement("screenshare-button-old", ScreenshareButton);
+const queryString = window.location.search;
+
+// Parse the query string
+const urlParams = new URLSearchParams(queryString);
+
+// Get individual parameters
+const enablePuzzel = urlParams.get("enablePuzzel"); // "John"
+
+defineCustomElement(
+    "screensharing-modal",
+    enablePuzzel ? ScreensharingModalPuzzel : ScreensharingModal,
+);
+defineCustomElement(
+    "screenshare-button",
+    enablePuzzel ? ScreenshareButtonPuzzel : ScreenshareButton,
+);
