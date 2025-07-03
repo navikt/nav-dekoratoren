@@ -8,7 +8,7 @@ import { analyticsEvent } from "../analytics/analytics";
 import {
     ScreenshareButtonPuzzel,
     ScreensharingModalPuzzel,
-} from "./screensharing-modal-vergic";
+} from "./screensharing-modal-puzzel";
 
 let scriptHasLoaded = false;
 

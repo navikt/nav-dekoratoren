@@ -8,9 +8,7 @@ let scriptLoaded: Promise<void> | undefined;
 /**
  * TODO:
  * 1. Fikse den avslutt-chat boksen (ish, må testes)
- * 2. Fikse så vi kan teste i prod, styrt med url param ✓
- * 3. Teste i dev2 med innringing ✓
- * 4. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId (før produksjon)
+ * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId (før produksjon)
  */
 const loadScript = (): Promise<void> => {
     console.log("Loading Puzzel script");
@@ -34,7 +32,7 @@ const loadScript = (): Promise<void> => {
     return promise;
 };
 
-function lazyLoadScreensharing(callback: () => void) {
+function lazyLoadScreensharing(openModal: () => void) {
     console.log("Lazy loading puzzel screensharing");
     // Check if it is already loaded to avoid layout shift
     const enabled =
@@ -42,13 +40,13 @@ function lazyLoadScreensharing(callback: () => void) {
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
     if (!enabled || window.pzl?.info?.status === "started") {
-        callback();
+        openModal();
         return;
     }
     console.log("Screensharing enabled, loading puzzel script");
-    callback();
-
-    loadScript();
+    loadScript().then(() => {
+        openModal();
+    });
 }
 
 function startCall(code: string) {
