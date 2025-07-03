@@ -12,11 +12,10 @@ import {
 
 let scriptHasLoaded = false;
 
-const loadScript = () => {
-    return loadExternalScript(
+const loadScript = () =>
+    loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
-};
 
 function lazyLoadScreensharing(openModal: () => void) {
     // Check if it is already loaded to avoid layout shift
@@ -159,13 +158,8 @@ class ScreenshareButton extends HTMLElement {
     }
 }
 
-const queryString = window.location.search;
-
-// Parse the query string
-const urlParams = new URLSearchParams(queryString);
-
-// Get individual parameters
-const enablePuzzel = urlParams.get("enablePuzzel"); // "John"
+const urlParams = new URLSearchParams(window.location.search);
+const enablePuzzel = urlParams.get("enablePuzzel");
 
 defineCustomElement(
     "screensharing-modal",
