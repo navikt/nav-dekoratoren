@@ -150,3 +150,71 @@ const logAnalyticsEventFromApp = (params?: {
         return Promise.reject(`Unexpected Amplitude error: ${e}`);
     }
 };
+
+class AnalyticsTracker {
+    private currentReferrer: string;
+    private previousUrl: string;
+    private isInitialized: boolean = false;
+
+    constructor() {
+        this.currentReferrer = document.referrer;
+        this.previousUrl = window.location.href;
+        this.init();
+    }
+
+    private init(): void {
+        if (this.isInitialized) return;
+
+        this.bindNavigationEvents();
+        this.isInitialized = true;
+    }
+
+    private bindNavigationEvents(): void {
+        // Handle popstate (back/forward buttons)
+        window.addEventListener("popstate", this.handleNavigation.bind(this));
+
+        // Monkey patch history methods to catch programmatic navigation
+        const originalPushState = history.pushState;
+        const originalReplaceState = history.replaceState;
+
+        history.pushState = (...args) => {
+            const result = originalPushState.apply(history, args);
+            // Use setTimeout to ensure the URL has changed
+            setTimeout(() => this.handleNavigation(), 0);
+            return result;
+        };
+
+        history.replaceState = (...args) => {
+            const result = originalReplaceState.apply(history, args);
+            // For replaceState, you might want to handle differently
+            // depending on your analytics needs
+            return result;
+        };
+
+        // Listen for custom navigation events (if your SPA dispatches them)
+        window.addEventListener(
+            "spa-navigate",
+            this.handleNavigation.bind(this),
+        );
+    }
+
+    private handleNavigation(): void {
+        const currentUrl = window.location.href;
+
+        // Only update if URL actually changed
+        if (currentUrl !== this.previousUrl) {
+            this.currentReferrer = this.previousUrl;
+            this.previousUrl = currentUrl;
+        }
+    }
+
+    public getCurrentReferrer(): string {
+        return this.currentReferrer;
+    }
+}
+
+const analyticsTracker = new AnalyticsTracker();
+
+export function getCurrentReferrer(): string {
+    return analyticsTracker.getCurrentReferrer();
+}
