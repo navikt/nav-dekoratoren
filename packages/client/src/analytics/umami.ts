@@ -16,7 +16,7 @@ export const logUmamiEvent = async (
             name: eventName === "besøk" ? undefined : eventName,
             url: window.location.pathname,
             title: window.document.title,
-            referrer: getCurrentReferrer(),
+            referrer: getCurrentReferrer() || "none",
             data: {
                 ...eventData,
                 origin,
