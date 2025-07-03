@@ -34,31 +34,10 @@ declare global {
                 callback: (message: string, data: unknown) => void,
             ) => void;
         };
+        // Bare definert de typene som brukes, ikke alle som finnes
         pzl?: {
-            version: {
-                moduleLoader: string;
-                renderModule: string;
-                chatModule: string;
-            };
             info?: {
                 status: string;
-                loadedModules: {
-                    moduleLoader: string;
-                    renderModule: string;
-                    chatModule: string;
-                };
-                siteMappingName: string;
-                configId: string;
-                configVersion: string;
-                configName: string;
-                activeChains: {
-                    [key: string]: {
-                        chainId: string;
-                        ruleId: string;
-                        ruleName: string;
-                        currentInteractionId: string;
-                    };
-                };
             };
             api: {
                 showInteraction: ({
