@@ -5,22 +5,26 @@ import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
+import {
+    ScreenshareButtonPuzzel,
+    ScreensharingModalPuzzel,
+} from "./screensharing-modal-puzzel";
 
-let hasBeenOpened = false;
+let scriptHasLoaded = false;
 
 const loadScript = () =>
     loadExternalScript(
         `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
     );
 
-function lazyLoadScreensharing(callback: () => void) {
+function lazyLoadScreensharing(openModal: () => void) {
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
-    if (!enabled || hasBeenOpened) {
-        callback();
+    if (!enabled || scriptHasLoaded) {
+        openModal();
         return;
     }
 
@@ -31,10 +35,10 @@ function lazyLoadScreensharing(callback: () => void) {
         }
 
         window.vngage.subscribe("app.ready", (message, data) => {
-            console.log("Screensharing app ready", message, data);
+            console.log("Screensharing app vergic ready", message, data);
 
-            hasBeenOpened = true;
-            callback();
+            scriptHasLoaded = true;
+            openModal();
         });
     });
 }
@@ -143,6 +147,7 @@ class ScreenshareButton extends HTMLElement {
 
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
+                console.log("Opening vergic screensharing modal");
                 const dialog = document.querySelector(
                     "screensharing-modal",
                 ) as HTMLDialogElement;
@@ -153,5 +158,14 @@ class ScreenshareButton extends HTMLElement {
     }
 }
 
-defineCustomElement("screensharing-modal", ScreensharingModal);
-defineCustomElement("screenshare-button", ScreenshareButton);
+const urlParams = new URLSearchParams(window.location.search);
+const enablePuzzel = urlParams.get("enablePuzzel");
+
+defineCustomElement(
+    "screensharing-modal",
+    enablePuzzel ? ScreensharingModalPuzzel : ScreensharingModal,
+);
+defineCustomElement(
+    "screenshare-button",
+    enablePuzzel ? ScreenshareButtonPuzzel : ScreenshareButton,
+);
