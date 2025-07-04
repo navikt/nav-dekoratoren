@@ -11,6 +11,7 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
+        console.log("eventName", eventName);
         console.log("curr referrer", getCurrentReferrer());
         console.log("document referrer", document.referrer);
 
