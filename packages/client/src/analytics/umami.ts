@@ -11,12 +11,15 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
+        console.log("curr referrer", getCurrentReferrer());
+        console.log("document referrer", document.referrer);
+
         return umami.track((props) => ({
             ...props,
             name: eventName === "besøk" ? undefined : eventName,
             url: window.location.pathname,
             title: window.document.title,
-            referrer: getCurrentReferrer() || props.referrer || "none",
+            referrer: getCurrentReferrer() ?? props.referrer ?? "none",
             data: {
                 ...eventData,
                 origin,
