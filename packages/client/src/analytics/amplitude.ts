@@ -36,14 +36,7 @@ export const initAmplitude = async () => {
             .set("skjermbredde", window.screen.width)
             .set("skjermhoyde", window.screen.height)
             .set("vindusbredde", window.innerWidth)
-            .set("vindushoyde", window.innerHeight)
-            .set("initial_referrer", getCurrentReferrer())
-            .set(
-                "initial_referrer_domain",
-                getCurrentReferrer()
-                    ? new URL(getCurrentReferrer()).hostname
-                    : "",
-            ),
+            .set("vindushoyde", window.innerHeight),
     );
 
     amplitude.init(getApiKey(), undefined, {
