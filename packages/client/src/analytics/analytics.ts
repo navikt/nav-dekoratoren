@@ -6,6 +6,7 @@ import {
     amplitudeEvent,
     initAmplitude,
     logAmplitudeEvent,
+    setAmplitudeReferrer,
     stopAmplitude,
 } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
@@ -76,13 +77,7 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logAmplitudeEvent("besøk", {
-            ...eventData,
-            custom_referrer: getCurrentReferrer(),
-            custom_referring_domain: getCurrentReferrer()
-                ? new URL(getCurrentReferrer()).hostname
-                : undefined,
-        });
+        logAmplitudeEvent("besøk", eventData);
         logUmamiEvent("besøk", eventData);
     }, 100);
 };
