@@ -36,14 +36,7 @@ export const initAmplitude = async () => {
             .set("skjermbredde", window.screen.width)
             .set("skjermhoyde", window.screen.height)
             .set("vindusbredde", window.innerWidth)
-            .set("vindushoyde", window.innerHeight)
-            .set("referrer", getCurrentReferrer())
-            .set(
-                "referring_domain",
-                getCurrentReferrer()
-                    ? new URL(getCurrentReferrer()).hostname
-                    : "",
-            ),
+            .set("vindushoyde", window.innerHeight),
     );
 
     amplitude.init(getApiKey(), undefined, {
@@ -70,6 +63,21 @@ export const stopAmplitude = async () => {
     amplitude.reset();
     amplitude.flush();
     amplitude.setOptOut(true);
+};
+
+export const setUserPropReferrer = async () => {
+    const amplitude = await importAmplitude();
+
+    amplitude.identify(
+        new amplitude.Identify()
+            .set("referrer", getCurrentReferrer())
+            .set(
+                "referring_domain",
+                getCurrentReferrer()
+                    ? new URL(getCurrentReferrer()).hostname
+                    : "",
+            ),
+    );
 };
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
