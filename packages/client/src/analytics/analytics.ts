@@ -189,16 +189,8 @@ class AnalyticsTracker {
 
         history.replaceState = (...args) => {
             const result = originalReplaceState.apply(history, args);
-            // For replaceState, you might want to handle differently
-            // depending on your analytics needs
             return result;
         };
-
-        // Listen for custom navigation events (if your SPA dispatches them)
-        window.addEventListener(
-            "spa-navigate",
-            this.handleNavigation.bind(this),
-        );
     }
 
     private handleNavigation(): void {
