@@ -37,9 +37,9 @@ export const initAmplitude = async () => {
             .set("skjermhoyde", window.screen.height)
             .set("vindusbredde", window.innerWidth)
             .set("vindushoyde", window.innerHeight)
-            .set("initial_referrer", getCurrentReferrer())
+            .set("referrer", getCurrentReferrer())
             .set(
-                "initial_referrer_domain",
+                "referring_domain",
                 getCurrentReferrer()
                     ? new URL(getCurrentReferrer()).hostname
                     : "",
