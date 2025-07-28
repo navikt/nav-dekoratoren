@@ -65,7 +65,7 @@ export const stopAmplitude = async () => {
     amplitude.setOptOut(true);
 };
 
-export const setUserPropReferrer = async () => {
+export const setAmplitudeReferrer = async () => {
     const amplitude = await importAmplitude();
 
     amplitude.identify(

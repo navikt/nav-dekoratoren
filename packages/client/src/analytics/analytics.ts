@@ -7,7 +7,6 @@ import {
     initAmplitude,
     logAmplitudeEvent,
     setAmplitudeReferrer,
-    setUserPropReferrer,
     stopAmplitude,
 } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
@@ -78,7 +77,9 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        setUserPropReferrer().then(() => logAmplitudeEvent("besøk", eventData));
+        setAmplitudeReferrer().then(() =>
+            logAmplitudeEvent("besøk", eventData),
+        );
         logUmamiEvent("besøk", eventData);
     }, 100);
 };
