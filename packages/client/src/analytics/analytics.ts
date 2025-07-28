@@ -79,7 +79,9 @@ const logPageView = (authState: Auth) => {
         logAmplitudeEvent("besøk", {
             ...eventData,
             referrer: getCurrentReferrer(),
-            referring_domain: new URL(getCurrentReferrer()).hostname,
+            referring_domain: getCurrentReferrer
+                ? new URL(getCurrentReferrer()).hostname
+                : undefined,
         });
         logUmamiEvent("besøk", eventData);
     }, 100);
