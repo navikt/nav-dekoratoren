@@ -76,7 +76,11 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logAmplitudeEvent("besøk", eventData);
+        logAmplitudeEvent("besøk", {
+            ...eventData,
+            referrer: getCurrentReferrer(),
+            referring_domain: new URL(getCurrentReferrer()).hostname,
+        });
         logUmamiEvent("besøk", eventData);
     }, 100);
 };
