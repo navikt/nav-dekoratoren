@@ -2,7 +2,7 @@ import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/complex-footer.module.css";
 import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowUpIcon } from "decorator-icons";
-import html from "decorator-shared/html";
+import html, { htmlAttributes } from "decorator-shared/html";
 import { LinkGroup } from "decorator-shared/types";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
@@ -53,12 +53,7 @@ export const ComplexFooter = ({
                                                 ]} ${cls.footerLink}"
                                                 data-lenkegruppe="${heading}"
                                                 ${attributes
-                                                    ? Object.entries(attributes)
-                                                          .map(
-                                                              ([key, value]) =>
-                                                                  `${key}="${value}"`,
-                                                          )
-                                                          .join(" ")
+                                                    ? htmlAttributes(attributes)
                                                     : ""}
                                             >
                                                 ${content}
