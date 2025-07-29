@@ -125,6 +125,18 @@ export class WebStorageController {
             "refuseOptionalWebStorage",
             this.refuseOptionalStorageHandler,
         );
+        // Add click event listener to handle consent banner triggers
+        document.addEventListener("click", (event) => {
+            const target = event.target as Element;
+            const triggerElement = target.closest(
+                "[data-consent-banner-trigger]",
+            );
+
+            if (triggerElement) {
+                event.preventDefault();
+                window.webStorageController.showConsentBanner();
+            }
+        });
     }
 
     private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {

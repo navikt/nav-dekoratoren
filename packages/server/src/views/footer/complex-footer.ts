@@ -44,7 +44,7 @@ export const ComplexFooter = ({
                             </h2>`}
                             <ul class="${cls.footerInnerLinkList}">
                                 ${children.map(
-                                    ({ url, content }) => html`
+                                    ({ url, content, attributes }) => html`
                                         <li>
                                             <a
                                                 href="${url}"
@@ -52,6 +52,14 @@ export const ComplexFooter = ({
                                                     "navds-link"
                                                 ]} ${cls.footerLink}"
                                                 data-lenkegruppe="${heading}"
+                                                ${attributes
+                                                    ? Object.entries(attributes)
+                                                          .map(
+                                                              ([key, value]) =>
+                                                                  `${key}="${value}"`,
+                                                          )
+                                                          .join(" ")
+                                                    : ""}
                                             >
                                                 ${content}
                                             </a>

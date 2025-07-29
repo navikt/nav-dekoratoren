@@ -17,10 +17,17 @@ export const SimpleFooter = ({
         <div class="${cls.simpleFooterContent} ${utilCls.contentContainer}">
             <div class="${cls.footerLinkList}">
                 ${links.map(
-                    ({ url, content }) => html`
+                    ({ url, content, attributes }) => html`
                         <a
                             href="${url}"
                             class="${aksel["navds-link"]} ${cls.footerLink}"
+                            ${attributes
+                                ? Object.entries(attributes)
+                                      .map(
+                                          ([key, value]) => `${key}="${value}"`,
+                                      )
+                                      .join(" ")
+                                : ""}
                             >${content}</a
                         >
                     `,
