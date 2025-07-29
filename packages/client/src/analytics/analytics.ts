@@ -176,19 +176,12 @@ class AnalyticsTracker {
         // Handle popstate (back/forward buttons)
         window.addEventListener("popstate", this.handleNavigation.bind(this));
 
-        // Monkey patch history methods to catch programmatic navigation
+        // Monkey patch history push method to catch programmatic navigation
         const originalPushState = history.pushState;
-        const originalReplaceState = history.replaceState;
-
         history.pushState = (...args) => {
             const result = originalPushState.apply(history, args);
             // Use setTimeout to ensure the URL has changed
             setTimeout(() => this.handleNavigation(), 0);
-            return result;
-        };
-
-        history.replaceState = (...args) => {
-            const result = originalReplaceState.apply(history, args);
             return result;
         };
     }
