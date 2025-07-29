@@ -1,5 +1,4 @@
 import { env } from "../params";
-import { getCurrentReferrer } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 export const logUmamiEvent = async (
@@ -16,10 +15,7 @@ export const logUmamiEvent = async (
             name: eventName === "besøk" ? undefined : eventName,
             url: window.location.pathname,
             title: window.document.title,
-            referrer:
-                eventName === "besøk"
-                    ? (getCurrentReferrer() ?? props.referrer)
-                    : undefined,
+            referrer: undefined,
             data: {
                 ...eventData,
                 origin,
