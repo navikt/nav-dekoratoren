@@ -1,4 +1,4 @@
-import { buildLocationString, getCurrentReferrer } from "./analytics";
+import { buildLocationString } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 // Dynamic import for lazy loading
@@ -63,21 +63,6 @@ export const stopAmplitude = async () => {
     amplitude.reset();
     amplitude.flush();
     amplitude.setOptOut(true);
-};
-
-export const setAmplitudeReferrer = async () => {
-    const amplitude = await importAmplitude();
-
-    amplitude.identify(
-        new amplitude.Identify()
-            .set("referrer", getCurrentReferrer())
-            .set(
-                "referring_domain",
-                getCurrentReferrer()
-                    ? new URL(getCurrentReferrer()).hostname
-                    : "",
-            ),
-    );
 };
 
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
