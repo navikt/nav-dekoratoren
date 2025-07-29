@@ -196,13 +196,7 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
     children: children.map(nodeToLink),
 });
 
-const getUrl = (
-    path: string | undefined,
-    frontendEventID: string | undefined,
-) => {
-    if (frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE") {
-        return `javascript:window.webStorageController.showConsentBanner()`;
-    }
+const getUrl = (path: string | undefined) => {
     return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
 };
 
@@ -212,7 +206,11 @@ const nodeToLink: (node: MenuNode) => Link = ({
     frontendEventID,
 }) => ({
     content: displayName,
-    url: getUrl(path, frontendEventID),
+    url: getUrl(path),
+    attributes:
+        frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE"
+            ? { "data-consent-banner-trigger": "true" }
+            : undefined,
 });
 
 const getContextKey = (context: Context) => {

@@ -5,6 +5,7 @@ export type Link = {
     content: string;
     url: string;
     path?: string;
+    attributes?: Record<string, string>;
 };
 
 export type LinkGroup = {
