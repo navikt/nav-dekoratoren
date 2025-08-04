@@ -205,11 +205,11 @@ const nodeToLink: (node: MenuNode) => Link = ({
     path,
     frontendEventID,
 }) => {
-    const hasEventReference = !!frontendEventID;
+    const hasEventId = !!frontendEventID;
 
     return {
         content: displayName,
-        url: hasEventReference ? "#" : getUrl(path),
+        url: hasEventId ? "#" : getUrl(path),
         attributes:
             frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE"
                 ? { "data-consent-banner-trigger": "true" }
