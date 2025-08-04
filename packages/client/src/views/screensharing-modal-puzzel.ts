@@ -6,9 +6,9 @@ import { analyticsEvent } from "../analytics/analytics";
 let scriptLoaded: Promise<void> | undefined;
 
 /**
- * TODO:
- * 1. Fikse den avslutt-chat boksen (ish, må testes)
- * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId (før produksjon)
+ * ETTER TESTING:
+ * 1. Fikse den avslutt-chat boksen
+ * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
  */
 const loadScript = (): Promise<void> => {
     console.log("Loading Puzzel script");
@@ -20,7 +20,6 @@ const loadScript = (): Promise<void> => {
     script.type = "text/javascript";
     script.src = "https://app-cdn.puzzel.com/public/js/pzl_loader.js";
     script.setAttribute("id", "pzlModuleLoader");
-    // TODO: potensielt endre til env-var?
     script.setAttribute("data-customer-id", "41155");
     const promise = new Promise<void>((resolve) => {
         script.onload = () => {
