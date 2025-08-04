@@ -204,14 +204,18 @@ const nodeToLink: (node: MenuNode) => Link = ({
     displayName,
     path,
     frontendEventID,
-}) => ({
-    content: displayName,
-    url: getUrl(path),
-    attributes:
-        frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE"
-            ? { "data-consent-banner-trigger": "true" }
-            : undefined,
-});
+}) => {
+    const hasEventId = !!frontendEventID;
+
+    return {
+        content: displayName,
+        url: hasEventId ? "#" : getUrl(path),
+        attributes:
+            frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE"
+                ? { "data-consent-banner-trigger": "true" }
+                : undefined,
+    };
+};
 
 const getContextKey = (context: Context) => {
     return context.charAt(0).toUpperCase() + context.slice(1);
