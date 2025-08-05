@@ -16,6 +16,7 @@ const cdnNavNo = "cdn.nav.no";
 const uxsignals = "widget.uxsignals.com";
 const uxsignalsApi = "api.uxsignals.com";
 const vergicScreenSharing = "*.psplugin.com";
+const puzzelScreenSharing = "*.puzzel.com";
 const vergicDotCom = "www.vergic.com"; // seems to only be used for a single placeholder image
 const boostChatbot = "*.boost.ai";
 const boostScript = `${clientEnv.BOOST_ENV}.boost.ai`;
@@ -42,6 +43,7 @@ const scriptSrc = [
     navNo,
     uxsignals,
     vergicScreenSharing,
+    puzzelScreenSharing,
     hotjarCom,
     skyra,
     taskAnalytics,
@@ -91,6 +93,7 @@ const directives: Partial<CSPDirectives> = {
         uxsignalsApi,
         boostChatbot,
         vergicScreenSharing,
+        puzzelScreenSharing,
         hotjarCom,
         hotjarIo,
         skyra,
