@@ -40,6 +40,7 @@ spec:
       rules:
         - application: nav-dekoratoren-api
         - application: navno-search-api
+          namespace: navno
         - application: tms-varsel-api
           namespace: min-side
       external:
