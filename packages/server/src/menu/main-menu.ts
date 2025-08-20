@@ -21,6 +21,7 @@ const menuCache = new ResponseCache<MainMenu>({
 // Track a simple monotonically increasing version whenever the menu data truly changes.
 let currentMenuHash: string | undefined;
 let menuVersion = 0;
+let lastMenuFetchTs = 0;
 
 const hashJson = (value: unknown) => {
     // Fast, stable hash for JSON content
@@ -37,6 +38,12 @@ const hashJson = (value: unknown) => {
 export const getMenuVersion = () => menuVersion;
 export const revalidateMenu = async () => {
     try {
+        // Throttle to avoid hammering XP; only revalidate if our last fetch is older than ~55s
+        if (Date.now() - lastMenuFetchTs < ONE_MINUTE_MS - 5000) {
+            return;
+        }
+        // Force a fresh fetch and update cache/version immediately
+        menuCache.clear();
         await fetchMenu();
     } catch {
         // ignore
@@ -58,35 +65,35 @@ const mainMenuNode: z.ZodType<MenuNode> = baseMainMenuNode.extend({
 
 const mainmenuSchema = z.array(mainMenuNode);
 
-const fetchMenu = async (): Promise<MainMenu> => {
-    const menuFromService = await menuCache.get("menu", () =>
-        fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then(
-            (res) => {
-                if (!res.ok) {
-                    console.log(
-                        `Error fetching menu from Enonic - ${res.error}`,
-                    );
-                    return null;
-                }
+const fetchMenuCb = () =>
+    fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then(
+        (res) => {
+            if (!res.ok) {
+                console.log(`Error fetching menu from Enonic - ${res.error}`);
+                return null;
+            }
 
-                // Update version only if data actually changed
-                try {
-                    const newHash = hashJson(res.data);
-                    if (
-                        currentMenuHash !== undefined &&
-                        newHash !== currentMenuHash
-                    ) {
-                        menuVersion += 1;
-                    }
-                    currentMenuHash = newHash;
-                } catch (e) {
-                    console.error("Failed to hash menu data for versioning", e);
+            // Update version only if data actually changed
+            try {
+                const newHash = hashJson(res.data);
+                if (
+                    currentMenuHash !== undefined &&
+                    newHash !== currentMenuHash
+                ) {
+                    menuVersion += 1;
                 }
+                currentMenuHash = newHash;
+                lastMenuFetchTs = Date.now();
+            } catch (e) {
+                console.error("Failed to hash menu data for versioning", e);
+            }
 
-                return res.data;
-            },
-        ),
+            return res.data;
+        },
     );
+
+const fetchMenu = async (): Promise<MainMenu> => {
+    const menuFromService = await menuCache.get("menu", fetchMenuCb);
 
     // The fallback/mock data should "never" be returned, unless the call to the menu service
     // fails on a fresh pod with no menu response cached. It's not a perfect solution to use
