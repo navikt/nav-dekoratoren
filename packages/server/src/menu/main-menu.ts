@@ -18,6 +18,31 @@ const menuCache = new ResponseCache<MainMenu>({
     ttl: ONE_MINUTE_MS,
 });
 
+// Track a simple monotonically increasing version whenever the menu data truly changes.
+let currentMenuHash: string | undefined;
+let menuVersion = 0;
+
+const hashJson = (value: unknown) => {
+    // Fast, stable hash for JSON content
+    const str = JSON.stringify(value);
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return String(hash);
+};
+
+export const getMenuVersion = () => menuVersion;
+export const revalidateMenu = async () => {
+    try {
+        await fetchMenu();
+    } catch {
+        // ignore
+    }
+};
+
 const baseMainMenuNode = z.object({
     id: z.string(),
     displayName: z.string(),
@@ -42,6 +67,20 @@ const fetchMenu = async (): Promise<MainMenu> => {
                         `Error fetching menu from Enonic - ${res.error}`,
                     );
                     return null;
+                }
+
+                // Update version only if data actually changed
+                try {
+                    const newHash = hashJson(res.data);
+                    if (
+                        currentMenuHash !== undefined &&
+                        newHash !== currentMenuHash
+                    ) {
+                        menuVersion += 1;
+                    }
+                    currentMenuHash = newHash;
+                } catch (e) {
+                    console.error("Failed to hash menu data for versioning", e);
                 }
 
                 return res.data;

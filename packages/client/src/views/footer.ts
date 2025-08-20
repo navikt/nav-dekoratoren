@@ -1,7 +1,10 @@
 import type { ClientParams } from "decorator-shared/params";
 import { updateDecoratorParams } from "../params";
 import { analyticsClickListener } from "../analytics/analytics";
-import { endpointUrlWithParams } from "../helpers/urls";
+import {
+    endpointUrlWithParams,
+    endpointUrlWithoutParams,
+} from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
@@ -11,6 +14,8 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 ] as const;
 
 class Footer extends HTMLElement {
+    private menuVersion?: number;
+    private versionPollId?: number;
     private readonly handleMessage = (e: MessageEvent) => {
         const { event, payload } = e.data;
         if (event == "params") {
@@ -49,6 +54,29 @@ class Footer extends HTMLElement {
         }
     };
 
+    private readonly pollMenuVersion = async () => {
+        try {
+            const res = await fetch(
+                endpointUrlWithoutParams("/api/menu-version"),
+                {
+                    cache: "no-store",
+                },
+            );
+            if (!res.ok) return;
+            const data = (await res.json()) as { version?: number };
+            if (typeof data.version === "number") {
+                if (this.menuVersion === undefined) {
+                    this.menuVersion = data.version;
+                } else if (data.version !== this.menuVersion) {
+                    this.menuVersion = data.version;
+                    this.refreshFooter();
+                }
+            }
+        } catch {
+            // noop
+        }
+    };
+
     connectedCallback() {
         this.addEventListener(
             "click",
@@ -61,11 +89,18 @@ class Footer extends HTMLElement {
         );
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+
+        // Start polling for menu updates so footer refreshes when content changes in XP
+        this.pollMenuVersion();
+        this.versionPollId = window.setInterval(this.pollMenuVersion, 30000);
     }
 
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        if (this.versionPollId) {
+            clearInterval(this.versionPollId);
+        }
     }
 }
 

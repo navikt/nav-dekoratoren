@@ -26,6 +26,7 @@ import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
+import { getMenuVersion, revalidateMenu } from "./menu/main-menu";
 
 const app = new Hono({
     strict: false,
@@ -59,6 +60,12 @@ app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
 
 app.get("/api/version", versionApiHandler);
+app.get("/api/menu-version", async ({ json }) => {
+    // Trigger background fetch which bumps version if content changed
+    // Do not await to keep response fast; but we await once to warm cache on cold start
+    await revalidateMenu();
+    return json({ version: getMenuVersion() });
+});
 app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
 });
