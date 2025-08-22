@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { Context, Language } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
@@ -6,6 +7,16 @@ import { clientEnv, env } from "../env/server";
 import { isNorwegian } from "../i18n";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import fallbackData from "./main-menu-mock.json";
+
+let menuVersion = 0;
+let lastMenuHash: string | null = null;
+let lastFetchedAt: number | null = null;
+
+export const getMenuVersionInfo = () => ({
+    version: menuVersion,
+    hash: lastMenuHash,
+    lastFetchedAt,
+});
 
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;
@@ -52,7 +63,18 @@ const fetchMenu = async (): Promise<MainMenu> => {
     // The fallback/mock data should "never" be returned, unless the call to the menu service
     // fails on a fresh pod with no menu response cached. It's not a perfect solution to use
     // possibly stale "mock" data here, but it is a very rare edge case...
-    return menuFromService ?? fallbackData;
+    const effective = menuFromService ?? fallbackData;
+    const json = JSON.stringify(effective);
+    const hash = crypto.createHash("sha256").update(json).digest("hex");
+
+    if (hash !== lastMenuHash) {
+        menuVersion += 1;
+        lastMenuHash = hash;
+        console.log("[menu] version", menuVersion);
+    }
+
+    lastFetchedAt = Date.now();
+    return effective;
 };
 
 export const mainMenuContextLinks = ({
