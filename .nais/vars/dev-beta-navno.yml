@@ -17,7 +17,7 @@ env:
   - name: ENONICXP_SERVICES
     value: https://www-q6.nav.no/_/service
   - name: SEARCH_API_URL
-    value: https://navno-search-api.ekstern.dev.nav.no/content/decorator-search
+    value: http://navno-search-api.navno/content/decorator-search
   - name: XP_BASE_URL
     value: https://www-2.ansatt.dev.nav.no
   - name: LOGIN_URL
