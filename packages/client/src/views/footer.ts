@@ -81,6 +81,12 @@ class Footer extends HTMLElement {
         );
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+
+        this.fetchMenuVersion().then((version) => {
+            if (version !== null) {
+                this.lastSeenMenuVersion = version;
+            }
+        });
     }
 
     disconnectedCallback() {
