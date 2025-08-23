@@ -1,7 +1,10 @@
 import type { ClientParams } from "decorator-shared/params";
 import { updateDecoratorParams } from "../params";
 import { analyticsClickListener } from "../analytics/analytics";
-import { endpointUrlWithParams } from "../helpers/urls";
+import {
+    endpointUrlWithoutParams,
+    endpointUrlWithParams,
+} from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
@@ -11,6 +14,9 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 ] as const;
 
 class Footer extends HTMLElement {
+    private lastSeenMenuVersion: number | null = null;
+    private menuVersionInterval: number | null = null;
+
     private readonly handleMessage = (e: MessageEvent) => {
         const { event, payload } = e.data;
         if (event == "params") {
@@ -48,6 +54,20 @@ class Footer extends HTMLElement {
             this.refreshFooter();
         }
     };
+
+    private async fetchMenuVersion(): Promise<number | null> {
+        try {
+            const res = await fetch(
+                endpointUrlWithoutParams("/api/menu-version"),
+                { cache: "no-store" },
+            );
+            if (!res.ok) return null;
+            const data = await res.json();
+            return typeof data.version === "number" ? data.version : null;
+        } catch {
+            return null;
+        }
+    }
 
     connectedCallback() {
         this.addEventListener(
