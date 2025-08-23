@@ -70,7 +70,7 @@ const fetchMenu = async (): Promise<MainMenu> => {
     if (hash !== lastMenuHash) {
         menuVersion += 1;
         lastMenuHash = hash;
-        console.log("[menu] version", menuVersion);
+        console.log("[menu] version", menuVersion, "hash", hash); //TODO: fjern
     }
 
     lastFetchedAt = Date.now();
