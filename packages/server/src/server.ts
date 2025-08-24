@@ -62,7 +62,7 @@ app.get("/api/isReady", ({ text }) => text("OK"));
 app.get("/api/version", versionApiHandler);
 app.get("/api/menu-version", async ({ json }) => {
     await ensureMenuFresh();
-    json(getMenuVersionInfo());
+    return json(getMenuVersionInfo());
 });
 
 app.get("/api/ta", ({ json }) => {
