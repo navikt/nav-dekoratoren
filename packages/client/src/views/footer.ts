@@ -107,6 +107,11 @@ class Footer extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+
+        if (this.menuVersionInterval) {
+            clearInterval(this.menuVersionInterval);
+            this.menuVersionInterval = null;
+        }
     }
 }
 
