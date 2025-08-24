@@ -87,6 +87,21 @@ class Footer extends HTMLElement {
                 this.lastSeenMenuVersion = version;
             }
         });
+
+        const POLL_MS = 60000; //TODO: consider less frequent polling
+
+        this.menuVersionInterval = window.setInterval(async () => {
+            const fetchedMenuVersion = await this.fetchMenuVersion();
+
+            if (
+                fetchedMenuVersion !== null &&
+                this.lastSeenMenuVersion !== null &&
+                fetchedMenuVersion > this.lastSeenMenuVersion
+            ) {
+                this.lastSeenMenuVersion = fetchedMenuVersion;
+                this.refreshFooter();
+            }
+        }, POLL_MS);
     }
 
     disconnectedCallback() {
