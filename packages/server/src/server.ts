@@ -26,7 +26,7 @@ import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
-import { getMenuVersionInfo } from "./menu/main-menu";
+import { getMenuVersionInfo, ensureMenuFresh } from "./menu/main-menu";
 
 const app = new Hono({
     strict: false,
@@ -60,7 +60,10 @@ app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
 
 app.get("/api/version", versionApiHandler);
-app.get("/api/menu-version", ({ json }) => json(getMenuVersionInfo()));
+app.get("/api/menu-version", async ({ json }) => {
+    await ensureMenuFresh();
+    json(getMenuVersionInfo());
+});
 
 app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());

@@ -77,6 +77,10 @@ const fetchMenu = async (): Promise<MainMenu> => {
     return effective;
 };
 
+export const ensureMenuFresh = async () => {
+    await fetchMenu();
+};
+
 export const mainMenuContextLinks = ({
     context,
     language,
