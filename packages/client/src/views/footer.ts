@@ -97,6 +97,15 @@ class Footer extends HTMLElement {
             ) {
                 this.lastSeenMenuVersion = fetchedMenuVersion;
                 this.refreshFooter();
+
+                window.dispatchEvent(
+                    new CustomEvent("decoratorupdate", {
+                        detail: {
+                            type: "menu",
+                            menuVersion: this.lastSeenMenuVersion,
+                        },
+                    }),
+                );
             }
         }, POLL_MS);
     }
