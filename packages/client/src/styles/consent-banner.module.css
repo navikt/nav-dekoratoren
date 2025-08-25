@@ -6,7 +6,7 @@
     inset: 2rem;
     margin: auto auto 0 0;
     position: fixed;
-    width: 41rem;
+    width: 40rem;
     z-index: 1001;
 
     @media (max-width: 768px) {
@@ -22,14 +22,12 @@
     display: block;
 }
 
-:global(.minimized-on-mobile) {
-    @media (max-width: 768px) {
-        .miniContent {
-            display: flex;
-        }
-        .content {
-            display: none;
-        }
+:global(.minimizedCookieBanner) {
+    .miniContent {
+        display: flex;
+    }
+    .content {
+        display: none;
     }
 }
 
@@ -44,13 +42,14 @@
     text-align: left;
     align-items: flex-start;
     width: 100%;
-    text-wrap: balance;
 }
 
 .expandButton span {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    flex: 1;
+    text-wrap: balance;
 }
 
 .expandIcon {
