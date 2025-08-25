@@ -16,67 +16,76 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
 
     return html`
         <consent-banner>
-            <section
-                class="${cls.consentBanner}"
-                aria-labelledby="consent_banner_title"
-                id="consent-banner-dialog"
-            >
-                <div class="${cls.miniContent}">
-                    ${Button({
-                        content: html`<span
-                                >${i18n("consent_banner_minimized")}</span
-                            >${ExpandIcon({
-                                className: cls.expandIcon,
-                            })}`,
-                        attributes: {
-                            ["data-name"]: "consent-banner-expand",
-                        },
-                        className: cls.expandButton,
-                    })}
-                </div>
-                <div class="${cls.content}">
-                    <h2
-                        id="consent_banner_title"
-                        class="${cls.title}"
-                        tabindex="-1"
-                    >
-                        ${i18n("consent_banner_title")}
-                    </h2>
-                    <p class="${cls.text}">${i18n("consent_banner_text")}</p>
-                    <div class="${cls.buttonContainer}">
+            <div class="${cls.container}">
+                <section
+                    class="${cls.consentBanner}"
+                    aria-labelledby="consent_banner_title"
+                    id="consent-banner-dialog"
+                >
+                    <div class="${cls.miniContent}">
                         ${Button({
-                            content: i18n("consent_banner_consent_all"),
-                            variant: "primary",
+                            content: html`<span
+                                    >${i18n("consent_banner_minimized")}</span
+                                >${ExpandIcon({
+                                    className: cls.expandIcon,
+                                })}`,
                             attributes: {
-                                ["data-name"]: "consent-banner-all",
-                                // data-testid brukes av Playwright i andre team for styring av cookiebanner
-                                // den må ikke endres uten at de andre teamene er informert
-                                ["data-testid"]: "consent-banner-all",
+                                ["data-name"]: "consent-banner-expand",
                             },
-                            className: cls.button,
-                        })}
-                        ${Button({
-                            content: i18n("consent_banner_refuse_optional"),
-                            variant: "primary",
-                            attributes: {
-                                ["data-name"]: "consent-banner-refuse-optional",
-                                ["data-testid"]:
-                                    "consent-banner-refuse-optional",
-                            },
-                            className: cls.button,
+                            className: cls.expandButton,
                         })}
                     </div>
-                    <p class="${cls.text}">
-                        ${i18n("consent_banner_change_consent")}
-                    </p>
-                    <p class="${cls.text}">
-                        ${i18n("consent_banner_additional_cookies_info")}${" "}
-                        <a href="${moreUrl}" class="${cls.moreLink}">
-                            ${i18n("consent_banner_additional_cookies_link")}
-                        </a>
-                    </p>
-                </div>
-            </section>
+                    <div class="${cls.content}">
+                        <h2
+                            id="consent_banner_title"
+                            class="${cls.title}"
+                            tabindex="-1"
+                        >
+                            ${i18n("consent_banner_title")}
+                        </h2>
+                        <p class="${cls.text}">
+                            ${i18n("consent_banner_text")}
+                        </p>
+                        <div class="${cls.buttonContainer}">
+                            ${Button({
+                                content: i18n("consent_banner_consent_all"),
+                                variant: "primary",
+                                attributes: {
+                                    ["data-name"]: "consent-banner-all",
+                                    // data-testid brukes av Playwright i andre team for styring av cookiebanner
+                                    // den må ikke endres uten at de andre teamene er informert
+                                    ["data-testid"]: "consent-banner-all",
+                                },
+                                className: cls.button,
+                            })}
+                            ${Button({
+                                content: i18n("consent_banner_refuse_optional"),
+                                variant: "primary",
+                                attributes: {
+                                    ["data-name"]:
+                                        "consent-banner-refuse-optional",
+                                    ["data-testid"]:
+                                        "consent-banner-refuse-optional",
+                                },
+                                className: cls.button,
+                            })}
+                        </div>
+                        <p class="${cls.text}">
+                            ${i18n("consent_banner_change_consent")}
+                        </p>
+                        <p class="${cls.text}">
+                            ${i18n(
+                                "consent_banner_additional_cookies_info",
+                            )}${" "}
+                            <a href="${moreUrl}" class="${cls.moreLink}">
+                                ${i18n(
+                                    "consent_banner_additional_cookies_link",
+                                )}
+                            </a>
+                        </p>
+                    </div>
+                </section>
+            </div>
         </consent-banner>
     `;
 };
