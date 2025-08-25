@@ -85,7 +85,7 @@ class Footer extends HTMLElement {
             }
         });
 
-        const POLL_MS = 60000; //TODO: consider less frequent polling
+        const POLL_MS = 60 * 1000; //TODO: consider less frequent polling
 
         this.menuVersionInterval = window.setInterval(async () => {
             const fetchedMenuVersion = await this.fetchMenuVersion();
