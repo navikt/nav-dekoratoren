@@ -1,10 +1,7 @@
 import type { ClientParams } from "decorator-shared/params";
 import { updateDecoratorParams } from "../params";
 import { analyticsClickListener } from "../analytics/analytics";
-import {
-    endpointUrlWithoutParams,
-    endpointUrlWithParams,
-} from "../helpers/urls";
+import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
@@ -58,7 +55,7 @@ class Footer extends HTMLElement {
     private async fetchMenuVersion(): Promise<number | null> {
         try {
             const res = await fetch(
-                endpointUrlWithoutParams("/api/menu-version"),
+                endpointUrlWithParams("/api/menu-version"),
                 { cache: "no-store" },
             );
             if (!res.ok) return null;
