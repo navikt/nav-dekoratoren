@@ -33,11 +33,11 @@ export class ConsentBanner extends HTMLElement {
     }
 
     minimizeModal() {
-        this.dialog.classList.add("minimized");
+        this.dialog.classList.add("minimizedCookieBanner");
     }
 
     maximizeModal() {
-        this.dialog.classList.remove("minimized");
+        this.dialog.classList.remove("minimizedCookieBanner");
     }
 
     async connectedCallback() {

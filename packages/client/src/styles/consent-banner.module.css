@@ -22,7 +22,7 @@
     display: block;
 }
 
-:global(.minimized) {
+:global(.minimizedCookieBanner) {
     .miniContent {
         display: flex;
     }
