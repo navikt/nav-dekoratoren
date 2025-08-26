@@ -32,6 +32,7 @@ export async function fetchSession() {
 
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
+        console.error(`Failed to fetch session - ${error}`);
         return null;
     }
 }
@@ -46,6 +47,7 @@ export async function fetchRenew() {
 
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
+        console.error(`Failed to renew session - ${error}`);
         return null;
     }
 }
@@ -71,15 +73,31 @@ export const logout = () => (window.location.href = env("LOGOUT_URL"));
 
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");
-
-    return fetch(url, {
-        credentials: "include",
-    })
-        .then((res) => res.json() as Promise<AuthDataResponse>)
-        .catch((error) => {
-            console.error(`Failed to fetch auth data - ${error}`);
-            return { auth: { authenticated: false } };
+    function fetchWithTimout<T>(
+        promise: Promise<T>,
+        ms: number,
+        timeoutError = new Error("Fetch auth data timed out"),
+    ): Promise<T> {
+        const timeout = new Promise<never>((_, reject) => {
+            setTimeout(() => {
+                reject(timeoutError);
+            }, ms);
         });
+
+        // returns a race between timeout and the passed promise
+        return Promise.race<T>([promise, timeout]);
+    }
+    return fetchWithTimout(
+        fetch(url, {
+            credentials: "include",
+        })
+            .then((res) => res.json() as Promise<AuthDataResponse>)
+            .catch((error) => {
+                console.error(`Failed to fetch auth data - ${error}`);
+                return { auth: { authenticated: false } };
+            }),
+        5000,
+    );
 };
 
 export const refreshAuthData = () =>
