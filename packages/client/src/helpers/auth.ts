@@ -96,7 +96,7 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
                 console.error(`Failed to fetch auth data - ${error}`);
                 return { auth: { authenticated: false } };
             }),
-        5000,
+        1,
     );
 };
 
