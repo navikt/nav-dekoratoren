@@ -90,14 +90,12 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
     return fetchWithTimout(
         fetch(url, {
             credentials: "include",
-        })
-            .then((res) => res.json() as Promise<AuthDataResponse>)
-            .catch((error) => {
-                console.error(`Failed to fetch auth data - ${error}`);
-                return { auth: { authenticated: false } };
-            }),
+        }).then((res) => res.json() as Promise<AuthDataResponse>),
         1,
-    );
+    ).catch((error) => {
+        console.error(`Failed to fetch auth data - ${error}`);
+        return { auth: { authenticated: false } };
+    });
 };
 
 export const refreshAuthData = () =>
