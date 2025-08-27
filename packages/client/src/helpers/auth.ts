@@ -74,21 +74,17 @@ export const logout = () => (window.location.href = env("LOGOUT_URL"));
 const OneMinuteTimeout = 60000;
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");
-    function fetchWithTimout<T>(
-        promise: Promise<T>,
-        ms = OneMinuteTimeout,
-        timeoutError = new Error("Fetch auth data timed out"),
-    ): Promise<T> {
+    function fetchWithTimeout<T>(promise: Promise<T>): Promise<T> {
+        const timeoutError = new Error("Fetch auth data timed out");
         const timeout = new Promise<never>((_, reject) => {
             setTimeout(() => {
                 reject(timeoutError);
-            }, ms);
+            }, OneMinuteTimeout);
         });
-
-        // returns a race between timeout and the passed promise
         return Promise.race<T>([promise, timeout]);
     }
-    return fetchWithTimout(
+
+    return fetchWithTimeout(
         fetch(url, {
             credentials: "include",
         }).then((res) => res.json() as Promise<AuthDataResponse>),
