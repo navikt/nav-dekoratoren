@@ -71,27 +71,19 @@ export function transformSessionToAuth(session: SessionData) {
 
 export const logout = () => (window.location.href = env("LOGOUT_URL"));
 
-const OneMinuteTimeout = 60000;
+const OneMinuteTimeout = 1;
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");
-    function fetchWithTimeout<T>(promise: Promise<T>): Promise<T> {
-        const timeoutError = new Error("Fetch auth data timed out");
-        const timeout = new Promise<never>((_, reject) => {
-            setTimeout(() => {
-                reject(timeoutError);
-            }, OneMinuteTimeout);
-        });
-        return Promise.race<T>([promise, timeout]);
-    }
 
-    return fetchWithTimeout(
-        fetch(url, {
-            credentials: "include",
-        }).then((res) => res.json() as Promise<AuthDataResponse>),
-    ).catch((error) => {
-        console.error(`Failed to fetch auth data - ${error}`);
-        return { auth: { authenticated: false } };
-    });
+    return fetch(url, {
+        signal: AbortSignal.timeout(OneMinuteTimeout),
+        credentials: "include",
+    })
+        .then((res) => res.json() as Promise<AuthDataResponse>)
+        .catch((error) => {
+            console.error(`Failed to fetch auth data - ${error}`);
+            return { auth: { authenticated: false } };
+        });
 };
 
 export const refreshAuthData = () =>
