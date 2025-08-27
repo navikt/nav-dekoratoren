@@ -71,7 +71,7 @@ export function transformSessionToAuth(session: SessionData) {
 
 export const logout = () => (window.location.href = env("LOGOUT_URL"));
 
-const OneMinuteTimeout = 1;
+const OneMinuteTimeout = 60000;
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");
 
