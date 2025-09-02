@@ -60,6 +60,7 @@ class MainMenu extends HTMLElement {
                 lenketekst:
                     anchor.getAttribute("data-context") ?? //context-links
                     anchor.innerText,
+                sideskrolling: window.scrollY ?? 0,
             })),
         );
     }
