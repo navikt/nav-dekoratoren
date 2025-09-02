@@ -116,6 +116,7 @@ export const analyticsClickListener =
                     lenketekst: args.lenketekst,
                     tekst: args.tekst,
                     komponent: args.komponent,
+                    sideskrolling: args.sideskrolling,
                 };
                 amplitudeEvent(analyticsEvent);
                 createUmamiEvent(analyticsEvent);
