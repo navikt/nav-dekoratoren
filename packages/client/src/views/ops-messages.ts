@@ -57,6 +57,7 @@ class OpsMessages extends HTMLElement {
                 kategori: "dekorator-driftsmeldinger",
                 lenketekst: "driftsmelding",
                 komponent: "OpsMessages",
+                sideskrolling: window.scrollY ?? 0,
             })),
         );
     }

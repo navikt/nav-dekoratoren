@@ -26,6 +26,7 @@ class ContextLinks extends HTMLElement {
                     ) as AnalyticsKategori) ?? undefined,
                 lenkegruppe: "arbeidsflate-valg",
                 lenketekst: anchor.getAttribute("data-context") ?? undefined,
+                sideskrolling: window.scrollY ?? 0,
             })),
         );
         window.addEventListener("paramsupdated", this.handleParamsUpdated);

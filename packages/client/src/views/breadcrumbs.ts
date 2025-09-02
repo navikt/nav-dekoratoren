@@ -52,6 +52,7 @@ class Breadcrumbs extends HTMLElement {
                 komponent: "Breadcrumbs",
                 lenketekst:
                     anchor.getAttribute("data-analytics-title") || "[redacted]",
+                sideskrolling: window.scrollY ?? 0,
             })),
         );
     }

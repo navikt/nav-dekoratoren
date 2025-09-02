@@ -159,6 +159,7 @@ class Header extends HTMLElement {
                     ? {
                           kategori: "dekorator-header",
                           lenketekst: "navlogo",
+                          sideskrolling: window.scrollY ?? 0,
                       }
                     : null,
             ),
