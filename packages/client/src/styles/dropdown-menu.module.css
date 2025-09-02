@@ -35,5 +35,8 @@
 
     @media (min-width: 768px) {
         height: initial;
+        max-height: 80dvh;
+        border-radius: 0 0 var(--a-border-radius-medium)
+            var(--a-border-radius-medium);
     }
 }
