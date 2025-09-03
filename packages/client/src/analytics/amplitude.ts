@@ -126,7 +126,10 @@ const logEventFromApp = (params?: {
         }
 
         const decoratorParams = window.__DECORATOR_DATA__.params;
-
+        // Parametere vi ønsker skal logges for alle apper
+        const extraParams = {
+            sideskrolling: window.scrollY,
+        };
         const nksParams =
             origin === "crm-innboks"
                 ? {
@@ -138,7 +141,7 @@ const logEventFromApp = (params?: {
 
         return logAmplitudeEvent(
             eventName,
-            { ...nksParams, ...eventData },
+            { ...nksParams, ...eventData, ...extraParams },
             origin,
         );
     } catch (e) {
