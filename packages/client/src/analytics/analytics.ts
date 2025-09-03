@@ -57,7 +57,7 @@ export const buildLocationString = () => {
 // Parametere vi ønsker skal logges for alle apper
 export const extraWindowParams = () => {
     return {
-        scrollPos: window.scrollY ?? 0,
+        scrollPos: window.scrollY,
         scrollPercent:
             ((window.scrollY + window.innerHeight) /
                 document.body.scrollHeight) *
