@@ -54,6 +54,17 @@ export const buildLocationString = () => {
     return `${origin}${pathname}${hash}`;
 };
 
+// Parametere vi ønsker skal logges for alle apper
+export const extraWindowParams = () => {
+    return {
+        scrollPos: window.scrollY ?? 0,
+        scrollPercent:
+            ((window.scrollY + window.innerHeight) /
+                document.body.scrollHeight) *
+            100,
+    };
+};
+
 const logPageView = (authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {
@@ -116,7 +127,6 @@ export const analyticsClickListener =
                     lenketekst: args.lenketekst,
                     tekst: args.tekst,
                     komponent: args.komponent,
-                    sideskrolling: args.sideskrolling,
                 };
                 amplitudeEvent(analyticsEvent);
                 createUmamiEvent(analyticsEvent);

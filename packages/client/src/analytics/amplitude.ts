@@ -1,4 +1,8 @@
-import { buildLocationString, getCurrentReferrer } from "./analytics";
+import {
+    buildLocationString,
+    getCurrentReferrer,
+    extraWindowParams,
+} from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 // Dynamic import for lazy loading
@@ -100,13 +104,6 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     });
 };
 
-// Parametere vi ønsker skal logges for alle apper
-const extraParams = () => {
-    return {
-        sideskrolling: window.scrollY ?? 0,
-    };
-};
-
 const logEventFromApp = (params?: {
     origin: unknown | string;
     eventName: unknown | string;
@@ -144,7 +141,7 @@ const logEventFromApp = (params?: {
 
         return logAmplitudeEvent(
             eventName,
-            { ...nksParams, ...eventData, ...extraParams },
+            { ...nksParams, ...eventData },
             origin,
         );
     } catch (e) {
@@ -174,7 +171,7 @@ export const logAmplitudeEvent = async (
             origin,
             originVersion: eventData.originVersion || "unknown",
             viaDekoratoren: true,
-            ...extraParams,
+            ...extraWindowParams(),
         },
         {
             ingestion_metadata: {

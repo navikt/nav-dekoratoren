@@ -43,7 +43,6 @@ class DropdownMenu extends HTMLElement {
                 kategori: "dekorator-header",
                 lenketekst: this.menuType && analyticsLabel[this.menuType],
                 komponent: "DropDownMenu",
-                sideskrolling: window.scrollY ?? 0,
             });
             this.isOpen = force;
         }

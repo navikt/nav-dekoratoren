@@ -13,7 +13,6 @@ class LoginButton extends HTMLElement {
                 kategori: "dekorator-header",
                 lenketekst: "Logg inn",
                 komponent: "LoginButton",
-                sideskrolling: window.scrollY ?? 0,
             })),
         );
     }

@@ -1,5 +1,5 @@
 import { env } from "../params";
-import { getCurrentReferrer } from "./analytics";
+import { getCurrentReferrer, extraWindowParams } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 export const logUmamiEvent = async (
@@ -25,6 +25,7 @@ export const logUmamiEvent = async (
                 origin,
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,
+                ...extraWindowParams(),
             },
         }));
     }
