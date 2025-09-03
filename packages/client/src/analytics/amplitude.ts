@@ -100,6 +100,13 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     });
 };
 
+// Parametere vi ønsker skal logges for alle apper
+const extraParams = () => {
+    return {
+        sideskrolling: window.scrollY ?? 0,
+    };
+};
+
 const logEventFromApp = (params?: {
     origin: unknown | string;
     eventName: unknown | string;
@@ -126,10 +133,6 @@ const logEventFromApp = (params?: {
         }
 
         const decoratorParams = window.__DECORATOR_DATA__.params;
-        // Parametere vi ønsker skal logges for alle apper
-        const extraParams = {
-            sideskrolling: window.scrollY,
-        };
         const nksParams =
             origin === "crm-innboks"
                 ? {
@@ -171,6 +174,7 @@ export const logAmplitudeEvent = async (
             origin,
             originVersion: eventData.originVersion || "unknown",
             viaDekoratoren: true,
+            ...extraParams,
         },
         {
             ingestion_metadata: {
