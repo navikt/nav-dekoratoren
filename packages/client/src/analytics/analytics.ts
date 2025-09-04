@@ -59,7 +59,7 @@ export const extraWindowParams = () => {
     return {
         scrollPos: window.scrollY,
         scrollPercent: Math.round(
-            Math.max(
+            Math.min(
                 ((window.scrollY + window.innerHeight) /
                     document.body.scrollHeight +
                     1) *
