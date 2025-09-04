@@ -58,10 +58,15 @@ export const buildLocationString = () => {
 export const extraWindowParams = () => {
     return {
         scrollPos: window.scrollY,
-        scrollPercent:
-            ((window.scrollY + window.innerHeight) /
-                document.body.scrollHeight) *
-            100,
+        scrollPercent: Math.round(
+            Math.max(
+                ((window.scrollY + window.innerHeight) /
+                    document.body.scrollHeight +
+                    1) *
+                    100,
+                100,
+            ),
+        ),
     };
 };
 
