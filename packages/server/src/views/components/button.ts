@@ -42,6 +42,6 @@ export const Button = ({
             icon &&
             html`<span class="${cls["navds-button__icon"]}">${icon}</span>`
         }
-        <span class="${cls["navds-label"]}">${content}</span>
+        <span class="${clsx(cls["navds-label"], "label")}">${content}</span>
     </${href ? "a" : "button"}>
 `;
