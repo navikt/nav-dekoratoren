@@ -2,7 +2,7 @@ import { analyticsClickListener } from "../analytics/analytics";
 import { AnalyticsKategori } from "../analytics/types";
 import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
-import { contextSchema } from "../router/params";
+import { contextSchema } from "decorator-shared/params";
 
 class ContextLinks extends HTMLElement {
     private validate = (ctx: string | null | undefined) => {

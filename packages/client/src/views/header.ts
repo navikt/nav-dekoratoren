@@ -1,6 +1,6 @@
 import { endpointUrlWithParams } from "../helpers/urls";
-import { type ClientParams } from "decorator-shared/params";
-import { env, param, updateDecoratorParams, contextSchema } from "../params";
+import { type ClientParams, contextSchema } from "decorator-shared/params";
+import { env, param, updateDecoratorParams } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
 import { CustomEvents } from "../events";
@@ -41,15 +41,14 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "simpleHeader",
 ] as const;
 
-const validateContext = (ctx: string | null | undefined): string => {
+const validateContext = (ctx: unknown): ClientParams["context"] => {
     const parsed = contextSchema.safeParse(ctx);
-    return parsed.success ? parsed.data : "/privatperson";
+    return parsed.success ? parsed.data : "privatperson";
 };
 
-const contextFromLocation = (): string => {
-    const seg = (location.pathname.split("/")[1] ?? "").trim();
-    const urlCtx = seg ? `/${seg}` : null;
-    return validateContext(urlCtx);
+const contextFromLocation = (): ClientParams["context"] => {
+    const segment = (location.pathname.split("/")[1] ?? "").trim();
+    return validateContext(segment);
 };
 
 class Header extends HTMLElement {
