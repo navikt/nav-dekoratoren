@@ -4,16 +4,44 @@ import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 class ContextLinks extends HTMLElement {
-    handleParamsUpdated = (event: CustomEvent) => {
-        if (event.detail.params.context) {
-            this.querySelectorAll("a").forEach((anchor) => {
-                anchor.classList.toggle(
-                    headerClasses.lenkeActive,
-                    anchor.getAttribute("data-context") ===
-                        event.detail.params.context,
-                );
-            });
-        }
+    private readonly allowed = new Set([
+        "/samarbeidspartner",
+        "/privatperson",
+        "/arbeidsgiver",
+    ]);
+
+    private validate = (ctx: string | null | undefined) => {
+        return this.allowed.has(ctx ?? "") ? (ctx as string) : "/privatperson";
+    };
+
+    private contextFromLocation = () => {
+        const seg = location.pathname.split("/")[1] ?? "";
+        const urlCtx = seg ? `/${seg}` : null;
+        return this.validate(urlCtx); // fallback to /privatperson if invalid
+    };
+
+    private updateActive = (context: string) => {
+        this.querySelectorAll<HTMLAnchorElement>("a").forEach((anchor) => {
+            anchor.classList.toggle(
+                headerClasses.lenkeActive,
+                anchor.getAttribute("data-context") === context,
+            );
+        });
+    };
+
+    private resolveAndUpdate = (eventCtxRaw: string | null | undefined) => {
+        const eventCtx = this.validate(eventCtxRaw);
+        const urlCtx = this.contextFromLocation();
+        const chosen = eventCtx === urlCtx ? eventCtx : urlCtx; // URL wins on mismatch
+        this.updateActive(chosen);
+    };
+
+    private handleParamsUpdated = (event: CustomEvent) => {
+        this.resolveAndUpdate(event?.detail?.params?.context ?? null);
+    };
+
+    private handlePopState = () => {
+        this.updateActive(this.contextFromLocation());
     };
 
     connectedCallback() {
@@ -28,11 +56,22 @@ class ContextLinks extends HTMLElement {
                 lenketekst: anchor.getAttribute("data-context") ?? undefined,
             })),
         );
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+
+        window.addEventListener(
+            "paramsupdated",
+            this.handleParamsUpdated as EventListener,
+        );
+        window.addEventListener("popstate", this.handlePopState);
+
+        this.updateActive(this.contextFromLocation());
     }
 
     disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener(
+            "paramsupdated",
+            this.handleParamsUpdated as EventListener,
+        );
+        window.removeEventListener("popstate", this.handlePopState);
     }
 }
 
