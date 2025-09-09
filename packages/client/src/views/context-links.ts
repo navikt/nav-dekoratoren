@@ -2,16 +2,19 @@ import { analyticsClickListener } from "../analytics/analytics";
 import { AnalyticsKategori } from "../analytics/types";
 import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
+import { contextSchema } from "../router/params";
 
 class ContextLinks extends HTMLElement {
-    private readonly allowed = new Set([
-        "/samarbeidspartner",
-        "/privatperson",
-        "/arbeidsgiver",
-    ]);
-
-    private validate = (ctx: string | null | undefined) =>
-        this.allowed.has(ctx ?? "") ? (ctx as string) : "/privatperson";
+    private validate = (ctx: string | null | undefined) => {
+        const candidate = ctx ?? "";
+        const parsed = (contextSchema as any).safeParse
+            ? (contextSchema as any).safeParse(candidate)
+            : {
+                  success: (contextSchema as any).includes?.(candidate),
+                  data: candidate,
+              };
+        return parsed.success ? parsed.data : "/privatperson";
+    };
 
     private contextFromLocation = () => {
         const seg = location.pathname.split("/")[1] ?? "";
