@@ -1,6 +1,6 @@
 import { endpointUrlWithParams } from "../helpers/urls";
 import { type ClientParams } from "decorator-shared/params";
-import { env, param, updateDecoratorParams } from "../params";
+import { env, param, updateDecoratorParams, contextSchema } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
 import { CustomEvents } from "../events";
@@ -40,6 +40,17 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "simple",
     "simpleHeader",
 ] as const;
+
+const validateContext = (ctx: string | null | undefined): string => {
+    const parsed = contextSchema.safeParse(ctx);
+    return parsed.success ? parsed.data : "/privatperson";
+};
+
+const contextFromLocation = (): string => {
+    const seg = (location.pathname.split("/")[1] ?? "").trim();
+    const urlCtx = seg ? `/${seg}` : null;
+    return validateContext(urlCtx);
+};
 
 class Header extends HTMLElement {
     private userId?: string;
@@ -105,6 +116,14 @@ class Header extends HTMLElement {
         const { context, language, simple, simpleHeader } = e.detail.params;
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
+
+        if (context !== undefined) {
+            const eventCtx = validateContext(context);
+            const urlCtx = contextFromLocation();
+            if (eventCtx !== urlCtx) {
+                updateDecoratorParams({ context: urlCtx });
+            }
+        }
 
         if (language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
