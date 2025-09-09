@@ -10,29 +10,27 @@ class ContextLinks extends HTMLElement {
         "/arbeidsgiver",
     ]);
 
-    private validate = (ctx: string | null | undefined) => {
+    private validate = (ctx: string | null | undefined): string => {
         return this.allowed.has(ctx ?? "") ? (ctx as string) : "/privatperson";
     };
 
-    private contextFromLocation = () => {
+    private contextFromLocation = (): string => {
         const seg = location.pathname.split("/")[1] ?? "";
         const urlCtx = seg ? `/${seg}` : null;
-        return this.validate(urlCtx); // fallback to /privatperson if invalid
+        return this.validate(urlCtx);
     };
 
     private updateActive = (context: string) => {
         this.querySelectorAll<HTMLAnchorElement>("a").forEach((anchor) => {
-            anchor.classList.toggle(
-                headerClasses.lenkeActive,
-                anchor.getAttribute("data-context") === context,
-            );
+            const isActive = anchor.getAttribute("data-context") === context;
+            anchor.classList.toggle(headerClasses.lenkeActive, isActive);
         });
     };
 
     private resolveAndUpdate = (eventCtxRaw: string | null | undefined) => {
         const eventCtx = this.validate(eventCtxRaw);
         const urlCtx = this.contextFromLocation();
-        const chosen = eventCtx === urlCtx ? eventCtx : urlCtx; // URL wins on mismatch
+        const chosen = eventCtx === urlCtx ? eventCtx : urlCtx; // URL wins if mismatch
         this.updateActive(chosen);
     };
 
