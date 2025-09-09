@@ -118,12 +118,33 @@ class Header extends HTMLElement {
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
-        if (context || language || isSimpleChange || isSimpleHeaderChange) {
-            if (context !== undefined) {
-                this.currentContext = validateContext(context);
+        let effectiveCtx: ClientParams["context"] | undefined;
+        if (context !== undefined) {
+            const eventCtx = validateContext(context);
+            const urlCtx = contextFromLocation();
+
+            if (eventCtx !== urlCtx) {
+                updateDecoratorParams({ context: urlCtx });
+                effectiveCtx = urlCtx;
+            } else {
+                effectiveCtx = eventCtx;
             }
+        } else {
+            effectiveCtx = contextFromLocation();
+        }
+
+        if (effectiveCtx && effectiveCtx !== this.currentContext) {
+            this.currentContext = effectiveCtx;
             this.refreshHeader();
             return;
+        }
+
+        if (language || isSimpleChange || isSimpleHeaderChange) {
+            this.refreshHeader();
+            return;
+        }
+        if (context) {
+            refreshAuthData();
         }
     };
 
@@ -157,7 +178,6 @@ class Header extends HTMLElement {
     private readonly handlePopState = () => {
         const urlCtx = contextFromLocation();
         if (urlCtx !== this.currentContext) {
-            this.currentContext = urlCtx;
             updateDecoratorParams({ context: urlCtx });
         }
     };
