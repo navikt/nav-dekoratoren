@@ -54,6 +54,8 @@ const contextFromLocation = (): ClientParams["context"] => {
 class Header extends HTMLElement {
     private userId?: string;
 
+    private currentContext?: ClientParams["context"];
+
     private readonly handleMessage = (e: MessageEvent) => {
         if (msgFromNks(e)) {
             const {
@@ -116,12 +118,25 @@ class Header extends HTMLElement {
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
+        let effectiveCtx: ClientParams["context"] | undefined;
         if (context !== undefined) {
             const eventCtx = validateContext(context);
             const urlCtx = contextFromLocation();
+
             if (eventCtx !== urlCtx) {
                 updateDecoratorParams({ context: urlCtx });
+                effectiveCtx = urlCtx;
+            } else {
+                effectiveCtx = eventCtx;
             }
+        } else {
+            effectiveCtx = contextFromLocation();
+        }
+
+        if (effectiveCtx && effectiveCtx !== this.currentContext) {
+            this.currentContext = effectiveCtx;
+            this.refreshHeader();
+            return;
         }
 
         if (language || isSimpleChange || isSimpleHeaderChange) {
@@ -160,10 +175,18 @@ class Header extends HTMLElement {
         }
     };
 
+    private readonly handlePopState = () => {
+        const urlCtx = contextFromLocation();
+        if (urlCtx !== this.currentContext) {
+            updateDecoratorParams({ context: urlCtx });
+        }
+    };
+
     connectedCallback() {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         window.addEventListener("focusin", this.handleFocusIn);
+        window.addEventListener("popstate", this.handlePopState); // NEW
 
         if (param("redirectOnUserChange")) {
             window.addEventListener("focus", this.handleFocus);
@@ -181,6 +204,8 @@ class Header extends HTMLElement {
                     : null,
             ),
         );
+
+        this.currentContext = contextFromLocation();
     }
 
     disconnectedCallback() {
@@ -189,6 +214,7 @@ class Header extends HTMLElement {
         window.removeEventListener("authupdated", this.handleAuthUpdated);
         window.removeEventListener("focus", this.handleFocus);
         window.removeEventListener("focusin", this.handleFocusIn);
+        window.removeEventListener("popstate", this.handlePopState);
     }
 }
 
