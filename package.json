@@ -45,7 +45,7 @@
         "prettier": "3.5.3",
         "storybook": "8.6.12",
         "typescript-plugin-css-modules": "5.1.0",
-        "vite": "6.3.4",
+        "vite": "6.3.6",
         "postcss-import-sync2": "1.2.0"
     },
     "lint-staged": {
