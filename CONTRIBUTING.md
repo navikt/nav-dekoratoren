@@ -1,5 +1,5 @@
 # Contributing to the Decorator
-The Team Personbruker has the daily responsibility for the Decorator, but we welcome input, suggestions, and PRs from others! This documentation details how to start the Decorator locally, add an issue to the GitHub repository, or submit a pull request.
+The Nav.no Team has the daily responsibility for the Decorator, but we welcome input, suggestions, and PRs from others! This documentation details how to start the Decorator locally, add an issue to the GitHub repository, or submit a pull request.
 
 ## Starting the Decorator locally
 
@@ -100,7 +100,7 @@ Most components are built using Web Components, which help encapsulate structure
 The Decorator aims to do as much server rendering as possible before delivering content to your application.
 
 ### Task analytics
-Task Analytics allows teams to run surveys based on matching URLs. The tasks are configured in a [separate configuration repo](https://github.com/navikt/nav-dekoratoren-config) and are injected into the Decorator. Please contact Team Personbruker if you would like to learn more about Task Analytics or if you have a survey that you would like to set up.
+Task Analytics allows teams to run surveys based on matching URLs. The tasks are configured in a [separate configuration repo](https://github.com/navikt/nav-dekoratoren-config) and are injected into the Decorator. Please contact Nav.no Team if you would like to learn more about Task Analytics or if you have a survey that you would like to set up.
 
 ### Hotjar
 Hotjar is behavior analytics software that allows you to see interaction heatmaps and analyze user behavior in your application. Hotjar is enabled by default in the Decorator, and content is masked to prevent unintentional leaks of personal information to Hotjar. See [readme.md](/README.md#maskhotjar) for information on how to turn off masking.
