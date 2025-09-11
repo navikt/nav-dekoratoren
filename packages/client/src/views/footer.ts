@@ -11,6 +11,9 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 ] as const;
 
 class Footer extends HTMLElement {
+    private lastSeenMenuVersion: number | null = null;
+    private menuVersionInterval: number | null = null;
+
     private readonly handleMessage = (e: MessageEvent) => {
         const { event, payload } = e.data;
         if (event == "params") {
@@ -49,6 +52,20 @@ class Footer extends HTMLElement {
         }
     };
 
+    private async fetchMenuVersion(): Promise<number | null> {
+        try {
+            const res = await fetch(
+                endpointUrlWithParams("/api/menu-version"),
+                { cache: "no-store" },
+            );
+            if (!res.ok) return null;
+            const data = await res.json();
+            return typeof data.version === "number" ? data.version : null;
+        } catch {
+            return null;
+        }
+    }
+
     connectedCallback() {
         this.addEventListener(
             "click",
@@ -61,11 +78,46 @@ class Footer extends HTMLElement {
         );
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+
+        this.fetchMenuVersion().then((version) => {
+            if (version !== null) {
+                this.lastSeenMenuVersion = version;
+            }
+        });
+
+        const POLL_MS = 60 * 1000; //TODO: consider less frequent polling
+
+        this.menuVersionInterval = window.setInterval(async () => {
+            const fetchedMenuVersion = await this.fetchMenuVersion();
+
+            if (
+                fetchedMenuVersion !== null &&
+                this.lastSeenMenuVersion !== null &&
+                fetchedMenuVersion > this.lastSeenMenuVersion
+            ) {
+                this.lastSeenMenuVersion = fetchedMenuVersion;
+                this.refreshFooter();
+
+                window.dispatchEvent(
+                    new CustomEvent("decoratorupdate", {
+                        detail: {
+                            type: "menu",
+                            menuVersion: this.lastSeenMenuVersion,
+                        },
+                    }),
+                );
+            }
+        }, POLL_MS);
     }
 
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+
+        if (this.menuVersionInterval) {
+            clearInterval(this.menuVersionInterval);
+            this.menuVersionInterval = null;
+        }
     }
 }
 
