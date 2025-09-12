@@ -107,12 +107,9 @@ class Header extends HTMLElement {
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
-        if (language || isSimpleChange || isSimpleHeaderChange) {
+        if (context || language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
             return;
-        }
-        if (context) {
-            refreshAuthData();
         }
     };
 
