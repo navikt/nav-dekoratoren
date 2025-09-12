@@ -132,7 +132,7 @@ export class ScreensharingModalPuzzel extends HTMLElement {
     }
 }
 
-export class ScreenshareButtonPuzzel extends HTMLElement {
+export class ScreenshareButtonPuzzel extends HTMLButtonElement {
     connectedCallback() {
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {

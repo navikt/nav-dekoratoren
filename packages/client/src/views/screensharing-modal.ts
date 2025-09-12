@@ -128,7 +128,7 @@ export class ScreensharingModal extends HTMLElement {
     }
 }
 
-class ScreenshareButton extends HTMLElement {
+class ScreenshareButton extends HTMLButtonElement {
     loadScriptIfActiveSession = () => {
         const userState = Cookies.get("psCurrentState");
         if (userState && userState !== "Ready") {
@@ -168,4 +168,5 @@ defineCustomElement(
 defineCustomElement(
     "screenshare-button",
     enablePuzzel ? ScreenshareButtonPuzzel : ScreenshareButton,
+    { extends: "button" },
 );
