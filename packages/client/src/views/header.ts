@@ -41,20 +41,8 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
     "simpleHeader",
 ] as const;
 
-const validateContext = (ctx: unknown): ClientParams["context"] => {
-    const parsed = contextSchema.safeParse(ctx);
-    return parsed.success ? parsed.data : "privatperson";
-};
-
-const contextFromLocation = (): ClientParams["context"] => {
-    const segment = (location.pathname.split("/")[1] ?? "").trim();
-    return validateContext(segment);
-};
-
 class Header extends HTMLElement {
     private userId?: string;
-
-    private currentContext?: ClientParams["context"];
 
     private readonly handleMessage = (e: MessageEvent) => {
         if (msgFromNks(e)) {
@@ -118,13 +106,12 @@ class Header extends HTMLElement {
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
-        if (context || language || isSimpleChange || isSimpleHeaderChange) {
-            if (context !== undefined) {
-                this.currentContext = validateContext(context);
-                refreshAuthData();
-            }
+        if (language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
             return;
+        }
+        if (context) {
+            refreshAuthData();
         }
     };
 
