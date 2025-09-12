@@ -75,7 +75,9 @@ class Header extends HTMLElement {
             return;
         }
 
+        console.log(event);
         if (event == "params") {
+            console.log(payload);
             paramsUpdatesToHandle.forEach((key) => {
                 if (payload[key] !== undefined) {
                     // TODO: validation
@@ -111,7 +113,6 @@ class Header extends HTMLElement {
             return;
         }
         if (context) {
-            this.refreshHeader();
             refreshAuthData();
         }
     };
