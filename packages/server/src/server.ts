@@ -124,7 +124,8 @@ app.get("/auth", async ({ req, json }) =>
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 app.get("/header", async ({ req, html }) => {
     const params = parseAndValidateParams(req.query());
-
+    console.log("req", req.query());
+    console.log("params from header req", params.context);
     return html(
         (await HeaderTemplate({ params, withContainers: false })).render(
             params,
