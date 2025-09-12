@@ -1,5 +1,5 @@
 import { endpointUrlWithParams } from "../helpers/urls";
-import { type ClientParams, contextSchema } from "decorator-shared/params";
+import { type ClientParams } from "decorator-shared/params";
 import { env, param, updateDecoratorParams } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
@@ -111,6 +111,7 @@ class Header extends HTMLElement {
             return;
         }
         if (context) {
+            this.refreshHeader();
             refreshAuthData();
         }
     };
@@ -143,11 +144,7 @@ class Header extends HTMLElement {
     };
 
     private readonly handlePopState = () => {
-        const urlCtx = contextFromLocation();
-        if (urlCtx !== this.currentContext) {
-            this.currentContext = urlCtx;
-            updateDecoratorParams({ context: urlCtx });
-        }
+        updateDecoratorParams({ context });
     };
 
     connectedCallback() {
@@ -172,8 +169,6 @@ class Header extends HTMLElement {
                     : null,
             ),
         );
-
-        this.currentContext = contextFromLocation();
     }
 
     disconnectedCallback() {
