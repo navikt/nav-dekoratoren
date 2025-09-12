@@ -143,15 +143,10 @@ class Header extends HTMLElement {
         }
     };
 
-    private readonly handlePopState = () => {
-        updateDecoratorParams({ context });
-    };
-
     connectedCallback() {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         window.addEventListener("focusin", this.handleFocusIn);
-        window.addEventListener("popstate", this.handlePopState);
 
         if (param("redirectOnUserChange")) {
             window.addEventListener("focus", this.handleFocus);
@@ -177,7 +172,6 @@ class Header extends HTMLElement {
         window.removeEventListener("authupdated", this.handleAuthUpdated);
         window.removeEventListener("focus", this.handleFocus);
         window.removeEventListener("focusin", this.handleFocusIn);
-        window.removeEventListener("popstate", this.handlePopState);
     }
 }
 
