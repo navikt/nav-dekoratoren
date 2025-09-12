@@ -121,8 +121,6 @@ class Header extends HTMLElement {
         if (context || language || isSimpleChange || isSimpleHeaderChange) {
             if (context !== undefined) {
                 this.currentContext = validateContext(context);
-            }
-            if (context) {
                 refreshAuthData();
             }
             this.refreshHeader();
