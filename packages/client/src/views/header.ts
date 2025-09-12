@@ -116,13 +116,11 @@ class Header extends HTMLElement {
         e: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
         const { context, language, simple, simpleHeader } = e.detail.params;
-        console.log(context);
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
         if (context || language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
-            return;
         }
     };
 
