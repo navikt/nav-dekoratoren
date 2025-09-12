@@ -5,14 +5,15 @@ import { defineCustomElement } from "./custom-elements";
 
 class ContextLinks extends HTMLElement {
     handleParamsUpdated = (event: CustomEvent) => {
-        const ctx = event.detail.params.context;
-        if (!ctx) return;
-        this.querySelectorAll("a").forEach((a) => {
-            a.classList.toggle(
-                headerClasses.lenkeActive,
-                a.getAttribute("data-context") === `/${ctx}`,
-            );
-        });
+        if (event.detail.params.context) {
+            this.querySelectorAll("a").forEach((anchor) => {
+                anchor.classList.toggle(
+                    headerClasses.lenkeActive,
+                    anchor.getAttribute("data-context") ===
+                        event.detail.params.context,
+                );
+            });
+        }
     };
 
     connectedCallback() {
