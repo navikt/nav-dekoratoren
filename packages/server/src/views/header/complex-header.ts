@@ -36,7 +36,10 @@ export function ComplexHeader({
     loginUrl,
     mainMenu,
 }: ComplexHeaderProps) {
-    console.log("currentContextServer", currentContext);
+    console.log(
+        "Current context sent to server side rendering of header",
+        currentContext,
+    );
     return html`
         <div class="${cls.siteheader}">
             ${SkipLink(i18n("skip_link"))}
