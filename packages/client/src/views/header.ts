@@ -122,6 +122,9 @@ class Header extends HTMLElement {
             if (context !== undefined) {
                 this.currentContext = validateContext(context);
             }
+            if (context) {
+                refreshAuthData();
+            }
             this.refreshHeader();
             return;
         }
@@ -166,7 +169,7 @@ class Header extends HTMLElement {
         window.addEventListener("message", this.handleMessage);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
         window.addEventListener("focusin", this.handleFocusIn);
-        window.addEventListener("popstate", this.handlePopState); // NEW
+        window.addEventListener("popstate", this.handlePopState);
 
         if (param("redirectOnUserChange")) {
             window.addEventListener("focus", this.handleFocus);
