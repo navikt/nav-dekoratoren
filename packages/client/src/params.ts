@@ -22,6 +22,8 @@ export const env = <TKey extends EnvKey>(envKey: TKey) => {
 };
 
 export const updateDecoratorParams = (params: Partial<ClientParams>) => {
+    console.log("paramsFromEvent:", params);
+    console.log("paramsFromDecorator:", window.__DECORATOR_DATA__.params);
     const updatedParams = { ...params };
 
     Object.entries(params).forEach(([key, value]) => {
@@ -38,6 +40,7 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
     const { context, language } = window.__DECORATOR_DATA__.params;
 
     if (context) {
+        console.log("context", context);
         Cookies.set(CONTEXT_COOKIE, context);
     }
 
