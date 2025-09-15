@@ -16,7 +16,7 @@ The Decorator also offers common functionality such as login, analytics, logout 
 
 ### 1.1 Suggestions, feedback or participation 🙋
 
-If you have any questions or suggestions for improvements regarding the Decorator or this documentation, please contact us on the Slack channel `#dekoratøren_på_navno`. If you wish to contribute or simply want to run the Decorator locally, please see CONTRIBUTING.md.
+If you have any questions or suggestions for improvements regarding the Decorator or this documentation, please contact us on the Slack channel `#dekoratøren_på_navno`. If you wish to contribute or simply want to run the Decorator locally, please see C NTRIBUTING.md.
 
 ### 1.2 Channel for announcements 📣
 
