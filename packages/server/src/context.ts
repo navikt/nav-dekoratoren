@@ -19,7 +19,7 @@ export const makeContextLinks = (language: Language): ContextLink[] =>
               {
                   url: isDevMode
                       ? "?context=arbeidsgiver"
-                      : `${env.XP_BASE_URL}/no/arbeidsgiver`,
+                      : `${env.XP_BASE_URL}/arbeidsgiver`,
                   context: "arbeidsgiver",
               },
               {
