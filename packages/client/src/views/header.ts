@@ -43,6 +43,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 
 class Header extends HTMLElement {
     private userId?: string;
+    private headerAbortController?: AbortController;
 
     private readonly handleMessage = (e: MessageEvent) => {
         if (msgFromNks(e)) {
@@ -88,7 +89,13 @@ class Header extends HTMLElement {
     };
 
     private readonly refreshHeader = () => {
-        fetch(endpointUrlWithParams("/header"))
+        // Abort previous fetch if still running
+        if (this.headerAbortController) {
+            this.headerAbortController.abort();
+        }
+        this.headerAbortController = new AbortController();
+        const signal = this.headerAbortController.signal;
+        fetch(endpointUrlWithParams("/header"), { signal })
             .then((res) => res.text())
             .then((header) => (this.innerHTML = header))
             .then(() => refreshAuthData())
@@ -96,7 +103,13 @@ class Header extends HTMLElement {
                 this.dispatchEvent(
                     new Event("recheckConsentBanner", { bubbles: true }),
                 ),
-            );
+            )
+            .catch((err) => {
+                if (err.name !== "AbortError") {
+                    // Only log non-abort errors
+                    console.error("Failed to refresh header:", err);
+                }
+            });
     };
 
     private readonly handleParamsUpdated = (
@@ -106,12 +119,8 @@ class Header extends HTMLElement {
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
-        if (language || isSimpleChange || isSimpleHeaderChange) {
+        if (context || language || isSimpleChange || isSimpleHeaderChange) {
             this.refreshHeader();
-            return;
-        }
-        if (context) {
-            refreshAuthData();
         }
     };
 
