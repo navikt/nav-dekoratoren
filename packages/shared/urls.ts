@@ -15,9 +15,9 @@ export function makeFrontpageUrl({
         case "privatperson":
             return `${baseUrl}/`;
         case "arbeidsgiver":
-            return `${baseUrl}/no/bedrift`;
+            return `${baseUrl}/arbeidsgiver`;
         case "samarbeidspartner":
-            return `${baseUrl}/no/samarbeidspartner`;
+            return `${baseUrl}/samarbeidspartner`;
     }
 }
 

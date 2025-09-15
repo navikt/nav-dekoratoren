@@ -76,11 +76,11 @@ export const mainMenuContextLinks = ({
                 },
                 {
                     content: "Arbeidsgiver",
-                    url: `${env.XP_BASE_URL}/no/bedrift`,
+                    url: `${env.XP_BASE_URL}/arbeidsgiver`,
                 },
                 {
                     content: "Samarbeidspartner",
-                    url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
+                    url: `${env.XP_BASE_URL}/samarbeidspartner`,
                 },
             ];
         case "arbeidsgiver":
@@ -101,7 +101,7 @@ export const mainMenuContextLinks = ({
                     content: "Samarbeidspartner",
                     description:
                         "Helsepersonell, tiltaksarrangører, fylker og kommuner",
-                    url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
+                    url: `${env.XP_BASE_URL}/samarbeidspartner`,
                 },
             ];
         case "samarbeidspartner":
@@ -112,7 +112,7 @@ export const mainMenuContextLinks = ({
                 },
                 {
                     content: "Arbeidsgiver",
-                    url: `${env.XP_BASE_URL}/no/bedrift`,
+                    url: `${env.XP_BASE_URL}/arbeidsgiver`,
                 },
             ];
     }
