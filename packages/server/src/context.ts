@@ -25,7 +25,7 @@ export const makeContextLinks = (language: Language): ContextLink[] =>
               {
                   url: isDevMode
                       ? "?context=samarbeidspartner"
-                      : `${env.XP_BASE_URL}/no/samarbeidspartner`,
+                      : `${env.XP_BASE_URL}/samarbeidspartner`,
                   context: "samarbeidspartner",
               },
           ]
