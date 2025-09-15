@@ -242,7 +242,7 @@ const nbArbeidsgiverContextLinks = [
     {
         content: "Samarbeidspartner",
         description: "Helsepersonell, tiltaksarrangører, fylker og kommuner",
-        url: "https://www.ansatt.dev.nav.no/samarbeidspartner",
+        url: "https://www.ansatt.dev.nav.no/no/samarbeidspartner",
     },
 ];
 
@@ -298,10 +298,10 @@ const nbPrivatpersonContextLinks = [
     { content: "Min side", url: "https://www.ansatt.dev.nav.no/minside" },
     {
         content: "Arbeidsgiver",
-        url: "https://www.ansatt.dev.nav.no/arbeidsgiver",
+        url: "https://www.ansatt.dev.nav.no/no/bedrift",
     },
     {
         content: "Samarbeidspartner",
-        url: "https://www.ansatt.dev.nav.no/samarbeidspartner",
+        url: "https://www.ansatt.dev.nav.no/no/samarbeidspartner",
     },
 ];

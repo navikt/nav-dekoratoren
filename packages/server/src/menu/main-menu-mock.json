@@ -190,7 +190,7 @@
                             },
                             {
                                 "displayName": "Arbeidsgiver",
-                                "path": "/arbeidsgiver",
+                                "path": "/no/bedrift",
                                 "id": "b9fb1110-22c1-44a5-81a5-74336d82ccb7",
                                 "hasChildren": true,
                                 "children": [
