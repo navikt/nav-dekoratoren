@@ -45,6 +45,10 @@ class Header extends HTMLElement {
     private userId?: string;
     private headerAbortController?: AbortController;
 
+    // Added for debounced + guarded refresh
+    private refreshDebounce?: number;
+    private latestRequestId = 0;
+
     private readonly handleMessage = (e: MessageEvent) => {
         if (msgFromNks(e)) {
             const {
@@ -88,25 +92,45 @@ class Header extends HTMLElement {
         }
     };
 
+    private scheduleHeaderRefresh() {
+        if (this.refreshDebounce) {
+            clearTimeout(this.refreshDebounce);
+        }
+        this.refreshDebounce = window.setTimeout(() => {
+            this.refreshHeader();
+        }, 100);
+    }
+
     private readonly refreshHeader = () => {
-        // Abort previous fetch if still running
         if (this.headerAbortController) {
             this.headerAbortController.abort();
         }
         this.headerAbortController = new AbortController();
         const signal = this.headerAbortController.signal;
-        fetch(endpointUrlWithParams("/header"), { signal })
+
+        const requestId = ++this.latestRequestId;
+        const url = endpointUrlWithParams("/header");
+
+        fetch(url, { signal })
             .then((res) => res.text())
-            .then((header) => (this.innerHTML = header))
-            .then(() => refreshAuthData())
-            .then(() =>
-                this.dispatchEvent(
-                    new Event("recheckConsentBanner", { bubbles: true }),
-                ),
-            )
+            .then((header) => {
+                if (requestId !== this.latestRequestId) return;
+                this.innerHTML = header;
+            })
+            .then(() => {
+                if (requestId === this.latestRequestId) {
+                    return refreshAuthData();
+                }
+            })
+            .then(() => {
+                if (requestId === this.latestRequestId) {
+                    this.dispatchEvent(
+                        new Event("recheckConsentBanner", { bubbles: true }),
+                    );
+                }
+            })
             .catch((err) => {
                 if (err.name !== "AbortError") {
-                    // Only log non-abort errors
                     console.error("Failed to refresh header:", err);
                 }
             });
@@ -120,7 +144,7 @@ class Header extends HTMLElement {
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
         if (context || language || isSimpleChange || isSimpleHeaderChange) {
-            this.refreshHeader();
+            this.scheduleHeaderRefresh();
         }
     };
 
@@ -180,6 +204,9 @@ class Header extends HTMLElement {
         window.removeEventListener("authupdated", this.handleAuthUpdated);
         window.removeEventListener("focus", this.handleFocus);
         window.removeEventListener("focusin", this.handleFocusIn);
+        if (this.refreshDebounce) {
+            clearTimeout(this.refreshDebounce);
+        }
     }
 }
 
