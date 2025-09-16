@@ -22,11 +22,12 @@ export type SessionData = {
     };
 };
 
-export async function fetchSession() {
+export async function fetchOrRenewSession(renew: boolean) {
     const sessionUrl = window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL;
+    const fetchUrl = `${sessionUrl}${renew ?? "/refresh"}`;
 
     try {
-        const sessionResponse = await fetch(sessionUrl, {
+        const sessionResponse = await fetch(fetchUrl, {
             credentials: "include",
         });
         if (sessionResponse.status === 401) {
@@ -35,25 +36,9 @@ export async function fetchSession() {
         }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        console.error(`Failed to fetch session - ${error}`);
-        return null;
-    }
-}
-
-export async function fetchRenew() {
-    const sessionRefreshUrl = `${window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL}/refresh`;
-
-    try {
-        const sessionResponse = await fetch(sessionRefreshUrl, {
-            credentials: "include",
-        });
-        if (sessionResponse.status === 401) {
-            // Uinnlogget, ikke prøv å hente ut json
-            return null;
-        }
-        return (await sessionResponse.json()) as SessionData;
-    } catch (error) {
-        console.error(`Failed to renew session - ${error}`);
+        console.error(
+            `Failed to ${renew ? "renew" : "fetch"} session - ${error}`,
+        );
         return null;
     }
 }
