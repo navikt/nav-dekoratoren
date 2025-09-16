@@ -98,7 +98,7 @@ class Header extends HTMLElement {
         }
         this.refreshDebounce = window.setTimeout(() => {
             this.refreshHeader();
-        }, 100);
+        }, 2000);
     }
 
     private readonly refreshHeader = () => {
