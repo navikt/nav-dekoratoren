@@ -29,7 +29,10 @@ export async function fetchSession() {
         const sessionResponse = await fetch(sessionUrl, {
             credentials: "include",
         });
-
+        if (sessionResponse.status === 401) {
+            // Uinnlogget, ikke prøv å hente ut json
+            return null;
+        }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
         console.error(`Failed to fetch session - ${error}`);
@@ -44,7 +47,10 @@ export async function fetchRenew() {
         const sessionResponse = await fetch(sessionRefreshUrl, {
             credentials: "include",
         });
-
+        if (sessionResponse.status === 401) {
+            // Uinnlogget, ikke prøv å hente ut json
+            return null;
+        }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
         console.error(`Failed to renew session - ${error}`);
