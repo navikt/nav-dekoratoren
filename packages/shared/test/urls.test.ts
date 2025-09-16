@@ -11,12 +11,12 @@ test("Frontpage URLs", () => {
     ).toBe("https://www.nav.no/");
     expect(
         makeFrontpageUrl({ language: "nb", context: "arbeidsgiver", baseUrl }),
-    ).toBe("https://www.nav.no/no/bedrift");
+    ).toBe("https://www.nav.no/arbeidsgiver");
     expect(
         makeFrontpageUrl({
             language: "nb",
             context: "samarbeidspartner",
             baseUrl,
         }),
-    ).toBe("https://www.nav.no/no/samarbeidspartner");
+    ).toBe("https://www.nav.no/samarbeidspartner");
 });
