@@ -15,7 +15,7 @@ class LogoutWarning extends HTMLElement {
 
     private onVisibilityChange = async () => {
         if (param("logoutWarning") && document.visibilityState === "visible") {
-            this.updateDialogs(await fetchOrRenewSession(false));
+            this.updateDialogs(await fetchOrRenewSession("fetch"));
         }
     };
 
@@ -32,7 +32,7 @@ class LogoutWarning extends HTMLElement {
     };
 
     private init = async () => {
-        this.updateDialogs(await fetchOrRenewSession(false));
+        this.updateDialogs(await fetchOrRenewSession("fetch"));
 
         window.loginDebug = {
             expireToken: (seconds: number) => {
@@ -62,7 +62,7 @@ class LogoutWarning extends HTMLElement {
         this.sessionDialog = this.querySelector("session-dialog")!;
         this.tokenDialog = this.querySelector("token-dialog")!;
         this.tokenDialog.addEventListener("renew", async () =>
-            this.updateDialogs(await fetchOrRenewSession(true)),
+            this.updateDialogs(await fetchOrRenewSession("renew")),
         );
     }
 

@@ -22,9 +22,10 @@ export type SessionData = {
     };
 };
 
-export async function fetchOrRenewSession(renew: boolean) {
+export type FetchRenew = "fetch" | "renew";
+export async function fetchOrRenewSession(fetchOrRenew: FetchRenew) {
     const sessionUrl = window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL;
-    const fetchUrl = `${sessionUrl}${renew ?? "/refresh"}`;
+    const fetchUrl = `${sessionUrl}${fetchOrRenew === "renew" ? "/refresh" : ""}`;
 
     try {
         const sessionResponse = await fetch(fetchUrl, {
@@ -36,9 +37,7 @@ export async function fetchOrRenewSession(renew: boolean) {
         }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        console.error(
-            `Failed to ${renew ? "renew" : "fetch"} session - ${error}`,
-        );
+        console.error(`Failed to ${fetchOrRenew} session - ${error}`);
         return null;
     }
 }
