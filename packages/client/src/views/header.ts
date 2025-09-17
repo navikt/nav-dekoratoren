@@ -94,17 +94,25 @@ class Header extends HTMLElement {
 
     private scheduleHeaderRefresh() {
         if (this.refreshDebounce) {
+            console.log(
+                "refresh already scheduled, skipping",
+                this.refreshDebounce,
+            );
             clearTimeout(this.refreshDebounce);
         }
         this.refreshDebounce = window.setTimeout(() => {
+            console.log("refreshing header now");
             this.refreshHeader();
-        }, 2000);
+        }, 1000);
     }
 
     private readonly refreshHeader = () => {
         if (this.headerAbortController) {
+            console.log("aborting previous header request");
             this.headerAbortController.abort();
         }
+        console.log("starting new header request", ++this.latestRequestId);
+        console.log("headerAbortController", this.headerAbortController);
         this.headerAbortController = new AbortController();
         const signal = this.headerAbortController.signal;
 
