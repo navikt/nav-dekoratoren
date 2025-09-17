@@ -2,8 +2,8 @@ import { fixture } from "@open-wc/testing";
 import { texts } from "decorator-server/src/texts";
 import { updateDecoratorParams } from "../../params";
 import "./chatbot";
-import { BoostClient } from "./chatbot";
 import cls from "./chatbot.module.css";
+import { BoostClient } from "../../client";
 
 const STORAGE_KEY = "boostai.conversation.id";
 
