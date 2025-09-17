@@ -8,18 +8,14 @@ import frida from "./frida.svg";
 
 class Chatbot extends HTMLElement {
     private readonly button: HTMLButtonElement;
-    private boost?: Awaited<ReturnType<typeof initBoost>>;
 
     constructor() {
         super();
 
         this.button = document.createElement("button");
-        this.button.addEventListener("click", async () => {
-            if (!this.boost) {
-                this.boost = await initBoost();
-            }
-            this.boost.show();
-        });
+        this.button.addEventListener("click", () =>
+            initBoost().then((boost) => boost?.show()),
+        );
         this.button.id = "chatbot-frida-knapp";
         this.button.setAttribute(
             "aria-label",

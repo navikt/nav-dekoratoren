@@ -1,42 +1,52 @@
 import loadExternalScript from "../../helpers/load-external-script";
 import { env, param } from "../../params";
 
-export const initBoost = (): Promise<{ show: () => void }> =>
-    loadScript().then(() => {
-        if (!window.boostInit) {
-            console.error("Boost init function not found!");
-            return { show: () => {} };
-        }
+type BoostApi = { show: () => void };
 
-        const boost = window.boostInit(env("BOOST_ENV"), {
-            chatPanel: {
-                settings: {
-                    removeRememberedConversationOnChatPanelClose: true,
-                    openTextLinksInNewTab: true,
-                },
-                styling: { buttons: { multiline: true } },
-                header: {
-                    filters: {
-                        filterValues:
-                            param("context") === "arbeidsgiver"
-                                ? "arbeidsgiver"
-                                : param("language") === "nn"
-                                  ? "nynorsk"
-                                  : "bokmal",
-                    },
-                },
-            },
-        });
+let boostApi: BoostApi | undefined = undefined;
 
-        boost.chatPanel.addEventListener("setFilterValue", (event) => {
-            boost.chatPanel.setFilterValues(event.detail.filterValue);
-            if (event.detail.nextId) {
-                boost.chatPanel.triggerAction(event.detail.nextId);
-            }
-        });
+export const reset = () => (boostApi = undefined);
 
-        return { show: boost.chatPanel.show };
-    });
+export const initBoost = (): Promise<BoostApi | undefined> =>
+    boostApi
+        ? Promise.resolve(boostApi)
+        : loadScript().then(() => {
+              if (!window.boostInit) {
+                  console.error("Boost init function not found!");
+                  return undefined;
+              }
+
+              const boost = window.boostInit(env("BOOST_ENV"), {
+                  chatPanel: {
+                      settings: {
+                          removeRememberedConversationOnChatPanelClose: true,
+                          openTextLinksInNewTab: true,
+                      },
+                      styling: { buttons: { multiline: true } },
+                      header: {
+                          filters: {
+                              filterValues:
+                                  param("context") === "arbeidsgiver"
+                                      ? "arbeidsgiver"
+                                      : param("language") === "nn"
+                                        ? "nynorsk"
+                                        : "bokmal",
+                          },
+                      },
+                  },
+              });
+
+              boost.chatPanel.addEventListener("setFilterValue", (event) => {
+                  boost.chatPanel.setFilterValues(event.detail.filterValue);
+                  if (event.detail.nextId) {
+                      boost.chatPanel.triggerAction(event.detail.nextId);
+                  }
+              });
+
+              boostApi = { show: boost.chatPanel.show };
+
+              return boostApi;
+          });
 
 export const hasActiveConversation = (): boolean =>
     null !==

@@ -1,6 +1,6 @@
 import "./chatbot";
 import { BoostClient } from "../../client";
-import { initBoost } from "./boost";
+import { initBoost, reset } from "./boost";
 import { texts } from "decorator-server/src/texts";
 
 describe("init boost", () => {
@@ -35,6 +35,10 @@ describe("init boost", () => {
             env: { BOOST_ENV: "nav" },
             texts: texts.nb,
         } as any;
+    });
+
+    afterEach(() => {
+        reset();
     });
 
     const boostInitialized = async () =>

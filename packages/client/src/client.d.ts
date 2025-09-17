@@ -9,7 +9,7 @@ type CustomEventMap = {
     setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
 };
 
-type BoostClient = {
+export type BoostClient = {
     chatPanel: {
         show: () => void;
         addEventListener: <K extends keyof CustomEventMap>(
