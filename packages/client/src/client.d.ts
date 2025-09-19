@@ -1,8 +1,26 @@
 import { Faro } from "@grafana/faro-web-sdk";
 import { AppState } from "decorator-shared/types";
 import { CustomEvents, MessageEvents } from "./events";
-import { BoostClient, BoostConfig } from "./views/chatbot";
 import { WebStorageController } from "./webStorage";
+
+type CustomEventMap = {
+    conversationIdChanged: CustomEvent<{ conversationId?: string }>;
+    chatPanelClosed: CustomEvent<undefined>;
+    setFilterValue: CustomEvent<{ filterValue: string[]; nextId?: number }>;
+};
+
+export type BoostClient = {
+    chatPanel: {
+        show: () => void;
+        addEventListener: <K extends keyof CustomEventMap>(
+            type: K,
+            listener: (this: Document, ev: CustomEventMap[K]) => void,
+        ) => void;
+        dispatchEvent: (event: CustomEventMap[keyof CustomEventMap]) => void;
+        setFilterValues: (filterValues: string[]) => void;
+        triggerAction: (actionId: number) => void;
+    };
+};
 
 declare global {
     interface Window {
@@ -26,7 +44,7 @@ declare global {
         };
         skyraSurvey: any;
         dataLayer: any;
-        boostInit?: (env: string, config: BoostConfig) => BoostClient;
+        boostInit?: (env: string, config: any) => BoostClient;
         vngage: {
             join: (queue: string, options: unknown) => void;
             subscribe: (
