@@ -43,6 +43,11 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 
 class Header extends HTMLElement {
     private userId?: string;
+    private headerAbortController?: AbortController;
+
+    // Added for debounced + guarded refresh
+    private refreshDebounce?: number;
+    private latestRequestId = 0;
 
     private readonly handleMessage = (e: MessageEvent) => {
         if (msgFromNks(e)) {
@@ -87,16 +92,56 @@ class Header extends HTMLElement {
         }
     };
 
-    private readonly refreshHeader = () => {
-        fetch(endpointUrlWithParams("/header"))
-            .then((res) => res.text())
-            .then((header) => (this.innerHTML = header))
-            .then(() => refreshAuthData())
-            .then(() =>
-                this.dispatchEvent(
-                    new Event("recheckConsentBanner", { bubbles: true }),
-                ),
+    private scheduleHeaderRefresh() {
+        if (this.refreshDebounce) {
+            console.log(
+                "refresh already scheduled, skipping",
+                this.refreshDebounce,
             );
+            clearTimeout(this.refreshDebounce);
+        }
+        this.refreshDebounce = window.setTimeout(() => {
+            console.log("refreshing header now");
+            this.refreshHeader();
+        }, 1000);
+    }
+
+    private readonly refreshHeader = () => {
+        if (this.headerAbortController) {
+            console.log("aborting previous header request");
+            this.headerAbortController.abort();
+        }
+        console.log("starting new header request", ++this.latestRequestId);
+        console.log("headerAbortController", this.headerAbortController);
+        this.headerAbortController = new AbortController();
+        const signal = this.headerAbortController.signal;
+
+        const requestId = ++this.latestRequestId;
+        const url = endpointUrlWithParams("/header");
+
+        fetch(url, { signal })
+            .then((res) => res.text())
+            .then((header) => {
+                if (requestId !== this.latestRequestId) return;
+                this.innerHTML = header;
+            })
+            .then(() => {
+                if (requestId === this.latestRequestId) {
+                    return refreshAuthData();
+                }
+            })
+            .then(() => {
+                if (requestId === this.latestRequestId) {
+                    this.dispatchEvent(
+                        new Event("recheckConsentBanner", { bubbles: true }),
+                    );
+                }
+            })
+            .catch((err) => {
+                if (err.name !== "AbortError") {
+                    console.error("Failed to refresh header:", err);
+                }
+            });
     };
 
     private readonly handleParamsUpdated = (
@@ -106,12 +151,8 @@ class Header extends HTMLElement {
         const isSimpleChange = simple !== undefined;
         const isSimpleHeaderChange = simpleHeader !== undefined;
 
-        if (language || isSimpleChange || isSimpleHeaderChange) {
-            this.refreshHeader();
-            return;
-        }
-        if (context) {
-            refreshAuthData();
+        if (context || language || isSimpleChange || isSimpleHeaderChange) {
+            this.scheduleHeaderRefresh();
         }
     };
 
@@ -171,6 +212,9 @@ class Header extends HTMLElement {
         window.removeEventListener("authupdated", this.handleAuthUpdated);
         window.removeEventListener("focus", this.handleFocus);
         window.removeEventListener("focusin", this.handleFocusIn);
+        if (this.refreshDebounce) {
+            clearTimeout(this.refreshDebounce);
+        }
     }
 }
 
