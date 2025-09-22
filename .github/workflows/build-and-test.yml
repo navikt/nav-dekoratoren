@@ -48,14 +48,14 @@ jobs:
       - name: Run unit tests
         if: inputs.SKIP_TESTS != true
         run: bun run test
-      # - name: Setup playwright # TODO: can this be cached? It is slow :D
-      #  if: inputs.SKIP_TESTS != true
-      #  run: |
-      #    bunx playwright install --with-deps
-      #    cp packages/server/.env.sample packages/server/.env
-      #- name: Run playwright tests
-      #  if: inputs.SKIP_TESTS != true
-      #  run: bunx playwright test
+      - name: Setup playwright # TODO: can this be cached? It is slow :D
+        if: inputs.SKIP_TESTS != true
+        run: |
+          bunx playwright install --with-deps
+          cp packages/server/.env.sample packages/server/.env
+      - name: Run playwright tests
+        if: inputs.SKIP_TESTS != true
+        run: bunx playwright test
       - name: Upload static files to Nav CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         if: inputs.TEST_ONLY != true

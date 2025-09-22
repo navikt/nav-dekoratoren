@@ -32,6 +32,7 @@ export async function fetchSession() {
 
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
+        console.error(`Failed to fetch session - ${error}`);
         return null;
     }
 }
@@ -46,6 +47,7 @@ export async function fetchRenew() {
 
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
+        console.error(`Failed to renew session - ${error}`);
         return null;
     }
 }
@@ -69,10 +71,12 @@ export function transformSessionToAuth(session: SessionData) {
 
 export const logout = () => (window.location.href = env("LOGOUT_URL"));
 
+const OneMinuteTimeout = 60000;
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");
 
     return fetch(url, {
+        signal: AbortSignal.timeout(OneMinuteTimeout),
         credentials: "include",
     })
         .then((res) => res.json() as Promise<AuthDataResponse>)

@@ -54,6 +54,21 @@ export const buildLocationString = () => {
     return `${origin}${pathname}${hash}`;
 };
 
+// Parametere vi ønsker skal logges for alle apper
+export const extraWindowParams = () => {
+    return {
+        scrollPos: window.scrollY,
+        scrollPercent: Math.round(
+            Math.min(
+                ((window.scrollY + window.innerHeight) /
+                    (document.body.scrollHeight + 1)) *
+                    100,
+                100,
+            ),
+        ),
+    };
+};
+
 const logPageView = (authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {

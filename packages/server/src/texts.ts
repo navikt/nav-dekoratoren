@@ -45,7 +45,7 @@ export const nb = {
         "Du har fått en melding, logg inn med høyere sikkerhetsnivå for å se meldingen.",
     masked_task_text:
         "Du har fått en oppgave, logg inn med høyere sikkerhetsnivå for å se oppgaven.",
-    archive: "Arkiver",
+    archive: "Merk som lest",
     notifications_tasks_title: "Oppgaver",
     token_warning_title: "Du blir snart logget ut automatisk",
     token_warning_body: "Vil du fortsatt være innlogget?",
@@ -163,7 +163,7 @@ const en: Texts = {
         "You have a message, please log in with a higher security level to read the message.",
     masked_task_text:
         "You have a task, please log in with a higher security level to see the task.",
-    archive: "Archive",
+    archive: "Mark as read",
     notifications_tasks_title: "Tasks",
     token_warning_title: "You will soon be logged out automatically",
     token_warning_body: "Would you like to stay logged in?",
