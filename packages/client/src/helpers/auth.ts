@@ -31,8 +31,7 @@ export async function fetchOrRenewSession(fetchOrRenew: FetchRenew) {
         const sessionResponse = await fetch(fetchUrl, {
             credentials: "include",
         });
-        if (sessionResponse.status === 401) {
-            // Uinnlogget, ikke prøv å hente ut json
+        if (!sessionResponse.ok) {
             return null;
         }
         return (await sessionResponse.json()) as SessionData;
