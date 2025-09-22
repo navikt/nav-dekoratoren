@@ -1,58 +1,62 @@
-import Cookies from "js-cookie";
-import loadExternalScript from "../helpers/load-external-script";
-import { env, param } from "../params";
+import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
-import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
-import {
-    ScreenshareButtonPuzzel,
-    ScreensharingModalPuzzel,
-} from "./screensharing-modal-puzzel";
 
-let scriptHasLoaded = false;
+let scriptLoaded: Promise<void> | undefined;
 
-const loadScript = () =>
-    loadExternalScript(
-        `https://account.psplugin.com/${env("PUZZEL_CUSTOMER_ID")}/ps.js`,
-    );
+/**
+ * ETTER TESTING:
+ * 1. Fikse den avslutt-chat boksen
+ * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
+ */
+const loadScript = (): Promise<void> => {
+    console.log("Loading Puzzel script");
+    if (scriptLoaded) {
+        return scriptLoaded;
+    }
+    const script = document.createElement("script");
+    script.async = true;
+    script.type = "text/javascript";
+    script.src = "https://app-cdn.puzzel.com/public/js/pzl_loader.js";
+    script.setAttribute("id", "pzlModuleLoader");
+    script.setAttribute("data-customer-id", "41155");
+    const promise = new Promise<void>((resolve) => {
+        script.onload = () => {
+            resolve();
+        };
+    });
+    scriptLoaded = promise;
+    document.body.appendChild(script);
+    return promise;
+};
 
 function lazyLoadScreensharing(openModal: () => void) {
+    console.log("Lazy loading puzzel screensharing");
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
-    if (!enabled || scriptHasLoaded) {
+    if (!enabled || window.pzl?.info?.status === "started") {
         openModal();
         return;
     }
-
+    console.log("Screensharing enabled, loading puzzel script");
     loadScript().then(() => {
-        if (!window.vngage) {
-            console.error("vngage not found!");
-            return;
-        }
-
-        window.vngage.subscribe("app.ready", (message, data) => {
-            console.log("Screensharing app vergic ready", message, data);
-
-            scriptHasLoaded = true;
-            openModal();
-        });
+        openModal();
     });
 }
 
 function startCall(code: string) {
-    window.vngage.join("queue", {
-        opportunityId: "615FF5E7-37B7-4697-A35F-72598B0DC53B",
-        solutionId: "5EB316A1-11E2-460A-B4E3-F82DBD13E21D",
-        caseTypeId: "66D660EF-6F14-44B4-8ADE-A70A127202D0",
-        category: "Phone2Web",
-        message: "Phone2Web",
-        groupId: "A034081B-6B73-46B7-BE27-23B8E9CE3079",
-        startCode: code,
+    window.pzl?.api.showInteraction({
+        interactionId: "7d05c34f-0db4-4fc3-b370-9eb1812a40ca",
+        queueKey: "q_cobrowsing_demo",
+        formValues: {
+            pzlStartChatCode: code,
+        },
     });
+
     analyticsEvent({
         eventName: "skjermdeling",
         kategori: "dekorator-footer",
@@ -60,7 +64,7 @@ function startCall(code: string) {
     });
 }
 
-export class ScreensharingModal extends HTMLElement {
+export class ScreensharingModalPuzzel extends HTMLElement {
     dialog!: HTMLDialogElement;
     input!: HTMLInputElement;
     errorList!: HTMLElement;
@@ -85,7 +89,7 @@ export class ScreensharingModal extends HTMLElement {
     }
 
     validateInput(code: string) {
-        if (!/^\d{5}$/.exec(code)) {
+        if (!/^\d{6}$/.exec(code)) {
             this.input.classList.add(clsInputs.invalid);
             this.errorList.classList.add(clsInputs.showErrors);
             return false;
@@ -128,44 +132,17 @@ export class ScreensharingModal extends HTMLElement {
     }
 }
 
-class ScreenshareButton extends HTMLElement {
-    loadScriptIfActiveSession = () => {
-        const userState = Cookies.get("psCurrentState");
-        if (userState && userState !== "Ready") {
-            loadScript();
-        }
-    };
-
+export class ScreenshareButtonPuzzel extends HTMLElement {
     connectedCallback() {
-        if (document.readyState == "complete") {
-            this.loadScriptIfActiveSession();
-        } else {
-            window.addEventListener("load", () => {
-                this.loadScriptIfActiveSession();
-            });
-        }
-
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
-                console.log("Opening vergic screensharing modal");
                 const dialog = document.querySelector(
                     "screensharing-modal",
                 ) as HTMLDialogElement;
+                console.log("Opening puzzel screensharing modal");
 
                 dialog.showModal();
             }),
         );
     }
 }
-
-const urlParams = new URLSearchParams(window.location.search);
-const enablePuzzel = urlParams.get("enablePuzzel");
-
-defineCustomElement(
-    "screensharing-modal",
-    enablePuzzel ? ScreensharingModalPuzzel : ScreensharingModal,
-);
-defineCustomElement(
-    "screenshare-button",
-    enablePuzzel ? ScreenshareButtonPuzzel : ScreenshareButton,
-);

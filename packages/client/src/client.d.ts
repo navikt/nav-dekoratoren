@@ -34,6 +34,19 @@ declare global {
                 callback: (message: string, data: unknown) => void,
             ) => void;
         };
+        // Bare definert de typene som brukes, ikke alle som finnes
+        pzl?: {
+            info?: {
+                status: string;
+            };
+            api: {
+                showInteraction: ({
+                    interactionId: string,
+                    queueKey: string,
+                    formValues: { pzlStartChatCode: string },
+                }) => void;
+            };
+        };
         faro?: Faro;
         addEventListener(
             type: "message",

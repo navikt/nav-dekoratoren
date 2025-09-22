@@ -6,6 +6,7 @@ import {
     amplitudeEvent,
     initAmplitude,
     logAmplitudeEvent,
+    setAmplitudeReferrer,
     stopAmplitude,
 } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
@@ -53,6 +54,21 @@ export const buildLocationString = () => {
     return `${origin}${pathname}${hash}`;
 };
 
+// Parametere vi ønsker skal logges for alle apper
+export const extraWindowParams = () => {
+    return {
+        scrollPos: window.scrollY,
+        scrollPercent: Math.round(
+            Math.min(
+                ((window.scrollY + window.innerHeight) /
+                    (document.body.scrollHeight + 1)) *
+                    100,
+                100,
+            ),
+        ),
+    };
+};
+
 const logPageView = (authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {
@@ -76,7 +92,9 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logAmplitudeEvent("besøk", eventData);
+        setAmplitudeReferrer().then(() =>
+            logAmplitudeEvent("besøk", eventData),
+        );
         logUmamiEvent("besøk", eventData);
     }, 100);
 };
@@ -150,3 +168,56 @@ const logAnalyticsEventFromApp = (params?: {
         return Promise.reject(`Unexpected Amplitude error: ${e}`);
     }
 };
+
+class AnalyticsTracker {
+    private currentReferrer: string;
+    private previousUrl: string;
+    private isInitialized: boolean = false;
+
+    constructor() {
+        this.currentReferrer = document.referrer;
+        this.previousUrl = window.location.href;
+        this.init();
+    }
+
+    private init(): void {
+        if (this.isInitialized) return;
+
+        this.bindNavigationEvents();
+        this.isInitialized = true;
+    }
+
+    private bindNavigationEvents(): void {
+        // Handle popstate (back/forward buttons)
+        window.addEventListener("popstate", this.handleNavigation.bind(this));
+
+        // Monkey patch history push method to catch programmatic navigation
+        const originalPushState = history.pushState;
+        history.pushState = (...args) => {
+            const result = originalPushState.apply(history, args);
+            // Use setTimeout to ensure the URL has changed
+            setTimeout(() => this.handleNavigation(), 0);
+            return result;
+        };
+    }
+
+    private handleNavigation(): void {
+        const currentUrl = window.location.href;
+
+        // Only update if URL actually changed
+        if (currentUrl !== this.previousUrl) {
+            this.currentReferrer = this.previousUrl;
+            this.previousUrl = currentUrl;
+        }
+    }
+
+    public getCurrentReferrer(): string {
+        return this.currentReferrer;
+    }
+}
+
+const analyticsTracker = new AnalyticsTracker();
+
+export function getCurrentReferrer(): string {
+    return analyticsTracker.getCurrentReferrer();
+}

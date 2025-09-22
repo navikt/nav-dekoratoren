@@ -116,6 +116,8 @@ test("Breadcrumbs without analyticsTitle should redact the title when logging", 
         });
     });
 
+    await page.getByTestId("consent-banner-all").click();
+
     const amplitudeEvent = await clickBreadcrumbAndGetAmplitudeEventData(page);
 
     expect(amplitudeEvent.event_properties.lenketekst).toContain("[redacted]");
@@ -148,6 +150,8 @@ test("Breadcrumbs with analyticsTitle should log this in place of the title", as
             },
         });
     });
+
+    await page.getByTestId("consent-banner-all").click();
 
     const amplitudeEvent = await clickBreadcrumbAndGetAmplitudeEventData(page);
 

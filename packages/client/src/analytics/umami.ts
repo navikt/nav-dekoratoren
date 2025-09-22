@@ -1,4 +1,5 @@
 import { env } from "../params";
+import { getCurrentReferrer, extraWindowParams } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 export const logUmamiEvent = async (
@@ -15,12 +16,16 @@ export const logUmamiEvent = async (
             name: eventName === "besøk" ? undefined : eventName,
             url: window.location.pathname,
             title: window.document.title,
-            referrer: undefined,
+            referrer:
+                eventName === "besøk"
+                    ? (getCurrentReferrer() ?? props.referrer)
+                    : undefined,
             data: {
                 ...eventData,
                 origin,
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,
+                ...extraWindowParams(),
             },
         }));
     }
@@ -31,12 +36,8 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         eventName: optionalEventName,
         context,
         pageType,
-        kategori,
-        destinasjon,
-        lenketekst,
-        tekst,
-        lenkegruppe,
-        komponent,
+        pageTheme,
+        ...rest
     } = props;
 
     const eventName = optionalEventName ?? "navigere";
@@ -44,13 +45,9 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
         målgruppe: context,
         innholdstype: pageType,
-        destinasjon,
-        kategori,
+        tema: pageTheme,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst,
-        tekst,
-        lenkegruppe,
-        komponent,
+        ...rest,
     });
 };
 

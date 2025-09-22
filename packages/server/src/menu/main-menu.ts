@@ -76,11 +76,11 @@ export const mainMenuContextLinks = ({
                 },
                 {
                     content: "Arbeidsgiver",
-                    url: `${env.XP_BASE_URL}/no/bedrift`,
+                    url: `${env.XP_BASE_URL}/arbeidsgiver`,
                 },
                 {
                     content: "Samarbeidspartner",
-                    url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
+                    url: `${env.XP_BASE_URL}/samarbeidspartner`,
                 },
             ];
         case "arbeidsgiver":
@@ -101,7 +101,7 @@ export const mainMenuContextLinks = ({
                     content: "Samarbeidspartner",
                     description:
                         "Helsepersonell, tiltaksarrangører, fylker og kommuner",
-                    url: `${env.XP_BASE_URL}/no/samarbeidspartner`,
+                    url: `${env.XP_BASE_URL}/samarbeidspartner`,
                 },
             ];
         case "samarbeidspartner":
@@ -112,7 +112,7 @@ export const mainMenuContextLinks = ({
                 },
                 {
                     content: "Arbeidsgiver",
-                    url: `${env.XP_BASE_URL}/no/bedrift`,
+                    url: `${env.XP_BASE_URL}/arbeidsgiver`,
                 },
             ];
     }
@@ -196,13 +196,7 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
     children: children.map(nodeToLink),
 });
 
-const getUrl = (
-    path: string | undefined,
-    frontendEventID: string | undefined,
-) => {
-    if (frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE") {
-        return `javascript:window.webStorageController.showConsentBanner()`;
-    }
+const getUrl = (path: string | undefined) => {
     return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
 };
 
@@ -210,10 +204,18 @@ const nodeToLink: (node: MenuNode) => Link = ({
     displayName,
     path,
     frontendEventID,
-}) => ({
-    content: displayName,
-    url: getUrl(path, frontendEventID),
-});
+}) => {
+    const hasEventId = !!frontendEventID;
+
+    return {
+        content: displayName,
+        url: hasEventId ? "#" : getUrl(path),
+        attributes:
+            frontendEventID?.toUpperCase() === "ENDRE_COOKIE_SAMTYKKE"
+                ? { "data-consent-banner-trigger": "true" }
+                : undefined,
+    };
+};
 
 const getContextKey = (context: Context) => {
     return context.charAt(0).toUpperCase() + context.slice(1);

@@ -1,4 +1,8 @@
-import { buildLocationString } from "./analytics";
+import {
+    buildLocationString,
+    getCurrentReferrer,
+    extraWindowParams,
+} from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 // Dynamic import for lazy loading
@@ -65,18 +69,28 @@ export const stopAmplitude = async () => {
     amplitude.setOptOut(true);
 };
 
+export const setAmplitudeReferrer = async () => {
+    const amplitude = await importAmplitude();
+
+    amplitude.identify(
+        new amplitude.Identify()
+            .set("referrer", getCurrentReferrer())
+            .set(
+                "referring_domain",
+                getCurrentReferrer()
+                    ? new URL(getCurrentReferrer()).hostname
+                    : "",
+            ),
+    );
+};
+
 export const amplitudeEvent = (props: AnalyticsEventArgs) => {
     const {
         eventName: optionalEventName,
         context,
         pageType,
         pageTheme,
-        kategori,
-        destinasjon,
-        lenketekst,
-        tekst,
-        lenkegruppe,
-        komponent,
+        ...rest
     } = props;
 
     const eventName = optionalEventName || "navigere";
@@ -85,13 +99,8 @@ export const amplitudeEvent = (props: AnalyticsEventArgs) => {
         målgruppe: context,
         innholdstype: pageType,
         tema: pageTheme,
-        destinasjon,
-        kategori,
         søkeord: eventName === "søk" ? "[redacted]" : undefined,
-        lenketekst,
-        tekst,
-        lenkegruppe,
-        komponent,
+        ...rest,
     });
 };
 
@@ -121,7 +130,6 @@ const logEventFromApp = (params?: {
         }
 
         const decoratorParams = window.__DECORATOR_DATA__.params;
-
         const nksParams =
             origin === "crm-innboks"
                 ? {
@@ -163,6 +171,7 @@ export const logAmplitudeEvent = async (
             origin,
             originVersion: eventData.originVersion || "unknown",
             viaDekoratoren: true,
+            ...extraWindowParams(),
         },
         {
             ingestion_metadata: {
