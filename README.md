@@ -270,18 +270,18 @@ You can find out more about tokens in the [NAIS documentation](https://docs.nais
 
 ### 4.7 Analytics 📊
 
-Nav uses Umami for analytics and tracking user events. To properly safeguard privacy, all analytics data must go through [amplitude-proxy](https://github.com/navikt/amplitude-proxy), which cleans out trackable personal information before sending the data to Amplitude. The Decorator handles this process for you.
+Nav uses Umami for analytics and tracking user events. Prefered method is using nav-dekoratoren-moduler, see below.
 
 As of June 2025, data is being logged to Umami. Amplitude is planned to be discontinued for Nav by November 2025.
 
-#### 4.7.1 Analytics and consent 👍👎
+#### 4.7.1 Analytics using nav-dekoratoren-moduler
+
+The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Analytics logging. Please refer to the README for documentation and getting started guides.
+https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
+
+#### 4.7.2 Analytics and consent 👍👎
 
 If the user has not given consent to tracking and analytics, Amplitude and Umami will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
-
-#### 4.7.2 Analytics when using nav-dekoratoren-moduler
-
-The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Amplitude logging. Please refer to the README for documentation and getting started guides.
-https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
 ### 4.8 Surveys using Task Analytics and Skyra 📋
 
