@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { test } from "./fixtures";
 
 test("decorator utils", async ({ page }) => {
@@ -65,6 +65,8 @@ test("decorator utils", async ({ page }) => {
     });
 });
 
+//TODO: Lage tester for Umami tilsvarende tester for Amplitude, som nå er fjernet
+/*
 const clickBreadcrumbAndGetAmplitudeEventData = async (page: Page) => {
     const amplitudeEventDataPromise = page
         .waitForRequest((request) => {
@@ -162,3 +164,4 @@ test("Breadcrumbs with analyticsTitle should log this in place of the title", as
         "Ola Nordmann",
     );
 });
+*/
