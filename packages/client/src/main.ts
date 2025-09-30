@@ -8,9 +8,8 @@ import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
 import { param, initParams } from "./params";
 import { WebStorageController } from "./webStorage";
-import "./main.css";
-import { initHotjar, stopHotjar } from "./analytics/hotjar";
 import { initSkyra, stopSkyra } from "./analytics/skyra";
+import "./main.css";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -41,19 +40,14 @@ const startTrackingServices = () => {
     if (param("maskHotjar")) {
         document.documentElement.setAttribute("data-hj-suppress", "");
     }
-
-    initHotjar();
     initSkyra();
-
     refreshAuthData().then((response) => {
         initAnalytics(response.auth);
     });
 };
 
 const stopTrackingServices = () => {
-    stopHotjar();
     stopSkyra();
-
     refreshAuthData().then((response) => {
         stopAnalytics(response.auth);
     });
