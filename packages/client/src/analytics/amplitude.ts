@@ -9,7 +9,7 @@ import { AnalyticsEventArgs, EventData } from "./types";
 const importAmplitude = () => import("@amplitude/analytics-browser");
 
 const amplitudeDeprecated =
-    "Amplitude is disabled in test from 1.10. Will be disabled in Prod 1.11";
+    "Amplitude is disabled in test from 01-10-25. Will be disabled in Prod 01-11-25";
 
 declare global {
     interface Window {
