@@ -1,10 +1,7 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
-import {
-    initAnalytics,
-    mockAmplitude,
-    stopAnalytics,
-} from "./analytics/analytics";
+import { initAnalytics, stopAnalytics } from "./analytics/analytics";
+import { mockAmplitude } from "./analytics/amplitude";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
@@ -82,7 +79,7 @@ const init = () => {
     refreshAuthData();
 
     window.dekoratorenIsReady = () => true;
-    // Blir overskrevet dersom vi får ov til å starte Amplitude etter samtykke
+    // Blir overskrevet dersom vi får lov til å starte Amplitude etter samtykke
     window.dekoratorenAmplitude = mockAmplitude;
 
     const { consent } = window.webStorageController.getCurrentConsent();
