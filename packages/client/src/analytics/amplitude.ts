@@ -8,6 +8,9 @@ import { AnalyticsEventArgs, EventData } from "./types";
 // Dynamic import for lazy loading
 const importAmplitude = () => import("@amplitude/analytics-browser");
 
+const amplitudeDeprecated =
+    "Amplitude is disabled in test from 1.10. Will be disabled in Prod 1.11";
+
 declare global {
     interface Window {
         dekoratorenAmplitude: typeof logEventFromApp;
@@ -40,9 +43,8 @@ export const mockAmplitude = () => {
 
 export const initAmplitude = async () => {
     if (process.env.ENV !== "prod") {
-        return Promise.resolve(
-            "Amplitude is disabled in test from 1.10. Will be disabled in Prod 1.11",
-        );
+        console.log(amplitudeDeprecated);
+        return Promise.resolve(amplitudeDeprecated);
     } else {
         const amplitude = await importAmplitude();
 
@@ -169,9 +171,8 @@ export const logAmplitudeEvent = async (
     origin = "nav-dekoratoren",
 ) => {
     if (process.env.ENV !== "prod") {
-        return Promise.resolve(
-            "Amplitude is disabled in test from 1.10. Will be disabled in Prod 1.11",
-        );
+        console.log(amplitudeDeprecated);
+        return Promise.resolve(amplitudeDeprecated);
     } else {
         // Always build the url for the source_name field as early as possible.
         // The dynamic import seems to always take at least one tick
