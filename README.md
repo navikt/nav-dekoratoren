@@ -268,21 +268,20 @@ You can find out more about tokens in the [NAIS documentation](https://docs.nais
 - After a total of 6 hours (session expiration) of being logged in, the user is required to log in again.
 - Currently, the user is presented with the logout warning regardless of activity.
 
-### 4.7 Analytics with Amplitude 📊
+### 4.7 Analytics 📊
 
-Nav uses Amplitude for analytics and tracking user events. To properly safeguard privacy, all analytics data must go through [amplitude-proxy](https://github.com/navikt/amplitude-proxy), which cleans out trackable personal information before sending the data to Amplitude. The Decorator handles this process for you.
+Nav uses Umami for analytics and tracking user events. Prefered method is using nav-dekoratoren-moduler, see below.
 
-#### 4.7.1 Migration to a new analytics tool 🚀
+As of June 2025, data is being logged to Umami. Amplitude is planned to be discontinued for Nav by November 2025.
 
-There are work in progress for migrating to a new analytics tool. As of June 2025, data is also being logged to Umami as part of testing this alternative.. Amplitude is planned to be discontinued for Nav by December 31st 2025.
+#### 4.7.1 Analytics using nav-dekoratoren-moduler
 
-#### 4.7.2 Amplitude and consent 👍👎
+The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Analytics logging. Please refer to the README for documentation and getting started guides.
+https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
-If the user has not given consent to tracking and analytics, Amplitude will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
+#### 4.7.2 Analytics and consent 👍👎
 
-#### 4.7.3 Amplitude when using nav-dekoratoren-moduler
-
-The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Amplitude logging. Please refer to the README for documentation and getting started guides.
+If the user has not given consent to tracking and analytics, Amplitude and Umami will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
 
 ### 4.8 Surveys using Task Analytics and Skyra 📋
 
