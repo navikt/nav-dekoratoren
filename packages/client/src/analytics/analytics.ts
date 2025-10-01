@@ -22,9 +22,6 @@ declare global {
 
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
-export const mockAmplitude = () =>
-    Promise.resolve("Amplitude is disabled and mocked due to missing consent.");
-
 export const initAnalytics = (auth: Auth) => {
     initAmplitude();
     initTaskAnalyticsScript();
@@ -42,8 +39,6 @@ export const stopAnalytics = (auth: Auth) => {
     stopAmplitude();
     stopUmami();
     stopTaskAnalytics();
-
-    window.dekoratorenAmplitude = mockAmplitude;
 
     // Pass the same function reference
     window.removeEventListener("historyPush", logPageViewCallback(auth));
