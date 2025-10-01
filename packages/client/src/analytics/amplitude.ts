@@ -1,3 +1,4 @@
+import { isProd } from "../helpers/env";
 import {
     buildLocationString,
     getCurrentReferrer,
@@ -42,7 +43,7 @@ export const mockAmplitude = () => {
 };
 
 export const initAmplitude = async () => {
-    if (process.env.ENV !== "prod") {
+    if (!isProd()) {
         console.log(amplitudeDeprecated);
         return Promise.resolve(amplitudeDeprecated);
     } else {
