@@ -171,7 +171,7 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
-    if (process.env.ENV !== "prod") {
+    if (!isProd()) {
         console.log(amplitudeDeprecated);
         return Promise.resolve(amplitudeDeprecated);
     } else {
