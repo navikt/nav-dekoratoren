@@ -10,17 +10,21 @@ type ConstructorProps<FileContent> = {
     mountPath: string;
     filename: string;
     onUpdate?: OnUpdateCallback<FileContent>;
+    shouldPoll?: boolean;
 };
 
 export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
     private readonly filePath: string;
     private fileContent: FileContent | null = null;
     private lastMtime: number = 0;
+    private pollTimeout: NodeJS.Timeout | null = null;
+    private isShuttingDown: boolean = false;
 
     constructor({
         mountPath,
         filename,
         onUpdate,
+        shouldPoll = false,
     }: ConstructorProps<FileContent>) {
         const mountPathFull = path.join(
             process.cwd(),
@@ -66,7 +70,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             mountPathFull,
             { recursive: true },
             (event, fileOrDir) => {
-                if (path.basename(fileOrDir) !== filename) {
+                if (fileOrDir && path.basename(fileOrDir) !== filename) {
                     return;
                 }
 
@@ -77,21 +81,42 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             },
         );
 
-        // Implement polling as a fallback mechanism for reliability
-        const pollInterval = setInterval(() => {
-            this.checkForUpdate(onUpdate);
-        }, 60000); // Poll every 60 seconds
+        // Implement polling as a fallback mechanism for reliability.
+        // For some reason, fs.watch can miss events on Kubernetes volumes.
+        const startPolling = () => {
+            if (this.isShuttingDown) return;
 
-        console.log(`Watching for updates on ${mountPathFull} for ${filename}`);
+            this.pollTimeout = setTimeout(async () => {
+                try {
+                    await this.checkForUpdate(onUpdate);
+                } catch (e) {
+                    console.error(
+                        `Error during polling config map changes: ${e}`,
+                    );
+                } finally {
+                    // Schedule next poll regardless of success or failure
+                    startPolling();
+                }
+            }, 60000);
+        };
+
+        if (shouldPoll) {
+            startPolling();
+        }
+
         console.log(
-            `Also watching parent directory ${parentDir} for ConfigMap symlink updates`,
+            `Watching for updates on ${mountPathFull} for ${filename} and ${parentDir}.`,
         );
 
         process.on("SIGINT", () => {
             console.log(`Closing watchers for configmap file ${this.filePath}`);
+            this.isShuttingDown = true;
             watcher.close();
             directWatcher.close();
-            clearInterval(pollInterval);
+            if (this.pollTimeout) {
+                clearTimeout(this.pollTimeout);
+                this.pollTimeout = null;
+            }
         });
     }
 
