@@ -88,9 +88,6 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 
             this.pollTimeout = setTimeout(async () => {
                 try {
-                    console.log(
-                        `Polling check for updates on ${this.filePath}`,
-                    );
                     await this.checkForUpdate(onUpdate);
                 } catch (e) {
                     console.error(
