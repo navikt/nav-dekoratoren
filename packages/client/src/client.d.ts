@@ -89,7 +89,6 @@ declare global {
             ) => void,
         ): void;
         webStorageController: WebStorageController;
-        initConditionalHotjar: () => void;
         initConditionalTaskAnalytics: () => void;
         dekoratorenIsReady?: () => true;
     }

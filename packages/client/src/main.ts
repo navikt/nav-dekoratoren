@@ -6,7 +6,7 @@ import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
 import { buildHtmlElement } from "./helpers/html-element-builder";
-import { param, initParams } from "./params";
+import { initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import { initSkyra, stopSkyra } from "./analytics/skyra";
 import "./main.css";
@@ -37,9 +37,6 @@ const injectHeadAssets = () => {
 };
 
 const startTrackingServices = () => {
-    if (param("maskHotjar")) {
-        document.documentElement.setAttribute("data-hj-suppress", "");
-    }
     initSkyra();
     refreshAuthData().then((response) => {
         initAnalytics(response.auth);
