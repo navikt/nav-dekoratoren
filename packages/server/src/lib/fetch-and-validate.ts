@@ -1,13 +1,13 @@
 import { Result, ResultType } from "../result";
-import { ZodSchema } from "zod";
+import { ZodType } from "zod";
 
 type FetchAndValidate = <ResponseData>(
-    ...args: [...Parameters<typeof fetch>, schema: ZodSchema<ResponseData>]
+    ...args: [...Parameters<typeof fetch>, schema: ZodType<ResponseData>]
 ) => Promise<ResultType<ResponseData>>;
 
 const parseAndValidateResponse = <ResponseData>(
     response: unknown,
-    schema: ZodSchema<ResponseData>,
+    schema: ZodType<ResponseData>,
 ): ResultType<ResponseData> => {
     const validatedResponse = schema.safeParse(response);
 
