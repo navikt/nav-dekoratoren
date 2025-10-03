@@ -23,6 +23,21 @@ html:has(head > :global(#vngageDOMCSS4)) {
     }
 }
 
+/*
+    Disable sticky behaviour when viewed from puzzel co-browsing UI.
+    The #pzl_chat element is presently only be rendered when viewed from co-browsing
+    but there's no guarantee this assumption will hold in the future. :D
+*/
+html:has(head > :global(#pzl_chat)) {
+    .absoluteWrapper {
+        top: 0 !important;
+    }
+
+    .fixed {
+        position: revert !important;
+    }
+}
+
 .absoluteWrapper {
     position: absolute;
     top: 0;
