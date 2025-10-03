@@ -135,13 +135,22 @@ export class ScreensharingModalPuzzel extends HTMLElement {
 
 export class ScreenshareButtonPuzzel extends HTMLElement {
     loadScriptIfActiveSession = () => {
+        console.log("Checking for active puzzle chat session");
         const puzzleChatSession = Cookies.get("pzl.rid");
+        console.log("puzzleChatSession", puzzleChatSession);
         if (puzzleChatSession) {
             loadScript();
         }
     };
 
     connectedCallback() {
+        if (document.readyState == "complete") {
+            this.loadScriptIfActiveSession();
+        } else {
+            window.addEventListener("load", () => {
+                this.loadScriptIfActiveSession();
+            });
+        }
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
                 const dialog = document.querySelector(
