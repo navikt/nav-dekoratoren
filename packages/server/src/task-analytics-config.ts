@@ -36,6 +36,7 @@ const configMapWatcher = new ConfigMapWatcher<TaskAnalyticsSurvey>({
             config.surveys = validated;
         }
     },
+    shouldPoll: true,
 });
 
 const validateSurveys = (surveys: unknown) => {

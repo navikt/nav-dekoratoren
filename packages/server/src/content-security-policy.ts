@@ -23,9 +23,6 @@ const boostScript = `${clientEnv.BOOST_ENV}.boost.ai`;
 const vimeoPlayer = "player.vimeo.com"; // used for inline videos in the chat client
 const qbrick = "video.qbrick.com"; // used for inline videos in the chat client
 const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
-
-const hotjarCom = "*.hotjar.com";
-const hotjarIo = "*.hotjar.io";
 const skyra = "*.skyra.no";
 const taskAnalytics = "*.taskanalytics.com";
 const googleFonts = "*.googleapis.com";
@@ -44,12 +41,11 @@ const scriptSrc = [
     uxsignals,
     vergicScreenSharing,
     puzzelScreenSharing,
-    hotjarCom,
     skyra,
     taskAnalytics,
     boostScript,
     // localhost testing
-    UNSAFE_INLINE, // vergic, hotjar
+    UNSAFE_INLINE, // vergic/puzzel
 ];
 
 const workerSrc = [
@@ -70,7 +66,6 @@ const directives: Partial<CSPDirectives> = {
     "style-src-elem": styleSrc,
     "font-src": [
         vergicScreenSharing,
-        hotjarCom,
         skyra,
         cdnNavNo,
         googleFonts,
@@ -82,11 +77,10 @@ const directives: Partial<CSPDirectives> = {
         uxsignals,
         vergicScreenSharing,
         vimeoCdn,
-        hotjarCom,
         skyra,
         vergicDotCom,
     ],
-    "frame-src": [hotjarCom, vimeoPlayer, qbrick, navNo],
+    "frame-src": [vimeoPlayer, qbrick, navNo],
     "frame-ancestors": [SELF, vergicScreenSharing],
     "connect-src": [
         navNo,
@@ -94,8 +88,6 @@ const directives: Partial<CSPDirectives> = {
         boostChatbot,
         vergicScreenSharing,
         puzzelScreenSharing,
-        hotjarCom,
-        hotjarIo,
         skyra,
         taskAnalytics,
     ],

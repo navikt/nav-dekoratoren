@@ -118,7 +118,6 @@ All parameters can be set client-side unless explicitly mentioned as a server-re
 | chatbotVisible       | boolean                                                                 | false        | Show or hide the chatbot (Frida )                                          |
 | shareScreen          | boolean                                                                 | true         | Activate or deactivate the screen sharing feature in the footer            |
 | logoutUrl            | string                                                                  | undefined    | Sets the URL for logging out                                               |
-| maskHotjar           | boolean                                                                 | true         | Mask the entire HTML DOM for HotJar                                        |
 | logoutWarning        | boolean                                                                 | true         | Activate or deactivate the Logout Warning                                  |
 | redirectOnUserChange | boolean                                                                 | false        | Redirects to nav.no if different user is logged in                         |
 | pageType             | string                                                                  | undefined    | For lgging av sidetype for sidevsning i Analytics                          |
@@ -173,12 +172,6 @@ Shows or hides Chatbot Frida. If this is set to `true`, the floating chatbot ico
 If set, the Decorator will delegate all logout handling to the specified URL. This means that **everything related to logout must be handled by the app!** This includes, but is not limited to, cookie clearing and session invalidation. Use with care!
 
 Not to be confused with the `redirectToUrlLogout` attribute, which sets the final redirect URL **after** the user has been successfully logged out.
-
-#### maskHotjar
-
-Sets the `data-hj-suppress` attribute on the HTML element, which prevents Hotjar from capturing any actual content on the page. The default is `true`. If this is set to `false`, you must ensure that elements containing personal information or other sensitive data are masked similarly. This is crucial for complying with privacy regulations. See the [Hotjar documentation](https://help.hotjar.com/hc/en-us/articles/115012439167-How-to-Suppress-Text-Images-and-User-Input-from-Collected-Data) for more details.
-
-The Decorator’s own elements that contain personal information are masked regardless of this parameter. This cannot be changed client-side.
 
 #### logoutWarning
 
@@ -301,6 +294,6 @@ Example:
 
 ### 4.10 Consent banner 👌
 
-Users will be presented with a consent banner asking for consent for tracking and analytics. This affects all types of storage (cookies, localStorage, sessionStorage) on the users device. If the user does not consent, only required ("strictly neccessary") storage is allowed. This means that Amplitude, Hotjar, Skyra etc will not start.
+Users will be presented with a consent banner asking for consent for tracking and analytics. This affects all types of storage (cookies, localStorage, sessionStorage) on the users device. If the user does not consent, only required ("strictly neccessary") storage is allowed. This means that Umami, Skyra etc will not start.
 
 The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for checking for current user consent. It also provides helper functions for setting and reading cookies, which ensures that only allowed cookies can be set.
