@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { isDialogDefined } from "../helpers/dialog-util";
@@ -133,6 +134,13 @@ export class ScreensharingModalPuzzel extends HTMLElement {
 }
 
 export class ScreenshareButtonPuzzel extends HTMLElement {
+    loadScriptIfActiveSession = () => {
+        const userState = Cookies.get("psCurrentState");
+        if (userState && userState !== "Ready") {
+            loadScript();
+        }
+    };
+
     connectedCallback() {
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
