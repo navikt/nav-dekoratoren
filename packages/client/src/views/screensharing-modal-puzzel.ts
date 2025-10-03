@@ -135,8 +135,8 @@ export class ScreensharingModalPuzzel extends HTMLElement {
 
 export class ScreenshareButtonPuzzel extends HTMLElement {
     loadScriptIfActiveSession = () => {
-        const userState = Cookies.get("pzl.rid");
-        if (userState && userState !== "Ready") {
+        const puzzleChatSession = Cookies.get("pzl.rid");
+        if (puzzleChatSession) {
             loadScript();
         }
     };
