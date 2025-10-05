@@ -3,50 +3,50 @@ import clsInputs from "../styles/inputs.module.css";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
 
-let scriptLoaded: Promise<void> | undefined;
+// let scriptLoaded: Promise<void> | undefined;
 
 /**
  * ETTER TESTING:
  * 1. Fikse den avslutt-chat boksen
  * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
  */
-const loadScript = (): Promise<void> => {
-    console.log("Loading Puzzel script");
-    if (scriptLoaded) {
-        return scriptLoaded;
-    }
-    const script = document.createElement("script");
-    script.async = true;
-    script.type = "text/javascript";
-    script.src = "https://app-cdn.puzzel.com/public/js/pzl_loader.js";
-    script.setAttribute("id", "pzlModuleLoader");
-    script.setAttribute("data-customer-id", "41155");
-    const promise = new Promise<void>((resolve) => {
-        script.onload = () => {
-            resolve();
-        };
-    });
-    scriptLoaded = promise;
-    document.body.appendChild(script);
-    return promise;
-};
+// const loadScript = (): Promise<void> => {
+//     console.log("Loading Puzzel script");
+//     if (scriptLoaded) {
+//         return scriptLoaded;
+//     }
+//     const script = document.createElement("script");
+//     script.async = true;
+//     script.type = "text/javascript";
+//     script.src = "https://app-cdn.puzzel.com/public/js/pzl_loader.js";
+//     script.setAttribute("id", "pzlModuleLoader");
+//     script.setAttribute("data-customer-id", "41155");
+//     const promise = new Promise<void>((resolve) => {
+//         script.onload = () => {
+//             resolve();
+//         };
+//     });
+//     scriptLoaded = promise;
+//     document.body.appendChild(script);
+//     return promise;
+// };
 
-function lazyLoadScreensharing(openModal: () => void) {
-    console.log("Lazy loading puzzel screensharing");
-    // Check if it is already loaded to avoid layout shift
-    const enabled =
-        window.__DECORATOR_DATA__.params.shareScreen &&
-        window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
+// function lazyLoadScreensharing(openModal: () => void) {
+//     console.log("Lazy loading puzzel screensharing");
+//     // Check if it is already loaded to avoid layout shift
+//     const enabled =
+//         window.__DECORATOR_DATA__.params.shareScreen &&
+//         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
 
-    if (!enabled || window.pzl?.info?.status === "started") {
-        openModal();
-        return;
-    }
-    console.log("Screensharing enabled, loading puzzel script");
-    loadScript().then(() => {
-        openModal();
-    });
-}
+//     if (!enabled || window.pzl?.info?.status === "started") {
+//         openModal();
+//         return;
+//     }
+//     console.log("Screensharing enabled, loading puzzel script");
+//     loadScript().then(() => {
+//         openModal();
+//     });
+// }
 
 function startCall(code: string) {
     window.pzl?.api.showInteraction({
@@ -134,15 +134,13 @@ export class ScreensharingModalPuzzel extends HTMLElement {
 
 export class ScreenshareButtonPuzzel extends HTMLElement {
     connectedCallback() {
-        this.addEventListener("click", () =>
-            lazyLoadScreensharing(() => {
-                const dialog = document.querySelector(
-                    "screensharing-modal",
-                ) as HTMLDialogElement;
-                console.log("Opening puzzel screensharing modal");
+        this.addEventListener("click", () => {
+            const dialog = document.querySelector(
+                "screensharing-modal",
+            ) as HTMLDialogElement;
+            console.log("Opening puzzel screensharing modal");
 
-                dialog.showModal();
-            }),
-        );
+            dialog.showModal();
+        });
     }
 }
