@@ -13,7 +13,7 @@
     The pzl-tag-1 element is presently only be rendered when viewed from co-browsing
     but there's no guarantee this assumption will hold in the future. :D
 */
-html:has(:global(pzl-tag-1)) {
+header:has(:global(pzl-tag-1)) {
     .absoluteWrapper {
         top: 0 !important;
     }
