@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { isDialogDefined } from "../helpers/dialog-util";
@@ -10,7 +11,7 @@ let scriptLoaded: Promise<void> | undefined;
  * 1. Fikse den avslutt-chat boksen
  * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
  */
-const loadScript = (): Promise<void> => {
+export const loadPuzzelScript = (): Promise<void> => {
     console.log("Loading Puzzel script");
     if (scriptLoaded) {
         return scriptLoaded;
@@ -43,7 +44,7 @@ function lazyLoadScreensharing(openModal: () => void) {
         return;
     }
     console.log("Screensharing enabled, loading puzzel script");
-    loadScript().then(() => {
+    loadPuzzelScript().then(() => {
         openModal();
     });
 }
@@ -133,7 +134,23 @@ export class ScreensharingModalPuzzel extends HTMLElement {
 }
 
 export class ScreenshareButtonPuzzel extends HTMLElement {
+    loadScriptIfActiveSession = () => {
+        console.log("Checking for active puzzle chat session");
+        const puzzleChatSession = Cookies.get("pzl.rid");
+        console.log("puzzleChatSession", puzzleChatSession);
+        if (puzzleChatSession) {
+            loadPuzzelScript();
+        }
+    };
+
     connectedCallback() {
+        if (document.readyState == "complete") {
+            this.loadScriptIfActiveSession();
+        } else {
+            window.addEventListener("load", () => {
+                this.loadScriptIfActiveSession();
+            });
+        }
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
                 const dialog = document.querySelector(

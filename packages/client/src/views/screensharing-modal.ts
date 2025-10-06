@@ -6,6 +6,7 @@ import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
 import {
+    loadPuzzelScript,
     ScreenshareButtonPuzzel,
     ScreensharingModalPuzzel,
 } from "./screensharing-modal-puzzel";
@@ -133,6 +134,12 @@ class ScreenshareButton extends HTMLElement {
         const userState = Cookies.get("psCurrentState");
         if (userState && userState !== "Ready") {
             loadScript();
+        }
+
+        console.log("Checking for active puzzle chat session");
+        const puzzleChatSession = Cookies.get("pzl.rid");
+        if (puzzleChatSession) {
+            loadPuzzelScript();
         }
     };
 

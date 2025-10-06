@@ -84,6 +84,13 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         optional: false,
     },
     {
+        name: "pzl.rid",
+        type: ["cookie"],
+        service: "Puzzel",
+        description: "Deling av skjerm med veileder.",
+        optional: false,
+    },
+    {
         name: "navno-consent-*",
         type: ["cookie", "sessionstorage", "localstorage"],
         service: "Dekoratøren",
