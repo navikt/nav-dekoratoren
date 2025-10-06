@@ -28,7 +28,7 @@ html:has(head > :global(#vngageDOMCSS4)) {
     The #pzl_video element is presently only be rendered when viewed from co-browsing
     but there's no guarantee this assumption will hold in the future. :D
 */
-:host:has(:global(#pzl_video)) {
+header:has(:global(pzl-tag-1)) {
     .absoluteWrapper {
         top: 0 !important;
     }
