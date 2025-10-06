@@ -11,7 +11,7 @@ let scriptLoaded: Promise<void> | undefined;
  * 1. Fikse den avslutt-chat boksen
  * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
  */
-const loadScript = (): Promise<void> => {
+export const loadPuzzelScript = (): Promise<void> => {
     console.log("Loading Puzzel script");
     if (scriptLoaded) {
         return scriptLoaded;
@@ -44,7 +44,7 @@ function lazyLoadScreensharing(openModal: () => void) {
         return;
     }
     console.log("Screensharing enabled, loading puzzel script");
-    loadScript().then(() => {
+    loadPuzzelScript().then(() => {
         openModal();
     });
 }
@@ -139,7 +139,7 @@ export class ScreenshareButtonPuzzel extends HTMLElement {
         const puzzleChatSession = Cookies.get("pzl.rid");
         console.log("puzzleChatSession", puzzleChatSession);
         if (puzzleChatSession) {
-            loadScript();
+            loadPuzzelScript();
         }
     };
 
