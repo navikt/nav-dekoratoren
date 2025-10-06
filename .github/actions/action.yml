@@ -52,15 +52,39 @@ runs:
       run: bun run test
       shell: bash
 
-    - name: Setup playwright # TODO: can this be cached? It is slow :D
-      if: inputs.SKIP_TESTS != true
+    - name: Determine Playwright version
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      id: pw-version
       run: |
-        bunx playwright install --with-deps
-        cp packages/server/.env.sample packages/server/.env
+        VERSION=$(jq -r '.devDependencies.playwright // .dependencies.playwright // empty' package.json)
+        if [ -z "$VERSION" ]; then
+          VERSION=$(bunx playwright --version | awk '{print $2}')
+        fi
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       shell: bash
 
-    - name: Run playwright tests
-      if: inputs.SKIP_TESTS != true
+    - name: Cache Playwright browsers
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      id: cache-pw
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.pw-version.outputs.version }}
+        restore-keys: |
+          playwright-${{ runner.os }}-
+
+    - name: Install Playwright browsers (first time)
+      if: ${{ inputs.SKIP_TESTS != 'true' && steps.cache-pw.outputs.cache-hit != 'true' }}
+      run: bunx playwright install --with-deps
+      shell: bash
+
+    - name: Ensure env file for tests
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      run: cp packages/server/.env.sample packages/server/.env
+      shell: bash
+
+    - name: Run Playwright tests
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
       run: bunx playwright test
       shell: bash
 
