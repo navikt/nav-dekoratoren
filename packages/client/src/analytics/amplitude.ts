@@ -1,3 +1,4 @@
+import { isProd } from "../helpers/env";
 import {
     buildLocationString,
     getCurrentReferrer,
@@ -7,6 +8,9 @@ import { AnalyticsEventArgs, EventData } from "./types";
 
 // Dynamic import for lazy loading
 const importAmplitude = () => import("@amplitude/analytics-browser");
+
+const amplitudeDeprecated =
+    "Amplitude is disabled in test from 01-10-25. Will be disabled in Prod 01-11-25";
 
 declare global {
     interface Window {
@@ -32,34 +36,45 @@ const getApiKey = () => {
     return API_KEYS.Other;
 };
 
-export const initAmplitude = async () => {
-    const amplitude = await importAmplitude();
-
-    amplitude.identify(
-        new amplitude.Identify()
-            .set("skjermbredde", window.screen.width)
-            .set("skjermhoyde", window.screen.height)
-            .set("vindusbredde", window.innerWidth)
-            .set("vindushoyde", window.innerHeight),
+export const mockAmplitude = () => {
+    return Promise.resolve(
+        "Amplitude is disabled and mocked due to missing consent.",
     );
+};
 
-    amplitude.init(getApiKey(), undefined, {
-        serverUrl: "https://amplitude.nav.no/collect",
-        ingestionMetadata: {
-            sourceName: buildLocationString(),
-        },
-        autocapture: {
-            attribution: true,
-            fileDownloads: false,
-            formInteractions: false,
-            pageViews: false,
-            sessions: true,
-            elementInteractions: false,
-        },
-    });
+export const initAmplitude = async () => {
+    if (!isProd()) {
+        console.log(amplitudeDeprecated);
+        return Promise.resolve(amplitudeDeprecated);
+    } else {
+        const amplitude = await importAmplitude();
 
-    // This function is exposed for use from consuming applications
-    window.dekoratorenAmplitude = logEventFromApp;
+        amplitude.identify(
+            new amplitude.Identify()
+                .set("skjermbredde", window.screen.width)
+                .set("skjermhoyde", window.screen.height)
+                .set("vindusbredde", window.innerWidth)
+                .set("vindushoyde", window.innerHeight),
+        );
+
+        amplitude.init(getApiKey(), undefined, {
+            serverUrl: "https://amplitude.nav.no/collect",
+            ingestionMetadata: {
+                sourceName: buildLocationString(),
+            },
+            autocapture: {
+                attribution: true,
+                fileDownloads: false,
+                formInteractions: false,
+                pageViews: false,
+                sessions: true,
+                elementInteractions: false,
+            },
+        });
+
+        // This function is exposed for use from consuming applications
+        window.dekoratorenAmplitude = logEventFromApp;
+    }
 };
 
 export const stopAmplitude = async () => {
@@ -67,6 +82,8 @@ export const stopAmplitude = async () => {
     amplitude.reset();
     amplitude.flush();
     amplitude.setOptOut(true);
+
+    window.dekoratorenAmplitude = mockAmplitude;
 };
 
 export const setAmplitudeReferrer = async () => {
@@ -154,29 +171,34 @@ export const logAmplitudeEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
-    // Always build the url for the source_name field as early as possible.
-    // The dynamic import seems to always take at least one tick
-    // and the url may have changed in SPAs at that time
-    const source_name = buildLocationString();
-    const amplitude = await importAmplitude();
+    if (!isProd()) {
+        console.log(amplitudeDeprecated);
+        return Promise.resolve(amplitudeDeprecated);
+    } else {
+        // Always build the url for the source_name field as early as possible.
+        // The dynamic import seems to always take at least one tick
+        // and the url may have changed in SPAs at that time
+        const source_name = buildLocationString();
+        const amplitude = await importAmplitude();
 
-    return amplitude.track(
-        eventName,
-        {
-            ...eventData,
-            // This field was set for use in the old amplitude-proxy
-            // In the current proxy version, source_name serves the same purpose
-            // Many teams still use the platform field for continuous data series
-            platform: source_name,
-            origin,
-            originVersion: eventData.originVersion || "unknown",
-            viaDekoratoren: true,
-            ...extraWindowParams(),
-        },
-        {
-            ingestion_metadata: {
-                source_name,
+        return amplitude.track(
+            eventName,
+            {
+                ...eventData,
+                // This field was set for use in the old amplitude-proxy
+                // In the current proxy version, source_name serves the same purpose
+                // Many teams still use the platform field for continuous data series
+                platform: source_name,
+                origin,
+                originVersion: eventData.originVersion || "unknown",
+                viaDekoratoren: true,
+                ...extraWindowParams(),
             },
-        },
-    );
+            {
+                ingestion_metadata: {
+                    source_name,
+                },
+            },
+        );
+    }
 };

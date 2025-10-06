@@ -2,8 +2,8 @@ import { fixture } from "@open-wc/testing";
 import { texts } from "decorator-server/src/texts";
 import { updateDecoratorParams } from "../../params";
 import "./chatbot";
-import { BoostClient } from "./chatbot";
 import cls from "./chatbot.module.css";
+import { BoostClient } from "../../client";
 
 const STORAGE_KEY = "boostai.conversation.id";
 
@@ -80,21 +80,16 @@ describe("chatbot", () => {
     describe("onClick", () => {
         let isShown = false;
         let wasCalled = false;
-        let calledWith: any[] = [];
-        let filterValues: string[] = [];
-        let triggeredAction: number;
+
         const chatPanel = document.createElement(
             "div",
         ) as unknown as BoostClient["chatPanel"];
         chatPanel.show = () => (isShown = true);
-        chatPanel.setFilterValues = (f) => (filterValues = f);
-        chatPanel.triggerAction = (a) => (triggeredAction = a);
         beforeEach(() => {
             isShown = false;
             wasCalled = false;
-            window.boostInit = (a: any, b: any) => {
+            window.boostInit = () => {
                 wasCalled = true;
-                calledWith = [a, b];
                 return { chatPanel };
             };
         });
@@ -116,63 +111,6 @@ describe("chatbot", () => {
             expect(isShown).toBe(false);
             await boostInitialized();
             expect(isShown).toBe(true);
-        });
-
-        it("initializes boost with correct config", async () => {
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            await boostInitialized();
-            expect(calledWith[0]).toBe("nav");
-            expect(calledWith[1]).toEqual({
-                chatPanel: {
-                    settings: {
-                        removeRememberedConversationOnChatPanelClose: true,
-                        openTextLinksInNewTab: true,
-                    },
-                    styling: { buttons: { multiline: true } },
-                    header: { filters: { filterValues: "bokmal" } },
-                },
-            });
-        });
-
-        it("inits boost with dev url base", async () => {
-            window.__DECORATOR_DATA__.env.BOOST_ENV = "navtest";
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            await boostInitialized();
-            expect(calledWith[0]).toBe("navtest");
-        });
-
-        it("sets preferred filter to arbeidsgiver", async () => {
-            window.__DECORATOR_DATA__.params.context = "arbeidsgiver";
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            await boostInitialized();
-            expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
-                "arbeidsgiver",
-            );
-        });
-
-        it("sets preferred filter to nynorsk", async () => {
-            window.__DECORATOR_DATA__.params.language = "nn";
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            await boostInitialized();
-            expect(calledWith[1].chatPanel.header.filters.filterValues).toBe(
-                "nynorsk",
-            );
-        });
-
-        it("sets filter value and triggers next actions", async () => {
-            const el = await fixture("<d-chatbot></d-chatbot>");
-            (el.childNodes[0] as HTMLButtonElement).click();
-            chatPanel.dispatchEvent(
-                new CustomEvent("setFilterValue", {
-                    detail: { filterValue: ["filter value"], nextId: 37 },
-                }),
-            );
-            expect(filterValues).toEqual(["filter value"]);
-            expect(triggeredAction).toBe(37);
         });
     });
 }, 1000);

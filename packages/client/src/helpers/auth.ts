@@ -22,32 +22,21 @@ export type SessionData = {
     };
 };
 
-export async function fetchSession() {
+export type FetchRenew = "fetch" | "renew";
+export async function fetchOrRenewSession(fetchOrRenew: FetchRenew) {
     const sessionUrl = window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL;
+    const fetchUrl = `${sessionUrl}${fetchOrRenew === "renew" ? "/refresh" : ""}`;
 
     try {
-        const sessionResponse = await fetch(sessionUrl, {
+        const sessionResponse = await fetch(fetchUrl, {
             credentials: "include",
         });
-
+        if (!sessionResponse.ok) {
+            return null;
+        }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        console.error(`Failed to fetch session - ${error}`);
-        return null;
-    }
-}
-
-export async function fetchRenew() {
-    const sessionRefreshUrl = `${window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL}/refresh`;
-
-    try {
-        const sessionResponse = await fetch(sessionRefreshUrl, {
-            credentials: "include",
-        });
-
-        return (await sessionResponse.json()) as SessionData;
-    } catch (error) {
-        console.error(`Failed to renew session - ${error}`);
+        console.error(`Failed to ${fetchOrRenew} session - ${error}`);
         return null;
     }
 }
