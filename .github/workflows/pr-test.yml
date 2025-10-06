@@ -11,6 +11,9 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Build and run tests (test-only)
         uses: ./.github/actions
         with:
