@@ -71,7 +71,6 @@ runs:
         team: personbruker
         source: "./packages/server/public"
         destination: "/decorator-next"
-      shell: bash
 
     - name: Build and push docker image
       uses: nais/docker-build-push@v0
