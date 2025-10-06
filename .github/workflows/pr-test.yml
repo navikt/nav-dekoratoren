@@ -6,11 +6,13 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and run tests
-    uses: ./.github/workflows/build-and-test.yml
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
-    with:
-      TEST_ONLY: true
-    secrets: inherit
+    steps:
+      - name: Build and run tests (test-only)
+        uses: ./.github/actions
+        with:
+          READER_TOKEN: ${{ secrets.READER_TOKEN }}
+          TEST_ONLY: "true"

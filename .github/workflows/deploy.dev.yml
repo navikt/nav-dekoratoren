@@ -13,14 +13,21 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build-and-test.yml
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
-    with:
-      IMAGE_SUFFIX: dev-stable
-      SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
-    secrets: inherit
+    outputs:
+      IMAGE: ${{ steps.build_test.outputs.IMAGE }}
+    steps:
+      - name: Build/Test/Publish
+        id: build_test
+        uses: ./.github/actions
+        with:
+          READER_TOKEN: ${{ secrets.READER_TOKEN }}
+          IMAGE_SUFFIX: dev-stable
+          SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
+
   deploy:
     uses: ./.github/workflows/deploy-application.yml
     needs: build

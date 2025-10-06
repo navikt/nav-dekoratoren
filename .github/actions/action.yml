@@ -1,28 +1,31 @@
 name: Build, test and prepare for deploy
-description: Build, test and optionally push Docker image + upload static assets
+
 inputs:
-  IMAGE_SUFFIX:
-    description: Optional image suffix (currently unused)
-    required: false
-  TEST_ONLY:
-    description: 'Set to true to run tests only (skip upload & docker push)'
-    required: false
-    default: 'false'
-  SKIP_TESTS:
-    description: 'Set to true to skip all tests'
-    required: false
-    default: 'false'
-  TAG_LATEST:
-    description: 'Set to true to also tag image as latest (and build arm64)'
-    required: false
-    default: 'false'
   READER_TOKEN:
-    description: NPM auth token (pass a secret)
+    description: Token for private dependency access
     required: true
+  SKIP_TESTS:
+    description: Skip tests
+    required: false
+    default: "false"
+  TAG_LATEST:
+    description: Also tag image as latest
+    required: false
+    default: "false"
+  TEST_ONLY:
+    description: Run tests only; skip image build/publish
+    required: false
+    default: "false"
+  IMAGE_SUFFIX:
+    description: Suffix to add to image name
+    required: false
+    default: "latest"
+
 outputs:
   IMAGE:
     description: Built Docker image reference
     value: ${{ steps.docker-push.outputs.image }}
+
 runs:
   using: composite
   steps:
@@ -35,45 +38,47 @@ runs:
         bun-version: 1.1.20
 
     - name: Install dependencies
-      shell: bash
       run: bun install --immutable --ignore-scripts
+      shell: bash
       env:
         NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
 
     - name: Build app
-      shell: bash
       run: bun run build
+      shell: bash
 
     - name: Run unit tests
       if: ${{ inputs.SKIP_TESTS != 'true' }}
-      shell: bash
       run: bun run test
-
-    - name: Setup playwright
-      if: ${{ inputs.SKIP_TESTS != 'true' }}
       shell: bash
+
+    - name: Setup playwright # TODO: can this be cached? It is slow :D
+      if: inputs.SKIP_TESTS != true
       run: |
         bunx playwright install --with-deps
         cp packages/server/.env.sample packages/server/.env
+      shell: bash
 
     - name: Run playwright tests
-      if: ${{ inputs.SKIP_TESTS != 'true' }}
-      shell: bash
+      if: inputs.SKIP_TESTS != true
       run: bunx playwright test
+      shell: bash
 
     - name: Upload static files to Nav CDN
-      if: ${{ inputs.TEST_ONLY != 'true' }}
       uses: nais/deploy/actions/cdn-upload/v2@master
+      if: inputs.TEST_ONLY != true
       with:
         team: personbruker
-        source: ./packages/server/public
-        destination: /decorator-next
+        source: "./packages/server/public"
+        destination: "/decorator-next"
+      shell: bash
 
     - name: Build and push docker image
-      if: ${{ inputs.TEST_ONLY != 'true' }}
-      id: docker-push
       uses: nais/docker-build-push@v0
+      if: inputs.TEST_ONLY != true
+      id: docker-push
       with:
         team: personbruker
-        tag: ${{ inputs.TAG_LATEST == 'true' && 'latest' || '' }}
-        platforms: linux/amd64${{ inputs.TAG_LATEST == 'true' && ',linux/arm64' || '' }}
+        tag: ${{ inputs.TAG_LATEST && 'latest' || '' }}
+        # Build the latest image to arm64 as well, to enable usage on arm mac developer machines
+        platforms: linux/amd64${{ inputs.TAG_LATEST && ',linux/arm64' || '' }}
