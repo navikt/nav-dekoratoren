@@ -20,6 +20,9 @@ jobs:
     outputs:
       IMAGE: ${{ steps.build_test.outputs.IMAGE }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Build/Test/Publish
         id: build_test
         uses: ./.github/actions
