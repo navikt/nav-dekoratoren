@@ -19,7 +19,6 @@
     border-radius: var(--a-border-radius-large);
     display: none;
     max-width: 40rem;
-    margin-right: auto;
     height: fit-content;
     inset: 2rem;
     margin: auto auto 0 0;

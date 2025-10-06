@@ -98,13 +98,6 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         optional: false,
     },
     {
-        name: "_hjSession*",
-        type: ["cookie"],
-        service: "HotJar",
-        description: "Husker invitasjoner til brukerundersøkelser.",
-        optional: true,
-    },
-    {
         name: "_taj*",
         type: ["sessionstorage", "localstorage"],
         service: "Task Analytics",
