@@ -17,6 +17,7 @@ const uxsignals = "widget.uxsignals.com";
 const uxsignalsApi = "api.uxsignals.com";
 const vergicScreenSharing = "*.psplugin.com";
 const puzzelScreenSharing = "*.puzzel.com";
+const puzzelWebSocket = "wss://*.puzzel.com"; // Need explicit websocket entry for puzzel
 const vergicDotCom = "www.vergic.com"; // seems to only be used for a single placeholder image
 const boostChatbot = "*.boost.ai";
 const boostScript = `${clientEnv.BOOST_ENV}.boost.ai`;
@@ -94,6 +95,7 @@ const directives: Partial<CSPDirectives> = {
         boostChatbot,
         vergicScreenSharing,
         puzzelScreenSharing,
+        puzzelWebSocket,
         hotjarCom,
         hotjarIo,
         skyra,
