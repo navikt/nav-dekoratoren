@@ -85,13 +85,7 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
                 document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
             );
         </script>
-        <script
-            async="true"
-            type="text/javascript"
-            src="https://app-cdn.puzzel.com/public/js/pzl_loader.js"
-            id="pzlModuleLoader"
-            data-customer-id="41155"
-        ></script>
+
         ${scriptsHtml}
     `;
 };
