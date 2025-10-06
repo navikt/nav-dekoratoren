@@ -1,0 +1,79 @@
+name: Build, test and prepare for deploy
+description: Build, test and optionally push Docker image + upload static assets
+inputs:
+  IMAGE_SUFFIX:
+    description: Optional image suffix (currently unused)
+    required: false
+  TEST_ONLY:
+    description: 'Set to true to run tests only (skip upload & docker push)'
+    required: false
+    default: 'false'
+  SKIP_TESTS:
+    description: 'Set to true to skip all tests'
+    required: false
+    default: 'false'
+  TAG_LATEST:
+    description: 'Set to true to also tag image as latest (and build arm64)'
+    required: false
+    default: 'false'
+  READER_TOKEN:
+    description: NPM auth token (pass a secret)
+    required: true
+outputs:
+  IMAGE:
+    description: Built Docker image reference
+    value: ${{ steps.docker-push.outputs.image }}
+runs:
+  using: composite
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: 1.1.20
+
+    - name: Install dependencies
+      shell: bash
+      run: bun install --immutable --ignore-scripts
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
+
+    - name: Build app
+      shell: bash
+      run: bun run build
+
+    - name: Run unit tests
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      shell: bash
+      run: bun run test
+
+    - name: Setup playwright
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      shell: bash
+      run: |
+        bunx playwright install --with-deps
+        cp packages/server/.env.sample packages/server/.env
+
+    - name: Run playwright tests
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      shell: bash
+      run: bunx playwright test
+
+    - name: Upload static files to Nav CDN
+      if: ${{ inputs.TEST_ONLY != 'true' }}
+      uses: nais/deploy/actions/cdn-upload/v2@master
+      with:
+        team: personbruker
+        source: ./packages/server/public
+        destination: /decorator-next
+
+    - name: Build and push docker image
+      if: ${{ inputs.TEST_ONLY != 'true' }}
+      id: docker-push
+      uses: nais/docker-build-push@v0
+      with:
+        team: personbruker
+        tag: ${{ inputs.TAG_LATEST == 'true' && 'latest' || '' }}
+        platforms: linux/amd64${{ inputs.TAG_LATEST == 'true' && ',linux/arm64' || '' }}
