@@ -1,4 +1,4 @@
-name: Deploy network policy to nais
+name: Deploy network policy to Nais
 on:
   workflow_dispatch:
   push:

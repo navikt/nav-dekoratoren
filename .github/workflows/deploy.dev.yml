@@ -23,9 +23,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Build/Test/Publish
+      - name: Build/Test/Deploy
         id: build_test
-        uses: ./.github/actions
+        uses: ./.github/actions/build-test-deploy
         with:
           READER_TOKEN: ${{ secrets.READER_TOKEN }}
           IMAGE_SUFFIX: dev-stable
