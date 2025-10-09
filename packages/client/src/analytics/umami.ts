@@ -7,10 +7,7 @@ export const logUmamiEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
-    if (
-        window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
-        typeof umami !== "undefined"
-    ) {
+    if (typeof umami !== "undefined") {
         return umami.track((props) => ({
             ...props,
             name: eventName === "besøk" ? undefined : eventName,
@@ -52,15 +49,13 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
 };
 
 export const initUmami = () => {
-    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
-        const script = document.createElement("script");
-        script.src = "https://cdn.nav.no/team-researchops/sporing/sporing.js";
-        script.defer = true;
-        script.setAttribute("data-host-url", "https://umami.nav.no");
-        script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
-        script.setAttribute("data-auto-track", "false");
-        document.head.appendChild(script);
-    }
+    const script = document.createElement("script");
+    script.src = "https://cdn.nav.no/team-researchops/sporing/sporing.js";
+    script.defer = true;
+    script.setAttribute("data-host-url", "https://umami.nav.no");
+    script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
+    script.setAttribute("data-auto-track", "false");
+    document.head.appendChild(script);
 };
 
 export const stopUmami = () => {

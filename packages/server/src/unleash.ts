@@ -14,7 +14,6 @@ if (env.NODE_ENV === "production" && !isLocalhost()) {
 const defaultFeatures = {
     "dekoratoren.skjermdeling": true,
     "dekoratoren.chatbotscript": true,
-    "dekoratoren.umami": true,
     "dekoratoren.puzzel-script": false,
 };
 
@@ -28,7 +27,6 @@ export const getFeatures = () => {
             "dekoratoren.chatbotscript": unleash.isEnabled(
                 "dekoratoren.chatbotscript",
             ),
-            "dekoratoren.umami": unleash.isEnabled("dekoratoren.umami"),
             "dekoratoren.puzzel-script": unleash.isEnabled(
                 "dekoratoren.puzzel-script",
             ),
