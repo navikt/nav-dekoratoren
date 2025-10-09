@@ -37,7 +37,8 @@ function lazyLoadScreensharing(openModal: () => void) {
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
-        window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"];
+        window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"] &&
+        window.__DECORATOR_DATA__.features["dekoratoren.puzzel-script"];
 
     if (!enabled || window.pzl?.info?.status === "started") {
         openModal();
