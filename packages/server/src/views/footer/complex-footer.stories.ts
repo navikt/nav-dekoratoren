@@ -10,6 +10,7 @@ const meta: Meta<ComplexFooterProps> = {
                 "dekoratoren.skjermdeling": true,
                 "dekoratoren.chatbotscript": false,
                 "dekoratoren.umami": false,
+                "puzzel-script": false,
             },
             links:
                 context.globals.locale === "en"
