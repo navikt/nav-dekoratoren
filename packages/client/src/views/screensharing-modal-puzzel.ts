@@ -40,10 +40,6 @@ function lazyLoadScreensharing(openModal: () => void) {
         window.__DECORATOR_DATA__.features["dekoratoren.skjermdeling"] &&
         window.__DECORATOR_DATA__.features["puzzel-script"];
 
-    console.log(
-        "Puzzzel script turned on in unleash:",
-        window.__DECORATOR_DATA__.features["puzzel-script"],
-    );
     if (!enabled || window.pzl?.info?.status === "started") {
         openModal();
         return;
