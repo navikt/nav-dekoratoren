@@ -1,4 +1,4 @@
-name: Build, test and prepare for deploy
+name: Build and test
 
 inputs:
   READER_TOKEN:

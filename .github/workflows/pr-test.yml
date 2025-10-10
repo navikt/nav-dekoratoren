@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run tests (test-only)
-        uses: ./.github/actions/build-test-deploy
+        uses: ./.github/actions/build-test
         with:
           READER_TOKEN: ${{ secrets.READER_TOKEN }}
           TEST_ONLY: "true"
