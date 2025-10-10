@@ -55,10 +55,9 @@ runs:
       env:
         NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
 
-    - name: Install libvpx, libwoff2, libevent and libopus (required by Playwright WebKit)
+    - name: Install Playwright dependencies
       shell: bash
-      if: ${{ inputs.SKIP_TESTS != 'true' }}
-      run: sudo apt-get update && sudo apt-get install -y libvpx-dev libwoff1 libevent-2.1-7 libopus0
+      run: npx playwright install-deps
 
     - name: Build app
       shell: bash
