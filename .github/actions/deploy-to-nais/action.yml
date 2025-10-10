@@ -81,11 +81,27 @@ runs:
     - name: Update vars (previous version tracking)
       env:
         GITHUB_TOKEN: ${{ inputs.VARS_UPDATE_TOKEN }} # This is a PAT with repo or Variables permission
+        DEPLOY_INSTANCE: ${{ inputs.DEPLOY_INSTANCE }}
+        IMAGE_INPUT: ${{ inputs.IMAGE }}
+        VERSION_ID: ${{ env.VERSION_ID }}
       shell: bash
       run: |
-        gh variable set PREV_VERSION_ID --env "${{ inputs.DEPLOY_INSTANCE }}" --body "${{ env.VERSION_ID }}"
-        gh variable set PREV_IMAGE --env "${{ inputs.DEPLOY_INSTANCE }}" --body "${{ inputs.IMAGE }}"
-        gh variable list --env "${{ inputs.DEPLOY_INSTANCE }}"
+        set -euo pipefail
+
+        # Basic allow‑list validation to reduce injection risk
+        safe_env_regex='^[A-Za-z0-9._-]+$'
+        safe_image_regex='^[A-Za-z0-9._/@:-]+$'
+
+        if ! [[ "$DEPLOY_INSTANCE" =~ $safe_env_regex ]]; then
+          echo "Invalid DEPLOY_INSTANCE value"; exit 1
+        fi
+        if ! [[ "$IMAGE_INPUT" =~ $safe_image_regex ]]; then
+          echo "Invalid IMAGE value"; exit 1
+        fi
+
+        gh variable set PREV_VERSION_ID --env "$DEPLOY_INSTANCE" --body "$VERSION_ID"
+        gh variable set PREV_IMAGE --env "$DEPLOY_INSTANCE" --body "$IMAGE_INPUT"
+        gh variable list --env "$DEPLOY_INSTANCE"
 
       # We use a configmap to signal the latest fully deployed version.
     - name: Update version authority configmap
