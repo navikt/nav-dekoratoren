@@ -14,9 +14,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install libwoff2 (required by Playwright WebKit)
-        run: sudo apt-get update && sudo apt-get install -y libwoff1
-
       - name: Build and run tests (test-only)
         uses: ./.github/actions/build-test-deploy
         with:
