@@ -55,10 +55,10 @@ runs:
       env:
         NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
 
-    - name: Install libvpx and libwoff2 (required by Playwright WebKit)
+    - name: Install libvpx, libwoff2 and libevent (required by Playwright WebKit)
       shell: bash
       if: ${{ inputs.SKIP_TESTS != 'true' }}
-      run: sudo apt-get update && sudo apt-get install -y libvpx-dev libwoff1
+      run: sudo apt-get update && sudo apt-get install -y libvpx-dev libwoff1 libevent-2.1-7
 
     - name: Build app
       shell: bash
