@@ -1,5 +1,4 @@
 name: Deploy to Nais
-description: Composite action to deploy application (previous + current) to Nais.
 
 inputs:
   DEPLOY_INSTANCE:
@@ -11,7 +10,7 @@ inputs:
   IMAGE:
     description: Container image (with tag).
     required: true
-  DEPLOY_INTERNAL:
+  DEPLOY_PREVIOUS:
     description: Whether to deploy previous internal version first.
     required: false
     default: "false"
@@ -43,54 +42,55 @@ runs:
         echo "version_id=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
         echo "VERSION_ID=$GITHUB_SHA" >> "$GITHUB_ENV"
 
-    # Deploy previous internal version (if enabled and data present)
+    # Checkout the previous version to ensure matching nais config is used
     - name: Checkout previous version
-      if: inputs.deploy-internal == 'true' && inputs.prev-version-id != '' && inputs.prev-image != ''
+      if:  inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
       uses: actions/checkout@v4
       with:
-        ref: ${{ inputs.prev-version-id }}
+        ref: ${{ inputs.PREV_VERSION_ID }}
 
-    - name: Deploy internal previous versioned app
-      if: inputs.deploy-internal == 'true' && inputs.prev-version-id != '' && inputs.prev-image != ''
+    - name: Deploy previous version
+      if: inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
       uses: nais/deploy/actions/deploy@v2
       env:
-        CLUSTER: ${{ inputs.cluster }}
+        CLUSTER: ${{ inputs.CLUSTER }}
         RESOURCE: .nais/config-internal.yml
-        VAR: image=${{ inputs.prev-image }},versionId=${{ inputs.prev-version-id }},deployInstance=${{ inputs.deploy-instance }}
-        VARS: .nais/vars/${{ inputs.deploy-instance }}.yml
+        VAR: image=${{ inputs.PREV_IMAGE }},versionId=${{ inputs.PREV_VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
+        VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
-    # Checkout current head
-    - name: Checkout current
+    # Checkout the current version
+    - name: Checkout current repo
       uses: actions/checkout@v4
 
     - name: Deploy HPA
-      if: inputs.hpa-file != ''
+      if: inputs.HPA_FILE != ''
+      uses: nais/deploy/actions/deploy@v2
       continue-on-error: true
-      uses: nais/deploy/actions/deploy@v2
       env:
-        CLUSTER: ${{ inputs.cluster }}
-        RESOURCE: .nais/hpa/${{ inputs.hpa-file }}
+        CLUSTER: ${{ inputs.CLUSTER }}
+        RESOURCE: .nais/hpa/${{inputs.HPA_FILE}}
 
-    - name: Deploy external app
+    - name: Deploy current version
       uses: nais/deploy/actions/deploy@v2
       env:
-        CLUSTER: ${{ inputs.cluster }}
+        CLUSTER: ${{ inputs.CLUSTER }}
         RESOURCE: .nais/config.yml
-        VAR: image=${{ inputs.image }},versionId=${{ steps.set-version-id.outputs.version_id }},deployInstance=${{ inputs.deploy-instance }}
-        VARS: .nais/vars/${{ inputs.deploy-instance }}.yml
+        VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
+        VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
     - name: Update vars (previous version tracking)
       env:
-        GITHUB_TOKEN: ${{ inputs.vars-update-token }}
+        GITHUB_TOKEN: ${{ inputs.VARS_UPDATE_TOKEN }} # This is a PAT with repo or Variables permission
       shell: bash
       run: |
-        gh variable set PREV_VERSION_ID --env "${{ inputs.deploy-instance }}" --body "${{ steps.set-version-id.outputs.version_id }}"
-        gh variable set PREV_IMAGE --env "${{ inputs.deploy-instance }}" --body "${{ inputs.image }}"
-        gh variable list --env "${{ inputs.deploy-instance }}"
+        gh variable set PREV_VERSION_ID --env "${{ inputs.DEPLOY_INSTANCE }}" --body "${{ env.VERSION_ID }}"
+        gh variable set PREV_IMAGE --env "${{ inputs.DEPLOY_INSTANCE }}" --body "${{ inputs.IMAGE }}"
+        gh variable list --env "${{ inputs.DEPLOY_INSTANCE }}"
 
+      # We use a configmap to signal the latest fully deployed version.
     - name: Update version authority configmap
       uses: nais/deploy/actions/deploy@v2
       env:
-        CLUSTER: ${{ inputs.cluster }}
+        CLUSTER: ${{ inputs.CLUSTER }}
         RESOURCE: .nais/version-authority-configmap.yml
-        VAR: versionId=${{ steps.set-version-id.outputs.version_id }},deployInstance=${{ inputs.deploy-instance }}
+        VAR: versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}

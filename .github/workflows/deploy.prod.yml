@@ -42,7 +42,7 @@ jobs:
           DEPLOY_INSTANCE: prod
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build.outputs.IMAGE }}
-          DEPLOY_INTERNAL: true
+          DEPLOY_PREVIOUS: true
           HPA_FILE: hpa-prod.yml
           VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
 
