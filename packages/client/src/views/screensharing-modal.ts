@@ -110,10 +110,10 @@ export class ScreensharingModal extends HTMLElement {
             return;
         }
 
-        this.input.addEventListener("input", () => this.clearErrors());
+        this.input?.addEventListener("input", () => this.clearErrors());
 
         const form = this.querySelector("form")!;
-        form.addEventListener("submit", (e) => {
+        form?.addEventListener("submit", (e) => {
             e.preventDefault();
             const code = new FormData(form).get("screensharing_code");
             if (typeof code === "string" && this.validateInput(code)) {
