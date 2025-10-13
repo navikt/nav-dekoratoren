@@ -88,7 +88,7 @@ runs:
       run: |
         set -euo pipefail
 
-        # Basic allow‑list validation to reduce injection risk
+        # Basic allow-list validation to reduce injection risk
         safe_env_regex='^[A-Za-z0-9._-]+$'
         safe_image_regex='^[A-Za-z0-9._/@:-]+$'
 
