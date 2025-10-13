@@ -14,6 +14,39 @@ import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
 
+const getExtraParams = (): Record<string, unknown> => {
+    const extraParams = window.__DECORATOR_DATA__?.extraParams;
+    const safe: Record<string, unknown> = {};
+
+    if (!extraParams || typeof extraParams !== "object") {
+        return safe;
+    }
+
+    for (const [key, value] of Object.entries(extraParams)) {
+        // Skip dangerous keys
+        if (
+            key === "__proto__" ||
+            key === "constructor" ||
+            key === "prototype"
+        ) {
+            continue;
+        }
+
+        // Only allow primitive values and arrays
+        if (
+            typeof value === "string" ||
+            typeof value === "number" ||
+            typeof value === "boolean" ||
+            value === null ||
+            Array.isArray(value)
+        ) {
+            safe[key] = value;
+        }
+    }
+
+    return safe;
+};
+
 declare global {
     interface Window {
         dekoratorenAnalytics: typeof logAnalyticsEventFromApp;
@@ -52,6 +85,7 @@ export const buildLocationString = () => {
 // Parametere vi ønsker skal logges for alle apper
 export const extraWindowParams = () => {
     return {
+        ...getExtraParams(),
         scrollPos: window.scrollY,
         scrollPercent: Math.round(
             Math.min(
@@ -69,6 +103,7 @@ const logPageView = (authState: Auth) => {
     setTimeout(() => {
         const params = window.__DECORATOR_DATA__.params;
         const eventData = {
+            ...getExtraParams(),
             målgruppe: params.context,
             innholdstype: params.pageType,
             sidetittel: params.pageTitle || document.title,
