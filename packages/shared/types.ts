@@ -41,6 +41,7 @@ export type Features = {
     "dekoratoren.chatbotscript": boolean;
     "dekoratoren.umami": boolean;
     "dekoratoren.puzzel-script": boolean;
+    "use-legacy-navigation": boolean;
 };
 
 /**
