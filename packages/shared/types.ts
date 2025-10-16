@@ -60,6 +60,8 @@ export type AppState = {
     // and should be included in the server-HTML of consuming applications
     headAssets?: HtmlElementProps[];
     allowedStorage: PublicStorageItem[];
+    // Extra parameters that can be set by consuming applications for analytics
+    extraParams?: Record<string, unknown>;
 };
 
 export type MainMenuContextLink = {

@@ -21,11 +21,11 @@ export const logUmamiEvent = async (
                     ? (getCurrentReferrer() ?? props.referrer)
                     : undefined,
             data: {
+                ...extraWindowParams(),
                 ...eventData,
                 origin,
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,
-                ...extraWindowParams(),
             },
         }));
     }

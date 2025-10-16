@@ -184,6 +184,7 @@ export const logAmplitudeEvent = async (
         return amplitude.track(
             eventName,
             {
+                ...extraWindowParams(),
                 ...eventData,
                 // This field was set for use in the old amplitude-proxy
                 // In the current proxy version, source_name serves the same purpose
@@ -192,7 +193,6 @@ export const logAmplitudeEvent = async (
                 origin,
                 originVersion: eventData.originVersion || "unknown",
                 viaDekoratoren: true,
-                ...extraWindowParams(),
             },
             {
                 ingestion_metadata: {

@@ -276,6 +276,10 @@ https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
 If the user has not given consent to tracking and analytics, Amplitude and Umami will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
 
+#### 4.7.3 Custom analytics parameters
+
+You can add custom parameters to all analytics events by setting `window.__DECORATOR_DATA__.extraParams`. These parameters will be automatically included in all logged events.
+
 ### 4.8 Surveys using Task Analytics and Skyra 📋
 
 Task Analytics and Skyra are used to conduct surveys on nav.no. Dekoratøren will load the required scripts for both services, but only if the user has given consent to surveys. Task Analytics surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Nav.no for more information.
