@@ -4,6 +4,19 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+    inputs:
+      DEPLOY_PREVIOUS:
+        description: "Deploy previous version to internal"
+        required: false
+        type: boolean
+      SKIP_TESTS:
+        description: "Skip tests"
+        required: false
+        type: boolean
+        default: true
+
+
 permissions:
   contents: read
   pages: write
@@ -27,6 +40,11 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+      - name: Install dependencies
+        run: bun install --immutable
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build Storybook
         run: bun run build-storybook
