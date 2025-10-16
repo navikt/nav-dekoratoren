@@ -4,6 +4,19 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+    inputs:
+      DEPLOY_PREVIOUS:
+        description: "Deploy previous version to internal"
+        required: false
+        type: boolean
+      SKIP_TESTS:
+        description: "Skip tests"
+        required: false
+        type: boolean
+        default: true
+
+
 permissions:
   contents: read
   pages: write
