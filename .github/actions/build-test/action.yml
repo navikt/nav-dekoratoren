@@ -1,0 +1,125 @@
+name: Build and test
+
+inputs:
+  READER_TOKEN:
+    description: Token for private dependency access
+    required: true
+  SKIP_TESTS:
+    description: Skip tests
+    required: false
+    default: "false"
+  TAG_LATEST:
+    description: Also tag image as latest
+    required: false
+    default: "false"
+  TEST_ONLY:
+    description: Run tests only; skip image build/publish
+    required: false
+    default: "false"
+  IMAGE_SUFFIX:
+    description: Suffix to add to image name
+    required: false
+    default: "latest"
+  CDN_TEAM:
+    description: Nav team for CDN upload
+    required: false
+    default: "personbruker"
+  CDN_SOURCE:
+    description: Source directory for CDN upload
+    required: false
+    default: "./packages/server/public"
+  CDN_DESTINATION:
+    description: Destination path on CDN
+    required: false
+    default: "/decorator-next"
+
+outputs:
+  IMAGE:
+    description: Built Docker image reference
+    value: ${{ steps.docker-push.outputs.image }}
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: 1.1.20
+
+    - name: Install dependencies
+      shell: bash
+      run: bun install --immutable --ignore-scripts
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
+
+    - name: Install Playwright dependencies
+      shell: bash
+      run: npx playwright install-deps
+
+    - name: Build app
+      shell: bash
+      run: bun run build
+
+    - name: Run unit tests
+      shell: bash
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      run: bun run test
+
+    - name: Determine Playwright version
+      shell: bash
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      id: pw-version
+      run: |
+        VERSION=$(jq -r '.devDependencies.playwright // .dependencies.playwright // empty' package.json)
+        if [ -z "$VERSION" ]; then
+          VERSION=$(bunx playwright --version | awk '{print $2}')
+        fi
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+    - name: Cache Playwright browsers
+      if: ${{ inputs.SKIP_TESTS != 'true' && steps.pw-version.outputs.version != '' }}
+      id: cache-pw
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.pw-version.outputs.version }}
+        restore-keys: |
+          playwright-${{ runner.os }}-
+
+    - name: Install Playwright browsers (first time)
+      shell: bash
+      if: ${{ inputs.SKIP_TESTS != 'true' && steps.cache-pw.outputs.cache-hit != 'true' }}
+      run: bunx playwright install --with-deps
+
+    - name: Ensure env file for tests
+      shell: bash
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      run: cp packages/server/.env.sample packages/server/.env
+
+    - name: Run Playwright tests
+      shell: bash
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      run: bunx playwright test
+
+    - name: Upload static files to Nav CDN
+      if: ${{ inputs.TEST_ONLY != 'true' }}
+      uses: nais/deploy/actions/cdn-upload/v2@master
+      with:
+        team: ${{ inputs.CDN_TEAM }}
+        source: ${{ inputs.CDN_SOURCE }}
+        destination: ${{ inputs.CDN_DESTINATION }}
+
+    - name: Build and push docker image
+      id: docker-push
+      if: ${{ inputs.TEST_ONLY != 'true' }}
+      uses: nais/docker-build-push@v0
+      with:
+        team: personbruker
+        # only tag 'latest' when explicitly true
+        tag: ${{ inputs.TAG_LATEST == 'true' && 'latest' || '' }}
+        # add arm64 only when TAG_LATEST is true
+        platforms: linux/amd64${{ inputs.TAG_LATEST == 'true' && ',linux/arm64' || '' }}
+        image_suffix: ${{ inputs.IMAGE_SUFFIX }}
