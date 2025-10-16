@@ -9,15 +9,17 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  packages: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Build and test
         id: build_test
@@ -25,14 +27,6 @@ jobs:
         with:
           READER_TOKEN: ${{ secrets.READER_TOKEN }}
           SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Install dependencies
-        run: bun install --immutable
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build Storybook
         run: bun run build-storybook
