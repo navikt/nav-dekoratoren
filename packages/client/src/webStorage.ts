@@ -10,7 +10,7 @@ import { endpointUrlWithoutParams } from "./helpers/urls";
 const DECORATOR_DATA_TIMEOUT = 5000;
 
 export class WebStorageController {
-    currentConsentVersion: number = 1;
+    currentConsentVersion: number = 2;
     consentKey: string = "navno-consent";
 
     constructor() {
