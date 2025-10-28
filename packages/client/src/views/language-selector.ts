@@ -10,6 +10,7 @@ import { analyticsEvent } from "../analytics/analytics";
 export class LanguageSelector extends HTMLElement {
     menu!: HTMLElement;
     container!: HTMLDivElement;
+    button!: HTMLButtonElement;
     #open = false;
     options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
     #language?: Language;
@@ -25,6 +26,62 @@ export class LanguageSelector extends HTMLElement {
     }
 
     set availableLanguages(availableLanguages: AvailableLanguage[]) {
+        if (this.options.length === 0 && this.menu?.children.length > 0) {
+            this.hydrateFromDOM(availableLanguages);
+        } else {
+            this.regenerateMenu(availableLanguages);
+        }
+
+        this.container.classList.toggle(
+            utils.hidden,
+            availableLanguages.length === 0,
+        );
+    }
+
+    private hydrateFromDOM(availableLanguages: AvailableLanguage[]) {
+        this.options = [];
+        const listItems = this.menu.querySelectorAll("li");
+
+        listItems.forEach((li) => {
+            const option = li.querySelector("button, a") as
+                | HTMLButtonElement
+                | HTMLAnchorElement;
+            if (!option) return;
+
+            const locale = option.getAttribute("data-locale");
+            if (!locale) return;
+
+            const language = availableLanguages.find(
+                (lang) => lang.locale === locale,
+            );
+            if (!language) return;
+
+            if (option.tagName === "BUTTON") {
+                option.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    updateDecoratorParams({ language: locale as Language });
+                    window.postMessage({
+                        source: "decorator",
+                        event: "languageSelect",
+                        payload: language,
+                    });
+                    analyticsEvent({
+                        context: window.__DECORATOR_DATA__.params.context,
+                        eventName: "navigere",
+                        kategori: "dekorator-sprakvelger",
+                        lenketekst: languageLabels[locale as Language],
+                        komponent: "LanguageSelector",
+                    });
+                    this.open = false;
+                });
+            }
+
+            option.addEventListener("blur", this.onBlur as EventListener);
+            this.options.push(option);
+        });
+    }
+
+    private regenerateMenu(availableLanguages: AvailableLanguage[]) {
         const availableLanguageToLi = (language: AvailableLanguage) => {
             const li = document.createElement("li");
             let option: HTMLAnchorElement | HTMLButtonElement;
@@ -50,10 +107,18 @@ export class LanguageSelector extends HTMLElement {
                     this.open = false;
                 });
                 option.addEventListener("blur", this.onBlur);
+                option.setAttribute(
+                    "aria-current",
+                    language.locale === this.#language ? "true" : "false",
+                );
             } else {
                 option = document.createElement("a");
                 option.href = language.url;
                 option.addEventListener("blur", this.onBlur);
+                option.setAttribute(
+                    "aria-current",
+                    language.locale === this.#language ? "page" : "false",
+                );
             }
             option.classList.add(cls.option);
             option.setAttribute("data-locale", language.locale);
@@ -68,29 +133,30 @@ export class LanguageSelector extends HTMLElement {
         };
 
         this.options = [];
-        this.container.classList.toggle(
-            utils.hidden,
-            availableLanguages.length === 0,
-        );
         this.menu.replaceChildren(
             ...availableLanguages.map(availableLanguageToLi),
         );
     }
 
     connectedCallback() {
-        this.menu = document.createElement("ul");
-        this.menu.classList.add(cls.menu, utils.hidden);
-
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
-        this.container.appendChild(this.menu);
 
-        const button = this.querySelector(
-            `.${cls.button}`,
-        ) as HTMLButtonElement;
-        button.addEventListener("click", () => {
+        const existingMenu = this.container.querySelector("ul");
+        if (existingMenu) {
+            this.menu = existingMenu as HTMLElement;
+        } else {
+            this.menu = document.createElement("ul");
+            this.menu.classList.add(cls.menu, utils.hidden);
+            this.menu.setAttribute("role", "menu");
+            this.menu.id = "decorator-language-menu";
+            this.container.appendChild(this.menu);
+        }
+
+        this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
+        this.button.addEventListener("click", () => {
             this.open = !this.#open;
         });
-        button.addEventListener("blur", this.onBlur);
+        this.button.addEventListener("blur", this.onBlur);
 
         this.addEventListener("keyup", (e) => {
             if (e.key === "Escape") {
@@ -130,6 +196,7 @@ export class LanguageSelector extends HTMLElement {
     set open(open: boolean) {
         this.#open = open;
         this.menu.classList.toggle(utils.hidden, !open);
+        this.button.setAttribute("aria-expanded", String(open));
         analyticsEvent({
             eventName: open ? "accordion åpnet" : "accordion lukket",
             context: window.__DECORATOR_DATA__.params.context,
