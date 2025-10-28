@@ -16,12 +16,12 @@ export class LanguageSelector extends HTMLElement {
     #language?: Language;
 
     set language(language: Language) {
-        this.options.forEach((option) => {
+        for (const option of this.options) {
             option.classList.toggle(
                 cls.selected,
-                option.getAttribute("data-locale") === language,
+                option.dataset.locale === language,
             );
-        });
+        }
         this.#language = language;
     }
 
@@ -42,19 +42,19 @@ export class LanguageSelector extends HTMLElement {
         this.options = [];
         const listItems = this.menu.querySelectorAll("li");
 
-        listItems.forEach((li) => {
+        for (const li of listItems) {
             const option = li.querySelector("button, a") as
                 | HTMLButtonElement
                 | HTMLAnchorElement;
-            if (!option) return;
+            if (!option) continue;
 
-            const locale = option.getAttribute("data-locale");
-            if (!locale) return;
+            const locale = option.dataset.locale;
+            if (!locale) continue;
 
             const language = availableLanguages.find(
                 (lang) => lang.locale === locale,
             );
-            if (!language) return;
+            if (!language) continue;
 
             if (option.tagName === "BUTTON") {
                 option.addEventListener("click", (e) => {
@@ -78,7 +78,7 @@ export class LanguageSelector extends HTMLElement {
 
             option.addEventListener("blur", this.onBlur as EventListener);
             this.options.push(option);
-        });
+        }
     }
 
     private regenerateMenu(availableLanguages: AvailableLanguage[]) {
