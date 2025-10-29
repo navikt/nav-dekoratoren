@@ -38,6 +38,16 @@ export class LanguageSelector extends HTMLElement {
         );
     }
 
+    private sendLanguageSelectAnalytics(locale: Language) {
+        analyticsEvent({
+            context: window.__DECORATOR_DATA__.params.context,
+            eventName: "navigere",
+            kategori: "dekorator-sprakvelger",
+            lenketekst: languageLabels[locale],
+            komponent: "LanguageSelector",
+        });
+    }
+
     private hydrateFromDOM(availableLanguages: AvailableLanguage[]) {
         this.options = [];
         const listItems = this.menu.querySelectorAll("li");
@@ -65,13 +75,7 @@ export class LanguageSelector extends HTMLElement {
                         event: "languageSelect",
                         payload: language,
                     });
-                    analyticsEvent({
-                        context: window.__DECORATOR_DATA__.params.context,
-                        eventName: "navigere",
-                        kategori: "dekorator-sprakvelger",
-                        lenketekst: languageLabels[locale as Language],
-                        komponent: "LanguageSelector",
-                    });
+                    this.sendLanguageSelectAnalytics(locale as Language);
                     this.open = false;
                 });
             }
@@ -97,13 +101,7 @@ export class LanguageSelector extends HTMLElement {
                         event: "languageSelect",
                         payload: language,
                     });
-                    analyticsEvent({
-                        context: window.__DECORATOR_DATA__.params.context,
-                        eventName: "navigere",
-                        kategori: "dekorator-sprakvelger",
-                        lenketekst: languageLabels[language.locale],
-                        komponent: "LanguageSelector",
-                    });
+                    this.sendLanguageSelectAnalytics(language.locale);
                     this.open = false;
                 });
                 option.addEventListener("blur", this.onBlur);
