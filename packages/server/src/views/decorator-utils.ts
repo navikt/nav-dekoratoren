@@ -5,6 +5,7 @@ import html from "decorator-shared/html";
 import {
     AvailableLanguage,
     Breadcrumb,
+    Language,
     UtilsBackground,
 } from "decorator-shared/params";
 import { Breadcrumbs } from "decorator-shared/views/breadcrumbs";
@@ -14,6 +15,7 @@ import { LanguageSelector } from "./language-selector";
 export type DecoratorUtilsProps = {
     breadcrumbs: Breadcrumb[];
     availableLanguages: AvailableLanguage[];
+    language: Language;
     utilsBackground: UtilsBackground;
     frontPageUrl: string;
 };
@@ -21,6 +23,7 @@ export type DecoratorUtilsProps = {
 export const DecoratorUtils = ({
     breadcrumbs,
     availableLanguages,
+    language,
     utilsBackground,
     frontPageUrl,
 }: DecoratorUtilsProps) => {
@@ -46,7 +49,7 @@ export const DecoratorUtils = ({
                         frontPageUrl,
                     })}</d-breadcrumbs
                 >
-                ${LanguageSelector({ availableLanguages })}
+                ${LanguageSelector({ availableLanguages, language })}
             </div>
         </decorator-utils>
     `;
