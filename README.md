@@ -265,7 +265,7 @@ You can find out more about tokens in the [NAIS documentation](https://docs.nais
 
 Nav uses Umami for analytics and tracking user events. Prefered method is using nav-dekoratoren-moduler, see below.
 
-As of June 2025, data is being logged to Umami. Amplitude is planned to be discontinued for Nav by November 2025.
+As of June 2025, data is being logged to Umami. Amplitude is discontinued as of 31th October 2025.
 
 #### 4.7.1 Analytics using nav-dekoratoren-moduler
 
@@ -274,7 +274,7 @@ https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
 #### 4.7.2 Analytics and consent 👍👎
 
-If the user has not given consent to tracking and analytics, Amplitude and Umami will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
+If the user has not given consent to tracking and analytics, Umami will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
 
 ### 4.8 Surveys using Task Analytics and Skyra 📋
 
