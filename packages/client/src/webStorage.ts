@@ -98,6 +98,10 @@ export class WebStorageController {
         }, 1000);
     };
 
+    private resetConsentHandler = () => {
+        Cookies.remove(this.consentKey, { domain: this.getConsentDomain() });
+    };
+
     private pingConsentBack = (consent: Consent) => {
         const pingBody = {
             consentObject: consent,
@@ -258,6 +262,7 @@ export class WebStorageController {
      * ----------------------------------------------------------------------- */
 
     public showConsentBanner = () => {
+        this.resetConsentHandler();
         window.dispatchEvent(createEvent("showConsentBanner", {}));
     };
 
