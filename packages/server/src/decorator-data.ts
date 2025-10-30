@@ -445,6 +445,14 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         description: "Sporer unike sidevisninger i Experiences",
         optional: false,
     },
+    {
+        name: "flexjar-*",
+        type: ["localstorage"],
+        service: "Team eSYFO",
+        description:
+            "Brukes av verktøyet Flexjar for å huske om du har besvart en spørreundersøkelse eller valgt å ikke svare.",
+        optional: true,
+    },
 ]);
 
 const buildAllowedStorage = () => {
