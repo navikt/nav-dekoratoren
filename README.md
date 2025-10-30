@@ -265,7 +265,7 @@ You can find out more about tokens in the [NAIS documentation](https://docs.nais
 
 Nav uses Umami for analytics and tracking user events. Prefered method is using nav-dekoratoren-moduler, see below.
 
-As of June 2025, data is being logged to Umami. Amplitude is discontinued as of 31th October 2025.
+As of June 2025, data is being logged to Umami. Amplitude is discontinued as of 1st November 2025.
 
 #### 4.7.1 Analytics using nav-dekoratoren-moduler
 

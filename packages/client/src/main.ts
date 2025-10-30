@@ -9,6 +9,7 @@ import { initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import { initSkyra, stopSkyra } from "./analytics/skyra";
 import "./main.css";
+import { mockAmplitude } from "./analytics/amplitude";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -68,6 +69,8 @@ const init = () => {
 
     refreshAuthData();
     window.dekoratorenIsReady = () => true;
+    // Need mocked amplitude to avoid breaking changes in consuming applications
+    window.dekoratorenAmplitude = mockAmplitude;
 
     const { consent } = window.webStorageController.getCurrentConsent();
     if (consent?.analytics) {
