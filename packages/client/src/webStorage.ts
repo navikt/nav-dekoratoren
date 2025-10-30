@@ -9,8 +9,16 @@ import { endpointUrlWithoutParams } from "./helpers/urls";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
+// Changelog consent versioning
+// --------------------------------
+// (Remember to update this list when making changes that require re-consent)
+
+// V3: 03.11.2025: Added storage key 'flexjar-*' as well as updates to cookie declaration
+// V2: 22.10.2025: Updates in the cookie declaration on how Umami works.
+// V1: 28.02.2025: Initial version
+
 export class WebStorageController {
-    currentConsentVersion: number = 2;
+    currentConsentVersion: number = 3;
     consentKey: string = "navno-consent";
 
     constructor() {
