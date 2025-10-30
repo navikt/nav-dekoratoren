@@ -9,7 +9,6 @@ const meta: Meta<SimpleFooterProps> = {
             features: {
                 "dekoratoren.skjermdeling": true,
                 "dekoratoren.chatbotscript": false,
-                "dekoratoren.umami": false,
                 "dekoratoren.puzzel-script": false,
             },
             links:
