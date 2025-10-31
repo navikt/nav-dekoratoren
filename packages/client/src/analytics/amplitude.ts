@@ -6,7 +6,7 @@ declare global {
 
 export const mockAmplitude = () => {
     return Promise.resolve(
-        "[DISCONTINUED] getAmplitudeInstance is discontinued and will be removed. Please see https://github.com/navikt/nav-dekoratoren for more information",
+        "[DISCONTINUED] dekoratorenAmplitude is discontinued and will be removed. Use dekoratorenAnalytics instead. Please see https://github.com/navikt/nav-dekoratoren for more information",
     );
 };
 
