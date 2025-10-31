@@ -65,4 +65,4 @@ test("decorator utils", async ({ page }) => {
     });
 });
 //TODO: Lage tester for Umami tilsvarende tester for Amplitude, som nå er fjernet
-// Se https://github.com/navikt/nav-dekoratoren/blob/144a33f376f41ac67c0b0ca6eb70106712298fe8/tests/decorator-utils.spec.ts#L68
+// Se opprinnelig Amplitude-test her: https://github.com/navikt/nav-dekoratoren/blob/144a33f376f41ac67c0b0ca6eb70106712298fe8/tests/decorator-utils.spec.ts#L68
