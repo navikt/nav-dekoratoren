@@ -5,7 +5,8 @@
 > Fra og med 1. november vil logging til Amplitude være avviklet i prod. Vi fjerner deler av koden i
 > dekoratøren, men beholder funksjonene som eksporteres
 > i [nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler). Det samme gjelder
-> `window.dekoratorenAmplitude` som vil være en dummy-funksjon som kun returnerer et resolved promise
+> `window.dekoratorenAmplitude` som vil være en dummy-funksjon som kun returnerer et resolved
+> promise
 > uten å faktisk logge til Amplitude.
 >
 > Dette gjør vi for å unngå breaking changes hos team som ikke har gått over til den mer agnostiske
@@ -41,7 +42,7 @@
     - [3.1 Oversikt over config parametere](#31-oversikt-over-config-parametere)
     - [3.2 Detaljer 🍱](#32-detaljer-)
     - [3.3 Eksempler](#33-eksempler)
-4. [Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-️)
+4. [Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-)
     - [4.1 Oversikt over funksjoner](#41-oversikt-over-funksjoner)
     - [4.2 Detaljer](#42-detaljer-)
 
@@ -301,7 +302,7 @@ https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/d
 
 ---
 
-# 🎛️ 4. Andre innebygde funksjoner
+# 4 Andre innebygde funksjoner 🎛️
 
 Dekoratøren tilbyr en rekke funksjonaliteter slik at du slipper å bygge dem selv.
 Under finner du en tabell med oversikt, etterfulgt av detaljer og eksempler.
