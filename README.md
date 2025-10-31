@@ -27,10 +27,33 @@
 
 ## Innholdsfortegnelse
 
-- [1. Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ)
-- [2. Hvordan bruke Dekoratøren i din applikasjon 🎓](#2-hvordan-bruke-dekoratøren-i-din-applikasjon-)
-- [3. Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-)
-- [4. Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-)
+## 📚 Innholdsfortegnelse
+
+1. [Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ️)
+   - [1.1 Forslag, tilbakemeldinger eller deltakelse 🙋](#11-forslag-tilbakemeldinger-eller-deltakelse-)
+   - [1.2 Kanal for kunngjøringer 📣](#12-kanal-for-kunngjøringer-)
+2. [Hvordan bruke Dekoratøren i din applikasjon 🎓](#2-hvordan-bruke-dekoratøren-i-din-applikasjon-)
+   - [2.1 @navikt/nav-dekoratoren-moduler 📦](#21-naviktnav-dekoratoren-moduler-)
+   - [2.2 Tilpasset implementasjon med server-side rendering ⚙️](#22-tilpasset-implementasjon-med-server-side-rendering-️)
+   - [2.3 [Ikke anbefalt] Tilpasset implementasjon med client-side rendering (CSR) 👾](#23-ikke-anbefalt-tilpasset-implementasjon-med-client-side-rendering-csr-)
+   - [2.4 Ingresser 🎯](#24-ingresser-)
+3. [Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-️)
+   - [3.1 Oversikt over config parametere](#31-oversikt-over-config-parametere)
+   - [3.2 Detaljer 🍱](#32-detaljer-)
+   - [3.3 Eksempler](#33-eksempler)
+4. [Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-️)
+   - [4.1 Content Security Policy 👮](#41-content-security-policy-)
+   - [4.2 Språkstøtte og nedtrekksmeny 🌎](#42-språkstøtte-og-nedtrekksmeny-)
+   - [4.3 Søk 🔎](#43-søk-)
+   - [4.4 Innlogging 🔐](#44-innlogging-)
+   - [4.5 Utloggingsvarsel 🔐](#45-utloggingsvarsel-)
+   - [4.6 Regler for tokens 🔐](#46-regler-for-tokens-)
+   - [4.7 Analytics 📊](#47-analytics-)
+     - [4.7.1 Analytics når du bruker nav-dekoratoren-moduler 📦](#471-analytics-når-du-bruker-nav-dekoratoren-moduler-)
+     - [4.7.2 Analytics og samtykke 👍👎](#472-analytics-og-samtykke-)
+   - [4.8 Undersøkelser ved bruk av Task Analytics og Skyra 📋](#48-undersøkelser-ved-bruk-av-task-analytics-og-skyra-)
+   - [4.9 Skip-lenke til hovedinnhold 🔗](#49-skip-lenke-til-hovedinnhold-)
+   - [4.10 Samtykkebanner 👌](#410-samtykkebanner-)
 
 ## 1. Om dekoratøren ℹ️
 
