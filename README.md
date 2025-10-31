@@ -30,30 +30,20 @@
 ## 📚 Innholdsfortegnelse
 
 1. [Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ️)
-   - [1.1 Forslag, tilbakemeldinger eller deltakelse 🙋](#11-forslag-tilbakemeldinger-eller-deltakelse-)
-   - [1.2 Kanal for kunngjøringer 📣](#12-kanal-for-kunngjøringer-)
+    - [1.1 Forslag, tilbakemeldinger eller deltakelse 🙋](#11-forslag-tilbakemeldinger-eller-deltakelse-)
+    - [1.2 Kanal for kunngjøringer 📣](#12-kanal-for-kunngjøringer-)
 2. [Hvordan bruke Dekoratøren i din applikasjon 🎓](#2-hvordan-bruke-dekoratøren-i-din-applikasjon-)
-   - [2.1 @navikt/nav-dekoratoren-moduler 📦](#21-naviktnav-dekoratoren-moduler-)
-   - [2.2 Tilpasset implementasjon med server-side rendering ⚙️](#22-tilpasset-implementasjon-med-server-side-rendering-️)
-   - [2.3 [Ikke anbefalt] Tilpasset implementasjon med client-side rendering (CSR) 👾](#23-ikke-anbefalt-tilpasset-implementasjon-med-client-side-rendering-csr-)
-   - [2.4 Ingresser 🎯](#24-ingresser-)
+    - [2.1 @navikt/nav-dekoratoren-moduler 📦](#21-naviktnav-dekoratoren-moduler-)
+    - [2.2 Tilpasset implementasjon med server-side rendering ⚙️](#22-tilpasset-implementasjon-med-server-side-rendering-️)
+    - [2.3 [Ikke anbefalt] Tilpasset implementasjon med client-side rendering (CSR) 👾](#23-ikke-anbefalt-tilpasset-implementasjon-med-client-side-rendering-csr-)
+    - [2.4 Ingresser 🎯](#24-ingresser-)
 3. [Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-️)
-   - [3.1 Oversikt over config parametere](#31-oversikt-over-config-parametere)
-   - [3.2 Detaljer 🍱](#32-detaljer-)
-   - [3.3 Eksempler](#33-eksempler)
+    - [3.1 Oversikt over config parametere](#31-oversikt-over-config-parametere)
+    - [3.2 Detaljer 🍱](#32-detaljer-)
+    - [3.3 Eksempler](#33-eksempler)
 4. [Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-️)
-   - [4.1 Content Security Policy 👮](#41-content-security-policy-)
-   - [4.2 Språkstøtte og nedtrekksmeny 🌎](#42-språkstøtte-og-nedtrekksmeny-)
-   - [4.3 Søk 🔎](#43-søk-)
-   - [4.4 Innlogging 🔐](#44-innlogging-)
-   - [4.5 Utloggingsvarsel 🔐](#45-utloggingsvarsel-)
-   - [4.6 Regler for tokens 🔐](#46-regler-for-tokens-)
-   - [4.7 Analytics 📊](#47-analytics-)
-     - [4.7.1 Analytics når du bruker nav-dekoratoren-moduler 📦](#471-analytics-når-du-bruker-nav-dekoratoren-moduler-)
-     - [4.7.2 Analytics og samtykke 👍👎](#472-analytics-og-samtykke-)
-   - [4.8 Undersøkelser ved bruk av Task Analytics og Skyra 📋](#48-undersøkelser-ved-bruk-av-task-analytics-og-skyra-)
-   - [4.9 Skip-lenke til hovedinnhold 🔗](#49-skip-lenke-til-hovedinnhold-)
-   - [4.10 Samtykkebanner 👌](#410-samtykkebanner-)
+    - [4.1 Oversikt over funksjoner](#41-oversikt-over-funksjoner)
+    - [4.2 Detaljer](#42-detaljer-)
 
 ## 1. Om dekoratøren ℹ️
 
@@ -311,12 +301,34 @@ https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/d
 
 ---
 
-## 4 Andre innebygde funksjoner 🎛️
+# 🎛️ 4. Andre innebygde funksjoner
 
-Dekoratøren tilbyr en rekke funksjonaliteter slik at du slipper å bygge dem selv. Under er en
-oversikt over disse funksjonene og hvordan de fungerer.
+Dekoratøren tilbyr en rekke funksjonaliteter slik at du slipper å bygge dem selv.
+Under finner du en tabell med oversikt, etterfulgt av detaljer og eksempler.
 
-### 4.1 Content Security Policy 👮
+## 4.1 Oversikt over funksjoner
+
+| Funksjon / Tema              | Type                      | Formål / Forklaring                                                |
+| ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
+| Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av dekoratøren |
+| Språkstøtte og nedtrekksmeny | client-side               | Viser språkvelger i headeren og håndterer språkvalg                |
+| Søk                          | client-side               | Tilbyr søk uten behov for ekstra konfigurasjon                     |
+| Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon      |
+| Utloggingsvarsel             | client-side               | Viser varsel 5 min før sesjonen utløper, lar bruker forlenge økten |
+| Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)             |
+| Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami (erstatter Amplitude)             |
+| Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
+| Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent     |
+| Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                |
+
+---
+
+## 4.2 Detaljer 💡
+
+<details>
+<summary><strong>Klikk for å utvide alle beskrivelser</strong></summary>
+
+### Content Security Policy 👮
 
 Du kan finne det nåværende CSP-direktivet
 på [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). Du kan også
@@ -328,7 +340,7 @@ for en bedre forståelse av hvordan CSP fungerer.
 også metoder for å generere en CSP-header som er kompatibel med Dekoratøren. Hvis du bygger din egen
 tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med de til Dekoratøren.
 
-### 4.2 Språkstøtte og nedtrekksmeny 🌎
+### Språkstøtte og nedtrekksmeny 🌎
 
 Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 
@@ -341,12 +353,12 @@ applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config
 Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
 nevnte språkene.
 
-### 4.3 Søk 🔎
+### Søk 🔎
 
 Søk tilbys ut av boksen, uten behov for konfigurasjon fra din side. Søkefunksjonen vil enten peke
 til produksjons- eller utviklingsmiljøer, avhengig av hvordan Dekoratøren er satt opp.
 
-### 4.4 Innlogging 🔐
+### Innlogging 🔐
 
 Dekoratøren tilbyr en innloggingsknapp (og utloggingsknapp) som omdirigerer brukeren til ID-porten
 (enten produksjon eller utvikling) hvor brukeren kan logge inn.
@@ -361,7 +373,7 @@ brukeren, må du sette dette opp selv ved å koble direkte til tjenestene på lo
 informasjon, se
 [Authentication and Authorization at NAIS](https://docs.nais.io/auth/).
 
-### 4.5 Utloggingsvarsel 🔐
+### Utloggingsvarsel 🔐
 
 En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper. Brukeren kan da
 velge å forlenge økten med ytterligere 60 minutter eller klikke "Logg ut" for å logge ut
@@ -375,7 +387,7 @@ Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen 
 at du bygger din egen
 mekanisme for å la brukere utsette utlogging.
 
-### 4.6 Regler for tokens 🔐
+### Regler for tokens 🔐
 
 Du kan lese mer om tokens i
 [NAIS-dokumentasjonen](https://docs.nais.io/auth/). Nedenfor er et sammendrag som forklarer hvordan
@@ -391,7 +403,7 @@ utloggingsvarselet oppfører seg:
 - Etter totalt 6 timer (session expiration) med å være logget inn, må brukeren logge inn på nytt.
 - For øyeblikket blir brukeren presentert med utloggingsvarslingen uavhengig av aktivitet.
 
-### 4.7 Analytics 📊
+### Analytics 📊
 
 Nav uses Umami for analytics and tracking user events. Prefered method is using
 nav-dekoratoren-moduler, see below.
@@ -399,24 +411,22 @@ nav-dekoratoren-moduler, see below.
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 [nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
-Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 
-2025. Se mer informasjon i toppen av denne readme-filen.
+Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 2025. Se mer informasjon i toppen av denne readme-filen.
 
-
-#### 4.7.1 Analytics nå du bruker nav-dekoratoren-moduler 📦
+#### Analytics nå du bruker nav-dekoratoren-moduler 📦
 
 [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
 hjelpefunksjoner for enkel Analytics-logging. Vennligst se README for dokumentasjon og guider for å
 komme i gang. https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
-#### 4.7.2 Analytics og samtykke 👍👎
+#### Analytics og samtykke 👍👎
 
 Hvis brukeren ikke har gitt samtykke til sporing og analyse, vil ikke Umami
 initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil ta imot all
 logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
 samtykke spesielt med mindre de har spesifikke behov.
 
-### 4.8 Undersøkelser ved bruk av Task Analytics og Skyra 📋
+### Undersøkelser ved bruk av Task Analytics og Skyra 📋
 
 Task Analytics og Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste de
 nødvendige skriptene for begge tjenestene, men kun hvis brukeren har gitt samtykke til
@@ -428,7 +438,7 @@ For Skyra styres alle undersøkelser i dashbordet ditt. Du kan finne
 [mer informasjon om Skyra her](https://www.skyra.no/no). Undersøkelsene dine skal vises
 automatisk når de er riktig konfigurert i Skyra-dashbordet ditt.
 
-### 4.9 Skip-lenke til hovedinnhold 🔗
+### Skip-lenke til hovedinnhold 🔗
 
 En skip-lenke rendres i headeren hvis et element med id `maincontent` eksisterer i dokumentet. Ved å
 klikke på skip-lenken vil fokus settes til maincontent-elementet. Elementet må være fokuserbart,
@@ -440,7 +450,7 @@ Eksempel:
 <main id="maincontent" tabindex="-1"><!-- app html går her! --></main>
 ```
 
-### 4.10 Samtykkebanner 👌
+### Samtykkebanner 👌
 
 Brukere vil bli presentert for et samtykkebanner som ber om samtykke til sporing og analyse. Dette
 påvirker alle typer lagring (cookies, localStorage, sessionStorage) på brukerens enhet. Hvis
@@ -450,3 +460,5 @@ Umami, Skyra osv ikke vil starte.
 [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
 hjelpefunksjoner for enkel håndtering av samtykke. Den tilbyr også hjelpefunksjoner for å sette og
 lese cookies, som sikrer at kun tillatte cookies kan settes.
+
+</details>
