@@ -10,7 +10,7 @@ import { endpointUrlWithoutParams } from "./helpers/urls";
 const DECORATOR_DATA_TIMEOUT = 5000;
 
 export class WebStorageController {
-    currentConsentVersion: number = 1;
+    currentConsentVersion: number = 2;
     consentKey: string = "navno-consent";
 
     constructor() {
@@ -96,6 +96,10 @@ export class WebStorageController {
         setTimeout(() => {
             this.clearOptionalStorage();
         }, 1000);
+    };
+
+    private resetConsentHandler = () => {
+        Cookies.remove(this.consentKey, { domain: this.getConsentDomain() });
     };
 
     private pingConsentBack = (consent: Consent) => {
@@ -258,6 +262,7 @@ export class WebStorageController {
      * ----------------------------------------------------------------------- */
 
     public showConsentBanner = () => {
+        this.resetConsentHandler();
         window.dispatchEvent(createEvent("showConsentBanner", {}));
     };
 

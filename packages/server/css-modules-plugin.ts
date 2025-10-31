@@ -5,7 +5,7 @@ import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config"
 export async function getPostcssTokens(path: string) {
     try {
         const val = await postcss([
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
+             
             require("postcss-modules")({
                 getJSON: () => {},
                 ...cssModulesScopedNameOption,

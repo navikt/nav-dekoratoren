@@ -376,9 +376,9 @@ nav-dekoratoren-moduler, see below.
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 [nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
-Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november
-
+Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 
 2025. Se mer informasjon i toppen av denne readme-filen.
+
 
 #### 4.7.1 Analytics nå du bruker nav-dekoratoren-moduler 📦
 
@@ -388,7 +388,7 @@ komme i gang. https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinst
 
 #### 4.7.2 Analytics og samtykke 👍👎
 
-Hvis brukeren ikke har gitt samtykke til sporing og analyse, vil Amplitude og Umami ikke
+Hvis brukeren ikke har gitt samtykke til sporing og analyse, vil ikke Umami
 initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil ta imot all
 logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
 samtykke spesielt med mindre de har spesifikke behov.

@@ -112,20 +112,6 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         optional: true,
     },
     {
-        name: "AMP_*",
-        type: ["localstorage"],
-        service: "Amplitude",
-        description: "Brukes til anonym statistikk og analyse av nav.no.",
-        optional: true,
-    },
-    {
-        name: "AMP_*",
-        type: ["cookie"],
-        service: "Amplitude",
-        description: "Brukes til anonym statistikk og analyse av nav.no.",
-        optional: true,
-    },
-    {
         name: "ta-dekoratoren-*",
         type: ["cookie"],
         service: "Task Analytics",
@@ -444,6 +430,14 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         service: "NKS / Innboks",
         description: "Sporer unike sidevisninger i Experiences",
         optional: false,
+    },
+    {
+        name: "flexjar-*",
+        type: ["localstorage"],
+        service: "Team eSYFO",
+        description:
+            "Brukes av verktøyet Flexjar for å huske om du har besvart en spørreundersøkelse eller valgt å ikke svare.",
+        optional: true,
     },
 ]);
 
