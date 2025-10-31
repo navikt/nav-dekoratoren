@@ -27,10 +27,10 @@
 
 ## Innholdsfortegnelse
 
-- [1. Om dekoratøren ℹ️](#about-the-decorator)
-- [2. Hvordan bruke Dekoratøren i din applikasjon 🎓](#hvordan-bruke-dekoratoren-i-din-applikasjon)
-- [Configuring the Decorator to your needs](#configuring-the-decorator-to-your-needs)
-- [Other built-in features](#other-built-in-features)
+- [1. Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ)
+- [2. Hvordan bruke Dekoratøren i din applikasjon 🎓](#2-hvordan-bruke-dekoratøren-i-din-applikasjon-)
+- [3. Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-)
+- [4. Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-)
 
 ## 1. Om dekoratøren ℹ️
 
