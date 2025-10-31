@@ -2,13 +2,7 @@ import {
     initTaskAnalyticsScript,
     stopTaskAnalytics,
 } from "./task-analytics/ta";
-import {
-    amplitudeEvent,
-    initAmplitude,
-    logAmplitudeEvent,
-    setAmplitudeReferrer,
-    stopAmplitude,
-} from "./amplitude";
+import { initMockAmplitude } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
@@ -23,7 +17,7 @@ declare global {
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
 export const initAnalytics = (auth: Auth) => {
-    initAmplitude();
+    initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
     initTaskAnalyticsScript();
     initUmami();
 
@@ -36,7 +30,6 @@ export const initAnalytics = (auth: Auth) => {
 };
 
 export const stopAnalytics = (auth: Auth) => {
-    stopAmplitude();
     stopUmami();
     stopTaskAnalytics();
 
@@ -87,15 +80,11 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        setAmplitudeReferrer().then(() =>
-            logAmplitudeEvent("besøk", eventData),
-        );
         logUmamiEvent("besøk", eventData);
     }, 100);
 };
 
 export const analyticsEvent = (props: AnalyticsEventArgs) => {
-    amplitudeEvent(props);
     createUmamiEvent(props);
 };
 
@@ -104,7 +93,6 @@ export const logAnalyticsEvent = async (
     eventData: EventData = {},
     origin = "nav-dekoratoren",
 ) => {
-    logAmplitudeEvent(eventName, eventData, origin);
     logUmamiEvent(eventName, eventData, origin);
 };
 
@@ -127,7 +115,6 @@ export const analyticsClickListener =
                     tekst: args.tekst,
                     komponent: args.komponent,
                 };
-                amplitudeEvent(analyticsEvent);
                 createUmamiEvent(analyticsEvent);
             }
         }
@@ -160,7 +147,7 @@ const logAnalyticsEventFromApp = (params?: {
 
         return logAnalyticsEvent(eventName, eventData, origin);
     } catch (e) {
-        return Promise.reject(`Unexpected Amplitude error: ${e}`);
+        return Promise.reject(`Unexpected Analytics error: ${e}`);
     }
 };
 

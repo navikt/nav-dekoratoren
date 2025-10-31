@@ -1,7 +1,6 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
 import { initAnalytics, stopAnalytics } from "./analytics/analytics";
-import { mockAmplitude } from "./analytics/amplitude";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
@@ -10,6 +9,7 @@ import { initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import { initSkyra, stopSkyra } from "./analytics/skyra";
 import "./main.css";
+import { mockAmplitude } from "./analytics/amplitude";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });
@@ -68,13 +68,11 @@ const init = () => {
     initConsentListener();
 
     refreshAuthData();
-
     window.dekoratorenIsReady = () => true;
-    // Blir overskrevet dersom vi får lov til å starte Amplitude etter samtykke
+    // Need mocked amplitude to avoid breaking changes in consuming applications
     window.dekoratorenAmplitude = mockAmplitude;
 
     const { consent } = window.webStorageController.getCurrentConsent();
-
     if (consent?.analytics) {
         startTrackingServices();
     }

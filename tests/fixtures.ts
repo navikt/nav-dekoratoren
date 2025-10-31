@@ -1,11 +1,5 @@
 import { Page, test as base } from "@playwright/test";
 
-base.beforeEach(async ({ context }) => {
-    await context.route("https://amplitude.nav.no/collect", (route) => {
-        route.fulfill({ status: 200 });
-    });
-});
-
 const decoratorReady = () =>
     new Promise<void>((resolve) => {
         window.addEventListener("message", (e) => {
