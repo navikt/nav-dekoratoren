@@ -8,8 +8,8 @@ import { buildHtmlElement } from "./helpers/html-element-builder";
 import { initParams } from "./params";
 import { WebStorageController } from "./webStorage";
 import { initSkyra, stopSkyra } from "./analytics/skyra";
-import "./main.css";
 import { mockAmplitude } from "./analytics/amplitude";
+import "./main.css";
 
 import.meta.glob("./styles/*.css", { eager: true });
 import.meta.glob(["./views/**/*.ts", "!./views/**/*.test.ts"], { eager: true });

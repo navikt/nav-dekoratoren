@@ -300,7 +300,7 @@ https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/d
 
 ---
 
-## 4 Andre innebygde funksjoner 🎛️
+# 4 Andre innebygde funksjoner 🎛️
 
 Dekoratøren tilbyr en rekke funksjonaliteter slik at du slipper å bygge dem selv.
 Under finner du en tabell med oversikt, etterfulgt av detaljer og eksempler.
@@ -410,16 +410,11 @@ utloggingsvarselet oppfører seg:
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 [nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
-<<<<<<< Updated upstream
 Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 2025. Se mer informasjon i toppen av denne readme-filen.
 
-#### Analytics nå du bruker nav-dekoratoren-moduler 📦
+#### Analytics nå som du bruker nav-dekoratoren-moduler 📦
 
-=======
-
-##### Analytics nå du bruker nav-dekoratoren-moduler 📦
-
-> > > > > > > Stashed changes
+#### 4.7.1 Analytics nå du bruker nav-dekoratoren-moduler 📦
 
 [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
 hjelpefunksjoner for enkel Analytics-logging. Vennligst se README for dokumentasjon og guider for å
