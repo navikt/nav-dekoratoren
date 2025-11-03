@@ -26,19 +26,17 @@
 > _Analytics_-funksjonene. Ta kontakt med #team-navno eller #dekoratøren_på_navno på Slack hvis dere
 > trenger hjelp eller har innspill!
 
-## Innholdsfortegnelse
-
 ## 📚 Innholdsfortegnelse
 
-1. [Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ️)
+1. [Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ)
     - [1.1 Forslag, tilbakemeldinger eller deltakelse 🙋](#11-forslag-tilbakemeldinger-eller-deltakelse-)
     - [1.2 Kanal for kunngjøringer 📣](#12-kanal-for-kunngjøringer-)
 2. [Hvordan bruke Dekoratøren i din applikasjon 🎓](#2-hvordan-bruke-dekoratøren-i-din-applikasjon-)
     - [2.1 @navikt/nav-dekoratoren-moduler 📦](#21-naviktnav-dekoratoren-moduler-)
-    - [2.2 Tilpasset implementasjon med server-side rendering ⚙️](#22-tilpasset-implementasjon-med-server-side-rendering-️)
+    - [2.2 Tilpasset implementasjon med server-side rendering ⚙️](#22-tilpasset-implementasjon-med-server-side-rendering-)
     - [2.3 [Ikke anbefalt] Tilpasset implementasjon med client-side rendering (CSR) 👾](#23-ikke-anbefalt-tilpasset-implementasjon-med-client-side-rendering-csr-)
     - [2.4 Ingresser 🎯](#24-ingresser-)
-3. [Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-️)
+3. [Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-)
     - [3.1 Oversikt over config parametere](#31-oversikt-over-config-parametere)
     - [3.2 Detaljer 🍱](#32-detaljer-)
     - [3.3 Eksempler](#33-eksempler)
@@ -284,30 +282,30 @@ Under er eksempler på forskjellige bruksområder for konfigurasjonsflaggene:
 
 Eksempel 1 - Sett kontekst:<br>
 
-```bash
+```
 https://www.nav.no/dekoratoren/?context=arbeidsgiver
 ```
 
 Eksempel 2 - Språkvelger:<br>
 
-```bash
+```
 https://www.nav.no/dekoratoren/?availableLanguages=[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}]
 ```
 
 Eksempel 3 - Brødsmuler:<br>
 
-```bash
+```
 https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}]
 ```
 
 ---
 
-# 4 Andre innebygde funksjoner 🎛️
+## 4 Andre innebygde funksjoner 🎛️
 
 Dekoratøren tilbyr en rekke funksjonaliteter slik at du slipper å bygge dem selv.
 Under finner du en tabell med oversikt, etterfulgt av detaljer og eksempler.
 
-## 4.1 Oversikt over funksjoner
+### 4.1 Oversikt over funksjoner
 
 | Funksjon / Tema              | Type                      | Formål / Forklaring                                                |
 | ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
@@ -324,12 +322,12 @@ Under finner du en tabell med oversikt, etterfulgt av detaljer og eksempler.
 
 ---
 
-## 4.2 Detaljer 💡
+### 4.2 Detaljer 💡
 
 <details>
 <summary><strong>Klikk for å utvide alle beskrivelser</strong></summary>
 
-### Content Security Policy 👮
+#### Content Security Policy 👮
 
 Du kan finne det nåværende CSP-direktivet
 på [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). Du kan også
@@ -341,7 +339,7 @@ for en bedre forståelse av hvordan CSP fungerer.
 også metoder for å generere en CSP-header som er kompatibel med Dekoratøren. Hvis du bygger din egen
 tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med de til Dekoratøren.
 
-### Språkstøtte og nedtrekksmeny 🌎
+#### Språkstøtte og nedtrekksmeny 🌎
 
 Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 
@@ -354,12 +352,12 @@ applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config
 Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
 nevnte språkene.
 
-### Søk 🔎
+#### Søk 🔎
 
 Søk tilbys ut av boksen, uten behov for konfigurasjon fra din side. Søkefunksjonen vil enten peke
 til produksjons- eller utviklingsmiljøer, avhengig av hvordan Dekoratøren er satt opp.
 
-### Innlogging 🔐
+#### Innlogging 🔐
 
 Dekoratøren tilbyr en innloggingsknapp (og utloggingsknapp) som omdirigerer brukeren til ID-porten
 (enten produksjon eller utvikling) hvor brukeren kan logge inn.
@@ -374,7 +372,7 @@ brukeren, må du sette dette opp selv ved å koble direkte til tjenestene på lo
 informasjon, se
 [Authentication and Authorization at NAIS](https://docs.nais.io/auth/).
 
-### Utloggingsvarsel 🔐
+#### Utloggingsvarsel 🔐
 
 En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper. Brukeren kan da
 velge å forlenge økten med ytterligere 60 minutter eller klikke "Logg ut" for å logge ut
@@ -388,7 +386,7 @@ Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen 
 at du bygger din egen
 mekanisme for å la brukere utsette utlogging.
 
-### Regler for tokens 🔐
+#### Regler for tokens 🔐
 
 Du kan lese mer om tokens i
 [NAIS-dokumentasjonen](https://docs.nais.io/auth/). Nedenfor er et sammendrag som forklarer hvordan
@@ -404,30 +402,37 @@ utloggingsvarselet oppfører seg:
 - Etter totalt 6 timer (session expiration) med å være logget inn, må brukeren logge inn på nytt.
 - For øyeblikket blir brukeren presentert med utloggingsvarslingen uavhengig av aktivitet.
 
-### Analytics 📊
+#### Analytics 📊
 
-Nav uses Umami for analytics and tracking user events. Prefered method is using
-nav-dekoratoren-moduler, see below.
+> Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen
+> november 2025. Se mer informasjon i toppen av denne readme-filen.
 
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 [nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
+<<<<<<< Updated upstream
 Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 2025. Se mer informasjon i toppen av denne readme-filen.
 
 #### Analytics nå du bruker nav-dekoratoren-moduler 📦
+
+=======
+
+##### Analytics nå du bruker nav-dekoratoren-moduler 📦
+
+> > > > > > > Stashed changes
 
 [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
 hjelpefunksjoner for enkel Analytics-logging. Vennligst se README for dokumentasjon og guider for å
 komme i gang. https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
-#### Analytics og samtykke 👍👎
+##### Analytics og samtykke 👍👎
 
 Hvis brukeren ikke har gitt samtykke til sporing og analyse, vil ikke Umami
 initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil ta imot all
 logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
 samtykke spesielt med mindre de har spesifikke behov.
 
-### Undersøkelser ved bruk av Task Analytics og Skyra 📋
+#### Undersøkelser ved bruk av Task Analytics og Skyra 📋
 
 Task Analytics og Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste de
 nødvendige skriptene for begge tjenestene, men kun hvis brukeren har gitt samtykke til
@@ -439,7 +444,7 @@ For Skyra styres alle undersøkelser i dashbordet ditt. Du kan finne
 [mer informasjon om Skyra her](https://www.skyra.no/no). Undersøkelsene dine skal vises
 automatisk når de er riktig konfigurert i Skyra-dashbordet ditt.
 
-### Skip-lenke til hovedinnhold 🔗
+#### Skip-lenke til hovedinnhold 🔗
 
 En skip-lenke rendres i headeren hvis et element med id `maincontent` eksisterer i dokumentet. Ved å
 klikke på skip-lenken vil fokus settes til maincontent-elementet. Elementet må være fokuserbart,
@@ -451,7 +456,7 @@ Eksempel:
 <main id="maincontent" tabindex="-1"><!-- app html går her! --></main>
 ```
 
-### Samtykkebanner 👌
+#### Samtykkebanner 👌
 
 Brukere vil bli presentert for et samtykkebanner som ber om samtykke til sporing og analyse. Dette
 påvirker alle typer lagring (cookies, localStorage, sessionStorage) på brukerens enhet. Hvis
