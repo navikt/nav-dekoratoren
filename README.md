@@ -1,51 +1,103 @@
-# Nav Decorator
+# Nav Dekoratøren
 
-## Table of Contents
+> ## ⚠️ Viktig beskjed om logging til Amplitude og Umami 📊
+>
+> Fra og med 1. november vil logging til Amplitude være avviklet i prod. Vi fjerner deler av koden i
+> dekoratøren, men beholder funksjonene som eksporteres
+> i [nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler). Det samme gjelder
+> `window.dekoratorenAmplitude` som vil være en dummy-funksjon som kun returnerer et resolved
+> promise
+> uten å faktisk logge til Amplitude.
+>
+> Dette gjør vi for å unngå breaking changes hos team som ikke har gått over til den mer agnostiske
+> `logAnalyticsEvent` og `getAnalyticsInstance`. Team som ikke har gått over til disse vil oppleve
+> at det logges info om at Amplitude er avviklet.
+>
+> For team som ikke har gått over til Umami:
+> [nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler) (fra versjon 3.2.3,
+> april) eksporterer `getAnalyticsInstance` og `logAnalyticsEvent`. Disse oppfører seg på samme måte
+> som
+> de gamle Amplitude-funksjonene slik at det bare er å bytte ut navnene i koden til teamene.
+> For team som av diverse årsaker kaller `window.dekoratorenAmplitude`, kan dere bruke
+> `window.dekoratorenAnalytics`.
+>
+> Etter 20. desember fjerner vi resterende dummy-funksjoner relatert til Amplitude, så etter den
+> datoen vil funksjoner og typedefinisjoner begynne å feile for team som ikke har gått over til
+> _Analytics_-funksjonene. Ta kontakt med #team-navno eller #dekoratøren_på_navno på Slack hvis dere
+> trenger hjelp eller har innspill!
 
-- [Table of Contents](#table-of-contents)
-- [About the Decorator](#about-the-decorator)
-- [How to use the Decorator in your application](#how-to-use-the-decorator-in-your-application)
-- [Configuring the Decorator to your needs](#configuring-the-decorator-to-your-needs)
-- [Other built-in features](#other-built-in-features)
+## Innholdsfortegnelse
 
-## 1. About the Decorator ℹ️
+## 📚 Innholdsfortegnelse
 
-This is  a frontend application that provides a unified header/footer for applications running on nav.no. All frontend applications that target the public should use the Decorator to create a cohesive user experience on nav.no.
+1. [Om dekoratøren ℹ️](#1-om-dekoratøren-ℹ️)
+    - [1.1 Forslag, tilbakemeldinger eller deltakelse 🙋](#11-forslag-tilbakemeldinger-eller-deltakelse-)
+    - [1.2 Kanal for kunngjøringer 📣](#12-kanal-for-kunngjøringer-)
+2. [Hvordan bruke Dekoratøren i din applikasjon 🎓](#2-hvordan-bruke-dekoratøren-i-din-applikasjon-)
+    - [2.1 @navikt/nav-dekoratoren-moduler 📦](#21-naviktnav-dekoratoren-moduler-)
+    - [2.2 Tilpasset implementasjon med server-side rendering ⚙️](#22-tilpasset-implementasjon-med-server-side-rendering-️)
+    - [2.3 [Ikke anbefalt] Tilpasset implementasjon med client-side rendering (CSR) 👾](#23-ikke-anbefalt-tilpasset-implementasjon-med-client-side-rendering-csr-)
+    - [2.4 Ingresser 🎯](#24-ingresser-)
+3. [Konfigurere Dekoratøren etter dine behov 🎛️](#3-konfigurere-dekoratøren-etter-dine-behov-️)
+    - [3.1 Oversikt over config parametere](#31-oversikt-over-config-parametere)
+    - [3.2 Detaljer 🍱](#32-detaljer-)
+    - [3.3 Eksempler](#33-eksempler)
+4. [Andre innebygde funksjoner 🎛️](#4-andre-innebygde-funksjoner-)
+    - [4.1 Oversikt over funksjoner](#41-oversikt-over-funksjoner)
+    - [4.2 Detaljer](#42-detaljer-)
 
-The Decorator also offers common functionality such as login, analytics, logout warning, search functionality, etc as explained in this documentation.
+## 1. Om dekoratøren ℹ️
 
-### 1.1 Suggestions, feedback or participation 🙋
+Dette er en frontend applikasjon som gir en enhetlig header/footer for applikasjoner som kjører på
+nav.no. Alle frontend-applikasjoner som retter seg mot det offentlige bør bruke Dekoratøren for å
+skape en
+helhetlig brukeropplevelse på nav.no.
 
-If you have any questions or suggestions for improvements regarding the Decorator or this documentation, please contact us on the Slack channel `#dekoratøren_på_navno`. If you wish to contribute or simply want to run the Decorator locally, please see C NTRIBUTING.md.
+Dekoratøren tilbyr også felles funksjonalitet som innlogging, analyse, varsel ved utlogging,
+søkefunksjonalitet osv, som forklart i denne dokumentasjonen.
 
-### 1.2 Channel for announcements 📣
+### 1.1 Forslag, tilbakemeldinger eller deltakelse 🙋
 
-Important announcements are posted on `#dekoratøren_på_navno`, so we encourage teams that use the Decorator to join this channel.
+Hvis du har noen spørsmål eller forslag til forbedringer angående Dekoratøren eller denne
+dokumentasjonen, vennligst ta kontakt med oss på Slack-kanalen `#dekoratøren_på_navno`. Hvis du
+ønsker å bidra eller bare vil kjøre Dekoratøren lokalt, vennligst se CONTRIBUTING.md.
+
+### 1.2 Kanal for kunngjøringer 📣
+
+Viktige kunngjøringer postes i `#dekoratøren_på_navno`, så vi oppfordrer team som bruker Dekoratøren
+til å bli med i denne kanalen.
 
 ---
 
-## 2 How to use the Decorator in your application 🎓
+## 2 Hvordan bruke Dekoratøren i din applikasjon 🎓
 
-You can use the Decorator through both SSR (server-side rendering) and CSR (client-side rendering). We recommend implementing the Decorator via SSR because it results in fewer [layout shifts](https://web.dev/articles/cls) when your application loads, thereby providing a better user experience.
+Du kan bruke Dekoratøren gjennom både SSR (server-side rendering) og CSR (client-side rendering). Vi
+anbefaler å implementere Dekoratøren via SSR fordi det resulterer i færre
+[layout shifts](https://web.dev/articles/cls) når applikasjonen din laster, og dermed gir en bedre
+brukeropplevelse.
 
 ### 2.1 @navikt/nav-dekoratoren-moduler 📦
 
-We recommend using the NPM package [@navikt/nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler), which offers several useful functions for implementating the Decorator and related features. Here you will also find helper functions for correctly handling cookies according to users given consent.
+Vi anbefaler å bruke NPM-pakken
+[@navikt/nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler), som tilbyr
+flere nyttige funksjoner for implementering av Dekoratøren og relaterte funksjoner. Her vil du også
+finne hjelpefunksjoner for korrekt håndtering av cookies i henhold til brukers samtykke.
 
-### 2.2 Custom implementation with server-side rendering ⚙️
+### 2.2 Tilpasset implementasjon med server-side rendering ⚙️
 
-The Decorator consists of four HTML strings which must be injected into the HTML of your application. These are served from the `/ssr` endpoint of the Decorator:
+Dekoratøren består av fire HTML-strenger som må injiseres i HTML-en til applikasjonen din. Disse
+betjenes fra `/ssr`-endepunktet til Dekoratøren:
 
 ```json
 {
-    "headAssets": "CSS, favicons, etc. Should be injected into the <head> element",
-    "header": "Header content, should be injected just before your app content",
-    "footer": "Footer content, should be injected just after your app content",
-    "scripts": "<script> elements, can be injected anywhere"
+    "headAssets": "CSS, favicons etc. Burde injiseres i <head> elementet",
+    "header": "Header innhold, burde injiseres rett før app-innholdet ditt",
+    "footer": "Footer innhold, burde injiseres rett etter app-innholdet ditt",
+    "scripts": "<script> elementer, kan injiseres hvor som helst"
 }
 ```
 
-Example:
+Eksempel:
 
 ```javascript
 fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
@@ -53,14 +105,16 @@ fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
     .then((decoratorElements) => {
         const { headAssets, header, footer, scripts } = decoratorElements;
         /*
-            inject these four elements into your applications HTML response
+            injiser disse fire elementene i HTML-responsen til applikasjonen din
         */
     });
 ```
 
-### 2.3 [Not recommended] Custom implementation with client-side rendering (CSR) 👾
+### 2.3 [Ikke anbefalt] Tilpasset implementasjon med client-side rendering (CSR) 👾
 
-⚠️ CSR will cause layout shifts as well as multiple asset requests, which might delay the First Contentful Paint (FCP) in your application.
+> ⚠️ CSR vil føre til layout shifts samt flere asset-forespørsler, noe som kan forsinke First
+> Contentful
+> Paint (FCP) i applikasjonen din.
 
 ```html
 <html>
@@ -77,9 +131,11 @@ fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
 </html>
 ```
 
-### 2.4 Ingresses 🎯
+### 2.4 Ingresser 🎯
 
-The Decorator is served through both service hosts and regular ingresses. If you're using `@navikt/nav-dekoratoren-moduler`, this is all handled automatically, depending on your `env` parameter.
+Dekoratoren betjenes både gjennom service hosts og vanlige ingresser. Hvis du bruker
+`@navikt/nav-dekoratoren-moduler`, håndteres alt dette automatisk, avhengig av `env`-parameteren
+din.
 
 | Environment | Service host                                 | Ingress                                        |
 | ----------- | -------------------------------------------- | ---------------------------------------------- |
@@ -88,120 +144,157 @@ The Decorator is served through both service hosts and regular ingresses. If you
 | `beta`      | http://nav-dekoratoren-beta.personbruker     | https://dekoratoren-beta.intern.dev.nav.no     |
 | `beta-tms`  | http://nav-dekoratoren-beta-tms.personbruker | https://dekoratoren-beta-tms.intern.dev.nav.no |
 
-**Note:** The beta instances of the Decorator are intended for internal testing by Team Nav.no or Team Min side. These instances may be unstable for extended periods.
+**Husk:** Betainstansene av Dekoratøren er ment for intern testing av Team Nav.no eller Team Min
+Side. Disse instansene kan være ustabile over lengre perioder.
 
 ---
 
-## 3 Configuring the Decorator to your needs 🎛️
+## 3 Konfigurere Dekoratøren etter dine behov 🎛️
 
-If you're using `@navikt/nav-dekoratoren-moduler`, you can pass a configuration object when initializing the Decorator. If you're implementing your own solution and fetching the Decorator directly, you can configure it by passing [query parameters](https://en.wikipedia.org/wiki/Query_string) as part of the fetch url request.
+Hvis du bruker `@navikt/nav-dekoratoren-moduler`, kan du sende et konfigurasjonsobjekt når du
+initialiserer Dekoratøren. Hvis du implementerer din egen løsning og henter Dekoratøren direkte, kan
+du konfigurere den ved å sende [query parametre](https://en.wikipedia.org/wiki/Query_string) som
+en del av fetch-URL-forespørselen.
 
-All parameters can be set client-side unless explicitly mentioned as a server-render feature only. For more details, see [client-side](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+Alle parametere kan settes klient-side, med mindre det eksplisitt er nevnt at de kun er for
+server-side rendering. For mer informasjon,
+se [client-side](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
-### 3.1 Config parameters overview
+### 3.1 Oversikt over config parametere
 
-| Configuration        | Type                                                                    | Default      | Explanation                                                                |
-| -------------------- | ----------------------------------------------------------------------- | ------------ | -------------------------------------------------------------------------- |
-| context              | privatperson / arbeidsgiver / samarbeidspartner                         | privatperson | Set the menu and the context selector in the header                        |
-| simple               | boolean                                                                 | false        | Shows a simplified header and footer                                       |
-| simpleHeader         | boolean                                                                 | false        | Shows a simplified header                                                  |
-| simpleFooter         | boolean                                                                 | false        | Shows a simplified footer                                                  |
-| redirectToApp        | boolean                                                                 | false        | Directs the user back to current URL after login                           |
-| redirectToUrl        | string                                                                  | undefined    | Directs the user to the url after login                                    |
-| redirectToUrlLogout  | string                                                                  | undefined    | Directs the user to the url after logout                                   |
-| language             | nb / nn / en / se / pl / uk / ru                                        | nb           | Sets the current language                                                  |
-| availableLanguages   | [{ locale: nb / nn / en / se / pl, url: string, handleInApp?: string }] | [ ]          | Sets the available languages that are selectable via the language selector |
-| breadcrumbs          | [{ title: string, url: string, handleInApp?: string }]                  | [ ]          | Sets the bread crumbs                                                      |
-| utilsBackground      | white / gray / transparent                                              | transparent  | Sets the background color for the breadcrumbs and language selector        |
-| feedback             | boolean                                                                 | false        | Show or hide the feedback component                                        |
-| chatbot              | boolean                                                                 | true         | Activate or deactivate the chatbot (Frida)                                 |
-| chatbotVisible       | boolean                                                                 | false        | Show or hide the chatbot (Frida )                                          |
-| shareScreen          | boolean                                                                 | true         | Activate or deactivate the screen sharing feature in the footer            |
-| logoutUrl            | string                                                                  | undefined    | Sets the URL for logging out                                               |
-| logoutWarning        | boolean                                                                 | true         | Activate or deactivate the Logout Warning                                  |
-| redirectOnUserChange | boolean                                                                 | false        | Redirects to nav.no if different user is logged in                         |
-| pageType             | string                                                                  | undefined    | For lgging av sidetype for sidevsning i Analytics                          |
+| Konfigurasjon        | Type                                                                    | Default      | Forklaring                                                           |
+| -------------------- | ----------------------------------------------------------------------- | ------------ | -------------------------------------------------------------------- |
+| context              | privatperson / arbeidsgiver / samarbeidspartner                         | privatperson | Angir meny- og kontekstvelgeren i headeren                           |
+| simple               | boolean                                                                 | false        | Viser en enkel versjon av header og footer                           |
+| simpleHeader         | boolean                                                                 | false        | Viser en enkel versjon av header                                     |
+| simpleFooter         | boolean                                                                 | false        | Viser en enkel versjon av footer                                     |
+| redirectToApp        | boolean                                                                 | false        | Sender brukeren tilbake til gjeldende URL etter innlogging           |
+| redirectToUrl        | string                                                                  | undefined    | Sender brukeren tilbake til angitt URL etter innlogging              |
+| redirectToUrlLogout  | string                                                                  | undefined    | Sender brukeren tilbake til angitt URL etter utlogging               |
+| language             | nb / nn / en / se / pl / uk / ru                                        | nb           | Angir språk                                                          |
+| availableLanguages   | [{ locale: nb / nn / en / se / pl, url: string, handleInApp?: string }] | [ ]          | Angir tilgjengelige språk i språkvelgeren                            |
+| breadcrumbs          | [{ title: string, url: string, handleInApp?: string }]                  | [ ]          | Setter brødsmulesti (navigasjonssti)                                 |
+| utilsBackground      | white / gray / transparent                                              | transparent  | Setter bakgrunnsfargen for brødsmulesti og språkvelger               |
+| feedback             | boolean                                                                 | false        | Viser eller skjuler tilbakemeldingskomponenten                       |
+| chatbot              | boolean                                                                 | true         | Aktiverer eller deaktiverer chatboten (Frida)                        |
+| chatbotVisible       | boolean                                                                 | false        | Viser eller skjuler chatboten (Frida)                                |
+| shareScreen          | boolean                                                                 | true         | Aktiverer eller deaktiverer funksjonen for deling av skjerm i footer |
+| logoutUrl            | string                                                                  | undefined    | Angir URL for utlogging                                              |
+| logoutWarning        | boolean                                                                 | true         | Aktiverer eller deaktiverer advarsel for utlogging                   |
+| redirectOnUserChange | boolean                                                                 | false        | Sender brukeren til nav.no dersom en annen bruker logger inn         |
+| pageType             | string                                                                  | undefined    | For logging av sidetype for sidevisning i Analytics                  |
 
-### 3.2 Details 🍱
+### 3.2 Detaljer 🍱
 
 <details>
- <summary><strong>Click to expand details</strong></summary>
+ <summary><strong>Klikk for å utvide detaljene</strong></summary>
 
 #### redirectToApp
 
-This applies to both automatic login and when the login button is clicked. The default setting is `false`, which will redirect the user to the "Mitt Nav" application after login.
+Gjelder både for automatisk innlogging og når innloggingsknappen klikkes. Standardinnstillingen er
+`false`, som vil omdirigere brukeren til "Mitt Nav"-applikasjonen etter innlogging.
 
 #### redirectToUrl
 
-This will redirect the browser to the specified URL after login. This will override the `redirectToApp` configuration that was set. This applies to both automatic login and when the login button is clicked.
+Omdirigerer nettleseren til den spesifiserte URL-en etter innlogging. Dette vil overstyre
+`redirectToApp`-konfigurasjonen som ble satt. Dette gjelder både for automatisk innlogging og når
+innloggingsknappen klikkes.
 
 #### redirectToUrlLogout
 
-Applies both to both automatic logout (after seeing the logout warning) and when clicking the logout button.
+Gjelder både for automatisk utlogging (etter å ha sett utloggingsvarselet) og når utloggingsknappen
+klikkes.
 
 #### language
 
-The language is automatically set client-side if the current URL contains **/no/**, **/nb/**, **/nn/**, **/en/**, or **/se/**. This will override any language parameter that is set. Please note that the actual UI of the Decorator can only display its own textual content and menu in `nb`, `en`, and `se` (partial support). For more information, see "Language support and dropdown menu."
+Språket settes automatisk på klient-side hvis den nåværende URL-en inneholder **/no/**, **/nb/**, \*
+\*/nn/** , **/en/**, eller **/se/\*\*. Dette vil overstyre eventuelle språkparametere som er satt.
+Vennligst merk at det faktiske brukergrensesnittet til Dekoratøren kun kan vise sitt eget
+tekstinnhold og meny på `nb`, `en`, og `se` (delvis støtte). For mer informasjon,
+se [Språkstøtte og nedtrekksmeny](#42-language-support-and-dropdown-menu-)
 
 #### availableLanguages
 
-If your application supports multiple locales, you can populate the built-in language selector in the Decorator, allowing users to switch languages. This list can also be updated client-side, for example, if certain routes in your application support specific languages while others do not.
+Hvis applikasjonen din støtter flere språk, kan du fylle ut den innebygde språkvelgeren i
+Dekoratøren
+slik at brukerne selv kan bytte språk. Denne listen kan også oppdateres klient-side, for eksempel
+hvis
+visse routes i applikasjonen din støtter spesifikke språk mens andre ikke gjør det.
 
-Use [`setAvailableLanguages`](https://github.com/navikt/nav-dekoratoren-moduler#readme) and [`onLanguageSelect`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+Bruk [`setAvailableLanguages`](https://github.com/navikt/nav-dekoratoren-moduler#readme) og [
+`onLanguageSelect`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
-If you set `handleInApp` to `true`, you must handle actions like route changes yourself.
+Hvis du setter `handleInApp` til `true`, må du selv håndtere handlinger som endringer i route.
 
-Note that `url` is limited to the domain `nav.no` and any sub domain. Any other URL will result in the Decorator returning a 500 server error on request.
+Merk at `url` er begrenset til domenet `nav.no` og eventuelle underdomener. Enhver annen URL vil
+resultere i at Dekoratøren returnerer en 500 serverfeil ved forespørsel.
 
 #### breadcrumbs
 
-Can be set client-side with [setBreadcrumbs](https://github.com/navikt/nav-dekoratoren-moduler#readme) and [onBreadcrumbClick](https://github.com/navikt/nav-dekoratoren-moduler#readme)
+Kan settes klient-side
+med [setBreadcrumbs](https://github.com/navikt/nav-dekoratoren-moduler#readme)
+og [onBreadcrumbClick](https://github.com/navikt/nav-dekoratoren-moduler#readme)
 
-Note that `url` is limited to the domain `nav.no` and any sub domain. Any other url will result in the Decorator returning 500 server error on request.
+Merk at `url` er begrenset til domenet `nav.no` og eventuelle underdomener. Enhver annen URL vil
+resultere i at Dekoratøren returnerer en 500 serverfeil ved forespørsel.
 
 #### chatbot
 
-If this is set to false, the chatbot will not be initialized. This means that it will never be available to the page or application, even if the user has an active chat session.
+Hvis dette er satt til false, vil ikke chatboten bli initialisert. Dette betyr at den aldri vil
+være tilgjengelig for siden eller applikasjonen, selv om brukeren har en aktiv chatøkt.
 
 #### chatbotVisible
 
-Shows or hides Chatbot Frida. If this is set to `true`, the floating chatbot icon will always be visible. When set to `false`, the chatbot will only be visible if the user has an active chat session. Please note that `chatbotVisible` will have no effect if the `chatbot` argument above is set to false.
+Viser eller skjuler Chatbot Frida. Hvis dette er satt til `true`, vil det flytende chatbot-ikonet
+alltid være synlig. Når det er satt til `false`, vil chatboten bare være synlig hvis brukeren har en
+aktiv chatøkt. Vennligst merk at `chatbotVisible` ikke vil ha noen effekt hvis `chatbot`-argumentet
+ovenfor er satt til false.
 
 #### logoutUrl
 
-If set, the Decorator will delegate all logout handling to the specified URL. This means that **everything related to logout must be handled by the app!** This includes, but is not limited to, cookie clearing and session invalidation. Use with care!
+Hvis denne er satt vil Dekoratøren delegere all utloggingshåndtering til den angitte URL-en. Dette
+betyr at **alt relatert til utlogging må håndteres av applikasjonen!** Dette inkluderer, men er ikke
+begrenset til, fjerning av cookies og ugyldiggjøring av økter. Bruk med forsiktighet!
 
-Not to be confused with the `redirectToUrlLogout` attribute, which sets the final redirect URL **after** the user has been successfully logged out.
+Skal ikke forveksles med attributtet `redirectToUrlLogout`, som angir den endelige
+omdirigeringsadressen **etter** at brukeren er logget ut.
 
 #### logoutWarning
 
-A modal will display after 55 minutes of login time, allowing the user to extend the session by another 60 minutes or to log out immediately. This serves both as a convenience for the user and to meet WCAG accessibility requirements.
+En modal vil vises etter 55 minutter med innloggingstid, som gir brukeren muligheten til å forlenge
+økten med ytterligere 60 minutter eller logge ut umiddelbart. Dette tjener både som en
+bekvemmelighet for brukeren og for å oppfylle WCAG-tilgjengelighetskrav.
 
-If you choose to disable this feature, you will need to implement a similar logout warning yourself.
+Hvis du velger å deaktivere denne funksjonen, må du selv implementere en lignende
+utloggingsadvarsel.
 
 #### redirectOnUserChange
 
-If set to true, the page will redirect to nav.no if there is a change of current user in header and authenticated user on server. May occur if user has multiple windows open, and a new user logs in in one of them, and then navigates to a window the old user had open.
+Hvis denne er satt til `true`, vil siden omdirigere til nav.no hvis det er en endring av gjeldende
+bruker i headeren og den autentiserte brukeren på serveren. Dette kan skje hvis brukeren har flere
+vinduer
+åpne og en ny bruker logger inn i ett av dem, og deretter navigerer til et vindu den gamle brukeren
+hadde åpent.
 
 </details>
 
-### 3.3 Examples
+### 3.3 Eksempler
 
-Below are examples on different uses of the configuration flags:
+Under er eksempler på forskjellige bruksområder for konfigurasjonsflaggene:
 
-Example 1 - Set context:<br>
+Eksempel 1 - Sett kontekst:<br>
 
 ```bash
 https://www.nav.no/dekoratoren/?context=arbeidsgiver
 ```
 
-Example 2 - Language selector:<br>
+Eksempel 2 - Språkvelger:<br>
 
 ```bash
 https://www.nav.no/dekoratoren/?availableLanguages=[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}]
 ```
 
-Example 3 - Bread crumbs:<br>
+Eksempel 3 - Brødsmuler:<br>
 
 ```bash
 https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}]
@@ -209,91 +302,164 @@ https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/d
 
 ---
 
-## 4 Other built-in features 🎛️
+# 4 Andre innebygde funksjoner 🎛️
 
-The Decorator provides a range of functionalities so that you don't have to build them yourself.
+Dekoratøren tilbyr en rekke funksjonaliteter slik at du slipper å bygge dem selv.
+Under finner du en tabell med oversikt, etterfulgt av detaljer og eksempler.
 
-### 4.1 Content Security Policy 👮
+## 4.1 Oversikt over funksjoner
 
-You can find the current CSP directives at [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). You may also inspect the actual code at [content-security-policy.ts](https://github.com/navikt/decorator-next/blob/main/packages/server/src/content-security-policy.ts) for a better understanding of how CSP works.
+| Funksjon / Tema              | Type                      | Formål / Forklaring                                                |
+| ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
+| Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av dekoratøren |
+| Språkstøtte og nedtrekksmeny | client-side               | Viser språkvelger i headeren og håndterer språkvalg                |
+| Søk                          | client-side               | Tilbyr søk uten behov for ekstra konfigurasjon                     |
+| Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon      |
+| Utloggingsvarsel             | client-side               | Viser varsel 5 min før sesjonen utløper, lar bruker forlenge økten |
+| Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)             |
+| Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami (erstatter Amplitude)             |
+| Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
+| Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent     |
+| Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                |
 
-The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package also offers methods for generating a CSP header that is compatible with the Decorator. If you're building your own custom implementation, you must ensure that your CSP headers match those of the Decorator.
+---
 
-### 4.2 Language support and dropdown menu 🌎
+## 4.2 Detaljer 💡
 
-The user interface (header, menu, footer, etc.) supports three languages:
+<details>
+<summary><strong>Klikk for å utvide alle beskrivelser</strong></summary>
+
+### Content Security Policy 👮
+
+Du kan finne det nåværende CSP-direktivet
+på [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). Du kan også
+inspisere den faktiske koden
+på [content-security-policy.ts](https://github.com/navikt/decorator-next/blob/main/packages/server/src/content-security-policy.ts)
+for en bedre forståelse av hvordan CSP fungerer.
+
+[`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
+også metoder for å generere en CSP-header som er kompatibel med Dekoratøren. Hvis du bygger din egen
+tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med de til Dekoratøren.
+
+### Språkstøtte og nedtrekksmeny 🌎
+
+Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 
 - Norsk bokmål
 - English
-- Sami (partial)
+- Sami (delvis)
 
-You can provide `availableLanguages` to populate the language selector (`språkvelger`), depending on how many languages your application supports (see the section for parameters). However, the actual UI in the header and footer will only be displayed in one of the three languages mentioned above.
+Du kan tilby `availableLanguages` for å fylle ut språkvelgeren, avhengig av hvor mange språk
+applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config-parametere)).
+Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
+nevnte språkene.
 
-### 4.3 Search 🔎
+### Søk 🔎
 
-Search is provided out of the box, with no configuration needed on your part. The search will either point to production or development environments, depending on how the Decorator is set up.
+Søk tilbys ut av boksen, uten behov for konfigurasjon fra din side. Søkefunksjonen vil enten peke
+til produksjons- eller utviklingsmiljøer, avhengig av hvordan Dekoratøren er satt opp.
 
-### 4.4 Login 🔐
+### Innlogging 🔐
 
-The Decorator provides a login (and logout) button that redirects the user to ID-porten (either production or development) where the user can log in.
+Dekoratøren tilbyr en innloggingsknapp (og utloggingsknapp) som omdirigerer brukeren til ID-porten
+(enten produksjon eller utvikling) hvor brukeren kan logge inn.
 
-The Decorator uses internal API endpoints to display the user's name, login level, and remaining session time.
+Dekoratøren bruker interne API-endepunkter for å vise brukerens navn, innloggingsnivå og gjenværende
+økttid.
 
-Please note that there is no login API exposed from the Decorator to your application, which means that no user credentials are exposed to your application in any meaningful or usable way. If you need to check authentication or credentials for the user, you will need to set this up yourself by connecting directly to the services at login.nav.no. For more information, see [Authentication and Authorization at NAIS](https://docs.nais.io/auth/).
+Vennligst merk at det ikke finnes noe innloggings-API eksponert fra Dekoratøren til applikasjonen
+din, noe som betyr at ingen brukerlegitimasjon blir eksponert for applikasjonen din på noen
+meningsfull eller brukbar måte. Hvis du trenger å sjekke autentisering eller legitimasjon for
+brukeren, må du sette dette opp selv ved å koble direkte til tjenestene på login.nav.no. For mer
+informasjon, se
+[Authentication and Authorization at NAIS](https://docs.nais.io/auth/).
 
-### 4.5 Logout warning 🔐
+### Utloggingsvarsel 🔐
 
-A logout warning is a modal that appears for the user 5 minutes before the login token expires. The user can then choose to extend the session by another 60 minutes or click "Log out" to be logged out immediately.
+En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper. Brukeren kan da
+velge å forlenge økten med ytterligere 60 minutter eller klikke "Logg ut" for å logge ut
+umiddelbart.
 
-The users entire session har a max life of 6 hours, after which the user has to log out and log in again.
+Brukernes totale sesjon har en maksimal levetid på 6 timer, hvoretter brukeren må logge ut og logge
+inn igjen.
 
-The logoout warning is activated by default. You can disable this feature by setting `logoutWarning=false` as a parameter. However, Accessibility Guidelines and WCAG require that you build your own mechanism to allow users to postpone logout.
+Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen ved å sette
+`logoutWarning=false`som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
+at du bygger din egen
+mekanisme for å la brukere utsette utlogging.
 
-### 4.6 Rules for tokens: 🔐
+### Regler for tokens 🔐
 
-You can find out more about tokens in the [NAIS documentation](https://docs.nais.io/auth/). Below is a summary, explaining how the logout warning behaves:
+Du kan lese mer om tokens i
+[NAIS-dokumentasjonen](https://docs.nais.io/auth/). Nedenfor er et sammendrag som forklarer hvordan
+utloggingsvarselet oppfører seg:
 
-- Tokens are valid for 60 minutes if not refreshed.
-- Session is valid for 6 hours and cannot be refreshed, ie the user has to log out and then back in.
-- 5 minutes before token is set to expire, the user is presented with options to either continue being logged in or log out immediately.
-- These renewals extend the session by an additional 60 minutes.
-- After another 55 minutes, the user will be presented with the logout warning again.
-- After a total of 6 hours (session expiration) of being logged in, the user is required to log in again.
-- Currently, the user is presented with the logout warning regardless of activity.
+- Tokens er gyldig i 60 minutter hvis det ikke fornyes.
+- Økten er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
+- 5 minutter før tokenet utløper, blir brukeren presentert med alternativer for enten å fortsette å
+  være
+  logget inn eller logge ut umiddelbart.
+- Disse fornyelsene forlenger økten med ytterligere 60 minutter.
+- Etter ytterligere 55 minutter vil brukeren bli presentert med utloggingsvarslingen igjen.
+- Etter totalt 6 timer (session expiration) med å være logget inn, må brukeren logge inn på nytt.
+- For øyeblikket blir brukeren presentert med utloggingsvarslingen uavhengig av aktivitet.
 
-### 4.7 Analytics 📊
+### Analytics 📊
 
-Nav uses Umami for analytics and tracking user events. Prefered method is using nav-dekoratoren-moduler, see below.
+Nav uses Umami for analytics and tracking user events. Prefered method is using
+nav-dekoratoren-moduler, see below.
 
-As of June 2025, data is being logged to Umami. Amplitude is planned to be discontinued for Nav by November 2025.
+Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
+[nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
-#### 4.7.1 Analytics using nav-dekoratoren-moduler
+Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 2025. Se mer informasjon i toppen av denne readme-filen.
 
-The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for easy Analytics logging. Please refer to the README for documentation and getting started guides.
-https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
+#### Analytics nå du bruker nav-dekoratoren-moduler 📦
 
-#### 4.7.2 Analytics and consent 👍👎
+[`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
+hjelpefunksjoner for enkel Analytics-logging. Vennligst se README for dokumentasjon og guider for å
+komme i gang. https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
 
-If the user has not given consent to tracking and analytics, Amplitude and Umami will not initiate. Instead a mock function will be returned. The mock function will take any logging and discard it before it's sent from the user, therefore the team doesn't have to handle any lack of consent especially unless they have spesific needs.
+#### Analytics og samtykke 👍👎
 
-### 4.8 Surveys using Task Analytics and Skyra 📋
+Hvis brukeren ikke har gitt samtykke til sporing og analyse, vil ikke Umami
+initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil ta imot all
+logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
+samtykke spesielt med mindre de har spesifikke behov.
 
-Task Analytics and Skyra are used to conduct surveys on nav.no. Dekoratøren will load the required scripts for both services, but only if the user has given consent to surveys. Task Analytics surveys are set up in a separate repository. Please see [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) or contact Team Nav.no for more information.
+### Undersøkelser ved bruk av Task Analytics og Skyra 📋
 
-For Skyra, all surveys are controlled in your dashboard. You can find [more information about Skyra here](https://www.skyra.no/no). Your surveys should display automatically when properly configured in your Skyra dashboard.
+Task Analytics og Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste de
+nødvendige skriptene for begge tjenestene, men kun hvis brukeren har gitt samtykke til
+undersøkelser. Task Analytics-undersøkelser settes opp i et eget repository. Vennligst
+se [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) eller kontakt Team
+Nav.no for mer informasjon.
 
-### 4.9 Skip-link to main content 🔗
+For Skyra styres alle undersøkelser i dashbordet ditt. Du kan finne
+[mer informasjon om Skyra her](https://www.skyra.no/no). Undersøkelsene dine skal vises
+automatisk når de er riktig konfigurert i Skyra-dashbordet ditt.
 
-A skip-link is rendered in the header if an element with the id `maincontent` exists in the document. Clicking the skip-link will set focus to the maincontent element. The element must be focusable, which can be accomplished by setting the attribute `tabindex="-1"`.
+### Skip-lenke til hovedinnhold 🔗
 
-Example:
+En skip-lenke rendres i headeren hvis et element med id `maincontent` eksisterer i dokumentet. Ved å
+klikke på skip-lenken vil fokus settes til maincontent-elementet. Elementet må være fokuserbart,
+noe som kan oppnås ved å sette attributtet `tabindex="-1"`.
+
+Eksempel:
 
 ```html
-<main id="maincontent" tabindex="-1"><!-- app html goes here! --></main>
+<main id="maincontent" tabindex="-1"><!-- app html går her! --></main>
 ```
 
-### 4.10 Consent banner 👌
+### Samtykkebanner 👌
 
-Users will be presented with a consent banner asking for consent for tracking and analytics. This affects all types of storage (cookies, localStorage, sessionStorage) on the users device. If the user does not consent, only required ("strictly neccessary") storage is allowed. This means that Umami, Skyra etc will not start.
+Brukere vil bli presentert for et samtykkebanner som ber om samtykke til sporing og analyse. Dette
+påvirker alle typer lagring (cookies, localStorage, sessionStorage) på brukerens enhet. Hvis
+brukeren ikke samtykker, er kun nødvendig ("strengt nødvendig") lagring tillatt. Dette betyr at
+Umami, Skyra osv ikke vil starte.
 
-The [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) package provides helper functions for checking for current user consent. It also provides helper functions for setting and reading cookies, which ensures that only allowed cookies can be set.
+[`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
+hjelpefunksjoner for enkel håndtering av samtykke. Den tilbyr også hjelpefunksjoner for å sette og
+lese cookies, som sikrer at kun tillatte cookies kan settes.
+
+</details>
