@@ -1,6 +1,10 @@
 /// <reference types="./client.d.ts" />
 import "vite/modulepreload-polyfill";
-import { initAnalytics, stopAnalytics } from "./analytics/analytics";
+import {
+    initAnalytics,
+    mockAnalytics,
+    stopAnalytics,
+} from "./analytics/analytics";
 import { initHistoryEvents, initScrollToEvents } from "./events";
 import { addFaroMetaData } from "./faro";
 import { refreshAuthData } from "./helpers/auth";
@@ -71,6 +75,7 @@ const init = () => {
     window.dekoratorenIsReady = () => true;
     // Need mocked amplitude to avoid breaking changes in consuming applications
     window.dekoratorenAmplitude = mockAmplitude;
+    window.dekoratorenAnalytics = mockAnalytics;
 
     const { consent } = window.webStorageController.getCurrentConsent();
     if (consent?.analytics) {
