@@ -16,6 +16,10 @@ declare global {
 
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
+export const mockAnalytics = () => {
+    return Promise.resolve();
+};
+
 export const initAnalytics = (auth: Auth) => {
     initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
     initTaskAnalyticsScript();

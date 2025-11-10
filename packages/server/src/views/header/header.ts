@@ -32,6 +32,7 @@ export const HeaderTemplate = async ({
     const decoratorUtils = DecoratorUtils({
         breadcrumbs,
         availableLanguages,
+        language,
         utilsBackground,
         frontPageUrl,
     });
