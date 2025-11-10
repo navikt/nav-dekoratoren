@@ -37,9 +37,36 @@ export const stopAnalytics = (auth: Auth) => {
     window.removeEventListener("historyPush", logPageViewCallback(auth));
 };
 
-export const buildLocationString = () => {
+const buildFilteredQueryString = (): string => {
+    const whitelist =
+        window.__DECORATOR_DATA__.params.analyticsQueryParams || [];
+
+    if (whitelist.length === 0) {
+        return "";
+    }
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const filteredParams: string[] = [];
+
+    for (const key of whitelist) {
+        const value = searchParams.get(key);
+        if (value !== null) {
+            filteredParams.push(value ? `${key}=${value}` : key);
+        }
+    }
+
+    const queryString = filteredParams.join("&");
+    return queryString ? `?${queryString}` : "";
+};
+
+export const buildLocationString = ({
+    includeOrigin = true,
+    includeHash = true,
+    includeQueryString = true,
+} = {}) => {
     const { origin, pathname, hash } = window.location;
-    return `${origin}${pathname}${hash}`;
+    const queryString = includeQueryString ? buildFilteredQueryString() : "";
+    return `${includeOrigin ? origin : ""}${pathname}${queryString}${includeHash ? hash : ""}`;
 };
 
 // Parametere vi ønsker skal logges for alle apper

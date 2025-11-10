@@ -59,6 +59,9 @@ export const validateParams = (params: Record<string, string>) => {
                   }),
               )
             : params.availableLanguages,
+        analyticsQueryParams: match(params.analyticsQueryParams)
+            .with(P.string, (queryParams) => JSON.parse(queryParams))
+            .otherwise(() => []),
     } as Params;
 };
 
