@@ -34,20 +34,22 @@ const mainMenuNode: z.ZodType<MenuNode> = baseMainMenuNode.extend({
 const mainmenuSchema = z.array(mainMenuNode);
 
 const fetchMenu = async (): Promise<MainMenu> => {
-    const menuFromService = await menuCache.get("menu", () =>
-        fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then(
-            (res) => {
-                if (!res.ok) {
-                    console.log(
-                        `Error fetching menu from Enonic - ${res.error}`,
-                    );
-                    return null;
-                }
+    console.log("debuglinks: fetchMenu");
+    const menuFromService = await menuCache.get("menu", () => {
+        console.log("debuglinks: fetchMenu using callback");
+        return fetchAndValidateJson(
+            MENU_SERVICE_URL,
+            undefined,
+            mainmenuSchema,
+        ).then((res) => {
+            if (!res.ok) {
+                console.log(`Error fetching menu from Enonic - ${res.error}`);
+                return null;
+            }
 
-                return res.data;
-            },
-        ),
-    );
+            return res.data;
+        });
+    });
 
     // The fallback/mock data should "never" be returned, unless the call to the menu service
     // fails on a fresh pod with no menu response cached. It's not a perfect solution to use
@@ -164,6 +166,7 @@ export const getComplexFooterLinks = async ({
     language: Language;
     context: Context;
 }): Promise<LinkGroup[]> => {
+    console.log("debuglinks: getComplexFooterLinks");
     const menu = await fetchMenu();
 
     return [
