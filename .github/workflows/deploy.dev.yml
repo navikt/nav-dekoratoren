@@ -2,7 +2,7 @@ name: Deploy to dev
 on:
   workflow_dispatch:
     inputs:
-      DEPLOY_INTERNAL:
+      DEPLOY_PREVIOUS:
         description: "Deploy previous version to internal"
         required: false
         type: boolean
@@ -13,25 +13,40 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build-and-test.yml
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
-    with:
-      IMAGE_SUFFIX: dev-stable
-      SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
-    secrets: inherit
+    outputs:
+      IMAGE: ${{ steps.build_test.outputs.IMAGE }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build and test
+        id: build_test
+        uses: ./.github/actions/build-test
+        with:
+          READER_TOKEN: ${{ secrets.READER_TOKEN }}
+          IMAGE_SUFFIX: dev-stable
+          SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
+
   deploy:
-    uses: ./.github/workflows/deploy-application.yml
+    runs-on: ubuntu-latest
     needs: build
     permissions:
       id-token: write
       contents: read
-    with:
-      DEPLOY_INSTANCE: dev-stable
-      CLUSTER: dev-gcp
-      IMAGE: ${{ needs.build.outputs.IMAGE }}
-      DEPLOY_INTERNAL: ${{ inputs.DEPLOY_INTERNAL }}
-      HPA_FILE: hpa-dev-stable.yml
-    secrets:
-      VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Deploy to dev
+        uses: ./.github/actions/deploy-to-nais
+        with:
+          DEPLOY_INSTANCE: dev-stable
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.IMAGE }}
+          DEPLOY_PREVIOUS: ${{ inputs.DEPLOY_PREVIOUS }}
+          HPA_FILE: hpa-dev-stable.yml
+          VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}

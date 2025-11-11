@@ -1,0 +1,112 @@
+name: Deploy to Nais
+
+inputs:
+  DEPLOY_INSTANCE:
+    description: Deployment environment / instance name.
+    required: true
+  CLUSTER:
+    description: Nais cluster.
+    required: true
+  IMAGE:
+    description: Container image (with tag).
+    required: true
+  DEPLOY_PREVIOUS:
+    description: Whether to deploy previous internal version first.
+    required: false
+    default: "false"
+  HPA_FILE:
+    description: Optional HPA file name under .nais/hpa/.
+    required: false
+  PREV_VERSION_ID:
+    description: Previously deployed commit SHA (for internal deploy).
+    required: false
+  PREV_IMAGE:
+    description: Previously deployed image (for internal deploy).
+    required: false
+  VARS_UPDATE_TOKEN:
+    description: Token (PAT) with permissions to update variables.
+    required: true
+
+outputs:
+  version-id:
+    description: The version id (current commit SHA).
+    value: ${{ steps.set-version-id.outputs.version_id }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set version id
+      id: set-version-id
+      shell: bash
+      run: |
+        echo "version_id=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+        echo "VERSION_ID=$GITHUB_SHA" >> "$GITHUB_ENV"
+
+    # Checkout the previous version to ensure matching nais config is used
+    - name: Checkout previous version
+      if:  inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.PREV_VERSION_ID }}
+
+    - name: Deploy previous version
+      if: inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
+      uses: nais/deploy/actions/deploy@v2
+      env:
+        CLUSTER: ${{ inputs.CLUSTER }}
+        RESOURCE: .nais/config-internal.yml
+        VAR: image=${{ inputs.PREV_IMAGE }},versionId=${{ inputs.PREV_VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
+        VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
+
+    # Checkout the current version
+    - name: Checkout current repo
+      uses: actions/checkout@v4
+
+    - name: Deploy HPA
+      if: inputs.HPA_FILE != ''
+      uses: nais/deploy/actions/deploy@v2
+      continue-on-error: true
+      env:
+        CLUSTER: ${{ inputs.CLUSTER }}
+        RESOURCE: .nais/hpa/${{inputs.HPA_FILE}}
+
+    - name: Deploy current version
+      uses: nais/deploy/actions/deploy@v2
+      env:
+        CLUSTER: ${{ inputs.CLUSTER }}
+        RESOURCE: .nais/config.yml
+        VAR: image=${{ inputs.IMAGE }},versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
+        VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
+
+    - name: Update vars (previous version tracking)
+      env:
+        GITHUB_TOKEN: ${{ inputs.VARS_UPDATE_TOKEN }} # This is a PAT with repo or Variables permission
+        DEPLOY_INSTANCE: ${{ inputs.DEPLOY_INSTANCE }}
+        IMAGE_INPUT: ${{ inputs.IMAGE }}
+        VERSION_ID: ${{ env.VERSION_ID }}
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        # Basic allow-list validation to reduce injection risk
+        safe_env_regex='^[A-Za-z0-9._-]+$'
+        safe_image_regex='^[A-Za-z0-9._/@:-]+$'
+
+        if ! [[ "$DEPLOY_INSTANCE" =~ $safe_env_regex ]]; then
+          echo "Invalid DEPLOY_INSTANCE value"; exit 1
+        fi
+        if ! [[ "$IMAGE_INPUT" =~ $safe_image_regex ]]; then
+          echo "Invalid IMAGE value"; exit 1
+        fi
+
+        gh variable set PREV_VERSION_ID --env "$DEPLOY_INSTANCE" --body "$VERSION_ID"
+        gh variable set PREV_IMAGE --env "$DEPLOY_INSTANCE" --body "$IMAGE_INPUT"
+        gh variable list --env "$DEPLOY_INSTANCE"
+
+      # We use a configmap to signal the latest fully deployed version.
+    - name: Update version authority configmap
+      uses: nais/deploy/actions/deploy@v2
+      env:
+        CLUSTER: ${{ inputs.CLUSTER }}
+        RESOURCE: .nais/version-authority-configmap.yml
+        VAR: versionId=${{ env.VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}

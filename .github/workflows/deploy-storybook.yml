@@ -1,33 +1,36 @@
-name: Deploy storybook to github pages
+name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  packages: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - uses: oven-sh/setup-bun@v1
+
+      - name: Build and test
+        id: build_test
+        uses: ./.github/actions/build-test
         with:
-          bun-version: 1.1.20
-      - name: Install dependencies
-        run: bun install --immutable
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - run: bun run build
+          READER_TOKEN: ${{ secrets.READER_TOKEN }}
+          SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
+
       - name: Build Storybook
         run: bun run build-storybook
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
