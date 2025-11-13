@@ -18,7 +18,7 @@
         "decorator-client": "workspace:*",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.9.8",
+        "hono": "4.10.3",
         "ts-pattern": "5.8.0",
         "unleash-client": "6.7.0"
     },
