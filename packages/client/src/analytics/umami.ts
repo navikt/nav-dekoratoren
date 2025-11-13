@@ -1,5 +1,9 @@
 import { env } from "../params";
-import { getCurrentReferrer, extraWindowParams } from "./analytics";
+import {
+    getCurrentReferrer,
+    extraWindowParams,
+    buildLocationString,
+} from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 export const logUmamiEvent = async (
@@ -14,7 +18,10 @@ export const logUmamiEvent = async (
         return umami.track((props) => ({
             ...props,
             name: eventName === "besøk" ? undefined : eventName,
-            url: window.location.pathname,
+            url: buildLocationString({
+                includeOrigin: false,
+                includeHash: false,
+            }),
             title: window.document.title,
             referrer:
                 eventName === "besøk"
