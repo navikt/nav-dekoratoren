@@ -14,7 +14,7 @@ import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import { getTaskAnalyticsSurveys } from "./task-analytics-config";
-import { getFeatures } from "./unleash";
+import { getFeatures, getFeaturesWithSession } from "./unleash";
 import { isLocalhost } from "./urls";
 import { parseAndValidateParams } from "./validateParams";
 import { IndexHtml } from "./views";
@@ -61,6 +61,18 @@ app.get("/api/isReady", ({ text }) => text("OK"));
 app.get("/api/version", versionApiHandler);
 app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
+});
+
+app.get("/api/features", ({ req, json, header }) => {
+    const cookiesHeader = req.header("Cookie") ?? "";
+    const { features, sessionId, setCookieHeader } =
+        getFeaturesWithSession(cookiesHeader);
+
+    if (setCookieHeader) {
+        header("Set-Cookie", setCookieHeader);
+    }
+
+    return json({ features, sessionId });
 });
 
 app.post("/api/consentping", async ({ req, json }) => {
