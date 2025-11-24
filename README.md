@@ -181,6 +181,7 @@ se [client-side](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 | logoutWarning        | boolean                                                                 | true         | Aktiverer eller deaktiverer advarsel for utlogging                   |
 | redirectOnUserChange | boolean                                                                 | false        | Sender brukeren til nav.no dersom en annen bruker logger inn         |
 | pageType             | string                                                                  | undefined    | For logging av sidetype for sidevisning i Analytics                  |
+| analyticsQueryParams | string[]                                                                | [ ]          | Hviteliste av query-parametere som skal inkluderes i Analytics       |
 
 ### 3.2 Detaljer 🍱
 
@@ -273,6 +274,14 @@ bruker i headeren og den autentiserte brukeren på serveren. Dette kan skje hvis
 vinduer
 åpne og en ny bruker logger inn i ett av dem, og deretter navigerer til et vindu den gamle brukeren
 hadde åpent.
+
+#### analyticsQueryParams
+
+Av personvernhensyn fjernes alle query-parametere fra URL-er før de sendes til analytics. Med
+`analyticsQueryParams` kan du hviteliste spesifikke parameternavn som skal inkluderes.
+
+**Viktig:** Du er selv ansvarlig for at hvitelistede parametere ikke inneholder sensitive eller
+personidentifiserbare opplysninger. Inkluder kun query-parametere som er trygge å eksponere i analytics-data.
 
 </details>
 

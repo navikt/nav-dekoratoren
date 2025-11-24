@@ -76,6 +76,7 @@ export const paramsSchema = z.object({
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
     pageTitle: z.string().optional(),
+    analyticsQueryParams: z.array(z.string()).default([]),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -100,6 +101,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "pageType",
     "pageTheme",
     "pageTitle",
+    "analyticsQueryParams",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
