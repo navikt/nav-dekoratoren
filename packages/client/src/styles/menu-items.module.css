@@ -20,7 +20,7 @@
     display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .searchButton.searchButton {
         display: flex;
     }

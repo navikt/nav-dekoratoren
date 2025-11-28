@@ -34,7 +34,7 @@ body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 
-        @media (min-width: 768px) {
+        @media (min-width: 48rem) {
             --header-height: 80px;
         }
     }
@@ -43,7 +43,7 @@ body {
         font-family: var(--a-font-family, "Source Sans Pro", Arial, sans-serif);
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 64rem) {
         #decorator-header,
         #decorator-footer {
             --edge-spacing: var(--a-spacing-12);

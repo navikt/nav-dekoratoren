@@ -33,7 +33,7 @@
     color: var(--a-text-action);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .searchHit {
         border-bottom: 1px solid var(--a-border-default);
     }
@@ -43,7 +43,7 @@
     height: var(--a-font-line-height-heading-small);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .chevron {
         display: none;
     }

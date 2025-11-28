@@ -33,7 +33,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
 
-    @media (min-width: 768px) {
+    @media (min-width: 48rem) {
         height: initial;
         max-height: 80vh;
         border-radius: 0 0 var(--a-border-radius-medium)
