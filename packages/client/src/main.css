@@ -24,7 +24,7 @@ body {
     #decorator-footer {
         --edge-spacing: var(--a-spacing-4);
         --desktop-min-width: 768px;
-        --header-height: 72px;
+        --header-height: 4.5rem;
 
         font-family: var(--a-font-family);
         line-height: calc(4 / 3);
@@ -35,7 +35,7 @@ body {
         -moz-osx-font-smoothing: grayscale;
 
         @media (min-width: 48rem) {
-            --header-height: 80px;
+            --header-height: 5rem;
         }
     }
 
