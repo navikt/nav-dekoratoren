@@ -8,7 +8,7 @@
     --inline-padding: var(--a-spacing-4);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
     .userMenu {
         --inline-padding: var(--a-spacing-5);
     }
@@ -41,7 +41,7 @@
     font-size: var(--a-font-size-heading-large);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .name {
         font-size: var(--a-font-size-heading-xlarge);
     }
@@ -102,7 +102,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .loader {
         padding-inline: var(--a-spacing-5);
     }
