@@ -37,6 +37,15 @@ export const redactUuids = (value: any): any => {
     return value;
 };
 
+export const redactReferrerQueryString = (referrer: string): string => {
+    if (!referrer) return referrer;
+    if (!referrer.includes("?")) return referrer;
+
+    const [baseUrl] = referrer.split("?");
+
+    return baseUrl;
+};
+
 export const logUmamiEvent = async (
     eventName: string,
     eventData: EventData = {},
@@ -59,7 +68,9 @@ export const logUmamiEvent = async (
                 title: window.document.title,
                 referrer:
                     eventName === "besøk"
-                        ? (getCurrentReferrer() ?? props.referrer)
+                        ? redactReferrerQueryString(
+                              getCurrentReferrer() ?? props.referrer,
+                          )
                         : undefined,
                 data: {
                     ...eventData,
