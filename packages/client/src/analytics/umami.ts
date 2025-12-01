@@ -8,10 +8,9 @@ import { AnalyticsEventArgs, EventData } from "./types";
 
 const UUID_REGEX =
     /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
+const EXEMPT_KEYS = ["website"];
 
 export const redactUuids = (value: any): any => {
-    const exemptKeys = ["website"];
-
     if (value === null || value === undefined) {
         return value;
     }
@@ -27,7 +26,7 @@ export const redactUuids = (value: any): any => {
     if (typeof value === "object") {
         return Object.fromEntries(
             Object.entries(value).map(([key, val]) => {
-                if (exemptKeys.includes(key)) {
+                if (EXEMPT_KEYS.includes(key)) {
                     return [key, val];
                 }
                 return [key, redactUuids(val)];
