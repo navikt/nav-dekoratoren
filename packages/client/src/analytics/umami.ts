@@ -7,7 +7,7 @@ import {
 import { AnalyticsEventArgs, EventData } from "./types";
 
 const UUID_REGEX =
-    /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
+    /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/i;
 const EXEMPT_KEYS = ["website"];
 
 export const redactUuids = (value: any): any => {
@@ -16,7 +16,7 @@ export const redactUuids = (value: any): any => {
     }
 
     if (typeof value === "string") {
-        return value.replace(UUID_REGEX, "[redacted: uuid]");
+        return value.replaceAll(UUID_REGEX, "[redacted: uuid]");
     }
 
     if (Array.isArray(value)) {
