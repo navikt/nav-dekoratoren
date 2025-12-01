@@ -6,6 +6,31 @@ import {
 } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
+const UUID_REGEX =
+    /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
+
+export const redactUuids = (value: any): any => {
+    if (value === null || value === undefined) {
+        return value;
+    }
+
+    if (typeof value === "string") {
+        return value.replace(UUID_REGEX, "[redacted]");
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(redactUuids);
+    }
+
+    if (typeof value === "object") {
+        return Object.fromEntries(
+            Object.entries(value).map(([key, val]) => [key, redactUuids(val)]),
+        );
+    }
+
+    return value;
+};
+
 export const logUmamiEvent = async (
     eventName: string,
     eventData: EventData = {},
@@ -15,18 +40,21 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
+        const url = buildLocationString({
+            includeOrigin: false,
+            includeHash: false,
+        });
+
         return umami.track((props) => ({
             ...props,
             name: eventName === "besøk" ? undefined : eventName,
-            url: buildLocationString({
-                includeOrigin: false,
-                includeHash: false,
-            }),
-            title: window.document.title,
-            referrer:
+            url: redactUuids(url),
+            title: redactUuids(window.document.title),
+            referrer: redactUuids(
                 eventName === "besøk"
                     ? (getCurrentReferrer() ?? props.referrer)
                     : undefined,
+            ),
             data: {
                 ...eventData,
                 origin,
