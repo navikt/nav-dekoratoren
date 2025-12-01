@@ -45,24 +45,25 @@ export const logUmamiEvent = async (
             includeHash: false,
         });
 
-        return umami.track((props) => ({
-            ...props,
-            name: eventName === "besøk" ? undefined : eventName,
-            url: redactUuids(url),
-            title: redactUuids(window.document.title),
-            referrer: redactUuids(
-                eventName === "besøk"
-                    ? (getCurrentReferrer() ?? props.referrer)
-                    : undefined,
-            ),
-            data: {
-                ...eventData,
-                origin,
-                originVersion: eventData.originVersion || "unknown",
-                viaDekoratoren: true,
-                ...extraWindowParams(),
-            },
-        }));
+        return umami.track((props) =>
+            redactUuids({
+                ...props,
+                name: eventName === "besøk" ? undefined : eventName,
+                url,
+                title: window.document.title,
+                referrer:
+                    eventName === "besøk"
+                        ? (getCurrentReferrer() ?? props.referrer)
+                        : undefined,
+                data: {
+                    ...eventData,
+                    origin,
+                    originVersion: eventData.originVersion || "unknown",
+                    viaDekoratoren: true,
+                    ...extraWindowParams(),
+                },
+            }),
+        );
     }
 };
 
