@@ -16,7 +16,7 @@ export const redactUuids = (value: any): any => {
     }
 
     if (typeof value === "string") {
-        return value.replace(UUID_REGEX, "[redacted]");
+        return value.replace(UUID_REGEX, "[redacted: uuid]");
     }
 
     if (Array.isArray(value)) {
@@ -99,7 +99,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         målgruppe: context,
         innholdstype: pageType,
         tema: pageTheme,
-        søkeord: eventName === "søk" ? "[redacted]" : undefined,
+        søkeord: eventName === "søk" ? "[redacted: search]" : undefined,
         ...rest,
     });
 };
