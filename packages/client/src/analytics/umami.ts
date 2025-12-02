@@ -37,12 +37,11 @@ export const redactUuids = (value: any): any => {
     return value;
 };
 
-export const redactReferrerQueryString = (referrer: string): string => {
-    if (!referrer) return referrer;
-    if (!referrer.includes("?")) return referrer;
+export const redactQueryString = (url: string): string => {
+    if (!url) return url;
+    if (!url.includes("?")) return url;
 
-    const [baseUrl] = referrer.split("?");
-
+    const [baseUrl] = url.split("?");
     return baseUrl;
 };
 
@@ -68,12 +67,13 @@ export const logUmamiEvent = async (
                 title: window.document.title,
                 referrer:
                     eventName === "besøk"
-                        ? redactReferrerQueryString(
+                        ? redactQueryString(
                               getCurrentReferrer() ?? props.referrer,
                           )
                         : undefined,
                 data: {
                     ...eventData,
+                    destinasjon: redactQueryString(eventData.destinasjon),
                     origin,
                     originVersion: eventData.originVersion || "unknown",
                     viaDekoratoren: true,
