@@ -11,12 +11,8 @@ export const redactFromUrl = (url: string): string => {
         return url;
     }
 
-    const appRedactPaths: string[] = (window as any)?.__DECORATOR_DATA__?.params
-        ?.redactPaths;
-
-    if (!Array.isArray(appRedactPaths) || appRedactPaths.length === 0) {
-        return url;
-    }
+    const appRedactPaths: string[] =
+        (window as any)?.__DECORATOR_DATA__?.params?.redactPaths || [];
 
     const redactPaths = [...knownRedactPaths, ...appRedactPaths];
 
