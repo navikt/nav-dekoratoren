@@ -6,6 +6,45 @@ import {
 } from "./analytics";
 import { AnalyticsEventArgs, EventData } from "./types";
 
+const UUID_REGEX =
+    /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
+const EXEMPT_KEYS = ["website"];
+
+export const redactUuids = (value: any): any => {
+    if (value === null || value === undefined) {
+        return value;
+    }
+
+    if (typeof value === "string") {
+        return value.replaceAll(UUID_REGEX, "[redacted: uuid]");
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(redactUuids);
+    }
+
+    if (typeof value === "object") {
+        return Object.fromEntries(
+            Object.entries(value).map(([key, val]) => {
+                if (EXEMPT_KEYS.includes(key)) {
+                    return [key, val];
+                }
+                return [key, redactUuids(val)];
+            }),
+        );
+    }
+
+    return value;
+};
+
+export const redactQueryString = (url: string): string => {
+    if (!url) return url;
+    if (!url.includes("?")) return url;
+
+    const [baseUrl] = url.split("?");
+    return baseUrl;
+};
+
 export const logUmamiEvent = async (
     eventName: string,
     eventData: EventData = {},
@@ -15,26 +54,33 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
-        return umami.track((props) => ({
-            ...props,
-            name: eventName === "besøk" ? undefined : eventName,
-            url: buildLocationString({
-                includeOrigin: false,
-                includeHash: false,
+        const url = buildLocationString({
+            includeOrigin: false,
+            includeHash: false,
+        });
+
+        return umami.track((props) =>
+            redactUuids({
+                ...props,
+                name: eventName === "besøk" ? undefined : eventName,
+                url,
+                title: window.document.title,
+                referrer:
+                    eventName === "besøk"
+                        ? redactQueryString(
+                              getCurrentReferrer() ?? props.referrer,
+                          )
+                        : undefined,
+                data: {
+                    ...eventData,
+                    destinasjon: redactQueryString(eventData.destinasjon),
+                    origin,
+                    originVersion: eventData.originVersion || "unknown",
+                    viaDekoratoren: true,
+                    ...extraWindowParams(),
+                },
             }),
-            title: window.document.title,
-            referrer:
-                eventName === "besøk"
-                    ? (getCurrentReferrer() ?? props.referrer)
-                    : undefined,
-            data: {
-                ...eventData,
-                origin,
-                originVersion: eventData.originVersion || "unknown",
-                viaDekoratoren: true,
-                ...extraWindowParams(),
-            },
-        }));
+        );
     }
 };
 
@@ -53,7 +99,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         målgruppe: context,
         innholdstype: pageType,
         tema: pageTheme,
-        søkeord: eventName === "søk" ? "[redacted]" : undefined,
+        søkeord: eventName === "søk" ? "[redacted: search]" : undefined,
         ...rest,
     });
 };
