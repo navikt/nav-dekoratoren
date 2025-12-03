@@ -60,12 +60,10 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
-        const url = redactFromUrl(
-            buildLocationString({
-                includeOrigin: false,
-                includeHash: false,
-            }),
-        );
+        const url = buildLocationString({
+            includeOrigin: false,
+            includeHash: false,
+        });
 
         return umami.track((props) =>
             redactData({
@@ -75,10 +73,8 @@ export const logUmamiEvent = async (
                 title: window.document.title,
                 referrer:
                     eventName === "besøk"
-                        ? redactFromUrl(
-                              redactQueryString(
-                                  getCurrentReferrer() ?? props.referrer,
-                              ),
+                        ? redactQueryString(
+                              getCurrentReferrer() ?? props.referrer,
                           )
                         : undefined,
                 data: {
