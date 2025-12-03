@@ -3,18 +3,22 @@ const createSegmentsArray = (path: string): string[] => {
     return trimmed === "" ? [] : trimmed.split("/");
 };
 
+const knownRedactPaths = ["/testsider/minoversikt/:redact:/liste"];
+
 export const redactFromUrl = (url: string): string => {
     // Guard for SSR / non-browser
     if (typeof window === "undefined") {
         return url;
     }
 
-    const redactPaths: string[] = (window as any)?.__DECORATOR_DATA__?.params
+    const appRedactPaths: string[] = (window as any)?.__DECORATOR_DATA__?.params
         ?.redactPaths;
 
-    if (!Array.isArray(redactPaths) || redactPaths.length === 0) {
+    if (!Array.isArray(appRedactPaths) || appRedactPaths.length === 0) {
         return url;
     }
+
+    const redactPaths = [...knownRedactPaths, ...appRedactPaths];
 
     // Detect whether the input is an absolute URL (protocol present)
     const isAbsoluteUrl = /^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url);
