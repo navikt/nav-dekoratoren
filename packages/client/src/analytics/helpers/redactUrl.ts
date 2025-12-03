@@ -9,7 +9,7 @@ export const redactFromUrl = (url: string): string => {
         return url;
     }
 
-    const redactPaths: string[] = (window as any)?.DECORATOR_DATA?.params
+    const redactPaths: string[] = (window as any)?.__DECORATOR_DATA__?.params
         ?.redactPaths;
 
     if (!Array.isArray(redactPaths) || redactPaths.length === 0) {
