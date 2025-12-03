@@ -7,8 +7,6 @@ import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
-import { redactFromUrl } from "./helpers/redactUrl";
-import { Breadcrumb } from "decorator-shared/params";
 
 declare global {
     interface Window {
@@ -90,26 +88,10 @@ export const extraWindowParams = () => {
     };
 };
 
-const redactBreadCrumbs = (breadcrumbs: Breadcrumb[]) => {
-    if (!Array.isArray(breadcrumbs)) {
-        return breadcrumbs;
-    }
-
-    return breadcrumbs.map((crumb) => ({
-        ...crumb,
-        url: crumb.url && redactFromUrl(crumb.url),
-    }));
-};
-
 const logPageView = (authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {
         const params = window.__DECORATOR_DATA__.params;
-
-        const hasBreadcrumbs =
-            params.breadcrumbs && params.breadcrumbs.length > 0;
-        const redactedBreadCrumbs = redactBreadCrumbs(params.breadcrumbs);
-
         const eventData = {
             målgruppe: params.context,
             innholdstype: params.pageType,
@@ -120,8 +102,8 @@ const logPageView = (authState: Auth) => {
                 : false,
             parametre: {
                 ...params,
-                breadcrumbs: hasBreadcrumbs ? redactedBreadCrumbs : undefined,
-                BREADCRUMBS: hasBreadcrumbs,
+                BREADCRUMBS:
+                    params.breadcrumbs && params.breadcrumbs.length > 0,
                 ...(params.availableLanguages && {
                     availableLanguages: params.availableLanguages.map(
                         (lang) => lang.locale,
@@ -157,7 +139,7 @@ export const analyticsClickListener =
                     context: param("context"),
                     pageType: param("pageType"),
                     pageTheme: param("pageTheme"),
-                    destinasjon: redactFromUrl(anchor.href),
+                    destinasjon: anchor.href,
                     kategori: args.kategori,
                     lenkegruppe: args.lenkegruppe,
                     lenketekst: args.lenketekst,
