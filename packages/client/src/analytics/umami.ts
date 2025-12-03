@@ -4,6 +4,7 @@ import {
     extraWindowParams,
     buildLocationString,
 } from "./analytics";
+import { redactFromUrl } from "./helpers/redactUrl";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 const UUID_REGEX =
@@ -54,10 +55,12 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
-        const url = buildLocationString({
-            includeOrigin: false,
-            includeHash: false,
-        });
+        const url = redactFromUrl(
+            buildLocationString({
+                includeOrigin: false,
+                includeHash: false,
+            }),
+        );
 
         return umami.track((props) =>
             redactUuids({
@@ -67,8 +70,10 @@ export const logUmamiEvent = async (
                 title: window.document.title,
                 referrer:
                     eventName === "besøk"
-                        ? redactQueryString(
-                              getCurrentReferrer() ?? props.referrer,
+                        ? redactFromUrl(
+                              redactQueryString(
+                                  getCurrentReferrer() ?? props.referrer,
+                              ),
                           )
                         : undefined,
                 data: {
