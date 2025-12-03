@@ -1,11 +1,11 @@
 import { redactFromUrl } from "./redactUrl";
-import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 describe("redactFromUrl", () => {
     const originalWindow = global.window;
 
     const setRedactPaths = (paths: string[]) => {
-        (global.window as any).DECORATOR_DATA.params.redactPaths = paths;
+        (global.window as any).__DECORATOR_DATA__.params.redactPaths = paths;
     };
 
     beforeEach(() => {
@@ -14,7 +14,7 @@ describe("redactFromUrl", () => {
             location: {
                 origin: "https://www.nav.no",
             },
-            DECORATOR_DATA: {
+            __DECORATOR_DATA__: {
                 params: {
                     redactPaths: [],
                 },
@@ -45,7 +45,8 @@ describe("redactFromUrl", () => {
 
         it("should return the original URL when redactPaths is not an array", () => {
             const url = "/person/12345678901/sak";
-            (window as any).DECORATOR_DATA.params.redactPaths = "not-an-array";
+            (window as any).__DECORATOR_DATA__.params.redactPaths =
+                "not-an-array";
 
             expect(redactFromUrl(url)).toBe(url);
         });
