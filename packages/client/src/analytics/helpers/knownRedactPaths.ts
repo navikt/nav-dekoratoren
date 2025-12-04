@@ -9,7 +9,7 @@ export const knownRedactPaths = new Map<string, RedactConfig>([
         { redactPath: true, redactTitle: false },
     ],
     [
-        "/testsider/minoversikt/navnitittel/:redact:",
+        "/testsider/navnitittel/:redact:",
         { redactPath: true, redactTitle: true },
     ],
     [
