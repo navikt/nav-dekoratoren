@@ -4,32 +4,38 @@ import {
     extraWindowParams,
     buildLocationString,
 } from "./analytics";
+import { redactFromUrl } from "./helpers/redactUrl";
 import { AnalyticsEventArgs, EventData } from "./types";
 
 const UUID_REGEX =
     /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
 const EXEMPT_KEYS = ["website"];
+const URL_KEYS = ["url", "referrer", "destinasjon"];
 
-export const redactUuids = (value: any): any => {
+export const redactData = (value: any, key?: string): any => {
     if (value === null || value === undefined) {
         return value;
     }
 
     if (typeof value === "string") {
-        return value.replaceAll(UUID_REGEX, "[redacted: uuid]");
+        // First apply URL redaction if this is a URL-related key
+        const redactResult =
+            key && URL_KEYS.includes(key) ? redactFromUrl(value) : value;
+        // Then redact any UUIDs
+        return redactResult.replaceAll(UUID_REGEX, "[redacted: uuid]");
     }
 
     if (Array.isArray(value)) {
-        return value.map(redactUuids);
+        return value.map((item) => redactData(item));
     }
 
     if (typeof value === "object") {
         return Object.fromEntries(
-            Object.entries(value).map(([key, val]) => {
-                if (EXEMPT_KEYS.includes(key)) {
-                    return [key, val];
+            Object.entries(value).map(([k, val]) => {
+                if (EXEMPT_KEYS.includes(k)) {
+                    return [k, val];
                 }
-                return [key, redactUuids(val)];
+                return [k, redactData(val, k)];
             }),
         );
     }
@@ -60,7 +66,7 @@ export const logUmamiEvent = async (
         });
 
         return umami.track((props) =>
-            redactUuids({
+            redactData({
                 ...props,
                 name: eventName === "besøk" ? undefined : eventName,
                 url,

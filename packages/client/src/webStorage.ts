@@ -6,6 +6,7 @@ import {
     PublicStorageItem,
 } from "decorator-shared/types";
 import { endpointUrlWithoutParams } from "./helpers/urls";
+import { redactFromUrl } from "./analytics/helpers/redactUrl";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -113,7 +114,7 @@ export class WebStorageController {
     private pingConsentBack = (consent: Consent) => {
         const pingBody = {
             consentObject: consent,
-            originUrl: window.location.href,
+            originUrl: redactFromUrl(window.location.href),
         };
 
         fetch(endpointUrlWithoutParams(`/api/consentping`), {
