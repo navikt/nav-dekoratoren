@@ -101,15 +101,49 @@ describe("redactFromUrl", () => {
             expect(redactFromUrl("/other/path/here")).toBe("/other/path/here");
         });
 
-        it("should not match when segment count differs", () => {
+        it("should not match when path is shorter than pattern", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
             expect(redactFromUrl("/person/12345678901")).toBe(
                 "/person/12345678901",
             );
-            expect(redactFromUrl("/person/12345678901/sak/extra")).toBe(
-                "/person/12345678901/sak/extra",
+        });
+    });
+
+    describe("prefix matching", () => {
+        it("should match and redact when URL has additional segments after pattern", () => {
+            setRedactPaths(["/foobar/mypage/:redact:"]);
+
+            expect(redactFromUrl("/foobar/mypage/382737/list")).toBe(
+                "/foobar/mypage/[redacted]/list",
             );
+            expect(redactFromUrl("/foobar/mypage/3827273/list/page2")).toBe(
+                "/foobar/mypage/[redacted]/list/page2",
+            );
+        });
+
+        it("should match exact length paths as well", () => {
+            setRedactPaths(["/foobar/mypage/:redact:"]);
+
+            expect(redactFromUrl("/foobar/mypage/382737")).toBe(
+                "/foobar/mypage/[redacted]",
+            );
+        });
+
+        it("should handle multiple :redact: with prefix matching", () => {
+            setRedactPaths(["/person/:redact:/dokument/:redact:"]);
+
+            expect(
+                redactFromUrl("/person/123/dokument/abc/extra/segments"),
+            ).toBe("/person/[redacted]/dokument/[redacted]/extra/segments");
+        });
+
+        it("should preserve query strings and hash with prefix matching", () => {
+            setRedactPaths(["/foobar/mypage/:redact:"]);
+
+            expect(
+                redactFromUrl("/foobar/mypage/382737/list?foo=bar#section"),
+            ).toBe("/foobar/mypage/[redacted]/list?foo=bar#section");
         });
     });
 

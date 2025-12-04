@@ -4,7 +4,7 @@ const createSegmentsArray = (path: string): string[] => {
 };
 
 const knownRedactPaths = [
-    "/testsider/minoversikt/:redact:/liste",
+    "/testsider/minoversikt/:redact:",
     "/syk/sykefravaer/sykmeldinger/:redact:",
     "/syk/sykepenger/vedtak/:redact:",
     "/syk/sykepenger/vedtak/arkivering/:redact:",
@@ -14,8 +14,7 @@ const knownRedactPaths = [
     "/syk/sykepengesoknad/kvittering/:redact:",
     "/syk/sykepengesoknad/sendt/:redact:",
     "/syk/sykepengesoknad/soknader/:redact:",
-    "/arbeid/dagpenger/meldekort/periode/:redact:/fyll-ut",
-    "/arbeid/dagpenger/meldekort/periode/:redact:/arbeidssoker",
+    "/arbeid/dagpenger/meldekort/periode/:redact:",
 ];
 
 export const redactFromUrl = (url: string): string => {
@@ -27,7 +26,13 @@ export const redactFromUrl = (url: string): string => {
     const appRedactPaths: string[] =
         (window as any)?.__DECORATOR_DATA__?.params?.redactPaths || [];
 
-    const redactPaths = [...knownRedactPaths, ...appRedactPaths];
+    // Sort patterns by segment count (most segments first) so more specific patterns
+    // are matched before shorter/more general ones.
+    // E.g. "/syk/sykepenger/vedtak/arkivering/:redact:" should be checked
+    // before "/syk/sykepenger/vedtak/:redact:" to avoid incorrect matches.
+    const redactPaths = [...knownRedactPaths, ...appRedactPaths].sort(
+        (a, b) => createSegmentsArray(b).length - createSegmentsArray(a).length,
+    );
 
     // Detect whether the input is an absolute URL (protocol present)
     const isAbsoluteUrl = /^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url);
@@ -58,8 +63,10 @@ export const redactFromUrl = (url: string): string => {
         const redactPattern = rawRedactPattern.replace(/^\/+|\/+$/g, "");
         const patternSegments = createSegmentsArray(redactPattern);
 
-        // Segments in redact pattern and the path to redact must match in length
-        if (patternSegments.length !== pathSegmentsToRedact.length) {
+        // Pattern must be a prefix of the path (or exact match).
+        // E.g. pattern "/foobar/mypage/:redact:" matches "/foobar/mypage/123"
+        // and also "/foobar/mypage/123/list/page2"
+        if (patternSegments.length > pathSegmentsToRedact.length) {
             continue;
         }
 
@@ -70,6 +77,7 @@ export const redactFromUrl = (url: string): string => {
         // ie. person/:redact:/sak/:redact: -> [1, 3]
         const currentPatternRedactIndices: number[] = [];
 
+        // Only iterate over the pattern segments (prefix matching)
         for (let i = 0; i < patternSegments.length; i++) {
             const singlePatternSegment = patternSegments[i];
             const singlePathSegment = pathSegmentsToRedact[i];
