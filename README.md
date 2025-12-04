@@ -283,16 +283,6 @@ Av personvernhensyn fjernes alle query-parametere fra URL-er før de sendes til 
 **Viktig:** Du er selv ansvarlig for at hvitelistede parametere ikke inneholder sensitive eller
 personidentifiserbare opplysninger. Inkluder kun query-parametere som er trygge å eksponere i analytics-data.
 
-#### redactPaths
-
-Noen team har persontilknyttet informasjon i URL'en, feks id slik:
-`/minapp/873629372/oversikter`
-
-Disse blir sendt til Umami som en del av `url` ved sporing og gjør at vi får data der som kan spores tilbake til enkeltpersoner.
-Team kan legge inn mønster på paths som lar dekoratøren vite hvilke deler at pathen som skal redactes før den sendes til Umami
-
-Det vil si at `/minapp/873629372/oversikter` blir til `/minapp/[redacted]/oversikter` før url'en lagres i Umami.
-
 </details>
 
 ### 3.3 Eksempler
@@ -429,8 +419,7 @@ utloggingsvarselet oppfører seg:
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 [nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
-Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november
-2025. Se mer informasjon i toppen av denne readme-filen.
+Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 2025. Se mer informasjon i toppen av denne readme-filen.
 
 #### Analytics nå som du bruker nav-dekoratoren-moduler 📦
 
