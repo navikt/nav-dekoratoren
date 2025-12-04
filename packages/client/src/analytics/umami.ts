@@ -107,7 +107,8 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
 export const initUmami = () => {
     if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
         const script = document.createElement("script");
-        script.src = "https://cdn.nav.no/team-researchops/sporing/sporing.js";
+        script.src =
+            "https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js";
         script.defer = true;
         script.setAttribute("data-host-url", "https://umami.nav.no");
         script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
@@ -118,7 +119,7 @@ export const initUmami = () => {
 
 export const stopUmami = () => {
     const umamiScript = document.querySelector(
-        'script[src="https://cdn.nav.no/team-researchops/sporing/sporing.js"]',
+        'script[src="https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js"]',
     );
 
     if (umamiScript) {
