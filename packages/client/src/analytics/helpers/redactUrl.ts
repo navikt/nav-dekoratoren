@@ -3,7 +3,18 @@ const createSegmentsArray = (path: string): string[] => {
     return trimmed === "" ? [] : trimmed.split("/");
 };
 
-const knownRedactPaths = ["/testsider/minoversikt/:redact:/liste"];
+const knownRedactPaths = [
+    "/testsider/minoversikt/:redact:/liste",
+    "/syk/sykefravaer/sykmeldinger/:redact:",
+    "/syk/sykepenger/vedtak/:redact:",
+    "/syk/sykepenger/vedtak/arkivering/:redact:",
+    "/syk/sykefravaer/sykmeldinger/:redact:",
+    "/syk/sykefravaer/inntektsmeldinger/:redact:",
+    "/syk/sykepengesoknad/avbrutt/:redact:",
+    "/syk/sykepengesoknad/kvittering/:redact:",
+    "/syk/sykepengesoknad/sendt/:redact:",
+    "/syk/sykepengesoknad/soknader/:redact:",
+];
 
 export const redactFromUrl = (url: string): string => {
     // Guard for SSR / non-browser
