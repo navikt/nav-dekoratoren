@@ -8,7 +8,6 @@ const knownRedactPaths = [
     "/syk/sykefravaer/sykmeldinger/:redact:",
     "/syk/sykepenger/vedtak/:redact:",
     "/syk/sykepenger/vedtak/arkivering/:redact:",
-    "/syk/sykefravaer/sykmeldinger/:redact:",
     "/syk/sykefravaer/inntektsmeldinger/:redact:",
     "/syk/sykepengesoknad/avbrutt/:redact:",
     "/syk/sykepengesoknad/kvittering/:redact:",
