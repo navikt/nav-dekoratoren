@@ -14,6 +14,8 @@ const knownRedactPaths = [
     "/syk/sykepengesoknad/kvittering/:redact:",
     "/syk/sykepengesoknad/sendt/:redact:",
     "/syk/sykepengesoknad/soknader/:redact:",
+    "/arbeid/dagpenger/meldekort/periode/:redact:/fyll-ut",
+    "/arbeid/dagpenger/meldekort/periode/:redact:/arbeidssoker",
 ];
 
 export const redactFromUrl = (url: string): string => {
