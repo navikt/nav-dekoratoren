@@ -11,7 +11,7 @@
     justify-content: flex-start;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .opsMessagesContent {
         justify-content: center;
         column-gap: var(--a-spacing-16);
