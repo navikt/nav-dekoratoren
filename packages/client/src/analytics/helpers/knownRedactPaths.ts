@@ -48,4 +48,8 @@ export const knownRedactPaths = new Map<string, RedactConfig>([
         "/arbeid/dagpenger/meldekort/periode/:redact:",
         { redactPath: true, redactTitle: false },
     ],
+    [
+        "/arbeidsgiver/sykmeldte/sykmeldt/:redact:",
+        { redactPath: true, redactTitle: true },
+    ],
 ]);
