@@ -11,7 +11,7 @@
     "dependencies": {
         "@navikt/nav-dekoratoren-moduler": "^3.2.1",
         "react": "^18",
-        "react-dom": "^18",
+        "react-dom": "^19",
         "next": "14.2.33"
     },
     "devDependencies": {
