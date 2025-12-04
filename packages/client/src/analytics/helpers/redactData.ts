@@ -5,49 +5,65 @@ const UUID_REGEX =
 const EXEMPT_KEYS = ["website"];
 const URL_KEYS = ["url", "referrer", "destinasjon"];
 
-export const redactData = (value: any, key?: string): any => {
+const redactString = (value: string, key?: string): string => {
+    const redactResult =
+        key && URL_KEYS.includes(key)
+            ? redactFromUrl(value).redactedUrl
+            : value;
+    return redactResult.replaceAll(UUID_REGEX, "[redacted: uuid]");
+};
+
+const redactObject = (
+    value: Record<string, any>,
+    parentUrl?: string,
+): Record<string, any> => {
+    const entries = Object.entries(value).map(([k, val]) => {
+        if (EXEMPT_KEYS.includes(k)) {
+            return [k, val];
+        }
+        return [k, redactValue(val, k, parentUrl)];
+    });
+
+    const result = Object.fromEntries(entries);
+
+    // Determine if title should be redacted based on url in this object
+    const url = typeof result.url === "string" ? result.url : parentUrl;
+    const { shouldRedactTitle } = url
+        ? redactFromUrl(url)
+        : { shouldRedactTitle: false };
+
+    if (shouldRedactTitle) {
+        if ("title" in result) {
+            result.title = "[redacted]";
+        }
+        if (result.data?.sidetittel) {
+            result.data.sidetittel = "[redacted]";
+        }
+    }
+
+    return result;
+};
+
+const redactValue = (value: any, key?: string, parentUrl?: string): any => {
     if (value === null || value === undefined) {
         return value;
     }
 
     if (typeof value === "string") {
-        // First apply URL redaction if this is a URL-related key
-        const redactResult =
-            key && URL_KEYS.includes(key)
-                ? redactFromUrl(value).redactedUrl
-                : value;
-        // Then redact any UUIDs
-        return redactResult.replaceAll(UUID_REGEX, "[redacted: uuid]");
+        return redactString(value, key);
     }
 
     if (Array.isArray(value)) {
-        return value.map((item) => redactData(item));
+        return value.map((item) => redactValue(item, undefined, parentUrl));
     }
 
     if (typeof value === "object") {
-        const entries = Object.entries(value).map(([k, val]) => {
-            if (EXEMPT_KEYS.includes(k)) {
-                return [k, val];
-            }
-            return [k, redactData(val, k)];
-        });
-
-        const result = Object.fromEntries(entries);
-
-        // If object has both url and title, check if title should be redacted
-        if (
-            "url" in result &&
-            "title" in result &&
-            typeof result.url === "string"
-        ) {
-            const { shouldRedactTitle } = redactFromUrl(result.url);
-            if (shouldRedactTitle) {
-                result.title = "[redacted]";
-            }
-        }
-
-        return result;
+        return redactObject(value, parentUrl);
     }
 
     return value;
+};
+
+export const redactData = (data: any, key?: string): any => {
+    return redactValue(data, key);
 };

@@ -337,6 +337,83 @@ describe("redactData", () => {
         });
     });
 
+    describe("sidetittel redaction", () => {
+        it("should redact data.sidetittel when URL matches pattern with redactTitle: true", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: true },
+                ],
+            ]);
+
+            expect(
+                redactData({
+                    url: "/person/12345/sak",
+                    title: "Page Title",
+                    data: {
+                        sidetittel: "Sensitive Sidetittel",
+                        other: "value",
+                    },
+                }),
+            ).toEqual({
+                url: "/person/[redacted]/sak",
+                title: "[redacted]",
+                data: {
+                    sidetittel: "[redacted]",
+                    other: "value",
+                },
+            });
+        });
+
+        it("should not redact data.sidetittel when redactTitle is false", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: false },
+                ],
+            ]);
+
+            expect(
+                redactData({
+                    url: "/person/12345/sak",
+                    title: "Page Title",
+                    data: {
+                        sidetittel: "Sidetittel",
+                    },
+                }),
+            ).toEqual({
+                url: "/person/[redacted]/sak",
+                title: "Page Title",
+                data: {
+                    sidetittel: "Sidetittel",
+                },
+            });
+        });
+
+        it("should not redact data.sidetittel when URL does not match", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: true },
+                ],
+            ]);
+
+            expect(
+                redactData({
+                    url: "/other/path",
+                    data: {
+                        sidetittel: "Sidetittel",
+                    },
+                }),
+            ).toEqual({
+                url: "/other/path",
+                data: {
+                    sidetittel: "Sidetittel",
+                },
+            });
+        });
+    });
+
     describe("other value types", () => {
         it("should return numbers unchanged", () => {
             expect(redactData(42)).toBe(42);
