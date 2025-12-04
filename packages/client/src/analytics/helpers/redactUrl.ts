@@ -117,7 +117,7 @@ export const redactFromUrl = (url: string): string => {
         redactIndices.has(idx) ? "[redacted]" : seg,
     );
 
-    // Original path has traling slash. We want to not change anything but redact segments.
+    // Original path has trailing slash. We want to not change anything but redact segments.
     const hasTrailingSlash =
         originalPathToRedact.length > 1 && originalPathToRedact.endsWith("/");
 
