@@ -1,11 +1,25 @@
 import { redactFromUrl } from "./redactUrl";
+import { knownRedactPaths, RedactConfig } from "./knownRedactPaths";
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 describe("redactFromUrl", () => {
     const originalWindow = global.window;
 
-    const setRedactPaths = (paths: string[]) => {
-        (global.window as any).__DECORATOR_DATA__.params.redactPaths = paths;
+    const setRedactPaths = (
+        paths: Array<[string, RedactConfig]> | string[],
+    ) => {
+        knownRedactPaths.clear();
+        for (const path of paths) {
+            if (typeof path === "string") {
+                // Legacy format - default to redactPath: true, redactTitle: false
+                knownRedactPaths.set(path, {
+                    redactPath: true,
+                    redactTitle: false,
+                });
+            } else {
+                knownRedactPaths.set(path[0], path[1]);
+            }
+        }
     };
 
     beforeEach(() => {
@@ -14,16 +28,13 @@ describe("redactFromUrl", () => {
             location: {
                 origin: "https://www.nav.no",
             },
-            __DECORATOR_DATA__: {
-                params: {
-                    redactPaths: [],
-                },
-            },
         } as unknown as Window & typeof globalThis;
+        knownRedactPaths.clear();
     });
 
     afterEach(() => {
         global.window = originalWindow;
+        knownRedactPaths.clear();
     });
 
     describe("when window is undefined (SSR)", () => {
@@ -31,24 +42,21 @@ describe("redactFromUrl", () => {
             const url = "/person/12345678901/sak";
             global.window = undefined as unknown as Window & typeof globalThis;
 
-            expect(redactFromUrl(url)).toBe(url);
+            const result = redactFromUrl(url);
+            expect(result.redactedUrl).toBe(url);
+            expect(result.originalUrl).toBe(url);
+            expect(result.shouldRedactTitle).toBe(false);
         });
     });
 
-    describe("when redactPaths is empty or not defined", () => {
-        it("should return the original URL when redactPaths is empty", () => {
+    describe("when knownRedactPaths is empty", () => {
+        it("should return the original URL when knownRedactPaths is empty", () => {
             const url = "/person/12345678901/sak";
-            setRedactPaths([]);
 
-            expect(redactFromUrl(url)).toBe(url);
-        });
-
-        it("should return the original URL when redactPaths is not an array", () => {
-            const url = "/person/12345678901/sak";
-            (window as any).__DECORATOR_DATA__.params.redactPaths =
-                "not-an-array";
-
-            expect(redactFromUrl(url)).toBe(url);
+            const result = redactFromUrl(url);
+            expect(result.redactedUrl).toBe(url);
+            expect(result.originalUrl).toBe(url);
+            expect(result.shouldRedactTitle).toBe(false);
         });
     });
 
@@ -56,7 +64,7 @@ describe("redactFromUrl", () => {
         it("should redact matching path segments", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
-            expect(redactFromUrl("/person/12345678901/sak")).toBe(
+            expect(redactFromUrl("/person/12345678901/sak").redactedUrl).toBe(
                 "/person/[redacted]/sak",
             );
         });
@@ -64,15 +72,16 @@ describe("redactFromUrl", () => {
         it("should handle multiple :redact: placeholders in a pattern", () => {
             setRedactPaths(["/person/:redact:/dokument/:redact:"]);
 
-            expect(redactFromUrl("/person/12345678901/dokument/abc123")).toBe(
-                "/person/[redacted]/dokument/[redacted]",
-            );
+            expect(
+                redactFromUrl("/person/12345678901/dokument/abc123")
+                    .redactedUrl,
+            ).toBe("/person/[redacted]/dokument/[redacted]");
         });
 
         it("should preserve trailing slashes", () => {
             setRedactPaths(["/person/:redact:/sak/"]);
 
-            expect(redactFromUrl("/person/12345678901/sak/")).toBe(
+            expect(redactFromUrl("/person/12345678901/sak/").redactedUrl).toBe(
                 "/person/[redacted]/sak/",
             );
         });
@@ -81,14 +90,15 @@ describe("redactFromUrl", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
             expect(
-                redactFromUrl("/person/12345678901/sak?foo=bar#section"),
+                redactFromUrl("/person/12345678901/sak?foo=bar#section")
+                    .redactedUrl,
             ).toBe("/person/[redacted]/sak?foo=bar#section");
         });
 
         it("should be case-insensitive for literal segments", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
-            expect(redactFromUrl("/Person/12345678901/Sak")).toBe(
+            expect(redactFromUrl("/Person/12345678901/Sak").redactedUrl).toBe(
                 "/Person/[redacted]/Sak",
             );
         });
@@ -98,13 +108,15 @@ describe("redactFromUrl", () => {
         it("should return the original URL unchanged", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
-            expect(redactFromUrl("/other/path/here")).toBe("/other/path/here");
+            expect(redactFromUrl("/other/path/here").redactedUrl).toBe(
+                "/other/path/here",
+            );
         });
 
         it("should not match when path is shorter than pattern", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
-            expect(redactFromUrl("/person/12345678901")).toBe(
+            expect(redactFromUrl("/person/12345678901").redactedUrl).toBe(
                 "/person/12345678901",
             );
         });
@@ -114,18 +126,18 @@ describe("redactFromUrl", () => {
         it("should match and redact when URL has additional segments after pattern", () => {
             setRedactPaths(["/foobar/mypage/:redact:"]);
 
-            expect(redactFromUrl("/foobar/mypage/382737/list")).toBe(
-                "/foobar/mypage/[redacted]/list",
-            );
-            expect(redactFromUrl("/foobar/mypage/3827273/list/page2")).toBe(
-                "/foobar/mypage/[redacted]/list/page2",
-            );
+            expect(
+                redactFromUrl("/foobar/mypage/382737/list").redactedUrl,
+            ).toBe("/foobar/mypage/[redacted]/list");
+            expect(
+                redactFromUrl("/foobar/mypage/3827273/list/page2").redactedUrl,
+            ).toBe("/foobar/mypage/[redacted]/list/page2");
         });
 
         it("should match exact length paths as well", () => {
             setRedactPaths(["/foobar/mypage/:redact:"]);
 
-            expect(redactFromUrl("/foobar/mypage/382737")).toBe(
+            expect(redactFromUrl("/foobar/mypage/382737").redactedUrl).toBe(
                 "/foobar/mypage/[redacted]",
             );
         });
@@ -134,7 +146,8 @@ describe("redactFromUrl", () => {
             setRedactPaths(["/person/:redact:/dokument/:redact:"]);
 
             expect(
-                redactFromUrl("/person/123/dokument/abc/extra/segments"),
+                redactFromUrl("/person/123/dokument/abc/extra/segments")
+                    .redactedUrl,
             ).toBe("/person/[redacted]/dokument/[redacted]/extra/segments");
         });
 
@@ -142,7 +155,8 @@ describe("redactFromUrl", () => {
             setRedactPaths(["/foobar/mypage/:redact:"]);
 
             expect(
-                redactFromUrl("/foobar/mypage/382737/list?foo=bar#section"),
+                redactFromUrl("/foobar/mypage/382737/list?foo=bar#section")
+                    .redactedUrl,
             ).toBe("/foobar/mypage/[redacted]/list?foo=bar#section");
         });
     });
@@ -152,7 +166,8 @@ describe("redactFromUrl", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
             expect(
-                redactFromUrl("https://www.nav.no/person/12345678901/sak"),
+                redactFromUrl("https://www.nav.no/person/12345678901/sak")
+                    .redactedUrl,
             ).toBe("https://www.nav.no/person/[redacted]/sak");
         });
 
@@ -162,7 +177,7 @@ describe("redactFromUrl", () => {
             expect(
                 redactFromUrl(
                     "https://www.nav.no/person/12345678901/sak?a=b#hash",
-                ),
+                ).redactedUrl,
             ).toBe("https://www.nav.no/person/[redacted]/sak?a=b#hash");
         });
     });
@@ -172,13 +187,13 @@ describe("redactFromUrl", () => {
             setRedactPaths(["/person/:redact:/sak"]);
 
             // This malformed URL should just return as-is
-            expect(redactFromUrl("://invalid")).toBe("://invalid");
+            expect(redactFromUrl("://invalid").redactedUrl).toBe("://invalid");
         });
 
         it("should handle patterns without leading slash", () => {
             setRedactPaths(["person/:redact:/sak"]);
 
-            expect(redactFromUrl("/person/12345678901/sak")).toBe(
+            expect(redactFromUrl("/person/12345678901/sak").redactedUrl).toBe(
                 "/person/[redacted]/sak",
             );
         });
@@ -186,7 +201,7 @@ describe("redactFromUrl", () => {
         it("should handle empty path patterns gracefully", () => {
             setRedactPaths([""]);
 
-            expect(redactFromUrl("/person/12345678901/sak")).toBe(
+            expect(redactFromUrl("/person/12345678901/sak").redactedUrl).toBe(
                 "/person/12345678901/sak",
             );
         });
@@ -198,21 +213,150 @@ describe("redactFromUrl", () => {
                 "/annen/:redact:/liste/:redact:",
             ]);
 
-            expect(redactFromUrl("/person/12345678901/sak")).toBe(
+            expect(redactFromUrl("/person/12345678901/sak").redactedUrl).toBe(
                 "/person/[redacted]/sak",
             );
-            expect(redactFromUrl("/bruker/abc123/dokument")).toBe(
+            expect(redactFromUrl("/bruker/abc123/dokument").redactedUrl).toBe(
                 "/bruker/[redacted]/dokument",
             );
-            expect(redactFromUrl("/annen/abc123/liste/xyz789")).toBe(
-                "/annen/[redacted]/liste/[redacted]",
-            );
+            expect(
+                redactFromUrl("/annen/abc123/liste/xyz789").redactedUrl,
+            ).toBe("/annen/[redacted]/liste/[redacted]");
         });
 
         it("should handle root path", () => {
             setRedactPaths(["/"]);
 
-            expect(redactFromUrl("/")).toBe("/");
+            expect(redactFromUrl("/").redactedUrl).toBe("/");
+        });
+    });
+
+    describe("return object structure", () => {
+        it("should return originalUrl, redactedUrl, and shouldRedactTitle", () => {
+            setRedactPaths(["/person/:redact:/sak"]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.originalUrl).toBe("/person/12345678901/sak");
+            expect(result.redactedUrl).toBe("/person/[redacted]/sak");
+            expect(result.shouldRedactTitle).toBe(false);
+        });
+
+        it("should preserve originalUrl even when redacted", () => {
+            setRedactPaths(["/person/:redact:/sak"]);
+
+            const result = redactFromUrl("/person/sensitive-data/sak");
+
+            expect(result.originalUrl).toBe("/person/sensitive-data/sak");
+            expect(result.redactedUrl).toBe("/person/[redacted]/sak");
+        });
+    });
+
+    describe("shouldRedactTitle behavior", () => {
+        it("should set shouldRedactTitle to true when redactTitle config is true", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: true },
+                ],
+            ]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.shouldRedactTitle).toBe(true);
+            expect(result.redactedUrl).toBe("/person/[redacted]/sak");
+        });
+
+        it("should set shouldRedactTitle to false when redactTitle config is false", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: false },
+                ],
+            ]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.shouldRedactTitle).toBe(false);
+            expect(result.redactedUrl).toBe("/person/[redacted]/sak");
+        });
+
+        it("should set shouldRedactTitle to true even when redactPath is false", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: false, redactTitle: true },
+                ],
+            ]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.shouldRedactTitle).toBe(true);
+            // Path should NOT be redacted since redactPath is false
+            expect(result.redactedUrl).toBe("/person/12345678901/sak");
+        });
+
+        it("should not redact path or title when both are false", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: false, redactTitle: false },
+                ],
+            ]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.shouldRedactTitle).toBe(false);
+            expect(result.redactedUrl).toBe("/person/12345678901/sak");
+        });
+    });
+
+    describe("redactPath behavior", () => {
+        it("should redact path segments when redactPath is true", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: false },
+                ],
+            ]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.redactedUrl).toBe("/person/[redacted]/sak");
+        });
+
+        it("should not redact path segments when redactPath is false", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: false, redactTitle: false },
+                ],
+            ]);
+
+            const result = redactFromUrl("/person/12345678901/sak");
+
+            expect(result.redactedUrl).toBe("/person/12345678901/sak");
+        });
+
+        it("should handle mixed redactPath configs across multiple patterns", () => {
+            setRedactPaths([
+                [
+                    "/person/:redact:/sak",
+                    { redactPath: true, redactTitle: false },
+                ],
+                [
+                    "/bruker/:redact:/info",
+                    { redactPath: false, redactTitle: true },
+                ],
+            ]);
+
+            const personResult = redactFromUrl("/person/123/sak");
+            expect(personResult.redactedUrl).toBe("/person/[redacted]/sak");
+            expect(personResult.shouldRedactTitle).toBe(false);
+
+            const brukerResult = redactFromUrl("/bruker/456/info");
+            expect(brukerResult.redactedUrl).toBe("/bruker/456/info");
+            expect(brukerResult.shouldRedactTitle).toBe(true);
         });
     });
 });

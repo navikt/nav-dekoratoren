@@ -1,32 +1,27 @@
+import { knownRedactPaths } from "./knownRedactPaths";
+
+export type RedactUrlResult = {
+    originalUrl: string;
+    redactedUrl: string;
+    shouldRedactTitle: boolean;
+};
+
 const createSegmentsArray = (path: string): string[] => {
     const trimmed = path.replace(/^\/+|\/+$/g, "");
     return trimmed === "" ? [] : trimmed.split("/");
 };
 
-const knownRedactPaths = [
-    "/testsider/minoversikt/:redact:",
-    "/syk/sykefravaer/sykmeldinger/:redact:",
-    "/syk/sykepenger/vedtak/:redact:",
-    "/syk/sykepenger/vedtak/arkivering/:redact:",
-    "/syk/sykefravaer/inntektsmeldinger/:redact:",
-    "/syk/sykepengesoknad/avbrutt/:redact:",
-    "/syk/sykepengesoknad/kvittering/:redact:",
-    "/syk/sykepengesoknad/sendt/:redact:",
-    "/syk/sykepengesoknad/soknader/:redact:",
-    "/arbeid/dagpenger/meldekort/periode/:redact:",
-];
-
-export const redactFromUrl = (url: string): string => {
+export const redactFromUrl = (url: string): RedactUrlResult => {
     // Guard for SSR / non-browser
     if (typeof window === "undefined") {
-        return url;
+        return { originalUrl: url, redactedUrl: url, shouldRedactTitle: false };
     }
 
     // Sort patterns by segment count (most segments first) so more specific patterns
     // are matched before shorter/more general ones.
     // E.g. "/syk/sykepenger/vedtak/arkivering/:redact:" should be checked
     // before "/syk/sykepenger/vedtak/:redact:" to avoid incorrect matches.
-    const redactPaths = [...knownRedactPaths].sort(
+    const redactPaths = [...knownRedactPaths.keys()].sort(
         (a, b) => createSegmentsArray(b).length - createSegmentsArray(a).length,
     );
 
@@ -42,7 +37,7 @@ export const redactFromUrl = (url: string): string => {
             : new URL(url, window.location.origin);
     } catch {
         // If parsing fails, just bail out and return the original
-        return url;
+        return { originalUrl: url, redactedUrl: url, shouldRedactTitle: false };
     }
 
     const originalPathToRedact = urlObj.pathname;
@@ -52,6 +47,8 @@ export const redactFromUrl = (url: string): string => {
 
     // Collect indices that should be redacted across all matching patterns
     const redactIndices = new Set<number>();
+    // Track if any matching pattern has redactTitle set to true
+    let shouldRedactTitle = false;
 
     for (const rawRedactPattern of redactPaths) {
         if (!rawRedactPattern) continue;
@@ -98,15 +95,25 @@ export const redactFromUrl = (url: string): string => {
         }
 
         if (matches) {
-            for (const idx of currentPatternRedactIndices) {
-                redactIndices.add(idx);
+            const config = knownRedactPaths.get(rawRedactPattern);
+
+            // Set shouldRedactTitle if any matching pattern has redactTitle: true
+            if (config?.redactTitle) {
+                shouldRedactTitle = true;
+            }
+
+            // Only collect indices if redactPath is true
+            if (config?.redactPath) {
+                for (const idx of currentPatternRedactIndices) {
+                    redactIndices.add(idx);
+                }
             }
         }
     }
 
-    // If nothing to redact, return original URL unchanged
+    // If nothing to redact, return original URL unchanged (but include shouldRedactTitle)
     if (redactIndices.size === 0) {
-        return url;
+        return { originalUrl: url, redactedUrl: url, shouldRedactTitle };
     }
 
     // Build redacted segments
@@ -132,9 +139,9 @@ export const redactFromUrl = (url: string): string => {
     urlObj.pathname = redactedPath;
 
     // Preserve query string and hash exactly as parsed
-    const result = isAbsoluteUrl
+    const redactedUrl = isAbsoluteUrl
         ? urlObj.toString()
         : `${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
 
-    return result;
+    return { originalUrl: url, redactedUrl, shouldRedactTitle };
 };

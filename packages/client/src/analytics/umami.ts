@@ -20,7 +20,9 @@ export const redactData = (value: any, key?: string): any => {
     if (typeof value === "string") {
         // First apply URL redaction if this is a URL-related key
         const redactResult =
-            key && URL_KEYS.includes(key) ? redactFromUrl(value) : value;
+            key && URL_KEYS.includes(key)
+                ? redactFromUrl(value).redactedUrl
+                : value;
         // Then redact any UUIDs
         return redactResult.replaceAll(UUID_REGEX, "[redacted: uuid]");
     }
@@ -30,14 +32,28 @@ export const redactData = (value: any, key?: string): any => {
     }
 
     if (typeof value === "object") {
-        return Object.fromEntries(
-            Object.entries(value).map(([k, val]) => {
-                if (EXEMPT_KEYS.includes(k)) {
-                    return [k, val];
-                }
-                return [k, redactData(val, k)];
-            }),
-        );
+        const entries = Object.entries(value).map(([k, val]) => {
+            if (EXEMPT_KEYS.includes(k)) {
+                return [k, val];
+            }
+            return [k, redactData(val, k)];
+        });
+
+        const result = Object.fromEntries(entries);
+
+        // If object has both url and title, check if title should be redacted
+        if (
+            "url" in result &&
+            "title" in result &&
+            typeof result.url === "string"
+        ) {
+            const { shouldRedactTitle } = redactFromUrl(result.url);
+            if (shouldRedactTitle) {
+                result.title = "[redacted]";
+            }
+        }
+
+        return result;
     }
 
     return value;
