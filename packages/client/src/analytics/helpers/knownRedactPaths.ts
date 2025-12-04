@@ -6,6 +6,10 @@ export type RedactConfig = {
 export const knownRedactPaths = new Map<string, RedactConfig>([
     [
         "/testsider/minoversikt/:redact:",
+        { redactPath: true, redactTitle: false },
+    ],
+    [
+        "/testsider/minoversikt/navnitittel/:redact:",
         { redactPath: true, redactTitle: true },
     ],
     [
