@@ -22,14 +22,11 @@ export const redactFromUrl = (url: string): string => {
         return url;
     }
 
-    const appRedactPaths: string[] =
-        (window as any)?.__DECORATOR_DATA__?.params?.redactPaths || [];
-
     // Sort patterns by segment count (most segments first) so more specific patterns
     // are matched before shorter/more general ones.
     // E.g. "/syk/sykepenger/vedtak/arkivering/:redact:" should be checked
     // before "/syk/sykepenger/vedtak/:redact:" to avoid incorrect matches.
-    const redactPaths = [...knownRedactPaths, ...appRedactPaths].sort(
+    const redactPaths = [...knownRedactPaths].sort(
         (a, b) => createSegmentsArray(b).length - createSegmentsArray(a).length,
     );
 
