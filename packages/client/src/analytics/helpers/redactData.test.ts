@@ -123,6 +123,138 @@ describe("redactData", () => {
         });
     });
 
+    describe("local path redaction", () => {
+        describe("Unix/macOS paths", () => {
+            it("should redact /users/ (lowercase)", () => {
+                expect(
+                    redactData("/users/john/documents/file.txt", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact /Users/ (uppercase)", () => {
+                expect(
+                    redactData("/Users/John/Documents/file.txt", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact /home/ paths (Linux)", () => {
+                expect(redactData("/home/john/documents/file.txt", "url")).toBe(
+                    "[redacted: local path]",
+                );
+            });
+
+            it("should redact file:// protocol with Unix path", () => {
+                expect(
+                    redactData(
+                        "file:///Users/dev/project/index.html",
+                        "referrer",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact file:// protocol with Linux path", () => {
+                expect(
+                    redactData("file:///home/dev/project/index.html", "url"),
+                ).toBe("[redacted: local path]");
+            });
+        });
+
+        describe("Windows paths", () => {
+            it("should redact Windows path with backslashes", () => {
+                expect(
+                    redactData("C:\\Users\\john\\Documents\\file.pdf", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact Windows path with forward slashes", () => {
+                expect(
+                    redactData("C:/Users/john/Documents/file.pdf", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact lowercase drive letter", () => {
+                expect(
+                    redactData("c:/users/john/documents/file.pdf", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact file:// protocol with Windows path", () => {
+                expect(
+                    redactData(
+                        "file:///C:/Users/john/Documents/file.pdf",
+                        "url",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact various drive letters", () => {
+                expect(redactData("D:\\data\\file.txt", "url")).toBe(
+                    "[redacted: local path]",
+                );
+                expect(redactData("E:/backup/file.txt", "url")).toBe(
+                    "[redacted: local path]",
+                );
+            });
+        });
+
+        describe("URL key handling", () => {
+            it("should redact for destinasjon key", () => {
+                expect(
+                    redactData(
+                        "/users/someone/downloads/report.pdf",
+                        "destinasjon",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should not redact local paths for non-URL keys", () => {
+                expect(redactData("/users/john/file.txt", "someOtherKey")).toBe(
+                    "/users/john/file.txt",
+                );
+            });
+
+            it("should redact local paths in URL keys within objects", () => {
+                expect(
+                    redactData({
+                        url: "/Users/dev/project/page.html",
+                        referrer: "C:/Users/dev/old.html",
+                        name: "test",
+                    }),
+                ).toEqual({
+                    url: "[redacted: local path]",
+                    referrer: "[redacted: local path]",
+                    name: "test",
+                });
+            });
+        });
+
+        describe("should NOT redact legitimate web URLs", () => {
+            it("should not redact /api/users/ paths", () => {
+                expect(redactData("/api/users/123", "url")).toBe(
+                    "/api/users/123",
+                );
+            });
+
+            it("should not redact /api/home/ paths", () => {
+                expect(redactData("/settings/home/dashboard", "url")).toBe(
+                    "/settings/home/dashboard",
+                );
+            });
+
+            it("should not redact full URLs with /users/ in path", () => {
+                expect(
+                    redactData("https://api.example.com/api/users/123", "url"),
+                ).toBe("https://api.example.com/api/users/123");
+            });
+
+            it("should not redact full URLs with /home/ in path", () => {
+                expect(
+                    redactData("https://example.com/home/dashboard", "url"),
+                ).toBe("https://example.com/home/dashboard");
+            });
+        });
+    });
+
     describe("array values", () => {
         it("should recursively redact array items", () => {
             const uuid = "123e4567-e89b-12d3-a456-426614174000";
