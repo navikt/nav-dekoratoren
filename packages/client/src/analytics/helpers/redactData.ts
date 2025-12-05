@@ -2,14 +2,12 @@ import { redactFromUrl } from "./redactUrl";
 
 const UUID_REGEX =
     /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
-const EXEMPT_KEYS = ["website"];
-const URL_KEYS = ["url", "referrer", "destinasjon"];
+const EXEMPT_KEYS = new Set(["website"]);
+const URL_KEYS = new Set(["url", "referrer", "destinasjon"]);
 
 const redactString = (value: string, key?: string): string => {
     const redactResult =
-        key && URL_KEYS.includes(key)
-            ? redactFromUrl(value).redactedUrl
-            : value;
+        key && URL_KEYS.has(key) ? redactFromUrl(value).redactedUrl : value;
     return redactResult.replaceAll(UUID_REGEX, "[redacted: uuid]");
 };
 
@@ -18,7 +16,7 @@ const redactObject = (
     parentUrl?: string,
 ): Record<string, any> => {
     const entries = Object.entries(value).map(([k, val]) => {
-        if (EXEMPT_KEYS.includes(k)) {
+        if (EXEMPT_KEYS.has(k)) {
             return [k, val];
         }
         return [k, redactValue(val, k, parentUrl)];
