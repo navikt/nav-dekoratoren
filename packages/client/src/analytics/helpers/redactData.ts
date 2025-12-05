@@ -6,8 +6,10 @@ const UUID_REGEX =
 // Detects local file system paths:
 // - Windows: C:\Users\..., C:/Users/..., file:///C:/...
 // - Unix/macOS: /Users/..., /home/..., file:///home/...
-const LOCAL_PATH_REGEX =
-    /(?:^file:\/\/\/|^[a-z]:[\\/]|(?:^|[\\/])(?:users|home)[\\/])/i;
+const LOCAL_PATH_REGEX = new RegExp(
+    String.raw`(?:^file:\/\/\/|^[a-z]:[\/\\]|(?:^|[\/\\])(?:users|home)[\/\\])`,
+    "i",
+);
 
 const EXEMPT_KEYS = new Set(["website"]);
 const URL_KEYS = new Set(["url", "referrer", "destinasjon"]);
