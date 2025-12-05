@@ -6,139 +6,154 @@ export type RedactUrlResult = {
     shouldRedactTitle: boolean;
 };
 
-const createSegmentsArray = (path: string): string[] => {
+type PatternMatchResult = {
+    matches: boolean;
+    segmentIndicesToRedact: number[];
+};
+
+const REDACT_PLACEHOLDER = ":redact:";
+const REDACTED_OUTPUT = "[redacted]";
+
+const splitPathIntoSegments = (path: string): string[] => {
     const trimmed = path.replace(/^\/+|\/+$/g, "");
     return trimmed === "" ? [] : trimmed.split("/");
 };
 
-export const redactFromUrl = (url: string): RedactUrlResult => {
-    // Guard for SSR / non-browser
-    if (typeof window === "undefined") {
-        return { originalUrl: url, redactedUrl: url, shouldRedactTitle: false };
+// Sort patterns by segment count (most segments first) so more specific
+// patterns are matched before shorter/more general ones.
+// E.g. "/syk/sykepenger/vedtak/arkivering/:redact:" should be checked
+// before "/syk/sykepenger/vedtak/:redact:" to avoid incorrect matches.
+const getPatternsSortedBySpecificity = (): string[] => {
+    return [...knownRedactPaths.keys()].sort(
+        (a, b) =>
+            splitPathIntoSegments(b).length - splitPathIntoSegments(a).length,
+    );
+};
+
+// Pattern must be a prefix of the path (or exact match)
+// E.g. "/foobar/mypage/:redact:" matches both "/foobar/mypage/123"
+// and "/foobar/mypage/123/extra/segments"
+const matchPatternToPath = (
+    patternSegments: string[],
+    urlPathSegments: string[],
+): PatternMatchResult => {
+    const segmentIndicesToRedact: number[] = [];
+
+    if (patternSegments.length > urlPathSegments.length) {
+        return { matches: false, segmentIndicesToRedact: [] };
     }
 
-    // Sort patterns by segment count (most segments first) so more specific patterns
-    // are matched before shorter/more general ones.
-    // E.g. "/syk/sykepenger/vedtak/arkivering/:redact:" should be checked
-    // before "/syk/sykepenger/vedtak/:redact:" to avoid incorrect matches.
-    const redactPaths = [...knownRedactPaths.keys()].sort(
-        (a, b) => createSegmentsArray(b).length - createSegmentsArray(a).length,
+    for (let i = 0; i < patternSegments.length; i++) {
+        const patternSegment = patternSegments[i];
+        const urlSegment = urlPathSegments[i];
+
+        if (patternSegment === REDACT_PLACEHOLDER) {
+            segmentIndicesToRedact.push(i);
+            continue;
+        }
+
+        // Case-insensitive comparison for literal segments
+        if (patternSegment.toLowerCase() !== urlSegment.toLowerCase()) {
+            return { matches: false, segmentIndicesToRedact: [] };
+        }
+    }
+
+    return { matches: true, segmentIndicesToRedact };
+};
+
+const buildRedactedPath = (
+    pathSegments: string[],
+    indicesToRedact: Set<number>,
+    hasTrailingSlash: boolean,
+): string => {
+    if (pathSegments.length === 0) {
+        return "/";
+    }
+
+    const redactedSegments = pathSegments.map((segment, index) =>
+        indicesToRedact.has(index) ? REDACTED_OUTPUT : segment,
     );
 
-    // Detect whether the input is an absolute URL (protocol present)
+    let redactedPath = `/${redactedSegments.join("/")}`;
+
+    if (hasTrailingSlash && !redactedPath.endsWith("/")) {
+        redactedPath += "/";
+    }
+
+    return redactedPath;
+};
+
+// Sometimes we don't want to redact anything, so we return the original URL
+const createSkippedRedactionResult = (
+    url: string,
+    shouldRedactTitle = false,
+): RedactUrlResult => ({
+    originalUrl: url,
+    redactedUrl: url,
+    shouldRedactTitle,
+});
+
+export const redactFromUrl = (url: string): RedactUrlResult => {
+    // Guard for SSR / non-browser environments
+    if (typeof window === "undefined") {
+        return createSkippedRedactionResult(url);
+    }
+
     const isAbsoluteUrl = /^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url);
 
-    // Using URL API to parse the URL because it handles oddities like
-    // double slashes, query strings, hashes, out of the box.
     let urlObj: URL;
     try {
         urlObj = isAbsoluteUrl
             ? new URL(url)
             : new URL(url, window.location.origin);
     } catch {
-        // If parsing fails, just bail out and return the original
-        return { originalUrl: url, redactedUrl: url, shouldRedactTitle: false };
+        return createSkippedRedactionResult(url);
     }
 
-    const originalPathToRedact = urlObj.pathname;
+    const originalPathname = urlObj.pathname;
+    const urlPathSegments = splitPathIntoSegments(originalPathname);
+    const sortedPatterns = getPatternsSortedBySpecificity();
 
-    const trimmedPath = originalPathToRedact.replace(/^\/+|\/+$/g, "");
-    const pathSegmentsToRedact = createSegmentsArray(trimmedPath);
-
-    // Collect indices that should be redacted across all matching patterns
-    const redactIndices = new Set<number>();
-    // Track if any matching pattern has redactTitle set to true
+    const indicesToRedact = new Set<number>();
     let shouldRedactTitle = false;
 
-    for (const rawRedactPattern of redactPaths) {
-        if (!rawRedactPattern) continue;
+    for (const patternPath of sortedPatterns) {
+        if (!patternPath) continue;
 
-        const redactPattern = rawRedactPattern.replace(/^\/+|\/+$/g, "");
-        const patternSegments = createSegmentsArray(redactPattern);
+        const patternSegments = splitPathIntoSegments(patternPath);
+        const matchResult = matchPatternToPath(
+            patternSegments,
+            urlPathSegments,
+        );
 
-        // Pattern must be a prefix of the path (or exact match).
-        // E.g. pattern "/foobar/mypage/:redact:" matches "/foobar/mypage/123"
-        // and also "/foobar/mypage/123/list/page2"
-        if (patternSegments.length > pathSegmentsToRedact.length) {
-            continue;
-        }
+        if (matchResult.matches) {
+            const config = knownRedactPaths.get(patternPath);
 
-        // Be optimistic!
-        let matches = true;
-
-        // Track the indices where :redact: appears in the current pattern
-        // ie. person/:redact:/sak/:redact: -> [1, 3]
-        const currentPatternRedactIndices: number[] = [];
-
-        // Only iterate over the pattern segments (prefix matching)
-        for (let i = 0; i < patternSegments.length; i++) {
-            const singlePatternSegment = patternSegments[i];
-            const singlePathSegment = pathSegmentsToRedact[i];
-
-            if (singlePatternSegment === ":redact:") {
-                currentPatternRedactIndices.push(i);
-                continue;
-            }
-
-            // Literal case-insensitive comparison (we've already checked for :redact:).
-            // E.g. the pattern "person" should match URL segment "Person" or "PERSON",
-            // regardless of case. So we use toLowerCase() on both sides.
-            // If they still don't match, this specific pattern cannot match the path,
-            // so we break out and continue to the next pattern.
-            if (
-                singlePatternSegment.toLowerCase() !==
-                singlePathSegment.toLowerCase()
-            ) {
-                matches = false;
-                break;
-            }
-        }
-
-        if (matches) {
-            const config = knownRedactPaths.get(rawRedactPattern);
-
-            // Set shouldRedactTitle if any matching pattern has redactTitle: true
             if (config?.redactTitle) {
                 shouldRedactTitle = true;
             }
 
-            // Only collect indices if redactPath is true
             if (config?.redactPath) {
-                for (const idx of currentPatternRedactIndices) {
-                    redactIndices.add(idx);
+                for (const index of matchResult.segmentIndicesToRedact) {
+                    indicesToRedact.add(index);
                 }
             }
         }
     }
 
-    // If nothing to redact, return original URL unchanged (but include shouldRedactTitle)
-    if (redactIndices.size === 0) {
-        return { originalUrl: url, redactedUrl: url, shouldRedactTitle };
+    if (indicesToRedact.size === 0) {
+        return createSkippedRedactionResult(url, shouldRedactTitle);
     }
 
-    // Build redacted segments
-    const redactedSegments = pathSegmentsToRedact.map((seg, idx) =>
-        redactIndices.has(idx) ? "[redacted]" : seg,
+    const hasTrailingSlash =
+        originalPathname.length > 1 && originalPathname.endsWith("/");
+
+    urlObj.pathname = buildRedactedPath(
+        urlPathSegments,
+        indicesToRedact,
+        hasTrailingSlash,
     );
 
-    // Original path has trailing slash. We want to not change anything but redact segments.
-    const hasTrailingSlash =
-        originalPathToRedact.length > 1 && originalPathToRedact.endsWith("/");
-
-    // Reconstruct the path, preserving leading slash and original trailing slash
-    let redactedPath: string;
-    if (redactedSegments.length === 0) {
-        redactedPath = "/";
-    } else {
-        redactedPath = `/${redactedSegments.join("/")}`;
-        if (hasTrailingSlash && !redactedPath.endsWith("/")) {
-            redactedPath += "/";
-        }
-    }
-
-    urlObj.pathname = redactedPath;
-
-    // Preserve query string and hash exactly as parsed
     const redactedUrl = isAbsoluteUrl
         ? urlObj.toString()
         : `${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
