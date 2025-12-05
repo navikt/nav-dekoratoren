@@ -4,44 +4,18 @@ import {
     extraWindowParams,
     buildLocationString,
 } from "./analytics";
-import { redactFromUrl } from "./helpers/redactUrl";
+import { redactData } from "./helpers/redactData";
 import { AnalyticsEventArgs, EventData } from "./types";
 
-const UUID_REGEX =
-    /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
-const EXEMPT_KEYS = ["website"];
-const URL_KEYS = ["url", "referrer", "destinasjon"];
-
-export const redactData = (value: any, key?: string): any => {
-    if (value === null || value === undefined) {
-        return value;
-    }
-
-    if (typeof value === "string") {
-        // First apply URL redaction if this is a URL-related key
-        const redactResult =
-            key && URL_KEYS.includes(key) ? redactFromUrl(value) : value;
-        // Then redact any UUIDs
-        return redactResult.replaceAll(UUID_REGEX, "[redacted: uuid]");
-    }
-
-    if (Array.isArray(value)) {
-        return value.map((item) => redactData(item));
-    }
-
-    if (typeof value === "object") {
-        return Object.fromEntries(
-            Object.entries(value).map(([k, val]) => {
-                if (EXEMPT_KEYS.includes(k)) {
-                    return [k, val];
-                }
-                return [k, redactData(val, k)];
-            }),
-        );
-    }
-
-    return value;
-};
+/*
+ * TIL UTVIKLER: ADVARSEL OM PERSONOPPLYSNINGER
+ * -------------------------------------------------------------------------------------------
+ * Dersom du legger til funksjonalitet her som samler inn
+ * data, må du forsikre deg om at ingen personopplysninger sendes til Umami.
+ * Funksjonen redactData fjerner data på klientnivå, men kun for kjente mønstre eller nøkler.
+ * Hvis du legger til nye mønstre eller et nytt nøkkelnavn, må du oppdatere `URL_KEYS`-settet i `redactData.ts` for nye URL-lignende nøkler, og legge til mønstre i `knownRedactPaths.ts` for nye stier.
+ * For team som sender inn tilpasset ekstra data er de selv ansvarlige for etterlevelse.
+ */
 
 export const redactQueryString = (url: string): string => {
     if (!url) return url;
