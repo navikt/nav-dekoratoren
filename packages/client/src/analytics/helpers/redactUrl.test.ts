@@ -3,7 +3,7 @@ import { knownRedactPaths, RedactConfig } from "./knownRedactPaths";
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 describe("redactFromUrl", () => {
-    const originalWindow = global.window;
+    const originalWindow = globalThis.window;
 
     const setRedactPaths = (
         paths: Array<[string, RedactConfig]> | string[],
@@ -24,7 +24,7 @@ describe("redactFromUrl", () => {
 
     beforeEach(() => {
         // Setup a mock window with location
-        global.window = {
+        globalThis.window = {
             location: {
                 origin: "https://www.nav.no",
             },
@@ -33,14 +33,15 @@ describe("redactFromUrl", () => {
     });
 
     afterEach(() => {
-        global.window = originalWindow;
+        globalThis.window = originalWindow;
         knownRedactPaths.clear();
     });
 
     describe("when window is undefined (SSR)", () => {
         it("should return the original URL", () => {
             const url = "/person/12345678901/sak";
-            global.window = undefined as unknown as Window & typeof globalThis;
+            globalThis.window = undefined as unknown as Window &
+                typeof globalThis;
 
             const result = redactFromUrl(url);
             expect(result.redactedUrl).toBe(url);

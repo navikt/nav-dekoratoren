@@ -3,7 +3,7 @@ import { knownRedactPaths, RedactConfig } from "./knownRedactPaths";
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 describe("redactData", () => {
-    const originalWindow = global.window;
+    const originalWindow = globalThis.window;
 
     const setRedactPaths = (paths: Array<[string, RedactConfig]>) => {
         knownRedactPaths.clear();
@@ -13,7 +13,7 @@ describe("redactData", () => {
     };
 
     beforeEach(() => {
-        global.window = {
+        globalThis.window = {
             location: {
                 origin: "https://www.nav.no",
             },
@@ -22,7 +22,7 @@ describe("redactData", () => {
     });
 
     afterEach(() => {
-        global.window = originalWindow;
+        globalThis.window = originalWindow;
         knownRedactPaths.clear();
     });
 
