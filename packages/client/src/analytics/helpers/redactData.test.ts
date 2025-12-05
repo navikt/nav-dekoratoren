@@ -227,6 +227,32 @@ describe("redactData", () => {
                 });
             });
         });
+
+        describe("should NOT redact legitimate web URLs", () => {
+            it("should not redact /api/users/ paths", () => {
+                expect(redactData("/api/users/123", "url")).toBe(
+                    "/api/users/123",
+                );
+            });
+
+            it("should not redact /api/home/ paths", () => {
+                expect(redactData("/settings/home/dashboard", "url")).toBe(
+                    "/settings/home/dashboard",
+                );
+            });
+
+            it("should not redact full URLs with /users/ in path", () => {
+                expect(
+                    redactData("https://api.example.com/api/users/123", "url"),
+                ).toBe("https://api.example.com/api/users/123");
+            });
+
+            it("should not redact full URLs with /home/ in path", () => {
+                expect(
+                    redactData("https://example.com/home/dashboard", "url"),
+                ).toBe("https://example.com/home/dashboard");
+            });
+        });
     });
 
     describe("array values", () => {
