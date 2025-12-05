@@ -13,7 +13,7 @@ import { AnalyticsEventArgs, EventData } from "./types";
  * Dersom du legger til funksjonalitet her som samler inn
  * data, må du forsikre deg om at ingen personopplysninger sendes til Umami.
  * Funksjonen redactData fjerner data på klientnivå, men kun for kjente mønstre eller nøkler.
- * Hvis du legger til nye mønstre eller et nytt nøkkelnavn, må du oppdatere funksjonene som sjekker ting som url, title, sidetittel, referrer osv.
+ * Hvis du legger til nye mønstre eller et nytt nøkkelnavn, må du oppdatere `URL_KEYS`-settet i `redactData.ts` for nye URL-lignende nøkler, og legge til mønstre i `knownRedactPaths.ts` for nye stier.
  * For team som sender inn tilpasset ekstra data er de selv ansvarlige for etterlevelse.
  */
 
