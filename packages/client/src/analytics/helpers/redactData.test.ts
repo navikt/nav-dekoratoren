@@ -195,6 +195,15 @@ describe("redactData", () => {
                     "[redacted: local path]",
                 );
             });
+
+            it("should redact Windows path with leading slash", () => {
+                expect(
+                    redactData(
+                        "/C:/Users/Users Name/Desktop/soknader Ortoser.htm",
+                        "url",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
         });
 
         describe("URL key handling", () => {

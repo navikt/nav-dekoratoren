@@ -4,12 +4,12 @@ const UUID_REGEX =
     /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
 
 // Detects local file system paths:
-// - Windows: C:\Users\..., C:/Users/..., file:///C:/...
+// - Windows: C:\Users\..., C:/Users/..., /C:/Users/..., file:///C:/...
 // - Unix/macOS: /Users/..., /home/..., file:///home/...
 // Note: Only matches /users/ or /home/ at the START of the path to avoid
 // false positives on legitimate URLs like /api/users/123
 const LOCAL_PATH_REGEX = new RegExp(
-    String.raw`(?:^file:\/\/\/|^[a-z]:[\/\\]|^[\/\\]?(?:users|home)[\/\\])`,
+    String.raw`(?:^file:\/\/\/|^[\/\\]?[a-z]:[\/\\]|^[\/\\]?(?:users|home)[\/\\])`,
     "i",
 );
 
