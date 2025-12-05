@@ -123,6 +123,53 @@ describe("redactData", () => {
         });
     });
 
+    describe("local path redaction", () => {
+        it("should redact URLs containing /users/ (lowercase)", () => {
+            expect(redactData("/users/john/documents/file.txt", "url")).toBe(
+                "[redacted: local path]",
+            );
+        });
+
+        it("should redact URLs containing /Users/ (uppercase)", () => {
+            expect(redactData("/Users/John/Documents/file.txt", "url")).toBe(
+                "[redacted: local path]",
+            );
+        });
+
+        it("should redact referrer containing local paths", () => {
+            expect(
+                redactData("file:///Users/dev/project/index.html", "referrer"),
+            ).toBe("[redacted: local path]");
+        });
+
+        it("should redact destinasjon containing local paths", () => {
+            expect(
+                redactData(
+                    "/users/someone/downloads/report.pdf",
+                    "destinasjon",
+                ),
+            ).toBe("[redacted: local path]");
+        });
+
+        it("should not redact local paths for non-URL keys", () => {
+            expect(redactData("/users/john/file.txt", "someOtherKey")).toBe(
+                "/users/john/file.txt",
+            );
+        });
+
+        it("should redact local paths in URL keys within objects", () => {
+            expect(
+                redactData({
+                    url: "/Users/dev/project/page.html",
+                    name: "test",
+                }),
+            ).toEqual({
+                url: "[redacted: local path]",
+                name: "test",
+            });
+        });
+    });
+
     describe("array values", () => {
         it("should recursively redact array items", () => {
             const uuid = "123e4567-e89b-12d3-a456-426614174000";
