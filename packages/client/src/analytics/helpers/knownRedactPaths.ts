@@ -52,4 +52,16 @@ export const knownRedactPaths = new Map<string, RedactConfig>([
         "/arbeidsgiver/sykmeldte/sykmeldt/:redact:",
         { redactPath: true, redactTitle: true },
     ],
+    [
+        "/syk/oppfolgingsplaner/arbeidsgiver/:redact:",
+        { redactPath: true, redactTitle: true },
+    ],
+    [
+        "/syk/dialogmoter/arbeidsgiver/:redact:",
+        { redactPath: true, redactTitle: true },
+    ],
+    [
+        "/arbeidsgiver/sykmeldte/sykmeldt/:redact:",
+        { redactPath: true, redactTitle: true },
+    ],
 ]);
