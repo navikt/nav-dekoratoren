@@ -2,18 +2,24 @@ import { redactFromUrl } from "./redactUrl";
 
 const UUID_REGEX =
     /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
-const LOCAL_PATH_REGEX = /\/users\//i;
+
+// Detects local file system paths:
+// - Windows: C:\Users\..., C:/Users/..., file:///C:/...
+// - Unix/macOS: /Users/..., /home/..., file:///home/...
+const LOCAL_PATH_REGEX =
+    /(?:^file:\/\/\/|^[a-z]:[\\/]|(?:^|[\\/])(?:users|home)[\\/])/i;
+
 const EXEMPT_KEYS = new Set(["website"]);
 const URL_KEYS = new Set(["url", "referrer", "destinasjon"]);
 
 const redactString = (value: string, key?: string): string => {
-    let result =
-        key && URL_KEYS.has(key) ? redactFromUrl(value).redactedUrl : value;
-
     // Redact URLs containing local file paths (e.g., /users/ or /Users/)
-    if (key && URL_KEYS.has(key) && LOCAL_PATH_REGEX.test(result)) {
-        result = "[redacted: local path]";
+    if (key && URL_KEYS.has(key) && LOCAL_PATH_REGEX.test(value)) {
+        return "[redacted: local path]";
     }
+
+    const result =
+        key && URL_KEYS.has(key) ? redactFromUrl(value).redactedUrl : value;
 
     return result.replaceAll(UUID_REGEX, "[redacted: uuid]");
 };

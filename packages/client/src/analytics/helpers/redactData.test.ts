@@ -124,48 +124,107 @@ describe("redactData", () => {
     });
 
     describe("local path redaction", () => {
-        it("should redact URLs containing /users/ (lowercase)", () => {
-            expect(redactData("/users/john/documents/file.txt", "url")).toBe(
-                "[redacted: local path]",
-            );
+        describe("Unix/macOS paths", () => {
+            it("should redact /users/ (lowercase)", () => {
+                expect(
+                    redactData("/users/john/documents/file.txt", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact /Users/ (uppercase)", () => {
+                expect(
+                    redactData("/Users/John/Documents/file.txt", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact /home/ paths (Linux)", () => {
+                expect(redactData("/home/john/documents/file.txt", "url")).toBe(
+                    "[redacted: local path]",
+                );
+            });
+
+            it("should redact file:// protocol with Unix path", () => {
+                expect(
+                    redactData(
+                        "file:///Users/dev/project/index.html",
+                        "referrer",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact file:// protocol with Linux path", () => {
+                expect(
+                    redactData("file:///home/dev/project/index.html", "url"),
+                ).toBe("[redacted: local path]");
+            });
         });
 
-        it("should redact URLs containing /Users/ (uppercase)", () => {
-            expect(redactData("/Users/John/Documents/file.txt", "url")).toBe(
-                "[redacted: local path]",
-            );
+        describe("Windows paths", () => {
+            it("should redact Windows path with backslashes", () => {
+                expect(
+                    redactData("C:\\Users\\john\\Documents\\file.pdf", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact Windows path with forward slashes", () => {
+                expect(
+                    redactData("C:/Users/john/Documents/file.pdf", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact lowercase drive letter", () => {
+                expect(
+                    redactData("c:/users/john/documents/file.pdf", "url"),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact file:// protocol with Windows path", () => {
+                expect(
+                    redactData(
+                        "file:///C:/Users/john/Documents/file.pdf",
+                        "url",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
+
+            it("should redact various drive letters", () => {
+                expect(redactData("D:\\data\\file.txt", "url")).toBe(
+                    "[redacted: local path]",
+                );
+                expect(redactData("E:/backup/file.txt", "url")).toBe(
+                    "[redacted: local path]",
+                );
+            });
         });
 
-        it("should redact referrer containing local paths", () => {
-            expect(
-                redactData("file:///Users/dev/project/index.html", "referrer"),
-            ).toBe("[redacted: local path]");
-        });
+        describe("URL key handling", () => {
+            it("should redact for destinasjon key", () => {
+                expect(
+                    redactData(
+                        "/users/someone/downloads/report.pdf",
+                        "destinasjon",
+                    ),
+                ).toBe("[redacted: local path]");
+            });
 
-        it("should redact destinasjon containing local paths", () => {
-            expect(
-                redactData(
-                    "/users/someone/downloads/report.pdf",
-                    "destinasjon",
-                ),
-            ).toBe("[redacted: local path]");
-        });
+            it("should not redact local paths for non-URL keys", () => {
+                expect(redactData("/users/john/file.txt", "someOtherKey")).toBe(
+                    "/users/john/file.txt",
+                );
+            });
 
-        it("should not redact local paths for non-URL keys", () => {
-            expect(redactData("/users/john/file.txt", "someOtherKey")).toBe(
-                "/users/john/file.txt",
-            );
-        });
-
-        it("should redact local paths in URL keys within objects", () => {
-            expect(
-                redactData({
-                    url: "/Users/dev/project/page.html",
+            it("should redact local paths in URL keys within objects", () => {
+                expect(
+                    redactData({
+                        url: "/Users/dev/project/page.html",
+                        referrer: "C:/Users/dev/old.html",
+                        name: "test",
+                    }),
+                ).toEqual({
+                    url: "[redacted: local path]",
+                    referrer: "[redacted: local path]",
                     name: "test",
-                }),
-            ).toEqual({
-                url: "[redacted: local path]",
-                name: "test",
+                });
             });
         });
     });
