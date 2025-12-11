@@ -1,7 +1,7 @@
 import cls from "decorator-client/src/styles/arbeidsgiver-user-menu.module.css";
 import utils from "decorator-client/src/styles/utils.module.css";
 import html from "decorator-shared/html";
-import { Buildings3Icon, LeaveIcon } from "decorator-icons";
+import { BriefcaseIcon, LeaveIcon } from "decorator-icons";
 import i18n from "../../i18n";
 
 export type ArbeidsgiverUserMenuProps = {
@@ -22,7 +22,7 @@ export const ArbeidsgiverUserMenu = ({
                 <div class="${cls.name}">${name}</div>
             </div>
             <a href="${href}" class="${cls.menuItem}">
-                ${Buildings3Icon({ className: utils.icon })}
+                ${BriefcaseIcon({ className: utils.icon })}
                 <span>${i18n("my_page_employer")}</span>
             </a>
             <a href="${logoutUrl}" class="${cls.menuItem}">
