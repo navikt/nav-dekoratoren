@@ -22,7 +22,7 @@ jobs:
       IMAGE: ${{ steps.build_test.outputs.IMAGE }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and test
         id: build_test
@@ -40,7 +40,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to Nais
         uses: ./.github/actions/deploy-to-nais
