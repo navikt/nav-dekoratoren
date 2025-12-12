@@ -35,7 +35,7 @@
         "@storybook/addon-essentials": "8.6.14",
         "@storybook/addon-viewport": "8.6.14",
         "@storybook/blocks": "8.6.14",
-        "@storybook/html": "8.6.14",
+        "@storybook/html": "9.1.16",
         "@storybook/html-vite": "8.6.14",
         "@typescript-eslint/eslint-plugin": "8.46.4",
         "@typescript-eslint/parser": "8.46.4",
