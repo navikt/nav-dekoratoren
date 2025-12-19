@@ -12,7 +12,7 @@
         "test:watch": "TZ=UTC vitest watch"
     },
     "dependencies": {
-        "@grafana/faro-web-sdk": "1.19.0",
+        "@grafana/faro-web-sdk": "2.0.2",
         "@navikt/ds-css": "7.35.2",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
