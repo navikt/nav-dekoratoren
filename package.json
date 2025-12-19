@@ -44,10 +44,10 @@
         "esbuild-minify-templates": "0.13.1",
         "eslint": "9.39.1",
         "husky": "9.1.7",
-        "lint-staged": "16.2.6",
+        "lint-staged": "16.2.7",
         "postcss-import-sync2": "1.2.0",
         "prettier": "3.6.2",
-        "storybook": "8.6.15",
+        "storybook": "8.6.14",
         "typescript-plugin-css-modules": "5.2.0",
         "vite": "7.2.2"
     },
