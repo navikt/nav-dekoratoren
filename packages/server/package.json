@@ -13,12 +13,12 @@
         "test": "bun test --env-file=./.env.sample"
     },
     "dependencies": {
-        "@hono/prometheus": "^1.0.1",
-        "csp-header": "6.2.0",
+        "@hono/prometheus": "1.0.2",
+        "csp-header": "6.3.0",
         "decorator-client": "workspace:*",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.10.5",
+        "hono": "4.11.3",
         "ts-pattern": "5.9.0",
         "unleash-client": "6.9.0"
     },
