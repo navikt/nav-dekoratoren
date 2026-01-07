@@ -6,7 +6,7 @@ import {
 import { clientEnv } from "./env/server";
 import { P, match } from "ts-pattern";
 import { ZodBoolean, ZodDefault } from "zod";
-import { logger } from "./lib/logger";
+import { logger } from "decorator-shared/logger";
 
 const booleans = Object.entries(paramsSchema.shape).reduce<string[]>(
     (prev, [key, value]) => {

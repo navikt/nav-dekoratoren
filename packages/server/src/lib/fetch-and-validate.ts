@@ -1,6 +1,6 @@
 import { Result, ResultType } from "../result";
 import { ZodType } from "zod";
-import { logger } from "./logger";
+import { logger } from "decorator-shared/logger";
 
 type FetchAndValidate = <ResponseData>(
     ...args: [...Parameters<typeof fetch>, schema: ZodType<ResponseData>]

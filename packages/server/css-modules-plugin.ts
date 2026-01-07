@@ -1,7 +1,7 @@
 import { plugin } from "bun";
 import postcss from "postcss";
 import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config";
-import { logger } from "./src/lib/logger";
+import { logger } from "decorator-shared/logger";
 
 export async function getPostcssTokens(path: string) {
     try {

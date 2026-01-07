@@ -1,7 +1,7 @@
 import { BunPlugin } from "bun";
 import { getPostcssTokens } from "./css-modules-plugin";
 import { minify } from "esbuild-minify-templates";
-import { logger } from "./src/lib/logger";
+import { logger } from "decorator-shared/logger";
 
 const cssModulesPlugin: BunPlugin = {
     name: "css-modules",

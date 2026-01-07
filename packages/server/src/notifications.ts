@@ -2,7 +2,7 @@ import { z } from "zod";
 import { env } from "./env/server";
 import { Result, ResultType } from "./result";
 import { fetchAndValidateJson } from "./lib/fetch-and-validate";
-import { logger } from "./lib/logger";
+import { logger } from "decorator-shared/logger";
 
 const varselSchema = z
     .object({

@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { isLocalhost } from "../urls";
-import { logger } from "./logger";
+import { logger } from "decorator-shared/logger";
 
 type OnUpdateCallback<FileContent> = (
     fileContent: FileContent | null,

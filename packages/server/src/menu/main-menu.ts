@@ -6,7 +6,7 @@ import { clientEnv, env } from "../env/server";
 import { isNorwegian } from "../i18n";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import fallbackData from "./main-menu-mock.json";
-import { logger } from "../lib/logger";
+import { logger } from "decorator-shared/logger";
 
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;

@@ -1,6 +1,6 @@
 import { clientEnvSchema } from "decorator-shared/params";
 import { serverSchema, serverEnv, client_env } from "./schema";
-import { logger } from "../lib/logger";
+import { logger } from "decorator-shared/logger";
 
 const _serverEnv = serverSchema.safeParse(serverEnv);
 const _clientEnv = clientEnvSchema.safeParse(client_env);

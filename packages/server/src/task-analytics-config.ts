@@ -1,7 +1,7 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
 import { ConfigMapWatcher } from "./lib/config-map-watcher";
-import { logger } from "./lib/logger";
+import { logger } from "decorator-shared/logger";
 
 export type TaskAnalyticsSurvey = z.infer<typeof taSurveySchema>;
 export type TaskAnalyticsUrlRule = z.infer<typeof taUrlRuleSchema>;

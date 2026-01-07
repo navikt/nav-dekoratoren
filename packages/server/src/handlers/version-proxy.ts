@@ -1,7 +1,7 @@
 import { HonoRequest, MiddlewareHandler } from "hono";
 import { VERSION_ID_PARAM } from "decorator-shared/constants";
 import { env } from "../env/server";
-import { logger } from "../lib/logger";
+import { logger } from "decorator-shared/logger";
 
 const SERVER_VERSION_ID = env.VERSION_ID;
 const APP_NAME = env.APP_NAME;
