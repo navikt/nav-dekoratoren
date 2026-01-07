@@ -1,6 +1,7 @@
 import { contextSchema, languageSchema } from "decorator-shared/params";
 import { z } from "zod";
 import { ConfigMapWatcher } from "./lib/config-map-watcher";
+import { logger } from "./lib/logger";
 
 export type TaskAnalyticsSurvey = z.infer<typeof taSurveySchema>;
 export type TaskAnalyticsUrlRule = z.infer<typeof taUrlRuleSchema>;
@@ -43,8 +44,8 @@ const validateSurveys = (surveys: unknown) => {
     const result = configSchema.safeParse(surveys);
 
     if (!result.success) {
-        console.error(
-            `Failed to validate TA surveys - ${result.error.errors.map((error) => error.path).join("\n")}`,
+        logger.error(
+            `Failed to validate TA surveys - ${result.error.issues.map((issue) => issue.path).join("\n")}`,
         );
         return null;
     }

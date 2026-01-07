@@ -1,3 +1,5 @@
+import { logger } from "./logger";
+
 type CacheItem<Type> = {
     value: Type;
     expires: number;
@@ -57,7 +59,7 @@ export class ResponseCache<ValueType = unknown> {
                 return value;
             })
             .catch((e) => {
-                console.error(
+                logger.error(
                     `Callback error while fetching value for key ${key} - ${e}`,
                 );
                 return this.cache.get(key)?.value || null;

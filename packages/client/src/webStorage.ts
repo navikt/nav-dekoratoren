@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
+import { logger } from "decorator-shared/logger";
 import {
     ConsentAction,
     Consent,
@@ -43,7 +44,7 @@ export class WebStorageController {
 
     private getStorageDictionaryFromEnv = (): PublicStorageItem[] => {
         if (!window.__DECORATOR_DATA__) {
-            console.error(
+            logger.error(
                 "Decorator data not available. Make sure decorator is loaded correctly.",
             );
             return [];

@@ -1,6 +1,7 @@
 import { TaskAnalyticsSurvey } from "decorator-server/src/task-analytics-config";
 import { Context, Language } from "decorator-shared/params";
 import { endpointUrlWithParams } from "../../helpers/urls";
+import { logger } from "decorator-shared/logger";
 import {
     taskAnalyticsGetSelectedSurveyId,
     taskAnalyticsRefreshState,
@@ -96,7 +97,7 @@ const fetchAndStart = async () => {
             findAndStartSurvey(surveys);
         })
         .catch((e) => {
-            console.error(`Error fetching Task Analytics surveys - ${e}`);
+            logger.error(`Error fetching Task Analytics surveys - ${e}`);
         });
 };
 
@@ -119,7 +120,7 @@ const waitForTAToBeLoaded = (retries = 10) => {
         setTimeout(() => waitForTAToBeLoaded(retries - 1), 500);
     } else {
         window.TA = taFallback;
-        console.error("Task Analytics failed to load after multiple attempts.");
+        logger.error("Task Analytics failed to load after multiple attempts.");
     }
 };
 

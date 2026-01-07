@@ -1,10 +1,12 @@
+import { logger } from "decorator-shared/logger";
+
 type DefineCustomElement = CustomElementRegistry["define"];
 
 const _defineCustomElement: DefineCustomElement = (name, element, options) => {
     try {
         window.customElements.define(name, element, options);
     } catch (e) {
-        console.error(`Failed to define custom element for "${name}" - ${e}`);
+        logger.error(`Failed to define custom element for "${name}" - ${e}`);
     }
 };
 

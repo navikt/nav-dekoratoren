@@ -1,5 +1,6 @@
 import { Result, ResultType } from "../result";
 import { ZodType } from "zod";
+import { logger } from "./logger";
 
 type FetchAndValidate = <ResponseData>(
     ...args: [...Parameters<typeof fetch>, schema: ZodType<ResponseData>]
@@ -13,7 +14,7 @@ const parseAndValidateResponse = <ResponseData>(
 
     if (!validatedResponse.success) {
         const msg = `Error parsing response - ${validatedResponse.error}`;
-        console.error(msg);
+        logger.error(msg);
         return Result.Error(msg);
     }
 
@@ -39,6 +40,6 @@ export const fetchAndValidateJson: FetchAndValidate = async (
         })
         .catch((err) => {
             const msg = `Failed to fetch from ${url}: ${err}`;
-            console.error(msg);
+            logger.error(msg);
             return Result.Error(msg);
         });

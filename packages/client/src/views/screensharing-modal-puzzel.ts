@@ -3,6 +3,7 @@ import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
+import { logger } from "decorator-shared/logger";
 
 let scriptLoaded: Promise<void> | undefined;
 
@@ -12,7 +13,7 @@ let scriptLoaded: Promise<void> | undefined;
  * 2. Sjekke config-parameterene som sendes inn, customerID, queueKey, interactionId
  */
 export const loadPuzzelScript = (): Promise<void> => {
-    console.log("Loading Puzzel script");
+    logger.info("Loading Puzzel script");
     if (scriptLoaded) {
         return scriptLoaded;
     }
@@ -33,7 +34,7 @@ export const loadPuzzelScript = (): Promise<void> => {
 };
 
 function lazyLoadScreensharing(openModal: () => void) {
-    console.log("Lazy loading puzzel screensharing");
+    logger.info("Lazy loading puzzel screensharing");
     // Check if it is already loaded to avoid layout shift
     const enabled =
         window.__DECORATOR_DATA__.params.shareScreen &&
@@ -44,7 +45,7 @@ function lazyLoadScreensharing(openModal: () => void) {
         openModal();
         return;
     }
-    console.log("Screensharing enabled, loading puzzel script");
+    logger.info("Screensharing enabled, loading puzzel script");
     loadPuzzelScript().then(() => {
         openModal();
     });
@@ -136,9 +137,9 @@ export class ScreensharingModalPuzzel extends HTMLElement {
 
 export class ScreenshareButtonPuzzel extends HTMLElement {
     loadScriptIfActiveSession = () => {
-        console.log("Checking for active puzzle chat session");
+        logger.info("Checking for active puzzle chat session");
         const puzzleChatSession = Cookies.get("pzl.rid");
-        console.log("puzzleChatSession", puzzleChatSession);
+        logger.info("puzzleChatSession", { puzzleChatSession });
         if (
             puzzleChatSession &&
             window.__DECORATOR_DATA__.features["dekoratoren.puzzel-script"]
@@ -160,7 +161,7 @@ export class ScreenshareButtonPuzzel extends HTMLElement {
                 const dialog = document.querySelector(
                     "screensharing-modal",
                 ) as HTMLDialogElement;
-                console.log("Opening puzzel screensharing modal");
+                logger.info("Opening puzzel screensharing modal");
 
                 dialog.showModal();
             }),

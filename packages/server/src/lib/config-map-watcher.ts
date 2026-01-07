@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { isLocalhost } from "../urls";
+import { logger } from "./logger";
 
 type OnUpdateCallback<FileContent> = (
     fileContent: FileContent | null,
@@ -38,7 +39,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
         });
 
         if (!mountPathStats) {
-            console.error(
+            logger.error(
                 `Mount path ${mountPathFull} for ${filename} does not exist - configmap file will not be watched`,
             );
             return;
@@ -57,7 +58,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
                     fileOrDir &&
                     fileOrDir.includes(path.basename(mountPathFull))
                 ) {
-                    console.log(
+                    logger.info(
                         `Detected potential ConfigMap update for ${mountPathFull} (${event})`,
                     );
                     this.checkForUpdate(onUpdate);
@@ -74,7 +75,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
                     return;
                 }
 
-                console.log(
+                logger.info(
                     `Configmap file ${this.filePath} change detected (${event})`,
                 );
                 this.checkForUpdate(onUpdate);
@@ -90,7 +91,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
                 try {
                     await this.checkForUpdate(onUpdate);
                 } catch (e) {
-                    console.error(
+                    logger.error(
                         `Error during polling config map changes: ${e}`,
                     );
                 } finally {
@@ -104,12 +105,12 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             startPolling();
         }
 
-        console.log(
+        logger.info(
             `Watching for updates on ${mountPathFull} for ${filename} and ${parentDir}.`,
         );
 
         process.on("SIGINT", () => {
-            console.log(`Closing watchers for configmap file ${this.filePath}`);
+            logger.info(`Closing watchers for configmap file ${this.filePath}`);
             this.isShuttingDown = true;
             watcher.close();
             directWatcher.close();
@@ -136,7 +137,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 
             if (currentMtime !== this.lastMtime) {
                 this.lastMtime = currentMtime;
-                console.log(
+                logger.info(
                     `File ${this.filePath} has been modified (mtime: ${new Date(currentMtime).toISOString()})`,
                 );
 
@@ -146,7 +147,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
                 }
             }
         } catch (e) {
-            console.error(`Error checking file update: ${e}`);
+            logger.error(`Error checking file update: ${e}`);
         }
     }
 
@@ -160,10 +161,10 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
             const stats = await fs.promises.stat(this.filePath);
             this.lastMtime = stats.mtimeMs;
 
-            console.log(`Successfully read configmap file ${this.filePath}`);
+            logger.info(`Successfully read configmap file ${this.filePath}`);
             return this.fileContent;
         } catch (e) {
-            console.error(
+            logger.error(
                 `Error reading configmap file ${this.filePath} - ${e}`,
             );
             return null;

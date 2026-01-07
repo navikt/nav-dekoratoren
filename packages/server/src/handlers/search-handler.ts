@@ -1,6 +1,7 @@
 import { Context, Language } from "decorator-shared/params";
 import { z } from "zod";
 import { env } from "../env/server";
+import { logger } from "../lib/logger";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import { SearchErrorView } from "../views/errors/search-error";
 import { SearchHits } from "../views/search-hits";
@@ -53,7 +54,7 @@ export const searchHandler = async ({
     });
 
     if (!result.ok) {
-        console.error(
+        logger.error(
             `Error fetching search results for ${query} - ${result.error.message}`,
         );
         return SearchErrorView().render({ language });

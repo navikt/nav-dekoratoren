@@ -2,6 +2,7 @@ import { z } from "zod";
 import { env } from "./env/server";
 import { Result, ResultType } from "./result";
 import { fetchAndValidateJson } from "./lib/fetch-and-validate";
+import { logger } from "./lib/logger";
 
 const varselSchema = z
     .object({
@@ -17,7 +18,7 @@ const varselSchema = z
     .catch((ctx) => {
         // Don't log fields which may contain sensitive information
         const redactedInput = { ...ctx.input, tekst: null, link: null };
-        console.error(
+        logger.error(
             `Error validating notification - ${JSON.stringify(redactedInput)}`,
         );
         return null;
