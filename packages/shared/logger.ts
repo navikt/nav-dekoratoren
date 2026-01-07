@@ -19,18 +19,12 @@ const formatLog = (level: LogLevel, message: string, context?: LogContext) => {
 // Detect if we're running in a browser (client-side) vs Node.js (server-side)
 const isBrowser = typeof window !== "undefined";
 
-// Check if we're in development mode
-const isDevelopment =
-    (typeof process !== "undefined" &&
-        (process as any).env?.NODE_ENV !== "production") ||
-    (isBrowser && window.location?.hostname === "localhost");
-
 export const logger = {
     info: (message: string, context?: LogContext) => {
         const logEntry = formatLog("info", message, context);
-        // In browser, always use human-readable format
-        // In server, use JSON in production, human-readable in development
-        if (isBrowser || isDevelopment) {
+        // In browser: human-readable format for console
+        // In server: structured JSON for OpenSearch parsing
+        if (isBrowser) {
             console.log(`[INFO] ${message}`, context || "");
         } else {
             console.log(JSON.stringify(logEntry));
@@ -38,7 +32,7 @@ export const logger = {
     },
     error: (message: string, context?: LogContext) => {
         const logEntry = formatLog("error", message, context);
-        if (isBrowser || isDevelopment) {
+        if (isBrowser) {
             console.error(`[ERROR] ${message}`, context || "");
         } else {
             console.error(JSON.stringify(logEntry));
@@ -46,7 +40,7 @@ export const logger = {
     },
     warn: (message: string, context?: LogContext) => {
         const logEntry = formatLog("warn", message, context);
-        if (isBrowser || isDevelopment) {
+        if (isBrowser) {
             console.warn(`[WARN] ${message}`, context || "");
         } else {
             console.warn(JSON.stringify(logEntry));
@@ -54,7 +48,7 @@ export const logger = {
     },
     debug: (message: string, context?: LogContext) => {
         const logEntry = formatLog("debug", message, context);
-        if (isBrowser || isDevelopment) {
+        if (isBrowser) {
             console.debug(`[DEBUG] ${message}`, context || "");
         } else {
             console.log(JSON.stringify(logEntry));
