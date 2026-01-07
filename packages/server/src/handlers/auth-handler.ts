@@ -42,7 +42,7 @@ const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
             );
         })
         .catch((e) => {
-            logger.error(`Auth error - ${e}`);
+            logger.error("Auth error", { error: e });
             return null;
         });
 };

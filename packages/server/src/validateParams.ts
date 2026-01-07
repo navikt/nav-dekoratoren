@@ -72,7 +72,7 @@ export const parseAndValidateParams = (
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {
-        logger.error(validParams.error);
+        logger.error("Failed to validate params", { error: validParams.error });
         throw new Error(validParams.error.toString());
     }
 

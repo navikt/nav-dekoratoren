@@ -60,7 +60,8 @@ export class ResponseCache<ValueType = unknown> {
             })
             .catch((e) => {
                 logger.error(
-                    `Callback error while fetching value for key ${key} - ${e}`,
+                    `Callback error while fetching value for key ${key}`,
+                    { error: e },
                 );
                 return this.cache.get(key)?.value || null;
             })

@@ -41,7 +41,7 @@ const fetchFromInternalVersionApp = async (
 
         return new Response(response.body, response);
     } catch (e) {
-        logger.error(`Proxy request failed for ${url} - ${e}`);
+        logger.error(`Proxy request failed for ${url}`, { error: e });
         return null;
     }
 };
