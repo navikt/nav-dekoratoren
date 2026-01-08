@@ -1,17 +1,21 @@
 // Shared logger that works in both browser and Node.js environments
 
 interface LogContext {
-    [key: string]: any;
+    error: any;
 }
 
 type LogLevel = "info" | "error" | "warn" | "debug";
 
 const formatLog = (level: LogLevel, message: string, context?: LogContext) => {
+    const error =
+        typeof context?.error === "string"
+            ? context.error
+            : JSON.stringify(context?.error);
+
     const logEntry = {
         level,
         message,
-        timestamp: new Date().toISOString(),
-        ...context,
+        error,
     };
     return logEntry;
 };
