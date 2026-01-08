@@ -139,7 +139,7 @@ export class ScreenshareButtonPuzzel extends HTMLElement {
     loadScriptIfActiveSession = () => {
         logger.info("Checking for active puzzle chat session");
         const puzzleChatSession = Cookies.get("pzl.rid");
-        logger.info("puzzleChatSession", { puzzleChatSession });
+        logger.info(`puzzleChatSession: ${puzzleChatSession}`);
         if (
             puzzleChatSession &&
             window.__DECORATOR_DATA__.features["dekoratoren.puzzel-script"]

@@ -6,7 +6,9 @@ const _defineCustomElement: DefineCustomElement = (name, element, options) => {
     try {
         window.customElements.define(name, element, options);
     } catch (e) {
-        logger.error(`Failed to define custom element for "${name}" - ${e}`);
+        logger.error(`Failed to define custom element for "${name}"`, {
+            error: e,
+        });
     }
 };
 

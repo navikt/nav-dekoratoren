@@ -44,9 +44,9 @@ const validateSurveys = (surveys: unknown) => {
     const result = configSchema.safeParse(surveys);
 
     if (!result.success) {
-        logger.error(
-            `Failed to validate TA surveys - ${result.error.issues.map((issue) => issue.path).join("\n")}`,
-        );
+        logger.error("Failed to validate TA surveys.", {
+            error: result.error.issues.map((issue) => issue.path).join("\n"),
+        });
         return null;
     }
 

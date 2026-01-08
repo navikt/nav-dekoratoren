@@ -37,7 +37,9 @@ function lazyLoadScreensharing(openModal: () => void) {
         }
 
         window.vngage.subscribe("app.ready", (message, data) => {
-            logger.info("Screensharing app vergic ready", { message, data });
+            logger.info("Screensharing app vergic ready", {
+                metaData: { message, data },
+            });
 
             scriptHasLoaded = true;
             openModal();

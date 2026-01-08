@@ -97,7 +97,7 @@ const fetchAndStart = async () => {
             findAndStartSurvey(surveys);
         })
         .catch((e) => {
-            logger.error(`Error fetching Task Analytics surveys - ${e}`);
+            logger.error(`Error fetching Task Analytics surveys`, { error: e });
         });
 };
 

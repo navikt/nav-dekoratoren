@@ -37,7 +37,7 @@ export async function fetchOrRenewSession(fetchOrRenew: FetchRenew) {
         }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        logger.error(`Failed to ${fetchOrRenew} session - ${error}`);
+        logger.error(`Failed to ${fetchOrRenew} session.`, { error });
         return null;
     }
 }
@@ -71,7 +71,7 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
     })
         .then((res) => res.json() as Promise<AuthDataResponse>)
         .catch((error) => {
-            logger.error(`Failed to fetch auth data - ${error}`);
+            logger.error(`Failed to fetch auth data.`, { error });
             return { auth: { authenticated: false } };
         });
 };

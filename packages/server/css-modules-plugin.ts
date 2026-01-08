@@ -18,7 +18,7 @@ export async function getPostcssTokens(path: string) {
                 type === "export" && plugin === "postcss-modules",
         )?.exportTokens;
     } catch (e) {
-        logger.error(`Error processing CSS modules for ${path} - ${e}`);
+        logger.error("Error processing CSS modules for ${path}", { error: e });
     }
 }
 

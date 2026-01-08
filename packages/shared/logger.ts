@@ -1,7 +1,10 @@
 // Shared logger that works in both browser and Node.js environments
 
+import meta from "./views/breadcrumbs.stories";
+
 interface LogContext {
-    error: any;
+    error?: any;
+    metaData?: any;
 }
 
 type LogLevel = "info" | "error" | "warn" | "debug";
@@ -12,10 +15,16 @@ const formatLog = (level: LogLevel, message: string, context?: LogContext) => {
             ? context.error
             : JSON.stringify(context?.error);
 
+    const metaData =
+        typeof context?.metaData === "string"
+            ? context?.metaData
+            : JSON.stringify(context?.metaData);
+
     const logEntry = {
         level,
         message,
         error,
+        metaData,
     };
     return logEntry;
 };
