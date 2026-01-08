@@ -11,6 +11,9 @@
         "test": "TZ=UTC vitest run",
         "test:watch": "TZ=UTC vitest watch"
     },
+    "dependenciesComments": {
+        "@grafana/faro-web-sdk": "Type-only import. Faro is initialized by xp-frontend, keep version in sync."
+    },
     "dependencies": {
         "@grafana/faro-web-sdk": "1.19.0",
         "@navikt/ds-css": "7.36.0",

@@ -1,4 +1,4 @@
-import { Faro } from "@grafana/faro-web-sdk";
+import type { Faro } from "@grafana/faro-web-sdk";
 import { AppState } from "decorator-shared/types";
 import { CustomEvents, MessageEvents } from "./events";
 import { WebStorageController } from "./webStorage";
