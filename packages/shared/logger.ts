@@ -1,7 +1,5 @@
 // Shared logger that works in both browser and Node.js environments
 
-import meta from "./views/breadcrumbs.stories";
-
 interface LogContext {
     error?: any;
     metaData?: any;
