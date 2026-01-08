@@ -1,6 +1,7 @@
 import { BunPlugin } from "bun";
 import { getPostcssTokens } from "./css-modules-plugin";
 import { minify } from "esbuild-minify-templates";
+import { logger } from "decorator-shared/logger";
 
 const cssModulesPlugin: BunPlugin = {
     name: "css-modules",
@@ -23,7 +24,7 @@ const result = await Bun.build({
 });
 
 const [output] = result.outputs;
-console.log(`Build output: ${JSON.stringify(output)}`);
+logger.info(`Build output: ${JSON.stringify(output)}`);
 
 if (output) {
     const text = await output.text();

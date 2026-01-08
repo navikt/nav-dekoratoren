@@ -1,6 +1,7 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { CustomEvents } from "../events";
+import { logger } from "decorator-shared/logger";
 
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should
@@ -169,7 +170,7 @@ class Sticky extends HTMLElement {
         ) as HTMLElement | null;
 
         if (!absoluteElement || !fixedElement) {
-            console.error("Required elements not found!");
+            logger.error("Required elements not found!");
             return;
         }
 

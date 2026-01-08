@@ -6,6 +6,7 @@ import {
 import { clientEnv } from "./env/server";
 import { P, match } from "ts-pattern";
 import { ZodBoolean, ZodDefault } from "zod";
+import { logger } from "decorator-shared/logger";
 
 const booleans = Object.entries(paramsSchema.shape).reduce<string[]>(
     (prev, [key, value]) => {
@@ -71,7 +72,7 @@ export const parseAndValidateParams = (
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {
-        console.error(validParams.error);
+        logger.error("Failed to validate params", { error: validParams.error });
         throw new Error(validParams.error.toString());
     }
 

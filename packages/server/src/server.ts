@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
+import { logger } from "decorator-shared/logger";
 import { env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";
@@ -34,7 +35,7 @@ const app = new Hono({
 app.use(headers);
 
 if (env.NODE_ENV === "development" || isLocalhost()) {
-    console.log("Setting up mocks");
+    logger.info("Setting up mocks");
     setupMocks();
     app.get(
         "/mockServiceWorker.js",
@@ -57,6 +58,13 @@ app.get("/metrics", printMetrics);
 
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
+
+app.get("/api/mockError", ({ json }) => {
+    logger.error("This is a mocked error for testing OpenSearch logging.", {
+        error: { testKey: "testValue", anotherKey: 12345 },
+    });
+    return json({ result: "error logged" });
+});
 
 app.get("/api/version", versionApiHandler);
 app.get("/api/ta", ({ json }) => {
