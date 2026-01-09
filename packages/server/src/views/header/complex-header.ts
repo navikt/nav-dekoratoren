@@ -37,7 +37,7 @@ export function ComplexHeader({
     mainMenu,
 }: ComplexHeaderProps) {
     return html`
-        <div class="${cls.siteheader}">
+        <div class="${cls.siteheader}" id="toppen">
             ${SkipLink(i18n("skip_link"))}
             ${Sticky({
                 children: html`
