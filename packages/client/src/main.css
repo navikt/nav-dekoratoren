@@ -38,6 +38,6 @@ body {
     }
 }
 
-:where(#header-withmenu, #footer-withmenu) {
+:is(#header-withmenu, #footer-withmenu) {
     font-family: var(--a-font-family, "Source Sans Pro", Arial, sans-serif);
 }
