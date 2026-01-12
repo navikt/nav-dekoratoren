@@ -1,4 +1,4 @@
-@media (max-width: 47.9375rem) {
+@media (max-width: calc(48rem - 1px)) {
     .headerButton.headerButton {
         flex-direction: column;
         gap: 0;
