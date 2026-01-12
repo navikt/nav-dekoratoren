@@ -59,13 +59,6 @@ app.get("/metrics", printMetrics);
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
 
-app.get("/api/mockError", ({ json }) => {
-    logger.error("This is a mocked error for testing OpenSearch logging.", {
-        error: { testKey: "testValue", anotherKey: 12345 },
-    });
-    return json({ result: "error logged" });
-});
-
 app.get("/api/version", versionApiHandler);
 app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
