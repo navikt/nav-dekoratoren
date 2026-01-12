@@ -33,6 +33,7 @@
 
 .opsMessage:hover {
     text-decoration: none;
+    color: var(--a-text-on-action);
 }
 
 .opsMessage:focus {
