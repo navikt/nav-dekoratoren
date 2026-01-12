@@ -26,13 +26,13 @@
     transition-timing-function: ease-in-out;
     z-index: 1;
     /* fallback to vh units for older browsers without dvh support */
-    height: calc(100vh - var(--header-height, 72px) - 6rem);
-    @media (min-height: 0dvh) {
-        height: calc(100dvh - var(--header-height));
-    }
+    height: calc(100vh - var(--header-height) - 6rem);
     overflow-y: auto;
     overscroll-behavior: contain;
 
+    @media (min-height: 0dvh) {
+        height: calc(100dvh - var(--header-height));
+    }
     @media (min-width: 48rem) {
         height: initial;
         max-height: 80vh;
