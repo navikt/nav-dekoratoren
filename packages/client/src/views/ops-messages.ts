@@ -16,16 +16,19 @@ export const OpsMessagesTemplate = ({
     opsMessages: OpsMessage[];
 }) => html`
     <section class="${cls.opsMessagesContent} ${utils.contentContainer}">
-        ${opsMessages.map(
-            ({ heading, url, type }) => html`
-                <a href="${url}" class="${cls.opsMessage}">
+        ${opsMessages.map(({ heading, url, type }) => {
+            const fullUrl = url.startsWith("http")
+                ? url
+                : `https://www.nav.no${url}`;
+            return html`
+                <a href="${fullUrl}" class="${cls.opsMessage}">
                     ${type === "prodstatus"
                         ? ExclamationmarkTriangleIcon({ className: utils.icon })
                         : InformationSquareIcon({ className: utils.icon })}
                     ${heading}
                 </a>
-            `,
-        )}
+            `;
+        })}
     </section>
 `;
 

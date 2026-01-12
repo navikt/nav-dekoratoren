@@ -73,7 +73,7 @@ export const parseAndValidateParams = (
 
     if (!validParams.success) {
         logger.error("Failed to validate params", { error: validParams.error });
-        throw new Error(validParams.error.toString());
+        throw new Error("Failed to validate params");
     }
 
     return validParams.data;
