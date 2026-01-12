@@ -413,13 +413,10 @@ utloggingsvarselet oppfører seg:
 
 #### Analytics 📊
 
-> Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen
-> november 2025. Se mer informasjon i toppen av denne readme-filen.
-
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 [nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
 
-Fra juni 2025 logges data til Umami. Amplitude er planlagt å bli avviklet for Nav innen november 2025. Se mer informasjon i toppen av denne readme-filen.
+> Amplitude er avviklet fra 1. desember 2025.
 
 #### Analytics nå som du bruker nav-dekoratoren-moduler 📦
 

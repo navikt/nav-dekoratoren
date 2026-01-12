@@ -1,11 +1,13 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
+import { logger } from "decorator-shared/logger";
 import {
     ConsentAction,
     Consent,
     PublicStorageItem,
 } from "decorator-shared/types";
 import { endpointUrlWithoutParams } from "./helpers/urls";
+import { redactFromUrl } from "./analytics/helpers/redactUrl";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -42,7 +44,7 @@ export class WebStorageController {
 
     private getStorageDictionaryFromEnv = (): PublicStorageItem[] => {
         if (!window.__DECORATOR_DATA__) {
-            console.error(
+            logger.error(
                 "Decorator data not available. Make sure decorator is loaded correctly.",
             );
             return [];
@@ -113,7 +115,7 @@ export class WebStorageController {
     private pingConsentBack = (consent: Consent) => {
         const pingBody = {
             consentObject: consent,
-            originUrl: window.location.href,
+            originUrl: redactFromUrl(window.location.href),
         };
 
         fetch(endpointUrlWithoutParams(`/api/consentping`), {
