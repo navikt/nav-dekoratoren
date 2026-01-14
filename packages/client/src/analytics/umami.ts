@@ -4,7 +4,26 @@ import {
     extraWindowParams,
     buildLocationString,
 } from "./analytics";
+import { redactData } from "./helpers/redactData";
 import { AnalyticsEventArgs, EventData } from "./types";
+
+/*
+ * TIL UTVIKLER: ADVARSEL OM PERSONOPPLYSNINGER
+ * -------------------------------------------------------------------------------------------
+ * Dersom du legger til funksjonalitet her som samler inn
+ * data, må du forsikre deg om at ingen personopplysninger sendes til Umami.
+ * Funksjonen redactData fjerner data på klientnivå, men kun for kjente mønstre eller nøkler.
+ * Hvis du legger til nye mønstre eller et nytt nøkkelnavn, må du oppdatere `URL_KEYS`-settet i `redactData.ts` for nye URL-lignende nøkler, og legge til mønstre i `knownRedactPaths.ts` for nye stier.
+ * For team som sender inn tilpasset ekstra data er de selv ansvarlige for etterlevelse.
+ */
+
+export const redactQueryString = (url: string): string => {
+    if (!url) return url;
+    if (!url.includes("?")) return url;
+
+    const [baseUrl] = url.split("?");
+    return baseUrl;
+};
 
 export const logUmamiEvent = async (
     eventName: string,
@@ -15,26 +34,33 @@ export const logUmamiEvent = async (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
         typeof umami !== "undefined"
     ) {
-        return umami.track((props) => ({
-            ...props,
-            name: eventName === "besøk" ? undefined : eventName,
-            url: buildLocationString({
-                includeOrigin: false,
-                includeHash: false,
+        const url = buildLocationString({
+            includeOrigin: false,
+            includeHash: false,
+        });
+
+        return umami.track((props) =>
+            redactData({
+                ...props,
+                name: eventName === "besøk" ? undefined : eventName,
+                url,
+                title: window.document.title,
+                referrer:
+                    eventName === "besøk"
+                        ? redactQueryString(
+                              getCurrentReferrer() ?? props.referrer,
+                          )
+                        : undefined,
+                data: {
+                    ...eventData,
+                    destinasjon: redactQueryString(eventData.destinasjon),
+                    origin,
+                    originVersion: eventData.originVersion || "unknown",
+                    viaDekoratoren: true,
+                    ...extraWindowParams(),
+                },
             }),
-            title: window.document.title,
-            referrer:
-                eventName === "besøk"
-                    ? (getCurrentReferrer() ?? props.referrer)
-                    : undefined,
-            data: {
-                ...eventData,
-                origin,
-                originVersion: eventData.originVersion || "unknown",
-                viaDekoratoren: true,
-                ...extraWindowParams(),
-            },
-        }));
+        );
     }
 };
 
@@ -53,7 +79,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
         målgruppe: context,
         innholdstype: pageType,
         tema: pageTheme,
-        søkeord: eventName === "søk" ? "[redacted]" : undefined,
+        søkeord: eventName === "søk" ? "[redacted: search]" : undefined,
         ...rest,
     });
 };
@@ -61,7 +87,8 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
 export const initUmami = () => {
     if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
         const script = document.createElement("script");
-        script.src = "https://cdn.nav.no/team-researchops/sporing/sporing.js";
+        script.src =
+            "https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js";
         script.defer = true;
         script.setAttribute("data-host-url", "https://umami.nav.no");
         script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
@@ -72,7 +99,7 @@ export const initUmami = () => {
 
 export const stopUmami = () => {
     const umamiScript = document.querySelector(
-        'script[src="https://cdn.nav.no/team-researchops/sporing/sporing.js"]',
+        'script[src="https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js"]',
     );
 
     if (umamiScript) {

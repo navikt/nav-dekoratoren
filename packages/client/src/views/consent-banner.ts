@@ -1,5 +1,6 @@
 import { createEvent } from "../events";
 import { defineCustomElement } from "./custom-elements";
+import { logger } from "decorator-shared/logger";
 
 export class ConsentBanner extends HTMLElement {
     dialog!: HTMLDivElement;
@@ -43,7 +44,7 @@ export class ConsentBanner extends HTMLElement {
     async connectedCallback() {
         const dialog = this.querySelector("#consent-banner-dialog");
         if (!dialog) {
-            console.error(
+            logger.error(
                 "Could not find cookie consent banner dialog element.",
             );
             return;
