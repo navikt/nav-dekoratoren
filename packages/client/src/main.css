@@ -20,7 +20,7 @@ body {
 :is(#decorator-header, #decorator-footer) {
     --edge-spacing: var(--a-spacing-4);
     --desktop-min-width: 768px;
-    --header-height: 72px;
+    --header-height: 4.5rem;
 
     font-family: var(--a-font-family);
     line-height: calc(4 / 3);
@@ -30,10 +30,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    @media (min-width: 768px) {
-        --header-height: 80px;
+    @media (min-width: 48rem) {
+        --header-height: 5rem;
     }
-    @media (min-width: 1024px) {
+    @media (min-width: 64rem) {
         --edge-spacing: var(--a-spacing-12);
     }
 }
