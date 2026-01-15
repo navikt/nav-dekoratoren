@@ -45,13 +45,13 @@ runs:
 
     # Checkout the previous version to ensure matching nais config is used
     - name: Checkout previous version
-      if:  inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
+      if:  inputs.DEPLOY_PREVIOUS && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
       uses: actions/checkout@v4
       with:
         ref: ${{ inputs.PREV_VERSION_ID }}
 
     - name: Deploy previous version
-      if: inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
+      if: inputs.DEPLOY_PREVIOUS && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
       uses: nais/deploy/actions/deploy@v2
       env:
         CLUSTER: ${{ inputs.CLUSTER }}
