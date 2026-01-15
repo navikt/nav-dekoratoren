@@ -6,6 +6,7 @@ on:
         description: "Deploy previous version to internal"
         required: false
         type: boolean
+        default: true
       SKIP_TESTS:
         description: "Skip tests"
         required: false
