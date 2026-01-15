@@ -43,6 +43,13 @@ runs:
         echo "version_id=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
         echo "VERSION_ID=$GITHUB_SHA" >> "$GITHUB_ENV"
 
+    - name: Debug previous version inputs
+      shell: bash
+      run: |
+        echo "DEPLOY_PREVIOUS: '${{ inputs.DEPLOY_PREVIOUS }}'"
+        echo "PREV_VERSION_ID: '${{ inputs.PREV_VERSION_ID }}'"
+        echo "PREV_IMAGE: '${{ inputs.PREV_IMAGE }}'"
+
     # Checkout the previous version to ensure matching nais config is used
     - name: Checkout previous version
       if:  inputs.DEPLOY_PREVIOUS && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
