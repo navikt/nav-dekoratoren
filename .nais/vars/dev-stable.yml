@@ -43,7 +43,7 @@ env:
     value: 83BD7664-B38B-4EEE-8D99-200669A32551
   - name: UMAMI_WEBSITE_ID
     value: c44a6db3-c974-4316-b433-214f87e80b4d
-ttlInternal: 1h
+ttlInternal: 12h
 resources:
   requests:
     cpu: 200m
