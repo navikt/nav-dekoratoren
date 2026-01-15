@@ -69,7 +69,7 @@ runs:
     - name: Wait for previous deployment to stabilize
       if: inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
       shell: bash
-      run: sleep 30
+      run: sleep 10
 
     # Checkout the current version
     - name: Checkout current repo
