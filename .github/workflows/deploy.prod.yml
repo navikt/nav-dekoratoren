@@ -24,11 +24,12 @@ jobs:
         with:
           READER_TOKEN: ${{ secrets.READER_TOKEN }}
           IMAGE_SUFFIX: prod
-          TAG_LATEST: 'true'
+          TAG_LATEST: true
 
   deploy-prod:
     runs-on: ubuntu-latest
     needs: build
+    environment: prod
     permissions:
       id-token: write
       contents: read
@@ -43,6 +44,8 @@ jobs:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build.outputs.IMAGE }}
           DEPLOY_PREVIOUS: true
+          PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+          PREV_IMAGE: ${{ vars.PREV_IMAGE }}
           HPA_FILE: hpa-prod.yml
           VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
 

@@ -1,4 +1,5 @@
 name: Deploy to Nais
+description: Composite action to deploy application to Nais cluster with optional previous version deployment
 
 inputs:
   DEPLOY_INSTANCE:
@@ -11,17 +12,17 @@ inputs:
     description: Container image (with tag).
     required: true
   DEPLOY_PREVIOUS:
-    description: Whether to deploy previous internal version first.
+    description: Whether to deploy previous version of dekoratøren as well.
     required: false
     default: "false"
   HPA_FILE:
     description: Optional HPA file name under .nais/hpa/.
     required: false
   PREV_VERSION_ID:
-    description: Previously deployed commit SHA (for internal deploy).
+    description: Previously deployed commit SHA (for previous version deploy).
     required: false
   PREV_IMAGE:
-    description: Previously deployed image (for internal deploy).
+    description: Previously deployed image (for previous version deploy).
     required: false
   VARS_UPDATE_TOKEN:
     description: Token (PAT) with permissions to update variables.

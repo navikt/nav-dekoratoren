@@ -34,6 +34,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    environment: dev-stable
     permissions:
       id-token: write
       contents: read
@@ -48,5 +49,7 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.IMAGE }}
           DEPLOY_PREVIOUS: ${{ inputs.DEPLOY_PREVIOUS }}
+          PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+          PREV_IMAGE: ${{ vars.PREV_IMAGE }}
           HPA_FILE: hpa-dev-stable.yml
           VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
