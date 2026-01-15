@@ -66,6 +66,11 @@ runs:
         VAR: image=${{ inputs.PREV_IMAGE }},versionId=${{ inputs.PREV_VERSION_ID }},deployInstance=${{ inputs.DEPLOY_INSTANCE }}
         VARS: .nais/vars/${{ inputs.DEPLOY_INSTANCE }}.yml
 
+    - name: Wait for previous deployment to stabilize
+      if: inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
+      shell: bash
+      run: sleep 30
+
     # Checkout the current version
     - name: Checkout current repo
       uses: actions/checkout@v4
