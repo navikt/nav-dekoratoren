@@ -107,7 +107,7 @@ app.get("/api/search", async ({ req, html }) =>
 app.get("/api/csp", ({ json }) => json(cspDirectives));
 
 app.get("/main-menu", async ({ req, html }) => {
-    if (req.query("secret") !== DECORATOR_SECRET) {
+    if (req.query("sec") !== DECORATOR_SECRET) {
         return html("");
     }
     const data = parseAndValidateParams(req.query());
@@ -132,7 +132,7 @@ app.get("/auth", async ({ req, json }) =>
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 
 app.get("/header", async ({ req, html }) => {
-    if (req.query("secret") !== DECORATOR_SECRET) {
+    if (req.query("sec") !== DECORATOR_SECRET) {
         return html("");
     }
     const params = parseAndValidateParams(req.query());
@@ -144,7 +144,7 @@ app.get("/header", async ({ req, html }) => {
 });
 
 app.get("/footer", async ({ req, html }) => {
-    if (req.query("secret") !== DECORATOR_SECRET) {
+    if (req.query("sec") !== DECORATOR_SECRET) {
         return html("");
     }
     const params = parseAndValidateParams(req.query());
