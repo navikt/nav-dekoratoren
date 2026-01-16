@@ -29,13 +29,14 @@ jobs:
         uses: ./.github/actions/build-test
         with:
           READER_TOKEN: ${{ secrets.READER_TOKEN }}
-          TAG_LATEST: "true"
+          TAG_LATEST: true
           IMAGE_SUFFIX: dev-beta-navno
           SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    environment: dev-beta-navno
     permissions:
       id-token: write
       contents: read
@@ -50,4 +51,6 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.IMAGE }}
           DEPLOY_PREVIOUS: ${{ inputs.DEPLOY_PREVIOUS }}
+          PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+          PREV_IMAGE: ${{ vars.PREV_IMAGE }}
           VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
