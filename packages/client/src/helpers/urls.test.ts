@@ -20,7 +20,7 @@ describe("Endpoint urls", () => {
         });
 
         expect(url).toBe(
-            "http://localhost:3000/user-menu?simple=true&feedback=true&version-id=1234",
+            "http://localhost:3000/user-menu?simple=true&feedback=true&version-id=1234&sec=1",
         );
     });
 });
