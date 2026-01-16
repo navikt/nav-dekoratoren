@@ -13,13 +13,11 @@ export const endpointUrlWithParams = (
         ...params,
     });
 
-    return `${env("APP_URL")}${endpointUrl}?
-        ${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}&sec=${DECORATOR_SECRET}`;
+    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}&sec=${DECORATOR_SECRET}`;
 };
 
 export const endpointUrlWithoutParams = (endpointUrl: `/${string}`) => {
-    return `${env("APP_URL")}${endpointUrl}?
-        ${VERSION_ID_PARAM}=${env("VERSION_ID")}&sec=${DECORATOR_SECRET}`;
+    return `${env("APP_URL")}${endpointUrl}?${VERSION_ID_PARAM}=${env("VERSION_ID")}&sec=${DECORATOR_SECRET}`;
 };
 
 export const cdnUrl = (url: string) =>
