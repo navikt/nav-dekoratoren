@@ -289,9 +289,9 @@ describe("redactData", () => {
     describe("object values", () => {
         it("should recursively redact object values", () => {
             const uuid = "123e4567-e89b-12d3-a456-426614174000";
-            expect(redactData({ name: "test", id: uuid })).toEqual({
+            expect(redactData({ name: "test", someId: uuid })).toEqual({
                 name: "test",
-                id: "[redacted: uuid]",
+                someId: "[redacted: uuid]",
             });
         });
 
