@@ -7,6 +7,7 @@ import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
+import { fetchFeatures } from "../helpers/features";
 
 declare global {
     interface Window {
@@ -88,10 +89,11 @@ export const extraWindowParams = () => {
     };
 };
 
-const logPageView = (authState: Auth) => {
+const logPageView = async (authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
-    setTimeout(() => {
+    setTimeout(async () => {
         const params = window.__DECORATOR_DATA__.params;
+        const features = await fetchFeatures();
         const eventData = {
             målgruppe: params.context,
             innholdstype: params.pageType,
@@ -100,6 +102,9 @@ const logPageView = (authState: Auth) => {
             innlogging: authState.authenticated
                 ? authState.securityLevel
                 : false,
+            ...(features?.["use-legacy-navigation"] !== undefined && {
+                "use-legacy-navigation": features["use-legacy-navigation"],
+            }),
             parametre: {
                 ...params,
                 BREADCRUMBS:
