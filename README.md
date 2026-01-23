@@ -58,14 +58,14 @@ på nav.no og eksponerer HTML, API-er, CSP, samtykkebanner, osv.
     - [5.1 Typer og miljøer](#51-typer-og-miljøer)
     - [5.2 Service Discovery](#52-service-discovery)
     - [5.3 Access Policy](#53-access-policy)
-    - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
-    - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
+      - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
+      - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
 6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-🧱)
     - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
     - [6.2 Detaljer](#62-detaljer)
 7. [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
     - [7.1 injectDecoratorClientSide](#71-injectdecoratorclientside)
-    - [7.2 Bruk med egendefinert dekoratør-url](#52-bruk-med-egendefinert-dekoratør-url)
+    - [7.2 Bruk med egendefinert dekoratør-url](#72-bruk-med-egendefinert-dekoratør-url)
 8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken-🧰)
     - [8.1 Detaljer](#81-detaljer)
 9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven-🍪)
@@ -689,7 +689,7 @@ injectDecoratorClientSide({
 });
 ```
 
-### 5.2 Bruk med egendefinert dekoratør-url
+### 7.2 Bruk med egendefinert dekoratør-url
 
 Dersom `env` er satt til `localhost` må dekoratørens URL settes med parametret `localUrl`. Benyttes
 dersom du f.eks. kjører dekoratøren lokalt på egen maskin, eller den hentes via en proxy.
