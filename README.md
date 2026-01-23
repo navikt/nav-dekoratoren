@@ -708,19 +708,20 @@ injectDecoratorServerSide({
 
 ## 8. Andre hjelpefunksjoner i moduler-pakken 🧰
 
-| Funksjon                        | Type          | Forklaring                                             |
-|---------------------------------|---------------|--------------------------------------------------------|
-| `addDecoratorUpdateListener`    | server-side   | Callback ved ny dekoratørversjon (cache-invalidering)  |
-| `removeDecoratorUpdateListener` | server-side   | Fjerner registrert callback                            |
-| `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for dekoratøren           |
-| `buildCspHeader`                | server-side   | Bygger CSP som inkluderer dekoratørens direktiver      |
-| `getAnalyticsInstance`          | client/server | Logger events til Umami                                |
-| `setBreadcrumbs`                | client-side   | Setter brødsmulesti i Dekoratøren                      |
-| `onBreadcrumbClick`             | client-side   | Håndterer klikk på breadcrumbs ved client-side routing |
-| `setAvailableLanguages`         | client-side   | Setter språk-alternativer i språkvelgeren              |
-| `onLanguageSelect`              | client-side   | Håndterer språkvalg ved client-side routing            |
-| `setParams` / `getParams`       | client-side   | Dynamisk oppdatering/lesing av Dekoratør-parametre     |
-| `openChatbot`                   | client-side   | Åpner Chatbot Frida og setter `chatbotVisible=true`    |
+| Funksjon                        | Type                    | Forklaring                                                                              |
+|---------------------------------|-------------------------|-----------------------------------------------------------------------------------------|
+| `addDecoratorUpdateListener`    | server-side             | Callback ved ny dekoratørversjon (cache-invalidering)                                   |
+| `removeDecoratorUpdateListener` | server-side             | Fjerner registrert callback                                                             |
+| `getDecoratorVersionId`         | server-side             | Henter nåværende versjons-ID for dekoratøren                                            |
+| `buildCspHeader`                | server-side             | Bygger CSP som inkluderer dekoratørens direktiver                                       |
+| `getAnalyticsInstance`          | client/server           | Logger events til Umami (erstatter getAmplitudeInstance)                                |
+| `getAmplitudeInstance`          | client/server (utfases) | Logger events til Amplitude (utfaset november 2025)                                     |
+| `setBreadcrumbs`                | client-side             | Setter brødsmulesti i Dekoratøren                                                       |
+| `onBreadcrumbClick`             | client-side             | Håndterer klikk på breadcrumbs ved client-side routing                                  |
+| `setAvailableLanguages`         | client-side             | Setter språk-alternativer i språkvelgeren                                               |
+| `onLanguageSelect`              | client-side             | Håndterer språkvalg ved client-side routing                                             |
+| `setParams` / `getParams`       | client-side             | Dynamisk oppdatering/lesing av Dekoratør-parametre                                      |
+| `openChatbot`                   | client-side             | Åpner Chatbot Frida og setter `chatbotVisible=true`                                     |
 
 ---
 
@@ -783,11 +784,11 @@ app.get("*", (req, res) => {
 
 **getAnalyticsInstance**
 
-Metoden støtter det/de til en hver tid gjeldende analyseverktøyet/ene i Nav. Den bygger en
-logger-instans som sender events til våre analyseverktøy via dekoratørens klient. Så tar den i
-mot et parameter `origin` slik at man kan filtrere events som kommer fra egen app.
-Det er sterkt anbefalt å følge Navs taksonomi for analyseverktøy:
-https://github.com/navikt/analytics-taxonomy
+Denne metoden erstatter getAmplitudeInstance, og har tilsvarende interface. Metoden støtter det/de
+til en hver tid gjeldende analyseverktøyet/ene i Nav. Den bygger en logger-instans som sender
+events til våre analyseverktøy via dekoratørens klient. Så tar den i mot et parameter `origin`
+slik at man kan filtrere events som kommer fra egen app. Det er sterkt anbefalt å følge Navs
+taksonomi for analyseverktøy: https://github.com/navikt/analytics-taxonomy
 
 ```ts
 import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
@@ -1177,7 +1178,7 @@ utloggingsvarselet oppfører seg:
 **Analytics 📊**
 
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
-`nav-dekoratoren-moduler`, se nedenfor. 
+`nav-dekoratoren-moduler`, se nedenfor.
 
 **Analytics nå som du bruker nav-dekoratoren-moduler 📦**
 
