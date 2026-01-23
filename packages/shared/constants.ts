@@ -10,4 +10,4 @@ export const languageLabels = {
     ru: "Русский (russisk)",
 };
 
-export const DECORATOR_SECRET = "1";
+export const CONSUMER = "dekoratoren";

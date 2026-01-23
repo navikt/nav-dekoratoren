@@ -1,5 +1,6 @@
 import { endpointUrlWithParams } from "./urls";
 import { describe, expect, it } from "vitest";
+import { CONSUMER } from "decorator-shared/constants";
 
 describe("Endpoint urls", () => {
     it("Includes params from the window object", () => {
@@ -20,7 +21,7 @@ describe("Endpoint urls", () => {
         });
 
         expect(url).toBe(
-            "http://localhost:3000/user-menu?simple=true&feedback=true&version-id=1234&sec=1",
+            `http://localhost:3000/user-menu?simple=true&feedback=true&version-id=1234&consumer=${CONSUMER}`,
         );
     });
 });

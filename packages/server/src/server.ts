@@ -27,7 +27,7 @@ import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
-import { DECORATOR_SECRET } from "decorator-shared/constants";
+import { CONSUMER } from "decorator-shared/constants";
 
 const app = new Hono({
     strict: false,
@@ -107,7 +107,7 @@ app.get("/api/search", async ({ req, html }) =>
 app.get("/api/csp", ({ json }) => json(cspDirectives));
 
 app.get("/main-menu", async ({ req, html }) => {
-    if (req.query("sec") !== DECORATOR_SECRET) {
+    if (req.query("consumer") !== CONSUMER) {
         return html("");
     }
     const data = parseAndValidateParams(req.query());
@@ -132,7 +132,7 @@ app.get("/auth", async ({ req, json }) =>
 app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
 
 app.get("/header", async ({ req, html }) => {
-    if (req.query("sec") !== DECORATOR_SECRET) {
+    if (req.query("consumer") !== CONSUMER) {
         return html("");
     }
     const params = parseAndValidateParams(req.query());
@@ -144,7 +144,7 @@ app.get("/header", async ({ req, html }) => {
 });
 
 app.get("/footer", async ({ req, html }) => {
-    if (req.query("sec") !== DECORATOR_SECRET) {
+    if (req.query("consumer") !== CONSUMER) {
         return html("");
     }
     const params = parseAndValidateParams(req.query());
@@ -194,15 +194,12 @@ app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
 app.get("/csr/:clientWithId{client(.*).js}", async ({ redirect }) =>
     redirect(csrAssets.csrScriptUrl),
 );
-
 app.get("/csr/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );
-
 app.get("/:clientWithId{client(.*).js}", async ({ redirect }) =>
     redirect(csrAssets.csrScriptUrl),
 );
-
 app.get("/css/:clientWithId{client(.*).css}", async ({ redirect }) =>
     redirect(csrAssets.cssUrl),
 );

@@ -1,7 +1,7 @@
 import { ClientParams } from "decorator-shared/params";
 import { formatParams } from "decorator-shared/json";
 import { env } from "../params";
-import { DECORATOR_SECRET, VERSION_ID_PARAM } from "decorator-shared/constants";
+import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { logger } from "decorator-shared/logger";
 
 export const endpointUrlWithParams = (
@@ -13,11 +13,11 @@ export const endpointUrlWithParams = (
         ...params,
     });
 
-    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}&sec=${DECORATOR_SECRET}`;
+    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}&consumer=${CONSUMER}`;
 };
 
 export const endpointUrlWithoutParams = (endpointUrl: `/${string}`) => {
-    return `${env("APP_URL")}${endpointUrl}?${VERSION_ID_PARAM}=${env("VERSION_ID")}&sec=${DECORATOR_SECRET}`;
+    return `${env("APP_URL")}${endpointUrl}?${VERSION_ID_PARAM}=${env("VERSION_ID")}&consumer=${CONSUMER}`;
 };
 
 export const cdnUrl = (url: string) =>
