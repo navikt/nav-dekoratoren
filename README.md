@@ -29,7 +29,7 @@
 Dette repoet beskriver både:
 
 1. **Nav Dekoratøren** – frontend-applikasjonen som leverer header og footer på nav.no. Den kjører
-på nav.no og eksponerer HTML, API-er, CSP, samtykkebanner, osv.
+   på nav.no og eksponerer HTML, API-er, CSP, samtykkebanner, osv.
 2. **@navikt/nav-dekoratoren-moduler** – NPM-pakken som gjør det enkelt å integrere Dekoratøren i
    andre apper. Den brukes i _din_ app for å hente, konfigurere og snakke med
    Dekoratøren (SSR/CSR, analytics, cookies, språk, breadcrumbs, m.m.).
@@ -58,8 +58,8 @@ på nav.no og eksponerer HTML, API-er, CSP, samtykkebanner, osv.
     - [5.1 Typer og miljøer](#51-typer-og-miljøer)
     - [5.2 Service Discovery](#52-service-discovery)
     - [5.3 Access Policy](#53-access-policy)
-      - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
-      - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
+        - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
+        - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
 6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-🧱)
     - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
     - [6.2 Detaljer](#62-detaljer)
@@ -783,13 +783,8 @@ app.get("*", (req, res) => {
 
 **getAnalyticsInstance**
 
-Denne metoden erstatter getAmplitudeInstance, og har tilsvarende interface. Metoden skal støtte
-det/de til en hver tid gjeldende analyseverktøyet/ene i Nav. Den logger foreløpig til både Umami og
-Amplitude.
-Amplitude fases ut av Nav i november 2025 og Umami er da eneste alternativ. Når avtalen går ut,
-fjernes loggingen til Amplitude.
-
-Bygger en logger-instans som sender events til våre analyseverktøy via dekoratørens klient. Tar i
+Metoden støtter det/de til en hver tid gjeldende analyseverktøyet/ene i Nav. Den bygger en
+logger-instans som sender events til våre analyseverktøy via dekoratørens klient. Så tar den i
 mot et parameter `origin` slik at man kan filtrere events som kommer fra egen app.
 Det er sterkt anbefalt å følge Navs taksonomi for analyseverktøy:
 https://github.com/navikt/analytics-taxonomy
@@ -809,9 +804,9 @@ logger("skjema åpnet", {
 
 Parameteret `breadcrumbs` (brødsmulestien) kan endres / settes på klient-siden ved behov.
 
-Obs! Klikk på breadcrumbs logges til analyseverktøy (Amplitude+Umami). Ettersom title i noen apper
+Obs! Klikk på breadcrumbs logges til analyseverktøy (Umami). Ettersom title i noen apper
 kan inneholde personopplysninger, som f.eks. navn på bruker, så logges dette i utgangspunktet kun
-som `[redacted]` til Amplitude+Umami.
+som `[redacted]` til Umami.
 
 Om ønskelig kan feltet `analyticsTitle` også settes, dersom du ønsker å logge en title. Husk å
 fjerne eventuelle personopplysninger fra denne!
@@ -1092,7 +1087,7 @@ ikke.
 | Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon      |
 | Utloggingsvarsel             | client-side               | Viser varsel 5 min før sesjonen utløper, lar bruker forlenge økten |
 | Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)             |
-| Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami (erstatter Amplitude)             |
+| Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami                                   |
 | Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
 | Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent     |
 | Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                |
@@ -1182,9 +1177,7 @@ utloggingsvarselet oppfører seg:
 **Analytics 📊**
 
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
-[nav-dekoratoren-moduler](#471-analytics-using-nav-dekoratoren-moduler), se nedenfor.
-
-> Amplitude er avviklet fra 1. desember 2025.
+`nav-dekoratoren-moduler`, se nedenfor. 
 
 **Analytics nå som du bruker nav-dekoratoren-moduler 📦**
 
