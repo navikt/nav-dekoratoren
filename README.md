@@ -1,33 +1,6 @@
 # Nav Dekoratøren & nav-dekoratoren-moduler
 
-> ## ⚠️ Viktig beskjed om logging til Amplitude og Umami 📊
->
-> Fra og med 1. november vil logging til Amplitude være avviklet i prod. Vi fjerner deler av koden i
-> dekoratøren, men beholder funksjonene som eksporteres
-> i [nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler). Det samme gjelder
-> `window.dekoratorenAmplitude` som vil være en dummy-funksjon som kun returnerer et resolved
-> promise
-> uten å faktisk logge til Amplitude.
->
-> Dette gjør vi for å unngå breaking changes hos team som ikke har gått over til den mer agnostiske
-> `logAnalyticsEvent` og `getAnalyticsInstance`. Team som ikke har gått over til disse vil oppleve
-> at det logges info om at Amplitude er avviklet.
->
-> For team som ikke har gått over til Umami:
-> [nav-dekoratoren-moduler](https://github.com/navikt/nav-dekoratoren-moduler) (fra versjon 3.2.3,
-> april) eksporterer `getAnalyticsInstance` og `logAnalyticsEvent`. Disse oppfører seg på samme måte
-> som
-> de gamle Amplitude-funksjonene slik at det bare er å bytte ut navnene i koden til teamene.
-> For team som av diverse årsaker kaller `window.dekoratorenAmplitude`, kan dere bruke
-> `window.dekoratorenAnalytics`.
->
-> Etter 20. desember fjerner vi resterende dummy-funksjoner relatert til Amplitude, så etter den
-> datoen vil funksjoner og typedefinisjoner begynne å feile for team som ikke har gått over til
-> _Analytics_-funksjonene. Ta kontakt med #team-navno eller #dekoratøren_på_navno på Slack hvis dere
-> trenger hjelp eller har innspill!
-
-Dette repoet beskriver både:
-
+Dette dokumentet beskriver:
 1. **Nav Dekoratøren** – frontend-applikasjonen som leverer header og footer på nav.no. Den kjører
    på nav.no og eksponerer HTML, API-er, CSP, samtykkebanner, osv.
 2. **@navikt/nav-dekoratoren-moduler** – NPM-pakken som gjør det enkelt å integrere Dekoratøren i
@@ -78,7 +51,7 @@ Dette repoet beskriver både:
 
 ### 1.1 Hva er Nav Dekoratøren?
 
-**Nav Dekoratøren** er en frontend applikasjon som gir en enhetlig **header** og **footer** for
+**Nav Dekoratøren** er en frontend-applikasjon som gir en enhetlig **header** og **footer** for
 applikasjoner som kjører på nav.no. Alle eksternt rettede frontend-applikasjoner på nav.no
 bør bruke Dekoratøren for å skape en helhetlig brukeropplevelse på nav.no.
 
@@ -112,7 +85,6 @@ app:
     - Parametre som `context`, `simple`, `chatbot`, osv.
     - Samtykke/cookies i tråd med ekomloven
 
-Kortversjon:
 **Dekoratøren** = appen som kjører på nav.no
 **nav-dekoratoren-moduler** = verktøykassa du bruker i din app for å snakke med Dekoratøren
 
@@ -714,8 +686,7 @@ injectDecoratorServerSide({
 | `removeDecoratorUpdateListener` | server-side             | Fjerner registrert callback                                                             |
 | `getDecoratorVersionId`         | server-side             | Henter nåværende versjons-ID for dekoratøren                                            |
 | `buildCspHeader`                | server-side             | Bygger CSP som inkluderer dekoratørens direktiver                                       |
-| `getAnalyticsInstance`          | client/server           | Logger events til Umami (erstatter getAmplitudeInstance)                                |
-| `getAmplitudeInstance`          | client/server (utfases) | Logger events til Amplitude (utfaset november 2025)                                     |
+| `getAnalyticsInstance`          | client/server           | Logger events til Umami                                                                 |
 | `setBreadcrumbs`                | client-side             | Setter brødsmulesti i Dekoratøren                                                       |
 | `onBreadcrumbClick`             | client-side             | Håndterer klikk på breadcrumbs ved client-side routing                                  |
 | `setAvailableLanguages`         | client-side             | Setter språk-alternativer i språkvelgeren                                               |
@@ -784,9 +755,9 @@ app.get("*", (req, res) => {
 
 **getAnalyticsInstance**
 
-Denne metoden erstatter getAmplitudeInstance, og har tilsvarende interface. Metoden støtter det/de
-til en hver tid gjeldende analyseverktøyet/ene i Nav. Den bygger en logger-instans som sender
-events til våre analyseverktøy via dekoratørens klient. Så tar den i mot et parameter `origin`
+Metoden støtter det til en hver tid gjeldende analyseverktøyet i Nav. Den bygger en logger-instans som sender
+events til våre analyseverktøy via dekoratørens klient. Besøk (sidevisning) vil håndteres automatisk, 
+andre events kan sendes inn via opprettet logger-instans. Den tar i mot et parameter `origin`
 slik at man kan filtrere events som kommer fra egen app. Det er sterkt anbefalt å følge Navs
 taksonomi for analyseverktøy: https://github.com/navikt/analytics-taxonomy
 
@@ -1178,13 +1149,7 @@ utloggingsvarselet oppfører seg:
 **Analytics 📊**
 
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
-`nav-dekoratoren-moduler`, se nedenfor.
-
-**Analytics nå som du bruker nav-dekoratoren-moduler 📦**
-
-[`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
-hjelpefunksjoner for enkel Analytics-logging. Vennligst se README for dokumentasjon og guider for å
-komme i gang. https://github.com/navikt/nav-dekoratoren-moduler#getanalyticsinstance
+`nav-dekoratoren-moduler`, se **getAnalyticsInstance** over.
 
 **Analytics og samtykke 👍👎**
 
