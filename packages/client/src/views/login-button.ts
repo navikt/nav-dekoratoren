@@ -2,6 +2,7 @@ import { parseUrl } from "../helpers/urls";
 import { env } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
+import { logger } from "decorator-shared/logger";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {
@@ -27,7 +28,7 @@ class LoginButton extends HTMLElement {
 
         const url = parseUrl(href);
         if (!url) {
-            console.error(`Invalid URL for login: ${href}`);
+            logger.error(`Invalid URL for login: ${href}`);
             return;
         }
 

@@ -2,6 +2,7 @@ import { AuthDataResponse } from "decorator-shared/auth";
 import { createEvent } from "../events";
 import { env } from "../params";
 import { endpointUrlWithParams } from "./urls";
+import { logger } from "decorator-shared/logger";
 
 export type SessionData = {
     session: {
@@ -36,7 +37,7 @@ export async function fetchOrRenewSession(fetchOrRenew: FetchRenew) {
         }
         return (await sessionResponse.json()) as SessionData;
     } catch (error) {
-        console.error(`Failed to ${fetchOrRenew} session - ${error}`);
+        logger.error(`Failed to ${fetchOrRenew} session.`, { error });
         return null;
     }
 }
@@ -70,7 +71,7 @@ const fetchAuthData = async (): Promise<AuthDataResponse> => {
     })
         .then((res) => res.json() as Promise<AuthDataResponse>)
         .catch((error) => {
-            console.error(`Failed to fetch auth data - ${error}`);
+            logger.error(`Failed to fetch auth data.`, { error });
             return { auth: { authenticated: false } };
         });
 };

@@ -1,6 +1,7 @@
 import { HonoRequest, MiddlewareHandler } from "hono";
 import { VERSION_ID_PARAM } from "decorator-shared/constants";
 import { env } from "../env/server";
+import { logger } from "decorator-shared/logger";
 
 const SERVER_VERSION_ID = env.VERSION_ID;
 const APP_NAME = env.APP_NAME;
@@ -22,7 +23,7 @@ const fetchFromInternalVersionApp = async (
 
     const url = urlObj.toString();
 
-    console.log(
+    logger.info(
         `Proxy request to: ${urlObj.host}${urlObj.pathname} - Referer: ${request.header("referer")}`,
     );
 
@@ -40,7 +41,7 @@ const fetchFromInternalVersionApp = async (
 
         return new Response(response.body, response);
     } catch (e) {
-        console.error(`Proxy request failed for ${url} - ${e}`);
+        logger.error(`Proxy request failed for ${url}`, { error: e });
         return null;
     }
 };
@@ -51,7 +52,7 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
     // Prevent request loops. Shouldn't happen, but it does! :thinking:
     const isLoopback = c.req.header(LOOPBACK_HEADER);
     if (isLoopback) {
-        console.error(`Loopback for request to version id ${reqVersionId}!`);
+        logger.error(`Loopback for request to version id ${reqVersionId}!`);
     }
 
     if (

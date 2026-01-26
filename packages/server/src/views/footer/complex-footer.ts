@@ -25,7 +25,7 @@ export const ComplexFooter = ({
                     aksel["navds-body-short--large"],
                     cls.toTop,
                 )}"
-                href="#"
+                href="#toppen"
                 >${ArrowUpIcon({ className: utils.icon })}${i18n("to_top")}</a
             >
             <ul class="${cls.footerLinks}">
