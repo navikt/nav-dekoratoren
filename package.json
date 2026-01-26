@@ -24,7 +24,7 @@
     "dependencies": {
         "@types/umami": "2.10.1",
         "clsx": "2.1.1",
-        "zod": "4.2.1"
+        "zod": "4.3.5"
     },
     "dependencyComments": {
         "storybook": "Need to have matching storybook version across all storybook packages for it to work properly, keeping on 8.6.15 until all have newer versions."
