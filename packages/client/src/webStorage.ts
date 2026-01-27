@@ -20,7 +20,7 @@ const DECORATOR_DATA_TIMEOUT = 5000;
 // V1: 28.02.2025: Initial version
 
 export class WebStorageController {
-    currentConsentVersion: number = 3;
+    currentConsentVersion: number = 4;
     consentKey: string = "navno-consent";
 
     constructor() {
@@ -30,7 +30,7 @@ export class WebStorageController {
 
     // Default consent object ensures that nothing is allowed until user has
     // given and explicit consent.
-    private buildDefaultConsent = () => {
+    private buildDefaultConsent = (): Consent => {
         return {
             consent: { analytics: false, surveys: false },
             userActionTaken: false,
@@ -38,6 +38,7 @@ export class WebStorageController {
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
                 version: this.currentConsentVersion,
+                analyticsId: null,
             },
         };
     };
@@ -52,11 +53,16 @@ export class WebStorageController {
         return window.__DECORATOR_DATA__.allowedStorage || [];
     };
 
-    private buildUpdatedConsentObject = (consent: ConsentAction) => {
+    private buildUpdatedConsentObject = (consent: ConsentAction): Consent => {
         // User either consent or refuse all for now. Differentiate between analytics and surveys
         // in order to be scalable in the future.
         const analytics = consent === "CONSENT_ALL_WEB_STORAGE";
         const surveys = consent === "CONSENT_ALL_WEB_STORAGE";
+
+        // We need to track the anonymous user across calendar months in Umami.
+        // To achieve this, generate a uuid to be used in umami.identify on each start.
+        // null if no consent.
+        const analyticsId = analytics ? crypto.randomUUID() : null;
 
         const currentConsent =
             this.getCurrentConsent() ?? this.buildDefaultConsent();
@@ -69,6 +75,7 @@ export class WebStorageController {
                     currentConsent.meta?.createdAt ?? new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
                 version: this.currentConsentVersion,
+                analyticsId,
             },
         };
     };
@@ -281,6 +288,11 @@ export class WebStorageController {
         return currentConsent
             ? JSON.parse(currentConsent)
             : this.buildDefaultConsent();
+    };
+
+    public getAnalyticsId = (): string | null => {
+        const currentConsent = this.getCurrentConsent();
+        return currentConsent.meta.analyticsId;
     };
 
     public isStorageKeyAllowed = (key: string) => {

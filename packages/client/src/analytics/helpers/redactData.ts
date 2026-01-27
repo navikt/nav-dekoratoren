@@ -13,7 +13,7 @@ const LOCAL_PATH_REGEX = new RegExp(
     "i",
 );
 
-const EXEMPT_KEYS = new Set(["website"]);
+const EXEMPT_KEYS = new Set(["website", "id"]);
 const URL_KEYS = new Set(["url", "referrer", "destinasjon"]);
 
 const redactString = (value: string, key?: string): string => {
