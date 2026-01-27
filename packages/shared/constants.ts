@@ -9,3 +9,5 @@ export const languageLabels = {
     uk: "Українська (ukrainsk)",
     ru: "Русский (russisk)",
 };
+
+export const CONSUMER = "dekoratoren";
