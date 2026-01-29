@@ -4,6 +4,7 @@ import { endpointUrlWithParams } from "../helpers/urls";
 import { param } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
+import { logger } from "decorator-shared/logger";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -29,7 +30,7 @@ class MainMenu extends HTMLElement {
             .then((html) => {
                 if (!html) {
                     // TODO: better error handling
-                    console.error("Failed to fetch content for main-menu");
+                    logger.error("Failed to fetch content for main-menu");
                     this.innerHTML = "Kunne ikke laste meny-innhold";
                     return;
                 }

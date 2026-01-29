@@ -16,7 +16,7 @@ jobs:
       IMAGE: ${{ steps.build_test.outputs.IMAGE }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and test
         id: build_test
@@ -24,17 +24,18 @@ jobs:
         with:
           READER_TOKEN: ${{ secrets.READER_TOKEN }}
           IMAGE_SUFFIX: prod
-          TAG_LATEST: 'true'
+          TAG_LATEST: true
 
   deploy-prod:
     runs-on: ubuntu-latest
     needs: build
+    environment: prod
     permissions:
       id-token: write
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to prod
         uses: ./.github/actions/deploy-to-nais
@@ -43,6 +44,8 @@ jobs:
           CLUSTER: prod-gcp
           IMAGE: ${{ needs.build.outputs.IMAGE }}
           DEPLOY_PREVIOUS: true
+          PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+          PREV_IMAGE: ${{ vars.PREV_IMAGE }}
           HPA_FILE: hpa-prod.yml
           VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
 
@@ -54,7 +57,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to dev
         uses: ./.github/actions/deploy-to-nais
@@ -73,7 +76,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to Team Nav.no dev2/beta
         uses: ./.github/actions/deploy-to-nais
@@ -91,7 +94,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to Team Min Side dev2/beta
         uses: ./.github/actions/deploy-to-nais

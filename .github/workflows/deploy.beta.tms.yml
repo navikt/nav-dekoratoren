@@ -22,7 +22,7 @@ jobs:
       IMAGE: ${{ steps.build_test.outputs.IMAGE }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and test
         id: build_test
@@ -35,12 +35,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    environment: dev-beta-tms
     permissions:
       id-token: write
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to Nais
         uses: ./.github/actions/deploy-to-nais
@@ -49,4 +50,6 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.IMAGE }}
           DEPLOY_PREVIOUS: ${{ inputs.DEPLOY_PREVIOUS }}
+          PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+          PREV_IMAGE: ${{ vars.PREV_IMAGE }}
           VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}

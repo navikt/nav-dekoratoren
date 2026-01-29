@@ -10,22 +10,47 @@ import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
 
+const availableHosts = [
+    "www.nav.no",
+    "www.ansatt.dev.nav.no",
+    "www-2.ansatt.dev.nav.no",
+];
+
+const checkAndCorrectHost = (url: string): string => {
+    if (!url) {
+        return url;
+    }
+
+    if (url.startsWith("/")) {
+        const currentHostIsAvailableHosts =
+            availableHosts.includes(window.location.host) ||
+            window.location.host.startsWith("localhost");
+        const host = currentHostIsAvailableHosts
+            ? window.location.host
+            : "www.nav.no";
+        return `https://${host}${url}`;
+    }
+
+    return url;
+};
+
 export const OpsMessagesTemplate = ({
     opsMessages,
 }: {
     opsMessages: OpsMessage[];
 }) => html`
     <section class="${cls.opsMessagesContent} ${utils.contentContainer}">
-        ${opsMessages.map(
-            ({ heading, url, type }) => html`
-                <a href="${url}" class="${cls.opsMessage}">
+        ${opsMessages.map(({ heading, url, type }) => {
+            const fullUrl = checkAndCorrectHost(url);
+            return html`
+                <a href="${fullUrl}" class="${cls.opsMessage}">
                     ${type === "prodstatus"
                         ? ExclamationmarkTriangleIcon({ className: utils.icon })
                         : InformationSquareIcon({ className: utils.icon })}
                     ${heading}
                 </a>
-            `,
-        )}
+            `;
+        })}
     </section>
 `;
 

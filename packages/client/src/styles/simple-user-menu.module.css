@@ -8,7 +8,7 @@
     display: grid;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .name {
         grid-auto-flow: column;
         gap: var(--a-spacing-1);

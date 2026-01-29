@@ -1,16 +1,33 @@
 version: 2
+
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: daily
-    cooldown:
-      default-days: 7
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Oslo"
     open-pull-requests-limit: 10
-  - package-ecosystem: github-actions
+    pull-request-branch-name:
+      separator: "-"
+    cooldown:
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 7
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: daily
-    cooldown:
-      default-days: 7
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Oslo"
+    pull-request-branch-name:
+      separator: "-"
     open-pull-requests-limit: 10
+    groups:
+      actions:
+        patterns: ["*"]

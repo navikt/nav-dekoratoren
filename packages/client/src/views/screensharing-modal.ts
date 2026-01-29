@@ -5,6 +5,7 @@ import clsInputs from "../styles/inputs.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
+import { logger } from "decorator-shared/logger";
 import {
     loadPuzzelScript,
     ScreenshareButtonPuzzel,
@@ -31,12 +32,14 @@ function lazyLoadScreensharing(openModal: () => void) {
 
     loadScript().then(() => {
         if (!window.vngage) {
-            console.error("vngage not found!");
+            logger.error("vngage not found!");
             return;
         }
 
         window.vngage.subscribe("app.ready", (message, data) => {
-            console.log("Screensharing app vergic ready", message, data);
+            logger.info("Screensharing app vergic ready", {
+                metaData: { message, data },
+            });
 
             scriptHasLoaded = true;
             openModal();
@@ -136,7 +139,7 @@ class ScreenshareButton extends HTMLElement {
             loadScript();
         }
 
-        console.log("Checking for active puzzle chat session");
+        logger.info("Checking for active puzzle chat session");
         const puzzleChatSession = Cookies.get("pzl.rid");
         if (
             puzzleChatSession &&
@@ -157,7 +160,7 @@ class ScreenshareButton extends HTMLElement {
 
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
-                console.log("Opening vergic screensharing modal");
+                logger.info("Opening vergic screensharing modal");
                 const dialog = document.querySelector(
                     "screensharing-modal",
                 ) as HTMLDialogElement;

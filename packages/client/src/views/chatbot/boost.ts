@@ -1,5 +1,6 @@
 import loadExternalScript from "../../helpers/load-external-script";
 import { env, param } from "../../params";
+import { logger } from "decorator-shared/logger";
 
 type BoostApi = { show: () => void };
 
@@ -12,7 +13,7 @@ export const initBoost = (): Promise<BoostApi | undefined> =>
         ? Promise.resolve(boostApi)
         : loadScript().then(() => {
               if (!window.boostInit) {
-                  console.error("Boost init function not found!");
+                  logger.error("Boost init function not found!");
                   return undefined;
               }
 
