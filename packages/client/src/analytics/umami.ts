@@ -44,6 +44,7 @@ export const logUmamiEvent = async (
                 ...props,
                 name: eventName === "besøk" ? undefined : eventName,
                 url,
+                id: window.webStorageController.getAnalyticsId(),
                 title: window.document.title,
                 referrer:
                     eventName === "besøk"
