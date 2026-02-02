@@ -1,7 +1,8 @@
 import { ClientParams } from "decorator-shared/params";
 import { formatParams } from "decorator-shared/json";
 import { env } from "../params";
-import { VERSION_ID_PARAM } from "decorator-shared/constants";
+import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
+import { logger } from "decorator-shared/logger";
 
 export const endpointUrlWithParams = (
     endpointUrl: `/${string}`,
@@ -12,11 +13,11 @@ export const endpointUrlWithParams = (
         ...params,
     });
 
-    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}`;
+    return `${env("APP_URL")}${endpointUrl}?${formattedParams}&${VERSION_ID_PARAM}=${env("VERSION_ID")}&consumer=${CONSUMER}`;
 };
 
 export const endpointUrlWithoutParams = (endpointUrl: `/${string}`) => {
-    return `${env("APP_URL")}${endpointUrl}?${VERSION_ID_PARAM}=${env("VERSION_ID")}`;
+    return `${env("APP_URL")}${endpointUrl}?${VERSION_ID_PARAM}=${env("VERSION_ID")}&consumer=${CONSUMER}`;
 };
 
 export const cdnUrl = (url: string) =>
@@ -25,7 +26,8 @@ export const cdnUrl = (url: string) =>
 export const parseUrl = (url: string) => {
     try {
         return new URL(url);
-    } catch {
+    } catch (error) {
+        logger.error(`Error parsing url ${url}`, { error });
         return null;
     }
 };

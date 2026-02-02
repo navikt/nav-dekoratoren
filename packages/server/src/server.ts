@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
+import { logger } from "decorator-shared/logger";
 import { env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";
@@ -26,6 +27,7 @@ import { ssrApiHandler } from "./handlers/ssr-api";
 import { versionApiHandler } from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
+import { CONSUMER } from "decorator-shared/constants";
 
 const app = new Hono({
     strict: false,
@@ -34,7 +36,7 @@ const app = new Hono({
 app.use(headers);
 
 if (env.NODE_ENV === "development" || isLocalhost()) {
-    console.log("Setting up mocks");
+    logger.info("Setting up mocks");
     setupMocks();
     app.get(
         "/mockServiceWorker.js",
@@ -54,7 +56,6 @@ const { printMetrics, registerMetrics } = prometheus();
 
 app.use("*", registerMetrics);
 app.get("/metrics", printMetrics);
-
 app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
 
@@ -93,6 +94,7 @@ app.post("/api/notifications/:id/archive", async ({ req, json }) => {
         });
     }
 });
+
 app.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
@@ -101,10 +103,14 @@ app.get("/api/search", async ({ req, html }) =>
         }),
     ),
 );
-app.get("/api/csp", ({ json }) => json(cspDirectives));
-app.get("/main-menu", async ({ req, html }) => {
-    const data = parseAndValidateParams(req.query());
 
+app.get("/api/csp", ({ json }) => json(cspDirectives));
+
+app.get("/main-menu", async ({ req, html }) => {
+    if (req.query("consumer") !== CONSUMER) {
+        return html("");
+    }
+    const data = parseAndValidateParams(req.query());
     return html(
         (
             await MainMenuTemplate({
@@ -113,6 +119,7 @@ app.get("/main-menu", async ({ req, html }) => {
         ).render(data),
     );
 });
+
 app.get("/auth", async ({ req, json }) =>
     json(
         await authHandler({
@@ -121,19 +128,26 @@ app.get("/auth", async ({ req, json }) =>
         }),
     ),
 );
-app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
-app.get("/header", async ({ req, html }) => {
-    const params = parseAndValidateParams(req.query());
 
+app.get("/ops-messages", async ({ json }) => json(await fetchOpsMessages()));
+
+app.get("/header", async ({ req, html }) => {
+    if (req.query("consumer") !== CONSUMER) {
+        return html("");
+    }
+    const params = parseAndValidateParams(req.query());
     return html(
         (await HeaderTemplate({ params, withContainers: false })).render(
             params,
         ),
     );
 });
-app.get("/footer", async ({ req, html }) => {
-    const params = parseAndValidateParams(req.query());
 
+app.get("/footer", async ({ req, html }) => {
+    if (req.query("consumer") !== CONSUMER) {
+        return html("");
+    }
+    const params = parseAndValidateParams(req.query());
     return html(
         (
             await FooterTemplate({
@@ -144,7 +158,9 @@ app.get("/footer", async ({ req, html }) => {
         ).render(params),
     );
 });
+
 app.get("/ssr", ssrApiHandler);
+
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
     const query = req.query();
@@ -174,6 +190,7 @@ app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
         scripts: csrAssets.mainScripts,
     } satisfies CsrPayload);
 });
+
 app.get("/csr/:clientWithId{client(.*).js}", async ({ redirect }) =>
     redirect(csrAssets.csrScriptUrl),
 );

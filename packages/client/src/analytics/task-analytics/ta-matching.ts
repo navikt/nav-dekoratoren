@@ -7,6 +7,7 @@ import {
     TaskAnalyticsSurvey,
     TaskAnalyticsUrlRule,
 } from "decorator-server/src/task-analytics-config";
+import { logger } from "decorator-shared/logger";
 
 type Audience = Required<TaskAnalyticsSurvey>["audience"][number];
 type Language = Required<TaskAnalyticsSurvey>["language"][number];
@@ -101,7 +102,7 @@ export const taskAnalyticsGetMatchingSurveys = (
     const matchingSurveys = surveys.filter((survey) => {
         const { id } = survey;
         if (!id) {
-            console.log("No TA survey id specified!");
+            logger.info("No TA survey id specified!");
             return false;
         }
 

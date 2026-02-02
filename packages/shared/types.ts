@@ -120,5 +120,6 @@ export type Consent = {
         createdAt: string;
         updatedAt: string;
         version: number;
+        analyticsId: string | null;
     };
 };

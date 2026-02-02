@@ -2,6 +2,7 @@ import { Auth, AuthDataResponse, AuthLoggedIn } from "decorator-shared/auth";
 import { type Params } from "decorator-shared/params";
 import { LeaveIcon } from "decorator-icons";
 import { match } from "ts-pattern";
+import { logger } from "decorator-shared/logger";
 import { clientEnv, env } from "../env/server";
 import i18n from "../i18n";
 import { fetchNotifications } from "../notifications";
@@ -41,7 +42,7 @@ const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
             );
         })
         .catch((e) => {
-            console.error(`Auth error - ${e}`);
+            logger.error("Auth error", { error: e });
             return null;
         });
 };

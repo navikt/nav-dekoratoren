@@ -1,6 +1,7 @@
 import { plugin } from "bun";
 import postcss from "postcss";
 import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config";
+import { logger } from "decorator-shared/logger";
 
 export async function getPostcssTokens(path: string) {
     try {
@@ -21,7 +22,7 @@ export async function getPostcssTokens(path: string) {
                 type === "export" && plugin === "postcss-modules",
         )?.exportTokens;
     } catch (e) {
-        console.error(e);
+        logger.error("Error processing CSS modules for ${path}", { error: e });
     }
 }
 

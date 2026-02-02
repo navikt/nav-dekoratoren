@@ -2,6 +2,7 @@ import { z } from "zod";
 import { env } from "./env/server";
 import { Result, ResultType } from "./result";
 import { fetchAndValidateJson } from "./lib/fetch-and-validate";
+import { logger } from "decorator-shared/logger";
 
 const varselSchema = z
     .object({
@@ -18,7 +19,7 @@ const varselSchema = z
         // Don't log fields which may contain sensitive information
         const inputObject = (ctx.input ?? {}) as Record<string, unknown>;
         const redactedInput = { ...inputObject, tekst: null, link: null };
-        console.error(
+        logger.error(
             `Error validating notification - ${JSON.stringify(redactedInput)}`,
         );
         return null;
