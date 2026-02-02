@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "lint": "tsc --noEmit && eslint ."
+        "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
         "decorator-icons": "workspace:*"

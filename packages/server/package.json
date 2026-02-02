@@ -11,7 +11,7 @@
         "clean": "rm -rf ./public/assets",
         "build": "bun run clean && NODE_ENV=production bun run build.ts",
         "test": "bun test --env-file=./.env.sample",
-        "lint": "tsc --noEmit && eslint ."
+        "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
         "@hono/prometheus": "1.0.2",

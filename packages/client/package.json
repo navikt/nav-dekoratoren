@@ -10,7 +10,7 @@
         "build-csr": "vite build --mode csr",
         "test": "TZ=UTC vitest run",
         "test:watch": "TZ=UTC vitest watch",
-        "lint": "tsc --noEmit && eslint ."
+        "lint": "eslint . && tsc --noEmit"
     },
     "dependenciesComments": {
         "@grafana/faro-web-sdk": "Type-only import. Faro is initialized by xp-frontend, keep version in sync."

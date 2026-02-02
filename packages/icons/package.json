@@ -7,7 +7,7 @@
     },
     "scripts": {
         "build": "bun run build-icons.ts",
-        "lint": "tsc --noEmit && eslint ."
+        "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
         "decorator-shared": "workspace:*"
