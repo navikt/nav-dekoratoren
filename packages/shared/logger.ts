@@ -28,7 +28,7 @@ const formatLog = (level: LogLevel, message: string, context?: LogContext) => {
 };
 
 // Detect if we're running in a browser (client-side) vs Node.js (server-side)
-const isBrowser = typeof window !== "undefined";
+const isBrowser = "window" in globalThis;
 
 export const logger = {
     info: (message: string, context?: LogContext) => {
