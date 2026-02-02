@@ -5,9 +5,9 @@ import { logger } from "decorator-shared/logger";
 
 export async function getPostcssTokens(path: string) {
     try {
-        // eslint-disable-next-line
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const postcssModules = require("postcss-modules");
-        // eslint-disable-next-line
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const postcssImport = require("postcss-import");
         const val = await postcss([
             postcssModules({
