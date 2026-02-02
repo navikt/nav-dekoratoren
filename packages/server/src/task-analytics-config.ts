@@ -44,7 +44,7 @@ const validateSurveys = (surveys: unknown) => {
 
     if (!result.success) {
         console.error(
-            `Failed to validate TA surveys - ${result.error.errors.map((error) => error.path).join("\n")}`,
+            `Failed to validate TA surveys - ${result.error.issues.map((error) => error.path).join("\n")}`,
         );
         return null;
     }

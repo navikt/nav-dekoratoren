@@ -44,7 +44,7 @@ describe("notifications", () => {
                         },
                         {
                             eventId: "c",
-                            type: "invalidtype",
+                            type: "invalidtype" as any,
                             tidspunkt: "2023-07-05T11:43:02.280367+02:00",
                             isMasked: false,
                             eksternVarslingKanaler: ["SMS", "EPOST"],

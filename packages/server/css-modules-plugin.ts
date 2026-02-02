@@ -4,13 +4,16 @@ import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config"
 
 export async function getPostcssTokens(path: string) {
     try {
+        // eslint-disable-next-line
+        const postcssModules = require("postcss-modules");
+        // eslint-disable-next-line
+        const postcssImport = require("postcss-import");
         const val = await postcss([
-             
-            require("postcss-modules")({
+            postcssModules({
                 getJSON: () => {},
                 ...cssModulesScopedNameOption,
             }),
-            require("postcss-import"),
+            postcssImport,
         ]).process(await Bun.file(path).text(), { from: path });
 
         return val.messages.find(

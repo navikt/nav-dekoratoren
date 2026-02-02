@@ -64,7 +64,7 @@ const preview: Preview = {
         (Story, context) => {
             const story = Story();
 
-            const language = context.globals.locale;
+            const language = context.globals.locale as Params["language"];
 
             window.__DECORATOR_DATA__.texts = texts[language];
             updateDecoratorParams({ language });

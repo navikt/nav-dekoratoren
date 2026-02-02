@@ -25,7 +25,7 @@ export const cdnUrl = (url: string) =>
 export const parseUrl = (url: string) => {
     try {
         return new URL(url);
-    } catch (e) {
+    } catch {
         return null;
     }
 };

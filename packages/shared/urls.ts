@@ -1,4 +1,4 @@
-import { ClientParams } from "./params";
+import type { ClientParams } from "./params";
 
 export function makeFrontpageUrl({
     context,

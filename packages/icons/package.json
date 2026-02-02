@@ -6,7 +6,8 @@
         ".": "./dist/index.ts"
     },
     "scripts": {
-        "build": "bun run build-icons.ts"
+        "build": "bun run build-icons.ts",
+        "lint": "tsc --noEmit && eslint ."
     },
     "dependencies": {
         "decorator-shared": "workspace:*"

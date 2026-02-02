@@ -1,16 +1,18 @@
 {
     "compilerOptions": {
+        "target": "ES2022",
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "strict": true,
         "skipLibCheck": true,
-        "isolatedModules": false,
+        "isolatedModules": true,
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "esModuleInterop": true,
-        "composite": true,
-        "module": "esnext",
-        "moduleResolution": "Bundler",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
         "moduleDetection": "force",
-        "types": ["vite/client"],
+        "noEmit": true,
+        "types": ["vite/client", "node"],
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",
@@ -21,5 +23,6 @@
                 }
             }
         ]
-    }
+    },
+    "exclude": ["test/**", "**/*.stories.ts"]
 }

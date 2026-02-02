@@ -2,6 +2,9 @@
     "name": "decorator-shared",
     "version": "0.0.1",
     "type": "module",
+    "scripts": {
+        "lint": "tsc --noEmit && eslint ."
+    },
     "dependencies": {
         "decorator-icons": "workspace:*"
     }

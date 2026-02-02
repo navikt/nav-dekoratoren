@@ -4,7 +4,9 @@ const decoratorReady = () =>
     new Promise<void>((resolve) => {
         window.addEventListener("message", (e) => {
             if (e.data.source === "decorator" && e.data.event === "ready") {
-                interval && clearInterval(interval);
+                if (interval) {
+                    clearInterval(interval);
+                }
                 resolve();
             }
         });

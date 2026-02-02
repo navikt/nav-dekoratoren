@@ -13,7 +13,7 @@ const compat = new FlatCompat({
 });
 
 export default [{
-    ignores: ["**/*.js"],
+    ignores: ["**/*.js", "**/*.cjs"],
 }, ...compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended"), {
     plugins: {
         "@typescript-eslint": typescriptEslint,

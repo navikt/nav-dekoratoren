@@ -1,4 +1,4 @@
-import { Language } from "./params";
+import type { Language } from "./params";
 
 type Props = Record<string, string | boolean | number | null | undefined>;
 

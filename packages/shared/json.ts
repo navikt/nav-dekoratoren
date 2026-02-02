@@ -22,7 +22,7 @@ export function tryParse<TParsed, TDefault = any>(
     if (!value) return defaultValue;
     try {
         return JSON.parse(value) as TParsed;
-    } catch (e) {
+    } catch {
         return defaultValue;
     }
 }
@@ -31,6 +31,6 @@ export function formatParams(params: Partial<ClientParams>) {
     return new URLSearchParams(
         Object.entries(params).map(([k, v]) =>
             Array.isArray(v) ? [k, JSON.stringify(v)] : [k, v?.toString()],
-        ),
+        ) as [string, string][],
     );
 }
