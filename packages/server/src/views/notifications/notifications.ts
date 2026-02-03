@@ -153,7 +153,7 @@ export function Notifications({
                           `,
                       )}
                   </ul>`
-                : NotificationsEmpty({ minsideUrl })
+                : NotificationsEmpty()
             : NotificationsErrorView()}
         <a
             class="${clsx(

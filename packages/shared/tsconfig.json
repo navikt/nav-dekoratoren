@@ -4,14 +4,14 @@
         "lib": ["ES2022", "DOM"],
         "strict": true,
         "skipLibCheck": true,
-        "isolatedModules": false,
+        "isolatedModules": true,
         "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "esModuleInterop": true,
-        "composite": true,
-        "module": "esnext",
-        "moduleResolution": "Bundler",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
         "moduleDetection": "force",
+        "noEmit": true,
         "types": ["vite/client", "node"],
         "plugins": [
             {
@@ -23,5 +23,6 @@
                 }
             }
         ]
-    }
+    },
+    "exclude": ["test/**", "**/*.stories.ts"]
 }

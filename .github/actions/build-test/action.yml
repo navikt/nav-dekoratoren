@@ -64,6 +64,10 @@ runs:
       shell: bash
       run: bun run build
 
+    - name: Run linting
+      shell: bash
+      run: bun run lint
+
     - name: Run unit tests
       shell: bash
       if: ${{ inputs.SKIP_TESTS != 'true' }}

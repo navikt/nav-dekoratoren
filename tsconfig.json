@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "skipLibCheck": true
+    },
+    "files": [],
+    "include": [],
+    "references": [
+        { "path": "./packages/client" },
+        { "path": "./packages/icons" },
+        { "path": "./packages/server" },
+        { "path": "./packages/shared" },
+        { "path": "./packages/next-pages-router-example" }
+    ]
+}

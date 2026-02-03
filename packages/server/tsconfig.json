@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
         "lib": ["ES2022"],
-        "module": "esnext",
+        "module": "ESNext",
         "target": "ES2022",
         "moduleResolution": "bundler",
         "moduleDetection": "force",
         "strict": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "isolatedModules": false,
+        "isolatedModules": true,
+        "noEmit": true,
         "typeRoots": ["bun-types"],
         "plugins": [
             {
@@ -21,5 +22,6 @@
             }
         ]
     },
+    "include": ["./src", "../../types"],
     "exclude": ["**/*.stories.ts"]
 }

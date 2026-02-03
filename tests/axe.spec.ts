@@ -6,7 +6,7 @@ test("should not have any automatically detectable accessibility issues", async 
     page,
 }) => {
     const accessibilityScanResults = await new AxeBuilder({
-        page,
+        page: page as any,
     }).analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);

@@ -9,26 +9,18 @@ const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
     baseDirectory: __dirname,
     recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all,
+    allConfig: js.configs.all
 });
 
-export default [
-    {
-        ignores: ["**/*.js"],
+export default [{
+    ignores: ["**/*.js", "**/*.cjs"],
+}, ...compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended"), {
+    plugins: {
+        "@typescript-eslint": typescriptEslint,
     },
-    ...compat.extends(
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-    ),
-    {
-        plugins: {
-            "@typescript-eslint": typescriptEslint,
-        },
 
-        rules: {
-            "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/no-unused-vars": "warn",
-            "@typescript-eslint/no-require-imports": "off",
-        },
+    rules: {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
     },
-];
+}];

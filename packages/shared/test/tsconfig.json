@@ -4,15 +4,14 @@
         "lib": ["ES2022"],
         "module": "ESNext",
         "strict": true,
-        "skipLibCheck": false,
-        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "moduleResolution": "bundler",
         "baseUrl": "./",
         "rootDir": "../",
         "types": ["bun-types"],
         "paths": {
             "lib/*": ["../*"]
         },
-        "composite": true,
         "isolatedModules": true
     },
     "include": ["**/*", "../**/*"]

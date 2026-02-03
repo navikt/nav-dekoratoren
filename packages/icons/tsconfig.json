@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        // Enable latest features
         "lib": ["ES2022", "DOM"],
         "target": "ES2022",
         "module": "ESNext",
@@ -13,6 +12,7 @@
         "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": true,
         "noEmit": true,
+        "isolatedModules": true,
 
         // Best practices
         "strict": true,
@@ -34,5 +34,6 @@
                 }
             }
         ]
-    }
+    },
+    "include": ["./src", "../../types"]
 }

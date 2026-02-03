@@ -1,7 +1,6 @@
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
 import { cssModulesScopedNameOption } from "../shared/css-modules-config";
-import { InputPluginOption } from "rollup";
 
 const mainConfig = defineConfig({
     server: {
@@ -10,14 +9,14 @@ const mainConfig = defineConfig({
     logLevel: "info",
     build: {
         minify: true,
-        target: "esnext",
+        target: "ES2022",
         manifest: true,
         sourcemap: true,
         // Prevent inlining any asset imports, always import as url
         assetsInlineLimit: 0,
         rollupOptions: {
             treeshake: false,
-            plugins: [minifyLiterals() as InputPluginOption],
+            plugins: [minifyLiterals()],
             input: ["src/main.ts"],
         },
     },

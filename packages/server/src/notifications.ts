@@ -17,7 +17,8 @@ const varselSchema = z
     .nullable()
     .catch((ctx) => {
         // Don't log fields which may contain sensitive information
-        const redactedInput = { ...ctx.input, tekst: null, link: null };
+        const inputObject = (ctx.input ?? {}) as Record<string, unknown>;
+        const redactedInput = { ...inputObject, tekst: null, link: null };
         logger.error(
             `Error validating notification - ${JSON.stringify(redactedInput)}`,
         );

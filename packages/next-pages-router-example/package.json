@@ -3,23 +3,21 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "build": "next build",
+        "dev": "next dev --webpack",
+        "build": "next build --webpack",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
-        "@navikt/nav-dekoratoren-moduler": "^3.2.1",
-        "react": "^18",
-        "react-dom": "^18",
-        "next": "14.2.35"
+        "@navikt/nav-dekoratoren-moduler": "3.6.1",
+        "react": "19.2.4",
+        "react-dom": "19.2.4",
+        "next": "16.1.6"
     },
     "devDependencies": {
-        "typescript": "^5",
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
-        "eslint": "^8",
-        "eslint-config-next": "14.2.35"
+        "@types/react": "19.2.10",
+        "@types/react-dom": "19.2.3",
+        "eslint": "9.39.2",
+        "eslint-config-next": "16.1.6"
     }
 }
