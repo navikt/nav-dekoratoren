@@ -14,10 +14,7 @@ import "decorator-client/src/views/logout-warning/session-dialog";
 import "decorator-client/src/views/logout-warning/token-dialog";
 import html from "decorator-shared/html";
 import { Params } from "decorator-shared/params";
-import {
-    INITIAL_VIEWPORTS,
-    MINIMAL_VIEWPORTS,
-} from "@storybook/addon-viewport";
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "storybook/viewport";
 import { texts } from "../packages/server/src/texts";
 import { ClientTexts } from "decorator-shared/types";
 import { updateDecoratorParams } from "decorator-client/src/params";
