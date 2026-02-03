@@ -1,6 +1,5 @@
 name: Deploy to Nais
 description: Composite action to deploy application to Nais cluster with optional previous version deployment
-
 inputs:
   DEPLOY_INSTANCE:
     description: Deployment environment / instance name.
@@ -46,7 +45,7 @@ runs:
     # Checkout the previous version to ensure matching nais config is used
     - name: Checkout previous version
       if: inputs.DEPLOY_PREVIOUS == 'true' && inputs.PREV_VERSION_ID != '' && inputs.PREV_IMAGE != ''
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         ref: ${{ inputs.PREV_VERSION_ID }}
 
@@ -66,7 +65,7 @@ runs:
 
     # Checkout the current version
     - name: Checkout current repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Deploy HPA
       if: inputs.HPA_FILE != ''
