@@ -2,13 +2,13 @@ import type { StorybookConfig } from "@storybook/html-vite";
 
 const config: StorybookConfig = {
     stories: ["../packages/**/*.stories.ts"],
-    addons: ["@storybook/addon-essentials", "@storybook/addon-viewport"],
+    addons: ["@storybook/addon-docs"],
     framework: {
         name: "@storybook/html-vite",
         options: {},
     },
-    docs: {
-        autodocs: "tag",
+    core: {
+        disableTelemetry: true,
     },
     viteFinal: (config) => ({ ...config, define: { "process.env": {} } }),
 };
