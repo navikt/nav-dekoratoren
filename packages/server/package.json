@@ -24,12 +24,12 @@
         "unleash-client": "6.9.4"
     },
     "dependencyComments": {
-        "@types/bun": "Must match the Bun version specified in the Dockerfile (1.2.11)",
+        "@types/bun": "Must match the Bun version specified in the Dockerfile and action.yml.",
         "msw": "2.4.3: There's an issue with bun and any versions higher than 2.4.3 for now. Keeping the version, possibly removing bun or mocking in future."
     },
     "devDependencies": {
-        "@types/bun": "1.3.2",
-        "msw": "2.12.7",
+        "@types/bun": "1.3.6",
+        "msw": "2.4.3",
         "postcss": "8.5.6",
         "postcss-modules": "6.0.1",
         "postcss-import": "16.1.1"

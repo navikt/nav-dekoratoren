@@ -220,4 +220,4 @@ app.route("/common-html/v4/navno", app);
 export default {
     ...app,
     port: Number(process.env.PORT) || 8089,
-} satisfies Partial<Server>;
+} satisfies Partial<Server<undefined>>;

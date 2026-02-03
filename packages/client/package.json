@@ -16,7 +16,7 @@
         "@grafana/faro-web-sdk": "Type-only import. Faro is initialized by xp-frontend, keep version in sync."
     },
     "dependencies": {
-        "@grafana/faro-web-sdk": "1.19.0",
+        "@grafana/faro-web-sdk": "2.2.0",
         "@navikt/ds-css": "7.40.0",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
