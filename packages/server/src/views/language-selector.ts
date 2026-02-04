@@ -59,7 +59,6 @@ export const LanguageSelector = ({
                 type="button"
                 class="${cls.button}"
                 aria-expanded="false"
-                aria-haspopup="menu"
                 aria-controls="decorator-language-menu"
             >
                 ${GlobeIcon({ className: utils.icon })}
@@ -70,7 +69,6 @@ export const LanguageSelector = ({
             </button>
             <ul
                 class="${clsx(cls.menu, utils.hidden)}"
-                role="menu"
                 id="decorator-language-menu"
             >
                 ${availableLanguages.map((lang) =>
