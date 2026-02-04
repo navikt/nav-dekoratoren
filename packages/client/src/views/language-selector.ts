@@ -145,7 +145,6 @@ export class LanguageSelector extends HTMLElement {
         } else {
             this.menu = document.createElement("ul");
             this.menu.classList.add(cls.menu, utils.hidden);
-            this.menu.setAttribute("role", "menu");
             this.menu.id = "decorator-language-menu";
             this.container.appendChild(this.menu);
         }
