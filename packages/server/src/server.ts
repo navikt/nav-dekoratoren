@@ -65,7 +65,7 @@ app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
 });
 
-// app.post("/api/consentping", consentpingHandler);
+app.post("/api/consentping", consentpingHandler);
 
 app.post("/api/notifications/:id/archive", async ({ req, json }) => {
     const result = await archiveNotification({

@@ -1,8 +1,10 @@
+import { logger } from "decorator-shared/logger";
 import { Consent } from "decorator-shared/types";
 import { Handler } from "hono";
 
 export const consentpingHandler: Handler = async ({ req, json }) => {
-    const body = (await req.json()) as any;
+    const body = await req.json();
+
     if (!body?.consentObject) {
         return json({
             result: "error",
@@ -13,8 +15,11 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
     const { consentObject } = body as { consentObject: Consent };
 
     const umamiEvent = {
-        type: "cookie-consent-event",
+        type: "event",
         payload: {
+            name: "consentping",
+            hostname: "www.nav.no",
+            title: "consentping",
             website: process.env.UMAMI_WEBSITE_ID,
             data: {
                 consentObject,
@@ -22,5 +27,20 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
         },
     };
 
-    return json({ result: "ok" });
+    const umamiEndpoint = `${process.env.UMAMI_PROXY_HOST}/api/send`;
+
+    try {
+        await fetch(umamiEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(umamiEvent),
+        });
+    } catch (error) {
+        logger.error("Failed to send consentping:", { error });
+        return json({});
+    }
+
+    return json({});
 };
