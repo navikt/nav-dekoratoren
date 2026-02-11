@@ -41,7 +41,7 @@ env:
   - name: UMAMI_WEBSITE_ID
     value: 35abb2b7-3f97-42ce-931b-cf547d40d967
   - name: UMAMI_PROXY_HOST
-    value: https://reops-event-proxy.nav.no/api/send
+    value: https://reops-event-proxy.nav.no
 ttlInternal: 168h
 resources:
   requests:
