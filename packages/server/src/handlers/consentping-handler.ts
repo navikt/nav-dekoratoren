@@ -17,9 +17,10 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
     const umamiEvent = {
         type: "event",
         payload: {
-            name: "consentping",
+            name: "cookiebanner",
             hostname: "www.nav.no",
-            title: "consentping",
+            url: "/",
+            referrer: "https://www.nav.no",
             website: process.env.UMAMI_WEBSITE_ID,
             data: {
                 consentObject,
@@ -37,7 +38,9 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
             },
             body: JSON.stringify(umamiEvent),
         });
-        logger.info("Sent consentping to Umami");
+        logger.info(
+            `Sendt umami cookiebanner: ${umamiEndpoint}, ${JSON.stringify(umamiEvent)}`,
+        );
     } catch (error) {
         logger.error("Failed to send consentping:", { error });
         return json({});
