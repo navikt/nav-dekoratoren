@@ -7,6 +7,7 @@ outboundHosts:
   - www.nav.no
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
+  - umami.nav.no
 env:
   - name: APP_URL
     value: https://www.nav.no/dekoratoren
