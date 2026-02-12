@@ -31,7 +31,7 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
     const umamiEndpoint = `${process.env.UMAMI_PROXY_HOST}/api/send`;
 
     try {
-        await fetch(umamiEndpoint, {
+        const umamiResponse = await fetch(umamiEndpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
             body: JSON.stringify(umamiEvent),
         });
         logger.info(
-            `Sendt umami cookiebanner: ${umamiEndpoint}, ${JSON.stringify(umamiEvent)}`,
+            `Sendt umami cookiebanner: ${umamiEndpoint}, ${JSON.stringify(umamiEvent)}, response status: ${umamiResponse.status}`,
         );
     } catch (error) {
         logger.error("Failed to send consentping:", { error });
