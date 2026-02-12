@@ -28,6 +28,7 @@ import { versionApiHandler } from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
 import { CONSUMER } from "decorator-shared/constants";
+import { consentpingHandler } from "./handlers/consentping-handler";
 
 const app = new Hono({
     strict: false,
@@ -64,21 +65,7 @@ app.get("/api/ta", ({ json }) => {
     return json(getTaskAnalyticsSurveys());
 });
 
-app.post("/api/consentping", async ({ req, json }) => {
-    const consentPingbackUrl = `${env.DEKORATOREN_API_URL}/consent`;
-    const body = await req.json();
-
-    await fetch(consentPingbackUrl, {
-        body: JSON.stringify(body),
-        headers: {
-            "Content-Type": "application/json",
-        },
-        method: "POST",
-        credentials: "omit",
-    });
-
-    return json({ result: "ok" });
-});
+app.post("/api/consentping", consentpingHandler);
 
 app.post("/api/notifications/:id/archive", async ({ req, json }) => {
     const result = await archiveNotification({

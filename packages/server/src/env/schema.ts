@@ -52,4 +52,5 @@ export const client_env = {
     VERSION_ID: process.env.VERSION_ID,
     XP_BASE_URL: process.env.XP_BASE_URL,
     UMAMI_WEBSITE_ID: process.env.UMAMI_WEBSITE_ID,
+    UMAMI_PROXY_HOST: process.env.UMAMI_PROXY_HOST,
 } satisfies Record<keyof Environment, unknown>;

@@ -91,7 +91,7 @@ export const initUmami = () => {
         script.src =
             "https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js";
         script.defer = true;
-        script.setAttribute("data-host-url", "https://umami.nav.no");
+        script.setAttribute("data-host-url", `${env("UMAMI_PROXY_HOST")}`);
         script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
         script.setAttribute("data-auto-track", "false");
         document.head.appendChild(script);
