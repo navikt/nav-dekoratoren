@@ -45,8 +45,9 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
                 error: `HTTP ${umamiResponse.status} - ${umamiResponse.statusText}`,
             });
         } else {
+            const umamiResponseData = await umamiResponse.text();
             logger.info(
-                `consentping: Successfully sent consentping to Umami: ${JSON.stringify(umamiResponse)}`,
+                `consentping: Successfully sent consentping to Umami: ${umamiResponseData}`,
             );
         }
     } catch (error) {
