@@ -41,12 +41,16 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
             body: JSON.stringify(umamiEvent),
         });
         if (!umamiResponse.ok) {
-            logger.error("Failed to send consentping:", {
+            logger.error("consentping: Failed to send consentping:", {
                 error: `HTTP ${umamiResponse.status} - ${umamiResponse.statusText}`,
             });
+        } else {
+            logger.info(
+                `consentping: Successfully sent consentping to Umami: ${JSON.stringify(umamiResponse)}`,
+            );
         }
     } catch (error) {
-        logger.error("Failed to send consentping:", { error });
+        logger.error("consentping: Failed to send consentping:", { error });
         return json({});
     }
 
