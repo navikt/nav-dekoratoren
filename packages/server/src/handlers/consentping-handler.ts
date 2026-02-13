@@ -35,16 +35,23 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "User-Agent":
+                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
             },
             body: JSON.stringify(umamiEvent),
         });
         if (!umamiResponse.ok) {
-            logger.error("Failed to send consentping:", {
+            logger.error("consentping: Failed to send consentping:", {
                 error: `HTTP ${umamiResponse.status} - ${umamiResponse.statusText}`,
             });
+        } else {
+            const umamiResponseData = await umamiResponse.text();
+            logger.info(
+                `consentping: Successfully sent consentping to Umami: ${umamiResponseData}`,
+            );
         }
     } catch (error) {
-        logger.error("Failed to send consentping:", { error });
+        logger.error("consentping: Failed to send consentping:", { error });
         return json({});
     }
 
