@@ -582,7 +582,7 @@ class MyDocument extends Document<DocumentProps> {
 
         const Decorator = await fetchDecoratorReact({
             env: "prod",
-            params: { language: "no", context: "arbeidsgiver" },
+            params: { language: "nb", context: "arbeidsgiver" },
         });
 
         return { ...initialProps, Decorator };
