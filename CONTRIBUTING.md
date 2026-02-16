@@ -124,7 +124,7 @@ You can find an overview and documentation for each component in [Storybook](htt
 You can also run Storybook locally, e.g., if you're working on a particular component:
 
 ```bash
-npm run storybook
+bun run storybook
 ```
 
 You should now be able to open Storybook in your browser at [http://localhost:6006](http://localhost:6006).
