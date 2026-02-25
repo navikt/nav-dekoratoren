@@ -80,4 +80,12 @@ export const knownRedactPaths = new Map<string, RedactConfig>([
         "/arbeidsgiver/sykmeldte/sykmeldt/:redact:/sykmelding/:redact:",
         { redactPath: true, redactTitle: true },
     ],
+    [
+        "/familie/sykdom-i-familien/soknad/innsyn/sak/:redact:",
+        { redactPath: true, redactTitle: false },
+    ],
+    [
+        "/familie/sykdom-i-familien/soknad/innsyn/sak/:redact:/inntektsmelding/:redact:",
+        { redactPath: true, redactTitle: false },
+    ],
 ]);
