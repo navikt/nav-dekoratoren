@@ -6,8 +6,8 @@
     "scripts": {
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "test": "bun run --filter '*' test",
-        "lint": "bun run --filter '*' lint",
+        "test": "bun run --parallel --filter '*' test",
+        "lint": "bun run --parallel --filter '*' lint",
         "lint:client": "bun run --cwd packages/client lint",
         "lint:server": "bun run --cwd packages/server lint",
         "lint:icons": "bun run --cwd packages/icons lint",
