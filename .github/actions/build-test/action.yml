@@ -47,11 +47,11 @@ runs:
     - name: Setup Bun
       uses: oven-sh/setup-bun@v1
       with:
-        bun-version: 1.3.6
+        bun-version: 1.3.10
 
     - name: Install dependencies
       shell: bash
-      run: bun install --immutable --ignore-scripts
+      run: bun ci
       env:
         NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
 
