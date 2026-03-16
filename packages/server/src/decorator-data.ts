@@ -439,6 +439,14 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
             "Brukes av verktøyet Flexjar for å huske om du har besvart en spørreundersøkelse eller valgt å ikke svare.",
         optional: true,
     },
+    {
+        name: "lumi-*",
+        type: ["localstorage"],
+        service: "Team eSYFO",
+        description:
+            "Brukes av verktøyet Lumi for å huske om du har besvart en spørreundersøkelse eller valgt å ikke svare.",
+        optional: true,
+    },
 ]);
 
 const buildAllowedStorage = () => {
