@@ -900,6 +900,7 @@ export type DecoratorParams = Partial<{
     redirectOnUserChange: boolean;
     pageType: string;
     analyticsQueryParams: string[];
+    analyticsRedactFilter: string[];
 }>;
 
 // Bruk
