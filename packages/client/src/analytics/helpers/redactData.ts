@@ -1,4 +1,3 @@
-import { env } from "../../params";
 import { redactFromUrl } from "./redactUrl";
 
 const UUID_REGEX =
