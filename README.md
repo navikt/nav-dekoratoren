@@ -330,6 +330,14 @@ Av personvernhensyn fjernes alle query-parametere fra URL-er før de sendes til 
 personidentifiserbare opplysninger. Inkluder kun query-parametere som er trygge å eksponere i
 analytics-data.
 
+**analyticsRedactFilter**
+Når data sendes til Umami fjernes automatisk enkelte elementer i stier og i data-objektet. UUID er ett eksempel på
+data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke ønsker at slik fjernes kan gjøre en såkalt "opt out".
+
+Eksempel: analyticsRedactFilter: ['uuid', 'orgnr']
+
+**Viktig** Det er teamet sitt ansvar å gjøre en risikovurdering i tillegg til eventuelle nødvendige tiltak dersom de ønsker å opte ut av for eksempel uuid-redact.
+
 </details>
 
 ### 3.2 Eksempler på bruk
