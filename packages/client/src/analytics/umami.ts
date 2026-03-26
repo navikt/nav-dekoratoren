@@ -98,7 +98,7 @@ export const initUmami = () => {
         script.setAttribute("data-host-url", `${env("UMAMI_PROXY_HOST")}`);
         script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
         script.setAttribute("data-auto-track", "false");
-        script.setAttribute("x-opt-out-filters", redactOptOut);
+        script.setAttribute("data-opt-out-filters", redactOptOut);
         document.head.appendChild(script);
     }
 };
