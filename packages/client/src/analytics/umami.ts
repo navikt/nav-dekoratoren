@@ -86,8 +86,8 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
 };
 
 export const initUmami = () => {
-    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
-        const scriptUrl = env("UMAMI_SCRIPT_URL") || "";
+    const scriptUrl = env("UMAMI_SCRIPT_URL") || "";
+    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"] && scriptUrl) {
         const redactOptOut = (
             window.__DECORATOR_DATA__.params.analyticsRedactFilter || []
         ).join(",");
