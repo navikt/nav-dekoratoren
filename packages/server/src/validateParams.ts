@@ -64,7 +64,17 @@ export const validateParams = (params: Record<string, string>) => {
             .with(P.string, (queryParams) => JSON.parse(queryParams))
             .otherwise(() => []),
         analyticsRedactFilter: match(params.analyticsRedactFilter)
-            .with(P.string, (filters) => JSON.parse(filters))
+            .with(P.string, (filters) => {
+                try {
+                    return JSON.parse(filters);
+                } catch (error) {
+                    logger.error("Failed to parse analyticsRedactFilter", {
+                        error,
+                        filters,
+                    });
+                    return [];
+                }
+            })
             .otherwise(() => []),
     } as Params;
 };
