@@ -332,7 +332,7 @@ analytics-data.
 
 **analyticsRedactFilter**
 Når data sendes til Umami fjernes automatisk enkelte elementer i stier og i data-objektet. UUID er ett eksempel på
-data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke ønsker at slik fjernes kan gjøre en såkalt "opt out".
+data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke ønsker at slik informasjon fjernes kan gjøre en såkalt "opt out".
 
 Eksempel: analyticsRedactFilter: ['uuid', 'orgnr']
 
