@@ -53,7 +53,7 @@ export const FooterTemplate = async ({
 
     return withContainers
         ? html`
-              <div id="decorator-footer">
+              <div id="decorator-footer" data-nosnippet>
                   <decorator-footer>${footerContent}</decorator-footer>
               </div>
           `
