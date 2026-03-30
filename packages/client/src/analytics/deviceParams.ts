@@ -29,7 +29,7 @@ const getVersionFromUA = (userAgent: string, keyword: string): string => {
     const index = userAgent.indexOf(keyword);
     if (index === -1) return "unknown";
     const versionStart = index + keyword.length;
-    const match = userAgent.substring(versionStart).match(/^[\d.]+/);
+    const match = /^[\d.]+/.exec(userAgent.substring(versionStart));
     return match?.[0] ?? "unknown";
 };
 
@@ -52,7 +52,7 @@ const getBrowserFromUA = (
         !userAgent.includes("Chrome/") &&
         !userAgent.includes("CriOS/")
     ) {
-        const version = userAgent.match(/Version\/([\d.]+)/)?.[1] ?? "unknown";
+        const version = /Version\/([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
         return { name: "Safari", version };
     }
     return { name: "unknown", version: "unknown" };
@@ -61,21 +61,22 @@ const getBrowserFromUA = (
 const getOSVersionFromUA = (userAgent: string, os: string): string => {
     switch (os) {
         case "Android": {
-            return userAgent.match(/Android\s([\d.]+)/)?.[1] ?? "unknown";
+            return /Android\s([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
         }
         case "iOS":
         case "iPadOS": {
-            const match = userAgent.match(
-                /(?:iPhone|iPad|iPod|CPU)\s(?:iPhone\s)?OS\s([\d_]+)/,
-            );
-            return match?.[1]?.replace(/_/g, ".") ?? "unknown";
+            const match =
+                /(?:iPhone|iPad|iPod|CPU)\s(?:iPhone\s)?OS\s([\d_]+)/.exec(
+                    userAgent,
+                );
+            return match?.[1]?.replaceAll("_", ".") ?? "unknown";
         }
         case "Windows": {
-            return userAgent.match(/Windows NT\s([\d.]+)/)?.[1] ?? "unknown";
+            return /Windows NT\s([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
         }
         case "macOS": {
-            const match = userAgent.match(/Mac OS X\s([\d_.]+)/);
-            return match?.[1]?.replace(/_/g, ".") ?? "unknown";
+            const match = /Mac OS X\s([\d_.]+)/.exec(userAgent);
+            return match?.[1]?.replaceAll("_", ".") ?? "unknown";
         }
         default:
             return "unknown";
