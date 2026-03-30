@@ -8,6 +8,7 @@ outboundHosts:
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
   - umami.nav.no
+  - reops-event-proxy.nav.no
 env:
   - name: APP_URL
     value: https://www.nav.no/dekoratoren
@@ -42,7 +43,9 @@ env:
   - name: UMAMI_WEBSITE_ID
     value: 35abb2b7-3f97-42ce-931b-cf547d40d967
   - name: UMAMI_PROXY_HOST
-    value: https://umami.nav.no
+    value: https://reops-event-proxy.nav.no
+  - name: UMAMI_SCRIPT_URL
+    value: https://cdn.nav.no/team-researchops/sporing/sporing.js
 ttlInternal: 168h
 resources:
   requests:

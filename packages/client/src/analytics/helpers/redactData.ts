@@ -25,6 +25,14 @@ const redactString = (value: string, key?: string): string => {
     const result =
         key && URL_KEYS.has(key) ? redactFromUrl(value).redactedUrl : value;
 
+    // Teams are allowed to opt out of uuid redaction, although they will have to ensure there
+    // are no privacy breaches in their app.
+    if (
+        window.__DECORATOR_DATA__.params.analyticsRedactFilter?.includes("uuid")
+    ) {
+        return result;
+    }
+
     return result.replaceAll(UUID_REGEX, "[redacted: uuid]");
 };
 

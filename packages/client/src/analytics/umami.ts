@@ -86,21 +86,26 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
 };
 
 export const initUmami = () => {
-    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"]) {
+    const scriptUrl = env("UMAMI_SCRIPT_URL") || "";
+    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"] && scriptUrl) {
+        const redactOptOut = (
+            window.__DECORATOR_DATA__.params.analyticsRedactFilter || []
+        ).join(",");
+
         const script = document.createElement("script");
-        script.src =
-            "https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js";
+        script.src = scriptUrl;
         script.defer = true;
         script.setAttribute("data-host-url", `${env("UMAMI_PROXY_HOST")}`);
         script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
         script.setAttribute("data-auto-track", "false");
+        script.setAttribute("data-opt-out-filters", redactOptOut);
         document.head.appendChild(script);
     }
 };
 
 export const stopUmami = () => {
     const umamiScript = document.querySelector(
-        'script[src="https://cdn.nav.no/team-researchops/sporing/sporing-uten-uuid.js"]',
+        `script[src="${env("UMAMI_SCRIPT_URL")}"]`,
     );
 
     if (umamiScript) {
