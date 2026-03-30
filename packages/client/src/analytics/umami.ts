@@ -4,6 +4,7 @@ import {
     extraWindowParams,
     buildLocationString,
 } from "./analytics";
+import { getDeviceParams } from "./deviceParams";
 import { redactData } from "./helpers/redactData";
 import { AnalyticsEventArgs, EventData } from "./types";
 
@@ -59,6 +60,7 @@ export const logUmamiEvent = async (
                     originVersion: eventData.originVersion || "unknown",
                     viaDekoratoren: true,
                     ...extraWindowParams(),
+                    ...getDeviceParams(),
                 },
             }),
         );
