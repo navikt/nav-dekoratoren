@@ -70,7 +70,6 @@ export const validateParams = (params: Record<string, string>) => {
                 } catch (error) {
                     logger.error("Failed to parse analyticsRedactFilter", {
                         error,
-                        filters,
                     });
                     return [];
                 }
