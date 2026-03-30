@@ -77,6 +77,7 @@ export const paramsSchema = z.object({
     pageTheme: z.string().optional(),
     pageTitle: z.string().optional(),
     analyticsQueryParams: z.array(z.string()).default([]),
+    analyticsRedactFilter: z.array(z.string()).default([]),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -102,6 +103,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "pageTheme",
     "pageTitle",
     "analyticsQueryParams",
+    "analyticsRedactFilter",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
@@ -117,6 +119,7 @@ export const clientEnvSchema = z.object({
     PUZZEL_CUSTOMER_ID: z.string(),
     UMAMI_WEBSITE_ID: z.string().optional(),
     UMAMI_PROXY_HOST: z.string().optional(),
+    UMAMI_SCRIPT_URL: z.string().optional(),
     VERSION_ID: z.string(),
     XP_BASE_URL: z.string(),
 });
