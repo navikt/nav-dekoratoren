@@ -40,7 +40,13 @@ const isSafariLegacyUA = (userAgent: string): boolean =>
     !userAgent.includes("Chrome/") &&
     !userAgent.includes("CriOS/");
 
-const getSafariVersionIfFrozenUA = (
+// Safari freezes the OS version in its UA string (macOS always reports 10.15.7,
+// iOS/iPadOS 26+ reports 18.6). Since Safari's major version tracks the OS major
+// version, we use the Version/ token as a proxy when it's higher than the frozen
+// OS version. This means deviceOSVersion may reflect the Safari version rather
+// than the literal OS version, but it's more useful for analytics than a
+// permanently stale value.
+export const getSafariVersionIfFrozenUA = (
     userAgent: string,
     parsedVersion: string,
 ): string => {
@@ -55,7 +61,10 @@ const getSafariVersionIfFrozenUA = (
     return safariMajor > parsedMajor ? safariVersion : parsedVersion;
 };
 
-const getOSVersionFromLegacyUA = (userAgent: string, os: string): string => {
+export const getOSVersionFromLegacyUA = (
+    userAgent: string,
+    os: string,
+): string => {
     switch (os) {
         case "Android": {
             return /Android\s([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
@@ -86,7 +95,7 @@ const getOSVersionFromLegacyUA = (userAgent: string, os: string): string => {
     }
 };
 
-const getOSNameFromLegacyUA = (userAgent: string): string => {
+export const getOSNameFromLegacyUA = (userAgent: string): string => {
     if (userAgent.includes("Android")) return "Android";
     if (/iPhone|iPod/.test(userAgent)) return "iOS";
     if (/iPad/.test(userAgent)) return "iPadOS";
@@ -100,7 +109,7 @@ const getOSNameFromLegacyUA = (userAgent: string): string => {
     return "unknown";
 };
 
-const getBrowserFromLegacyUA = (
+export const getBrowserFromLegacyUA = (
     userAgent: string,
 ): { name: string; version: string } => {
     for (const browser of browserNameDictionary) {
@@ -125,7 +134,7 @@ const getBrowserFromLegacyUA = (
 // Chrome:  ["Chromium", "Not:A-Brand", "Google Chrome"]
 //
 // Skip the generic brands to find the specific one (e.g. "Microsoft Edge").
-const getBrowserFromBrands = (
+export const getBrowserFromBrands = (
     brands: Brand[],
 ): { name: string; version: string } => {
     const brandNameMap: Record<string, string> = {
