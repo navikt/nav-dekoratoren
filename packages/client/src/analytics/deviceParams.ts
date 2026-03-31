@@ -25,7 +25,9 @@ const browserNameDictionary: { name: string; keywords: string[] }[] = [
     { name: "Firefox", keywords: ["Firefox/", "FxiOS/"] },
 ];
 
-const getVersionFromUA = (userAgent: string, keyword: string): string => {
+const genericBrands = ["Chromium", "Not"];
+
+const getVersionFromLegacyUA = (userAgent: string, keyword: string): string => {
     const index = userAgent.indexOf(keyword);
     if (index === -1) return "unknown";
     const versionStart = index + keyword.length;
@@ -33,32 +35,27 @@ const getVersionFromUA = (userAgent: string, keyword: string): string => {
     return match?.[0] ?? "unknown";
 };
 
-const getBrowserFromUA = (
+const isSafariLegacyUA = (userAgent: string): boolean =>
+    userAgent.includes("Safari/") &&
+    !userAgent.includes("Chrome/") &&
+    !userAgent.includes("CriOS/");
+
+const getSafariVersionIfFrozenUA = (
     userAgent: string,
-): { name: string; version: string } => {
-    for (const browser of browserNameDictionary) {
-        const matched = browser.keywords.find((keyword) =>
-            userAgent.includes(keyword),
-        );
-        if (matched) {
-            return {
-                name: browser.name,
-                version: getVersionFromUA(userAgent, matched),
-            };
-        }
-    }
-    if (
-        userAgent.includes("Safari/") &&
-        !userAgent.includes("Chrome/") &&
-        !userAgent.includes("CriOS/")
-    ) {
-        const version = /Version\/([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
-        return { name: "Safari", version };
-    }
-    return { name: "unknown", version: "unknown" };
+    parsedVersion: string,
+): string => {
+    if (!isSafariLegacyUA(userAgent)) return parsedVersion;
+
+    const safariVersion = /Version\/([\d.]+)/.exec(userAgent)?.[1];
+    if (!safariVersion) return parsedVersion;
+
+    const parsedMajor = parseInt(parsedVersion, 10);
+    const safariMajor = parseInt(safariVersion, 10);
+
+    return safariMajor > parsedMajor ? safariVersion : parsedVersion;
 };
 
-const getOSVersionFromUA = (userAgent: string, os: string): string => {
+const getOSVersionFromLegacyUA = (userAgent: string, os: string): string => {
     switch (os) {
         case "Android": {
             return /Android\s([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
@@ -69,21 +66,27 @@ const getOSVersionFromUA = (userAgent: string, os: string): string => {
                 /(?:iPhone|iPad|iPod|CPU)\s(?:iPhone\s)?OS\s([\d_]+)/.exec(
                     userAgent,
                 );
-            return match?.[1]?.replaceAll("_", ".") ?? "unknown";
+            const parsed = match?.[1]?.replaceAll("_", ".") ?? "unknown";
+            return parsed !== "unknown"
+                ? getSafariVersionIfFrozenUA(userAgent, parsed)
+                : parsed;
         }
         case "Windows": {
             return /Windows NT\s([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
         }
         case "macOS": {
             const match = /Mac OS X\s([\d_.]+)/.exec(userAgent);
-            return match?.[1]?.replaceAll("_", ".") ?? "unknown";
+            const parsed = match?.[1]?.replaceAll("_", ".") ?? "unknown";
+            return parsed !== "unknown"
+                ? getSafariVersionIfFrozenUA(userAgent, parsed)
+                : parsed;
         }
         default:
             return "unknown";
     }
 };
 
-const getOSFromUA = (userAgent: string): string => {
+const getOSNameFromLegacyUA = (userAgent: string): string => {
     if (userAgent.includes("Android")) return "Android";
     if (/iPhone|iPod/.test(userAgent)) return "iOS";
     if (/iPad/.test(userAgent)) return "iPadOS";
@@ -97,6 +100,27 @@ const getOSFromUA = (userAgent: string): string => {
     return "unknown";
 };
 
+const getBrowserFromLegacyUA = (
+    userAgent: string,
+): { name: string; version: string } => {
+    for (const browser of browserNameDictionary) {
+        const matched = browser.keywords.find((keyword) =>
+            userAgent.includes(keyword),
+        );
+        if (matched) {
+            return {
+                name: browser.name,
+                version: getVersionFromLegacyUA(userAgent, matched),
+            };
+        }
+    }
+    if (isSafariLegacyUA(userAgent)) {
+        const version = /Version\/([\d.]+)/.exec(userAgent)?.[1] ?? "unknown";
+        return { name: "Safari", version };
+    }
+    return { name: "unknown", version: "unknown" };
+};
+
 // Chromium browsers report multiple brands via userAgentData.brands, e.g.:
 // Chrome:  ["Chromium", "Not:A-Brand", "Google Chrome"]
 //
@@ -104,14 +128,20 @@ const getOSFromUA = (userAgent: string): string => {
 const getBrowserFromBrands = (
     brands: Brand[],
 ): { name: string; version: string } => {
-    const genericBrands = ["Chromium", "Not", "Google Chrome"];
+    const brandNameMap: Record<string, string> = {
+        "Microsoft Edge": "Edge",
+        "Google Chrome": "Chrome",
+        "Samsung Internet": "Samsung Browser",
+    };
 
+    // Some browsers (notably Edge) include a "Not:A-Brand" entry which should be ignored when determining the specific browser
     const specific = brands.find(
         ({ brand }) => !genericBrands.some((g) => brand.startsWith(g)),
     );
 
     if (specific) {
-        return { name: specific.brand, version: specific.version };
+        const name = brandNameMap[specific.brand] ?? specific.brand;
+        return { name, version: specific.version };
     }
 
     const chromium = brands.find((b) => b.brand === "Chromium");
@@ -137,30 +167,34 @@ export const getDeviceParams = () => {
     const nav = navigator as NavigatorWithUAData;
     const uaData = nav.userAgentData;
 
-    if (uaData) {
-        const browser = getBrowserFromBrands(uaData.brands);
-        const os = uaData.platform || "unknown";
+    // Safari and Firefox (as at April 2026) does not support the newer userAgentData
+    if (!uaData) {
+        const ua = navigator.userAgent;
+        const deviceOS = getOSNameFromLegacyUA(ua);
+        const deviceOSVersion = getOSVersionFromLegacyUA(ua, deviceOS);
+        const browser = getBrowserFromLegacyUA(ua);
+
         return {
-            deviceOS: os,
-            deviceOSVersion: getOSVersionFromUA(
-                navigator.userAgent,
-                getOSFromUA(navigator.userAgent),
-            ),
-            deviceMobile: uaData.mobile,
+            deviceOS,
+            deviceOSVersion,
+            deviceMobile: /Mobi/i.test(ua),
             deviceBrowser: browser.name,
             deviceBrowserVersion: browser.version,
             ...getCommonParams(),
         };
     }
 
-    const ua = navigator.userAgent;
-    const os = getOSFromUA(navigator.userAgent);
-    const browser = getBrowserFromUA(ua);
-
+    const browser = getBrowserFromBrands(uaData.brands);
+    const deviceOS = getOSNameFromLegacyUA(navigator.userAgent);
+    const deviceOSVersion = getOSVersionFromLegacyUA(
+        navigator.userAgent,
+        deviceOS,
+    );
     return {
-        deviceOS: os,
-        deviceOSVersion: getOSVersionFromUA(navigator.userAgent, os),
-        deviceMobile: /Mobi/i.test(ua),
+        deviceOS,
+        // Fallback to legacy UA parsing for OS version, as userAgentData doesn't provide it
+        deviceOSVersion,
+        deviceMobile: uaData.mobile,
         deviceBrowser: browser.name,
         deviceBrowserVersion: browser.version,
         ...getCommonParams(),
