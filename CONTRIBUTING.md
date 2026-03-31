@@ -76,11 +76,7 @@ If you'd like to test your branch, you can deploy it using the workflow trigger 
 
 ### Deploying to production
 
-When your PR has been approved, you may merge it and trigger a production deployment by creating a new version release:
-
-1. In GitHub, click "Releases" and then "Draft a new release."
-2. Make sure that you create a new release tag in the proper format `vx.x.x` and also consider whether this is a major, minor, or patch release.
-3. Click `Generate release notes` to automatically fetch PR references into the description, where you can make final adjustments and comments before hitting `Publish release`.
+When your PR has been approved, you may merge it and trigger a production deployment.
 
 ## Architecture and technical solution
 
