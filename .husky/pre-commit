@@ -1,1 +1,1 @@
-bunx lint-staged --config package.json
+pnpm exec lint-staged --config package.json

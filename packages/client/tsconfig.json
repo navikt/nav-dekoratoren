@@ -14,6 +14,10 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
+        "paths": {
+            "decorator-server/src/*": ["../server/src/*"],
+            "decorator-client/src/*": ["./src/*"]
+        },
         "types": ["vite/client", "vitest/globals", "@types/umami"],
         "plugins": [
             {

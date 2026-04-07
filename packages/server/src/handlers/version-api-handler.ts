@@ -26,3 +26,5 @@ const versionData = {
 };
 
 export const versionApiHandler: Handler = async ({ json }) => json(versionData);
+
+export const closeVersionApiWatcher = () => configMapWatcher.close();

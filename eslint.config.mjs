@@ -14,6 +14,11 @@ const compat = new FlatCompat({
 
 export default [{
     ignores: ["**/*.js", "**/*.cjs"],
+}, {
+    files: ["**/*.mjs"],
+    languageOptions: {
+        globals: { process: "readonly" },
+    },
 }, ...compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended"), {
     plugins: {
         "@typescript-eslint": typescriptEslint,

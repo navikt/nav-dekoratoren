@@ -6,7 +6,7 @@ import {
     describe,
     expect,
     test,
-} from "bun:test";
+} from "vitest";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import testData from "./main-menu-mock.json";
@@ -32,7 +32,7 @@ describe("getSimpleFooterLinks", () => {
     test("urls start with XP_BASE_URL", async () => {
         expect(
             (await getSimpleFooterLinks({ language: "nb" })).at(0)?.url,
-        ).toStartWith(env.XP_BASE_URL);
+        ).toMatch(new RegExp(`^${env.XP_BASE_URL}`));
     });
 
     test("only prepend XP_BASE_URL to paths", async () => {

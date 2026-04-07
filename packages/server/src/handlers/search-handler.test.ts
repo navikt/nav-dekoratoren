@@ -5,8 +5,8 @@ import {
     describe,
     expect,
     test,
-    jest,
-} from "bun:test";
+    vi,
+} from "vitest";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import { env } from "../env/server";
@@ -51,7 +51,7 @@ describe("Search handler", () => {
     });
 
     test("Should encode/decode the query as appropriate", async () => {
-        const resolver = jest.fn(() => {
+        const resolver = vi.fn(() => {
             return HttpResponse.json({
                 hits: validHits,
                 total: validHits.length,

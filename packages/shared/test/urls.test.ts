@@ -1,5 +1,5 @@
-import { expect, test } from "bun:test";
-import { makeFrontpageUrl } from "lib/urls";
+import { expect, test } from "vitest";
+import { makeFrontpageUrl } from "../urls";
 
 test("Frontpage URLs", () => {
     const baseUrl = "https://www.nav.no";

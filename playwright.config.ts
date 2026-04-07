@@ -20,7 +20,7 @@ export default defineConfig({
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-    reporter: "html",
+    reporter: process.env.CI ? "dot" : [["list"], ["html", { open: "never" }]],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
@@ -71,21 +71,21 @@ export default defineConfig({
     /* Run your local dev server before starting the tests */
     webServer: [
         {
-            command: "bun run --cwd packages/server serve-local",
+            command: "pnpm --filter decorator-server run serve-local",
             url: "http://localhost:8089",
             reuseExistingServer: !process.env.CI,
             stderr: "pipe",
             stdout: "pipe",
         },
         {
-            command: "bunx http-server",
+            command: "pnpm exec http-server",
             url: "http://localhost:8080",
             reuseExistingServer: !process.env.CI,
             stderr: "pipe",
             stdout: "pipe",
         },
         {
-            command: "bun run --cwd=packages/next-pages-router-example dev",
+            command: "pnpm --filter next-pages-router-example run dev",
             url: "http://localhost:3000",
             reuseExistingServer: !process.env.CI,
             stderr: "pipe",

@@ -1,4 +1,4 @@
-import { expect } from "bun:test";
+import { expect } from "vitest";
 
 type AnyOkUnion = {
     ok: boolean;

@@ -8,10 +8,6 @@
         "moduleResolution": "bundler",
         "baseUrl": "./",
         "rootDir": "../",
-        "types": ["bun-types"],
-        "paths": {
-            "lib/*": ["../*"]
-        },
         "isolatedModules": true
     },
     "include": ["**/*", "../**/*"]

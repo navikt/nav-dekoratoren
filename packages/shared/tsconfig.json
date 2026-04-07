@@ -12,7 +12,11 @@
         "moduleResolution": "bundler",
         "moduleDetection": "force",
         "noEmit": true,
+        "baseUrl": ".",
         "types": ["vite/client", "node"],
+        "paths": {
+            "decorator-server/src/*": ["../server/src/*"]
+        },
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",

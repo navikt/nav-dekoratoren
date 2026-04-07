@@ -1,7 +1,14 @@
 version: 2
+registries:
+  npm-github-packages:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.READER_TOKEN}}
 updates:
-  - package-ecosystem: "bun"
+  - package-ecosystem: "npm"
     directory: "/"
+    registries:
+      - npm-github-packages
     schedule:
       interval: "weekly"
       day: "monday"

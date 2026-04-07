@@ -1,8 +1,16 @@
 import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
+import { fileURLToPath } from "node:url";
 import { cssModulesScopedNameOption } from "../shared/css-modules-config";
 
+const packageRoot = fileURLToPath(new URL(".", import.meta.url));
+
 const mainConfig = defineConfig({
+    resolve: {
+        alias: {
+            "decorator-client": packageRoot,
+        },
+    },
     server: {
         origin: "http://localhost:5173",
     },
