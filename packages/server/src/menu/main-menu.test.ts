@@ -32,7 +32,7 @@ describe("getSimpleFooterLinks", () => {
     test("urls start with XP_BASE_URL", async () => {
         expect(
             (await getSimpleFooterLinks({ language: "nb" })).at(0)?.url,
-        ).toMatch(new RegExp(`^${env.XP_BASE_URL}`));
+        ).toSatisfy((url: string) => url.startsWith(env.XP_BASE_URL));
     });
 
     test("only prepend XP_BASE_URL to paths", async () => {

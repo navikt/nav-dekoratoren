@@ -28,46 +28,48 @@ ${svg}
 \`;
 `;
 
-[
-    ...Object.keys(metadata).map((name) => ({
-        name,
-        path: `@navikt/aksel-icons/svg/${name}.svg`,
-    })),
-    ...files,
-].forEach(async ({ name, path }) => {
-    const iconPath = path.startsWith("@")
-        ? new URL(import.meta.resolve(path)).pathname
-        : path;
-    const icon = readFileSync(iconPath, "utf-8");
-    const result = optimize(icon, {
-        path: iconPath,
-        plugins: [
-            "preset-default",
-            {
-                name: "addAttributesToSVGElement",
-                params: {
-                    attribute: {
-                        focusable: "false",
-                        role: "img",
+await Promise.all(
+    [
+        ...Object.keys(metadata).map((name) => ({
+            name,
+            path: `@navikt/aksel-icons/svg/${name}.svg`,
+        })),
+        ...files,
+    ].map(async ({ name, path }) => {
+        const iconPath = path.startsWith("@")
+            ? new URL(import.meta.resolve(path)).pathname
+            : path;
+        const icon = readFileSync(iconPath, "utf-8");
+        const result = optimize(icon, {
+            path: iconPath,
+            plugins: [
+                "preset-default",
+                {
+                    name: "addAttributesToSVGElement",
+                    params: {
+                        attribute: {
+                            focusable: "false",
+                            role: "img",
+                        },
                     },
                 },
-            },
-        ],
-    });
+            ],
+        });
 
-    const optimizedSvgString = result.data;
+        const optimizedSvgString = result.data;
 
-    writeFileSync(
-        `./dist/${name}.ts`,
-        await prettier.format(
-            fileTemplate({
-                svg: optimizedSvgString.replace("<svg", `<svg ${jsString}`),
-                name,
-            }),
-            { filepath: `${name}.ts` },
-        ),
-    );
-});
+        writeFileSync(
+            `./dist/${name}.ts`,
+            await prettier.format(
+                fileTemplate({
+                    svg: optimizedSvgString.replace("<svg", `<svg ${jsString}`),
+                    name,
+                }),
+                { filepath: `${name}.ts` },
+            ),
+        );
+    }),
+);
 
 writeFileSync(
     "./dist/index.ts",
