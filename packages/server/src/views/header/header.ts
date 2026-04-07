@@ -60,7 +60,7 @@ export const HeaderTemplate = async ({
 
     return withContainers
         ? html`
-              <header id="decorator-header">
+              <header id="decorator-header" data-nosnippet>
                   <decorator-header>${headerContent}</decorator-header>
               </header>
           `
