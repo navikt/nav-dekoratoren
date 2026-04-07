@@ -45,6 +45,8 @@ env:
     value: c44a6db3-c974-4316-b433-214f87e80b4d
   - name: UMAMI_PROXY_HOST
     value: https://reops-event-proxy.ekstern.dev.nav.no
+  - name: UMAMI_SCRIPT_URL
+    value: https://cdn.nav.no/team-researchops/sporing/sporing-dev.js
 ttlInternal: 12h
 resources:
   requests:

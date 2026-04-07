@@ -12,10 +12,19 @@ describe("redactData", () => {
         }
     };
 
+    const setAnalyticsRedactFilter = (filters: string[]) => {
+        (globalThis.window as any).__DECORATOR_DATA__ = {
+            params: { analyticsRedactFilter: filters },
+        };
+    };
+
     beforeEach(() => {
         globalThis.window = {
             location: {
                 origin: "https://www.nav.no",
+            },
+            __DECORATOR_DATA__: {
+                params: { analyticsRedactFilter: [] },
             },
         } as unknown as Window & typeof globalThis;
         knownRedactPaths.clear();
@@ -563,6 +572,48 @@ describe("redactData", () => {
         it("should return booleans unchanged", () => {
             expect(redactData(true)).toBe(true);
             expect(redactData(false)).toBe(false);
+        });
+    });
+
+    describe("uuid redaction opt-out", () => {
+        const uuid = "123e4567-e89b-12d3-a456-426614174000";
+
+        it("should redact UUIDs by default", () => {
+            expect(redactData(uuid)).toBe("[redacted: uuid]");
+        });
+
+        it("should not redact UUID when 'uuid' is in analyticsRedactFilter", () => {
+            setAnalyticsRedactFilter(["uuid"]);
+            expect(redactData(uuid)).toBe(uuid);
+        });
+
+        it("should still redact UUID when other filters are set but not 'uuid'", () => {
+            setAnalyticsRedactFilter(["orgnr"]);
+            expect(redactData(uuid)).toBe("[redacted: uuid]");
+        });
+
+        it("should not redact UUIDs in objects when opted out", () => {
+            setAnalyticsRedactFilter(["uuid"]);
+            expect(redactData({ someId: uuid, name: "test" })).toEqual({
+                someId: uuid,
+                name: "test",
+            });
+        });
+
+        it("should not redact UUIDs in arrays when opted out", () => {
+            setAnalyticsRedactFilter(["uuid"]);
+            expect(redactData(["hello", uuid])).toEqual(["hello", uuid]);
+        });
+
+        it("should still apply URL path redaction when uuid opt-out is set", () => {
+            setAnalyticsRedactFilter(["uuid"]);
+            knownRedactPaths.set("/person/:redact:/sak", {
+                redactPath: true,
+                redactTitle: false,
+            });
+            expect(redactData("/person/12345/sak", "url")).toBe(
+                "/person/[redacted]/sak",
+            );
         });
     });
 });
