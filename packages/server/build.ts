@@ -29,6 +29,10 @@ const result = await build({
     bundle: true,
     minify: false,
     format: "esm",
+    // CJS packages use dynamic require() for Node built-ins. Injecting a real require() via createRequire makes this work in an ESM bundle.
+    banner: {
+        js: `import { createRequire } from "module"; const require = createRequire(import.meta.url);`,
+    },
     plugins: [cssModulesPlugin],
     metafile: true,
     alias: {
