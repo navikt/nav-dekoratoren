@@ -27,7 +27,6 @@ const result = await build({
     platform: "node",
     outdir: "./dist",
     bundle: true,
-    packages: "external",
     minify: false,
     format: "esm",
     plugins: [cssModulesPlugin],
