@@ -9,4 +9,4 @@ COPY packages/client/dist/assets /app/public/assets
 
 EXPOSE 8089
 
-CMD ["node", "dist/server.js"]
+CMD ["dist/server.js"]
