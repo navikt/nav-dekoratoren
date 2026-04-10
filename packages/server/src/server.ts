@@ -220,8 +220,11 @@ const port = Number(process.env.PORT) || 8089;
 serve({ fetch: app.fetch, port });
 logger.info(`Server running on port ${port}`);
 
-process.once("SIGINT", () => {
+const shutdown = () => {
     closeTaskAnalyticsWatcher();
     closeVersionApiWatcher();
     process.exit(0);
-});
+};
+
+process.once("SIGINT", shutdown);
+process.once("SIGTERM", shutdown);
