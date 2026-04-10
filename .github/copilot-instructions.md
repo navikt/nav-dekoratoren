@@ -2,34 +2,27 @@
 
 ## Project Overview
 
-Nav Dekoratøren is the shared header and footer for all external-facing nav.no applications. It provides server-side rendered HTML and client-side Web Components for consistent branding, user login state, navigation, consent banners, analytics, and more.
+Nav Dekoratøren is the shared header and footer for external nav.no applications. It serves server-rendered HTML and client-side Web Components for branding, auth state, navigation, consent, and analytics.
 
 ## Monorepo Structure
 
-pnpm monorepo with five packages under `packages/`:
+pnpm workspace under `packages/`:
 
-- **`decorator-client`** – Browser-side Web Components and styles. Vite bundles two outputs: `main` (for SSR injection) and `csr` (for client-side rendering).
-- **`decorator-server`** – Hono HTTP server (port 8089) serving `/ssr`, `/api/*`, and static assets. Handles auth, feature flags (Unleash), CSP headers, and server-side rendering of the decorator HTML.
-- **`decorator-shared`** – Shared utilities, types, and HTML templates used by both client and server.
-- **`decorator-icons`** – Compiles custom SVG icons + `@navikt/aksel-icons` into a distributable.
-- **`next-pages-router-example`** – Demo Next.js app showing integration via `@navikt/nav-dekoratoren-moduler`.
+- **`decorator-client`**: Web Components and styles, Vite builds `main` (for SSR injection) and `csr` (for client-side rendering)
+- **`decorator-server`**: Hono server on port 8089 serving `/ssr`, `/api/*`, and static assets. Handles auth, feature flags (Unleash), CSP headers, and server-side rendering of the decorator HTML.
+- **`decorator-shared`**: Shared utilities, types, and HTML templates
+- **`decorator-icons`**: Icon build package
+- **`next-pages-router-example`**: Integration example app
 
-Packages reference each other as workspace dependencies (`"decorator-shared": "workspace:*"`). Build order: icons → client → server.
+Packages use workspace dependencies. Build order: icons → client → server.
 
 ## Commands
 
 ```bash
-# Development
 pnpm run dev              # Starts client (Vite) + server (tsx --watch) concurrently on localhost:8089
-
-# Building
 pnpm run build            # Full build: icons → client → server → copies assets to packages/server/public/
-
-# Testing
 pnpm run test             # Run all Vitest test suites across packages
 pnpm run playwright       # Run Playwright E2E tests
-
-# Linting
 pnpm run lint             # Run ESLint + tsc --noEmit across all packages
 
 # Per-package (use --filter)
@@ -49,22 +42,22 @@ cd packages/server && pnpm vitest run src/path/to/file.test.ts
 
 ### No frameworks on the client
 
-The client is built exclusively with **native Web Components** (`extends HTMLElement`). No React, Vue, or Angular. This keeps the bundle small and avoids framework churn. Components register themselves via `customElements.define()`.
+The client is built with native Web Components (`extends HTMLElement`), not React, Vue, or Angular. Components register themselves via `customElements.define()`.
 
 ### SSR + hydration pattern
 
-The server renders full decorator HTML (header/footer) as a string and injects it into pages. The client bundle then hydrates and enhances these with Web Components. The `decorator-shared` package's `html` tagged template literal is used for server-side HTML generation.
+The server renders decorator HTML as a string and the client enhances it with Web Components. Use the `decorator-shared/html` tagged template literal for server-rendered HTML.
 
 ### Dual-mode client build
 
 Vite builds the client twice:
 
-- `--mode main` → `dist/client.js` — loaded by the server for SSR injection
-- `--mode csr` → `dist/csr.js` — loaded by client apps doing client-side rendering
+- `--mode main` builds the `src/main.ts` entry and writes a Vite manifest at `dist/.vite/manifest.json` that the server uses to resolve the generated JS and CSS assets for SSR injection
+- `--mode csr` builds the `src/csr.ts` entry and writes a separate manifest at `dist/.vite/csr.manifest.json` that client apps use to resolve the generated CSR bundle
 
 ### Event-driven inter-component communication
 
-Web Components communicate via `window.dispatchEvent()` with custom events (e.g., consent changes, logout warnings, language changes). See `packages/client/src/events.ts` for the event catalog.
+Web Components communicate with `window.dispatchEvent()`. See `packages/client/src/events.ts` for the event catalog.
 
 ## Key Conventions
 
@@ -88,12 +81,7 @@ import styles from "./MyComponent.module.css";
 
 ### TypeScript path aliases
 
-Both client and server tsconfig define cross-package aliases:
-
-- `decorator-server/src/*` → `packages/server/src/*`
-- `decorator-client/src/*` → `packages/client/src/*`
-
-Use these aliases when importing across packages rather than relative `../../` paths.
+Use the cross-package aliases from tsconfig, especially `decorator-server/src/*` and `decorator-client/src/*`, instead of relative `../../` imports.
 
 ### Test file placement
 
@@ -117,4 +105,4 @@ Use the shared `logger` from `decorator-shared/logger` in both client and server
 
 ## Deployment
 
-The server runs on port 8089. The Docker image copies only `packages/server/dist` and `packages/client/dist/assets`. Deployed to NAIS (Norwegian Kubernetes). Health endpoints: `GET /api/isAlive` and `GET /api/isReady`. Metrics at `GET /metrics` (Prometheus).
+Runs on port 8089. The Docker image copies `packages/server/dist` and `packages/client/dist/assets`. Health endpoints: `GET /api/isAlive` and `GET /api/isReady`. Metrics: `GET /metrics`.
