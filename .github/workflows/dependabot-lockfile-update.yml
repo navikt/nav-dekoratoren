@@ -28,10 +28,12 @@ jobs:
                   cache: pnpm
 
             - name: Sync with remote
+              env:
+                  HEAD_REF: ${{ github.head_ref }}
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
-                  git pull --rebase origin "${{ github.head_ref }}"
+                  git pull --rebase origin "$HEAD_REF"
 
             - name: Update lockfile
               run: pnpm install --no-frozen-lockfile
@@ -39,7 +41,9 @@ jobs:
                   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
             - name: Commit and push updated lockfile
+              env:
+                  HEAD_REF: ${{ github.head_ref }}
               run: |
                   git add pnpm-lock.yaml
                   git diff --cached --quiet || git commit -m "chore: update pnpm-lock.yaml"
-                  git push origin HEAD:"${{ github.head_ref }}"
+                  git push origin HEAD:"$HEAD_REF"
