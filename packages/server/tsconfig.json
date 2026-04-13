@@ -10,7 +10,12 @@
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
         "noEmit": true,
-        "typeRoots": ["bun-types"],
+        "baseUrl": ".",
+        "paths": {
+            "decorator-server/src/*": ["./src/*"],
+            "decorator-client/src/*": ["../client/src/*"]
+        },
+        "types": ["node"],
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",

@@ -194,7 +194,7 @@ const en: Texts = {
     showing: "Showing",
     of: "of",
     results: "results",
-    search_hits_heading: ({ total, query }) =>
+    search_hits_heading: ({ total, query }: { total: number; query: string }) =>
         `${total} hits for "${query}" for individuals`,
     more_hits: "More hits",
     change_search_filter: "Change search filter to see other hits",

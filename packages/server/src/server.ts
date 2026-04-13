@@ -1,7 +1,7 @@
 import { prometheus } from "@hono/prometheus";
-import { Server } from "bun";
+import { serve } from "@hono/node-server";
+import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono } from "hono";
-import { serveStatic } from "hono/bun";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
 import { logger } from "decorator-shared/logger";
@@ -14,7 +14,10 @@ import { headAssets } from "./head";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import { getTaskAnalyticsSurveys } from "./task-analytics-config";
+import {
+    getTaskAnalyticsSurveys,
+    closeTaskAnalyticsWatcher,
+} from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { isLocalhost } from "./urls";
 import { parseAndValidateParams } from "./validateParams";
@@ -24,7 +27,10 @@ import { FooterTemplate } from "./views/footer/footer";
 import { csrAssets } from "./csr";
 import { CsrPayload } from "decorator-shared/types";
 import { ssrApiHandler } from "./handlers/ssr-api";
-import { versionApiHandler } from "./handlers/version-api-handler";
+import {
+    versionApiHandler,
+    closeVersionApiWatcher,
+} from "./handlers/version-api-handler";
 import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
 import { CONSUMER } from "decorator-shared/constants";
@@ -43,7 +49,13 @@ if (env.NODE_ENV === "development" || isLocalhost()) {
         "/mockServiceWorker.js",
         serveStatic({ path: "./mockServiceWorker.js" }),
     );
-    app.get("/public/*", serveStatic({}));
+    app.get(
+        "/public/*",
+        serveStatic({
+            root: "../client/dist",
+            rewriteRequestPath: (path) => path.replace(/^\/public/, ""),
+        }),
+    );
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
     app.get("/api/auth", async ({ req }) => fetch(req.url));
@@ -204,7 +216,15 @@ app.route("/decorator-next", app);
 app.route("/dekoratoren", app);
 app.route("/common-html/v4/navno", app);
 
-export default {
-    ...app,
-    port: Number(process.env.PORT) || 8089,
-} satisfies Partial<Server<undefined>>;
+const port = Number(process.env.PORT) || 8089;
+serve({ fetch: app.fetch, port });
+logger.info(`Server running on port ${port}`);
+
+const shutdown = () => {
+    closeTaskAnalyticsWatcher();
+    closeVersionApiWatcher();
+    process.exit(0);
+};
+
+process.once("SIGINT", shutdown);
+process.once("SIGTERM", shutdown);

@@ -21,30 +21,29 @@ Some of the dependencies are located in a private container registry. To install
 
 **Tip**: Step 2 will set the `NODE_AUTH_TOKEN` environment variable for that particular Terminal or PowerShell session. If you'd like to make your PAT permanently available, consider using [1Password to load secrets into the environment](https://developer.1password.com/docs/cli/secrets-environment-variables/) or an equivalent method. Do not write your PAT directly to `.bash_profile` for security reasons.
 
-### 3. The Decorator uses [Bun](https://bun.sh) as the Javascript runtime instead of NodeJS.
+### 3. The Decorator uses [pnpm](https://pnpm.io) as the package manager and Node.js as the runtime.
 
-If you already have Bun installed on your machine, you can skip this step.
+If you already have pnpm installed on your machine, you can skip this step.
 
-You can install Bun globally on your machine like this:
+You can install pnpm globally on your machine like this:
 
 ```bash
-npm install -g bun
+corepack enable pnpm
 ```
 
-(You can also install Bun with Brew, curl, etc: https://bun.sh/docs/installation).
+(You can also install pnpm with Brew, curl, etc: https://pnpm.io/installation).
 
 ### 4. Navigate to the root of the repository and install dependencies
 
 ```bash
 cd nav-dekoratoren
-
-bun install | bun run build
+pnpm install && pnpm run build
 ```
 
 ### 5. Start the Decorator locally
 
 ```bash
-bun run dev
+pnpm run dev
 ```
 
 You should now be able to open the Decorator at http://localhost:8089/.
@@ -63,9 +62,9 @@ Some kind reminders before you start:
 
 ### Linting and testing
 
-Husky runs linting when you commit your changes. You may also run `bunx lint-staged --config package.json` on your staged files.
+Husky runs linting when you commit your changes. You may also run `lint-staged --config package.json` on your staged files.
 
-Testing is done with `bun run test` and runs the test suites for the `/client` and `/server` packages.
+Testing is done with `pnpm run test` and runs the test suites for the `/client` and `/server` packages.
 
 ### Deploying to dev
 
@@ -97,7 +96,7 @@ The source code is divided into packages:
 - **server:** All elements and code that can be run on the server as part of server-side rendering, including the actual `server.ts` that manages all API routing.
 - **icons:** All icons, both custom for the Decorator and icons from `@navikt/aksel-icons`.
 - **shared:** Functions and types that are shared between packages.
-- **next-pages-router-example:** A small Next.js app that allows you to preview the Decorator at `localhost:8089` when you run `bun run dev`.
+- **next-pages-router-example:** A small Next.js app that allows you to preview the Decorator at `localhost:8089` when you run `pnpm run dev`.
 
 These packages act as separate workspaces and are also built separately through command chaining. See the `build` script in `package.json`. The reason for this package strategy is that each package has its own variations in how it is built. For example, `icons` will run a custom build script (`build-icons.ts`) to compile both custom icons and `@navikt/aksel-icons` into the `dist` folder.
 
@@ -120,7 +119,7 @@ You can find an overview and documentation for each component in [Storybook](htt
 You can also run Storybook locally, e.g., if you're working on a particular component:
 
 ```bash
-bun run storybook
+pnpm run storybook
 ```
 
 You should now be able to open Storybook in your browser at [http://localhost:6006](http://localhost:6006).
@@ -128,7 +127,3 @@ You should now be able to open Storybook in your browser at [http://localhost:60
 #### Creating new components or changing existing ones
 
 Stories for each component are prefixed with `.story.tsx`. Please remember to update any prop changes or add stories if you're creating a new component for the Decorator.
-
-### Resources
-
-- [Typescript documentation for Bun](https://bun.sh/docs/typescript)

@@ -1,4 +1,6 @@
-FROM oven/bun:1.3.10-alpine
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24-slim
+
+ENV NODE_ENV=production
 
 WORKDIR /app
 
@@ -7,4 +9,4 @@ COPY packages/client/dist/assets /app/public/assets
 
 EXPOSE 8089
 
-CMD bun run dist/server.js
+CMD ["dist/server.js"]

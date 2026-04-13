@@ -5,7 +5,7 @@ import {
     beforeEach,
     expect,
     test,
-} from "bun:test";
+} from "vitest";
 import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";

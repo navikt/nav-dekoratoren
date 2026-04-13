@@ -60,3 +60,5 @@ const config: { surveys: TaskAnalyticsSurvey[] } = {
 export const getTaskAnalyticsSurveys = (): TaskAnalyticsSurvey[] => {
     return config.surveys;
 };
+
+export const closeTaskAnalyticsWatcher = () => configMapWatcher.close();

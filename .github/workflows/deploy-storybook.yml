@@ -27,7 +27,7 @@ jobs:
           SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
 
       - name: Build Storybook
-        run: bun run build-storybook
+        run: pnpm run build-storybook
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4

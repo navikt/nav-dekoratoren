@@ -1,36 +1,52 @@
-import { BunPlugin } from "bun";
+import { build, type Plugin } from "esbuild";
+import { readFileSync, writeFileSync } from "node:fs";
+
+import { resolve } from "node:path";
 import { getPostcssTokens } from "./css-modules-plugin";
 import { minify } from "esbuild-minify-templates";
 import { logger } from "decorator-shared/logger";
 
-const cssModulesPlugin: BunPlugin = {
+const cssModulesPlugin: Plugin = {
     name: "css-modules",
     setup(build) {
-        build.onLoad({ filter: /\.module.*\.css$/ }, async ({ path }) => {
-            return {
-                loader: "json",
-                contents: JSON.stringify(await getPostcssTokens(path)),
-            };
-        });
+        build.onLoad(
+            { filter: /\.module.*\.css$/ },
+            async ({ path: filePath }) => {
+                return {
+                    loader: "json",
+                    contents: JSON.stringify(await getPostcssTokens(filePath)),
+                };
+            },
+        );
     },
 };
 
-const result = await Bun.build({
-    entrypoints: ["./src/server.ts"],
-    target: "bun",
+const result = await build({
+    entryPoints: ["./src/server.ts"],
+    target: "node24",
+    platform: "node",
     outdir: "./dist",
+    bundle: true,
     minify: false,
+    format: "esm",
+    // CJS packages use dynamic require() for Node built-ins. Injecting a real require() via createRequire makes this work in an ESM bundle.
+    banner: {
+        js: `import { createRequire } from "module"; const require = createRequire(import.meta.url);`,
+    },
     plugins: [cssModulesPlugin],
+    metafile: true,
+    alias: {
+        "decorator-client": resolve("../client"),
+    },
 });
 
-const [output] = result.outputs;
-logger.info(`Build output: ${JSON.stringify(output)}`);
+const outFile = Object.keys(result.metafile!.outputs)[0];
+const outPath = resolve(outFile);
+logger.info(`Build output: ${outFile}`);
 
-if (output) {
-    const text = await output.text();
-    const minified = minify(text, {
-        taggedOnly: true,
-    }).toString();
+const text = readFileSync(outPath, "utf-8");
+const minified = minify(text, {
+    taggedOnly: true,
+}).toString();
 
-    await Bun.write(Bun.file(output.path), minified);
-}
+writeFileSync(outPath, minified);

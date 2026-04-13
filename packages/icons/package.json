@@ -6,7 +6,7 @@
         ".": "./dist/index.ts"
     },
     "scripts": {
-        "build": "bun run build-icons.ts",
+        "build": "tsx build-icons.ts",
         "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
@@ -14,6 +14,8 @@
     },
     "devDependencies": {
         "@navikt/aksel-icons": "7.40.0",
-        "svgo": "4.0.1"
+        "glob": "13.0.6",
+        "svgo": "4.0.1",
+        "tsx": "catalog:"
     }
 }

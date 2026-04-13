@@ -44,14 +44,19 @@ runs:
     - name: Checkout repo
       uses: actions/checkout@v6
 
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v1
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
       with:
-        bun-version: 1.3.10
+        node-version: 24
+        registry-url: https://npm.pkg.github.com
+        cache: pnpm
 
     - name: Install dependencies
       shell: bash
-      run: bun ci
+      run: pnpm install --frozen-lockfile
       env:
         NODE_AUTH_TOKEN: ${{ inputs.READER_TOKEN }}
 
@@ -61,16 +66,16 @@ runs:
 
     - name: Build app
       shell: bash
-      run: bun run build
+      run: pnpm run build
 
     - name: Run linting
       shell: bash
-      run: bun run lint
+      run: pnpm run lint
 
     - name: Run unit tests
       shell: bash
       if: ${{ inputs.SKIP_TESTS != 'true' }}
-      run: bun run test
+      run: pnpm run test
 
     - name: Determine Playwright version
       shell: bash
@@ -79,7 +84,7 @@ runs:
       run: |
         VERSION=$(jq -r '.devDependencies.playwright // .dependencies.playwright // empty' package.json)
         if [ -z "$VERSION" ]; then
-          VERSION=$(bunx playwright --version | awk '{print $2}')
+          VERSION=$(pnpm exec playwright --version | awk '{print $2}')
         fi
         echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
@@ -96,7 +101,7 @@ runs:
     - name: Install Playwright browsers (first time)
       shell: bash
       if: ${{ inputs.SKIP_TESTS != 'true' && steps.cache-pw.outputs.cache-hit != 'true' }}
-      run: bunx playwright install --with-deps
+      run: pnpm exec playwright install --with-deps
 
     - name: Ensure env file for tests
       shell: bash
@@ -106,7 +111,7 @@ runs:
     - name: Run Playwright tests
       shell: bash
       if: ${{ inputs.SKIP_TESTS != 'true' }}
-      run: bunx playwright test
+      run: pnpm exec playwright test
 
     - name: Upload static files to Nav CDN
       if: ${{ inputs.TEST_ONLY != 'true' }}

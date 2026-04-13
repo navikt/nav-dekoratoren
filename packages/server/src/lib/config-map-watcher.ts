@@ -20,6 +20,8 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
     private lastMtime: number = 0;
     private pollTimeout: NodeJS.Timeout | null = null;
     private isShuttingDown: boolean = false;
+    private watcher: fs.FSWatcher | null = null;
+    private directWatcher: fs.FSWatcher | null = null;
 
     constructor({
         mountPath,
@@ -49,7 +51,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 
         // Watch the parent directory for Kubernetes ConfigMap updates
         const parentDir = path.dirname(mountPathFull);
-        const watcher = fs.watch(
+        this.watcher = fs.watch(
             parentDir,
             { recursive: false },
             (event, fileOrDir) => {
@@ -67,7 +69,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
         );
 
         // Also watch the mount path itself for direct file changes
-        const directWatcher = fs.watch(
+        this.directWatcher = fs.watch(
             mountPathFull,
             { recursive: true },
             (event, fileOrDir) => {
@@ -109,17 +111,17 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
         logger.info(
             `Watching for updates on ${mountPathFull} for ${filename} and ${parentDir}.`,
         );
+    }
 
-        process.on("SIGINT", () => {
-            logger.info(`Closing watchers for configmap file ${this.filePath}`);
-            this.isShuttingDown = true;
-            watcher.close();
-            directWatcher.close();
-            if (this.pollTimeout) {
-                clearTimeout(this.pollTimeout);
-                this.pollTimeout = null;
-            }
-        });
+    public close() {
+        logger.info(`Closing watchers for configmap file ${this.filePath}`);
+        this.isShuttingDown = true;
+        this.watcher?.close();
+        this.directWatcher?.close();
+        if (this.pollTimeout) {
+            clearTimeout(this.pollTimeout);
+            this.pollTimeout = null;
+        }
     }
 
     public async getFileContent() {
