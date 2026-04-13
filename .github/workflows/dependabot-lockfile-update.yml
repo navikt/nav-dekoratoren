@@ -3,6 +3,10 @@ on:
     pull_request:
         branches:
             - main
+        paths:
+            - pnpm-workspace.yaml
+            - package.json
+            - '**/package.json'
 
 permissions:
     contents: write
