@@ -46,7 +46,7 @@ class Chatbot extends HTMLElement {
     private paramsUpdatedListener = (event: CustomEvent) =>
         this.update(event.detail.params);
 
-    private update = ({ chatbot, chatbotVisible }: Partial<ClientParams>) => {
+    private update = ({ chatbot }: Partial<ClientParams>) => {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
             chatbot === false
@@ -56,7 +56,9 @@ class Chatbot extends HTMLElement {
             this.appendChild(this.button);
         }
 
-        const isVisible = chatbotVisible || hasActiveConversation();
+        const isVisible =
+            window.__DECORATOR_DATA__.params.chatbotVisible ||
+            hasActiveConversation();
         this.button.classList.toggle(cls.visible, isVisible);
 
         if (isVisible) {
