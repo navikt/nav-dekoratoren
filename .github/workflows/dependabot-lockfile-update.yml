@@ -10,6 +10,7 @@ on:
 
 permissions:
     contents: write
+    id-token: write
 
 jobs:
     update-lockfile:
@@ -45,3 +46,22 @@ jobs:
                   git add pnpm-lock.yaml
                   git diff --cached --quiet || git commit -m "chore: update pnpm-lock.yaml"
                   git push --no-verify origin HEAD:"$HEAD_REF"
+
+    test:
+        needs: update-lockfile
+        if: github.event.pull_request.user.login == 'dependabot[bot]'
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: read
+        steps:
+            - name: Checkout updated PR branch
+              uses: actions/checkout@v6
+              with:
+                  ref: ${{ github.head_ref }}
+
+            - name: Build and run tests
+              uses: ./.github/actions/build-test
+              with:
+                  TEST_ONLY: "true"
+                  READER_TOKEN: ${{ secrets.READER_TOKEN }}
