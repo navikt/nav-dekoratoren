@@ -14,7 +14,7 @@
         "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
-        "@hono/node-server": "1.19.11",
+        "@hono/node-server": "1.19.13",
         "@hono/prometheus": "1.0.2",
         "csp-header": "6.3.0",
         "decorator-client": "workspace:*",
