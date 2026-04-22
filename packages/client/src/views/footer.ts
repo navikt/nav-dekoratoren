@@ -21,10 +21,16 @@ class Footer extends HTMLElement {
                     .filter((key) => payload[key] !== undefined)
                     .map((key) => [key, payload[key]]),
             ) as Partial<ClientParams>;
+            const updateKeys = Object.keys(updates) as (keyof ClientParams)[];
+            if (updateKeys.length === 0) return;
             const validated = paramsSchema.partial().safeParse(updates);
-            if (validated.success && Object.keys(validated.data).length > 0) {
-                updateDecoratorParams(validated.data);
-            } else if (!validated.success) {
+            if (validated.success) {
+                updateDecoratorParams(
+                    Object.fromEntries(
+                        updateKeys.map((key) => [key, validated.data[key]]),
+                    ) as Partial<ClientParams>,
+                );
+            } else {
                 logger.warn("Invalid params from postMessage", {
                     error: validated.error,
                 });
