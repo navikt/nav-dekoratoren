@@ -19,7 +19,7 @@ class Breadcrumbs extends HTMLElement {
     handleParamsUpdated = (
         event: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        if (event.detail.params.breadcrumbs) {
+        if (event.detail.changedKeys.includes("breadcrumbs")) {
             this.update(event.detail.params.breadcrumbs);
         }
     };

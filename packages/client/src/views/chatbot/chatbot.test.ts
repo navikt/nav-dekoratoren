@@ -71,6 +71,24 @@ describe("chatbot", () => {
         expect(child.classList).toContain(cls.visible);
     });
 
+    it("stays visible when unrelated params are updated", async () => {
+        const el = await fixture("<d-chatbot></d-chatbot>");
+        const child = el.childNodes[0] as HTMLElement;
+        expect(child.classList).toContain(cls.visible);
+
+        updateDecoratorParams({ language: "en" });
+        expect(child.classList).toContain(cls.visible);
+    });
+
+    it("hides when chatbotVisible changes to false", async () => {
+        const el = await fixture("<d-chatbot></d-chatbot>");
+        const child = el.childNodes[0] as HTMLElement;
+        expect(child.classList).toContain(cls.visible);
+
+        updateDecoratorParams({ chatbotVisible: false });
+        expect(child.classList).not.toContain(cls.visible);
+    });
+
     it("doesnt mount when feature is not toggled", async () => {
         window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] = false;
         const el = await fixture("<d-chatbot></d-chatbot>");

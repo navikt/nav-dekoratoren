@@ -29,9 +29,16 @@ class DecoratorUtils extends HTMLElement {
     handleParamsUpdated = (
         event: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        const { availableLanguages, breadcrumbs, utilsBackground } =
-            event.detail.params;
-        if (availableLanguages || breadcrumbs || utilsBackground) {
+        const relevantKeys = [
+            "availableLanguages",
+            "breadcrumbs",
+            "utilsBackground",
+        ] as const;
+        if (
+            event.detail.changedKeys.some((k) =>
+                relevantKeys.includes(k as (typeof relevantKeys)[number]),
+            )
+        ) {
             this.update();
         }
     };

@@ -4,7 +4,10 @@ import { AuthDataResponse } from "decorator-shared/auth";
 export type CustomEvents = {
     activecontext: { context: Context };
     paramsupdated: {
-        params: Partial<ClientParams>;
+        /** Full current params after the update. */
+        params: ClientParams;
+        /** Keys that changed in this update. Use this to decide whether to react. */
+        changedKeys: ReadonlyArray<keyof ClientParams>;
     };
     authupdated: AuthDataResponse;
     menuopened: void;

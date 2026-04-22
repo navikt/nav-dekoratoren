@@ -1,5 +1,6 @@
 import { endpointUrlWithParams } from "../helpers/urls";
-import { type ClientParams } from "decorator-shared/params";
+import { type ClientParams, paramsSchema } from "decorator-shared/params";
+import { logger } from "decorator-shared/logger";
 import { env, param, updateDecoratorParams } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
@@ -50,17 +51,24 @@ class Header extends HTMLElement {
                 event,
                 payload: { pageType, pageTheme, pageTitle, breadcrumbs },
             } = e.data;
-            if (event === "params" && (pageType || pageTheme || pageTitle)) {
-                updateDecoratorParams({
-                    pageTheme,
-                    pageType,
-                    pageTitle,
-                });
-            }
-            if (event === "params" && breadcrumbs) {
-                updateDecoratorParams({
-                    breadcrumbs,
-                });
+            if (event === "params") {
+                const updates: Partial<ClientParams> = {
+                    ...(pageType && { pageType }),
+                    ...(pageTheme && { pageTheme }),
+                    ...(pageTitle && { pageTitle }),
+                    ...(breadcrumbs && { breadcrumbs }),
+                };
+                const validated = paramsSchema.partial().safeParse(updates);
+                if (
+                    validated.success &&
+                    Object.keys(validated.data).length > 0
+                ) {
+                    updateDecoratorParams(validated.data);
+                } else if (!validated.success) {
+                    logger.warn("Invalid params from NKS postMessage", {
+                        error: validated.error,
+                    });
+                }
             }
         }
 
@@ -76,14 +84,19 @@ class Header extends HTMLElement {
         }
 
         if (event == "params") {
-            paramsUpdatesToHandle.forEach((key) => {
-                if (payload[key] !== undefined) {
-                    // TODO: validation
-                    updateDecoratorParams({
-                        [key]: payload[key],
-                    });
-                }
-            });
+            const updates = Object.fromEntries(
+                paramsUpdatesToHandle
+                    .filter((key) => payload[key] !== undefined)
+                    .map((key) => [key, payload[key]]),
+            ) as Partial<ClientParams>;
+            const validated = paramsSchema.partial().safeParse(updates);
+            if (validated.success && Object.keys(validated.data).length > 0) {
+                updateDecoratorParams(validated.data);
+            } else if (!validated.success) {
+                logger.warn("Invalid params from postMessage", {
+                    error: validated.error,
+                });
+            }
         }
     };
 
@@ -102,15 +115,19 @@ class Header extends HTMLElement {
     private readonly handleParamsUpdated = (
         e: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        const { context, language, simple, simpleHeader } = e.detail.params;
-        const isSimpleChange = simple !== undefined;
-        const isSimpleHeaderChange = simpleHeader !== undefined;
+        const { changedKeys } = e.detail;
+        const isSimpleChange = changedKeys.includes("simple");
+        const isSimpleHeaderChange = changedKeys.includes("simpleHeader");
 
-        if (language || isSimpleChange || isSimpleHeaderChange) {
+        if (
+            changedKeys.includes("language") ||
+            isSimpleChange ||
+            isSimpleHeaderChange
+        ) {
             this.refreshHeader();
             return;
         }
-        if (context) {
+        if (changedKeys.includes("context")) {
             refreshAuthData();
         }
     };

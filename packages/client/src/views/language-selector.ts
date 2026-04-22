@@ -173,11 +173,12 @@ export class LanguageSelector extends HTMLElement {
     handleParamsUpdated = (
         event: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        if (event.detail.params.language) {
-            this.language = event.detail.params.language;
+        const { changedKeys, params } = event.detail;
+        if (changedKeys.includes("language")) {
+            this.language = params.language;
         }
-        if (event.detail.params.availableLanguages) {
-            this.availableLanguages = event.detail.params.availableLanguages;
+        if (changedKeys.includes("availableLanguages")) {
+            this.availableLanguages = params.availableLanguages;
         }
     };
 
