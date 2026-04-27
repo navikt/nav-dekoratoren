@@ -373,6 +373,10 @@ dekoratør (header og footer) i egne applikasjoner – både ved **server-side r
 Pakken håndterer miljøkonfigurasjon, service discovery, analyse, språk, brødsmulesti, samtykke (
 ekomloven), og mer.
 
+> ⚠️ **Breaking changes i v4.0.0**: `getAmplitudeInstance()` og `logAmplitudeEvent()` er fjernet.
+> Bruk `getAnalyticsInstance()` og `logAnalyticsEvent()` i stedet. Analytics-funksjoner benytter nå
+> streng type-validering basert på [`@navikt/analytics-types`](https://github.com/navikt/analytics-types).
+
 ### 4.1 Installasjon fra GitHub Packages
 
 ```bash
@@ -682,7 +686,7 @@ Kun aktuelt dersom SSR ikke lar seg gjøre i din arkitektur.
 | `removeDecoratorUpdateListener` | server-side   | Fjerner registrert callback                            |
 | `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for dekoratøren           |
 | `buildCspHeader`                | server-side   | Bygger CSP som inkluderer dekoratørens direktiver      |
-| `getAnalyticsInstance`          | client/server | Logger events til Umami                                |
+| `getAnalyticsInstance`          | client/server | Logger events til Umami (kun forhåndsdefinerte events) |
 | `setBreadcrumbs`                | client-side   | Setter brødsmulesti i Dekoratøren                      |
 | `onBreadcrumbClick`             | client-side   | Håndterer klikk på breadcrumbs ved client-side routing |
 | `setAvailableLanguages`         | client-side   | Setter språk-alternativer i språkvelgeren              |
@@ -754,18 +758,32 @@ app.get("*", (req, res) => {
 Metoden støtter det til en hver tid gjeldende analyseverktøyet i Nav. Den bygger en logger-instans som sender
 events til våre analyseverktøy via dekoratørens klient. Besøk (sidevisning) vil håndteres automatisk,
 andre events kan sendes inn via opprettet logger-instans. Den tar i mot et parameter `origin`
-slik at man kan filtrere events som kommer fra egen app. Det er sterkt anbefalt å følge Navs
-taksonomi for analyseverktøy: https://github.com/navikt/analytics-taxonomy
+slik at man kan filtrere events som kommer fra egen app. Logger-instansen benytter streng type-validering basert
+på event-typer definert i [`@navikt/analytics-types`](https://github.com/navikt/analytics-types). Kun forhåndsdefinerte events
+er tillatt.
 
 ```ts
 import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
 
 const logger = getAnalyticsInstance("minAppOrigin");
 
-logger("skjema åpnet", {
-    skjemaId: 1234,
+// ✅ Alle event-typer fra @navikt/analytics-types er støttet
+logger("skjema startet", {
+    skjemaId: "1234",
     skjemanavn: "aap",
 });
+
+// ❌ Custom events er ikke lenger tillatt (vil gi type-feil)
+logger("my-custom-event", { data: "value" });
+```
+
+Alle event-typer fra `@navikt/analytics-types` er re-eksportert fra `@navikt/nav-dekoratoren-moduler`:
+
+```ts
+import type {
+    NavigereEvent,
+    SkjemaStartetEvent,
+} from "@navikt/nav-dekoratoren-moduler";
 ```
 
 **setBreadcrumbs**
