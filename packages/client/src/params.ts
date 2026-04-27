@@ -39,14 +39,12 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
         ...updatedParams,
     };
 
-    const { context, language } = window.__DECORATOR_DATA__.params;
-
-    if (context) {
-        Cookies.set(CONTEXT_COOKIE, context);
+    if (updatedParams.context !== undefined) {
+        Cookies.set(CONTEXT_COOKIE, updatedParams.context);
     }
 
-    if (language) {
-        Cookies.set(LANGUAGE_COOKIE, language);
+    if (updatedParams.language !== undefined) {
+        Cookies.set(LANGUAGE_COOKIE, updatedParams.language);
     }
 
     const changedKeys = Object.keys(updatedParams) as (keyof ClientParams)[];
