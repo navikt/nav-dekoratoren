@@ -21,6 +21,10 @@ export const env = <TKey extends EnvKey>(envKey: TKey) => {
     return window.__DECORATOR_DATA__.env[envKey];
 };
 
+/**
+ * Updates the decorator params and dispatches a `paramsupdated` event with the
+ * full current params and the list of keys that changed.
+ */
 export const updateDecoratorParams = (params: Partial<ClientParams>) => {
     const updatedParams = { ...params };
 
@@ -35,20 +39,22 @@ export const updateDecoratorParams = (params: Partial<ClientParams>) => {
         ...updatedParams,
     };
 
-    const { context, language } = window.__DECORATOR_DATA__.params;
-
-    if (context) {
-        Cookies.set(CONTEXT_COOKIE, context);
+    if (updatedParams.context !== undefined) {
+        Cookies.set(CONTEXT_COOKIE, updatedParams.context);
     }
 
-    if (language) {
-        Cookies.set(LANGUAGE_COOKIE, language);
+    if (updatedParams.language !== undefined) {
+        Cookies.set(LANGUAGE_COOKIE, updatedParams.language);
     }
 
-    if (Object.keys(updatedParams).length > 0) {
+    const changedKeys = Object.keys(updatedParams) as (keyof ClientParams)[];
+    if (changedKeys.length > 0) {
         window.dispatchEvent(
             createEvent("paramsupdated", {
-                detail: { params: updatedParams },
+                detail: {
+                    params: window.__DECORATOR_DATA__.params,
+                    changedKeys,
+                },
             }),
         );
     }

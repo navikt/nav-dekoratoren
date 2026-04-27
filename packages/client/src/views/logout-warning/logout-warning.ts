@@ -6,6 +6,7 @@ import {
 import { addSecondsFromNow } from "../../helpers/time";
 import { param } from "../../params";
 import { defineCustomElement } from "../custom-elements";
+import { CustomEvents } from "../../events";
 import { SessionDialog } from "./session-dialog";
 import { TokenDialog } from "./token-dialog";
 
@@ -46,8 +47,13 @@ class LogoutWarning extends HTMLElement {
         };
     };
 
-    private handleParamsUpdated = (event: CustomEvent) => {
-        if (event.detail.params.logoutWarning) {
+    private handleParamsUpdated = (
+        event: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        if (
+            event.detail.changedKeys.includes("logoutWarning") &&
+            event.detail.params.logoutWarning
+        ) {
             this.init();
         }
     };

@@ -1,16 +1,19 @@
 import { analyticsClickListener } from "../analytics/analytics";
 import { AnalyticsKategori } from "../analytics/types";
+import { CustomEvents } from "../events";
 import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 class ContextLinks extends HTMLElement {
-    handleParamsUpdated = (event: CustomEvent) => {
-        if (event.detail.params.context) {
+    handleParamsUpdated = (
+        event: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        if (event.detail.changedKeys.includes("context")) {
+            const { context } = event.detail.params;
             this.querySelectorAll("a").forEach((anchor) => {
                 anchor.classList.toggle(
                     headerClasses.lenkeActive,
-                    anchor.getAttribute("data-context") ===
-                        event.detail.params.context,
+                    anchor.getAttribute("data-context") === context,
                 );
             });
         }

@@ -1,5 +1,7 @@
-import type { ClientParams } from "decorator-shared/params";
+import { paramsSchema, type ClientParams } from "decorator-shared/params";
+import { logger } from "decorator-shared/logger";
 import { updateDecoratorParams } from "../params";
+import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
@@ -14,14 +16,25 @@ class Footer extends HTMLElement {
     private readonly handleMessage = (e: MessageEvent) => {
         const { event, payload } = e.data;
         if (event == "params") {
-            paramsUpdatesToHandle.forEach((key) => {
-                if (payload[key] !== undefined) {
-                    // TODO: validation
-                    updateDecoratorParams({
-                        [key]: payload[key],
-                    });
-                }
-            });
+            const updates = Object.fromEntries(
+                paramsUpdatesToHandle
+                    .filter((key) => payload[key] !== undefined)
+                    .map((key) => [key, payload[key]]),
+            ) as Partial<ClientParams>;
+            const updateKeys = Object.keys(updates) as (keyof ClientParams)[];
+            if (updateKeys.length === 0) return;
+            const validated = paramsSchema.partial().safeParse(updates);
+            if (validated.success) {
+                updateDecoratorParams(
+                    Object.fromEntries(
+                        updateKeys.map((key) => [key, validated.data[key]]),
+                    ) as Partial<ClientParams>,
+                );
+            } else {
+                logger.warn("Invalid params from postMessage", {
+                    error: validated.error,
+                });
+            }
         }
     };
 
@@ -31,19 +44,16 @@ class Footer extends HTMLElement {
             .then((footer) => (this.innerHTML = footer));
     };
 
-    private readonly handleParamsUpdated = (e: CustomEvent) => {
-        const { context, language, feedback, simple, simpleFooter } =
-            e.detail.params;
-        const isFeedbackChange = feedback !== undefined;
-        const isSimpleChange = simple !== undefined;
-        const isSimpleFooterChange = simpleFooter !== undefined;
-
+    private readonly handleParamsUpdated = (
+        e: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        const { changedKeys } = e.detail;
         if (
-            context ||
-            language ||
-            isFeedbackChange ||
-            isSimpleChange ||
-            isSimpleFooterChange
+            changedKeys.includes("context") ||
+            changedKeys.includes("language") ||
+            changedKeys.includes("feedback") ||
+            changedKeys.includes("simple") ||
+            changedKeys.includes("simpleFooter")
         ) {
             this.refreshFooter();
         }

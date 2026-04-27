@@ -1,6 +1,7 @@
 import type { ClientParams } from "decorator-shared/params";
 import { cdnUrl } from "../../helpers/urls";
 import { defineCustomElement } from "../custom-elements";
+import { CustomEvents } from "../../events";
 import i18n from "../i18n";
 import { hasActiveConversation, initBoost, loadScript } from "./boost";
 import cls from "./chatbot.module.css";
@@ -43,16 +44,20 @@ class Chatbot extends HTMLElement {
         window.removeEventListener("paramsupdated", this.paramsUpdatedListener);
     }
 
-    private paramsUpdatedListener = (event: CustomEvent) =>
-        this.update(event.detail.params);
+    private paramsUpdatedListener = (
+        event: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => this.update(event.detail.params);
 
-    private update = ({ chatbot, chatbotVisible }: Partial<ClientParams>) => {
+    private update = ({ chatbot, chatbotVisible }: ClientParams) => {
         if (
             !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
-            chatbot === false
+            !chatbot
         ) {
             this.innerHTML = "";
-        } else if (chatbot) {
+            return;
+        }
+
+        if (!this.contains(this.button)) {
             this.appendChild(this.button);
         }
 

@@ -5,6 +5,7 @@ import { param } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
 import { logger } from "decorator-shared/logger";
+import { CustomEvents } from "../events";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -39,8 +40,10 @@ class MainMenu extends HTMLElement {
             });
     };
 
-    handleParamsUpdated = (event: CustomEvent) => {
-        if (event.detail.params.context) {
+    handleParamsUpdated = (
+        event: CustomEvent<CustomEvents["paramsupdated"]>,
+    ) => {
+        if (event.detail.changedKeys.includes("context")) {
             this.updateMenuContent(event.detail.params.context);
         }
     };
