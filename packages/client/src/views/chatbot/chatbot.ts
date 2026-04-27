@@ -54,7 +54,10 @@ class Chatbot extends HTMLElement {
             !chatbot
         ) {
             this.innerHTML = "";
-        } else if (!this.contains(this.button)) {
+            return;
+        }
+
+        if (!this.contains(this.button)) {
             this.appendChild(this.button);
         }
 
