@@ -205,10 +205,10 @@ importers:
         dependencies:
             "@hono/node-server":
                 specifier: 1.19.13
-                version: 1.19.13(hono@4.12.14)
+                version: 1.19.13(hono@4.12.16)
             "@hono/prometheus":
                 specifier: 1.0.2
-                version: 1.0.2(hono@4.12.14)(prom-client@15.1.3)
+                version: 1.0.2(hono@4.12.16)(prom-client@15.1.3)
             csp-header:
                 specifier: 6.3.0
                 version: 6.3.0
@@ -222,8 +222,8 @@ importers:
                 specifier: workspace:*
                 version: link:../shared
             hono:
-                specifier: 4.12.14
-                version: 4.12.14
+                specifier: 4.12.16
+                version: 4.12.16
             ts-pattern:
                 specifier: 5.9.0
                 version: 5.9.0
@@ -1509,6 +1509,9 @@ packages:
             html-react-parser: ">=5.x"
             jsdom: ">=16.x"
             react: ">=17.x"
+        peerDependenciesMeta:
+            react:
+                optional: true
 
     "@next/env@16.1.7":
         resolution:
@@ -4854,10 +4857,10 @@ packages:
                 integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==,
             }
 
-    hono@4.12.14:
+    hono@4.12.16:
         resolution:
             {
-                integrity: sha512-am5zfg3yu6sqn5yjKBNqhnTX7Cv+m00ox+7jbaKkrLMRJ4rAdldd1xPd/JzbBWspqaQv6RSTrgFN95EsfhC+7w==,
+                integrity: sha512-jN0ZewiNAWSe5khM3EyCmBb250+b40wWbwNILNfEvq84VREWwOIkuUsFONk/3i3nqkz7Oe1PcpM2mwQEK2L9Kg==,
             }
         engines: { node: ">=16.9.0" }
 
@@ -8653,13 +8656,13 @@ snapshots:
 
     "@hapi/bourne@3.0.0": {}
 
-    "@hono/node-server@1.19.13(hono@4.12.14)":
+    "@hono/node-server@1.19.13(hono@4.12.16)":
         dependencies:
-            hono: 4.12.14
+            hono: 4.12.16
 
-    "@hono/prometheus@1.0.2(hono@4.12.14)(prom-client@15.1.3)":
+    "@hono/prometheus@1.0.2(hono@4.12.16)(prom-client@15.1.3)":
         dependencies:
-            hono: 4.12.14
+            hono: 4.12.16
             prom-client: 15.1.3
 
     "@humanfs/core@0.19.2":
@@ -8887,6 +8890,7 @@ snapshots:
             html-react-parser: 6.0.1(@types/react@19.2.10)(react@19.2.4)
             js-cookie: 3.0.5
             jsdom: 27.4.0
+        optionalDependencies:
             react: 19.2.4
 
     "@next/env@16.1.7": {}
@@ -10663,7 +10667,7 @@ snapshots:
             eslint: 9.39.4
             eslint-import-resolver-node: 0.3.10
             eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4))(eslint@9.39.4)
-            eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4)
+            eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4))(eslint@9.39.4))(eslint@9.39.4)
             eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.4)
             eslint-plugin-react: 7.37.5(eslint@9.39.4)
             eslint-plugin-react-hooks: 7.1.1(eslint@9.39.4)
@@ -10696,7 +10700,7 @@ snapshots:
             tinyglobby: 0.2.16
             unrs-resolver: 1.11.1
         optionalDependencies:
-            eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4)
+            eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4))(eslint@9.39.4))(eslint@9.39.4)
         transitivePeerDependencies:
             - supports-color
 
@@ -10711,7 +10715,7 @@ snapshots:
         transitivePeerDependencies:
             - supports-color
 
-    eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.4):
+    eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4))(eslint@9.39.4))(eslint@9.39.4):
         dependencies:
             "@rtsao/scc": 1.1.0
             array-includes: 3.1.9
@@ -11093,7 +11097,7 @@ snapshots:
         dependencies:
             hermes-estree: 0.25.1
 
-    hono@4.12.14: {}
+    hono@4.12.16: {}
 
     html-dom-parser@7.0.1:
         dependencies:
