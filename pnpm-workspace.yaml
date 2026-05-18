@@ -1,16 +1,6 @@
 packages:
     - "packages/*"
 
-onlyBuiltDependencies:
-    - "@parcel/watcher"
-    - esbuild
-    - husky
-    - less
-    - msw
-    - protobufjs
-    - sharp
-    - unrs-resolver
-
 catalog:
     "@types/node": "24.12.0"
     esbuild-minify-templates: "0.13.1"
@@ -24,3 +14,15 @@ minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
     - "@navikt/*"
+
+engineStrict: true
+
+allowBuilds:
+    "@parcel/watcher": true
+    esbuild: true
+    husky: true
+    less: true
+    msw: true
+    protobufjs: true
+    sharp: true
+    unrs-resolver: true
