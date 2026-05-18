@@ -1,6 +1,6 @@
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { HttpResponse, http } from "msw";
-import { SetupServerApi, setupServer } from "msw/node";
+import { setupServer } from "msw/node";
 import { env } from "./env/server";
 import {
     Varsler,
@@ -10,7 +10,7 @@ import {
 import { expectOK } from "./test-expect";
 
 describe("notifications", () => {
-    let server: SetupServerApi;
+    let server: ReturnType<typeof setupServer>;
 
     beforeAll(() => {
         server = setupServer(
