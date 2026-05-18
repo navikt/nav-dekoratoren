@@ -14,21 +14,21 @@
         "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
-        "@hono/node-server": "1.19.13",
-        "@hono/prometheus": "1.0.2",
-        "csp-header": "6.3.0",
+        "@hono/node-server": "1.19.14",
+        "@hono/prometheus": "1.0.3",
+        "csp-header": "6.3.1",
         "decorator-client": "workspace:*",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "hono": "4.12.14",
+        "hono": "4.12.18",
         "ts-pattern": "5.9.0",
-        "unleash-client": "6.9.4"
+        "unleash-client": "6.11.0"
     },
     "devDependencies": {
         "@types/node": "catalog:",
-        "esbuild": "0.25.8",
+        "esbuild": "0.25.12",
         "esbuild-minify-templates": "catalog:",
-        "msw": "2.12.10",
+        "msw": "2.14.6",
         "postcss": "catalog:",
         "postcss-import": "16.1.1",
         "postcss-modules": "6.0.1",
