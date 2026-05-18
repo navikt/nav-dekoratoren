@@ -7,7 +7,7 @@
         "dev": "tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
         "postinstall": "cp .env.sample .env",
         "serve": "NODE_ENV=production node dist/server.js",
-        "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
+        "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env src/server.ts",
         "clean": "rm -rf ./public/assets",
         "build": "pnpm run clean && NODE_ENV=production tsx build.ts",
         "test": "vitest run",
