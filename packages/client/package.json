@@ -8,8 +8,8 @@
         "build:watch": "vite build --watch --mode main",
         "build-main": "vite build --mode main",
         "build-csr": "vite build --mode csr",
-        "test": "TZ=UTC vitest run",
-        "test:watch": "TZ=UTC vitest watch",
+        "test": "TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest run",
+        "test:watch": "TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest watch",
         "lint": "eslint . && tsc --noEmit"
     },
     "dependenciesComments": {
