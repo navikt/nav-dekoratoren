@@ -680,19 +680,19 @@ Kun aktuelt dersom SSR ikke lar seg gjøre i din arkitektur.
 
 ## 8. Andre hjelpefunksjoner i moduler-pakken 🧰
 
-| Funksjon                        | Type          | Forklaring                                             |
-| ------------------------------- | ------------- | ------------------------------------------------------ |
-| `addDecoratorUpdateListener`    | server-side   | Callback ved ny dekoratørversjon (cache-invalidering)  |
-| `removeDecoratorUpdateListener` | server-side   | Fjerner registrert callback                            |
-| `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for dekoratøren           |
-| `buildCspHeader`                | server-side   | Bygger CSP som inkluderer dekoratørens direktiver      |
-| `getAnalyticsInstance`          | client/server | Logger events til Umami (kun forhåndsdefinerte events) |
-| `setBreadcrumbs`                | client-side   | Setter brødsmulesti i Dekoratøren                      |
-| `onBreadcrumbClick`             | client-side   | Håndterer klikk på breadcrumbs ved client-side routing |
-| `setAvailableLanguages`         | client-side   | Setter språk-alternativer i språkvelgeren              |
-| `onLanguageSelect`              | client-side   | Håndterer språkvalg ved client-side routing            |
-| `setParams` / `getParams`       | client-side   | Dynamisk oppdatering/lesing av Dekoratør-parametre     |
-| `openChatbot`                   | client-side   | Åpner Chatbot Frida og setter `chatbotVisible=true`    |
+| Funksjon                        | Type          | Forklaring                                                   |
+| ------------------------------- | ------------- | ------------------------------------------------------------ |
+| `addDecoratorUpdateListener`    | server-side   | Callback ved ny dekoratørversjon (cache-invalidering)        |
+| `removeDecoratorUpdateListener` | server-side   | Fjerner registrert callback                                  |
+| `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for dekoratøren                 |
+| `buildCspHeader`                | server-side   | Bygger CSP som inkluderer dekoratørens direktiver            |
+| `getAnalyticsInstance`          | client/server | Logger events til Umami (forhåndsdefinerte og custom events) |
+| `setBreadcrumbs`                | client-side   | Setter brødsmulesti i Dekoratøren                            |
+| `onBreadcrumbClick`             | client-side   | Håndterer klikk på breadcrumbs ved client-side routing       |
+| `setAvailableLanguages`         | client-side   | Setter språk-alternativer i språkvelgeren                    |
+| `onLanguageSelect`              | client-side   | Håndterer språkvalg ved client-side routing                  |
+| `setParams` / `getParams`       | client-side   | Dynamisk oppdatering/lesing av Dekoratør-parametre           |
+| `openChatbot`                   | client-side   | Åpner Chatbot Frida og setter `chatbotVisible=true`          |
 
 ---
 
@@ -758,23 +758,29 @@ app.get("*", (req, res) => {
 Metoden støtter det til en hver tid gjeldende analyseverktøyet i Nav. Den bygger en logger-instans som sender
 events til våre analyseverktøy via dekoratørens klient. Besøk (sidevisning) vil håndteres automatisk,
 andre events kan sendes inn via opprettet logger-instans. Den tar i mot et parameter `origin`
-slik at man kan filtrere events som kommer fra egen app. Logger-instansen benytter streng type-validering basert
-på event-typer definert i [`@navikt/analytics-types`](https://github.com/navikt/analytics-types). Kun forhåndsdefinerte events
-er tillatt.
+slik at man kan filtrere events som kommer fra egen app.
+
+Logger-instansen har to bruksmønstre:
+
+- **Taksonomi-events** — streng type-validering basert på event-typer definert i [`@navikt/analytics-types`](https://github.com/navikt/analytics-types)
+- **Custom events** — app-spesifikke events med fri-form data via `.custom()`
 
 ```ts
-import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
+import { Events, getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
 
 const logger = getAnalyticsInstance("minAppOrigin");
 
-// ✅ Alle event-typer fra @navikt/analytics-types er støttet
-logger("skjema startet", {
+// ✅ Taksonomi-event — strengt typet
+logger(Events.SKJEMA_STARTET, {
     skjemaId: "1234",
     skjemanavn: "aap",
 });
 
-// ❌ Custom events er ikke lenger tillatt (vil gi type-feil)
-logger("my-custom-event", { data: "value" });
+// ✅ Custom event — app-spesifikt, fri-form data
+logger.custom("feedback åpnet", {
+    komponent: "feedback-widget",
+    steg: 2,
+});
 ```
 
 Alle event-typer fra `@navikt/analytics-types` er re-eksportert fra `@navikt/nav-dekoratoren-moduler`:
