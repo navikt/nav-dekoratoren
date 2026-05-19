@@ -24,13 +24,13 @@
 .screenshareButton:focus {
     text-decoration: none;
     background-color: var(--ax-border-focus);
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
     outline: none;
 }
 
 [data-theme="dark"] .screenshareButton {
     font-weight: var(--ax-font-weight-bold);
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
     padding-inline: var(--ax-space-16) var(--ax-space-12);
     background-color: #004367;
     border-radius: var(--ax-radius-8);
@@ -51,7 +51,7 @@
 }
 
 [data-theme="dark"] .screenshareButton:active {
-    background-color: #005077;
+    background-color: var(--ax-brand-blue-900);
 }
 
 .screenshareButton svg {

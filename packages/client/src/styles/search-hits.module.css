@@ -50,13 +50,13 @@
 }
 
 .searchHit:hover {
-    background-color: var(--ax-neutral-300);
+    background-color: var(--ax-bg-neutral-moderate-hover);
 }
 
 .searchHit:focus-visible,
 .searchHit:active {
-    background-color: #005b82;
-    color: var(--ax-text-contrast);
+    background-color: var(--ax-brand-blue-900);
+    color: var(--ax-text-brand-blue-contrast);
     outline: none;
 }
 

@@ -19,7 +19,7 @@
     list-style: none;
     margin-block: 0;
     padding-left: 0;
-    border-radius: 20px;
+    border-radius: var(--ax-radius-16);
     overflow: clip;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .notification:has(a:focus-visible) {
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
-    border-radius: 20px;
+    outline: 0 0 0 3px var(--ax-border-focus);
+    border-radius: var(--ax-radius-16);
 }
 
 .notification:has(a:hover) a {

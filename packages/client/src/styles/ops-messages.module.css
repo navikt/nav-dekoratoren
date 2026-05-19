@@ -1,5 +1,5 @@
 .opsMessages {
-    background-color: #005077;
+    background-color: var(--ax-brand-blue-900);
     display: block;
 }
 
@@ -20,7 +20,7 @@
 
 .opsMessage {
     border-radius: var(--ax-radius-8);
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
@@ -33,11 +33,11 @@
 
 .opsMessage:hover {
     text-decoration: none;
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
 }
 
 .opsMessage:focus {
-    box-shadow: 0 0 0 3px var(--ax-text-contrast);
+    box-shadow: 0 0 0 3px var(--ax-text-neutral-contrast);
     outline: none;
     text-decoration: none;
 }

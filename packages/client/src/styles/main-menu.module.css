@@ -88,7 +88,7 @@
 }
 
 .contextLink:hover .contextLinkTitle {
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
 }
 
 .contextLinkDescription {
@@ -96,5 +96,5 @@
 }
 
 .contextLink:hover .contextLinkDescription {
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
 }

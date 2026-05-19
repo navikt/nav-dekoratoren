@@ -72,12 +72,12 @@
 
 .submit {
     align-items: center;
-    background-color: var(--ax-bg-accent-moderate);
+    background-color: var(--ax-bg-accent-strong);
     border: none;
     border-radius: var(--ax-radius-8);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-accent-contrast);
     cursor: pointer;
     padding: 0;
     min-width: 4rem;

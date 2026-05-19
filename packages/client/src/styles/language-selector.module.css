@@ -25,9 +25,8 @@
 }
 
 .button:focus-visible {
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
     border-color: transparent;
-    outline: none;
+    outline: 3px solid var(--ax-border-focus);
 }
 
 .label {
@@ -78,7 +77,7 @@
 .option:hover,
 .option:focus-visible {
     background-color: var(--ax-bg-accent-moderate-hover);
-    color: var(--ax-text-contrast);
+    color: var(--ax-text-neutral-contrast);
 }
 
 .option::before {

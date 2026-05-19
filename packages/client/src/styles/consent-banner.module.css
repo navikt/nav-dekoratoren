@@ -15,7 +15,7 @@
 }
 
 .consentBanner {
-    background-color: var(--ax-bg-accent-moderate);
+    background-color: var(--ax-bg-accent-strong);
     border-radius: var(--ax-radius-12);
     display: none;
     max-width: 40rem;
@@ -51,7 +51,7 @@
 
 .expandButton {
     background-color: transparent;
-    color: white;
+    color: var(--ax-text-accent-contrast);
     text-align: left;
     align-items: flex-start;
     width: 100%;
@@ -127,7 +127,7 @@
 }
 
 .button:focus-visible {
-    box-shadow:
+    outline:
         inset 0 0 0 2px var(--ax-border-default),
         0 0 0 3px var(--ax-border-focus);
 }
