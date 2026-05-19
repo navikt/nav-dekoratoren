@@ -1,6 +1,7 @@
 .footer {
     background-color: #003453;
     color: var(--ax-text-contrast);
+    --ax-text-subtle: var(--ax-text-contrast);
     padding-block: var(--ax-space-24) var(--ax-space-48);
 }
 
