@@ -3,17 +3,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--a-spacing-2);
+    gap: var(--ax-space-8);
 }
 
 .menuItemsUniversalLinks {
     display: flex;
-    gap: var(--a-spacing-2);
+    gap: var(--ax-space-8);
 }
 
 .searchDropdown {
     max-width: 700px;
-    padding: var(--a-spacing-6) var(--edge-spacing) var(--a-spacing-8);
+    padding: var(--ax-space-24) var(--edge-spacing) var(--ax-space-32);
 }
 
 .searchButton.searchButton {
@@ -28,5 +28,5 @@
 
 .searchMenu {
     display: grid;
-    gap: var(--a-spacing-4);
+    gap: var(--ax-space-16);
 }

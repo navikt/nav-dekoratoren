@@ -20,9 +20,9 @@ export const ComplexFooter = ({
         <div class="${cls.footerContent} ${utils.contentContainer}">
             <a
                 class="${clsx(
-                    aksel["navds-link"],
-                    aksel["navds-body-short"],
-                    aksel["navds-body-short--large"],
+                    aksel["aksel-link"],
+                    aksel["aksel-body-short"],
+                    aksel["aksel-body-short--large"],
                     cls.toTop,
                 )}"
                 href="#toppen"
@@ -35,8 +35,8 @@ export const ComplexFooter = ({
                             ${heading &&
                             html`<h2
                                 class="${clsx(
-                                    aksel["navds-heading"],
-                                    aksel["navds-heading--xsmall"],
+                                    aksel["aksel-heading"],
+                                    aksel["aksel-heading--xsmall"],
                                     cls.footerLinkHeading,
                                 )}"
                             >
@@ -49,7 +49,7 @@ export const ComplexFooter = ({
                                             <a
                                                 href="${url}"
                                                 class="${aksel[
-                                                    "navds-link"
+                                                    "aksel-link"
                                                 ]} ${cls.footerLink}"
                                                 data-lenkegruppe="${heading}"
                                                 ${attributes

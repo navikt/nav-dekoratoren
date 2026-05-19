@@ -1,31 +1,31 @@
 .opsMessages {
-    background-color: var(--a-deepblue-600);
+    background-color: #005077;
     display: block;
 }
 
 .opsMessagesContent {
     display: flex;
     flex-wrap: wrap;
-    column-gap: var(--a-spacing-8);
-    padding-block: var(--a-spacing-2);
+    column-gap: var(--ax-space-32);
+    padding-block: var(--ax-space-8);
     justify-content: flex-start;
 }
 
 @media (min-width: 48rem) {
     .opsMessagesContent {
         justify-content: center;
-        column-gap: var(--a-spacing-16);
+        column-gap: var(--ax-space-64);
     }
 }
 
 .opsMessage {
-    border-radius: var(--a-border-radius-medium);
-    color: var(--a-text-on-action);
+    border-radius: var(--ax-radius-8);
+    color: var(--ax-text-contrast);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: var(--a-spacing-2);
-    padding-block: var(--a-spacing-2);
+    gap: var(--ax-space-8);
+    padding-block: var(--ax-space-8);
     cursor: pointer;
     text-decoration-thickness: 0.0625em;
     text-underline-offset: 0.15em;
@@ -33,11 +33,11 @@
 
 .opsMessage:hover {
     text-decoration: none;
-    color: var(--a-text-on-action);
+    color: var(--ax-text-contrast);
 }
 
 .opsMessage:focus {
-    box-shadow: 0 0 0 3px var(--a-text-on-action);
+    box-shadow: 0 0 0 3px var(--ax-text-contrast);
     outline: none;
     text-decoration: none;
 }

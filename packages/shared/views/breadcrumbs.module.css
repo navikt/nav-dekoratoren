@@ -5,7 +5,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--a-spacing-2);
+    gap: var(--ax-space-8);
 }
 
 .link {
@@ -15,29 +15,29 @@
 .homeLink {
     display: flex;
     align-items: center;
-    gap: var(--a-spacing-2);
+    gap: var(--ax-space-8);
     padding-block: 6px;
 }
 
 .homeLink .svg {
     font-size: 2rem;
-    color: var(--a-text-default);
+    color: var(--ax-text-default);
     line-height: 0;
 }
 
 .homeLink:active .svg,
 .homeLink:focus-visible .svg {
-    color: var(--a-text-on-action);
+    color: var(--ax-text-contrast);
 }
 
 @supports not selector(:focus-visible) {
     .homeLink:focus .svg {
-        color: var(--a-text-on-action);
+        color: var(--ax-text-contrast);
     }
 }
 
 .listItem {
     display: flex;
     align-items: center;
-    gap: var(--a-spacing-2);
+    gap: var(--ax-space-8);
 }

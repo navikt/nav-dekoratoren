@@ -23,6 +23,6 @@
     outline: none;
     color: white;
     text-decoration: none;
-    background-color: var(--a-border-focus);
-    box-shadow: 0 0 0 2px var(--a-border-focus);
+    background-color: var(--ax-border-focus);
+    box-shadow: 0 0 0 2px var(--ax-border-focus);
 }
