@@ -71,7 +71,8 @@ export default defineConfig({
     /* Run your local dev server before starting the tests */
     webServer: [
         {
-            command: "pnpm --filter decorator-server run serve-local",
+            command:
+                "cd packages/server && NODE_ENV=production APP_URL=http://localhost:8089 node --env-file=.env dist/server.js",
             url: "http://localhost:8089",
             reuseExistingServer: !process.env.CI,
             stderr: "pipe",

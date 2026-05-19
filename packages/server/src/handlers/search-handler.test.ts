@@ -8,7 +8,7 @@ import {
     vi,
 } from "vitest";
 import { HttpResponse, http } from "msw";
-import { SetupServerApi, setupServer } from "msw/node";
+import { setupServer } from "msw/node";
 import { env } from "../env/server";
 import { searchHandler } from "./search-handler";
 
@@ -19,7 +19,7 @@ const validHits = new Array(5).fill(0).map((_, i) => ({
 }));
 
 describe("Search handler", () => {
-    let server: SetupServerApi;
+    let server: ReturnType<typeof setupServer>;
 
     beforeAll(() => {
         server = setupServer();
