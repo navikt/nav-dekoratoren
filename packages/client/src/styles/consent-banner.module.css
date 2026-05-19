@@ -84,7 +84,7 @@
     font-size: var(--ax-font-size-heading-medium);
     font-weight: bold;
     margin-block: 0 var(--ax-space-16);
-    color: var(--ax-bg-default);
+    color: var(--ax-text-default);
     text-wrap: pretty;
 }
 
@@ -92,7 +92,7 @@
     font-size: var(--ax-font-size-large);
     line-height: 1.5;
     margin-bottom: var(--ax-space-32);
-    color: var(--ax-bg-default);
+    color: var(--ax-text-default);
 
     &:last-of-type {
         margin-bottom: 0;
@@ -100,7 +100,7 @@
 }
 
 .text a {
-    color: var(--ax-bg-default);
+    color: var(--ax-text-default);
     text-decoration: underline;
 }
 
@@ -119,7 +119,7 @@
 .button,
 .button:hover {
     background-color: var(--ax-bg-default);
-    color: var(--ax-accent-500);
+    color: var(--ax-accent-800);
     cursor: pointer;
     font-size: var(--ax-font-size-large);
     flex: 1;
