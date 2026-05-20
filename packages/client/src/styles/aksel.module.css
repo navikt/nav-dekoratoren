@@ -7,3 +7,7 @@
 .aksel-button {
     font: inherit;
 }
+
+.aksel-link:focus {
+    color: var(--ax-border-info-subtle);
+}
