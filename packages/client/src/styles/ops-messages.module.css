@@ -36,8 +36,7 @@
     color: var(--ax-text-neutral-contrast);
 }
 
-.opsMessage:focus {
-    box-shadow: 0 0 0 3px var(--ax-text-neutral-contrast);
-    outline: none;
+.opsMessage:focus-visible {
+    outline: 3px solid var(--ax-text-neutral-contrast);
     text-decoration: none;
 }

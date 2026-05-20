@@ -9,10 +9,9 @@
     color: var(--ax-text-default);
 }
 
-.logo:focus {
+.logo:focus-visible {
     border-radius: var(--ax-radius-8);
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
-    outline: none;
+    outline: 3px solid var(--ax-border-focus);
 }
 
 .siteheader {

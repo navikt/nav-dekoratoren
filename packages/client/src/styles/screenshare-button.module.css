@@ -47,7 +47,7 @@
 }
 
 [data-theme="dark"] .screenshareButton:focus-visible {
-    box-shadow: 0 0 0 3px #99c3ff;
+    outline: 3px solid #99c3ff;
 }
 
 [data-theme="dark"] .screenshareButton:active {

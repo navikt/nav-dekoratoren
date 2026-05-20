@@ -8,6 +8,6 @@
     font: inherit;
 }
 
-.aksel-link:focus {
-    color: var(--ax-border-info-subtle);
+.aksel-link:focus-visible {
+    outline: 3px solid var(--ax-border-info-subtle);
 }

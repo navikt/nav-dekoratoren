@@ -5,9 +5,7 @@
     border-radius: 20px;
     padding: var(--ax-space-16);
     background-color: var(--ax-bg-default);
-    box-shadow:
-        0px 1px 3px 0px rgba(0, 0, 0, 0.15),
-        0px 0px 1px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--ax-shadow-dialog);
 }
 
 .heading {
