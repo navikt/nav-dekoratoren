@@ -8,14 +8,14 @@ import {
     test,
 } from "vitest";
 import { HttpResponse, http } from "msw";
-import { SetupServerApi, setupServer } from "msw/node";
+import { setupServer } from "msw/node";
 import testData from "./main-menu-mock.json";
 import { env } from "../env/server";
 import { clearCache } from "decorator-shared/response-cache";
 import { getComplexFooterLinks, getSimpleFooterLinks } from "./main-menu";
 
 describe("getSimpleFooterLinks", () => {
-    let server: SetupServerApi;
+    let server: ReturnType<typeof setupServer>;
 
     beforeAll(() => {
         server = setupServer(

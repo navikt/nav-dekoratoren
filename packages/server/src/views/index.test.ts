@@ -8,12 +8,12 @@ import {
 } from "vitest";
 import { clearCache } from "decorator-shared/response-cache";
 import { HttpResponse, http } from "msw";
-import { SetupServerApi, setupServer } from "msw/node";
+import { setupServer } from "msw/node";
 import testData from "../menu/main-menu-mock.json";
 import { IndexHtml } from "./index";
 import { env } from "../env/server";
 
-let server: SetupServerApi;
+let server: ReturnType<typeof setupServer>;
 
 beforeAll(() => {
     server = setupServer(
