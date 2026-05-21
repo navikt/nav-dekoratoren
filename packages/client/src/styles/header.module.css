@@ -2,7 +2,7 @@
     display: flex;
     padding: var(--ax-space-16) var(--ax-space-8);
     margin-left: calc(var(--ax-space-8) * -1);
-    color: var(--ax-text-logo);
+    color: var(--ax-neutral-1000);
 }
 
 .logoSimple {
@@ -11,7 +11,7 @@
 
 .logo:focus-visible {
     border-radius: var(--ax-radius-8);
-    outline: 3px solid var(--ax-border-focus);
+    outline: 3px solid var(--ax-neutral-1000);
 }
 
 .siteheader {
@@ -65,5 +65,5 @@
 
 .headerContextLink.lenkeActive {
     font-weight: bold;
-    border-color: var(--ax-text-subtle);
+    border-color: var(--ax-neutral-900);
 }

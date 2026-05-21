@@ -1,6 +1,6 @@
 .footer {
     background-color: var(--ax-brand-blue-1000);
-    color: var(--ax-text-neutral-contrast);
+    color: var(--ax-neutral-000);
     --ax-text-subtle: var(--ax-text-neutral-contrast);
     padding-block: var(--ax-space-24) var(--ax-space-48);
 }

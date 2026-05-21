@@ -9,5 +9,5 @@
 }
 
 .aksel-link:focus-visible {
-    outline: 3px solid var(--ax-border-info-subtle);
+    outline: 3px solid var(--ax-info-400);
 }

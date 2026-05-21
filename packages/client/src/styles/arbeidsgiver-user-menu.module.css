@@ -21,7 +21,7 @@
 }
 
 .menuItems > :not(:last-child) {
-    border-bottom: 1px solid var(--ax-border-subtle);
+    border-bottom: 1px solid var(--ax-neutral-400);
 }
 
 .menuHeader {
@@ -32,7 +32,7 @@
     text-transform: uppercase;
     font-size: var(--ax-font-size-small);
     margin-bottom: var(--ax-space-4);
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
 }
 
 .name {
@@ -58,7 +58,7 @@
 }
 
 .menuItem:hover {
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
     text-decoration: underline;
 }
 

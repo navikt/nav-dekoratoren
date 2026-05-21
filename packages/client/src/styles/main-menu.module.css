@@ -46,7 +46,7 @@
 }
 
 .contextLinks {
-    background-color: var(--ax-bg-sunken);
+    background-color: var(--ax-neutral-200);
     columns: 20rem 3;
     gap: var(--ax-space-12);
     padding-block: var(--ax-space-24);
@@ -67,28 +67,28 @@
     background-color: var(--ax-bg-default);
     padding: var(--ax-space-24);
     border-radius: var(--ax-radius-12);
-    border: 2px solid var(--ax-text-subtle);
+    border: 2px solid var(--ax-neutral-900);
     text-decoration: none;
 }
 
 .contextLink:focus {
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
+    box-shadow: 0 0 0 3px var(--ax-neutral-1000);
     outline: none;
 }
 
 .contextLink:hover {
-    background-color: var(--ax-bg-accent-moderate);
-    border: 2px solid var(--ax-border-default);
+    background-color: var(--ax-accent-200);
+    border: 2px solid var(--ax-neutral-600);
 }
 
 .contextLinkTitle {
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
     font-size: var(--ax-font-size-large);
     font-weight: var(--ax-font-weight-bold);
 }
 
 .contextLink:hover .contextLinkTitle {
-    color: var(--ax-text-neutral-contrast);
+    color: var(--ax-neutral-000);
 }
 
 .contextLinkDescription {
@@ -96,5 +96,5 @@
 }
 
 .contextLink:hover .contextLinkDescription {
-    color: var(--ax-text-neutral-contrast);
+    color: var(--ax-neutral-000);
 }

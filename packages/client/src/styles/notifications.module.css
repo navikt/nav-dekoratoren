@@ -38,7 +38,7 @@
 }
 
 .notification:has(a:focus-visible) {
-    outline: 3px solid var(--ax-border-focus);
+    outline: 3px solid var(--ax-neutral-1000);
     border-radius: var(--ax-radius-16);
 }
 
@@ -54,19 +54,19 @@
 
 .notification a:focus {
     outline: none;
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
 }
 
 .icon {
     border-radius: 20px;
-    background-color: var(--ax-bg-sunken);
+    background-color: var(--ax-neutral-200);
     grid-column: icon;
     align-self: start;
     padding: var(--ax-space-8);
     display: grid;
     place-items: center;
     font-size: var(--ax-font-size-heading-medium);
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
 }
 
 .content {
@@ -84,7 +84,7 @@
 }
 
 .metadata {
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
     font-size: var(--ax-font-size-medium);
     line-height: var(--ax-font-line-height-medium);
     display: flex;

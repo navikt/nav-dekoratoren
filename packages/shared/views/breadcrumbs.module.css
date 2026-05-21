@@ -27,12 +27,12 @@
 
 .homeLink:active .svg,
 .homeLink:focus-visible .svg {
-    color: var(--ax-text-neutral-contrast);
+    color: var(--ax-neutral-000);
 }
 
 @supports not selector(:focus-visible) {
     .homeLink:focus .svg {
-        color: var(--ax-text-accent-contrast);
+        color: var(--ax-neutral-000);
     }
 }
 

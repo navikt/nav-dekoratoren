@@ -24,7 +24,7 @@
 .searchInput {
     appearance: none;
     background-color: var(--ax-bg-default);
-    border: 1px solid var(--ax-border-default);
+    border: 1px solid var(--ax-neutral-600);
     border-radius: var(--ax-radius-8);
     min-height: 3rem;
     padding: var(--ax-space-8);
@@ -38,7 +38,7 @@
 }
 
 .searchInput:focus-visible {
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
+    box-shadow: 0 0 0 3px var(--ax-neutral-1000);
     outline: none;
 }
 
@@ -62,36 +62,36 @@
 }
 
 .clear:hover {
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
 }
 
 .clear:focus-visible {
-    outline: 3px solid var(--ax-border-focus);
+    outline: 3px solid var(--ax-neutral-1000);
 }
 
 .submit {
     align-items: center;
-    background-color: var(--ax-bg-accent-strong);
+    background-color: var(--ax-accent-600);
     border: none;
     border-radius: var(--ax-radius-8);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-    color: var(--ax-text-accent-contrast);
+    color: var(--ax-neutral-000);
     cursor: pointer;
     padding: 0;
     min-width: 4rem;
 }
 
 .submit:focus-visible {
-    outline: 3px solid var(--ax-border-focus);
+    outline: 3px solid var(--ax-neutral-1000);
     outline-offset: 2px;
     z-index: 1;
 }
 
 .submit:hover {
-    background-color: var(--ax-bg-accent-moderate-hover);
+    background-color: var(--ax-accent-300);
 }
 
 .submit:active {
-    background-color: var(--ax-bg-accent-moderate-pressed);
+    background-color: var(--ax-accent-400);
 }

@@ -20,7 +20,7 @@
 
 .opsMessage {
     border-radius: var(--ax-radius-8);
-    color: var(--ax-text-neutral-contrast);
+    color: var(--ax-neutral-000);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
@@ -33,10 +33,10 @@
 
 .opsMessage:hover {
     text-decoration: none;
-    color: var(--ax-text-neutral-contrast);
+    color: var(--ax-neutral-000);
 }
 
 .opsMessage:focus-visible {
-    outline: 3px solid var(--ax-text-neutral-contrast);
+    outline: 3px solid var(--ax-neutral-000);
     text-decoration: none;
 }

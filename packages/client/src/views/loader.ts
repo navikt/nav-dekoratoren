@@ -51,14 +51,11 @@ export class Loader extends HTMLElement {
                     animation: loader-dasharray 1.8s ease-in-out infinite;
                     stroke-dasharray: 80px, 200px;
                     stroke-dashoffset: 0;
-                    stroke: var(--ac-loader-stroke, var(--ax-border-default));
+                    stroke: var(--ac-loader-stroke, var(--ax-neutral-600));
                 }
 
                 .dekoratoren-loader__background {
-                    stroke: var(
-                        --ac-loader-stroke-bg,
-                        var(--ax-bg-neutral-moderate-pressedA)
-                    );
+                    stroke: var(--ac-loader-stroke-bg, var(--ax-neutral-400A));
                     stroke-width: var(--ac-loader-background-stroke-width);
                 }
             </style>

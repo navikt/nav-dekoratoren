@@ -10,7 +10,7 @@
     border: 1px solid
         var(
             --ac-textfield-border,
-            var(--__ac-textfield-border, var(--ax-border-default))
+            var(--__ac-textfield-border, var(--ax-neutral-600))
         );
     min-height: 3rem;
     width: 100%;
@@ -22,7 +22,7 @@
 }
 
 .textInput.invalid {
-    border-color: var(--ax-border-danger);
+    border-color: var(--ax-danger-600);
     border-width: 2px;
 }
 
@@ -36,7 +36,7 @@
 
 .errorList {
     display: none;
-    color: var(--ax-text-danger);
+    color: var(--ax-danger-1000);
     font-weight: var(--ax-font-weight-bold);
     padding-top: 0;
     margin-top: var(--ax-space-8);

@@ -4,7 +4,7 @@
     gap: var(--ax-space-2);
     list-style: none;
     border-radius: var(--ax-radius-4);
-    color: var(--ax-text-subtle);
+    color: var(--ax-neutral-900);
     cursor: pointer;
     padding: var(--ax-space-4) var(--ax-space-8) var(--ax-space-4)
         var(--ax-space-2);
@@ -12,12 +12,12 @@
 }
 
 .summary:hover {
-    background-color: var(--ax-bg-neutral-moderate-hoverA);
+    background-color: var(--ax-neutral-300A);
     color: var(--ax-text-default);
 }
 
 .summary:active {
-    background-color: var(--ax-bg-neutral-moderate-pressedA);
+    background-color: var(--ax-neutral-400A);
 }
 
 .summary::-webkit-details-marker {
@@ -38,7 +38,7 @@
 }
 
 .answer {
-    border-left: 2px solid var(--ax-border-subtle);
+    border-left: 2px solid var(--ax-neutral-400);
     color: var(--ax-text-default);
     margin-left: 0.8125rem;
     margin-top: var(--ax-space-4);

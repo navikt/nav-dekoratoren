@@ -22,7 +22,7 @@
 .skiplink:focus-visible {
     color: white;
     text-decoration: none;
-    background-color: var(--ax-border-focus);
-    outline: 2px solid var(--ax-border-focus);
+    background-color: var(--ax-neutral-1000);
+    outline: 2px solid var(--ax-neutral-1000);
     outline-offset: 1px;
 }
