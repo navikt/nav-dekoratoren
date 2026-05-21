@@ -20,7 +20,7 @@
         "@navikt/ds-css": "7.40.0",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "js-cookie": "3.0.5",
+        "js-cookie": "3.0.7",
         "lodash.debounce": "4.0.8"
     },
     "devDependencies": {
