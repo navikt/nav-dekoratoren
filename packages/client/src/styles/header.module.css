@@ -2,7 +2,7 @@
     display: flex;
     padding: var(--ax-space-16) var(--ax-space-8);
     margin-left: calc(var(--ax-space-8) * -1);
-    color: var(--ax-neutral-1000);
+    color: var(--ax-text-logo);
 }
 
 .logoSimple {
