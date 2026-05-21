@@ -2,27 +2,17 @@
     -webkit-appearance: none;
     appearance: none;
     padding: var(--ax-space-8);
-    background-color: var(
-        --ac-textfield-bg,
-        var(--__ac-textfield-bg, var(--ax-bg-default))
-    );
+    background-color: var(--ax-bg-default);
     border-radius: var(--ax-radius-8);
-    border: 1px solid
-        var(
-            --ac-textfield-border,
-            var(--__ac-textfield-border, var(--ax-neutral-600))
-        );
+    border: 1px solid var(--ax-neutral-600);
     min-height: 3rem;
     width: 100%;
-    color: var(
-        --ac-textfield-text,
-        var(--__ac-textfield-text, var(--ax-text-default))
-    );
-    font-family: var(--ax-font-family);
+    color: var(--ax-text-default);
+    font-family: var(--ax-font-family), serif;
 }
 
 .textInput.invalid {
-    border-color: var(--ax-danger-600);
+    border-color: var(--ax-border-danger);
     border-width: 2px;
 }
 
@@ -36,7 +26,7 @@
 
 .errorList {
     display: none;
-    color: var(--ax-danger-1000);
+    color: var(--ax-text-danger);
     font-weight: var(--ax-font-weight-bold);
     padding-top: 0;
     margin-top: var(--ax-space-8);

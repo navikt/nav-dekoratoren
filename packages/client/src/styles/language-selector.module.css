@@ -20,13 +20,13 @@
     grid-auto-flow: column;
     gap: var(--ax-space-8);
     align-items: center;
-    border: 1px solid var(--ax-neutral-600);
+    border: 1px solid var(--ax-border-neutral);
     border-radius: var(--ax-radius-8);
 }
 
 .button:focus-visible {
     border-color: transparent;
-    outline: 3px solid var(--ax-neutral-1000);
+    outline: 3px solid var(--ax-border-focus);
 }
 
 .label {
@@ -76,7 +76,7 @@
 
 .option:hover,
 .option:focus-visible {
-    background-color: var(--ax-accent-300);
+    background-color: var(--ax-bg-accent-strong-hover);
     color: var(--ax-neutral-000);
 }
 
