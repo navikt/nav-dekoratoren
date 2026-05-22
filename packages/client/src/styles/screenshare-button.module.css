@@ -21,7 +21,7 @@
     text-decoration: none;
 }
 
-.screenshareButton:focus {
+.screenshareButton:focus-visible {
     outline: none;
 }
 

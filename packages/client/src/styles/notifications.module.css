@@ -52,7 +52,7 @@
     inset: 0;
 }
 
-.notification a:focus {
+.notification a:focus-visible {
     outline: none;
     color: var(--ax-neutral-900);
 }

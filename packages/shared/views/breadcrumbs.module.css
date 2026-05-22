@@ -31,7 +31,7 @@
 }
 
 @supports not selector(:focus-visible) {
-    .homeLink:focus .svg {
+    .homeLink:focus-visible .svg {
         color: var(--ax-neutral-000);
     }
 }
