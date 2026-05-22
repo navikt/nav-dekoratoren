@@ -4,7 +4,7 @@
     margin: 0;
     font: inherit;
     cursor: pointer;
-    color: var(--ax-neutral-900);
+    color: var(--ax-text-accent-subtle);
     display: grid;
     grid-auto-flow: column;
     gap: var(--ax-space-8);

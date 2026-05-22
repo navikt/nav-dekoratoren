@@ -14,7 +14,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--ax-neutral-400);
+    border-top: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .searchHit {
@@ -23,19 +23,19 @@
     display: grid;
     gap: var(--ax-space-4);
     padding: var(--ax-space-16) 0;
-    border-bottom: 1px solid var(--ax-neutral-400);
+    border-bottom: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .searchMoreHits {
     display: inline-flex;
     align-items: center;
     gap: var(--ax-space-8);
-    color: var(--ax-neutral-900);
+    color: var(--ax-text-accent-subtle);
 }
 
 @media (min-width: 48rem) {
     .searchHit {
-        border-bottom: 1px solid var(--ax-neutral-600);
+        border-bottom: 1px solid var(--ax-border-neutral);
     }
 }
 

@@ -20,7 +20,7 @@
 }
 
 .menuItems > :not(:last-child) {
-    border-bottom: 1px solid var(--ax-neutral-400);
+    border-bottom: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .menuHeader {
@@ -33,7 +33,7 @@
     text-transform: uppercase;
     font-size: var(--ax-font-size-small);
     margin-bottom: var(--ax-space-4);
-    color: var(--ax-neutral-900);
+    color: var(--ax-text-neutral-subtle);
 }
 
 .name {
@@ -59,18 +59,18 @@
 }
 
 .menuItem:hover {
-    color: var(--ax-neutral-900);
+    color: var(--ax-text-accent-subtle);
     text-decoration: underline;
 }
 
 .notifications {
     padding-block: var(--ax-space-20) var(--ax-space-32);
     padding-inline: var(--inline-padding);
-    background-color: var(--ax-neutral-200);
+    background-color: var(--ax-bg-neutral-moderate);
 }
 
 .logout {
-    border-top: 1px solid var(--ax-neutral-400);
+    border-top: 1px solid var(--ax-border-neutral-subtle);
     padding-inline: var(--inline-padding);
     position: sticky;
     bottom: 0;
@@ -78,7 +78,7 @@
 
 .loader {
     padding-inline: var(--ax-space-12);
-    color: var(--ax-neutral-900);
+    color: var(--ax-text-accent-subtle);
     visibility: hidden;
     opacity: 0;
 

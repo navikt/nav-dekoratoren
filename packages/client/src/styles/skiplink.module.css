@@ -23,6 +23,6 @@
     color: white;
     text-decoration: none;
     background-color: var(--ax-neutral-1000);
-    outline: 2px solid var(--ax-neutral-1000);
+    outline: 2px solid var(--ax-border-focus);
     outline-offset: 1px;
 }

@@ -72,23 +72,23 @@
 }
 
 .contextLink:focus-visible {
-    box-shadow: 0 0 0 3px var(--ax-neutral-1000);
+    box-shadow: 0 0 0 3px var(--ax-border-focus);
     outline: none;
 }
 
 .contextLink:hover {
-    background-color: var(--ax-accent-200);
-    border: 2px solid var(--ax-neutral-600);
+    background-color: var(--ax-bg-accent-strong);
+    border: 2px solid var(--ax-border-accent);
 }
 
 .contextLinkTitle {
-    color: var(--ax-neutral-900);
+    color: var(--ax-text-accent);
     font-size: var(--ax-font-size-large);
     font-weight: var(--ax-font-weight-bold);
 }
 
 .contextLink:hover .contextLinkTitle {
-    color: var(--ax-neutral-000);
+    color: var(--ax-text-accent-contrast);
 }
 
 .contextLinkDescription {
@@ -96,5 +96,5 @@
 }
 
 .contextLink:hover .contextLinkDescription {
-    color: var(--ax-neutral-000);
+    color: var(--ax-text-accent-contrast);
 }

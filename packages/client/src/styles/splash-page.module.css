@@ -7,7 +7,7 @@
     font-family: "Source Sans 3", sans-serif;
     line-height: 1.333;
     font-size: var(--ax-font-size-large);
-    background-color: var(--ax-neutral-200);
+    background-color: var(--ax-bg-neutral-moderate);
 }
 
 .splashAlert {
@@ -17,6 +17,6 @@
     display: flex;
     gap: var(--ax-space-12);
     padding: var(--ax-space-16);
-    background-color: var(--ax-info-100);
-    border-color: var(--ax-info-600);
+    background-color: var(--ax-bg-info-soft);
+    border-color: var(--ax-border-info);
 }
