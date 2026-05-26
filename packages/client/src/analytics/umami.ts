@@ -7,6 +7,8 @@ import {
 import { getDeviceParams } from "./deviceParams";
 import { redactData } from "./helpers/redactData";
 import { AnalyticsEventArgs, EventData } from "./types";
+import type { ModulerMetadata } from "decorator-shared/params";
+import { DEFAULT_ORIGIN } from "./constants";
 
 /*
  * TIL UTVIKLER: ADVARSEL OM PERSONOPPLYSNINGER
@@ -29,7 +31,8 @@ export const redactQueryString = (url: string): string => {
 export const logUmamiEvent = async (
     eventName: string,
     eventData: EventData = {},
-    origin = "nav-dekoratoren",
+    origin = DEFAULT_ORIGIN,
+    decoratorModuler?: ModulerMetadata,
 ) => {
     if (
         window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
@@ -39,7 +42,8 @@ export const logUmamiEvent = async (
             includeOrigin: false,
             includeHash: false,
         });
-
+        // Internal adoption metadata. Use `besøk` events for
+        // moduler version/entry point stats. Missing analytics entry point means unknown/legacy.
         return umami.track((props) =>
             redactData({
                 ...props,
@@ -59,6 +63,7 @@ export const logUmamiEvent = async (
                     origin,
                     originVersion: eventData.originVersion || "unknown",
                     viaDekoratoren: true,
+                    ...decoratorModuler,
                     ...extraWindowParams(),
                     ...getDeviceParams(),
                 },

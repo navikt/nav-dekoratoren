@@ -1,4 +1,4 @@
-import { Environment, ClientParams, Params } from "./params";
+import type { Environment, ClientParams, Params } from "./params";
 import { nb } from "decorator-server/src/texts";
 
 export type Link = {

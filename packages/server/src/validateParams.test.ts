@@ -201,3 +201,53 @@ describe("JSON parsing", () => {
         expect(params.breadcrumbs).toEqual(base);
     });
 });
+
+describe("decorator moduler metadata", () => {
+    it("should parse valid decorator moduler metadata", () => {
+        const params = parseAndValidateParams({
+            decoratorModulerVersion: "4.1.1",
+            decoratorModulerEntryPoint: "ssr",
+        });
+
+        expect(params.decoratorModulerVersion).toBe("4.1.1");
+        expect(params.decoratorModulerEntryPoint).toBe("ssr");
+    });
+
+    it("should keep decorator moduler version when entry point is missing", () => {
+        const params = parseAndValidateParams({
+            decoratorModulerVersion: "4.1.1",
+        });
+
+        expect(params.decoratorModulerVersion).toBe("4.1.1");
+        expect(params.decoratorModulerEntryPoint).toBeUndefined();
+    });
+
+    it("should keep decorator moduler entry point when version is missing", () => {
+        const params = parseAndValidateParams({
+            decoratorModulerEntryPoint: "csr",
+        });
+
+        expect(params.decoratorModulerVersion).toBeUndefined();
+        expect(params.decoratorModulerEntryPoint).toBe("csr");
+    });
+
+    it("should keep valid decorator moduler version when the entry point is invalid", () => {
+        const params = parseAndValidateParams({
+            decoratorModulerVersion: "4.1.1",
+            decoratorModulerEntryPoint: "invalid",
+        });
+
+        expect(params.decoratorModulerVersion).toBe("4.1.1");
+        expect(params.decoratorModulerEntryPoint).toBeUndefined();
+    });
+
+    it("should keep valid decorator moduler entry point when the version is not semver", () => {
+        const params = parseAndValidateParams({
+            decoratorModulerVersion: "not-a-version",
+            decoratorModulerEntryPoint: "ssr",
+        });
+
+        expect(params.decoratorModulerVersion).toBeUndefined();
+        expect(params.decoratorModulerEntryPoint).toBe("ssr");
+    });
+});

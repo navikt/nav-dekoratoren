@@ -4,9 +4,15 @@ import {
 } from "./task-analytics/ta";
 import { initMockAmplitude } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
+import { DEFAULT_ORIGIN } from "./constants";
 import { Auth } from "decorator-shared/auth";
 import { AnalyticsEventArgs, EventData } from "./types";
 import { param } from "../params";
+import {
+    analyticsEntryPointSchema,
+    type ClientParams,
+    type ModulerMetadata,
+} from "decorator-shared/params";
 
 declare global {
     interface Window {
@@ -88,6 +94,22 @@ export const extraWindowParams = () => {
     };
 };
 
+const excludedParametre = new Set<string>([
+    "decoratorModulerVersion",
+    "decoratorModulerEntryPoint",
+    "decoratorModulerAnalyticsEntryPoint",
+]);
+
+const buildPageviewParametre = (params: ClientParams) =>
+    Object.fromEntries(
+        Object.entries(params).filter(([key]) => !excludedParametre.has(key)),
+    );
+
+const parseAnalyticsEntryPoint = (
+    value: unknown,
+): ModulerMetadata["decoratorModulerAnalyticsEntryPoint"] | undefined =>
+    analyticsEntryPointSchema.safeParse(value).data;
+
 const logPageView = (authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {
@@ -101,7 +123,7 @@ const logPageView = (authState: Auth) => {
                 ? authState.securityLevel
                 : false,
             parametre: {
-                ...params,
+                ...buildPageviewParametre(params),
                 BREADCRUMBS:
                     params.breadcrumbs && params.breadcrumbs.length > 0,
                 ...(params.availableLanguages && {
@@ -111,7 +133,10 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logUmamiEvent("besøk", eventData);
+        logUmamiEvent("besøk", eventData, DEFAULT_ORIGIN, {
+            decoratorModulerVersion: params.decoratorModulerVersion,
+            decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
+        });
     }, 100);
 };
 
@@ -122,9 +147,10 @@ export const analyticsEvent = (props: AnalyticsEventArgs) => {
 export const logAnalyticsEvent = async (
     eventName: string,
     eventData: EventData = {},
-    origin = "nav-dekoratoren",
+    origin = DEFAULT_ORIGIN,
+    decoratorModuler?: ModulerMetadata,
 ) => {
-    logUmamiEvent(eventName, eventData, origin);
+    logUmamiEvent(eventName, eventData, origin, decoratorModuler);
 };
 
 export const analyticsClickListener =
@@ -152,9 +178,12 @@ export const analyticsClickListener =
     };
 
 const logAnalyticsEventFromApp = (params?: {
-    origin: unknown | string;
-    eventName: unknown | string;
+    origin: string;
+    eventName: string;
     eventData?: unknown | EventData;
+    decoratorModulerAnalyticsEntryPoint?:
+        | unknown
+        | ModulerMetadata["decoratorModulerAnalyticsEntryPoint"];
 }): Promise<any> => {
     try {
         if (!params || params.constructor !== Object) {
@@ -163,7 +192,12 @@ const logAnalyticsEventFromApp = (params?: {
             );
         }
 
-        const { origin, eventName, eventData = {} } = params;
+        const {
+            origin,
+            eventName,
+            eventData = {},
+            decoratorModulerAnalyticsEntryPoint: analyticsEntryPointParam,
+        } = params;
         if (!eventName || typeof eventName !== "string") {
             return Promise.reject('Parameter "eventName" must be a string');
         }
@@ -175,8 +209,20 @@ const logAnalyticsEventFromApp = (params?: {
                 'Parameter "eventData" must be a plain object',
             );
         }
+        const analyticsEntryPoint = parseAnalyticsEntryPoint(
+            analyticsEntryPointParam,
+        );
 
-        return logAnalyticsEvent(eventName, eventData, origin);
+        return logAnalyticsEvent(
+            eventName,
+            eventData,
+            origin,
+            analyticsEntryPoint
+                ? {
+                      decoratorModulerAnalyticsEntryPoint: analyticsEntryPoint,
+                  }
+                : undefined,
+        );
     } catch (e) {
         return Promise.reject(`Unexpected Analytics error: ${e}`);
     }
