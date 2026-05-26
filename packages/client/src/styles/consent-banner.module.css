@@ -15,7 +15,7 @@
 }
 
 .consentBanner {
-    background-color: var(--ax-accent-600);
+    background-color: var(--ax-bg-accent-strong);
     border-radius: var(--ax-radius-12);
     display: none;
     max-width: 40rem;
@@ -24,7 +24,8 @@
     margin: auto auto 0 0;
     position: fixed;
     z-index: 1001;
-
+    color: var(--ax-text-accent-contrast);
+    
     @media (max-width: calc(48rem - 1px)) {
         max-height: calc(100svh - 100px);
         overflow-y: auto;
@@ -51,7 +52,6 @@
 
 .expandButton {
     background-color: transparent;
-    color: var(--ax-neutral-000);
     text-align: left;
     align-items: flex-start;
     width: 100%;
@@ -84,7 +84,6 @@
     font-size: var(--ax-font-size-heading-medium);
     font-weight: bold;
     margin-block: 0 var(--ax-space-16);
-    color: var(--ax-neutral-000);
     text-wrap: pretty;
 }
 
@@ -92,7 +91,6 @@
     font-size: var(--ax-font-size-large);
     line-height: 1.5;
     margin-bottom: var(--ax-space-32);
-    color: var(--ax-neutral-000);
 
     &:last-of-type {
         margin-bottom: 0;
@@ -100,7 +98,7 @@
 }
 
 .text a {
-    color: var(--ax-neutral-000);
+    color: inherit;
     text-decoration: underline;
 }
 
@@ -119,7 +117,7 @@
 .button,
 .button:hover {
     background-color: var(--ax-bg-default);
-    color: var(--ax-accent-800);
+    color: var(--ax-text-accent-subtle);
     cursor: pointer;
     font-size: var(--ax-font-size-large);
     flex: 1;

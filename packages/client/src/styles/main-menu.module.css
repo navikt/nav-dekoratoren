@@ -46,7 +46,7 @@
 }
 
 .contextLinks {
-    background-color: var(--ax-neutral-200);
+    background-color: var(--ax-bg-neutral-soft);
     columns: 20rem 3;
     gap: var(--ax-space-12);
     padding-block: var(--ax-space-24);
@@ -67,7 +67,7 @@
     background-color: var(--ax-bg-default);
     padding: var(--ax-space-24);
     border-radius: var(--ax-radius-12);
-    border: 2px solid var(--ax-neutral-900);
+    border: 2px solid var(--ax-border-accent);
     text-decoration: none;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .contextLinkTitle {
-    color: var(--ax-text-accent);
+    color: var(--ax-text-accent-subtle);
     font-size: var(--ax-font-size-large);
     font-weight: var(--ax-font-weight-bold);
 }
