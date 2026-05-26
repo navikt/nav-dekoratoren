@@ -43,7 +43,7 @@ export const Breadcrumbs = ({
                       <li class="${cls.listItem}">
                           <a
                               href="${frontPageUrl}"
-                              class="${clsx(cls.homeLink, aksel["aksel-link"])}"
+                              class="${clsx(cls.homeLink, aksel["navds-link"])}"
                               data-analytics-title="nav.no"
                           >
                               ${HouseIcon({ className: cls.svg })} nav.no
@@ -63,7 +63,7 @@ export const Breadcrumbs = ({
                                                 ${htmlAttributes({
                                                     className: clsx(
                                                         cls.link,
-                                                        aksel["aksel-link"],
+                                                        aksel["navds-link"],
                                                     ),
                                                     ["data-handle-in-app"]:
                                                         handleInApp ?? false,

@@ -32,7 +32,7 @@ export const SearchHits = ({
             </h2>
             <a
                 href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
-                class="${aksel["aksel-link"]}"
+                class="${aksel["navds-link"]}"
             >
                 ${i18n("change_search_filter")}
             </a>

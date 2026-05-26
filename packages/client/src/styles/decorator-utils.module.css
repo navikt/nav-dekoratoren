@@ -7,14 +7,14 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    column-gap: var(--ax-space-16);
-    padding-block: var(--ax-space-12);
+    column-gap: var(--a-spacing-4);
+    padding-block: var(--a-spacing-3);
 }
 
 .white {
-    background-color: var(--ax-bg-default);
+    background-color: var(--a-bg-default);
 }
 
 .gray {
-    background-color: var(--ax-bg-neutral-moderate);
+    background-color: var(--a-bg-subtle);
 }

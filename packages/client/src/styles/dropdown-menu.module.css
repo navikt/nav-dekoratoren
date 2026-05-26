@@ -11,8 +11,9 @@
     transition-duration: 0.4s;
     transition-property: max-height, opacity;
     transition-timing-function: ease-in;
-    background-color: var(--ax-bg-default);
-    border-radius: 0 0 var(--ax-radius-8) var(--ax-radius-8);
+    background-color: var(--a-surface-default);
+    border-radius: 0 0 var(--a-border-radius-medium)
+        var(--a-border-radius-medium);
     word-break: break-word;
 }
 
@@ -35,6 +36,7 @@
     @media (min-width: 48rem) {
         height: initial;
         max-height: 80vh;
-        border-radius: 0 0 var(--ax-radius-8) var(--ax-radius-8);
+        border-radius: 0 0 var(--a-border-radius-medium)
+            var(--a-border-radius-medium);
     }
 }

@@ -9,7 +9,7 @@ import { HeaderButton } from "./components/header-button";
 
 export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
     <user-menu>
-        <span class="${clsx(cls.loader, aksel["aksel-label"])}">
+        <span class="${clsx(cls.loader, aksel["navds-label"])}">
             ${i18n("loading")}
         </span>
         <login-button class="${utils.hidden}">

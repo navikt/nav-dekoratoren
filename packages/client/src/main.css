@@ -18,14 +18,14 @@ body {
 }
 
 :is(#decorator-header, #decorator-footer) {
-    --edge-spacing: var(--ax-space-16);
+    --edge-spacing: var(--a-spacing-4);
     --desktop-min-width: 768px;
     --header-height: 4.5rem;
 
-    font-family: var(--ax-font-family);
+    font-family: var(--a-font-family);
     line-height: calc(4 / 3);
     font-size: 1.125rem;
-    color: var(--ax-text-neutral);
+    color: var(--a-text-default);
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -34,10 +34,10 @@ body {
         --header-height: 5rem;
     }
     @media (min-width: 64rem) {
-        --edge-spacing: var(--ax-space-48);
+        --edge-spacing: var(--a-spacing-12);
     }
 }
 
 :is(#header-withmenu, #footer-withmenu) {
-    font-family: var(--ax-font-family, "Source Sans Pro", Arial, sans-serif);
+    font-family: var(--a-font-family, "Source Sans Pro", Arial, sans-serif);
 }

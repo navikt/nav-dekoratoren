@@ -1,7 +1,7 @@
 .simpleUserMenu {
     display: flex;
     align-items: center;
-    gap: var(--ax-space-8);
+    gap: var(--a-spacing-2);
 }
 
 .name {
@@ -11,6 +11,6 @@
 @media (min-width: 48rem) {
     .name {
         grid-auto-flow: column;
-        gap: var(--ax-space-4);
+        gap: var(--a-spacing-1);
     }
 }

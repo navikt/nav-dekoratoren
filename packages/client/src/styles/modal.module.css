@@ -1,9 +1,9 @@
 .modal {
     animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
     border: none;
-    border-radius: var(--ax-radius-12);
-    padding: var(--ax-space-40);
-    box-shadow: var(--ax-shadow-dialog);
+    border-radius: var(--a-border-radius-large);
+    padding: var(--a-spacing-10);
+    box-shadow: var(--a-shadow-xlarge);
     margin: auto;
 }
 
@@ -18,15 +18,15 @@
 }
 
 .modalTitle {
-    font-size: var(--ax-font-size-heading-medium);
-    font-weight: var(--ax-font-weight-bold);
+    font-size: var(--a-font-size-heading-medium);
+    font-weight: var(--a-font-weight-bold);
     margin-top: 0;
-    margin-bottom: var(--ax-space-16);
+    margin-bottom: var(--a-spacing-4);
 }
 
 .modalBody {
     margin-top: 0;
-    margin-bottom: var(--ax-space-16);
+    margin-bottom: var(--a-spacing-4);
 }
 
 @keyframes modalAnimationFadein {
@@ -49,5 +49,5 @@
 .buttonWrapper {
     display: flex;
     flex-direction: row;
-    gap: var(--ax-space-16);
+    gap: var(--a-spacing-4);
 }

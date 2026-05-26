@@ -11,30 +11,30 @@
 }
 
 .content {
-    padding: var(--ax-space-32);
+    padding: var(--a-spacing-8);
     padding-left: var(--edge-spacing);
     display: grid;
-    gap: var(--ax-space-32);
+    gap: var(--a-spacing-8);
 }
 
 .header {
     display: grid;
     justify-items: start;
-    gap: var(--ax-space-12);
+    gap: var(--a-spacing-3);
 }
 
 .links {
     columns: 18rem 4;
-    gap: var(--ax-space-24);
+    gap: var(--a-spacing-6);
 }
 
 .linkGroup {
     break-inside: avoid;
-    margin-bottom: var(--ax-space-40);
+    margin-bottom: var(--a-spacing-10);
 }
 
 .linkGroupHeading {
-    margin-block: 0 var(--ax-space-12);
+    margin-block: 0 var(--a-spacing-3);
 }
 
 .linkList {
@@ -42,59 +42,59 @@
     margin-block: 0;
     padding-left: 0;
     display: grid;
-    gap: var(--ax-space-8);
+    gap: var(--a-spacing-2);
 }
 
 .contextLinks {
-    background-color: var(--ax-bg-neutral-soft);
+    background-color: var(--a-surface-subtle);
     columns: 20rem 3;
-    gap: var(--ax-space-12);
-    padding-block: var(--ax-space-24);
+    gap: var(--a-spacing-3);
+    padding-block: var(--a-spacing-6);
     padding-inline: var(--edge-spacing);
 }
 
 @media (min-width: 64rem) {
     .contextLinks {
-        padding-inline-start: var(--ax-space-24);
-        padding-block: var(--ax-space-24);
+        padding-inline-start: var(--a-spacing-6);
+        padding-block: var(--a-spacing-6);
     }
 }
 
 .contextLink {
     break-inside: avoid;
     display: block;
-    margin-block-end: var(--ax-space-12);
-    background-color: var(--ax-bg-default);
-    padding: var(--ax-space-24);
-    border-radius: var(--ax-radius-12);
-    border: 2px solid var(--ax-border-accent);
+    margin-block-end: var(--a-spacing-3);
+    background-color: var(--a-surface-default);
+    padding: var(--a-spacing-6);
+    border-radius: var(--a-border-radius-large);
+    border: 2px solid var(--a-text-action);
     text-decoration: none;
 }
 
-.contextLink:focus-visible {
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
+.contextLink:focus {
+    box-shadow: var(--a-shadow-focus);
     outline: none;
 }
 
 .contextLink:hover {
-    background-color: var(--ax-bg-accent-strong);
-    border: 2px solid var(--ax-border-accent);
+    background-color: var(--a-surface-action);
+    border: 2px solid var(--a-border-action);
 }
 
 .contextLinkTitle {
-    color: var(--ax-text-accent-subtle);
-    font-size: var(--ax-font-size-large);
-    font-weight: var(--ax-font-weight-bold);
+    color: var(--a-text-action);
+    font-size: var(--a-font-size-large);
+    font-weight: var(--a-font-weight-bold);
 }
 
 .contextLink:hover .contextLinkTitle {
-    color: var(--ax-text-accent-contrast);
+    color: var(--a-text-on-action);
 }
 
 .contextLinkDescription {
-    color: var(--ax-text-default);
+    color: var(--a-text-default);
 }
 
 .contextLink:hover .contextLinkDescription {
-    color: var(--ax-text-accent-contrast);
+    color: var(--a-text-on-action);
 }

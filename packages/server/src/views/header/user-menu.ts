@@ -46,8 +46,9 @@ export const UserMenu = ({
                     content: html`
                         <div>${i18n("security_level_info")}</div>
                         <a
-                            class="${aksel["aksel-link"]}"
-                            data-color="neutral"
+                            class="${aksel["navds-link"]} ${aksel[
+                                "navds-link--neutral"
+                            ]}"
                             href="${loginUrl}"
                         >
                             ${i18n("security_level_link")}

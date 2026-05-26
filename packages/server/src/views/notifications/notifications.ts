@@ -48,11 +48,10 @@ const MaskedNotificationComp = ({
                 <local-time datetime="${date}" class="${cls.date}"></local-time>
                 •<span
                     class="${clsx(
-                        aksel["aksel-tag"],
-                        aksel["aksel-tag--xsmall"],
+                        aksel["navds-tag"],
+                        aksel["navds-tag--neutral-moderate"],
+                        aksel["navds-tag--xsmall"],
                     )}"
-                    data-variant="moderate"
-                    data-color="neutral"
                     >${i18n(type)}</span
                 >
             </p>
@@ -106,21 +105,20 @@ const ArchivableNotification = ({
                 •
                 <span
                     class="${clsx(
-                        aksel["aksel-tag"],
-                        aksel["aksel-tag--xsmall"],
+                        aksel["navds-tag"],
+                        aksel["navds-tag--neutral-moderate"],
+                        aksel["navds-tag--xsmall"],
                     )}"
-                    data-variant="moderate"
-                    data-color="neutral"
                     >${i18n(type)}</span
                 >
             </div>
             <button
                 class="${clsx(
-                    aksel["aksel-button"],
-                    aksel["aksel-button--small"],
+                    aksel["navds-button"],
+                    aksel["navds-button--secondary"],
+                    aksel["navds-button--small"],
                     cls.button,
                 )}"
-                data-variant="secondary"
             >
                 ${i18n("archive")}
             </button>
@@ -158,8 +156,11 @@ export function Notifications({
                 : NotificationsEmpty()
             : NotificationsErrorView()}
         <a
-            class="${clsx(cls.allNotificationsLink, aksel["aksel-link"])}"
-            data-color="neutral"
+            class="${clsx(
+                cls.allNotificationsLink,
+                aksel["navds-link"],
+                aksel["navds-link--neutral"],
+            )}"
             href="${minsideUrl}/tidligere-varsler"
         >
             ${i18n("earlier_notifications")}

@@ -20,7 +20,7 @@ export const SimpleFooter = ({
                     ({ url, content, attributes }) => html`
                         <a
                             href="${url}"
-                            class="${aksel["aksel-link"]} ${cls.footerLink}"
+                            class="${aksel["navds-link"]} ${cls.footerLink}"
                             ${attributes ? htmlAttributes(attributes) : ""}
                             >${content}</a
                         >

@@ -14,15 +14,15 @@
 }
 
 .content {
-    padding-top: var(--ax-space-16);
+    padding-top: var(--a-spacing-4);
 }
 
 .buttonsWrapper {
-    margin-top: var(--ax-space-16);
+    margin-top: var(--a-spacing-4);
     display: flex;
-    gap: var(--ax-space-16);
+    gap: var(--a-spacing-4);
 }
 
 .children {
-    margin-top: var(--ax-space-16);
+    margin-top: var(--a-spacing-4);
 }

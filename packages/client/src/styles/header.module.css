@@ -1,25 +1,26 @@
 .logo {
     display: flex;
-    padding: var(--ax-space-16) var(--ax-space-8);
-    margin-left: calc(var(--ax-space-8) * -1);
-    color: var(--ax-text-logo);
+    padding: var(--a-spacing-4) var(--a-spacing-2);
+    margin-left: calc(var(--a-spacing-2) * -1);
+    color: var(--a-nav-red);
 }
 
 .logoSimple {
-    color: var(--ax-text-default);
+    color: var(--a-icon-default);
 }
 
-.logo:focus-visible {
-    border-radius: var(--ax-radius-8);
-    outline: 3px solid var(--ax-border-focus);
+.logo:focus {
+    border-radius: var(--a-border-radius-medium);
+    box-shadow: var(--a-shadow-focus);
+    outline: none;
 }
 
 .siteheader {
-    color: var(--ax-text-default);
+    color: var(--a-text-default);
     position: relative;
     z-index: 1000;
-    background-color: var(--ax-bg-default);
-    box-shadow: inset 0 -1px 0 var(--ax-border-neutral-subtle);
+    background-color: var(--a-surface-default);
+    box-shadow: inset 0 -1px 0 var(--a-gray-300);
 }
 
 .hovedmenyWrapper {
@@ -34,7 +35,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    gap: var(--ax-space-40);
+    gap: var(--a-spacing-10);
 }
 
 .arbeidsflate {
@@ -60,10 +61,10 @@
 }
 
 .headerContextLink:hover {
-    border-color: var(--ax-border-neutral-subtle);
+    border-color: var(--a-gray-300);
 }
 
 .headerContextLink.lenkeActive {
     font-weight: bold;
-    border-color: var(--ax-border-accent);
+    border-color: var(--a-text-action);
 }

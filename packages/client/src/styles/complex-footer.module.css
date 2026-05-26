@@ -1,22 +1,21 @@
 .footer {
-    background-color: var(--ax-brand-blue-1000);
-    color: var(--ax-neutral-000);
-    --ax-text-subtle: var(--ax-text-neutral-contrast);
-    padding-block: var(--ax-space-24) var(--ax-space-48);
+    background-color: var(--a-surface-alt-3-strong);
+    color: var(--a-text-on-inverted);
+    padding-block: var(--a-spacing-6) var(--a-spacing-12);
 }
 
 .footerContent {
     display: flex;
     flex-direction: column;
-    gap: var(--ax-space-48);
+    gap: var(--a-spacing-12);
 }
 
 .toTop {
     align-self: flex-start;
     display: flex;
     align-items: center;
-    gap: var(--ax-space-8);
-    padding: var(--ax-space-16);
+    gap: var(--a-spacing-2);
+    padding: var(--a-spacing-4);
     padding-left: 0;
 }
 
@@ -32,14 +31,14 @@
 }
 
 .footerLinkGroup:not(:last-child) {
-    margin-bottom: var(--ax-space-32);
+    margin-bottom: var(--a-spacing-8);
 }
 
 .footerLinkHeading {
-    color: #99c4dd;
+    color: var(--a-deepblue-200);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-block: 0 var(--ax-space-8);
+    margin-block: 0 var(--a-spacing-2);
 }
 
 .footerInnerLinkList {
@@ -54,5 +53,5 @@
 
 .complexFooterOrg {
     display: grid;
-    gap: var(--ax-space-8);
+    gap: var(--a-spacing-2);
 }

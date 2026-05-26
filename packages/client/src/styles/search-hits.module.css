@@ -1,46 +1,46 @@
 .searchHits {
     display: grid;
-    gap: var(--ax-space-20);
+    gap: var(--a-spacing-5);
 }
 
 .heading {
     margin: 0;
-    font-size: var(--ax-font-size-large);
-    line-height: var(--ax-font-line-height-xlarge);
-    font-weight: var(--ax-font-weight-bold);
+    font-size: var(--a-font-size-large);
+    line-height: var(--a-font-line-height-xlarge);
+    font-weight: var(--a-font-weight-bold);
 }
 
 .searchHitList {
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--ax-border-neutral-subtle);
+    border-top: 1px solid var(--a-border-divider);
 }
 
 .searchHit {
     color: inherit;
     text-decoration: none;
     display: grid;
-    gap: var(--ax-space-4);
-    padding: var(--ax-space-16) 0;
-    border-bottom: 1px solid var(--ax-border-neutral-subtle);
+    gap: var(--a-spacing-1);
+    padding: var(--a-spacing-4) 0;
+    border-bottom: 1px solid var(--a-border-divider);
 }
 
 .searchMoreHits {
     display: inline-flex;
     align-items: center;
-    gap: var(--ax-space-8);
-    color: var(--ax-text-accent-subtle);
+    gap: var(--a-spacing-2);
+    color: var(--a-text-action);
 }
 
 @media (min-width: 48rem) {
     .searchHit {
-        border-bottom: 1px solid var(--ax-border-neutral);
+        border-bottom: 1px solid var(--a-border-default);
     }
 }
 
 .chevron {
-    height: var(--ax-font-line-height-heading-small);
+    height: var(--a-font-line-height-heading-small);
 }
 
 @media (min-width: 48rem) {
@@ -50,19 +50,19 @@
 }
 
 .searchHit:hover {
-    background-color: var(--ax-neutral-300);
+    background-color: var(--a-gray-300);
 }
 
 .searchHit:focus-visible,
 .searchHit:active {
-    background-color: var(--ax-brand-blue-900);
-    color: var(--ax-neutral-000);
+    background-color: var(--a-deepblue-500);
+    color: var(--a-text-on-action);
     outline: none;
 }
 
 .title {
     margin-block: 0;
-    font-size: var(--ax-font-size-heading-small);
+    font-size: var(--a-font-size-heading-small);
     letter-spacing: -0.001em;
-    line-height: var(--ax-font-line-height-heading-small);
+    line-height: var(--a-font-line-height-heading-small);
 }
