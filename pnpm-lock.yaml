@@ -117,8 +117,8 @@ importers:
                 specifier: 2.6.3
                 version: 2.6.3
             "@navikt/ds-css":
-                specifier: 7.40.0
-                version: 7.40.0
+                specifier: 8.10.6
+                version: 8.10.6
             decorator-icons:
                 specifier: workspace:*
                 version: link:../icons
@@ -1753,11 +1753,11 @@ packages:
             }
         engines: { node: ">=20.0.0", npm: ">=9.0.0" }
 
-    "@navikt/ds-css@7.40.0":
+    "@navikt/ds-css@8.10.6":
         resolution:
             {
-                integrity: sha512-DPxoESUbmPImfbYrmcrOIL1XVsxqqFITgNCZ3cXQgv2xRHP9G6LTEdiYjwHecffHb6L/7mEPJ929MZ50o1fZNA==,
-                tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.40.0/267682132732537194904a0498ce8971bf8b4922,
+                integrity: sha512-ZoVz0CHluHor1q7AojDJ04Pj92YnWmnY43m91i32jGYiaIF0MNp9Qn0qr2GOm+1x50aGqtGx998TWj7ZYso1mw==,
+                tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.10.6/5a49d9b7c2bf0326289ff0a69505df89f36a3e68,
             }
 
     "@navikt/nav-dekoratoren-moduler@4.0.0":
@@ -9685,7 +9685,7 @@ snapshots:
 
     "@navikt/analytics-types@0.0.9": {}
 
-    "@navikt/ds-css@7.40.0": {}
+    "@navikt/ds-css@8.10.6": {}
 
     "@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.0.1(@types/react@19.2.14)(react@19.2.6))(react@19.2.6)":
         dependencies:

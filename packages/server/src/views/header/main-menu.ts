@@ -24,13 +24,13 @@ export function MainMenu({
                 <div class="${cls.header}">
                     <h2
                         class="${clsx(
-                            aksel["navds-heading"],
-                            aksel["navds-heading--medium"],
+                            aksel["aksel-heading"],
+                            aksel["aksel-heading--medium"],
                         )}"
                     >
                         ${title}
                     </h2>
-                    <a href="${frontPageUrl}" class="${aksel["navds-link"]}">
+                    <a href="${frontPageUrl}" class="${aksel["aksel-link"]}">
                         ${i18n("to_front_page")}
                     </a>
                 </div>
@@ -40,8 +40,8 @@ export function MainMenu({
                             <div class="${cls.linkGroup}">
                                 <h3
                                     class="${clsx(
-                                        aksel["navds-heading"],
-                                        aksel["navds-heading--small"],
+                                        aksel["aksel-heading"],
+                                        aksel["aksel-heading--small"],
                                         cls.linkGroupHeading,
                                     )}"
                                 >
@@ -54,7 +54,7 @@ export function MainMenu({
                                                 <a
                                                     href="${url}"
                                                     class="${aksel[
-                                                        "navds-link"
+                                                        "aksel-link"
                                                     ]}"
                                                     data-lenkegruppe="${heading}"
                                                 >
