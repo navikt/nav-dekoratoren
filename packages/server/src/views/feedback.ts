@@ -12,8 +12,8 @@ export const Feedback = ({ contactUrl }: { contactUrl: string }) => html`
             <div class="${cls.feedbackContent}">
                 <h2
                     class="${clsx(
-                        aksel["navds-body-short"],
-                        aksel["navds-body-short--large"],
+                        aksel["aksel-body-short"],
+                        aksel["aksel-body-short--large"],
                     )}"
                 >
                     ${i18n("did_you_find")}
@@ -32,13 +32,13 @@ export const Feedback = ({ contactUrl }: { contactUrl: string }) => html`
                 </div>
             </div>
             <div class="${clsx(cls.feedbackSuccess, utils.hidden)}">
-                <h2 class="${clsx(aksel["navds-heading"])}">
+                <h2 class="${clsx(aksel["aksel-heading"])}">
                     ${i18n("send_undersokelse_takk")}
                 </h2>
-                <div class="${aksel["navds-body-long"]}">
+                <div class="${aksel["aksel-body-long"]}">
                     ${i18n("hensikt_med_tilbakemelding")}
                 </div>
-                <a class="${aksel["navds-link"]}" href="${contactUrl}">
+                <a class="${aksel["aksel-link"]}" href="${contactUrl}">
                     ${i18n("hensikt_med_tilbakemelding_lenke")}
                 </a>
             </div>
