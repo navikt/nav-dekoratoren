@@ -687,6 +687,7 @@ Kun aktuelt dersom SSR ikke lar seg gjøre i din arkitektur.
 | `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for dekoratøren                 |
 | `buildCspHeader`                | server-side   | Bygger CSP som inkluderer dekoratørens direktiver            |
 | `getAnalyticsInstance`          | client/server | Logger events til Umami (forhåndsdefinerte og custom events) |
+| `isValidEventName`              | client/server | Sjekker om et event-navn finnes i analytics-taksonomien      |
 | `setBreadcrumbs`                | client-side   | Setter brødsmulesti i Dekoratøren                            |
 | `onBreadcrumbClick`             | client-side   | Håndterer klikk på breadcrumbs ved client-side routing       |
 | `setAvailableLanguages`         | client-side   | Setter språk-alternativer i språkvelgeren                    |
@@ -781,6 +782,24 @@ logger.custom("feedback åpnet", {
     komponent: "feedback-widget",
     steg: 2,
 });
+```
+
+Bruk `isValidEventName()` når appen din tar imot et event-navn som `string` og må velge mellom
+taksonomi-logging og custom logging:
+
+```ts
+import {
+    getAnalyticsInstance,
+    isValidEventName,
+} from "@navikt/nav-dekoratoren-moduler";
+
+const logger = getAnalyticsInstance("minAppOrigin");
+
+if (isValidEventName(eventName)) {
+    logger(eventName, eventData);
+} else {
+    logger.custom(eventName, eventData);
+}
 ```
 
 Alle event-typer fra `@navikt/analytics-types` er re-eksportert fra `@navikt/nav-dekoratoren-moduler`:
