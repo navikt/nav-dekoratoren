@@ -6,7 +6,7 @@ catalog:
     esbuild-minify-templates: "0.13.1"
     eslint: "9.39.4"
     postcss: "8.5.14"
-    tsx: "4.22.0"
+    tsx: "4.21.0"
     typescript: "5.9.3"
     vitest: "4.1.6"
 
