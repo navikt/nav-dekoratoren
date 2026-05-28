@@ -1,28 +1,28 @@
 .notificationsEmpty {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: var(--a-spacing-1);
-    border-radius: var(--a-border-radius-xlarge);
-    padding: var(--a-spacing-4);
-    background-color: var(--a-surface-default);
-    box-shadow: var(--a-shadow-xsmall);
+    gap: var(--ax-space-4);
+    border-radius: 20px;
+    padding: var(--ax-space-16);
+    background-color: var(--ax-bg-default);
+    box-shadow: var(--ax-shadow-dialog);
 }
 
 .heading {
     margin-block: 0;
-    font-size: var(--a-font-size-large);
-    line-height: var(--a-font-line-height-xlarge);
+    font-size: var(--ax-font-size-large);
+    line-height: var(--ax-font-line-height-xlarge);
     margin-bottom: 2px;
 }
 
 .description {
     margin-block: 0;
-    font-size: var(--a-font-size-medium);
-    line-height: var(--a-font-line-height-large);
-    margin-bottom: var(--a-spacing-3);
+    font-size: var(--ax-font-size-medium);
+    line-height: var(--ax-font-line-height-large);
+    margin-bottom: var(--ax-space-12);
 }
 
 .image {
-    padding: var(--a-spacing-2);
+    padding: var(--ax-space-8);
     height: 96px;
 }

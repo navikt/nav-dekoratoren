@@ -26,22 +26,14 @@ export const Button = ({
     href,
 }: ButtonProps) => html`
     <${href ? "a" : "button"}
-        ${htmlAttributes(attributes)}
+        ${htmlAttributes({ ...attributes, ["data-variant"]: variant })}
         ${href ? html`href="${href}"` : html`type="${type}"`}
-        class="${clsx(
-            cls["navds-button"],
-            {
-                [cls["navds-button--primary"]]: variant === "primary",
-                [cls["navds-button--secondary"]]: variant === "secondary",
-                [cls["navds-button--tertiary"]]: variant === "tertiary",
-            },
-            className,
-        )}"
+        class="${clsx(cls["aksel-button"], className)}"
     >
         ${
             icon &&
-            html`<span class="${cls["navds-button__icon"]}">${icon}</span>`
+            html`<span class="${cls["aksel-button__icon"]}">${icon}</span>`
         }
-        <span class="${clsx(cls["navds-label"], "label")}">${content}</span>
+        <span class="${clsx(cls["aksel-label"], "label")}">${content}</span>
     </${href ? "a" : "button"}>
 `;

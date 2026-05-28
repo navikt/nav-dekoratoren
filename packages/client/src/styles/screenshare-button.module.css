@@ -4,13 +4,13 @@
     margin: 0;
     font: inherit;
     cursor: pointer;
-    color: var(--a-text-action);
+    color: var(--ax-text-accent-subtle);
     display: grid;
     grid-auto-flow: column;
-    gap: var(--a-spacing-2);
+    gap: var(--ax-space-8);
     align-items: center;
     text-decoration: underline;
-    text-decoration-color: var(--a-deepblue-200);
+    text-decoration-color: #99c4dd;
     text-decoration-thickness: 0.0625em;
     text-underline-offset: 0.15em;
     padding-block: 0.5625rem;
@@ -21,19 +21,16 @@
     text-decoration: none;
 }
 
-.screenshareButton:focus {
-    text-decoration: none;
-    background-color: var(--a-border-focus);
-    color: var(--a-text-on-action);
+.screenshareButton:focus-visible {
     outline: none;
 }
 
 [data-theme="dark"] .screenshareButton {
-    font-weight: var(--a-font-weight-bold);
-    color: var(--a-text-on-inverted);
-    padding-inline: var(--a-spacing-4) var(--a-spacing-3);
-    background-color: var(--a-deepblue-700);
-    border-radius: var(--a-border-radius-medium);
+    font-weight: var(--ax-font-weight-bold);
+    color: var(--ax-neutral-000);
+    padding-inline: var(--ax-space-16) var(--ax-space-12);
+    background-color: #004367;
+    border-radius: var(--ax-radius-8);
     align-items: center;
     transition:
         border-color 100ms,
@@ -42,16 +39,16 @@
 }
 
 [data-theme="dark"] .screenshareButton:hover {
-    background-color: var(--a-deepblue-500);
-    border-color: var(--a-deepblue-300);
+    background-color: #005b82;
+    border-color: #66a3c4;
 }
 
 [data-theme="dark"] .screenshareButton:focus-visible {
-    box-shadow: 0 0 0 3px var(--a-border-focus-on-inverted);
+    outline: 3px solid #99c3ff;
 }
 
 [data-theme="dark"] .screenshareButton:active {
-    background-color: var(--a-deepblue-600);
+    background-color: var(--ax-brand-blue-900);
 }
 
 .screenshareButton svg {

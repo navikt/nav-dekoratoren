@@ -14,17 +14,17 @@ export type AlertProps = {
 
 export const Alert = ({ variant, content }: AlertProps) => html`
     <div
-        class="${clsx(aksel["navds-alert"], aksel[`navds-alert--${variant}`])}"
+        class="${clsx(aksel["aksel-alert"], aksel[`aksel-alert--${variant}`])}"
     >
         ${variant === "info"
             ? InformationSquareFillIcon({
-                  className: aksel["navds-alert__icon"],
+                  className: aksel["aksel-alert__icon"],
                   ariaLabel: i18n("info"),
               })
             : XMarkOctagonFillIcon({
-                  className: aksel["navds-alert__icon"],
+                  className: aksel["aksel-alert__icon"],
                   ariaLabel: i18n("error"),
               })}
-        <span class="${aksel["navds-body-long"]}">${content}</span>
+        <span class="${aksel["aksel-body-long"]}">${content}</span>
     </div>
 `;

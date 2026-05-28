@@ -19,10 +19,10 @@
     overflow: visible;
     position: absolute;
 }
-.skiplink:focus {
-    outline: none;
+.skiplink:focus-visible {
     color: white;
     text-decoration: none;
-    background-color: var(--a-border-focus);
-    box-shadow: 0 0 0 2px var(--a-border-focus);
+    background-color: var(--ax-neutral-1000);
+    outline: 2px solid var(--ax-border-focus);
+    outline-offset: 1px;
 }

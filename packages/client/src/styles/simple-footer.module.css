@@ -1,14 +1,14 @@
 .simpleFooter {
-    border-top: 2px solid var(--a-blue-500);
-    background-color: var(--a-surface-default);
-    padding-block: var(--a-spacing-4);
+    border-top: 2px solid var(--ax-accent-500);
+    background-color: var(--ax-bg-default);
+    padding-block: var(--ax-space-16);
 }
 
 .simpleFooterContent {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--a-spacing-4);
+    gap: var(--ax-space-16);
 }
 
 @media (min-width: 48rem) {
@@ -28,7 +28,7 @@
 @media (min-width: 48rem) {
     .footerLinkList {
         flex-direction: row;
-        gap: var(--a-spacing-8);
+        gap: var(--ax-space-32);
     }
 }
 

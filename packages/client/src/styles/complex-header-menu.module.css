@@ -5,7 +5,7 @@
 .searchMenu {
     display: grid;
     padding-inline: var(--edge-spacing);
-    grid-gap: var(--a-spacing-4);
+    grid-gap: var(--ax-space-16);
 }
 
 @media (min-width: 48rem) {

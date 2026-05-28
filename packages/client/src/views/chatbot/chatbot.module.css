@@ -17,7 +17,7 @@
     display: none;
     box-shadow:
         inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-        0 0 0 5px var(--a-blue-800),
+        0 0 0 5px var(--ax-accent-800),
         0 1px 4px rgba(0, 0, 0, 0.5),
         0 4px 10px #000,
         0 0 0 6px rgba(0, 0, 0, 0.1);
@@ -34,7 +34,7 @@
 
 @media (hover: hover) {
     .button:hover {
-        background-color: var(--a-blue-800);
+        background-color: var(--ax-accent-800);
         box-shadow:
             inset 0 0 0 1px rgba(0, 0, 0, 0.6),
             0 0 0 5px #fff,
@@ -43,8 +43,8 @@
     }
 }
 
-.button:focus {
-    background: var(--a-blue-800);
+.button:focus-visible {
+    background: var(--ax-accent-800);
     outline: none;
     box-shadow:
         inset 0 0 0 1px rgba(0, 0, 0, 0.6),
@@ -83,7 +83,7 @@
 }
 
 .button:hover .chatbotWrapper,
-.button:focus .chatbotWrapper {
+.button:focus-visible .chatbotWrapper {
     transform: translateY(-50%) scale(1.1);
 }
 
@@ -103,7 +103,7 @@
     left: 0;
     box-shadow:
         inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-        0 0 0 6px var(--a-blue-800),
+        0 0 0 6px var(--ax-accent-800),
         0 0 0 5px #fff,
         0 0 1px 5px rgba(0, 0, 0, 0.2),
         0 4px 10px #000,
@@ -115,7 +115,7 @@
     .button:hover .chatbotWrapper:before {
         box-shadow:
             inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-            0 0 0 6px var(--a-blue-800),
+            0 0 0 6px var(--ax-accent-800),
             0 0 0 6px #fff,
             0 0 1px 5px rgba(0, 0, 0, 0.2),
             0 4px 10px #000,
@@ -123,13 +123,13 @@
     }
 }
 
-.button:focus .chatbotWrapper:before {
+.button:focus-visible .chatbotWrapper:before {
     box-shadow:
         inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-        0 0 0 6px var(--a-blue-800),
+        0 0 0 6px var(--ax-accent-800),
         0 4px 10px white,
         0 0 0 4px #5c4378,
-        0 0 0 9px var(--a-blue-50),
+        0 0 0 9px var(--ax-accent-100),
         0 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
 

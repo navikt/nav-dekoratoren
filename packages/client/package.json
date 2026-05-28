@@ -8,8 +8,8 @@
         "build:watch": "vite build --watch --mode main",
         "build-main": "vite build --mode main",
         "build-csr": "vite build --mode csr",
-        "test": "TZ=UTC vitest run",
-        "test:watch": "TZ=UTC vitest watch",
+        "test": "TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest run",
+        "test:watch": "TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest watch",
         "lint": "eslint . && tsc --noEmit"
     },
     "dependenciesComments": {
@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@grafana/faro-web-sdk": "2.6.3",
-        "@navikt/ds-css": "7.40.0",
+        "@navikt/ds-css": "8.10.6",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
         "js-cookie": "3.0.7",
