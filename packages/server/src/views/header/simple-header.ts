@@ -18,7 +18,7 @@ export const SimpleHeader = ({
     frontPageUrl,
     loginUrl,
 }: SimpleHeaderProps) => html`
-    <div class="${cls.siteheader}">
+    <div class="${cls.siteheader}" data-color="neutral">
         ${SkipLink(i18n("skip_link"))}
         <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
             <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"
