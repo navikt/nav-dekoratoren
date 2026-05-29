@@ -10,7 +10,6 @@
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
         "noEmit": true,
-        "baseUrl": ".",
         "paths": {
             "decorator-server/src/*": ["./src/*"],
             "decorator-client/src/*": ["../client/src/*"]

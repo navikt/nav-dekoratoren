@@ -7,12 +7,11 @@
         "strict": true,
         "skipLibCheck": true,
         "noEmit": true,
-        "baseUrl": "..",
         "paths": {
-            "decorator-client/src/*": ["packages/client/src/*"],
-            "decorator-server/src/*": ["packages/server/src/*"],
-            "decorator-shared/*": ["packages/shared/*"],
-            "decorator-icons": ["packages/icons/index.ts"]
+            "decorator-client/src/*": ["../packages/client/src/*"],
+            "decorator-server/src/*": ["../packages/server/src/*"],
+            "decorator-shared/*": ["../packages/shared/*"],
+            "decorator-icons": ["../packages/icons/index.ts"]
         }
     },
     "include": ["**/*.ts"]
