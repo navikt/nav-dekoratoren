@@ -12,7 +12,7 @@ export const UserMenu = ({ loginUrl }: { loginUrl: string }) => html`
         <span class="${clsx(cls.loader, aksel["aksel-label"])}">
             ${i18n("loading")}
         </span>
-        <login-button class="${utils.hidden}">
+        <login-button class="${utils.hidden}" data-color="accent">
             ${HeaderButton({
                 content: i18n("login"),
                 icon: EnterIcon(),
