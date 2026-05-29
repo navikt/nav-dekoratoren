@@ -10,7 +10,7 @@ export type SimpleUserMenuProps = {
 };
 
 export const SimpleUserMenu = ({ name, logoutUrl }: SimpleUserMenuProps) =>
-    html`<div class="${cls.simpleUserMenu}">
+    html`<div class="${cls.simpleUserMenu}" data-color="accent">
         <span class="${cls.name}">
             <b>${i18n("logged_in")}:</b>
             <span>${name}</span>
