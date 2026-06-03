@@ -18,6 +18,9 @@
     gap: var(--ax-space-8);
     padding: var(--ax-space-16);
     padding-left: 0;
+
+    /* Hindrer overstyring av tekstfarge fra andre apper der eldre versjoner av Aksel brukes */
+    color: var(--ax-text-subtle);
 }
 
 .footerLinks {
@@ -50,6 +53,9 @@
 
 .footerLink {
     padding-block: 0.625rem;
+
+    /* Hindrer overstyring av tekstfarge fra andre apper der eldre versjoner av Aksel brukes */
+    color: var(--ax-text-subtle);
 }
 
 .complexFooterOrg {
