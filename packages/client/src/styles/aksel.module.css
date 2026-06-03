@@ -6,6 +6,9 @@
 
 .aksel-button {
     font: inherit;
+
+    /* Hindrer overstyring av tekstfarge fra andre apper der eldre versjoner av Aksel brukes */
+    color: var(--ax-text-subtle);
 }
 
 .aksel-link:focus-visible {

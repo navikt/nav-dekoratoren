@@ -37,7 +37,7 @@ export function ComplexHeader({
     mainMenu,
 }: ComplexHeaderProps) {
     return html`
-        <div class="${cls.siteheader}" id="toppen">
+        <div class="${cls.siteheader}" id="toppen" data-color="neutral">
             ${SkipLink(i18n("skip_link"))}
             ${Sticky({
                 children: html`
@@ -75,7 +75,10 @@ export function ComplexHeader({
                                 </context-links>
                             `}
                         </div>
-                        <div class="${menuItemsCls.menuItems}">
+                        <div
+                            class="${menuItemsCls.menuItems}"
+                            data-color="accent"
+                        >
                             ${UserMenu({ loginUrl })}
                             <div
                                 class="${menuItemsCls.menuItemsUniversalLinks}"
