@@ -11,6 +11,10 @@
     color: var(--ax-text-subtle);
 }
 
+.aksel-button[data-variant="primary"] {
+    color: var(--ax-text-accent-contrast);
+}
+
 .aksel-link:focus-visible {
     outline: 3px solid var(--ax-info-400);
 }
