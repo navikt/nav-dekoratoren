@@ -56,7 +56,7 @@ export class ResponseCache<ValueType = unknown> {
 
         const promise = this.getPromise(key, callback);
 
-        return cachedItem?.value || promise;
+        return cachedItem !== undefined ? cachedItem.value : promise;
     }
 
     private async getPromise(
@@ -70,7 +70,7 @@ export class ResponseCache<ValueType = unknown> {
 
         const promise = callback()
             .then((value) => {
-                if (!value) {
+                if (value == null) {
                     throw Error("No value returned from callback");
                 }
 
@@ -89,7 +89,7 @@ export class ResponseCache<ValueType = unknown> {
                         Date.now() + this.errorRetryDelay,
                     );
                 }
-                return this.cache.get(key)?.value || null;
+                return this.cache.get(key)?.value ?? null;
             })
             .finally(() => {
                 this.pendingPromises.delete(key);
