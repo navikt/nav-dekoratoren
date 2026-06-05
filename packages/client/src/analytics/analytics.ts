@@ -94,6 +94,7 @@ export const extraWindowParams = () => {
     };
 };
 
+// Moduler-metadata logges som egne Umami-felter og skal derfor ikke dupliseres i pageview-parametre.
 const excludedParametre = new Set<string>([
     "decoratorModulerVersion",
     "decoratorModulerEntryPoint",
