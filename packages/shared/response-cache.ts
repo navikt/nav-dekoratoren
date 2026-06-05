@@ -56,7 +56,7 @@ export class ResponseCache<ValueType = unknown> {
 
         const promise = this.getPromise(key, callback);
 
-        return cachedItem !== undefined ? cachedItem.value : promise;
+        return cachedItem === undefined ? promise : cachedItem.value;
     }
 
     private async getPromise(
