@@ -33,6 +33,21 @@ describe("ResponseCache with errorRetryDelay", () => {
         expect(callback).toHaveBeenCalledTimes(1);
     });
 
+    test("returns empty string on success", async () => {
+        const cache = new ResponseCache<string>({
+            ttl: 60_000,
+            errorRetryDelay: 120_000,
+        });
+        const callback = vi.fn().mockResolvedValue("");
+
+        const firstResult = await cache.get("key", callback);
+        const secondResult = await cache.get("key", callback);
+
+        expect(firstResult).toBe("");
+        expect(secondResult).toBe("");
+        expect(callback).toHaveBeenCalledTimes(1);
+    });
+
     test("returns stale value immediately when within backoff window", async () => {
         const cache = new ResponseCache<string>({
             ttl: 60_000,
