@@ -116,8 +116,7 @@
     margin-bottom: var(--ax-space-12);
 }
 
-.button,
-.button:hover {
+.button[data-variant="primary"] {
     background-color: var(--ax-bg-default);
     color: var(--ax-text-accent-subtle);
     cursor: pointer;
@@ -125,11 +124,14 @@
     flex: 1;
     max-width: 8rem;
 }
+.button[data-variant="primary"]:hover {
+    background-color: var(--ax-bg-accent-moderate-hover);
+    color: var(--ax-text-accent);
+}
 
 .button:focus-visible {
-    box-shadow:
-        inset 0 0 0 2px var(--ax-neutral-600),
-        0 0 0 3px var(--ax-neutral-1000);
+    outline: 3px solid var(--ax-bg-default);
+    outline-offset: 3px;
 }
 
 .moreLink {
