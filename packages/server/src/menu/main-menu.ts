@@ -15,8 +15,11 @@ const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
 const ONE_MINUTE_MS = 60 * 1000;
 
+const TWO_MINUTES_MS = 2 * 60 * 1000;
+
 const menuCache = new ResponseCache<MainMenu>({
     ttl: ONE_MINUTE_MS,
+    errorRetryDelay: TWO_MINUTES_MS,
 });
 
 const baseMainMenuNode = z.object({
