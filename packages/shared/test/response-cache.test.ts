@@ -10,6 +10,19 @@ const flushPromises = async () => {
     await Promise.resolve();
 };
 
+const makeCache = () =>
+    new ResponseCache<string>({ ttl: 60_000, errorRetryDelay: 120_000 });
+
+const setupBackoffState = async (
+    cache: ResponseCache<string>,
+    callback: () => Promise<string | null>,
+) => {
+    await cache.get("key", callback);
+    vi.advanceTimersByTime(61_000);
+    await cache.get("key", callback);
+    await flushPromises();
+};
+
 describe("ResponseCache with errorRetryDelay", () => {
     beforeEach(() => {
         vi.useFakeTimers();
@@ -21,10 +34,7 @@ describe("ResponseCache with errorRetryDelay", () => {
     });
 
     test("returns value on success", async () => {
-        const cache = new ResponseCache<string>({
-            ttl: 60_000,
-            errorRetryDelay: 120_000,
-        });
+        const cache = makeCache();
         const callback = vi.fn().mockResolvedValue("data");
 
         const result = await cache.get("key", callback);
@@ -49,24 +59,13 @@ describe("ResponseCache with errorRetryDelay", () => {
     });
 
     test("returns stale value immediately when within backoff window", async () => {
-        const cache = new ResponseCache<string>({
-            ttl: 60_000,
-            errorRetryDelay: 120_000,
-        });
+        const cache = makeCache();
         const callback = vi
             .fn()
             .mockResolvedValueOnce("stale-data")
             .mockResolvedValue(null);
 
-        // Populate cache
-        await cache.get("key", callback);
-
-        // Expire the cache and trigger a failing fetch
-        vi.advanceTimersByTime(61_000);
-        await cache.get("key", callback);
-        await flushPromises();
-
-        // Reset call count
+        await setupBackoffState(cache, callback);
         callback.mockClear();
 
         // Within backoff window — should NOT trigger a new fetch
@@ -78,19 +77,13 @@ describe("ResponseCache with errorRetryDelay", () => {
     });
 
     test("returns stale value during backoff window", async () => {
-        const cache = new ResponseCache<string>({
-            ttl: 60_000,
-            errorRetryDelay: 120_000,
-        });
+        const cache = makeCache();
         const callback = vi
             .fn()
             .mockResolvedValueOnce("stale-data")
             .mockResolvedValue(null);
 
-        await cache.get("key", callback);
-        vi.advanceTimersByTime(61_000);
-        await cache.get("key", callback);
-        await flushPromises();
+        await setupBackoffState(cache, callback);
 
         const result = await cache.get("key", callback);
 
@@ -98,20 +91,14 @@ describe("ResponseCache with errorRetryDelay", () => {
     });
 
     test("retries after backoff window expires", async () => {
-        const cache = new ResponseCache<string>({
-            ttl: 60_000,
-            errorRetryDelay: 120_000,
-        });
+        const cache = makeCache();
         const callback = vi
             .fn()
             .mockResolvedValueOnce("stale-data")
             .mockResolvedValueOnce(null)
             .mockResolvedValueOnce("fresh-data");
 
-        await cache.get("key", callback);
-        vi.advanceTimersByTime(61_000);
-        await cache.get("key", callback);
-        await flushPromises();
+        await setupBackoffState(cache, callback);
 
         // Advance past backoff window
         vi.advanceTimersByTime(121_000);
@@ -126,21 +113,14 @@ describe("ResponseCache with errorRetryDelay", () => {
     });
 
     test("clears backoff state on clearCache()", async () => {
-        const cache = new ResponseCache<string>({
-            ttl: 60_000,
-            errorRetryDelay: 120_000,
-        });
+        const cache = makeCache();
         const callback = vi
             .fn()
             .mockResolvedValueOnce("stale-data")
             .mockResolvedValueOnce(null)
             .mockResolvedValueOnce("fresh-data");
 
-        await cache.get("key", callback);
-        vi.advanceTimersByTime(61_000);
-        await cache.get("key", callback);
-        await flushPromises();
-
+        await setupBackoffState(cache, callback);
         clearCache();
 
         const result = await cache.get("key", callback);
@@ -168,20 +148,14 @@ describe("ResponseCache with errorRetryDelay", () => {
     });
 
     test("clears nextRetryAfter on successful refetch", async () => {
-        const cache = new ResponseCache<string>({
-            ttl: 60_000,
-            errorRetryDelay: 120_000,
-        });
+        const cache = makeCache();
         const callback = vi
             .fn()
             .mockResolvedValueOnce("stale-data")
             .mockResolvedValueOnce(null)
             .mockResolvedValueOnce("recovered-data");
 
-        await cache.get("key", callback);
-        vi.advanceTimersByTime(61_000);
-        await cache.get("key", callback);
-        await flushPromises();
+        await setupBackoffState(cache, callback);
 
         // After backoff expires, fetch succeeds
         vi.advanceTimersByTime(121_000);
