@@ -1,129 +1,177 @@
-# Contributing to the Decorator
+# Bidra til Dekoratøren
 
-The Nav.no Team has the daily responsibility for the Decorator, but we welcome input, suggestions, and PRs from others! This documentation details how to start the Decorator locally, add an issue to the GitHub repository, or submit a pull request.
+Nav.no-teamet har det daglige ansvaret for Dekoratøren, men vi tar gjerne imot innspill, forslag og
+PR-er fra andre! Denne dokumentasjonen beskriver hvordan du kan starte Dekoratøren lokalt, opprette
+en sak i GitHub-repositoriet eller sende inn en pull request.
 
-## Starting the Decorator locally
+## Starte Dekoratøren lokalt
 
-### 1. Clone the Decorator:
+### 1. Klon Dekoratøren
 
 ```bash
 git clone https://github.com/navikt/nav-dekoratoren.git
 ```
 
-### 2. Set up NODE_AUTH_TOKEN with your own PAT (Personal Access Token)
+### 2. Sett opp NODE_AUTH_TOKEN med din egen PAT (Personal Access Token)
 
-Some of the dependencies are located in a private container registry. To install these, you need to set up a GitHub Personal Access Token (PAT).
+Noen av avhengighetene ligger i et privat containerregister. For å installere disse må du sette opp
+en GitHub Personal Access Token (PAT).
 
-1. Go to [Github token settings](https://github.com/settings/tokens) and create a new PAT if you don't already have one. Remember to include the `packages:read` scope and authorize `navikt` (Configure SSO -> "Authorize navikt").
+1. Gå til [GitHubs token-innstillinger](https://github.com/settings/tokens) og opprett en ny PAT
+   hvis du ikke allerede har en. Husk å inkludere scopet `packages:read` og autorisere `navikt` (
+   Configure SSO → "Authorize navikt").
 
-2. Make the PAT available as the `NODE_AUTH_TOKEN`:<br>In Terminal: `export NODE_AUTH_TOKEN=your-path-with-correct-scope`<br>Windows Powershell: `$env:NODE_AUTH_TOKEN="your-path-with-correct-scope"`
-   .
+2. Gjør PAT-en tilgjengelig som `NODE_AUTH_TOKEN`:
 
-**Tip**: Step 2 will set the `NODE_AUTH_TOKEN` environment variable for that particular Terminal or PowerShell session. If you'd like to make your PAT permanently available, consider using [1Password to load secrets into the environment](https://developer.1password.com/docs/cli/secrets-environment-variables/) or an equivalent method. Do not write your PAT directly to `.bash_profile` for security reasons.
+I Terminal: `export NODE_AUTH_TOKEN=your-path-with-correct-scope`
 
-### 3. The Decorator uses [pnpm](https://pnpm.io) as the package manager and Node.js as the runtime.
+Windows Powershell: `$env:NODE_AUTH_TOKEN="your-path-with-correct-scope"`
 
-If you already have pnpm installed on your machine, you can skip this step.
+> Tips: Trinn 2 setter miljøvariabelen NODE_AUTH_TOKEN kun for den aktuelle Terminal- eller
+> PowerShell-sesjonen. Hvis du ønsker å gjøre PAT-en permanent tilgjengelig, anbefaler vi å bruke
+> for eksempel
+> [1Password for å laste hemmeligheter inn i miljøet](https://developer.1password.com/docs/cli/secrets-environment-variables/),
+> eller en tilsvarende løsning. Av sikkerhetsgrunner bør du ikke skrive PAT-en direkte inn i
+> .bash_profile.
 
-You can install pnpm globally on your machine like this:
+### 3. Dekoratøren bruker [pnpm](https://pnpm.io) som pakkebehandler og Node.js som runtime
+
+Hvis du allerede har pnpm installert, kan du hoppe over dette steget.
+
+Du kan installere pnpm globalt slik:
 
 ```bash
 corepack enable pnpm
 ```
 
-(You can also install pnpm with Brew, curl, etc: https://pnpm.io/installation).
+(Du kan også installere pnpm med Brew, curl osv.: https://pnpm.io/installation)
 
-### 4. Navigate to the root of the repository and install dependencies
+### 4. Gå til rotmappen og installer avhengigheter
 
 ```bash
 cd nav-dekoratoren
 pnpm install && pnpm run build
 ```
 
-### 5. Start the Decorator locally
+### 5. Start Dekoratøren lokalt
 
 ```bash
 pnpm run dev
 ```
 
-You should now be able to open the Decorator at http://localhost:8089/.
+Du skal nå kunne åpne Dekoratøren på http://localhost:8089/.
 
-## Contribution
+---
 
-### Guidelines:
+## Bidrag
 
-Some kind reminders before you start:
+### Retningslinjer
 
-- Check if there is already a similar open PR.
-- Link any existing issues to your PR for easy tracking.
-- Write clear commit messages and PR descriptions (e.g., not "fix stuff again"). Note that PRs only allow squashing when merging into main.
-- Ask for help if you're unsure or need assistance with testing!
-- The dev ingress is used by many applications in Nav and is expected to be stable. If you're unsure about your changes, there is a beta ingress where things are allowed to break. See the Action `Deploy to Team Nav.no beta`.
+Noen vennlige påminnelser før du begynner:
 
-### Linting and testing
+- Sjekk om det allerede finnes en lignende åpen PR.
+- Knytt eventuelle eksisterende saker til PR-en for enklere sporing.
+- Skriv tydelige commit-meldinger og PR-beskrivelser (unngå for eksempel «fix stuff again»). Merk at
+  PR-er kun kan squashes ved merge til main.
+- Spør om hjelp dersom du er usikker eller trenger bistand med testing.
+- Dev-ingressen brukes av mange applikasjoner i NAV og forventes å være stabil. Hvis du er usikker
+  på endringene dine, finnes det en beta-ingress hvor det er mer aksept for at ting kan gå i
+  stykker. Se GitHub Action-en `Deploy to Team Nav.no beta`.
 
-Husky runs linting when you commit your changes. You may also run `lint-staged --config package.json` on your staged files.
+### Linting og testing
 
-Testing is done with `pnpm run test` and runs the test suites for the `/client` and `/server` packages.
+Husky kjører linting når du committer endringene dine. Du kan også kjøre
+`lint-staged --config package.json` på filer som er staged.
 
-### Deploying to dev
+Testing kjøres med `pnpm run test` og kjører testene for pakkene `/client` og `/server`.
 
-If you'd like to test your branch, you can deploy it using the workflow trigger in GitHub Actions. See the Actions tab in the GitHub repository:
+### Deploy til dev
 
-- `Deploy to dev`: Use this if you're confident that your branch and code changes are stable.
-- `Deploy to Team nav.no beta`: Use this if you'd like to test things that might break.
+Hvis du ønsker å teste branchen din, kan du deploye den via workflow-triggeren i GitHub Actions
+under fanen Actions:
 
-### Deploying to production
+- `Deploy to dev` – bruk denne hvis du er trygg på at branchen og endringene er stabile.
+- `Deploy to Team nav.no beta` – bruk denne hvis du ønsker å teste endringer som potensielt kan
+  skape
+  problemer.
 
-When your PR has been approved, you may merge it and trigger a production deployment.
+### Deploy til produksjon
 
-## Architecture and technical solution
+Når PR-en din er godkjent, kan du merge den til main, og en produksjonsdeploy blir automatisk
+trigget.
 
-This section aims to explain how the Decorator is engineered:
+---
 
-- Overall architecture
-- Web components and styling
-- Server-side vs. client-side rendering
-- Miscellaneous services for surveys and analytics
+## Arkitektur og teknisk løsning
 
-### Overall architecture
+Denne delen forklarer hvordan Dekoratøren er bygget opp:
 
-The Decorator is written without using any particular frameworks. Everything is based on native web APIs and features without any augmentation. This is to keep the Decorator as light as possible.
+- Overordnet arkitektur
+- Web Components og styling
+- Server-side kontra client-side rendering
+- Diverse tjenester for spørreundersøkelser og analyse
 
-The source code is divided into packages:
+### Overordnet arkitektur
 
-- **client:** Client-side code and components.
-- **server:** All elements and code that can be run on the server as part of server-side rendering, including the actual `server.ts` that manages all API routing.
-- **icons:** All icons, both custom for the Decorator and icons from `@navikt/aksel-icons`.
-- **shared:** Functions and types that are shared between packages.
-- **next-pages-router-example:** A small Next.js app that allows you to preview the Decorator at `localhost:8089` when you run `pnpm run dev`.
+Dekoratøren er skrevet uten bruk av spesifikke rammeverk. Alt er basert på native web-API-er og
+nettleserfunksjonalitet uten ekstra abstraheringer. Målet er å holde Dekoratøren så lettvekts som
+mulig.
 
-These packages act as separate workspaces and are also built separately through command chaining. See the `build` script in `package.json`. The reason for this package strategy is that each package has its own variations in how it is built. For example, `icons` will run a custom build script (`build-icons.ts`) to compile both custom icons and `@navikt/aksel-icons` into the `dist` folder.
+Kildekoden er delt inn i følgende pakker:
 
-### Web components and styling
+- **client** – klientsidekode og komponenter.
+- **server** – alle elementer og all kode som kan kjøres på serveren som del av server-side
+  rendering,
+  inkludert `server.ts` som håndterer API-ruting.
+- **icons** – alle ikoner, både egne ikoner for Dekoratøren og ikoner fra `@navikt/aksel-icons`.
+- **shared** – funksjoner og typer som deles mellom pakkene.
+- **next-pages-router-example** – en liten Next.js-applikasjon som lar deg forhåndsvise Dekoratøren
+  på
+  `localhost:8089` når du kjører `pnpm run dev`.
 
-Most components are built using Web Components, which help encapsulate structure and styling, preventing styling and scripts from leaking into other parts of the Decorator. You can [find more on Web Components here](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
+Disse pakkene fungerer som separate workspaces og bygges også separat gjennom kjeding av
+byggekommandoer. Se `build`-scriptet i `package.json`.
 
-### Serverside vs clientside rendering
+Årsaken til denne pakkestrategien er at hver pakke har egne behov for hvordan den bygges. For
+eksempel kjører `icons` et eget byggeskript (`build-icons.ts`) som kompilerer både egne ikoner og
+`@navikt/aksel-icons` til `dist`-mappen.
 
-The Decorator aims to do as much server rendering as possible before delivering content to your application.
+### Web Components og styling
 
-### Task analytics
+De fleste komponentene er bygget som Web Components. Dette bidrar til å kapsle inn struktur og
+styling slik at stilregler og skript ikke lekker til andre deler av
+Dekoratøren. [Du kan lese mer om Web Components her.](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)
 
-Task Analytics allows teams to run surveys based on matching URLs. The tasks are configured in a [separate configuration repo](https://github.com/navikt/nav-dekoratoren-config) and are injected into the Decorator. Please contact Nav.no Team if you would like to learn more about Task Analytics or if you have a survey that you would like to set up.
+### Server-side vs client-side rendering
+
+Dekoratøren forsøker å gjøre mest mulig rendering på serveren før innholdet sendes til
+applikasjonen.
+
+### Oppgaveanalyse (Task Analytics)
+
+Task Analytics gjør det mulig for team å kjøre spørreundersøkelser basert på URL-mønstre. Oppgavene
+konfigureres i et [eget konfigurasjonsrepo](https://github.com/navikt/nav-dekoratoren-config) og
+injiseres inn i Dekoratøren.
+
+Ta kontakt med Nav.no-teamet dersom du ønsker å lære mer om Task Analytics eller har en undersøkelse
+du ønsker å sette opp.
 
 ### Storybook
 
-You can find an overview and documentation for each component in [Storybook](https://navikt.github.io/decorator-next).
+Du finner en oversikt og dokumentasjon for hver komponent
+i [Storybook](https://navikt.github.io/nav-dekoratoren).
 
-You can also run Storybook locally, e.g., if you're working on a particular component:
+Du kan også kjøre Storybook lokalt, for eksempel hvis du jobber med en spesifikk komponent:
 
 ```bash
 pnpm run storybook
 ```
 
-You should now be able to open Storybook in your browser at [http://localhost:6006](http://localhost:6006).
+Deretter kan du åpne Storybook i nettleseren på [http://localhost:6006](http://localhost:6006).
 
-#### Creating new components or changing existing ones
+#### Opprette nye komponenter eller endre eksisterende
 
-Stories for each component are prefixed with `.story.tsx`. Please remember to update any prop changes or add stories if you're creating a new component for the Decorator.
+Stories for hver komponent har prefixen `.story.tsx`.
+
+Husk å oppdatere eventuelle prop-endringer eller legge til nye stories dersom du oppretter en ny
+komponent i Dekoratøren eller gjør endringer i en eksisterende komponent.
