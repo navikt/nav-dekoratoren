@@ -47,6 +47,21 @@ export type UtilsBackground = z.infer<typeof utilsBackground>;
 const loginLevel = z.enum(["Level3", "Level4"]);
 export type LoginLevel = z.infer<typeof loginLevel>;
 
+export const modulerVersionSchema = z.string().min(1).max(50);
+export const modulerVersionSemverSchema = modulerVersionSchema.regex(
+    /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/,
+);
+export const modulerEntryPointSchema = z.enum(["ssr", "csr"]);
+export const analyticsEntryPointSchema = z.enum(["typed", "custom", "legacy"]);
+
+export type ModulerMetadata = {
+    decoratorModulerVersion?: z.infer<typeof modulerVersionSemverSchema>;
+    decoratorModulerEntryPoint?: z.infer<typeof modulerEntryPointSchema>;
+    decoratorModulerAnalyticsEntryPoint?: z.infer<
+        typeof analyticsEntryPointSchema
+    >;
+};
+
 export const paramsSchema = z.object({
     context: contextSchema.default("privatperson"),
     simple: z.boolean().default(false),
@@ -78,6 +93,8 @@ export const paramsSchema = z.object({
     pageTitle: z.string().optional(),
     analyticsQueryParams: z.array(z.string()).default([]),
     analyticsRedactFilter: z.array(z.string()).default([]),
+    decoratorModulerVersion: modulerVersionSemverSchema.optional(),
+    decoratorModulerEntryPoint: modulerEntryPointSchema.optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -104,6 +121,8 @@ export const clientParamKeys: Array<keyof Params> = [
     "pageTitle",
     "analyticsQueryParams",
     "analyticsRedactFilter",
+    "decoratorModulerVersion",
+    "decoratorModulerEntryPoint",
 ] as const;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;

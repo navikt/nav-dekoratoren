@@ -2,6 +2,8 @@ import {
     paramsSchema,
     type Params,
     AvailableLanguage,
+    modulerEntryPointSchema,
+    modulerVersionSemverSchema,
 } from "decorator-shared/params";
 import { clientEnv } from "./env/server";
 import { P, match } from "ts-pattern";
@@ -42,6 +44,12 @@ export const validateParams = (params: Record<string, string>) => {
                 : paramsSchema.shape[key as keyof Params].parse(params[key]),
         };
     }, {});
+    const modulerVersion = modulerVersionSemverSchema.safeParse(
+        params.decoratorModulerVersion,
+    ).data;
+    const modulerEntryPoint = modulerEntryPointSchema.safeParse(
+        params.decoratorModulerEntryPoint,
+    ).data;
 
     return {
         ...params,
@@ -75,6 +83,8 @@ export const validateParams = (params: Record<string, string>) => {
                 }
             })
             .otherwise(() => []),
+        decoratorModulerVersion: modulerVersion,
+        decoratorModulerEntryPoint: modulerEntryPoint,
     } as Params;
 };
 
