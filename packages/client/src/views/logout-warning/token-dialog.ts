@@ -6,7 +6,9 @@ import { defineCustomElement } from "../custom-elements";
 
 export class TokenDialog extends HTMLElement {
     tokenExpireAtLocal?: string;
+    checkActivity?: () => boolean;
     private interval?: number;
+    private isAutoRenewing = false;
 
     private get secondsRemaining() {
         return this.tokenExpireAtLocal
@@ -39,11 +41,17 @@ export class TokenDialog extends HTMLElement {
             if (this.secondsRemaining < 0) {
                 logout();
             } else if (this.secondsRemaining < 5 * 60) {
-                if (!dialog.open) {
-                    logAnalyticsEvent("token dialog shown");
-                    dialog.showModal();
+                if (!this.isAutoRenewing && this.checkActivity?.()) {
+                    this.isAutoRenewing = true;
+                    this.dispatchEvent(new Event("renew"));
+                } else if (!this.isAutoRenewing) {
+                    if (!dialog.open) {
+                        logAnalyticsEvent("token dialog shown");
+                        dialog.showModal();
+                    }
                 }
             } else {
+                this.isAutoRenewing = false;
                 dialog.close();
             }
         }, 1000);

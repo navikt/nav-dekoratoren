@@ -1,6 +1,6 @@
 import {
-    SessionData,
     fetchOrRenewSession,
+    SessionData,
     transformSessionToAuth,
 } from "../../helpers/auth";
 import { addSecondsFromNow } from "../../helpers/time";
@@ -13,6 +13,17 @@ import { TokenDialog } from "./token-dialog";
 class LogoutWarning extends HTMLElement {
     private tokenDialog!: TokenDialog;
     private sessionDialog!: SessionDialog;
+    private lastActivityAt = 0;
+
+    private handleActivity = () => {
+        this.lastActivityAt = Date.now();
+    };
+
+    private isUserActive = () => this.lastActivityAt > 0;
+
+    private resetActivity = () => {
+        this.lastActivityAt = 0;
+    };
 
     private onVisibilityChange = async () => {
         if (param("logoutWarning") && document.visibilityState === "visible") {
@@ -30,6 +41,7 @@ class LogoutWarning extends HTMLElement {
             this.sessionDialog.sessionExpireAtLocal = undefined;
             this.tokenDialog.tokenExpireAtLocal = undefined;
         }
+        this.resetActivity();
     };
 
     private init = async () => {
@@ -61,12 +73,23 @@ class LogoutWarning extends HTMLElement {
     connectedCallback() {
         window.addEventListener("visibilitychange", this.onVisibilityChange);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.addEventListener("keydown", this.handleActivity);
+        window.addEventListener("click", this.handleActivity);
+        window.addEventListener("scroll", this.handleActivity, {
+            passive: true,
+        });
+        window.addEventListener("touchstart", this.handleActivity, {
+            passive: true,
+        });
+
         if (param("logoutWarning")) {
             this.init();
         }
 
         this.sessionDialog = this.querySelector("session-dialog")!;
         this.tokenDialog = this.querySelector("token-dialog")!;
+
+        this.tokenDialog.checkActivity = this.isUserActive;
         this.tokenDialog.addEventListener("renew", async () =>
             this.updateDialogs(await fetchOrRenewSession("renew")),
         );
@@ -75,6 +98,10 @@ class LogoutWarning extends HTMLElement {
     disconnectedCallback() {
         window.removeEventListener("visibilitychange", this.onVisibilityChange);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("keydown", this.handleActivity);
+        window.removeEventListener("click", this.handleActivity);
+        window.removeEventListener("scroll", this.handleActivity);
+        window.removeEventListener("touchstart", this.handleActivity);
         window.loginDebug = undefined as any;
     }
 }
