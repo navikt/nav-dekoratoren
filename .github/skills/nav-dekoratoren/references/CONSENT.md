@@ -53,7 +53,11 @@ Returnerer liste over all tillatt lagring basert på gjeldende samtykke.
 import { getAllowedStorage } from "@navikt/nav-dekoratoren-moduler";
 
 const allowed = getAllowedStorage();
-// [ { key: "min-cookie", type: "cookie" }, { key: "min-key", type: "localStorage" }, ... ]
+// [
+//   { name: "min-cookie", type: "cookie", optional: false },
+//   { name: "min-key", type: "localstorage", optional: true },
+//   ...
+// ]
 ```
 
 ---

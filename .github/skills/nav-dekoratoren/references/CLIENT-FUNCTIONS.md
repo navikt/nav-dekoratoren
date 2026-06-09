@@ -25,12 +25,14 @@ setBreadcrumbs([
 ## onBreadcrumbClick
 
 Kalles når bruker klikker på breadcrumb med `handleInApp: true`.
+Bruk rammeverkets router: `router.push(url)` i Next.js, `navigate(url)` i React Router, eller
+tilsvarende i andre SPA-rammeverk.
 
 ```ts
 import { onBreadcrumbClick } from "@navikt/nav-dekoratoren-moduler";
 
 onBreadcrumbClick((breadcrumb) => {
-    router.push(breadcrumb.url);
+    navigateTo(breadcrumb.url);
 });
 ```
 
@@ -54,12 +56,13 @@ setAvailableLanguages([
 ## onLanguageSelect
 
 Kalles ved språkvalg med `handleInApp: true`.
+Bruk samme router-funksjon som for breadcrumbs.
 
 ```ts
 import { onLanguageSelect } from "@navikt/nav-dekoratoren-moduler";
 
 onLanguageSelect((language) => {
-    router.push(language.url);
+    navigateTo(language.url);
 });
 ```
 

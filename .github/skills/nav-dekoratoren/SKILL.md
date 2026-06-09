@@ -30,15 +30,21 @@ ekomloven, og mer.
 
 ## Steg 1: Kartlegg hva teamet trenger
 
-Spør brukeren:
+Start med å inspisere repoet hvis du har tilgang til koden. Se etter:
 
-1. **Formål** – skal de integrere Dekoratøren for første gang, endre eksisterende konfigurasjon,
-   eller bidra med ny funksjonalitet i selve dekoratøren?
-2. **Rammeverk** – Next.js (App Router / Page Router), Remix, Vite SPA, eller ren Node/Express?
-3. **Miljø** – `prod`, `dev`, eller lokal testing?
-4. **Behov** – breadcrumbs, språkvelger, analytics, chatbot, samtykke/cookies, CSP?
+1. **Formål** – bruker appen allerede Dekoratøren, skal den integreres for første gang, eller skal
+   brukeren bidra med funksjonalitet i selve dekoratøren?
+2. **Rammeverk** – Next.js `app/` (App Router), Next.js `pages/` (Page Router), Remix / React Router
+   framework mode, Vite SPA / React Router library mode, eller ren Node/Express.
+3. **Miljø** – `prod`, `dev`, `localhost`, eksisterende `nais.yaml`, og om service discovery kan
+   brukes.
+4. **Behov** – breadcrumbs, språkvelger, analytics, chatbot, samtykke/cookies, CSP.
 
-Bruk svarene til å skreddersy løsningen i steg 2–5.
+Spør bare om det du ikke kan finne i repoet eller som krever et produktvalg. Velg deretter relevant
+flyt:
+
+- **App-integrasjon:** bruk steg 2–7 og relevante referanser.
+- **Bidrag til dekoratøren selv:** hopp til steg 8 og bruk repo-konvensjonene der.
 
 ---
 
@@ -255,6 +261,9 @@ Se [CLIENT-FUNCTIONS.md](./references/CLIENT-FUNCTIONS.md) for fullstendige ekse
 
 ### 5.1 Breadcrumbs
 
+Bruk `handleInApp: true` når appen selv skal håndtere navigasjonen. Bytt `navigateTo` med
+rammeverkets router, for eksempel `router.push` i Next.js eller `navigate` fra React Router.
+
 ```ts
 import {
     setBreadcrumbs,
@@ -271,11 +280,13 @@ setBreadcrumbs([
 ]);
 
 onBreadcrumbClick((breadcrumb) => {
-    router.push(breadcrumb.url); // for SPA-routing
+    navigateTo(breadcrumb.url);
 });
 ```
 
 ### 5.2 Språkvelger
+
+Samme mønster gjelder språkvalg med `handleInApp: true`.
 
 ```ts
 import {
@@ -289,7 +300,7 @@ setAvailableLanguages([
 ]);
 
 onLanguageSelect((language) => {
-    router.push(language.url);
+    navigateTo(language.url);
 });
 ```
 
