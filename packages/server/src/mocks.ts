@@ -81,7 +81,11 @@ export const setupMocks = () =>
             HttpResponse.json(testData),
         ),
         http.get(`${env.APP_URL}/api/varselbjelle/varsler`, () =>
-            HttpResponse.json(notificationsMock),
+            HttpResponse.json(
+                process.env.MOCK_NOTIFICATIONS === "empty"
+                    ? { oppgaver: [], beskjeder: [] }
+                    : notificationsMock,
+            ),
         ),
         http.get(`${env.APP_URL}/api/auth`, () =>
             HttpResponse.json(
