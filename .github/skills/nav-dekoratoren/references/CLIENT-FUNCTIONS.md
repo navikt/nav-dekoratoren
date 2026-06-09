@@ -130,7 +130,7 @@ openChatbot();
 
 ## injectDecoratorClientSide
 
-CSR-fallback. Bruk kun hvis SSR ikke er mulig i arkitekturen.
+CSR-fallback. Bruk kun hvis SSR ikke er mulig i arkitekturen, for eksempel ved en ren React-applikasjon som bare kjører i klienten.
 
 ```ts
 import { injectDecoratorClientSide } from "@navikt/nav-dekoratoren-moduler";

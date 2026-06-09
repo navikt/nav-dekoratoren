@@ -2,7 +2,7 @@
 
 Fra 1. januar 2025 krever ekomloven at Nav innhenter samtykke før analyse- og statistikkverktøy
 aktiveres. Dekoratøren viser samtykkebanneret og håndterer lagring på tvers av apper. Moduler-pakken
-gir helpers for din app.
+tilbyr hjelpefunksjoner som kan brukes i appen. Selve samtykkebanneret håndteres automatisk av dekoratøren og trenger ikke implementeres spesifikt.
 
 Importeres fra `@navikt/nav-dekoratoren-moduler`.
 

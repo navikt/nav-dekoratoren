@@ -50,7 +50,6 @@ og relevante referanser.
 
 ```bash
 npm install --save @navikt/nav-dekoratoren-moduler
-```
 
 Pakken publiseres kun på **GitHub Packages**. Legg til i `.npmrc`:
 
