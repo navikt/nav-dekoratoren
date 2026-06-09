@@ -99,12 +99,12 @@ CONTRIBUTING.md.
 
 ### 1.4 GitHub Copilot-skill 🤖
 
-Repoet inneholder en **GitHub Copilot-skill** som hjelper deg å integrere, konfigurere og bidra til
-Dekoratøren – direkte fra terminalen med [GitHub Copilot CLI](https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli).
+Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet
+[navikt/nav-pilot](https://github.com/navikt/nav-pilot). Den hjelper deg å integrere, konfigurere
+og bidra til Dekoratøren direkte fra terminalen.
 
-Skillen lastes automatisk av Copilot CLI når du jobber i dette repoet (eller et repo som bruker
-Dekoratøren og har kopiert skillen til `.github/skills/`). Du kan også kalle den eksplisitt. (Bytt
-ut beskrivelsen med ditt rammeverk eller behov):
+Følg installasjonsinstruksjonene i nav-pilot for å ta den i bruk. Du kan deretter kalle den
+eksplisitt – bytt ut beskrivelsen med ditt rammeverk eller behov:
 
 ```
 Use the /nav-dekoratoren skill to help me integrate the decorator in my Next.js app
@@ -119,8 +119,7 @@ Use the /nav-dekoratoren skill to help me set up analytics
 ```
 
 Skillen dekker installasjon, SSR/CSR-integrasjon, konfigurasjon, analytics, samtykke/cookies og
-bidrag til selve dekoratøren. Kildekoden ligger i [
-`.github/skills/nav-dekoratoren/`](.github/skills/nav-dekoratoren/).
+bidrag til selve dekoratøren.
 
 ---
 
@@ -357,10 +356,10 @@ personidentifiserbare opplysninger. Inkluder kun query-parametere som er trygge 
 analytics-data.
 
 **analyticsRedactFilter**
+
 Når data sendes til Umami fjernes automatisk enkelte elementer i stier og i data-objektet. UUID er
-ett eksempel på
-data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke ønsker at slik
-informasjon fjernes kan gjøre en såkalt "opt out".
+ett eksempel på data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke
+ønsker at slik informasjon fjernes kan gjøre en såkalt "opt out".
 
 Eksempel: analyticsRedactFilter: ['uuid', 'orgnr']
 
@@ -373,19 +372,19 @@ tiltak dersom de ønsker å opte ut av for eksempel uuid-redact.
 
 Under er eksempler på forskjellige bruksområder for konfigurasjonsflaggene:
 
-Eksempel 1 - Sett kontekst:<br>
+Eksempel 1 - Sett kontekst:
 
 ```
 https://www.nav.no/dekoratoren/?context=arbeidsgiver
 ```
 
-Eksempel 2 - Språkvelger:<br>
+Eksempel 2 - Språkvelger:
 
 ```
 https://www.nav.no/dekoratoren/?availableLanguages=[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}]
 ```
 
-Eksempel 3 - Brødsmuler:<br>
+Eksempel 3 - Brødsmuler:
 
 ```
 https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}]

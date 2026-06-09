@@ -1,4 +1,4 @@
-# Dekoratøren – alle konfigurasjonsparmetre
+# Dekoratøren – alle konfigurasjonsparametre
 
 Kan settes som query-parametre ved direkte SSR-kall, eller som `params`-objekt i moduler-pakken.
 
