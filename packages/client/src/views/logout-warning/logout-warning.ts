@@ -14,9 +14,18 @@ class LogoutWarning extends HTMLElement {
     private tokenDialog!: TokenDialog;
     private sessionDialog!: SessionDialog;
     private lastActivityAt = 0;
+    private renewDebounceTimer?: number;
 
     private handleActivity = () => {
         this.lastActivityAt = Date.now();
+
+        // Forny token proaktivt ved aktivitet (debounced)
+        window.clearTimeout(this.renewDebounceTimer);
+        this.renewDebounceTimer = window.setTimeout(async () => {
+            const sessionData = await fetchOrRenewSession("renew");
+            this.updateDialogs(sessionData);
+            this.resetActivity();
+        }, 60_000);
     };
 
     private isUserActive = () => this.lastActivityAt > 0;
@@ -41,7 +50,6 @@ class LogoutWarning extends HTMLElement {
             this.sessionDialog.sessionExpireAtLocal = undefined;
             this.tokenDialog.tokenExpireAtLocal = undefined;
         }
-        this.resetActivity();
     };
 
     private init = async () => {
@@ -90,9 +98,11 @@ class LogoutWarning extends HTMLElement {
         this.tokenDialog = this.querySelector("token-dialog")!;
 
         this.tokenDialog.checkActivity = this.isUserActive;
-        this.tokenDialog.addEventListener("renew", async () =>
-            this.updateDialogs(await fetchOrRenewSession("renew")),
-        );
+
+        this.tokenDialog.addEventListener("renew", async () => {
+            this.updateDialogs(await fetchOrRenewSession("renew"));
+            this.resetActivity();
+        });
     }
 
     disconnectedCallback() {
@@ -102,6 +112,7 @@ class LogoutWarning extends HTMLElement {
         window.removeEventListener("click", this.handleActivity);
         window.removeEventListener("scroll", this.handleActivity);
         window.removeEventListener("touchstart", this.handleActivity);
+        window.clearTimeout(this.renewDebounceTimer);
         window.loginDebug = undefined as any;
     }
 }

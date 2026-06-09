@@ -58,6 +58,7 @@ describe("LogoutWarning — aktivitetssporing", () => {
 
     afterEach(() => {
         vi.useRealTimers();
+        vi.clearAllMocks();
         vi.restoreAllMocks();
     });
 
@@ -90,8 +91,7 @@ describe("LogoutWarning — aktivitetssporing", () => {
     });
 
     it("aktivitet resettes etter token renewal via updateDialogs", async () => {
-        const { fetchOrRenewSession, transformSessionToAuth } =
-            await import("../../helpers/auth");
+        const { fetchOrRenewSession } = await import("../../helpers/auth");
         const mockSessionData = {} as SessionData;
         vi.mocked(fetchOrRenewSession).mockResolvedValue(mockSessionData);
 
@@ -101,9 +101,43 @@ describe("LogoutWarning — aktivitetssporing", () => {
         // Dispatch "renew" fra tokenDialog (simulerer at parent kaller updateDialogs)
         tokenDialog.dispatchEvent(new Event("renew"));
 
-        // Vent på async updateDialogs
+        // Vent på async updateDialogs og debounce-timer
         await vi.runAllTimersAsync();
 
         expect(tokenDialog.checkActivity!()).toBe(false);
+    });
+
+    it("proaktiv renewal kalles 1 minutt etter aktivitet (debounce)", async () => {
+        const { fetchOrRenewSession } = await import("../../helpers/auth");
+        const mockSessionData = {} as SessionData;
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(mockSessionData);
+
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+
+        // Renew skal ikke ha blitt kalt ennå
+        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalled();
+
+        // Etter 500ms debounce skal renewal kalles
+        await vi.runAllTimersAsync();
+        expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
+    });
+
+    it("aktivitet etter renewal starter ny debounce (timer resettes)", async () => {
+        const { fetchOrRenewSession } = await import("../../helpers/auth");
+        const mockSessionData = {} as SessionData;
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(mockSessionData);
+
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+        vi.advanceTimersByTime(200); // Halvveis i debounce
+
+        // Ny aktivitet resetter debounce
+        window.dispatchEvent(new MouseEvent("click"));
+        vi.advanceTimersByTime(200); // Fortsatt ikke 500ms siden siste aktivitet
+
+        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalled();
+
+        // Etter 500ms fra siste aktivitet
+        await vi.runAllTimersAsync();
+        expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledTimes(1);
     });
 });
