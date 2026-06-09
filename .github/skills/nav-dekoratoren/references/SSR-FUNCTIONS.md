@@ -25,17 +25,99 @@ const {
 Returnerer React-komponenter for SSR-rammeverk (Next.js, Remix m.m.).
 Krever `react >=17.x` og `html-react-parser >=5.x`.
 
+### Next.js App Router
+
+Bruk App Router-eksempelet for nye Next.js-apper og apper som allerede har `app/`.
+
 ```tsx
+// app/layout.tsx
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
-import Script from "next/script"; // valgfritt: kun for App Router
+import type { ReactNode } from "react";
+import Script from "next/script";
 
-const Decorator = await fetchDecoratorReact({
-    env: "prod",
-    params: { context: "privatperson", language: "nb" },
-});
+export default async function RootLayout({
+    children,
+}: {
+    children: ReactNode;
+}) {
+    const Decorator = await fetchDecoratorReact({
+        env: "prod",
+        params: { context: "privatperson", language: "nb" },
+    });
 
-// Komponenter: <Decorator.HeadAssets />, <Decorator.Header />,
-//              <Decorator.Footer />, <Decorator.Scripts loader={Script} />
+    return (
+        <html lang="no">
+            <head>
+                <Decorator.HeadAssets />
+            </head>
+            <body>
+                <Decorator.Header />
+                {children}
+                <Decorator.Footer />
+                <Decorator.Scripts loader={Script} />
+            </body>
+        </html>
+    );
+}
+```
+
+### Next.js Page Router
+
+Bruk Page Router-eksempelet for eksisterende Next.js-apper med `pages/`.
+
+```tsx
+// pages/_document.tsx
+import {
+    fetchDecoratorReact,
+    type DecoratorComponentsReact,
+} from "@navikt/nav-dekoratoren-moduler/ssr";
+import Document, {
+    Head,
+    Html,
+    Main,
+    NextScript,
+    type DocumentContext,
+    type DocumentInitialProps,
+} from "next/document";
+
+type MyDocumentProps = DocumentInitialProps & {
+    Decorator: DecoratorComponentsReact;
+};
+
+class MyDocument extends Document<MyDocumentProps> {
+    static async getInitialProps(
+        ctx: DocumentContext,
+    ): Promise<MyDocumentProps> {
+        const initialProps = await Document.getInitialProps(ctx);
+        const Decorator = await fetchDecoratorReact({
+            env: "prod",
+            params: { context: "privatperson", language: "nb" },
+        });
+
+        return { ...initialProps, Decorator };
+    }
+
+    render() {
+        const { Decorator } = this.props;
+
+        return (
+            <Html lang="no">
+                <Head>
+                    <Decorator.HeadAssets />
+                </Head>
+                <body>
+                    <Decorator.Header />
+                    <Main />
+                    <Decorator.Footer />
+                    <Decorator.Scripts />
+                    <NextScript />
+                </body>
+            </Html>
+        );
+    }
+}
+
+export default MyDocument;
 ```
 
 ## injectDecoratorServerSide

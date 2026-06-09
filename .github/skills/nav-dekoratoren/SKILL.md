@@ -105,15 +105,19 @@ Se [SSR-FUNCTIONS.md](./references/SSR-FUNCTIONS.md) for fullstendige API-detalj
 
 ### 3.1 Next.js App Router
 
+Bruk dette for nye Next.js-apper og apper som allerede har `app/`. Root layout kan være async og
+hente dekoratøren direkte.
+
 ```tsx
 // app/layout.tsx
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
+import type { ReactNode } from "react";
 import Script from "next/script";
 
 export default async function RootLayout({
     children,
 }: {
-    children: React.ReactNode;
+    children: ReactNode;
 }) {
     const Decorator = await fetchDecoratorReact({
         env: "prod",
@@ -138,14 +142,39 @@ export default async function RootLayout({
 
 ### 3.2 Next.js Page Router
 
+Bruk dette bare for eksisterende Next.js-apper med `pages/`. I Page Router må dekoratøren hentes i
+`pages/_document.tsx`, fordi `_document` eier `<html>`, `<head>` og den server-renderede
+HTML-shellen.
+
 ```tsx
 // pages/_document.tsx
-import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
+import {
+    fetchDecoratorReact,
+    type DecoratorComponentsReact,
+} from "@navikt/nav-dekoratoren-moduler/ssr";
+import Document, {
+    Head,
+    Html,
+    Main,
+    NextScript,
+    type DocumentContext,
+    type DocumentInitialProps,
+} from "next/document";
 
-class MyDocument extends Document {
-    static async getInitialProps(ctx: DocumentContext) {
+type MyDocumentProps = DocumentInitialProps & {
+    Decorator: DecoratorComponentsReact;
+};
+
+class MyDocument extends Document<MyDocumentProps> {
+    static async getInitialProps(
+        ctx: DocumentContext,
+    ): Promise<MyDocumentProps> {
         const initialProps = await Document.getInitialProps(ctx);
-        const Decorator = await fetchDecoratorReact({ env: "prod" });
+        const Decorator = await fetchDecoratorReact({
+            env: "prod",
+            params: { context: "privatperson", language: "nb" },
+        });
+
         return { ...initialProps, Decorator };
     }
 
@@ -167,6 +196,8 @@ class MyDocument extends Document {
         );
     }
 }
+
+export default MyDocument;
 ```
 
 ### 3.3 Express/Node (HTML-fragmenter)
