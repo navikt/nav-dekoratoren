@@ -383,11 +383,11 @@ res.setHeader("Content-Security-Policy", csp);
 
 ## Miljøer og ingresser
 
-| Miljø      | Service host                                   | Ingress                                          |
-| ---------- | ---------------------------------------------- | ------------------------------------------------ |
-| `prod`     | `http://nav-dekoratoren.personbruker`          | `https://www.nav.no/dekoratoren`                 |
-| `dev`      | `http://nav-dekoratoren.personbruker`          | `https://dekoratoren.ekstern.dev.nav.no`         |
-| `beta`     | `http://nav-dekoratoren-beta.personbruker`     | `https://dekoratoren-beta.intern.dev.nav.no`     |
-| `beta-tms` | `http://nav-dekoratoren-beta-tms.personbruker` | `https://dekoratoren-beta-tms.intern.dev.nav.no` |
+| Miljø     | Service host                                   | Ingress                                          |
+| --------- | ---------------------------------------------- | ------------------------------------------------ |
+| `prod`    | `http://nav-dekoratoren.personbruker`          | `https://www.nav.no/dekoratoren`                 |
+| `dev`     | `http://nav-dekoratoren.personbruker`          | `https://dekoratoren.ekstern.dev.nav.no`         |
+| `beta`    | `http://nav-dekoratoren-beta.personbruker`     | `https://dekoratoren-beta.intern.dev.nav.no`     |
+| `betaTms` | `http://nav-dekoratoren-beta-tms.personbruker` | `https://dekoratoren-beta-tms.intern.dev.nav.no` |
 
 > ⚠️ Beta-instanser er kun for intern testing av Team Nav.no / Team Min Side og kan være ustabile.
