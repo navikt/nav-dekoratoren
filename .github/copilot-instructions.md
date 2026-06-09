@@ -106,3 +106,5 @@ Use the shared `logger` from `decorator-shared/logger` in both client and server
 ## Deployment
 
 Runs on port 8089. The Docker image copies `packages/server/dist` and `packages/client/dist/assets`. Health endpoints: `GET /api/isAlive` and `GET /api/isReady`. Metrics: `GET /metrics`.
+
+For deployment, contribution workflow, and Task Analytics setup, follow `CONTRIBUTING.md`.

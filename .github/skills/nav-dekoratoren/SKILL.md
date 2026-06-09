@@ -1,6 +1,6 @@
 ---
 name: nav-dekoratoren
-description: Integrer, konfigurer og bidra til Nav Dekoratøren – felles header og footer for nav.no-applikasjoner. Bruk når et team skal ta i bruk Dekoratøren, oppdatere konfigurasjon, legge til breadcrumbs/språkvelger/analytics, håndtere samtykke (ekomloven), eller bidra med ny funksjonalitet i dekoratøren selv.
+description: Integrer og konfigurer Nav Dekoratøren – felles header og footer for nav.no-applikasjoner. Bruk når et team skal ta i bruk Dekoratøren, oppdatere konfigurasjon, legge til breadcrumbs/språkvelger/analytics, håndtere samtykke (ekomloven), CSP eller feilsøke integrasjon mot dekoratøren.
 license: MIT
 metadata:
     domain: nav
@@ -15,7 +15,7 @@ metadata:
         - consent
 ---
 
-# Nav Dekoratøren – integrasjon og bidrag
+# Nav Dekoratøren – integrasjon
 
 Dekoratøren er felles header og footer for alle eksternt rettede nav.no-applikasjoner. Den tilbyr
 SSR/CSR-integrasjon, innlogging via ID-porten, analytics (Umami), samtykke/cookie-håndtering iht.
@@ -32,19 +32,15 @@ ekomloven, og mer.
 
 Start med å inspisere repoet hvis du har tilgang til koden. Se etter:
 
-1. **Formål** – bruker appen allerede Dekoratøren, skal den integreres for første gang, eller skal
-   brukeren bidra med funksjonalitet i selve dekoratøren?
+1. **Formål** – bruker appen allerede Dekoratøren, eller skal den integreres for første gang?
 2. **Rammeverk** – Next.js `app/` (App Router), Next.js `pages/` (Page Router), Remix / React Router
    framework mode, Vite SPA / React Router library mode, eller ren Node/Express.
 3. **Miljø** – `prod`, `dev`, `localhost`, eksisterende `nais.yaml`, og om service discovery kan
    brukes.
 4. **Behov** – breadcrumbs, språkvelger, analytics, chatbot, samtykke/cookies, CSP.
 
-Spør bare om det du ikke kan finne i repoet eller som krever et produktvalg. Velg deretter relevant
-flyt:
-
-- **App-integrasjon:** bruk steg 2–7 og relevante referanser.
-- **Bidrag til dekoratøren selv:** hopp til steg 8 og bruk repo-konvensjonene der.
+Spør bare om det du ikke kan finne i repoet eller som krever et produktvalg. Bruk deretter steg 2–7
+og relevante referanser.
 
 ---
 
@@ -369,64 +365,6 @@ const csp = await buildCspHeader(
 
 res.setHeader("Content-Security-Policy", csp);
 ```
-
----
-
-## Steg 8: Bidra til dekoratøren selv
-
-Gjelder bare hvis teamet ønsker å legge inn ny funksjonalitet i selve dekoratøren (ikke bare bruke
-den).
-
-### 8.1 Kjør dekoratøren lokalt
-
-```bash
-git clone https://github.com/navikt/nav-dekoratoren.git
-cd nav-dekoratoren
-export NODE_AUTH_TOKEN=<din-github-pat>  # packages:read + navikt SSO
-pnpm install && pnpm run build
-pnpm run dev   # → http://localhost:8089
-```
-
-### 8.2 Monorepo-struktur
-
-```
-packages/
-  client/    # Web Components + Vite (src/views/, src/events.ts)
-  server/    # Hono-server, SSR, API-ruter (src/handlers/, src/views/)
-  shared/    # Delte typer, html-template, logger
-  icons/     # Ikonbygning
-```
-
-### 8.3 Viktige konvensjoner
-
-- **HTML-templates**: bruk `html` tagged template literal fra `decorator-shared/html` (XSS-safe,
-  i18n)
-- **Web Components**: alle klientkomponenter er native `HTMLElement`-subklasser, registrert med
-  `customElements.define()`
-- **CSS**: CSS Modules med TypeScript-typing (`*.module.css`)
-- **Events**: bruk `window.dispatchEvent()` med types fra `packages/client/src/events.ts`
-- **Logging**: bruk `logger` fra `decorator-shared/logger`
-
-### 8.4 Testing og deploy
-
-```bash
-pnpm run test       # alle Vitest-tester
-pnpm run lint       # ESLint + tsc --noEmit
-pnpm run playwright # E2E-tester
-```
-
-Deploy via GitHub Actions:
-
-- **`Deploy to dev`** – stabile endringer
-- **`Deploy to Team nav.no beta`** – eksperimentelle endringer
-
-PR-er merges kun via squash til `main` → automatisk produksjonsdeploy.
-
-### 8.5 Task Analytics
-
-Vil teamet kjøre spørreundersøkelser basert på URL-mønstre? Konfigureres
-i [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config). Ta kontakt på
-`#dekoratøren_på_navno`.
 
 ---
 
