@@ -4,7 +4,15 @@ description: Integrer, konfigurer og bidra til Nav Dekoratøren – felles heade
 license: MIT
 metadata:
     domain: nav
-    tags: nav dekoratoren header footer integration ssr analytics consent
+    tags:
+        - nav
+        - dekoratoren
+        - header
+        - footer
+        - integration
+        - ssr
+        - analytics
+        - consent
 ---
 
 # Nav Dekoratøren – integrasjon og bidrag
