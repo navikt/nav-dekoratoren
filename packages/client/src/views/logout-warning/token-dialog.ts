@@ -29,6 +29,12 @@ export class TokenDialog extends HTMLElement {
             : Infinity;
     }
 
+    notifyRenewComplete() {
+        if (this.secondsRemaining < 5 * 60) {
+            this.isAutoRenewing = false;
+        }
+    }
+
     connectedCallback() {
         const dialog = this.querySelector("dialog") as HTMLDialogElement;
         const form = dialog.querySelector("form") as HTMLFormElement;

@@ -57,7 +57,10 @@ class LogoutWarning extends HTMLElement {
         globalThis.clearInterval(this.activityCheckTimer);
         this.activityCheckTimer = globalThis.setInterval(async () => {
             if (this.isUserActive()) {
-                this.updateDialogs(await fetchOrRenewSession("renew"));
+                const sessionData = await fetchOrRenewSession("renew");
+                if (sessionData) {
+                    this.updateDialogs(sessionData);
+                }
                 this.resetActivity();
             }
         }, LogoutWarning.ACTIVITY_CHECK_INTERVAL_MS);
@@ -113,7 +116,13 @@ class LogoutWarning extends HTMLElement {
         this.tokenDialog.checkActivity = this.isUserActive;
 
         this.tokenDialog.addEventListener("renew", async () => {
-            this.updateDialogs(await fetchOrRenewSession("renew"));
+            const sessionData = await fetchOrRenewSession("renew");
+            if (sessionData) {
+                this.updateDialogs(sessionData);
+            } else {
+                // Renewal feilet — reset isAutoRenewing så dialogen kan vises
+                this.tokenDialog.notifyRenewComplete();
+            }
             this.resetActivity();
         });
     }
