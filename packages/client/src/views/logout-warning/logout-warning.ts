@@ -14,18 +14,11 @@ class LogoutWarning extends HTMLElement {
     private tokenDialog!: TokenDialog;
     private sessionDialog!: SessionDialog;
     private lastActivityAt = 0;
-    private renewDebounceTimer?: number;
+    private activityCheckTimer?: number;
+    private static readonly ACTIVITY_CHECK_INTERVAL_MS = 30 * 60 * 1000;
 
     private handleActivity = () => {
         this.lastActivityAt = Date.now();
-
-        // Forny token proaktivt ved aktivitet (debounced)
-        window.clearTimeout(this.renewDebounceTimer);
-        this.renewDebounceTimer = window.setTimeout(async () => {
-            const sessionData = await fetchOrRenewSession("renew");
-            this.updateDialogs(sessionData);
-            this.resetActivity();
-        }, 60_000);
     };
 
     private isUserActive = () => this.lastActivityAt > 0;
@@ -54,6 +47,14 @@ class LogoutWarning extends HTMLElement {
 
     private init = async () => {
         this.updateDialogs(await fetchOrRenewSession("fetch"));
+
+        window.clearInterval(this.activityCheckTimer);
+        this.activityCheckTimer = window.setInterval(async () => {
+            if (this.isUserActive()) {
+                this.updateDialogs(await fetchOrRenewSession("renew"));
+                this.resetActivity();
+            }
+        }, LogoutWarning.ACTIVITY_CHECK_INTERVAL_MS);
 
         window.loginDebug = {
             expireToken: (seconds: number) => {
@@ -112,7 +113,7 @@ class LogoutWarning extends HTMLElement {
         window.removeEventListener("click", this.handleActivity);
         window.removeEventListener("scroll", this.handleActivity);
         window.removeEventListener("touchstart", this.handleActivity);
-        window.clearTimeout(this.renewDebounceTimer);
+        window.clearInterval(this.activityCheckTimer);
         window.loginDebug = undefined as any;
     }
 }

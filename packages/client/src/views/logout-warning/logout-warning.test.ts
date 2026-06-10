@@ -107,37 +107,76 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
-    it("proaktiv renewal kalles 1 minutt etter aktivitet (debounce)", async () => {
+    it("proaktiv renewal kalles ikke når bruker er inaktiv etter 30 minutter", async () => {
         const { fetchOrRenewSession } = await import("../../helpers/auth");
-        const mockSessionData = {} as SessionData;
-        vi.mocked(fetchOrRenewSession).mockResolvedValue(mockSessionData);
+        vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
 
+        // Start intervallet via paramsupdated
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
+
+        // Ingen aktivitet — hopp frem 30 minutter
+        vi.advanceTimersByTime(30 * 60 * 1000);
+        await Promise.resolve();
+
+        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalledWith(
+            "renew",
+        );
+    });
+
+    it("proaktiv renewal kalles etter 30 minutter når bruker har vært aktiv", async () => {
+        const { fetchOrRenewSession } = await import("../../helpers/auth");
+        vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
+
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
+
+        // Bruker er aktiv
         window.dispatchEvent(new KeyboardEvent("keydown"));
+        expect(tokenDialog.checkActivity!()).toBe(true);
 
-        // Renew skal ikke ha blitt kalt ennå
-        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalled();
+        // Hopp frem 30 minutter — intervallet sjekker aktivitet og fornyer
+        vi.advanceTimersByTime(30 * 60 * 1000);
+        await Promise.resolve();
 
-        // Etter 500ms debounce skal renewal kalles
-        await vi.runAllTimersAsync();
         expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
     });
 
-    it("aktivitet etter renewal starter ny debounce (timer resettes)", async () => {
+    it("aktivitet resettes etter intervall-renewal", async () => {
         const { fetchOrRenewSession } = await import("../../helpers/auth");
-        const mockSessionData = {} as SessionData;
-        vi.mocked(fetchOrRenewSession).mockResolvedValue(mockSessionData);
+        vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
 
-        window.dispatchEvent(new KeyboardEvent("keydown"));
-        vi.advanceTimersByTime(200); // Halvveis i debounce
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
 
-        // Ny aktivitet resetter debounce
         window.dispatchEvent(new MouseEvent("click"));
-        vi.advanceTimersByTime(200); // Fortsatt ikke 500ms siden siste aktivitet
+        expect(tokenDialog.checkActivity!()).toBe(true);
 
-        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalled();
+        vi.advanceTimersByTime(30 * 60 * 1000);
+        await Promise.resolve();
 
-        // Etter 500ms fra siste aktivitet
-        await vi.runAllTimersAsync();
-        expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledTimes(1);
+        // Etter renewal skal aktivitet være nullstilt
+        expect(tokenDialog.checkActivity!()).toBe(false);
     });
 });

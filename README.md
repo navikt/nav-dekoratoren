@@ -1090,18 +1090,18 @@ eksisterende samtykke.
 Denne delen gjelder selve **Dekoratøren-appen**, uavhengig av om du bruker moduler-pakken eller
 ikke.
 
-| Funksjon / Tema              | Type                      | Formål / Forklaring                                                |
-| ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
-| Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av dekoratøren |
-| Språkstøtte og nedtrekksmeny | client-side               | Viser språkvelger i headeren og håndterer språkvalg                |
-| Søk                          | client-side               | Tilbyr søk uten behov for ekstra konfigurasjon                     |
-| Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon      |
-| Utloggingsvarsel             | client-side               | Viser varsel 5 min før sesjonen utløper, lar bruker forlenge økten |
-| Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)             |
-| Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami                                   |
-| Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
-| Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent     |
-| Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                |
+| Funksjon / Tema              | Type                      | Formål / Forklaring                                                               |
+| ---------------------------- | ------------------------- | --------------------------------------------------------------------------------- |
+| Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av dekoratøren                |
+| Språkstøtte og nedtrekksmeny | client-side               | Viser språkvelger i headeren og håndterer språkvalg                               |
+| Søk                          | client-side               | Tilbyr søk uten behov for ekstra konfigurasjon                                    |
+| Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon                     |
+| Utloggingsvarsel             | client-side               | Fornyer token automatisk ved aktivitet; viser varsel 5 min før utløp hvis inaktiv |
+| Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)                            |
+| Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami                                                  |
+| Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                                  |
+| Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent                    |
+| Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                               |
 
 ---
 
@@ -1157,17 +1157,16 @@ informasjon, se
 
 **Utloggingsvarsel 🔐**
 
-En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper. Brukeren kan da
-velge å forlenge økten med ytterligere 60 minutter eller klikke "Logg ut" for å logge ut
-umiddelbart.
+En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper, dersom brukeren
+har vært inaktiv. Brukeren kan da velge å forlenge økten med ytterligere 60 minutter eller klikke
+"Logg ut" for å logge ut umiddelbart.
 
 Brukernes totale sesjon har en maksimal levetid på 6 timer, hvoretter brukeren må logge ut og logge
 inn igjen.
 
 Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen ved å sette
 `logoutWarning=false`som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
-at du bygger din egen
-mekanisme for å la brukere utsette utlogging.
+at du bygger din egen mekanisme for å la brukere utsette utlogging.
 
 **Regler for tokens 🔐**
 
@@ -1177,13 +1176,12 @@ utloggingsvarselet oppfører seg:
 
 - Tokens er gyldig i 60 minutter hvis det ikke fornyes.
 - Økten er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
-- 5 minutter før tokenet utløper, blir brukeren presentert med alternativer for enten å fortsette å
-  være
-  logget inn eller logge ut umiddelbart.
+- Dersom brukeren er aktiv (klikker, scroller, taster), fornyes tokenet automatisk i bakgrunnen uten
+  at varselet vises.
+- Dersom brukeren er inaktiv, blir brukeren, 5 minutter før tokenet utløper, presentert med
+  alternativer for enten å fortsette å være logget inn eller logge ut umiddelbart.
 - Disse fornyelsene forlenger økten med ytterligere 60 minutter.
-- Etter ytterligere 55 minutter vil brukeren bli presentert med utloggingsvarslingen igjen.
 - Etter totalt 6 timer (session expiration) med å være logget inn, må brukeren logge inn på nytt.
-- For øyeblikket blir brukeren presentert med utloggingsvarslingen uavhengig av aktivitet.
 
 **Analytics 📊**
 
