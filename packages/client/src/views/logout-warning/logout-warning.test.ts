@@ -48,12 +48,14 @@ describe("LogoutWarning — aktivitetssporing", () => {
     let tokenDialog: TokenDialog;
 
     beforeEach(async () => {
+        // shouldAdvanceTime: true lar @open-wc/testing sin interne setInterval-bruk
+        // kjøre i real-time, mens vi fortsatt har full kontroll via vi.advanceTimersByTime()
+        vi.useFakeTimers({ shouldAdvanceTime: true });
         window.__DECORATOR_DATA__ = { params: {}, env: {}, texts: {} } as any;
         el = await fixture(LOGOUT_WARNING_HTML);
         tokenDialog = el.querySelector("token-dialog")! as TokenDialog;
         (el.querySelector("dialog") as any).showModal = vi.fn();
         (el.querySelector("dialog") as any).close = vi.fn();
-        vi.useFakeTimers();
 
         // Trigger init() slik at isEnabled = true og intervallet starter
         window.dispatchEvent(
