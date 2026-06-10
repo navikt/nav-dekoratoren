@@ -16,6 +16,7 @@ Dette dokumentet beskriver:
     - [1.1 Hva er Nav Dekoratøren?](#11-hva-er-nav-dekoratøren)
     - [1.2 Hva er @navikt/nav-dekoratoren-moduler?](#12-hva-er-naviktnav-dekoratoren-moduler)
     - [1.3 Kontakt og kanaler](#13-kontakt-og-kanaler)
+    - [1.4 GitHub Copilot-skill](#14-github-copilot-skill)
 2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-🎓)
     - [2.1 Anbefalt: bruk @navikt/nav-dekoratoren-moduler (SSR)](#21-anbefalt-bruk-naviktnav-dekoratoren-moduler-ssr)
     - [2.2 Tilpasset implementasjon med SSR](#22-tilpasset-implementasjon-med-ssr)
@@ -95,6 +96,30 @@ dokumentasjonen, vennligst ta kontakt med oss på Slack-kanalen `#dekoratøren_p
 kunngjøringer postes også i denne kanalen, så vi oppfordrer team som bruker Dekoratøren til å bli
 med i denne kanalen. Hvis du ønsker å bidra eller bare vil kjøre Dekoratøren lokalt, vennligst se
 CONTRIBUTING.md.
+
+### 1.4 GitHub Copilot-skill
+
+Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet
+[navikt/nav-pilot](https://github.com/navikt/nav-pilot). Den hjelper deg å integrere, konfigurere
+og bidra til Dekoratøren direkte fra terminalen.
+
+Følg installasjonsinstruksjonene i nav-pilot for å ta den i bruk. Du kan deretter kalle den
+eksplisitt – bytt ut beskrivelsen med ditt rammeverk eller behov:
+
+```
+Use the /nav-dekoratoren skill to help me integrate the decorator in my Next.js app
+```
+
+```
+Use the /nav-dekoratoren skill to help me set up breadcrumbs and language selector
+```
+
+```
+Use the /nav-dekoratoren skill to help me set up analytics
+```
+
+Skillen dekker installasjon, SSR/CSR-integrasjon, konfigurasjon, analytics, samtykke/cookies og
+bidrag til selve dekoratøren.
 
 ---
 
@@ -331,12 +356,15 @@ personidentifiserbare opplysninger. Inkluder kun query-parametere som er trygge 
 analytics-data.
 
 **analyticsRedactFilter**
-Når data sendes til Umami fjernes automatisk enkelte elementer i stier og i data-objektet. UUID er ett eksempel på
-data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke ønsker at slik informasjon fjernes kan gjøre en såkalt "opt out".
+
+Når data sendes til Umami fjernes automatisk enkelte elementer i stier og i data-objektet. UUID er
+ett eksempel på data som automatisk fjernes fordi det kan knyttes til enkeltpersoner. Team som ikke
+ønsker at slik informasjon fjernes kan gjøre en såkalt "opt out".
 
 Eksempel: analyticsRedactFilter: ['uuid', 'orgnr']
 
-**Viktig** Det er teamet sitt ansvar å gjøre en risikovurdering i tillegg til eventuelle nødvendige tiltak dersom de ønsker å opte ut av for eksempel uuid-redact.
+**Viktig** Det er teamet sitt ansvar å gjøre en risikovurdering i tillegg til eventuelle nødvendige
+tiltak dersom de ønsker å opte ut av for eksempel uuid-redact.
 
 </details>
 
@@ -344,19 +372,19 @@ Eksempel: analyticsRedactFilter: ['uuid', 'orgnr']
 
 Under er eksempler på forskjellige bruksområder for konfigurasjonsflaggene:
 
-Eksempel 1 - Sett kontekst:<br>
+Eksempel 1 - Sett kontekst:
 
 ```
 https://www.nav.no/dekoratoren/?context=arbeidsgiver
 ```
 
-Eksempel 2 - Språkvelger:<br>
+Eksempel 2 - Språkvelger:
 
 ```
 https://www.nav.no/dekoratoren/?availableLanguages=[{"locale":"nb","url":"https://www.nav.no/person/kontakt-oss"},{"locale":"en","url":"https://www.nav.no/person/kontakt-oss/en/"}]
 ```
 
-Eksempel 3 - Brødsmuler:<br>
+Eksempel 3 - Brødsmuler:
 
 ```
 https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/dittnav","title":"Ditt%20NAV"},{"url":"https://www.nav.no/person/kontakt-oss","title":"Kontakt%20oss"}]
@@ -375,7 +403,8 @@ ekomloven), og mer.
 
 > ⚠️ **Breaking changes i v4.0.0**: `getAmplitudeInstance()` og `logAmplitudeEvent()` er fjernet.
 > Bruk `getAnalyticsInstance()` og `logAnalyticsEvent()` i stedet. Analytics-funksjoner benytter nå
-> streng type-validering basert på [`@navikt/analytics-types`](https://github.com/navikt/analytics-types).
+> streng type-validering basert på [
+> `@navikt/analytics-types`](https://github.com/navikt/analytics-types).
 
 ### 4.1 Installasjon fra GitHub Packages
 
@@ -756,14 +785,17 @@ app.get("*", (req, res) => {
 
 **getAnalyticsInstance**
 
-Metoden støtter det til en hver tid gjeldende analyseverktøyet i Nav. Den bygger en logger-instans som sender
-events til våre analyseverktøy via dekoratørens klient. Besøk (sidevisning) vil håndteres automatisk,
+Metoden støtter det til en hver tid gjeldende analyseverktøyet i Nav. Den bygger en logger-instans
+som sender
+events til våre analyseverktøy via dekoratørens klient. Besøk (sidevisning) vil håndteres
+automatisk,
 andre events kan sendes inn via opprettet logger-instans. Den tar i mot et parameter `origin`
 slik at man kan filtrere events som kommer fra egen app.
 
 Logger-instansen har to bruksmønstre:
 
-- **Taksonomi-events** — streng type-validering basert på event-typer definert i [`@navikt/analytics-types`](https://github.com/navikt/analytics-types)
+- **Taksonomi-events** — streng type-validering basert på event-typer definert i [
+  `@navikt/analytics-types`](https://github.com/navikt/analytics-types)
 - **Custom events** — app-spesifikke events med fri-form data via `.custom()`
 
 ```ts
@@ -802,7 +834,8 @@ if (isValidEventName(eventName)) {
 }
 ```
 
-Alle event-typer fra `@navikt/analytics-types` er re-eksportert fra `@navikt/nav-dekoratoren-moduler`:
+Alle event-typer fra `@navikt/analytics-types` er re-eksportert fra
+`@navikt/nav-dekoratoren-moduler`:
 
 ```ts
 import type {
