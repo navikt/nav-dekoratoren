@@ -37,7 +37,7 @@ export class TokenDialog extends HTMLElement {
             }
         });
 
-        this.interval = window.setInterval(() => {
+        this.interval = globalThis.setInterval(() => {
             if (this.secondsRemaining < 0) {
                 logout();
             } else if (this.secondsRemaining < 5 * 60) {
