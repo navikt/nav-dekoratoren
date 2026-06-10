@@ -82,7 +82,8 @@ export const ScriptsTemplate = (props: DecoratorDataProps): Template => {
         </script>
         <script id="d-data-parser">
             window.__DECORATOR_DATA__ = JSON.parse(
-                document.getElementById("__DECORATOR_DATA__")?.innerHTML ?? "",
+                document.getElementById("__DECORATOR_DATA__")?.textContent ??
+                    "",
             );
         </script>
 
