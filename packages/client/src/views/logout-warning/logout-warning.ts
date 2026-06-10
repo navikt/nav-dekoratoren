@@ -107,10 +107,6 @@ class LogoutWarning extends HTMLElement {
             passive: true,
         });
 
-        if (param("logoutWarning") !== false) {
-            this.init();
-        }
-
         this.sessionDialog = this.querySelector("session-dialog")!;
         this.tokenDialog = this.querySelector("token-dialog")!;
 
@@ -126,6 +122,10 @@ class LogoutWarning extends HTMLElement {
             }
             this.resetActivity();
         });
+
+        if (param("logoutWarning") !== false) {
+            this.init();
+        }
     }
 
     disconnectedCallback() {
