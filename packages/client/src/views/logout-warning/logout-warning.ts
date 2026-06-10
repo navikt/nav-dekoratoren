@@ -15,7 +15,7 @@ class LogoutWarning extends HTMLElement {
     private sessionDialog!: SessionDialog;
     private lastActivityAt = 0;
     private isEnabled = false;
-    private activityCheckTimer?: number;
+    private activityCheckTimer?: ReturnType<typeof globalThis.setInterval>;
     private static readonly ACTIVITY_CHECK_INTERVAL_MS = 30 * 60 * 1000;
 
     private handleActivity = () => {
@@ -65,7 +65,7 @@ class LogoutWarning extends HTMLElement {
             }
         }, LogoutWarning.ACTIVITY_CHECK_INTERVAL_MS);
 
-        globalThis.loginDebug = {
+        window.loginDebug = {
             expireToken: (seconds: number) => {
                 this.tokenDialog.tokenExpireAtLocal =
                     addSecondsFromNow(seconds);
@@ -93,17 +93,14 @@ class LogoutWarning extends HTMLElement {
     };
 
     connectedCallback() {
-        globalThis.addEventListener(
-            "visibilitychange",
-            this.onVisibilityChange,
-        );
-        globalThis.addEventListener("paramsupdated", this.handleParamsUpdated);
-        globalThis.addEventListener("keydown", this.handleActivity);
-        globalThis.addEventListener("click", this.handleActivity);
-        globalThis.addEventListener("scroll", this.handleActivity, {
+        window.addEventListener("visibilitychange", this.onVisibilityChange);
+        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        window.addEventListener("keydown", this.handleActivity);
+        window.addEventListener("click", this.handleActivity);
+        window.addEventListener("scroll", this.handleActivity, {
             passive: true,
         });
-        globalThis.addEventListener("touchstart", this.handleActivity, {
+        window.addEventListener("touchstart", this.handleActivity, {
             passive: true,
         });
 
@@ -129,20 +126,14 @@ class LogoutWarning extends HTMLElement {
     }
 
     disconnectedCallback() {
-        globalThis.removeEventListener(
-            "visibilitychange",
-            this.onVisibilityChange,
-        );
-        globalThis.removeEventListener(
-            "paramsupdated",
-            this.handleParamsUpdated,
-        );
-        globalThis.removeEventListener("keydown", this.handleActivity);
-        globalThis.removeEventListener("click", this.handleActivity);
-        globalThis.removeEventListener("scroll", this.handleActivity);
-        globalThis.removeEventListener("touchstart", this.handleActivity);
+        window.removeEventListener("visibilitychange", this.onVisibilityChange);
+        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        window.removeEventListener("keydown", this.handleActivity);
+        window.removeEventListener("click", this.handleActivity);
+        window.removeEventListener("scroll", this.handleActivity);
+        window.removeEventListener("touchstart", this.handleActivity);
         globalThis.clearInterval(this.activityCheckTimer);
-        globalThis.loginDebug = undefined as any;
+        window.loginDebug = undefined as any;
     }
 }
 

@@ -7,7 +7,7 @@ import { defineCustomElement } from "../custom-elements";
 export class TokenDialog extends HTMLElement {
     private _tokenExpireAtLocal?: string;
     checkActivity?: () => boolean;
-    private interval?: number;
+    private interval?: ReturnType<typeof globalThis.setInterval>;
     private isAutoRenewing = false;
 
     get tokenExpireAtLocal() {
