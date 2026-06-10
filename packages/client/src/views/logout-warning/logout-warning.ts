@@ -14,10 +14,12 @@ class LogoutWarning extends HTMLElement {
     private tokenDialog!: TokenDialog;
     private sessionDialog!: SessionDialog;
     private lastActivityAt = 0;
+    private isEnabled = false;
     private activityCheckTimer?: number;
     private static readonly ACTIVITY_CHECK_INTERVAL_MS = 30 * 60 * 1000;
 
     private handleActivity = () => {
+        if (!this.isEnabled) return;
         this.lastActivityAt = Date.now();
     };
 
@@ -28,7 +30,10 @@ class LogoutWarning extends HTMLElement {
     };
 
     private onVisibilityChange = async () => {
-        if (param("logoutWarning") && document.visibilityState === "visible") {
+        if (
+            param("logoutWarning") !== false &&
+            document.visibilityState === "visible"
+        ) {
             this.updateDialogs(await fetchOrRenewSession("fetch"));
         }
     };
@@ -46,6 +51,7 @@ class LogoutWarning extends HTMLElement {
     };
 
     private init = async () => {
+        this.isEnabled = true;
         this.updateDialogs(await fetchOrRenewSession("fetch"));
 
         window.clearInterval(this.activityCheckTimer);
@@ -73,7 +79,7 @@ class LogoutWarning extends HTMLElement {
     ) => {
         if (
             event.detail.changedKeys.includes("logoutWarning") &&
-            event.detail.params.logoutWarning
+            event.detail.params.logoutWarning !== false
         ) {
             this.init();
         }
@@ -91,7 +97,7 @@ class LogoutWarning extends HTMLElement {
             passive: true,
         });
 
-        if (param("logoutWarning")) {
+        if (param("logoutWarning") !== false) {
             this.init();
         }
 

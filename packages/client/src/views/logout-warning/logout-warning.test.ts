@@ -54,6 +54,17 @@ describe("LogoutWarning — aktivitetssporing", () => {
         (el.querySelector("dialog") as any).showModal = vi.fn();
         (el.querySelector("dialog") as any).close = vi.fn();
         vi.useFakeTimers();
+
+        // Trigger init() slik at isEnabled = true og intervallet starter
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
     });
 
     afterEach(() => {
@@ -101,8 +112,7 @@ describe("LogoutWarning — aktivitetssporing", () => {
         // Dispatch "renew" fra tokenDialog (simulerer at parent kaller updateDialogs)
         tokenDialog.dispatchEvent(new Event("renew"));
 
-        // Vent på async updateDialogs og debounce-timer
-        await vi.runAllTimersAsync();
+        await Promise.resolve();
 
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
@@ -110,17 +120,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     it("proaktiv renewal kalles ikke når bruker er inaktiv etter 30 minutter", async () => {
         const { fetchOrRenewSession } = await import("../../helpers/auth");
         vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
-
-        // Start intervallet via paramsupdated
-        window.dispatchEvent(
-            new CustomEvent("paramsupdated", {
-                detail: {
-                    changedKeys: ["logoutWarning"],
-                    params: { logoutWarning: true },
-                },
-            }),
-        );
-        await Promise.resolve();
 
         // Ingen aktivitet — hopp frem 30 minutter
         vi.advanceTimersByTime(30 * 60 * 1000);
@@ -134,16 +133,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     it("proaktiv renewal kalles etter 30 minutter når bruker har vært aktiv", async () => {
         const { fetchOrRenewSession } = await import("../../helpers/auth");
         vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
-
-        window.dispatchEvent(
-            new CustomEvent("paramsupdated", {
-                detail: {
-                    changedKeys: ["logoutWarning"],
-                    params: { logoutWarning: true },
-                },
-            }),
-        );
-        await Promise.resolve();
 
         // Bruker er aktiv
         window.dispatchEvent(new KeyboardEvent("keydown"));
@@ -159,16 +148,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     it("aktivitet resettes etter intervall-renewal", async () => {
         const { fetchOrRenewSession } = await import("../../helpers/auth");
         vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
-
-        window.dispatchEvent(
-            new CustomEvent("paramsupdated", {
-                detail: {
-                    changedKeys: ["logoutWarning"],
-                    params: { logoutWarning: true },
-                },
-            }),
-        );
-        await Promise.resolve();
 
         window.dispatchEvent(new MouseEvent("click"));
         expect(tokenDialog.checkActivity!()).toBe(true);
