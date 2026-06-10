@@ -61,7 +61,7 @@ const meta: Meta<ComplexFooterProps> = {
                           {
                               heading: "Other languages",
                               children: [
-                                  { content: "Norwegian", url: "/no/en" },
+                                  { content: "Norwegian", url: "/no" },
                                   { content: "Sámegiella", url: "/se" },
                               ],
                           },
