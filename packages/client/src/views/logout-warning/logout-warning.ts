@@ -77,11 +77,14 @@ class LogoutWarning extends HTMLElement {
     private handleParamsUpdated = (
         event: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        if (
-            event.detail.changedKeys.includes("logoutWarning") &&
-            event.detail.params.logoutWarning !== false
-        ) {
+        if (!event.detail.changedKeys.includes("logoutWarning")) return;
+
+        if (event.detail.params.logoutWarning !== false) {
             this.init();
+        } else {
+            this.isEnabled = false;
+            globalThis.clearInterval(this.activityCheckTimer);
+            this.resetActivity();
         }
     };
 
