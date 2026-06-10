@@ -88,6 +88,7 @@ class LogoutWarning extends HTMLElement {
             this.isEnabled = false;
             globalThis.clearInterval(this.activityCheckTimer);
             this.resetActivity();
+            this.updateDialogs(null);
         }
     };
 
