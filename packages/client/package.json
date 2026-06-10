@@ -8,8 +8,8 @@
         "build:watch": "vite build --watch --mode main",
         "build-main": "vite build --mode main",
         "build-csr": "vite build --mode csr",
-        "test": "TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest run",
-        "test:watch": "TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest watch",
+        "test": "cross-env TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest run",
+        "test:watch": "crossenv TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest watch",
         "lint": "eslint . && tsc --noEmit"
     },
     "dependenciesComments": {
@@ -24,6 +24,7 @@
         "lodash.debounce": "4.0.8"
     },
     "devDependencies": {
+        "cross-env": "7.0.3",
         "@open-wc/testing": "4.0.0",
         "@types/js-cookie": "3.0.6",
         "@types/lodash.debounce": "4.0.9",
