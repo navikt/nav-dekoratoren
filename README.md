@@ -16,7 +16,7 @@ Dette dokumentet beskriver:
     - [1.1 Hva er Nav Dekoratøren?](#11-hva-er-nav-dekoratøren)
     - [1.2 Hva er @navikt/nav-dekoratoren-moduler?](#12-hva-er-naviktnav-dekoratoren-moduler)
     - [1.3 Kontakt og kanaler](#13-kontakt-og-kanaler)
-    - [1.4 GitHub Copilot-skill](#14-github-copilot-skill)
+    - [1.4 Nav-pilot skill](#14-nav-pilot-skill)
 2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-🎓)
     - [2.1 Anbefalt: bruk @navikt/nav-dekoratoren-moduler (SSR)](#21-anbefalt-bruk-naviktnav-dekoratoren-moduler-ssr)
     - [2.2 Tilpasset implementasjon med SSR](#22-tilpasset-implementasjon-med-ssr)
@@ -97,11 +97,17 @@ kunngjøringer postes også i denne kanalen, så vi oppfordrer team som bruker D
 med i denne kanalen. Hvis du ønsker å bidra eller bare vil kjøre Dekoratøren lokalt, vennligst se
 CONTRIBUTING.md.
 
-### 1.4 GitHub Copilot-skill
+### 1.4 Nav-pilot skill
 
 Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet
-[navikt/nav-pilot](https://github.com/navikt/nav-pilot). Den hjelper deg å integrere, konfigurere
+[navikt/nav-pilot](https://github.com/navikt/copilot). Den hjelper deg å integrere, konfigurere
 og bidra til Dekoratøren direkte fra terminalen.
+
+Installer nav-dekoratoren med nav-pilot slik:
+
+```
+nav-pilot install nav-dekoratoren
+```
 
 Følg installasjonsinstruksjonene i nav-pilot for å ta den i bruk. Du kan deretter kalle den
 eksplisitt – bytt ut beskrivelsen med ditt rammeverk eller behov:
