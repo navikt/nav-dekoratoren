@@ -99,7 +99,7 @@ describe("LogoutWarning — aktivitetssporing", () => {
     });
 
     it("checkActivity returnerer true etter touchstart-event", () => {
-        window.dispatchEvent(new TouchEvent("touchstart"));
+        window.dispatchEvent(new Event("touchstart"));
         expect(tokenDialog.checkActivity!()).toBe(true);
     });
 
