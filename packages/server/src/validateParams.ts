@@ -112,7 +112,7 @@ export const parseAndValidateParams = (
     if (!validParams.success) {
         logger.error("Failed to validate params", {
             error: validParams.error,
-            metaData: { consumer },
+            metaData: { consumer: consumer ?? "unknown" },
         });
         throw new Error("Failed to validate params");
     }
