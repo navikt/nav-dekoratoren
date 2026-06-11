@@ -91,10 +91,27 @@ export const validateParams = (params: Record<string, string>) => {
 export const parseAndValidateParams = (
     query: Record<string, string>,
 ): Params => {
+    const appName = query.naisAppName;
+    const namespace = query.naisNamespace;
+    const consumer = appName
+        ? `${namespace ?? "unknown"}/${appName}`
+        : undefined;
+
+    if (consumer) {
+        logger.info("Decorator request", { metaData: { consumer } });
+    } else {
+        logger.warn(
+            "Decorator request without consumer identity (naisAppName missing)",
+        );
+    }
+
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {
-        logger.error("Failed to validate params", { error: validParams.error });
+        logger.error("Failed to validate params", {
+            error: validParams.error,
+            metaData: { consumer },
+        });
         throw new Error("Failed to validate params");
     }
 
