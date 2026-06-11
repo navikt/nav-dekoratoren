@@ -54,7 +54,7 @@ class LogoutWarning extends HTMLElement {
             const { sessionExpireAtLocal, tokenExpireAtLocal } =
                 transformSessionToAuth(sessionData);
             log(
-                `updateDialogs: sesjon utløper ${sessionExpireAtLocal?.toISOString?.() ?? sessionExpireAtLocal}, token utløper ${tokenExpireAtLocal?.toISOString?.() ?? tokenExpireAtLocal}`,
+                `updateDialogs: sesjon utløper ${sessionExpireAtLocal}, token utløper ${tokenExpireAtLocal}`,
             );
             this.sessionDialog.sessionExpireAtLocal = sessionExpireAtLocal;
             this.tokenDialog.tokenExpireAtLocal = tokenExpireAtLocal;
