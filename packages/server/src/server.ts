@@ -226,6 +226,10 @@ app.get("/", async ({ req, html }) =>
         IndexHtml({
             rawParams: req.query(),
             url: req.url,
+            requestHeaders: {
+                "x-teamname": req.header("x-teamname"),
+                origin: req.header("origin"),
+            },
         }),
     ),
 );
