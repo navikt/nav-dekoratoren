@@ -90,20 +90,22 @@ export const validateParams = (params: Record<string, string>) => {
 
 export const parseAndValidateParams = (
     query: Record<string, string>,
+    requestHeaders?: Record<string, string | undefined>,
 ): Params => {
     const appName = query.naisAppName;
     const namespace = query.naisNamespace;
+
     const consumer = appName
         ? `${namespace ?? "unknown"}/${appName}`
-        : undefined;
+        : requestHeaders?.["x-teamname"]
+          ? `x-teamname: ${requestHeaders["x-teamname"]}`
+          : requestHeaders?.["origin"]
+            ? `origin: ${requestHeaders["origin"]}`
+            : undefined;
 
-    if (consumer) {
-        logger.info("Decorator request", { metaData: { consumer } });
-    } else {
-        logger.warn(
-            "Decorator request without consumer identity (naisAppName missing)",
-        );
-    }
+    logger.info("Decorator request", {
+        metaData: { consumer: consumer ?? "unknown" },
+    });
 
     const validParams = paramsSchema.safeParse(validateParams(query));
 
