@@ -9,7 +9,7 @@
         "build-main": "vite build --mode main",
         "build-csr": "vite build --mode csr",
         "test": "cross-env TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest run",
-        "test:watch": "crossenv TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest watch",
+        "test:watch": "cross-env TZ=UTC NODE_OPTIONS=--no-experimental-webstorage vitest watch",
         "lint": "eslint . && tsc --noEmit"
     },
     "dependenciesComments": {
