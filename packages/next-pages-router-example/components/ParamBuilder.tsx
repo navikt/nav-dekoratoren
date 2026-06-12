@@ -20,10 +20,10 @@ import {
 import styles from "@/styles/Home.module.css";
 import { buildDecoratorParams } from "@/lib/decorator-params";
 
-type Props = {
+type Props = Readonly<{
     initialPath: string;
     title: string;
-};
+}>;
 
 const formatParams = (params: ReturnType<typeof buildDecoratorParams>) =>
     JSON.stringify(params, null, 2);
@@ -127,7 +127,7 @@ const findParamConfig = (key: BuilderParamKey) =>
     paramConfigs.find((config) => config.key === key)!;
 
 const cloneParams = (params: DecoratorParams): DecoratorParams =>
-    JSON.parse(JSON.stringify(params)) as DecoratorParams;
+    structuredClone(params);
 
 const isEmptyParams = (params: DecoratorParams) =>
     Object.keys(params).length === 0;
@@ -387,7 +387,7 @@ export default function ParamBuilder({ initialPath, title }: Props) {
             : params;
 
         if (channel === "moduler") {
-            void setParams(payload);
+            setParams(payload).catch(console.warn);
         } else {
             window.postMessage(
                 {

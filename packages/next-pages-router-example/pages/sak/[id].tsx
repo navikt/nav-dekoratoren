@@ -2,10 +2,10 @@ import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import ParamBuilder from "@/components/ParamBuilder";
 
-type Props = {
+type Props = Readonly<{
     initialPath: string;
     title: string;
-};
+}>;
 
 export default function Sak({ initialPath, title }: Props) {
     return (

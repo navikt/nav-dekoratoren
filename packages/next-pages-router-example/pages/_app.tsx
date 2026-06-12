@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
             return;
         }
 
-        void setParams(buildDecoratorParams(router.asPath));
+        setParams(buildDecoratorParams(router.asPath)).catch(console.warn);
     }, [router.asPath, router.isReady]);
 
     return <Component {...pageProps} />;
