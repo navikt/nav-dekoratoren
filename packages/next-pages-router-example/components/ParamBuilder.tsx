@@ -29,6 +29,46 @@ const formatParams = (params: ReturnType<typeof buildDecoratorParams>) =>
     JSON.stringify(params, null, 2);
 
 const emptySubscribe = () => () => {};
+const localAuthCookieName = "decorator-example-auth";
+const localNotificationsCookieName = "decorator-example-notifications";
+
+type LocalAuthState = "logged-out" | "logged-in";
+type LocalNotificationsState = "full" | "empty";
+
+const getCookieValue = (name: string) =>
+    document.cookie
+        .split(";")
+        .map((cookie) => cookie.trim())
+        .find((cookie) => cookie.startsWith(`${name}=`))
+        ?.slice(name.length + 1);
+
+const getLocalAuthState = () =>
+    getCookieValue(localAuthCookieName) as LocalAuthState | undefined;
+
+const getLocalNotificationsState = () =>
+    getCookieValue(localNotificationsCookieName) as
+        | LocalNotificationsState
+        | undefined;
+
+const setLocalCookie = (name: string, value: string) => {
+    document.cookie = `${name}=${value}; path=/; SameSite=Lax`;
+};
+
+const applyLocalDecoratorState = ({
+    auth,
+    notifications,
+}: {
+    auth: LocalAuthState;
+    notifications?: LocalNotificationsState;
+}) => {
+    setLocalCookie(localAuthCookieName, auth);
+
+    if (notifications) {
+        setLocalCookie(localNotificationsCookieName, notifications);
+    }
+
+    window.location.reload();
+};
 
 type DirectParamsUpdate = {
     path: string;
@@ -307,6 +347,16 @@ export default function ParamBuilder({ initialPath, title }: Props) {
         () => (router.isReady ? router.asPath : router.pathname),
         () => initialPath,
     );
+    const localAuthState = useSyncExternalStore(
+        emptySubscribe,
+        getLocalAuthState,
+        () => undefined,
+    );
+    const localNotificationsState = useSyncExternalStore(
+        emptySubscribe,
+        getLocalNotificationsState,
+        () => undefined,
+    );
     const routeParams = buildDecoratorParams(path);
     const decoratorParams =
         directParamsUpdate?.path === path
@@ -335,6 +385,7 @@ export default function ParamBuilder({ initialPath, title }: Props) {
     const navigationAppliedParamKeys = new Set(
         Object.keys(getNavigationParams(directParams)),
     );
+
     const setDirectParam = (
         key: BuilderParamKey,
         value: DecoratorParams[BuilderParamKey],
@@ -560,9 +611,65 @@ export default function ParamBuilder({ initialPath, title }: Props) {
                     aria-labelledby="route-state"
                 >
                     <VStack gap="space-8">
-                        <Heading level="2" size="small" id="route-state">
-                            Dekoratøren status
-                        </Heading>
+                        <HStack
+                            justify="space-between"
+                            align="center"
+                            gap="space-8"
+                            wrap
+                        >
+                            <Heading level="2" size="small" id="route-state">
+                                Dekoratøren status
+                            </Heading>
+                            <HStack gap="space-8" wrap>
+                                <Button
+                                    type="button"
+                                    size="small"
+                                    variant="secondary-neutral"
+                                    disabled={localAuthState === "logged-out"}
+                                    onClick={() =>
+                                        applyLocalDecoratorState({
+                                            auth: "logged-out",
+                                        })
+                                    }
+                                >
+                                    Logg ut
+                                </Button>
+                                <Button
+                                    type="button"
+                                    size="small"
+                                    variant="secondary-neutral"
+                                    disabled={
+                                        localAuthState === "logged-in" &&
+                                        localNotificationsState === "full"
+                                    }
+                                    onClick={() =>
+                                        applyLocalDecoratorState({
+                                            auth: "logged-in",
+                                            notifications: "full",
+                                        })
+                                    }
+                                >
+                                    Logg inn med varsler
+                                </Button>
+                                <Button
+                                    type="button"
+                                    size="small"
+                                    variant="secondary-neutral"
+                                    disabled={
+                                        localAuthState === "logged-in" &&
+                                        localNotificationsState === "empty"
+                                    }
+                                    onClick={() =>
+                                        applyLocalDecoratorState({
+                                            auth: "logged-in",
+                                            notifications: "empty",
+                                        })
+                                    }
+                                >
+                                    Logg inn uten varsler
+                                </Button>
+                            </HStack>
+                        </HStack>
                         <pre className={styles.codeBlock}>
                             {formatParams(decoratorParams)}
                         </pre>

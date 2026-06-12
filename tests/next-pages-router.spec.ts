@@ -101,6 +101,27 @@ testNextPagesRouter(
     },
 );
 
+testNextPagesRouter(
+    "sets local auth and notification state",
+    async ({ page }) => {
+        await page.getByRole("button", { name: "Logg ut lokalt" }).click();
+
+        await expect(
+            page.getByRole("link", { name: "Logg inn", exact: true }),
+        ).toBeVisible();
+
+        await page
+            .getByRole("button", { name: "Logg inn uten varsler" })
+            .click();
+
+        await expect(
+            page.getByRole("button", { name: "Charlie Jensen" }),
+        ).toBeVisible();
+        await page.getByRole("button", { name: "Charlie Jensen" }).click();
+        await expect(page.getByText("Du har ingen nye varsler")).toBeVisible();
+    },
+);
+
 testNextPagesRouter("updates and resets params directly", async ({ page }) => {
     await expect(
         page.getByRole("button", { name: "Fjern alle" }),
