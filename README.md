@@ -184,9 +184,9 @@ fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
     });
 ```
 
-💡 **Konsumentlogging:** Sett headeren `X-Teamname: <teamnavn>` i forespørsler til Dekoratøren,
-slik at feil i logger kan knyttes til teamet ditt. Se
-[Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
+💡 **Konsumentlogging:** Hvis du bruker SSR uten nav-dekoratoren-moduler:
+Sett headeren `X-Teamname: <teamnavn>` i forespørsler til Dekoratøren, slik at feil i logger kan
+knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
 
 ### 2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)
 
@@ -211,6 +211,10 @@ Direkte CSR ser typisk slik ut:
 ```
 
 Hvis du _må_ bruke CSR, anbefaler vi å gjøre det via `injectDecoratorClientSide` fra moduler-pakken.
+
+💡 **Konsumentlogging:** Hvis du bruker CSR med nav-dekoratoren-moduler:
+Sett `teamName`-parameteren i `injectDecoratorClientSide` , slik at feil i logger kan
+knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
 
 ### 2.4 Ingresser og miljøer
 
@@ -1136,7 +1140,7 @@ ikke.
 | Funksjon / Tema              | Type                      | Formål / Forklaring                                                |
 | ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
 | Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av dekoratøren |
-| Konsumentlogging             | server-side               | Logger hvilket team som kaller dekoratøren, for sporing av feil    |
+| Konsumentlogging             | server-side / client-side | Logger hvilket team som kaller dekoratøren, for sporing av feil    |
 | Språkstøtte og nedtrekksmeny | client-side               | Viser språkvelger i headeren og håndterer språkvalg                |
 | Søk                          | client-side               | Tilbyr søk uten behov for ekstra konfigurasjon                     |
 | Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon      |
@@ -1179,13 +1183,13 @@ riktig konsument. Identiteten utledes i denne prioriterte rekkefølgen:
 | 4         | `Origin`-header                 | Fallback for browser-kall – settes automatisk av nettleseren (CSR uten `teamName`)                |
 | 5         | `"unknown"`                     | Ingen identitet tilgjengelig – typisk direkte SSR-kall uten `X-Teamname`, eller CSR uten `Origin` |
 
-**Team som bruker `@navikt/nav-dekoratoren-moduler` (SSR)** (anbefalt):
+**Team som bruker SSR via `@navikt/nav-dekoratoren-moduler`** (anbefalt):
 Konsumentidentitet settes automatisk via `NAIS_APP_NAME` og `NAIS_NAMESPACE`,
 som injiseres av Nais-plattformen i alle pods. Ingen ekstra konfigurasjon er nødvendig.
 Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang).
 
-**Team som bruker `injectDecoratorClientSide` (CSR via moduler):**
-Sett `teamName` i konfigurasjonen for å bli identifisert i logger og feilmeldinger:
+**Team som bruker CSR via `@navikt/nav-dekoratoren-moduler`:**
+Sett `teamName` i `injectDecoratorClientSide` for å bli identifisert i logger og feilmeldinger:
 
 ```ts
 injectDecoratorClientSide({
@@ -1196,7 +1200,7 @@ injectDecoratorClientSide({
 ```
 
 Dersom `teamName` ikke settes, brukes `Origin`-headeren som nettleseren setter automatisk.
-Et varsel logges til konsollen (én gang) som påminnelse.
+Et varsel logges til konsollen som påminnelse.
 
 **Team som kaller dekoratøren direkte via SSR** (uten moduler-pakken):
 Sett headeren `X-Teamname` i server-til-server-kallet for å bli identifisert i logger og feilmeldinger:
