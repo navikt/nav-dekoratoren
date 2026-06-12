@@ -67,7 +67,13 @@ const applyLocalDecoratorState = ({
         setLocalCookie(localNotificationsCookieName, notifications);
     }
 
-    window.location.reload();
+    const params = new URLSearchParams({
+        auth,
+        returnTo: window.location.href,
+        ...(notifications ? { notifications } : {}),
+    });
+
+    window.location.href = `http://localhost:8089/api/local-decorator-state?${params}`;
 };
 
 type DirectParamsUpdate = {

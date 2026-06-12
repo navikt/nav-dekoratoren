@@ -8,6 +8,25 @@ import { OpsMessage } from "decorator-shared/types";
 const LOCAL_AUTH_COOKIE_NAME = "decorator-example-auth";
 const LOCAL_NOTIFICATIONS_COOKIE_NAME = "decorator-example-notifications";
 
+type LocalAuthState = "logged-in" | "logged-out";
+type LocalNotificationsState = "full" | "empty";
+
+const localDecoratorMockState: {
+    auth?: LocalAuthState;
+    notifications?: LocalNotificationsState;
+} = {};
+
+export const setLocalDecoratorMockState = ({
+    auth,
+    notifications,
+}: {
+    auth?: LocalAuthState;
+    notifications?: LocalNotificationsState;
+}) => {
+    localDecoratorMockState.auth = auth;
+    localDecoratorMockState.notifications = notifications;
+};
+
 const getCookieValue = (request: Request, name: string) =>
     request.headers
         .get("cookie")
@@ -92,10 +111,9 @@ export const setupMocks = () =>
             HttpResponse.json(testData),
         ),
         http.get(`${env.APP_URL}/api/varselbjelle/varsler`, ({ request }) => {
-            const notificationsState = getCookieValue(
-                request,
-                LOCAL_NOTIFICATIONS_COOKIE_NAME,
-            );
+            const notificationsState =
+                localDecoratorMockState.notifications ??
+                getCookieValue(request, LOCAL_NOTIFICATIONS_COOKIE_NAME);
 
             return HttpResponse.json(
                 notificationsState === "empty" ||
@@ -106,7 +124,9 @@ export const setupMocks = () =>
             );
         }),
         http.get(`${env.APP_URL}/api/auth`, ({ request }) => {
-            const authState = getCookieValue(request, LOCAL_AUTH_COOKIE_NAME);
+            const authState =
+                localDecoratorMockState.auth ??
+                getCookieValue(request, LOCAL_AUTH_COOKIE_NAME);
             const authLevel =
                 authState === "logged-in"
                     ? "4"

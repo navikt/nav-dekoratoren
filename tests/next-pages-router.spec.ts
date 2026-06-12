@@ -104,7 +104,7 @@ testNextPagesRouter(
 testNextPagesRouter(
     "sets local auth and notification state",
     async ({ page }) => {
-        await page.getByRole("button", { name: "Logg ut lokalt" }).click();
+        await page.getByRole("button", { name: "Logg ut" }).click();
 
         await expect(
             page.getByRole("link", { name: "Logg inn", exact: true }),

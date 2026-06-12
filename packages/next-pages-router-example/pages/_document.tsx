@@ -23,6 +23,7 @@ class _Document extends Document<{ Decorator: DecoratorComponentsReact }> {
         const initialProps = await Document.getInitialProps(ctx);
         const Decorator = await fetchDecoratorReact({
             ...decoratorParams,
+            noCache: true,
             params: buildDecoratorParams(ctx.asPath),
         });
 
