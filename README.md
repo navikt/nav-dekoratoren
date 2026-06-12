@@ -1171,12 +1171,13 @@ tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med d
 Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan knyttes tilbake til
 riktig konsument. Identiteten utledes i denne prioriterte rekkefølgen:
 
-| Prioritet | Kilde                           | Hvem / Når                                                                                             |
-| --------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| 1         | `naisAppName` / `naisNamespace` | Team som bruker SSR via `@navikt/nav-dekoratoren-moduler` – sendes automatisk fra server (process.env) |
-| 2         | `X-Teamname`-header             | Team som kaller dekoratøren direkte via SSR uten moduler                                               |
-| 3         | `Origin`-header                 | Fallback for browser-kall – settes automatisk av nettleseren (CSR med eller uten moduler)              |
-| 4         | `"unknown"`                     | SSR-kall uten naisAppName og uten X-Teamname (varsel logges i nav-dekoratoren-moduler)                 |
+| Prioritet | Kilde                           | Hvem / Når                                                                                        |
+| --------- | ------------------------------- | ------------------------------------------------------------------------------------------------- |
+| 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (process.env)                                      |
+| 2         | `teamName`-parameter            | CSR via moduler – settes manuelt i `injectDecoratorClientSide`                                    |
+| 3         | `X-Teamname`-header             | Direkte SSR-kall uten moduler – settes manuelt i server-til-server-forespørselen                  |
+| 4         | `Origin`-header                 | Fallback for browser-kall – settes automatisk av nettleseren (CSR uten `teamName`)                |
+| 5         | `"unknown"`                     | Ingen identitet tilgjengelig – typisk direkte SSR-kall uten `X-Teamname`, eller CSR uten `Origin` |
 
 **Team som bruker `@navikt/nav-dekoratoren-moduler` (SSR)** (anbefalt):
 Konsumentidentitet settes automatisk via `NAIS_APP_NAME` og `NAIS_NAMESPACE`,
@@ -1184,9 +1185,18 @@ som injiseres av Nais-plattformen i alle pods. Ingen ekstra konfigurasjon er nø
 Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang).
 
 **Team som bruker `injectDecoratorClientSide` (CSR via moduler):**
-Kallet skjer i nettleseren der `process.env` ikke er tilgjengelig, så naisAppName sendes ikke.
-Dekoratøren bruker `Origin`-headeren som nettleseren setter automatisk (prioritet 3).
-Ingen ekstra konfigurasjon er nødvendig eller mulig.
+Sett `teamName` i konfigurasjonen for å bli identifisert i logger og feilmeldinger:
+
+```ts
+injectDecoratorClientSide({
+    env: "prod",
+    teamName: "mitt-team",
+    params: { context: "privatperson" },
+});
+```
+
+Dersom `teamName` ikke settes, brukes `Origin`-headeren som nettleseren setter automatisk.
+Et varsel logges til konsollen (én gang) som påminnelse.
 
 **Team som kaller dekoratøren direkte via SSR** (uten moduler-pakken):
 Sett headeren `X-Teamname` i server-til-server-kallet for å bli identifisert i logger og feilmeldinger:
@@ -1195,6 +1205,9 @@ Sett headeren `X-Teamname` i server-til-server-kallet for å bli identifisert i 
 GET /ssr?context=privatperson HTTP/1.1
 X-Teamname: mitt-team
 ```
+
+Dersom `X-Teamname` ikke settes, og heller ikke `Origin` (som sjelden er satt i server-til-server-kall),
+logges konsumenten som `"unknown"`. Teamet vil da ikke kunne identifiseres i feillogger.
 
 **Team som kaller dekoratøren direkte via CSR** (uten moduler-pakken):
 `Origin`-headeren settes automatisk av nettleseren. Ingen ekstra konfigurasjon er nødvendig.

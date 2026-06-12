@@ -178,10 +178,14 @@ app.get("/ssr", ssrApiHandler);
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
     const query = req.query();
-    const params = parseAndValidateParams(query, {
-        "x-teamname": req.header("x-teamname"),
-        origin: req.header("origin"),
-    });
+    const params = parseAndValidateParams(
+        query,
+        {
+            "x-teamname": req.header("x-teamname"),
+            origin: req.header("origin"),
+        },
+        "csr",
+    );
     const features = getFeatures();
 
     return json({
