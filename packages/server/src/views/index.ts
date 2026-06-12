@@ -11,10 +11,15 @@ import { parseAndValidateParams } from "../validateParams";
 type IndexProps = {
     rawParams: Record<string, string>;
     url: string;
+    requestHeaders?: Record<string, string | undefined>;
 };
 
-export const IndexHtml = async ({ rawParams, url }: IndexProps) => {
-    const params = parseAndValidateParams(rawParams);
+export const IndexHtml = async ({
+    rawParams,
+    url,
+    requestHeaders,
+}: IndexProps) => {
+    const params = parseAndValidateParams(rawParams, requestHeaders);
     const features = getFeatures();
 
     return html`

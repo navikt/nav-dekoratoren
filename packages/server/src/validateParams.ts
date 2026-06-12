@@ -90,11 +90,43 @@ export const validateParams = (params: Record<string, string>) => {
 
 export const parseAndValidateParams = (
     query: Record<string, string>,
+    requestHeaders?: Record<string, string | undefined>,
+    requestType?: "ssr" | "csr",
 ): Params => {
+    const appName = query.naisAppName;
+    const namespace = query.naisNamespace;
+
+    const consumer = appName
+        ? `${namespace ?? "unknown"}/${appName}`
+        : requestHeaders?.["x-teamname"]
+          ? `x-teamname: ${requestHeaders["x-teamname"]}`
+          : requestHeaders?.["origin"]
+            ? `origin: ${requestHeaders["origin"]}`
+            : undefined;
+
+    if (consumer === undefined) {
+        if (requestType === "ssr") {
+            logger.warn(
+                "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett request-headeren X-Teamname slik at eventuelle feil kan spores tilbake til riktig team.",
+            );
+        } else if (requestType === "csr") {
+            logger.warn(
+                "Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler). Hvis du bruker @navikt/nav-dekoratoren-moduler, må du angi teamName i injectDecoratorClientSide slik at forespørselen kan knyttes til riktig team.",
+            );
+        }
+    }
+
+    logger.info("Decorator request", {
+        metaData: { consumer: consumer ?? "unknown" },
+    });
+
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {
-        logger.error("Failed to validate params", { error: validParams.error });
+        logger.error("Failed to validate params", {
+            error: validParams.error,
+            metaData: { consumer: consumer ?? "unknown" },
+        });
         throw new Error("Failed to validate params");
     }
 
