@@ -15,14 +15,20 @@ const getDecoratorParams = (page: Page) =>
     });
 
 const getSsrDecoratorParams = (html: string) => {
-    const dataMatch = html.match(
-        /<script type="application\/json" id="__DECORATOR_DATA__">\s*([\s\S]*?)\s*<\/script>/,
-    );
+    const scriptStart =
+        '<script type="application/json" id="__DECORATOR_DATA__">';
+    const scriptEnd = "</script>";
+    const dataStart = html.indexOf(scriptStart);
 
-    expect(dataMatch).not.toBeNull();
+    expect(dataStart).not.toBe(-1);
+
+    const contentStart = dataStart + scriptStart.length;
+    const dataEnd = html.indexOf(scriptEnd, contentStart);
+
+    expect(dataEnd).not.toBe(-1);
 
     return (
-        JSON.parse(dataMatch![1].trim()) as {
+        JSON.parse(html.slice(contentStart, dataEnd).trim()) as {
             params: DecoratorParamsSnapshot;
         }
     ).params;
