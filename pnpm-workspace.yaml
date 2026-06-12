@@ -2,6 +2,8 @@ packages:
     - "packages/*"
 
 catalog:
+    "@navikt/ds-css": "8.10.6"
+    "@navikt/ds-react": "8.10.6"
     "@types/node": "24.12.4"
     esbuild-minify-templates: "0.13.1"
     eslint: "9.39.4"
