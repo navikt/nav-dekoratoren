@@ -103,15 +103,17 @@ export const parseAndValidateParams = (
         `Received request for app: ${appName} in namespace: ${namespace}`,
     );
 
-    const consumer = appName
-        ? `${namespace ?? "unknown"}/${appName}`
-        : requestHeaders?.["x-teamname"]
-          ? `x-teamname: ${requestHeaders["x-teamname"]}`
-          : requestHeaders?.["origin"]
-            ? `origin: ${requestHeaders["origin"]}`
-            : undefined;
+    const consumer = () => {
+        if (appName) {
+            return `${namespace ?? "unknown namespace"}/${appName}`;
+        } else if (requestHeaders?.["x-teamname"]) {
+            return `x-teamname: ${requestHeaders["x-teamname"]}`;
+        } else if (requestHeaders?.["origin"]) {
+            return `origin: ${requestHeaders["origin"]}`;
+        }
+    };
 
-    if (consumer === undefined) {
+    if (!consumer) {
         if (requestType === "ssr") {
             logger.warn(
                 "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett request-headeren X-Teamname slik at eventuelle feil kan spores tilbake til riktig team.",
