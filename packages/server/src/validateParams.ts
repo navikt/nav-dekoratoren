@@ -99,6 +99,10 @@ export const parseAndValidateParams = (
     const appName = query.naisAppName;
     const namespace = query.naisNamespace;
 
+    logger.info(
+        `Received request for app: ${appName} in namespace: ${namespace}`,
+    );
+
     const consumer = appName
         ? `${namespace ?? "unknown"}/${appName}`
         : requestHeaders?.["x-teamname"]
