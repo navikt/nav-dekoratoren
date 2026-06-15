@@ -93,15 +93,8 @@ export const parseAndValidateParams = (
     requestHeaders?: Record<string, string | undefined>,
     requestType?: "ssr" | "csr",
 ): Params => {
-    logger.info(
-        `Request query: ${JSON.stringify(query)} with headers: ${JSON.stringify(requestHeaders)} and request type: ${requestType}`,
-    );
     const appName = query.naisAppName;
     const namespace = query.naisNamespace;
-
-    logger.info(
-        `Received request for app: ${appName} in namespace: ${namespace}`,
-    );
 
     const consumer = () => {
         if (appName) {
@@ -125,9 +118,7 @@ export const parseAndValidateParams = (
         }
     }
 
-    logger.info(`Received request from ${consumer}`);
-
-    logger.info("Decorator request", {
+    logger.info("Decorator consumer info.", {
         metaData: { consumer: consumer ?? "unknown" },
     });
 
