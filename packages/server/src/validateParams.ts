@@ -119,6 +119,8 @@ export const parseAndValidateParams = (
         }
     }
 
+    logger.info(`Received request from ${consumer}`);
+
     logger.info("Decorator request", {
         metaData: { consumer: consumer ?? "unknown" },
     });
