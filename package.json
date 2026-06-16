@@ -19,7 +19,7 @@
         "lint:next": "pnpm --filter next-pages-router-example run lint",
         "dev": "concurrently \"pnpm --filter decorator-client run dev\" \"pnpm --filter decorator-server run dev\"",
         "build": "pnpm --filter decorator-icons run build && pnpm --filter decorator-client run build && pnpm --filter decorator-server run build && pnpm run copy-assets",
-        "copy-assets": "node -e \"require('fs').mkdirSync('packages/server/public', {recursive: true})\" && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
+        "copy-assets": "node scripts/copy-assets.mjs",
         "prepare": "husky",
         "benchmarking": "./benchmarking/run",
         "playwright": "pnpm exec playwright test"
@@ -50,7 +50,6 @@
         "@typescript-eslint/eslint-plugin": "8.61.0",
         "@typescript-eslint/parser": "8.61.0",
         "concurrently": "9.2.1",
-        "copyfiles": "2.4.1",
         "esbuild-minify-templates": "catalog:",
         "eslint": "catalog:",
         "http-server": "14.1.1",

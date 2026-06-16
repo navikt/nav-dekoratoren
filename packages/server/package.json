@@ -5,11 +5,10 @@
     "type": "module",
     "scripts": {
         "dev": "tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
-        "postinstall": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env')) fs.copyFileSync('.env.sample', '.env')\"",
+        "postinstall": "node scripts/setup-env.mjs",
         "serve": "cross-env NODE_ENV=production node dist/server.js",
         "serve-local": "cross-env NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
-        "clean": "node -e \"require('fs').rmSync('./public/assets', {recursive: true, force: true})\"",
-        "build": "pnpm run clean && cross-env NODE_ENV=production tsx build.ts",
+        "build": "cross-env NODE_ENV=production tsx build.ts",
         "test": "vitest run",
         "lint": "eslint . && tsc --noEmit"
     },
@@ -26,8 +25,9 @@
     },
     "devDependencies": {
         "@types/node": "catalog:",
-        "cross-env": "10.1.0",
+        "cross-env": "7.0.3",
         "esbuild": "0.25.12",
+        "esbuild-minify-templates": "catalog:",
         "msw": "2.14.6",
         "postcss": "catalog:",
         "postcss-import": "16.1.1",
