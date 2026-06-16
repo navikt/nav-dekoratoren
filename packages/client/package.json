@@ -16,11 +16,11 @@
         "@grafana/faro-web-sdk": "Type-only import. Faro is initialized by xp-frontend, keep version in sync."
     },
     "dependencies": {
-        "@grafana/faro-web-sdk": "2.6.3",
-        "@navikt/ds-css": "8.10.6",
+        "@grafana/faro-web-sdk": "2.7.1",
+        "@navikt/ds-css": "8.12.1",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
-        "js-cookie": "3.0.7",
+        "js-cookie": "3.0.8",
         "lodash.debounce": "4.0.8"
     },
     "devDependencies": {
