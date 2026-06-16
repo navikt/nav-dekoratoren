@@ -25,7 +25,7 @@
     },
     "devDependencies": {
         "@types/node": "catalog:",
-        "cross-env": "7.0.3",
+        "cross-env": "10.1.0",
         "esbuild": "0.25.12",
         "esbuild-minify-templates": "catalog:",
         "msw": "2.14.6",
