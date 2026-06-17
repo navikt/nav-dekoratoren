@@ -96,7 +96,7 @@ export const parseAndValidateParams = (
     const appName = query.naisAppName;
     const namespace = query.naisNamespace;
 
-    const consumer = () => {
+    const getConsumer = () => {
         if (appName) {
             return `${namespace ?? "unknown namespace"}/${appName}`;
         } else if (requestHeaders?.["x-teamname"]) {
@@ -105,6 +105,8 @@ export const parseAndValidateParams = (
             return `origin: ${requestHeaders["origin"]}`;
         }
     };
+
+    const consumer = getConsumer();
 
     if (!consumer) {
         if (requestType === "ssr") {
