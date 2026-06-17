@@ -26,7 +26,7 @@
     },
     "devDependencies": {
         "@types/node": "catalog:",
-        "esbuild": "0.25.12",
+        "esbuild": "0.28.1",
         "esbuild-minify-templates": "catalog:",
         "msw": "2.14.6",
         "postcss": "catalog:",
