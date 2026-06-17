@@ -1,10 +1,12 @@
 import { build, type Plugin } from "esbuild";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
 
 import { resolve } from "node:path";
 import { getPostcssTokens } from "./css-modules-plugin";
 import { minify } from "esbuild-minify-templates";
 import { logger } from "decorator-shared/logger";
+
+rmSync(resolve("public/assets"), { recursive: true, force: true });
 
 const cssModulesPlugin: Plugin = {
     name: "css-modules",

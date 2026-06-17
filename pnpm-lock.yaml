@@ -76,9 +76,6 @@ importers:
             concurrently:
                 specifier: 9.2.1
                 version: 9.2.1
-            copyfiles:
-                specifier: 2.4.1
-                version: 2.4.1
             esbuild-minify-templates:
                 specifier: "catalog:"
                 version: 0.13.1(esbuild@0.28.1)
@@ -239,6 +236,9 @@ importers:
             "@types/node":
                 specifier: "catalog:"
                 version: 24.13.2
+            cross-env:
+                specifier: 10.1.0
+                version: 10.1.0
             esbuild:
                 specifier: 0.25.12
                 version: 0.25.12
@@ -532,6 +532,12 @@ packages:
         resolution:
             {
                 integrity: sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w==,
+            }
+
+    "@epic-web/invariant@1.0.0":
+        resolution:
+            {
+                integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==,
             }
 
     "@esbuild/aix-ppc64@0.25.12":
@@ -4091,12 +4097,6 @@ packages:
                 integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==,
             }
 
-    cliui@7.0.4:
-        resolution:
-            {
-                integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==,
-            }
-
     cliui@8.0.1:
         resolution:
             {
@@ -4226,25 +4226,20 @@ packages:
             }
         engines: { node: ">=12.13" }
 
-    copyfiles@2.4.1:
-        resolution:
-            {
-                integrity: sha512-fereAvAvxDrQDOXybk3Qu3dPbOoKoysFMWtkY3mv5BsL8//OSZVL5DCLYqgRfY5cWirgRzlC+WSrxp6Bo3eNZg==,
-            }
-        hasBin: true
-
-    core-util-is@1.0.3:
-        resolution:
-            {
-                integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==,
-            }
-
     corser@2.0.1:
         resolution:
             {
                 integrity: sha512-utCYNzRSQIZNPIcGZdQc92UVJYAhtGAteCFg0yRaFm8f0P+CPtyGyHXJcGXnffjCybUCEx3FQ2G7U3/o9eIkVQ==,
             }
         engines: { node: ">= 0.4.0" }
+
+    cross-env@10.1.0:
+        resolution:
+            {
+                integrity: sha512-GsYosgnACZTADcmEyJctkJIoqAhHjttw7RsFrVoJNXbsWWqaq6Ym+7kZjq6mS45O0jij6vtiReppKQEtqWy6Dw==,
+            }
+        engines: { node: ">=20" }
+        hasBin: true
 
     cross-env@7.0.3:
         resolution:
@@ -5979,18 +5974,6 @@ packages:
             }
         engines: { node: ">=16" }
 
-    isarray@0.0.1:
-        resolution:
-            {
-                integrity: sha512-D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==,
-            }
-
-    isarray@1.0.0:
-        resolution:
-            {
-                integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==,
-            }
-
     isarray@2.0.5:
         resolution:
             {
@@ -6695,12 +6678,6 @@ packages:
             }
         engines: { node: ">=18" }
 
-    noms@0.0.0:
-        resolution:
-            {
-                integrity: sha512-lNDU9VJaOPxUmXcLb+HQFeUgQQPtMI24Gt6hgfuMHRJgMRHMF/qZ4HJD3GDru4sSw9IQl2jPjAYnQrdIeLbwow==,
-            }
-
     npm-run-path@4.0.1:
         resolution:
             {
@@ -7200,12 +7177,6 @@ packages:
             }
         engines: { node: ^20.17.0 || >=22.9.0 }
 
-    process-nextick-args@2.0.1:
-        resolution:
-            {
-                integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==,
-            }
-
     prom-client@15.1.3:
         resolution:
             {
@@ -7301,18 +7272,6 @@ packages:
         resolution:
             {
                 integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==,
-            }
-
-    readable-stream@1.0.34:
-        resolution:
-            {
-                integrity: sha512-ok1qVCJuRkNmvebYikljxJA/UEsKwLl2nI1OmaqAu4/UE+h0wKCHok4XkL/gvi39OacXvw59RJUOFUkDib2rHg==,
-            }
-
-    readable-stream@2.3.8:
-        resolution:
-            {
-                integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==,
             }
 
     readdirp@4.1.2:
@@ -7929,18 +7888,6 @@ packages:
             }
         engines: { node: ">= 0.4" }
 
-    string_decoder@0.10.31:
-        resolution:
-            {
-                integrity: sha512-ev2QzSzWPYmy9GuqfIVildA4OdcGLeFZQrq5ys6RtiuF+RQQiZWr8TZNyAcuVXyQRYfEO+MsoB/1BuQVhOJuoQ==,
-            }
-
-    string_decoder@1.1.1:
-        resolution:
-            {
-                integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==,
-            }
-
     strip-ansi@6.0.1:
         resolution:
             {
@@ -8064,12 +8011,6 @@ packages:
         resolution:
             {
                 integrity: sha512-+G0LLgjjo9BZX2MfdvPfH+MKLCrxlXSYec5DaPYP1fe6Iyhf0/fSmJ0bFiZ1F8BT6cGXl2LpltQptzjXKWEkKA==,
-            }
-
-    through2@2.0.5:
-        resolution:
-            {
-                integrity: sha512-/mrRod8xqpA+IHSLyGCQ2s8SPHiCDEeQJSep1jqLYeEUClOFG2Qsh+4FU6G9VeqpZnGW/Su8LQGc4YKni5rYSQ==,
             }
 
     tiny-invariant@1.3.3:
@@ -8395,13 +8336,6 @@ packages:
                 integrity: sha512-IiSk4HlzAMqTUseHHe3VhIGyuFmN90zMTpD3Z3y8jeQbzLIq500MVM7Jq2vUAnTKAFPJrqwkzr6PoTcPhGcOiw==,
             }
 
-    untildify@4.0.0:
-        resolution:
-            {
-                integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==,
-            }
-        engines: { node: ">=8" }
-
     update-browserslist-db@1.2.3:
         resolution:
             {
@@ -8720,13 +8654,6 @@ packages:
                 integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==,
             }
 
-    xtend@4.0.2:
-        resolution:
-            {
-                integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==,
-            }
-        engines: { node: ">=0.4" }
-
     y18n@5.0.8:
         resolution:
             {
@@ -8761,26 +8688,12 @@ packages:
         engines: { node: ">= 14.6" }
         hasBin: true
 
-    yargs-parser@20.2.9:
-        resolution:
-            {
-                integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==,
-            }
-        engines: { node: ">=10" }
-
     yargs-parser@21.1.1:
         resolution:
             {
                 integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==,
             }
         engines: { node: ">=12" }
-
-    yargs@16.2.0:
-        resolution:
-            {
-                integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==,
-            }
-        engines: { node: ">=10" }
 
     yargs@17.7.2:
         resolution:
@@ -9006,6 +8919,8 @@ snapshots:
         dependencies:
             tslib: 2.8.1
         optional: true
+
+    "@epic-web/invariant@1.0.0": {}
 
     "@esbuild/aix-ppc64@0.25.12":
         optional: true
@@ -10879,12 +10794,6 @@ snapshots:
 
     client-only@0.0.1: {}
 
-    cliui@7.0.4:
-        dependencies:
-            string-width: 4.2.3
-            strip-ansi: 6.0.1
-            wrap-ansi: 7.0.0
-
     cliui@8.0.1:
         dependencies:
             string-width: 4.2.3
@@ -10949,19 +10858,12 @@ snapshots:
         dependencies:
             is-what: 4.1.16
 
-    copyfiles@2.4.1:
-        dependencies:
-            glob: 7.2.3
-            minimatch: 3.1.5
-            mkdirp: 1.0.4
-            noms: 0.0.0
-            through2: 2.0.5
-            untildify: 4.0.0
-            yargs: 16.2.0
-
-    core-util-is@1.0.3: {}
-
     corser@2.0.1: {}
+
+    cross-env@10.1.0:
+        dependencies:
+            "@epic-web/invariant": 1.0.0
+            cross-spawn: 7.0.6
 
     cross-env@7.0.3:
         dependencies:
@@ -11695,7 +11597,8 @@ snapshots:
         dependencies:
             minipass: 7.1.3
 
-    fs.realpath@1.0.0: {}
+    fs.realpath@1.0.0:
+        optional: true
 
     fsevents@2.3.2:
         optional: true
@@ -11783,6 +11686,7 @@ snapshots:
             minimatch: 3.1.5
             once: 1.4.0
             path-is-absolute: 1.0.1
+        optional: true
 
     globals@14.0.0: {}
 
@@ -12006,6 +11910,7 @@ snapshots:
         dependencies:
             once: 1.4.0
             wrappy: 1.0.2
+        optional: true
 
     inherits@2.0.3: {}
 
@@ -12181,10 +12086,6 @@ snapshots:
     is-wsl@3.1.1:
         dependencies:
             is-inside-container: 1.0.0
-
-    isarray@0.0.1: {}
-
-    isarray@1.0.0: {}
 
     isarray@2.0.5: {}
 
@@ -12682,11 +12583,6 @@ snapshots:
 
     node-releases@2.0.47: {}
 
-    noms@0.0.0:
-        dependencies:
-            inherits: 2.0.4
-            readable-stream: 1.0.34
-
     npm-run-path@4.0.1:
         dependencies:
             path-key: 3.1.1
@@ -12746,6 +12642,7 @@ snapshots:
     once@1.4.0:
         dependencies:
             wrappy: 1.0.2
+        optional: true
 
     onetime@5.1.2:
         dependencies:
@@ -13006,8 +12903,6 @@ snapshots:
 
     proc-log@6.1.0: {}
 
-    process-nextick-args@2.0.1: {}
-
     prom-client@15.1.3:
         dependencies:
             "@opentelemetry/api": 1.9.1
@@ -13057,23 +12952,6 @@ snapshots:
     read-cache@1.0.0:
         dependencies:
             pify: 2.3.0
-
-    readable-stream@1.0.34:
-        dependencies:
-            core-util-is: 1.0.3
-            inherits: 2.0.4
-            isarray: 0.0.1
-            string_decoder: 0.10.31
-
-    readable-stream@2.3.8:
-        dependencies:
-            core-util-is: 1.0.3
-            inherits: 2.0.4
-            isarray: 1.0.0
-            process-nextick-args: 2.0.1
-            safe-buffer: 5.1.2
-            string_decoder: 1.1.1
-            util-deprecate: 1.0.2
 
     readdirp@4.1.2: {}
 
@@ -13528,12 +13406,6 @@ snapshots:
             define-properties: 1.2.1
             es-object-atoms: 1.1.2
 
-    string_decoder@0.10.31: {}
-
-    string_decoder@1.1.1:
-        dependencies:
-            safe-buffer: 5.1.2
-
     strip-ansi@6.0.1:
         dependencies:
             ansi-regex: 5.0.1
@@ -13605,11 +13477,6 @@ snapshots:
     tdigest@0.1.2:
         dependencies:
             bintrees: 1.0.2
-
-    through2@2.0.5:
-        dependencies:
-            readable-stream: 2.3.8
-            xtend: 4.0.2
 
     tiny-invariant@1.3.3: {}
 
@@ -13842,8 +13709,6 @@ snapshots:
 
     until-async@3.0.2: {}
 
-    untildify@4.0.0: {}
-
     update-browserslist-db@1.2.3(browserslist@4.28.2):
         dependencies:
             browserslist: 4.28.2
@@ -14051,7 +13916,8 @@ snapshots:
             string-width: 7.2.0
             strip-ansi: 7.2.0
 
-    wrappy@1.0.2: {}
+    wrappy@1.0.2:
+        optional: true
 
     ws@7.5.11: {}
 
@@ -14065,8 +13931,6 @@ snapshots:
 
     xmlchars@2.2.0: {}
 
-    xtend@4.0.2: {}
-
     y18n@5.0.8: {}
 
     yallist@3.1.1: {}
@@ -14077,19 +13941,7 @@ snapshots:
 
     yaml@2.9.0: {}
 
-    yargs-parser@20.2.9: {}
-
     yargs-parser@21.1.1: {}
-
-    yargs@16.2.0:
-        dependencies:
-            cliui: 7.0.4
-            escalade: 3.2.0
-            get-caller-file: 2.0.5
-            require-directory: 2.1.1
-            string-width: 4.2.3
-            y18n: 5.0.8
-            yargs-parser: 20.2.9
 
     yargs@17.7.2:
         dependencies:
