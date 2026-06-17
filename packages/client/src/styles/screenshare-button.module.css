@@ -38,7 +38,7 @@
 }
 
 [data-theme="dark"] .screenshareButton:focus-visible {
-    outline-color: #99c3ff;
+    outline-color: var(--ax-info-400);
 }
 
 [data-theme="dark"] .screenshareButton:active {
