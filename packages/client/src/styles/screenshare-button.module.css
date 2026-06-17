@@ -12,7 +12,7 @@
     text-decoration-color: #99c4dd;
     text-decoration-thickness: 0.0625em;
     text-underline-offset: 0.15em;
-    padding: 0.5625rem;
+    padding: var(--ax-space-8);
     border: 1px solid transparent;
 }
 .screenshareButton:focus-visible {
