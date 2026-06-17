@@ -20,7 +20,7 @@ const DECORATOR_DATA_TIMEOUT = 5000;
 // V1: 28.02.2025: Initial version
 
 export class WebStorageController {
-    currentConsentVersion: number = 4;
+    currentConsentVersion: number = 5;
     consentKey: string = "navno-consent";
 
     constructor() {
