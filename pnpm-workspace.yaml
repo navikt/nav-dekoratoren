@@ -17,6 +17,7 @@ minimumReleaseAgeExclude:
 
 overrides:
     "@opentelemetry/core": "2.8.0"
+    esbuild: "0.28.1"
     postcss: "8.5.15"
     shell-quote: "1.8.4"
 
