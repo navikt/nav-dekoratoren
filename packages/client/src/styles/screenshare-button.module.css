@@ -17,7 +17,7 @@
 }
 .screenshareButton:focus-visible {
     outline: 3px solid;
-    border-radius: 3px;
+    border-radius: var(--ax-radius-4);
 }
 
 [data-theme="dark"] .screenshareButton {
