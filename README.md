@@ -185,7 +185,7 @@ fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
 ```
 
 💡 **Konsumentlogging:** Hvis du bruker SSR uten nav-dekoratoren-moduler:
-Sett headeren `X-Teamname: <teamnavn>` i forespørsler til Dekoratøren, slik at feil i logger kan
+Sett headeren `x-teamname: <teamnavn>` i forespørsler til Dekoratøren, slik at feil i logger kan
 knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
 
 ### 2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)
@@ -1179,9 +1179,9 @@ riktig konsument. Identiteten utledes i denne prioriterte rekkefølgen:
 | --------- | ------------------------------- | ------------------------------------------------------------------------------------------------- |
 | 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (process.env)                                      |
 | 2         | `teamName`-parameter            | CSR via moduler – settes manuelt i `injectDecoratorClientSide`                                    |
-| 3         | `X-Teamname`-header             | Direkte SSR-kall uten moduler – settes manuelt i server-til-server-forespørselen                  |
+| 3         | `x-teamname`-header             | Direkte SSR-kall uten moduler – settes manuelt i server-til-server-forespørselen                  |
 | 4         | `Origin`-header                 | Fallback for browser-kall – settes automatisk av nettleseren (CSR uten `teamName`)                |
-| 5         | `"unknown"`                     | Ingen identitet tilgjengelig – typisk direkte SSR-kall uten `X-Teamname`, eller CSR uten `Origin` |
+| 5         | `"unknown"`                     | Ingen identitet tilgjengelig – typisk direkte SSR-kall uten `x-teamname`, eller CSR uten `Origin` |
 
 **Team som bruker SSR via `@navikt/nav-dekoratoren-moduler`** (anbefalt):
 Konsumentidentitet settes automatisk via `NAIS_APP_NAME` og `NAIS_NAMESPACE`,
@@ -1203,14 +1203,14 @@ Dersom `teamName` ikke settes, brukes `Origin`-headeren som nettleseren setter a
 Et varsel logges til konsollen som påminnelse.
 
 **Team som kaller dekoratøren direkte via SSR** (uten moduler-pakken):
-Sett headeren `X-Teamname` i server-til-server-kallet for å bli identifisert i logger og feilmeldinger:
+Sett headeren `x-teamname` i server-til-server-kallet for å bli identifisert i logger og feilmeldinger:
 
 ```http
 GET /ssr?context=privatperson HTTP/1.1
-X-Teamname: mitt-team
+x-teamname: mitt-team
 ```
 
-Dersom `X-Teamname` ikke settes, og heller ikke `Origin` (som sjelden er satt i server-til-server-kall),
+Dersom `x-teamname` ikke settes, og heller ikke `Origin` (som sjelden er satt i server-til-server-kall),
 logges konsumenten som `"unknown"`. Teamet vil da ikke kunne identifiseres i feillogger.
 
 **Team som kaller dekoratøren direkte via CSR** (uten moduler-pakken):

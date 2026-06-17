@@ -6,6 +6,7 @@ import { ScriptsTemplate } from "../views/scripts";
 import { HeadAssetsTemplate } from "../head";
 import { Handler } from "hono";
 import { env } from "../env/server";
+import { logger } from "decorator-shared/logger";
 
 type SsrPayload = {
     header: string;
@@ -17,6 +18,7 @@ type SsrPayload = {
 
 export const ssrApiHandler: Handler = async ({ req, json }) => {
     const query = req.query();
+
     const params = parseAndValidateParams(
         query,
         {

@@ -90,7 +90,7 @@ export const validateParams = (params: Record<string, string>) => {
 
 export const parseAndValidateParams = (
     query: Record<string, string>,
-    requestHeaders?: Record<string, string | undefined>,
+    requestHeaders: Record<string, string | undefined> = {},
     requestType?: "ssr" | "csr",
 ): Params => {
     const appName = query.naisAppName;
@@ -99,10 +99,18 @@ export const parseAndValidateParams = (
     const getConsumer = () => {
         if (appName) {
             return `${namespace ?? "unknown namespace"}/${appName}`;
-        } else if (requestHeaders?.["x-teamname"]) {
+        }
+
+        if (requestHeaders["x-teamname"]) {
             return `x-teamname: ${requestHeaders["x-teamname"]}`;
-        } else if (requestHeaders?.["origin"]) {
-            return `origin: ${requestHeaders["origin"]}`;
+        }
+
+        if (requestHeaders.origin) {
+            return `origin: ${requestHeaders.origin}`;
+        }
+
+        if (query.teamName) {
+            return `teamName: ${query.teamName}`;
         }
     };
 
@@ -111,18 +119,18 @@ export const parseAndValidateParams = (
     if (!consumer) {
         if (requestType === "ssr") {
             logger.warn(
-                "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett request-headeren X-Teamname slik at eventuelle feil kan spores tilbake til riktig team.",
+                "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett request-headeren x-teamname slik at eventuelle feil kan spores tilbake til riktig team.",
             );
-        } else if (requestType === "csr") {
+        } else {
             logger.warn(
                 "Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler). Hvis du bruker @navikt/nav-dekoratoren-moduler, må du angi teamName i injectDecoratorClientSide slik at forespørselen kan knyttes til riktig team.",
             );
         }
+    } else {
+        logger.info("Decorator consumer info.", {
+            metaData: { consumer },
+        });
     }
-
-    logger.info("Decorator consumer info.", {
-        metaData: { consumer: consumer ?? "unknown" },
-    });
 
     const validParams = paramsSchema.safeParse(validateParams(query));
 

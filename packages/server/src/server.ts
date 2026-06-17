@@ -98,7 +98,7 @@ app.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
             ...parseAndValidateParams(req.query(), {
-                "x-teamname": req.header("x-teamname"),
+                teamname: req.header("x-teamname"),
                 origin: req.header("origin"),
             }),
             query: req.query("q") ?? "",
@@ -113,7 +113,7 @@ app.get("/main-menu", async ({ req, html }) => {
         return html("");
     }
     const data = parseAndValidateParams(req.query(), {
-        "x-teamname": req.header("x-teamname"),
+        teamname: req.header("x-teamname"),
         origin: req.header("origin"),
     });
     return html(
@@ -129,7 +129,7 @@ app.get("/auth", async ({ req, json }) =>
     json(
         await authHandler({
             params: parseAndValidateParams(req.query(), {
-                "x-teamname": req.header("x-teamname"),
+                teamname: req.header("x-teamname"),
                 origin: req.header("origin"),
             }),
             cookie: req.header("Cookie") ?? "",
@@ -144,7 +144,7 @@ app.get("/header", async ({ req, html }) => {
         return html("");
     }
     const params = parseAndValidateParams(req.query(), {
-        "x-teamname": req.header("x-teamname"),
+        teamname: req.header("x-teamname"),
         origin: req.header("origin"),
     });
     return html(
@@ -159,7 +159,7 @@ app.get("/footer", async ({ req, html }) => {
         return html("");
     }
     const params = parseAndValidateParams(req.query(), {
-        "x-teamname": req.header("x-teamname"),
+        teamname: req.header("x-teamname"),
         origin: req.header("origin"),
     });
     return html(
@@ -181,7 +181,7 @@ app.on("GET", ["/env", "/csr"], async ({ req, json }) => {
     const params = parseAndValidateParams(
         query,
         {
-            "x-teamname": req.header("x-teamname"),
+            teamname: req.header("x-teamname"),
             origin: req.header("origin"),
         },
         "csr",
@@ -231,7 +231,7 @@ app.get("/", async ({ req, html }) =>
             rawParams: req.query(),
             url: req.url,
             requestHeaders: {
-                "x-teamname": req.header("x-teamname"),
+                teamname: req.header("x-teamname"),
                 origin: req.header("origin"),
             },
         }),
