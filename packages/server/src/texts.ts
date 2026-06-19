@@ -50,7 +50,7 @@ export const nb = {
     token_warning_title: "Du blir snart logget ut automatisk",
     token_warning_body: "Vil du fortsatt være innlogget?",
     session_warning_title:
-        'Du blir logget ut automatisk om ca. <span class="session-time-remaining">$1</span> minutter',
+        'Du blir logget ut automatisk om ca. <span data-hydrate="logout.time">$1</span> minutter',
     session_warning_body: "Avslutt det du jobber med og logg inn igjen.",
     yes: "Ja",
     no: "Nei",
@@ -168,7 +168,7 @@ const en: Texts = {
     token_warning_title: "You will soon be logged out automatically",
     token_warning_body: "Would you like to stay logged in?",
     session_warning_title:
-        'You will be logged out automatically in about <span class="session-time-remaining">$1</span> minutes',
+        'You will be logged out automatically in about <span data-hydrate="logout.time">$1</span> minutes',
     session_warning_body: "Avslutt det du jobber med og logg inn igjen.",
     yes: "Yes",
     no: "No",

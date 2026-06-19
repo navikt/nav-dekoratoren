@@ -7,6 +7,8 @@ import utilsCls from "decorator-client/src/styles/utils.module.css";
 import { BurgerIcon, SearchIcon } from "decorator-icons";
 import html, { Template } from "decorator-shared/html";
 import { Context, Language } from "decorator-shared/params";
+import { headerHook } from "decorator-shared/views/header";
+import { hydrateAttr } from "decorator-shared/hydration";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import { ContextLink } from "../../context";
 import i18n from "../../i18n";
@@ -37,7 +39,12 @@ export function ComplexHeader({
     mainMenu,
 }: ComplexHeaderProps) {
     return html`
-        <div class="${cls.siteheader}" id="toppen" data-color="neutral">
+        <div
+            class="${cls.siteheader}"
+            ${hydrateAttr(headerHook.content)}
+            id="toppen"
+            data-color="neutral"
+        >
             ${SkipLink(i18n("skip_link"))}
             ${Sticky({
                 children: html`
@@ -85,10 +92,12 @@ export function ComplexHeader({
                             >
                                 ${language !== "se" &&
                                 DropdownMenu({
-                                    button: HeaderButton({
-                                        content: i18n("menu"),
-                                        icon: BurgerIcon(),
-                                    }),
+                                    button: (attributes) =>
+                                        HeaderButton({
+                                            content: i18n("menu"),
+                                            icon: BurgerIcon(),
+                                            attributes,
+                                        }),
                                     dropdownContent: html`
                                         <search-menu
                                             class="${menuCls.searchMenu}"
@@ -102,11 +111,14 @@ export function ComplexHeader({
                                     },
                                 })}
                                 ${DropdownMenu({
-                                    button: HeaderButton({
-                                        content: i18n("search"),
-                                        icon: SearchIcon(),
-                                        className: menuItemsCls.searchButton,
-                                    }),
+                                    button: (attributes) =>
+                                        HeaderButton({
+                                            content: i18n("search"),
+                                            icon: SearchIcon(),
+                                            className:
+                                                menuItemsCls.searchButton,
+                                            attributes,
+                                        }),
                                     dropdownClass: menuItemsCls.searchDropdown,
                                     dropdownContent: html`
                                         <search-menu

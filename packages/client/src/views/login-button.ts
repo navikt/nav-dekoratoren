@@ -1,13 +1,18 @@
 import { parseUrl } from "../helpers/urls";
+import { onParamsUpdated } from "../helpers/params-updated";
 import { env } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
 import { logger } from "decorator-shared/logger";
 
 class LoginButton extends HTMLElement {
+    private unsubscribeParams?: () => void;
+
     connectedCallback() {
-        window.addEventListener("paramsupdated", this.update);
-        this.update();
+        this.unsubscribeParams = onParamsUpdated({
+            initial: true,
+            update: this.update,
+        });
         this.addEventListener(
             "click",
             analyticsClickListener(() => ({
@@ -19,7 +24,7 @@ class LoginButton extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.update);
+        this.unsubscribeParams?.();
     }
 
     update = () => {

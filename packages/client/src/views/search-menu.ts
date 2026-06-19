@@ -1,8 +1,8 @@
 import html from "decorator-shared/html";
+import { searchFormSelector } from "decorator-shared/views/search-form";
 import debounce from "lodash.debounce";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { env, param } from "../params";
-import cls from "../styles/search-form.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsEvent } from "../analytics/analytics";
 
@@ -29,8 +29,8 @@ class SearchMenu extends HTMLElement {
     focus = () => this.input?.focus();
 
     connectedCallback() {
-        this.form = this.querySelector(`.${cls.searchForm}`);
-        this.input = this.querySelector(`.${cls.searchInput}`);
+        this.form = this.querySelector(searchFormSelector.form);
+        this.input = this.querySelector(searchFormSelector.input);
         this.parentDropdown = this.closest("dropdown-menu");
 
         if (this.getAttribute("data-auto-focus") !== null) {

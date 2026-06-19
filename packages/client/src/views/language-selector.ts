@@ -1,6 +1,12 @@
 import { type AvailableLanguage, type Language } from "decorator-shared/params";
 import { languageLabels } from "decorator-shared/constants";
+import html from "decorator-shared/html";
+import {
+    LanguageSelectorOption,
+    languageSelectorSelector,
+} from "decorator-shared/views/language-selector";
 import { CustomEvents } from "../events";
+import { getRequiredElement, templateToFragment } from "../helpers/dom";
 import { param, updateDecoratorParams } from "../params";
 import cls from "../styles/language-selector.module.css";
 import utils from "../styles/utils.module.css";
@@ -14,19 +20,26 @@ export class LanguageSelector extends HTMLElement {
     #open = false;
     options: (HTMLAnchorElement | HTMLButtonElement)[] = [];
     #language?: Language;
+    #hydrated = false;
 
     set language(language: Language) {
         for (const option of this.options) {
-            option.classList.toggle(
-                cls.selected,
-                option.dataset.locale === language,
+            const isSelected = option.dataset.locale === language;
+            option.classList.toggle(cls.selected, isSelected);
+            option.setAttribute(
+                "aria-current",
+                isSelected
+                    ? option instanceof HTMLAnchorElement
+                        ? "page"
+                        : "true"
+                    : "false",
             );
         }
         this.#language = language;
     }
 
     set availableLanguages(availableLanguages: AvailableLanguage[]) {
-        if (this.options.length === 0 && this.menu?.children.length > 0) {
+        if (!this.#hydrated && this.menu?.children.length > 0) {
             this.hydrateFromDOM(availableLanguages);
         } else {
             this.regenerateMenu(availableLanguages);
@@ -50,14 +63,17 @@ export class LanguageSelector extends HTMLElement {
 
     private hydrateFromDOM(availableLanguages: AvailableLanguage[]) {
         this.options = [];
-        const listItems = this.menu.querySelectorAll("li");
+        const options = this.menu.querySelectorAll(
+            languageSelectorSelector.option,
+        );
 
-        for (const li of listItems) {
-            const option = li.querySelector("button, a") as
-                | HTMLButtonElement
-                | HTMLAnchorElement;
-            if (!option) continue;
-
+        for (const option of options) {
+            if (
+                !(option instanceof HTMLButtonElement) &&
+                !(option instanceof HTMLAnchorElement)
+            ) {
+                continue;
+            }
             const locale = option.dataset.locale;
             if (!locale) continue;
 
@@ -83,73 +99,37 @@ export class LanguageSelector extends HTMLElement {
             option.addEventListener("blur", this.onBlur as EventListener);
             this.options.push(option);
         }
+        this.#hydrated = true;
     }
 
     private regenerateMenu(availableLanguages: AvailableLanguage[]) {
-        const availableLanguageToLi = (language: AvailableLanguage) => {
-            const li = document.createElement("li");
-            let option: HTMLAnchorElement | HTMLButtonElement;
-
-            if (language.handleInApp) {
-                option = document.createElement("button");
-
-                option.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    updateDecoratorParams({ language: language.locale });
-                    window.postMessage({
-                        source: "decorator",
-                        event: "languageSelect",
-                        payload: language,
-                    });
-                    this.sendLanguageSelectAnalytics(language.locale);
-                    this.open = false;
-                });
-                option.addEventListener("blur", this.onBlur);
-                option.setAttribute(
-                    "aria-current",
-                    language.locale === this.#language ? "true" : "false",
-                );
-            } else {
-                option = document.createElement("a");
-                option.href = language.url;
-                option.addEventListener("blur", this.onBlur);
-                option.setAttribute(
-                    "aria-current",
-                    language.locale === this.#language ? "page" : "false",
-                );
-            }
-            option.classList.add(cls.option);
-            option.setAttribute("data-locale", language.locale);
-            option.classList.toggle(
-                cls.selected,
-                language.locale === this.#language,
-            );
-            option.innerHTML = languageLabels[language.locale];
-            this.options.push(option);
-            li.appendChild(option);
-            return li;
-        };
-
-        this.options = [];
-        this.menu.replaceChildren(
-            ...availableLanguages.map(availableLanguageToLi),
+        const fragment = templateToFragment(
+            html`${availableLanguages.map((language) =>
+                LanguageSelectorOption({
+                    language,
+                    currentLanguage: this.#language,
+                }),
+            )}`,
+            this.#language ?? "nb",
         );
+
+        this.menu.replaceChildren(...fragment.childNodes);
+        this.hydrateFromDOM(availableLanguages);
     }
 
     connectedCallback() {
-        this.container = this.querySelector(`.${cls.languageSelector}`)!;
-
-        const existingMenu = this.container.querySelector("ul");
-        if (existingMenu) {
-            this.menu = existingMenu as HTMLElement;
-        } else {
-            this.menu = document.createElement("ul");
-            this.menu.classList.add(cls.menu, utils.hidden);
-            this.menu.id = "decorator-language-menu";
-            this.container.appendChild(this.menu);
-        }
-
-        this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
+        this.container = getRequiredElement<HTMLDivElement>(
+            this,
+            languageSelectorSelector.container,
+        );
+        this.menu = getRequiredElement<HTMLElement>(
+            this.container,
+            languageSelectorSelector.menu,
+        );
+        this.button = getRequiredElement<HTMLButtonElement>(
+            this,
+            languageSelectorSelector.trigger,
+        );
         this.button.addEventListener("click", () => {
             this.open = !this.#open;
         });

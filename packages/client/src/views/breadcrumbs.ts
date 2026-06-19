@@ -1,12 +1,14 @@
 import type { Breadcrumb } from "decorator-shared/params";
 import { Breadcrumbs as BreadcrumbsTemplate } from "decorator-shared/views/breadcrumbs";
-import { CustomEvents } from "../events";
+import { onParamsUpdated } from "../helpers/params-updated";
 import { env, param } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import i18n from "./i18n";
 import { analyticsClickListener } from "../analytics/analytics";
 
 class Breadcrumbs extends HTMLElement {
+    private unsubscribeParams?: () => void;
+
     update = (breadcrumbs: Breadcrumb[]) => {
         this.innerHTML =
             BreadcrumbsTemplate({
@@ -14,14 +16,6 @@ class Breadcrumbs extends HTMLElement {
                 label: i18n("breadcrumbs"),
                 frontPageUrl: env("XP_BASE_URL"),
             })?.render({ language: param("language") }) ?? "";
-    };
-
-    handleParamsUpdated = (
-        event: CustomEvent<CustomEvents["paramsupdated"]>,
-    ) => {
-        if (event.detail.changedKeys.includes("breadcrumbs")) {
-            this.update(event.detail.params.breadcrumbs);
-        }
     };
 
     handleClick = (e: MouseEvent) => {
@@ -42,8 +36,10 @@ class Breadcrumbs extends HTMLElement {
     };
 
     connectedCallback() {
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
-        this.update(param("breadcrumbs"));
+        this.unsubscribeParams = onParamsUpdated({
+            keys: ["breadcrumbs"],
+            update: ({ breadcrumbs }) => this.update(breadcrumbs),
+        });
         this.addEventListener("click", this.handleClick);
         this.addEventListener(
             "click",
@@ -57,7 +53,7 @@ class Breadcrumbs extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams?.();
     }
 }
 

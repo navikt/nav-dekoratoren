@@ -1,4 +1,5 @@
 import { AuthDataResponse } from "decorator-shared/auth";
+import { userMenuSelector } from "decorator-shared/views/user-menu";
 import { CustomEvents } from "../events";
 import cls from "../styles/user-menu.module.css";
 import utils from "../styles/utils.module.css";
@@ -7,7 +8,9 @@ import { defineCustomElement } from "./custom-elements";
 class UserMenu extends HTMLElement {
     private update = (auth: AuthDataResponse) => {
         this.classList.add(cls.userMenuContainer);
-        this.querySelector(`.${cls.loader}`)?.classList.add(utils.hidden);
+        this.querySelector(userMenuSelector.loader)?.classList.add(
+            utils.hidden,
+        );
         if (auth.auth.authenticated) {
             this.innerHTML = auth.usermenuHtml!;
         } else {

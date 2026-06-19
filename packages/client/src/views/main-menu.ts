@@ -1,11 +1,11 @@
 import { type Context } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { endpointUrlWithParams } from "../helpers/urls";
+import { onParamsUpdated } from "../helpers/params-updated";
 import { param } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
 import { logger } from "decorator-shared/logger";
-import { CustomEvents } from "../events";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
 
@@ -13,6 +13,7 @@ class MainMenu extends HTMLElement {
     private readonly responseCache = new ResponseCache<string>({
         ttl: TEN_MIN_MS,
     });
+    private unsubscribeParams?: () => void;
 
     private async fetchMenuContent(context: Context) {
         const url = endpointUrlWithParams("/main-menu", { context });
@@ -40,16 +41,11 @@ class MainMenu extends HTMLElement {
             });
     };
 
-    handleParamsUpdated = (
-        event: CustomEvent<CustomEvents["paramsupdated"]>,
-    ) => {
-        if (event.detail.changedKeys.includes("context")) {
-            this.updateMenuContent(event.detail.params.context);
-        }
-    };
-
     connectedCallback() {
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams = onParamsUpdated({
+            keys: ["context"],
+            update: ({ context }) => this.updateMenuContent(context),
+        });
 
         if (!param("ssrMainMenu")) {
             this.updateMenuContent(param("context"));
@@ -69,7 +65,7 @@ class MainMenu extends HTMLElement {
     }
 
     disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams?.();
     }
 }
 

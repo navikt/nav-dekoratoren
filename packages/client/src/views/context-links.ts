@@ -1,22 +1,20 @@
+import type { ClientParams } from "decorator-shared/params";
 import { analyticsClickListener } from "../analytics/analytics";
 import { AnalyticsKategori } from "../analytics/types";
-import { CustomEvents } from "../events";
+import { onParamsUpdated } from "../helpers/params-updated";
 import headerClasses from "../styles/header.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 class ContextLinks extends HTMLElement {
-    handleParamsUpdated = (
-        event: CustomEvent<CustomEvents["paramsupdated"]>,
-    ) => {
-        if (event.detail.changedKeys.includes("context")) {
-            const { context } = event.detail.params;
-            this.querySelectorAll("a").forEach((anchor) => {
-                anchor.classList.toggle(
-                    headerClasses.lenkeActive,
-                    anchor.getAttribute("data-context") === context,
-                );
-            });
-        }
+    private unsubscribeParams?: () => void;
+
+    private updateActiveContext = ({ context }: ClientParams) => {
+        this.querySelectorAll("a").forEach((anchor) => {
+            anchor.classList.toggle(
+                headerClasses.lenkeActive,
+                anchor.getAttribute("data-context") === context,
+            );
+        });
     };
 
     connectedCallback() {
@@ -31,11 +29,14 @@ class ContextLinks extends HTMLElement {
                 lenketekst: anchor.getAttribute("data-context") ?? undefined,
             })),
         );
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams = onParamsUpdated({
+            keys: ["context"],
+            update: this.updateActiveContext,
+        });
     }
 
     disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams?.();
     }
 }
 

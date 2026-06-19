@@ -1,4 +1,4 @@
-import cls from "decorator-client/src/styles/feedback.module.css";
+import { feedbackSelector } from "decorator-shared/views/feedback";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { logAnalyticsEvent } from "../analytics/analytics";
@@ -7,10 +7,10 @@ class DecoratorFeedback extends HTMLElement {
     connectedCallback() {
         this.querySelectorAll("button").forEach((button) =>
             button.addEventListener("click", () => {
-                this.querySelector(`.${cls.feedbackContent}`)?.classList.add(
+                this.querySelector(feedbackSelector.content)?.classList.add(
                     utils.hidden,
                 );
-                this.querySelector(`.${cls.feedbackSuccess}`)?.classList.remove(
+                this.querySelector(feedbackSelector.success)?.classList.remove(
                     utils.hidden,
                 );
                 logAnalyticsEvent("tilbakemelding", {

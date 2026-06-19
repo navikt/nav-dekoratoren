@@ -1,10 +1,12 @@
-import { CustomEvents } from "../events";
+import { onParamsUpdated } from "../helpers/params-updated";
 import { param } from "../params";
 import cls from "../styles/decorator-utils.module.css";
 import utils from "../styles/utils.module.css";
 import { defineCustomElement } from "./custom-elements";
 
 class DecoratorUtils extends HTMLElement {
+    private unsubscribeParams?: () => void;
+
     update = () => {
         this.classList.toggle(
             utils.hidden,
@@ -18,30 +20,16 @@ class DecoratorUtils extends HTMLElement {
     };
 
     connectedCallback() {
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
-        this.update();
+        this.unsubscribeParams = onParamsUpdated({
+            keys: ["availableLanguages", "breadcrumbs", "utilsBackground"],
+            initial: true,
+            update: this.update,
+        });
     }
 
     disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams?.();
     }
-
-    handleParamsUpdated = (
-        event: CustomEvent<CustomEvents["paramsupdated"]>,
-    ) => {
-        const relevantKeys = [
-            "availableLanguages",
-            "breadcrumbs",
-            "utilsBackground",
-        ] as const;
-        if (
-            event.detail.changedKeys.some((k) =>
-                relevantKeys.includes(k as (typeof relevantKeys)[number]),
-            )
-        ) {
-            this.update();
-        }
-    };
 }
 
 defineCustomElement("decorator-utils", DecoratorUtils);

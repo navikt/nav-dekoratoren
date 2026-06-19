@@ -1,8 +1,8 @@
 import { paramsSchema, type ClientParams } from "decorator-shared/params";
 import { logger } from "decorator-shared/logger";
 import { updateDecoratorParams } from "../params";
-import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
+import { onParamsUpdated } from "../helpers/params-updated";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 
@@ -13,6 +13,8 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 ] as const;
 
 class Footer extends HTMLElement {
+    private unsubscribeParams?: () => void;
+
     private readonly handleMessage = (e: MessageEvent) => {
         const { event, payload } = e.data;
         if (event == "params") {
@@ -44,21 +46,6 @@ class Footer extends HTMLElement {
             .then((footer) => (this.innerHTML = footer));
     };
 
-    private readonly handleParamsUpdated = (
-        e: CustomEvent<CustomEvents["paramsupdated"]>,
-    ) => {
-        const { changedKeys } = e.detail;
-        if (
-            changedKeys.includes("context") ||
-            changedKeys.includes("language") ||
-            changedKeys.includes("feedback") ||
-            changedKeys.includes("simple") ||
-            changedKeys.includes("simpleFooter")
-        ) {
-            this.refreshFooter();
-        }
-    };
-
     connectedCallback() {
         this.addEventListener(
             "click",
@@ -70,12 +57,15 @@ class Footer extends HTMLElement {
             })),
         );
         window.addEventListener("message", this.handleMessage);
-        window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams = onParamsUpdated({
+            keys: ["context", "language", "feedback", "simple", "simpleFooter"],
+            update: this.refreshFooter,
+        });
     }
 
     disconnectedCallback() {
         window.removeEventListener("message", this.handleMessage);
-        window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        this.unsubscribeParams?.();
     }
 }
 

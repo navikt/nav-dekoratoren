@@ -3,13 +3,15 @@ import aksel from "decorator-client/src/styles/aksel.module.css";
 import cls from "decorator-client/src/styles/feedback.module.css";
 import utils from "decorator-client/src/styles/utils.module.css";
 import html from "decorator-shared/html";
+import { feedbackHook } from "decorator-shared/views/feedback";
+import { hydrateAttr } from "decorator-shared/hydration";
 import i18n from "../i18n";
 import { Button } from "./components/button";
 
 export const Feedback = ({ contactUrl }: { contactUrl: string }) => html`
     <d-feedback class="${cls.feedback}">
         <section aria-label="${i18n("feedback")} ${i18n("did_you_find")}"
-            <div class="${cls.feedbackContent}">
+            <div class="${cls.feedbackContent}" ${hydrateAttr(feedbackHook.content)}>
                 <h2
                     class="${clsx(
                         aksel["aksel-body-short"],
@@ -31,7 +33,7 @@ export const Feedback = ({ contactUrl }: { contactUrl: string }) => html`
                     })}
                 </div>
             </div>
-            <div class="${clsx(cls.feedbackSuccess, utils.hidden)}">
+            <div class="${clsx(cls.feedbackSuccess, utils.hidden)}" ${hydrateAttr(feedbackHook.success)}>
                 <h2 class="${clsx(aksel["aksel-heading"])}">
                     ${i18n("send_undersokelse_takk")}
                 </h2>

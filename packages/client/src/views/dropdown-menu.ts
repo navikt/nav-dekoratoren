@@ -1,4 +1,6 @@
+import { dropdownMenuSelector } from "decorator-shared/views/dropdown-menu";
 import { createEvent } from "../events";
+import { getRequiredElement } from "../helpers/dom";
 import cls from "../styles/dropdown-menu.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsEvent } from "../analytics/analytics";
@@ -55,7 +57,7 @@ class DropdownMenu extends HTMLElement {
     };
 
     connectedCallback() {
-        this.button = this.querySelector(":scope > button")!;
+        this.button = getRequiredElement(this, dropdownMenuSelector.trigger);
         this.button.addEventListener("click", () => this.toggle());
         this.menuType = this.getAttribute("menu-type") as MenuType;
         window.addEventListener("click", this.handleWindowClick);

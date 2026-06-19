@@ -30,13 +30,15 @@ export const UserMenuDropdown = ({
     personopplysningerUrl,
 }: UserMenuDropdownProps) => {
     return DropdownMenu({
-        button: HeaderButton({
-            content: html`<span class="${cls.name}">${name}</span>`,
-            icon:
-                notifications && notifications.length > 0
-                    ? PersonCircleNotificationIcon({})
-                    : PersonCircleIcon({}),
-        }),
+        button: (attributes) =>
+            HeaderButton({
+                content: html`<span class="${cls.name}">${name}</span>`,
+                attributes,
+                icon:
+                    notifications && notifications.length > 0
+                        ? PersonCircleNotificationIcon({})
+                        : PersonCircleIcon({}),
+            }),
         dropdownClass: cls.userMenuDropdown,
         dropdownContent: UserMenu({
             name,
