@@ -113,6 +113,8 @@ export const clientParamKeys: Array<keyof Params> = [
     "chatbot",
     "chatbotVisible",
     "shareScreen",
+    "logoutUrl",
+    "redirectToUrlLogout",
     "logoutWarning",
     "feedback",
     "redirectOnUserChange",
