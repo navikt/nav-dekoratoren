@@ -19,11 +19,6 @@ const mockStorageDictionary: PublicStorageItem[] = [
         optional: true,
     },
     {
-        name: "ta-dekoratoren-*",
-        type: "cookie",
-        optional: true,
-    },
-    {
         name: "_hjSession*",
         type: "cookie",
         optional: true,
@@ -41,7 +36,6 @@ describe("Tester webStorage", () => {
         Cookies.set("_hjSessionUser_118350", "foobar");
         Cookies.set("amp_abcdef", "foobar");
         Cookies.set("selvbetjening-idtoken", "foobar");
-        Cookies.set("ta-dekoratoren-1234", "foobar");
         Cookies.set("ukjent-cookie", "foobar");
 
         window.localStorage.setItem("usertest-1234", "foobar");
@@ -63,7 +57,6 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("AMP_1234")).toBe("foobar");
         expect(Cookies.get("_hjSessionUser_118350")).toBe("foobar");
         expect(Cookies.get("amp_abcdef")).toBe("foobar");
-        expect(Cookies.get("ta-dekoratoren-1234")).toBe("foobar");
 
         new WebStorageController();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -73,7 +66,6 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("AMP_1234")).toBe(undefined);
         expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
         expect(Cookies.get("amp_abcdef")).toBe(undefined);
-        expect(Cookies.get("ta-dekoratoren-1234")).toBe(undefined);
     });
     it("kjente nødvendige cookies slettes ikkenår cookie-banner vises", async () => {
         expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");

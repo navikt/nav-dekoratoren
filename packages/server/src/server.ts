@@ -14,10 +14,6 @@ import { headAssets } from "./head";
 import { setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
-import {
-    getTaskAnalyticsSurveys,
-    closeTaskAnalyticsWatcher,
-} from "./task-analytics-config";
 import { getFeatures } from "./unleash";
 import { isLocalhost } from "./urls";
 import { parseAndValidateParams } from "./validateParams";
@@ -73,9 +69,6 @@ app.get("/api/isAlive", ({ text }) => text("OK"));
 app.get("/api/isReady", ({ text }) => text("OK"));
 
 app.get("/api/version", versionApiHandler);
-app.get("/api/ta", ({ json }) => {
-    return json(getTaskAnalyticsSurveys());
-});
 
 app.post("/api/consentping", consentpingHandler);
 
@@ -221,7 +214,6 @@ serve({ fetch: app.fetch, port });
 logger.info(`Server running on port ${port}`);
 
 const shutdown = () => {
-    closeTaskAnalyticsWatcher();
     closeVersionApiWatcher();
     process.exit(0);
 };

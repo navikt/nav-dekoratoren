@@ -25,7 +25,6 @@ const vimeoPlayer = "player.vimeo.com"; // used for inline videos in the chat cl
 const qbrick = "video.qbrick.com"; // used for inline videos in the chat client
 const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
 const skyra = "*.skyra.no";
-const taskAnalytics = "*.taskanalytics.com";
 const googleFonts = "*.googleapis.com";
 const googleFontsStatic = "*.gstatic.com";
 
@@ -43,7 +42,6 @@ const scriptSrc = [
     vergicScreenSharing,
     puzzelScreenSharing,
     skyra,
-    taskAnalytics,
     boostScript,
     // localhost testing
     UNSAFE_INLINE, // vergic/puzzel
@@ -91,7 +89,6 @@ const directives: Partial<CSPDirectives> = {
         puzzelScreenSharing,
         puzzelWebSocket,
         skyra,
-        taskAnalytics,
     ],
 };
 

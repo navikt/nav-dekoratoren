@@ -29,8 +29,6 @@ declare global {
             expireToken: (seconds: number) => void;
             expireSession: (seconds: number) => void;
         };
-        // For task analytics, should have better types?
-        TA: any;
         hj: any;
         _hjSettings: any;
         hjBootstrap: any;
@@ -89,7 +87,6 @@ declare global {
             ) => void,
         ): void;
         webStorageController: WebStorageController;
-        initConditionalTaskAnalytics: () => void;
         dekoratorenIsReady?: () => true;
     }
 }
