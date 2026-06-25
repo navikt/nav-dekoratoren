@@ -90,11 +90,60 @@ export const validateParams = (params: Record<string, string>) => {
 
 export const parseAndValidateParams = (
     query: Record<string, string>,
+    requestHeaders: Record<string, string | undefined> = {},
+    requestType?: "ssr" | "csr",
 ): Params => {
+    const appName = query.naisAppName;
+    const namespace = query.naisNamespace;
+
+    const getConsumer = () => {
+        // SSR med nav-dekoratoren-moduler
+        if (appName) {
+            return `${namespace ?? "unknown namespace"}/${appName}`;
+        }
+
+        // SSR uten nav-dekoratoren-moduler
+        if (requestHeaders["x-teamname"]) {
+            return `x-teamname: ${requestHeaders["x-teamname"]}`;
+        }
+
+        // CSR uten nav-dekoratoren-moduler
+        // Fallback for CSR med nav-dekoratoren-moduler
+        if (requestHeaders.origin) {
+            return `origin: ${requestHeaders.origin}`;
+        }
+
+        // CSR med nav-dekoratoren-moduler
+        if (query.teamName) {
+            return `teamName: ${query.teamName}`;
+        }
+    };
+
+    const consumer = getConsumer();
+
+    if (!consumer) {
+        if (requestType === "ssr") {
+            logger.warn(
+                "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett request-headeren x-teamname slik at eventuelle feil kan spores tilbake til riktig team.",
+            );
+        } else {
+            logger.warn(
+                "Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler). Hvis du bruker @navikt/nav-dekoratoren-moduler, må du angi teamName i injectDecoratorClientSide slik at forespørselen kan knyttes til riktig team.",
+            );
+        }
+    } else {
+        logger.info("Decorator consumer info.", {
+            metaData: { consumer },
+        });
+    }
+
     const validParams = paramsSchema.safeParse(validateParams(query));
 
     if (!validParams.success) {
-        logger.error("Failed to validate params", { error: validParams.error });
+        logger.error("Failed to validate params", {
+            error: validParams.error,
+            metaData: { consumer: consumer ?? "unknown" },
+        });
         throw new Error("Failed to validate params");
     }
 
