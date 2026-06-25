@@ -7,11 +7,6 @@ vi.mock("./amplitude", () => ({
     initMockAmplitude: vi.fn(),
 }));
 
-vi.mock("./task-analytics/ta", () => ({
-    initTaskAnalyticsScript: vi.fn(),
-    stopTaskAnalytics: vi.fn(),
-}));
-
 vi.mock("./umami", () => ({
     createUmamiEvent: vi.fn(),
     initUmami: vi.fn(),

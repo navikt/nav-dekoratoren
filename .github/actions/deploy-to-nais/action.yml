@@ -75,6 +75,12 @@ runs:
         CLUSTER: ${{ inputs.CLUSTER }}
         RESOURCE: .nais/hpa/${{inputs.HPA_FILE}}
 
+    - name: Deploy network policy
+      uses: nais/deploy/actions/deploy@v2
+      env:
+        CLUSTER: ${{ inputs.CLUSTER }}
+        RESOURCE: .nais/network-policy.yml
+
     - name: Deploy current version
       uses: nais/deploy/actions/deploy@v2
       env:

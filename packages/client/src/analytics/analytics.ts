@@ -1,7 +1,3 @@
-import {
-    initTaskAnalyticsScript,
-    stopTaskAnalytics,
-} from "./task-analytics/ta";
 import { initMockAmplitude } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
 import { DEFAULT_ORIGIN } from "./constants";
@@ -28,7 +24,6 @@ export const mockAnalytics = () => {
 
 export const initAnalytics = (auth: Auth) => {
     initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
-    initTaskAnalyticsScript();
     initUmami();
 
     // This function is exposed for use from consuming applications
@@ -41,7 +36,6 @@ export const initAnalytics = (auth: Auth) => {
 
 export const stopAnalytics = (auth: Auth) => {
     stopUmami();
-    stopTaskAnalytics();
 
     // Pass the same function reference
     window.removeEventListener("historyPush", logPageViewCallback(auth));

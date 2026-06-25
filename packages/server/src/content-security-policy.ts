@@ -23,9 +23,10 @@ const boostChatbot = "*.boost.ai";
 const boostScript = `${clientEnv.BOOST_ENV}.boost.ai`;
 const vimeoPlayer = "player.vimeo.com"; // used for inline videos in the chat client
 const qbrick = "video.qbrick.com"; // used for inline videos in the chat client
+const qbrickNotification = "wss://notification.qbrick.com"; // websocket used by qbrick player
+const qbrickMediaCdn = "*.dna.contentdelivery.net"; // qbrick media delivery network
 const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
 const skyra = "*.skyra.no";
-const taskAnalytics = "*.taskanalytics.com";
 const googleFonts = "*.googleapis.com";
 const googleFontsStatic = "*.gstatic.com";
 
@@ -43,7 +44,6 @@ const scriptSrc = [
     vergicScreenSharing,
     puzzelScreenSharing,
     skyra,
-    taskAnalytics,
     boostScript,
     // localhost testing
     UNSAFE_INLINE, // vergic/puzzel
@@ -86,13 +86,15 @@ const directives: Partial<CSPDirectives> = {
     "connect-src": [
         navNo,
         uxsignalsApi,
+        qbrick,
+        qbrickNotification,
         boostChatbot,
         vergicScreenSharing,
         puzzelScreenSharing,
         puzzelWebSocket,
         skyra,
-        taskAnalytics,
     ],
+    "media-src": [navNo, qbrick, qbrickMediaCdn],
 };
 
 const localDirectives = Object.entries(directives).reduce(
