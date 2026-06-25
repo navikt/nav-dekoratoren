@@ -97,18 +97,23 @@ export const parseAndValidateParams = (
     const namespace = query.naisNamespace;
 
     const getConsumer = () => {
+        // SSR med nav-dekoratoren-moduler
         if (appName) {
             return `${namespace ?? "unknown namespace"}/${appName}`;
         }
 
+        // SSR uten nav-dekoratoren-moduler
         if (requestHeaders["x-teamname"]) {
             return `x-teamname: ${requestHeaders["x-teamname"]}`;
         }
 
+        // CSR uten nav-dekoratoren-moduler
+        // Fallback for CSR med nav-dekoratoren-moduler
         if (requestHeaders.origin) {
             return `origin: ${requestHeaders.origin}`;
         }
 
+        // CSR med nav-dekoratoren-moduler
         if (query.teamName) {
             return `teamName: ${query.teamName}`;
         }
