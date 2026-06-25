@@ -21,21 +21,48 @@ class LogoutWarning extends HTMLElement {
     private sessionDialog!: SessionDialog;
     private lastActivityAt = 0;
     private isEnabled = false;
-    private activityCheckTimer?: ReturnType<typeof globalThis.setInterval>;
+    private renewalTimer?: ReturnType<typeof globalThis.setTimeout>;
     private debugTimer?: ReturnType<typeof globalThis.setInterval>;
-    private static readonly ACTIVITY_CHECK_INTERVAL_MS = 30 * 60 * 1000;
+    private nextAutoRefreshInSeconds = 0;
     private static readonly DEBUG_LOG_INTERVAL_MS = 10 * 60 * 1000;
 
     private handleActivity = (event: Event) => {
         if (!this.isEnabled) return;
+        const isFirstActivity = this.renewalTimer === undefined;
         this.lastActivityAt = Date.now();
         log(`Aktivitet registrert: ${event.type}`);
+
+        if (isFirstActivity && this.nextAutoRefreshInSeconds > 0) {
+            this.scheduleRenewal(this.nextAutoRefreshInSeconds);
+        }
     };
 
     private isUserActive = () => this.lastActivityAt > 0;
 
     private resetActivity = () => {
         this.lastActivityAt = 0;
+        globalThis.clearTimeout(this.renewalTimer);
+        this.renewalTimer = undefined;
+    };
+
+    private scheduleRenewal = (inSeconds: number) => {
+        globalThis.clearTimeout(this.renewalTimer);
+        log(`Planlegger token-fornyelse om ${Math.round(inSeconds / 60)} min`);
+        this.renewalTimer = globalThis.setTimeout(async () => {
+            this.renewalTimer = undefined;
+            if (!this.isUserActive()) {
+                log("Planlagt fornyelse: bruker ikke aktiv → ingen fornyelse");
+                return;
+            }
+            log("Planlagt fornyelse: bruker aktiv → fornyer sesjon");
+            const sessionData = await fetchOrRenewSession("renew");
+            this.resetActivity();
+            if (sessionData) {
+                this.updateDialogs(sessionData);
+            } else {
+                log("Planlagt fornyelse returnerte null");
+            }
+        }, inSeconds * 1000);
     };
 
     private onVisibilityChange = async () => {
@@ -58,6 +85,13 @@ class LogoutWarning extends HTMLElement {
             );
             this.sessionDialog.sessionExpireAtLocal = sessionExpireAtLocal;
             this.tokenDialog.tokenExpireAtLocal = tokenExpireAtLocal;
+            this.nextAutoRefreshInSeconds =
+                sessionData.tokens.next_auto_refresh_in_seconds;
+            // Hvis bruker var aktiv før vi fikk session-data (f.eks. klikket under init-henting),
+            // planlegg fornyelse nå
+            if (this.isUserActive() && this.renewalTimer === undefined) {
+                this.scheduleRenewal(this.nextAutoRefreshInSeconds);
+            }
         } else {
             log("updateDialogs: sessionData er null — nullstiller dialoger");
             this.sessionDialog.sessionExpireAtLocal = undefined;
@@ -66,26 +100,11 @@ class LogoutWarning extends HTMLElement {
     };
 
     private init = async () => {
-        log("init() kalt — henter sesjonsstatus og starter aktivitetssjekk");
+        log(
+            "init() kalt — henter sesjonsstatus og planlegger aktivitetsbasert fornyelse",
+        );
         this.isEnabled = true;
         this.updateDialogs(await fetchOrRenewSession("fetch"));
-
-        globalThis.clearInterval(this.activityCheckTimer);
-        this.activityCheckTimer = globalThis.setInterval(async () => {
-            const aktiv = this.isUserActive();
-            log(
-                `Aktivitetssjekk (hvert ${LogoutWarning.ACTIVITY_CHECK_INTERVAL_MS / 60000} min): bruker ${aktiv ? "HAR vært aktiv → fornyer sesjon" : "har IKKE vært aktiv → ingen fornyelse"}`,
-            );
-            if (aktiv) {
-                const sessionData = await fetchOrRenewSession("renew");
-                if (sessionData) {
-                    this.updateDialogs(sessionData);
-                } else {
-                    log("Aktivitetssjekk: fornyelse returnerte null");
-                }
-                this.resetActivity();
-            }
-        }, LogoutWarning.ACTIVITY_CHECK_INTERVAL_MS);
 
         window.loginDebug = {
             expireToken: (seconds: number) => {
@@ -110,9 +129,10 @@ class LogoutWarning extends HTMLElement {
         if (val !== false) {
             this.init();
         } else {
-            log("logoutWarning=false — stopper aktivitetssjekk og nullstiller");
+            log(
+                "logoutWarning=false — stopper planlagt fornyelse og nullstiller",
+            );
             this.isEnabled = false;
-            globalThis.clearInterval(this.activityCheckTimer);
             this.resetActivity();
             this.updateDialogs(null);
         }
@@ -152,7 +172,7 @@ class LogoutWarning extends HTMLElement {
 
         this.debugTimer = globalThis.setInterval(() => {
             log(
-                `Statussjekkl: isEnabled=${this.isEnabled}, sistAktivitet=${this.lastActivityAt ? new Date(this.lastActivityAt).toLocaleTimeString("nb-NO") : "aldri"}`,
+                `Statussjekk: isEnabled=${this.isEnabled}, sistAktivitet=${this.lastActivityAt ? new Date(this.lastActivityAt).toLocaleTimeString("nb-NO") : "aldri"}, fornyelse=${this.renewalTimer ? "planlagt" : "ikke planlagt"}`,
             );
         }, LogoutWarning.DEBUG_LOG_INTERVAL_MS);
 
@@ -172,7 +192,7 @@ class LogoutWarning extends HTMLElement {
         window.removeEventListener("click", this.handleActivity);
         window.removeEventListener("scroll", this.handleActivity);
         window.removeEventListener("touchstart", this.handleActivity);
-        globalThis.clearInterval(this.activityCheckTimer);
+        globalThis.clearTimeout(this.renewalTimer);
         globalThis.clearInterval(this.debugTimer);
         window.loginDebug = undefined as any;
     }

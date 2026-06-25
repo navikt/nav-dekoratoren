@@ -1,11 +1,30 @@
 import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { SessionData } from "../../helpers/auth";
+import { fetchOrRenewSession, SessionData } from "../../helpers/auth";
 import "./logout-warning";
 import { TokenDialog } from "./token-dialog";
 
+const makeSessionData = (nextAutoRefreshInSeconds: number): SessionData => ({
+    session: {
+        created_at: "",
+        ends_at: "",
+        timeout_at: "",
+        ends_in_seconds: 7200,
+        active: true,
+        timeout_in_seconds: 7200,
+    },
+    tokens: {
+        expire_at: "",
+        refreshed_at: "",
+        expire_in_seconds: 3600,
+        next_auto_refresh_in_seconds: nextAutoRefreshInSeconds,
+        refresh_cooldown: false,
+        refresh_cooldown_seconds: 0,
+    },
+});
+
 vi.mock("../../helpers/auth", () => ({
-    fetchOrRenewSession: vi.fn().mockResolvedValue(null),
+    fetchOrRenewSession: vi.fn(),
     transformSessionToAuth: vi.fn(() => ({
         sessionExpireAtLocal: new Date(Date.now() + 3600_000).toISOString(),
         tokenExpireAtLocal: new Date(Date.now() + 3600_000).toISOString(),
@@ -52,12 +71,16 @@ describe("LogoutWarning — aktivitetssporing", () => {
         // kjøre i real-time, mens vi fortsatt har full kontroll via vi.advanceTimersByTime()
         vi.useFakeTimers({ shouldAdvanceTime: true });
         window.__DECORATOR_DATA__ = { params: {}, env: {}, texts: {} } as any;
+
+        // next_auto_refresh_in_seconds = 3300 (55 min) — standard produksjonsverdi
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(3300));
+
         el = await fixture(LOGOUT_WARNING_HTML);
         tokenDialog = el.querySelector("token-dialog")! as TokenDialog;
         (el.querySelector("dialog") as any).showModal = vi.fn();
         (el.querySelector("dialog") as any).close = vi.fn();
 
-        // Trigger init() slik at isEnabled = true og intervallet starter
+        // Trigger init() slik at isEnabled = true og nextAutoRefreshInSeconds settes
         window.dispatchEvent(
             new CustomEvent("paramsupdated", {
                 detail: {
@@ -104,10 +127,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     });
 
     it("aktivitet resettes etter token renewal via updateDialogs", async () => {
-        const { fetchOrRenewSession } = await import("../../helpers/auth");
-        const mockSessionData = {} as SessionData;
-        vi.mocked(fetchOrRenewSession).mockResolvedValue(mockSessionData);
-
         window.dispatchEvent(new KeyboardEvent("keydown"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
@@ -119,12 +138,9 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
-    it("proaktiv renewal kalles ikke når bruker er inaktiv etter 30 minutter", async () => {
-        const { fetchOrRenewSession } = await import("../../helpers/auth");
-        vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
-
-        // Ingen aktivitet — hopp frem 30 minutter
-        vi.advanceTimersByTime(30 * 60 * 1000);
+    it("proaktiv renewal kalles ikke når bruker er inaktiv", async () => {
+        // Ingen aktivitet → ingen renewal-timer planlagt → ingen renewal
+        vi.advanceTimersByTime(3300 * 1000);
         await Promise.resolve();
 
         expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalledWith(
@@ -132,29 +148,23 @@ describe("LogoutWarning — aktivitetssporing", () => {
         );
     });
 
-    it("proaktiv renewal kalles etter 30 minutter når bruker har vært aktiv", async () => {
-        const { fetchOrRenewSession } = await import("../../helpers/auth");
-        vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
-
-        // Bruker er aktiv
+    it("proaktiv renewal planlegges og kalles etter next_auto_refresh_in_seconds", async () => {
+        // Bruker er aktiv → renewal-timer planlegges basert på aktivitetstidspunktet
         window.dispatchEvent(new KeyboardEvent("keydown"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        // Hopp frem 30 minutter — intervallet sjekker aktivitet og fornyer
-        vi.advanceTimersByTime(30 * 60 * 1000);
+        // Frem til renewal-tidspunktet (next_auto_refresh_in_seconds etter aktivitet)
+        vi.advanceTimersByTime(3300 * 1000);
         await Promise.resolve();
 
         expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
     });
 
-    it("aktivitet resettes etter intervall-renewal", async () => {
-        const { fetchOrRenewSession } = await import("../../helpers/auth");
-        vi.mocked(fetchOrRenewSession).mockResolvedValue({} as SessionData);
-
+    it("aktivitet resettes etter planlagt renewal", async () => {
         window.dispatchEvent(new MouseEvent("click"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        vi.advanceTimersByTime(30 * 60 * 1000);
+        vi.advanceTimersByTime(3300 * 1000);
         await Promise.resolve();
 
         // Etter renewal skal aktivitet være nullstilt
