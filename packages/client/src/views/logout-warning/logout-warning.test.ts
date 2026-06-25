@@ -149,25 +149,74 @@ describe("LogoutWarning — aktivitetssporing", () => {
     });
 
     it("proaktiv renewal planlegges og kalles etter next_auto_refresh_in_seconds", async () => {
+        // Bruk kortere refresh-intervall (10 min) som fyrer FØR inaktivitetstimeren (30 min),
+        // slik at aktivitet fortsatt er registrert når renewal-timeren fyrer.
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(600));
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
+
         // Bruker er aktiv → renewal-timer planlegges basert på aktivitetstidspunktet
         window.dispatchEvent(new KeyboardEvent("keydown"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        // Frem til renewal-tidspunktet (next_auto_refresh_in_seconds etter aktivitet)
-        vi.advanceTimersByTime(3300 * 1000);
+        // Frem til renewal-tidspunktet — før inaktivitetstimeren (30 min) fyrer
+        vi.advanceTimersByTime(600 * 1000);
         await Promise.resolve();
 
         expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
     });
 
     it("aktivitet resettes etter planlagt renewal", async () => {
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(600));
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
+
         window.dispatchEvent(new MouseEvent("click"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        vi.advanceTimersByTime(3300 * 1000);
+        vi.advanceTimersByTime(600 * 1000);
         await Promise.resolve();
 
         // Etter renewal skal aktivitet være nullstilt
         expect(tokenDialog.checkActivity!()).toBe(false);
+    });
+
+    it("aktivitet nullstilles automatisk etter 30 min uten input", async () => {
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+        expect(tokenDialog.checkActivity!()).toBe(true);
+
+        // Frem til inaktivitetstimeren fyrer (30 min)
+        vi.advanceTimersByTime(30 * 60 * 1000);
+
+        expect(tokenDialog.checkActivity!()).toBe(false);
+    });
+
+    it("renewal skjer ikke dersom aktivitet er eldre enn inaktivitetsgrensen", async () => {
+        // next_auto_refresh_in_seconds (55 min) > inaktivitetsgrense (30 min)
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+
+        // Inaktivitetstimeren fyrer etter 30 min og nullstiller aktivitet
+        vi.advanceTimersByTime(30 * 60 * 1000 + 1000);
+        // Deretter fyrer renewal-timeren (3300s - 31min ≈ 24 min til)
+        vi.advanceTimersByTime(3300 * 1000 - (30 * 60 * 1000 + 1000));
+        await Promise.resolve();
+
+        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalledWith(
+            "renew",
+        );
     });
 });

@@ -22,15 +22,25 @@ class LogoutWarning extends HTMLElement {
     private lastActivityAt = 0;
     private isEnabled = false;
     private renewalTimer?: ReturnType<typeof globalThis.setTimeout>;
+    private inactivityTimer?: ReturnType<typeof globalThis.setTimeout>;
     private debugTimer?: ReturnType<typeof globalThis.setInterval>;
     private nextAutoRefreshInSeconds = 0;
     private static readonly DEBUG_LOG_INTERVAL_MS = 10 * 60 * 1000;
+    private static readonly INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
 
     private handleActivity = (event: Event) => {
         if (!this.isEnabled) return;
         const isFirstActivity = this.renewalTimer === undefined;
         this.lastActivityAt = Date.now();
         log(`Aktivitet registrert: ${event.type}`);
+
+        // Reset inaktivitetstimeren — aktivitet nullstilles automatisk etter 30 min uten input
+        globalThis.clearTimeout(this.inactivityTimer);
+        this.inactivityTimer = globalThis.setTimeout(() => {
+            log("Inaktivitet: aktivitet nullstilles etter 30 min uten input");
+            this.lastActivityAt = 0;
+            this.inactivityTimer = undefined;
+        }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
 
         if (isFirstActivity && this.nextAutoRefreshInSeconds > 0) {
             this.scheduleRenewal(this.nextAutoRefreshInSeconds);
@@ -43,6 +53,8 @@ class LogoutWarning extends HTMLElement {
         this.lastActivityAt = 0;
         globalThis.clearTimeout(this.renewalTimer);
         this.renewalTimer = undefined;
+        globalThis.clearTimeout(this.inactivityTimer);
+        this.inactivityTimer = undefined;
     };
 
     private scheduleRenewal = (inSeconds: number) => {
@@ -193,6 +205,7 @@ class LogoutWarning extends HTMLElement {
         window.removeEventListener("scroll", this.handleActivity);
         window.removeEventListener("touchstart", this.handleActivity);
         globalThis.clearTimeout(this.renewalTimer);
+        globalThis.clearTimeout(this.inactivityTimer);
         globalThis.clearInterval(this.debugTimer);
         window.loginDebug = undefined as any;
     }
