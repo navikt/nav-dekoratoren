@@ -27,7 +27,6 @@ const qbrickNotification = "wss://notification.qbrick.com"; // websocket used by
 const qbrickMediaCdn = "*.dna.contentdelivery.net"; // qbrick media delivery network
 const vimeoCdn = "*.vimeocdn.com"; // used for video preview images
 const skyra = "*.skyra.no";
-const taskAnalytics = "*.taskanalytics.com";
 const googleFonts = "*.googleapis.com";
 const googleFontsStatic = "*.gstatic.com";
 
@@ -45,7 +44,6 @@ const scriptSrc = [
     vergicScreenSharing,
     puzzelScreenSharing,
     skyra,
-    taskAnalytics,
     boostScript,
     // localhost testing
     UNSAFE_INLINE, // vergic/puzzel
@@ -95,7 +93,6 @@ const directives: Partial<CSPDirectives> = {
         puzzelScreenSharing,
         puzzelWebSocket,
         skyra,
-        taskAnalytics,
     ],
     "media-src": [navNo, qbrick, qbrickMediaCdn],
 };

@@ -1138,7 +1138,7 @@ ikke.
 | Utloggingsvarsel             | client-side               | Viser varsel 5 min før sesjonen utløper, lar bruker forlenge økten |
 | Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)             |
 | Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami                                   |
-| Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
+| Skyra                        | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
 | Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent     |
 | Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                |
 
@@ -1236,15 +1236,11 @@ initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil t
 logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
 samtykke spesielt med mindre de har spesifikke behov.
 
-**Undersøkelser ved bruk av Task Analytics og Skyra 📋**
+**Undersøkelser ved bruk av Skyra 📋**
 
-Task Analytics og Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste de
-nødvendige skriptene for begge tjenestene, men kun hvis brukeren har gitt samtykke til
-undersøkelser. Task Analytics-undersøkelser settes opp i et eget repository. Vennligst
-se [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) eller kontakt Team
-Nav.no for mer informasjon.
-
-For Skyra styres alle undersøkelser i dashbordet ditt. Du kan finne
+Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste
+nødvendige skript, men kun hvis brukeren har gitt samtykke til
+undersøkelser. Alle undersøkelser styres i Skyra-dashbordet ditt. Du kan finne
 [mer informasjon om Skyra her](https://www.skyra.no/no). Undersøkelsene dine skal vises
 automatisk når de er riktig konfigurert i Skyra-dashbordet ditt.
 
