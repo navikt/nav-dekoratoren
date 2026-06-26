@@ -205,6 +205,27 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
+    it("proaktiv renewal planlegges og kalles umiddelbart når next_auto_refresh_in_seconds er 0 eller negativ", async () => {
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(0));
+        window.dispatchEvent(
+            new CustomEvent("paramsupdated", {
+                detail: {
+                    changedKeys: ["logoutWarning"],
+                    params: { logoutWarning: true },
+                },
+            }),
+        );
+        await Promise.resolve();
+
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+
+        // Renewal skal skje umiddelbart (0 ms delay)
+        vi.advanceTimersByTime(100);
+        await Promise.resolve();
+
+        expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
+    });
+
     it("renewal skjer ikke dersom aktivitet er eldre enn inaktivitetsgrensen", async () => {
         // next_auto_refresh_in_seconds (55 min) > inaktivitetsgrense (30 min)
         window.dispatchEvent(new KeyboardEvent("keydown"));

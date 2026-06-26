@@ -42,8 +42,8 @@ class LogoutWarning extends HTMLElement {
             this.inactivityTimer = undefined;
         }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
 
-        if (isFirstActivity && this.nextAutoRefreshInSeconds > 0) {
-            this.scheduleRenewal(this.nextAutoRefreshInSeconds);
+        if (isFirstActivity) {
+            this.scheduleRenewal(Math.max(0, this.nextAutoRefreshInSeconds));
         }
     };
 
