@@ -30,7 +30,6 @@ vi.mock("../../helpers/auth", () => ({
         tokenExpireAtLocal: new Date(Date.now() + 3600_000).toISOString(),
     })),
     logout: vi.fn(),
-    addSecondsFromNow: vi.fn(),
 }));
 vi.mock("../../analytics/analytics", () => ({ logAnalyticsEvent: vi.fn() }));
 vi.mock("../../helpers/dialog-util", () => ({
@@ -98,33 +97,17 @@ describe("LogoutWarning — aktivitetssporing", () => {
         vi.restoreAllMocks();
     });
 
-    it("checkActivity er koblet til tokenDialog", () => {
-        expect(typeof tokenDialog.checkActivity).toBe("function");
-    });
-
     it("checkActivity returnerer false når ingen brukeraktivitet er registrert", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
-    it("checkActivity returnerer true etter keydown-event", () => {
-        window.dispatchEvent(new KeyboardEvent("keydown"));
-        expect(tokenDialog.checkActivity!()).toBe(true);
-    });
-
-    it("checkActivity returnerer true etter click-event", () => {
-        window.dispatchEvent(new MouseEvent("click"));
-        expect(tokenDialog.checkActivity!()).toBe(true);
-    });
-
-    it("checkActivity returnerer true etter scroll-event", () => {
-        window.dispatchEvent(new Event("scroll"));
-        expect(tokenDialog.checkActivity!()).toBe(true);
-    });
-
-    it("checkActivity returnerer true etter touchstart-event", () => {
-        window.dispatchEvent(new Event("touchstart"));
-        expect(tokenDialog.checkActivity!()).toBe(true);
-    });
+    it.each(["keydown", "click", "scroll", "touchstart"])(
+        "checkActivity returnerer true etter %s-event",
+        (eventType) => {
+            window.dispatchEvent(new Event(eventType));
+            expect(tokenDialog.checkActivity!()).toBe(true);
+        },
+    );
 
     it("aktivitet resettes etter token renewal via updateDialogs", async () => {
         window.dispatchEvent(new KeyboardEvent("keydown"));
@@ -148,7 +131,7 @@ describe("LogoutWarning — aktivitetssporing", () => {
         );
     });
 
-    it("proaktiv renewal planlegges og kalles etter next_auto_refresh_in_seconds", async () => {
+    it("proaktiv renewal planlegges, kalles og nullstiller aktivitet etter next_auto_refresh_in_seconds", async () => {
         // Bruk kortere refresh-intervall (10 min) som fyrer FØR inaktivitetstimeren (30 min),
         // slik at aktivitet fortsatt er registrert når renewal-timeren fyrer.
         vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(600));
@@ -162,36 +145,13 @@ describe("LogoutWarning — aktivitetssporing", () => {
         );
         await Promise.resolve();
 
-        // Bruker er aktiv → renewal-timer planlegges basert på aktivitetstidspunktet
         window.dispatchEvent(new KeyboardEvent("keydown"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        // Frem til renewal-tidspunktet — før inaktivitetstimeren (30 min) fyrer
         vi.advanceTimersByTime(600 * 1000);
         await Promise.resolve();
 
         expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
-    });
-
-    it("aktivitet resettes etter planlagt renewal", async () => {
-        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(600));
-        window.dispatchEvent(
-            new CustomEvent("paramsupdated", {
-                detail: {
-                    changedKeys: ["logoutWarning"],
-                    params: { logoutWarning: true },
-                },
-            }),
-        );
-        await Promise.resolve();
-
-        window.dispatchEvent(new MouseEvent("click"));
-        expect(tokenDialog.checkActivity!()).toBe(true);
-
-        vi.advanceTimersByTime(600 * 1000);
-        await Promise.resolve();
-
-        // Etter renewal skal aktivitet være nullstilt
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
