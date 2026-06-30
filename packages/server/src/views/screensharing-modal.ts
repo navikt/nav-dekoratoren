@@ -1,8 +1,11 @@
 import clsInputs from "decorator-client/src/styles/inputs.module.css";
-import clsModal from "decorator-client/src/styles/modal.module.css";
 import cls from "decorator-client/src/styles/screensharing-modal.module.css";
 import html, { Template } from "decorator-shared/html";
-import { VeilederIllustration } from "decorator-shared/views/illustrations";
+import { hydrateAttr } from "decorator-shared/hydration";
+import {
+    ScreensharingModal as SharedScreensharingModal,
+    screensharingModalHook,
+} from "decorator-shared/views/screensharing-modal";
 import { match } from "ts-pattern";
 import i18n from "../i18n";
 import { Alert } from "./components/alert";
@@ -14,41 +17,28 @@ export type ScreensharingModalProps = {
     status: "enabled" | "disabled";
 };
 
-const ScreensharingModal = ({
-    children,
-    status,
-}: ScreensharingModalProps) => html`
-    <screensharing-modal>
-        <dialog
-            class="${clsModal.modal} ${cls.screensharingModal}"
-            data-status="${status}"
-        >
-            ${VeilederIllustration({ className: cls.avatar })}
-            <div class="${clsModal.modalWindow} ${cls.content}">
-                <h2 class="${clsModal.modalTitle}">
-                    ${i18n("footer_del_skjerm")}
-                </h2>
-                <p>${i18n("delskjerm_modal_beskrivelse")}</p>
-                ${ReadMore({
-                    header: i18n("delskjerm_modal_hjelpetekst_overskrift"),
-                    content: html`
-                        <div>${i18n("delskjerm_modal_hjelpetekst_0")}</div>
-                        <div>${i18n("delskjerm_modal_hjelpetekst_1")}</div>
-                        <div>${i18n("delskjerm_modal_hjelpetekst_2")}</div>
-                    `,
-                })}
-                <div class="${cls.children}">${children}</div>
-            </div>
-        </dialog>
-    </screensharing-modal>
-`;
+const ScreensharingModal = ({ children, status }: ScreensharingModalProps) =>
+    SharedScreensharingModal({
+        children,
+        description: i18n("delskjerm_modal_beskrivelse"),
+        readMore: ReadMore({
+            header: i18n("delskjerm_modal_hjelpetekst_overskrift"),
+            content: html`
+                <div>${i18n("delskjerm_modal_hjelpetekst_0")}</div>
+                <div>${i18n("delskjerm_modal_hjelpetekst_1")}</div>
+                <div>${i18n("delskjerm_modal_hjelpetekst_2")}</div>
+            `,
+        }),
+        status,
+        title: i18n("footer_del_skjerm"),
+    });
 
 // @TODO: Implement deterministic ID generation
 const ScreensharingEnabled = () => {
     return ScreensharingModal({
         status: "enabled",
         children: html`
-            <form>
+            <form ${hydrateAttr(screensharingModalHook.form)}>
                 <div>
                     <label
                         for="screensharing_code"
@@ -59,10 +49,14 @@ const ScreensharingEnabled = () => {
                         id="screensharing_code"
                         name="screensharing_code"
                         class="${clsInputs.textInput}"
+                        ${hydrateAttr(screensharingModalHook.input)}
                         type="text"
                         autocomplete="off"
                     />
-                    <ul class="${clsInputs.errorList}">
+                    <ul
+                        class="${clsInputs.errorList}"
+                        ${hydrateAttr(screensharingModalHook.errors)}
+                    >
                         <li>${i18n("delskjerm_modal_feilmelding")}</li>
                     </ul>
                 </div>
@@ -74,7 +68,10 @@ const ScreensharingEnabled = () => {
                     })}
                     ${Button({
                         content: i18n("delskjerm_modal_avbryt"),
-                        attributes: { ["data-type"]: "cancel" },
+                        attributes: {
+                            ["data-type"]: "cancel",
+                            ["data-hydrate"]: screensharingModalHook.cancel,
+                        },
                     })}
                 </div>
             </form>

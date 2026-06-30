@@ -1,6 +1,8 @@
+import { logoutWarningSelector } from "decorator-shared/views/logout-warning";
 import { logAnalyticsEvent } from "../../analytics/analytics";
 import { logout } from "../../helpers/auth";
 import { isDialogDefined } from "../../helpers/dialog-util";
+import { getRequiredElement } from "../../helpers/dom";
 import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
 
@@ -16,8 +18,14 @@ export class SessionDialog extends HTMLElement {
     }
 
     connectedCallback() {
-        const dialog = this.querySelector("dialog") as HTMLDialogElement;
-        const form = dialog.querySelector("form") as HTMLFormElement;
+        const dialog = getRequiredElement<HTMLDialogElement>(
+            this,
+            logoutWarningSelector.dialog,
+        );
+        const form = getRequiredElement<HTMLFormElement>(
+            dialog,
+            logoutWarningSelector.form,
+        );
 
         if (!isDialogDefined(dialog)) {
             return;
@@ -40,8 +48,13 @@ export class SessionDialog extends HTMLElement {
             if (this.secondsRemaining < 0) {
                 logout();
             } else if (!this.silenceWarning && this.secondsRemaining < 5 * 60) {
-                dialog.querySelector(".session-time-remaining")!.innerHTML =
-                    Math.ceil(this.secondsRemaining / 60).toString();
+                const timeRemaining = getRequiredElement(
+                    dialog,
+                    logoutWarningSelector.timeRemaining,
+                );
+                timeRemaining.innerHTML = Math.ceil(
+                    this.secondsRemaining / 60,
+                ).toString();
 
                 if (!dialog.open) {
                     dialog.showModal();

@@ -6,6 +6,7 @@ import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
+import { headerSelector } from "decorator-shared/views/header";
 
 import cls from "../styles/header.module.css";
 
@@ -164,7 +165,7 @@ class Header extends HTMLElement {
     };
 
     private readonly handleFocusIn = (e: FocusEvent) => {
-        const headerContent = this.querySelector(`.${cls.siteheader}`);
+        const headerContent = this.querySelector(headerSelector.content);
         if (!headerContent?.contains(e.target as Node)) {
             this.dispatchEvent(new Event("closemenus", { bubbles: true }));
         }

@@ -2,6 +2,8 @@ import cls from "decorator-client/src/styles/header.module.css";
 import opsMessagesCls from "decorator-client/src/styles/ops-messages.module.css";
 import utilsCls from "decorator-client/src/styles/utils.module.css";
 import html, { Template } from "decorator-shared/html";
+import { headerHook } from "decorator-shared/views/header";
+import { hydrateAttr } from "decorator-shared/hydration";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
 import { SkipLink } from "../skip-link";
@@ -18,7 +20,11 @@ export const SimpleHeader = ({
     frontPageUrl,
     loginUrl,
 }: SimpleHeaderProps) => html`
-    <div class="${cls.siteheader}" data-color="neutral">
+    <div
+        class="${cls.siteheader}"
+        ${hydrateAttr(headerHook.content)}
+        data-color="neutral"
+    >
         ${SkipLink(i18n("skip_link"))}
         <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
             <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"

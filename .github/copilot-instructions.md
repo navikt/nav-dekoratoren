@@ -70,6 +70,12 @@ import { html } from "decorator-shared/html";
 const markup = html`<div>${userInput}</div>`.render({ language: "nb" });
 ```
 
+### Shared SSR views and hydration hooks
+
+Put stable SSR/client markup in `packages/shared/views/*` when server and client need the same structure. Keep behavior, event listeners, analytics, timers, and browser APIs in client Web Components.
+
+Use `data-hydrate` hooks from `packages/shared/hydration.ts` for nodes the client must find. Do not use CSS-module classes or structural selectors as hydration contracts. Use `getRequiredElement` for required nodes, `templateToFragment` when regenerating shared templates on the client, and `onParamsUpdated` for params-driven updates.
+
 ### CSS Modules
 
 Client components use CSS Modules with TypeScript typing via `typescript-plugin-css-modules`. Import styles as:

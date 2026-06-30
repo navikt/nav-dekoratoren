@@ -18,10 +18,12 @@ export const ArbeidsgiverUserMenuDropdown = ({
     name,
 }: ArbeidsgiverUserMenuProps) => {
     return DropdownMenu({
-        button: HeaderButton({
-            content: i18n("arbeidsgiver"),
-            icon: BriefcaseIcon(),
-        }),
+        button: (attributes) =>
+            HeaderButton({
+                content: i18n("arbeidsgiver"),
+                icon: BriefcaseIcon(),
+                attributes,
+            }),
         dropdownClass: cls.arbeidsgiverMenuDropdown,
         dropdownContent: ArbeidsgiverUserMenu({
             href,

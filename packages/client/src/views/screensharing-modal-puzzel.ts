@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
+import { screensharingModalSelector } from "decorator-shared/views/screensharing-modal";
 import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
 import { logger } from "decorator-shared/logger";
+import { getRequiredElement } from "../helpers/dom";
 
 let scriptLoaded: Promise<void> | undefined;
 
@@ -109,16 +111,29 @@ export class ScreensharingModalPuzzel extends HTMLElement {
             return;
         }
 
-        this.dialog = this.querySelector("dialog")!;
-        this.errorList = this.querySelector("ul")!;
-        this.input = this.querySelector("input")!;
+        this.dialog = getRequiredElement(
+            this,
+            screensharingModalSelector.dialog,
+        );
         if (!isDialogDefined(this.dialog)) {
             return;
         }
+        if (this.dialog.dataset.status !== "enabled") {
+            return;
+        }
+
+        this.errorList = getRequiredElement(
+            this,
+            screensharingModalSelector.errors,
+        );
+        this.input = getRequiredElement(this, screensharingModalSelector.input);
 
         this.input.addEventListener("input", () => this.clearErrors());
 
-        const form = this.querySelector("form")!;
+        const form = getRequiredElement<HTMLFormElement>(
+            this,
+            screensharingModalSelector.form,
+        );
         form.addEventListener("submit", (e) => {
             e.preventDefault();
             const code = new FormData(form).get("screensharing_code");
@@ -128,10 +143,10 @@ export class ScreensharingModalPuzzel extends HTMLElement {
             }
         });
 
-        this.querySelector("button[data-type=cancel]")?.addEventListener(
-            "click",
-            () => this.closeModal(),
-        );
+        getRequiredElement(
+            this,
+            screensharingModalSelector.cancel,
+        ).addEventListener("click", () => this.closeModal());
     }
 }
 
@@ -158,9 +173,10 @@ export class ScreenshareButtonPuzzel extends HTMLElement {
         }
         this.addEventListener("click", () =>
             lazyLoadScreensharing(() => {
-                const dialog = document.querySelector(
+                const dialog = getRequiredElement<ScreensharingModalPuzzel>(
+                    document,
                     "screensharing-modal",
-                ) as HTMLDialogElement;
+                );
                 logger.info("Opening puzzel screensharing modal");
 
                 dialog.showModal();

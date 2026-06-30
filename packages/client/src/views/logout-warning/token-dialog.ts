@@ -1,6 +1,8 @@
+import { logoutWarningSelector } from "decorator-shared/views/logout-warning";
 import { logAnalyticsEvent } from "../../analytics/analytics";
 import { logout } from "../../helpers/auth";
 import { isDialogDefined } from "../../helpers/dialog-util";
+import { getRequiredElement } from "../../helpers/dom";
 import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
 
@@ -15,8 +17,14 @@ export class TokenDialog extends HTMLElement {
     }
 
     connectedCallback() {
-        const dialog = this.querySelector("dialog") as HTMLDialogElement;
-        const form = dialog.querySelector("form") as HTMLFormElement;
+        const dialog = getRequiredElement<HTMLDialogElement>(
+            this,
+            logoutWarningSelector.dialog,
+        );
+        const form = getRequiredElement<HTMLFormElement>(
+            dialog,
+            logoutWarningSelector.form,
+        );
 
         if (!isDialogDefined(dialog)) {
             return;
