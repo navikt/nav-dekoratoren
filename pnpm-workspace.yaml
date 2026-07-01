@@ -4,18 +4,24 @@ packages:
 catalog:
     "@navikt/ds-css": "8.10.6"
     "@navikt/ds-react": "8.10.6"
-    "@types/node": "24.12.4"
+    "@types/node": "24.13.2"
     esbuild-minify-templates: "0.13.1"
     eslint: "9.39.4"
-    postcss: "8.5.14"
-    tsx: "4.21.0"
+    postcss: "8.5.15"
+    tsx: "4.22.4"
     typescript: "6.0.3"
-    vitest: "4.1.6"
+    vitest: "4.1.8"
 
 minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
     - "@navikt/*"
+
+overrides:
+    "@opentelemetry/core": "2.8.0"
+    esbuild: "0.28.1"
+    postcss: "8.5.15"
+    shell-quote: "1.8.4"
 
 engineStrict: true
 

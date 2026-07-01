@@ -1,6 +1,5 @@
 .screenshareButton {
     background: none;
-    padding: 0;
     margin: 0;
     font: inherit;
     cursor: pointer;
@@ -10,19 +9,14 @@
     gap: var(--ax-space-8);
     align-items: center;
     text-decoration: underline;
-    text-decoration-color: #99c4dd;
     text-decoration-thickness: 0.0625em;
     text-underline-offset: 0.15em;
-    padding-block: 0.5625rem;
+    padding: var(--ax-space-8);
     border: 1px solid transparent;
 }
-
-.screenshareButton:hover {
-    text-decoration: none;
-}
-
 .screenshareButton:focus-visible {
-    outline: none;
+    outline: 3px solid;
+    border-radius: var(--ax-radius-4);
 }
 
 [data-theme="dark"] .screenshareButton {
@@ -44,7 +38,7 @@
 }
 
 [data-theme="dark"] .screenshareButton:focus-visible {
-    outline: 3px solid #99c3ff;
+    outline-color: var(--ax-info-400);
 }
 
 [data-theme="dark"] .screenshareButton:active {

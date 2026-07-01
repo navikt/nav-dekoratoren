@@ -3,6 +3,7 @@ import * as prettier from "prettier";
 import metadata from "@navikt/aksel-icons/metadata";
 import { optimize } from "svgo";
 import { glob } from "glob";
+import { fileURLToPath } from "node:url";
 
 mkdirSync("./dist", { recursive: true });
 
@@ -37,7 +38,7 @@ await Promise.all(
         ...files,
     ].map(async ({ name, path }) => {
         const iconPath = path.startsWith("@")
-            ? new URL(import.meta.resolve(path)).pathname
+            ? fileURLToPath(import.meta.resolve(path))
             : path;
         const icon = readFileSync(iconPath, "utf-8");
         const result = optimize(icon, {

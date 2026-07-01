@@ -104,7 +104,15 @@ const html = (
     },
 });
 
-export const json = (value: any): Template => unsafeHtml(JSON.stringify(value));
+export const json = (value: unknown): Template =>
+    unsafeHtml(
+        JSON.stringify(value)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e")
+            .replace(/&/g, "\\u0026")
+            .replace(/\u2028/g, "\\u2028")
+            .replace(/\u2029/g, "\\u2029"),
+    );
 
 export const unsafeHtml = (htmlString: string) => ({
     render: () => htmlString,
