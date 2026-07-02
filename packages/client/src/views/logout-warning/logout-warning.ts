@@ -1,9 +1,8 @@
 import {
-    SessionData,
     fetchOrRenewSession,
+    SessionData,
     transformSessionToAuth,
 } from "../../helpers/auth";
-import { addSecondsFromNow } from "../../helpers/time";
 import { param } from "../../params";
 import { defineCustomElement } from "../custom-elements";
 import { CustomEvents } from "../../events";
@@ -13,6 +12,54 @@ import { TokenDialog } from "./token-dialog";
 class LogoutWarning extends HTMLElement {
     private tokenDialog!: TokenDialog;
     private sessionDialog!: SessionDialog;
+    private lastActivityAt = 0;
+    private isEnabled = false;
+    private renewalTimer?: ReturnType<typeof globalThis.setTimeout>;
+    private inactivityTimer?: ReturnType<typeof globalThis.setTimeout>;
+    private nextAutoRefreshInSeconds = 0;
+    private static readonly INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
+
+    private handleActivity = () => {
+        if (!this.isEnabled) return;
+        const isFirstActivity = this.renewalTimer === undefined;
+        this.lastActivityAt = Date.now();
+
+        // Reset inaktivitetstimeren — aktivitet nullstilles automatisk etter 30 min uten input
+        globalThis.clearTimeout(this.inactivityTimer);
+        this.inactivityTimer = globalThis.setTimeout(() => {
+            this.lastActivityAt = 0;
+            this.inactivityTimer = undefined;
+        }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
+
+        if (isFirstActivity) {
+            this.scheduleRenewal(Math.max(0, this.nextAutoRefreshInSeconds));
+        }
+    };
+
+    private isUserActive = () => this.lastActivityAt > 0;
+
+    private resetActivity = () => {
+        this.lastActivityAt = 0;
+        globalThis.clearTimeout(this.renewalTimer);
+        this.renewalTimer = undefined;
+        globalThis.clearTimeout(this.inactivityTimer);
+        this.inactivityTimer = undefined;
+    };
+
+    private scheduleRenewal = (inSeconds: number) => {
+        globalThis.clearTimeout(this.renewalTimer);
+        this.renewalTimer = globalThis.setTimeout(async () => {
+            this.renewalTimer = undefined;
+            if (!this.isUserActive()) {
+                return;
+            }
+            const sessionData = await fetchOrRenewSession("renew");
+            this.resetActivity();
+            if (sessionData) {
+                this.updateDialogs(sessionData);
+            }
+        }, inSeconds * 1000);
+    };
 
     private onVisibilityChange = async () => {
         if (param("logoutWarning") && document.visibilityState === "visible") {
@@ -26,6 +73,16 @@ class LogoutWarning extends HTMLElement {
                 transformSessionToAuth(sessionData);
             this.sessionDialog.sessionExpireAtLocal = sessionExpireAtLocal;
             this.tokenDialog.tokenExpireAtLocal = tokenExpireAtLocal;
+            this.nextAutoRefreshInSeconds =
+                sessionData.tokens.next_auto_refresh_in_seconds;
+
+            // Hvis bruker var aktiv før vi fikk session-data (f.eks. klikket under init-henting),
+            // planlegg fornyelse nå
+            if (this.isUserActive() && this.renewalTimer === undefined) {
+                this.scheduleRenewal(
+                    Math.max(0, this.nextAutoRefreshInSeconds),
+                );
+            }
         } else {
             this.sessionDialog.sessionExpireAtLocal = undefined;
             this.tokenDialog.tokenExpireAtLocal = undefined;
@@ -33,49 +90,68 @@ class LogoutWarning extends HTMLElement {
     };
 
     private init = async () => {
+        this.isEnabled = true;
         this.updateDialogs(await fetchOrRenewSession("fetch"));
-
-        window.loginDebug = {
-            expireToken: (seconds: number) => {
-                this.tokenDialog.tokenExpireAtLocal =
-                    addSecondsFromNow(seconds);
-            },
-            expireSession: (seconds: number) => {
-                this.sessionDialog.sessionExpireAtLocal =
-                    addSecondsFromNow(seconds);
-            },
-        };
     };
 
     private handleParamsUpdated = (
         event: CustomEvent<CustomEvents["paramsupdated"]>,
     ) => {
-        if (
-            event.detail.changedKeys.includes("logoutWarning") &&
-            event.detail.params.logoutWarning
-        ) {
+        if (!event.detail.changedKeys.includes("logoutWarning")) return;
+
+        const val = event.detail.params.logoutWarning;
+
+        if (val !== false) {
             this.init();
+        } else {
+            this.isEnabled = false;
+            this.resetActivity();
+            this.updateDialogs(null);
         }
     };
 
     connectedCallback() {
         window.addEventListener("visibilitychange", this.onVisibilityChange);
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
-        if (param("logoutWarning")) {
-            this.init();
-        }
+        window.addEventListener("keydown", this.handleActivity);
+        window.addEventListener("click", this.handleActivity);
+        window.addEventListener("scroll", this.handleActivity, {
+            passive: true,
+        });
+        window.addEventListener("touchstart", this.handleActivity, {
+            passive: true,
+        });
 
         this.sessionDialog = this.querySelector("session-dialog")!;
         this.tokenDialog = this.querySelector("token-dialog")!;
-        this.tokenDialog.addEventListener("renew", async () =>
-            this.updateDialogs(await fetchOrRenewSession("renew")),
-        );
+
+        this.tokenDialog.checkActivity = this.isUserActive;
+
+        this.tokenDialog.addEventListener("renew", async () => {
+            const sessionData = await fetchOrRenewSession("renew");
+            if (sessionData) {
+                this.updateDialogs(sessionData);
+            } else {
+                // Renewal feilet — reset isAutoRenewing så dialogen kan vises
+                this.tokenDialog.notifyRenewComplete();
+            }
+            this.resetActivity();
+        });
+
+        if (param("logoutWarning") !== false) {
+            this.init();
+        }
     }
 
     disconnectedCallback() {
         window.removeEventListener("visibilitychange", this.onVisibilityChange);
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
-        window.loginDebug = undefined as any;
+        window.removeEventListener("keydown", this.handleActivity);
+        window.removeEventListener("click", this.handleActivity);
+        window.removeEventListener("scroll", this.handleActivity);
+        window.removeEventListener("touchstart", this.handleActivity);
+        globalThis.clearTimeout(this.renewalTimer);
+        globalThis.clearTimeout(this.inactivityTimer);
     }
 }
 

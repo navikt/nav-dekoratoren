@@ -5,13 +5,34 @@ import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
 
 export class TokenDialog extends HTMLElement {
-    tokenExpireAtLocal?: string;
-    private interval?: number;
+    private _tokenExpireAtLocal?: string;
+    checkActivity?: () => boolean;
+    private interval?: ReturnType<typeof globalThis.setInterval>;
+    private isAutoRenewing = false;
+
+    get tokenExpireAtLocal() {
+        return this._tokenExpireAtLocal;
+    }
+
+    set tokenExpireAtLocal(value: string | undefined) {
+        this._tokenExpireAtLocal = value;
+        // Dersom renewal ikke forlenget tokenet (f.eks. pga. refresh-cooldown),
+        // resettes flagget så dialogen kan vises på neste tick.
+        if (this.isAutoRenewing && this.secondsRemaining < 5 * 60) {
+            this.isAutoRenewing = false;
+        }
+    }
 
     private get secondsRemaining() {
-        return this.tokenExpireAtLocal
-            ? getSecondsRemaining(this.tokenExpireAtLocal)
+        return this._tokenExpireAtLocal
+            ? getSecondsRemaining(this._tokenExpireAtLocal)
             : Infinity;
+    }
+
+    notifyRenewComplete() {
+        if (this.secondsRemaining < 5 * 60) {
+            this.isAutoRenewing = false;
+        }
     }
 
     connectedCallback() {
@@ -35,15 +56,21 @@ export class TokenDialog extends HTMLElement {
             }
         });
 
-        this.interval = window.setInterval(() => {
+        this.interval = globalThis.setInterval(() => {
             if (this.secondsRemaining < 0) {
                 logout();
             } else if (this.secondsRemaining < 5 * 60) {
-                if (!dialog.open) {
-                    logAnalyticsEvent("token dialog shown");
-                    dialog.showModal();
+                if (!this.isAutoRenewing && this.checkActivity?.()) {
+                    this.isAutoRenewing = true;
+                    this.dispatchEvent(new Event("renew"));
+                } else if (!this.isAutoRenewing) {
+                    if (!dialog.open) {
+                        logAnalyticsEvent("token dialog shown");
+                        dialog.showModal();
+                    }
                 }
             } else {
+                this.isAutoRenewing = false;
                 dialog.close();
             }
         }, 1000);
