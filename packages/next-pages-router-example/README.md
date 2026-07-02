@@ -16,7 +16,7 @@ pnpm run dev
 ```
 
 ```bash
-pnpm --filter next-pages-router-example run dev
+pnpm run example
 ```
 
 Open [http://localhost:3000](http://localhost:3000).

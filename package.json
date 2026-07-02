@@ -18,6 +18,7 @@
         "lint:shared": "pnpm --filter decorator-shared run lint",
         "lint:next": "pnpm --filter next-pages-router-example run lint",
         "dev": "concurrently \"pnpm --filter decorator-client run dev\" \"pnpm --filter decorator-server run dev\"",
+        "example": "pnpm --filter next-pages-router-example run dev",
         "build": "pnpm --filter decorator-icons run build && pnpm --filter decorator-client run build && pnpm --filter decorator-server run build && pnpm run copy-assets",
         "copy-assets": "mkdir -p packages/server/public && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
         "prepare": "husky",
