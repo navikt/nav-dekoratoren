@@ -57,3 +57,10 @@ export const test = (
         test(`${fixtureName}: ${name}`, fn),
     );
 };
+
+export const waitForDecoratorReady = (page: Page) =>
+    page.evaluate(decoratorReady);
+
+export const nextPagesRouterUrl = "http://localhost:3000";
+
+export const testNextPagesRouter = nextPagesRouter;

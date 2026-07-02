@@ -11,7 +11,7 @@ import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
 import { versionProxyHandler } from "./handlers/version-proxy";
 import { headAssets } from "./head";
-import { setupMocks } from "./mocks";
+import { setLocalDecoratorMockState, setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import { getFeatures } from "./unleash";
@@ -55,6 +55,28 @@ if (env.NODE_ENV === "development" || isLocalhost()) {
     app.get("/api/oauth2/session", async ({ req }) => fetch(req.url));
     app.get("/api/oauth2/session/refresh", async ({ req }) => fetch(req.url));
     app.get("/api/auth", async ({ req }) => fetch(req.url));
+    app.get("/api/local-decorator-state", ({ req, json, redirect }) => {
+        const auth = req.query("auth");
+        const notifications = req.query("notifications");
+        const returnTo = req.query("returnTo");
+
+        setLocalDecoratorMockState({
+            auth:
+                auth === "logged-in" || auth === "logged-out"
+                    ? auth
+                    : undefined,
+            notifications:
+                notifications === "full" || notifications === "empty"
+                    ? notifications
+                    : undefined,
+        });
+
+        if (returnTo?.startsWith("http://localhost:3000/")) {
+            return redirect(returnTo);
+        }
+
+        return json({ ok: true });
+    });
 }
 
 if (!process.env.IS_INTERNAL_APP) {

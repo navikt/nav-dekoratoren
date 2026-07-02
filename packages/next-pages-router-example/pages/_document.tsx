@@ -11,6 +11,7 @@ import {
     DecoratorComponentsReact,
 } from "@navikt/nav-dekoratoren-moduler/ssr";
 import React from "react";
+import { buildDecoratorParams } from "@/lib/decorator-params";
 
 const decoratorParams: DecoratorEnvProps = {
     env: "localhost",
@@ -20,7 +21,12 @@ const decoratorParams: DecoratorEnvProps = {
 class _Document extends Document<{ Decorator: DecoratorComponentsReact }> {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
-        const Decorator = await fetchDecoratorReact(decoratorParams);
+        const Decorator = await fetchDecoratorReact({
+            ...decoratorParams,
+            noCache: true,
+            params: buildDecoratorParams(ctx.asPath),
+        });
+
         return { ...initialProps, Decorator };
     }
 
@@ -30,6 +36,8 @@ class _Document extends Document<{ Decorator: DecoratorComponentsReact }> {
             <Html lang="no">
                 <Head>
                     <Decorator.HeadAssets />
+                    <link rel="icon" href="/favicon.ico" sizes="any" />
+                    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 </Head>
                 <body>
                     <Decorator.Header />

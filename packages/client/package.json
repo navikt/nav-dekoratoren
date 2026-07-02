@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@grafana/faro-web-sdk": "2.7.1",
-        "@navikt/ds-css": "8.12.1",
+        "@navikt/ds-css": "catalog:",
         "decorator-icons": "workspace:*",
         "decorator-shared": "workspace:*",
         "js-cookie": "3.0.8",
