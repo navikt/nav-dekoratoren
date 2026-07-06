@@ -16,8 +16,6 @@ export class TokenDialog extends HTMLElement {
 
     set tokenExpireAtLocal(value: string | undefined) {
         this._tokenExpireAtLocal = value;
-        // Dersom renewal ikke forlenget tokenet (f.eks. pga. refresh-cooldown),
-        // resettes flagget så dialogen kan vises på neste tick.
         if (this.isAutoRenewing && this.secondsRemaining < 5 * 60) {
             this.isAutoRenewing = false;
         }

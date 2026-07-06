@@ -107,7 +107,7 @@ describe("TokenDialog — aktivitetsbasert auto-renew", () => {
         tick();
         expect(renewSpy).toHaveBeenCalledTimes(1);
 
-        // Simular at token ble fornyet (nytt tokenExpireAtLocal)
+        // Simulerer at token ble fornyet (nytt tokenExpireAtLocal)
         tokenDialog.tokenExpireAtLocal = addSecondsFromNow(3600);
         tick(); // secondsRemaining > 5 min → isAutoRenewing reset
         expect(dialog.close).toHaveBeenCalled();

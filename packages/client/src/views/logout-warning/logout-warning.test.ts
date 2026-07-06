@@ -66,8 +66,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     let tokenDialog: TokenDialog;
 
     beforeEach(async () => {
-        // shouldAdvanceTime: true lar @open-wc/testing sin interne setInterval-bruk
-        // kjøre i real-time, mens vi fortsatt har full kontroll via vi.advanceTimersByTime()
         vi.useFakeTimers({ shouldAdvanceTime: true });
         window.__DECORATOR_DATA__ = { params: {}, env: {}, texts: {} } as any;
 
@@ -79,7 +77,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
         (el.querySelector("dialog") as any).showModal = vi.fn();
         (el.querySelector("dialog") as any).close = vi.fn();
 
-        // Trigger init() slik at isEnabled = true og nextAutoRefreshInSeconds settes
         window.dispatchEvent(
             new CustomEvent("paramsupdated", {
                 detail: {
@@ -113,7 +110,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
         window.dispatchEvent(new KeyboardEvent("keydown"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        // Dispatch "renew" fra tokenDialog (simulerer at parent kaller updateDialogs)
         tokenDialog.dispatchEvent(new Event("renew"));
 
         await Promise.resolve();
@@ -132,8 +128,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     });
 
     it("proaktiv renewal planlegges, kalles og nullstiller aktivitet etter next_auto_refresh_in_seconds", async () => {
-        // Bruk kortere refresh-intervall (10 min) som fyrer FØR inaktivitetstimeren (30 min),
-        // slik at aktivitet fortsatt er registrert når renewal-timeren fyrer.
         vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(600));
         window.dispatchEvent(
             new CustomEvent("paramsupdated", {
@@ -159,7 +153,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
         window.dispatchEvent(new KeyboardEvent("keydown"));
         expect(tokenDialog.checkActivity!()).toBe(true);
 
-        // Frem til inaktivitetstimeren fyrer (30 min)
         vi.advanceTimersByTime(30 * 60 * 1000);
 
         expect(tokenDialog.checkActivity!()).toBe(false);
@@ -179,7 +172,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
 
         window.dispatchEvent(new KeyboardEvent("keydown"));
 
-        // Renewal skal skje umiddelbart (0 ms delay)
         vi.advanceTimersByTime(100);
         await Promise.resolve();
 
@@ -187,7 +179,6 @@ describe("LogoutWarning — aktivitetssporing", () => {
     });
 
     it("renewal skjer ikke dersom aktivitet er eldre enn inaktivitetsgrensen", async () => {
-        // next_auto_refresh_in_seconds (55 min) > inaktivitetsgrense (30 min)
         window.dispatchEvent(new KeyboardEvent("keydown"));
 
         // Inaktivitetstimeren fyrer etter 30 min og nullstiller aktivitet

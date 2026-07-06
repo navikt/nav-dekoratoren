@@ -1,6 +1,6 @@
 import {
-    fetchOrRenewSession,
     SessionData,
+    fetchOrRenewSession,
     transformSessionToAuth,
 } from "../../helpers/auth";
 import { param } from "../../params";
@@ -24,7 +24,6 @@ class LogoutWarning extends HTMLElement {
         const isFirstActivity = this.renewalTimer === undefined;
         this.lastActivityAt = Date.now();
 
-        // Reset inaktivitetstimeren — aktivitet nullstilles automatisk etter 30 min uten input
         globalThis.clearTimeout(this.inactivityTimer);
         this.inactivityTimer = globalThis.setTimeout(() => {
             this.lastActivityAt = 0;
@@ -76,8 +75,6 @@ class LogoutWarning extends HTMLElement {
             this.nextAutoRefreshInSeconds =
                 sessionData.tokens.next_auto_refresh_in_seconds;
 
-            // Hvis bruker var aktiv før vi fikk session-data (f.eks. klikket under init-henting),
-            // planlegg fornyelse nå
             if (this.isUserActive() && this.renewalTimer === undefined) {
                 this.scheduleRenewal(
                     Math.max(0, this.nextAutoRefreshInSeconds),
@@ -132,15 +129,12 @@ class LogoutWarning extends HTMLElement {
             if (sessionData) {
                 this.updateDialogs(sessionData);
             } else {
-                // Renewal feilet — reset isAutoRenewing så dialogen kan vises
                 this.tokenDialog.notifyRenewComplete();
             }
             this.resetActivity();
         });
 
-        if (param("logoutWarning") !== false) {
-            this.init();
-        }
+        if (param("logoutWarning")) this.init();
     }
 
     disconnectedCallback() {
