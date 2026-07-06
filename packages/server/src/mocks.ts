@@ -5,6 +5,36 @@ import { env } from "./env/server";
 import testData from "./menu/main-menu-mock.json";
 import { OpsMessage } from "decorator-shared/types";
 
+const LOCAL_AUTH_COOKIE_NAME = "decorator-example-auth";
+const LOCAL_NOTIFICATIONS_COOKIE_NAME = "decorator-example-notifications";
+
+type LocalAuthState = "logged-in" | "logged-out";
+type LocalNotificationsState = "full" | "empty";
+
+const localDecoratorMockState: {
+    auth?: LocalAuthState;
+    notifications?: LocalNotificationsState;
+} = {};
+
+export const setLocalDecoratorMockState = ({
+    auth,
+    notifications,
+}: {
+    auth?: LocalAuthState;
+    notifications?: LocalNotificationsState;
+}) => {
+    localDecoratorMockState.auth = auth;
+    localDecoratorMockState.notifications = notifications;
+};
+
+const getCookieValue = (request: Request, name: string) =>
+    request.headers
+        .get("cookie")
+        ?.split(";")
+        .map((cookie) => cookie.trim())
+        .find((cookie) => cookie.startsWith(`${name}=`))
+        ?.slice(name.length + 1);
+
 const nowISOString = () => {
     return new Date().toISOString();
 };
@@ -80,25 +110,41 @@ export const setupMocks = () =>
         http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
             HttpResponse.json(testData),
         ),
-        http.get(`${env.APP_URL}/api/varselbjelle/varsler`, () =>
-            HttpResponse.json(
-                process.env.MOCK_NOTIFICATIONS === "empty"
+        http.get(`${env.APP_URL}/api/varselbjelle/varsler`, ({ request }) => {
+            const notificationsState =
+                localDecoratorMockState.notifications ??
+                getCookieValue(request, LOCAL_NOTIFICATIONS_COOKIE_NAME);
+
+            return HttpResponse.json(
+                notificationsState === "empty" ||
+                    (!notificationsState &&
+                        process.env.MOCK_NOTIFICATIONS === "empty")
                     ? { oppgaver: [], beskjeder: [] }
                     : notificationsMock,
-            ),
-        ),
-        http.get(`${env.APP_URL}/api/auth`, () =>
-            HttpResponse.json(
-                process.env.MOCK_AUTH_LEVEL
+            );
+        }),
+        http.get(`${env.APP_URL}/api/auth`, ({ request }) => {
+            const authState =
+                localDecoratorMockState.auth ??
+                getCookieValue(request, LOCAL_AUTH_COOKIE_NAME);
+            const authLevel =
+                authState === "logged-in"
+                    ? "4"
+                    : authState === "logged-out"
+                      ? undefined
+                      : process.env.MOCK_AUTH_LEVEL;
+
+            return HttpResponse.json(
+                authLevel
                     ? {
                           authenticated: true,
                           name: "Charlie Jensen",
-                          securityLevel: process.env.MOCK_AUTH_LEVEL,
+                          securityLevel: authLevel,
                           userId: "12345612345",
                       }
                     : { authenticated: false },
-            ),
-        ),
+            );
+        }),
         http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
             HttpResponse.json({ success: true }),
         ),
