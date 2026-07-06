@@ -19,7 +19,7 @@ class LogoutWarning extends HTMLElement {
     private nextAutoRefreshInSeconds = 0;
     private static readonly INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
 
-    private handleActivity = () => {
+    private readonly handleActivity = () => {
         if (!this.isEnabled) return;
         const isFirstActivity = this.renewalTimer === undefined;
         this.lastActivityAt = Date.now();
@@ -36,9 +36,9 @@ class LogoutWarning extends HTMLElement {
         }
     };
 
-    private isUserActive = () => this.lastActivityAt > 0;
+    private readonly isUserActive = () => this.lastActivityAt > 0;
 
-    private resetActivity = () => {
+    private readonly resetActivity = () => {
         this.lastActivityAt = 0;
         globalThis.clearTimeout(this.renewalTimer);
         this.renewalTimer = undefined;
@@ -46,7 +46,7 @@ class LogoutWarning extends HTMLElement {
         this.inactivityTimer = undefined;
     };
 
-    private scheduleRenewal = (inSeconds: number) => {
+    private readonly scheduleRenewal = (inSeconds: number) => {
         globalThis.clearTimeout(this.renewalTimer);
         this.renewalTimer = globalThis.setTimeout(async () => {
             this.renewalTimer = undefined;
@@ -101,7 +101,7 @@ class LogoutWarning extends HTMLElement {
 
         const val = event.detail.params.logoutWarning;
 
-        if (val !== false) {
+        if (val) {
             this.init();
         } else {
             this.isEnabled = false;
