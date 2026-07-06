@@ -24,24 +24,45 @@ const fetchFromInternalVersionApp = async (
     const url = urlObj.toString();
 
     logger.info(
-        `Proxy request to: ${urlObj.host}${urlObj.pathname} - Referer: ${request.header("referer")}`,
+        `Proxy request to: ${urlObj.protocol}//${urlObj.host}${urlObj.pathname} - Referer: ${request.header("referer")}`,
     );
 
     try {
-        request.raw.headers.set(LOOPBACK_HEADER, "true");
+        const headers = new Headers(request.raw.headers);
+        headers.set(LOOPBACK_HEADER, "true");
 
         const response = await fetch(url, {
             method: request.method,
-            headers: request.raw.headers,
+            headers,
             body: request.raw.body,
         });
 
-        // This header won't always match what we actually return in our response and can cause client errors
-        response.headers.delete("content-encoding");
+        // Clone response headers since they're immutable in Node 24
+        const responseHeaders = new Headers(response.headers);
+        responseHeaders.delete("content-encoding");
 
-        return new Response(response.body, response);
-    } catch (e) {
-        logger.error(`Proxy request failed for ${url}`, { error: e });
+        return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: responseHeaders,
+        });
+    } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e));
+        logger.error(`Proxy request failed for ${url}`, {
+            error: JSON.stringify({
+                message: err.message,
+                name: err.name,
+                code: (err as NodeJS.ErrnoException).code,
+                cause:
+                    err.cause instanceof Error
+                        ? {
+                              message: err.cause.message,
+                              code: (err.cause as NodeJS.ErrnoException).code,
+                          }
+                        : String(err.cause),
+                stack: err.stack?.split("\n").slice(0, 3).join(" | "),
+            }),
+        });
         return null;
     }
 };
