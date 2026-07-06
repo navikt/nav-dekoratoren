@@ -158,8 +158,8 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
-    it("proaktiv renewal planlegges og kalles umiddelbart når next_auto_refresh_in_seconds er 0 eller negativ", async () => {
-        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(0));
+    it("proaktiv renewal klemmes til minimumsintervall når next_auto_refresh_in_seconds er 0 eller negativ (unngår renewal-storm ved f.eks. scroll)", async () => {
+        vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(-1));
         window.dispatchEvent(
             new CustomEvent("paramsupdated", {
                 detail: {
@@ -172,10 +172,25 @@ describe("LogoutWarning — aktivitetssporing", () => {
 
         window.dispatchEvent(new KeyboardEvent("keydown"));
 
+        for (let i = 0; i < 50; i++) {
+            window.dispatchEvent(new Event("scroll"));
+        }
+
         vi.advanceTimersByTime(100);
         await Promise.resolve();
 
+        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalledWith(
+            "renew",
+        );
+
+        vi.advanceTimersByTime(60 * 1000);
+        await Promise.resolve();
+
         expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
+        const renewCalls = vi
+            .mocked(fetchOrRenewSession)
+            .mock.calls.filter(([action]) => action === "renew");
+        expect(renewCalls).toHaveLength(1);
     });
 
     it("renewal skjer ikke dersom aktivitet er eldre enn inaktivitetsgrensen", async () => {

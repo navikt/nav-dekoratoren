@@ -17,11 +17,14 @@ class LogoutWarning extends HTMLElement {
     private renewalTimer?: ReturnType<typeof globalThis.setTimeout>;
     private inactivityTimer?: ReturnType<typeof globalThis.setTimeout>;
     private nextAutoRefreshInSeconds = 0;
+    private isRenewing = false;
     private static readonly INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
+    private static readonly MIN_RENEWAL_DELAY_SECONDS = 60;
 
     private readonly handleActivity = () => {
         if (!this.isEnabled) return;
-        const isFirstActivity = this.renewalTimer === undefined;
+        const isFirstActivity =
+            this.renewalTimer === undefined && !this.isRenewing;
         this.lastActivityAt = Date.now();
 
         globalThis.clearTimeout(this.inactivityTimer);
@@ -31,7 +34,12 @@ class LogoutWarning extends HTMLElement {
         }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
 
         if (isFirstActivity) {
-            this.scheduleRenewal(Math.max(0, this.nextAutoRefreshInSeconds));
+            this.scheduleRenewal(
+                Math.max(
+                    LogoutWarning.MIN_RENEWAL_DELAY_SECONDS,
+                    this.nextAutoRefreshInSeconds,
+                ),
+            );
         }
     };
 
@@ -52,7 +60,9 @@ class LogoutWarning extends HTMLElement {
             if (!this.isUserActive()) {
                 return;
             }
+            this.isRenewing = true;
             const sessionData = await fetchOrRenewSession("renew");
+            this.isRenewing = false;
             this.resetActivity();
             if (sessionData) {
                 this.updateDialogs(sessionData);
@@ -75,9 +85,16 @@ class LogoutWarning extends HTMLElement {
             this.nextAutoRefreshInSeconds =
                 sessionData.tokens.next_auto_refresh_in_seconds;
 
-            if (this.isUserActive() && this.renewalTimer === undefined) {
+            if (
+                this.isUserActive() &&
+                this.renewalTimer === undefined &&
+                !this.isRenewing
+            ) {
                 this.scheduleRenewal(
-                    Math.max(0, this.nextAutoRefreshInSeconds),
+                    Math.max(
+                        LogoutWarning.MIN_RENEWAL_DELAY_SECONDS,
+                        this.nextAutoRefreshInSeconds,
+                    ),
                 );
             }
         } else {
