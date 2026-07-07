@@ -151,11 +151,16 @@ class LogoutWarning extends HTMLElement {
         this.tokenDialog.checkActivity = this.isUserActive;
 
         this.tokenDialog.addEventListener("renew", async () => {
-            const sessionData = await fetchOrRenewSession("renew");
-            if (sessionData) {
-                this.updateDialogs(sessionData);
-            } else {
-                this.tokenDialog.notifyRenewComplete();
+            this.isRenewing = true;
+            try {
+                const sessionData = await fetchOrRenewSession("renew");
+                if (sessionData) {
+                    this.updateDialogs(sessionData);
+                } else {
+                    this.tokenDialog.notifyRenewComplete();
+                }
+            } finally {
+                this.isRenewing = false;
             }
             this.resetActivity();
         });
