@@ -27,12 +27,11 @@ describe("TokenDialog — aktivitetsbasert auto-renew", () => {
     let tick: () => void;
 
     beforeEach(() => {
-        vi.spyOn(window, "setInterval").mockImplementation((fn: any): any => {
+        vi.spyOn(globalThis, "setInterval").mockImplementation((fn: any): any => {
             tick = fn;
             return 42;
         });
-        vi.spyOn(window, "clearInterval").mockImplementation(() => {});
-
+        vi.spyOn(globalThis, "clearInterval").mockImplementation(() => {});
         container = document.createElement("div");
         container.innerHTML = TOKEN_DIALOG_HTML;
         document.body.appendChild(container);
