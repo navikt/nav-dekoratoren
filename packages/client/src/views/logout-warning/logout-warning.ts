@@ -60,12 +60,21 @@ class LogoutWarning extends HTMLElement {
             if (!this.isUserActive()) {
                 return;
             }
+            if (this.isRenewing) {
+                this.scheduleRenewal(LogoutWarning.MIN_RENEWAL_DELAY_SECONDS);
+                return;
+            }
             this.isRenewing = true;
-            const sessionData = await fetchOrRenewSession("renew");
-            this.isRenewing = false;
-            this.resetActivity();
-            if (sessionData) {
-                this.updateDialogs(sessionData);
+            try {
+                const sessionData = await fetchOrRenewSession("renew");
+                this.resetActivity();
+                if (sessionData) {
+                    this.updateDialogs(sessionData);
+                } else {
+                    this.tokenDialog.notifyRenewComplete();
+                }
+            } finally {
+                this.isRenewing = false;
             }
         }, inSeconds * 1000);
     };
