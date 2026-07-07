@@ -25,13 +25,17 @@ describe("TokenDialog — aktivitetsbasert auto-renew", () => {
     let dialog: HTMLDialogElement;
     let container: HTMLDivElement;
     let tick: () => void;
+    let lastDelayMs: number | undefined;
 
     beforeEach(() => {
-        vi.spyOn(globalThis, "setInterval").mockImplementation((fn: any): any => {
-            tick = fn;
-            return 42;
-        });
-        vi.spyOn(globalThis, "clearInterval").mockImplementation(() => {});
+        vi.spyOn(globalThis, "setTimeout").mockImplementation(
+            (fn: any, delay?: number): any => {
+                tick = fn;
+                lastDelayMs = delay;
+                return 42;
+            },
+        );
+        vi.spyOn(globalThis, "clearTimeout").mockImplementation(() => {});
         container = document.createElement("div");
         container.innerHTML = TOKEN_DIALOG_HTML;
         document.body.appendChild(container);
@@ -115,5 +119,17 @@ describe("TokenDialog — aktivitetsbasert auto-renew", () => {
         tokenDialog.tokenExpireAtLocal = addSecondsFromNow(250);
         tick();
         expect(renewSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it("sjekker hvert minutt når token har mer enn 5 minutter igjen, og hvert sekund når under 5 minutter", () => {
+        // Ved tilkobling er tokenExpireAtLocal usatt (Infinity) → god tid igjen
+        expect(lastDelayMs).toBe(60 * 1000);
+
+        tick(); // fortsatt god tid igjen
+        expect(lastDelayMs).toBe(60 * 1000);
+
+        tokenDialog.tokenExpireAtLocal = addSecondsFromNow(250); // < 5 min
+        tick();
+        expect(lastDelayMs).toBe(1000);
     });
 });

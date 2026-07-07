@@ -7,8 +7,11 @@ import { defineCustomElement } from "../custom-elements";
 export class TokenDialog extends HTMLElement {
     private _tokenExpireAtLocal?: string;
     checkActivity?: () => boolean;
-    private interval?: ReturnType<typeof globalThis.setInterval>;
+    private timer?: ReturnType<typeof globalThis.setTimeout>;
     private isAutoRenewing = false;
+    private static readonly NEAR_EXPIRY_THRESHOLD_SECONDS = 5 * 60;
+    private static readonly FAR_CHECK_INTERVAL_MS = 60 * 1000;
+    private static readonly NEAR_CHECK_INTERVAL_MS = 1000;
 
     get tokenExpireAtLocal() {
         return this._tokenExpireAtLocal;
@@ -16,7 +19,10 @@ export class TokenDialog extends HTMLElement {
 
     set tokenExpireAtLocal(value: string | undefined) {
         this._tokenExpireAtLocal = value;
-        if (this.isAutoRenewing && this.secondsRemaining < 5 * 60) {
+        if (
+            this.isAutoRenewing &&
+            this.secondsRemaining < TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+        ) {
             this.isAutoRenewing = false;
         }
     }
@@ -28,7 +34,7 @@ export class TokenDialog extends HTMLElement {
     }
 
     notifyRenewComplete() {
-        if (this.secondsRemaining < 5 * 60) {
+        if (this.secondsRemaining < TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS) {
             this.isAutoRenewing = false;
         }
     }
@@ -54,10 +60,13 @@ export class TokenDialog extends HTMLElement {
             }
         });
 
-        this.interval = globalThis.setInterval(() => {
+        const tick = () => {
             if (this.secondsRemaining < 0) {
                 logout();
-            } else if (this.secondsRemaining < 5 * 60) {
+            } else if (
+                this.secondsRemaining <
+                TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+            ) {
                 if (!this.isAutoRenewing && this.checkActivity?.()) {
                     this.isAutoRenewing = true;
                     this.dispatchEvent(new Event("renew"));
@@ -71,11 +80,25 @@ export class TokenDialog extends HTMLElement {
                 this.isAutoRenewing = false;
                 dialog.close();
             }
-        }, 1000);
+
+            const nextDelayMs =
+                this.secondsRemaining <
+                TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+                    ? TokenDialog.NEAR_CHECK_INTERVAL_MS
+                    : TokenDialog.FAR_CHECK_INTERVAL_MS;
+            this.timer = globalThis.setTimeout(tick, nextDelayMs);
+        };
+
+        this.timer = globalThis.setTimeout(
+            tick,
+            this.secondsRemaining < TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+                ? TokenDialog.NEAR_CHECK_INTERVAL_MS
+                : TokenDialog.FAR_CHECK_INTERVAL_MS,
+        );
     }
 
     disconnectedCallback() {
-        clearInterval(this.interval);
+        globalThis.clearTimeout(this.timer);
     }
 }
 

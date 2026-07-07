@@ -1223,6 +1223,10 @@ utloggingsvarselet oppfører seg:
 - Velger brukeren å fortsette, forlenges økten med ytterligere 60 minutter.
 - Økten (Session tokenet) er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
 
+> Teknisk detalj: Klienten sjekker gjenværende tid hvert minutt frem til token/økt nærmer seg utløp
+> (5 minutter igjen), og går da over til å sjekke hvert sekund for å sikre presis timing på varsel og
+> utlogging.
+
 **Analytics 📊**
 
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
