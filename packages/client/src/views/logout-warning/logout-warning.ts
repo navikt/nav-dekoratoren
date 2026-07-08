@@ -48,6 +48,21 @@ class LogoutWarning extends HTMLElement {
 
     private readonly isUserActive = () => this.lastActivityAt > 0;
 
+    private readonly handleRenew = async () => {
+        this.isRenewing = true;
+        try {
+            const sessionData = await fetchOrRenewSession("renew");
+            if (sessionData) {
+                this.updateDialogs(sessionData);
+            } else {
+                this.tokenDialog.notifyRenewComplete();
+            }
+        } finally {
+            this.isRenewing = false;
+        }
+        this.resetActivity();
+    };
+
     private readonly resetActivity = () => {
         this.lastActivityAt = 0;
         globalThis.clearTimeout(this.renewalTimer);
@@ -155,20 +170,7 @@ class LogoutWarning extends HTMLElement {
 
         this.tokenDialog.checkActivity = this.isUserActive;
 
-        this.tokenDialog.addEventListener("renew", async () => {
-            this.isRenewing = true;
-            try {
-                const sessionData = await fetchOrRenewSession("renew");
-                if (sessionData) {
-                    this.updateDialogs(sessionData);
-                } else {
-                    this.tokenDialog.notifyRenewComplete();
-                }
-            } finally {
-                this.isRenewing = false;
-            }
-            this.resetActivity();
-        });
+        this.tokenDialog.addEventListener("renew", this.handleRenew);
 
         if (param("logoutWarning")) this.init();
     }
@@ -180,6 +182,7 @@ class LogoutWarning extends HTMLElement {
         window.removeEventListener("click", this.handleActivity);
         window.removeEventListener("scroll", this.handleActivity);
         window.removeEventListener("touchstart", this.handleActivity);
+        this.tokenDialog?.removeEventListener("renew", this.handleRenew);
         globalThis.clearTimeout(this.renewalTimer);
         globalThis.clearTimeout(this.inactivityTimer);
     }
