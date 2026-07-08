@@ -1205,7 +1205,7 @@ Brukernes totale økt har en maksimal levetid på 6 timer, hvor brukeren blir lo
 inn igjen.
 
 Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen ved å sette
-`logoutWarning=false`som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
+`logoutWarning=false` som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
 at du bygger din egen mekanisme for å la brukere utsette utlogging.
 
 **Regler for tokens 🔐**
