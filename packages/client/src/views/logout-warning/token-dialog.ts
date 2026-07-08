@@ -17,17 +17,18 @@ export class TokenDialog extends HTMLElement {
         return this._tokenExpireAtLocal;
     }
 
-set tokenExpireAtLocal(value: string | undefined) {
-    this._tokenExpireAtLocal = value;
+    set tokenExpireAtLocal(value: string | undefined) {
+        this._tokenExpireAtLocal = value;
 
-    if (
-        !this._tokenExpireAtLocal ||
-        (this.isAutoRenewing &&
-            this.secondsRemaining >= TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS)
-    ) {
-        this.isAutoRenewing = false;
+        if (
+            !this._tokenExpireAtLocal ||
+            (this.isAutoRenewing &&
+                this.secondsRemaining >=
+                    TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS)
+        ) {
+            this.isAutoRenewing = false;
+        }
     }
-}
 
     private get secondsRemaining() {
         return this._tokenExpireAtLocal
@@ -65,6 +66,7 @@ set tokenExpireAtLocal(value: string | undefined) {
         const tick = () => {
             if (this.secondsRemaining < 0) {
                 logout();
+                return;
             } else if (
                 this.secondsRemaining <
                 TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS

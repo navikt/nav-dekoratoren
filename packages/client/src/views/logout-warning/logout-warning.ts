@@ -18,13 +18,16 @@ class LogoutWarning extends HTMLElement {
     private inactivityTimer?: ReturnType<typeof globalThis.setTimeout>;
     private nextAutoRefreshInSeconds = 0;
     private isRenewing = false;
+    private hasSessionData = false;
     private static readonly INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
     private static readonly MIN_RENEWAL_DELAY_SECONDS = 60;
 
     private readonly handleActivity = () => {
         if (!this.isEnabled) return;
         const isFirstActivity =
-            this.renewalTimer === undefined && !this.isRenewing;
+            this.hasSessionData &&
+            this.renewalTimer === undefined &&
+            !this.isRenewing;
         this.lastActivityAt = Date.now();
 
         globalThis.clearTimeout(this.inactivityTimer);
@@ -93,6 +96,7 @@ class LogoutWarning extends HTMLElement {
             this.tokenDialog.tokenExpireAtLocal = tokenExpireAtLocal;
             this.nextAutoRefreshInSeconds =
                 sessionData.tokens.next_auto_refresh_in_seconds;
+            this.hasSessionData = true;
 
             if (
                 this.isUserActive() &&
@@ -109,6 +113,7 @@ class LogoutWarning extends HTMLElement {
         } else {
             this.sessionDialog.sessionExpireAtLocal = undefined;
             this.tokenDialog.tokenExpireAtLocal = undefined;
+            this.hasSessionData = false;
         }
     };
 
