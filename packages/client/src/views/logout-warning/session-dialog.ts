@@ -42,6 +42,7 @@ export class SessionDialog extends HTMLElement {
         const tick = () => {
             if (this.secondsRemaining < 0) {
                 logout();
+                return;
             } else if (
                 !this.silenceWarning &&
                 this.secondsRemaining <
