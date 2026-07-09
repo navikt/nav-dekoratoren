@@ -21,7 +21,6 @@ describe("updateDecoratorParams", () => {
                 feedback: false,
                 shareScreen: true,
                 logoutWarning: true,
-                ssrMainMenu: false,
                 redirectOnUserChange: false,
                 analyticsQueryParams: [],
                 analyticsRedactFilter: [],
