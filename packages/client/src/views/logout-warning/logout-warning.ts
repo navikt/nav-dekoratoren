@@ -19,8 +19,10 @@ class LogoutWarning extends HTMLElement {
     private nextAutoRefreshInSeconds = 0;
     private isRenewing = false;
     private hasSessionData = false;
+    private lastInactivityTimerResetAt = 0;
     private static readonly INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
     private static readonly MIN_RENEWAL_DELAY_SECONDS = 60;
+    private static readonly INACTIVITY_TIMER_THROTTLE_MS = 1000;
 
     private readonly handleActivity = () => {
         if (!this.isEnabled) return;
@@ -28,13 +30,20 @@ class LogoutWarning extends HTMLElement {
             this.hasSessionData &&
             this.renewalTimer === undefined &&
             !this.isRenewing;
-        this.lastActivityAt = Date.now();
+        const now = Date.now();
+        this.lastActivityAt = now;
 
-        globalThis.clearTimeout(this.inactivityTimer);
-        this.inactivityTimer = globalThis.setTimeout(() => {
-            this.lastActivityAt = 0;
-            this.inactivityTimer = undefined;
-        }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
+        if (
+            now - this.lastInactivityTimerResetAt >=
+            LogoutWarning.INACTIVITY_TIMER_THROTTLE_MS
+        ) {
+            this.lastInactivityTimerResetAt = now;
+            globalThis.clearTimeout(this.inactivityTimer);
+            this.inactivityTimer = globalThis.setTimeout(() => {
+                this.lastActivityAt = 0;
+                this.inactivityTimer = undefined;
+            }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
+        }
 
         if (isFirstActivity) {
             this.scheduleRenewal(
@@ -65,6 +74,7 @@ class LogoutWarning extends HTMLElement {
 
     private readonly resetActivity = () => {
         this.lastActivityAt = 0;
+        this.lastInactivityTimerResetAt = 0;
         globalThis.clearTimeout(this.renewalTimer);
         this.renewalTimer = undefined;
         globalThis.clearTimeout(this.inactivityTimer);

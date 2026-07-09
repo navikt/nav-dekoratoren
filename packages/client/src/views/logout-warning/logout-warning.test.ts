@@ -158,6 +158,30 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
+    it("throttler reset av inaktivitetstimeren ved mange raske aktivitetshendelser (f.eks. touch-scroll på 60-120 events/sek)", () => {
+        const setTimeoutSpy = vi.spyOn(globalThis, "setTimeout");
+        const callsBefore = setTimeoutSpy.mock.calls.length;
+
+        // Simulerer en rask serie scroll-events innenfor samme throttle-vindu
+        for (let i = 0; i < 50; i++) {
+            window.dispatchEvent(new Event("scroll"));
+        }
+
+        const inactivityTimerCalls = setTimeoutSpy.mock.calls
+            .slice(callsBefore)
+            .filter(([, delay]) => delay === 30 * 60 * 1000);
+        expect(inactivityTimerCalls).toHaveLength(1);
+
+        // Etter at throttle-vinduet (1s) har gått, skal neste aktivitet planlegge en ny timer
+        vi.advanceTimersByTime(1000);
+        window.dispatchEvent(new Event("scroll"));
+
+        const inactivityTimerCallsAfter = setTimeoutSpy.mock.calls
+            .slice(callsBefore)
+            .filter(([, delay]) => delay === 30 * 60 * 1000);
+        expect(inactivityTimerCallsAfter).toHaveLength(2);
+    });
+
     it("proaktiv renewal klemmes til minimumsintervall når next_auto_refresh_in_seconds er 0 eller negativ (unngår renewal-storm ved f.eks. scroll)", async () => {
         vi.mocked(fetchOrRenewSession).mockResolvedValue(makeSessionData(-1));
         window.dispatchEvent(
