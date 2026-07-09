@@ -8,6 +8,7 @@ export class SessionDialog extends HTMLElement {
     sessionExpireAtLocal?: string;
     private timer?: ReturnType<typeof globalThis.setTimeout>;
     private silenceWarning = false;
+    private tick?: () => void;
     private static readonly NEAR_EXPIRY_THRESHOLD_SECONDS = 5 * 60;
     private static readonly FAR_CHECK_INTERVAL_MS = 60 * 1000;
     private static readonly NEAR_CHECK_INTERVAL_MS = 1000;
@@ -16,6 +17,11 @@ export class SessionDialog extends HTMLElement {
         return this.sessionExpireAtLocal
             ? getSecondsRemaining(this.sessionExpireAtLocal)
             : Infinity;
+    }
+
+    checkNow() {
+        globalThis.clearTimeout(this.timer);
+        this.tick?.();
     }
 
     connectedCallback() {
@@ -67,6 +73,8 @@ export class SessionDialog extends HTMLElement {
             this.timer = globalThis.setTimeout(tick, nextDelayMs);
         };
 
+        this.tick = tick;
+
         this.timer = globalThis.setTimeout(
             tick,
             this.secondsRemaining < SessionDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
@@ -77,6 +85,7 @@ export class SessionDialog extends HTMLElement {
 
     disconnectedCallback() {
         globalThis.clearTimeout(this.timer);
+        this.tick = undefined;
     }
 }
 

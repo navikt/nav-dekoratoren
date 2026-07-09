@@ -342,6 +342,10 @@ minst 30 minutter. Den gir brukeren muligheten til å forlenge økten med ytterl
 eller logge ut umiddelbart. Dette tjener både som en bekvemmelighet for brukeren og for å oppfylle
 WCAG-tilgjengelighetskrav.
 
+Så lenge brukeren er aktiv (klikk, tastetrykk, scroll eller touch), fornyes innloggingstokenet
+automatisk i bakgrunnen, uten at noen dialog vises. Blir brukeren inaktiv, utløper tokenet
+omtrent 60 minutter etter siste registrerte aktivitet, og modalen vises 5 minutter før dette.
+
 Hvis du velger å deaktivere denne funksjonen, må du selv implementere en lignende
 utloggingsadvarsel.
 

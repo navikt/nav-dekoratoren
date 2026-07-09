@@ -26,10 +26,6 @@ class LogoutWarning extends HTMLElement {
 
     private readonly handleActivity = () => {
         if (!this.isEnabled) return;
-        const isFirstActivity =
-            this.hasSessionData &&
-            this.renewalTimer === undefined &&
-            !this.isRenewing;
         const now = Date.now();
         this.lastActivityAt = now;
 
@@ -43,15 +39,15 @@ class LogoutWarning extends HTMLElement {
                 this.lastActivityAt = 0;
                 this.inactivityTimer = undefined;
             }, LogoutWarning.INACTIVITY_TIMEOUT_MS);
-        }
 
-        if (isFirstActivity) {
-            this.scheduleRenewal(
-                Math.max(
-                    LogoutWarning.MIN_RENEWAL_DELAY_SECONDS,
-                    this.nextAutoRefreshInSeconds,
-                ),
-            );
+            if (this.hasSessionData && !this.isRenewing) {
+                this.scheduleRenewal(
+                    Math.max(
+                        LogoutWarning.MIN_RENEWAL_DELAY_SECONDS,
+                        this.nextAutoRefreshInSeconds,
+                    ),
+                );
+            }
         }
     };
 
@@ -85,9 +81,6 @@ class LogoutWarning extends HTMLElement {
         globalThis.clearTimeout(this.renewalTimer);
         this.renewalTimer = globalThis.setTimeout(async () => {
             this.renewalTimer = undefined;
-            if (!this.isUserActive()) {
-                return;
-            }
             if (this.isRenewing) {
                 this.scheduleRenewal(LogoutWarning.MIN_RENEWAL_DELAY_SECONDS);
                 return;
@@ -110,6 +103,8 @@ class LogoutWarning extends HTMLElement {
     private onVisibilityChange = async () => {
         if (param("logoutWarning") && document.visibilityState === "visible") {
             this.updateDialogs(await fetchOrRenewSession("fetch"));
+            this.tokenDialog?.checkNow();
+            this.sessionDialog?.checkNow();
         }
     };
 

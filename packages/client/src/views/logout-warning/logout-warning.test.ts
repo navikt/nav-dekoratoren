@@ -158,6 +158,23 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(tokenDialog.checkActivity!()).toBe(false);
     });
 
+    it("ny aktivitet utsetter fornyelsen til siste aktivitet + next_auto_refresh_in_seconds, ikke bare første i syklusen", async () => {
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+
+        vi.advanceTimersByTime(50 * 60 * 1000);
+        window.dispatchEvent(new KeyboardEvent("keydown"));
+
+        vi.advanceTimersByTime(5 * 60 * 1000);
+        await Promise.resolve();
+        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalledWith(
+            "renew",
+        );
+
+        vi.advanceTimersByTime(50 * 60 * 1000);
+        await Promise.resolve();
+        expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
+    });
+
     it("throttler reset av inaktivitetstimeren ved mange raske aktivitetshendelser (f.eks. touch-scroll på 60-120 events/sek)", () => {
         const setTimeoutSpy = vi.spyOn(globalThis, "setTimeout");
         const callsBefore = setTimeoutSpy.mock.calls.length;
@@ -217,17 +234,13 @@ describe("LogoutWarning — aktivitetssporing", () => {
         expect(renewCalls).toHaveLength(1);
     });
 
-    it("renewal skjer ikke dersom aktivitet er eldre enn inaktivitetsgrensen", async () => {
+    it("planlagt renewal gjennomføres selv om aktivitet er eldre enn inaktivitetsgrensen (token skal alltid fornyes ~60 min etter siste aktivitet)", async () => {
         window.dispatchEvent(new KeyboardEvent("keydown"));
 
-        // Inaktivitetstimeren fyrer etter 30 min og nullstiller aktivitet
         vi.advanceTimersByTime(30 * 60 * 1000 + 1000);
-        // Deretter fyrer renewal-timeren (3300s - 31min ≈ 24 min til)
         vi.advanceTimersByTime(3300 * 1000 - (30 * 60 * 1000 + 1000));
         await Promise.resolve();
 
-        expect(vi.mocked(fetchOrRenewSession)).not.toHaveBeenCalledWith(
-            "renew",
-        );
+        expect(vi.mocked(fetchOrRenewSession)).toHaveBeenCalledWith("renew");
     });
 });
