@@ -337,9 +337,14 @@ omdirigeringsadressen **etter** at brukeren er logget ut.
 
 **logoutWarning**
 
-En modal vil vises etter 55 minutter med innloggingstid, som gir brukeren muligheten til å forlenge
-økten med ytterligere 60 minutter eller logge ut umiddelbart. Dette tjener både som en
-bekvemmelighet for brukeren og for å oppfylle WCAG-tilgjengelighetskrav.
+En modal vil vises 5 minutter før innloggingstokenet utløper, dersom brukeren har vært inaktiv i
+minst 30 minutter. Den gir brukeren muligheten til å forlenge økten med ytterligere 60 minutter
+eller logge ut umiddelbart. Dette tjener både som en bekvemmelighet for brukeren og for å oppfylle
+WCAG-tilgjengelighetskrav.
+
+Så lenge brukeren er aktiv (klikk, tastetrykk, scroll eller touch), fornyes innloggingstokenet
+automatisk i bakgrunnen, uten at noen dialog vises. Blir brukeren inaktiv, utløper tokenet
+omtrent 60 minutter etter siste registrerte aktivitet, og modalen vises 5 minutter før dette.
 
 Hvis du velger å deaktivere denne funksjonen, må du selv implementere en lignende
 utloggingsadvarsel.
@@ -1196,17 +1201,16 @@ informasjon, se
 
 **Utloggingsvarsel 🔐**
 
-En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper. Brukeren kan da
-velge å forlenge økten med ytterligere 60 minutter eller klikke "Logg ut" for å logge ut
-umiddelbart.
+Et utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper, dersom brukeren
+har vært inaktiv i minst 30 minutter. Brukeren kan da velge å forlenge økten med ytterligere 60
+minutter eller klikke "Logg ut" for å logge ut umiddelbart.
 
-Brukernes totale sesjon har en maksimal levetid på 6 timer, hvoretter brukeren må logge ut og logge
+Brukernes totale økt har en maksimal levetid på 6 timer, hvor brukeren blir logget ut og må logge
 inn igjen.
 
 Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen ved å sette
-`logoutWarning=false`som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
-at du bygger din egen
-mekanisme for å la brukere utsette utlogging.
+`logoutWarning=false` som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
+at du bygger din egen mekanisme for å la brukere utsette utlogging.
 
 **Regler for tokens 🔐**
 
@@ -1215,14 +1219,17 @@ Du kan lese mer om tokens i
 utloggingsvarselet oppfører seg:
 
 - Tokens er gyldig i 60 minutter hvis det ikke fornyes.
-- Økten er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
-- 5 minutter før tokenet utløper, blir brukeren presentert med alternativer for enten å fortsette å
-  være
-  logget inn eller logge ut umiddelbart.
-- Disse fornyelsene forlenger økten med ytterligere 60 minutter.
-- Etter ytterligere 55 minutter vil brukeren bli presentert med utloggingsvarslingen igjen.
-- Etter totalt 6 timer (session expiration) med å være logget inn, må brukeren logge inn på nytt.
-- For øyeblikket blir brukeren presentert med utloggingsvarslingen uavhengig av aktivitet.
+- Dersom brukeren er aktiv (klikker, scroller, taster), fornyes tokenet automatisk i bakgrunnen uten
+  at varselet vises.
+- Dersom brukeren har vært inaktiv i 30 minutter, mister brukeren «aktiv»-status. Når tokenet da
+  nærmer seg utløp (5 minutter igjen), blir brukeren presentert med alternativer for enten å
+  fortsette å være logget inn eller logge ut umiddelbart.
+- Velger brukeren å fortsette, forlenges økten med ytterligere 60 minutter.
+- Økten (Session tokenet) er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
+
+> Teknisk detalj: Klienten sjekker gjenværende tid hvert minutt frem til token/økt nærmer seg utløp
+> (5 minutter igjen), og går da over til å sjekke hvert sekund for å sikre presis timing på varsel og
+> utlogging.
 
 **Analytics 📊**
 
