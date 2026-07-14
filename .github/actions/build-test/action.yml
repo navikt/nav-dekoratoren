@@ -31,7 +31,7 @@ inputs:
   CDN_DESTINATION:
     description: Destination path on CDN
     required: false
-    default: "/decorator-next"
+    default: "/nav-dekoratoren"
 
 outputs:
   IMAGE:
