@@ -140,7 +140,9 @@ export const buildHtmlAttribsString = (
             const nameFinal =
                 name === "className" ? "class" : toKebabCase(name);
 
-            return value === true ? nameFinal : `${nameFinal}="${value}"`;
+            return value === true
+                ? nameFinal
+                : `${nameFinal}="${escapeHtml(String(value))}"`;
         })
         .join(" ");
 
