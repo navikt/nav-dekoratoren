@@ -54,6 +54,7 @@ const setupDecoratorData = () => {
             "dekoratoren.chatbotscript": false,
             "dekoratoren.umami": false,
             "dekoratoren.puzzel-script": false,
+            "dekoratoren.skyra": false,
         },
         env: {} as any,
         texts: {} as any,
