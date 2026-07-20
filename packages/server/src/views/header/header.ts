@@ -52,9 +52,7 @@ export const HeaderTemplate = async ({
                   contextLinks: makeContextLinks(language),
                   context,
                   language,
-                  mainMenu: params.ssrMainMenu
-                      ? await MainMenuTemplate({ data: params })
-                      : null,
+                  mainMenu: await MainMenuTemplate({ data: params }),
               })}
     `;
 

@@ -86,7 +86,6 @@ export const paramsSchema = z.object({
     logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     logoutWarning: z.boolean().default(true),
     bedrift: z.string().optional(),
-    ssrMainMenu: z.boolean().default(false),
     redirectOnUserChange: z.boolean().default(false),
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
