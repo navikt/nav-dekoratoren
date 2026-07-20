@@ -14,12 +14,11 @@ type MainMenu = z.infer<typeof mainmenuSchema>;
 const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
 const ONE_MINUTE_MS = 60 * 1000;
-
-const TWO_MINUTES_MS = 2 * 60 * 1000;
+const TEN_SECONDS_MS = 10 * 1000;
 
 const menuCache = new ResponseCache<MainMenu>({
     ttl: ONE_MINUTE_MS,
-    errorRetryDelay: TWO_MINUTES_MS,
+    suppressRetryForMs: TEN_SECONDS_MS,
 });
 
 const baseMainMenuNode = z.object({

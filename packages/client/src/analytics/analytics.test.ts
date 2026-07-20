@@ -42,7 +42,6 @@ const setupDecoratorData = () => {
             shareScreen: true,
             logoutWarning: true,
             feedback: false,
-            ssrMainMenu: false,
             redirectOnUserChange: false,
             analyticsQueryParams: [],
             analyticsRedactFilter: [],
