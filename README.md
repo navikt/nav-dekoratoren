@@ -1159,7 +1159,7 @@ ikke.
 Du kan finne det nåværende CSP-direktivet
 på [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). Du kan også
 inspisere den faktiske koden
-på [content-security-policy.ts](https://github.com/navikt/decorator-next/blob/main/packages/server/src/content-security-policy.ts)
+på [content-security-policy.ts](https://github.com/navikt/nav-dekoratoren/blob/main/packages/server/src/content-security-policy.ts)
 for en bedre forståelse av hvordan CSP fungerer.
 
 [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr

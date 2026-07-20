@@ -5,7 +5,7 @@ const findOrError = (id: string) => {
     const el = document.getElementById(`decorator-${id}`);
 
     if (!el) {
-        throw new Error(`No elem:${id}. See github.com/navikt/decorator-next`);
+        throw new Error(`No elem:${id}. See github.com/navikt/nav-dekoratoren`);
     }
 
     return el;
