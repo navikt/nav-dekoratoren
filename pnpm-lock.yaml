@@ -179,8 +179,8 @@ importers:
                 specifier: 13.0.6
                 version: 13.0.6
             svgo:
-                specifier: 4.0.1
-                version: 4.0.1
+                specifier: 4.0.2
+                version: 4.0.2
             tsx:
                 specifier: "catalog:"
                 version: 4.22.4
@@ -7649,10 +7649,10 @@ packages:
             }
         engines: { node: ">= 0.4" }
 
-    svgo@4.0.1:
+    svgo@4.0.2:
         resolution:
             {
-                integrity: sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==,
+                integrity: sha512-ekx94z1rRc5LDi6oSUaeRnYhd0UOJxdtQCL2rF8xpWxD3TPAsISWOrxezqGovqS38GRZOdpDfvQe3ts6F7nsng==,
             }
         engines: { node: ">=16" }
         hasBin: true
@@ -13030,7 +13030,7 @@ snapshots:
 
     supports-preserve-symlinks-flag@1.0.0: {}
 
-    svgo@4.0.1:
+    svgo@4.0.2:
         dependencies:
             commander: 11.1.0
             css-select: 5.2.2
