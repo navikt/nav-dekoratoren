@@ -13,7 +13,7 @@ type Story = StoryObj<UserMenuProps>;
 
 export const LowAuthLevel: Story = {
     args: {
-        name: "Charlie Jensen",
+        name: "Ambisiøs Utsikt",
         notifications: [
             {
                 id: "a",
@@ -28,7 +28,7 @@ export const LowAuthLevel: Story = {
 
 export const HighAuthLevel: Story = {
     args: {
-        name: "Charlie Jensen",
+        name: "Ambisiøs Utsikt",
         level: "Level4",
         notifications: [
             {

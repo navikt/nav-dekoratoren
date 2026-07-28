@@ -115,9 +115,9 @@ testNextPagesRouter(
             .click();
 
         await expect(
-            page.getByRole("button", { name: "Charlie Jensen" }),
+            page.getByRole("button", { name: "Ambisiøs Utsikt" }),
         ).toBeVisible();
-        await page.getByRole("button", { name: "Charlie Jensen" }).click();
+        await page.getByRole("button", { name: "Ambisiøs Utsikt" }).click();
         await expect(page.getByText("Du har ingen nye varsler")).toBeVisible();
     },
 );

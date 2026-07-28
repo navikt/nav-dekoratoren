@@ -138,7 +138,7 @@ export const setupMocks = () =>
                 authLevel
                     ? {
                           authenticated: true,
-                          name: "Charlie Jensen",
+                          name: "Ambisiøs Utsikt",
                           securityLevel: authLevel,
                           userId: "12345612345",
                       }
