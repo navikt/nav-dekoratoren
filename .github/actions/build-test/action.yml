@@ -63,7 +63,7 @@ runs:
     - name: Install Playwright dependencies
       shell: bash
       if: ${{ inputs.SKIP_TESTS != 'true' }}
-      run: npx playwright@1.62.1 install-deps
+      run: pnpm exec playwright install-deps
 
     - name: Build app
       shell: bash
