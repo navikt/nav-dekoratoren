@@ -11,19 +11,20 @@ export const initSkyra = () => {
 };
 
 export const stopSkyra = () => {
+    console.log("stopSkyra called");
     if (typeof window.skyra?.controller?.stop === "function") {
         // Disable surveys by Skyra
         window.skyra.setConsent(false);
+    }
+
+    if (window.SKYRA_CONFIG) {
+        delete window.SKYRA_CONFIG;
     }
 
     // Remove Skyra script from DOM
     const skyraScript = document.querySelector(
         'script[src*="skyra-survey.js"]',
     );
-
-    if (window.SKYRA_CONFIG) {
-        delete window.SKYRA_CONFIG;
-    }
 
     if (skyraScript) {
         skyraScript.remove();
@@ -34,7 +35,9 @@ export const stopSkyra = () => {
         delete window.skyra;
     }
 
+    // Not possible to delete skyraSurvey
+    // as it's not a 'configurable' window property
     if (typeof window.skyraSurvey === "object") {
-        delete window.skyraSurvey;
+        window.skyraSurvey = null;
     }
 };
