@@ -62,7 +62,7 @@ runs:
 
     - name: Install Playwright dependencies
       shell: bash
-      run: npx playwright install-deps
+      run: npx playwright@1.6.0 install-deps
 
     - name: Build app
       shell: bash
