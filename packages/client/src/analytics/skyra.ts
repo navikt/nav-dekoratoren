@@ -11,7 +11,6 @@ export const initSkyra = () => {
 };
 
 export const stopSkyra = () => {
-    console.log("stopSkyra called");
     if (typeof window.skyra?.controller?.stop === "function") {
         // Disable surveys by Skyra
         window.skyra.setConsent(false);
