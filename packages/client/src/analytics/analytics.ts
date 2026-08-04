@@ -22,6 +22,7 @@ export const mockAnalytics = () => {
     return Promise.resolve();
 };
 
+const analyticsController = new AbortController();
 export const initAnalytics = (auth: Auth) => {
     initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
     initUmami();
@@ -30,15 +31,15 @@ export const initAnalytics = (auth: Auth) => {
     window.dekoratorenAnalytics = logAnalyticsEventFromApp;
     logPageView(auth);
 
-    // Pass the callback as a function reference
-    window.addEventListener("historyPush", logPageViewCallback(auth));
+    window.addEventListener("historyPush", logPageViewCallback(auth), {
+        signal: analyticsController.signal,
+    });
 };
 
 export const stopAnalytics = (auth: Auth) => {
     stopUmami();
 
-    // Pass the same function reference
-    window.removeEventListener("historyPush", logPageViewCallback(auth));
+    analyticsController.abort();
 };
 
 const buildFilteredQueryString = (): string => {
