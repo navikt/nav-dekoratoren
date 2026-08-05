@@ -79,7 +79,7 @@ if (env.NODE_ENV === "development" || isLocalhost()) {
     });
 }
 
-if (!process.env.IS_INTERNAL_APP) {
+if (!env.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
 }
 
@@ -230,7 +230,7 @@ app.get("/", async ({ req, html }) =>
 app.route("/dekoratoren", app);
 app.route("/common-html/v4/navno", app);
 
-const port = Number(process.env.PORT) || 8089;
+const port = env.PORT;
 serve({ fetch: app.fetch, port });
 logger.info(`Server running on port ${port}`);
 

@@ -1,26 +1,18 @@
 import { clientEnvSchema } from "decorator-shared/params";
-import { serverSchema, serverEnv, client_env } from "./schema";
+import { serverSchema } from "./schema";
+import { z } from "zod";
 import { logger } from "decorator-shared/logger";
 
-const _serverEnv = serverSchema.safeParse(serverEnv);
-const _clientEnv = clientEnvSchema.safeParse(client_env);
-
-if (!_serverEnv.success) {
-    logger.error("❌ Invalid server environment variables:\n", {
-        error: _serverEnv.error.issues.map((error) => error.path).join("\n"),
-    });
-    throw new Error("Invalid server environment variables");
+function parseEnv<T extends z.ZodType>(name: string, schema: T): z.infer<T> {
+    const result = schema.safeParse(process.env);
+    if (!result.success) {
+        logger.error(`❌ Invalid ${name} environment variables:\n`, {
+            error: z.prettifyError(result.error),
+        });
+        throw new Error(`Invalid ${name} environment variables`);
+    }
+    return result.data;
 }
 
-if (!_clientEnv.success) {
-    logger.error("❌ Invalid client environment variables:\n", {
-        error: _clientEnv.error.issues.map((error) => error.path).join("\n"),
-    });
-    throw new Error("Invalid client environment variables");
-}
-
-// As to not leak important things
-export const env = { ..._serverEnv.data };
-export const clientEnv = {
-    ..._clientEnv.data,
-};
+export const env = parseEnv("server", serverSchema);
+export const clientEnv = parseEnv("client", clientEnvSchema);

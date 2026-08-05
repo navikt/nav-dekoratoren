@@ -62,16 +62,12 @@ export type ModulerMetadata = {
     >;
 };
 
-export const paramsSchema = z.object({
+export const clientParamsSchema = z.object({
     context: contextSchema.default("privatperson"),
     simple: z.boolean().default(false),
     simpleHeader: z.boolean().default(false),
-    simpleFooter: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
     redirectToUrl: z
-        .optional(z.string().refine(isValidNavUrl))
-        .catch(undefined),
-    redirectToUrlLogout: z
         .optional(z.string().refine(isValidNavUrl))
         .catch(undefined),
     level: loginLevel.default("Level3"),
@@ -83,9 +79,7 @@ export const paramsSchema = z.object({
     chatbot: z.boolean().default(true),
     chatbotVisible: z.boolean().default(false),
     shareScreen: z.boolean().default(true),
-    logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     logoutWarning: z.boolean().default(true),
-    bedrift: z.string().optional(),
     redirectOnUserChange: z.boolean().default(false),
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
@@ -96,37 +90,23 @@ export const paramsSchema = z.object({
     decoratorModulerEntryPoint: modulerEntryPointSchema.optional(),
 });
 
+const serverOnlyParamsSchema = z.object({
+    simpleFooter: z.boolean().default(false),
+    redirectToUrlLogout: z
+        .optional(z.string().refine(isValidNavUrl))
+        .catch(undefined),
+    logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
+    bedrift: z.string().optional(),
+});
+
+export const paramsSchema = clientParamsSchema.extend(
+    serverOnlyParamsSchema.shape,
+);
+
 export type Params = z.infer<typeof paramsSchema>;
+export type ClientParams = z.infer<typeof clientParamsSchema>;
 
-export const clientParamKeys: Array<keyof Params> = [
-    "context",
-    "simple",
-    "simpleHeader",
-    "redirectToApp",
-    "redirectToUrl",
-    "level",
-    "language",
-    "availableLanguages",
-    "breadcrumbs",
-    "utilsBackground",
-    "chatbot",
-    "chatbotVisible",
-    "shareScreen",
-    "logoutUrl",
-    "redirectToUrlLogout",
-    "logoutWarning",
-    "feedback",
-    "redirectOnUserChange",
-    "pageType",
-    "pageTheme",
-    "pageTitle",
-    "analyticsQueryParams",
-    "analyticsRedactFilter",
-    "decoratorModulerVersion",
-    "decoratorModulerEntryPoint",
-] as const;
-
-export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
+export const clientParamKeys = clientParamsSchema.keyof().options;
 
 export const clientEnvSchema = z.object({
     APP_URL: z.string(),
@@ -145,7 +125,7 @@ export const clientEnvSchema = z.object({
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;
-export type BoostEnviroment = Environment["BOOST_ENV"];
+export type BoostEnvironment = Environment["BOOST_ENV"];
 
 export const validateRawParams = (query: Record<string, string>) => {
     const rawParams: Partial<ClientParams> = {};
