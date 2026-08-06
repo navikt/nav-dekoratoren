@@ -81,6 +81,7 @@ export const clientParamsSchema = z.object({
     shareScreen: z.boolean().default(true),
     logoutWarning: z.boolean().default(true),
     redirectOnUserChange: z.boolean().default(false),
+    origin: z.string().trim().min(1).max(100).optional(),
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
     pageTitle: z.string().optional(),
