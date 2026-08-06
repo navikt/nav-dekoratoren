@@ -91,6 +91,7 @@ export const extraWindowParams = () => {
 
 // Moduler-metadata logges som egne Umami-felter og skal derfor ikke dupliseres i pageview-parametre.
 const excludedParametre = new Set<string>([
+    "origin",
     "decoratorModulerVersion",
     "decoratorModulerEntryPoint",
     "decoratorModulerAnalyticsEntryPoint",
@@ -129,7 +130,7 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logUmamiEvent("besøk", eventData, DEFAULT_ORIGIN, {
+        logUmamiEvent("besøk", eventData, params.origin ?? DEFAULT_ORIGIN, {
             decoratorModulerVersion: params.decoratorModulerVersion,
             decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
         });
@@ -178,8 +179,7 @@ const logAnalyticsEventFromApp = (params?: {
     eventName: string;
     eventData?: unknown | EventData;
     decoratorModulerAnalyticsEntryPoint?:
-        | unknown
-        | ModulerMetadata["decoratorModulerAnalyticsEntryPoint"];
+        unknown | ModulerMetadata["decoratorModulerAnalyticsEntryPoint"];
 }): Promise<any> => {
     try {
         if (!params || params.constructor !== Object) {
