@@ -83,4 +83,22 @@ describe("logUmamiEvent", () => {
             });
         },
     );
+
+    it("uses the decorator origin when an event does not provide one", async () => {
+        window.__DECORATOR_DATA__.params.origin = "configured-app";
+        const track = vi.fn((createEvent) =>
+            createEvent({
+                referrer: "https://www.nav.no/referrer",
+            }),
+        );
+        vi.stubGlobal("umami", { track });
+
+        const event = await logUmamiEvent("test-event");
+
+        expect(event).toMatchObject({
+            data: {
+                origin: "nav-dekoratoren",
+            },
+        });
+    });
 });

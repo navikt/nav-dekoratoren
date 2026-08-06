@@ -174,6 +174,24 @@ describe("Interpolating with defaults", () => {
     });
 });
 
+describe("Validating analytics origin", () => {
+    it("should preserve a configured app origin", () => {
+        const params = parseAndValidateParams({
+            origin: "navno-frontend",
+        } satisfies Partial<Record<keyof Params, unknown>>);
+
+        expect(params.origin).toBe("navno-frontend");
+    });
+
+    it("should reject an empty app origin", () => {
+        expect(() =>
+            parseAndValidateParams({
+                origin: "",
+            } satisfies Partial<Record<keyof Params, unknown>>),
+        ).toThrow();
+    });
+});
+
 describe("JSON parsing", () => {
     it("should parse no breadcrumbs as an empty array", () => {
         const params = validateParams({});
