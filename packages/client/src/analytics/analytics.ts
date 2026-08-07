@@ -36,7 +36,7 @@ export const initAnalytics = (auth: Auth) => {
     });
 };
 
-export const stopAnalytics = (auth: Auth) => {
+export const stopAnalytics = () => {
     stopUmami();
 
     analyticsController.abort();
