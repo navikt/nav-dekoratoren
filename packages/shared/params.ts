@@ -99,10 +99,11 @@ export const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export const clientParamKeys: Array<keyof Params> = [
+export const clientParamKeys = [
     "context",
     "simple",
     "simpleHeader",
+    "simpleFooter",
     "redirectToApp",
     "redirectToUrl",
     "level",
@@ -116,6 +117,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "logoutUrl",
     "redirectToUrlLogout",
     "logoutWarning",
+    "bedrift",
     "feedback",
     "redirectOnUserChange",
     "origin",
@@ -126,7 +128,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "analyticsRedactFilter",
     "decoratorModulerVersion",
     "decoratorModulerEntryPoint",
-] as const;
+] as const satisfies ReadonlyArray<keyof Params>;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 
