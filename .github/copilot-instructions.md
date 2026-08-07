@@ -95,7 +95,7 @@ ESLint uses the new flat config format (`eslint.config.mjs`), not `.eslintrc`. D
 
 ### Logging
 
-Use the shared `logger` from `decorator-shared/logger` in both client and server code — it outputs structured JSON on the server and readable console logs in the browser.
+Use the local `logger` module for the side you're on — `decorator-client/src/helpers/logger` in client code, `decorator-server/src/lib/logger` in server code. They share a `Logger` type contract (`decorator-shared/logger-contract`) but have independent implementations: readable console logs in the browser, structured JSON on the server. `ResponseCache` (in `decorator-shared/response-cache`) takes a `logger` as a constructor param typed against that contract.
 
 ## Local Setup Prerequisites
 

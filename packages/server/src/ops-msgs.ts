@@ -1,6 +1,6 @@
 import { ResponseCache } from "decorator-shared/response-cache";
 import { OpsMessage } from "decorator-shared/types";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./lib/logger";
 import { env } from "./env/server";
 
 const TEN_SECONDS_MS = 10 * 1000;
