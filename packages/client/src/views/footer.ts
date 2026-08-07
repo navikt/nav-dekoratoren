@@ -3,7 +3,7 @@ import { logger } from "../helpers/logger";
 import { updateDecoratorParams } from "../params";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
-import { endpointUrlWithParams } from "../helpers/urls";
+import { decoratorApi, decoratorParams } from "../helpers/api";
 import { defineCustomElement } from "./custom-elements";
 
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
@@ -38,11 +38,17 @@ class Footer extends HTMLElement {
         }
     };
 
-    private readonly refreshFooter = () => {
-        fetch(endpointUrlWithParams("/footer"))
-            .then((res) => res.text())
-            .then((footer) => (this.innerHTML = footer));
-    };
+    private async refreshFooter() {
+        try {
+            const footer = await decoratorApi.get("/footer", {
+                query: decoratorParams(),
+                responseType: "text",
+            });
+            this.innerHTML = footer;
+        } catch (error) {
+            logger.error("Failed to fetch footer", { error });
+        }
+    }
 
     private readonly handleParamsUpdated = (
         e: CustomEvent<CustomEvents["paramsupdated"]>,
