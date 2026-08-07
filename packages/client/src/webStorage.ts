@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./helpers/logger";
 import {
     ConsentAction,
     Consent,

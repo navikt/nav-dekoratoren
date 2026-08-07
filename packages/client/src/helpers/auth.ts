@@ -2,7 +2,7 @@ import { AuthDataResponse } from "decorator-shared/auth";
 import { createEvent } from "../events";
 import { env } from "../params";
 import { endpointUrlWithParams } from "./urls";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./logger";
 
 export type SessionData = {
     session: {

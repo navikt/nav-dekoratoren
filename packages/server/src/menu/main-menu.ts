@@ -19,6 +19,7 @@ const TEN_SECONDS_MS = 10 * 1000;
 const menuCache = new ResponseCache<MainMenu>({
     ttl: ONE_MINUTE_MS,
     suppressRetryForMs: TEN_SECONDS_MS,
+    logger,
 });
 
 const baseMainMenuNode = z.object({

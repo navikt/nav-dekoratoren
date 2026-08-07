@@ -1,6 +1,6 @@
 import { createEvent } from "../events";
 import { defineCustomElement } from "./custom-elements";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 
 export class ConsentBanner extends HTMLElement {
     dialog!: HTMLDivElement;
