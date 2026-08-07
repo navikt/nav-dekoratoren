@@ -1,8 +1,8 @@
 import { Context, Language } from "decorator-shared/params";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 import { isNorwegian } from "./i18n";
 
-const isDevMode = env.NODE_ENV === "development";
+const isDevMode = serverEnv.NODE_ENV === "development";
 
 export type ContextLink = {
     url: string;
@@ -13,19 +13,21 @@ export const makeContextLinks = (language: Language): ContextLink[] =>
     isNorwegian(language)
         ? [
               {
-                  url: isDevMode ? "?context=privatperson" : env.XP_BASE_URL,
+                  url: isDevMode
+                      ? "?context=privatperson"
+                      : serverEnv.XP_BASE_URL,
                   context: "privatperson",
               },
               {
                   url: isDevMode
                       ? "?context=arbeidsgiver"
-                      : `${env.XP_BASE_URL}/arbeidsgiver`,
+                      : `${serverEnv.XP_BASE_URL}/arbeidsgiver`,
                   context: "arbeidsgiver",
               },
               {
                   url: isDevMode
                       ? "?context=samarbeidspartner"
-                      : `${env.XP_BASE_URL}/samarbeidspartner`,
+                      : `${serverEnv.XP_BASE_URL}/samarbeidspartner`,
                   context: "samarbeidspartner",
               },
           ]

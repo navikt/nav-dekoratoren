@@ -1,6 +1,6 @@
 import { Context, Language } from "decorator-shared/params";
 import { z } from "zod";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import { logger } from "decorator-shared/logger";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import { SearchErrorView } from "../views/errors/search-error";
@@ -29,7 +29,7 @@ const fetchSearch = async ({
     language: string;
 }) =>
     fetchAndValidateJson(
-        `${env.SEARCH_API_URL}?ord=${query}&f=${context}&preferredLanguage=${language}`,
+        `${serverEnv.SEARCH_API_URL}?ord=${query}&f=${context}&preferredLanguage=${language}`,
         undefined,
         resultSchema,
     );

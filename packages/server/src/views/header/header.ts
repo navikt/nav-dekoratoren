@@ -2,7 +2,7 @@ import { Params } from "decorator-shared/params";
 import html, { Template } from "decorator-shared/html";
 import { DecoratorUtils } from "../decorator-utils";
 import { SimpleHeader } from "./simple-header";
-import { clientEnv, env } from "../../env/server";
+import { clientEnv, serverEnv } from "../../env/server";
 import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
 import { MainMenuTemplate } from "./render-main-menu";
@@ -39,21 +39,23 @@ export const HeaderTemplate = async ({
 
     const headerContent = html`
         ${ConsentBanner({ language })}
-        ${simple || simpleHeader
-            ? SimpleHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-              })
-            : ComplexHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-                  contextLinks: makeContextLinks(language),
-                  context,
-                  language,
-                  mainMenu: await MainMenuTemplate({ data: params }),
-              })}
+        ${
+            simple || simpleHeader
+                ? SimpleHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: serverEnv.LOGIN_URL,
+                  })
+                : ComplexHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: serverEnv.LOGIN_URL,
+                      contextLinks: makeContextLinks(language),
+                      context,
+                      language,
+                      mainMenu: await MainMenuTemplate({ data: params }),
+                  })
+        }
     `;
 
     return withContainers

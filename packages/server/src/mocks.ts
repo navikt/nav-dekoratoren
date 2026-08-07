@@ -1,7 +1,7 @@
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import notificationsMock from "./notifications-mock.json";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 import testData from "./menu/main-menu-mock.json";
 import { OpsMessage } from "decorator-shared/types";
 
@@ -65,7 +65,7 @@ const getSecondsRemaining = (futureDate: string) => {
 
 export const setupMocks = () =>
     setupServer(
-        http.get(`${env.APP_URL}/api/oauth2/session`, () =>
+        http.get(`${serverEnv.APP_URL}/api/oauth2/session`, () =>
             HttpResponse.json({
                 session: {
                     created_at: nowISOString(),
@@ -86,7 +86,7 @@ export const setupMocks = () =>
                 },
             }),
         ),
-        http.get(`${env.APP_URL}/api/oauth2/session/refresh`, () =>
+        http.get(`${serverEnv.APP_URL}/api/oauth2/session/refresh`, () =>
             HttpResponse.json({
                 session: {
                     created_at: nowISOString(),
@@ -107,23 +107,26 @@ export const setupMocks = () =>
                 },
             }),
         ),
-        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+        http.get(`${serverEnv.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
             HttpResponse.json(testData),
         ),
-        http.get(`${env.APP_URL}/api/varselbjelle/varsler`, ({ request }) => {
-            const notificationsState =
-                localDecoratorMockState.notifications ??
-                getCookieValue(request, LOCAL_NOTIFICATIONS_COOKIE_NAME);
+        http.get(
+            `${serverEnv.APP_URL}/api/varselbjelle/varsler`,
+            ({ request }) => {
+                const notificationsState =
+                    localDecoratorMockState.notifications ??
+                    getCookieValue(request, LOCAL_NOTIFICATIONS_COOKIE_NAME);
 
-            return HttpResponse.json(
-                notificationsState === "empty" ||
-                    (!notificationsState &&
-                        process.env.MOCK_NOTIFICATIONS === "empty")
-                    ? { oppgaver: [], beskjeder: [] }
-                    : notificationsMock,
-            );
-        }),
-        http.get(`${env.APP_URL}/api/auth`, ({ request }) => {
+                return HttpResponse.json(
+                    notificationsState === "empty" ||
+                        (!notificationsState &&
+                            process.env.MOCK_NOTIFICATIONS === "empty")
+                        ? { oppgaver: [], beskjeder: [] }
+                        : notificationsMock,
+                );
+            },
+        ),
+        http.get(`${serverEnv.APP_URL}/api/auth`, ({ request }) => {
             const authState =
                 localDecoratorMockState.auth ??
                 getCookieValue(request, LOCAL_AUTH_COOKIE_NAME);
@@ -145,24 +148,26 @@ export const setupMocks = () =>
                     : { authenticated: false },
             );
         }),
-        http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
+        http.post(`${serverEnv.VARSEL_API_URL}/beskjed/inaktiver`, () =>
             HttpResponse.json({ success: true }),
         ),
-        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`, () =>
-            HttpResponse.json([
-                {
-                    heading: "Ustabile tjenester søndag 15. januar",
-                    url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
-                    type: "prodstatus",
-                    urlscope: ["http://localhost:8089"],
-                },
-                {
-                    heading: "Svindelforsøk via SMS - vær oppmerksom",
-                    url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
-                    type: "info",
-                    urlscope: ["http://localhost:8089/dekoratoren/$"],
-                },
-            ] satisfies OpsMessage[]),
+        http.get(
+            `${serverEnv.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`,
+            () =>
+                HttpResponse.json([
+                    {
+                        heading: "Ustabile tjenester søndag 15. januar",
+                        url: "https://www.nav.no/no/driftsmeldinger/ustabile-tjenester-sondag-15.januar",
+                        type: "prodstatus",
+                        urlscope: ["http://localhost:8089"],
+                    },
+                    {
+                        heading: "Svindelforsøk via SMS - vær oppmerksom",
+                        url: "https://www.nav.no/no/driftsmeldinger/svindelforsok-via-sms-vaer-oppmerksom20231016",
+                        type: "info",
+                        urlscope: ["http://localhost:8089/dekoratoren/$"],
+                    },
+                ] satisfies OpsMessage[]),
         ),
     ).listen({
         onUnhandledRequest: "bypass",

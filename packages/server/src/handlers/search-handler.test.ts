@@ -9,7 +9,7 @@ import {
 } from "vitest";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import { searchHandler } from "./search-handler";
 
 const validHits = new Array(5).fill(0).map((_, i) => ({
@@ -32,7 +32,7 @@ describe("Search handler", () => {
 
     test("Should show total hits", async () => {
         server.use(
-            http.get(env.SEARCH_API_URL, () =>
+            http.get(serverEnv.SEARCH_API_URL, () =>
                 HttpResponse.json({
                     hits: validHits,
                     total: 10,
@@ -58,7 +58,7 @@ describe("Search handler", () => {
             });
         });
 
-        server.use(http.get(env.SEARCH_API_URL, resolver));
+        server.use(http.get(serverEnv.SEARCH_API_URL, resolver));
 
         const query = "Grunnbeløpet";
 

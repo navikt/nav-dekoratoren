@@ -5,7 +5,7 @@ import { FooterTemplate } from "../views/footer/footer";
 import { ScriptsTemplate } from "../views/scripts";
 import { HeadAssetsTemplate } from "../head";
 import { Handler } from "hono";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 
 type SsrPayload = {
     header: string;
@@ -38,6 +38,6 @@ export const ssrApiHandler: Handler = async ({ req, json }) => {
             params,
         ),
         headAssets: HeadAssetsTemplate().render(),
-        versionId: env.VERSION_ID,
+        versionId: serverEnv.VERSION_ID,
     } satisfies SsrPayload);
 };

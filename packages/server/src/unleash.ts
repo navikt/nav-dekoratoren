@@ -1,13 +1,13 @@
 import { Unleash, initialize } from "unleash-client";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 import { isLocalhost } from "./urls";
 
 let unleash: Unleash;
-if (env.NODE_ENV === "production" && !isLocalhost()) {
+if (serverEnv.NODE_ENV === "production" && !isLocalhost()) {
     unleash = initialize({
-        url: `${env.UNLEASH_SERVER_API_URL}/api/`,
+        url: `${serverEnv.UNLEASH_SERVER_API_URL}/api/`,
         appName: "nav-dekoratoren",
-        customHeaders: { Authorization: env.UNLEASH_SERVER_API_TOKEN },
+        customHeaders: { Authorization: serverEnv.UNLEASH_SERVER_API_TOKEN },
     });
 }
 

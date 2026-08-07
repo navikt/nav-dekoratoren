@@ -125,8 +125,10 @@ export const clientEnvSchema = z.object({
     XP_BASE_URL: z.string(),
 });
 
-export type Environment = z.infer<typeof clientEnvSchema>;
-export type BoostEnvironment = Environment["BOOST_ENV"];
+export const clientEnvWhitelist = clientEnvSchema.keyof().options;
+
+export type ClientEnvironment = z.infer<typeof clientEnvSchema>;
+export type BoostEnvironment = ClientEnvironment["BOOST_ENV"];
 
 export const validateRawParams = (query: Record<string, string>) => {
     const rawParams: Partial<ClientParams> = {};

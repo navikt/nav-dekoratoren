@@ -11,7 +11,7 @@ import {
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import testData from "./main-menu-mock.json";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import { clearCache } from "decorator-shared/response-cache";
 import { getComplexFooterLinks, getSimpleFooterLinks } from "./main-menu";
 
@@ -27,7 +27,7 @@ describe("getSimpleFooterLinks", () => {
 
     beforeAll(() => {
         server = setupServer(
-            http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+            http.get(`${serverEnv.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
                 HttpResponse.json(testData),
             ),
         );
@@ -46,7 +46,7 @@ describe("getSimpleFooterLinks", () => {
     test("urls start with XP_BASE_URL", async () => {
         expect(
             (await getSimpleFooterLinks({ language: "nb" })).at(0)?.url,
-        ).toSatisfy((url: string) => url.startsWith(env.XP_BASE_URL));
+        ).toSatisfy((url: string) => url.startsWith(serverEnv.XP_BASE_URL));
     });
 
     test("only prepend XP_BASE_URL to paths", async () => {
@@ -71,7 +71,7 @@ describe("getSimpleFooterLinks", () => {
         vi.advanceTimersByTime(61_000);
         server.use(
             http.get(
-                `${env.ENONICXP_SERVICES}/no.nav.navno/menu`,
+                `${serverEnv.ENONICXP_SERVICES}/no.nav.navno/menu`,
                 () => new HttpResponse(null, { status: 503 }),
             ),
         );
@@ -85,7 +85,7 @@ describe("getSimpleFooterLinks", () => {
         let fetchCount = 0;
 
         server.use(
-            http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () => {
+            http.get(`${serverEnv.ENONICXP_SERVICES}/no.nav.navno/menu`, () => {
                 fetchCount++;
                 return fetchCount === 1
                     ? HttpResponse.json(testData)

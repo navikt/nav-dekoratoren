@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 import { Result, ResultType } from "./result";
 import { fetchAndValidateJson } from "./lib/fetch-and-validate";
 import { logger } from "decorator-shared/logger";
@@ -74,23 +74,21 @@ const filterAndSort = (varsler: VarselNullable[]): Varsel[] =>
 const varslerToNotifications = (varsler: Varsler): Notification[] =>
     [filterAndSort(varsler.oppgaver), filterAndSort(varsler.beskjeder)].flatMap(
         (list) =>
-            list.map(
-                (varsel): Notification => ({
-                    id: varsel.eventId,
-                    type: translateNotificationType[
-                        varsel.type
-                    ] as NotificationType,
-                    date: varsel.tidspunkt,
-                    channels: varsel.eksternVarslingKanaler,
-                    ...(varsel.isMasked
-                        ? { masked: true }
-                        : {
-                              masked: false,
-                              text: varsel.tekst ?? "",
-                              link: varsel.link ?? undefined,
-                          }),
-                }),
-            ),
+            list.map((varsel): Notification => ({
+                id: varsel.eventId,
+                type: translateNotificationType[
+                    varsel.type
+                ] as NotificationType,
+                date: varsel.tidspunkt,
+                channels: varsel.eksternVarslingKanaler,
+                ...(varsel.isMasked
+                    ? { masked: true }
+                    : {
+                          masked: false,
+                          text: varsel.tekst ?? "",
+                          link: varsel.link ?? undefined,
+                      }),
+            })),
     );
 
 export const fetchNotifications = async ({
@@ -99,7 +97,7 @@ export const fetchNotifications = async ({
     cookie: string;
 }): Promise<ResultType<Notification[]>> => {
     return fetchAndValidateJson(
-        `${env.VARSEL_API_URL}/varselbjelle/varsler`,
+        `${serverEnv.VARSEL_API_URL}/varselbjelle/varsler`,
         {
             headers: { cookie },
         },
@@ -121,14 +119,17 @@ export const archiveNotification = async ({
     cookie: string;
     id: string;
 }) => {
-    const fetchResult = await fetch(`${env.VARSEL_API_URL}/beskjed/inaktiver`, {
-        method: "POST",
-        headers: {
-            cookie,
-            "Content-Type": "application/json",
+    const fetchResult = await fetch(
+        `${serverEnv.VARSEL_API_URL}/beskjed/inaktiver`,
+        {
+            method: "POST",
+            headers: {
+                cookie,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ eventId: id }),
         },
-        body: JSON.stringify({ eventId: id }),
-    });
+    );
 
     if (!fetchResult.ok) {
         return Result.Error(await fetchResult.text());

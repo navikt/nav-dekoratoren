@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 import {
     Varsler,
     archiveNotification,
@@ -14,7 +14,7 @@ describe("notifications", () => {
 
     beforeAll(() => {
         server = setupServer(
-            http.get(`${env.VARSEL_API_URL}/varselbjelle/varsler`, () =>
+            http.get(`${serverEnv.VARSEL_API_URL}/varselbjelle/varsler`, () =>
                 HttpResponse.json<Varsler>({
                     oppgaver: [
                         {
@@ -58,7 +58,7 @@ describe("notifications", () => {
                     ],
                 }),
             ),
-            http.post(`${env.VARSEL_API_URL}/beskjed/inaktiver`, () =>
+            http.post(`${serverEnv.VARSEL_API_URL}/beskjed/inaktiver`, () =>
                 HttpResponse.json({ success: true }),
             ),
         );

@@ -1,10 +1,10 @@
 import { ResponseCache } from "decorator-shared/response-cache";
 import { OpsMessage } from "decorator-shared/types";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 
 const TEN_SECONDS_MS = 10 * 1000;
 
-const DRIFTSMELDINGER_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`;
+const DRIFTSMELDINGER_SERVICE_URL = `${serverEnv.ENONICXP_SERVICES}/no.nav.navno/driftsmeldinger`;
 
 const opsMsgsCache = new ResponseCache<OpsMessage[]>({
     ttl: TEN_SECONDS_MS,

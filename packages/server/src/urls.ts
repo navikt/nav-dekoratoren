@@ -1,5 +1,5 @@
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 
-export const buildCdnUrl = (src: string) => `${env.CDN_URL}/${src}`;
+export const buildCdnUrl = (src: string) => `${serverEnv.CDN_URL}/${src}`;
 
-export const isLocalhost = () => env.APP_URL.includes("/localhost:");
+export const isLocalhost = () => serverEnv.APP_URL.includes("/localhost:");

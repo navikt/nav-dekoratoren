@@ -1,4 +1,4 @@
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import { Handler } from "hono";
 import { ConfigMapWatcher } from "../lib/config-map-watcher";
 
@@ -21,7 +21,7 @@ const getAuthoritativeVersion = async () => {
 };
 
 const versionData = {
-    localVersion: env.VERSION_ID,
+    localVersion: serverEnv.VERSION_ID,
     latestVersion: await getAuthoritativeVersion(),
 };
 
