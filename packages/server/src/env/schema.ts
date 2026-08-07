@@ -15,10 +15,8 @@ export const serverSchema = z.object({
     PERSONOPPLYSNINGER_URL: z.string(),
     PORT: z.coerce.number().default(8089),
     SEARCH_API_URL: z.url(),
-    // should these be optional on the server?
     UMAMI_WEBSITE_ID: z.string().optional(),
-    // can proxy-host be a url type?
-    UMAMI_PROXY_HOST: z.string().optional(),
+    UMAMI_PROXY_HOST: z.url().optional(),
     VARSEL_API_URL: z.url(),
     UNLEASH_SERVER_API_TOKEN: z.string(),
     UNLEASH_SERVER_API_URL: z.url(),
