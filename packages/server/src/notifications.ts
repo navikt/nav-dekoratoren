@@ -2,7 +2,7 @@ import { z } from "zod";
 import { env } from "./env/server";
 import { Result, ResultType } from "./result";
 import { fetchAndValidateJson } from "./lib/fetch-and-validate";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./lib/logger";
 
 const varselSchema = z
     .object({
@@ -74,23 +74,21 @@ const filterAndSort = (varsler: VarselNullable[]): Varsel[] =>
 const varslerToNotifications = (varsler: Varsler): Notification[] =>
     [filterAndSort(varsler.oppgaver), filterAndSort(varsler.beskjeder)].flatMap(
         (list) =>
-            list.map(
-                (varsel): Notification => ({
-                    id: varsel.eventId,
-                    type: translateNotificationType[
-                        varsel.type
-                    ] as NotificationType,
-                    date: varsel.tidspunkt,
-                    channels: varsel.eksternVarslingKanaler,
-                    ...(varsel.isMasked
-                        ? { masked: true }
-                        : {
-                              masked: false,
-                              text: varsel.tekst ?? "",
-                              link: varsel.link ?? undefined,
-                          }),
-                }),
-            ),
+            list.map((varsel): Notification => ({
+                id: varsel.eventId,
+                type: translateNotificationType[
+                    varsel.type
+                ] as NotificationType,
+                date: varsel.tidspunkt,
+                channels: varsel.eksternVarslingKanaler,
+                ...(varsel.isMasked
+                    ? { masked: true }
+                    : {
+                          masked: false,
+                          text: varsel.tekst ?? "",
+                          link: varsel.link ?? undefined,
+                      }),
+            })),
     );
 
 export const fetchNotifications = async ({

@@ -15,15 +15,11 @@ function parseEnvFile(path: string): Record<string, string> {
 }
 
 const clientRoot = fileURLToPath(new URL("../client", import.meta.url));
-const loggerMock = fileURLToPath(
-    new URL("../shared/test/logger-mock.ts", import.meta.url),
-);
 
 export default defineConfig({
     resolve: {
         alias: {
             "decorator-client": clientRoot,
-            "decorator-shared/logger": loggerMock,
         },
     },
     test: {
