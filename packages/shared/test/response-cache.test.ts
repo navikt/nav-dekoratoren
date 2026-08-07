@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { clearCache, ResponseCache } from "../response-cache";
+import { logger } from "./logger-mock";
 
 // The ResponseCache uses stale-while-revalidate: get() returns cached value
 // immediately while the background fetch runs as microtasks. We need to
@@ -11,7 +12,11 @@ const flushPromises = async () => {
 };
 
 const makeCache = () =>
-    new ResponseCache<string>({ ttl: 60_000, suppressRetryForMs: 120_000 });
+    new ResponseCache<string>({
+        ttl: 60_000,
+        suppressRetryForMs: 120_000,
+        logger,
+    });
 
 const setupBackoffState = async (
     cache: ResponseCache<string>,
@@ -47,6 +52,7 @@ describe("ResponseCache with suppressRetryForMs", () => {
         const cache = new ResponseCache<string>({
             ttl: 60_000,
             suppressRetryForMs: 120_000,
+            logger,
         });
         const callback = vi.fn().mockResolvedValue("");
 
@@ -128,7 +134,7 @@ describe("ResponseCache with suppressRetryForMs", () => {
     });
 
     test("without suppressRetryForMs, allows retry on next request after failure", async () => {
-        const cache = new ResponseCache<string>({ ttl: 60_000 });
+        const cache = new ResponseCache<string>({ ttl: 60_000, logger });
         const callback = vi
             .fn()
             .mockResolvedValueOnce("stale-data")

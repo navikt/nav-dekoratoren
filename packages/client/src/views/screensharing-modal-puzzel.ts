@@ -3,7 +3,7 @@ import { param } from "../params";
 import clsInputs from "../styles/inputs.module.css";
 import { isDialogDefined } from "../helpers/dialog-util";
 import { analyticsEvent } from "../analytics/analytics";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 
 let scriptLoaded: Promise<void> | undefined;
 

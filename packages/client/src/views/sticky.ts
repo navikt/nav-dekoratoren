@@ -1,7 +1,7 @@
 import cls from "decorator-client/src/styles/sticky.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { CustomEvents } from "../events";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 
 class Sticky extends HTMLElement {
     // This element is positioned relative to the top of the document and should

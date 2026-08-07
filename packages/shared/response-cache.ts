@@ -1,4 +1,4 @@
-import { logger } from "./logger";
+import type { Logger } from "./logger-contract";
 
 type CacheItem<Type> = {
     value: Type;
@@ -14,6 +14,7 @@ type CacheItem<Type> = {
 export class ResponseCache<ValueType = unknown> {
     private readonly ttl: number;
     private readonly suppressRetryForMs: number;
+    private readonly logger: Logger;
     private readonly cache = new Map<string, CacheItem<ValueType>>();
     private readonly pendingPromises = new Map<
         string,
@@ -24,12 +25,15 @@ export class ResponseCache<ValueType = unknown> {
     constructor({
         ttl,
         suppressRetryForMs = 0,
+        logger,
     }: {
         ttl: number;
         suppressRetryForMs?: number;
+        logger: Logger;
     }) {
         this.ttl = ttl;
         this.suppressRetryForMs = suppressRetryForMs;
+        this.logger = logger;
         caches.push(this);
     }
 
@@ -51,7 +55,7 @@ export class ResponseCache<ValueType = unknown> {
 
         const retryAfter = this.nextRetryAt.get(key);
         if (retryAfter && retryAfter > Date.now()) {
-            logger.warn(
+            this.logger.warn(
                 `Retry suppressed for key ${key} until ${new Date(
                     retryAfter,
                 ).toISOString()}`,
@@ -84,7 +88,7 @@ export class ResponseCache<ValueType = unknown> {
                 return value;
             })
             .catch((e) => {
-                logger.error(
+                this.logger.error(
                     `Callback error while fetching value for key ${key}`,
                     { error: e },
                 );
