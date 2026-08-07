@@ -63,9 +63,11 @@ export type ModulerMetadata = {
 };
 
 export const clientParamsSchema = z.object({
+    bedrift: z.string().optional(),
     context: contextSchema.default("privatperson"),
     simple: z.boolean().default(false),
     simpleHeader: z.boolean().default(false),
+    simpleFooter: z.boolean().default(false),
     redirectToApp: z.boolean().default(false),
     redirectToUrl: z
         .optional(z.string().refine(isValidNavUrl))
@@ -92,12 +94,10 @@ export const clientParamsSchema = z.object({
 });
 
 const serverOnlyParamsSchema = z.object({
-    simpleFooter: z.boolean().default(false),
     redirectToUrlLogout: z
         .optional(z.string().refine(isValidNavUrl))
         .catch(undefined),
     logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
-    bedrift: z.string().optional(),
 });
 
 export const paramsSchema = clientParamsSchema.extend(
