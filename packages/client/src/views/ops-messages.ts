@@ -88,9 +88,12 @@ class OpsMessages extends HTMLElement {
 
     private async initialize() {
         try {
-            this.messages = await decoratorApi.get("/ops-messages", {
-                query: decoratorParams(),
-            });
+            this.messages = await decoratorApi.get<OpsMessage[]>(
+                "/ops-messages",
+                {
+                    query: decoratorParams(),
+                },
+            );
             this.render();
         } catch (error) {
             logger.error("Failed to fetch ops-messages", { error });

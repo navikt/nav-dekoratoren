@@ -3,9 +3,7 @@ import { type ClientParams } from "decorator-shared/params";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { env } from "../params";
 
-// Always-on, never-overridden request metadata (cache-busting version id +
-// consumer tag). Safe to live in a plugin: nothing ever overrides these, so
-// there's no override-precedence footgun to get wrong.
+// Request metadata (cache-busting version id + consumer tag) as a plugin.
 const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
     const u = new URL(url);
     u.searchParams.set(VERSION_ID_PARAM, env("VERSION_ID"));

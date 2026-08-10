@@ -126,8 +126,8 @@ importers:
                 specifier: 2.9.0
                 version: 2.9.0
             "@itsy/corgi":
-                specifier: ^1.1.0
-                version: 1.1.0
+                specifier: ^1.2.0
+                version: 1.2.0
             "@navikt/ds-css":
                 specifier: "catalog:"
                 version: 8.16.1
@@ -1265,10 +1265,10 @@ packages:
             "@types/node":
                 optional: true
 
-    "@itsy/corgi@1.1.0":
+    "@itsy/corgi@1.2.0":
         resolution:
             {
-                integrity: sha512-LjUq3QcBOAI6nkur7zZHKiXbViSHlCtsa896Jb3eX0eRIVn3X65KwJyBMXqtU3wylW4WFKcNpFEPQ78Mdrp4TA==,
+                integrity: sha512-ScrKkNbKF33Qxbl7rxTCKFhFpjf7aoPpDfGGwLzf7Uvmm86mSZZKVr3SipLIy+ddYRPkXlJIoJFk1ICCMsFUyw==,
             }
         engines: { node: ">=18.17" }
 
@@ -9203,7 +9203,7 @@ snapshots:
             "@types/node": 25.9.3
         optional: true
 
-    "@itsy/corgi@1.1.0": {}
+    "@itsy/corgi@1.2.0": {}
 
     "@jridgewell/gen-mapping@0.3.13":
         dependencies:

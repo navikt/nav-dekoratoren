@@ -129,7 +129,7 @@ export class WebStorageController {
             await decoratorApi("/api/consentping", {
                 method: "POST",
                 credentials: "omit",
-                body: pingBody,
+                body: JSON.stringify(pingBody),
             });
         } catch (error) {
             logger.error("Failed to send consent ping", { error });
