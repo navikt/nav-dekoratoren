@@ -5,7 +5,7 @@ import { CustomEvents } from "../../events";
 import i18n from "../i18n";
 import { hasActiveConversation, initBoost, loadScript } from "./boost";
 import cls from "./chatbot.module.css";
-import frida from "./frida.svg";
+import chatboticon from "./chatboticon.svg";
 
 class Chatbot extends HTMLElement {
     private readonly button: HTMLButtonElement;
@@ -27,9 +27,9 @@ class Chatbot extends HTMLElement {
         const div = document.createElement("div");
         div.classList.add(cls.chatbotWrapper);
         const img = document.createElement("img");
-        img.src = cdnUrl(frida);
+        img.src = cdnUrl(chatboticon);
         img.alt = "";
-        img.classList.add(cls.frida);
+        img.classList.add(cls.chatbotIcon);
         div.appendChild(img);
 
         this.button.appendChild(div);

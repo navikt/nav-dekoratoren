@@ -257,6 +257,7 @@ se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
 | logoutUrl            | string                                                                  | undefined    | Angir URL for utlogging                                              |
 | logoutWarning        | boolean                                                                 | true         | Aktiverer eller deaktiverer advarsel for utlogging                   |
 | redirectOnUserChange | boolean                                                                 | false        | Sender brukeren til nav.no dersom en annen bruker logger inn         |
+| origin               | string                                                                  | undefined    | Stabilt appnavn som brukes til å filtrere sidevisninger i Analytics  |
 | pageType             | string                                                                  | undefined    | For logging av sidetype for sidevisning i Analytics                  |
 | analyticsQueryParams | string[]                                                                | [ ]          | Hviteliste av query-parametere som skal inkluderes i Analytics       |
 
@@ -600,7 +601,7 @@ import { fetchDecoratorHtml } from "@navikt/nav-dekoratoren-moduler/ssr";
 
 const fragments = await fetchDecoratorHtml({
     env: "dev",
-    params: { context: "privatperson" },
+    params: { context: "privatperson", origin: "min-app" },
 });
 
 const {
@@ -634,7 +635,11 @@ class MyDocument extends Document<DocumentProps> {
 
         const Decorator = await fetchDecoratorReact({
             env: "prod",
-            params: { language: "nb", context: "arbeidsgiver" },
+            params: {
+                language: "nb",
+                context: "arbeidsgiver",
+                origin: "min-app",
+            },
         });
 
         return { ...initialProps, Decorator };
@@ -674,6 +679,7 @@ const RootLayout = async ({
 }: Readonly<{ children: React.ReactNode }>) => {
     const Decorator = await fetchDecoratorReact({
         env: "prod",
+        params: { origin: "min-app" },
     });
 
     return (
@@ -985,6 +991,7 @@ export type DecoratorParams = Partial<{
     logoutUrl: string;
     logoutWarning: boolean;
     redirectOnUserChange: boolean;
+    origin: string;
     pageType: string;
     analyticsQueryParams: string[];
     analyticsRedactFilter: string[];
