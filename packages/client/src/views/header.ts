@@ -1,8 +1,8 @@
-import { endpointUrlWithParams } from "../helpers/urls";
 import { type ClientParams, paramsSchema } from "decorator-shared/params";
 import { logger } from "../helpers/logger";
 import { env, param, updateDecoratorParams } from "../params";
 import { defineCustomElement } from "./custom-elements";
+import { decoratorApi, decoratorParams } from "../helpers/api";
 import { refreshAuthData } from "../helpers/auth";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";
@@ -111,16 +111,20 @@ class Header extends HTMLElement {
         }
     };
 
-    private readonly refreshHeader = () => {
-        fetch(endpointUrlWithParams("/header"))
-            .then((res) => res.text())
-            .then((header) => (this.innerHTML = header))
-            .then(() => refreshAuthData())
-            .then(() =>
-                this.dispatchEvent(
-                    new Event("recheckConsentBanner", { bubbles: true }),
-                ),
+    private readonly refreshHeader = async () => {
+        try {
+            const header = await decoratorApi.get("/header", {
+                query: decoratorParams(),
+                responseType: "text",
+            });
+            this.innerHTML = header;
+            await refreshAuthData();
+            this.dispatchEvent(
+                new Event("recheckConsentBanner", { bubbles: true }),
             );
+        } catch (error) {
+            logger.error("Failed to fetch header", { error });
+        }
     };
 
     private readonly handleParamsUpdated = (

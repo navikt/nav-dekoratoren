@@ -19,14 +19,15 @@ export const decoratorApi = corgi.create({
     retry: 2,
 });
 
+type DecoratorFetchOverrides = Partial<ClientParams> & Record<string, unknown>;
+
 /**
- * Current decorator client params, merged with per-call overrides (overrides
- * win). Array fields are JSON-stringified into a single query value — the
- * server (packages/server/src/validateParams.ts) expects exactly that for
+ * Current decorator client params, merged with per-call overrides.
+ * Array fields are JSON-stringified — the server (packages/server/src/validateParams.ts)
+ * expects a string and not Corgi's default of repeated-keys - applies to namely
  * `breadcrumbs`/`availableLanguages`/`analyticsQueryParams`/`analyticsRedactFilter`,
- * NOT corgi's default repeated-key array encoding.
  */
-export const decoratorParams = (overrides?: Partial<ClientParams>): Query => {
+export const decoratorParams = (overrides?: DecoratorFetchOverrides): Query => {
     const merged: Record<string, unknown> = {
         ...window.__DECORATOR_DATA__.params,
         ...overrides,

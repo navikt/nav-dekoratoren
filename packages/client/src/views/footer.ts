@@ -38,7 +38,7 @@ class Footer extends HTMLElement {
         }
     };
 
-    private async refreshFooter() {
+    private readonly refreshFooter = async () => {
         try {
             const footer = await decoratorApi.get("/footer", {
                 query: decoratorParams(),
@@ -48,7 +48,7 @@ class Footer extends HTMLElement {
         } catch (error) {
             logger.error("Failed to fetch footer", { error });
         }
-    }
+    };
 
     private readonly handleParamsUpdated = (
         e: CustomEvent<CustomEvents["paramsupdated"]>,

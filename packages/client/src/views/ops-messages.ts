@@ -9,6 +9,8 @@ import { OpsMessage } from "decorator-shared/types";
 import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
+import { decoratorApi, decoratorParams } from "../helpers/api";
+import { logger } from "../helpers/logger";
 
 const availableHosts = [
     "www.nav.no",
@@ -44,9 +46,13 @@ export const OpsMessagesTemplate = ({
             const fullUrl = checkAndCorrectHost(url);
             return html`
                 <a href="${fullUrl}" class="${cls.opsMessage}">
-                    ${type === "prodstatus"
-                        ? ExclamationmarkTriangleIcon({ className: utils.icon })
-                        : InformationSquareIcon({ className: utils.icon })}
+                    ${
+                        type === "prodstatus"
+                            ? ExclamationmarkTriangleIcon({
+                                  className: utils.icon,
+                              })
+                            : InformationSquareIcon({ className: utils.icon })
+                    }
                     ${heading}
                 </a>
             `;
@@ -63,13 +69,7 @@ class OpsMessages extends HTMLElement {
     private messages: OpsMessage[] = [];
 
     connectedCallback() {
-        fetch(endpointUrlWithParams("/ops-messages"))
-            .then((res) => res.json())
-            .then((opsMessages) => {
-                this.messages = opsMessages;
-                this.render();
-            });
-
+        this.initialize();
         window.addEventListener("historyPush", () => {
             this.render();
         });
@@ -84,6 +84,17 @@ class OpsMessages extends HTMLElement {
                 komponent: "OpsMessages",
             })),
         );
+    }
+
+    private async initialize() {
+        try {
+            this.messages = await decoratorApi.get("/ops-messages", {
+                query: decoratorParams(),
+            });
+            this.render();
+        } catch (error) {
+            logger.error("Failed to fetch ops-messages", { error });
+        }
     }
 
     private render() {

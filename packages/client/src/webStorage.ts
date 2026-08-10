@@ -6,7 +6,7 @@ import {
     Consent,
     PublicStorageItem,
 } from "decorator-shared/types";
-import { endpointUrlWithoutParams } from "./helpers/urls";
+import { decoratorApi } from "./helpers/api";
 import { redactFromUrl } from "./analytics/helpers/redactUrl";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
@@ -119,17 +119,21 @@ export class WebStorageController {
         Cookies.remove(this.consentKey, { domain: this.getConsentDomain() });
     };
 
-    private pingConsentBack = (consent: Consent) => {
+    private pingConsentBack = async (consent: Consent) => {
         const pingBody = {
             consentObject: consent,
             originUrl: redactFromUrl(window.location.href),
         };
 
-        fetch(endpointUrlWithoutParams(`/api/consentping`), {
-            method: "POST",
-            credentials: "omit",
-            body: JSON.stringify(pingBody),
-        });
+        try {
+            await decoratorApi("/api/consentping", {
+                method: "POST",
+                credentials: "omit",
+                body: pingBody,
+            });
+        } catch (error) {
+            logger.error("Failed to send consent ping", { error });
+        }
     };
 
     private initEventListeners() {
