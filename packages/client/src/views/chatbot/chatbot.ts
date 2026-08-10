@@ -29,7 +29,7 @@ class Chatbot extends HTMLElement {
         const img = document.createElement("img");
         img.src = cdnUrl(chatboticon);
         img.alt = "";
-        img.classList.add(cls.frida);
+        img.classList.add(cls.chatbotIcon);
         div.appendChild(img);
 
         this.button.appendChild(div);

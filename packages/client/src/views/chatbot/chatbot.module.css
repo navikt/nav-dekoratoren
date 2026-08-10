@@ -87,11 +87,10 @@
     transform: translateY(-50%) scale(1.1);
 }
 
-.frida {
+.chatbotIcon {
     width: 100%;
     height: 100%;
     border-radius: 70px;
-    background-color: white;
 }
 
 @media (hover: hover) {
