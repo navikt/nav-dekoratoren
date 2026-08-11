@@ -1,6 +1,19 @@
 import Cookies from "js-cookie";
 import { AppState, PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
+import { logger } from "./helpers/logger";
+import {
+    decoratorApiMock,
+    resetDecoratorApiMock,
+} from "./helpers/api.testUtils";
+
+vi.mock("./helpers/api", async () => {
+    const mock = await import("./helpers/api.testUtils");
+    return {
+        decoratorApi: mock.decoratorApiMock,
+        decoratorParams: mock.decoratorParamsMock,
+    };
+});
 
 const mockStorageDictionary: PublicStorageItem[] = [
     {
@@ -43,6 +56,14 @@ describe("Tester webStorage", () => {
 
         window.sessionStorage.setItem("usertest-1234", "foobar");
         window.sessionStorage.setItem("ukjentdata", "foobar");
+
+        resetDecoratorApiMock();
+        decoratorApiMock.mockResolvedValue(undefined);
+    });
+
+    afterEach(() => {
+        vi.clearAllMocks();
+        vi.restoreAllMocks();
     });
     it("kontrolleren sender event om å åpne cookie-banner ved manglende samtykke-handling", () => {
         const triggerEvent = vi.fn();
@@ -122,5 +143,46 @@ describe("Tester webStorage", () => {
 
         await new Promise((resolve) => setTimeout(resolve, 100));
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
+    });
+
+    it("samtykke sendes til consentping-endepunktet", async () => {
+        new WebStorageController();
+
+        window.dispatchEvent(new CustomEvent("consentAllWebStorage"));
+
+        await vi.waitFor(() => expect(decoratorApiMock).toHaveBeenCalled());
+        expect(decoratorApiMock).toHaveBeenCalledWith("/api/consentping", {
+            method: "POST",
+            credentials: "omit",
+            body: expect.any(String),
+        });
+
+        const [, options] = decoratorApiMock.mock.calls[0];
+        expect(JSON.parse(options.body)).toEqual(
+            expect.objectContaining({
+                consentObject: expect.objectContaining({
+                    consent: { analytics: true, surveys: true },
+                    userActionTaken: true,
+                }),
+                originUrl: expect.objectContaining({
+                    redactedUrl: expect.any(String),
+                }),
+            }),
+        );
+    });
+
+    it("samtykke lagres selv om consentping feiler", async () => {
+        const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
+        decoratorApiMock.mockRejectedValue(new Error("boom"));
+        new WebStorageController();
+
+        window.dispatchEvent(new CustomEvent("consentAllWebStorage"));
+
+        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        expect(errorSpy).toHaveBeenCalledWith(
+            "Failed to send consent ping",
+            expect.objectContaining({ error: expect.any(Error) }),
+        );
+        expect(Cookies.get("navno-consent")).toBeDefined();
     });
 });

@@ -42,6 +42,8 @@ class MainMenu extends HTMLElement {
             this.innerHTML = "Kunne ikke laste meny-innhold";
             return;
         }
+
+        this.innerHTML = html;
     };
 
     handleParamsUpdated = (
