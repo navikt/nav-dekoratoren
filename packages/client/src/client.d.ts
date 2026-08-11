@@ -2,6 +2,7 @@ import type { Faro } from "@grafana/faro-web-sdk";
 import { AppState } from "decorator-shared/types";
 import { CustomEvents, MessageEvents } from "./events";
 import { WebStorageController } from "./webStorage";
+import { BoostEnvironment } from "decorator-shared/params";
 
 type CustomEventMap = {
     conversationIdChanged: CustomEvent<{ conversationId?: string }>;
@@ -42,7 +43,7 @@ declare global {
         };
         skyraSurvey: any;
         dataLayer: any;
-        boostInit?: (env: string, config: any) => BoostClient;
+        boostInit?: (env: BoostEnvironment, config: any) => BoostClient;
         vngage: {
             join: (queue: string, options: unknown) => void;
             subscribe: (

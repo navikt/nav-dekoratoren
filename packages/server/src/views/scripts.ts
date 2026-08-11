@@ -1,7 +1,7 @@
 import html, { json, Template, unsafeHtml } from "decorator-shared/html";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import { DecoratorDataProps, HtmlElementProps } from "decorator-shared/types";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import type { Manifest as ViteManifest } from "vite";
 import { buildCdnUrl } from "../urls";
 import { buildDecoratorData } from "../decorator-data";
@@ -9,7 +9,7 @@ import { buildDecoratorData } from "../decorator-data";
 const ENTRY_POINT_PATH = "src/main.ts";
 
 const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
-    if (env.NODE_ENV === "development") {
+    if (serverEnv.NODE_ENV === "development") {
         return [
             {
                 tag: "script",

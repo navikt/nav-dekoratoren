@@ -5,7 +5,7 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
 import { logger } from "decorator-shared/logger";
-import { env } from "./env/server";
+import { serverEnv } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
@@ -38,7 +38,7 @@ const app = new Hono({
 
 app.use(headers);
 
-if (env.NODE_ENV === "development" || isLocalhost()) {
+if (serverEnv.NODE_ENV === "development" || isLocalhost()) {
     logger.info("Setting up mocks");
     setupMocks();
     app.get(
@@ -79,7 +79,7 @@ if (env.NODE_ENV === "development" || isLocalhost()) {
     });
 }
 
-if (!process.env.IS_INTERNAL_APP) {
+if (!serverEnv.IS_INTERNAL_APP) {
     app.use(versionProxyHandler);
 }
 
@@ -230,7 +230,7 @@ app.get("/", async ({ req, html }) =>
 app.route("/dekoratoren", app);
 app.route("/common-html/v4/navno", app);
 
-const port = Number(process.env.PORT) || 8089;
+const port = serverEnv.PORT;
 serve({ fetch: app.fetch, port });
 logger.info(`Server running on port ${port}`);
 

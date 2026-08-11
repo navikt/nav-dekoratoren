@@ -4,7 +4,7 @@ import utils from "decorator-client/src/styles/utils.module.css";
 import { ArrowRightIcon } from "decorator-icons";
 import html, { unsafeHtml } from "decorator-shared/html";
 import { Context } from "decorator-shared/params";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import i18n from "../i18n";
 
 export type SearchHitsProps = {
@@ -31,16 +31,17 @@ export const SearchHits = ({
                 ${i18n("search_hits_heading", { total, query, context })}
             </h2>
             <a
-                href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
+                href="${serverEnv.XP_BASE_URL}/sok?ord=${query}&f=${context}"
                 class="${aksel["aksel-link"]}"
             >
                 ${i18n("change_search_filter")}
             </a>
         </div>
-        ${total > 0
-            ? html`
-                  <ul class="${cls.searchHitList}">
-                      ${hits.map(
+        ${
+            total > 0
+                ? html`
+                      <ul class="${cls.searchHitList}">
+                          ${hits.map(
                           (hit) => html`
                               <li>
                                   <search-hit>
@@ -59,17 +60,18 @@ export const SearchHits = ({
                               </li>
                           `,
                       )}
-                  </ul>
-                  <a
-                      class="${cls.searchMoreHits}"
-                      href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}"
-                  >
-                      ${i18n("more_hits")}
-                      ${ArrowRightIcon({
+                      </ul>
+                      <a
+                          class="${cls.searchMoreHits}"
+                          href="${serverEnv.XP_BASE_URL}/sok?ord=${query}&f=${context}"
+                      >
+                          ${i18n("more_hits")}
+                          ${ArrowRightIcon({
                           className: utils.icon,
                       })}
-                  </a>
-              `
-            : null}
+                      </a>
+                  `
+                : null
+        }
     </div>
 `;

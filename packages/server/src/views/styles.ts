@@ -1,4 +1,4 @@
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import { buildHtmlElementString } from "../lib/html-element-string-builder";
 import { unsafeHtml } from "decorator-shared/html";
 import { buildCdnUrl } from "../urls";
@@ -20,7 +20,7 @@ export const cssLink = {
 };
 
 const getCssElementAsString = async () => {
-    if (env.NODE_ENV === "development") {
+    if (serverEnv.NODE_ENV === "development") {
         return "<!-- non-empty css response to make nav-dekoratoren-moduler happy -->";
     }
 

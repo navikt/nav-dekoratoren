@@ -2,7 +2,7 @@ import { Context, Language } from "decorator-shared/params";
 import { ResponseCache } from "decorator-shared/response-cache";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import { z } from "zod";
-import { clientEnv, env } from "../env/server";
+import { clientEnv, serverEnv } from "../env/server";
 import { isNorwegian } from "../i18n";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import fallbackData from "./main-menu-mock.json";
@@ -11,7 +11,7 @@ import { logger } from "decorator-shared/logger";
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;
 
-const MENU_SERVICE_URL = `${env.ENONICXP_SERVICES}/no.nav.navno/menu`;
+const MENU_SERVICE_URL = `${serverEnv.ENONICXP_SERVICES}/no.nav.navno/menu`;
 
 const ONE_MINUTE_MS = 60 * 1000;
 const TEN_SECONDS_MS = 10 * 1000;
@@ -79,11 +79,11 @@ export const mainMenuContextLinks = ({
                 },
                 {
                     content: "Arbeidsgiver",
-                    url: `${env.XP_BASE_URL}/arbeidsgiver`,
+                    url: `${serverEnv.XP_BASE_URL}/arbeidsgiver`,
                 },
                 {
                     content: "Samarbeidspartner",
-                    url: `${env.XP_BASE_URL}/samarbeidspartner`,
+                    url: `${serverEnv.XP_BASE_URL}/samarbeidspartner`,
                 },
             ];
         case "arbeidsgiver":
@@ -98,24 +98,24 @@ export const mainMenuContextLinks = ({
                     content: "Privat",
                     description:
                         "Dine saker, utbetalinger, meldinger, meldekort, aktivitetsplan, personopplysninger og flere tjenester",
-                    url: `${env.XP_BASE_URL}/`,
+                    url: `${serverEnv.XP_BASE_URL}/`,
                 },
                 {
                     content: "Samarbeidspartner",
                     description:
                         "Helsepersonell, tiltaksarrangører, fylker og kommuner",
-                    url: `${env.XP_BASE_URL}/samarbeidspartner`,
+                    url: `${serverEnv.XP_BASE_URL}/samarbeidspartner`,
                 },
             ];
         case "samarbeidspartner":
             return [
                 {
                     content: "Privat",
-                    url: `${env.XP_BASE_URL}/`,
+                    url: `${serverEnv.XP_BASE_URL}/`,
                 },
                 {
                     content: "Arbeidsgiver",
-                    url: `${env.XP_BASE_URL}/arbeidsgiver`,
+                    url: `${serverEnv.XP_BASE_URL}/arbeidsgiver`,
                 },
             ];
     }
@@ -200,7 +200,9 @@ const nodeToLinkGroup: (node: MenuNode) => LinkGroup = ({
 });
 
 const getUrl = (path: string | undefined) => {
-    return path?.startsWith("http") ? path : `${env.XP_BASE_URL}${path ?? ""}`;
+    return path?.startsWith("http")
+        ? path
+        : `${serverEnv.XP_BASE_URL}${path ?? ""}`;
 };
 
 const nodeToLink: (node: MenuNode) => Link = ({

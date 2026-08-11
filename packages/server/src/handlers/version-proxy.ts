@@ -1,10 +1,10 @@
 import { HonoRequest, MiddlewareHandler } from "hono";
 import { VERSION_ID_PARAM } from "decorator-shared/constants";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 import { logger } from "decorator-shared/logger";
 
-const SERVER_VERSION_ID = env.VERSION_ID;
-const APP_NAME = env.APP_NAME;
+const SERVER_VERSION_ID = serverEnv.VERSION_ID;
+const APP_NAME = serverEnv.APP_NAME;
 const LOOPBACK_HEADER = "is-dekoratoren-proxy-req";
 
 // Version id should be a commit hash (7 chars short or 40 chars full)

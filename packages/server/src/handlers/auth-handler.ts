@@ -3,7 +3,7 @@ import { type Params } from "decorator-shared/params";
 import { LeaveIcon } from "decorator-icons";
 import { match } from "ts-pattern";
 import { logger } from "decorator-shared/logger";
-import { clientEnv, env } from "../env/server";
+import { clientEnv, serverEnv } from "../env/server";
 import i18n from "../i18n";
 import { fetchNotifications } from "../notifications";
 import { HeaderButton } from "../views/components/header-button";
@@ -11,7 +11,7 @@ import { ArbeidsgiverUserMenuDropdown } from "../views/header/arbeidsgiver-user-
 import { UserMenuDropdown } from "../views/header/user-menu-dropdown";
 import { SimpleUserMenu } from "../views/simple-user-menu";
 
-const AUTH_API_URL = `${env.DEKORATOREN_API_URL}/auth`;
+const AUTH_API_URL = `${serverEnv.DEKORATOREN_API_URL}/auth`;
 
 export const getLogOutUrl = (params: Params) => {
     if (params.logoutUrl) {
@@ -72,10 +72,10 @@ const buildUsermenuHtml = async (
                     ? notificationsResult.data
                     : null,
                 level: `Level${auth.securityLevel}`,
-                loginUrl: env.LOGIN_URL,
+                loginUrl: serverEnv.LOGIN_URL,
                 logoutUrl: logoutUrl as string,
                 minsideUrl: clientEnv.MIN_SIDE_URL,
-                personopplysningerUrl: env.PERSONOPPLYSNINGER_URL,
+                personopplysningerUrl: serverEnv.PERSONOPPLYSNINGER_URL,
             });
         })
         .with("arbeidsgiver", async () =>

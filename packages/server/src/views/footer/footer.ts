@@ -4,7 +4,7 @@ import {
     getComplexFooterLinks,
     getSimpleFooterLinks,
 } from "../../menu/main-menu";
-import { env } from "../../env/server";
+import { serverEnv } from "../../env/server";
 import html, { Template } from "decorator-shared/html";
 import { getModal } from "../screensharing-modal";
 import { LogoutWarning } from "../logout-warning";
@@ -12,7 +12,7 @@ import { Feedback } from "../feedback";
 import { SimpleFooter } from "./simple-footer";
 import { ComplexFooter } from "./complex-footer";
 
-const CONTACT_URL = `${env.XP_BASE_URL}/kontaktoss`;
+const CONTACT_URL = `${serverEnv.XP_BASE_URL}/kontaktoss`;
 
 type FooterProps = {
     params: Params;
@@ -35,20 +35,22 @@ export const FooterTemplate = async ({
         <d-chatbot></d-chatbot>
         ${LogoutWarning()}
         ${feedback ? Feedback({ contactUrl: CONTACT_URL }) : undefined}
-        ${simple || simpleFooter
-            ? SimpleFooter({
-                  links: await getSimpleFooterLinks({
-                      language,
-                  }),
-                  shareScreen,
-              })
-            : ComplexFooter({
-                  links: await getComplexFooterLinks({
-                      language,
-                      context,
-                  }),
-                  shareScreen,
-              })}
+        ${
+            simple || simpleFooter
+                ? SimpleFooter({
+                      links: await getSimpleFooterLinks({
+                          language,
+                      }),
+                      shareScreen,
+                  })
+                : ComplexFooter({
+                      links: await getComplexFooterLinks({
+                          language,
+                          context,
+                      }),
+                      shareScreen,
+                  })
+        }
     `;
 
     return withContainers

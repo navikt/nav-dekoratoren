@@ -1,7 +1,7 @@
 import { makeFrontpageUrl } from "decorator-shared/urls";
 import i18n from "../../i18n";
 import { MainMenu } from "./main-menu";
-import { env } from "../../env/server";
+import { serverEnv } from "../../env/server";
 import { getMainMenuLinks, mainMenuContextLinks } from "../../menu/main-menu";
 import { Params } from "decorator-shared/params";
 
@@ -14,7 +14,7 @@ export async function MainMenuTemplate({ data }: { data: Params }) {
         frontPageUrl: makeFrontpageUrl({
             context: data.context,
             language: data.language,
-            baseUrl: env.XP_BASE_URL,
+            baseUrl: serverEnv.XP_BASE_URL,
         }),
         links: await getMainMenuLinks({
             language: data.language,

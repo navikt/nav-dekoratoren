@@ -11,13 +11,13 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import testData from "../menu/main-menu-mock.json";
 import { IndexHtml } from "./index";
-import { env } from "../env/server";
+import { serverEnv } from "../env/server";
 
 let server: ReturnType<typeof setupServer>;
 
 beforeAll(() => {
     server = setupServer(
-        http.get(`${env.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
+        http.get(`${serverEnv.ENONICXP_SERVICES}/no.nav.navno/menu`, () =>
             HttpResponse.json(testData),
         ),
     );

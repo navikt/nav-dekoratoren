@@ -1,4 +1,4 @@
-import type { Environment, ClientParams, Params } from "./params";
+import type { ClientEnvironment, ClientParams, Params } from "./params";
 import { nb } from "decorator-server/src/texts";
 
 export type Link = {
@@ -53,7 +53,7 @@ export type AppState = {
     // Does not include default fallback values for required params, and only includes a few select
     // params for which this data is needed in the client
     rawParams?: Partial<ClientParams>;
-    env: Environment;
+    env: ClientEnvironment;
     features: Features;
     // Head assets are included here only for legacy implementations, where they are injected on the client-side.
     // In the new implemention, head elements are included in the payload from the /ssr endpoint instead
@@ -106,9 +106,7 @@ export type PublicStorageItem = Pick<
 };
 
 export type ConsentAction =
-    | "CONSENT_ALL_WEB_STORAGE"
-    | "REFUSE_OPTIONAL_WEB_STORAGE"
-    | null;
+    "CONSENT_ALL_WEB_STORAGE" | "REFUSE_OPTIONAL_WEB_STORAGE" | null;
 
 export type Consent = {
     consent: {

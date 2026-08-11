@@ -1,6 +1,7 @@
 import { logger } from "decorator-shared/logger";
 import { Consent } from "decorator-shared/types";
 import { Handler } from "hono";
+import { serverEnv } from "../env/server";
 
 export const consentpingHandler: Handler = async ({ req, json }) => {
     const body = await req.json();
@@ -21,14 +22,14 @@ export const consentpingHandler: Handler = async ({ req, json }) => {
             hostname: "www.nav.no",
             url: "/",
             referrer: "https://www.nav.no",
-            website: process.env.UMAMI_WEBSITE_ID,
+            website: serverEnv.UMAMI_WEBSITE_ID,
             data: {
                 consentObject,
             },
         },
     };
 
-    const umamiEndpoint = `${process.env.UMAMI_PROXY_HOST}/api/send`;
+    const umamiEndpoint = `${serverEnv.UMAMI_PROXY_HOST}/api/send`;
 
     try {
         const umamiResponse = await fetch(umamiEndpoint, {

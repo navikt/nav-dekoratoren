@@ -1,14 +1,14 @@
 import Cookies from "js-cookie";
 import type {
+    ClientEnvironment,
     ClientParams,
     Context,
-    Environment,
     Language,
 } from "decorator-shared/params";
 import { createEvent } from "./events";
 
 type ParamKey = keyof ClientParams;
-type EnvKey = keyof Environment;
+type EnvKey = keyof ClientEnvironment;
 
 const CONTEXT_COOKIE = "decorator-context";
 const LANGUAGE_COOKIE = "decorator-language";
