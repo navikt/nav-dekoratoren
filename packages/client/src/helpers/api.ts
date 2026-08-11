@@ -5,14 +5,14 @@ import { env } from "../params";
 
 // Request metadata (cache-busting version id + consumer tag) as a plugin.
 const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
-    const u = new URL(url);
+    // using APP_URL here should be safe since it seems to always be an origin-only URL
+    const u = new URL(url, env("APP_URL"));
     u.searchParams.set(VERSION_ID_PARAM, env("VERSION_ID"));
     u.searchParams.set("consumer", CONSUMER);
     return next(u.toString(), init);
 };
 
 export const decoratorApi = corgi.create({
-    baseURL: env("APP_URL"),
     plugins: [withDecoratorMeta()],
     retry: 2,
 });
