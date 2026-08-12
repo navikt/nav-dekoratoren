@@ -1,5 +1,6 @@
 import { Language, Context } from "decorator-shared/params";
 import { Texts } from "decorator-shared/types";
+import html from "decorator-shared/html";
 
 export const nb = {
     skip_link: "Hopp til hovedinnhold",
@@ -84,7 +85,7 @@ export const nb = {
         total: number;
         query: string;
         context: Context;
-    }) => `${total} treff for «${query}» for ${context}`,
+    }) => html`${total} treff for «${query}» for ${context}`,
     more_hits: "Flere treff",
     change_search_filter: "Endre søkefilter for å se andre treff",
     loading_preview: "Laster forhåndsvisning",
@@ -195,7 +196,7 @@ const en: Texts = {
     of: "of",
     results: "results",
     search_hits_heading: ({ total, query }: { total: number; query: string }) =>
-        `${total} hits for "${query}" for individuals`,
+        html`${total} hits for "${query}" for individuals`,
     more_hits: "More hits",
     change_search_filter: "Change search filter to see other hits",
     loading_preview: "Loading preview",
