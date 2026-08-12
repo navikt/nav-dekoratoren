@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import postcss from "postcss";
 import { cssModulesScopedNameOption } from "decorator-shared/css-modules-config";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./src/lib/logger";
 
 const require = createRequire(import.meta.url);
 

@@ -1,6 +1,6 @@
 import { endpointUrlWithParams } from "../helpers/urls";
 import { type ClientParams, paramsSchema } from "decorator-shared/params";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 import { env, param, updateDecoratorParams } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { refreshAuthData } from "../helpers/auth";

@@ -4,7 +4,7 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { cspDirectives } from "./content-security-policy";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./lib/logger";
 import { env } from "./env/server";
 import { authHandler } from "./handlers/auth-handler";
 import { headers } from "./handlers/headers";

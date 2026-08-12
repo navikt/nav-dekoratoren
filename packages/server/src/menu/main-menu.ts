@@ -6,7 +6,7 @@ import { clientEnv, env } from "../env/server";
 import { isNorwegian } from "../i18n";
 import { fetchAndValidateJson } from "../lib/fetch-and-validate";
 import fallbackData from "./main-menu-mock.json";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../lib/logger";
 
 type MenuNode = z.infer<typeof baseMainMenuNode> & { children: MenuNode[] };
 type MainMenu = z.infer<typeof mainmenuSchema>;
@@ -19,6 +19,7 @@ const TEN_SECONDS_MS = 10 * 1000;
 const menuCache = new ResponseCache<MainMenu>({
     ttl: ONE_MINUTE_MS,
     suppressRetryForMs: TEN_SECONDS_MS,
+    logger,
 });
 
 const baseMainMenuNode = z.object({

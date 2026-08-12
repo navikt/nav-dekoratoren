@@ -4,7 +4,7 @@ import { endpointUrlWithParams } from "../helpers/urls";
 import { param } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 import { CustomEvents } from "../events";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
@@ -14,6 +14,7 @@ class MainMenu extends HTMLElement {
     private readonly responseCache = new ResponseCache<string>({
         ttl: TEN_MIN_MS,
         suppressRetryForMs: TEN_SECONDS_MS,
+        logger,
     });
 
     private async fetchMenuContent(context: Context) {

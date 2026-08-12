@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { getPostcssTokens } from "./css-modules-plugin";
 import { minify } from "esbuild-minify-templates";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./src/lib/logger";
 
 const cssModulesPlugin: Plugin = {
     name: "css-modules",
