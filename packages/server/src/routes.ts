@@ -29,8 +29,9 @@ import { CONSUMER } from "decorator-shared/constants";
 import { consentpingHandler } from "./handlers/consentping-handler";
 
 // Ingresses don't strip the path prefix, so every route must be served under
-// each of these. See .nais/vars/prod.yml
-const INGRESS_PATH_PREFIXES = [
+// each of these. See the ingresses in .nais/vars/*.yml - ingress-prefixes.test.ts
+// fails if this list and those files drift apart.
+export const INGRESS_PATH_PREFIXES = [
     "/",
     "/dekoratoren",
     "/common-html/v4/navno",
@@ -54,7 +55,12 @@ if (env.NODE_ENV === "development" || isLocalhost()) {
         "/public/*",
         serveStatic({
             root: "../client/dist",
-            // Strip any ingress prefix along with /public
+            // serveStatic resolves files from c.req.path, and mounting via
+            // app.route() does not strip the prefix from it - so under an
+            // ingress prefix this receives e.g.
+            // "/dekoratoren/public/assets/x.js". Strip everything up to and
+            // including "/public". Routing guarantees the path starts with one
+            // of INGRESS_PATH_PREFIXES, so the lazy match is bounded.
             rewriteRequestPath: (path) => path.replace(/^.*?\/public/, ""),
         }),
     );

@@ -1,11 +1,13 @@
 import { readdirSync } from "node:fs";
 import { describe, expect, test } from "vitest";
-import { app } from "./routes";
+import { app, INGRESS_PATH_PREFIXES } from "./routes";
 
 const [staticAsset] = readdirSync("../client/dist/assets");
 
 // "" is the root mount, used by the internal version apps.
-const PREFIXES = ["", "/dekoratoren", "/common-html/v4/navno"];
+const PREFIXES = INGRESS_PATH_PREFIXES.map((prefix) =>
+    prefix === "/" ? "" : prefix,
+);
 
 const OK_PATHS = [
     "/",
