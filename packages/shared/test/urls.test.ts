@@ -38,8 +38,7 @@ describe("isValidNavUrl", () => {
         expect(isValidNavUrl(url)).toBe(true);
     });
 
-    // Regression: every one of these passed the old regex-based implementation
-    // and produced an open redirect to an attacker-controlled origin.
+    // Regression test: these passed the old regex-based system
     test.each([
         "//evil.com",
         "//evil.com/path",

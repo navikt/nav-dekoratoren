@@ -143,8 +143,7 @@ describe("Validating urls", () => {
         expect(params.logoutUrl).toBeUndefined();
     });
 
-    // Regression: these all passed the old regex-based validation, giving any
-    // caller an open redirect to an attacker-controlled origin.
+    // Regression test: these passed the old regex-based system
     it.each([
         "//evil.com",
         "//evil.com/path",
