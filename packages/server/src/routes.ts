@@ -27,6 +27,7 @@ import { MainMenuTemplate } from "./views/header/render-main-menu";
 import { buildDecoratorData } from "./decorator-data";
 import { CONSUMER } from "decorator-shared/constants";
 import { consentpingHandler } from "./handlers/consentping-handler";
+import z from "zod";
 
 // Ingresses don't strip the path prefix, so every route must be served under
 // each of these. See the ingresses in .nais/vars/*.yml - ingress-prefixes.test.ts
@@ -116,11 +117,13 @@ routes.post("/api/notifications/:id/archive", async ({ req, json }) => {
     }
 });
 
+// 'max' here is the same maxlength as search-form specifies
+const searchQuerySchema = z.string().max(100).catch("");
 routes.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
             ...parseAndValidateParams(req.query()),
-            query: req.query("q") ?? "",
+            query: searchQuerySchema.parse(req.query("q") ?? ""),
         }),
     ),
 );
