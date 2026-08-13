@@ -76,6 +76,10 @@ describe("isValidNavUrl", () => {
         expect(isValidNavUrl("https://www.n\tav.no")).toBe(true);
     });
 
+    // Server-side branch only: this suite runs under the `node` environment, so
+    // `allowLocalhost` falls back to NODE_ENV. The browser branch keys off the
+    // page origin instead and is covered by
+    // `packages/client/src/helpers/nav-url*.test.ts`.
     test("rejects localhost in production", () => {
         vi.stubEnv("NODE_ENV", "production");
         expect(isValidNavUrl("http://localhost:3000")).toBe(false);

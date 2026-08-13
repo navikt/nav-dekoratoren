@@ -44,7 +44,9 @@ const isAllowedDomain = (hostname: string) =>
     );
 
 const allowLocalhost = () =>
-    typeof process === "undefined" || process.env?.NODE_ENV !== "production";
+    typeof window !== "undefined"
+        ? window.location.hostname === "localhost"
+        : process.env.NODE_ENV !== "production";
 
 export const isValidNavUrl = (url: string) => {
     const normalized = normalize(url);
