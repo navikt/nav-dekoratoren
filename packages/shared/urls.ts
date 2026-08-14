@@ -43,10 +43,21 @@ const isAllowedDomain = (hostname: string) =>
         (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
     );
 
-const allowLocalhost = () =>
-    typeof window !== "undefined"
-        ? window.location.hostname === "localhost"
+/**
+ * In a browser the gate keys off the page's own origin, and `process` does not
+ * exist there. Reading `location` off `globalThis` rather than `window` keeps
+ * this file compiling under the server's DOM-free tsconfig.
+ */
+const getPageHostname = () =>
+    (globalThis as { location?: { hostname: string } }).location?.hostname;
+
+const allowLocalhost = () => {
+    const pageHostname = getPageHostname();
+
+    return pageHostname !== undefined
+        ? pageHostname === "localhost"
         : process.env.NODE_ENV !== "production";
+};
 
 export const isValidNavUrl = (url: string) => {
     const normalized = normalize(url);
