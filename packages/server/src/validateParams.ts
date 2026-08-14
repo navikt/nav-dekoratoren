@@ -87,26 +87,6 @@ export const validateParams = (params: Record<string, string>) => {
     } as Params;
 };
 
-const urlParamKeys = [
-    "redirectToUrl",
-    "redirectToUrlLogout",
-    "logoutUrl",
-] as const satisfies ReadonlyArray<keyof Params>;
-
-const logRejectedUrlParams = (
-    query: Record<string, string>,
-    validated: Params,
-) => {
-    urlParamKeys.forEach((key) => {
-        if (query[key] !== undefined && validated[key] === undefined) {
-            logger.warn(`Rejected non-nav url for param "${key}"`, {
-                param: key,
-                value: query[key],
-            });
-        }
-    });
-};
-
 export const parseAndValidateParams = (
     query: Record<string, string>,
 ): Params => {
@@ -116,8 +96,6 @@ export const parseAndValidateParams = (
         logger.error("Failed to validate params", { error: validParams.error });
         throw new Error("Failed to validate params");
     }
-
-    logRejectedUrlParams(query, validParams.data);
 
     return validParams.data;
 };
