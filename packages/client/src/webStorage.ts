@@ -25,6 +25,9 @@ export class WebStorageController {
     currentConsentVersion: number = 5;
     consentKey: string = "navno-consent";
 
+    // Enables reaping every listener registered by this instance.
+    private readonly abortController = new AbortController();
+
     constructor() {
         this.initEventListeners();
         this.checkAndTriggerConsentBanner();
@@ -135,34 +138,43 @@ export class WebStorageController {
     };
 
     private initEventListeners() {
+        const { signal } = this.abortController;
+
         window.addEventListener(
             "recheckConsentBanner",
             this.checkAndTriggerConsentBanner,
+            { signal },
         );
 
         window.addEventListener(
             "consentAllWebStorage",
             this.consentAllStorageHandler,
+            { signal },
         );
         window.addEventListener(
             "refuseOptionalWebStorage",
             this.refuseOptionalStorageHandler,
+            { signal },
         );
         // Add click event listener to handle consent banner triggers
-        document.addEventListener("click", (event) => {
-            const target = event.target as Element;
-            if (!target || !(target instanceof Element)) {
-                return;
-            }
-            const triggerElement = target.closest(
-                "[data-consent-banner-trigger]",
-            );
+        document.addEventListener(
+            "click",
+            (event) => {
+                const target = event.target;
+                if (!(target instanceof Element)) {
+                    return;
+                }
+                const triggerElement = target.closest(
+                    "[data-consent-banner-trigger]",
+                );
 
-            if (triggerElement) {
-                event.preventDefault();
-                this.showConsentBanner();
-            }
-        });
+                if (triggerElement) {
+                    event.preventDefault();
+                    this.showConsentBanner();
+                }
+            },
+            { signal },
+        );
     }
 
     private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
@@ -325,18 +337,6 @@ export class WebStorageController {
 
     // Cleanup when no longer needed
     destroy() {
-        window.removeEventListener(
-            "recheckConsentBanner",
-            this.checkAndTriggerConsentBanner,
-        );
-
-        window.removeEventListener(
-            "consentAllWebStorage",
-            this.consentAllStorageHandler,
-        );
-        window.removeEventListener(
-            "refuseOptionalWebStorage",
-            this.refuseOptionalStorageHandler,
-        );
+        this.abortController.abort();
     }
 }
