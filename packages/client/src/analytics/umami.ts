@@ -93,6 +93,7 @@ export const createUmamiEvent = (props: AnalyticsEventArgs) => {
 };
 
 export const initUmami = () => {
+    localStorage.removeItem("sporing.disabled");
     const scriptUrl = env("UMAMI_SCRIPT_URL") || "";
     if (window.__DECORATOR_DATA__.features["dekoratoren.umami"] && scriptUrl) {
         const redactOptOut = (
@@ -114,6 +115,7 @@ export const stopUmami = () => {
     const umamiScript = document.querySelector(
         `script[src="${env("UMAMI_SCRIPT_URL")}"]`,
     );
+    localStorage.setItem("sporing.disabled", "1");
 
     if (umamiScript) {
         umamiScript.remove();
