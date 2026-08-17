@@ -1,13 +1,15 @@
 export const initSkyra = () => {
-    window.SKYRA_CONFIG = {
-        org: "arbeids-og-velferdsetaten-nav",
-        cookieConsent: true,
-    };
+    if (window.__DECORATOR_DATA__.features["dekoratoren.skyra"]) {
+        window.SKYRA_CONFIG = {
+            org: "arbeids-og-velferdsetaten-nav",
+            cookieConsent: true,
+        };
 
-    const script = document.createElement("script");
-    script.src = "https://survey.skyra.no/skyra-survey.js";
-    script.async = true;
-    document.body.appendChild(script);
+        const script = document.createElement("script");
+        script.src = "https://survey.skyra.no/skyra-survey.js";
+        script.async = true;
+        document.body.appendChild(script);
+    }
 };
 
 export const stopSkyra = () => {
