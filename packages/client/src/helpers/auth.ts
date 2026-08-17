@@ -65,15 +65,19 @@ const OneMinuteTimeout = 60000;
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
     const url = endpointUrlWithParams("/auth");
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), OneMinuteTimeout);
+
     return fetch(url, {
-        signal: AbortSignal.timeout(OneMinuteTimeout),
+        signal: controller.signal,
         credentials: "include",
     })
         .then((res) => res.json() as Promise<AuthDataResponse>)
-        .catch((error) => {
+        .catch((error): AuthDataResponse => {
             logger.error(`Failed to fetch auth data.`, { error });
             return { auth: { authenticated: false } };
-        });
+        })
+        .finally(() => clearTimeout(timeoutId));
 };
 
 export const refreshAuthData = () =>
