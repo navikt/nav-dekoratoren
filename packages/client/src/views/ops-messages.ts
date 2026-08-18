@@ -1,5 +1,6 @@
 import cls from "decorator-client/src/styles/ops-messages.module.css";
 import utils from "decorator-client/src/styles/utils.module.css";
+import i18n from "decorator-client/src/views/i18n";
 import {
     ExclamationmarkTriangleIcon,
     InformationSquareIcon,
@@ -39,14 +40,23 @@ export const OpsMessagesTemplate = ({
 }: {
     opsMessages: OpsMessage[];
 }) => html`
-    <section class="${cls.opsMessagesContent} ${utils.contentContainer}">
+    <section
+        class="${cls.opsMessagesContent} ${utils.contentContainer}"
+        aria-label="${i18n("important_info")}"
+    >
         ${opsMessages.map(({ heading, url, type }) => {
             const fullUrl = checkAndCorrectHost(url);
             return html`
                 <a href="${fullUrl}" class="${cls.opsMessage}">
-                    ${type === "prodstatus"
-                        ? ExclamationmarkTriangleIcon({ className: utils.icon })
-                        : InformationSquareIcon({ className: utils.icon })}
+                    ${
+                        type === "prodstatus"
+                            ? ExclamationmarkTriangleIcon({
+                                  className: utils.icon,
+                              })
+                            : InformationSquareIcon({
+                                  className: utils.icon,
+                              })
+                    }
                     ${heading}
                 </a>
             `;
@@ -105,15 +115,9 @@ class OpsMessages extends HTMLElement {
         );
 
         if (filteredMessages.length === 0) {
-            this.removeAttribute("aria-label");
             this.innerHTML = "";
             return;
         }
-
-        this.setAttribute(
-            "aria-label",
-            window.__DECORATOR_DATA__.texts.important_info,
-        );
 
         this.innerHTML = OpsMessagesTemplate({
             opsMessages: filteredMessages,

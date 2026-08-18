@@ -58,6 +58,7 @@ class DropdownMenu extends HTMLElement {
         this.button = this.querySelector(":scope > button")!;
         this.button.addEventListener("click", () => this.toggle());
         this.menuType = this.getAttribute("menu-type") as MenuType;
+        this.button.setAttribute("aria-expanded", "false");
         window.addEventListener("click", this.handleWindowClick);
         window.addEventListener("closemenus", this.close);
         window.addEventListener("keydown", this.handleButtonClick);
