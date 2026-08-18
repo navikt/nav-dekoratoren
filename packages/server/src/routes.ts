@@ -119,7 +119,10 @@ routes.post("/api/notifications/:id/archive", async ({ req, json }) => {
 routes.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
-            ...parseAndValidateParams(req.query()),
+            ...parseAndValidateParams(req.query(), {
+                teamname: req.header("x-teamname"),
+                origin: req.header("origin"),
+            }),
             query: req.query("q") ?? "",
         }),
     ),
@@ -131,7 +134,12 @@ routes.get("/main-menu", async ({ req, html }) => {
     if (req.query("consumer") !== CONSUMER) {
         return html("");
     }
-    const data = parseAndValidateParams(req.query());
+
+    const data = parseAndValidateParams(req.query(), {
+        teamname: req.header("x-teamname"),
+        origin: req.header("origin"),
+    });
+
     return html(
         (
             await MainMenuTemplate({
@@ -144,7 +152,10 @@ routes.get("/main-menu", async ({ req, html }) => {
 routes.get("/auth", async ({ req, json }) =>
     json(
         await authHandler({
-            params: parseAndValidateParams(req.query()),
+            params: parseAndValidateParams(req.query(), {
+                teamname: req.header("x-teamname"),
+                origin: req.header("origin"),
+            }),
             cookie: req.header("Cookie") ?? "",
         }),
     ),
@@ -156,7 +167,12 @@ routes.get("/header", async ({ req, html }) => {
     if (req.query("consumer") !== CONSUMER) {
         return html("");
     }
-    const params = parseAndValidateParams(req.query());
+
+    const params = parseAndValidateParams(req.query(), {
+        teamname: req.header("x-teamname"),
+        origin: req.header("origin"),
+    });
+
     return html(
         (await HeaderTemplate({ params, withContainers: false })).render(
             params,
@@ -168,7 +184,12 @@ routes.get("/footer", async ({ req, html }) => {
     if (req.query("consumer") !== CONSUMER) {
         return html("");
     }
-    const params = parseAndValidateParams(req.query());
+
+    const params = parseAndValidateParams(req.query(), {
+        teamname: req.header("x-teamname"),
+        origin: req.header("origin"),
+    });
+
     return html(
         (
             await FooterTemplate({
@@ -185,7 +206,16 @@ routes.get("/ssr", ssrApiHandler);
 // TODO: The CSR implementation can probably be tweaked to use the same data as /ssr
 routes.on("GET", ["/env", "/csr"], async ({ req, json }) => {
     const query = req.query();
-    const params = parseAndValidateParams(query);
+
+    const params = parseAndValidateParams(
+        query,
+        {
+            teamname: req.header("x-teamname"),
+            origin: req.header("origin"),
+        },
+        "csr",
+    );
+
     const features = getFeatures();
 
     return json({
