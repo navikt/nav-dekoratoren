@@ -21,12 +21,70 @@ export function makeFrontpageUrl({
     }
 }
 
-const isLocalhost = (url: string) =>
-    /^(https?:\/\/localhost(:\d+)?)/i.test(url);
-const isPath = (url: string) => /^(\/)/i.test(url);
-const isNavOrNais = (url: string) =>
-    /^((https:\/\/([a-z0-9-]+\.)*((nav\.no)|(nais\.io)))($|\/))/i.test(url);
+const ALLOWED_DOMAINS = ["nav.no", "nais.io"];
+
+/**
+ * Browsers strip tab/newline characters from URLs before parsing them, so any
+ * validation has to do the same or it can be tricked into checking a different
+ * string than the one that actually gets navigated to.
+ */
+const normalize = (url: string) => url.replace(/[\t\r\n]/g, "");
+
+/**
+ * A relative path is only safe if it can't be reinterpreted as another origin.
+ * "//evil.com" is protocol-relative, and browsers normalize "\" to "/", which
+ * makes "/\evil.com" protocol-relative as well.
+ */
+const isSafeRelativePath = (url: string) =>
+    url.startsWith("/") && !url.startsWith("//") && !url.startsWith("/\\");
+
+const isAllowedDomain = (hostname: string) =>
+    ALLOWED_DOMAINS.some(
+        (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
+    );
+
+/**
+ * In a browser the gate keys off the page's own origin, and `process` does not
+ * exist there. Reading `location` off `globalThis` rather than `window` keeps
+ * this file compiling under the server's DOM-free tsconfig.
+ */
+const getPageHostname = () =>
+    (globalThis as { location?: { hostname: string } }).location?.hostname;
+
+const allowLocalhost = () => {
+    const pageHostname = getPageHostname();
+
+    return pageHostname !== undefined
+        ? pageHostname === "localhost"
+        : process.env.NODE_ENV !== "production";
+};
 
 export const isValidNavUrl = (url: string) => {
-    return isLocalhost(url) || isPath(url) || isNavOrNais(url);
+    const normalized = normalize(url);
+
+    if (isSafeRelativePath(normalized)) {
+        return true;
+    }
+
+    let parsed: URL;
+    try {
+        parsed = new URL(normalized);
+    } catch {
+        return false;
+    }
+
+    // "https://localhost@evil.com" and friends: the host is evil.com, not localhost
+    if (parsed.username || parsed.password) {
+        return false;
+    }
+
+    if (
+        allowLocalhost() &&
+        parsed.hostname === "localhost" &&
+        (parsed.protocol === "http:" || parsed.protocol === "https:")
+    ) {
+        return true;
+    }
+
+    return parsed.protocol === "https:" && isAllowedDomain(parsed.hostname);
 };
