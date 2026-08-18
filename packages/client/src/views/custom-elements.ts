@@ -1,4 +1,4 @@
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 
 type DefineCustomElement = CustomElementRegistry["define"];
 

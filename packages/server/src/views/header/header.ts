@@ -39,23 +39,23 @@ export const HeaderTemplate = async ({
 
     const headerContent = html`
         ${ConsentBanner({ language })}
-        ${simple || simpleHeader
-            ? SimpleHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-              })
-            : ComplexHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-                  contextLinks: makeContextLinks(language),
-                  context,
-                  language,
-                  mainMenu: params.ssrMainMenu
-                      ? await MainMenuTemplate({ data: params })
-                      : null,
-              })}
+        ${
+            simple || simpleHeader
+                ? SimpleHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: env.LOGIN_URL,
+                  })
+                : ComplexHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: env.LOGIN_URL,
+                      contextLinks: makeContextLinks(language),
+                      context,
+                      language,
+                      mainMenu: await MainMenuTemplate({ data: params }),
+                  })
+        }
     `;
 
     return withContainers

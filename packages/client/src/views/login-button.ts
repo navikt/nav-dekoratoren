@@ -2,7 +2,7 @@ import { parseUrl } from "../helpers/urls";
 import { env } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 
 class LoginButton extends HTMLElement {
     connectedCallback() {

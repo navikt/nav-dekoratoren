@@ -1,6 +1,6 @@
 import loadExternalScript from "../../helpers/load-external-script";
 import { env, param } from "../../params";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../../helpers/logger";
 
 type BoostApi = { show: () => void };
 

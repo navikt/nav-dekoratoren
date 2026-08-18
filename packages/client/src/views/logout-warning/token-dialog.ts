@@ -5,13 +5,47 @@ import { getSecondsRemaining } from "../../helpers/time";
 import { defineCustomElement } from "../custom-elements";
 
 export class TokenDialog extends HTMLElement {
-    tokenExpireAtLocal?: string;
-    private interval?: number;
+    private _tokenExpireAtLocal?: string;
+    checkActivity?: () => boolean;
+    private timer?: ReturnType<typeof globalThis.setTimeout>;
+    private isAutoRenewing = false;
+    private tick?: () => void;
+    private static readonly NEAR_EXPIRY_THRESHOLD_SECONDS = 5 * 60;
+    private static readonly FAR_CHECK_INTERVAL_MS = 60 * 1000;
+    private static readonly NEAR_CHECK_INTERVAL_MS = 1000;
+
+    get tokenExpireAtLocal() {
+        return this._tokenExpireAtLocal;
+    }
+
+    set tokenExpireAtLocal(value: string | undefined) {
+        this._tokenExpireAtLocal = value;
+
+        if (
+            !this._tokenExpireAtLocal ||
+            (this.isAutoRenewing &&
+                this.secondsRemaining >=
+                    TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS)
+        ) {
+            this.isAutoRenewing = false;
+        }
+    }
 
     private get secondsRemaining() {
-        return this.tokenExpireAtLocal
-            ? getSecondsRemaining(this.tokenExpireAtLocal)
+        return this._tokenExpireAtLocal
+            ? getSecondsRemaining(this._tokenExpireAtLocal)
             : Infinity;
+    }
+
+    notifyRenewComplete() {
+        if (this.secondsRemaining < TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS) {
+            this.isAutoRenewing = false;
+        }
+    }
+
+    checkNow() {
+        globalThis.clearTimeout(this.timer);
+        this.tick?.();
     }
 
     connectedCallback() {
@@ -35,22 +69,49 @@ export class TokenDialog extends HTMLElement {
             }
         });
 
-        this.interval = window.setInterval(() => {
+        const tick = () => {
             if (this.secondsRemaining < 0) {
                 logout();
-            } else if (this.secondsRemaining < 5 * 60) {
-                if (!dialog.open) {
-                    logAnalyticsEvent("token dialog shown");
-                    dialog.showModal();
+                return;
+            } else if (
+                this.secondsRemaining <
+                TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+            ) {
+                if (!this.isAutoRenewing && this.checkActivity?.()) {
+                    this.isAutoRenewing = true;
+                    this.dispatchEvent(new Event("renew"));
+                } else if (!this.isAutoRenewing) {
+                    if (!dialog.open) {
+                        logAnalyticsEvent("token dialog shown");
+                        dialog.showModal();
+                    }
                 }
             } else {
+                this.isAutoRenewing = false;
                 dialog.close();
             }
-        }, 1000);
+
+            const nextDelayMs =
+                this.secondsRemaining <
+                TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+                    ? TokenDialog.NEAR_CHECK_INTERVAL_MS
+                    : TokenDialog.FAR_CHECK_INTERVAL_MS;
+            this.timer = globalThis.setTimeout(tick, nextDelayMs);
+        };
+
+        this.tick = tick;
+
+        this.timer = globalThis.setTimeout(
+            tick,
+            this.secondsRemaining < TokenDialog.NEAR_EXPIRY_THRESHOLD_SECONDS
+                ? TokenDialog.NEAR_CHECK_INTERVAL_MS
+                : TokenDialog.FAR_CHECK_INTERVAL_MS,
+        );
     }
 
     disconnectedCallback() {
-        clearInterval(this.interval);
+        globalThis.clearTimeout(this.timer);
+        this.tick = undefined;
     }
 }
 

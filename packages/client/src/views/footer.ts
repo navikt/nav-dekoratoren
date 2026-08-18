@@ -1,5 +1,5 @@
 import { paramsSchema, type ClientParams } from "decorator-shared/params";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 import { updateDecoratorParams } from "../params";
 import { CustomEvents } from "../events";
 import { analyticsClickListener } from "../analytics/analytics";

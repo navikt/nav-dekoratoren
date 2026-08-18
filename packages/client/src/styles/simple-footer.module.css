@@ -24,6 +24,9 @@
     flex-direction: column;
     align-items: flex-start;
 }
+.footerLinkList > a:focus-visible {
+    outline-color: initial;
+}
 
 @media (min-width: 48rem) {
     .footerLinkList {

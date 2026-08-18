@@ -1,7 +1,3 @@
-import {
-    initTaskAnalyticsScript,
-    stopTaskAnalytics,
-} from "./task-analytics/ta";
 import { initMockAmplitude } from "./amplitude";
 import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
 import { DEFAULT_ORIGIN } from "./constants";
@@ -26,25 +22,24 @@ export const mockAnalytics = () => {
     return Promise.resolve();
 };
 
+const analyticsController = new AbortController();
 export const initAnalytics = (auth: Auth) => {
     initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
-    initTaskAnalyticsScript();
     initUmami();
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAnalytics = logAnalyticsEventFromApp;
     logPageView(auth);
 
-    // Pass the callback as a function reference
-    window.addEventListener("historyPush", logPageViewCallback(auth));
+    window.addEventListener("historyPush", logPageViewCallback(auth), {
+        signal: analyticsController.signal,
+    });
 };
 
-export const stopAnalytics = (auth: Auth) => {
+export const stopAnalytics = () => {
     stopUmami();
-    stopTaskAnalytics();
 
-    // Pass the same function reference
-    window.removeEventListener("historyPush", logPageViewCallback(auth));
+    analyticsController.abort();
 };
 
 const buildFilteredQueryString = (): string => {
@@ -96,6 +91,7 @@ export const extraWindowParams = () => {
 
 // Moduler-metadata logges som egne Umami-felter og skal derfor ikke dupliseres i pageview-parametre.
 const excludedParametre = new Set<string>([
+    "origin",
     "decoratorModulerVersion",
     "decoratorModulerEntryPoint",
     "decoratorModulerAnalyticsEntryPoint",
@@ -134,7 +130,7 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logUmamiEvent("besøk", eventData, DEFAULT_ORIGIN, {
+        logUmamiEvent("besøk", eventData, params.origin ?? DEFAULT_ORIGIN, {
             decoratorModulerVersion: params.decoratorModulerVersion,
             decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
         });
@@ -183,8 +179,7 @@ const logAnalyticsEventFromApp = (params?: {
     eventName: string;
     eventData?: unknown | EventData;
     decoratorModulerAnalyticsEntryPoint?:
-        | unknown
-        | ModulerMetadata["decoratorModulerAnalyticsEntryPoint"];
+        unknown | ModulerMetadata["decoratorModulerAnalyticsEntryPoint"];
 }): Promise<any> => {
     try {
         if (!params || params.constructor !== Object) {

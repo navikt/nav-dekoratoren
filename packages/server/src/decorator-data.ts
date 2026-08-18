@@ -98,28 +98,6 @@ const storageDictionary: Set<AllowedStorageItem> = new Set([
         optional: false,
     },
     {
-        name: "_taj*",
-        type: ["sessionstorage", "localstorage"],
-        service: "Task Analytics",
-        description: "Husker hvilke undersøkelser brukeren har takket ja til.",
-        optional: true,
-    },
-    {
-        name: "_tau",
-        type: ["sessionstorage", "localstorage"],
-        service: "Task Analytics",
-        description: "Husker hvilke undersøkelser brukeren har takket ja til.",
-        optional: true,
-    },
-    {
-        name: "ta-dekoratoren-*",
-        type: ["cookie"],
-        service: "Task Analytics",
-        description:
-            "Husker om en bruker har sett en invitasjon til undersøkelse.",
-        optional: true,
-    },
-    {
         name: "usertest-*",
         type: ["cookie"],
         service: "Nav.no (Next)",

@@ -1,4 +1,4 @@
-import { logger } from "decorator-shared/logger";
+import { logger } from "../lib/logger";
 import { Consent } from "decorator-shared/types";
 import { Handler } from "hono";
 

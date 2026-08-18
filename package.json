@@ -1,11 +1,18 @@
 {
-    "name": "decorator-next",
+    "name": "nav-dekoratoren",
     "private": "true",
     "version": "0.0.1",
     "description": "",
     "packageManager": "pnpm@11.1.2+sha512.415a1cc25974731e75455c1468371be74c5aa5fb7621b50d4056d222451609f11412f23fd602e6169f1e060466641f798597e1be961a10688836a67b16569499",
     "engines": {
         "node": ">=24"
+    },
+    "devEngines": {
+        "runtime": {
+            "name": "node",
+            "version": "^24.19.0",
+            "onFail": "download"
+        }
     },
     "scripts": {
         "storybook": "storybook dev -p 6006",
@@ -18,6 +25,7 @@
         "lint:shared": "pnpm --filter decorator-shared run lint",
         "lint:next": "pnpm --filter next-pages-router-example run lint",
         "dev": "concurrently \"pnpm --filter decorator-client run dev\" \"pnpm --filter decorator-server run dev\"",
+        "example": "pnpm --filter next-pages-router-example run dev",
         "build": "pnpm --filter decorator-icons run build && pnpm --filter decorator-client run build && pnpm --filter decorator-server run build && pnpm run copy-assets",
         "copy-assets": "mkdir -p packages/server/public && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
         "prepare": "husky",
@@ -39,17 +47,17 @@
         "storybook": "Need to have matching storybook version across all storybook packages for it to work properly."
     },
     "devDependencies": {
-        "@axe-core/playwright": "4.11.3",
-        "@eslint/eslintrc": "3.3.5",
-        "@eslint/js": "9.39.4",
-        "@playwright/test": "1.60.0",
-        "@storybook/addon-docs": "10.4.0",
-        "@storybook/html": "10.4.0",
-        "@storybook/html-vite": "10.4.0",
+        "@axe-core/playwright": "4.12.1",
+        "@eslint/eslintrc": "3.3.6",
+        "@eslint/js": "9.39.5",
+        "@playwright/test": "1.62.1",
+        "@storybook/addon-docs": "10.5.5",
+        "@storybook/html": "10.5.5",
+        "@storybook/html-vite": "10.5.5",
         "@types/node": "catalog:",
-        "@typescript-eslint/eslint-plugin": "8.59.3",
-        "@typescript-eslint/parser": "8.59.3",
-        "concurrently": "9.2.1",
+        "@typescript-eslint/eslint-plugin": "8.65.0",
+        "@typescript-eslint/parser": "8.65.0",
+        "concurrently": "9.2.4",
         "copyfiles": "2.4.1",
         "esbuild-minify-templates": "catalog:",
         "eslint": "catalog:",
@@ -57,11 +65,11 @@
         "husky": "9.1.7",
         "lint-staged": "16.4.0",
         "postcss-import-sync2": "1.2.0",
-        "prettier": "3.8.3",
-        "storybook": "10.4.0",
+        "prettier": "3.9.6",
+        "storybook": "10.5.5",
         "typescript": "catalog:",
         "typescript-plugin-css-modules": "5.2.0",
-        "vite": "7.3.3"
+        "vite": "7.3.6"
     },
     "lint-staged": {
         "*.{ts,tsx,js}": [

@@ -31,7 +31,7 @@ inputs:
   CDN_DESTINATION:
     description: Destination path on CDN
     required: false
-    default: "/decorator-next"
+    default: "/nav-dekoratoren"
 
 outputs:
   IMAGE:
@@ -62,7 +62,8 @@ runs:
 
     - name: Install Playwright dependencies
       shell: bash
-      run: npx playwright install-deps
+      if: ${{ inputs.SKIP_TESTS != 'true' }}
+      run: pnpm exec playwright install-deps
 
     - name: Build app
       shell: bash

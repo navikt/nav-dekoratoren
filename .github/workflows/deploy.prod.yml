@@ -16,7 +16,7 @@ jobs:
       IMAGE: ${{ steps.build_test.outputs.IMAGE }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Build and test
         id: build_test
@@ -35,7 +35,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Deploy to prod
         uses: ./.github/actions/deploy-to-nais
@@ -57,7 +57,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Deploy to dev
         uses: ./.github/actions/deploy-to-nais
@@ -76,7 +76,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Deploy to Team Nav.no dev2/beta
         uses: ./.github/actions/deploy-to-nais
@@ -94,7 +94,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Deploy to Team Min Side dev2/beta
         uses: ./.github/actions/deploy-to-nais

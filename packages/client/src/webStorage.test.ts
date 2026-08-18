@@ -19,11 +19,6 @@ const mockStorageDictionary: PublicStorageItem[] = [
         optional: true,
     },
     {
-        name: "ta-dekoratoren-*",
-        type: "cookie",
-        optional: true,
-    },
-    {
         name: "_hjSession*",
         type: "cookie",
         optional: true,
@@ -31,6 +26,17 @@ const mockStorageDictionary: PublicStorageItem[] = [
 ] as PublicStorageItem[];
 
 describe("Tester webStorage", () => {
+    const controllers: WebStorageController[] = [];
+
+    // Instances register listeners on window/document in their constructor.
+    // Track them so every test tears its own down instead of stacking
+    // listeners across the suite.
+    const createController = () => {
+        const controller = new WebStorageController();
+        controllers.push(controller);
+        return controller;
+    };
+
     beforeEach(() => {
         window.__DECORATOR_DATA__ = {
             allowedStorage: mockStorageDictionary,
@@ -41,7 +47,6 @@ describe("Tester webStorage", () => {
         Cookies.set("_hjSessionUser_118350", "foobar");
         Cookies.set("amp_abcdef", "foobar");
         Cookies.set("selvbetjening-idtoken", "foobar");
-        Cookies.set("ta-dekoratoren-1234", "foobar");
         Cookies.set("ukjent-cookie", "foobar");
 
         window.localStorage.setItem("usertest-1234", "foobar");
@@ -50,12 +55,23 @@ describe("Tester webStorage", () => {
         window.sessionStorage.setItem("usertest-1234", "foobar");
         window.sessionStorage.setItem("ukjentdata", "foobar");
     });
+
+    afterEach(() => {
+        controllers.forEach((controller) => controller.destroy());
+        controllers.length = 0;
+    });
+
     it("kontrolleren sender event om å åpne cookie-banner ved manglende samtykke-handling", () => {
         const triggerEvent = vi.fn();
-        window.addEventListener("showConsentBanner", triggerEvent);
-        new WebStorageController();
+        const listenerController = new AbortController();
+        window.addEventListener("showConsentBanner", triggerEvent, {
+            signal: listenerController.signal,
+        });
+        createController();
 
         expect(triggerEvent).toHaveBeenCalled();
+
+        listenerController.abort();
     });
 
     it("kjente frivillige cookies slettes når cookie-banner vises", async () => {
@@ -63,9 +79,8 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("AMP_1234")).toBe("foobar");
         expect(Cookies.get("_hjSessionUser_118350")).toBe("foobar");
         expect(Cookies.get("amp_abcdef")).toBe("foobar");
-        expect(Cookies.get("ta-dekoratoren-1234")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -73,12 +88,11 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("AMP_1234")).toBe(undefined);
         expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
         expect(Cookies.get("amp_abcdef")).toBe(undefined);
-        expect(Cookies.get("ta-dekoratoren-1234")).toBe(undefined);
     });
     it("kjente nødvendige cookies slettes ikkenår cookie-banner vises", async () => {
         expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -88,7 +102,7 @@ describe("Tester webStorage", () => {
     it("ukjente cookies slettes ikke når cookie-banner vises", async () => {
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -98,7 +112,7 @@ describe("Tester webStorage", () => {
     it("kjente frivillige localStorage-elementer slettes når cookie-banner vises", async () => {
         expect(window.localStorage.getItem("usertest-1234")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -107,7 +121,7 @@ describe("Tester webStorage", () => {
     it("ukjente localStorage-elementer slettes ikke når cookie-banner vises", async () => {
         expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -116,7 +130,7 @@ describe("Tester webStorage", () => {
     it("kjente frivillige sessionStorage-elementer slettes når cookie-banner vises", async () => {
         expect(window.sessionStorage.getItem("usertest-1234")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -125,7 +139,7 @@ describe("Tester webStorage", () => {
     it("ukjente sessionStorage-elementer slettes ikke når cookie-banner vises", async () => {
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
 
-        new WebStorageController();
+        createController();
         await new Promise((resolve) => setTimeout(resolve, 100));
 
         await new Promise((resolve) => setTimeout(resolve, 100));

@@ -4,14 +4,17 @@ import { endpointUrlWithParams } from "../helpers/urls";
 import { param } from "../params";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsClickListener } from "../analytics/analytics";
-import { logger } from "decorator-shared/logger";
+import { logger } from "../helpers/logger";
 import { CustomEvents } from "../events";
 
 const TEN_MIN_MS = 10 * 60 * 1000;
+const TEN_SECONDS_MS = 10 * 1000;
 
 class MainMenu extends HTMLElement {
     private readonly responseCache = new ResponseCache<string>({
         ttl: TEN_MIN_MS,
+        suppressRetryForMs: TEN_SECONDS_MS,
+        logger,
     });
 
     private async fetchMenuContent(context: Context) {
@@ -51,9 +54,7 @@ class MainMenu extends HTMLElement {
     connectedCallback() {
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
 
-        if (!param("ssrMainMenu")) {
-            this.updateMenuContent(param("context"));
-        }
+        this.updateMenuContent(param("context"));
 
         this.addEventListener(
             "click",

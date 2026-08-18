@@ -8,14 +8,6 @@ import { buildDecoratorData } from "../decorator-data";
 
 const ENTRY_POINT_PATH = "src/main.ts";
 
-const taskAnalyticsScript = `window.initConditionalTaskAnalytics = function () {
-    var head = document.getElementsByTagName("head")[0];
-    var taScript = document.createElement("script");
-    taScript.async = true;
-    taScript.src = "https://in2.taskanalytics.com/tm.js";
-    head.appendChild(taScript);
-};`;
-
 const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
     if (env.NODE_ENV === "development") {
         return [
@@ -53,20 +45,7 @@ const getScriptsProps = async (): Promise<HtmlElementProps[]> => {
             },
         }));
 
-    const analyticsScripts = [
-        {
-            tag: "script",
-            body: taskAnalyticsScript,
-            attribs: {
-                id: "d-task-analytics-container",
-                type: "module",
-                async: "async",
-                fetchpriority: "low",
-            },
-        },
-    ];
-
-    return [...appScripts, ...analyticsScripts];
+    return appScripts;
 };
 
 export const scriptsProps = await getScriptsProps();

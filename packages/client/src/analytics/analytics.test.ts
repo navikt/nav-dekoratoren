@@ -7,11 +7,6 @@ vi.mock("./amplitude", () => ({
     initMockAmplitude: vi.fn(),
 }));
 
-vi.mock("./task-analytics/ta", () => ({
-    initTaskAnalyticsScript: vi.fn(),
-    stopTaskAnalytics: vi.fn(),
-}));
-
 vi.mock("./umami", () => ({
     createUmamiEvent: vi.fn(),
     initUmami: vi.fn(),
@@ -47,8 +42,8 @@ const setupDecoratorData = () => {
             shareScreen: true,
             logoutWarning: true,
             feedback: false,
-            ssrMainMenu: false,
             redirectOnUserChange: false,
+            origin: "test-app",
             analyticsQueryParams: [],
             analyticsRedactFilter: [],
             decoratorModulerVersion: "4.1.1",
@@ -90,16 +85,35 @@ describe("analytics", () => {
                 tema: "theme",
                 innlogging: "4",
                 parametre: expect.not.objectContaining({
+                    origin: expect.anything(),
                     decoratorModulerVersion: expect.anything(),
                     decoratorModulerEntryPoint: expect.anything(),
                     decoratorModulerAnalyticsEntryPoint: expect.anything(),
                 }),
             }),
-            "nav-dekoratoren",
+            "test-app",
             {
                 decoratorModulerVersion: "4.1.1",
                 decoratorModulerEntryPoint: "ssr",
             },
+        );
+    });
+
+    it("uses the decorator origin when the app has not configured one", () => {
+        delete (
+            window.__DECORATOR_DATA__.params as Partial<
+                typeof window.__DECORATOR_DATA__.params
+            >
+        ).origin;
+
+        initAnalytics(auth);
+        vi.advanceTimersByTime(100);
+
+        expect(logUmamiEvent).toHaveBeenCalledWith(
+            "besøk",
+            expect.any(Object),
+            "nav-dekoratoren",
+            expect.any(Object),
         );
     });
 
@@ -124,6 +138,16 @@ describe("analytics", () => {
             );
         },
     );
+
+    it("rejects app events without an explicit origin", async () => {
+        initAnalytics(auth);
+
+        await expect(
+            window.dekoratorenAnalytics({
+                eventName: "test-event",
+            } as any),
+        ).rejects.toContain('Parameter "origin"');
+    });
 
     it("ignores invalid analytics entry point without dropping the app event", async () => {
         initAnalytics(auth);

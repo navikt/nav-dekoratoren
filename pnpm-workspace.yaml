@@ -2,18 +2,23 @@ packages:
     - "packages/*"
 
 catalog:
-    "@types/node": "24.12.4"
+    "@navikt/ds-css": "8.16.1"
+    "@navikt/ds-react": "8.16.1"
+    "@types/node": "24.13.3"
     esbuild-minify-templates: "0.13.1"
-    eslint: "9.39.4"
-    postcss: "8.5.14"
-    tsx: "4.21.0"
+    eslint: "9.39.5"
+    postcss: "8.5.25"
+    tsx: "4.23.1"
     typescript: "6.0.3"
-    vitest: "4.1.6"
+    vitest: "4.1.10"
 
 minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
     - "@navikt/*"
+
+overrides:
+    postcss: "8.5.25"
 
 engineStrict: true
 

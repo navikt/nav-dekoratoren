@@ -67,6 +67,7 @@ class LinkNotification extends HTMLElement {
                     {
                         method: "POST",
                         credentials: "include",
+                        keepalive: true,
                     },
                 ).then((res) => {
                     if (!res.ok) {

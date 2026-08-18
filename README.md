@@ -265,6 +265,7 @@ se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
 | logoutUrl            | string                                                                  | undefined    | Angir URL for utlogging                                              |
 | logoutWarning        | boolean                                                                 | true         | Aktiverer eller deaktiverer advarsel for utlogging                   |
 | redirectOnUserChange | boolean                                                                 | false        | Sender brukeren til nav.no dersom en annen bruker logger inn         |
+| origin               | string                                                                  | undefined    | Stabilt appnavn som brukes til å filtrere sidevisninger i Analytics  |
 | pageType             | string                                                                  | undefined    | For logging av sidetype for sidevisning i Analytics                  |
 | analyticsQueryParams | string[]                                                                | [ ]          | Hviteliste av query-parametere som skal inkluderes i Analytics       |
 
@@ -345,9 +346,14 @@ omdirigeringsadressen **etter** at brukeren er logget ut.
 
 **logoutWarning**
 
-En modal vil vises etter 55 minutter med innloggingstid, som gir brukeren muligheten til å forlenge
-økten med ytterligere 60 minutter eller logge ut umiddelbart. Dette tjener både som en
-bekvemmelighet for brukeren og for å oppfylle WCAG-tilgjengelighetskrav.
+En modal vil vises 5 minutter før innloggingstokenet utløper, dersom brukeren har vært inaktiv i
+minst 30 minutter. Den gir brukeren muligheten til å forlenge økten med ytterligere 60 minutter
+eller logge ut umiddelbart. Dette tjener både som en bekvemmelighet for brukeren og for å oppfylle
+WCAG-tilgjengelighetskrav.
+
+Så lenge brukeren er aktiv (klikk, tastetrykk, scroll eller touch), fornyes innloggingstokenet
+automatisk i bakgrunnen, uten at noen dialog vises. Blir brukeren inaktiv, utløper tokenet
+omtrent 60 minutter etter siste registrerte aktivitet, og modalen vises 5 minutter før dette.
 
 Hvis du velger å deaktivere denne funksjonen, må du selv implementere en lignende
 utloggingsadvarsel.
@@ -603,7 +609,7 @@ import { fetchDecoratorHtml } from "@navikt/nav-dekoratoren-moduler/ssr";
 
 const fragments = await fetchDecoratorHtml({
     env: "dev",
-    params: { context: "privatperson" },
+    params: { context: "privatperson", origin: "min-app" },
 });
 
 const {
@@ -637,7 +643,11 @@ class MyDocument extends Document<DocumentProps> {
 
         const Decorator = await fetchDecoratorReact({
             env: "prod",
-            params: { language: "nb", context: "arbeidsgiver" },
+            params: {
+                language: "nb",
+                context: "arbeidsgiver",
+                origin: "min-app",
+            },
         });
 
         return { ...initialProps, Decorator };
@@ -677,6 +687,7 @@ const RootLayout = async ({
 }: Readonly<{ children: React.ReactNode }>) => {
     const Decorator = await fetchDecoratorReact({
         env: "prod",
+        params: { origin: "min-app" },
     });
 
     return (
@@ -988,6 +999,7 @@ export type DecoratorParams = Partial<{
     logoutUrl: string;
     logoutWarning: boolean;
     redirectOnUserChange: boolean;
+    origin: string;
     pageType: string;
     analyticsQueryParams: string[];
     analyticsRedactFilter: string[];
@@ -1147,7 +1159,7 @@ ikke.
 | Utloggingsvarsel             | client-side               | Viser varsel 5 min før sesjonen utløper, lar bruker forlenge økten |
 | Token-regler                 | server-side               | Forklarer gyldighet og fornyelse av tokens (NAIS auth)             |
 | Analytics (Umami)            | client-side               | Logger brukerhendelser til Umami                                   |
-| Task Analytics & Skyra       | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
+| Skyra                        | client-side               | Laster undersøkelsesskript for godkjente brukere                   |
 | Skip-lenke til hovedinnhold  | client-side               | Forbedrer universell utforming, hopper direkte til maincontent     |
 | Samtykkebanner               | client-side               | Håndterer brukerens samtykke for cookies og analyse                |
 
@@ -1163,7 +1175,7 @@ ikke.
 Du kan finne det nåværende CSP-direktivet
 på [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). Du kan også
 inspisere den faktiske koden
-på [content-security-policy.ts](https://github.com/navikt/decorator-next/blob/main/packages/server/src/content-security-policy.ts)
+på [content-security-policy.ts](https://github.com/navikt/nav-dekoratoren/blob/main/packages/server/src/content-security-policy.ts)
 for en bedre forståelse av hvordan CSP fungerer.
 
 [`@navikt/nav-dekoratoren-moduler`](https://github.com/navikt/nav-dekoratoren-moduler) pakken tilbyr
@@ -1251,17 +1263,16 @@ informasjon, se
 
 **Utloggingsvarsel 🔐**
 
-En utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper. Brukeren kan da
-velge å forlenge økten med ytterligere 60 minutter eller klikke "Logg ut" for å logge ut
-umiddelbart.
+Et utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper, dersom brukeren
+har vært inaktiv i minst 30 minutter. Brukeren kan da velge å forlenge økten med ytterligere 60
+minutter eller klikke "Logg ut" for å logge ut umiddelbart.
 
-Brukernes totale sesjon har en maksimal levetid på 6 timer, hvoretter brukeren må logge ut og logge
+Brukernes totale økt har en maksimal levetid på 6 timer, hvor brukeren blir logget ut og må logge
 inn igjen.
 
 Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen ved å sette
-`logoutWarning=false`som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
-at du bygger din egen
-mekanisme for å la brukere utsette utlogging.
+`logoutWarning=false` som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
+at du bygger din egen mekanisme for å la brukere utsette utlogging.
 
 **Regler for tokens 🔐**
 
@@ -1270,14 +1281,17 @@ Du kan lese mer om tokens i
 utloggingsvarselet oppfører seg:
 
 - Tokens er gyldig i 60 minutter hvis det ikke fornyes.
-- Økten er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
-- 5 minutter før tokenet utløper, blir brukeren presentert med alternativer for enten å fortsette å
-  være
-  logget inn eller logge ut umiddelbart.
-- Disse fornyelsene forlenger økten med ytterligere 60 minutter.
-- Etter ytterligere 55 minutter vil brukeren bli presentert med utloggingsvarslingen igjen.
-- Etter totalt 6 timer (session expiration) med å være logget inn, må brukeren logge inn på nytt.
-- For øyeblikket blir brukeren presentert med utloggingsvarslingen uavhengig av aktivitet.
+- Dersom brukeren er aktiv (klikker, scroller, taster), fornyes tokenet automatisk i bakgrunnen uten
+  at varselet vises.
+- Dersom brukeren har vært inaktiv i 30 minutter, mister brukeren «aktiv»-status. Når tokenet da
+  nærmer seg utløp (5 minutter igjen), blir brukeren presentert med alternativer for enten å
+  fortsette å være logget inn eller logge ut umiddelbart.
+- Velger brukeren å fortsette, forlenges økten med ytterligere 60 minutter.
+- Økten (Session tokenet) er gyldig i 6 timer og kan ikke fornyes, dvs. brukeren må logge ut og deretter inn igjen.
+
+> Teknisk detalj: Klienten sjekker gjenværende tid hvert minutt frem til token/økt nærmer seg utløp
+> (5 minutter igjen), og går da over til å sjekke hvert sekund for å sikre presis timing på varsel og
+> utlogging.
 
 **Analytics 📊**
 
@@ -1291,15 +1305,11 @@ initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil t
 logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
 samtykke spesielt med mindre de har spesifikke behov.
 
-**Undersøkelser ved bruk av Task Analytics og Skyra 📋**
+**Undersøkelser ved bruk av Skyra 📋**
 
-Task Analytics og Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste de
-nødvendige skriptene for begge tjenestene, men kun hvis brukeren har gitt samtykke til
-undersøkelser. Task Analytics-undersøkelser settes opp i et eget repository. Vennligst
-se [nav-dekoratoren-config](https://github.com/navikt/nav-dekoratoren-config) eller kontakt Team
-Nav.no for mer informasjon.
-
-For Skyra styres alle undersøkelser i dashbordet ditt. Du kan finne
+Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste
+nødvendige skript, men kun hvis brukeren har gitt samtykke til
+undersøkelser. Alle undersøkelser styres i Skyra-dashbordet ditt. Du kan finne
 [mer informasjon om Skyra her](https://www.skyra.no/no). Undersøkelsene dine skal vises
 automatisk når de er riktig konfigurert i Skyra-dashbordet ditt.
 

@@ -147,15 +147,6 @@ Dekoratøren. [Du kan lese mer om Web Components her.](https://developer.mozilla
 Dekoratøren forsøker å gjøre mest mulig rendering på serveren før innholdet sendes til
 applikasjonen.
 
-### Oppgaveanalyse (Task Analytics)
-
-Task Analytics gjør det mulig for team å kjøre spørreundersøkelser basert på URL-mønstre. Oppgavene
-konfigureres i et [eget konfigurasjonsrepo](https://github.com/navikt/nav-dekoratoren-config) og
-injiseres inn i Dekoratøren.
-
-Ta kontakt med Nav.no-teamet dersom du ønsker å lære mer om Task Analytics eller har en undersøkelse
-du ønsker å sette opp.
-
 ### Storybook
 
 Du finner en oversikt og dokumentasjon for hver komponent

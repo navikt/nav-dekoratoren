@@ -86,8 +86,8 @@ export const paramsSchema = z.object({
     logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
     logoutWarning: z.boolean().default(true),
     bedrift: z.string().optional(),
-    ssrMainMenu: z.boolean().default(false),
     redirectOnUserChange: z.boolean().default(false),
+    origin: z.string().trim().min(1).max(100).optional(),
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
     pageTitle: z.string().optional(),
@@ -99,10 +99,11 @@ export const paramsSchema = z.object({
 
 export type Params = z.infer<typeof paramsSchema>;
 
-export const clientParamKeys: Array<keyof Params> = [
+export const clientParamKeys = [
     "context",
     "simple",
     "simpleHeader",
+    "simpleFooter",
     "redirectToApp",
     "redirectToUrl",
     "level",
@@ -113,9 +114,13 @@ export const clientParamKeys: Array<keyof Params> = [
     "chatbot",
     "chatbotVisible",
     "shareScreen",
+    "logoutUrl",
+    "redirectToUrlLogout",
     "logoutWarning",
+    "bedrift",
     "feedback",
     "redirectOnUserChange",
+    "origin",
     "pageType",
     "pageTheme",
     "pageTitle",
@@ -123,7 +128,7 @@ export const clientParamKeys: Array<keyof Params> = [
     "analyticsRedactFilter",
     "decoratorModulerVersion",
     "decoratorModulerEntryPoint",
-] as const;
+] as const satisfies ReadonlyArray<keyof Params>;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 

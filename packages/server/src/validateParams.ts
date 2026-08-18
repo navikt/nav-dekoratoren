@@ -5,10 +5,9 @@ import {
     modulerEntryPointSchema,
     modulerVersionSemverSchema,
 } from "decorator-shared/params";
-import { clientEnv } from "./env/server";
 import { P, match } from "ts-pattern";
 import { ZodBoolean, ZodDefault } from "zod";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./lib/logger";
 
 const booleans = Object.entries(paramsSchema.shape).reduce<string[]>(
     (prev, [key, value]) => {
@@ -56,7 +55,7 @@ export const validateParams = (params: Record<string, string>) => {
         ...reduced,
         logoutUrl: match(params.logoutUrl)
             .with(P.string, (url) => url)
-            .otherwise(() => clientEnv.LOGOUT_URL),
+            .otherwise(() => undefined),
         breadcrumbs: match(params.breadcrumbs)
             .with(P.string, (breadcrumbs) => JSON.parse(breadcrumbs))
             .otherwise(() => []),

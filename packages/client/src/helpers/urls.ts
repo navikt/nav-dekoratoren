@@ -2,7 +2,7 @@ import { ClientParams } from "decorator-shared/params";
 import { formatParams } from "decorator-shared/json";
 import { env } from "../params";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./logger";
 
 export const endpointUrlWithParams = (
     endpointUrl: `/${string}`,

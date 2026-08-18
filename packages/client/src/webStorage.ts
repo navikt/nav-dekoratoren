@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { createEvent } from "./events";
-import { logger } from "decorator-shared/logger";
+import { logger } from "./helpers/logger";
 import {
     ConsentAction,
     Consent,
@@ -15,13 +15,18 @@ const DECORATOR_DATA_TIMEOUT = 5000;
 // --------------------------------
 // (Remember to update this list when making changes that require re-consent)
 
+// V5: 18.06.2026: Changes to the cookie statement, requiring consent reset for all users
+// V4: 01.02.2026: Added analyticsId (uuid) to consent object for Umami user identification
 // V3: 03.11.2025: Added storage key 'flexjar-*' as well as updates to cookie declaration
 // V2: 22.10.2025: Updates in the cookie declaration on how Umami works.
 // V1: 28.02.2025: Initial version
 
 export class WebStorageController {
-    currentConsentVersion: number = 4;
+    currentConsentVersion: number = 5;
     consentKey: string = "navno-consent";
+
+    // Enables reaping every listener registered by this instance.
+    private readonly abortController = new AbortController();
 
     constructor() {
         this.initEventListeners();
@@ -133,53 +138,58 @@ export class WebStorageController {
     };
 
     private initEventListeners() {
+        const { signal } = this.abortController;
+
         window.addEventListener(
             "recheckConsentBanner",
             this.checkAndTriggerConsentBanner,
+            { signal },
         );
 
         window.addEventListener(
             "consentAllWebStorage",
             this.consentAllStorageHandler,
+            { signal },
         );
         window.addEventListener(
             "refuseOptionalWebStorage",
             this.refuseOptionalStorageHandler,
+            { signal },
         );
         // Add click event listener to handle consent banner triggers
-        document.addEventListener("click", (event) => {
-            const target = event.target as Element;
-            if (!target || !(target instanceof Element)) {
-                return;
-            }
-            const triggerElement = target.closest(
-                "[data-consent-banner-trigger]",
-            );
+        document.addEventListener(
+            "click",
+            (event) => {
+                const target = event.target;
+                if (!(target instanceof Element)) {
+                    return;
+                }
+                const triggerElement = target.closest(
+                    "[data-consent-banner-trigger]",
+                );
 
-            if (triggerElement) {
-                event.preventDefault();
-                window.webStorageController.showConsentBanner();
-            }
-        });
+                if (triggerElement) {
+                    event.preventDefault();
+                    this.showConsentBanner();
+                }
+            },
+            { signal },
+        );
     }
 
     private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
-        const storedCookies = Object.entries(Cookies.get()).map(
-            ([name, value]) => ({ name, value }),
-        );
+        const storedCookies = Object.keys(Cookies.get());
+        const domain = this.getConsentDomain();
 
         allOptionalStorage.forEach((storage) => {
             const optionalStorageBase = storage.name.replace(/\*$/, "");
-            const matchedCookiesForDeletion = storedCookies.filter((cookie) =>
-                new RegExp(`^${optionalStorageBase}`, "i").test(cookie.name),
+            const matchedCookiesForDeletion = storedCookies.filter(
+                (cookieName) =>
+                    new RegExp(`^${optionalStorageBase}`, "i").test(cookieName),
             );
 
-            matchedCookiesForDeletion.forEach((cookie) => {
-                const domain = location.hostname.includes("nav.no")
-                    ? ".nav.no"
-                    : location.hostname;
-
-                Cookies.remove(cookie.name, { domain, path: "/", expires: 0 });
+            matchedCookiesForDeletion.forEach((cookieName) => {
+                Cookies.remove(cookieName, { domain, path: "/", expires: 0 });
             });
         });
     }
@@ -284,7 +294,7 @@ export class WebStorageController {
     };
 
     public getCurrentConsent = (): Consent => {
-        const currentConsent = Cookies.get("navno-consent");
+        const currentConsent = Cookies.get(this.consentKey);
         return currentConsent
             ? JSON.parse(currentConsent)
             : this.buildDefaultConsent();
@@ -327,18 +337,6 @@ export class WebStorageController {
 
     // Cleanup when no longer needed
     destroy() {
-        window.removeEventListener(
-            "recheckConsentBanner",
-            this.checkAndTriggerConsentBanner,
-        );
-
-        window.removeEventListener(
-            "consentAllWebStorage",
-            this.consentAllStorageHandler,
-        );
-        window.removeEventListener(
-            "refuseOptionalWebStorage",
-            this.refuseOptionalStorageHandler,
-        );
+        this.abortController.abort();
     }
 }
