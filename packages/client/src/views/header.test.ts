@@ -1,22 +1,11 @@
 import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { logger } from "../helpers/logger";
 import { refreshAuthData } from "../helpers/auth";
-import {
-    decoratorApiMock,
-    decoratorParamsMock,
-    resetDecoratorApiMock,
-    setDecoratorData,
-} from "../helpers/api.testUtils";
+import { http, setDecoratorData } from "../test-setup";
 import "./header";
 
-vi.mock("../helpers/api", async () => {
-    const mock = await import("../helpers/api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
 vi.mock("../helpers/auth", () => ({
     refreshAuthData: vi.fn(() => Promise.resolve()),
 }));
@@ -30,7 +19,6 @@ const dispatchParamsUpdated = (changedKeys: string[]) =>
 
 describe("Header", () => {
     beforeEach(() => {
-        resetDecoratorApiMock();
         setDecoratorData();
     });
 
@@ -40,22 +28,24 @@ describe("Header", () => {
     });
 
     it("refetches and swaps innerHTML on a relevant paramsupdated key", async () => {
-        decoratorApiMock.get.mockResolvedValue("<p>new header</p>");
+        http.get("/header", { text: "<p>new header</p>" });
         const el = await fixture("<decorator-header></decorator-header>");
 
         dispatchParamsUpdated(["language"]);
 
         await vi.waitFor(() => expect(el.innerHTML).toBe("<p>new header</p>"));
 
-        expect(decoratorApiMock.get).toHaveBeenCalledWith("/header", {
-            query: { mocked: true },
-            responseType: "text",
-        });
-        expect(decoratorParamsMock).toHaveBeenCalled();
+        // The real request pipeline ran: decoratorParams built the query and
+        // the withDecoratorMeta plugin appended the version-id/consumer meta.
+        expect(http.lastCall?.pathname).toBe("/header");
+        expect(http.lastCall?.query.get(VERSION_ID_PARAM)).toBe(
+            "test-version-id",
+        );
+        expect(http.lastCall?.query.get("consumer")).toBe(CONSUMER);
     });
 
     it("refreshes auth data and asks for a consent banner recheck after a refetch", async () => {
-        decoratorApiMock.get.mockResolvedValue("<p>new header</p>");
+        http.get("/header", { text: "<p>new header</p>" });
         const el = await fixture("<decorator-header></decorator-header>");
         const recheckSpy = vi.fn();
         el.addEventListener("recheckConsentBanner", recheckSpy);
@@ -72,7 +62,7 @@ describe("Header", () => {
         dispatchParamsUpdated(["context"]);
 
         await vi.waitFor(() => expect(refreshAuthData).toHaveBeenCalled());
-        expect(decoratorApiMock.get).not.toHaveBeenCalled();
+        expect(http.calls).toHaveLength(0);
     });
 
     it("ignores unrelated paramsupdated keys", async () => {
@@ -80,17 +70,17 @@ describe("Header", () => {
 
         dispatchParamsUpdated(["pageTitle"]);
 
-        // no effect to observe, so we flush arbitrary microtasks
-        await Promise.resolve();
-        await Promise.resolve();
+        // no effect to observe — settled() waits out anything the mock started
+        await http.settled();
 
-        expect(decoratorApiMock.get).not.toHaveBeenCalled();
+        expect(http.calls).toHaveLength(0);
         expect(refreshAuthData).not.toHaveBeenCalled();
     });
 
     it("logs and keeps old content when the fetch fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.get.mockRejectedValue(new Error("boom"));
+        // 400 is non-retryable, so the module-scope retry: 2 client fails fast.
+        http.get("/header", { status: 400 });
         const el = await fixture("<decorator-header>old</decorator-header>");
 
         dispatchParamsUpdated(["language"]);

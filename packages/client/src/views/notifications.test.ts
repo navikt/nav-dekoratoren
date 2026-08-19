@@ -1,28 +1,17 @@
 import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../helpers/logger";
-import {
-    decoratorApiMock,
-    resetDecoratorApiMock,
-    setDecoratorData,
-} from "../helpers/api.testUtils";
+import { http, setDecoratorData } from "../test-setup";
 import "./notifications";
-
-vi.mock("../helpers/api", async () => {
-    const mock = await import("../helpers/api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
 
 vi.mock("../analytics/analytics", () => ({
     logAnalyticsEvent: vi.fn(),
 }));
 
+const ARCHIVE_URL = /\/api\/notifications\/[^/]+\/archive\b/;
+
 describe("ArchivableNotification", () => {
     beforeEach(() => {
-        resetDecoratorApiMock();
         setDecoratorData();
     });
 
@@ -32,7 +21,7 @@ describe("ArchivableNotification", () => {
     });
 
     it("archives the notification and removes it on click", async () => {
-        decoratorApiMock.mockResolvedValue(undefined);
+        http.post(ARCHIVE_URL, { status: 204 });
         const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
@@ -48,19 +37,14 @@ describe("ArchivableNotification", () => {
         await vi.waitFor(() =>
             expect(wrapper.querySelector("archivable-notification")).toBeNull(),
         );
-        expect(decoratorApiMock).toHaveBeenCalledWith(
-            "/api/notifications/123/archive",
-            {
-                query: { mocked: true },
-                method: "POST",
-                credentials: "include",
-            },
-        );
+        expect(http.lastCall?.pathname).toBe("/api/notifications/123/archive");
+        expect(http.lastCall?.method).toBe("POST");
+        expect(http.lastCall?.init.credentials).toBe("include");
     });
 
     it("logs and keeps the notification when archiving fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.mockRejectedValue(new Error("boom"));
+        http.post(ARCHIVE_URL, { status: 400 });
         const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
@@ -84,7 +68,6 @@ describe("ArchivableNotification", () => {
 
 describe("LinkNotification", () => {
     beforeEach(() => {
-        resetDecoratorApiMock();
         setDecoratorData();
     });
 
@@ -93,8 +76,8 @@ describe("LinkNotification", () => {
         vi.restoreAllMocks();
     });
 
-    it("archives a message notification without retries on click", async () => {
-        decoratorApiMock.mockResolvedValue(undefined);
+    it("archives a message notification on click", async () => {
+        http.post(ARCHIVE_URL, { status: 204 });
         const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
@@ -110,20 +93,16 @@ describe("LinkNotification", () => {
         await vi.waitFor(() =>
             expect(wrapper.querySelector("link-notification")).toBeNull(),
         );
-        expect(decoratorApiMock).toHaveBeenCalledWith(
-            "/api/notifications/123/archive",
-            {
-                query: { mocked: true },
-                method: "POST",
-                credentials: "include",
-                keepalive: true,
-            },
-        );
+        expect(http.lastCall?.pathname).toBe("/api/notifications/123/archive");
+        expect(http.lastCall?.method).toBe("POST");
+        expect(http.lastCall?.init.credentials).toBe("include");
+        // The link variant fires on navigation, so the request must survive it.
+        expect(http.lastCall?.init.keepalive).toBe(true);
     });
 
     it("logs and keeps the notification when archiving fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.mockRejectedValue(new Error("boom"));
+        http.post(ARCHIVE_URL, { status: 400 });
         const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
@@ -156,9 +135,8 @@ describe("LinkNotification", () => {
         `);
 
         wrapper.querySelector("a")!.click();
-        await Promise.resolve();
-        await Promise.resolve();
+        await http.settled();
 
-        expect(decoratorApiMock).not.toHaveBeenCalled();
+        expect(http.calls).toHaveLength(0);
     });
 });

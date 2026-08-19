@@ -1,22 +1,10 @@
 import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { abortError } from "@itsy/corgi/testing";
 import { logger } from "../helpers/logger";
 import cls from "../styles/search-form.module.css";
-import {
-    decoratorApiMock,
-    decoratorParamsMock,
-    resetDecoratorApiMock,
-    setDecoratorData,
-} from "../helpers/api.testUtils";
+import { http, setDecoratorData } from "../test-setup";
 import "./search-menu";
-
-vi.mock("../helpers/api", async () => {
-    const mock = await import("../helpers/api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
 
 vi.mock("../analytics/analytics", () => ({
     analyticsEvent: vi.fn(),
@@ -44,7 +32,6 @@ const typeSearch = async (el: Element, value: string) => {
 
 describe("SearchMenu", () => {
     beforeEach(() => {
-        resetDecoratorApiMock();
         setDecoratorData({
             params: { context: "privatperson", language: "nb" },
             texts: { loading_preview: "Laster" },
@@ -58,30 +45,33 @@ describe("SearchMenu", () => {
     });
 
     it("fetches search results and renders them after the debounce", async () => {
-        decoratorApiMock.mockResolvedValue("<p>treff</p>");
+        http.get("/api/search", { text: "<p>treff</p>" });
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");
 
-        expect(decoratorApiMock).toHaveBeenCalledWith("/api/search", {
-            query: { mocked: true },
-            responseType: "text",
-        });
-        expect(decoratorParamsMock).toHaveBeenCalledWith({
-            language: "nb",
-            context: "privatperson",
-            q: encodeURIComponent("dagpenger"),
-        });
+        // The real query builder ran: per-call overrides merged into params.
+        expect(http.lastCall?.pathname).toBe("/api/search");
+        expect(http.lastCall?.query.get("q")).toBe("dagpenger");
+        expect(http.lastCall?.query.get("context")).toBe("privatperson");
+        expect(http.lastCall?.query.get("language")).toBe("nb");
         expect(el.innerHTML).toContain("<p>treff</p>");
     });
 
-    it("uses an abortPrevious-enabled client instance", async () => {
-        decoratorApiMock.mockResolvedValue("");
-        await fixture(markup);
+    it("cancels the previous in-flight search when a new one starts", async () => {
+        const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
+        http.get("/api/search", { hang: true });
+        const el = await fixture(markup);
 
-        expect(decoratorApiMock.extend).toHaveBeenCalledWith({
-            abortPrevious: true,
-        });
+        await typeSearch(el, "dagpenger");
+        http.get("/api/search", { text: "<p>nye treff</p>" }); // override the hang
+        await typeSearch(el, "dagpengesats");
+
+        // The real abortPrevious plugin superseded the hung request: the second
+        // one rendered, and the AbortError was swallowed rather than logged.
+        expect(el.innerHTML).toContain("<p>nye treff</p>");
+        expect(http.calls).toHaveLength(2);
+        expect(errorSpy).not.toHaveBeenCalled();
     });
 
     it("does not search for queries of 2 characters or less", async () => {
@@ -89,14 +79,12 @@ describe("SearchMenu", () => {
 
         await typeSearch(el, "da");
 
-        expect(decoratorApiMock).not.toHaveBeenCalled();
+        expect(http.calls).toHaveLength(0);
     });
 
     it("ignores abort errors from superseded requests", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.mockRejectedValue(
-            Object.assign(new Error("superseded"), { name: "AbortError" }),
-        );
+        http.get("/api/search", abortError("superseded"));
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");
@@ -106,7 +94,8 @@ describe("SearchMenu", () => {
 
     it("logs other fetch failures", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.mockRejectedValue(new Error("boom"));
+        // 400 is non-retryable, so the retrying client fails fast.
+        http.get("/api/search", { status: 400 });
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");

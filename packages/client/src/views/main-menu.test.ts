@@ -1,21 +1,8 @@
 import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../helpers/logger";
-import {
-    decoratorApiMock,
-    decoratorParamsMock,
-    resetDecoratorApiMock,
-    setDecoratorData,
-} from "../helpers/api.testUtils";
+import { http, setDecoratorData } from "../test-setup";
 import "./main-menu";
-
-vi.mock("../helpers/api", async () => {
-    const mock = await import("../helpers/api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
 
 const setContext = (context: string) => {
     window.__DECORATOR_DATA__.params.context = context as never;
@@ -32,7 +19,6 @@ const dispatchContextUpdated = (context: string) => {
 
 describe("MainMenu", () => {
     beforeEach(() => {
-        resetDecoratorApiMock();
         setDecoratorData({
             params: { context: "privatperson", language: "nb" },
         } as never);
@@ -44,39 +30,35 @@ describe("MainMenu", () => {
     });
 
     it("fetches and renders menu content on connect", async () => {
-        decoratorApiMock.mockResolvedValue("<p>meny</p>");
+        http.get("/main-menu", { text: "<p>meny</p>" });
 
         const el = await fixture("<main-menu></main-menu>");
 
         await vi.waitFor(() => expect(el.innerHTML).toBe("<p>meny</p>"));
-        expect(decoratorApiMock).toHaveBeenCalledWith("/main-menu", {
-            query: { mocked: true },
-            responseType: "text",
-        });
-        expect(decoratorParamsMock).toHaveBeenCalledWith({
-            context: "privatperson",
-        });
+        // decoratorParams really ran: current params merged with the override.
+        expect(http.lastCall?.pathname).toBe("/main-menu");
+        expect(http.lastCall?.query.get("context")).toBe("privatperson");
+        expect(http.lastCall?.query.get("language")).toBe("nb");
     });
 
     it("refetches on a context change", async () => {
-        decoratorApiMock.mockResolvedValue("<p>meny</p>");
+        http.get("/main-menu", { text: "<p>meny</p>" });
         const el = await fixture("<main-menu></main-menu>");
         await vi.waitFor(() => expect(el.innerHTML).toBe("<p>meny</p>"));
 
-        decoratorApiMock.mockResolvedValue("<p>arbeidsgiver-meny</p>");
+        http.get("/main-menu", { text: "<p>arbeidsgiver-meny</p>" });
         dispatchContextUpdated("arbeidsgiver");
 
         await vi.waitFor(() =>
             expect(el.innerHTML).toBe("<p>arbeidsgiver-meny</p>"),
         );
-        expect(decoratorParamsMock).toHaveBeenLastCalledWith({
-            context: "arbeidsgiver",
-        });
+        expect(http.lastCall?.query.get("context")).toBe("arbeidsgiver");
     });
 
     it("shows an error message and logs when the fetch fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.mockRejectedValue(new Error("boom"));
+        // 400 is non-retryable, so the module-scope retry: 2 client fails fast.
+        http.get("/main-menu", { status: 400 });
 
         const el = await fixture("<main-menu></main-menu>");
 
@@ -89,19 +71,18 @@ describe("MainMenu", () => {
     });
 
     it("ignores unrelated paramsupdated keys", async () => {
-        decoratorApiMock.mockResolvedValue("<p>meny</p>");
+        http.get("/main-menu", { text: "<p>meny</p>" });
         const el = await fixture("<main-menu></main-menu>");
         await vi.waitFor(() => expect(el.innerHTML).toBe("<p>meny</p>"));
-        decoratorApiMock.mockClear();
+        http.resetCalls();
 
         window.dispatchEvent(
             new CustomEvent("paramsupdated", {
                 detail: { changedKeys: ["language"], params: {} },
             }),
         );
-        await Promise.resolve();
-        await Promise.resolve();
+        await http.settled();
 
-        expect(decoratorApiMock).not.toHaveBeenCalled();
+        expect(http.calls).toHaveLength(0);
     });
 });

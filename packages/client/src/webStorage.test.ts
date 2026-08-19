@@ -1,19 +1,8 @@
 import Cookies from "js-cookie";
-import { AppState, PublicStorageItem } from "decorator-shared/types";
+import { PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
 import { logger } from "./helpers/logger";
-import {
-    decoratorApiMock,
-    resetDecoratorApiMock,
-} from "./helpers/api.testUtils";
-
-vi.mock("./helpers/api", async () => {
-    const mock = await import("./helpers/api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
+import { http, setDecoratorData } from "./test-setup";
 
 const mockStorageDictionary: PublicStorageItem[] = [
     {
@@ -40,9 +29,9 @@ const mockStorageDictionary: PublicStorageItem[] = [
 
 describe("Tester webStorage", () => {
     beforeEach(() => {
-        window.__DECORATOR_DATA__ = {
+        setDecoratorData({
             allowedStorage: mockStorageDictionary,
-        } as AppState;
+        } as never);
 
         Cookies.set("usertest-1234", "foobar");
         Cookies.set("AMP_1234", "foobar");
@@ -57,8 +46,7 @@ describe("Tester webStorage", () => {
         window.sessionStorage.setItem("usertest-1234", "foobar");
         window.sessionStorage.setItem("ukjentdata", "foobar");
 
-        resetDecoratorApiMock();
-        decoratorApiMock.mockResolvedValue(undefined);
+        http.post("/api/consentping", { status: 204 });
     });
 
     afterEach(() => {
@@ -150,15 +138,15 @@ describe("Tester webStorage", () => {
 
         window.dispatchEvent(new CustomEvent("consentAllWebStorage"));
 
-        await vi.waitFor(() => expect(decoratorApiMock).toHaveBeenCalled());
-        expect(decoratorApiMock).toHaveBeenCalledWith("/api/consentping", {
-            method: "POST",
-            credentials: "omit",
-            body: expect.any(String),
-        });
+        await http.settled();
+        const call = http.lastCall!;
+        expect(call.pathname).toBe("/api/consentping");
+        expect(call.method).toBe("POST");
+        expect(call.init.credentials).toBe("omit");
 
-        const [, options] = decoratorApiMock.mock.calls[0];
-        expect(JSON.parse(options.body)).toEqual(
+        // The body was already a JSON string in production code; the mock
+        // hands it back parsed instead of via mock.calls spelunking.
+        expect(call.json()).toEqual(
             expect.objectContaining({
                 consentObject: expect.objectContaining({
                     consent: { analytics: true, surveys: true },
@@ -173,7 +161,7 @@ describe("Tester webStorage", () => {
 
     it("samtykke lagres selv om consentping feiler", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.mockRejectedValue(new Error("boom"));
+        http.post("/api/consentping", { status: 400 });
         new WebStorageController();
 
         window.dispatchEvent(new CustomEvent("consentAllWebStorage"));

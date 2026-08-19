@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { networkError } from "@itsy/corgi/testing";
 import {
     SessionData,
     fetchOrRenewSession,
@@ -6,20 +7,7 @@ import {
     transformSessionToAuth,
 } from "./auth";
 import { logger } from "./logger";
-import {
-    decoratorApiMock,
-    decoratorParamsMock,
-    resetDecoratorApiMock,
-    setDecoratorData,
-} from "./api.testUtils";
-
-vi.mock("./api", async () => {
-    const mock = await import("./api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
+import { http, setDecoratorData } from "../test-setup";
 
 describe("Auth helpers", () => {
     afterEach(() => {
@@ -69,23 +57,19 @@ describe("Auth helpers", () => {
 
     describe("refreshAuthData", () => {
         beforeEach(() => {
-            resetDecoratorApiMock();
             setDecoratorData();
         });
 
         it("fetches auth data and dispatches an authupdated event", async () => {
             const authResponse = { auth: { authenticated: true, userId: "1" } };
-            decoratorApiMock.mockResolvedValue(authResponse);
+            http.get("/auth", { json: authResponse });
             const listener = vi.fn();
             window.addEventListener("authupdated", listener);
 
             const result = await refreshAuthData();
 
-            expect(decoratorApiMock).toHaveBeenCalledWith("/auth", {
-                query: { mocked: true },
-                credentials: "include",
-            });
-            expect(decoratorParamsMock).toHaveBeenCalled();
+            expect(http.lastCall?.pathname).toBe("/auth");
+            expect(http.lastCall?.init.credentials).toBe("include");
             expect(result).toEqual(authResponse);
             expect(listener).toHaveBeenCalled();
 
@@ -96,7 +80,10 @@ describe("Auth helpers", () => {
             const errorSpy = vi
                 .spyOn(logger, "error")
                 .mockImplementation(() => {});
-            decoratorApiMock.mockRejectedValue(new Error("boom"));
+            // A retryable 503 — but authApi is extended with retry: 0, so it
+            // must fail after exactly one attempt. The parent client's retry: 2
+            // would have made this three calls (and much slower).
+            http.get("/auth", { status: 503 });
 
             const result = await refreshAuthData();
 
@@ -105,6 +92,7 @@ describe("Auth helpers", () => {
                 expect.objectContaining({ error: expect.any(Error) }),
             );
             expect(result).toEqual({ auth: { authenticated: false } });
+            expect(http.calls).toHaveLength(1);
         });
     });
 
@@ -119,36 +107,27 @@ describe("Auth helpers", () => {
 
         it("fetches the session", async () => {
             const session = { session: {}, tokens: {} };
-            const fetchSpy = vi
-                .spyOn(globalThis, "fetch")
-                .mockResolvedValue(
-                    new Response(JSON.stringify(session), { status: 200 }),
-                );
+            // Bare fetch, not corgi — the same installed global records it.
+            http.get(sessionApiUrl, { json: session });
 
             const result = await fetchOrRenewSession("fetch");
 
-            expect(fetchSpy).toHaveBeenCalledWith(sessionApiUrl, {
-                credentials: "include",
-            });
+            expect(http.lastCall?.url).toBe(sessionApiUrl);
+            expect(http.lastCall?.init.credentials).toBe("include");
             expect(result).toEqual(session);
         });
 
         it("hits the refresh endpoint when renewing", async () => {
-            const fetchSpy = vi
-                .spyOn(globalThis, "fetch")
-                .mockResolvedValue(new Response("{}", { status: 200 }));
+            http.get(`${sessionApiUrl}/refresh`, { json: {} });
 
             await fetchOrRenewSession("renew");
 
-            expect(fetchSpy).toHaveBeenCalledWith(`${sessionApiUrl}/refresh`, {
-                credentials: "include",
-            });
+            expect(http.lastCall?.url).toBe(`${sessionApiUrl}/refresh`);
+            expect(http.lastCall?.init.credentials).toBe("include");
         });
 
         it("returns null on a non-ok response", async () => {
-            vi.spyOn(globalThis, "fetch").mockResolvedValue(
-                new Response("", { status: 401 }),
-            );
+            http.get(sessionApiUrl, { status: 401 });
 
             expect(await fetchOrRenewSession("fetch")).toBeNull();
         });
@@ -157,7 +136,7 @@ describe("Auth helpers", () => {
             const errorSpy = vi
                 .spyOn(logger, "error")
                 .mockImplementation(() => {});
-            vi.spyOn(globalThis, "fetch").mockRejectedValue(new Error("boom"));
+            http.get(`${sessionApiUrl}/refresh`, networkError());
 
             expect(await fetchOrRenewSession("renew")).toBeNull();
             expect(errorSpy).toHaveBeenCalledWith(

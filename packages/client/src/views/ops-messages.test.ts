@@ -2,20 +2,8 @@ import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { OpsMessage } from "decorator-shared/types";
 import { logger } from "../helpers/logger";
-import {
-    decoratorApiMock,
-    resetDecoratorApiMock,
-    setDecoratorData,
-} from "../helpers/api.testUtils";
+import { http, setDecoratorData } from "../test-setup";
 import "./ops-messages";
-
-vi.mock("../helpers/api", async () => {
-    const mock = await import("../helpers/api.testUtils");
-    return {
-        decoratorApi: mock.decoratorApiMock,
-        decoratorParams: mock.decoratorParamsMock,
-    };
-});
 
 const opsMessage = (overrides: Partial<OpsMessage> = {}): OpsMessage =>
     ({
@@ -28,7 +16,6 @@ const opsMessage = (overrides: Partial<OpsMessage> = {}): OpsMessage =>
 
 describe("OpsMessages", () => {
     beforeEach(() => {
-        resetDecoratorApiMock();
         setDecoratorData({
             texts: { important_info: "Viktig informasjon" },
         } as never);
@@ -40,19 +27,17 @@ describe("OpsMessages", () => {
     });
 
     it("fetches and renders ops messages on connect", async () => {
-        decoratorApiMock.get.mockResolvedValue([opsMessage()]);
+        http.get("/ops-messages", { json: [opsMessage()] });
 
         const el = await fixture("<ops-messages></ops-messages>");
 
         await vi.waitFor(() => expect(el.innerHTML).toContain("Driftsmelding"));
-        expect(decoratorApiMock.get).toHaveBeenCalledWith("/ops-messages", {
-            query: { mocked: true },
-        });
+        expect(http.lastCall?.pathname).toBe("/ops-messages");
         expect(el.getAttribute("aria-label")).toBe("Viktig informasjon");
     });
 
     it("renders nothing when there are no messages", async () => {
-        decoratorApiMock.get.mockResolvedValue([]);
+        http.get("/ops-messages", { json: [] });
 
         const el = await fixture("<ops-messages>old</ops-messages>");
 
@@ -62,7 +47,8 @@ describe("OpsMessages", () => {
 
     it("logs and renders nothing when the fetch fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        decoratorApiMock.get.mockRejectedValue(new Error("boom"));
+        // 400 is non-retryable, so the module-scope retry: 2 client fails fast.
+        http.get("/ops-messages", { status: 400 });
 
         const el = await fixture("<ops-messages></ops-messages>");
 
