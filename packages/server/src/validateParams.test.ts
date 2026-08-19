@@ -273,10 +273,10 @@ describe("decorator moduler metadata", () => {
 describe("Consumer identification", () => {
     it("should keep teamName as part of the validated params so it propagates to window.__DECORATOR_DATA__.params", () => {
         const params = parseAndValidateParams({
-            teamName: "mitt-team",
+            teamName: "nav-dekoratoren.navno",
         } satisfies Partial<Record<keyof Params, unknown>>);
 
-        expect(params.teamName).toBe("mitt-team");
+        expect(params.teamName).toBe("nav-dekoratoren.navno");
     });
 
     it("should not throw when teamName is missing", () => {
