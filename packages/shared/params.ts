@@ -88,7 +88,12 @@ export const paramsSchema = z.object({
     bedrift: z.string().optional(),
     redirectOnUserChange: z.boolean().default(false),
     origin: z.string().trim().min(1).max(100).optional(),
-    teamName: z.string().trim().min(1).max(100).optional(),
+    teamName: z
+        .string()
+        .min(1)
+        .max(100)
+        .regex(/^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/)
+        .optional(),
     pageType: z.string().optional(),
     pageTheme: z.string().optional(),
     pageTitle: z.string().optional(),
