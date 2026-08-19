@@ -92,16 +92,8 @@ export const parseAndValidateParams = (
     requestHeaders: Record<string, string | undefined> = {},
     requestType?: "ssr" | "csr",
 ): Params => {
-    const appName = query.naisAppName;
-    const namespace = query.naisNamespace;
-
     const getConsumer = () => {
-        // SSR med nav-dekoratoren-moduler
-        if (appName) {
-            return `${namespace ?? "unknown namespace"}/${appName}`;
-        }
-
-        // Param som den konsumerende applikasjonen må (bør) sende inn.
+        // Param som den konsumerende applikasjonen sender inn.
         // Denne verdien blir en del av window.__DECORATOR_DATA__.params
         if (query.teamName) {
             return `teamName: ${query.teamName}`;
