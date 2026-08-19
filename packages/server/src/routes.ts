@@ -120,7 +120,6 @@ routes.get("/api/search", async ({ req, html }) =>
     html(
         await searchHandler({
             ...parseAndValidateParams(req.query(), {
-                teamname: req.header("x-teamname"),
                 origin: req.header("origin"),
             }),
             query: req.query("q") ?? "",
@@ -136,7 +135,6 @@ routes.get("/main-menu", async ({ req, html }) => {
     }
 
     const data = parseAndValidateParams(req.query(), {
-        teamname: req.header("x-teamname"),
         origin: req.header("origin"),
     });
 
@@ -153,7 +151,6 @@ routes.get("/auth", async ({ req, json }) =>
     json(
         await authHandler({
             params: parseAndValidateParams(req.query(), {
-                teamname: req.header("x-teamname"),
                 origin: req.header("origin"),
             }),
             cookie: req.header("Cookie") ?? "",
@@ -169,7 +166,6 @@ routes.get("/header", async ({ req, html }) => {
     }
 
     const params = parseAndValidateParams(req.query(), {
-        teamname: req.header("x-teamname"),
         origin: req.header("origin"),
     });
 
@@ -186,7 +182,6 @@ routes.get("/footer", async ({ req, html }) => {
     }
 
     const params = parseAndValidateParams(req.query(), {
-        teamname: req.header("x-teamname"),
         origin: req.header("origin"),
     });
 
@@ -210,7 +205,6 @@ routes.on("GET", ["/env", "/csr"], async ({ req, json }) => {
     const params = parseAndValidateParams(
         query,
         {
-            teamname: req.header("x-teamname"),
             origin: req.header("origin"),
         },
         "csr",

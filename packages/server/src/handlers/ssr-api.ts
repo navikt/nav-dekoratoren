@@ -21,7 +21,6 @@ export const ssrApiHandler: Handler = async ({ req, json }) => {
     const params = parseAndValidateParams(
         query,
         {
-            "x-teamname": req.header("x-teamname"),
             origin: req.header("origin"),
         },
         "ssr",

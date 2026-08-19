@@ -101,20 +101,16 @@ export const parseAndValidateParams = (
             return `${namespace ?? "unknown namespace"}/${appName}`;
         }
 
-        // SSR uten nav-dekoratoren-moduler
-        if (requestHeaders["x-teamname"]) {
-            return `x-teamname: ${requestHeaders["x-teamname"]}`;
-        }
-
-        // CSR uten nav-dekoratoren-moduler
-        // Fallback for CSR med nav-dekoratoren-moduler
-        if (requestHeaders.origin) {
-            return `origin: ${requestHeaders.origin}`;
-        }
-
-        // CSR med nav-dekoratoren-moduler
+        // Param som den konsumerende applikasjonen må (bør) sende inn.
+        // Denne verdien blir en del av window.__DECORATOR_DATA__.params
         if (query.teamName) {
             return `teamName: ${query.teamName}`;
+        }
+
+        // Automatisk fallback: nettleseren setter alltid Origin-headeren ved
+        // cross-origin-forespørsler, også for senere klient-kall som /auth.
+        if (requestHeaders.origin) {
+            return `origin: ${requestHeaders.origin}`;
         }
     };
 
@@ -123,7 +119,7 @@ export const parseAndValidateParams = (
     if (!consumer) {
         if (requestType === "ssr") {
             logger.warn(
-                "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett request-headeren x-teamname slik at eventuelle feil kan spores tilbake til riktig team.",
+                "Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.",
             );
         } else {
             logger.warn(

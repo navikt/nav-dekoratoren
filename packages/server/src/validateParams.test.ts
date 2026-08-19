@@ -269,3 +269,19 @@ describe("decorator moduler metadata", () => {
         expect(params.decoratorModulerEntryPoint).toBe("ssr");
     });
 });
+
+describe("Consumer identification", () => {
+    it("should keep teamName as part of the validated params so it propagates to window.__DECORATOR_DATA__.params", () => {
+        const params = parseAndValidateParams({
+            teamName: "mitt-team",
+        } satisfies Partial<Record<keyof Params, unknown>>);
+
+        expect(params.teamName).toBe("mitt-team");
+    });
+
+    it("should not throw when teamName is missing", () => {
+        const params = parseAndValidateParams({});
+
+        expect(params.teamName).toBeUndefined();
+    });
+});
