@@ -27,6 +27,18 @@ const mockStorageDictionary: PublicStorageItem[] = [
     },
 ] as PublicStorageItem[];
 
+/**
+ * The controller clears cookies, localStorage, and sessionStorage in one
+ * synchronous pass, a few microtask hops after construction. For the
+ * "slettes ikke"-tests, waiting on the surviving item would pass before the
+ * pass has even run — so wait for a sentinel the pass always deletes; once
+ * it's gone, everything still present survived for real.
+ */
+const waitForClearingPass = () =>
+    vi.waitFor(() =>
+        expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
+    );
+
 describe("Tester webStorage", () => {
     beforeEach(() => {
         setDecoratorData({
@@ -68,21 +80,20 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("amp_abcdef")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(Cookies.get("usertest-1234")).toBe(undefined);
-        expect(Cookies.get("AMP_1234")).toBe(undefined);
-        expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
-        expect(Cookies.get("amp_abcdef")).toBe(undefined);
+        await vi.waitFor(() => {
+            expect(Cookies.get("usertest-1234")).toBe(undefined);
+            expect(Cookies.get("AMP_1234")).toBe(undefined);
+            expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
+            expect(Cookies.get("amp_abcdef")).toBe(undefined);
+        });
     });
-    it("kjente nødvendige cookies slettes ikkenår cookie-banner vises", async () => {
+    it("kjente nødvendige cookies slettes ikke når cookie-banner vises", async () => {
         expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
     });
 
@@ -90,9 +101,8 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
     });
 
@@ -100,36 +110,34 @@ describe("Tester webStorage", () => {
         expect(window.localStorage.getItem("usertest-1234")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(window.localStorage.getItem("usertest-1234")).toBe(null);
+        await vi.waitFor(() =>
+            expect(window.localStorage.getItem("usertest-1234")).toBe(null),
+        );
     });
     it("ukjente localStorage-elementer slettes ikke når cookie-banner vises", async () => {
         expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
     });
     it("kjente frivillige sessionStorage-elementer slettes når cookie-banner vises", async () => {
         expect(window.sessionStorage.getItem("usertest-1234")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(window.sessionStorage.getItem("usertest-1234")).toBe(null);
+        await vi.waitFor(() =>
+            expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
+        );
     });
     it("ukjente sessionStorage-elementer slettes ikke når cookie-banner vises", async () => {
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
 
         new WebStorageController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
     });
 
