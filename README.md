@@ -184,10 +184,13 @@ fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
     });
 ```
 
-💡 **Konsumentlogging:** Hvis du bruker SSR uten nav-dekoratoren-moduler:
-Sett query-parameteren `teamName: <teamnavn>` i forespørsler til Dekoratøren, slik at feil i
-logger kan knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️)
-for detaljer.
+💡 **Konsumentlogging:** Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan
+knyttes tilbake til riktig team. Identiteten utledes i denne prioriterte rekkefølgen: Se
+[Innebygde funksjoner i Dekoratøren](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
+
+Hvis du bruker SSR uten `@navikt/nav-dekoratoren-moduler` må du sette `teamName` i
+forespørselen som et parameter, slik at feil i logger kan knyttes til teamet ditt.
+Eksempler: `team-navno.navno`, `min-side.personbruker`, `digihot.felles`.
 
 ### 2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)
 
@@ -213,7 +216,7 @@ Direkte CSR ser typisk slik ut:
 
 Hvis du _må_ bruke CSR, anbefaler vi å gjøre det via `injectDecoratorClientSide` fra moduler-pakken.
 
-💡 **Konsumentlogging:** Hvis du bruker CSR med nav-dekoratoren-moduler:
+💡 **Konsumentlogging:** Hvis du bruker CSR med `@navikt/nav-dekoratoren-moduler`:
 Sett `teamName`-parameteren i `injectDecoratorClientSide` , slik at feil i logger kan
 knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
 
@@ -1171,7 +1174,7 @@ ikke.
 <details>
 <summary><strong>Klikk for å utvide alle beskrivelser</strong></summary>
 
-**Content Security Policy 👮**
+#### Content Security Policy 👮
 
 Du kan finne det nåværende CSP-direktivet
 på [https://www.nav.no/dekoratoren/api/csp](https://www.nav.no/dekoratoren/api/csp). Du kan også
@@ -1183,37 +1186,48 @@ for en bedre forståelse av hvordan CSP fungerer.
 også metoder for å generere en CSP-header som er kompatibel med Dekoratøren. Hvis du bygger din egen
 tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med de til Dekoratøren.
 
-**Konsumentlogging 🪵**
+#### Konsumentlogging 🪵
 
 Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan knyttes tilbake til
-riktig konsument. Identiteten utledes i denne prioriterte rekkefølgen:
+riktig team. Identiteten utledes i denne prioriterte rekkefølgen:
 
-| Prioritet | Kilde                           | Hvem / Når                                                                      |
-| --------- | ------------------------------- | ------------------------------------------------------------------------------- |
-| 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (process.env)                    |
-| 2         | `teamName`-parameter            | SSR uten moduler eller CSR (med/uten moduler) – settes manuelt av konsumenten   |
-| 3         | `Origin`-header                 | Automatisk fallback for kall fra nettleseren – settes automatisk av nettleseren |
-| 4         | `"unknown"`                     | Ingen identitet tilgjengelig                                                    |
+| Prioritet | Kilde                           | Hvem / Når                                                                                           |
+| --------- | ------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (process.env)                                         |
+| 2         | `teamName`-parameter            | SSR uten moduler eller CSR med moduler – settes manuelt av konsumenten                               |
+| 3         | `Origin`-header                 | CSR uten moduler, og automatisk fallback for kall fra nettleseren – settes automatisk av nettleseren |
+| 4         | `"unknown"`                     | Ingen identitet tilgjengelig                                                                         |
 
-> ⚠️ **Konsumentidentitet er kun basert på query-parametre og `Origin`-headeren**, ikke egendefinerte
-> request-headere som `x-teamname`. Dekoratøren gjør enkelte kall fra klienten (f.eks. `/auth`)
+> ⚠️ **Konsumentidentitet er kun basert på query-parametre og `Origin`-headeren**.
+> Dekoratøren gjør enkelte kall fra klienten (f.eks. `/auth`)
 > uavhengig av om siden i utgangspunktet ble rendret med SSR eller CSR. En egendefinert header satt
 > på det første SSR-kallet ville aldri blitt husket til disse senere klient-kallene. `teamName` som
 > query-parameter blir derimot en del av `window.__DECORATOR_DATA__.params`, og følger dermed
 > automatisk med på alle senere kall dekoratøren selv gjør fra nettleseren.
 
-**Team som bruker SSR via `@navikt/nav-dekoratoren-moduler`** (anbefalt):
+**1. SSR via moduler-pakken (anbefalt):**
+
 Konsumentidentitet settes automatisk via `NAIS_APP_NAME` og `NAIS_NAMESPACE`,
 som injiseres av Nais-plattformen i alle pods. Ingen ekstra konfigurasjon er nødvendig.
 Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang).
 
-**Team som bruker CSR via `@navikt/nav-dekoratoren-moduler`:**
-Sett `teamName` i `injectDecoratorClientSide` for å bli identifisert i logger og feilmeldinger:
+**2. CSR via moduler-pakken eller SSR uten moduler-pakken:**
+
+Sett `teamName` i `injectDecoratorClientSide` for å bli identifisert i logger og feilmeldinger.
+
+`teamName` må være et gyldig konsumentnavn i formatet `teamnavn.namespace`. Verdien må:
+
+- være skrevet med små bokstaver
+- ikke inneholde æ, ø eller å
+- inneholde minst ett punktum
+- kun bruke `a-z`, `0-9`, `-` og `.`
+
+Eksempler: `team-navno.navno`, `min-side.personbruker`, `digihot.felles`.
 
 ```ts
 injectDecoratorClientSide({
     env: "prod",
-    teamName: "mitt-team",
+    teamName: "team-navno.navno",
     params: { context: "privatperson" },
 });
 ```
@@ -1221,19 +1235,10 @@ injectDecoratorClientSide({
 Dersom `teamName` ikke settes, brukes `Origin`-headeren som nettleseren setter automatisk.
 Et varsel logges til konsollen som påminnelse.
 
-**Team som kaller dekoratøren direkte via SSR** (uten moduler-pakken):
-Sett query-parameteren `teamName` i forespørselen, slik at feil i logger kan knyttes til teamet
-ditt - også for senere kall dekoratøren selv gjør fra klienten (f.eks. `/auth`):
+**3. CSR uten moduler-pakken:**
+`Origin`-headeren settes automatisk av nettleseren. Ingen ekstra konfigurasjon er nødvendig.
 
-```http
-GET /ssr?context=privatperson&teamName=mitt-team HTTP/1.1
-```
-
-**Team som kaller dekoratøren direkte via CSR** (uten moduler-pakken):
-`Origin`-headeren settes automatisk av nettleseren. Ingen ekstra konfigurasjon er nødvendig, men du
-kan også sette query-parameteren `teamName` eksplisitt for sikrere identifikasjon.
-
-**Språkstøtte og nedtrekksmeny 🌎**
+#### Språkstøtte og nedtrekksmeny 🌎
 
 Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 
@@ -1246,12 +1251,12 @@ applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config
 Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
 nevnte språkene.
 
-**Søk 🔎**
+#### Søk 🔎
 
 Søk tilbys ut av boksen, uten behov for konfigurasjon fra din side. Søkefunksjonen vil enten peke
 til produksjons- eller utviklingsmiljøer, avhengig av hvordan Dekoratøren er satt opp.
 
-**Innlogging 🔐**
+#### Innlogging 🔐
 
 Dekoratøren tilbyr en innloggingsknapp (og utloggingsknapp) som omdirigerer brukeren til ID-porten
 (enten produksjon eller utvikling) hvor brukeren kan logge inn.
@@ -1266,7 +1271,7 @@ brukeren, må du sette dette opp selv ved å koble direkte til tjenestene på lo
 informasjon, se
 [Authentication and Authorization at NAIS](https://docs.nais.io/auth/).
 
-**Utloggingsvarsel 🔐**
+#### Utloggingsvarsel 🔐
 
 Et utloggingsvarsel vises for brukeren 5 minutter før innloggingstokenet utløper, dersom brukeren
 har vært inaktiv i minst 30 minutter. Brukeren kan da velge å forlenge økten med ytterligere 60
@@ -1279,7 +1284,7 @@ Utloggingsvarselet er aktivert som standard. Du kan deaktivere denne funksjonen 
 `logoutWarning=false` som en parameter. Imidlertid krever retningslinjer for tilgjengelighet og WCAG
 at du bygger din egen mekanisme for å la brukere utsette utlogging.
 
-**Regler for tokens 🔐**
+#### Regler for tokens 🔐
 
 Du kan lese mer om tokens i
 [NAIS-dokumentasjonen](https://docs.nais.io/auth/). Nedenfor er et sammendrag som forklarer hvordan
@@ -1298,19 +1303,19 @@ utloggingsvarselet oppfører seg:
 > (5 minutter igjen), og går da over til å sjekke hvert sekund for å sikre presis timing på varsel og
 > utlogging.
 
-**Analytics 📊**
+#### Analytics 📊
 
 Nav bruker Umami for analyse og sporing av brukerehendelser. Foretrukket metode er å bruke
 `nav-dekoratoren-moduler`, se **getAnalyticsInstance** over.
 
-**Analytics og samtykke 👍👎**
+#### Analytics og samtykke 👍👎
 
 Hvis brukeren ikke har gitt samtykke til sporing og analyse, vil ikke Umami
 initialisere. I stedet vil en mock-funksjon bli returnert. Mock-funksjonen vil ta imot all
 logging og forkaste den før den sendes fra brukeren, derfor trenger ikke teamet å håndtere mangel på
 samtykke spesielt med mindre de har spesifikke behov.
 
-**Undersøkelser ved bruk av Skyra 📋**
+#### Undersøkelser ved bruk av Skyra 📋
 
 Skyra brukes for å gjennomføre undersøkelser på nav.no. Dekoratøren vil laste
 nødvendige skript, men kun hvis brukeren har gitt samtykke til
@@ -1318,7 +1323,7 @@ undersøkelser. Alle undersøkelser styres i Skyra-dashbordet ditt. Du kan finne
 [mer informasjon om Skyra her](https://www.skyra.no/no). Undersøkelsene dine skal vises
 automatisk når de er riktig konfigurert i Skyra-dashbordet ditt.
 
-**Skip-lenke til hovedinnhold 🔗**
+#### Skip-lenke til hovedinnhold 🔗
 
 En skip-lenke rendres i headeren hvis et element med id `maincontent` eksisterer i dokumentet. Ved å
 klikke på skip-lenken vil fokus settes til maincontent-elementet. Elementet må være fokuserbart,
@@ -1330,7 +1335,7 @@ Eksempel:
 <main id="maincontent" tabindex="-1"><!-- app html går her! --></main>
 ```
 
-**Samtykkebanner 👌**
+#### Samtykkebanner 👌
 
 Brukere vil bli presentert for et samtykkebanner som ber om samtykke til sporing og analyse. Dette
 påvirker alle typer lagring (cookies, localStorage, sessionStorage) på brukerens enhet. Hvis
