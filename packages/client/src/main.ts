@@ -49,8 +49,8 @@ const startTrackingServices = () => {
 
 const stopTrackingServices = () => {
     stopSkyra();
-    refreshAuthData().then((response) => {
-        stopAnalytics(response.auth);
+    refreshAuthData().then(() => {
+        stopAnalytics();
     });
 };
 

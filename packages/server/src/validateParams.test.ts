@@ -142,6 +142,30 @@ describe("Validating urls", () => {
 
         expect(params.logoutUrl).toBeUndefined();
     });
+
+    // Regression test: these passed the old regex-based system
+    it.each([
+        "//evil.com",
+        "//evil.com/path",
+        "/\\evil.com",
+        "/\t/evil.com",
+        "http://localhost.evil.com",
+        "https://localhost.evil.com/steal",
+        "http://localhost@evil.com",
+        "http://localhost:8080@evil.com/x",
+        "https://localhost-evil.com",
+        "http://localhostevil.com",
+    ])("Should not validate open-redirect url %j", (url) => {
+        const params = parseAndValidateParams({
+            redirectToUrl: url,
+            redirectToUrlLogout: url,
+            logoutUrl: url,
+        } satisfies Partial<Record<keyof Params, unknown>>);
+
+        expect(params.redirectToUrl).toBeUndefined();
+        expect(params.redirectToUrlLogout).toBeUndefined();
+        expect(params.logoutUrl).toBeUndefined();
+    });
 });
 
 describe("Parsing boolean query paramters", () => {

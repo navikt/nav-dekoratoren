@@ -3,7 +3,7 @@ import aksel from "decorator-client/src/styles/aksel.module.css";
 import { ChevronRightIcon, HouseIcon } from "decorator-icons";
 import html, { Template, htmlAttributes } from "../html";
 import { Breadcrumb } from "../params";
-import { isNavUrl } from "../utils";
+import { isValidNavUrl } from "../urls";
 import cls from "./breadcrumbs.module.css";
 
 export type BreadcrumbsProps = {
@@ -22,7 +22,7 @@ const validateBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
             const error = "breadcrumbs.url supports string";
             throw Error(error);
         }
-        if (!isNavUrl(breadcrumb.url)) {
+        if (!isValidNavUrl(breadcrumb.url)) {
             const error = `breadcrumbs.url supports only nav.no urls - failed to validate ${breadcrumb.url}`;
             throw Error(error);
         }
@@ -56,27 +56,32 @@ export const Breadcrumbs = ({
                               index,
                           ) => html`
                               <li class="${cls.listItem}">
-                                  ${index === breadcrumbs.length - 1
-                                      ? title
-                                      : html`
-                                            <a
-                                                ${htmlAttributes({
-                                                    className: clsx(
-                                                        cls.link,
-                                                        aksel["aksel-link"],
-                                                    ),
-                                                    ["data-handle-in-app"]:
-                                                        handleInApp ?? false,
-                                                    ["data-analytics-title"]:
-                                                        analyticsTitle,
-                                                    href: url ?? "#",
-                                                })}
-                                                >${title}</a
-                                            >
-                                        `}
-                                  ${index === breadcrumbs.length - 1
-                                      ? ""
-                                      : ChevronRightIcon()}
+                                  ${
+                                      index === breadcrumbs.length - 1
+                                          ? title
+                                          : html`
+                                                <a
+                                                    ${htmlAttributes({
+                                                        className: clsx(
+                                                            cls.link,
+                                                            aksel["aksel-link"],
+                                                        ),
+                                                        ["data-handle-in-app"]:
+                                                            handleInApp ??
+                                                            false,
+                                                        ["data-analytics-title"]:
+                                                            analyticsTitle,
+                                                        href: url ?? "#",
+                                                    })}
+                                                    >${title}</a
+                                                >
+                                            `
+                                  }
+                                  ${
+                                      index === breadcrumbs.length - 1
+                                          ? ""
+                                          : ChevronRightIcon()
+                                  }
                               </li>
                           `,
                       )}

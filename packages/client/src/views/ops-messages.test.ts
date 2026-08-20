@@ -33,7 +33,11 @@ describe("OpsMessages", () => {
 
         await vi.waitFor(() => expect(el.innerHTML).toContain("Driftsmelding"));
         expect(http.lastCall?.pathname).toBe("/ops-messages");
-        expect(el.getAttribute("aria-label")).toBe("Viktig informasjon");
+        // The label lives on the rendered <section>, not the custom element
+        // host — see "Rydd opp i bruk av aria på egendefinerte rot-elementer".
+        expect(el.querySelector("section")?.getAttribute("aria-label")).toBe(
+            "Viktig informasjon",
+        );
     });
 
     it("renders nothing when there are no messages", async () => {
@@ -42,7 +46,8 @@ describe("OpsMessages", () => {
         const el = await fixture("<ops-messages>old</ops-messages>");
 
         await vi.waitFor(() => expect(el.innerHTML).toBe(""));
-        expect(el.hasAttribute("aria-label")).toBe(false);
+        // No section rendered means nothing carries the label.
+        expect(el.querySelector("section")).toBe(null);
     });
 
     it("logs and renders nothing when the fetch fails", async () => {

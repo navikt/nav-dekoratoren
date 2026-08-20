@@ -24,7 +24,10 @@ function i18n<Key extends keyof Texts>(
         render: (props: { language: Language } = { language: "nb" }) => {
             const text = texts[props.language][key];
             if (typeof text === "function") {
-                return text(args);
+                const result = text(args);
+                return typeof result === "string"
+                    ? result
+                    : result.render(props);
             } else {
                 return text;
             }
