@@ -1146,7 +1146,7 @@ Utvider sessionStorage og localStorage og eksponerer de samme funksjonene. Forsk
 nav\*Storage først sjekker om en nøkkel er tillatt å sette basert på tillattlisten og status på
 eksisterende samtykke.
 
-## </details>
+</details>
 
 ## 10. Innebygde funksjoner i Dekoratøren 🎛️
 
@@ -1191,19 +1191,19 @@ tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med d
 Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan knyttes tilbake til
 riktig team. Identiteten utledes i denne prioriterte rekkefølgen:
 
-| Prioritet | Kilde                           | Hvem / Når                                                                                           |
-| --------- | ------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (process.env)                                         |
-| 2         | `teamName`-parameter            | SSR uten moduler eller CSR med moduler – settes manuelt av konsumenten                               |
-| 3         | `Origin`-header                 | CSR uten moduler, og automatisk fallback for kall fra nettleseren – settes automatisk av nettleseren |
-| 4         | `"unknown"`                     | Ingen identitet tilgjengelig                                                                         |
+| Prioritet | Kilde                           | Hvem / Når                                                     |
+| --------- | ------------------------------- | -------------------------------------------------------------- |
+| 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (`process.env`) |
+| 2         | `teamName`-parameter            | SSR uten moduler eller CSR med moduler – settes manuelt        |
+| 3         | `Origin`-header                 | CSR uten moduler – automatisk fallback fra nettleseren         |
+| 4         | `"unknown"`                     | Ingen identitet tilgjengelig                                   |
 
-> ⚠️ **Konsumentidentitet er kun basert på query-parametre og `Origin`-headeren**.
-> Dekoratøren gjør enkelte kall fra klienten (f.eks. `/auth`)
-> uavhengig av om siden i utgangspunktet ble rendret med SSR eller CSR. En egendefinert header satt
-> på det første SSR-kallet ville aldri blitt husket til disse senere klient-kallene. `teamName` som
-> query-parameter blir derimot en del av `window.__DECORATOR_DATA__.params`, og følger dermed
-> automatisk med på alle senere kall dekoratøren selv gjør fra nettleseren.
+Konsumentidentitet er basert på `naisAppName`/`naisNamespace`, `teamName` og `Origin`.
+Dekoratøren gjør enkelte kall fra klienten (f.eks. `/auth`) uavhengig av om siden i
+utgangspunktet ble rendret med SSR eller CSR. En egendefinert header satt på det første
+SSR-kallet ville aldri blitt husket til disse senere klient-kallene. `teamName` som
+query-parameter blir derimot en del av `window.__DECORATOR_DATA__.params`, og følger dermed
+automatisk med på alle senere kall dekoratøren selv gjør fra nettleseren.
 
 **1. SSR via moduler-pakken (anbefalt):**
 
@@ -1211,9 +1211,10 @@ Konsumentidentitet settes automatisk via `NAIS_APP_NAME` og `NAIS_NAMESPACE`,
 som injiseres av Nais-plattformen i alle pods. Ingen ekstra konfigurasjon er nødvendig.
 Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang).
 
-**2. CSR via moduler-pakken eller SSR uten moduler-pakken:**
+**2. SSR uten moduler-pakken eller CSR via moduler-pakken:**
 
-Sett `teamName` i `injectDecoratorClientSide` for å bli identifisert i logger og feilmeldinger.
+Sett `teamName` i forespørselen eller i `injectDecoratorClientSide` for å bli identifisert i logger
+og feilmeldinger.
 
 `teamName` må være et gyldig konsumentnavn i formatet `teamnavn.namespace`. Verdien må:
 
