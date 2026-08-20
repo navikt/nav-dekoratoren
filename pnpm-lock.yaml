@@ -175,15 +175,9 @@ importers:
             "@navikt/aksel-icons":
                 specifier: 8.16.1
                 version: 8.16.1
-            glob:
-                specifier: 13.0.6
-                version: 13.0.6
             svgo:
                 specifier: 4.0.2
                 version: 4.0.2
-            tsx:
-                specifier: "catalog:"
-                version: 4.23.1
 
     packages/next-pages-router-example:
         dependencies:
