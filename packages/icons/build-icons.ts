@@ -6,8 +6,10 @@ import {
     rmSync,
     writeFileSync,
 } from "node:fs";
+import type { Config } from "svgo";
 import { writeFile } from "node:fs/promises";
 import { enableCompileCache } from "node:module";
+import { basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Cache V8 compilation of the svgo module graph, which is imported lazily below.
@@ -15,13 +17,14 @@ enableCompileCache();
 
 const DIST = "./dist";
 const SRC = "./src";
+const SVG_EXT = ".svg";
 const MANIFEST_FILE = ".build-manifest.json";
 
 const readUtf8 = (path: string) => readFileSync(path, "utf-8");
 
 const localSvgNames = readdirSync(SRC)
-    .filter((file) => file.endsWith(".svg"))
-    .map((file) => file.slice(0, -4))
+    .filter((file) => file.endsWith(SVG_EXT))
+    .map((file) => basename(file, SVG_EXT))
     .sort();
 
 /**
@@ -99,7 +102,7 @@ const svgoConfig = {
     // Pretty-printing costs nothing measurable here and keeps the generated
     // files readable without running a JS formatter over them.
     js2svg: { pretty: true, indent: 2 },
-};
+} satisfies Config;
 
 const jsString =
     '${htmlAttributes({ ariaHidden: ariaLabel ? "false" : "true", ...props })} ${ariaLabel ? html`aria-label="${ariaLabel}"` : ""}';
@@ -141,11 +144,13 @@ await Promise.all(
     ),
 );
 
-// Drop files left behind by earlier builds, e.g. icons removed upstream.
+// Every file this build is responsible for, including the manifest itself.
 const expectedFiles = new Set([
     ...generated.map(({ file }) => file),
     MANIFEST_FILE,
 ]);
+
+// Drop files left behind by earlier builds, e.g. icons removed upstream.
 for (const file of readdirSync(DIST)) {
     if (!expectedFiles.has(file)) {
         rmSync(`${DIST}/${file}`, { recursive: true, force: true });
@@ -154,5 +159,5 @@ for (const file of readdirSync(DIST)) {
 
 writeFileSync(
     `${DIST}/${MANIFEST_FILE}`,
-    JSON.stringify({ hash: expectedHash, fileCount: generated.length + 1 }),
+    JSON.stringify({ hash: expectedHash, fileCount: expectedFiles.size }),
 );
