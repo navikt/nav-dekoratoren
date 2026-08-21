@@ -1,6 +1,8 @@
 import Cookies from "js-cookie";
-import { AppState, PublicStorageItem } from "decorator-shared/types";
+import { PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
+import { logger } from "./helpers/logger";
+import { http, setDecoratorData } from "./test-setup";
 
 const mockStorageDictionary: PublicStorageItem[] = [
     {
@@ -25,6 +27,18 @@ const mockStorageDictionary: PublicStorageItem[] = [
     },
 ] as PublicStorageItem[];
 
+/**
+ * The controller clears cookies, localStorage, and sessionStorage in one
+ * synchronous pass, a few microtask hops after construction. For the
+ * "slettes ikke"-tests, waiting on the surviving item would pass before the
+ * pass has even run — so wait for a sentinel the pass always deletes; once
+ * it's gone, everything still present survived for real.
+ */
+const waitForClearingPass = () =>
+    vi.waitFor(() =>
+        expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
+    );
+
 describe("Tester webStorage", () => {
     const controllers: WebStorageController[] = [];
 
@@ -38,9 +52,9 @@ describe("Tester webStorage", () => {
     };
 
     beforeEach(() => {
-        window.__DECORATOR_DATA__ = {
+        setDecoratorData({
             allowedStorage: mockStorageDictionary,
-        } as AppState;
+        } as never);
 
         Cookies.set("usertest-1234", "foobar");
         Cookies.set("AMP_1234", "foobar");
@@ -54,6 +68,13 @@ describe("Tester webStorage", () => {
 
         window.sessionStorage.setItem("usertest-1234", "foobar");
         window.sessionStorage.setItem("ukjentdata", "foobar");
+
+        http.post("/api/consentping", { status: 204 });
+    });
+
+    afterEach(() => {
+        vi.clearAllMocks();
+        vi.restoreAllMocks();
     });
 
     afterEach(() => {
@@ -81,21 +102,20 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("amp_abcdef")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(Cookies.get("usertest-1234")).toBe(undefined);
-        expect(Cookies.get("AMP_1234")).toBe(undefined);
-        expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
-        expect(Cookies.get("amp_abcdef")).toBe(undefined);
+        await vi.waitFor(() => {
+            expect(Cookies.get("usertest-1234")).toBe(undefined);
+            expect(Cookies.get("AMP_1234")).toBe(undefined);
+            expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
+            expect(Cookies.get("amp_abcdef")).toBe(undefined);
+        });
     });
-    it("kjente nødvendige cookies slettes ikkenår cookie-banner vises", async () => {
+    it("kjente nødvendige cookies slettes ikke når cookie-banner vises", async () => {
         expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(Cookies.get("selvbetjening-idtoken")).toBe("foobar");
     });
 
@@ -103,9 +123,8 @@ describe("Tester webStorage", () => {
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(Cookies.get("ukjent-cookie")).toBe("foobar");
     });
 
@@ -113,36 +132,75 @@ describe("Tester webStorage", () => {
         expect(window.localStorage.getItem("usertest-1234")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(window.localStorage.getItem("usertest-1234")).toBe(null);
+        await vi.waitFor(() =>
+            expect(window.localStorage.getItem("usertest-1234")).toBe(null),
+        );
     });
     it("ukjente localStorage-elementer slettes ikke når cookie-banner vises", async () => {
         expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(window.localStorage.getItem("ukjentdata")).toBe("foobar");
     });
     it("kjente frivillige sessionStorage-elementer slettes når cookie-banner vises", async () => {
         expect(window.sessionStorage.getItem("usertest-1234")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        expect(window.sessionStorage.getItem("usertest-1234")).toBe(null);
+        await vi.waitFor(() =>
+            expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
+        );
     });
     it("ukjente sessionStorage-elementer slettes ikke når cookie-banner vises", async () => {
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
 
         createController();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await waitForClearingPass();
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
         expect(window.sessionStorage.getItem("ukjentdata")).toBe("foobar");
+    });
+
+    it("samtykke sendes til consentping-endepunktet", async () => {
+        createController();
+
+        window.dispatchEvent(new CustomEvent("consentAllWebStorage"));
+
+        await http.settled();
+        const call = http.lastCall!;
+        expect(call.pathname).toBe("/api/consentping");
+        expect(call.method).toBe("POST");
+        expect(call.init.credentials).toBe("omit");
+
+        // The body was already a JSON string in production code; the mock
+        // hands it back parsed instead of via mock.calls spelunking.
+        expect(call.json()).toEqual(
+            expect.objectContaining({
+                consentObject: expect.objectContaining({
+                    consent: { analytics: true, surveys: true },
+                    userActionTaken: true,
+                }),
+                originUrl: expect.objectContaining({
+                    redactedUrl: expect.any(String),
+                }),
+            }),
+        );
+    });
+
+    it("samtykke lagres selv om consentping feiler", async () => {
+        const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
+        http.post("/api/consentping", { status: 400 });
+        createController();
+
+        window.dispatchEvent(new CustomEvent("consentAllWebStorage"));
+
+        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        expect(errorSpy).toHaveBeenCalledWith(
+            "Failed to send consent ping",
+            expect.objectContaining({ error: expect.any(Error) }),
+        );
+        expect(Cookies.get("navno-consent")).toBeDefined();
     });
 });
