@@ -17,8 +17,8 @@
     "scripts": {
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "test": "pnpm -r run test",
-        "lint": "pnpm -r run lint",
+        "test": "pnpm -r --parallel run test",
+        "lint": "pnpm -r --parallel run lint",
         "lint:client": "pnpm --filter decorator-client run lint",
         "lint:server": "pnpm --filter decorator-server run lint",
         "lint:icons": "pnpm --filter decorator-icons run lint",
