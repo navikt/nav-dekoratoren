@@ -1282,3 +1282,5 @@ hjelpefunksjoner for enkel håndtering av samtykke. Den tilbyr også hjelpefunks
 lese cookies, som sikrer at kun tillatte cookies kan settes.
 
 </details>
+
+ok
