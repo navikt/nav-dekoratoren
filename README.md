@@ -12,41 +12,43 @@ Dette dokumentet beskriver:
 
 ## 📚 Innholdsfortegnelse
 
-1. [Oversikt over økosystemet](#1-oversikt-over-økosystemet-ℹ️)
+1. [Oversikt over økosystemet](#1-oversikt-over-økosystemet)
     - [1.1 Hva er Nav Dekoratøren?](#11-hva-er-nav-dekoratøren)
     - [1.2 Hva er @navikt/nav-dekoratoren-moduler?](#12-hva-er-naviktnav-dekoratoren-moduler)
     - [1.3 Kontakt og kanaler](#13-kontakt-og-kanaler)
     - [1.4 Nav-pilot skill](#14-nav-pilot-skill)
-2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-🎓)
+2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratoren-i-din-app)
     - [2.1 Anbefalt: bruk @navikt/nav-dekoratoren-moduler (SSR)](#21-anbefalt-bruk-naviktnav-dekoratoren-moduler-ssr)
     - [2.2 Tilpasset implementasjon med SSR](#22-tilpasset-implementasjon-med-ssr)
     - [2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)](#23-ikke-anbefalt-direkte-client-side-rendering-csr-integrasjon)
     - [2.4 Ingresser og miljøer](#24-ingresser-og-miljøer)
-3. [Konfigurasjon av Dekoratøren](#3-konfigurasjon-av-dekoratøren-🎛️)
-    - [3.1 Detaljer](#31-detaljer-🍱)
+3. [Konfigurasjon av Dekoratøren](#3-konfigurasjon-av-dekoratoren)
+    - [3.1 Detaljer](#31-detaljer)
     - [3.2 Eksempler på bruk](#32-eksempler-på-bruk)
-4. [@navikt/nav-dekoratoren-moduler – installasjon og oppsett](#4-naviktnav-dekoratoren-moduler--installasjon-og-oppsett-📦)
+4. [@navikt/nav-dekoratoren-moduler – installasjon og oppsett](#4-nav-dekoratoren-moduler-installasjon-og-oppsett)
     - [4.1 Installasjon fra GitHub Packages](#41-installasjon-fra-github-packages)
     - [4.2 Oppsett lokalt (.npmrc)](#42-oppsett-lokalt-npmrc)
     - [4.3 Oppsett på GitHub Actions](#43-oppsett-på-github-actions)
-5. [Hente Dekoratøren via moduler-pakken](#5-hente-dekoratøren-via-moduler-pakken-🏗️)
+5. [Hente Dekoratøren via moduler-pakken](#5-hente-dekoratoren-via-moduler-pakken)
     - [5.1 Typer og miljøer](#51-typer-og-miljøer)
     - [5.2 Service Discovery](#52-service-discovery)
     - [5.3 Access Policy](#53-access-policy)
         - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
         - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
-6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-🧱)
+6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering)
     - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
     - [6.2 Detaljer](#62-detaljer)
-7. [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
-8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken-🧰)
+7. [Client-Side Rendering (CSR)](#7-client-side-rendering)
+8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken)
     - [8.1 Detaljer](#81-detaljer)
-9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven-🍪)
+9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven)
     - [9.1 Detaljer](#91-detaljer)
-10. [Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratøren-🎛️)
+10. [Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratoren)
     - [10.1 Detaljer](#101-detaljer)
 
 ---
+
+<a id="1-oversikt-over-økosystemet"></a>
 
 ## 1. Oversikt over økosystemet ℹ️
 
@@ -76,7 +78,7 @@ søkefunksjonalitet osv, som forklart i denne dokumentasjonen.
 `@navikt/nav-dekoratoren-moduler` er en **NPM-pakke** som hjelper deg å integrere Dekoratøren i din
 app:
 
-- Henter dekoratørens HTML/React-komponenter (SSR / CSR)
+- Henter Dekoratørens HTML/React-komponenter (SSR / CSR)
 - Håndterer miljøer, service discovery og access policy
 - Gir hjelpefunksjoner for:
     - CSP-header som inkluderer Dekoratøren
@@ -87,6 +89,7 @@ app:
     - Samtykke/cookies i tråd med ekomloven
 
 **Dekoratøren** = appen som kjører på nav.no
+
 **nav-dekoratoren-moduler** = verktøykassa du bruker i din app for å snakke med Dekoratøren
 
 ### 1.3 Kontakt og kanaler
@@ -99,9 +102,8 @@ CONTRIBUTING.md.
 
 ### 1.4 Nav-pilot skill
 
-Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet
-[navikt/nav-pilot](https://github.com/navikt/copilot). Den hjelper deg å integrere, konfigurere
-og bidra til Dekoratøren direkte fra terminalen.
+Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet [navikt/nav-pilot](https://github.com/navikt/copilot).
+Den hjelper deg å integrere og konfigurere Dekoratøren direkte fra terminalen.
 
 Installer nav-dekoratoren med nav-pilot slik:
 
@@ -124,10 +126,12 @@ Use the /nav-dekoratoren skill to help me set up breadcrumbs and language select
 Use the /nav-dekoratoren skill to help me set up analytics
 ```
 
-Skillen dekker installasjon, SSR/CSR-integrasjon, konfigurasjon, analytics, samtykke/cookies og
-bidrag til selve dekoratøren.
+Skillen dekker installasjon, SSR/CSR-integrasjon, konfigurasjon, analytics og samtykke/cookies
+til Dekoratøren.
 
 ---
+
+<a id="2-hvordan-bruke-dekoratoren-i-din-app"></a>
 
 ## 2. Hvordan bruke Dekoratøren i din app 🎓
 
@@ -176,7 +180,9 @@ Hvis du **ikke** bruker moduler-pakken, kan du kalle Dekoratørens `/ssr`-endepu
 Eksempel:
 
 ```js
-fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
+fetch(
+    "https://www.nav.no/dekoratoren/ssr?context=privatperson&teamName=team-navno.navno",
+)
     .then((res) => res.json())
     .then((decoratorElements) => {
         const { headAssets, header, footer, scripts } = decoratorElements;
@@ -186,7 +192,7 @@ fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
 
 💡 **Konsumentlogging:** Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan
 knyttes tilbake til riktig team. Identiteten utledes i denne prioriterte rekkefølgen: Se
-[Innebygde funksjoner i Dekoratøren](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
+[Innebygde funksjoner i Dekoratøren](#innebygde-funksjoner-i-dekoratoren) for detaljer.
 
 Hvis du bruker SSR uten `@navikt/nav-dekoratoren-moduler` må du sette `teamName` i
 forespørselen som et parameter, slik at feil i logger kan knyttes til teamet ditt.
@@ -218,7 +224,7 @@ Hvis du _må_ bruke CSR, anbefaler vi å gjøre det via `injectDecoratorClientSi
 
 💡 **Konsumentlogging:** Hvis du bruker CSR med `@navikt/nav-dekoratoren-moduler`:
 Sett `teamName`-parameteren i `injectDecoratorClientSide` , slik at feil i logger kan
-knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratøren-️) for detaljer.
+knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratoren) for detaljer.
 
 ### 2.4 Ingresser og miljøer
 
@@ -238,6 +244,8 @@ Side. Disse instansene kan være ustabile over lengre perioder.
 
 ---
 
+<a id="3-konfigurasjon-av-dekoratoren"></a>
+
 ## 3. Konfigurasjon av Dekoratøren 🎛️
 
 Hvis du bruker `@navikt/nav-dekoratoren-moduler`, kan du sende et konfigurasjonsobjekt når du
@@ -247,7 +255,7 @@ en del av fetch-URL-forespørselen.
 
 Alle parametere kan settes klient-side, med mindre det eksplisitt er nevnt at de kun er for
 server-side rendering. For mer informasjon,
-se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
+se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr)
 
 | Konfigurasjon        | Type                                                                    | Default      | Forklaring                                                           |
 | -------------------- | ----------------------------------------------------------------------- | ------------ | -------------------------------------------------------------------- |
@@ -273,7 +281,7 @@ se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
 | pageType             | string                                                                  | undefined    | For logging av sidetype for sidevisning i Analytics                  |
 | analyticsQueryParams | string[]                                                                | [ ]          | Hviteliste av query-parametere som skal inkluderes i Analytics       |
 
-### 3.1 Detaljer 🍱
+### 3.1 Detaljer
 
 <details>
  <summary><strong>Klikk for å utvide detaljene</strong></summary>
@@ -300,7 +308,7 @@ Språket settes automatisk på klient-side hvis den nåværende URL-en inneholde
 \*/nn/** , **/en/**, eller **/se/\*\*. Dette vil overstyre eventuelle språkparametere som er satt.
 Vennligst merk at det faktiske brukergrensesnittet til Dekoratøren kun kan vise sitt eget
 tekstinnhold og meny på `nb`, `en`, og `se` (delvis støtte). For mer informasjon,
-se [Språkstøtte og nedtrekksmeny](#42-language-support-and-dropdown-menu-)
+se [Språkstøtte og nedtrekksmeny](#sprakstotte-og-nedtrekksmeny)
 
 **availableLanguages**
 
@@ -416,6 +424,8 @@ https://www.nav.no/dekoratoren/?breadcrumbs=[{"url":"https://www.nav.no/person/d
 
 ---
 
+<a id="4-nav-dekoratoren-moduler-installasjon-og-oppsett"></a>
+
 ## 4. @navikt/nav-dekoratoren-moduler – installasjon og oppsett 📦
 
 `@navikt/nav-dekoratoren-moduler` gir utviklere et enkelt grensesnitt for å integrere NAVs
@@ -474,6 +484,8 @@ Sett registry-url med f.eks `actions/setup-node` og bruk `NODE_AUTH_TOKEN` fra
 
 ---
 
+<a id="5-hente-dekoratoren-via-moduler-pakken"></a>
+
 ## 5. Hente Dekoratøren via moduler-pakken 🏗️
 
 ### 5.1 Typer og miljøer
@@ -483,19 +495,19 @@ For lokale miljøer må du angi `localUrl`.
 
 ```tsx
 type DecoratorNaisEnv =
-    | "prod" // For produksjons-instans av dekoratøren
+    | "prod" // For produksjons-instans av Dekoratøren
     | "dev" // For stabil dev-instans
     | "beta" // Beta dev-instanser er ment for internt test-bruk
     | "betaTms"; // Disse kan være ustabile i lengre perioder
 
 type DecoratorEnvProps =
-    // Dersom env er satt til localhost, må du selv sette url for dekoratøren.
+    // Dersom env er satt til localhost, må du selv sette url for Dekoratøren.
     | { env: "localhost"; localUrl: string }
     // For nais-miljøer settes url automatisk
     | { env: DecoratorNaisEnv; serviceDiscovery?: boolean };
 
 type DecoratorFetchProps = {
-    // Query-parametre til dekoratøren, se dekoratørens readme for dokumentasjon
+    // Query-parametre til Dekoratøren, se Dekoratørens readme for dokumentasjon
     params?: DecoratorParams;
 } & DecoratorEnvProps;
 ```
@@ -535,7 +547,7 @@ accessPolicy:
 
 #### 5.3.2 Ved eksterne ingresser
 
-Dersom service discovery ikke benyttes, vil dekoratørens eksterne ingresser kalles. Dette gjelder
+Dersom service discovery ikke benyttes, vil Dekoratørens eksterne ingresser kalles. Dette gjelder
 ved bruk av versjon 1.9 eller tidligere, eller dersom `serviceDiscovery: false` er satt.
 
 Følgende access policy kreves:
@@ -550,9 +562,11 @@ accessPolicy:
 
 ---
 
+<a id="6-server-side-rendering"></a>
+
 ## 6. Server-Side Rendering (anbefalt) 🧱
 
-Server-side rendering (SSR) av dekoratøren anbefales for optimal brukeropplevelse.
+Server-side rendering (SSR) av Dekoratøren anbefales for optimal brukeropplevelse.
 Dersom kallet feiler (etter tre forsøk), falles det tilbake til statiske placeholder-elementer som
 rendres client-side.
 
@@ -561,9 +575,9 @@ rendres client-side.
 | Funksjon                            | Type                | Forklaring                                                                |
 | ----------------------------------- | ------------------- | ------------------------------------------------------------------------- |
 | `injectDecoratorServerSide`         | server-side         | Parser HTML-fil og setter inn dekoratør-HTML via JSDOM                    |
-| `injectDecoratorServerSideDocument` | server-side         | Setter inn dekoratøren i et eksisterende `Document`-objekt                |
-| `fetchDecoratorHtml`                | server-side         | Henter dekoratøren som HTML-fragmenter                                    |
-| `fetchDecoratorReact`               | server-side (React) | Henter dekoratøren som React-komponenter for SSR-rammeverk (Next.js m.m.) |
+| `injectDecoratorServerSideDocument` | server-side         | Setter inn Dekoratøren i et eksisterende `Document`-objekt                |
+| `fetchDecoratorHtml`                | server-side         | Henter Dekoratøren som HTML-fragmenter                                    |
+| `fetchDecoratorReact`               | server-side (React) | Henter Dekoratøren som React-komponenter for SSR-rammeverk (Next.js m.m.) |
 
 ### 6.2 Detaljer
 
@@ -572,7 +586,7 @@ rendres client-side.
 
 **injectDecoratorServerSide**
 
-Parser en HTML-fil med JSDOM og returnerer en HTML-string som inkluderer dekoratøren. Krever at
+Parser en HTML-fil med JSDOM og returnerer en HTML-string som inkluderer Dekoratøren. Krever at
 `jsdom >=16.x` er installert.
 
 ```ts
@@ -589,7 +603,7 @@ injectDecoratorServerSide({
 
 **injectDecoratorServerSideDocument**
 
-Setter inn dekoratøren i et Document DOM-objekt. Objektet i document-parameteret muteres.
+Setter inn Dekoratøren i et Document DOM-objekt. Objektet i document-parameteret muteres.
 
 ```ts
 import { injectDecoratorServerSideDocument } from "@navikt/nav-dekoratoren-moduler/ssr";
@@ -606,7 +620,7 @@ injectDecoratorServerSideDocument({
 
 **fetchDecoratorHtml**
 
-Henter dekoratøren som HTML-fragmenter.
+Henter Dekoratøren som HTML-fragmenter.
 
 ```ts
 import { fetchDecoratorHtml } from "@navikt/nav-dekoratoren-moduler/ssr";
@@ -626,13 +640,13 @@ const {
 
 **fetchDecoratorReact**
 
-Henter dekoratøren som React-komponenter. Kan benyttes med React rammeverk som støtter server-side
+Henter Dekoratøren som React-komponenter. Kan benyttes med React rammeverk som støtter server-side
 rendering. Krever at `react >=17.x` og `html-react-parser >=5.x` er installert.
 
 Ved behov kan det settes en egendefinert komponent for `<script>`-elementer i `<Decorator.Scripts>`.
 Denne vil erstatte standard `<script>`-tags i parseren. Ved bruk av next.js app-router kan
 `next/script` benyttes her, se
-eksempel [Eksempel 2- Med next.js app router](#eksempel-2--nextjs-app-router).
+eksempel [Eksempel 2- Med next.js app router](#eksempel-2-nextjs-app-router).
 
 ##### Eksempel 1 – Next.js Page Router
 
@@ -678,6 +692,8 @@ class MyDocument extends Document<DocumentProps> {
 }
 ```
 
+<a id="eksempel-2-nextjs-app-router"></a>
+
 ##### Eksempel 2 – Next.js App Router
 
 Brukes i `app/layout.tsx` med `next/script` loader:
@@ -716,6 +732,8 @@ export default RootLayout;
 
 ---
 
+<a id="7-client-side-rendering"></a>
+
 ## 7. Client-Side Rendering (CSR) 💻
 
 > ⚠️ CSR anbefales ikke. Bruk SSR hvis det er teknisk mulig.
@@ -736,14 +754,16 @@ injectDecoratorClientSide({
 
 Kun aktuelt dersom SSR ikke lar seg gjøre i din arkitektur.
 
+<a id="8-andre-hjelpefunksjoner-i-moduler-pakken"></a>
+
 ## 8. Andre hjelpefunksjoner i moduler-pakken 🧰
 
 | Funksjon                        | Type          | Forklaring                                                   |
 | ------------------------------- | ------------- | ------------------------------------------------------------ |
 | `addDecoratorUpdateListener`    | server-side   | Callback ved ny dekoratørversjon (cache-invalidering)        |
 | `removeDecoratorUpdateListener` | server-side   | Fjerner registrert callback                                  |
-| `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for dekoratøren                 |
-| `buildCspHeader`                | server-side   | Bygger CSP som inkluderer dekoratørens direktiver            |
+| `getDecoratorVersionId`         | server-side   | Henter nåværende versjons-ID for Dekoratøren                 |
+| `buildCspHeader`                | server-side   | Bygger CSP som inkluderer Dekoratørens direktiver            |
 | `getAnalyticsInstance`          | client/server | Logger events til Umami (forhåndsdefinerte og custom events) |
 | `isValidEventName`              | client/server | Sjekker om et event-navn finnes i analytics-taksonomien      |
 | `setBreadcrumbs`                | client-side   | Setter brødsmulesti i Dekoratøren                            |
@@ -762,8 +782,8 @@ Kun aktuelt dersom SSR ikke lar seg gjøre i din arkitektur.
 
 **addDecoratorUpdateListener / removeDecoratorUpdateListener**
 
-Legger til/fjerner en callback-funksjon som kalles når en ny versjon av dekoratøren er deployet til
-valgt miljø. Tiltenkt brukt for cache-invalidering i apper som cacher dekoratørens HTML.
+Legger til/fjerner en callback-funksjon som kalles når en ny versjon av Dekoratøren er deployet til
+valgt miljø. Tiltenkt brukt for cache-invalidering i apper som cacher Dekoratørens HTML.
 
 ```ts
 import { addDecoratorUpdateListener } from "@navikt/nav-dekoratoren-moduler/ssr";
@@ -778,7 +798,7 @@ addDecoratorUpdateListener({ env: "prod" }, flushHtmlCache);
 
 **getDecoratorVersionId**
 
-Henter nåværende versjons-id for dekoratøren i valgt miljø.
+Henter nåværende versjons-id for Dekoratøren i valgt miljø.
 
 ```ts
 import { getDecoratorVersionId } from "@navikt/nav-dekoratoren-moduler/ssr";
@@ -788,11 +808,11 @@ const currentVersionId = await getDecoratorVersionId({ env: "prod" });
 
 **buildCspHeader**
 
-Bygger en CSP (Content Security Policy) header som inkluderer dekoratørens påkrevde direktiver,
+Bygger en CSP (Content Security Policy) header som inkluderer Dekoratørens påkrevde direktiver,
 kombinert
 med applikasjonens egne direktiver.
 
-Funksjonen gjør et fetch-kall til dekoratøren for å hente gjeldende direktiver.
+Funksjonen gjør et fetch-kall til Dekoratøren for å hente gjeldende direktiver.
 
 ```ts
 import { buildCspHeader } from "@navikt/nav-dekoratoren-moduler/ssr";
@@ -816,7 +836,7 @@ app.get("*", (req, res) => {
 
 Metoden støtter det til en hver tid gjeldende analyseverktøyet i Nav. Den bygger en logger-instans
 som sender
-events til våre analyseverktøy via dekoratørens klient. Besøk (sidevisning) vil håndteres
+events til våre analyseverktøy via Dekoratørens klient. Besøk (sidevisning) vil håndteres
 automatisk,
 andre events kan sendes inn via opprettet logger-instans. Den tar i mot et parameter `origin`
 slik at man kan filtrere events som kommer fra egen app.
@@ -1020,7 +1040,7 @@ setParams({
 
 **getParams**
 
-Leser gjeldende parametre fra dekoratøren.
+Leser gjeldende parametre fra Dekoratøren.
 
 ```tsx
 import { getParams } from "@navikt/nav-dekoratoren-moduler";
@@ -1041,6 +1061,8 @@ openChatbot();
 </details>
 
 ---
+
+<a id="9-samtykke-cookies-og-ekomloven"></a>
 
 ## 9. Samtykke, cookies og ekomloven 🍪
 
@@ -1075,7 +1097,7 @@ praktiske helpers for appene:
 **awaitDecoratorData**
 
 Dersom du trenger å lese/skrive cookies som en del av oppstarten i applikasjonen, kan det hende at
-du må vente til dekoratøren har lastet inn dataene.
+du må vente til Dekoratøren har lastet inn dataene.
 
 ```ts
 const initMyApp = async () => {
@@ -1148,6 +1170,8 @@ eksisterende samtykke.
 
 </details>
 
+<a id="10-innebygde-funksjoner-i-dekoratoren"></a>
+
 ## 10. Innebygde funksjoner i Dekoratøren 🎛️
 
 Denne delen gjelder selve **Dekoratøren-appen**, uavhengig av om du bruker moduler-pakken eller
@@ -1155,8 +1179,8 @@ ikke.
 
 | Funksjon / Tema              | Type                      | Formål / Forklaring                                                |
 | ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
-| Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av dekoratøren |
-| Konsumentlogging             | server-side / client-side | Logger hvilket team som kaller dekoratøren, for sporing av feil    |
+| Content Security Policy      | server-side               | Bygger og eksponerer CSP-headere for sikker lasting av Dekoratøren |
+| Konsumentlogging             | server-side / client-side | Logger hvilket team som kaller Dekoratøren, for sporing av feil    |
 | Språkstøtte og nedtrekksmeny | client-side               | Viser språkvelger i headeren og håndterer språkvalg                |
 | Søk                          | client-side               | Tilbyr søk uten behov for ekstra konfigurasjon                     |
 | Innlogging                   | client-side / server-side | Håndterer innlogging via ID-porten og viser brukerinformasjon      |
@@ -1203,7 +1227,7 @@ Dekoratøren gjør enkelte kall fra klienten (f.eks. `/auth`) uavhengig av om si
 utgangspunktet ble rendret med SSR eller CSR. En egendefinert header satt på det første
 SSR-kallet ville aldri blitt husket til disse senere klient-kallene. `teamName` som
 query-parameter blir derimot en del av `window.__DECORATOR_DATA__.params`, og følger dermed
-automatisk med på alle senere kall dekoratøren selv gjør fra nettleseren.
+automatisk med på alle senere kall Dekoratøren selv gjør fra nettleseren.
 
 **1. SSR via moduler-pakken (anbefalt):**
 
@@ -1239,6 +1263,8 @@ Et varsel logges til konsollen som påminnelse.
 **3. CSR uten moduler-pakken:**
 `Origin`-headeren settes automatisk av nettleseren. Ingen ekstra konfigurasjon er nødvendig.
 
+<a id="sprakstotte-og-nedtrekksmeny"></a>
+
 #### Språkstøtte og nedtrekksmeny 🌎
 
 Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
@@ -1248,7 +1274,7 @@ Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 - Sami (delvis)
 
 Du kan tilby `availableLanguages` for å fylle ut språkvelgeren, avhengig av hvor mange språk
-applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config-parametere)).
+applikasjonen din støtter (se [seksjon for parametere](#3-konfigurasjon-av-dekoratøren)).
 Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
 nevnte språkene.
 
