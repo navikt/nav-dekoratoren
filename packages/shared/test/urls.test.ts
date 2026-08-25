@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 import { isValidNavUrl, makeFrontpageUrl } from "../urls";
 
 test("Frontpage URLs", () => {
@@ -76,15 +76,51 @@ describe("isValidNavUrl", () => {
         expect(isValidNavUrl("https://www.n\tav.no")).toBe(true);
     });
 
-    // Server-side branch only: this suite runs under the `node` environment, so
-    // `allowLocalhost` falls back to NODE_ENV. The browser branch keys off the
-    // page origin instead and is covered by
-    // `packages/client/src/helpers/nav-url*.test.ts`.
-    test("rejects localhost in production", () => {
-        vi.stubEnv("NODE_ENV", "production");
-        expect(isValidNavUrl("http://localhost:3000")).toBe(false);
-        expect(isValidNavUrl("https://www.nav.no")).toBe(true);
-        expect(isValidNavUrl("/foo")).toBe(true);
-        vi.unstubAllEnvs();
+    // `allowLocalhost` keys off APP_URL, which this suite defaults to the local
+    // dev value via `vitest.config.ts`. The browser reads the same variable off
+    // `__DECORATOR_DATA__` instead of `process.env`; that branch is covered by
+    // `packages/client/src/helpers/nav-url.test.ts`.
+    describe("localhost gate keys off APP_URL", () => {
+        afterEach(() => {
+            vi.unstubAllEnvs();
+        });
+
+        test("rejects localhost when deployed to production", () => {
+            vi.stubEnv("APP_URL", "https://www.nav.no/dekoratoren");
+
+            expect(isValidNavUrl("http://localhost:3000")).toBe(false);
+            expect(isValidNavUrl("https://localhost:3000/foo")).toBe(false);
+            expect(isValidNavUrl("https://www.nav.no")).toBe(true);
+            expect(isValidNavUrl("/foo")).toBe(true);
+        });
+
+        test("accepts localhost when deployed to a dev environment", () => {
+            vi.stubEnv("APP_URL", "https://dekoratoren.ekstern.dev.nav.no");
+
+            expect(isValidNavUrl("http://localhost:3000")).toBe(true);
+            expect(isValidNavUrl("http://localhost")).toBe(true);
+        });
+
+        test("accepts localhost when served from localhost", () => {
+            vi.stubEnv("APP_URL", "http://localhost:8089");
+
+            expect(isValidNavUrl("http://localhost:3000")).toBe(true);
+        });
+
+        // Fail closed: anything we cannot positively identify as a non-production
+        // deploy is treated as production.
+        test("rejects localhost when APP_URL is missing", () => {
+            vi.stubEnv("APP_URL", "");
+
+            expect(isValidNavUrl("http://localhost:3000")).toBe(false);
+            expect(isValidNavUrl("https://www.nav.no")).toBe(true);
+            expect(isValidNavUrl("/foo")).toBe(true);
+        });
+
+        test("rejects localhost when APP_URL is unparseable", () => {
+            vi.stubEnv("APP_URL", "not-a-url");
+
+            expect(isValidNavUrl("http://localhost:3000")).toBe(false);
+        });
     });
 });
