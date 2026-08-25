@@ -24,6 +24,7 @@ declare global {
         __DECORATOR_DATA__: {
             params: Partial<Params>;
             texts: ClientTexts;
+            env: { APP_URL: string };
         };
     }
 }
@@ -41,6 +42,10 @@ window.__DECORATOR_DATA__ = {
         language: "nb",
     },
     texts: texts["nb"],
+    // `isValidNavUrl` reads APP_URL off this payload to decide whether
+    // localhost targets are acceptable. Without it, stories rendering a
+    // localhost url would fail validation.
+    env: { APP_URL: "http://localhost:8089" },
 };
 
 const preview: Preview = {
