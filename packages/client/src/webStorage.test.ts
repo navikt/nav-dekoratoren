@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
 import { logger } from "./helpers/logger";
-import { http, setDecoratorData } from "./test-setup";
+import { http, setDecoratorData, waitFor } from "./test-setup";
 
 const mockStorageDictionary: PublicStorageItem[] = [
     {
@@ -35,7 +35,7 @@ const mockStorageDictionary: PublicStorageItem[] = [
  * it's gone, everything still present survived for real.
  */
 const waitForClearingPass = () =>
-    vi.waitFor(() =>
+    waitFor(() =>
         expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
     );
 
@@ -103,7 +103,7 @@ describe("Tester webStorage", () => {
 
         createController();
 
-        await vi.waitFor(() => {
+        await waitFor(() => {
             expect(Cookies.get("usertest-1234")).toBe(undefined);
             expect(Cookies.get("AMP_1234")).toBe(undefined);
             expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
@@ -133,7 +133,7 @@ describe("Tester webStorage", () => {
 
         createController();
 
-        await vi.waitFor(() =>
+        await waitFor(() =>
             expect(window.localStorage.getItem("usertest-1234")).toBe(null),
         );
     });
@@ -150,7 +150,7 @@ describe("Tester webStorage", () => {
 
         createController();
 
-        await vi.waitFor(() =>
+        await waitFor(() =>
             expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
         );
     });
@@ -196,7 +196,7 @@ describe("Tester webStorage", () => {
 
         window.dispatchEvent(new CustomEvent("consentAllWebStorage"));
 
-        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
         expect(errorSpy).toHaveBeenCalledWith(
             "Failed to send consent ping",
             expect.objectContaining({ error: expect.any(Error) }),

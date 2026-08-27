@@ -1,6 +1,40 @@
-import { afterAll, afterEach, expect } from "vitest";
+import { afterAll, afterEach, expect, vi } from "vitest";
 import { mockFetch } from "@itsy/corgi/testing";
 import type { AppState } from "decorator-shared/types";
+
+/**
+ * jsdom emulates a 60fps display, so every `requestAnimationFrame` callback
+ * costs ~17ms of real time — and `@open-wc`'s `fixture()` awaits one frame on
+ * every call. Nothing in this suite depends on frame *pacing*, only on rAF
+ * callbacks running after the current task, so run them on a macrotask.
+ *
+ * A macrotask rather than a microtask on purpose: it still queues behind
+ * timers already scheduled by the code under test, which is the ordering a
+ * real frame would have given us.
+ *
+ * The real `setTimeout` is captured here, before any test installs fake timers,
+ * so a fixture awaited under `vi.useFakeTimers()` still resolves promptly
+ * instead of waiting for the fake clock to be advanced. `fakeTimers.toFake` in
+ * vitest.config.ts keeps rAF itself out of the faking, so this stays installed.
+ */
+const realSetTimeout = globalThis.setTimeout;
+const realClearTimeout = globalThis.clearTimeout;
+globalThis.requestAnimationFrame = (callback: FrameRequestCallback) =>
+    realSetTimeout(() => callback(performance.now()), 0) as unknown as number;
+globalThis.cancelAnimationFrame = (handle: number) =>
+    realClearTimeout(handle as unknown as ReturnType<typeof setTimeout>);
+
+/**
+ * `vi.waitFor` checks once synchronously, then polls on a 50ms interval. Almost
+ * everything here settles a few microtask hops after the act phase — too late
+ * for that first check, so the default interval is ~50ms of pure latency per
+ * call. These are in-memory fakes, so poll as fast as the timer queue allows.
+ */
+export const waitFor: typeof vi.waitFor = (callback, options = {}) =>
+    vi.waitFor(callback, {
+        interval: 1,
+        ...(typeof options === "number" ? { timeout: options } : options),
+    });
 
 /**
  * Shared fake transport for the whole suite, installed as the global fetch.

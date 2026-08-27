@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { logger } from "../helpers/logger";
 import { refreshAuthData } from "../helpers/auth";
-import { http, setDecoratorData } from "../test-setup";
+import { http, setDecoratorData, waitFor } from "../test-setup";
 import "./header";
 
 vi.mock("../helpers/auth", () => ({
@@ -33,7 +33,7 @@ describe("Header", () => {
 
         dispatchParamsUpdated(["language"]);
 
-        await vi.waitFor(() => expect(el.innerHTML).toBe("<p>new header</p>"));
+        await waitFor(() => expect(el.innerHTML).toBe("<p>new header</p>"));
 
         // The real request pipeline ran: decoratorParams built the query and
         // the withDecoratorMeta plugin appended the version-id/consumer meta.
@@ -52,7 +52,7 @@ describe("Header", () => {
 
         dispatchParamsUpdated(["simpleHeader"]);
 
-        await vi.waitFor(() => expect(recheckSpy).toHaveBeenCalled());
+        await waitFor(() => expect(recheckSpy).toHaveBeenCalled());
         expect(refreshAuthData).toHaveBeenCalled();
     });
 
@@ -61,7 +61,7 @@ describe("Header", () => {
 
         dispatchParamsUpdated(["context"]);
 
-        await vi.waitFor(() => expect(refreshAuthData).toHaveBeenCalled());
+        await waitFor(() => expect(refreshAuthData).toHaveBeenCalled());
         expect(http.calls).toHaveLength(0);
     });
 
@@ -84,7 +84,7 @@ describe("Header", () => {
         const el = await fixture("<decorator-header>old</decorator-header>");
 
         dispatchParamsUpdated(["language"]);
-        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
 
         expect(errorSpy).toHaveBeenCalledWith(
             "Failed to fetch header",
