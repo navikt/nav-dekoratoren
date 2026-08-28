@@ -38,22 +38,25 @@ export const HeaderTemplate = async ({
     });
 
     const headerContent = html`
+        <div id="toppen"></div>
         ${ConsentBanner({ language })}
-        ${simple || simpleHeader
-            ? SimpleHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-              })
-            : ComplexHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-                  contextLinks: makeContextLinks(language),
-                  context,
-                  language,
-                  mainMenu: await MainMenuTemplate({ data: params }),
-              })}
+        ${
+            simple || simpleHeader
+                ? SimpleHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: env.LOGIN_URL,
+                  })
+                : ComplexHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: env.LOGIN_URL,
+                      contextLinks: makeContextLinks(language),
+                      context,
+                      language,
+                      mainMenu: await MainMenuTemplate({ data: params }),
+                  })
+        }
     `;
 
     return withContainers

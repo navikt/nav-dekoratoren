@@ -14,7 +14,6 @@ import { HeaderButton } from "../components/header-button";
 import { DropdownMenu } from "../dropdown-menu";
 import { SearchForm } from "../search-form";
 import { SkipLink } from "../skip-link";
-import { Sticky } from "../sticky";
 import { UserMenu } from "../user-menu";
 
 export type ComplexHeaderProps = {
@@ -37,94 +36,90 @@ export function ComplexHeader({
     mainMenu,
 }: ComplexHeaderProps) {
     return html`
-        <div class="${cls.siteheader}" id="toppen" data-color="neutral">
-            ${SkipLink(i18n("skip_link"))}
-            ${Sticky({
-                children: html`
-                    <nav
-                        aria-label="${i18n("menu")}"
-                        class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
-                    >
-                        <div class="${cls.hovedmenyContent}">
-                            <a href="${frontPageUrl}" class="${cls.logo}">
-                                ${NavLogo({
-                                    title: i18n("to_front_page"),
-                                    titleId: "logo-svg-title",
-                                })}
-                            </a>
-                            ${contextLinks.length > 0 &&
-                            html`
-                                <context-links class="${cls.arbeidsflate}">
-                                    ${contextLinks.map(
-                                        ({ url, context }) => html`
-                                            <a
-                                                href="${url}"
-                                                class="${clsx(
-                                                    cls.headerContextLink,
-                                                    context ===
-                                                        currentContext &&
-                                                        cls.lenkeActive,
-                                                )}"
-                                                data-kategori="dekorator-header"
-                                                data-context="${context}"
-                                            >
-                                                ${i18n(context)}
-                                            </a>
-                                        `,
-                                    )}
-                                </context-links>
-                            `}
-                        </div>
-                        <div
-                            class="${menuItemsCls.menuItems}"
-                            data-color="accent"
-                        >
-                            ${UserMenu({ loginUrl })}
-                            <div
-                                class="${menuItemsCls.menuItemsUniversalLinks}"
-                            >
-                                ${language !== "se" &&
-                                DropdownMenu({
-                                    button: HeaderButton({
-                                        content: i18n("menu"),
-                                        icon: BurgerIcon(),
-                                    }),
-                                    dropdownContent: html`
-                                        <search-menu
-                                            class="${menuCls.searchMenu}"
+        ${SkipLink(i18n("skip_link"))}
+        <div
+            class="${cls.siteheader} ${cls.siteheaderSticky}"
+            data-color="neutral"
+            data-sticky
+        >
+            <nav
+                aria-label="${i18n("menu")}"
+                class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}"
+            >
+                <div class="${cls.hovedmenyContent}">
+                    <a href="${frontPageUrl}" class="${cls.logo}">
+                        ${NavLogo({
+                            title: i18n("to_front_page"),
+                            titleId: "logo-svg-title",
+                        })}
+                    </a>
+                    ${
+                        contextLinks.length > 0 &&
+                        html`
+                            <context-links class="${cls.arbeidsflate}">
+                                ${contextLinks.map(
+                                    ({ url, context }) => html`
+                                        <a
+                                            href="${url}"
+                                            class="${clsx(
+                                    cls.headerContextLink,
+                                    context === currentContext &&
+                                        cls.lenkeActive,
+                                )}"
+                                            data-kategori="dekorator-header"
+                                            data-context="${context}"
                                         >
-                                            ${SearchForm()}
-                                        </search-menu>
-                                        <main-menu>${mainMenu}</main-menu>
+                                            ${i18n(context)}
+                                        </a>
                                     `,
-                                    attributes: {
-                                        ["menu-type"]: "menu",
-                                    },
-                                })}
-                                ${DropdownMenu({
-                                    button: HeaderButton({
-                                        content: i18n("search"),
-                                        icon: SearchIcon(),
-                                        className: menuItemsCls.searchButton,
-                                    }),
-                                    dropdownClass: menuItemsCls.searchDropdown,
-                                    dropdownContent: html`
-                                        <search-menu
-                                            class="${menuItemsCls.searchMenu}"
-                                            data-auto-focus
-                                        >
-                                            ${SearchForm()}
-                                        </search-menu>
-                                    `,
-                                    attributes: {
-                                        ["menu-type"]: "search",
-                                    },
-                                })}
-                            </div>
-                        </div>
-                    </nav>
-                `,
-            })}
+                                )}
+                            </context-links>
+                        `
+                    }
+                </div>
+                <div class="${menuItemsCls.menuItems}" data-color="accent">
+                    ${UserMenu({ loginUrl })}
+                    <div class="${menuItemsCls.menuItemsUniversalLinks}">
+                        ${
+                            language !== "se" &&
+                            DropdownMenu({
+                                button: HeaderButton({
+                                    content: i18n("menu"),
+                                    icon: BurgerIcon(),
+                                }),
+                                dropdownContent: html`
+                                    <search-menu class="${menuCls.searchMenu}">
+                                        ${SearchForm()}
+                                    </search-menu>
+                                    <main-menu>${mainMenu}</main-menu>
+                                `,
+                                attributes: {
+                                    ["menu-type"]: "menu",
+                                },
+                            })
+                        }
+                        ${DropdownMenu({
+                            button: HeaderButton({
+                                content: i18n("search"),
+                                icon: SearchIcon(),
+                                className: menuItemsCls.searchButton,
+                            }),
+                            dropdownClass: menuItemsCls.searchDropdown,
+                            dropdownContent: html`
+                                <search-menu
+                                    class="${menuItemsCls.searchMenu}"
+                                    data-auto-focus
+                                >
+                                    ${SearchForm()}
+                                </search-menu>
+                            `,
+                            attributes: {
+                                ["menu-type"]: "search",
+                            },
+                        })}
+                    </div>
+                </div>
+            </nav>
         </div>
         <ops-messages class="${opsMessagesCls.opsMessages}"></ops-messages>
         ${decoratorUtils}
