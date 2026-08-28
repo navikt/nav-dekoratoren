@@ -29,6 +29,7 @@
         "build": "pnpm -r --filter='decorator-*' run build && pnpm run copy-assets",
         "copy-assets": "mkdir -p packages/server/public && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
         "prepare": "husky",
+        "generate:compat": "node scripts/generate-compat-restrictions.mjs",
         "benchmarking": "./benchmarking/run",
         "playwright": "pnpm exec playwright test"
     },
@@ -37,6 +38,15 @@
     "license": "ISC",
     "workspaces": [
         "packages/*"
+    ],
+    "browserslistComment": "Supported browser floor for all browser-shipped code. Single source of truth: consumed by the client Vite build target (syntax lowering / build failure) and by eslint-plugin-compat (Web + ES API availability). See CONTRIBUTING.md.",
+    "browserslist": [
+        "safari >= 15.4",
+        "ios_saf >= 15.4",
+        "chrome >= 100",
+        "edge >= 100",
+        "firefox >= 100",
+        "not dead"
     ],
     "dependencies": {
         "@types/umami": "2.10.1",
@@ -50,6 +60,7 @@
         "@axe-core/playwright": "4.12.1",
         "@eslint/eslintrc": "3.3.6",
         "@eslint/js": "9.39.5",
+        "@mdn/browser-compat-data": "6.1.5",
         "@playwright/test": "1.62.1",
         "@storybook/addon-docs": "10.5.5",
         "@storybook/html": "10.5.5",
@@ -57,10 +68,14 @@
         "@types/node": "catalog:",
         "@typescript-eslint/eslint-plugin": "8.65.0",
         "@typescript-eslint/parser": "8.65.0",
+        "browserslist": "4.28.8",
+        "browserslist-to-esbuild": "2.1.1",
         "concurrently": "9.2.4",
         "copyfiles": "2.4.1",
         "esbuild-minify-templates": "catalog:",
         "eslint": "catalog:",
+        "eslint-plugin-compat": "7.0.2",
+        "globals": "15.15.0",
         "http-server": "14.1.1",
         "husky": "9.1.7",
         "lint-staged": "16.4.0",

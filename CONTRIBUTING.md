@@ -85,6 +85,77 @@ Husky kjører linting når du committer endringene dine. Du kan også kjøre
 
 Testing kjøres med `pnpm run test` og kjører testene for pakkene `/client` og `/server`.
 
+### Nettleserstøtte
+
+Dekoratøren lastes inn på tvers av hele nav.no, så vi kan ikke anta at brukerne har en oppdatert
+nettleser. Nedre grense for nettleserstøtte er definert **ett sted**, i `browserslist`-nøkkelen i
+`package.json` i rotmappen:
+
+```json
+"browserslist": [
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "chrome >= 100",
+    "edge >= 100",
+    "firefox >= 100",
+    "not dead"
+]
+```
+
+Alt annet utledes fra denne verdien. Endrer du den, må du kjøre `pnpm run generate:compat` (se
+under) og committe resultatet.
+
+#### Hvordan grensen håndheves
+
+Ingen enkelt mekanisme fanger opp alt, så vi bruker fire lag:
+
+| Lag                                   | Fanger opp                                                 | Feiler i         |
+| ------------------------------------- | ---------------------------------------------------------- | ---------------- |
+| Vite `build.target`                   | **Syntaks** – esbuild kompilerer ned, eller stopper bygget | `pnpm run build` |
+| TypeScript `lib: ["ES2022"]`          | **ES-innebygde** – `Object.groupBy`, `Array#toSorted` osv. | `tsc --noEmit`   |
+| `eslint-plugin-compat`                | **Web-API-er** – instansmetoder, properties, konstruktører | `pnpm run lint`  |
+| `no-restricted-properties` (generert) | **Statiske Web-API-er** – `AbortSignal.timeout` osv.       | `pnpm run lint`  |
+
+Hvorfor de to siste er separate lag: datasettet til `eslint-plugin-compat`
+(`ast-metadata-inferer`) inneholder ikke statiske medlemmer i det hele tatt. MDN navngir dem med
+suffikset `_static` (`AbortSignal.timeout_static`), og disse hoppes over. Uten det fjerde laget
+ville `AbortSignal.timeout()` – som krever Safari 16 – gått rett gjennom bygget og feilet i
+produksjon hos brukere på Safari 15.4.
+
+Lista i `eslint-compat-restrictions.generated.mjs` genereres direkte fra
+`@mdn/browser-compat-data`:
+
+```bash
+pnpm run generate:compat
+```
+
+Fila er committet med vilje. Det holder lintingen rask, og gjør at endringer i nettlesergrensen blir
+synlige som en diff av hvilke API-er som ble tillatt eller forbudt.
+
+#### Når du trenger et nyere API
+
+Ikke hev grensen for å få lint til å bli grønn. Velg én av disse:
+
+1. **Skriv det om.** Som regel finnes det et ekvivalent eldre API. `AbortSignal.timeout(ms)` kan for
+   eksempel erstattes med `AbortController` + `setTimeout` – se `packages/client/src/helpers/auth.ts`.
+2. **Polyfill det**, og registrer unntaket slik at det blir synlig i review:
+    - for `compat/compat`: legg API-et inn i `settings.polyfills` i `eslint.config.mjs`
+    - for `no-restricted-properties`: bruk en `eslint-disable-next-line`-kommentar på stedet, med en
+      forklaring på hvor polyfillen kommer fra
+
+#### Kjente hull
+
+- **Instansmetoder** som er nyere enn grensen, men som mangler i datasettet til
+  `eslint-plugin-compat` (f.eks. `element.checkVisibility()`), fanges ikke opp. `lib.dom.d.ts` i
+  TypeScript har ingen versjonering, så typesjekken ser dem heller ikke.
+- **`as any`-casting** omgår alle lagene.
+- **CSS** har foreløpig ingen egen håndhevelse. Merk at `build.cssTarget` arver `build.target`, så
+  esbuild kompilerer nå ned CSS-nesting og lignende til nettlesergrensen. Det er ingen erstatning
+  for stylelint eller lightningcss, men det dekker de vanligste fallgruvene.
+- Det innlinjede skriptet i `packages/server/src/views/scripts.ts` sendes til nettleseren som ren
+  tekst og transpileres ikke. Skriver du kode der, må du selv passe på at den holder seg innenfor
+  nettlesergrensen.
+
 ### Deploy til dev
 
 Hvis du ønsker å teste branchen din, kan du deploye den via workflow-triggeren i GitHub Actions
