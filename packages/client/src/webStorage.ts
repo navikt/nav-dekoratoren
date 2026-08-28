@@ -11,6 +11,12 @@ import { redactFromUrl } from "./analytics/helpers/redactUrl";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
+// States
+//   pending  banner in normal flow at the top of the page (also the default)
+//   decided  hidden
+//   reshow   docked to the bottom of the viewport
+type ConsentBannerState = "pending" | "decided" | "reshow";
+
 // Changelog consent versioning
 // --------------------------------
 // (Remember to update this list when making changes that require re-consent)
@@ -91,6 +97,10 @@ export class WebStorageController {
             : window.location.hostname;
     };
 
+    private setConsentBannerState = (state: ConsentBannerState) => {
+        document.documentElement.dataset.decoratorConsent = state;
+    };
+
     private consentAllStorageHandler = () => {
         const consentObject = this.buildUpdatedConsentObject(
             "CONSENT_ALL_WEB_STORAGE",
@@ -100,6 +110,7 @@ export class WebStorageController {
             expires: 90,
             domain: this.getConsentDomain(),
         });
+        this.setConsentBannerState("decided");
         this.pingConsentBack(consentObject);
     };
 
@@ -113,6 +124,7 @@ export class WebStorageController {
             domain: this.getConsentDomain(),
         });
 
+        this.setConsentBannerState("decided");
         this.pingConsentBack(consentObject);
 
         setTimeout(() => {
@@ -263,6 +275,15 @@ export class WebStorageController {
     };
 
     private checkAndTriggerConsentBanner = () => {
+        // An unanswered re-consent prompt must survive a header re-render. refreshHeader
+        // fires recheckConsentBanner, and by that point reshowConsentBanner has already
+        // cleared the cookie -- so without this guard the checks below would treat the
+        // user as a first-time visitor and downgrade "reshow" to "pending", yanking the
+        // docked banner back to the top of the page.
+        if (document.documentElement.dataset.decoratorConsent === "reshow") {
+            return;
+        }
+
         const { userActionTaken, meta } = this.getCurrentConsent();
         const { version } = meta;
 
@@ -276,6 +297,7 @@ export class WebStorageController {
         if (window.location.hash.includes("consent-reset")) {
             this.clearOptionalStorage();
             this.showConsentBanner();
+            return;
         }
 
         if (!userActionTaken || version < this.currentConsentVersion) {
@@ -290,11 +312,13 @@ export class WebStorageController {
 
     public showConsentBanner = () => {
         this.resetConsentHandler();
+        this.setConsentBannerState("pending");
         window.dispatchEvent(createEvent("showConsentBanner", {}));
     };
 
     public reshowConsentBanner = () => {
         this.resetConsentHandler();
+        this.setConsentBannerState("reshow");
         window.dispatchEvent(createEvent("reshowConsentBanner", {}));
     };
 

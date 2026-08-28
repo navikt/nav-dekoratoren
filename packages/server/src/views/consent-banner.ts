@@ -1,6 +1,5 @@
 import cls from "decorator-client/src/styles/consent-banner.module.css";
 import utilsCls from "decorator-client/src/styles/utils.module.css";
-import { ExpandIcon } from "decorator-icons";
 
 import html from "decorator-shared/html";
 import i18n from "../i18n";
@@ -16,7 +15,7 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
     const moreUrl = `/informasjonskapsler${languageSuffix}`;
 
     return html`
-        <consent-banner id="consent-banner-element">
+        <consent-banner>
             ${consentDetectionScript()}
             <div class="${cls.background}">
                 <div class="${utilsCls.contentContainer}">
@@ -54,20 +53,25 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
     `;
 };
 
+// Runs before first paint
+//
 // TODO/NB: need to wire a centralized version from 'currentConsentVersion'
 function consentDetectionScript() {
     return html`
         <script>
             try {
+                const root = document.documentElement;
                 const match = document.cookie.match(
                     /(?:^|; ?)navno-consent=([^;]*)/,
                 );
                 const consent =
                     match && JSON.parse(decodeURIComponent(match[1]));
-                if (consent?.userActionTaken && consent.meta?.version >= 5) {
-                    document.documentElement.classList.add(
-                        "decorator-consent-decided",
-                    );
+                if (
+                    !root.dataset.decoratorConsent &&
+                    consent?.userActionTaken &&
+                    consent.meta?.version >= 5
+                ) {
+                    root.dataset.decoratorConsent = "decided";
                 }
             } catch {}
         </script>
@@ -98,16 +102,3 @@ function consentButtons() {
         })}
     `;
 }
-// <div class="${cls.miniContent}">
-// ${Button({
-// content: html`<span
-//             >${i18n("consent_banner_minimized")}</span
-//         >${ExpandIcon({
-// className: cls.expandIcon,
-// })}`,
-// attributes: {
-// ["data-name"]: "consent-banner-expand",
-// },
-// className: cls.expandButton,
-// })}
-// </div>
