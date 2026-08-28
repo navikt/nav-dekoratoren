@@ -16,6 +16,7 @@ const defaultFeatures = {
     "dekoratoren.chatbotscript": true,
     "dekoratoren.umami": true,
     "dekoratoren.puzzel-script": false,
+    "dekoratoren.skyra": true,
 };
 
 // TODO: Features should be loaded on the client to avoid caching.
@@ -32,6 +33,7 @@ export const getFeatures = () => {
             "dekoratoren.puzzel-script": unleash.isEnabled(
                 "dekoratoren.puzzel-script",
             ),
+            "dekoratoren.skyra": unleash.isEnabled("dekoratoren.skyra"),
         };
     }
 
