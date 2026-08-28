@@ -30,7 +30,6 @@ export class ConsentBanner extends HTMLElement {
     }
 
     closeModal() {
-        console.log("CLOSING MODAL");
         document.documentElement.classList.add("decorator-consent-decided");
     }
 
@@ -62,12 +61,6 @@ export class ConsentBanner extends HTMLElement {
         this.buttonExpand = document.querySelector(
             '[data-name="consent-banner-expand"]',
         );
-        console.log("Buttons", {
-            bca: this.buttonConsentAll,
-            bro: this.buttonRefuseOptional,
-            be: this.buttonExpand,
-        });
-
         this.buttonConsentAll?.addEventListener("click", () =>
             this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
         );

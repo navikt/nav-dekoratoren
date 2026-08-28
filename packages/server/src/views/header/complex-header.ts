@@ -13,7 +13,6 @@ import i18n from "../../i18n";
 import { HeaderButton } from "../components/header-button";
 import { DropdownMenu } from "../dropdown-menu";
 import { SearchForm } from "../search-form";
-import { SkipLink } from "../skip-link";
 import { UserMenu } from "../user-menu";
 
 export type ComplexHeaderProps = {
@@ -36,7 +35,6 @@ export function ComplexHeader({
     mainMenu,
 }: ComplexHeaderProps) {
     return html`
-        ${SkipLink(i18n("skip_link"))}
         <div
             class="${cls.siteheader} ${cls.siteheaderSticky}"
             data-color="neutral"
@@ -62,10 +60,10 @@ export function ComplexHeader({
                                         <a
                                             href="${url}"
                                             class="${clsx(
-                                    cls.headerContextLink,
-                                    context === currentContext &&
-                                        cls.lenkeActive,
-                                )}"
+                                                cls.headerContextLink,
+                                                context === currentContext &&
+                                                    cls.lenkeActive,
+                                            )}"
                                             data-kategori="dekorator-header"
                                             data-context="${context}"
                                         >
