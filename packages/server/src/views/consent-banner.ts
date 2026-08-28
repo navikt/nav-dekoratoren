@@ -1,4 +1,5 @@
 import cls from "decorator-client/src/styles/consent-banner.module.css";
+import utilsCls from "decorator-client/src/styles/utils.module.css";
 import { ExpandIcon } from "decorator-icons";
 
 import html from "decorator-shared/html";
@@ -17,35 +18,37 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
     return html`
         <consent-banner>
             ${consentDetectionScript()}
-            <div class="${cls.container}">
-                <section
-                    class="${cls.consentBanner}"
-                    aria-labelledby="consent_banner_title"
-                    id="consent-banner-dialog"
-                >
-                    <div class="${cls.content}">
-                        <h2
-                            id="consent_banner_title"
-                            class="${cls.title}"
-                            tabindex="-1"
-                        >
-                            ${i18n("consent_banner_title")}
-                        </h2>
-                        <p class="${cls.text}">
-                            ${i18n("consent_banner_text")}
-                        </p>
-                        <p class="${cls.text}">
-                            ${i18n("consent_banner_change_consent")}
-                            ${i18n("consent_banner_additional_cookies_info")}${" "}
-                            <a href="${moreUrl}" class="${cls.moreLink}">
-                                ${i18n("consent_banner_additional_cookies_link")}
-                            </a>
-                        </p>
-                        <div class="${cls.buttonContainer}">
-                            ${consentButtons()}
+            <div class="${cls.background}">
+                <div class="${utilsCls.contentContainer}">
+                    <section
+                        class="${cls.consentBanner}"
+                        aria-labelledby="consent_banner_title"
+                        id="consent-banner-dialog"
+                    >
+                        <div class="${cls.content}">
+                            <h2
+                                id="consent_banner_title"
+                                class="${cls.title}"
+                                tabindex="-1"
+                            >
+                                ${i18n("consent_banner_title")}
+                            </h2>
+                            <p class="${cls.text}">
+                                ${i18n("consent_banner_text")}
+                            </p>
+                            <p class="${cls.text}">
+                                ${i18n("consent_banner_change_consent")}
+                                ${i18n("consent_banner_additional_cookies_info")}${" "}
+                                <a href="${moreUrl}" class="${cls.moreLink}">
+                                    ${i18n("consent_banner_additional_cookies_link")}
+                                </a>
+                            </p>
+                            <div class="${cls.buttonContainer}">
+                                ${consentButtons()}
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
         </consent-banner>
     `;

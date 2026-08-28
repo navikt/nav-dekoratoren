@@ -1,4 +1,5 @@
-.container {
+.background {
+    background-color: var(--ax-bg-accent-strong);
 }
 
 .consentBanner {
@@ -11,49 +12,11 @@
     display: none;
 }
 
-/* :global(.minimizedCookieBanner) { */
-/*     .miniContent { */
-/*         display: flex; */
-/*     } */
-/**/
-/*     .content { */
-/*         display: none; */
-/*     } */
-/* } */
-/**/
-/* .miniContent { */
-/*     display: none; */
-/*     width: 100%; */
-/* } */
-
-.expandButton {
-    background-color: transparent;
-    text-align: left;
-    align-items: flex-start;
-    width: 100%;
-    color: var(--ax-text-accent-contrast);
-}
-
-.expandButton span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    text-wrap: balance;
-}
-
-.expandIcon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-left: 1rem;
-    flex-shrink: 0;
-}
-
 .content {
-    padding: 1rem;
+    padding-block: 1rem;
 
     @media (min-width: 48rem) {
-        padding: 2rem;
+        padding-block: 2rem;
     }
 }
 
