@@ -170,7 +170,7 @@ export class WebStorageController {
 
                 if (triggerElement) {
                     event.preventDefault();
-                    this.showConsentBanner();
+                    this.reshowConsentBanner();
                 }
             },
             { signal },
@@ -291,6 +291,11 @@ export class WebStorageController {
     public showConsentBanner = () => {
         this.resetConsentHandler();
         window.dispatchEvent(createEvent("showConsentBanner", {}));
+    };
+
+    public reshowConsentBanner = () => {
+        this.resetConsentHandler();
+        window.dispatchEvent(createEvent("reshowConsentBanner", {}));
     };
 
     public getCurrentConsent = (): Consent => {

@@ -6,9 +6,14 @@ export class ConsentBanner extends HTMLElement {
     dialog!: HTMLDivElement;
     input!: HTMLInputElement;
     errorList!: HTMLElement;
+    consentElement!: HTMLElement;
     buttonConsentAll!: HTMLElement | null;
     buttonRefuseOptional!: HTMLElement | null;
     buttonExpand!: HTMLElement | null;
+    footerElement!: HTMLElement | null;
+
+    // Enables reaping every listener registered on connect.
+    #listeners: AbortController | null = null;
 
     handleResponse = (
         response: "CONSENT_ALL_WEB_STORAGE" | "REFUSE_OPTIONAL_WEB_STORAGE",
@@ -20,6 +25,11 @@ export class ConsentBanner extends HTMLElement {
         }
         this.closeModal();
     };
+
+    showConsentArea() {
+        this.footerElement!.before(this);
+        this.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
 
     showModal() {
         const header = document.getElementById("consent_banner_title");
@@ -52,6 +62,11 @@ export class ConsentBanner extends HTMLElement {
 
         this.dialog = dialog as HTMLDivElement;
 
+        // connectedCallback can fire again if the element is moved in the DOM.
+        this.#listeners?.abort();
+        this.#listeners = new AbortController();
+        const { signal } = this.#listeners;
+
         this.buttonConsentAll = document.querySelector(
             '[data-name="consent-banner-all"]',
         );
@@ -61,42 +76,37 @@ export class ConsentBanner extends HTMLElement {
         this.buttonExpand = document.querySelector(
             '[data-name="consent-banner-expand"]',
         );
-        this.buttonConsentAll?.addEventListener("click", () =>
-            this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
+        this.footerElement = document.querySelector("decorator-footer");
+        this.buttonConsentAll?.addEventListener(
+            "click",
+            () => this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
+            { signal },
         );
-        this.buttonRefuseOptional?.addEventListener("click", () =>
-            this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
+        this.buttonRefuseOptional?.addEventListener(
+            "click",
+            () => this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
+            { signal },
         );
-        this.buttonExpand?.addEventListener("click", () => {
-            this.maximizeModal();
-        });
+        this.buttonExpand?.addEventListener(
+            "click",
+            () => {
+                this.maximizeModal();
+            },
+            { signal },
+        );
 
-        window.addEventListener("showConsentBanner", () => {
-            this.showModal();
-
-            if (
-                window.location.pathname.includes("informasjonskapsler") ||
-                window.location.hash.includes("informasjonskapsler")
-            ) {
-                this.minimizeModal();
-            }
-        });
+        window.addEventListener(
+            "reshowConsentBanner",
+            () => {
+                this.showConsentArea();
+            },
+            { signal },
+        );
     }
 
     disconnectedCallback() {
-        this.buttonConsentAll?.removeEventListener("click", () =>
-            this.handleResponse("CONSENT_ALL_WEB_STORAGE"),
-        );
-        this.buttonRefuseOptional?.removeEventListener("click", () =>
-            this.handleResponse("REFUSE_OPTIONAL_WEB_STORAGE"),
-        );
-        this.buttonExpand?.removeEventListener("click", () => {
-            this.minimizeModal();
-        });
-
-        window.removeEventListener("showConsentBanner", () => {
-            this.showModal();
-        });
+        this.#listeners?.abort();
+        this.#listeners = null;
     }
 }
 

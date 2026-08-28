@@ -16,7 +16,7 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
     const moreUrl = `/informasjonskapsler${languageSuffix}`;
 
     return html`
-        <consent-banner>
+        <consent-banner id="consent-banner-element">
             ${consentDetectionScript()}
             <div class="${cls.background}">
                 <div class="${utilsCls.contentContainer}">
