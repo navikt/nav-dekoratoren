@@ -93,7 +93,3 @@
     outline: 3px solid var(--ax-bg-default);
     outline-offset: 3px;
 }
-
-.moreLink {
-    white-space: nowrap;
-}

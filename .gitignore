@@ -20,6 +20,7 @@ packages/server/.env
 !.yarn/versions
 .eslintcache
 .DS_Store
+*.tsbuildinfo
 
 /test-results/
 /playwright-report/
