@@ -8,22 +8,24 @@ import {
 } from "decorator-shared/types";
 import { endpointUrlWithoutParams } from "./helpers/urls";
 import { redactFromUrl } from "./analytics/helpers/redactUrl";
+import {
+    CONSENT_COOKIE_NAME,
+    CURRENT_CONSENT_VERSION,
+} from "decorator-shared/constants";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
-// Changelog consent versioning
-// --------------------------------
-// (Remember to update this list when making changes that require re-consent)
-
-// V5: 18.06.2026: Changes to the cookie statement, requiring consent reset for all users
-// V4: 01.02.2026: Added analyticsId (uuid) to consent object for Umami user identification
-// V3: 03.11.2025: Added storage key 'flexjar-*' as well as updates to cookie declaration
-// V2: 22.10.2025: Updates in the cookie declaration on how Umami works.
-// V1: 28.02.2025: Initial version
+// States
+//   pending  banner in normal flow at the top of the page
+//   decided  hidden (also the CSS default, so the banner cannot cause layout
+//            shift for the majority of users who have already consented)
+//   reshow   docked to the bottom of the viewport
+type ConsentBannerState = "pending" | "decided" | "reshow";
 
 export class WebStorageController {
-    currentConsentVersion: number = 5;
-    consentKey: string = "navno-consent";
+    // Public because webStorageController is exposed on window.
+    currentConsentVersion: number = CURRENT_CONSENT_VERSION;
+    consentKey: string = CONSENT_COOKIE_NAME;
 
     // Enables reaping every listener registered by this instance.
     private readonly abortController = new AbortController();
@@ -91,6 +93,10 @@ export class WebStorageController {
             : window.location.hostname;
     };
 
+    private setConsentBannerState = (state: ConsentBannerState) => {
+        document.documentElement.dataset.decoratorConsent = state;
+    };
+
     private consentAllStorageHandler = () => {
         const consentObject = this.buildUpdatedConsentObject(
             "CONSENT_ALL_WEB_STORAGE",
@@ -100,6 +106,7 @@ export class WebStorageController {
             expires: 90,
             domain: this.getConsentDomain(),
         });
+        this.setConsentBannerState("decided");
         this.pingConsentBack(consentObject);
     };
 
@@ -113,6 +120,7 @@ export class WebStorageController {
             domain: this.getConsentDomain(),
         });
 
+        this.setConsentBannerState("decided");
         this.pingConsentBack(consentObject);
 
         setTimeout(() => {
@@ -170,7 +178,7 @@ export class WebStorageController {
 
                 if (triggerElement) {
                     event.preventDefault();
-                    this.showConsentBanner();
+                    this.reshowConsentBanner();
                 }
             },
             { signal },
@@ -263,11 +271,21 @@ export class WebStorageController {
     };
 
     private checkAndTriggerConsentBanner = () => {
-        const { userActionTaken, meta } = this.getCurrentConsent();
-        const { version } = meta;
+        // An unanswered re-consent prompt must survive a header re-render. refreshHeader
+        // fires recheckConsentBanner, and by that point reshowConsentBanner has already
+        // cleared the cookie -- so without this guard the checks below would treat the
+        // user as a first-time visitor and downgrade "reshow" to "pending", yanking the
+        // docked banner back to the top of the page.
+        if (document.documentElement.dataset.decoratorConsent === "reshow") {
+            return;
+        }
 
-        // Don't show cookie banner for nav.no editors
+        // Don't show cookie banner for nav.no editors. The banner is hidden by
+        // default in CSS, but the pre-paint script may already have set
+        // "pending", so this has to be an explicit downgrade rather than a bare
+        // return.
         if (this.shouldDisableConsentBanner()) {
+            this.setConsentBannerState("decided");
             return;
         }
 
@@ -276,9 +294,11 @@ export class WebStorageController {
         if (window.location.hash.includes("consent-reset")) {
             this.clearOptionalStorage();
             this.showConsentBanner();
+            return;
         }
 
-        if (!userActionTaken || version < this.currentConsentVersion) {
+        const { userActionTaken, meta } = this.getCurrentConsent();
+        if (!userActionTaken || meta.version < this.currentConsentVersion) {
             this.clearOptionalStorage();
             this.showConsentBanner();
         }
@@ -290,7 +310,14 @@ export class WebStorageController {
 
     public showConsentBanner = () => {
         this.resetConsentHandler();
+        this.setConsentBannerState("pending");
         window.dispatchEvent(createEvent("showConsentBanner", {}));
+    };
+
+    public reshowConsentBanner = () => {
+        this.resetConsentHandler();
+        this.setConsentBannerState("reshow");
+        window.dispatchEvent(createEvent("reshowConsentBanner", {}));
     };
 
     public getCurrentConsent = (): Consent => {

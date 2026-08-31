@@ -22,6 +22,17 @@
     box-shadow: inset 0 -1px 0 var(--ax-border-neutral-subtle);
 }
 
+/*
+    Sticky positioning keeps the header in the normal flow until it reaches the top of the
+    viewport, which lets preceding content (the consent banner) scroll away naturally.
+    Requires every ancestor up to the scroll container to be free of block boxes,
+    see the display: contents rules in main.css.
+*/
+.siteheaderSticky {
+    position: sticky;
+    top: 0;
+}
+
 .hovedmenyWrapper {
     height: var(--header-height);
     display: flex;

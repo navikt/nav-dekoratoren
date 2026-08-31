@@ -7,6 +7,8 @@ import { ComplexHeader } from "./complex-header";
 import { makeContextLinks } from "../../context";
 import { MainMenuTemplate } from "./render-main-menu";
 import { ConsentBanner } from "../consent-banner";
+import { SkipLink } from "../skip-link";
+import i18n from "../../i18n";
 
 const frontPageUrl = clientEnv.XP_BASE_URL;
 
@@ -38,22 +40,25 @@ export const HeaderTemplate = async ({
     });
 
     const headerContent = html`
-        ${ConsentBanner({ language })}
-        ${simple || simpleHeader
-            ? SimpleHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-              })
-            : ComplexHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-                  contextLinks: makeContextLinks(language),
-                  context,
-                  language,
-                  mainMenu: await MainMenuTemplate({ data: params }),
-              })}
+        <div id="toppen"></div>
+        ${SkipLink(i18n("skip_link"))} ${ConsentBanner({ language })}
+        ${
+            simple || simpleHeader
+                ? SimpleHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: env.LOGIN_URL,
+                  })
+                : ComplexHeader({
+                      frontPageUrl,
+                      decoratorUtils,
+                      loginUrl: env.LOGIN_URL,
+                      contextLinks: makeContextLinks(language),
+                      context,
+                      language,
+                      mainMenu: await MainMenuTemplate({ data: params }),
+                  })
+        }
     `;
 
     return withContainers

@@ -4,7 +4,6 @@ import utilsCls from "decorator-client/src/styles/utils.module.css";
 import html, { Template } from "decorator-shared/html";
 import { NavLogo } from "decorator-shared/views/nav-logo";
 import i18n from "../../i18n";
-import { SkipLink } from "../skip-link";
 import { UserMenu } from "../user-menu";
 
 export type SimpleHeaderProps = {
@@ -19,7 +18,6 @@ export const SimpleHeader = ({
     loginUrl,
 }: SimpleHeaderProps) => html`
     <div class="${cls.siteheader}" data-color="neutral">
-        ${SkipLink(i18n("skip_link"))}
         <div class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
             <a href="${frontPageUrl}" class="${cls.logo} ${cls.logoSimple}"
                 >${NavLogo({

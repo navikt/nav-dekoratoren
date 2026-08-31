@@ -18,6 +18,16 @@ const mainConfig = defineConfig({
     build: {
         minify: true,
         target: "ES2022",
+        // Browsers supported by the decorator. Without this esbuild cannot tell which CSS
+        // features need lowering, and ships e.g. CSS nesting (Chrome 112+/Safari 16.5+) as-is.
+        cssTarget: [
+            "chrome108",
+            "edge108",
+            "firefox121",
+            "safari16",
+            "ios16",
+            "opera95",
+        ],
         manifest: true,
         sourcemap: true,
         // Prevent inlining any asset imports, always import as url
