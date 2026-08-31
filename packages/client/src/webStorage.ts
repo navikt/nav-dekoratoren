@@ -8,28 +8,24 @@ import {
 } from "decorator-shared/types";
 import { endpointUrlWithoutParams } from "./helpers/urls";
 import { redactFromUrl } from "./analytics/helpers/redactUrl";
+import {
+    CONSENT_COOKIE_NAME,
+    CURRENT_CONSENT_VERSION,
+} from "decorator-shared/constants";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
 // States
-//   pending  banner in normal flow at the top of the page (also the default)
-//   decided  hidden
+//   pending  banner in normal flow at the top of the page
+//   decided  hidden (also the CSS default, so the banner cannot cause layout
+//            shift for the majority of users who have already consented)
 //   reshow   docked to the bottom of the viewport
 type ConsentBannerState = "pending" | "decided" | "reshow";
 
-// Changelog consent versioning
-// --------------------------------
-// (Remember to update this list when making changes that require re-consent)
-
-// V5: 18.06.2026: Changes to the cookie statement, requiring consent reset for all users
-// V4: 01.02.2026: Added analyticsId (uuid) to consent object for Umami user identification
-// V3: 03.11.2025: Added storage key 'flexjar-*' as well as updates to cookie declaration
-// V2: 22.10.2025: Updates in the cookie declaration on how Umami works.
-// V1: 28.02.2025: Initial version
-
 export class WebStorageController {
-    currentConsentVersion: number = 5;
-    consentKey: string = "navno-consent";
+    // Public because webStorageController is exposed on window.
+    currentConsentVersion: number = CURRENT_CONSENT_VERSION;
+    consentKey: string = CONSENT_COOKIE_NAME;
 
     // Enables reaping every listener registered by this instance.
     private readonly abortController = new AbortController();
@@ -284,11 +280,12 @@ export class WebStorageController {
             return;
         }
 
-        const { userActionTaken, meta } = this.getCurrentConsent();
-        const { version } = meta;
-
-        // Don't show cookie banner for nav.no editors
+        // Don't show cookie banner for nav.no editors. The banner is hidden by
+        // default in CSS, but the pre-paint script may already have set
+        // "pending", so this has to be an explicit downgrade rather than a bare
+        // return.
         if (this.shouldDisableConsentBanner()) {
+            this.setConsentBannerState("decided");
             return;
         }
 
@@ -300,7 +297,8 @@ export class WebStorageController {
             return;
         }
 
-        if (!userActionTaken || version < this.currentConsentVersion) {
+        const { userActionTaken, meta } = this.getCurrentConsent();
+        if (!userActionTaken || meta.version < this.currentConsentVersion) {
             this.clearOptionalStorage();
             this.showConsentBanner();
         }

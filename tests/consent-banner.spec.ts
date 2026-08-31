@@ -1,6 +1,10 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Page, test as playwrightTest } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { test } from "./fixtures";
+import {
+    CONSENT_COOKIE_NAME,
+    CURRENT_CONSENT_VERSION,
+} from "../packages/shared/constants";
 
 const consentState = (page: Page) =>
     page.evaluate(() => document.documentElement.dataset.decoratorConsent);
@@ -42,9 +46,9 @@ const consentThenReshow = async (page: Page) => {
 test("banneret vises i normalflyt øverst ved manglende samtykke", async ({
     page,
 }) => {
-    // Absent attribute and "pending" are equivalent; the CSS default is the
-    // in-flow banner so the server markup is correct before any script runs.
-    expect(await consentState(page)).not.toBe("decided");
+    // The banner is hidden by default in CSS. Without a valid consent cookie
+    // the pre-paint script sets "pending", which is what reveals it.
+    expect(await consentState(page)).toBe("pending");
     await expect(banner(page)).toBeVisible();
 
     // In flow, not docked: it must scroll away under the sticky header.
@@ -56,6 +60,20 @@ test("svar på samtykke skjuler banneret", async ({ page }) => {
 
     await expect(banner(page)).toBeHidden();
     expect(await consentState(page)).toBe("decided");
+});
+
+// This is the CLS guarantee. Hidden has to be the CSS default, not something a
+// script switches on. Otherwise every consented user whose browser drops the
+// pre-paint script -- nonce-based CSP at the consuming app, inline script
+// error, JS off -- gets the banner painted and then yanked away.
+test("banneret er skjult når ingen tilstand er satt", async ({ page }) => {
+    await expect(banner(page)).toBeVisible();
+
+    await page.evaluate(() => {
+        delete document.documentElement.dataset.decoratorConsent;
+    });
+
+    await expect(banner(page)).toBeHidden();
 });
 
 test("endring av samtykke dokker banneret uten å scrolle brukeren", async ({
@@ -174,3 +192,62 @@ test("dokket banner har ingen maskinelt detekterbare uu-feil", async ({
         JSON.stringify(results.violations, null, 2),
     ).toEqual([]);
 });
+
+/* ---------------------------------------------------------------------------
+ * Pre-paint behaviour
+ *
+ * Needs a consent cookie in place before the first navigation, so it cannot use
+ * the shared fixtures (those navigate for you). CSR is excluded on purpose: the
+ * pre-paint script is inserted via outerHTML there and therefore never
+ * executes, which is one of the reasons CSR is discouraged.
+ * ------------------------------------------------------------------------- */
+
+const currentConsentCookie = () =>
+    encodeURIComponent(
+        JSON.stringify({
+            consent: { analytics: true, surveys: true },
+            userActionTaken: true,
+            meta: {
+                createdAt: "2026-01-01T00:00:00.000Z",
+                updatedAt: "2026-01-01T00:00:00.000Z",
+                version: CURRENT_CONSENT_VERSION,
+                analyticsId: null,
+            },
+        }),
+    );
+
+const serverRenderedFixtures = [
+    { name: "ssr", url: "http://localhost:8089" },
+    { name: "next pages router", url: "http://localhost:3000" },
+];
+
+for (const { name, url } of serverRenderedFixtures) {
+    playwrightTest(
+        `${name}: gyldig samtykke skjuler banneret før første paint`,
+        async ({ page, context }) => {
+            await context.addCookies([
+                {
+                    name: CONSENT_COOKIE_NAME,
+                    value: currentConsentCookie(),
+                    domain: "localhost",
+                    path: "/",
+                },
+            ]);
+
+            await page.goto(url, { waitUntil: "commit" });
+
+            // The client controller never writes "decided" for a user whose
+            // consent is already current -- it returns without touching the
+            // attribute. So seeing "decided" proves the pre-paint script ran.
+            await page.waitForFunction(
+                () =>
+                    document.documentElement.dataset.decoratorConsent ===
+                    "decided",
+            );
+
+            await page.waitForLoadState("networkidle");
+            expect(await consentState(page)).toBe("decided");
+            await expect(banner(page)).toBeHidden();
+        },
+    );
+}

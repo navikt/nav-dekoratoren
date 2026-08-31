@@ -1,5 +1,9 @@
 import Cookies from "js-cookie";
 import { AppState, PublicStorageItem } from "decorator-shared/types";
+import {
+    CONSENT_COOKIE_NAME,
+    CURRENT_CONSENT_VERSION,
+} from "decorator-shared/constants";
 import { WebStorageController } from "./webStorage";
 
 const mockStorageDictionary: PublicStorageItem[] = [
@@ -38,6 +42,9 @@ describe("Tester webStorage", () => {
     };
 
     beforeEach(() => {
+        delete document.documentElement.dataset.decoratorConsent;
+        Cookies.remove(CONSENT_COOKIE_NAME);
+
         window.__DECORATOR_DATA__ = {
             allowedStorage: mockStorageDictionary,
         } as AppState;
@@ -70,8 +77,74 @@ describe("Tester webStorage", () => {
         createController();
 
         expect(triggerEvent).toHaveBeenCalled();
+        expect(document.documentElement.dataset.decoratorConsent).toBe(
+            "pending",
+        );
 
         listenerController.abort();
+    });
+
+    it("gyldig samtykke lar tilstanden fra pre-paint-skriptet stå urørt", () => {
+        document.documentElement.dataset.decoratorConsent = "decided";
+        Cookies.set(
+            CONSENT_COOKIE_NAME,
+            JSON.stringify({
+                consent: { analytics: true, surveys: true },
+                userActionTaken: true,
+                meta: {
+                    createdAt: "2026-01-01T00:00:00.000Z",
+                    updatedAt: "2026-01-01T00:00:00.000Z",
+                    version: CURRENT_CONSENT_VERSION,
+                    analyticsId: null,
+                },
+            }),
+        );
+
+        const triggerEvent = vi.fn();
+        const listenerController = new AbortController();
+        window.addEventListener("showConsentBanner", triggerEvent, {
+            signal: listenerController.signal,
+        });
+        createController();
+
+        expect(triggerEvent).not.toHaveBeenCalled();
+        expect(document.documentElement.dataset.decoratorConsent).toBe(
+            "decided",
+        );
+
+        listenerController.abort();
+    });
+
+    // The banner is hidden by default in CSS, but the pre-paint script sets
+    // "pending" for anyone without a valid consent cookie. Suppressing the
+    // banner therefore has to be an explicit downgrade to "decided".
+    it("banneret skjules for kjente verktøy selv om pre-paint-skriptet har satt pending", () => {
+        document.documentElement.dataset.decoratorConsent = "pending";
+
+        // Shadow the prototype getter with an own property, then drop it again
+        // so the real getter takes over.
+        Object.defineProperty(window.navigator, "userAgent", {
+            value: "Mozilla/5.0 (compatible; siteimprove.com)",
+            configurable: true,
+        });
+
+        const triggerEvent = vi.fn();
+        const listenerController = new AbortController();
+        window.addEventListener("showConsentBanner", triggerEvent, {
+            signal: listenerController.signal,
+        });
+
+        try {
+            createController();
+
+            expect(triggerEvent).not.toHaveBeenCalled();
+            expect(document.documentElement.dataset.decoratorConsent).toBe(
+                "decided",
+            );
+        } finally {
+            listenerController.abort();
+            Reflect.deleteProperty(window.navigator, "userAgent");
+        }
     });
 
     it("kjente frivillige cookies slettes når cookie-banner vises", async () => {

@@ -5,6 +5,10 @@ import html from "decorator-shared/html";
 import i18n from "../i18n";
 import { Button } from "./components/button";
 import { Language } from "decorator-shared/params";
+import {
+    CONSENT_COOKIE_NAME,
+    CURRENT_CONSENT_VERSION,
+} from "decorator-shared/constants";
 
 type ConsentBannerProps = {
     language: Language;
@@ -33,18 +37,14 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
                                 ${i18n("consent_banner_title")}
                             </h2>
                             <p class="${cls.text}">
-                                ${i18n("consent_banner_text")}
-                            </p>
-                            <p class="${cls.text}">
-                                ${i18n("consent_banner_change_consent")}
-                                ${i18n("consent_banner_additional_cookies_info")}${" "}
-                                <a href="${moreUrl}" class="${cls.moreLink}">
-                                    ${i18n("consent_banner_additional_cookies_link")}
-                                </a>
+                                ${i18n("consent_banner_text", { url: moreUrl })}
                             </p>
                             <div class="${cls.buttonContainer}">
                                 ${consentButtons()}
                             </div>
+                            <p class="${cls.text}">
+                                ${i18n("consent_banner_additional_cookies_info")}${" "}
+                            </p>
                         </div>
                     </section>
                 </div>
@@ -53,25 +53,29 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
     `;
 };
 
-// Runs before first paint
-//
-// TODO/NB: need to wire a centralized version from 'currentConsentVersion'
+// Runs before first paint, as the first child of <consent-banner> to avoid CLS.
+// Note the functionality here is duplicated in webStorage (yes this is icky).
 function consentDetectionScript() {
     return html`
         <script>
             try {
                 const root = document.documentElement;
-                const match = document.cookie.match(
-                    /(?:^|; ?)navno-consent=([^;]*)/,
-                );
-                const consent =
-                    match && JSON.parse(decodeURIComponent(match[1]));
-                if (
-                    !root.dataset.decoratorConsent &&
-                    consent?.userActionTaken &&
-                    consent.meta?.version >= 5
-                ) {
-                    root.dataset.decoratorConsent = "decided";
+                if (!root.dataset.decoratorConsent) {
+                    let decided = false;
+                    try {
+                        const match = document.cookie.match(
+                            /(?:^|; ?)${CONSENT_COOKIE_NAME}=([^;]*)/,
+                        );
+                        const consent =
+                            match && JSON.parse(decodeURIComponent(match[1]));
+                        decided = !!(
+                            consent?.userActionTaken &&
+                            consent.meta?.version >= ${CURRENT_CONSENT_VERSION}
+                        );
+                    } catch {}
+                    root.dataset.decoratorConsent = decided
+                        ? "decided"
+                        : "pending";
                 }
             } catch {}
         </script>

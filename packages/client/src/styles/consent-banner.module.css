@@ -1,4 +1,5 @@
 .background {
+    display: none;
     background-color: var(--ax-bg-accent-strong);
 }
 
@@ -7,11 +8,12 @@
     color: var(--ax-text-accent-contrast);
 }
 
-:global(html[data-decorator-consent="decided"]) .background {
-    display: none;
+:global(html[data-decorator-consent="pending"]) .background {
+    display: block;
 }
 
 :global(html[data-decorator-consent="reshow"]) .background {
+    display: block;
     position: fixed;
     inset: auto 0 0;
     z-index: 1002;
@@ -42,19 +44,24 @@
     @media (min-width: 48rem) {
         padding-block: 2rem;
     }
+
+    display: grid;
+    grid-row-gap: var(--ax-space-12);
+}
+
+.content > * {
+    margin: 0;
 }
 
 .title {
     font-size: var(--ax-font-size-heading-medium);
     font-weight: bold;
-    margin-block: 0 var(--ax-space-16);
     text-wrap: pretty;
 }
 
 .text {
     font-size: var(--ax-font-size-large);
-    line-height: 1.5;
-    margin-bottom: var(--ax-space-32);
+    line-height: var(--ax-font-line-height-xlarge);
 }
 
 .text a {
@@ -62,16 +69,11 @@
     text-decoration: underline;
 }
 
-.text p {
-    margin: 0;
-}
-
 .buttonContainer {
     display: flex;
     justify-content: flex-start;
     gap: var(--ax-space-16);
     align-items: center;
-    margin-bottom: var(--ax-space-12);
 }
 
 .button[data-variant="primary"] {

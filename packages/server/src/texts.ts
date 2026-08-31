@@ -12,15 +12,18 @@ export const nb = {
     search: "Søk",
     search_nav_no: "Søk på nav.no",
     consent_banner_title: "Får vi bruke valgfrie informasjon&shy;skapsler?",
-    consent_banner_text:
-        "Hvis du svarer ja, bruker vi informasjons­­kapsler og lignende teknologi til statistikk, analyse, spørreundersøkelser og brukertester. Målet er å forstå hvordan du og andre bruker nav.no, slik at vi kan forbedre nettsidene og tjenestene våre.",
+    consent_banner_text: ({ url }: UrlArg) =>
+        html`Svarer du ja, bruker vi
+            <a href="${url}">informasjonskapsler og lignende teknologi</a> til å
+            lagre og analysere informasjon som hjelper oss å forbedre nav.no. Du
+            kan endre valget senere i menyen nederst på siden.`,
     consent_banner_consent_all: "Ja",
     consent_banner_refuse_optional: "Nei",
     consent_banner_about_cookies: "Om informasjonskapsler",
     consent_banner_change_consent:
         "Du kan når som helst endre samtykket ditt via lenken i bunnmenyen.",
     consent_banner_additional_cookies_info:
-        "Vi har også nødvendige informasjonskapsler, som ikke kan velges bort.",
+        "For at nav.no skal fungere og være trygt, lagrer vi også nødvendig informasjon som ikke er valgfri.",
     consent_banner_additional_cookies_link: "Om informasjonskapslene våre.",
     consent_banner_minimized:
         "Velg hvilke informasjons&shy;kapsler Nav kan bruke.",
@@ -245,3 +248,7 @@ export const texts: Record<Language, Texts> = {
     uk: en,
     ru: en,
 } as const;
+
+interface UrlArg {
+    url: string;
+}
