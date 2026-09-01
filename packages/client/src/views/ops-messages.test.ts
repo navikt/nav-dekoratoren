@@ -2,7 +2,7 @@ import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { OpsMessage } from "decorator-shared/types";
 import { logger } from "../helpers/logger";
-import { http, setDecoratorData } from "../test-setup";
+import { http, setDecoratorData, waitFor } from "../test-setup";
 import "./ops-messages";
 
 const opsMessage = (overrides: Partial<OpsMessage> = {}): OpsMessage =>
@@ -31,7 +31,7 @@ describe("OpsMessages", () => {
 
         const el = await fixture("<ops-messages></ops-messages>");
 
-        await vi.waitFor(() => expect(el.innerHTML).toContain("Driftsmelding"));
+        await waitFor(() => expect(el.innerHTML).toContain("Driftsmelding"));
         expect(http.lastCall?.pathname).toBe("/ops-messages");
         // The label lives on the rendered <section>, not the custom element
         // host — see "Rydd opp i bruk av aria på egendefinerte rot-elementer".
@@ -45,7 +45,7 @@ describe("OpsMessages", () => {
 
         const el = await fixture("<ops-messages>old</ops-messages>");
 
-        await vi.waitFor(() => expect(el.innerHTML).toBe(""));
+        await waitFor(() => expect(el.innerHTML).toBe(""));
         // No section rendered means nothing carries the label.
         expect(el.querySelector("section")).toBe(null);
     });
@@ -57,7 +57,7 @@ describe("OpsMessages", () => {
 
         const el = await fixture("<ops-messages></ops-messages>");
 
-        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
         expect(errorSpy).toHaveBeenCalledWith(
             "Failed to fetch ops-messages",
             expect.objectContaining({ error: expect.any(Error) }),

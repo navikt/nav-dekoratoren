@@ -1,5 +1,5 @@
 import { Context, Language } from "decorator-shared/params";
-import { ResponseCache } from "decorator-shared/response-cache";
+import { ResponseCache } from "../lib/response-cache";
 import { Link, LinkGroup, MainMenuContextLink } from "decorator-shared/types";
 import { z } from "zod";
 import { clientEnv, env } from "../env/server";

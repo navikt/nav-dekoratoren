@@ -1,4 +1,4 @@
-import type { Logger } from "./logger-contract";
+import type { Logger } from "decorator-shared/logger-contract";
 
 type CacheItem<Type> = {
     value: Type;
