@@ -50,6 +50,7 @@
         "@axe-core/playwright": "4.12.1",
         "@eslint/eslintrc": "3.3.6",
         "@eslint/js": "9.39.5",
+        "@navikt/browserslist-config": "^0.1.0",
         "@playwright/test": "1.62.1",
         "@storybook/addon-docs": "10.5.5",
         "@storybook/html": "10.5.5",
