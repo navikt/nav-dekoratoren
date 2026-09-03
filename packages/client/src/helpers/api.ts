@@ -1,0 +1,39 @@
+import { corgi, type Plugin, type Query } from "@itsy/corgi/chonk";
+import { type ClientParams } from "decorator-shared/params";
+import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
+import { env } from "../params";
+
+// Request metadata (cache-busting version id + consumer tag) as a plugin.
+const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
+    // using APP_URL here should be safe since it seems to always be an origin-only URL
+    const u = new URL(url, env("APP_URL"));
+    u.searchParams.set(VERSION_ID_PARAM, env("VERSION_ID"));
+    u.searchParams.set("consumer", CONSUMER);
+    return next(u.toString(), init);
+};
+
+export const decoratorApi = corgi.create({
+    plugins: [withDecoratorMeta()],
+    retry: 2,
+});
+
+type DecoratorFetchOverrides = Partial<ClientParams> & Record<string, unknown>;
+
+/**
+ * Current decorator client params, merged with per-call overrides.
+ * Array fields are JSON-stringified — the server (packages/server/src/validateParams.ts)
+ * expects a string and not Corgi's default of repeated-keys - applies to namely
+ * `breadcrumbs`/`availableLanguages`/`analyticsQueryParams`/`analyticsRedactFilter`,
+ */
+export const decoratorParams = (overrides?: DecoratorFetchOverrides): Query => {
+    const merged: Record<string, unknown> = {
+        ...window.__DECORATOR_DATA__.params,
+        ...overrides,
+    };
+    return Object.fromEntries(
+        Object.entries(merged).map(([key, value]) => [
+            key,
+            Array.isArray(value) ? JSON.stringify(value) : value,
+        ]),
+    ) as Query;
+};

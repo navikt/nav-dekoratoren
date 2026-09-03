@@ -1,6 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { clearCache, ResponseCache } from "../response-cache";
-import { logger } from "./logger-mock";
+import { clearCache, ResponseCache } from "./response-cache";
+
+const logger = {
+    info: () => {},
+    error: () => {},
+    warn: () => {},
+    debug: () => {},
+};
 
 // The ResponseCache uses stale-while-revalidate: get() returns cached value
 // immediately while the background fetch runs as microtasks. We need to

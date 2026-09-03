@@ -128,6 +128,9 @@ importers:
             "@grafana/faro-web-sdk":
                 specifier: 2.9.0
                 version: 2.9.0
+            "@itsy/corgi":
+                specifier: ^1.4.0
+                version: 1.4.0
             "@navikt/ds-css":
                 specifier: "catalog:"
                 version: 8.16.1
@@ -1261,6 +1264,13 @@ packages:
         peerDependenciesMeta:
             "@types/node":
                 optional: true
+
+    "@itsy/corgi@1.4.0":
+        resolution:
+            {
+                integrity: sha512-K1kXBEimmfd6w3NkJb5QH/XX8/mYTeUFo39vNzTdxb0FUBSf7yJGnkPeCEDfqWgkviF3y8/jrnOh77vnBIZs3w==,
+            }
+        engines: { node: ">=18.17" }
 
     "@jridgewell/gen-mapping@0.3.13":
         resolution:
@@ -9313,6 +9323,8 @@ snapshots:
         optionalDependencies:
             "@types/node": 25.9.3
         optional: true
+
+    "@itsy/corgi@1.4.0": {}
 
     "@jridgewell/gen-mapping@0.3.13":
         dependencies:
