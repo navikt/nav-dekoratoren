@@ -2,10 +2,12 @@ import minifyLiterals from "rollup-plugin-minify-html-literals-v3";
 import { defineConfig } from "vite";
 import { fileURLToPath } from "node:url";
 import { cssModulesScopedNameOption } from "../shared/css-modules-config";
+import NavBrowserTargets from "@navikt/browserslist-config/vite";
 
 const packageRoot = fileURLToPath(new URL(".", import.meta.url));
 
 const mainConfig = defineConfig({
+    plugins: [NavBrowserTargets()],
     resolve: {
         alias: {
             "decorator-client": packageRoot,
@@ -17,7 +19,6 @@ const mainConfig = defineConfig({
     logLevel: "info",
     build: {
         minify: true,
-        target: "ES2022",
         manifest: true,
         sourcemap: true,
         // Prevent inlining any asset imports, always import as url
@@ -36,6 +37,7 @@ const mainConfig = defineConfig({
 });
 
 const csrConfig = defineConfig({
+    plugins: [NavBrowserTargets()],
     build: {
         // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
