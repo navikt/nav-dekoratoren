@@ -19,6 +19,13 @@ const mainConfig = defineConfig({
     logLevel: "info",
     build: {
         minify: true,
+        // Minify CSS with Lightning CSS rather than esbuild. It applies the
+        // full browserslist targets from build.cssTarget (supplied by
+        // NavBrowserTargets)
+        // Note this is only the minifier: css.transformer stays
+        // on postcss so CSS module class names keep matching the ones the
+        // server generates via postcss-modules.
+        cssMinify: "lightningcss",
         manifest: true,
         sourcemap: true,
         // Prevent inlining any asset imports, always import as url
@@ -42,6 +49,7 @@ const csrConfig = defineConfig({
         // Don't clear the output, we want to keep the main bundle
         emptyOutDir: false,
         minify: true,
+        cssMinify: "lightningcss",
         manifest: ".vite/csr.manifest.json",
         rollupOptions: {
             input: ["src/csr.ts"],
