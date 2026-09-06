@@ -11,6 +11,7 @@ const meta: Meta<SimpleFooterProps> = {
                 "dekoratoren.chatbotscript": false,
                 "dekoratoren.umami": false,
                 "dekoratoren.puzzel-script": false,
+                "dekoratoren.skyra": false,
             },
             links:
                 context.globals.locale === "en"
