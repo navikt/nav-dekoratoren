@@ -1,4 +1,4 @@
-import { fixture } from "@open-wc/testing";
+import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../helpers/logger";
 import { apiPath, http, setDecoratorData } from "../test-setup";

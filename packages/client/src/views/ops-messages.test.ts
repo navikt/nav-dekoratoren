@@ -1,4 +1,4 @@
-import { fixture } from "@open-wc/testing";
+import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { OpsMessage } from "decorator-shared/types";
 import { logger } from "../helpers/logger";

@@ -1,4 +1,4 @@
-import { fixture } from "@open-wc/testing";
+import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { abortError } from "@itsy/corgi/testing";
 import { logger } from "../helpers/logger";

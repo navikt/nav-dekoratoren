@@ -3,6 +3,14 @@ import { mockFetch } from "@itsy/corgi/testing";
 import type { AppState } from "decorator-shared/types";
 
 /**
+ * Lit is a transitive dependency of `@open-wc/testing-helpers`
+ * This silences it's goofy warning in tests
+ */
+(globalThis as { litIssuedWarnings?: Set<string> }).litIssuedWarnings = new Set(
+    ["dev-mode"],
+);
+
+/**
  * Shared fake transport for the whole suite, installed as the global fetch.
  * `decoratorApi` is created at module scope with no explicit `fetch`, and
  * corgi's default base fetcher dereferences `globalThis.fetch` on every call —

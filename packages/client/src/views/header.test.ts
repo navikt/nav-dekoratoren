@@ -1,4 +1,4 @@
-import { fixture } from "@open-wc/testing";
+import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { logger } from "../helpers/logger";

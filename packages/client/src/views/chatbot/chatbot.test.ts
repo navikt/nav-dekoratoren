@@ -1,4 +1,4 @@
-import { fixture } from "@open-wc/testing";
+import { fixture } from "@open-wc/testing-helpers";
 import { texts } from "decorator-server/src/texts";
 import { updateDecoratorParams } from "../../params";
 import "./chatbot";
