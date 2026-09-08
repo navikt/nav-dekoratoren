@@ -1,7 +1,7 @@
 import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../helpers/logger";
-import { apiPath, http, setDecoratorData } from "../test-setup";
+import { apiPath, http, setDecoratorData, waitFor } from "../test-setup";
 import "./notifications";
 
 vi.mock("../analytics/analytics", () => ({
@@ -34,7 +34,7 @@ describe("ArchivableNotification", () => {
 
         wrapper.querySelector("button")!.click();
 
-        await vi.waitFor(() =>
+        await waitFor(() =>
             expect(wrapper.querySelector("archivable-notification")).toBeNull(),
         );
         expect(http.lastCall?.pathname).toBe(
@@ -59,7 +59,7 @@ describe("ArchivableNotification", () => {
 
         wrapper.querySelector("button")!.click();
 
-        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
         expect(errorSpy).toHaveBeenCalledWith(
             "Failed to archive notifications from button",
             expect.objectContaining({ error: expect.any(Error) }),
@@ -92,7 +92,7 @@ describe("LinkNotification", () => {
 
         wrapper.querySelector("a")!.click();
 
-        await vi.waitFor(() =>
+        await waitFor(() =>
             expect(wrapper.querySelector("link-notification")).toBeNull(),
         );
         expect(http.lastCall?.pathname).toBe(
@@ -119,7 +119,7 @@ describe("LinkNotification", () => {
 
         wrapper.querySelector("a")!.click();
 
-        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
         expect(errorSpy).toHaveBeenCalledWith(
             "Failed to archive notifications from link",
             expect.objectContaining({ error: expect.any(Error) }),
