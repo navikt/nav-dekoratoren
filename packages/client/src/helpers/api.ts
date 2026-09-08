@@ -3,31 +3,25 @@ import { type ClientParams } from "decorator-shared/params";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { env } from "../params";
 
-/**
- * Resolves a decorator route against `APP_URL`.
- *
- * `APP_URL` is NOT origin-only: in prod it is `https://www.nav.no/dekoratoren`,
- * and the ingresses don't strip that prefix (see INGRESS_PATH_PREFIXES in
- * packages/server/src/routes.ts). `new URL("/main-menu", APP_URL)` would drop
- * the prefix entirely - a root-relative path replaces the whole base path - and
- * send the request to `https://www.nav.no/main-menu`, which never reaches us.
- * So the paths are concatenated instead of resolved.
- */
-const resolveUrl = (url: string) => {
-    if (/^[a-z][a-z0-9+.-]*:\/\//i.test(url)) return new URL(url);
-    const base = env("APP_URL").replace(/\/+$/, "");
-    return new URL(`${base}/${url.replace(/^\/+/, "")}`);
-};
-
 // Request metadata (cache-busting version id + consumer tag) as a plugin.
+// baseURL is applied before the plugin chain runs, so `url` is already absolute.
 const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
-    const u = resolveUrl(url);
+    const u = new URL(url);
     u.searchParams.set(VERSION_ID_PARAM, env("VERSION_ID"));
     u.searchParams.set("consumer", CONSUMER);
     return next(u.toString(), init);
 };
 
+/**
+ * `env()` is read EAGERLY here, at module scope: corgi's `create` destructures
+ * its options immediately, so `window.__DECORATOR_DATA__` has to exist by the
+ * time this module is evaluated. In the browser it does - the inline
+ * `d-data-parser` classic script in packages/server/src/views/scripts.ts runs at
+ * parse time, ahead of every deferred/async module script. In tests, test-setup.ts
+ * seeds it at module scope for the same reason.
+ */
 export const decoratorApi = corgi.create({
+    baseURL: env("APP_URL"),
     plugins: [withDecoratorMeta()],
     retry: 2,
 });

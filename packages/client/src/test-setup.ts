@@ -3,6 +3,14 @@ import { mockFetch } from "@itsy/corgi/testing";
 import type { AppState } from "decorator-shared/types";
 
 /**
+ * Lit is a transitive dependency of `@open-wc/testing-helpers`
+ * This silences it's goofy warning in tests
+ */
+(globalThis as { litIssuedWarnings?: Set<string> }).litIssuedWarnings = new Set(
+    ["dev-mode"],
+);
+
+/**
  * Shared fake transport for the whole suite, installed as the global fetch.
  * `decoratorApi` is created at module scope with no explicit `fetch`, and
  * corgi's default base fetcher dereferences `globalThis.fetch` on every call —
@@ -35,12 +43,7 @@ afterAll(() => {
 });
 
 /**
- * `APP_URL` is not origin-only in production - it is
- * `https://www.nav.no/dekoratoren`, and the ingresses do not strip that prefix
- * (see INGRESS_PATH_PREFIXES in packages/server/src/routes.ts). The suite pins a
- * prefixed APP_URL so every callsite is exercised the way prod actually serves
- * it; a regression in the url join (helpers/api.ts) then fails here instead of
- * only in prod. Origin matches the jsdom url so nothing looks cross-origin.
+ * `APP_URL` is not origin-only in production, exercise that mechanism in tests
  */
 export const TEST_APP_PATH = "/dekoratoren";
 export const TEST_APP_URL = `http://localhost${TEST_APP_PATH}`;
@@ -53,8 +56,6 @@ export const setDecoratorData = (overrides: Partial<AppState> = {}) => {
         params: {},
         texts: {},
         ...overrides,
-        // withDecoratorMeta runs for real and resolves urls against APP_URL - an
-        // undefined base throws on the relative urls every callsite uses.
         env: {
             APP_URL: TEST_APP_URL,
             VERSION_ID: "test-version-id",
@@ -62,3 +63,16 @@ export const setDecoratorData = (overrides: Partial<AppState> = {}) => {
         },
     } as AppState;
 };
+
+/**
+ * Seeded at module scope, not just per-test: `helpers/api.ts` reads
+ * `env("APP_URL")` eagerly when corgi builds `decoratorApi`, so
+ * `window.__DECORATOR_DATA__` has to exist before any test file imports it.
+ * Setup files are evaluated before the test module graph, so this is the only
+ * place that can win the race.
+ *
+ * Per-test `setDecoratorData()` calls still reset
+ * params/texts, but the client's `baseURL` is already fixed at `TEST_APP_URL` -
+ * a test that needs a different one has to build its own corgi client.
+ */
+setDecoratorData();

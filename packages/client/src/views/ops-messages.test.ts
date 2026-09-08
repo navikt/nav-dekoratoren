@@ -1,4 +1,4 @@
-import { fixture } from "@open-wc/testing";
+import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { OpsMessage } from "decorator-shared/types";
 import { logger } from "../helpers/logger";
@@ -47,7 +47,7 @@ describe("OpsMessages", () => {
 
         await vi.waitFor(() => expect(el.innerHTML).toBe(""));
         // No section rendered means nothing carries the label.
-        expect(el.querySelector("section")).toBe(null);
+        expect(el.querySelector("section")).toBeNull();
     });
 
     it("logs and renders nothing when the fetch fails", async () => {

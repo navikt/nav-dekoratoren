@@ -36,7 +36,7 @@ const mockStorageDictionary: PublicStorageItem[] = [
  */
 const waitForClearingPass = () =>
     vi.waitFor(() =>
-        expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
+        expect(window.sessionStorage.getItem("usertest-1234")).toBeNull(),
     );
 
 describe("Tester webStorage", () => {
@@ -104,10 +104,10 @@ describe("Tester webStorage", () => {
         createController();
 
         await vi.waitFor(() => {
-            expect(Cookies.get("usertest-1234")).toBe(undefined);
-            expect(Cookies.get("AMP_1234")).toBe(undefined);
-            expect(Cookies.get("_hjSessionUser_118350")).toBe(undefined);
-            expect(Cookies.get("amp_abcdef")).toBe(undefined);
+            expect(Cookies.get("usertest-1234")).toBeUndefined();
+            expect(Cookies.get("AMP_1234")).toBeUndefined();
+            expect(Cookies.get("_hjSessionUser_118350")).toBeUndefined();
+            expect(Cookies.get("amp_abcdef")).toBeUndefined();
         });
     });
     it("kjente nødvendige cookies slettes ikke når cookie-banner vises", async () => {
@@ -134,7 +134,7 @@ describe("Tester webStorage", () => {
         createController();
 
         await vi.waitFor(() =>
-            expect(window.localStorage.getItem("usertest-1234")).toBe(null),
+            expect(window.localStorage.getItem("usertest-1234")).toBeNull(),
         );
     });
     it("ukjente localStorage-elementer slettes ikke når cookie-banner vises", async () => {
@@ -151,7 +151,7 @@ describe("Tester webStorage", () => {
         createController();
 
         await vi.waitFor(() =>
-            expect(window.sessionStorage.getItem("usertest-1234")).toBe(null),
+            expect(window.sessionStorage.getItem("usertest-1234")).toBeNull(),
         );
     });
     it("ukjente sessionStorage-elementer slettes ikke når cookie-banner vises", async () => {
