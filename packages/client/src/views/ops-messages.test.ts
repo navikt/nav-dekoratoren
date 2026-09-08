@@ -47,7 +47,7 @@ describe("OpsMessages", () => {
 
         await vi.waitFor(() => expect(el.innerHTML).toBe(""));
         // No section rendered means nothing carries the label.
-        expect(el.querySelector("section")).toBe(null);
+        expect(el.querySelector("section")).toBeNull();
     });
 
     it("logs and renders nothing when the fetch fails", async () => {
