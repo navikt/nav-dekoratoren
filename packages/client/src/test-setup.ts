@@ -34,16 +34,29 @@ afterAll(() => {
     restoreFetch();
 });
 
+/**
+ * `APP_URL` is not origin-only in production - it is
+ * `https://www.nav.no/dekoratoren`, and the ingresses do not strip that prefix
+ * (see INGRESS_PATH_PREFIXES in packages/server/src/routes.ts). The suite pins a
+ * prefixed APP_URL so every callsite is exercised the way prod actually serves
+ * it; a regression in the url join (helpers/api.ts) then fails here instead of
+ * only in prod. Origin matches the jsdom url so nothing looks cross-origin.
+ */
+export const TEST_APP_PATH = "/dekoratoren";
+export const TEST_APP_URL = `http://localhost${TEST_APP_PATH}`;
+
+/** The pathname a decorator route is actually requested on. */
+export const apiPath = (path: string) => `${TEST_APP_PATH}${path}`;
+
 export const setDecoratorData = (overrides: Partial<AppState> = {}) => {
     window.__DECORATOR_DATA__ = {
         params: {},
         texts: {},
         ...overrides,
-        // The withDecoratorMeta plugin runs for real now, and it resolves urls
-        // via `new URL(url, env("APP_URL"))` — an undefined base throws on the
-        // relative urls every callsite uses. Matches the jsdom url.
+        // withDecoratorMeta runs for real and resolves urls against APP_URL - an
+        // undefined base throws on the relative urls every callsite uses.
         env: {
-            APP_URL: "http://localhost",
+            APP_URL: TEST_APP_URL,
             VERSION_ID: "test-version-id",
             ...overrides.env,
         },

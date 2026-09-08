@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { logger } from "../helpers/logger";
 import { refreshAuthData } from "../helpers/auth";
-import { http, setDecoratorData } from "../test-setup";
+import { apiPath, http, setDecoratorData } from "../test-setup";
 import "./header";
 
 vi.mock("../helpers/auth", () => ({
@@ -28,7 +28,7 @@ describe("Header", () => {
     });
 
     it("refetches and swaps innerHTML on a relevant paramsupdated key", async () => {
-        http.get("/header", { text: "<p>new header</p>" });
+        http.get(apiPath("/header"), { text: "<p>new header</p>" });
         const el = await fixture("<decorator-header></decorator-header>");
 
         dispatchParamsUpdated(["language"]);
@@ -37,7 +37,7 @@ describe("Header", () => {
 
         // The real request pipeline ran: decoratorParams built the query and
         // the withDecoratorMeta plugin appended the version-id/consumer meta.
-        expect(http.lastCall?.pathname).toBe("/header");
+        expect(http.lastCall?.pathname).toBe(apiPath("/header"));
         expect(http.lastCall?.query.get(VERSION_ID_PARAM)).toBe(
             "test-version-id",
         );
@@ -45,7 +45,7 @@ describe("Header", () => {
     });
 
     it("refreshes auth data and asks for a consent banner recheck after a refetch", async () => {
-        http.get("/header", { text: "<p>new header</p>" });
+        http.get(apiPath("/header"), { text: "<p>new header</p>" });
         const el = await fixture("<decorator-header></decorator-header>");
         const recheckSpy = vi.fn();
         el.addEventListener("recheckConsentBanner", recheckSpy);
@@ -80,7 +80,7 @@ describe("Header", () => {
     it("logs and keeps old content when the fetch fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
         // 400 is non-retryable, so the module-scope retry: 2 client fails fast.
-        http.get("/header", { status: 400 });
+        http.get(apiPath("/header"), { status: 400 });
         const el = await fixture("<decorator-header>old</decorator-header>");
 
         dispatchParamsUpdated(["language"]);

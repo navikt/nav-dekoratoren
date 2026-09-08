@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { PublicStorageItem } from "decorator-shared/types";
 import { WebStorageController } from "./webStorage";
 import { logger } from "./helpers/logger";
-import { http, setDecoratorData } from "./test-setup";
+import { apiPath, http, setDecoratorData } from "./test-setup";
 
 const mockStorageDictionary: PublicStorageItem[] = [
     {
@@ -69,7 +69,7 @@ describe("Tester webStorage", () => {
         window.sessionStorage.setItem("usertest-1234", "foobar");
         window.sessionStorage.setItem("ukjentdata", "foobar");
 
-        http.post("/api/consentping", { status: 204 });
+        http.post(apiPath("/api/consentping"), { status: 204 });
     });
 
     afterEach(() => {
@@ -170,7 +170,7 @@ describe("Tester webStorage", () => {
 
         await http.settled();
         const call = http.lastCall!;
-        expect(call.pathname).toBe("/api/consentping");
+        expect(call.pathname).toBe(apiPath("/api/consentping"));
         expect(call.method).toBe("POST");
         expect(call.init.credentials).toBe("omit");
 
@@ -191,7 +191,7 @@ describe("Tester webStorage", () => {
 
     it("samtykke lagres selv om consentping feiler", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        http.post("/api/consentping", { status: 400 });
+        http.post(apiPath("/api/consentping"), { status: 400 });
         createController();
 
         window.dispatchEvent(new CustomEvent("consentAllWebStorage"));

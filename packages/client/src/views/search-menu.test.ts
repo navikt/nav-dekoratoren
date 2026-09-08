@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { abortError } from "@itsy/corgi/testing";
 import { logger } from "../helpers/logger";
 import cls from "../styles/search-form.module.css";
-import { http, setDecoratorData } from "../test-setup";
+import { apiPath, http, setDecoratorData } from "../test-setup";
 import "./search-menu";
 
 vi.mock("../analytics/analytics", () => ({
@@ -45,13 +45,13 @@ describe("SearchMenu", () => {
     });
 
     it("fetches search results and renders them after the debounce", async () => {
-        http.get("/api/search", { text: "<p>treff</p>" });
+        http.get(apiPath("/api/search"), { text: "<p>treff</p>" });
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");
 
         // The real query builder ran: per-call overrides merged into params.
-        expect(http.lastCall?.pathname).toBe("/api/search");
+        expect(http.lastCall?.pathname).toBe(apiPath("/api/search"));
         expect(http.lastCall?.query.get("q")).toBe("dagpenger");
         expect(http.lastCall?.query.get("context")).toBe("privatperson");
         expect(http.lastCall?.query.get("language")).toBe("nb");
@@ -60,11 +60,11 @@ describe("SearchMenu", () => {
 
     it("cancels the previous in-flight search when a new one starts", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        http.get("/api/search", { hang: true });
+        http.get(apiPath("/api/search"), { hang: true });
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");
-        http.get("/api/search", { text: "<p>nye treff</p>" }); // override the hang
+        http.get(apiPath("/api/search"), { text: "<p>nye treff</p>" }); // override the hang
         await typeSearch(el, "dagpengesats");
 
         // The real abortPrevious plugin superseded the hung request: the second
@@ -84,7 +84,7 @@ describe("SearchMenu", () => {
 
     it("ignores abort errors from superseded requests", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        http.get("/api/search", abortError("superseded"));
+        http.get(apiPath("/api/search"), abortError("superseded"));
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");
@@ -95,7 +95,7 @@ describe("SearchMenu", () => {
     it("logs other fetch failures", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
         // 400 is non-retryable, so the retrying client fails fast.
-        http.get("/api/search", { status: 400 });
+        http.get(apiPath("/api/search"), { status: 400 });
         const el = await fixture(markup);
 
         await typeSearch(el, "dagpenger");

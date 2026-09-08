@@ -3,10 +3,25 @@ import { type ClientParams } from "decorator-shared/params";
 import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
 import { env } from "../params";
 
+/**
+ * Resolves a decorator route against `APP_URL`.
+ *
+ * `APP_URL` is NOT origin-only: in prod it is `https://www.nav.no/dekoratoren`,
+ * and the ingresses don't strip that prefix (see INGRESS_PATH_PREFIXES in
+ * packages/server/src/routes.ts). `new URL("/main-menu", APP_URL)` would drop
+ * the prefix entirely - a root-relative path replaces the whole base path - and
+ * send the request to `https://www.nav.no/main-menu`, which never reaches us.
+ * So the paths are concatenated instead of resolved.
+ */
+const resolveUrl = (url: string) => {
+    if (/^[a-z][a-z0-9+.-]*:\/\//i.test(url)) return new URL(url);
+    const base = env("APP_URL").replace(/\/+$/, "");
+    return new URL(`${base}/${url.replace(/^\/+/, "")}`);
+};
+
 // Request metadata (cache-busting version id + consumer tag) as a plugin.
 const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
-    // using APP_URL here should be safe since it seems to always be an origin-only URL
-    const u = new URL(url, env("APP_URL"));
+    const u = resolveUrl(url);
     u.searchParams.set(VERSION_ID_PARAM, env("VERSION_ID"));
     u.searchParams.set("consumer", CONSUMER);
     return next(u.toString(), init);

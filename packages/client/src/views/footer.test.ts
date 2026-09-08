@@ -1,7 +1,7 @@
 import { fixture } from "@open-wc/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../helpers/logger";
-import { http, setDecoratorData } from "../test-setup";
+import { apiPath, http, setDecoratorData } from "../test-setup";
 import "./footer";
 
 const dispatchParamsUpdated = (changedKeys: string[]) =>
@@ -22,7 +22,7 @@ describe("Footer", () => {
     });
 
     it("refetches and swaps innerHTML on a relevant paramsupdated key", async () => {
-        http.get("/footer", { text: "<p>new footer</p>" });
+        http.get(apiPath("/footer"), { text: "<p>new footer</p>" });
         const el = await fixture("<decorator-footer></decorator-footer>");
 
         dispatchParamsUpdated(["feedback"]);
@@ -32,7 +32,7 @@ describe("Footer", () => {
         // Waiting for its effect rather than awaiting arbitrary microtasks
         await vi.waitFor(() => expect(el.innerHTML).toBe("<p>new footer</p>"));
 
-        expect(http.lastCall?.pathname).toBe("/footer");
+        expect(http.lastCall?.pathname).toBe(apiPath("/footer"));
         expect(http.lastCall?.method).toBe("GET");
     });
 
@@ -50,7 +50,7 @@ describe("Footer", () => {
     it("logs and keeps old content when the fetch fails", async () => {
         const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
         // 400 is non-retryable, so the module-scope retry: 2 client fails fast.
-        http.get("/footer", { status: 400 });
+        http.get(apiPath("/footer"), { status: 400 });
         const el = await fixture("<decorator-footer>old</decorator-footer>");
 
         dispatchParamsUpdated(["simpleFooter"]);

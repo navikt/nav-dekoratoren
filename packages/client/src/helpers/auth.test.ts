@@ -7,7 +7,7 @@ import {
     transformSessionToAuth,
 } from "./auth";
 import { logger } from "./logger";
-import { http, setDecoratorData } from "../test-setup";
+import { apiPath, http, setDecoratorData } from "../test-setup";
 
 describe("Auth helpers", () => {
     afterEach(() => {
@@ -62,13 +62,13 @@ describe("Auth helpers", () => {
 
         it("fetches auth data and dispatches an authupdated event", async () => {
             const authResponse = { auth: { authenticated: true, userId: "1" } };
-            http.get("/auth", { json: authResponse });
+            http.get(apiPath("/auth"), { json: authResponse });
             const listener = vi.fn();
             window.addEventListener("authupdated", listener);
 
             const result = await refreshAuthData();
 
-            expect(http.lastCall?.pathname).toBe("/auth");
+            expect(http.lastCall?.pathname).toBe(apiPath("/auth"));
             expect(http.lastCall?.init.credentials).toBe("include");
             expect(result).toEqual(authResponse);
             expect(listener).toHaveBeenCalled();
@@ -83,7 +83,7 @@ describe("Auth helpers", () => {
             // A retryable 503 — but authApi is extended with retry: 0, so it
             // must fail after exactly one attempt. The parent client's retry: 2
             // would have made this three calls (and much slower).
-            http.get("/auth", { status: 503 });
+            http.get(apiPath("/auth"), { status: 503 });
 
             const result = await refreshAuthData();
 
