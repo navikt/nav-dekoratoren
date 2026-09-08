@@ -93,39 +93,35 @@ describe("decoratorApi across APP_URL shapes", () => {
         setDecoratorData();
     });
 
-    it("keeps a single-segment prefix (prod: /dekoratoren)", async () => {
-        const api = await importApiWithAppUrl("http://localhost/dekoratoren");
-
-        await api("/main-menu");
-
-        expect(http.lastCall?.pathname).toBe("/dekoratoren/main-menu");
-    });
-
-    it("keeps a multi-segment prefix (prod: /common-html/v4/navno)", async () => {
-        const api = await importApiWithAppUrl(
+    const appUrlShapes: Array<[shape: string, appUrl: string, path: string]> = [
+        [
+            "a single-segment prefix (prod: /dekoratoren)",
+            "http://localhost/dekoratoren",
+            "/dekoratoren/main-menu",
+        ],
+        [
+            "a multi-segment prefix (prod: /common-html/v4/navno)",
             "http://localhost/common-html/v4/navno",
-        );
+            "/common-html/v4/navno/main-menu",
+        ],
+        ["an origin-only APP_URL (dev)", "http://localhost", "/main-menu"],
+        [
+            "a trailing-slash APP_URL, without doubling the slash",
+            "http://localhost/dekoratoren/",
+            "/dekoratoren/main-menu",
+        ],
+    ];
 
-        await api("/main-menu");
+    it.each(appUrlShapes)(
+        "resolves the route under %s",
+        async (_shape, appUrl, path) => {
+            const api = await importApiWithAppUrl(appUrl);
 
-        expect(http.lastCall?.pathname).toBe("/common-html/v4/navno/main-menu");
-    });
+            await api("/main-menu");
 
-    it("works with an origin-only APP_URL (dev)", async () => {
-        const api = await importApiWithAppUrl("http://localhost");
-
-        await api("/main-menu");
-
-        expect(http.lastCall?.pathname).toBe("/main-menu");
-    });
-
-    it("does not double up slashes on a trailing-slash APP_URL", async () => {
-        const api = await importApiWithAppUrl("http://localhost/dekoratoren/");
-
-        await api("/main-menu");
-
-        expect(http.lastCall?.pathname).toBe("/dekoratoren/main-menu");
-    });
+            expect(http.lastCall?.pathname).toBe(path);
+        },
+    );
 
     /**
      * The exact shape of the outage, pinned as a value: the client must not
