@@ -6,8 +6,8 @@
         ".": "./dist/index.ts"
     },
     "scripts": {
-        "build": "node build-icons.ts && tsc --noEmit",
-        "lint": "eslint ."
+        "build": "node build-icons.ts",
+        "lint": "eslint . && tsc --noEmit"
     },
     "dependencies": {
         "decorator-shared": "workspace:*"
