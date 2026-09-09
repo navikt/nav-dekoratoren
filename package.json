@@ -1,85 +1,86 @@
 {
-    "name": "nav-dekoratoren",
-    "private": "true",
-    "version": "0.0.1",
-    "description": "",
-    "packageManager": "pnpm@11.1.2+sha512.415a1cc25974731e75455c1468371be74c5aa5fb7621b50d4056d222451609f11412f23fd602e6169f1e060466641f798597e1be961a10688836a67b16569499",
-    "engines": {
-        "node": ">=24"
-    },
-    "devEngines": {
-        "runtime": {
-            "name": "node",
-            "version": "^24.19.0",
-            "onFail": "download"
-        }
-    },
-    "scripts": {
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
-        "test": "pnpm -r --parallel run test",
-        "lint": "pnpm -r --parallel run lint",
-        "lint:client": "pnpm --filter decorator-client run lint",
-        "lint:server": "pnpm --filter decorator-server run lint",
-        "lint:icons": "pnpm --filter decorator-icons run lint",
-        "lint:shared": "pnpm --filter decorator-shared run lint",
-        "lint:next": "pnpm --filter next-pages-router-example run lint",
-        "dev": "concurrently \"pnpm --filter decorator-client run dev\" \"pnpm --filter decorator-server run dev\"",
-        "example": "pnpm --filter next-pages-router-example run dev",
-        "build": "pnpm -r --filter='decorator-*' run build && pnpm run copy-assets",
-        "copy-assets": "mkdir -p packages/server/public && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
-        "prepare": "husky",
-        "benchmarking": "./benchmarking/run",
-        "playwright": "pnpm exec playwright test"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "workspaces": [
-        "packages/*"
-    ],
-    "dependencies": {
-        "@types/umami": "2.10.1",
-        "clsx": "2.1.1",
-        "zod": "4.4.3"
-    },
-    "dependencyComments": {
-        "storybook": "Need to have matching storybook version across all storybook packages for it to work properly."
-    },
-    "devDependencies": {
-        "@axe-core/playwright": "4.12.1",
-        "@eslint/eslintrc": "3.3.6",
-        "@eslint/js": "9.39.5",
-        "@navikt/browserslist-config": "^0.1.0",
-        "@playwright/test": "1.62.1",
-        "@storybook/addon-docs": "10.5.5",
-        "@storybook/html": "10.5.5",
-        "@storybook/html-vite": "10.5.5",
-        "@types/node": "catalog:",
-        "@typescript-eslint/eslint-plugin": "8.65.0",
-        "@typescript-eslint/parser": "8.65.0",
-        "concurrently": "9.2.4",
-        "copyfiles": "2.4.1",
-        "esbuild-minify-templates": "catalog:",
-        "eslint": "catalog:",
-        "http-server": "14.1.1",
-        "husky": "9.1.7",
-        "lint-staged": "16.4.0",
-        "postcss-import-sync2": "1.2.0",
-        "prettier": "3.9.6",
-        "storybook": "10.5.5",
-        "typescript": "catalog:",
-        "typescript-plugin-css-modules": "5.2.0",
-        "vite": "7.3.6"
-    },
-    "lint-staged": {
-        "*.{ts,tsx,js}": [
-            "eslint --fix",
-            "prettier --write"
-        ],
-        "*.{json,css,html,yaml,md}": [
-            "prettier --write"
-        ]
-    },
-    "prettier": {}
+	"name": "nav-dekoratoren",
+	"version": "0.0.1",
+	"private": "true",
+	"description": "",
+	"keywords": [],
+	"license": "ISC",
+	"author": "",
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build",
+		"test": "pnpm -r --parallel run test",
+		"lint": "pnpm -r --parallel run lint",
+		"lint:client": "pnpm --filter decorator-client run lint",
+		"lint:server": "pnpm --filter decorator-server run lint",
+		"lint:icons": "pnpm --filter decorator-icons run lint",
+		"lint:shared": "pnpm --filter decorator-shared run lint",
+		"lint:next": "pnpm --filter next-pages-router-example run lint",
+		"dev": "concurrently \"pnpm --filter decorator-client run dev\" \"pnpm --filter decorator-server run dev\"",
+		"example": "pnpm --filter next-pages-router-example run dev",
+		"build": "pnpm -r --filter='decorator-*' run build && pnpm run copy-assets",
+		"copy-assets": "mkdir -p packages/server/public && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
+		"prepare": "husky",
+		"benchmarking": "./benchmarking/run",
+		"playwright": "pnpm exec playwright test",
+		"format": "oxfmt",
+		"format:check": "oxfmt --check"
+	},
+	"dependencies": {
+		"@types/umami": "2.10.1",
+		"clsx": "2.1.1",
+		"zod": "4.4.3"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "4.12.1",
+		"@eslint/eslintrc": "3.3.6",
+		"@eslint/js": "9.39.5",
+		"@navikt/browserslist-config": "^0.1.0",
+		"@playwright/test": "1.62.1",
+		"@storybook/addon-docs": "10.5.5",
+		"@storybook/html": "10.5.5",
+		"@storybook/html-vite": "10.5.5",
+		"@types/node": "catalog:",
+		"@typescript-eslint/eslint-plugin": "8.65.0",
+		"@typescript-eslint/parser": "8.65.0",
+		"concurrently": "9.2.4",
+		"copyfiles": "2.4.1",
+		"esbuild-minify-templates": "catalog:",
+		"eslint": "catalog:",
+		"http-server": "14.1.1",
+		"husky": "9.1.7",
+		"lint-staged": "16.4.0",
+		"oxfmt": "0.66.0",
+		"postcss-import-sync2": "1.2.0",
+		"storybook": "10.5.5",
+		"typescript": "catalog:",
+		"typescript-plugin-css-modules": "5.2.0",
+		"vite": "7.3.6"
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js}": [
+			"eslint --fix",
+			"oxfmt --no-error-on-unmatched-pattern"
+		],
+		"!(*.{ts,tsx,js})": [
+			"oxfmt --no-error-on-unmatched-pattern"
+		]
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": "^24.19.0",
+			"onFail": "download"
+		}
+	},
+	"engines": {
+		"node": ">=24"
+	},
+	"packageManager": "pnpm@11.1.2+sha512.415a1cc25974731e75455c1468371be74c5aa5fb7621b50d4056d222451609f11412f23fd602e6169f1e060466641f798597e1be961a10688836a67b16569499",
+	"dependencyComments": {
+		"storybook": "Need to have matching storybook version across all storybook packages for it to work properly."
+	}
 }
