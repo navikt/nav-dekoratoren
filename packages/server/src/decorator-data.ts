@@ -445,15 +445,11 @@ const buildAllowedStorage = () => {
     return allAllowedStorage;
 };
 
-// Everything below that does not depend on the request is computed once at
-// module load. buildDecoratorData runs on every /ssr, /csr and / request.
 const allowedStorage = buildAllowedStorage();
 
 const clientTextsKeySet = new Set<string>(clientTextsKeys);
 const clientParamKeySet = new Set<string>(clientParamKeys);
 
-// Key order follows the source texts object, matching the previous
-// filter-over-entries behaviour so the serialized payload is unchanged.
 const clientTexts = Object.fromEntries(
     (Object.keys(texts) as Language[]).map((language) => [
         language,
