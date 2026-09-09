@@ -1,0 +1,49 @@
+name: Deploy to dev3 (Enonic XP Cloud)
+on:
+  workflow_dispatch:
+    inputs:
+      SKIP_TESTS:
+        description: "Skip tests"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      IMAGE: ${{ steps.build_test.outputs.IMAGE }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      - name: Build and test
+        id: build_test
+        uses: ./.github/actions/build-test
+        with:
+          READER_TOKEN: ${{ secrets.READER_TOKEN }}
+          IMAGE_SUFFIX: dev3
+          SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: dev3
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      - name: Deploy to Nais
+        uses: ./.github/actions/deploy-to-nais
+        with:
+          DEPLOY_INSTANCE: dev3
+          DEPLOY_PREVIOUS: false
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.IMAGE }}
+          VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
