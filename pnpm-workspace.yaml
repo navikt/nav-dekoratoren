@@ -16,6 +16,7 @@ minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
     - "@navikt/*"
+    - "@itsy/corgi"
 
 overrides:
     postcss: "8.5.25"

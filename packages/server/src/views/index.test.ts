@@ -6,7 +6,7 @@ import {
     expect,
     test,
 } from "vitest";
-import { clearCache } from "decorator-shared/response-cache";
+import { clearCache } from "../lib/response-cache";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import testData from "../menu/main-menu-mock.json";

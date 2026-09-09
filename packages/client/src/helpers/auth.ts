@@ -1,8 +1,11 @@
 import { AuthDataResponse } from "decorator-shared/auth";
 import { createEvent } from "../events";
 import { env } from "../params";
-import { endpointUrlWithParams } from "./urls";
 import { logger } from "./logger";
+import { decoratorApi, decoratorParams } from "./api";
+
+const OneMinute = 60000;
+const authApi = decoratorApi.extend({ retry: 0, timeout: OneMinute });
 
 export type SessionData = {
     session: {
@@ -61,23 +64,21 @@ export function transformSessionToAuth(session: SessionData) {
 
 export const logout = () => (window.location.href = env("LOGOUT_URL"));
 
-const OneMinuteTimeout = 60000;
 const fetchAuthData = async (): Promise<AuthDataResponse> => {
-    const url = endpointUrlWithParams("/auth");
-
-    return fetch(url, {
-        signal: AbortSignal.timeout(OneMinuteTimeout),
-        credentials: "include",
-    })
-        .then((res) => res.json() as Promise<AuthDataResponse>)
-        .catch((error) => {
-            logger.error(`Failed to fetch auth data.`, { error });
-            return { auth: { authenticated: false } };
+    try {
+        const json = await authApi<AuthDataResponse>("/auth", {
+            query: decoratorParams(),
+            credentials: "include",
         });
+        return json;
+    } catch (error) {
+        logger.error(`Failed to fetch auth data.`, { error });
+        return { auth: { authenticated: false } };
+    }
 };
 
-export const refreshAuthData = () =>
-    fetchAuthData().then((authResponse) => {
-        dispatchEvent(createEvent("authupdated", { detail: authResponse }));
-        return authResponse;
-    });
+export const refreshAuthData = async () => {
+    const authResponse = await fetchAuthData();
+    dispatchEvent(createEvent("authupdated", { detail: authResponse }));
+    return authResponse;
+};

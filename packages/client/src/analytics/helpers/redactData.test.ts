@@ -37,11 +37,11 @@ describe("redactData", () => {
 
     describe("null and undefined values", () => {
         it("should return null when value is null", () => {
-            expect(redactData(null)).toBe(null);
+            expect(redactData(null)).toBeNull();
         });
 
         it("should return undefined when value is undefined", () => {
-            expect(redactData(undefined)).toBe(undefined);
+            expect(redactData(undefined)).toBeUndefined();
         });
     });
 
@@ -65,44 +65,21 @@ describe("redactData", () => {
             );
         });
 
-        it("should apply URL redaction for url key", () => {
-            setRedactPaths([
-                [
-                    "/person/:redact:/sak",
-                    { redactPath: true, redactTitle: false },
-                ],
-            ]);
+        it.each(["url", "referrer", "destinasjon"])(
+            "should apply URL redaction for %s key",
+            (key) => {
+                setRedactPaths([
+                    [
+                        "/person/:redact:/sak",
+                        { redactPath: true, redactTitle: false },
+                    ],
+                ]);
 
-            expect(redactData("/person/12345/sak", "url")).toBe(
-                "/person/[redacted]/sak",
-            );
-        });
-
-        it("should apply URL redaction for referrer key", () => {
-            setRedactPaths([
-                [
-                    "/person/:redact:/sak",
-                    { redactPath: true, redactTitle: false },
-                ],
-            ]);
-
-            expect(redactData("/person/12345/sak", "referrer")).toBe(
-                "/person/[redacted]/sak",
-            );
-        });
-
-        it("should apply URL redaction for destinasjon key", () => {
-            setRedactPaths([
-                [
-                    "/person/:redact:/sak",
-                    { redactPath: true, redactTitle: false },
-                ],
-            ]);
-
-            expect(redactData("/person/12345/sak", "destinasjon")).toBe(
-                "/person/[redacted]/sak",
-            );
-        });
+                expect(redactData("/person/12345/sak", key)).toBe(
+                    "/person/[redacted]/sak",
+                );
+            },
+        );
 
         it("should not apply URL redaction for non-URL keys", () => {
             setRedactPaths([

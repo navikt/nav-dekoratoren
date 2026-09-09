@@ -1,16 +1,21 @@
 import html from "decorator-shared/html";
 import debounce from "lodash.debounce";
-import { endpointUrlWithParams } from "../helpers/urls";
 import { env, param } from "../params";
 import cls from "../styles/search-form.module.css";
 import { defineCustomElement } from "./custom-elements";
 import { analyticsEvent } from "../analytics/analytics";
+import { decoratorApi, decoratorParams } from "../helpers/api";
+import { logger } from "../helpers/logger";
+import { isAbortError } from "@itsy/corgi/chonk";
 
 class SearchMenu extends HTMLElement {
     form: HTMLFormElement | null = null;
     input: HTMLInputElement | null = null;
     parentDropdown: HTMLInputElement | null = null;
     hits: HTMLElement;
+
+    // This is an instance attribute so the abort-signals don't conflict amonst instances
+    private readonly api = decoratorApi.extend({ abortPrevious: true });
 
     constructor() {
         super();
@@ -49,29 +54,7 @@ class SearchMenu extends HTMLElement {
             );
         });
 
-        const fetchSearch = (query: string) => {
-            const url = endpointUrlWithParams("/api/search", {
-                language: param("language"),
-                context: param("context"),
-                q: encodeURIComponent(query),
-            });
-
-            analyticsEvent({
-                eventName: "søk",
-                kategori: "dekorator-header",
-                komponent: "SearchMenu",
-            });
-
-            return fetch(url)
-                .then((res) => res.text())
-                .then((text) => {
-                    if (this.input?.value === query) {
-                        this.hits.innerHTML = text;
-                    }
-                });
-        };
-
-        const fetchSearchDebounced = debounce(fetchSearch, 500);
+        const fetchSearchDebounced = debounce(this.fetchSearch, 500);
 
         this.input?.addEventListener("input", (e) => {
             const mainMenu = document.getElementById("decorator-main-menu");
@@ -89,6 +72,31 @@ class SearchMenu extends HTMLElement {
             }
         });
     }
+
+    private readonly fetchSearch = async (query: string) => {
+        analyticsEvent({
+            eventName: "søk",
+            kategori: "dekorator-header",
+            komponent: "SearchMenu",
+        });
+
+        try {
+            const results = await this.api("/api/search", {
+                query: decoratorParams({
+                    language: param("language"),
+                    context: param("context"),
+                    q: encodeURIComponent(query),
+                }),
+                responseType: "text",
+            });
+            if (this.input?.value === query) {
+                this.hits.innerHTML = results;
+            }
+        } catch (error) {
+            if (isAbortError(error)) return; // don't error-log when we cancel an in-flight promise
+            logger.error("Failed to fetch search results", { error });
+        }
+    };
 
     disconnectedCallback() {
         if (this.getAttribute("data-auto-focus") !== null) {

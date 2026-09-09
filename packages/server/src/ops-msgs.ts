@@ -1,4 +1,4 @@
-import { ResponseCache } from "decorator-shared/response-cache";
+import { ResponseCache } from "./lib/response-cache";
 import { OpsMessage } from "decorator-shared/types";
 import { logger } from "./lib/logger";
 import { env } from "./env/server";

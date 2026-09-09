@@ -1,10 +1,31 @@
+import { logger } from "../helpers/logger";
 import { logAnalyticsEvent } from "../analytics/analytics";
-import { endpointUrlWithParams } from "../helpers/urls";
 import { defineCustomElement } from "./custom-elements";
+import { decoratorApi, decoratorParams } from "../helpers/api";
+
+const decoratorApiWithoutRetries = decoratorApi.extend({ retry: 0 });
 
 class ArchivableNotification extends HTMLElement {
-    // TODO: hva skal vi vise hvis arkivering feiler?
-    private handleError() {}
+    private readonly archiveNotifications = async () => {
+        const id = this.getAttribute("data-id");
+        try {
+            await decoratorApi(`/api/notifications/${id}/archive`, {
+                query: decoratorParams(),
+                method: "POST",
+                credentials: "include",
+            });
+            this.parentElement?.remove();
+            logAnalyticsEvent("arkivert-beskjed", {
+                kategori: "dekorator-varsler",
+                komponent: "varsler-beskjed-arkiverbar",
+            });
+        } catch (error) {
+            // TODO: hva skal vi vise hvis arkivering feiler?
+            logger.error("Failed to archive notifications from button", {
+                error,
+            });
+        }
+    };
 
     connectedCallback() {
         const id = this.getAttribute("data-id");
@@ -12,22 +33,9 @@ class ArchivableNotification extends HTMLElement {
             return;
         }
 
-        this.querySelector("button")?.addEventListener("click", () =>
-            fetch(endpointUrlWithParams(`/api/notifications/${id}/archive`), {
-                method: "POST",
-                credentials: "include",
-            }).then((res) => {
-                if (!res.ok) {
-                    this.handleError();
-                    return;
-                }
-
-                this.parentElement?.remove();
-                logAnalyticsEvent("arkivert-beskjed", {
-                    kategori: "dekorator-varsler",
-                    komponent: "varsler-beskjed-arkiverbar",
-                });
-            }),
+        this.querySelector("button")?.addEventListener(
+            "click",
+            this.archiveNotifications,
         );
     }
 }
@@ -35,9 +43,6 @@ class ArchivableNotification extends HTMLElement {
 defineCustomElement("archivable-notification", ArchivableNotification);
 
 class LinkNotification extends HTMLElement {
-    // TODO: hva skal vi vise hvis poste done-event feiler?
-    private handleError() {}
-
     connectedCallback() {
         const anchorElement = this.querySelector("a");
         if (!anchorElement) {
@@ -62,21 +67,23 @@ class LinkNotification extends HTMLElement {
             }
 
             if (type === "message") {
-                fetch(
-                    endpointUrlWithParams(`/api/notifications/${id}/archive`),
-                    {
-                        method: "POST",
-                        credentials: "include",
-                        keepalive: true,
-                    },
-                ).then((res) => {
-                    if (!res.ok) {
-                        this.handleError();
-                        return;
-                    }
-
-                    this.parentElement?.remove();
-                });
+                // We don't want to retry because of keepalive
+                decoratorApiWithoutRetries(`/api/notifications/${id}/archive`, {
+                    query: decoratorParams(),
+                    method: "POST",
+                    credentials: "include",
+                    keepalive: true,
+                })
+                    .then(() => {
+                        this.parentElement?.remove();
+                    })
+                    .catch((error) => {
+                        // TODO: hva skal vi vise hvis poste done-event feiler?
+                        logger.error(
+                            "Failed to archive notifications from link",
+                            { error },
+                        );
+                    });
             }
 
             logAnalyticsEvent("navigere", {

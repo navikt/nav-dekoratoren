@@ -62,16 +62,17 @@ export const Breadcrumbs = ({
                                           : html`
                                                 <a
                                                     ${htmlAttributes({
-                                                    className: clsx(
-                                                        cls.link,
-                                                        aksel["aksel-link"],
-                                                    ),
-                                                    ["data-handle-in-app"]:
-                                                        handleInApp ?? false,
-                                                    ["data-analytics-title"]:
-                                                        analyticsTitle,
-                                                    href: url ?? "#",
-                                                })}
+                                                        className: clsx(
+                                                            cls.link,
+                                                            aksel["aksel-link"],
+                                                        ),
+                                                        ["data-handle-in-app"]:
+                                                            handleInApp ??
+                                                            false,
+                                                        ["data-analytics-title"]:
+                                                            analyticsTitle,
+                                                        href: url ?? "#",
+                                                    })}
                                                     >${title}</a
                                                 >
                                             `
