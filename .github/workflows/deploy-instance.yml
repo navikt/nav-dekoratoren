@@ -1,0 +1,134 @@
+# Deploys one dekoratøren instance, in order:
+#   resolve-previous -> previous -> app (+ HPA) -> update-vars -> version-authority
+# Callers need `permissions: { contents: read, id-token: write }` and `secrets: inherit`.
+name: Deploy a dekoratøren instance
+on:
+  workflow_call:
+    inputs:
+      instance:
+        description: Instance name. Selects .nais/vars/<instance>.yml and the GitHub environment of the same name.
+        type: string
+        required: true
+      cluster:
+        description: NAIS cluster, e.g. dev-gcp or prod-gcp.
+        type: string
+        required: true
+      image:
+        description: Image to deploy.
+        type: string
+        required: true
+      hpa-resource:
+        description: HPA resource applied before the app. Empty skips it.
+        type: string
+        required: false
+        default: ""
+      deploy-previous:
+        description: Deploy the previously deployed version as an internal app before the current one.
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      VARS_UPDATE_TOKEN:
+        description: PAT that can write environment variables in this repository.
+        required: true
+
+jobs:
+  # PREV_VERSION_ID and PREV_IMAGE are environment-scoped variables. They are
+  # only visible to a job that declares the environment, and a job that calls
+  # a reusable workflow cannot. This job reads them and passes them on.
+  resolve-previous:
+    name: Read previous version
+    if: ${{ inputs.deploy-previous }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: ${{ inputs.instance }}
+    outputs:
+      version-id: ${{ steps.read.outputs.version-id }}
+      image: ${{ steps.read.outputs.image }}
+    steps:
+      - name: Read PREV_VERSION_ID and PREV_IMAGE
+        id: read
+        env:
+          PREV_VERSION_ID: ${{ vars.PREV_VERSION_ID }}
+          PREV_IMAGE: ${{ vars.PREV_IMAGE }}
+        run: |
+          echo "version-id=$PREV_VERSION_ID" >> "$GITHUB_OUTPUT"
+          echo "image=$PREV_IMAGE" >> "$GITHUB_OUTPUT"
+
+  # Checks out the previous version so its own .nais config is used.
+  previous:
+    name: Previous version
+    needs: resolve-previous
+    if: ${{ !failure() && !cancelled() && needs.resolve-previous.outputs.version-id != '' && needs.resolve-previous.outputs.image != '' }}
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: ${{ inputs.cluster }}
+      ref: ${{ needs.resolve-previous.outputs.version-id }}
+      resource: .nais/config-internal.yml
+      vars: .nais/vars/${{ inputs.instance }}.yml
+      var: image=${{ needs.resolve-previous.outputs.image }},versionId=${{ needs.resolve-previous.outputs.version-id }},deployInstance=${{ inputs.instance }}
+
+  app:
+    name: Current version
+    needs: [resolve-previous, previous]
+    # Runs when the previous-version jobs were skipped, not when one failed.
+    if: ${{ !failure() && !cancelled() }}
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: ${{ inputs.cluster }}
+      resource: .nais/config.yml
+      hpa-resource: ${{ inputs.hpa-resource }}
+      vars: .nais/vars/${{ inputs.instance }}.yml
+      var: image=${{ inputs.image }},versionId=${{ github.sha }},deployInstance=${{ inputs.instance }}
+      environment: ${{ inputs.instance }}
+
+  update-vars:
+    name: Record deployed version
+    needs: app
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Update PREV_VERSION_ID and PREV_IMAGE
+        env:
+          GITHUB_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          DEPLOY_INSTANCE: ${{ inputs.instance }}
+          IMAGE_INPUT: ${{ inputs.image }}
+          VERSION_ID: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          # Basic allow-list validation to reduce injection risk
+          safe_env_regex='^[A-Za-z0-9._-]+$'
+          safe_image_regex='^[A-Za-z0-9._/@:-]+$'
+
+          if ! [[ "$DEPLOY_INSTANCE" =~ $safe_env_regex ]]; then
+            echo "Invalid instance value"; exit 1
+          fi
+          if ! [[ "$IMAGE_INPUT" =~ $safe_image_regex ]]; then
+            echo "Invalid image value"; exit 1
+          fi
+
+          gh variable set PREV_VERSION_ID --env "$DEPLOY_INSTANCE" --body "$VERSION_ID"
+          gh variable set PREV_IMAGE --env "$DEPLOY_INSTANCE" --body "$IMAGE_INPUT"
+          gh variable list --env "$DEPLOY_INSTANCE"
+
+  # The configmap signals the latest fully deployed version.
+  version-authority:
+    name: Version authority
+    needs: update-vars
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: ${{ inputs.cluster }}
+      resource: .nais/version-authority-configmap.yml
+      # The template does not use the vars file. It is passed so that the
+      # nais-deploy concurrency group (repository, cluster, resource, vars)
+      # is unique per instance; otherwise parallel instances on the same
+      # cluster would cancel each other's pending deploy.
+      vars: .nais/vars/${{ inputs.instance }}.yml
+      var: versionId=${{ github.sha }},deployInstance=${{ inputs.instance }}

@@ -30,7 +30,8 @@
         "copy-assets": "mkdir -p packages/server/public && copyfiles -u 3 packages/client/dist/assets/**/* packages/server/public/",
         "prepare": "husky",
         "benchmarking": "./benchmarking/run",
-        "playwright": "pnpm exec playwright test"
+        "playwright": "pnpm exec playwright test",
+        "test:e2e": "cp packages/server/.env.sample packages/server/.env && playwright install --with-deps && playwright test"
     },
     "keywords": [],
     "author": "",
