@@ -29,6 +29,7 @@ const result = await build({
     bundle: true,
     minify: false,
     format: "esm",
+    splitting: true,
     // CJS packages use dynamic require() for Node built-ins. Injecting a real require() via createRequire makes this work in an ESM bundle.
     banner: {
         js: `import { createRequire } from "module"; const require = createRequire(import.meta.url);`,
@@ -40,13 +41,17 @@ const result = await build({
     },
 });
 
-const outFile = Object.keys(result.metafile!.outputs)[0];
-const outPath = resolve(outFile);
-logger.info(`Build output: ${outFile}`);
+for (const outFile of Object.keys(result.metafile!.outputs)) {
+    if (!outFile.endsWith(".js")) {
+        continue;
+    }
+    const outPath = resolve(outFile);
+    logger.info(`Build output: ${outFile}`);
 
-const text = readFileSync(outPath, "utf-8");
-const minified = minify(text, {
-    taggedOnly: true,
-}).toString();
+    const text = readFileSync(outPath, "utf-8");
+    const minified = minify(text, {
+        taggedOnly: true,
+    }).toString();
 
-writeFileSync(outPath, minified);
+    writeFileSync(outPath, minified);
+}
