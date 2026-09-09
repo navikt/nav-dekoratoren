@@ -9,6 +9,8 @@ import {
 import {
     clientParamKeys,
     ClientParams,
+    Language,
+    Params,
     validateRawParams,
 } from "decorator-shared/params";
 
@@ -443,33 +445,43 @@ const buildAllowedStorage = () => {
     return allAllowedStorage;
 };
 
+const allowedStorage = buildAllowedStorage();
+
+const clientTextsKeySet = new Set<string>(clientTextsKeys);
+const clientParamKeySet = new Set<string>(clientParamKeys);
+
+const clientTexts = Object.fromEntries(
+    (Object.keys(texts) as Language[]).map((language) => [
+        language,
+        Object.fromEntries(
+            Object.entries(texts[language]).filter(([key]) =>
+                clientTextsKeySet.has(key),
+            ),
+        ) as ClientTexts,
+    ]),
+) as Record<Language, ClientTexts>;
+
+const pickClientParams = (params: Params): ClientParams => {
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(params)) {
+        if (clientParamKeySet.has(key)) {
+            result[key] = value;
+        }
+    }
+    return result as ClientParams;
+};
+
 export const buildDecoratorData = ({
     features,
     params,
     rawParams,
     headAssets,
 }: DecoratorDataProps): AppState => ({
-    texts: Object.entries(texts[params.language])
-        .filter(([key]) => clientTextsKeys.includes(key as keyof ClientTexts))
-        .reduce(
-            (prev, [key, value]) => ({
-                ...prev,
-                [key]: value,
-            }),
-            {},
-        ) as ClientTexts,
-    params: Object.entries(params)
-        .filter(([key]) => clientParamKeys.includes(key as keyof ClientParams))
-        .reduce(
-            (prev, [key, value]) => ({
-                ...prev,
-                [key]: value,
-            }),
-            {},
-        ) as ClientParams,
+    texts: clientTexts[params.language],
+    params: pickClientParams(params),
     rawParams: validateRawParams(rawParams),
     features,
     env: clientEnv,
     headAssets,
-    allowedStorage: buildAllowedStorage(),
+    allowedStorage,
 });
