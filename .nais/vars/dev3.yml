@@ -5,6 +5,7 @@ ingresses:
 outboundHosts:
   - www.nav.no
   - www.intern.dev.nav.no
+  - www-3.ekstern.dev.nav.no
   - www.ekstern.dev.nav.no
   - dekoratoren-dev3.intern.dev.nav.no
   - trial-navpoc.enonic.cloud
@@ -21,7 +22,7 @@ env:
   - name: SEARCH_API_URL
     value: http://navno-search-api.navno/content/decorator-search
   - name: XP_BASE_URL
-    value: https://www.ansatt.dev.nav.no
+    value: https://www-3.ansatt.dev.nav.no
   - name: LOGIN_URL
     value: https://login.ekstern.dev.nav.no/oauth2/login
   - name: LOGOUT_URL
