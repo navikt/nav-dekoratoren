@@ -1,137 +1,112 @@
-import cls from "decorator-client/src/styles/ops-messages.module.css";
-import utils from "decorator-client/src/styles/utils.module.css";
-import i18n from "decorator-client/src/views/i18n";
-import {
-    ExclamationmarkTriangleIcon,
-    InformationSquareIcon,
-} from "decorator-icons";
-import html from "decorator-shared/html";
-import { OpsMessage } from "decorator-shared/types";
-import { defineCustomElement } from "./custom-elements";
-import { analyticsClickListener } from "../analytics/analytics";
-import { decoratorApi, decoratorParams } from "../helpers/api";
-import { logger } from "../helpers/logger";
+import cls from 'decorator-client/src/styles/ops-messages.module.css';
+import utils from 'decorator-client/src/styles/utils.module.css';
+import i18n from 'decorator-client/src/views/i18n';
+import { ExclamationmarkTriangleIcon, InformationSquareIcon } from 'decorator-icons';
+import html from 'decorator-shared/html';
+import { OpsMessage } from 'decorator-shared/types';
+import { defineCustomElement } from './custom-elements';
+import { analyticsClickListener } from '../analytics/analytics';
+import { decoratorApi, decoratorParams } from '../helpers/api';
+import { logger } from '../helpers/logger';
 
-const availableHosts = [
-    "www.nav.no",
-    "www.ansatt.dev.nav.no",
-    "www-2.ansatt.dev.nav.no",
-];
+const availableHosts = ['www.nav.no', 'www.ansatt.dev.nav.no', 'www-2.ansatt.dev.nav.no'];
 
 const checkAndCorrectHost = (url: string): string => {
-    if (!url) {
-        return url;
-    }
+	if (!url) {
+		return url;
+	}
 
-    if (url.startsWith("/")) {
-        const currentHostIsAvailableHosts =
-            availableHosts.includes(window.location.host) ||
-            window.location.host.startsWith("localhost");
-        const host = currentHostIsAvailableHosts
-            ? window.location.host
-            : "www.nav.no";
-        return `https://${host}${url}`;
-    }
+	if (url.startsWith('/')) {
+		const currentHostIsAvailableHosts =
+			availableHosts.includes(window.location.host) || window.location.host.startsWith('localhost');
+		const host = currentHostIsAvailableHosts ? window.location.host : 'www.nav.no';
+		return `https://${host}${url}`;
+	}
 
-    return url;
+	return url;
 };
 
-export const OpsMessagesTemplate = ({
-    opsMessages,
-}: {
-    opsMessages: OpsMessage[];
-}) => html`
-    <section
-        class="${cls.opsMessagesContent} ${utils.contentContainer}"
-        aria-label="${i18n("important_info")}"
-    >
-        ${opsMessages.map(({ heading, url, type }) => {
-            const fullUrl = checkAndCorrectHost(url);
-            return html`
-                <a href="${fullUrl}" class="${cls.opsMessage}">
-                    ${
-                        type === "prodstatus"
-                            ? ExclamationmarkTriangleIcon({
-                                  className: utils.icon,
-                              })
-                            : InformationSquareIcon({
-                                  className: utils.icon,
-                              })
-                    }
-                    ${heading}
-                </a>
-            `;
-        })}
-    </section>
+export const OpsMessagesTemplate = ({ opsMessages }: { opsMessages: OpsMessage[] }) => html`
+	<section class="${cls.opsMessagesContent} ${utils.contentContainer}" aria-label="${i18n('important_info')}">
+		${opsMessages.map(({ heading, url, type }) => {
+			const fullUrl = checkAndCorrectHost(url);
+			return html`
+				<a href="${fullUrl}" class="${cls.opsMessage}">
+					${
+						type === 'prodstatus'
+							? ExclamationmarkTriangleIcon({
+									className: utils.icon,
+								})
+							: InformationSquareIcon({
+									className: utils.icon,
+								})
+					}
+					${heading}
+				</a>
+			`;
+		})}
+	</section>
 `;
 
 // If the scoped url of a message ends with a literal "$"
 // it should only be shown on that exact url
-const removeTrailingChars = (url: string) =>
-    url.replace(/\$$/, "").replace(/\/$/, "");
+const removeTrailingChars = (url: string) => url.replace(/\$$/, '').replace(/\/$/, '');
 
 class OpsMessages extends HTMLElement {
-    private messages: OpsMessage[] = [];
+	private messages: OpsMessage[] = [];
 
-    connectedCallback() {
-        this.initialize();
-        window.addEventListener("historyPush", () => {
-            this.render();
-        });
-        window.addEventListener("popstate", () => {
-            this.render();
-        });
-        this.addEventListener(
-            "click",
-            analyticsClickListener(() => ({
-                kategori: "dekorator-driftsmeldinger",
-                lenketekst: "driftsmelding",
-                komponent: "OpsMessages",
-            })),
-        );
-    }
+	connectedCallback() {
+		this.initialize();
+		window.addEventListener('historyPush', () => {
+			this.render();
+		});
+		window.addEventListener('popstate', () => {
+			this.render();
+		});
+		this.addEventListener(
+			'click',
+			analyticsClickListener(() => ({
+				kategori: 'dekorator-driftsmeldinger',
+				lenketekst: 'driftsmelding',
+				komponent: 'OpsMessages',
+			}))
+		);
+	}
 
-    private async initialize() {
-        try {
-            this.messages = await decoratorApi.get<OpsMessage[]>(
-                "/ops-messages",
-                {
-                    query: decoratorParams(),
-                },
-            );
-            this.render();
-        } catch (error) {
-            logger.error("Failed to fetch ops-messages", { error });
-        }
-    }
+	private async initialize() {
+		try {
+			this.messages = await decoratorApi.get<OpsMessage[]>('/ops-messages', {
+				query: decoratorParams(),
+			});
+			this.render();
+		} catch (error) {
+			logger.error('Failed to fetch ops-messages', { error });
+		}
+	}
 
-    private render() {
-        const filteredMessages = this.messages.filter(
-            (opsMessage: OpsMessage) => {
-                const currentUrl = removeTrailingChars(window.location.href);
+	private render() {
+		const filteredMessages = this.messages.filter((opsMessage: OpsMessage) => {
+			const currentUrl = removeTrailingChars(window.location.href);
 
-                return (
-                    !opsMessage.urlscope ||
-                    opsMessage.urlscope.length === 0 ||
-                    opsMessage.urlscope.some((rawScopedUrl) => {
-                        const scopedUrl = removeTrailingChars(rawScopedUrl);
-                        return rawScopedUrl.endsWith("$")
-                            ? currentUrl === scopedUrl
-                            : currentUrl.startsWith(scopedUrl);
-                    })
-                );
-            },
-        );
+			return (
+				!opsMessage.urlscope ||
+				opsMessage.urlscope.length === 0 ||
+				opsMessage.urlscope.some((rawScopedUrl) => {
+					const scopedUrl = removeTrailingChars(rawScopedUrl);
+					return rawScopedUrl.endsWith('$') ? currentUrl === scopedUrl : currentUrl.startsWith(scopedUrl);
+				})
+			);
+		});
 
-        if (filteredMessages.length === 0) {
-            this.innerHTML = "";
-            return;
-        }
+		if (filteredMessages.length === 0) {
+			this.innerHTML = '';
+			return;
+		}
 
-        this.innerHTML = OpsMessagesTemplate({
-            opsMessages: filteredMessages,
-        }).render(window.__DECORATOR_DATA__.params);
-    }
+		this.innerHTML = OpsMessagesTemplate({
+			opsMessages: filteredMessages,
+		}).render(window.__DECORATOR_DATA__.params);
+	}
 }
 
-defineCustomElement("ops-messages", OpsMessages);
+defineCustomElement('ops-messages', OpsMessages);

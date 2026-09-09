@@ -1,48 +1,47 @@
 .summary {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--ax-space-2);
-    list-style: none;
-    border-radius: var(--ax-radius-4);
-    color: var(--ax-text-accent-subtle);
-    cursor: pointer;
-    padding: var(--ax-space-4) var(--ax-space-8) var(--ax-space-4)
-        var(--ax-space-2);
-    width: fit-content;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--ax-space-2);
+	list-style: none;
+	border-radius: var(--ax-radius-4);
+	color: var(--ax-text-accent-subtle);
+	cursor: pointer;
+	padding: var(--ax-space-4) var(--ax-space-8) var(--ax-space-4) var(--ax-space-2);
+	width: fit-content;
 }
 
 .summary:hover {
-    background-color: var(--ax-bg-neutral-moderate-hoverA);
-    color: var(--ax-text-accent-subtle);
+	background-color: var(--ax-bg-neutral-moderate-hoverA);
+	color: var(--ax-text-accent-subtle);
 }
 
 .summary:active {
-    background-color: var(--ax-bg-neutral-moderate-pressedA);
+	background-color: var(--ax-bg-neutral-moderate-pressedA);
 }
 
 .summary::-webkit-details-marker {
-    display: none;
+	display: none;
 }
 
 .details[open] .icon {
-    transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 .summary:hover .icon {
-    position: relative;
-    top: 1px;
+	position: relative;
+	top: 1px;
 }
 
 .details[open] .summary:hover .icon {
-    top: -1px;
+	top: -1px;
 }
 
 .answer {
-    border-left: 2px solid var(--ax-border-neutral-subtle);
-    color: var(--ax-text-default);
-    margin-left: 0.8125rem;
-    margin-top: var(--ax-space-4);
-    padding-left: 0.8125rem;
-    font-weight: var(--ax-font-weight-regular);
-    line-height: var(--ax-font-line-height-xlarge);
+	border-left: 2px solid var(--ax-border-neutral-subtle);
+	color: var(--ax-text-default);
+	margin-left: 0.8125rem;
+	margin-top: var(--ax-space-4);
+	padding-left: 0.8125rem;
+	font-weight: var(--ax-font-weight-regular);
+	line-height: var(--ax-font-line-height-xlarge);
 }

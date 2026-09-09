@@ -1,93 +1,93 @@
 .languageSelector {
-    width: fit-content;
-    position: relative;
-    z-index: 100;
+	width: fit-content;
+	position: relative;
+	z-index: 100;
 }
 
 .languageSelector:only-child {
-    margin-left: auto;
+	margin-left: auto;
 }
 
 .button {
-    margin: 0;
-    font: inherit;
-    font-size: var(--ax-font-size-large);
-    color: inherit;
-    cursor: pointer;
-    background-color: var(--ax-bg-default);
-    padding: 0.5625rem;
-    display: grid;
-    grid-auto-flow: column;
-    gap: var(--ax-space-8);
-    align-items: center;
-    border: 1px solid var(--ax-border-neutral);
-    border-radius: var(--ax-radius-8);
+	margin: 0;
+	font: inherit;
+	font-size: var(--ax-font-size-large);
+	color: inherit;
+	cursor: pointer;
+	background-color: var(--ax-bg-default);
+	padding: 0.5625rem;
+	display: grid;
+	grid-auto-flow: column;
+	gap: var(--ax-space-8);
+	align-items: center;
+	border: 1px solid var(--ax-border-neutral);
+	border-radius: var(--ax-radius-8);
 }
 
 .button:focus-visible {
-    border-color: transparent;
-    outline: 3px solid var(--ax-border-focus);
+	border-color: transparent;
+	outline: 3px solid var(--ax-border-focus);
 }
 
 .label {
-    margin-right: var(--ax-space-8);
+	margin-right: var(--ax-space-8);
 }
 
 .menu {
-    position: absolute;
-    width: 100%;
-    list-style: none;
-    padding-left: 0;
-    margin-block: 0;
-    background-color: var(--ax-bg-default);
-    border: 1px solid var(--ax-neutral-200);
-    box-shadow: 0 0.05rem 0.25rem 0.125rem rgba(0, 0, 0, 0.08);
-    margin-top: 1px;
-    border-bottom-right-radius: var(--ax-radius-8);
-    border-bottom-left-radius: var(--ax-radius-8);
-    overflow: hidden;
-    /* fallback for browser that don't support clip */
-    overflow: clip;
+	position: absolute;
+	width: 100%;
+	list-style: none;
+	padding-left: 0;
+	margin-block: 0;
+	background-color: var(--ax-bg-default);
+	border: 1px solid var(--ax-neutral-200);
+	box-shadow: 0 0.05rem 0.25rem 0.125rem rgba(0, 0, 0, 0.08);
+	margin-top: 1px;
+	border-bottom-right-radius: var(--ax-radius-8);
+	border-bottom-left-radius: var(--ax-radius-8);
+	overflow: hidden;
+	/* fallback for browser that don't support clip */
+	overflow: clip;
 }
 
 .menu > :not(:last-child) {
-    border-bottom: 1px solid var(--ax-neutral-200);
+	border-bottom: 1px solid var(--ax-neutral-200);
 }
 
 .option {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    margin: 0;
-    outline: none;
-    padding: var(--ax-space-12) var(--ax-space-16);
-    width: 100%;
-    text-align: left;
-    color: var(--ax-text-default);
-    text-decoration: none;
-    font: inherit;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--ax-space-8);
-    align-items: center;
-    font-size: var(--ax-font-size-medium);
-    line-height: var(--ax-font-line-height-medium);
+	background-color: transparent;
+	border: 0;
+	cursor: pointer;
+	margin: 0;
+	outline: none;
+	padding: var(--ax-space-12) var(--ax-space-16);
+	width: 100%;
+	text-align: left;
+	color: var(--ax-text-default);
+	text-decoration: none;
+	font: inherit;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: var(--ax-space-8);
+	align-items: center;
+	font-size: var(--ax-font-size-medium);
+	line-height: var(--ax-font-line-height-medium);
 }
 
 .option:hover,
 .option:focus-visible {
-    background-color: var(--ax-bg-accent-strong-hover);
-    color: var(--ax-neutral-000);
+	background-color: var(--ax-bg-accent-strong-hover);
+	color: var(--ax-neutral-000);
 }
 
 .option::before {
-    content: "";
-    display: block;
-    height: 8px;
-    width: 8px;
-    border-radius: 100%;
+	content: '';
+	display: block;
+	height: 8px;
+	width: 8px;
+	border-radius: 100%;
 }
 
 .option.selected::before {
-    background-color: currentColor;
+	background-color: currentColor;
 }

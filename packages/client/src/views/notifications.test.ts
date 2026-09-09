@@ -1,28 +1,28 @@
-import { fixture } from "@open-wc/testing-helpers";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { logger } from "../helpers/logger";
-import { apiPath, http, setDecoratorData, waitFor } from "../test-setup";
-import "./notifications";
+import { fixture } from '@open-wc/testing-helpers';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { logger } from '../helpers/logger';
+import { apiPath, http, setDecoratorData, waitFor } from '../test-setup';
+import './notifications';
 
-vi.mock("../analytics/analytics", () => ({
-    logAnalyticsEvent: vi.fn(),
+vi.mock('../analytics/analytics', () => ({
+	logAnalyticsEvent: vi.fn(),
 }));
 
 const ARCHIVE_URL = /\/api\/notifications\/[^/]+\/archive\b/;
 
-describe("ArchivableNotification", () => {
-    beforeEach(() => {
-        setDecoratorData();
-    });
+describe('ArchivableNotification', () => {
+	beforeEach(() => {
+		setDecoratorData();
+	});
 
-    afterEach(() => {
-        vi.clearAllMocks();
-        vi.restoreAllMocks();
-    });
+	afterEach(() => {
+		vi.clearAllMocks();
+		vi.restoreAllMocks();
+	});
 
-    it("archives the notification and removes it on click", async () => {
-        http.post(ARCHIVE_URL, { status: 204 });
-        const wrapper = await fixture(`
+	it('archives the notification and removes it on click', async () => {
+		http.post(ARCHIVE_URL, { status: 204 });
+		const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
                     <archivable-notification data-id="123">
@@ -32,22 +32,18 @@ describe("ArchivableNotification", () => {
             </div>
         `);
 
-        wrapper.querySelector("button")!.click();
+		wrapper.querySelector('button')!.click();
 
-        await waitFor(() =>
-            expect(wrapper.querySelector("archivable-notification")).toBeNull(),
-        );
-        expect(http.lastCall?.pathname).toBe(
-            apiPath("/api/notifications/123/archive"),
-        );
-        expect(http.lastCall?.method).toBe("POST");
-        expect(http.lastCall?.init.credentials).toBe("include");
-    });
+		await waitFor(() => expect(wrapper.querySelector('archivable-notification')).toBeNull());
+		expect(http.lastCall?.pathname).toBe(apiPath('/api/notifications/123/archive'));
+		expect(http.lastCall?.method).toBe('POST');
+		expect(http.lastCall?.init.credentials).toBe('include');
+	});
 
-    it("logs and keeps the notification when archiving fails", async () => {
-        const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        http.post(ARCHIVE_URL, { status: 400 });
-        const wrapper = await fixture(`
+	it('logs and keeps the notification when archiving fails', async () => {
+		const errorSpy = vi.spyOn(logger, 'error').mockImplementation(() => {});
+		http.post(ARCHIVE_URL, { status: 400 });
+		const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
                     <archivable-notification data-id="123">
@@ -57,30 +53,30 @@ describe("ArchivableNotification", () => {
             </div>
         `);
 
-        wrapper.querySelector("button")!.click();
+		wrapper.querySelector('button')!.click();
 
-        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
-        expect(errorSpy).toHaveBeenCalledWith(
-            "Failed to archive notifications from button",
-            expect.objectContaining({ error: expect.any(Error) }),
-        );
-        expect(wrapper.querySelector("archivable-notification")).not.toBeNull();
-    });
+		await waitFor(() => expect(errorSpy).toHaveBeenCalled());
+		expect(errorSpy).toHaveBeenCalledWith(
+			'Failed to archive notifications from button',
+			expect.objectContaining({ error: expect.any(Error) })
+		);
+		expect(wrapper.querySelector('archivable-notification')).not.toBeNull();
+	});
 });
 
-describe("LinkNotification", () => {
-    beforeEach(() => {
-        setDecoratorData();
-    });
+describe('LinkNotification', () => {
+	beforeEach(() => {
+		setDecoratorData();
+	});
 
-    afterEach(() => {
-        vi.clearAllMocks();
-        vi.restoreAllMocks();
-    });
+	afterEach(() => {
+		vi.clearAllMocks();
+		vi.restoreAllMocks();
+	});
 
-    it("archives a message notification on click", async () => {
-        http.post(ARCHIVE_URL, { status: 204 });
-        const wrapper = await fixture(`
+	it('archives a message notification on click', async () => {
+		http.post(ARCHIVE_URL, { status: 204 });
+		const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
                     <link-notification data-id="123" data-type="message">
@@ -90,24 +86,20 @@ describe("LinkNotification", () => {
             </div>
         `);
 
-        wrapper.querySelector("a")!.click();
+		wrapper.querySelector('a')!.click();
 
-        await waitFor(() =>
-            expect(wrapper.querySelector("link-notification")).toBeNull(),
-        );
-        expect(http.lastCall?.pathname).toBe(
-            apiPath("/api/notifications/123/archive"),
-        );
-        expect(http.lastCall?.method).toBe("POST");
-        expect(http.lastCall?.init.credentials).toBe("include");
-        // The link variant fires on navigation, so the request must survive it.
-        expect(http.lastCall?.init.keepalive).toBe(true);
-    });
+		await waitFor(() => expect(wrapper.querySelector('link-notification')).toBeNull());
+		expect(http.lastCall?.pathname).toBe(apiPath('/api/notifications/123/archive'));
+		expect(http.lastCall?.method).toBe('POST');
+		expect(http.lastCall?.init.credentials).toBe('include');
+		// The link variant fires on navigation, so the request must survive it.
+		expect(http.lastCall?.init.keepalive).toBe(true);
+	});
 
-    it("logs and keeps the notification when archiving fails", async () => {
-        const errorSpy = vi.spyOn(logger, "error").mockImplementation(() => {});
-        http.post(ARCHIVE_URL, { status: 400 });
-        const wrapper = await fixture(`
+	it('logs and keeps the notification when archiving fails', async () => {
+		const errorSpy = vi.spyOn(logger, 'error').mockImplementation(() => {});
+		http.post(ARCHIVE_URL, { status: 400 });
+		const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
                     <link-notification data-id="123" data-type="message">
@@ -117,18 +109,18 @@ describe("LinkNotification", () => {
             </div>
         `);
 
-        wrapper.querySelector("a")!.click();
+		wrapper.querySelector('a')!.click();
 
-        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
-        expect(errorSpy).toHaveBeenCalledWith(
-            "Failed to archive notifications from link",
-            expect.objectContaining({ error: expect.any(Error) }),
-        );
-        expect(wrapper.querySelector("link-notification")).not.toBeNull();
-    });
+		await waitFor(() => expect(errorSpy).toHaveBeenCalled());
+		expect(errorSpy).toHaveBeenCalledWith(
+			'Failed to archive notifications from link',
+			expect.objectContaining({ error: expect.any(Error) })
+		);
+		expect(wrapper.querySelector('link-notification')).not.toBeNull();
+	});
 
-    it("does not archive inbox notifications", async () => {
-        const wrapper = await fixture(`
+	it('does not archive inbox notifications', async () => {
+		const wrapper = await fixture(`
             <div>
                 <div class="wrapper">
                     <link-notification data-id="123" data-type="inbox">
@@ -138,9 +130,9 @@ describe("LinkNotification", () => {
             </div>
         `);
 
-        wrapper.querySelector("a")!.click();
-        await http.settled();
+		wrapper.querySelector('a')!.click();
+		await http.settled();
 
-        expect(http.calls).toHaveLength(0);
-    });
+		expect(http.calls).toHaveLength(0);
+	});
 });

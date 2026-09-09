@@ -1,20 +1,20 @@
-@import "@navikt/ds-css/dist/component/typography.css";
-@import "@navikt/ds-css/dist/component/alert.css";
-@import "@navikt/ds-css/dist/component/button.css";
-@import "@navikt/ds-css/dist/component/link.css";
-@import "@navikt/ds-css/dist/component/tag.css";
+@import '@navikt/ds-css/dist/component/typography.css';
+@import '@navikt/ds-css/dist/component/alert.css';
+@import '@navikt/ds-css/dist/component/button.css';
+@import '@navikt/ds-css/dist/component/link.css';
+@import '@navikt/ds-css/dist/component/tag.css';
 
 .aksel-button {
-    font: inherit;
+	font: inherit;
 
-    /* Hindrer overstyring av tekstfarge fra andre apper der eldre versjoner av Aksel brukes */
-    color: var(--ax-text-subtle);
+	/* Hindrer overstyring av tekstfarge fra andre apper der eldre versjoner av Aksel brukes */
+	color: var(--ax-text-subtle);
 }
 
-.aksel-button[data-variant="primary"] {
-    color: var(--ax-text-accent-contrast);
+.aksel-button[data-variant='primary'] {
+	color: var(--ax-text-accent-contrast);
 }
 
 .aksel-link:focus-visible {
-    outline: 3px solid var(--ax-info-400);
+	outline: 3px solid var(--ax-info-400);
 }

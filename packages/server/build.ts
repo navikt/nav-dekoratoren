@@ -1,57 +1,54 @@
-import { build, type Plugin } from "esbuild";
-import { readFileSync, writeFileSync } from "node:fs";
+import { build, type Plugin } from 'esbuild';
+import { readFileSync, writeFileSync } from 'node:fs';
 
-import { resolve } from "node:path";
-import { getPostcssTokens } from "./css-modules-plugin";
-import { minify } from "esbuild-minify-templates";
-import { logger } from "./src/lib/logger";
+import { resolve } from 'node:path';
+import { getPostcssTokens } from './css-modules-plugin';
+import { minify } from 'esbuild-minify-templates';
+import { logger } from './src/lib/logger';
 
 const cssModulesPlugin: Plugin = {
-    name: "css-modules",
-    setup(build) {
-        build.onLoad(
-            { filter: /\.module.*\.css$/ },
-            async ({ path: filePath }) => {
-                return {
-                    loader: "json",
-                    contents: JSON.stringify(await getPostcssTokens(filePath)),
-                };
-            },
-        );
-    },
+	name: 'css-modules',
+	setup(build) {
+		build.onLoad({ filter: /\.module.*\.css$/ }, async ({ path: filePath }) => {
+			return {
+				loader: 'json',
+				contents: JSON.stringify(await getPostcssTokens(filePath)),
+			};
+		});
+	},
 };
 
 const result = await build({
-    entryPoints: ["./src/server.ts"],
-    target: "node24",
-    platform: "node",
-    outdir: "./dist",
-    bundle: true,
-    minify: false,
-    format: "esm",
-    splitting: true,
-    // CJS packages use dynamic require() for Node built-ins. Injecting a real require() via createRequire makes this work in an ESM bundle.
-    banner: {
-        js: `import { createRequire } from "module"; const require = createRequire(import.meta.url);`,
-    },
-    plugins: [cssModulesPlugin],
-    metafile: true,
-    alias: {
-        "decorator-client": resolve("../client"),
-    },
+	entryPoints: ['./src/server.ts'],
+	target: 'node24',
+	platform: 'node',
+	outdir: './dist',
+	bundle: true,
+	minify: false,
+	format: 'esm',
+	splitting: true,
+	// CJS packages use dynamic require() for Node built-ins. Injecting a real require() via createRequire makes this work in an ESM bundle.
+	banner: {
+		js: `import { createRequire } from "module"; const require = createRequire(import.meta.url);`,
+	},
+	plugins: [cssModulesPlugin],
+	metafile: true,
+	alias: {
+		'decorator-client': resolve('../client'),
+	},
 });
 
 for (const outFile of Object.keys(result.metafile!.outputs)) {
-    if (!outFile.endsWith(".js")) {
-        continue;
-    }
-    const outPath = resolve(outFile);
-    logger.info(`Build output: ${outFile}`);
+	if (!outFile.endsWith('.js')) {
+		continue;
+	}
+	const outPath = resolve(outFile);
+	logger.info(`Build output: ${outFile}`);
 
-    const text = readFileSync(outPath, "utf-8");
-    const minified = minify(text, {
-        taggedOnly: true,
-    }).toString();
+	const text = readFileSync(outPath, 'utf-8');
+	const minified = minify(text, {
+		taggedOnly: true,
+	}).toString();
 
-    writeFileSync(outPath, minified);
+	writeFileSync(outPath, minified);
 }

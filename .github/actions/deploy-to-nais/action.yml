@@ -13,7 +13,7 @@ inputs:
   DEPLOY_PREVIOUS:
     description: Whether to deploy previous version of dekoratøren.
     required: false
-    default: "false"
+    default: 'false'
   HPA_FILE:
     description: Optional HPA file name under .nais/hpa/.
     required: false
