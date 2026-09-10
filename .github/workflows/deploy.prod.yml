@@ -17,7 +17,7 @@ jobs:
       cdn-destination: /nav-dekoratoren
       # The Dockerfile copies only build output, no node_modules.
       prune-remove: ""
-      post-build-commands: pnpm run test:e2e
+      playwright: pnpm run test:e2e
     secrets: inherit
 
   # One cluster-wide resource, so once per cluster rather than once per instance.

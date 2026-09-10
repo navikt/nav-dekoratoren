@@ -18,7 +18,7 @@ jobs:
       cdn-source: ./packages/server/public
       cdn-destination: /nav-dekoratoren
       prune-remove: ""
-      post-build-commands: ${{ !inputs.SKIP_TESTS && 'pnpm run test:e2e' || '' }}
+      playwright: ${{ !inputs.SKIP_TESTS && 'pnpm run test:e2e' || '' }}
     secrets: inherit
 
   network-policy:

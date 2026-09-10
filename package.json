@@ -31,7 +31,7 @@
         "prepare": "husky",
         "benchmarking": "./benchmarking/run",
         "playwright": "pnpm exec playwright test",
-        "test:e2e": "cp packages/server/.env.sample packages/server/.env && playwright install --with-deps && playwright test"
+        "test:e2e": "cp packages/server/.env.sample packages/server/.env && playwright test"
     },
     "keywords": [],
     "author": "",

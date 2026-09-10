@@ -13,5 +13,5 @@ jobs:
     with:
       push-image: false
       team: personbruker
-      post-build-commands: pnpm run test:e2e
+      playwright: pnpm run test:e2e
     secrets: inherit
