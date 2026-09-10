@@ -1,0 +1,40 @@
+name: Deploy to dev3 (Enonic XP Cloud)
+on:
+  workflow_dispatch:
+    inputs:
+      SKIP_TESTS:
+        description: "Skip Playwright tests (lint and unit tests always run)"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      team: personbruker
+      image-suffix: dev3
+      cdn-source: ./packages/server/public
+      cdn-destination: /nav-dekoratoren
+      prune-remove: ""
+      post-build-commands: ${{ !inputs.SKIP_TESTS && 'pnpm run test:e2e' || '' }}
+    secrets: inherit
+
+  network-policy:
+    needs: build
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: dev-gcp
+      resource: .nais/network-policy.yml
+
+  deploy:
+    needs: [build, network-policy]
+    uses: ./.github/workflows/deploy-instance.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: dev3
+      cluster: dev-gcp
+      image: ${{ needs.build.outputs.image }}
+    secrets: inherit

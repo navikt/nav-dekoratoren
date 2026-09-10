@@ -12,7 +12,7 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import testData from "./main-menu-mock.json";
 import { env } from "../env/server";
-import { clearCache } from "decorator-shared/response-cache";
+import { clearCache } from "../lib/response-cache";
 import { getComplexFooterLinks, getSimpleFooterLinks } from "./main-menu";
 
 // Flush microtasks so stale-while-revalidate background fetches complete

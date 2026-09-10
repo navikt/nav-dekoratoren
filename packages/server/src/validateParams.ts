@@ -43,12 +43,20 @@ export const validateParams = (params: Record<string, string>) => {
                 : paramsSchema.shape[key as keyof Params].parse(params[key]),
         };
     }, {});
-    const modulerVersion = modulerVersionSemverSchema.safeParse(
-        params.decoratorModulerVersion,
-    ).data;
-    const modulerEntryPoint = modulerEntryPointSchema.safeParse(
-        params.decoratorModulerEntryPoint,
-    ).data;
+
+    // A failing safeParse builds a ZodError, which is several times the cost of a successful parse.
+    const modulerVersion =
+        params.decoratorModulerVersion === undefined
+            ? undefined
+            : modulerVersionSemverSchema.safeParse(
+                  params.decoratorModulerVersion,
+              ).data;
+    const modulerEntryPoint =
+        params.decoratorModulerEntryPoint === undefined
+            ? undefined
+            : modulerEntryPointSchema.safeParse(
+                  params.decoratorModulerEntryPoint,
+              ).data;
 
     return {
         ...params,

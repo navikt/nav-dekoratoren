@@ -154,14 +154,19 @@ export type BoostEnviroment = Environment["BOOST_ENV"];
 export const validateRawParams = (query: Record<string, string>) => {
     const rawParams: Partial<ClientParams> = {};
 
-    const contextParsed = contextSchema.safeParse(query.context);
-    if (contextParsed.success) {
-        rawParams.context = contextParsed.data;
+    // Only parse present values - a failing safeParse constructs an (expensive) ZodError
+    if (query.context !== undefined) {
+        const contextParsed = contextSchema.safeParse(query.context);
+        if (contextParsed.success) {
+            rawParams.context = contextParsed.data;
+        }
     }
 
-    const languageParsed = languageSchema.safeParse(query.language);
-    if (languageParsed.success) {
-        rawParams.language = languageParsed.data;
+    if (query.language !== undefined) {
+        const languageParsed = languageSchema.safeParse(query.language);
+        if (languageParsed.success) {
+            rawParams.language = languageParsed.data;
+        }
     }
 
     return rawParams;

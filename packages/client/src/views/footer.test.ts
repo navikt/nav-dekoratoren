@@ -1,7 +1,7 @@
 import { fixture } from "@open-wc/testing-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { logger } from "../helpers/logger";
-import { apiPath, http, setDecoratorData } from "../test-setup";
+import { apiPath, http, setDecoratorData, waitFor } from "../test-setup";
 import "./footer";
 
 const dispatchParamsUpdated = (changedKeys: string[]) =>
@@ -30,7 +30,7 @@ describe("Footer", () => {
         // refreshFooter is fire-and-forget
         // handleParamsUpdated is a sync function, awaiting doesn't match the webAPI
         // Waiting for its effect rather than awaiting arbitrary microtasks
-        await vi.waitFor(() => expect(el.innerHTML).toBe("<p>new footer</p>"));
+        await waitFor(() => expect(el.innerHTML).toBe("<p>new footer</p>"));
 
         expect(http.lastCall?.pathname).toBe(apiPath("/footer"));
         expect(http.lastCall?.method).toBe("GET");
@@ -54,7 +54,7 @@ describe("Footer", () => {
         const el = await fixture("<decorator-footer>old</decorator-footer>");
 
         dispatchParamsUpdated(["simpleFooter"]);
-        await vi.waitFor(() => expect(errorSpy).toHaveBeenCalled());
+        await waitFor(() => expect(errorSpy).toHaveBeenCalled());
 
         expect(errorSpy).toHaveBeenCalledWith(
             "Failed to fetch footer",

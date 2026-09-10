@@ -10,7 +10,6 @@ import { headers } from "./handlers/headers";
 import { searchHandler } from "./handlers/search-handler";
 import { versionProxyHandler } from "./handlers/version-proxy";
 import { headAssets } from "./head";
-import { setLocalDecoratorMockState, setupMocks } from "./mocks";
 import { archiveNotification } from "./notifications";
 import { fetchOpsMessages } from "./ops-msgs";
 import { getFeatures } from "./unleash";
@@ -47,6 +46,7 @@ export const routes = new Hono({
 
 if (env.NODE_ENV === "development" || isLocalhost()) {
     logger.info("Setting up mocks");
+    const { setupMocks, setLocalDecoratorMockState } = await import("./mocks");
     setupMocks();
     routes.get(
         "/mockServiceWorker.js",
