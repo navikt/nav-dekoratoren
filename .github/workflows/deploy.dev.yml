@@ -8,7 +8,7 @@ on:
         type: boolean
         default: true
       SKIP_TESTS:
-        description: "Skip Playwright tests (lint and unit tests always run)"
+        description: "Skip Playwright tests"
         required: false
         type: boolean
 
