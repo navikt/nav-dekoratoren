@@ -1,55 +1,16 @@
 name: Dependabot lockfile fix
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
     paths:
       - pnpm-workspace.yaml
       - package.json
       - '**/package.json'
 
+permissions:
+  contents: write
+
 jobs:
-  update-test-commit:
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout PR branch
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ github.head_ref }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Setup node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          registry-url: https://npm.pkg.github.com
-          cache: pnpm
-
-      - name: Update lockfile
-        run: pnpm install --no-frozen-lockfile
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-      - name: Build
-        run: pnpm run build
-
-      - name: Lint
-        run: pnpm run lint
-
-      - name: Run unit tests
-        run: pnpm run test
-
-      - name: Commit and push updated lockfile
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add pnpm-lock.yaml
-          git diff --cached --quiet || git commit -m "chore: update pnpm-lock.yaml"
-          git push --no-verify origin HEAD:"$HEAD_REF"
+  update-lockfile:
+    uses: navikt/navno-ci/.github/workflows/dependabot-lockfile.yml@v1
+    secrets: inherit

@@ -26,6 +26,7 @@
 		"prepare": "husky",
 		"benchmarking": "./benchmarking/run",
 		"playwright": "pnpm exec playwright test",
+		"test:e2e": "cp packages/server/.env.sample packages/server/.env && playwright test",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check"
 	},
