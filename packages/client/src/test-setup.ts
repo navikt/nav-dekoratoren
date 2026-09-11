@@ -1,14 +1,12 @@
-import { afterAll, afterEach, expect, vi } from "vitest";
-import { mockFetch } from "@itsy/corgi/testing";
-import type { AppState } from "decorator-shared/types";
+import { afterAll, afterEach, expect, vi } from 'vitest';
+import { mockFetch } from '@itsy/corgi/testing';
+import type { AppState } from 'decorator-shared/types';
 
 /**
  * Lit is a transitive dependency of `@open-wc/testing-helpers`
  * This silences it's goofy warning in tests
  */
-(globalThis as { litIssuedWarnings?: Set<string> }).litIssuedWarnings = new Set(
-    ["dev-mode"],
-);
+(globalThis as { litIssuedWarnings?: Set<string> }).litIssuedWarnings = new Set(['dev-mode']);
 
 /**
  * jsdom emulates a 60fps display, so every `requestAnimationFrame` callback
@@ -28,9 +26,9 @@ import type { AppState } from "decorator-shared/types";
 const realSetTimeout = globalThis.setTimeout;
 const realClearTimeout = globalThis.clearTimeout;
 globalThis.requestAnimationFrame = (callback: FrameRequestCallback) =>
-    realSetTimeout(() => callback(performance.now()), 0) as unknown as number;
+	realSetTimeout(() => callback(performance.now()), 0) as unknown as number;
 globalThis.cancelAnimationFrame = (handle: number) =>
-    realClearTimeout(handle as unknown as ReturnType<typeof setTimeout>);
+	realClearTimeout(handle as unknown as ReturnType<typeof setTimeout>);
 
 /**
  * `vi.waitFor` checks once synchronously, then polls on a 50ms interval. Almost
@@ -39,10 +37,10 @@ globalThis.cancelAnimationFrame = (handle: number) =>
  * call. These are in-memory fakes, so poll as fast as the timer queue allows.
  */
 export const waitFor: typeof vi.waitFor = (callback, options = {}) =>
-    vi.waitFor(callback, {
-        interval: 1,
-        ...(typeof options === "number" ? { timeout: options } : options),
-    });
+	vi.waitFor(callback, {
+		interval: 1,
+		...(typeof options === 'number' ? { timeout: options } : options),
+	});
 
 /**
  * Shared fake transport for the whole suite, installed as the global fetch.
@@ -60,42 +58,40 @@ export const http = mockFetch();
 const restoreFetch = http.install();
 
 afterEach(() => {
-    try {
-        // Every request must hit a registered route. An unmatched call rejects
-        // with MockRouteError, but this codebase catches-and-logs fetch errors
-        // everywhere — this is what turns a typo'd route into a loud failure.
-        expect(
-            http.unmatchedCalls.map((call) => `${call.method} ${call.url}`),
-        ).toEqual([]);
-    } finally {
-        http.reset();
-    }
+	try {
+		// Every request must hit a registered route. An unmatched call rejects
+		// with MockRouteError, but this codebase catches-and-logs fetch errors
+		// everywhere — this is what turns a typo'd route into a loud failure.
+		expect(http.unmatchedCalls.map((call) => `${call.method} ${call.url}`)).toEqual([]);
+	} finally {
+		http.reset();
+	}
 });
 
 afterAll(() => {
-    restoreFetch();
+	restoreFetch();
 });
 
 /**
  * `APP_URL` is not origin-only in production, exercise that mechanism in tests
  */
-export const TEST_APP_PATH = "/dekoratoren";
+export const TEST_APP_PATH = '/dekoratoren';
 export const TEST_APP_URL = `http://localhost${TEST_APP_PATH}`;
 
 /** The pathname a decorator route is actually requested on. */
 export const apiPath = (path: string) => `${TEST_APP_PATH}${path}`;
 
 export const setDecoratorData = (overrides: Partial<AppState> = {}) => {
-    window.__DECORATOR_DATA__ = {
-        params: {},
-        texts: {},
-        ...overrides,
-        env: {
-            APP_URL: TEST_APP_URL,
-            VERSION_ID: "test-version-id",
-            ...overrides.env,
-        },
-    } as AppState;
+	window.__DECORATOR_DATA__ = {
+		params: {},
+		texts: {},
+		...overrides,
+		env: {
+			APP_URL: TEST_APP_URL,
+			VERSION_ID: 'test-version-id',
+			...overrides.env,
+		},
+	} as AppState;
 };
 
 /**

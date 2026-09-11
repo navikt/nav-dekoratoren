@@ -1,35 +1,35 @@
 {
-    "compilerOptions": {
-        "target": "ES2022",
-        "useDefineForClassFields": true,
-        "lib": ["ES2022", "DOM", "DOM.Iterable"],
-        "allowJs": false,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "noUncheckedSideEffectImports": false,
-        "paths": {
-            "decorator-server/src/*": ["../server/src/*"],
-            "decorator-client/src/*": ["./src/*"]
-        },
-        "types": ["vite/client", "vitest/globals", "@types/umami"],
-        "plugins": [
-            {
-                "name": "typescript-plugin-css-modules",
-                "options": {
-                    "postcssOptions": {
-                        "useConfig": true
-                    }
-                }
-            }
-        ]
-    },
-    "exclude": ["node_modules", "dist"]
+	"compilerOptions": {
+		"target": "ES2022",
+		"useDefineForClassFields": true,
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"allowJs": false,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"noUncheckedSideEffectImports": false,
+		"paths": {
+			"decorator-server/src/*": ["../server/src/*"],
+			"decorator-client/src/*": ["./src/*"]
+		},
+		"types": ["vite/client", "vitest/globals", "@types/umami"],
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"postcssOptions": {
+						"useConfig": true
+					}
+				}
+			}
+		]
+	},
+	"exclude": ["node_modules", "dist"]
 }

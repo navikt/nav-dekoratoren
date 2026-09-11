@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       DEPLOY_PREVIOUS:
-        description: "Deploy previous version to internal"
+        description: 'Deploy previous version to internal'
         required: false
         type: boolean
         default: true
       SKIP_TESTS:
-        description: "Skip Playwright tests"
+        description: 'Skip Playwright tests'
         required: false
         type: boolean
 
@@ -21,7 +21,7 @@ jobs:
       image-suffix: dev-stable
       cdn-source: ./packages/server/public
       cdn-destination: /nav-dekoratoren
-      prune-remove: ""
+      prune-remove: ''
       playwright: ${{ !inputs.SKIP_TESTS && 'pnpm run test:e2e' || '' }}
     secrets: inherit
 

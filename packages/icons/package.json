@@ -1,19 +1,19 @@
 {
-    "name": "decorator-icons",
-    "version": "0.0.1",
-    "type": "module",
-    "exports": {
-        ".": "./dist/index.ts"
-    },
-    "scripts": {
-        "build": "node build-icons.ts",
-        "lint": "eslint . && tsc --noEmit"
-    },
-    "dependencies": {
-        "decorator-shared": "workspace:*"
-    },
-    "devDependencies": {
-        "@navikt/aksel-icons": "8.16.1",
-        "svgo": "4.1.0"
-    }
+	"name": "decorator-icons",
+	"version": "0.0.1",
+	"type": "module",
+	"exports": {
+		".": "./dist/index.ts"
+	},
+	"scripts": {
+		"build": "node build-icons.ts",
+		"lint": "eslint . && tsc --noEmit"
+	},
+	"dependencies": {
+		"decorator-shared": "workspace:*"
+	},
+	"devDependencies": {
+		"@navikt/aksel-icons": "8.16.1",
+		"svgo": "4.1.0"
+	}
 }

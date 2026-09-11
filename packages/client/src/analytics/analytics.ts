@@ -1,278 +1,242 @@
-import { initMockAmplitude } from "./amplitude";
-import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from "./umami";
-import { DEFAULT_ORIGIN } from "./constants";
-import { Auth } from "decorator-shared/auth";
-import { AnalyticsEventArgs, EventData } from "./types";
-import { param } from "../params";
-import {
-    analyticsEntryPointSchema,
-    type ClientParams,
-    type ModulerMetadata,
-} from "decorator-shared/params";
+import { initMockAmplitude } from './amplitude';
+import { createUmamiEvent, initUmami, logUmamiEvent, stopUmami } from './umami';
+import { DEFAULT_ORIGIN } from './constants';
+import { Auth } from 'decorator-shared/auth';
+import { AnalyticsEventArgs, EventData } from './types';
+import { param } from '../params';
+import { analyticsEntryPointSchema, type ClientParams, type ModulerMetadata } from 'decorator-shared/params';
 
 declare global {
-    interface Window {
-        dekoratorenAnalytics: typeof logAnalyticsEventFromApp;
-    }
+	interface Window {
+		dekoratorenAnalytics: typeof logAnalyticsEventFromApp;
+	}
 }
 
 const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
 
 export const mockAnalytics = () => {
-    return Promise.resolve();
+	return Promise.resolve();
 };
 
 const analyticsController = new AbortController();
 export const initAnalytics = (auth: Auth) => {
-    initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
-    initUmami();
+	initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
+	initUmami();
 
-    // This function is exposed for use from consuming applications
-    window.dekoratorenAnalytics = logAnalyticsEventFromApp;
-    logPageView(auth);
+	// This function is exposed for use from consuming applications
+	window.dekoratorenAnalytics = logAnalyticsEventFromApp;
+	logPageView(auth);
 
-    window.addEventListener("historyPush", logPageViewCallback(auth), {
-        signal: analyticsController.signal,
-    });
+	window.addEventListener('historyPush', logPageViewCallback(auth), {
+		signal: analyticsController.signal,
+	});
 };
 
 export const stopAnalytics = () => {
-    stopUmami();
+	stopUmami();
 
-    analyticsController.abort();
+	analyticsController.abort();
 };
 
 const buildFilteredQueryString = (): string => {
-    const whitelist =
-        window.__DECORATOR_DATA__.params.analyticsQueryParams || [];
+	const whitelist = window.__DECORATOR_DATA__.params.analyticsQueryParams || [];
 
-    if (whitelist.length === 0) {
-        return "";
-    }
+	if (whitelist.length === 0) {
+		return '';
+	}
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const filteredParams: string[] = [];
+	const searchParams = new URLSearchParams(window.location.search);
+	const filteredParams: string[] = [];
 
-    for (const key of whitelist) {
-        const value = searchParams.get(key);
-        if (value !== null) {
-            filteredParams.push(value ? `${key}=${value}` : key);
-        }
-    }
+	for (const key of whitelist) {
+		const value = searchParams.get(key);
+		if (value !== null) {
+			filteredParams.push(value ? `${key}=${value}` : key);
+		}
+	}
 
-    const queryString = filteredParams.join("&");
-    return queryString ? `?${queryString}` : "";
+	const queryString = filteredParams.join('&');
+	return queryString ? `?${queryString}` : '';
 };
 
-export const buildLocationString = ({
-    includeOrigin = true,
-    includeHash = true,
-    includeQueryString = true,
-} = {}) => {
-    const { origin, pathname, hash } = window.location;
-    const queryString = includeQueryString ? buildFilteredQueryString() : "";
-    return `${includeOrigin ? origin : ""}${pathname}${queryString}${includeHash ? hash : ""}`;
+export const buildLocationString = ({ includeOrigin = true, includeHash = true, includeQueryString = true } = {}) => {
+	const { origin, pathname, hash } = window.location;
+	const queryString = includeQueryString ? buildFilteredQueryString() : '';
+	return `${includeOrigin ? origin : ''}${pathname}${queryString}${includeHash ? hash : ''}`;
 };
 
 // Parametere vi ønsker skal logges for alle apper
 export const extraWindowParams = () => {
-    return {
-        scrollPos: window.scrollY,
-        scrollPercent: Math.round(
-            Math.min(
-                ((window.scrollY + window.innerHeight) /
-                    (document.body.scrollHeight + 1)) *
-                    100,
-                100,
-            ),
-        ),
-    };
+	return {
+		scrollPos: window.scrollY,
+		scrollPercent: Math.round(
+			Math.min(((window.scrollY + window.innerHeight) / (document.body.scrollHeight + 1)) * 100, 100)
+		),
+	};
 };
 
 // Moduler-metadata logges som egne Umami-felter og skal derfor ikke dupliseres i pageview-parametre.
 const excludedParametre = new Set<string>([
-    "origin",
-    "decoratorModulerVersion",
-    "decoratorModulerEntryPoint",
-    "decoratorModulerAnalyticsEntryPoint",
+	'origin',
+	'decoratorModulerVersion',
+	'decoratorModulerEntryPoint',
+	'decoratorModulerAnalyticsEntryPoint',
 ]);
 
 const buildPageviewParametre = (params: ClientParams) =>
-    Object.fromEntries(
-        Object.entries(params).filter(([key]) => !excludedParametre.has(key)),
-    );
+	Object.fromEntries(Object.entries(params).filter(([key]) => !excludedParametre.has(key)));
 
-const parseAnalyticsEntryPoint = (
-    value: unknown,
-): ModulerMetadata["decoratorModulerAnalyticsEntryPoint"] | undefined =>
-    analyticsEntryPointSchema.safeParse(value).data;
+const parseAnalyticsEntryPoint = (value: unknown): ModulerMetadata['decoratorModulerAnalyticsEntryPoint'] | undefined =>
+	analyticsEntryPointSchema.safeParse(value).data;
 
 const logPageView = (authState: Auth) => {
-    // Må vente litt med logging for å sikre at window-objektet er oppdatert.
-    setTimeout(() => {
-        const params = window.__DECORATOR_DATA__.params;
-        const eventData = {
-            målgruppe: params.context,
-            innholdstype: params.pageType,
-            sidetittel: params.pageTitle || document.title,
-            tema: params.pageTheme,
-            innlogging: authState.authenticated
-                ? authState.securityLevel
-                : false,
-            parametre: {
-                ...buildPageviewParametre(params),
-                BREADCRUMBS:
-                    params.breadcrumbs && params.breadcrumbs.length > 0,
-                ...(params.availableLanguages && {
-                    availableLanguages: params.availableLanguages.map(
-                        (lang) => lang.locale,
-                    ),
-                }),
-            },
-        };
-        logUmamiEvent("besøk", eventData, params.origin ?? DEFAULT_ORIGIN, {
-            decoratorModulerVersion: params.decoratorModulerVersion,
-            decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
-        });
-    }, 100);
+	// Må vente litt med logging for å sikre at window-objektet er oppdatert.
+	setTimeout(() => {
+		const params = window.__DECORATOR_DATA__.params;
+		const eventData = {
+			målgruppe: params.context,
+			innholdstype: params.pageType,
+			sidetittel: params.pageTitle || document.title,
+			tema: params.pageTheme,
+			innlogging: authState.authenticated ? authState.securityLevel : false,
+			parametre: {
+				...buildPageviewParametre(params),
+				BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
+				...(params.availableLanguages && {
+					availableLanguages: params.availableLanguages.map((lang) => lang.locale),
+				}),
+			},
+		};
+		logUmamiEvent('besøk', eventData, params.origin ?? DEFAULT_ORIGIN, {
+			decoratorModulerVersion: params.decoratorModulerVersion,
+			decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
+		});
+	}, 100);
 };
 
 export const analyticsEvent = (props: AnalyticsEventArgs) => {
-    createUmamiEvent(props);
+	createUmamiEvent(props);
 };
 
 export const logAnalyticsEvent = async (
-    eventName: string,
-    eventData: EventData = {},
-    origin = DEFAULT_ORIGIN,
-    decoratorModuler?: ModulerMetadata,
+	eventName: string,
+	eventData: EventData = {},
+	origin = DEFAULT_ORIGIN,
+	decoratorModuler?: ModulerMetadata
 ) => {
-    logUmamiEvent(eventName, eventData, origin, decoratorModuler);
+	logUmamiEvent(eventName, eventData, origin, decoratorModuler);
 };
 
-export const analyticsClickListener =
-    (fn: (el: HTMLAnchorElement) => AnalyticsEventArgs | null) =>
-    (e: MouseEvent) => {
-        const anchor =
-            e.target instanceof Element ? e.target.closest("a") : null;
-        if (anchor) {
-            const args = fn(anchor);
-            if (args) {
-                const analyticsEvent: AnalyticsEventArgs = {
-                    context: param("context"),
-                    pageType: param("pageType"),
-                    pageTheme: param("pageTheme"),
-                    destinasjon: anchor.href,
-                    kategori: args.kategori,
-                    lenkegruppe: args.lenkegruppe,
-                    lenketekst: args.lenketekst,
-                    tekst: args.tekst,
-                    komponent: args.komponent,
-                };
-                createUmamiEvent(analyticsEvent);
-            }
-        }
-    };
+export const analyticsClickListener = (fn: (el: HTMLAnchorElement) => AnalyticsEventArgs | null) => (e: MouseEvent) => {
+	const anchor = e.target instanceof Element ? e.target.closest('a') : null;
+	if (anchor) {
+		const args = fn(anchor);
+		if (args) {
+			const analyticsEvent: AnalyticsEventArgs = {
+				context: param('context'),
+				pageType: param('pageType'),
+				pageTheme: param('pageTheme'),
+				destinasjon: anchor.href,
+				kategori: args.kategori,
+				lenkegruppe: args.lenkegruppe,
+				lenketekst: args.lenketekst,
+				tekst: args.tekst,
+				komponent: args.komponent,
+			};
+			createUmamiEvent(analyticsEvent);
+		}
+	}
+};
 
 const logAnalyticsEventFromApp = (params?: {
-    origin: string;
-    eventName: string;
-    eventData?: unknown | EventData;
-    decoratorModulerAnalyticsEntryPoint?:
-        unknown | ModulerMetadata["decoratorModulerAnalyticsEntryPoint"];
+	origin: string;
+	eventName: string;
+	eventData?: unknown | EventData;
+	decoratorModulerAnalyticsEntryPoint?: unknown | ModulerMetadata['decoratorModulerAnalyticsEntryPoint'];
 }): Promise<any> => {
-    try {
-        if (!params || params.constructor !== Object) {
-            return Promise.reject(
-                "Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, any>}",
-            );
-        }
+	try {
+		if (!params || params.constructor !== Object) {
+			return Promise.reject(
+				'Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, any>}'
+			);
+		}
 
-        const {
-            origin,
-            eventName,
-            eventData = {},
-            decoratorModulerAnalyticsEntryPoint: analyticsEntryPointParam,
-        } = params;
-        if (!eventName || typeof eventName !== "string") {
-            return Promise.reject('Parameter "eventName" must be a string');
-        }
-        if (!origin || typeof origin !== "string") {
-            return Promise.reject('Parameter "origin" must be a string');
-        }
-        if (!eventData || eventData.constructor !== Object) {
-            return Promise.reject(
-                'Parameter "eventData" must be a plain object',
-            );
-        }
-        const analyticsEntryPoint = parseAnalyticsEntryPoint(
-            analyticsEntryPointParam,
-        );
+		const { origin, eventName, eventData = {}, decoratorModulerAnalyticsEntryPoint: analyticsEntryPointParam } = params;
+		if (!eventName || typeof eventName !== 'string') {
+			return Promise.reject('Parameter "eventName" must be a string');
+		}
+		if (!origin || typeof origin !== 'string') {
+			return Promise.reject('Parameter "origin" must be a string');
+		}
+		if (!eventData || eventData.constructor !== Object) {
+			return Promise.reject('Parameter "eventData" must be a plain object');
+		}
+		const analyticsEntryPoint = parseAnalyticsEntryPoint(analyticsEntryPointParam);
 
-        return logAnalyticsEvent(
-            eventName,
-            eventData,
-            origin,
-            analyticsEntryPoint
-                ? {
-                      decoratorModulerAnalyticsEntryPoint: analyticsEntryPoint,
-                  }
-                : undefined,
-        );
-    } catch (e) {
-        return Promise.reject(`Unexpected Analytics error: ${e}`);
-    }
+		return logAnalyticsEvent(
+			eventName,
+			eventData,
+			origin,
+			analyticsEntryPoint
+				? {
+						decoratorModulerAnalyticsEntryPoint: analyticsEntryPoint,
+					}
+				: undefined
+		);
+	} catch (e) {
+		return Promise.reject(`Unexpected Analytics error: ${e}`);
+	}
 };
 
 class AnalyticsTracker {
-    private currentReferrer: string;
-    private previousUrl: string;
-    private isInitialized: boolean = false;
+	private currentReferrer: string;
+	private previousUrl: string;
+	private isInitialized: boolean = false;
 
-    constructor() {
-        this.currentReferrer = document.referrer;
-        this.previousUrl = window.location.href;
-        this.init();
-    }
+	constructor() {
+		this.currentReferrer = document.referrer;
+		this.previousUrl = window.location.href;
+		this.init();
+	}
 
-    private init(): void {
-        if (this.isInitialized) return;
+	private init(): void {
+		if (this.isInitialized) return;
 
-        this.bindNavigationEvents();
-        this.isInitialized = true;
-    }
+		this.bindNavigationEvents();
+		this.isInitialized = true;
+	}
 
-    private bindNavigationEvents(): void {
-        // Handle popstate (back/forward buttons)
-        window.addEventListener("popstate", this.handleNavigation.bind(this));
+	private bindNavigationEvents(): void {
+		// Handle popstate (back/forward buttons)
+		window.addEventListener('popstate', this.handleNavigation.bind(this));
 
-        // Monkey patch history push method to catch programmatic navigation
-        const originalPushState = history.pushState;
-        history.pushState = (...args) => {
-            const result = originalPushState.apply(history, args);
-            // Use setTimeout to ensure the URL has changed
-            setTimeout(() => this.handleNavigation(), 0);
-            return result;
-        };
-    }
+		// Monkey patch history push method to catch programmatic navigation
+		const originalPushState = history.pushState;
+		history.pushState = (...args) => {
+			const result = originalPushState.apply(history, args);
+			// Use setTimeout to ensure the URL has changed
+			setTimeout(() => this.handleNavigation(), 0);
+			return result;
+		};
+	}
 
-    private handleNavigation(): void {
-        const currentUrl = window.location.href;
+	private handleNavigation(): void {
+		const currentUrl = window.location.href;
 
-        // Only update if URL actually changed
-        if (currentUrl !== this.previousUrl) {
-            this.currentReferrer = this.previousUrl;
-            this.previousUrl = currentUrl;
-        }
-    }
+		// Only update if URL actually changed
+		if (currentUrl !== this.previousUrl) {
+			this.currentReferrer = this.previousUrl;
+			this.previousUrl = currentUrl;
+		}
+	}
 
-    public getCurrentReferrer(): string {
-        return this.currentReferrer;
-    }
+	public getCurrentReferrer(): string {
+		return this.currentReferrer;
+	}
 }
 
 const analyticsTracker = new AnalyticsTracker();
 
 export function getCurrentReferrer(): string {
-    return analyticsTracker.getCurrentReferrer();
+	return analyticsTracker.getCurrentReferrer();
 }

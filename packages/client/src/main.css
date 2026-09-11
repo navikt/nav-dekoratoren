@@ -1,43 +1,43 @@
-@import "@navikt/ds-css/dist/global/fonts.css";
-@import "@navikt/ds-css/dist/global/tokens.css";
+@import '@navikt/ds-css/dist/global/fonts.css';
+@import '@navikt/ds-css/dist/global/tokens.css';
 
 html {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 *,
 :after,
 :before {
-    box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 body {
-    margin: 0;
-    overflow-x: hidden;
-    overflow-y: scroll;
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 :is(#decorator-header, #decorator-footer) {
-    --edge-spacing: var(--ax-space-16);
-    --desktop-min-width: 768px;
-    --header-height: 4.5rem;
+	--edge-spacing: var(--ax-space-16);
+	--desktop-min-width: 768px;
+	--header-height: 4.5rem;
 
-    font-family: var(--ax-font-family);
-    line-height: calc(4 / 3);
-    font-size: 1.125rem;
-    color: var(--ax-text-neutral);
+	font-family: var(--ax-font-family);
+	line-height: calc(4 / 3);
+	font-size: 1.125rem;
+	color: var(--ax-text-neutral);
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
-    @media (min-width: 48rem) {
-        --header-height: 5rem;
-    }
-    @media (min-width: 64rem) {
-        --edge-spacing: var(--ax-space-48);
-    }
+	@media (min-width: 48rem) {
+		--header-height: 5rem;
+	}
+	@media (min-width: 64rem) {
+		--edge-spacing: var(--ax-space-48);
+	}
 }
 
 :is(#header-withmenu, #footer-withmenu) {
-    font-family: var(--ax-font-family, "Source Sans Pro", Arial, sans-serif);
+	font-family: var(--ax-font-family, 'Source Sans Pro', Arial, sans-serif);
 }

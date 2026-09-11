@@ -2,7 +2,7 @@ name: Deploy to prod
 on:
   push:
     branches: [main]
-    paths-ignore: ["**.md"]
+    paths-ignore: ['**.md']
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       cdn-source: ./packages/server/public
       cdn-destination: /nav-dekoratoren
       # The Dockerfile copies only build output, no node_modules.
-      prune-remove: ""
+      prune-remove: ''
       playwright: pnpm run test:e2e
     secrets: inherit
 

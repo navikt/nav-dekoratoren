@@ -1,11 +1,11 @@
 :root {
-    --decorator-sticky-offset: var(--header-height);
+	--decorator-sticky-offset: var(--header-height);
 }
 
 .placeholder {
-    position: relative;
-    display: block;
-    height: var(--header-height);
+	position: relative;
+	display: block;
+	height: var(--header-height);
 }
 
 /*
@@ -14,13 +14,13 @@
     but there's no guarantee this assumption will hold in the future. :D
 */
 html:has(head > :global(#vngageDOMCSS4)) {
-    .absoluteWrapper {
-        top: 0 !important;
-    }
+	.absoluteWrapper {
+		top: 0 !important;
+	}
 
-    .fixed {
-        position: revert !important;
-    }
+	.fixed {
+		position: revert !important;
+	}
 }
 
 /*
@@ -29,28 +29,28 @@ html:has(head > :global(#vngageDOMCSS4)) {
     but there's no guarantee this assumption will hold in the future. :D
 */
 header:has(:global(pzl-tag-1)) {
-    .absoluteWrapper {
-        top: 0 !important;
-    }
+	.absoluteWrapper {
+		top: 0 !important;
+	}
 
-    .fixed {
-        position: revert !important;
-    }
+	.fixed {
+		position: revert !important;
+	}
 }
 
 .absoluteWrapper {
-    position: absolute;
-    top: 0;
-    width: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 
 .fixedWrapper {
-    width: 100%;
-    border-bottom: 1px solid var(--ax-border-neutral-subtle);
-    background-color: var(--ax-bg-default);
+	width: 100%;
+	border-bottom: 1px solid var(--ax-border-neutral-subtle);
+	background-color: var(--ax-bg-default);
 }
 
 .fixed {
-    position: fixed;
-    top: 0;
+	position: fixed;
+	top: 0;
 }
