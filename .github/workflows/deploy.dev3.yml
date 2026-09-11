@@ -3,47 +3,38 @@ on:
   workflow_dispatch:
     inputs:
       SKIP_TESTS:
-        description: "Skip tests"
+        description: "Skip Playwright tests"
         required: false
         type: boolean
         default: true
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    outputs:
-      IMAGE: ${{ steps.build_test.outputs.IMAGE }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v7
+    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      team: personbruker
+      image-suffix: dev3
+      cdn-source: ./packages/server/public
+      cdn-destination: /nav-dekoratoren
+      prune-remove: ""
+      playwright: ${{ !inputs.SKIP_TESTS && 'pnpm run test:e2e' || '' }}
+    secrets: inherit
 
-      - name: Build and test
-        id: build_test
-        uses: ./.github/actions/build-test
-        with:
-          READER_TOKEN: ${{ secrets.READER_TOKEN }}
-          IMAGE_SUFFIX: dev3
-          SKIP_TESTS: ${{ inputs.SKIP_TESTS }}
+  network-policy:
+    needs: build
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: dev-gcp
+      resource: .nais/network-policy.yml
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment: dev3
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v7
-
-      - name: Deploy to Nais
-        uses: ./.github/actions/deploy-to-nais
-        with:
-          DEPLOY_INSTANCE: dev3
-          DEPLOY_PREVIOUS: false
-          CLUSTER: dev-gcp
-          IMAGE: ${{ needs.build.outputs.IMAGE }}
-          VARS_UPDATE_TOKEN: ${{ secrets.VARS_UPDATE_TOKEN }}
+    needs: [build, network-policy]
+    uses: ./.github/workflows/deploy-instance.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: dev3
+      cluster: dev-gcp
+      image: ${{ needs.build.outputs.image }}
+    secrets: inherit
