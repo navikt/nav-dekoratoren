@@ -16,7 +16,11 @@ declare global {
     }
 }
 
-const logPageViewCallback = (auth: Auth) => () => logPageView(auth);
+const logPageViewCallback = (auth: Auth) => () => logEvent("besøk", auth);
+const logBeforePrintEventCallback = (auth: Auth) => () =>
+    logEvent("utskrift-for", auth);
+const logAfterPrintEventCallback = (auth: Auth) => () =>
+    logEvent("utskrift-etter", auth);
 
 export const mockAnalytics = () => {
     return Promise.resolve();
@@ -29,11 +33,13 @@ export const initAnalytics = (auth: Auth) => {
 
     // This function is exposed for use from consuming applications
     window.dekoratorenAnalytics = logAnalyticsEventFromApp;
-    logPageView(auth);
+    logEvent("besøk", auth);
 
     window.addEventListener("historyPush", logPageViewCallback(auth), {
         signal: analyticsController.signal,
     });
+    window.addEventListener("beforeprint", logBeforePrintEventCallback(auth));
+    window.addEventListener("afterprint", logAfterPrintEventCallback(auth));
 };
 
 export const stopAnalytics = () => {
@@ -107,7 +113,7 @@ const parseAnalyticsEntryPoint = (
 ): ModulerMetadata["decoratorModulerAnalyticsEntryPoint"] | undefined =>
     analyticsEntryPointSchema.safeParse(value).data;
 
-const logPageView = (authState: Auth) => {
+const logEvent = (eventName: string, authState: Auth) => {
     // Må vente litt med logging for å sikre at window-objektet er oppdatert.
     setTimeout(() => {
         const params = window.__DECORATOR_DATA__.params;
@@ -130,7 +136,7 @@ const logPageView = (authState: Auth) => {
                 }),
             },
         };
-        logUmamiEvent("besøk", eventData, params.origin ?? DEFAULT_ORIGIN, {
+        logUmamiEvent(eventName, eventData, params.origin ?? DEFAULT_ORIGIN, {
             decoratorModulerVersion: params.decoratorModulerVersion,
             decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
         });
