@@ -1,107 +1,107 @@
 /// <reference lib="DOM" />
-import type { Preview } from "@storybook/html";
-import "decorator-client/src/main.css";
-import "decorator-client/src/views/consent-banner";
-import "decorator-client/src/views/breadcrumbs";
-import "decorator-client/src/views/user-menu";
-import "decorator-client/src/views/dropdown-menu";
-import "decorator-client/src/views/language-selector";
-import "decorator-client/src/views/loader";
-import "decorator-client/src/views/local-time/local-time";
-import "decorator-client/src/views/menu-background/menu-background";
-import "decorator-client/src/views/search-input";
-import "decorator-client/src/views/logout-warning/session-dialog";
-import "decorator-client/src/views/logout-warning/token-dialog";
-import html from "decorator-shared/html";
-import { Params } from "decorator-shared/params";
-import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "storybook/viewport";
-import { texts } from "../packages/server/src/texts";
-import { ClientTexts } from "decorator-shared/types";
-import { updateDecoratorParams } from "decorator-client/src/params";
+import type { Preview } from '@storybook/html';
+import 'decorator-client/src/main.css';
+import 'decorator-client/src/views/consent-banner';
+import 'decorator-client/src/views/breadcrumbs';
+import 'decorator-client/src/views/user-menu';
+import 'decorator-client/src/views/dropdown-menu';
+import 'decorator-client/src/views/language-selector';
+import 'decorator-client/src/views/loader';
+import 'decorator-client/src/views/local-time/local-time';
+import 'decorator-client/src/views/menu-background/menu-background';
+import 'decorator-client/src/views/search-input';
+import 'decorator-client/src/views/logout-warning/session-dialog';
+import 'decorator-client/src/views/logout-warning/token-dialog';
+import html from 'decorator-shared/html';
+import { Params } from 'decorator-shared/params';
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from 'storybook/viewport';
+import { texts } from '../packages/server/src/texts';
+import { ClientTexts } from 'decorator-shared/types';
+import { updateDecoratorParams } from 'decorator-client/src/params';
 
 declare global {
-    interface Window {
-        __DECORATOR_DATA__: {
-            params: Partial<Params>;
-            texts: ClientTexts;
-            env: { APP_URL: string };
-        };
-    }
+	interface Window {
+		__DECORATOR_DATA__: {
+			params: Partial<Params>;
+			texts: ClientTexts;
+			env: { APP_URL: string };
+		};
+	}
 }
 
-document.documentElement.lang = "nb";
+document.documentElement.lang = 'nb';
 
 const customViewports = {
-    ...MINIMAL_VIEWPORTS,
-    mobile: INITIAL_VIEWPORTS.iphone12,
-    ipad: INITIAL_VIEWPORTS.ipad,
+	...MINIMAL_VIEWPORTS,
+	mobile: INITIAL_VIEWPORTS.iphone12,
+	ipad: INITIAL_VIEWPORTS.ipad,
 };
 
 window.__DECORATOR_DATA__ = {
-    params: {
-        language: "nb",
-    },
-    texts: texts["nb"],
-    // `isValidNavUrl` reads APP_URL off this payload to decide whether
-    // localhost targets are acceptable. Without it, stories rendering a
-    // localhost url would fail validation.
-    env: { APP_URL: "http://localhost:8089" },
+	params: {
+		language: 'nb',
+	},
+	texts: texts['nb'],
+	// `isValidNavUrl` reads APP_URL off this payload to decide whether
+	// localhost targets are acceptable. Without it, stories rendering a
+	// localhost url would fail validation.
+	env: { APP_URL: 'http://localhost:8089' },
 };
 
 const preview: Preview = {
-    globalTypes: {
-        locale: {
-            name: "Locale",
-            defaultValue: "nb",
-            toolbar: {
-                icon: "globe",
-                items: [
-                    { value: "nb", title: "Norsk" },
-                    { value: "en", title: "English" },
-                ],
-            },
-        },
-    },
-    decorators: [
-        (Story, context) => {
-            const story = Story();
+	globalTypes: {
+		locale: {
+			name: 'Locale',
+			defaultValue: 'nb',
+			toolbar: {
+				icon: 'globe',
+				items: [
+					{ value: 'nb', title: 'Norsk' },
+					{ value: 'en', title: 'English' },
+				],
+			},
+		},
+	},
+	decorators: [
+		(Story, context) => {
+			const story = Story();
 
-            const language = context.globals.locale as Params["language"];
+			const language = context.globals.locale as Params['language'];
 
-            window.__DECORATOR_DATA__.texts = texts[language];
-            updateDecoratorParams({ language });
+			window.__DECORATOR_DATA__.texts = texts[language];
+			updateDecoratorParams({ language });
 
-            if (story === null) {
-                return "";
-            } else if (typeof story === "object" && "render" in story) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                return html`<div id="decorator-header">${story}</div>`.render({
-                    language,
-                });
-            } else {
-                const wrapper = document.createElement("div");
-                wrapper.setAttribute("id", "decorator-header");
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                wrapper.appendChild(story);
-                return wrapper;
-            }
-        },
-    ],
-    parameters: {
-        viewport: {
-            viewports: customViewports,
-            defaultViewport: "desktop",
-        },
-        actions: { argTypesRegex: "^on[A-Z].*" },
-        controls: {
-            matchers: {
-                color: /(background|color)$/i,
-                date: /Date$/,
-            },
-        },
-    },
+			if (story === null) {
+				return '';
+			} else if (typeof story === 'object' && 'render' in story) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				return html`<div id="decorator-header">${story}</div>`.render({
+					language,
+				});
+			} else {
+				const wrapper = document.createElement('div');
+				wrapper.setAttribute('id', 'decorator-header');
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				wrapper.appendChild(story);
+				return wrapper;
+			}
+		},
+	],
+	parameters: {
+		viewport: {
+			viewports: customViewports,
+			defaultViewport: 'desktop',
+		},
+		actions: { argTypesRegex: '^on[A-Z].*' },
+		controls: {
+			matchers: {
+				color: /(background|color)$/i,
+				date: /Date$/,
+			},
+		},
+	},
 };
 
 export default preview;

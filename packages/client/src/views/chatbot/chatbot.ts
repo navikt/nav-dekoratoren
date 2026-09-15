@@ -1,73 +1,64 @@
-import type { ClientParams } from "decorator-shared/params";
-import { cdnUrl } from "../../helpers/urls";
-import { defineCustomElement } from "../custom-elements";
-import { CustomEvents } from "../../events";
-import i18n from "../i18n";
-import { hasActiveConversation, initBoost, loadScript } from "./boost";
-import cls from "./chatbot.module.css";
-import chatboticon from "./chatboticon.svg";
+import type { ClientParams } from 'decorator-shared/params';
+import { cdnUrl } from '../../helpers/urls';
+import { defineCustomElement } from '../custom-elements';
+import { CustomEvents } from '../../events';
+import i18n from '../i18n';
+import { hasActiveConversation, initBoost, loadScript } from './boost';
+import cls from './chatbot.module.css';
+import chatboticon from './chatboticon.svg';
 
 class Chatbot extends HTMLElement {
-    private readonly button: HTMLButtonElement;
+	private readonly button: HTMLButtonElement;
 
-    constructor() {
-        super();
+	constructor() {
+		super();
 
-        this.button = document.createElement("button");
-        this.button.addEventListener("click", () =>
-            initBoost().then((boost) => boost?.show()),
-        );
-        this.button.id = "chatbot-frida-knapp";
-        this.button.setAttribute(
-            "aria-label",
-            i18n("open_chat").render(window.__DECORATOR_DATA__.params),
-        );
-        this.button.classList.add(cls.button);
+		this.button = document.createElement('button');
+		this.button.addEventListener('click', () => initBoost().then((boost) => boost?.show()));
+		this.button.id = 'chatbot-frida-knapp';
+		this.button.setAttribute('aria-label', i18n('open_chat').render(window.__DECORATOR_DATA__.params));
+		this.button.classList.add(cls.button);
 
-        const div = document.createElement("div");
-        div.classList.add(cls.chatbotWrapper);
-        const img = document.createElement("img");
-        img.src = cdnUrl(chatboticon);
-        img.alt = "";
-        img.classList.add(cls.chatbotIcon);
-        div.appendChild(img);
+		const div = document.createElement('div');
+		div.classList.add(cls.chatbotWrapper);
+		const img = document.createElement('img');
+		img.src = cdnUrl(chatboticon);
+		img.alt = '';
+		img.classList.add(cls.chatbotIcon);
+		div.appendChild(img);
 
-        this.button.appendChild(div);
-    }
+		this.button.appendChild(div);
+	}
 
-    connectedCallback() {
-        window.addEventListener("paramsupdated", this.paramsUpdatedListener);
-        this.update(window.__DECORATOR_DATA__.params);
-    }
+	connectedCallback() {
+		window.addEventListener('paramsupdated', this.paramsUpdatedListener);
+		this.update(window.__DECORATOR_DATA__.params);
+	}
 
-    disconnectedCallback() {
-        window.removeEventListener("paramsupdated", this.paramsUpdatedListener);
-    }
+	disconnectedCallback() {
+		window.removeEventListener('paramsupdated', this.paramsUpdatedListener);
+	}
 
-    private paramsUpdatedListener = (
-        event: CustomEvent<CustomEvents["paramsupdated"]>,
-    ) => this.update(event.detail.params);
+	private paramsUpdatedListener = (event: CustomEvent<CustomEvents['paramsupdated']>) =>
+		this.update(event.detail.params);
 
-    private update = ({ chatbot, chatbotVisible }: ClientParams) => {
-        if (
-            !window.__DECORATOR_DATA__.features["dekoratoren.chatbotscript"] ||
-            !chatbot
-        ) {
-            this.innerHTML = "";
-            return;
-        }
+	private update = ({ chatbot, chatbotVisible }: ClientParams) => {
+		if (!window.__DECORATOR_DATA__.features['dekoratoren.chatbotscript'] || !chatbot) {
+			this.innerHTML = '';
+			return;
+		}
 
-        if (!this.contains(this.button)) {
-            this.appendChild(this.button);
-        }
+		if (!this.contains(this.button)) {
+			this.appendChild(this.button);
+		}
 
-        const isVisible = chatbotVisible || hasActiveConversation();
-        this.button.classList.toggle(cls.visible, isVisible);
+		const isVisible = chatbotVisible || hasActiveConversation();
+		this.button.classList.toggle(cls.visible, isVisible);
 
-        if (isVisible) {
-            loadScript();
-        }
-    };
+		if (isVisible) {
+			loadScript();
+		}
+	};
 }
 
-defineCustomElement("d-chatbot", Chatbot);
+defineCustomElement('d-chatbot', Chatbot);

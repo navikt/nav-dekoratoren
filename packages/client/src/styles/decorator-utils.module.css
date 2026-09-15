@@ -1,20 +1,20 @@
 .decoratorUtils {
-    display: block;
+	display: block;
 }
 
 .decoratorUtilsContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    column-gap: var(--ax-space-16);
-    padding-block: var(--ax-space-12);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	column-gap: var(--ax-space-16);
+	padding-block: var(--ax-space-12);
 }
 
 .white {
-    background-color: var(--ax-bg-default);
+	background-color: var(--ax-bg-default);
 }
 
 .gray {
-    background-color: var(--ax-bg-neutral-moderate);
+	background-color: var(--ax-bg-neutral-moderate);
 }

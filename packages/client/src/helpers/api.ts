@@ -1,15 +1,15 @@
-import { corgi, type Plugin, type Query } from "@itsy/corgi/chonk";
-import { type ClientParams } from "decorator-shared/params";
-import { CONSUMER, VERSION_ID_PARAM } from "decorator-shared/constants";
-import { env } from "../params";
+import { corgi, type Plugin, type Query } from '@itsy/corgi/chonk';
+import { type ClientParams } from 'decorator-shared/params';
+import { CONSUMER, VERSION_ID_PARAM } from 'decorator-shared/constants';
+import { env } from '../params';
 
 // Request metadata (cache-busting version id + consumer tag) as a plugin.
 // baseURL is applied before the plugin chain runs, so `url` is already absolute.
 const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
-    const u = new URL(url);
-    u.searchParams.set(VERSION_ID_PARAM, env("VERSION_ID"));
-    u.searchParams.set("consumer", CONSUMER);
-    return next(u.toString(), init);
+	const u = new URL(url);
+	u.searchParams.set(VERSION_ID_PARAM, env('VERSION_ID'));
+	u.searchParams.set('consumer', CONSUMER);
+	return next(u.toString(), init);
 };
 
 /**
@@ -21,9 +21,9 @@ const withDecoratorMeta = (): Plugin => (next) => (url, init) => {
  * seeds it at module scope for the same reason.
  */
 export const decoratorApi = corgi.create({
-    baseURL: env("APP_URL"),
-    plugins: [withDecoratorMeta()],
-    retry: 2,
+	baseURL: env('APP_URL'),
+	plugins: [withDecoratorMeta()],
+	retry: 2,
 });
 
 type DecoratorFetchOverrides = Partial<ClientParams> & Record<string, unknown>;
@@ -35,14 +35,11 @@ type DecoratorFetchOverrides = Partial<ClientParams> & Record<string, unknown>;
  * `breadcrumbs`/`availableLanguages`/`analyticsQueryParams`/`analyticsRedactFilter`,
  */
 export const decoratorParams = (overrides?: DecoratorFetchOverrides): Query => {
-    const merged: Record<string, unknown> = {
-        ...window.__DECORATOR_DATA__.params,
-        ...overrides,
-    };
-    return Object.fromEntries(
-        Object.entries(merged).map(([key, value]) => [
-            key,
-            Array.isArray(value) ? JSON.stringify(value) : value,
-        ]),
-    ) as Query;
+	const merged: Record<string, unknown> = {
+		...window.__DECORATOR_DATA__.params,
+		...overrides,
+	};
+	return Object.fromEntries(
+		Object.entries(merged).map(([key, value]) => [key, Array.isArray(value) ? JSON.stringify(value) : value])
+	) as Query;
 };

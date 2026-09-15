@@ -1,173 +1,155 @@
-import { z } from "zod";
-import { isValidNavUrl } from "./urls";
+import { z } from 'zod';
+import { isValidNavUrl } from './urls';
 
-export const contextSchema = z.enum([
-    "privatperson",
-    "arbeidsgiver",
-    "samarbeidspartner",
-]);
+export const contextSchema = z.enum(['privatperson', 'arbeidsgiver', 'samarbeidspartner']);
 export type Context = z.infer<typeof contextSchema>;
 
-export const languageSchema = z.enum([
-    "nb",
-    "nn",
-    "en",
-    "se",
-    "pl",
-    "uk",
-    "ru",
-]);
+export const languageSchema = z.enum(['nb', 'nn', 'en', 'se', 'pl', 'uk', 'ru']);
 export type Language = z.infer<typeof languageSchema>;
 
-const availableLanguageSchema = z.discriminatedUnion("handleInApp", [
-    z.object({
-        handleInApp: z.literal(true),
-        locale: languageSchema,
-        url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
-    }),
-    z.object({
-        handleInApp: z.literal(false),
-        locale: languageSchema,
-        url: z.string().refine(isValidNavUrl),
-    }),
+const availableLanguageSchema = z.discriminatedUnion('handleInApp', [
+	z.object({
+		handleInApp: z.literal(true),
+		locale: languageSchema,
+		url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
+	}),
+	z.object({
+		handleInApp: z.literal(false),
+		locale: languageSchema,
+		url: z.string().refine(isValidNavUrl),
+	}),
 ]);
 export type AvailableLanguage = z.infer<typeof availableLanguageSchema>;
 
 const breadcrumbSchema = z.object({
-    title: z.string(),
-    url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
-    handleInApp: z.boolean().default(false).optional(),
-    analyticsTitle: z.string().optional(),
+	title: z.string(),
+	url: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
+	handleInApp: z.boolean().default(false).optional(),
+	analyticsTitle: z.string().optional(),
 });
 export type Breadcrumb = z.infer<typeof breadcrumbSchema>;
 
-const utilsBackground = z.enum(["white", "gray", "transparent"]);
+const utilsBackground = z.enum(['white', 'gray', 'transparent']);
 export type UtilsBackground = z.infer<typeof utilsBackground>;
 
-const loginLevel = z.enum(["Level3", "Level4"]);
+const loginLevel = z.enum(['Level3', 'Level4']);
 export type LoginLevel = z.infer<typeof loginLevel>;
 
 export const modulerVersionSchema = z.string().min(1).max(50);
 export const modulerVersionSemverSchema = modulerVersionSchema.regex(
-    /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/,
+	/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/
 );
-export const modulerEntryPointSchema = z.enum(["ssr", "csr"]);
-export const analyticsEntryPointSchema = z.enum(["typed", "custom", "legacy"]);
+export const modulerEntryPointSchema = z.enum(['ssr', 'csr']);
+export const analyticsEntryPointSchema = z.enum(['typed', 'custom', 'legacy']);
 
 export type ModulerMetadata = {
-    decoratorModulerVersion?: z.infer<typeof modulerVersionSemverSchema>;
-    decoratorModulerEntryPoint?: z.infer<typeof modulerEntryPointSchema>;
-    decoratorModulerAnalyticsEntryPoint?: z.infer<
-        typeof analyticsEntryPointSchema
-    >;
+	decoratorModulerVersion?: z.infer<typeof modulerVersionSemverSchema>;
+	decoratorModulerEntryPoint?: z.infer<typeof modulerEntryPointSchema>;
+	decoratorModulerAnalyticsEntryPoint?: z.infer<typeof analyticsEntryPointSchema>;
 };
 
 export const paramsSchema = z.object({
-    context: contextSchema.default("privatperson"),
-    simple: z.boolean().default(false),
-    simpleHeader: z.boolean().default(false),
-    simpleFooter: z.boolean().default(false),
-    redirectToApp: z.boolean().default(false),
-    redirectToUrl: z
-        .optional(z.string().refine(isValidNavUrl))
-        .catch(undefined),
-    redirectToUrlLogout: z
-        .optional(z.string().refine(isValidNavUrl))
-        .catch(undefined),
-    level: loginLevel.default("Level3"),
-    language: languageSchema.default("nb"),
-    availableLanguages: z.array(availableLanguageSchema).default([]),
-    breadcrumbs: z.array(breadcrumbSchema).default([]),
-    utilsBackground: utilsBackground.default("transparent"),
-    feedback: z.boolean().default(false),
-    chatbot: z.boolean().default(true),
-    chatbotVisible: z.boolean().default(false),
-    shareScreen: z.boolean().default(true),
-    logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
-    logoutWarning: z.boolean().default(true),
-    bedrift: z.string().optional(),
-    redirectOnUserChange: z.boolean().default(false),
-    origin: z.string().trim().min(1).max(100).optional(),
-    pageType: z.string().optional(),
-    pageTheme: z.string().optional(),
-    pageTitle: z.string().optional(),
-    analyticsQueryParams: z.array(z.string()).default([]),
-    analyticsRedactFilter: z.array(z.string()).default([]),
-    decoratorModulerVersion: modulerVersionSemverSchema.optional(),
-    decoratorModulerEntryPoint: modulerEntryPointSchema.optional(),
+	context: contextSchema.default('privatperson'),
+	simple: z.boolean().default(false),
+	simpleHeader: z.boolean().default(false),
+	simpleFooter: z.boolean().default(false),
+	redirectToApp: z.boolean().default(false),
+	redirectToUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
+	redirectToUrlLogout: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
+	level: loginLevel.default('Level3'),
+	language: languageSchema.default('nb'),
+	availableLanguages: z.array(availableLanguageSchema).default([]),
+	breadcrumbs: z.array(breadcrumbSchema).default([]),
+	utilsBackground: utilsBackground.default('transparent'),
+	feedback: z.boolean().default(false),
+	chatbot: z.boolean().default(true),
+	chatbotVisible: z.boolean().default(false),
+	shareScreen: z.boolean().default(true),
+	logoutUrl: z.optional(z.string().refine(isValidNavUrl)).catch(undefined),
+	logoutWarning: z.boolean().default(true),
+	bedrift: z.string().optional(),
+	redirectOnUserChange: z.boolean().default(false),
+	origin: z.string().trim().min(1).max(100).optional(),
+	pageType: z.string().optional(),
+	pageTheme: z.string().optional(),
+	pageTitle: z.string().optional(),
+	analyticsQueryParams: z.array(z.string()).default([]),
+	analyticsRedactFilter: z.array(z.string()).default([]),
+	decoratorModulerVersion: modulerVersionSemverSchema.optional(),
+	decoratorModulerEntryPoint: modulerEntryPointSchema.optional(),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
 
 export const clientParamKeys = [
-    "context",
-    "simple",
-    "simpleHeader",
-    "simpleFooter",
-    "redirectToApp",
-    "redirectToUrl",
-    "level",
-    "language",
-    "availableLanguages",
-    "breadcrumbs",
-    "utilsBackground",
-    "chatbot",
-    "chatbotVisible",
-    "shareScreen",
-    "logoutUrl",
-    "redirectToUrlLogout",
-    "logoutWarning",
-    "bedrift",
-    "feedback",
-    "redirectOnUserChange",
-    "origin",
-    "pageType",
-    "pageTheme",
-    "pageTitle",
-    "analyticsQueryParams",
-    "analyticsRedactFilter",
-    "decoratorModulerVersion",
-    "decoratorModulerEntryPoint",
+	'context',
+	'simple',
+	'simpleHeader',
+	'simpleFooter',
+	'redirectToApp',
+	'redirectToUrl',
+	'level',
+	'language',
+	'availableLanguages',
+	'breadcrumbs',
+	'utilsBackground',
+	'chatbot',
+	'chatbotVisible',
+	'shareScreen',
+	'logoutUrl',
+	'redirectToUrlLogout',
+	'logoutWarning',
+	'bedrift',
+	'feedback',
+	'redirectOnUserChange',
+	'origin',
+	'pageType',
+	'pageTheme',
+	'pageTitle',
+	'analyticsQueryParams',
+	'analyticsRedactFilter',
+	'decoratorModulerVersion',
+	'decoratorModulerEntryPoint',
 ] as const satisfies ReadonlyArray<keyof Params>;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;
 
 export const clientEnvSchema = z.object({
-    APP_URL: z.string(),
-    CDN_URL: z.string(),
-    BOOST_ENV: z.enum(["nav", "navtest"]),
-    LOGIN_SESSION_API_URL: z.string(),
-    LOGOUT_URL: z.string(),
-    MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
-    MIN_SIDE_URL: z.string(),
-    PUZZEL_CUSTOMER_ID: z.string(),
-    UMAMI_WEBSITE_ID: z.string().optional(),
-    UMAMI_PROXY_HOST: z.string().optional(),
-    UMAMI_SCRIPT_URL: z.string().optional(),
-    VERSION_ID: z.string(),
-    XP_BASE_URL: z.string(),
+	APP_URL: z.string(),
+	CDN_URL: z.string(),
+	BOOST_ENV: z.enum(['nav', 'navtest']),
+	LOGIN_SESSION_API_URL: z.string(),
+	LOGOUT_URL: z.string(),
+	MIN_SIDE_ARBEIDSGIVER_URL: z.string(),
+	MIN_SIDE_URL: z.string(),
+	PUZZEL_CUSTOMER_ID: z.string(),
+	UMAMI_WEBSITE_ID: z.string().optional(),
+	UMAMI_PROXY_HOST: z.string().optional(),
+	UMAMI_SCRIPT_URL: z.string().optional(),
+	VERSION_ID: z.string(),
+	XP_BASE_URL: z.string(),
 });
 
 export type Environment = z.infer<typeof clientEnvSchema>;
-export type BoostEnviroment = Environment["BOOST_ENV"];
+export type BoostEnviroment = Environment['BOOST_ENV'];
 
 export const validateRawParams = (query: Record<string, string>) => {
-    const rawParams: Partial<ClientParams> = {};
+	const rawParams: Partial<ClientParams> = {};
 
-    // Only parse present values - a failing safeParse constructs an (expensive) ZodError
-    if (query.context !== undefined) {
-        const contextParsed = contextSchema.safeParse(query.context);
-        if (contextParsed.success) {
-            rawParams.context = contextParsed.data;
-        }
-    }
+	// Only parse present values - a failing safeParse constructs an (expensive) ZodError
+	if (query.context !== undefined) {
+		const contextParsed = contextSchema.safeParse(query.context);
+		if (contextParsed.success) {
+			rawParams.context = contextParsed.data;
+		}
+	}
 
-    if (query.language !== undefined) {
-        const languageParsed = languageSchema.safeParse(query.language);
-        if (languageParsed.success) {
-            rawParams.language = languageParsed.data;
-        }
-    }
+	if (query.language !== undefined) {
+		const languageParsed = languageSchema.safeParse(query.language);
+		if (languageParsed.success) {
+			rawParams.language = languageParsed.data;
+		}
+	}
 
-    return rawParams;
+	return rawParams;
 };
