@@ -18,7 +18,7 @@ declare global {
 
 const logPageViewCallback = (auth: Auth) => () => logEvent("besøk", auth);
 const logBeforePrintEventCallback = (auth: Auth) => () =>
-    logEvent("utskrift-for", auth);
+    logEvent("utskrift-før", auth);
 const logAfterPrintEventCallback = (auth: Auth) => () =>
     logEvent("utskrift-etter", auth);
 
@@ -38,8 +38,12 @@ export const initAnalytics = (auth: Auth) => {
     window.addEventListener("historyPush", logPageViewCallback(auth), {
         signal: analyticsController.signal,
     });
-    window.addEventListener("beforeprint", logBeforePrintEventCallback(auth));
-    window.addEventListener("afterprint", logAfterPrintEventCallback(auth));
+    window.addEventListener("beforeprint", logBeforePrintEventCallback(auth), {
+        signal: analyticsController.signal,
+    });
+    window.addEventListener("afterprint", logAfterPrintEventCallback(auth), {
+        signal: analyticsController.signal,
+    });
 };
 
 export const stopAnalytics = () => {
