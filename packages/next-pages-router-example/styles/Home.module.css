@@ -1,62 +1,58 @@
 .main {
-    max-width: var(--max-width);
-    margin: 0 auto;
+	max-width: var(--max-width);
+	margin: 0 auto;
 }
 
 .codeBlock {
-    overflow-x: auto;
-    padding: var(--ax-space-4) var(--ax-space-12);
-    margin: 0;
-    border-radius: var(--ax-radius-8);
-    background: var(--ax-bg-neutral-soft);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
+	overflow-x: auto;
+	padding: var(--ax-space-4) var(--ax-space-12);
+	margin: 0;
+	border-radius: var(--ax-radius-8);
+	background: var(--ax-bg-neutral-soft);
+	font-family: var(--font-mono);
+	font-size: 0.85rem;
 }
 
 .previewWrapper {
-    margin-bottom: var(--ax-space-4);
+	margin-bottom: var(--ax-space-4);
 }
 
 .paramGroup {
-    border: 1px solid var(--ax-border-neutral-subtle);
-    border-radius: var(--ax-radius-8);
-    background: color-mix(
-        in srgb,
-        var(--ax-bg-neutral-soft) 70%,
-        var(--ax-bg-neutral-moderate)
-    );
+	border: 1px solid var(--ax-border-neutral-subtle);
+	border-radius: var(--ax-radius-8);
+	background: color-mix(in srgb, var(--ax-bg-neutral-soft) 70%, var(--ax-bg-neutral-moderate));
 }
 
 .paramRow {
-    padding: var(--ax-space-12);
+	padding: var(--ax-space-12);
 }
 
 .paramRow + .paramRow {
-    border-top: 1px solid var(--ax-border-neutral-subtle);
+	border-top: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .paramControl {
-    min-width: min(100%, 20rem);
+	min-width: min(100%, 20rem);
 }
 
 .compactSelect {
-    width: min(100%, 20rem);
+	width: min(100%, 20rem);
 }
 
 .paramRemoveButton {
-    align-self: flex-end;
+	align-self: flex-end;
 }
 
 .previewRouteValue {
-    color: var(--ax-text-neutral-subtle);
-    font-style: italic;
-    opacity: 0.65;
+	color: var(--ax-text-neutral-subtle);
+	font-style: italic;
+	opacity: 0.65;
 }
 
 .previewOldValue {
-    color: var(--ax-text-neutral-subtle);
+	color: var(--ax-text-neutral-subtle);
 }
 
 .previewUrl {
-    padding-inline: var(--ax-space-12);
+	padding-inline: var(--ax-space-12);
 }

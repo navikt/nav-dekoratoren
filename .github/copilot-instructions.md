@@ -66,8 +66,8 @@ Web Components communicate with `window.dispatchEvent()`. See `packages/client/s
 Use the custom `html` tagged template literal for all server-rendered HTML. It handles XSS escaping and i18n rendering:
 
 ```ts
-import { html } from "decorator-shared/html";
-const markup = html`<div>${userInput}</div>`.render({ language: "nb" });
+import { html } from 'decorator-shared/html';
+const markup = html`<div>${userInput}</div>`.render({ language: 'nb' });
 ```
 
 ### CSS Modules
@@ -75,7 +75,7 @@ const markup = html`<div>${userInput}</div>`.render({ language: "nb" });
 Client components use CSS Modules with TypeScript typing via `typescript-plugin-css-modules`. Import styles as:
 
 ```ts
-import styles from "./MyComponent.module.css";
+import styles from './MyComponent.module.css';
 // styles.myClass is typed
 ```
 

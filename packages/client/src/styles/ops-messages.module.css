@@ -1,42 +1,42 @@
 .opsMessages {
-    background-color: var(--ax-brand-blue-900);
-    display: block;
+	background-color: var(--ax-brand-blue-900);
+	display: block;
 }
 
 .opsMessagesContent {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: var(--ax-space-32);
-    padding-block: var(--ax-space-8);
-    justify-content: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: var(--ax-space-32);
+	padding-block: var(--ax-space-8);
+	justify-content: flex-start;
 }
 
 @media (min-width: 48rem) {
-    .opsMessagesContent {
-        justify-content: center;
-        column-gap: var(--ax-space-64);
-    }
+	.opsMessagesContent {
+		justify-content: center;
+		column-gap: var(--ax-space-64);
+	}
 }
 
 .opsMessage {
-    border-radius: var(--ax-radius-8);
-    color: var(--ax-neutral-000);
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: var(--ax-space-8);
-    padding-block: var(--ax-space-8);
-    cursor: pointer;
-    text-decoration-thickness: 0.0625em;
-    text-underline-offset: 0.15em;
+	border-radius: var(--ax-radius-8);
+	color: var(--ax-neutral-000);
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: var(--ax-space-8);
+	padding-block: var(--ax-space-8);
+	cursor: pointer;
+	text-decoration-thickness: 0.0625em;
+	text-underline-offset: 0.15em;
 }
 
 .opsMessage:hover {
-    text-decoration: none;
-    color: var(--ax-neutral-000);
+	text-decoration: none;
+	color: var(--ax-neutral-000);
 }
 
 .opsMessage:focus-visible {
-    outline: 3px solid var(--ax-neutral-000);
-    text-decoration: none;
+	outline: 3px solid var(--ax-neutral-000);
+	text-decoration: none;
 }

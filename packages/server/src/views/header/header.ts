@@ -1,66 +1,57 @@
-import { Params } from "decorator-shared/params";
-import html, { Template } from "decorator-shared/html";
-import { DecoratorUtils } from "../decorator-utils";
-import { SimpleHeader } from "./simple-header";
-import { clientEnv, env } from "../../env/server";
-import { ComplexHeader } from "./complex-header";
-import { makeContextLinks } from "../../context";
-import { MainMenuTemplate } from "./render-main-menu";
-import { ConsentBanner } from "../consent-banner";
+import { Params } from 'decorator-shared/params';
+import html, { Template } from 'decorator-shared/html';
+import { DecoratorUtils } from '../decorator-utils';
+import { SimpleHeader } from './simple-header';
+import { clientEnv, env } from '../../env/server';
+import { ComplexHeader } from './complex-header';
+import { makeContextLinks } from '../../context';
+import { MainMenuTemplate } from './render-main-menu';
+import { ConsentBanner } from '../consent-banner';
 
 const frontPageUrl = clientEnv.XP_BASE_URL;
 
 type HeaderProps = {
-    params: Params;
-    withContainers: boolean;
+	params: Params;
+	withContainers: boolean;
 };
 
-export const HeaderTemplate = async ({
-    params,
-    withContainers,
-}: HeaderProps): Promise<Template> => {
-    const {
-        breadcrumbs,
-        availableLanguages,
-        utilsBackground,
-        simple,
-        simpleHeader,
-        context,
-        language,
-    } = params;
+export const HeaderTemplate = async ({ params, withContainers }: HeaderProps): Promise<Template> => {
+	const { breadcrumbs, availableLanguages, utilsBackground, simple, simpleHeader, context, language } = params;
 
-    const decoratorUtils = DecoratorUtils({
-        breadcrumbs,
-        availableLanguages,
-        language,
-        utilsBackground,
-        frontPageUrl,
-    });
+	const decoratorUtils = DecoratorUtils({
+		breadcrumbs,
+		availableLanguages,
+		language,
+		utilsBackground,
+		frontPageUrl,
+	});
 
-    const headerContent = html`
-        ${ConsentBanner({ language })}
-        ${simple || simpleHeader
-            ? SimpleHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-              })
-            : ComplexHeader({
-                  frontPageUrl,
-                  decoratorUtils,
-                  loginUrl: env.LOGIN_URL,
-                  contextLinks: makeContextLinks(language),
-                  context,
-                  language,
-                  mainMenu: await MainMenuTemplate({ data: params }),
-              })}
-    `;
+	const headerContent = html`
+		${ConsentBanner({ language })}
+		${
+			simple || simpleHeader
+				? SimpleHeader({
+						frontPageUrl,
+						decoratorUtils,
+						loginUrl: env.LOGIN_URL,
+					})
+				: ComplexHeader({
+						frontPageUrl,
+						decoratorUtils,
+						loginUrl: env.LOGIN_URL,
+						contextLinks: makeContextLinks(language),
+						context,
+						language,
+						mainMenu: await MainMenuTemplate({ data: params }),
+					})
+		}
+	`;
 
-    return withContainers
-        ? html`
-              <header id="decorator-header" data-nosnippet>
-                  <decorator-header>${headerContent}</decorator-header>
-              </header>
-          `
-        : headerContent;
+	return withContainers
+		? html`
+				<header id="decorator-header" data-nosnippet>
+					<decorator-header>${headerContent}</decorator-header>
+				</header>
+			`
+		: headerContent;
 };

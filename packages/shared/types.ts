@@ -1,24 +1,24 @@
-import type { Environment, ClientParams, Params } from "./params";
-import { nb } from "decorator-server/src/texts";
+import type { Environment, ClientParams, Params } from './params';
+import { nb } from 'decorator-server/src/texts';
 
 export type Link = {
-    content: string;
-    url: string;
-    path?: string;
-    attributes?: Record<string, string>;
+	content: string;
+	url: string;
+	path?: string;
+	attributes?: Record<string, string>;
 };
 
 export type LinkGroup = {
-    heading?: string;
-    children: Link[];
+	heading?: string;
+	children: Link[];
 };
 
 export const clientTextsKeys = [
-    "breadcrumbs",
-    "important_info",
-    "loading_preview",
-    "loading",
-    "open_chat",
+	'breadcrumbs',
+	'important_info',
+	'loading_preview',
+	'loading',
+	'open_chat',
 ] as const satisfies Array<keyof Texts>;
 
 export type ClientTexts = Pick<Texts, (typeof clientTextsKeys)[number]>;
@@ -26,100 +26,94 @@ export type ClientTexts = Pick<Texts, (typeof clientTextsKeys)[number]>;
 type NBTexts = typeof nb;
 type NBTextKeys = keyof NBTexts;
 export type Texts = {
-    [key in NBTextKeys]: NBTexts[key] extends string ? string : NBTexts[key];
+	[key in NBTextKeys]: NBTexts[key] extends string ? string : NBTexts[key];
 };
 
 export type OpsMessage = {
-    heading: string;
-    url: string;
-    type: "prodstatus" | "info";
-    urlscope: string[];
+	heading: string;
+	url: string;
+	type: 'prodstatus' | 'info';
+	urlscope: string[];
 };
 
 export type Features = {
-    "dekoratoren.skjermdeling": boolean;
-    "dekoratoren.chatbotscript": boolean;
-    "dekoratoren.umami": boolean;
-    "dekoratoren.puzzel-script": boolean;
+	'dekoratoren.skjermdeling': boolean;
+	'dekoratoren.chatbotscript': boolean;
+	'dekoratoren.umami': boolean;
+	'dekoratoren.puzzel-script': boolean;
 };
 
 /**
  * Computed values based on params and environment
  */
 export type AppState = {
-    texts: ClientTexts;
-    params: ClientParams;
-    // These are parameters explicitly set in the request from the consuming application
-    // Does not include default fallback values for required params, and only includes a few select
-    // params for which this data is needed in the client
-    rawParams?: Partial<ClientParams>;
-    env: Environment;
-    features: Features;
-    // Head assets are included here only for legacy implementations, where they are injected on the client-side.
-    // In the new implemention, head elements are included in the payload from the /ssr endpoint instead
-    // and should be included in the server-HTML of consuming applications
-    headAssets?: HtmlElementProps[];
-    allowedStorage: PublicStorageItem[];
+	texts: ClientTexts;
+	params: ClientParams;
+	// These are parameters explicitly set in the request from the consuming application
+	// Does not include default fallback values for required params, and only includes a few select
+	// params for which this data is needed in the client
+	rawParams?: Partial<ClientParams>;
+	env: Environment;
+	features: Features;
+	// Head assets are included here only for legacy implementations, where they are injected on the client-side.
+	// In the new implemention, head elements are included in the payload from the /ssr endpoint instead
+	// and should be included in the server-HTML of consuming applications
+	headAssets?: HtmlElementProps[];
+	allowedStorage: PublicStorageItem[];
 };
 
 export type MainMenuContextLink = {
-    content: string;
-    description?: string;
-    url: string;
+	content: string;
+	description?: string;
+	url: string;
 };
 
 export type CsrPayload = {
-    header: string;
-    footer: string;
-    data: AppState;
-    scripts: HtmlElementProps[];
+	header: string;
+	footer: string;
+	data: AppState;
+	scripts: HtmlElementProps[];
 };
 
 export type HtmlElementProps = {
-    tag: string;
-    attribs: Record<string, string>;
-    body?: string;
+	tag: string;
+	attribs: Record<string, string>;
+	body?: string;
 };
 
-export type StorageType = "cookie" | "localstorage" | "sessionstorage";
+export type StorageType = 'cookie' | 'localstorage' | 'sessionstorage';
 
 export type AllowedStorageItem = {
-    name: string;
-    type: StorageType[];
-    service: string;
-    description: string;
-    optional: boolean;
+	name: string;
+	type: StorageType[];
+	service: string;
+	description: string;
+	optional: boolean;
 };
 
 export type DecoratorDataProps = {
-    features: Features;
-    params: Params;
-    rawParams: Record<string, string>;
-    headAssets?: HtmlElementProps[];
+	features: Features;
+	params: Params;
+	rawParams: Record<string, string>;
+	headAssets?: HtmlElementProps[];
 };
 
-export type PublicStorageItem = Pick<
-    AllowedStorageItem,
-    "name" | "optional"
-> & {
-    type: StorageType;
+export type PublicStorageItem = Pick<AllowedStorageItem, 'name' | 'optional'> & {
+	type: StorageType;
 };
 
-export type ConsentAction =
-    | "CONSENT_ALL_WEB_STORAGE"
-    | "REFUSE_OPTIONAL_WEB_STORAGE"
-    | null;
+export type ConsentAction = 'CONSENT_ALL_WEB_STORAGE' | 'REFUSE_OPTIONAL_WEB_STORAGE' | null;
 
 export type Consent = {
-    consent: {
-        analytics: boolean;
-        surveys: boolean;
-    };
-    userActionTaken: boolean;
-    meta: {
-        createdAt: string;
-        updatedAt: string;
-        version: number;
-        analyticsId: string | null;
-    };
+	consent: {
+		analytics: boolean;
+		surveys: boolean;
+	};
+	userActionTaken: boolean;
+	meta: {
+		createdAt: string;
+		updatedAt: string;
+		version: number;
+		analyticsId: string | null;
+	};
 };

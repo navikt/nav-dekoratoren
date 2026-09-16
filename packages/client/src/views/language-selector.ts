@@ -1,11 +1,11 @@
-import { type AvailableLanguage, type Language } from "decorator-shared/params";
-import { languageLabels } from "decorator-shared/constants";
-import { CustomEvents } from "../events";
-import { param, updateDecoratorParams } from "../params";
-import cls from "../styles/language-selector.module.css";
-import utils from "../styles/utils.module.css";
-import { defineCustomElement } from "./custom-elements";
-import { analyticsEvent } from "../analytics/analytics";
+import { type AvailableLanguage, type Language } from 'decorator-shared/params';
+import { languageLabels } from 'decorator-shared/constants';
+import { CustomEvents } from '../events';
+import { param, updateDecoratorParams } from '../params';
+import cls from '../styles/language-selector.module.css';
+import utils from '../styles/utils.module.css';
+import { defineCustomElement } from './custom-elements';
+import { analyticsEvent } from '../analytics/analytics';
 
 export class LanguageSelector extends HTMLElement {
     menu!: HTMLElement;
@@ -212,4 +212,4 @@ export class LanguageSelector extends HTMLElement {
     }
 }
 
-defineCustomElement("language-selector", LanguageSelector);
+defineCustomElement('language-selector', LanguageSelector);

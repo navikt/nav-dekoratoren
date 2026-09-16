@@ -21,7 +21,7 @@ on:
         description: HPA resource applied before the app. Empty skips it.
         type: string
         required: false
-        default: ""
+        default: ''
       deploy-previous:
         description: Deploy the previously deployed version as an internal app before the current one.
         type: boolean
