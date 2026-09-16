@@ -54,8 +54,7 @@ export class LanguageSelector extends HTMLElement {
 
         for (const li of listItems) {
             const option = li.querySelector("button, a") as
-                | HTMLButtonElement
-                | HTMLAnchorElement;
+                HTMLButtonElement | HTMLAnchorElement;
             if (!option) continue;
 
             const locale = option.dataset.locale;
@@ -136,6 +135,12 @@ export class LanguageSelector extends HTMLElement {
         );
     }
 
+    private handleButtonClick = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+            this.open = false;
+        }
+    };
+
     connectedCallback() {
         this.container = this.querySelector(`.${cls.languageSelector}`)!;
 
@@ -155,19 +160,17 @@ export class LanguageSelector extends HTMLElement {
         });
         this.button.addEventListener("blur", this.onBlur);
 
-        this.addEventListener("keyup", (e) => {
-            if (e.key === "Escape") {
-                this.open = false;
-            }
-        });
-
         window.addEventListener("paramsupdated", this.handleParamsUpdated);
+        this.addEventListener("keyup", this.handleButtonClick);
         this.language = param("language");
         this.availableLanguages = param("availableLanguages");
     }
 
     disconnectedCallback() {
         window.removeEventListener("paramsupdated", this.handleParamsUpdated);
+        this.removeEventListener("keyup", this.handleButtonClick);
+        this.button.removeEventListener("blur", this.onBlur);
+        this.button.removeEventListener("click", this.button.click);
     }
 
     handleParamsUpdated = (
@@ -192,6 +195,10 @@ export class LanguageSelector extends HTMLElement {
     };
 
     set open(open: boolean) {
+        if (open === this.#open) {
+            // For å fjerne muligheten for lukk en ekstra gang
+            return;
+        }
         this.#open = open;
         this.menu.classList.toggle(utils.hidden, !open);
         this.button.setAttribute("aria-expanded", String(open));
