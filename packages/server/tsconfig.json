@@ -1,31 +1,31 @@
 {
-    "compilerOptions": {
-        "lib": ["ES2022"],
-        "module": "ESNext",
-        "target": "ES2022",
-        "moduleResolution": "bundler",
-        "moduleDetection": "force",
-        "strict": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "paths": {
-            "decorator-server/src/*": ["./src/*"],
-            "decorator-client/src/*": ["../client/src/*"]
-        },
-        "types": ["node"],
-        "plugins": [
-            {
-                "name": "typescript-plugin-css-modules",
-                "options": {
-                    "postcssOptions": {
-                        "useConfig": true
-                    }
-                }
-            }
-        ]
-    },
-    "include": ["./src", "../../types"],
-    "exclude": ["**/*.stories.ts"]
+	"compilerOptions": {
+		"lib": ["ES2022"],
+		"module": "ESNext",
+		"target": "ES2022",
+		"moduleResolution": "bundler",
+		"moduleDetection": "force",
+		"strict": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"paths": {
+			"decorator-server/src/*": ["./src/*"],
+			"decorator-client/src/*": ["../client/src/*"]
+		},
+		"types": ["node"],
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"postcssOptions": {
+						"useConfig": true
+					}
+				}
+			}
+		]
+	},
+	"include": ["./src", "../../types"],
+	"exclude": ["**/*.stories.ts"]
 }

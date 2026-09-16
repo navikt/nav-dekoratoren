@@ -1,38 +1,38 @@
 {
-    "name": "decorator-server",
-    "version": "0.0.1",
-    "module": "src/server.ts",
-    "type": "module",
-    "scripts": {
-        "dev": "tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
-        "postinstall": "cp .env.sample .env",
-        "serve": "NODE_ENV=production node dist/server.js",
-        "serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
-        "prebuild": "rm -rf ./public/assets",
-        "build": "NODE_ENV=production tsx build.ts",
-        "test": "vitest run --silent=passed-only",
-        "lint": "eslint . && tsc --noEmit"
-    },
-    "dependencies": {
-        "@hono/node-server": "1.19.17",
-        "@hono/prometheus": "1.0.3",
-        "csp-header": "6.3.1",
-        "decorator-client": "workspace:*",
-        "decorator-icons": "workspace:*",
-        "decorator-shared": "workspace:*",
-        "hono": "4.13.5",
-        "ts-pattern": "5.9.0",
-        "unleash-client": "6.11.1"
-    },
-    "devDependencies": {
-        "@types/node": "catalog:",
-        "esbuild": "0.28.1",
-        "esbuild-minify-templates": "catalog:",
-        "msw": "2.15.0",
-        "postcss": "catalog:",
-        "postcss-import": "16.1.1",
-        "postcss-modules": "6.0.1",
-        "tsx": "catalog:",
-        "vitest": "catalog:"
-    }
+	"name": "decorator-server",
+	"version": "0.0.1",
+	"type": "module",
+	"module": "src/server.ts",
+	"scripts": {
+		"dev": "tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
+		"postinstall": "cp .env.sample .env",
+		"serve": "NODE_ENV=production node dist/server.js",
+		"serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
+		"prebuild": "rm -rf ./public/assets",
+		"build": "NODE_ENV=production tsx build.ts",
+		"test": "vitest run --silent=passed-only",
+		"lint": "eslint . && tsc --noEmit"
+	},
+	"dependencies": {
+		"@hono/node-server": "1.19.17",
+		"@hono/prometheus": "1.0.3",
+		"csp-header": "6.3.1",
+		"decorator-client": "workspace:*",
+		"decorator-icons": "workspace:*",
+		"decorator-shared": "workspace:*",
+		"hono": "4.13.5",
+		"ts-pattern": "5.9.0",
+		"unleash-client": "6.11.1"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"esbuild": "0.28.1",
+		"esbuild-minify-templates": "catalog:",
+		"msw": "2.15.0",
+		"postcss": "catalog:",
+		"postcss-import": "16.1.1",
+		"postcss-modules": "6.0.1",
+		"tsx": "catalog:",
+		"vitest": "catalog:"
+	}
 }

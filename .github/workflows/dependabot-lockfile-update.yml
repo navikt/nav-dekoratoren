@@ -5,7 +5,7 @@ on:
     paths:
       - pnpm-workspace.yaml
       - package.json
-      - "**/package.json"
+      - '**/package.json'
 
 permissions:
   contents: write

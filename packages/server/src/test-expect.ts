@@ -1,12 +1,10 @@
-import { expect } from "vitest";
+import { expect } from 'vitest';
 
 type AnyOkUnion = {
-    ok: boolean;
-    [key: string]: unknown;
+	ok: boolean;
+	[key: string]: unknown;
 };
 
-export function expectOK<T extends AnyOkUnion>(
-    result: T,
-): asserts result is Extract<T, { ok: true }> {
-    expect(result.ok).toBe(true);
+export function expectOK<T extends AnyOkUnion>(result: T): asserts result is Extract<T, { ok: true }> {
+	expect(result.ok).toBe(true);
 }

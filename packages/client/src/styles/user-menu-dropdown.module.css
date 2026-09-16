@@ -1,34 +1,34 @@
 .userMenuDropdown {
-    max-width: 600px;
+	max-width: 600px;
 }
 
 @media (min-width: 48rem) {
-    .userMenuDropdown {
-        max-height: 80vh;
-    }
+	.userMenuDropdown {
+		max-height: 80vh;
+	}
 }
 
 .name {
-    display: inline-block;
-    text-overflow: ellipsis;
-    max-width: 124px;
-    white-space: nowrap;
-    overflow: clip;
+	display: inline-block;
+	text-overflow: ellipsis;
+	max-width: 124px;
+	white-space: nowrap;
+	overflow: clip;
 }
 
 .iconWrapper {
-    position: relative;
+	position: relative;
 }
 
 .iconWrapper::after {
-    position: absolute;
-    content: "";
-    display: block;
-    top: 0;
-    right: 0;
-    height: 7px;
-    width: 7px;
-    border-radius: 100%;
-    background-color: #fb0505;
-    border: 1.5px solid white;
+	position: absolute;
+	content: '';
+	display: block;
+	top: 0;
+	right: 0;
+	height: 7px;
+	width: 7px;
+	border-radius: 100%;
+	background-color: #fb0505;
+	border: 1.5px solid white;
 }
