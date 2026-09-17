@@ -12,11 +12,9 @@ declare global {
 	}
 }
 
-const logPageViewCallback = (auth: Auth) => () => logEvent("besøk", auth);
-const logBeforePrintEventCallback = (auth: Auth) => () =>
-    logEvent("utskrift-før", auth);
-const logAfterPrintEventCallback = (auth: Auth) => () =>
-    logEvent("utskrift-etter", auth);
+const logPageViewCallback = (auth: Auth) => () => logEvent('besøk', auth);
+const logBeforePrintEventCallback = (auth: Auth) => () => logEvent('utskrift-før', auth);
+const logAfterPrintEventCallback = (auth: Auth) => () => logEvent('utskrift-etter', auth);
 
 export const mockAnalytics = () => {
 	return Promise.resolve();
@@ -27,19 +25,19 @@ export const initAnalytics = (auth: Auth) => {
 	initMockAmplitude(); // Some teams are calling window.dekoratorenAmplitude directly
 	initUmami();
 
-    // This function is exposed for use from consuming applications
-    window.dekoratorenAnalytics = logAnalyticsEventFromApp;
-    logEvent("besøk", auth);
+	// This function is exposed for use from consuming applications
+	window.dekoratorenAnalytics = logAnalyticsEventFromApp;
+	logEvent('besøk', auth);
 
-    window.addEventListener("historyPush", logPageViewCallback(auth), {
-        signal: analyticsController.signal,
-    });
-    window.addEventListener("beforeprint", logBeforePrintEventCallback(auth), {
-        signal: analyticsController.signal,
-    });
-    window.addEventListener("afterprint", logAfterPrintEventCallback(auth), {
-        signal: analyticsController.signal,
-    });
+	window.addEventListener('historyPush', logPageViewCallback(auth), {
+		signal: analyticsController.signal,
+	});
+	window.addEventListener('beforeprint', logBeforePrintEventCallback(auth), {
+		signal: analyticsController.signal,
+	});
+	window.addEventListener('afterprint', logAfterPrintEventCallback(auth), {
+		signal: analyticsController.signal,
+	});
 };
 
 export const stopAnalytics = () => {
@@ -100,33 +98,28 @@ const parseAnalyticsEntryPoint = (value: unknown): ModulerMetadata['decoratorMod
 	analyticsEntryPointSchema.safeParse(value).data;
 
 const logEvent = (eventName: string, authState: Auth) => {
-    // Må vente litt med logging for å sikre at window-objektet er oppdatert.
-    setTimeout(() => {
-        const params = window.__DECORATOR_DATA__.params;
-        const eventData = {
-            målgruppe: params.context,
-            innholdstype: params.pageType,
-            sidetittel: params.pageTitle || document.title,
-            tema: params.pageTheme,
-            innlogging: authState.authenticated
-                ? authState.securityLevel
-                : false,
-            parametre: {
-                ...buildPageviewParametre(params),
-                BREADCRUMBS:
-                    params.breadcrumbs && params.breadcrumbs.length > 0,
-                ...(params.availableLanguages && {
-                    availableLanguages: params.availableLanguages.map(
-                        (lang) => lang.locale,
-                    ),
-                }),
-            },
-        };
-        logUmamiEvent(eventName, eventData, params.origin ?? DEFAULT_ORIGIN, {
-            decoratorModulerVersion: params.decoratorModulerVersion,
-            decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
-        });
-    }, 100);
+	// Må vente litt med logging for å sikre at window-objektet er oppdatert.
+	setTimeout(() => {
+		const params = window.__DECORATOR_DATA__.params;
+		const eventData = {
+			målgruppe: params.context,
+			innholdstype: params.pageType,
+			sidetittel: params.pageTitle || document.title,
+			tema: params.pageTheme,
+			innlogging: authState.authenticated ? authState.securityLevel : false,
+			parametre: {
+				...buildPageviewParametre(params),
+				BREADCRUMBS: params.breadcrumbs && params.breadcrumbs.length > 0,
+				...(params.availableLanguages && {
+					availableLanguages: params.availableLanguages.map((lang) => lang.locale),
+				}),
+			},
+		};
+		logUmamiEvent(eventName, eventData, params.origin ?? DEFAULT_ORIGIN, {
+			decoratorModulerVersion: params.decoratorModulerVersion,
+			decoratorModulerEntryPoint: params.decoratorModulerEntryPoint,
+		});
+	}, 100);
 };
 
 export const analyticsEvent = (props: AnalyticsEventArgs) => {
