@@ -115,11 +115,7 @@ export class LanguageSelector extends HTMLElement {
 		this.menu.replaceChildren(...availableLanguages.map(availableLanguageToLi));
 	}
 
-	private handleButtonClick = (e: KeyboardEvent) => {
-		if (e.key === 'Escape') {
-			this.open = false;
-		}
-	};
+	private controller = new AbortController();
 
 	connectedCallback() {
 		this.container = this.querySelector(`.${cls.languageSelector}`)!;
@@ -135,23 +131,43 @@ export class LanguageSelector extends HTMLElement {
 		}
 
 		this.button = this.querySelector(`.${cls.button}`) as HTMLButtonElement;
-		this.button.addEventListener('click', () => {
-			this.open = !this.#open;
+		this.button.addEventListener('click', this.handleClick, {
+			signal: this.controller.signal,
 		});
-		this.button.addEventListener('blur', this.onBlur);
+		this.button.addEventListener('blur', this.onBlur, {
+			signal: this.controller.signal,
+		});
+
+		this.addEventListener('keyup', this.handleKeyboard, {
+			signal: this.controller.signal,
+		});
 
 		window.addEventListener('paramsupdated', this.handleParamsUpdated);
-		this.addEventListener('keyup', this.handleButtonClick);
+
 		this.language = param('language');
 		this.availableLanguages = param('availableLanguages');
 	}
 
 	disconnectedCallback() {
 		window.removeEventListener('paramsupdated', this.handleParamsUpdated);
-		this.removeEventListener('keyup', this.handleButtonClick);
-		this.button.removeEventListener('blur', this.onBlur);
-		this.button.removeEventListener('click', this.button.click);
+		this.controller.abort();
 	}
+
+	handleClick = () => {
+		this.open = !this.#open;
+	};
+
+	onBlur = (e: FocusEvent) => {
+		if (e.relatedTarget === null || !this.contains(e.relatedTarget as Node)) {
+			this.open = false;
+		}
+	};
+
+	handleKeyboard = (e: KeyboardEvent) => {
+		if (e.key === 'Escape') {
+			this.open = false;
+		}
+	};
 
 	handleParamsUpdated = (event: CustomEvent<CustomEvents['paramsupdated']>) => {
 		const { changedKeys, params } = event.detail;
@@ -160,12 +176,6 @@ export class LanguageSelector extends HTMLElement {
 		}
 		if (changedKeys.includes('availableLanguages')) {
 			this.availableLanguages = params.availableLanguages;
-		}
-	};
-
-	onBlur = (e: FocusEvent) => {
-		if (e.relatedTarget === null || !this.contains(e.relatedTarget as Node)) {
-			this.open = false;
 		}
 	};
 
