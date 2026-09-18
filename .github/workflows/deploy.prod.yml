@@ -81,7 +81,10 @@ jobs:
     secrets: inherit
 
   release:
-    needs: deploy-prod
+    needs: [build, deploy-prod]
     uses: navikt/navno-ci/.github/workflows/release.yml@v1
     permissions: { contents: write }
+    with:
+      # rollback.prod.yml reads this line - don't mess with the formatting!
+      body: 'Deployed image: `${{ needs.build.outputs.image }}`'
     secrets: inherit
