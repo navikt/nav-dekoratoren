@@ -35,11 +35,9 @@ export const SearchHits = ({ results: { hits, total }, query, context }: SearchH
 							${hits.map(
 								(hit) => html`
 									<li>
-										<search-hit>
-											<a href="${hit.href}" class="${cls.searchHit}">
-												<h2 class="${cls.title}">${hit.displayName}</h2>
-												<div>${unsafeHtml(hit.highlight)}</div>
-											</a>
+										<search-hit class="${cls.searchHit}">
+											<a class="${cls.link}" href="${hit.href}"> ${hit.displayName} </a>
+											<div>${unsafeHtml(hit.highlight)}</div>
 										</search-hit>
 									</li>
 								`
