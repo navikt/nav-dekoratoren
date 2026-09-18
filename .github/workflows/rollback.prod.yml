@@ -1,0 +1,99 @@
+name: Rollback prod
+on:
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        description: >
+          Release tag (e.g. release/prod@1758190000).
+          Empty = one release back from latest.
+        type: string
+        required: false
+        default: ''
+
+concurrency:
+  group: rollback-prod
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    name: Resolve release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+      version-id: ${{ steps.resolve.outputs.version-id }}
+      image: ${{ steps.resolve.outputs.image }}
+    steps:
+      - name: Find release, commit and image
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG_INPUT: ${{ inputs.release-tag }}
+          PREFIX: release/prod@
+        run: |
+          set -euo pipefail
+
+          list_releases() {
+            gh release list --exclude-drafts --limit 20 --json tagName,createdAt \
+              | jq --arg p "$PREFIX" '[.[] | select(.tagName | startswith($p))]'
+          }
+
+          fail() {
+            echo "::error::$1"
+            echo "Recent prod releases:"
+            list_releases | jq -r '.[] | "  \(.tagName)  (\(.createdAt))"'
+            exit 1
+          }
+
+          if [ -n "$TAG_INPUT" ]; then
+            TAG="$TAG_INPUT"
+            [[ "$TAG" =~ ^[A-Za-z0-9._/@-]+$ ]] || fail "Invalid release tag: $TAG"
+          else
+            TAG=$(list_releases | jq -r '.[1].tagName // empty')
+            [ -n "$TAG" ] || fail "Could not find a release before the latest one."
+          fi
+
+          BODY=$(gh release view "$TAG" --json body --jq .body 2>/dev/null | tr -d '\r') \
+            || fail "Release $TAG does not exist."
+
+          IMAGE=$(printf '%s\n' "$BODY" | sed -n 's/^Deployed image: `\(.*\)`$/\1/p' | head -1)
+          [ -n "$IMAGE" ] || fail "Release $TAG has no 'Deployed image:' line. Only releases created after this workflow was added can be rolled back to."
+          [[ "$IMAGE" =~ ^[A-Za-z0-9._/@:-]+$ ]] || fail "Invalid image in release body: $IMAGE"
+
+          # Lightweight tags point at the commit; annotated tags point at a tag object.
+          REF=$(gh api "repos/$GH_REPO/git/ref/tags/$TAG")
+          SHA=$(jq -r .object.sha <<< "$REF")
+          if [ "$(jq -r .object.type <<< "$REF")" = "tag" ]; then
+            SHA=$(gh api "repos/$GH_REPO/git/tags/$SHA" --jq .object.sha)
+          fi
+
+          {
+            echo "tag=$TAG"
+            echo "version-id=$SHA"
+            echo "image=$IMAGE"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "## Rolling back prod"
+            echo
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Release | [$TAG](https://github.com/$GH_REPO/releases/tag/$TAG) |"
+            echo "| Commit | [\`${SHA:0:8}\`](https://github.com/$GH_REPO/commit/$SHA) |"
+            echo "| Image | \`$IMAGE\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-prod:
+    needs: resolve
+    uses: ./.github/workflows/deploy-instance.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: prod
+      cluster: prod-gcp
+      image: ${{ needs.resolve.outputs.image }}
+      version-id: ${{ needs.resolve.outputs.version-id }}
+      hpa-resource: .nais/hpa/hpa-prod.yml
+    secrets: inherit

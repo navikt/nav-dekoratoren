@@ -27,6 +27,11 @@ on:
         type: boolean
         required: false
         default: false
+      version-id:
+        description: Commit SHA the image was built from. Its .nais config is checked out and it is recorded as the deployed version. Rollbacks set it; everything else uses the triggering commit.
+        type: string
+        required: false
+        default: ${{ github.sha }}
     secrets:
       VARS_UPDATE_TOKEN:
         description: PAT that can write environment variables in this repository.
@@ -78,10 +83,11 @@ jobs:
     permissions: { contents: read, id-token: write }
     with:
       cluster: ${{ inputs.cluster }}
+      ref: ${{ inputs.version-id }}
       resource: .nais/config.yml
       hpa-resource: ${{ inputs.hpa-resource }}
       vars: .nais/vars/${{ inputs.instance }}.yml
-      var: image=${{ inputs.image }},versionId=${{ github.sha }},deployInstance=${{ inputs.instance }}
+      var: image=${{ inputs.image }},versionId=${{ inputs.version-id }},deployInstance=${{ inputs.instance }}
       environment: ${{ inputs.instance }}
 
   update-vars:
@@ -98,7 +104,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           DEPLOY_INSTANCE: ${{ inputs.instance }}
           IMAGE_INPUT: ${{ inputs.image }}
-          VERSION_ID: ${{ github.sha }}
+          VERSION_ID: ${{ inputs.version-id }}
         run: |
           set -euo pipefail
 
@@ -131,4 +137,4 @@ jobs:
       # is unique per instance; otherwise parallel instances on the same
       # cluster would cancel each other's pending deploy.
       vars: .nais/vars/${{ inputs.instance }}.yml
-      var: versionId=${{ github.sha }},deployInstance=${{ inputs.instance }}
+      var: versionId=${{ inputs.version-id }},deployInstance=${{ inputs.instance }}
