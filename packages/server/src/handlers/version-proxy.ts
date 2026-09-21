@@ -1,5 +1,6 @@
 import { HonoRequest, MiddlewareHandler } from 'hono';
 import { VERSION_ID_PARAM } from 'decorator-shared/constants';
+import { getLogSafeUrl } from 'decorator-shared/urls';
 import { env } from '../env/server';
 import { logger } from '../lib/logger';
 
@@ -19,10 +20,11 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 	urlObj.host = `${APP_NAME}-${targetVersionId}`;
 
 	const url = urlObj.toString();
+	const logSafeUrl = getLogSafeUrl(url);
+	const referer = request.header('referer');
+	const logSafeReferer = referer ? getLogSafeUrl(referer) : undefined;
 
-	logger.info(
-		`Proxy request to: ${urlObj.protocol}//${urlObj.host}${urlObj.pathname} - Referer: ${request.header('referer')}`
-	);
+	logger.info(`Proxy request to: ${logSafeUrl} - Referer: ${logSafeReferer}`);
 
 	try {
 		const headers = new Headers(request.raw.headers);
@@ -35,7 +37,7 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 		});
 
 		if (!response.ok) {
-			logger.warn(`Proxy request to ${url} returned ${response.status} ${response.statusText}`);
+			logger.warn(`Proxy request to ${logSafeUrl} returned ${response.status} ${response.statusText}`);
 		}
 
 		// Clone response headers since they're immutable in Node 24
@@ -49,21 +51,21 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 		});
 	} catch (e: unknown) {
 		const err = e instanceof Error ? e : new Error(String(e));
-		logger.error(`Proxy request failed for ${url}`, {
-			error: JSON.stringify({
-				message: err.message,
-				name: err.name,
-				code: (err as NodeJS.ErrnoException).code,
-				cause:
-					err.cause instanceof Error
-						? {
-								message: err.cause.message,
-								code: (err.cause as NodeJS.ErrnoException).code,
-							}
-						: String(err.cause),
-				stack: err.stack?.split('\n').slice(0, 3).join(' | '),
-			}),
-		});
+		const error = JSON.stringify({
+			message: err.message,
+			name: err.name,
+			code: (err as NodeJS.ErrnoException).code,
+			cause:
+				err.cause instanceof Error
+					? {
+							message: err.cause.message,
+							code: (err.cause as NodeJS.ErrnoException).code,
+						}
+					: String(err.cause),
+			stack: err.stack?.split('\n').slice(0, 3).join(' | '),
+		}).replaceAll(url, logSafeUrl);
+
+		logger.warn(`Proxy request failed for ${logSafeUrl}`, { error });
 		return null;
 	}
 };
