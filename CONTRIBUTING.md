@@ -100,6 +100,19 @@ under fanen Actions:
 Når PR-en din er godkjent, kan du merge den til main, og en produksjonsdeploy blir automatisk
 trigget.
 
+### Rollback i produksjon
+
+Hvis en deploy til produksjon har brutt noe, bruk `Rollback prod` under Actions.
+Den deployer et image som allerede er bygget, uten å bygge eller kjøre tester på nytt, og tar
+mye mindre tid enn en vanlig deploy.
+
+- Kjør den fra `main`.
+- La `release-tag` stå tom for å rulle tilbake til releasen før den nyeste. Oppgi en
+  `release/prod@...`-tag fra [releases](https://github.com/navikt/nav-dekoratoren/releases) for å
+  rulle tilbake til en bestemt versjon.
+- Workflowen viser hvilken release, commit og image den deployer i oppsummeringen før den
+  deployer.
+
 ---
 
 ## Arkitektur og teknisk løsning
