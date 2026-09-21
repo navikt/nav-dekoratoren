@@ -5,7 +5,7 @@ import { closeVersionApiWatcher } from './handlers/version-api-handler';
 
 const port = Number(process.env.PORT) || 8089;
 serve({ fetch: app.fetch, port });
-logger.info(`Server running on port ${port}`);
+logger.info(`Server probably running on port ${port}`);
 
 const shutdown = () => {
 	closeVersionApiWatcher();
