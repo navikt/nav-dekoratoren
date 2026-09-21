@@ -14,6 +14,47 @@ const validVersionIdPattern = new RegExp(/^([a-f0-9]{7}|[a-f0-9]{40})$/);
 const isValidVersionId = (versionId?: string): versionId is string =>
 	!!(versionId && validVersionIdPattern.test(versionId));
 
+const STALE_VERSION_ERROR_THRESHOLD = 3;
+const STALE_VERSION_ERROR_LOG_INTERVAL_MS = 60 * 1000;
+const MAX_TRACKED_STALE_VERSIONS = 50;
+
+type StaleVersionState = {
+	failCount: number;
+	lastErrorLoggedAt: number;
+};
+
+const staleVersionFailures = new Map<string, StaleVersionState>();
+
+const recordStaleVersionFallback = (targetVersionId: string, ownVersionId: string) => {
+	if (!staleVersionFailures.has(targetVersionId) && staleVersionFailures.size >= MAX_TRACKED_STALE_VERSIONS) {
+		const oldestKey = staleVersionFailures.keys().next().value;
+		if (oldestKey !== undefined) {
+			staleVersionFailures.delete(oldestKey);
+		}
+	}
+
+	const state = staleVersionFailures.get(targetVersionId) ?? { failCount: 0, lastErrorLoggedAt: 0 };
+	state.failCount += 1;
+	staleVersionFailures.set(targetVersionId, state);
+
+	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version)`;
+
+	if (state.failCount < STALE_VERSION_ERROR_THRESHOLD) {
+		logger.warn(message);
+		return;
+	}
+
+	const now = Date.now();
+	if (now - state.lastErrorLoggedAt >= STALE_VERSION_ERROR_LOG_INTERVAL_MS) {
+		state.lastErrorLoggedAt = now;
+		logger.error(message);
+	}
+};
+
+const clearStaleVersionFailures = (targetVersionId: string) => {
+	staleVersionFailures.delete(targetVersionId);
+};
+
 const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId: string) => {
 	const urlObj = new URL(request.url);
 	urlObj.protocol = 'http:';
@@ -35,10 +76,6 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 			headers,
 			body: request.raw.body,
 		});
-
-		if (!response.ok) {
-			logger.warn(`Proxy request to ${logSafeUrl} returned ${response.status} ${response.statusText}`);
-		}
 
 		// Clone response headers since they're immutable in Node 24
 		const responseHeaders = new Headers(response.headers);
@@ -85,10 +122,10 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
 
 	const response = await fetchFromInternalVersionApp(c.req, reqVersionId);
 
-	if (!response) {
-		logger.error(
-			`Falling back to this pod's own (version ${SERVER_VERSION_ID}) response for requested version ${reqVersionId} - content may not match the requester's cached assets`
-		);
+	if (response) {
+		clearStaleVersionFailures(reqVersionId);
+	} else {
+		recordStaleVersionFallback(reqVersionId, SERVER_VERSION_ID);
 	}
 
 	return response || next();
