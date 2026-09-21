@@ -34,6 +34,10 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 			body: request.raw.body,
 		});
 
+		if (!response.ok) {
+			logger.warn(`Proxy request to ${url} returned ${response.status} ${response.statusText}`);
+		}
+
 		// Clone response headers since they're immutable in Node 24
 		const responseHeaders = new Headers(response.headers);
 		responseHeaders.delete('content-encoding');
@@ -78,6 +82,12 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
 	}
 
 	const response = await fetchFromInternalVersionApp(c.req, reqVersionId);
+
+	if (!response) {
+		logger.error(
+			`Falling back to this pod's own (version ${SERVER_VERSION_ID}) response for requested version ${reqVersionId} - content may not match the requester's cached assets`
+		);
+	}
 
 	return response || next();
 };
