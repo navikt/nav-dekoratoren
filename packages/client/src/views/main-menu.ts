@@ -55,6 +55,7 @@ class MainMenu extends HTMLElement {
 	};
 
 	connectedCallback() {
+		console.log('I am the fanciest main menu to ever menu');
 		window.addEventListener('paramsupdated', this.handleParamsUpdated);
 
 		this.updateMenuContent(param('context'));
