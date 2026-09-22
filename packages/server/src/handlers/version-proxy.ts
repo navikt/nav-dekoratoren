@@ -15,11 +15,13 @@ const isValidVersionId = (versionId?: string): versionId is string =>
 	!!(versionId && validVersionIdPattern.test(versionId));
 
 const STALE_VERSION_ERROR_THRESHOLD = 3;
+const STALE_VERSION_ERROR_GRACE_PERIOD_MS = 2 * 60 * 1000;
 const STALE_VERSION_ERROR_LOG_INTERVAL_MS = 60 * 1000;
 const MAX_TRACKED_STALE_VERSIONS = 50;
 
 type StaleVersionState = {
 	failCount: number;
+	firstFailedAt: number;
 	lastErrorLoggedAt: number;
 };
 
@@ -33,18 +35,25 @@ const recordStaleVersionFallback = (targetVersionId: string, ownVersionId: strin
 		}
 	}
 
-	const state = staleVersionFailures.get(targetVersionId) ?? { failCount: 0, lastErrorLoggedAt: 0 };
+	const now = Date.now();
+	const state = staleVersionFailures.get(targetVersionId) ?? {
+		failCount: 0,
+		firstFailedAt: now,
+		lastErrorLoggedAt: 0,
+	};
 	state.failCount += 1;
 	staleVersionFailures.set(targetVersionId, state);
 
 	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version)`;
 
-	if (state.failCount < STALE_VERSION_ERROR_THRESHOLD) {
+	if (
+		state.failCount < STALE_VERSION_ERROR_THRESHOLD ||
+		now - state.firstFailedAt < STALE_VERSION_ERROR_GRACE_PERIOD_MS
+	) {
 		logger.warn(message);
 		return;
 	}
 
-	const now = Date.now();
 	if (now - state.lastErrorLoggedAt >= STALE_VERSION_ERROR_LOG_INTERVAL_MS) {
 		state.lastErrorLoggedAt = now;
 		logger.error(message);

@@ -69,13 +69,29 @@ describe('versionProxyHandler', () => {
 		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
 	});
 
-	it('escalates to error once failures for the same version reach the threshold', async () => {
+	it('does not escalate during the initial grace period', async () => {
+		vi.useFakeTimers({ shouldAdvanceTime: true });
+		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('getaddrinfo ENOTFOUND stale-pod')));
+
+		const app = buildApp(await loadHandler());
+
+		for (let i = 0; i < 6; i += 1) {
+			await requestWithVersion(app, STALE_VERSION_ID);
+		}
+
+		expect(staleVersionLogs(warnMessages())).toHaveLength(6);
+		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
+	});
+
+	it('escalates to error once the grace period and failure threshold are reached', async () => {
+		vi.useFakeTimers({ shouldAdvanceTime: true });
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('getaddrinfo ENOTFOUND stale-pod')));
 
 		const app = buildApp(await loadHandler());
 
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(2 * 60 * 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
 		const errors = staleVersionLogs(errorMessages());
@@ -91,8 +107,13 @@ describe('versionProxyHandler', () => {
 
 		const app = buildApp(await loadHandler());
 
-		// Reach the threshold, then keep failing well within the throttle window.
-		for (let i = 0; i < 6; i += 1) {
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(2 * 60 * 1000);
+
+		// Reach the threshold after the grace period, then keep failing within
+		// the throttle window.
+		for (let i = 0; i < 4; i += 1) {
 			await requestWithVersion(app, STALE_VERSION_ID);
 		}
 
