@@ -32,6 +32,8 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 	'pageTheme',
 	'simple',
 	'simpleHeader',
+	'redirectToApp',
+	'redirectToUrl',
 ] as const;
 
 class Header extends HTMLElement {

@@ -271,11 +271,21 @@ se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
 Gjelder både for automatisk innlogging og når innloggingsknappen klikkes. Standardinnstillingen er
 `false`, som vil omdirigere brukeren til "Mitt Nav"-applikasjonen etter innlogging.
 
+Kan oppdateres dynamisk client-side sammen med `redirectToUrl` via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **redirectToUrl**
 
 Omdirigerer nettleseren til den spesifiserte URL-en etter innlogging. Dette vil overstyre
 `redirectToApp`-konfigurasjonen som ble satt. Dette gjelder både for automatisk innlogging og når
 innloggingsknappen klikkes.
+
+Merk at `redirectToUrl` er begrenset til domenet `nav.no` og eventuelle underdomener. En URL utenfor
+dette domenet blir forkastet stille (parameteren faller tilbake til `undefined`), både ved
+førstegangsoppsett og ved efterfølgende oppdateringer via `setParams`.
+
+Kan oppdateres dynamisk client-side sammen med `redirectToApp` via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **redirectToUrlLogout**
 

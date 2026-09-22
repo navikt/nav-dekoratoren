@@ -4,6 +4,7 @@ import { CONSUMER, VERSION_ID_PARAM } from 'decorator-shared/constants';
 import { logger } from '../helpers/logger';
 import { refreshAuthData } from '../helpers/auth';
 import { apiPath, http, setDecoratorData, waitFor } from '../test-setup';
+import type { CustomEvents } from '../events';
 import './header';
 
 vi.mock('../helpers/auth', () => ({
@@ -14,6 +15,15 @@ const dispatchParamsUpdated = (changedKeys: string[]) =>
 	window.dispatchEvent(
 		new CustomEvent('paramsupdated', {
 			detail: { changedKeys, params: {} },
+		})
+	);
+
+const postDecoratorMessage = (payload: Record<string, unknown>) =>
+	window.dispatchEvent(
+		new MessageEvent('message', {
+			data: { source: 'decoratorClient', event: 'params', payload },
+			origin: window.location.origin,
+			source: window,
 		})
 	);
 
@@ -89,5 +99,61 @@ describe('Header', () => {
 			expect.objectContaining({ error: expect.any(Error) })
 		);
 		expect(el.innerHTML).toBe('old');
+	});
+
+	describe('postMessage params updates for redirectToApp/redirectToUrl', () => {
+		it('updates redirectToApp via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToApp: true });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.redirectToApp).toBe(true));
+		});
+
+		it('updates redirectToUrl via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToUrl: 'https://www.nav.no/mine-tjenester' });
+
+			await waitFor(() =>
+				expect(window.__DECORATOR_DATA__.params.redirectToUrl).toBe('https://www.nav.no/mine-tjenester')
+			);
+		});
+
+		it('updates both redirectToApp and redirectToUrl in a single postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToApp: true, redirectToUrl: 'https://www.nav.no/mine-tjenester' });
+
+			await waitFor(() => {
+				expect(window.__DECORATOR_DATA__.params.redirectToApp).toBe(true);
+				expect(window.__DECORATOR_DATA__.params.redirectToUrl).toBe('https://www.nav.no/mine-tjenester');
+			});
+		});
+
+		it('rejects an external redirectToUrl and leaves the param unset', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToUrl: 'https://evil.example.com' });
+
+			// The schema `.catch(undefined)`s an invalid URL rather than throwing,
+			// so the update is accepted but the value never becomes the external URL.
+			await http.settled();
+			expect(window.__DECORATOR_DATA__.params.redirectToUrl).not.toBe('https://evil.example.com');
+		});
+
+		it('dispatches paramsupdated with the changed keys so the login link can react', async () => {
+			await fixture('<decorator-header></decorator-header>');
+			const handler = vi.fn();
+			window.addEventListener('paramsupdated', handler);
+
+			postDecoratorMessage({ redirectToUrl: 'https://www.nav.no/mine-tjenester' });
+
+			await waitFor(() => expect(handler).toHaveBeenCalled());
+			const event = handler.mock.calls[0][0] as CustomEvent<CustomEvents['paramsupdated']>;
+			expect(event.detail.changedKeys).toContain('redirectToUrl');
+
+			window.removeEventListener('paramsupdated', handler);
+		});
 	});
 });
