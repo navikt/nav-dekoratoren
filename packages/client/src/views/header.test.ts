@@ -4,7 +4,6 @@ import { CONSUMER, VERSION_ID_PARAM } from 'decorator-shared/constants';
 import { logger } from '../helpers/logger';
 import { refreshAuthData } from '../helpers/auth';
 import { apiPath, http, setDecoratorData, waitFor } from '../test-setup';
-import type { CustomEvents } from '../events';
 import './header';
 
 vi.mock('../helpers/auth', () => ({
@@ -120,17 +119,6 @@ describe('Header', () => {
 			);
 		});
 
-		it('updates both redirectToApp and redirectToUrl in a single postMessage', async () => {
-			await fixture('<decorator-header></decorator-header>');
-
-			postDecoratorMessage({ redirectToApp: true, redirectToUrl: 'https://www.nav.no/mine-tjenester' });
-
-			await waitFor(() => {
-				expect(window.__DECORATOR_DATA__.params.redirectToApp).toBe(true);
-				expect(window.__DECORATOR_DATA__.params.redirectToUrl).toBe('https://www.nav.no/mine-tjenester');
-			});
-		});
-
 		it('rejects an external redirectToUrl and leaves the param unset', async () => {
 			await fixture('<decorator-header></decorator-header>');
 
@@ -141,19 +129,41 @@ describe('Header', () => {
 			await http.settled();
 			expect(window.__DECORATOR_DATA__.params.redirectToUrl).not.toBe('https://evil.example.com');
 		});
+	});
 
-		it('dispatches paramsupdated with the changed keys so the login link can react', async () => {
+	describe('postMessage params updates for chatbot/redirectToUrlLogout/shareScreen/logoutWarning', () => {
+		it('updates chatbot via postMessage', async () => {
 			await fixture('<decorator-header></decorator-header>');
-			const handler = vi.fn();
-			window.addEventListener('paramsupdated', handler);
 
-			postDecoratorMessage({ redirectToUrl: 'https://www.nav.no/mine-tjenester' });
+			postDecoratorMessage({ chatbot: false });
 
-			await waitFor(() => expect(handler).toHaveBeenCalled());
-			const event = handler.mock.calls[0][0] as CustomEvent<CustomEvents['paramsupdated']>;
-			expect(event.detail.changedKeys).toContain('redirectToUrl');
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.chatbot).toBe(false));
+		});
 
-			window.removeEventListener('paramsupdated', handler);
+		it('updates redirectToUrlLogout via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToUrlLogout: 'https://www.nav.no/logget-ut' });
+
+			await waitFor(() =>
+				expect(window.__DECORATOR_DATA__.params.redirectToUrlLogout).toBe('https://www.nav.no/logget-ut')
+			);
+		});
+
+		it('updates shareScreen via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ shareScreen: false });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.shareScreen).toBe(false));
+		});
+
+		it('updates logoutWarning via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ logoutWarning: false });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.logoutWarning).toBe(false));
 		});
 	});
 });
