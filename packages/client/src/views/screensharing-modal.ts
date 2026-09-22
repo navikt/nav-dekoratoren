@@ -155,8 +155,8 @@ class ScreenshareButton extends HTMLElement {
 	}
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const enablePuzzel = urlParams.get('enablePuzzel');
+// const urlParams = new URLSearchParams(window.location.search);
+const enablePuzzel = true; //urlParams.get('enablePuzzel');
 
 defineCustomElement('screensharing-modal', enablePuzzel ? ScreensharingModalPuzzel : ScreensharingModal);
 defineCustomElement('screenshare-button', enablePuzzel ? ScreenshareButtonPuzzel : ScreenshareButton);
