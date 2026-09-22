@@ -57,7 +57,7 @@ describe('versionProxyHandler', () => {
 		expect(staleVersionLogs(warnMessages())).toHaveLength(0);
 	});
 
-	it('warns (but does not error) on the first failures for a stale version', async () => {
+	it('does not warn on the first failures for a stale version', async () => {
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('getaddrinfo ENOTFOUND stale-pod')));
 
 		const app = buildApp(await loadHandler());
@@ -65,11 +65,11 @@ describe('versionProxyHandler', () => {
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
-		expect(staleVersionLogs(warnMessages())).toHaveLength(2);
+		expect(staleVersionLogs(warnMessages())).toHaveLength(0);
 		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
 	});
 
-	it('does not escalate during the initial grace period', async () => {
+	it('does not warn during the initial delay', async () => {
 		vi.useFakeTimers({ shouldAdvanceTime: true });
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('getaddrinfo ENOTFOUND stale-pod')));
 
@@ -79,52 +79,52 @@ describe('versionProxyHandler', () => {
 			await requestWithVersion(app, STALE_VERSION_ID);
 		}
 
-		expect(staleVersionLogs(warnMessages())).toHaveLength(6);
+		expect(staleVersionLogs(warnMessages())).toHaveLength(0);
 		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
 	});
 
-	it('escalates to error once the grace period and failure threshold are reached', async () => {
+	it('warns once failures have persisted for ten minutes', async () => {
 		vi.useFakeTimers({ shouldAdvanceTime: true });
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('getaddrinfo ENOTFOUND stale-pod')));
 
 		const app = buildApp(await loadHandler());
 
 		await requestWithVersion(app, STALE_VERSION_ID);
-		await requestWithVersion(app, STALE_VERSION_ID);
-		await vi.advanceTimersByTimeAsync(5 * 60 * 1000);
+		await vi.advanceTimersByTimeAsync(10 * 60 * 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
-		const errors = staleVersionLogs(errorMessages());
-		expect(errors).toHaveLength(1);
-		expect(errors[0]).toContain(STALE_VERSION_ID);
-		expect(errors[0]).toContain(env.VERSION_ID);
-		expect(errors[0]).toContain('3 consecutive failed proxy attempts');
-		expect(errors[0]).toContain('first failure at');
+		const warnings = staleVersionLogs(warnMessages());
+		expect(warnings).toHaveLength(1);
+		expect(warnings[0]).toContain(STALE_VERSION_ID);
+		expect(warnings[0]).toContain(env.VERSION_ID);
+		expect(warnings[0]).toContain('2 consecutive failed proxy attempts');
+		expect(warnings[0]).toContain('first failure at');
+		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
 	});
 
-	it('throttles repeated error logs for the same still-failing version', async () => {
+	it('logs at most one warning every ten minutes for a still-failing version', async () => {
 		vi.useFakeTimers({ shouldAdvanceTime: true });
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('getaddrinfo ENOTFOUND stale-pod')));
 
 		const app = buildApp(await loadHandler());
 
 		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(10 * 60 * 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
-		await vi.advanceTimersByTimeAsync(5 * 60 * 1000);
 
-		// Reach the threshold after the grace period, then keep failing within
-		// the throttle window.
+		// Keep failing within the warning interval.
 		for (let i = 0; i < 4; i += 1) {
 			await requestWithVersion(app, STALE_VERSION_ID);
 		}
 
-		expect(staleVersionLogs(errorMessages())).toHaveLength(1);
+		expect(staleVersionLogs(warnMessages())).toHaveLength(1);
 
-		// Advance past the throttle window - the next failure should log again.
-		await vi.advanceTimersByTimeAsync(60 * 1000 + 1);
+		// Advance past the warning interval - the next failure should log again.
+		await vi.advanceTimersByTimeAsync(10 * 60 * 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
-		expect(staleVersionLogs(errorMessages())).toHaveLength(2);
+		expect(staleVersionLogs(warnMessages())).toHaveLength(2);
+		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
 	});
 
 	it('tracks each version independently', async () => {
@@ -137,9 +137,9 @@ describe('versionProxyHandler', () => {
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, otherVersionId);
 
-		// Neither version has reached the threshold on its own yet.
+		// Neither version has reached the warning delay yet.
 		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
-		expect(staleVersionLogs(warnMessages())).toHaveLength(3);
+		expect(staleVersionLogs(warnMessages())).toHaveLength(0);
 	});
 
 	it('resets the failure count once the version starts responding again', async () => {
@@ -159,8 +159,8 @@ describe('versionProxyHandler', () => {
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
-		// Two failures before the reset, then two more after - never 3 in a row.
+		// Neither failure streak persists long enough to trigger a warning.
 		expect(staleVersionLogs(errorMessages())).toHaveLength(0);
-		expect(staleVersionLogs(warnMessages())).toHaveLength(4);
+		expect(staleVersionLogs(warnMessages())).toHaveLength(0);
 	});
 });
