@@ -17,33 +17,33 @@ Dette dokumentet beskriver:
    - [1.2 Hva er @navikt/nav-dekoratoren-moduler?](#12-hva-er-naviktnav-dekoratoren-moduler)
    - [1.3 Kontakt og kanaler](#13-kontakt-og-kanaler)
    - [1.4 Nav-pilot skill](#14-nav-pilot-skill)
-2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-🎓)
+2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-)
    - [2.1 Anbefalt: bruk @navikt/nav-dekoratoren-moduler (SSR)](#21-anbefalt-bruk-naviktnav-dekoratoren-moduler-ssr)
    - [2.2 Tilpasset implementasjon med SSR](#22-tilpasset-implementasjon-med-ssr)
    - [2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)](#23-ikke-anbefalt-direkte-client-side-rendering-csr-integrasjon)
    - [2.4 Ingresser og miljøer](#24-ingresser-og-miljøer)
-3. [Konfigurasjon av Dekoratøren](#3-konfigurasjon-av-dekoratøren-🎛️)
-   - [3.1 Detaljer](#31-detaljer-🍱)
+3. [Konfigurasjon av Dekoratøren](#3-konfigurasjon-av-dekoratøren-%EF%B8%8F)
+   - [3.1 Detaljer](#31-detaljer-)
    - [3.2 Eksempler på bruk](#32-eksempler-på-bruk)
-4. [@navikt/nav-dekoratoren-moduler – installasjon og oppsett](#4-naviktnav-dekoratoren-moduler--installasjon-og-oppsett-📦)
+4. [@navikt/nav-dekoratoren-moduler – installasjon og oppsett](#4-naviktnav-dekoratoren-moduler--installasjon-og-oppsett-)
    - [4.1 Installasjon fra GitHub Packages](#41-installasjon-fra-github-packages)
    - [4.2 Oppsett lokalt (.npmrc)](#42-oppsett-lokalt-npmrc)
    - [4.3 Oppsett på GitHub Actions](#43-oppsett-på-github-actions)
-5. [Hente Dekoratøren via moduler-pakken](#5-hente-dekoratøren-via-moduler-pakken-🏗️)
+5. [Hente Dekoratøren via moduler-pakken](#5-hente-dekoratøren-via-moduler-pakken-%EF%B8%8F)
    - [5.1 Typer og miljøer](#51-typer-og-miljøer)
    - [5.2 Service Discovery](#52-service-discovery)
    - [5.3 Access Policy](#53-access-policy)
      - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
      - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
-6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-🧱)
+6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-)
    - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
    - [6.2 Detaljer](#62-detaljer)
-7. [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
-8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken-🧰)
+7. [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-)
+8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken-)
    - [8.1 Detaljer](#81-detaljer)
-9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven-🍪)
+9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven-)
    - [9.1 Detaljer](#91-detaljer)
-10. [Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratøren-🎛️)
+10. [Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratøren-%EF%B8%8F)
     - [10.1 Detaljer](#101-detaljer)
 
 ---
@@ -235,7 +235,7 @@ en del av fetch-URL-forespørselen.
 
 Alle parametere kan settes klient-side, med mindre det eksplisitt er nevnt at de kun er for
 server-side rendering. For mer informasjon,
-se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
+se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-)
 
 | Konfigurasjon        | Type                                                                    | Default      | Forklaring                                                           |
 | -------------------- | ----------------------------------------------------------------------- | ------------ | -------------------------------------------------------------------- |
@@ -288,7 +288,7 @@ Språket settes automatisk på klient-side hvis den nåværende URL-en inneholde
 \*/nn/** , **/en/**, eller **/se/\*\*. Dette vil overstyre eventuelle språkparametere som er satt.
 Vennligst merk at det faktiske brukergrensesnittet til Dekoratøren kun kan vise sitt eget
 tekstinnhold og meny på `nb`, `en`, og `se` (delvis støtte). For mer informasjon,
-se [Språkstøtte og nedtrekksmeny](#42-language-support-and-dropdown-menu-)
+se [Språkstøtte og nedtrekksmeny](#101-detaljer)
 
 **availableLanguages**
 
@@ -490,7 +490,7 @@ type DecoratorFetchProps = {
 
 ### 5.2 Service Discovery
 
-Server-side fetch bruker [service discovery](https://docs.nais.io/clusters/service-discovery) som
+Server-side fetch bruker [service discovery](https://docs.nais.io/workloads/how-to/communication/) som
 standard. Vær obs på at dette kun fungerer ved kjøring på nais-clusterne `dev-gcp` eller `prod-gcp`.
 Dersom appen ikke kjører i ett av disse clusterne, vil vi falle tilbake til å kalle eksterne
 ingresser.
@@ -506,7 +506,7 @@ fetchDecoratorHtml({
 
 ### 5.3 Access Policy
 
-Se [Nais dokumentasjon](https://docs.nais.io/nais-application/access-policy) for oppsett av access
+Se [Nais dokumentasjon](https://docs.nais.io/workloads/explanations/zero-trust/) for oppsett av access
 policy.
 
 #### 5.3.1 Ved Service Discovery (default)
@@ -1169,7 +1169,7 @@ Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 - Sami (delvis)
 
 Du kan tilby `availableLanguages` for å fylle ut språkvelgeren, avhengig av hvor mange språk
-applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config-parametere)).
+applikasjonen din støtter (se [seksjon for parametere](#3-konfigurasjon-av-dekoratøren-%EF%B8%8F)).
 Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
 nevnte språkene.
 
