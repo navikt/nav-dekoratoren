@@ -91,7 +91,7 @@ describe('versionProxyHandler', () => {
 
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, STALE_VERSION_ID);
-		await vi.advanceTimersByTimeAsync(2 * 60 * 1000);
+		await vi.advanceTimersByTimeAsync(5 * 60 * 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
 		const errors = staleVersionLogs(errorMessages());
@@ -99,6 +99,7 @@ describe('versionProxyHandler', () => {
 		expect(errors[0]).toContain(STALE_VERSION_ID);
 		expect(errors[0]).toContain(env.VERSION_ID);
 		expect(errors[0]).toContain('3 consecutive failed proxy attempts');
+		expect(errors[0]).toContain('first failure at');
 	});
 
 	it('throttles repeated error logs for the same still-failing version', async () => {
@@ -109,7 +110,7 @@ describe('versionProxyHandler', () => {
 
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, STALE_VERSION_ID);
-		await vi.advanceTimersByTimeAsync(2 * 60 * 1000);
+		await vi.advanceTimersByTimeAsync(5 * 60 * 1000);
 
 		// Reach the threshold after the grace period, then keep failing within
 		// the throttle window.

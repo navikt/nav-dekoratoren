@@ -15,7 +15,7 @@ const isValidVersionId = (versionId?: string): versionId is string =>
 	!!(versionId && validVersionIdPattern.test(versionId));
 
 const STALE_VERSION_ERROR_THRESHOLD = 3;
-const STALE_VERSION_ERROR_GRACE_PERIOD_MS = 2 * 60 * 1000;
+const STALE_VERSION_ERROR_GRACE_PERIOD_MS = 5 * 60 * 1000;
 const STALE_VERSION_ERROR_LOG_INTERVAL_MS = 60 * 1000;
 const MAX_TRACKED_STALE_VERSIONS = 50;
 
@@ -44,7 +44,7 @@ const recordStaleVersionFallback = (targetVersionId: string, ownVersionId: strin
 	state.failCount += 1;
 	staleVersionFailures.set(targetVersionId, state);
 
-	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version)`;
+	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version, first failure at ${new Date(state.firstFailedAt).toISOString()})`;
 
 	if (
 		state.failCount < STALE_VERSION_ERROR_THRESHOLD ||
