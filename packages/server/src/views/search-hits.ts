@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import aksel from 'decorator-client/src/styles/aksel.module.css';
 import cls from 'decorator-client/src/styles/search-hits.module.css';
 import utils from 'decorator-client/src/styles/utils.module.css';
@@ -35,11 +36,14 @@ export const SearchHits = ({ results: { hits, total }, query, context }: SearchH
 							${hits.map(
 								(hit) => html`
 									<li>
-										<search-hit>
-											<a href="${hit.href}" class="${cls.searchHit}">
-												<h2 class="${cls.title}">${hit.displayName}</h2>
-												<div>${unsafeHtml(hit.highlight)}</div>
+										<search-hit class="${cls.searchHit}">
+											<a
+												class="${clsx(aksel['aksel-heading'], aksel['aksel-heading--small'], cls.link)}"
+												href="${hit.href}"
+											>
+												${hit.displayName}
 											</a>
+											<div>${unsafeHtml(hit.highlight)}</div>
 										</search-hit>
 									</li>
 								`
