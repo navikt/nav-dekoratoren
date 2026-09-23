@@ -107,11 +107,20 @@ Den deployer et image som allerede er bygget, uten å bygge eller kjøre tester 
 mye mindre tid enn en vanlig deploy.
 
 - Kjør den fra `main`.
-- La `release-tag` stå tom for å rulle tilbake til releasen før den nyeste. Oppgi en
-  `release/prod@...`-tag fra [releases](https://github.com/navikt/nav-dekoratoren/releases) for å
-  rulle tilbake til en bestemt versjon.
+- La `release-tag` stå tom for å rulle tilbake til releasen før den nyeste. Releaser som peker på
+  samme commit som den nyeste, hoppes over. Oppgi en `release/prod@...`-tag fra
+  [releases](https://github.com/navikt/nav-dekoratoren/releases) for å rulle tilbake til en bestemt
+  versjon.
 - Workflowen viser hvilken release, commit og image den deployer i oppsummeringen før den
-  deployer.
+  deployer. Velg `dry-run` for å se dette uten å deploye.
+- En rollback oppretter ingen ny release, så to rollbacks på rad med tom `release-tag` deployer
+  samme release. Oppgi en tag for å gå lenger tilbake.
+- Rollbacken varer bare til neste merge til `main`, som deployer `main` på nytt. Revert endringen
+  eller fiks feilen på `main` før du merger noe annet.
+- Du kan bare rulle tilbake til releaser som er opprettet etter at rollback ble innført. Eldre
+  releaser mangler linjen `Deployed image: ...` i beskrivelsen.
+- `.nais`-filene hentes fra commiten til releasen, så endringer i konfigurasjonen etter releasen
+  rulles også tilbake.
 
 ---
 
