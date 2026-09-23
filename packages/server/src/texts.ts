@@ -81,7 +81,7 @@ export const nb = {
 	delskjerm_modal_start: 'Start skjermdeling',
 	delskjerm_modal_label: 'Skriv inn koden du får fra veilederen',
 	delskjerm_modal_avbryt: 'Avbryt',
-	delskjerm_modal_feilmelding: 'Må bestå av 5 siffer',
+	delskjerm_modal_feilmelding: 'Må bestå av 6 siffer',
 	delskjerm_modal_hjelpetekst_overskrift: 'Hva er skjermdeling?',
 	delskjerm_modal_hjelpetekst_0:
 		'Når du deler skjerm med Nav kontaktsenter kan veilederen hjelpe deg med å finne fram på nav.no.',
@@ -182,7 +182,7 @@ const en: Texts = {
 	delskjerm_modal_start: 'Start screen sharing',
 	delskjerm_modal_label: 'Enter the code you received from the counsellor',
 	delskjerm_modal_avbryt: 'Cancel',
-	delskjerm_modal_feilmelding: 'Must be 5 digits',
+	delskjerm_modal_feilmelding: 'Must be 6 digits',
 	delskjerm_modal_hjelpetekst_overskrift: 'What is screen sharing?',
 	delskjerm_modal_hjelpetekst_0: 'When you share your screen, the counsellor can help you navigate nav.no.',
 	delskjerm_modal_hjelpetekst_1:
