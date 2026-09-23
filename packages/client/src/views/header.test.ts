@@ -150,6 +150,16 @@ describe('Header', () => {
 			);
 		});
 
+		it('updates logoutUrl and refreshes the header via postMessage', async () => {
+			http.get(apiPath('/header'), { text: '<p>updated header</p>' });
+			const el = await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ logoutUrl: 'https://www.nav.no/logg-ut' });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.logoutUrl).toBe('https://www.nav.no/logg-ut'));
+			await waitFor(() => expect(el.innerHTML).toBe('<p>updated header</p>'));
+		});
+
 		it('updates shareScreen via postMessage', async () => {
 			await fixture('<decorator-header></decorator-header>');
 
