@@ -17,6 +17,15 @@ const dispatchParamsUpdated = (changedKeys: string[]) =>
 		})
 	);
 
+const postDecoratorMessage = (payload: Record<string, unknown>) =>
+	window.dispatchEvent(
+		new MessageEvent('message', {
+			data: { source: 'decoratorClient', event: 'params', payload },
+			origin: window.location.origin,
+			source: window,
+		})
+	);
+
 describe('Header', () => {
 	beforeEach(() => {
 		setDecoratorData();
@@ -89,5 +98,72 @@ describe('Header', () => {
 			expect.objectContaining({ error: expect.any(Error) })
 		);
 		expect(el.innerHTML).toBe('old');
+	});
+
+	describe('postMessage params updates for redirectToApp/redirectToUrl', () => {
+		it('updates redirectToApp via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToApp: true });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.redirectToApp).toBe(true));
+		});
+
+		it('updates redirectToUrl via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToUrl: 'https://www.nav.no/mine-tjenester' });
+
+			await waitFor(() =>
+				expect(window.__DECORATOR_DATA__.params.redirectToUrl).toBe('https://www.nav.no/mine-tjenester')
+			);
+		});
+
+		it('rejects an external redirectToUrl and leaves the param unset', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToUrl: 'https://evil.example.com' });
+
+			// The schema `.catch(undefined)`s an invalid URL rather than throwing,
+			// so the update is accepted but the value never becomes the external URL.
+			await http.settled();
+			expect(window.__DECORATOR_DATA__.params.redirectToUrl).not.toBe('https://evil.example.com');
+		});
+	});
+
+	describe('postMessage params updates for chatbot/redirectToUrlLogout/shareScreen/logoutWarning', () => {
+		it('updates chatbot via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ chatbot: false });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.chatbot).toBe(false));
+		});
+
+		it('updates redirectToUrlLogout via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ redirectToUrlLogout: 'https://www.nav.no/logget-ut' });
+
+			await waitFor(() =>
+				expect(window.__DECORATOR_DATA__.params.redirectToUrlLogout).toBe('https://www.nav.no/logget-ut')
+			);
+		});
+
+		it('updates shareScreen via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ shareScreen: false });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.shareScreen).toBe(false));
+		});
+
+		it('updates logoutWarning via postMessage', async () => {
+			await fixture('<decorator-header></decorator-header>');
+
+			postDecoratorMessage({ logoutWarning: false });
+
+			await waitFor(() => expect(window.__DECORATOR_DATA__.params.logoutWarning).toBe(false));
+		});
 	});
 });

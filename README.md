@@ -271,16 +271,33 @@ se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-)
 Gjelder både for automatisk innlogging og når innloggingsknappen klikkes. Standardinnstillingen er
 `false`, som vil omdirigere brukeren til "Mitt Nav"-applikasjonen etter innlogging.
 
+Kan oppdateres dynamisk client-side sammen med `redirectToUrl` via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **redirectToUrl**
 
 Omdirigerer nettleseren til den spesifiserte URL-en etter innlogging. Dette vil overstyre
 `redirectToApp`-konfigurasjonen som ble satt. Dette gjelder både for automatisk innlogging og når
 innloggingsknappen klikkes.
 
+Merk at `redirectToUrl` er begrenset til domenet `nav.no` og eventuelle underdomener. En URL utenfor
+dette domenet blir forkastet stille (parameteren faller tilbake til `undefined`), både ved
+førstegangsoppsett og ved efterfølgende oppdateringer via `setParams`.
+
+Kan oppdateres dynamisk client-side sammen med `redirectToApp` via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **redirectToUrlLogout**
 
 Gjelder både for automatisk utlogging (etter å ha sett utloggingsvarselet) og når utloggingsknappen
 klikkes.
+
+Merk at `redirectToUrlLogout` er begrenset til domenet `nav.no` og eventuelle underdomener. En URL
+utenfor dette domenet blir forkastet stille (parameteren faller tilbake til `undefined`), både ved
+førstegangsoppsett og ved efterfølgende oppdateringer via `setParams`.
+
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **language**
 
@@ -320,12 +337,23 @@ resultere i at Dekoratøren returnerer en 500 serverfeil ved forespørsel.
 Hvis dette er satt til false, vil ikke chatboten bli initialisert. Dette betyr at den aldri vil
 være tilgjengelig for siden eller applikasjonen, selv om brukeren har en aktiv chatøkt.
 
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **chatbotVisible**
 
 Viser eller skjuler Chatbot Frida. Hvis dette er satt til `true`, vil det flytende chatbot-ikonet
 alltid være synlig. Når det er satt til `false`, vil chatboten bare være synlig hvis brukeren har en
 aktiv chatøkt. Vennligst merk at `chatbotVisible` ikke vil ha noen effekt hvis `chatbot`-argumentet
 ovenfor er satt til false.
+
+**shareScreen**
+
+Aktiverer eller deaktiverer funksjonen for deling av skjerm. Hvis dette er satt til `false`, vil
+ikke skjermdelingsknappen eller -modalen bli vist.
+
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **logoutUrl**
 
@@ -349,6 +377,9 @@ omtrent 60 minutter etter siste registrerte aktivitet, og modalen vises 5 minutt
 
 Hvis du velger å deaktivere denne funksjonen, må du selv implementere en lignende
 utloggingsadvarsel.
+
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **redirectOnUserChange**
 
