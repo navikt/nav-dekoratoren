@@ -14,13 +14,14 @@ const validVersionIdPattern = new RegExp(/^([a-f0-9]{7}|[a-f0-9]{40})$/);
 const isValidVersionId = (versionId?: string): versionId is string =>
 	!!(versionId && validVersionIdPattern.test(versionId));
 
-const STALE_VERSION_ERROR_THRESHOLD = 3;
-const STALE_VERSION_ERROR_LOG_INTERVAL_MS = 60 * 1000;
+const STALE_VERSION_WARNING_DELAY_MS = 10 * 60 * 1000;
+const STALE_VERSION_WARNING_LOG_INTERVAL_MS = 10 * 60 * 1000;
 const MAX_TRACKED_STALE_VERSIONS = 50;
 
 type StaleVersionState = {
 	failCount: number;
-	lastErrorLoggedAt: number;
+	firstFailedAt: number;
+	lastWarningLoggedAt: number;
 };
 
 const staleVersionFailures = new Map<string, StaleVersionState>();
@@ -33,21 +34,24 @@ const recordStaleVersionFallback = (targetVersionId: string, ownVersionId: strin
 		}
 	}
 
-	const state = staleVersionFailures.get(targetVersionId) ?? { failCount: 0, lastErrorLoggedAt: 0 };
+	const now = Date.now();
+	const state = staleVersionFailures.get(targetVersionId) ?? {
+		failCount: 0,
+		firstFailedAt: now,
+		lastWarningLoggedAt: 0,
+	};
 	state.failCount += 1;
 	staleVersionFailures.set(targetVersionId, state);
 
-	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version)`;
+	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version, first failure at ${new Date(state.firstFailedAt).toISOString()})`;
 
-	if (state.failCount < STALE_VERSION_ERROR_THRESHOLD) {
-		logger.warn(message);
+	if (now - state.firstFailedAt < STALE_VERSION_WARNING_DELAY_MS) {
 		return;
 	}
 
-	const now = Date.now();
-	if (now - state.lastErrorLoggedAt >= STALE_VERSION_ERROR_LOG_INTERVAL_MS) {
-		state.lastErrorLoggedAt = now;
-		logger.error(message);
+	if (now - state.lastWarningLoggedAt >= STALE_VERSION_WARNING_LOG_INTERVAL_MS) {
+		state.lastWarningLoggedAt = now;
+		logger.warn(message);
 	}
 };
 
