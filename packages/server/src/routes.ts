@@ -1,4 +1,5 @@
 import { prometheus } from '@hono/prometheus';
+import { register } from 'prom-client';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
@@ -33,7 +34,8 @@ import z from 'zod';
 // fails if this list and those files drift apart.
 export const INGRESS_PATH_PREFIXES = ['/', '/dekoratoren', '/common-html/v4/navno'] as const;
 
-const { printMetrics, registerMetrics } = prometheus();
+// Use the global registry, so metrics defined outside this middleware (e.g. in version-proxy) are exposed too
+const { printMetrics, registerMetrics } = prometheus({ registry: register });
 
 // Endpoints are defined once here, and mounted on each prefix at the bottom.
 export const routes = new Hono({

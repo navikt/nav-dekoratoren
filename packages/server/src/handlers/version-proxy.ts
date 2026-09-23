@@ -1,8 +1,10 @@
 import { HonoRequest, MiddlewareHandler } from 'hono';
+import { Counter } from 'prom-client';
 import { VERSION_ID_PARAM } from 'decorator-shared/constants';
 import { getLogSafeUrl } from 'decorator-shared/urls';
 import { env } from '../env/server';
 import { logger } from '../lib/logger';
+import { logProxyProblem, resetProblemPersistence } from './version-proxy-logging';
 
 const SERVER_VERSION_ID = env.VERSION_ID;
 const APP_NAME = env.APP_NAME;
@@ -14,62 +16,31 @@ const validVersionIdPattern = new RegExp(/^([a-f0-9]{7}|[a-f0-9]{40})$/);
 const isValidVersionId = (versionId?: string): versionId is string =>
 	!!(versionId && validVersionIdPattern.test(versionId));
 
-const STALE_VERSION_WARNING_DELAY_MS = 10 * 60 * 1000;
-const STALE_VERSION_WARNING_LOG_INTERVAL_MS = 10 * 60 * 1000;
-const MAX_TRACKED_STALE_VERSIONS = 50;
+// - proxied: the internal app responded with a non-5xx
+// - error_response: the internal app responded with a 5xx, which is passed on as-is
+// - not_found: no internal app for the version (ENOTFOUND), expected once it has expired (ttlInternal)
+// - unreachable: the internal app exists, but the request failed (ECONNREFUSED etc.)
+const proxyRequestsCounter = new Counter({
+	name: 'version_proxy_requests_total',
+	help: "Requests for a different version than this pod's, by result of proxying to that version's internal app",
+	labelNames: ['result'] as const,
+});
 
-type StaleVersionState = {
-	failCount: number;
-	firstFailedAt: number;
-	lastWarningLoggedAt: number;
-};
+type FetchOutcome =
+	| { response: Response; errorCode?: never; error?: never }
+	| { response: null; errorCode?: string; error: string };
 
-const staleVersionFailures = new Map<string, StaleVersionState>();
+const getErrorCode = (err: Error) =>
+	(err as NodeJS.ErrnoException).code ??
+	(err.cause instanceof Error ? (err.cause as NodeJS.ErrnoException).code : undefined);
 
-const recordStaleVersionFallback = (targetVersionId: string, ownVersionId: string) => {
-	if (!staleVersionFailures.has(targetVersionId) && staleVersionFailures.size >= MAX_TRACKED_STALE_VERSIONS) {
-		const oldestKey = staleVersionFailures.keys().next().value;
-		if (oldestKey !== undefined) {
-			staleVersionFailures.delete(oldestKey);
-		}
-	}
-
-	const now = Date.now();
-	const state = staleVersionFailures.get(targetVersionId) ?? {
-		failCount: 0,
-		firstFailedAt: now,
-		lastWarningLoggedAt: 0,
-	};
-	state.failCount += 1;
-	staleVersionFailures.set(targetVersionId, state);
-
-	const message = `Falling back to this pod's own (version ${ownVersionId}) response for requested version ${targetVersionId} - content may not match the requester's cached assets (${state.failCount} consecutive failed proxy attempts for this version, first failure at ${new Date(state.firstFailedAt).toISOString()})`;
-
-	if (now - state.firstFailedAt < STALE_VERSION_WARNING_DELAY_MS) {
-		return;
-	}
-
-	if (now - state.lastWarningLoggedAt >= STALE_VERSION_WARNING_LOG_INTERVAL_MS) {
-		state.lastWarningLoggedAt = now;
-		logger.warn(message);
-	}
-};
-
-const clearStaleVersionFailures = (targetVersionId: string) => {
-	staleVersionFailures.delete(targetVersionId);
-};
-
-const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId: string) => {
+const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId: string): Promise<FetchOutcome> => {
 	const urlObj = new URL(request.url);
 	urlObj.protocol = 'http:';
 	urlObj.host = `${APP_NAME}-${targetVersionId}`;
 
 	const url = urlObj.toString();
 	const logSafeUrl = getLogSafeUrl(url);
-	const referer = request.header('referer');
-	const logSafeReferer = referer ? getLogSafeUrl(referer) : undefined;
-
-	logger.info(`Proxy request to: ${logSafeUrl} - Referer: ${logSafeReferer}`);
 
 	try {
 		const headers = new Headers(request.raw.headers);
@@ -85,11 +56,13 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 		const responseHeaders = new Headers(response.headers);
 		responseHeaders.delete('content-encoding');
 
-		return new Response(response.body, {
-			status: response.status,
-			statusText: response.statusText,
-			headers: responseHeaders,
-		});
+		return {
+			response: new Response(response.body, {
+				status: response.status,
+				statusText: response.statusText,
+				headers: responseHeaders,
+			}),
+		};
 	} catch (e: unknown) {
 		const err = e instanceof Error ? e : new Error(String(e));
 		const error = JSON.stringify({
@@ -106,8 +79,7 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 			stack: err.stack?.split('\n').slice(0, 3).join(' | '),
 		}).replaceAll(url, logSafeUrl);
 
-		logger.warn(`Proxy request failed for ${logSafeUrl}`, { error });
-		return null;
+		return { response: null, errorCode: getErrorCode(err), error };
 	}
 };
 
@@ -124,13 +96,21 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
 		return next();
 	}
 
-	const response = await fetchFromInternalVersionApp(c.req, reqVersionId);
+	const { response, errorCode, error } = await fetchFromInternalVersionApp(c.req, reqVersionId);
 
 	if (response) {
-		clearStaleVersionFailures(reqVersionId);
-	} else {
-		recordStaleVersionFallback(reqVersionId, SERVER_VERSION_ID);
+		if (response.status >= 500) {
+			proxyRequestsCounter.inc({ result: 'error_response' });
+			logProxyProblem('error_response', reqVersionId, c.req, { status: response.status });
+		} else {
+			proxyRequestsCounter.inc({ result: 'proxied' });
+			resetProblemPersistence(reqVersionId, c.req);
+		}
+		return response;
 	}
 
-	return response || next();
+	const result = errorCode === 'ENOTFOUND' ? 'not_found' : 'unreachable';
+	proxyRequestsCounter.inc({ result });
+	logProxyProblem(result, reqVersionId, c.req, { errorCode, error });
+	return next();
 };
