@@ -35,6 +35,7 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 	'redirectToApp',
 	'redirectToUrl',
 	'redirectToUrlLogout',
+	'logoutUrl',
 	'shareScreen',
 	'logoutWarning',
 ] as const;
@@ -119,7 +120,12 @@ class Header extends HTMLElement {
 		const isSimpleChange = changedKeys.includes('simple');
 		const isSimpleHeaderChange = changedKeys.includes('simpleHeader');
 
-		if (changedKeys.includes('language') || isSimpleChange || isSimpleHeaderChange) {
+		if (
+			changedKeys.includes('language') ||
+			isSimpleChange ||
+			isSimpleHeaderChange ||
+			changedKeys.includes('logoutUrl')
+		) {
 			this.refreshHeader();
 			return;
 		}

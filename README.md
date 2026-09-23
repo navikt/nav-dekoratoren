@@ -364,6 +364,9 @@ begrenset til, fjerning av cookies og ugyldiggjøring av økter. Bruk med forsik
 Skal ikke forveksles med attributtet `redirectToUrlLogout`, som angir den endelige
 omdirigeringsadressen **etter** at brukeren er logget ut.
 
+Kan oppdateres dynamisk client-side via [`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme). Headeren hentes på nytt slik
+at utloggingslenken bruker den nye URL-en.
+
 **logoutWarning**
 
 En modal vil vises 5 minutter før innloggingstokenet utløper, dersom brukeren har vært inaktiv i
