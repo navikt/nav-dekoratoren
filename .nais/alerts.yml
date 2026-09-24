@@ -16,7 +16,7 @@ spec:
           expr: sum by (result) (rate(version_proxy_requests_total{namespace="personbruker", app="nav-dekoratoren", result=~"unreachable|error_response"}[5m])) > 0.1
           for: 15m
           annotations:
-            summary: "[nav-dekoratoren] Version proxy: {{ $labels.result }} for over 15 minutes ({{ $value | humanize }} req/s)"
+            summary: '[nav-dekoratoren] Version proxy: \{{ $labels.result }} for over 15 minutes (\{{ $value | humanize }} req/s)'
             consequence: Requests for an older decorator version get this version's HTML or a 5xx response, which can break styling for the caller.
             action: "Check the logs for 'Version proxy:' and the status of the nav-dekoratoren-<version> internal app (`kubectl get app -n personbruker | grep nav-dekoratoren-`)"
           labels:
