@@ -3,12 +3,28 @@ import { Counter } from 'prom-client';
 import { VERSION_ID_PARAM } from 'decorator-shared/constants';
 import { getLogSafeUrl } from 'decorator-shared/urls';
 import { env } from '../env/server';
+import { INGRESS_PATH_PREFIXES } from '../ingress-path-prefixes';
 import { logger } from '../lib/logger';
 import { logProxyProblem, resetProblemPersistence } from './version-proxy-logging';
 
 const SERVER_VERSION_ID = env.VERSION_ID;
 const APP_NAME = env.APP_NAME;
 const LOOPBACK_HEADER = 'is-dekoratoren-proxy-req';
+const METRIC_ROUTES = ['auth', 'header', 'footer', 'ssr'] as const;
+
+const getMetricLabels = (request: HonoRequest) => {
+	const url = new URL(request.url);
+	const origin = url.searchParams.get('origin');
+	const path = url.pathname.replace(/\/$/, '');
+	const route =
+		METRIC_ROUTES.find((name) =>
+			INGRESS_PATH_PREFIXES.some((prefix) => path === `${prefix === '/' ? '' : prefix}/${name}`)
+		) ?? 'other';
+	return {
+		origin: origin === 'navno-frontend' ? 'navno-frontend' : origin ? 'other' : 'unknown',
+		route,
+	};
+};
 
 // Version id should be a commit hash (7 chars short or 40 chars full)
 const validVersionIdPattern = new RegExp(/^([a-f0-9]{7}|[a-f0-9]{40})$/);
@@ -22,8 +38,8 @@ const isValidVersionId = (versionId?: string): versionId is string =>
 // - unreachable: the internal app exists, but the request failed (ECONNREFUSED etc.)
 const proxyRequestsCounter = new Counter({
 	name: 'version_proxy_requests_total',
-	help: "Requests for a different version than this pod's, by result of proxying to that version's internal app",
-	labelNames: ['result'] as const,
+	help: "Requests for a different version than this pod's, by proxy result, origin and route",
+	labelNames: ['result', 'origin', 'route'] as const,
 });
 
 type FetchOutcome =
@@ -50,6 +66,7 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 			method: request.method,
 			headers,
 			body: request.raw.body,
+			...(request.raw.body ? { duplex: 'half' as const } : {}),
 		});
 
 		// Clone response headers since they're immutable in Node 24
@@ -96,21 +113,22 @@ export const versionProxyHandler: MiddlewareHandler = async (c, next) => {
 		return next();
 	}
 
+	const metricLabels = getMetricLabels(c.req);
 	const { response, errorCode, error } = await fetchFromInternalVersionApp(c.req, reqVersionId);
 
 	if (response) {
 		if (response.status >= 500) {
-			proxyRequestsCounter.inc({ result: 'error_response' });
+			proxyRequestsCounter.inc({ result: 'error_response', ...metricLabels });
 			logProxyProblem('error_response', reqVersionId, c.req, { status: response.status });
 		} else {
-			proxyRequestsCounter.inc({ result: 'proxied' });
+			proxyRequestsCounter.inc({ result: 'proxied', ...metricLabels });
 			resetProblemPersistence(reqVersionId, c.req);
 		}
 		return response;
 	}
 
 	const result = errorCode === 'ENOTFOUND' ? 'not_found' : 'unreachable';
-	proxyRequestsCounter.inc({ result });
+	proxyRequestsCounter.inc({ result, ...metricLabels });
 	logProxyProblem(result, reqVersionId, c.req, { errorCode, error });
 	return next();
 };

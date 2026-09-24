@@ -115,7 +115,9 @@ export const logProxyProblem = (
 		result === 'error_response'
 			? 'passed the error response on'
 			: `served this pod's own version ${SERVER_VERSION_ID} instead, which may not match the requester's cached assets`;
-	const persistence = isPersistent ? ` - still occurring after ${WARN_AFTER_MS / 60000} minutes on this pod` : '';
+	const persistence = isPersistent
+		? ` - still occurring after ${Math.floor((now - firstSeenAt) / 60000)} minutes on this pod`
+		: '';
 	const message = `Version proxy: ${describeResult(result, details.errorCode, details.status)} - requested version ${requestedVersion}, ${outcome} (origin: ${requestMetadata.origin ?? 'unknown'})${persistence}`;
 
 	const log = isPersistent ? logger.warn : logger.info;

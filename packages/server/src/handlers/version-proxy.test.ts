@@ -35,17 +35,39 @@ const buildApp = (handler: typeof VersionProxyHandler) => {
 	return app;
 };
 
-const requestWithVersion = (app: Hono, versionId: string, params?: Record<string, string>) => {
-	const url = new URL('http://localhost/');
+const requestWithVersion = (
+	app: Hono,
+	versionId: string,
+	params?: Record<string, string>,
+	init?: RequestInit,
+	path = '/'
+) => {
+	const url = new URL(path, 'http://localhost');
 	url.searchParams.set(VERSION_ID_PARAM, versionId);
 	Object.entries(params ?? {}).forEach(([key, value]) => url.searchParams.set(key, value));
-	return app.request(url.toString());
+	return app.request(url.toString(), init);
+};
+
+const metricBreakdown = async () => {
+	const metric = register.getSingleMetric(METRIC_NAME);
+	const values = metric ? (await metric.get()).values : [];
+	return values.map(({ labels, value }) => ({
+		result: labels.result,
+		origin: labels.origin,
+		route: labels.route,
+		value,
+	}));
 };
 
 const metricValues = async () => {
-	const metric = register.getSingleMetric(METRIC_NAME);
-	const values = metric ? (await metric.get()).values : [];
-	return Object.fromEntries(values.map(({ labels, value }) => [labels.result, value]));
+	const totals: Record<string, number> = {};
+	(await metricBreakdown()).forEach(({ result, value }) => {
+		if (result === undefined) {
+			throw new Error('Missing result metric label');
+		}
+		totals[result] = (totals[result] ?? 0) + value;
+	});
+	return totals;
 };
 
 describe('versionProxyHandler', () => {
@@ -78,8 +100,28 @@ describe('versionProxyHandler', () => {
 
 		expect(await res.text()).toBe('proxied response');
 		expect(await metricValues()).toEqual({ proxied: 1 });
+		expect(await metricBreakdown()).toEqual([{ result: 'proxied', origin: 'unknown', route: 'other', value: 1 }]);
 		expect(proxyLogs(warnSpy)).toHaveLength(0);
 		expect(proxyLogs(infoSpy)).toHaveLength(0);
+	});
+
+	it('forwards a streamed POST body to the internal app', async () => {
+		const fetchMock = vi.fn(async (url: string, init: RequestInit) => {
+			const forwarded = new Request(url, init);
+			return new Response(await forwarded.text());
+		});
+		vi.stubGlobal('fetch', fetchMock);
+
+		const app = buildApp(await loadHandler());
+		app.post('*', (c) => c.text('own pod response'));
+		const res = await requestWithVersion(app, STALE_VERSION_ID, undefined, { method: 'POST', body: 'payload' });
+
+		expect(await res.text()).toBe('payload');
+		expect(fetchMock).toHaveBeenCalledWith(
+			expect.any(String),
+			expect.objectContaining({ method: 'POST', duplex: 'half' })
+		);
+		expect(await metricValues()).toEqual({ proxied: 1 });
 	});
 
 	it('passes 5xx responses on and counts them as error_response', async () => {
@@ -90,6 +132,9 @@ describe('versionProxyHandler', () => {
 
 		expect(res.status).toBe(503);
 		expect(await metricValues()).toEqual({ error_response: 1 });
+		expect(await metricBreakdown()).toEqual([
+			{ result: 'error_response', origin: 'unknown', route: 'other', value: 1 },
+		]);
 		const logs = proxyLogs(infoSpy);
 		expect(logs).toHaveLength(1);
 		expect(logs[0]).toContain('responded with status 503');
@@ -140,6 +185,28 @@ describe('versionProxyHandler', () => {
 		expect(proxyLogs(infoSpy)[0]).toContain('no internal app exists for this version');
 	});
 
+	it('counts only bounded origins and routes across ingress prefixes', async () => {
+		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(notFoundError()));
+
+		const app = buildApp(await loadHandler());
+		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'navno-frontend' }, undefined, '/dekoratoren/auth');
+		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'navno-frontend' }, undefined, '/dekoratoren/auth/');
+		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'another-app' }, undefined, '/common-html/v4/navno/ssr');
+		await requestWithVersion(app, STALE_VERSION_ID, undefined, undefined, '/header');
+		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'unknown-app' }, undefined, '/dekoratoren/footer');
+		await requestWithVersion(app, STALE_VERSION_ID, undefined, undefined, '/common-html/v4/navno/api/consentping');
+		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'navno-frontend' }, undefined, '/other/auth');
+
+		expect(await metricBreakdown()).toEqual([
+			{ result: 'not_found', origin: 'navno-frontend', route: 'auth', value: 2 },
+			{ result: 'not_found', origin: 'other', route: 'ssr', value: 1 },
+			{ result: 'not_found', origin: 'unknown', route: 'header', value: 1 },
+			{ result: 'not_found', origin: 'other', route: 'footer', value: 1 },
+			{ result: 'not_found', origin: 'unknown', route: 'other', value: 1 },
+			{ result: 'not_found', origin: 'navno-frontend', route: 'other', value: 1 },
+		]);
+	});
+
 	it('ignores origin values that could be used for log injection', async () => {
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(unreachableError()));
 
@@ -171,6 +238,17 @@ describe('versionProxyHandler', () => {
 		expect(warnings).toHaveLength(1);
 		expect(warnings[0]).toContain('still occurring after 10 minutes on this pod');
 		expect(parseMetaData(warnings[0]).persistent).toBe(true);
+
+		await vi.advanceTimersByTimeAsync(TEN_MINUTES);
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(TEN_MINUTES);
+		await requestWithVersion(app, STALE_VERSION_ID);
+
+		expect(proxyLogs(warnSpy).map((log: string) => log.match(/still occurring after \d+ minutes/)?.[0])).toEqual([
+			'still occurring after 10 minutes',
+			'still occurring after 20 minutes',
+			'still occurring after 30 minutes',
+		]);
 	});
 
 	it('warns for persistent 5xx responses', async () => {
