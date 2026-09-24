@@ -1,0 +1,60 @@
+appName: nav-dekoratoren-dev3
+appPath: ""
+ingresses:
+  - https://dekoratoren-dev3.intern.dev.nav.no
+outboundHosts:
+  - www.nav.no
+  - www.intern.dev.nav.no
+  - www.ekstern.dev.nav.no
+  - dekoratoren-dev3.intern.dev.nav.no
+  - trial-navpoc.enonic.cloud
+  - navno-unleash-api.nav.cloud.nais.io
+  - tokendings.dev-gcp.nais.io
+  - navno-search-api.ekstern.dev.nav.no
+env:
+  - name: APP_URL
+    value: https://dekoratoren-dev3.intern.dev.nav.no
+  - name: CDN_URL
+    value: https://cdn.nav.no/personbruker/nav-dekoratoren/public
+  - name: ENONICXP_SERVICES
+    value: https://trial-navpoc.enonic.cloud/_/service
+  - name: SEARCH_API_URL
+    value: http://navno-search-api.navno/content/decorator-search
+  - name: XP_BASE_URL
+    value: https://www.ansatt.dev.nav.no
+  - name: LOGIN_URL
+    value: https://login.ekstern.dev.nav.no/oauth2/login
+  - name: LOGOUT_URL
+    value: https://login.ekstern.dev.nav.no/oauth2/logout
+  - name: VARSEL_API_URL
+    value: http://tms-varsel-api.min-side/tms-varsel-api
+  - name: DEKORATOREN_API_URL
+    value: http://nav-dekoratoren-api/person/nav-dekoratoren-api
+  - name: LOGIN_SESSION_API_URL
+    value: https://login.ekstern.dev.nav.no/oauth2/session
+  - name: MIN_SIDE_URL
+    value: https://www.ansatt.dev.nav.no/minside
+  - name: MIN_SIDE_ARBEIDSGIVER_URL
+    value: https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver
+  - name: PERSONOPPLYSNINGER_URL
+    value: https://www.ansatt.dev.nav.no/person/personopplysninger
+  - name: BOOST_ENV
+    value: "navtest"
+  - name: PUZZEL_CUSTOMER_ID
+    value: 83BD7664-B38B-4EEE-8D99-200669A32551
+  - name: UMAMI_WEBSITE_ID
+    value: c44a6db3-c974-4316-b433-214f87e80b4d
+  - name: UMAMI_PROXY_HOST
+    value: https://reops-event-proxy.ekstern.dev.nav.no
+  - name: UMAMI_SCRIPT_URL
+    value: https://cdn.nav.no/team-researchops/sporing/sporing-dev.js
+ttlInternal: 12h
+replicas:
+  min: 1
+  max: 1
+resources:
+  requests:
+    cpu: 200m
+    memory: 128Mi
+  limits:
+    memory: 384Mi

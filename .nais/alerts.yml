@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nav-dekoratoren-alerts
+  namespace: personbruker
+  labels:
+    team: personbruker
+spec:
+  groups:
+    - name: nav-dekoratoren-alerts
+      rules:
+        # not_found is left out on purpose: it mostly means callers are pinned to versions older
+        # than the internal app TTL, which is expected and not fixable by us. Use a dashboard for that.
+        # unreachable/error_response mean an internal version app exists but is failing.
+        - alert: nav-dekoratoren version proxy failing
+          expr: sum by (result) (rate(version_proxy_requests_total{namespace="personbruker", app="nav-dekoratoren", result=~"unreachable|error_response"}[5m])) > 0.1
+          for: 15m
+          annotations:
+            summary: '[nav-dekoratoren] Version proxy: \{{ $labels.result }} for over 15 minutes (\{{ $value | humanize }} req/s)'
+            consequence: Requests for an older decorator version get this version's HTML or a 5xx response, which can break styling for the caller.
+            action: "Check the logs for 'Version proxy:' and the status of the nav-dekoratoren-<version> internal app (`kubectl get app -n personbruker | grep nav-dekoratoren-`)"
+          labels:
+            namespace: personbruker
+            severity: warning

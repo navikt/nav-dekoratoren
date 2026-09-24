@@ -1,139 +1,139 @@
 .container {
-    position: fixed;
-    inset: auto 0 0;
-    z-index: 1001;
-    width: 100%;
-    max-width: 1440px;
-    padding-inline: var(--edge-spacing);
-    padding-bottom: 1rem;
+	position: fixed;
+	inset: auto 0 0;
+	z-index: 1001;
+	width: 100%;
+	max-width: 1440px;
+	padding-inline: var(--edge-spacing);
+	padding-bottom: 1rem;
 
-    @media (min-width: 48rem) {
-        padding-bottom: 2rem;
-        inset-inline-start: 50%;
-        transform: translateX(-50%);
-    }
+	@media (min-width: 48rem) {
+		padding-bottom: 2rem;
+		inset-inline-start: 50%;
+		transform: translateX(-50%);
+	}
 }
 
 .consentBanner {
-    background-color: var(--ax-bg-accent-strong);
-    border-radius: var(--ax-radius-12);
-    display: none;
-    max-width: 40rem;
-    height: fit-content;
-    inset: 2rem;
-    margin: auto auto 0 0;
-    position: fixed;
-    z-index: 1001;
-    color: var(--ax-text-accent-contrast);
+	background-color: var(--ax-bg-accent-strong);
+	border-radius: var(--ax-radius-12);
+	display: none;
+	max-width: 40rem;
+	height: fit-content;
+	inset: 2rem;
+	margin: auto auto 0 0;
+	position: fixed;
+	z-index: 1001;
+	color: var(--ax-text-accent-contrast);
 
-    @media (max-width: calc(48rem - 1px)) {
-        max-height: calc(100svh - 100px);
-        overflow-y: auto;
-    }
+	@media (max-width: calc(48rem - 1px)) {
+		max-height: calc(100svh - 100px);
+		overflow-y: auto;
+	}
 }
 
 :global(.consentBanner--open) {
-    display: block;
+	display: block;
 }
 
 :global(.minimizedCookieBanner) {
-    .miniContent {
-        display: flex;
-    }
+	.miniContent {
+		display: flex;
+	}
 
-    .content {
-        display: none;
-    }
+	.content {
+		display: none;
+	}
 }
 
 .miniContent {
-    display: none;
-    width: 100%;
+	display: none;
+	width: 100%;
 }
 
 .expandButton {
-    background-color: transparent;
-    text-align: left;
-    align-items: flex-start;
-    width: 100%;
-    color: var(--ax-text-accent-contrast);
+	background-color: transparent;
+	text-align: left;
+	align-items: flex-start;
+	width: 100%;
+	color: var(--ax-text-accent-contrast);
 }
 
 .expandButton span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    text-wrap: balance;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex: 1;
+	text-wrap: balance;
 }
 
 .expandIcon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-left: 1rem;
-    flex-shrink: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-left: 1rem;
+	flex-shrink: 0;
 }
 
 .content {
-    padding: 1rem;
+	padding: 1rem;
 
-    @media (min-width: 48rem) {
-        padding: 2rem;
-    }
+	@media (min-width: 48rem) {
+		padding: 2rem;
+	}
 }
 
 .title {
-    font-size: var(--ax-font-size-heading-medium);
-    font-weight: bold;
-    margin-block: 0 var(--ax-space-16);
-    text-wrap: pretty;
+	font-size: var(--ax-font-size-heading-medium);
+	font-weight: bold;
+	margin-block: 0 var(--ax-space-16);
+	text-wrap: pretty;
 }
 
 .text {
-    font-size: var(--ax-font-size-large);
-    line-height: 1.5;
-    margin-bottom: var(--ax-space-32);
+	font-size: var(--ax-font-size-large);
+	line-height: 1.5;
+	margin-bottom: var(--ax-space-32);
 
-    &:last-of-type {
-        margin-bottom: 0;
-    }
+	&:last-of-type {
+		margin-bottom: 0;
+	}
 }
 
 .text a {
-    color: inherit;
-    text-decoration: underline;
+	color: inherit;
+	text-decoration: underline;
 }
 
 .text p {
-    margin: 0;
+	margin: 0;
 }
 
 .buttonContainer {
-    display: flex;
-    justify-content: flex-start;
-    gap: var(--ax-space-16);
-    align-items: center;
-    margin-bottom: var(--ax-space-12);
+	display: flex;
+	justify-content: flex-start;
+	gap: var(--ax-space-16);
+	align-items: center;
+	margin-bottom: var(--ax-space-12);
 }
 
-.button[data-variant="primary"] {
-    background-color: var(--ax-bg-default);
-    color: var(--ax-text-accent-subtle);
-    cursor: pointer;
-    font-size: var(--ax-font-size-large);
-    flex: 1;
-    max-width: 8rem;
+.button[data-variant='primary'] {
+	background-color: var(--ax-bg-default);
+	color: var(--ax-text-accent-subtle);
+	cursor: pointer;
+	font-size: var(--ax-font-size-large);
+	flex: 1;
+	max-width: 8rem;
 }
-.button[data-variant="primary"]:hover {
-    background-color: var(--ax-bg-accent-moderate-hover);
-    color: var(--ax-text-accent);
+.button[data-variant='primary']:hover {
+	background-color: var(--ax-bg-accent-moderate-hover);
+	color: var(--ax-text-accent);
 }
 
 .button:focus-visible {
-    outline: 3px solid var(--ax-bg-default);
-    outline-offset: 3px;
+	outline: 3px solid var(--ax-bg-default);
+	outline-offset: 3px;
 }
 
 .moreLink {
-    white-space: nowrap;
+	white-space: nowrap;
 }

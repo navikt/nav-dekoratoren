@@ -13,7 +13,7 @@ env:
   - name: APP_URL
     value: https://dekoratoren-beta-tms.intern.dev.nav.no
   - name: CDN_URL
-    value: https://cdn.nav.no/personbruker/decorator-next/public
+    value: https://cdn.nav.no/personbruker/nav-dekoratoren/public
   - name: ENONICXP_SERVICES
     value: https://www-q6.nav.no/_/service
   - name: SEARCH_API_URL

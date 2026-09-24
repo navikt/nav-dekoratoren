@@ -1,15 +1,15 @@
-import { HtmlElementProps } from "decorator-shared/types";
+import { HtmlElementProps } from 'decorator-shared/types';
 
 export const buildHtmlElement = ({ tag, attribs, body }: HtmlElementProps) => {
-    const element = document.createElement(tag);
+	const element = document.createElement(tag);
 
-    for (const key in attribs) {
-        element.setAttribute(key, attribs[key]);
-    }
+	for (const key in attribs) {
+		element.setAttribute(key, attribs[key]);
+	}
 
-    if (body) {
-        element.textContent = body;
-    }
+	if (body) {
+		element.textContent = body;
+	}
 
-    return element;
+	return element;
 };
