@@ -1,69 +1,69 @@
 .logo {
-    display: flex;
-    padding: var(--ax-space-16) var(--ax-space-8);
-    margin-left: calc(var(--ax-space-8) * -1);
-    color: var(--ax-text-logo);
+	display: flex;
+	padding: var(--ax-space-16) var(--ax-space-8);
+	margin-left: calc(var(--ax-space-8) * -1);
+	color: var(--ax-text-logo);
 }
 
 .logoSimple {
-    color: var(--ax-text-default);
+	color: var(--ax-text-default);
 }
 
 .logo:focus-visible {
-    border-radius: var(--ax-radius-8);
-    outline: 3px solid var(--ax-border-focus);
+	border-radius: var(--ax-radius-8);
+	outline: 3px solid var(--ax-border-focus);
 }
 
 .siteheader {
-    color: var(--ax-text-default);
-    position: relative;
-    z-index: 1000;
-    background-color: var(--ax-bg-default);
-    box-shadow: inset 0 -1px 0 var(--ax-border-neutral-subtle);
+	color: var(--ax-text-default);
+	position: relative;
+	z-index: 1000;
+	background-color: var(--ax-bg-default);
+	box-shadow: inset 0 -1px 0 var(--ax-border-neutral-subtle);
 }
 
 .hovedmenyWrapper {
-    height: var(--header-height);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
+	height: var(--header-height);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
 }
 
 .hovedmenyContent {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    gap: var(--ax-space-40);
+	display: flex;
+	align-items: center;
+	height: 100%;
+	gap: var(--ax-space-40);
 }
 
 .arbeidsflate {
-    display: none;
+	display: none;
 }
 
 @media (min-width: 64rem) {
-    .arbeidsflate {
-        display: flex;
-        height: 100%;
-    }
+	.arbeidsflate {
+		display: flex;
+		height: 100%;
+	}
 }
 
 .headerContextLink {
-    color: inherit;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    border-bottom: 4px solid transparent;
-    padding: 0 1rem;
-    text-decoration: none;
-    cursor: pointer;
+	color: inherit;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	border-bottom: 4px solid transparent;
+	padding: 0 1rem;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .headerContextLink:hover {
-    border-color: var(--ax-border-neutral-subtle);
+	border-color: var(--ax-border-neutral-subtle);
 }
 
 .headerContextLink.lenkeActive {
-    font-weight: bold;
-    border-color: var(--ax-border-accent);
+	font-weight: bold;
+	border-color: var(--ax-border-accent);
 }

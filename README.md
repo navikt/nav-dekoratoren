@@ -13,37 +13,37 @@ Dette dokumentet beskriver:
 ## 📚 Innholdsfortegnelse
 
 1. [Oversikt over økosystemet](#1-oversikt-over-økosystemet-ℹ️)
-    - [1.1 Hva er Nav Dekoratøren?](#11-hva-er-nav-dekoratøren)
-    - [1.2 Hva er @navikt/nav-dekoratoren-moduler?](#12-hva-er-naviktnav-dekoratoren-moduler)
-    - [1.3 Kontakt og kanaler](#13-kontakt-og-kanaler)
-    - [1.4 Nav-pilot skill](#14-nav-pilot-skill)
-2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-🎓)
-    - [2.1 Anbefalt: bruk @navikt/nav-dekoratoren-moduler (SSR)](#21-anbefalt-bruk-naviktnav-dekoratoren-moduler-ssr)
-    - [2.2 Tilpasset implementasjon med SSR](#22-tilpasset-implementasjon-med-ssr)
-    - [2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)](#23-ikke-anbefalt-direkte-client-side-rendering-csr-integrasjon)
-    - [2.4 Ingresser og miljøer](#24-ingresser-og-miljøer)
-3. [Konfigurasjon av Dekoratøren](#3-konfigurasjon-av-dekoratøren-🎛️)
-    - [3.1 Detaljer](#31-detaljer-🍱)
-    - [3.2 Eksempler på bruk](#32-eksempler-på-bruk)
-4. [@navikt/nav-dekoratoren-moduler – installasjon og oppsett](#4-naviktnav-dekoratoren-moduler--installasjon-og-oppsett-📦)
-    - [4.1 Installasjon fra GitHub Packages](#41-installasjon-fra-github-packages)
-    - [4.2 Oppsett lokalt (.npmrc)](#42-oppsett-lokalt-npmrc)
-    - [4.3 Oppsett på GitHub Actions](#43-oppsett-på-github-actions)
-5. [Hente Dekoratøren via moduler-pakken](#5-hente-dekoratøren-via-moduler-pakken-🏗️)
-    - [5.1 Typer og miljøer](#51-typer-og-miljøer)
-    - [5.2 Service Discovery](#52-service-discovery)
-    - [5.3 Access Policy](#53-access-policy)
-        - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
-        - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
-6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-🧱)
-    - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
-    - [6.2 Detaljer](#62-detaljer)
-7. [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
-8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken-🧰)
-    - [8.1 Detaljer](#81-detaljer)
-9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven-🍪)
-    - [9.1 Detaljer](#91-detaljer)
-10. [Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratøren-🎛️)
+   - [1.1 Hva er Nav Dekoratøren?](#11-hva-er-nav-dekoratøren)
+   - [1.2 Hva er @navikt/nav-dekoratoren-moduler?](#12-hva-er-naviktnav-dekoratoren-moduler)
+   - [1.3 Kontakt og kanaler](#13-kontakt-og-kanaler)
+   - [1.4 Nav-pilot skill](#14-nav-pilot-skill)
+2. [Hvordan bruke Dekoratøren i din app](#2-hvordan-bruke-dekoratøren-i-din-app-)
+   - [2.1 Anbefalt: bruk @navikt/nav-dekoratoren-moduler (SSR)](#21-anbefalt-bruk-naviktnav-dekoratoren-moduler-ssr)
+   - [2.2 Tilpasset implementasjon med SSR](#22-tilpasset-implementasjon-med-ssr)
+   - [2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)](#23-ikke-anbefalt-direkte-client-side-rendering-csr-integrasjon)
+   - [2.4 Ingresser og miljøer](#24-ingresser-og-miljøer)
+3. [Konfigurasjon av Dekoratøren](#3-konfigurasjon-av-dekoratøren-%EF%B8%8F)
+   - [3.1 Detaljer](#31-detaljer-)
+   - [3.2 Eksempler på bruk](#32-eksempler-på-bruk)
+4. [@navikt/nav-dekoratoren-moduler – installasjon og oppsett](#4-naviktnav-dekoratoren-moduler--installasjon-og-oppsett-)
+   - [4.1 Installasjon fra GitHub Packages](#41-installasjon-fra-github-packages)
+   - [4.2 Oppsett lokalt (.npmrc)](#42-oppsett-lokalt-npmrc)
+   - [4.3 Oppsett på GitHub Actions](#43-oppsett-på-github-actions)
+5. [Hente Dekoratøren via moduler-pakken](#5-hente-dekoratøren-via-moduler-pakken-%EF%B8%8F)
+   - [5.1 Typer og miljøer](#51-typer-og-miljøer)
+   - [5.2 Service Discovery](#52-service-discovery)
+   - [5.3 Access Policy](#53-access-policy)
+     - [5.3.1 Ved Service Discovery (default)](#531-ved-service-discovery-default)
+     - [5.3.2 Ved eksterne ingresser](#532-ved-eksterne-ingresser)
+6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering-anbefalt-)
+   - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
+   - [6.2 Detaljer](#62-detaljer)
+7. [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-)
+8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken-)
+   - [8.1 Detaljer](#81-detaljer)
+9. [Samtykke, cookies og ekomloven](#9-samtykke-cookies-og-ekomloven-)
+   - [9.1 Detaljer](#91-detaljer)
+10. [Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratøren-%EF%B8%8F)
     - [10.1 Detaljer](#101-detaljer)
 
 ---
@@ -60,16 +60,16 @@ Dekoratøren tilbyr også felles funksjonalitet som innlogging, analyse, varsel 
 søkefunksjonalitet osv, som forklart i denne dokumentasjonen.
 
 - Kjøres som egen app (nais) og eksponerer:
-    - HTML-fragmenter for SSR og CSR
-    - API-er for CSP, analytics, samtykke, m.m.
+  - HTML-fragmenter for SSR og CSR
+  - API-er for CSP, analytics, samtykke, m.m.
 - Gir felles funksjonalitet:
-    - Innlogging via ID-porten
-    - Brukerinformasjon (navn, innloggingsnivå, gjenværende økttid)
-    - Søk
-    - Språkvelger
-    - Utloggingsvarsel
-    - Analytics (Umami)
-    - Samtykkebanner iht. ekomloven
+  - Innlogging via ID-porten
+  - Brukerinformasjon (navn, innloggingsnivå, gjenværende økttid)
+  - Søk
+  - Språkvelger
+  - Utloggingsvarsel
+  - Analytics (Umami)
+  - Samtykkebanner iht. ekomloven
 
 ### 1.2 Hva er @navikt/nav-dekoratoren-moduler?
 
@@ -79,12 +79,12 @@ app:
 - Henter dekoratørens HTML/React-komponenter (SSR / CSR)
 - Håndterer miljøer, service discovery og access policy
 - Gir hjelpefunksjoner for:
-    - CSP-header som inkluderer Dekoratøren
-    - Analytics (Umami) via `getAnalyticsInstance`
-    - Brødsmulesti (breadcrumbs)
-    - Språk og språkvelger
-    - Parametre som `context`, `simple`, `chatbot`, osv.
-    - Samtykke/cookies i tråd med ekomloven
+  - CSP-header som inkluderer Dekoratøren
+  - Analytics (Umami) via `getAnalyticsInstance`
+  - Brødsmulesti (breadcrumbs)
+  - Språk og språkvelger
+  - Parametre som `context`, `simple`, `chatbot`, osv.
+  - Samtykke/cookies i tråd med ekomloven
 
 **Dekoratøren** = appen som kjører på nav.no
 **nav-dekoratoren-moduler** = verktøykassa du bruker i din app for å snakke med Dekoratøren
@@ -156,9 +156,9 @@ Typisk flyt:
 1. Appen din gjør kall til `fetchDecoratorHtml` eller `fetchDecoratorReact` på serveren
 2. HTML/React-komponentene fra Dekoratøren injiseres inn i din app-layout
 3. På klienten kan du bruke moduler-pakken til å:
-    - oppdatere breadcrumbs og språk
-    - logge analytics-events
-    - håndtere cookies via samtykke
+   - oppdatere breadcrumbs og språk
+   - logge analytics-events
+   - håndtere cookies via samtykke
 
 ### 2.2 Tilpasset implementasjon med SSR
 
@@ -166,22 +166,22 @@ Hvis du **ikke** bruker moduler-pakken, kan du kalle Dekoratørens `/ssr`-endepu
 
 ```json
 {
-    "headAssets": "CSS, favicons etc. Burde injiseres i <head> elementet",
-    "header": "Header innhold, burde injiseres rett før app-innholdet ditt",
-    "footer": "Footer innhold, burde injiseres rett etter app-innholdet ditt",
-    "scripts": "<script>-elementer, kan injiseres hvor som helst"
+	"headAssets": "CSS, favicons etc. Burde injiseres i <head> elementet",
+	"header": "Header innhold, burde injiseres rett før app-innholdet ditt",
+	"footer": "Footer innhold, burde injiseres rett etter app-innholdet ditt",
+	"scripts": "<script>-elementer, kan injiseres hvor som helst"
 }
 ```
 
 Eksempel:
 
 ```js
-fetch("https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en")
-    .then((res) => res.json())
-    .then((decoratorElements) => {
-        const { headAssets, header, footer, scripts } = decoratorElements;
-        // injiser disse fire elementene i HTML-responsen til appen din
-    });
+fetch('https://www.nav.no/dekoratoren/ssr?context=privatperson&language=en')
+	.then((res) => res.json())
+	.then((decoratorElements) => {
+		const { headAssets, header, footer, scripts } = decoratorElements;
+		// injiser disse fire elementene i HTML-responsen til appen din
+	});
 ```
 
 ### 2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)
@@ -193,16 +193,16 @@ Direkte CSR ser typisk slik ut:
 
 ```html
 <html>
-    <head>
-        <link href="{INGRESS_URL}/css/client.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div id="decorator-header"></div>
-        { YOUR_APP }
-        <div id="decorator-footer"></div>
-        <div id="decorator-env" data-src="{INGRESS_URL}/env?{PARAMETERS}"></div>
-        <script async="true" src="{INGRESS_URL}/client.js"></script>
-    </body>
+	<head>
+		<link href="{INGRESS_URL}/css/client.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div id="decorator-header"></div>
+		{ YOUR_APP }
+		<div id="decorator-footer"></div>
+		<div id="decorator-env" data-src="{INGRESS_URL}/env?{PARAMETERS}"></div>
+		<script async="true" src="{INGRESS_URL}/client.js"></script>
+	</body>
 </html>
 ```
 
@@ -235,7 +235,7 @@ en del av fetch-URL-forespørselen.
 
 Alle parametere kan settes klient-side, med mindre det eksplisitt er nevnt at de kun er for
 server-side rendering. For mer informasjon,
-se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
+se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-)
 
 | Konfigurasjon        | Type                                                                    | Default      | Forklaring                                                           |
 | -------------------- | ----------------------------------------------------------------------- | ------------ | -------------------------------------------------------------------- |
@@ -271,16 +271,33 @@ se [Client-Side Rendering (CSR)](#7-client-side-rendering-csr-💻)
 Gjelder både for automatisk innlogging og når innloggingsknappen klikkes. Standardinnstillingen er
 `false`, som vil omdirigere brukeren til "Mitt Nav"-applikasjonen etter innlogging.
 
+Kan oppdateres dynamisk client-side sammen med `redirectToUrl` via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **redirectToUrl**
 
 Omdirigerer nettleseren til den spesifiserte URL-en etter innlogging. Dette vil overstyre
 `redirectToApp`-konfigurasjonen som ble satt. Dette gjelder både for automatisk innlogging og når
 innloggingsknappen klikkes.
 
+Merk at `redirectToUrl` er begrenset til domenet `nav.no` og eventuelle underdomener. En URL utenfor
+dette domenet blir forkastet stille (parameteren faller tilbake til `undefined`), både ved
+førstegangsoppsett og ved efterfølgende oppdateringer via `setParams`.
+
+Kan oppdateres dynamisk client-side sammen med `redirectToApp` via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **redirectToUrlLogout**
 
 Gjelder både for automatisk utlogging (etter å ha sett utloggingsvarselet) og når utloggingsknappen
 klikkes.
+
+Merk at `redirectToUrlLogout` er begrenset til domenet `nav.no` og eventuelle underdomener. En URL
+utenfor dette domenet blir forkastet stille (parameteren faller tilbake til `undefined`), både ved
+førstegangsoppsett og ved efterfølgende oppdateringer via `setParams`.
+
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **language**
 
@@ -288,7 +305,7 @@ Språket settes automatisk på klient-side hvis den nåværende URL-en inneholde
 \*/nn/** , **/en/**, eller **/se/\*\*. Dette vil overstyre eventuelle språkparametere som er satt.
 Vennligst merk at det faktiske brukergrensesnittet til Dekoratøren kun kan vise sitt eget
 tekstinnhold og meny på `nb`, `en`, og `se` (delvis støtte). For mer informasjon,
-se [Språkstøtte og nedtrekksmeny](#42-language-support-and-dropdown-menu-)
+se [Språkstøtte og nedtrekksmeny](#101-detaljer)
 
 **availableLanguages**
 
@@ -320,12 +337,23 @@ resultere i at Dekoratøren returnerer en 500 serverfeil ved forespørsel.
 Hvis dette er satt til false, vil ikke chatboten bli initialisert. Dette betyr at den aldri vil
 være tilgjengelig for siden eller applikasjonen, selv om brukeren har en aktiv chatøkt.
 
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
+
 **chatbotVisible**
 
 Viser eller skjuler Chatbot Frida. Hvis dette er satt til `true`, vil det flytende chatbot-ikonet
 alltid være synlig. Når det er satt til `false`, vil chatboten bare være synlig hvis brukeren har en
 aktiv chatøkt. Vennligst merk at `chatbotVisible` ikke vil ha noen effekt hvis `chatbot`-argumentet
 ovenfor er satt til false.
+
+**shareScreen**
+
+Aktiverer eller deaktiverer funksjonen for deling av skjerm. Hvis dette er satt til `false`, vil
+ikke skjermdelingsknappen eller -modalen bli vist.
+
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **logoutUrl**
 
@@ -335,6 +363,9 @@ begrenset til, fjerning av cookies og ugyldiggjøring av økter. Bruk med forsik
 
 Skal ikke forveksles med attributtet `redirectToUrlLogout`, som angir den endelige
 omdirigeringsadressen **etter** at brukeren er logget ut.
+
+Kan oppdateres dynamisk client-side via [`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme). Headeren hentes på nytt slik
+at utloggingslenken bruker den nye URL-en.
 
 **logoutWarning**
 
@@ -349,6 +380,9 @@ omtrent 60 minutter etter siste registrerte aktivitet, og modalen vises 5 minutt
 
 Hvis du velger å deaktivere denne funksjonen, må du selv implementere en lignende
 utloggingsadvarsel.
+
+Kan oppdateres dynamisk client-side via
+[`setParams`](https://github.com/navikt/nav-dekoratoren-moduler#readme).
 
 **redirectOnUserChange**
 
@@ -452,12 +486,12 @@ Sett registry-url med f.eks `actions/setup-node` og bruk `NODE_AUTH_TOKEN` fra
 - name: Setup node.js
   uses: actions/setup-node@v4
   with:
-      registry-url: "https://npm.pkg.github.com"
+    registry-url: 'https://npm.pkg.github.com'
 
 - name: Install dependencies
   run: npm ci
   env:
-      NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+    NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 ```
 
 ---
@@ -471,26 +505,26 @@ For lokale miljøer må du angi `localUrl`.
 
 ```tsx
 type DecoratorNaisEnv =
-    | "prod" // For produksjons-instans av dekoratøren
-    | "dev" // For stabil dev-instans
-    | "beta" // Beta dev-instanser er ment for internt test-bruk
-    | "betaTms"; // Disse kan være ustabile i lengre perioder
+	| 'prod' // For produksjons-instans av dekoratøren
+	| 'dev' // For stabil dev-instans
+	| 'beta' // Beta dev-instanser er ment for internt test-bruk
+	| 'betaTms'; // Disse kan være ustabile i lengre perioder
 
 type DecoratorEnvProps =
-    // Dersom env er satt til localhost, må du selv sette url for dekoratøren.
-    | { env: "localhost"; localUrl: string }
-    // For nais-miljøer settes url automatisk
-    | { env: DecoratorNaisEnv; serviceDiscovery?: boolean };
+	// Dersom env er satt til localhost, må du selv sette url for dekoratøren.
+	| { env: 'localhost'; localUrl: string }
+	// For nais-miljøer settes url automatisk
+	| { env: DecoratorNaisEnv; serviceDiscovery?: boolean };
 
 type DecoratorFetchProps = {
-    // Query-parametre til dekoratøren, se dekoratørens readme for dokumentasjon
-    params?: DecoratorParams;
+	// Query-parametre til dekoratøren, se dekoratørens readme for dokumentasjon
+	params?: DecoratorParams;
 } & DecoratorEnvProps;
 ```
 
 ### 5.2 Service Discovery
 
-Server-side fetch bruker [service discovery](https://docs.nais.io/clusters/service-discovery) som
+Server-side fetch bruker [service discovery](https://docs.nais.io/workloads/how-to/communication/) som
 standard. Vær obs på at dette kun fungerer ved kjøring på nais-clusterne `dev-gcp` eller `prod-gcp`.
 Dersom appen ikke kjører i ett av disse clusterne, vil vi falle tilbake til å kalle eksterne
 ingresser.
@@ -499,14 +533,14 @@ Du kan også sette parameteret `serviceDiscovery: false` for å alltid benytte e
 
 ```ts
 fetchDecoratorHtml({
-    env: "prod",
-    serviceDiscovery: false, // hvis du alltid vil bruke eksterne ingresser
+	env: 'prod',
+	serviceDiscovery: false, // hvis du alltid vil bruke eksterne ingresser
 });
 ```
 
 ### 5.3 Access Policy
 
-Se [Nais dokumentasjon](https://docs.nais.io/nais-application/access-policy) for oppsett av access
+Se [Nais dokumentasjon](https://docs.nais.io/workloads/explanations/zero-trust/) for oppsett av access
 policy.
 
 #### 5.3.1 Ved Service Discovery (default)
@@ -515,10 +549,10 @@ Ved bruk av service discovery må følgende regel inkluderes i access policy:
 
 ```yaml
 accessPolicy:
-    outbound:
-        rules:
-            - application: nav-dekoratoren
-              namespace: personbruker
+  outbound:
+    rules:
+      - application: nav-dekoratoren
+        namespace: personbruker
 ```
 
 #### 5.3.2 Ved eksterne ingresser
@@ -530,10 +564,10 @@ Følgende access policy kreves:
 
 ```yaml
 accessPolicy:
-    outbound:
-        external:
-            - host: www.nav.no # prod
-            - host: dekoratoren.ekstern.dev.nav.no # dev
+  outbound:
+    external:
+      - host: www.nav.no # prod
+      - host: dekoratoren.ekstern.dev.nav.no # dev
 ```
 
 ---
@@ -564,14 +598,14 @@ Parser en HTML-fil med JSDOM og returnerer en HTML-string som inkluderer dekorat
 `jsdom >=16.x` er installert.
 
 ```ts
-import { injectDecoratorServerSide } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 injectDecoratorServerSide({
-    env: "prod",
-    filePath: "index.html",
-    params: { context: "privatperson", simple: true },
+	env: 'prod',
+	filePath: 'index.html',
+	params: { context: 'privatperson', simple: true },
 }).then((htmlWithDecorator: string) => {
-    res.send(htmlWithDecorator);
+	res.send(htmlWithDecorator);
 });
 ```
 
@@ -580,15 +614,15 @@ injectDecoratorServerSide({
 Setter inn dekoratøren i et Document DOM-objekt. Objektet i document-parameteret muteres.
 
 ```ts
-import { injectDecoratorServerSideDocument } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { injectDecoratorServerSideDocument } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 injectDecoratorServerSideDocument({
-    env: "prod",
-    document: myDocument,
-    params: { context: "privatperson", simple: true },
+	env: 'prod',
+	document: myDocument,
+	params: { context: 'privatperson', simple: true },
 }).then((document: Document) => {
-    const html = document.documentElement.outerHTML;
-    res.send(html);
+	const html = document.documentElement.outerHTML;
+	res.send(html);
 });
 ```
 
@@ -597,19 +631,14 @@ injectDecoratorServerSideDocument({
 Henter dekoratøren som HTML-fragmenter.
 
 ```ts
-import { fetchDecoratorHtml } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 const fragments = await fetchDecoratorHtml({
-    env: "dev",
-    params: { context: "privatperson", origin: "min-app" },
+	env: 'dev',
+	params: { context: 'privatperson', origin: 'min-app' },
 });
 
-const {
-    DECORATOR_HEAD_ASSETS,
-    DECORATOR_HEADER,
-    DECORATOR_FOOTER,
-    DECORATOR_SCRIPTS,
-} = fragments;
+const { DECORATOR_HEAD_ASSETS, DECORATOR_HEADER, DECORATOR_FOOTER, DECORATOR_SCRIPTS } = fragments;
 ```
 
 **fetchDecoratorReact**
@@ -627,42 +656,42 @@ eksempel [Eksempel 2- Med next.js app router](#eksempel-2--nextjs-app-router).
 Brukes i `pages/_document.tsx`:
 
 ```tsx
-import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 class MyDocument extends Document<DocumentProps> {
-    static async getInitialProps(ctx: DocumentContext) {
-        const initialProps = await Document.getInitialProps(ctx);
+	static async getInitialProps(ctx: DocumentContext) {
+		const initialProps = await Document.getInitialProps(ctx);
 
-        const Decorator = await fetchDecoratorReact({
-            env: "prod",
-            params: {
-                language: "nb",
-                context: "arbeidsgiver",
-                origin: "min-app",
-            },
-        });
+		const Decorator = await fetchDecoratorReact({
+			env: 'prod',
+			params: {
+				language: 'nb',
+				context: 'arbeidsgiver',
+				origin: 'min-app',
+			},
+		});
 
-        return { ...initialProps, Decorator };
-    }
+		return { ...initialProps, Decorator };
+	}
 
-    render() {
-        const { Decorator } = this.props;
+	render() {
+		const { Decorator } = this.props;
 
-        return (
-            <Html lang={"no"}>
-                <Head>
-                    <Decorator.HeadAssets />
-                </Head>
-                <body>
-                    <Decorator.Header />
-                    <Main />
-                    <Decorator.Footer />
-                    <Decorator.Scripts />
-                    <NextScript />
-                </body>
-            </Html>
-        );
-    }
+		return (
+			<Html lang={'no'}>
+				<Head>
+					<Decorator.HeadAssets />
+				</Head>
+				<body>
+					<Decorator.Header />
+					<Main />
+					<Decorator.Footer />
+					<Decorator.Scripts />
+					<NextScript />
+				</body>
+			</Html>
+		);
+	}
 }
 ```
 
@@ -671,30 +700,28 @@ class MyDocument extends Document<DocumentProps> {
 Brukes i `app/layout.tsx` med `next/script` loader:
 
 ```tsx
-import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
-import Script from "next/script";
+import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr';
+import Script from 'next/script';
 
-const RootLayout = async ({
-    children,
-}: Readonly<{ children: React.ReactNode }>) => {
-    const Decorator = await fetchDecoratorReact({
-        env: "prod",
-        params: { origin: "min-app" },
-    });
+const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
+	const Decorator = await fetchDecoratorReact({
+		env: 'prod',
+		params: { origin: 'min-app' },
+	});
 
-    return (
-        <html lang="no">
-            <head>
-                <Decorator.HeadAssets />
-            </head>
-            <body>
-                <Decorator.Header />
-                {children}
-                <Decorator.Footer />
-                <Decorator.Scripts loader={Script} />
-            </body>
-        </html>
-    );
+	return (
+		<html lang="no">
+			<head>
+				<Decorator.HeadAssets />
+			</head>
+			<body>
+				<Decorator.Header />
+				{children}
+				<Decorator.Footer />
+				<Decorator.Scripts loader={Script} />
+			</body>
+		</html>
+	);
 };
 
 export default RootLayout;
@@ -711,14 +738,14 @@ export default RootLayout;
 CSR kan brukes i spesielle tilfeller, men vil gi layout-shift og dårligere brukeropplevelse.
 
 ```ts
-import { injectDecoratorClientSide } from "@navikt/nav-dekoratoren-moduler";
+import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler';
 
 injectDecoratorClientSide({
-    env: "prod",
-    params: {
-        simple: true,
-        chatbot: true,
-    },
+	env: 'prod',
+	params: {
+		simple: true,
+		chatbot: true,
+	},
 });
 ```
 
@@ -754,14 +781,14 @@ Legger til/fjerner en callback-funksjon som kalles når en ny versjon av dekorat
 valgt miljø. Tiltenkt brukt for cache-invalidering i apper som cacher dekoratørens HTML.
 
 ```ts
-import { addDecoratorUpdateListener } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { addDecoratorUpdateListener } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 const flushHtmlCache = (versionId: string) => {
-    console.log(`New decorator version: ${versionId} - clearing render cache!`);
-    myHtmlCache.clear();
+	console.log(`New decorator version: ${versionId} - clearing render cache!`);
+	myHtmlCache.clear();
 };
 
-addDecoratorUpdateListener({ env: "prod" }, flushHtmlCache);
+addDecoratorUpdateListener({ env: 'prod' }, flushHtmlCache);
 ```
 
 **getDecoratorVersionId**
@@ -769,9 +796,9 @@ addDecoratorUpdateListener({ env: "prod" }, flushHtmlCache);
 Henter nåværende versjons-id for dekoratøren i valgt miljø.
 
 ```ts
-import { getDecoratorVersionId } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { getDecoratorVersionId } from '@navikt/nav-dekoratoren-moduler/ssr';
 
-const currentVersionId = await getDecoratorVersionId({ env: "prod" });
+const currentVersionId = await getDecoratorVersionId({ env: 'prod' });
 ```
 
 **buildCspHeader**
@@ -783,20 +810,20 @@ med applikasjonens egne direktiver.
 Funksjonen gjør et fetch-kall til dekoratøren for å hente gjeldende direktiver.
 
 ```ts
-import { buildCspHeader } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 // Direktiver appen din benytter
 const myAppDirectives = {
-    "default-src": ["foo.bar.com"],
-    "style-src": ["my.css.cdn.com"],
+	'default-src': ['foo.bar.com'],
+	'style-src': ['my.css.cdn.com'],
 };
 
-const csp = await buildCspHeader(myAppDirectives, { env: "prod" });
+const csp = await buildCspHeader(myAppDirectives, { env: 'prod' });
 
-app.get("*", (req, res) => {
-    res.setHeader("Content-Security-Policy", csp);
+app.get('*', (req, res) => {
+	res.setHeader('Content-Security-Policy', csp);
 
-    res.send("Hello!");
+	res.send('Hello!');
 });
 ```
 
@@ -816,20 +843,20 @@ Logger-instansen har to bruksmønstre:
 - **Custom events** — app-spesifikke events med fri-form data via `.custom()`
 
 ```ts
-import { Events, getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
+import { Events, getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler';
 
-const logger = getAnalyticsInstance("minAppOrigin");
+const logger = getAnalyticsInstance('minAppOrigin');
 
 // ✅ Taksonomi-event — strengt typet
 logger(Events.SKJEMA_STARTET, {
-    skjemaId: "1234",
-    skjemanavn: "aap",
+	skjemaId: '1234',
+	skjemanavn: 'aap',
 });
 
 // ✅ Custom event — app-spesifikt, fri-form data
-logger.custom("feedback åpnet", {
-    komponent: "feedback-widget",
-    steg: 2,
+logger.custom('feedback åpnet', {
+	komponent: 'feedback-widget',
+	steg: 2,
 });
 ```
 
@@ -837,17 +864,14 @@ Bruk `isValidEventName()` når appen din tar imot et event-navn som `string` og 
 taksonomi-logging og custom logging:
 
 ```ts
-import {
-    getAnalyticsInstance,
-    isValidEventName,
-} from "@navikt/nav-dekoratoren-moduler";
+import { getAnalyticsInstance, isValidEventName } from '@navikt/nav-dekoratoren-moduler';
 
-const logger = getAnalyticsInstance("minAppOrigin");
+const logger = getAnalyticsInstance('minAppOrigin');
 
 if (isValidEventName(eventName)) {
-    logger(eventName, eventData);
+	logger(eventName, eventData);
 } else {
-    logger.custom(eventName, eventData);
+	logger.custom(eventName, eventData);
 }
 ```
 
@@ -855,10 +879,7 @@ Alle event-typer fra `@navikt/analytics-types` er re-eksportert fra
 `@navikt/nav-dekoratoren-moduler`:
 
 ```ts
-import type {
-    NavigereEvent,
-    SkjemaStartetEvent,
-} from "@navikt/nav-dekoratoren-moduler";
+import type { NavigereEvent, SkjemaStartetEvent } from '@navikt/nav-dekoratoren-moduler';
 ```
 
 **setBreadcrumbs**
@@ -875,32 +896,32 @@ fjerne eventuelle personopplysninger fra denne!
 ```tsx
 // Type
 export type DecoratorBreadcrumb = {
-    url: string;
-    title: string;
-    analyticsTitle?: string;
-    handleInApp?: boolean;
+	url: string;
+	title: string;
+	analyticsTitle?: string;
+	handleInApp?: boolean;
 };
 
 // Bruk
-import { setBreadcrumbs } from "@navikt/nav-dekoratoren-moduler";
+import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler';
 
 setBreadcrumbs([
-    { title: "Ditt Nav", url: "https://www.nav.no/person/dittnav" }, // Sender brukeren til definert url
-    {
-        title: "Kontakt oss",
-        url: "https://www.nav.no/person/kontakt-oss/nb/",
-        handleInApp: true, // Håndteres av onBreadcrumbClick
-    },
+	{ title: 'Ditt Nav', url: 'https://www.nav.no/person/dittnav' }, // Sender brukeren til definert url
+	{
+		title: 'Kontakt oss',
+		url: 'https://www.nav.no/person/kontakt-oss/nb/',
+		handleInApp: true, // Håndteres av onBreadcrumbClick
+	},
 ]);
 
 // Bruk med analyticsTitle
 setBreadcrumbs([
-    { title: "Ditt Nav", url: "https://www.nav.no/person/dittnav" }, // Sender brukeren til definert url
-    {
-        title: "Opplysninger for Ola Nordmann",
-        analyticsTitle: "Opplysninger for <Navn>",
-        url: "https://www.nav.no/min-innloggede-tjeneste",
-    },
+	{ title: 'Ditt Nav', url: 'https://www.nav.no/person/dittnav' }, // Sender brukeren til definert url
+	{
+		title: 'Opplysninger for Ola Nordmann',
+		analyticsTitle: 'Opplysninger for <Navn>',
+		url: 'https://www.nav.no/min-innloggede-tjeneste',
+	},
 ]);
 ```
 
@@ -910,11 +931,11 @@ Kalles med `breadcrumb`-parametre dersom `handleInApp` var satt til `true`. Kan 
 client-side routing.
 
 ```tsx
-import { onBreadcrumbClick } from "@navikt/nav-dekoratoren-moduler";
-import router from "my-routing-library";
+import { onBreadcrumbClick } from '@navikt/nav-dekoratoren-moduler';
+import router from 'my-routing-library';
 
 onBreadcrumbClick((breadcrumb) => {
-    router.push(breadcrumb.url);
+	router.push(breadcrumb.url);
 });
 ```
 
@@ -926,29 +947,29 @@ Aktivt språk kan hentes ut fra cookien `decorator-language`.
 
 ```tsx
 // Type
-export type DecoratorLocale = "nb" | "nn" | "en" | "se" | "pl" | "uk" | "ru";
+export type DecoratorLocale = 'nb' | 'nn' | 'en' | 'se' | 'pl' | 'uk' | 'ru';
 export type DecoratorLanguageOption =
-    | {
-          url?: string;
-          locale: DecoratorLocale;
-          handleInApp: true;
-      }
-    | {
-          url: string;
-          locale: DecoratorLocale;
-          handleInApp?: false;
-      };
+	| {
+			url?: string;
+			locale: DecoratorLocale;
+			handleInApp: true;
+	  }
+	| {
+			url: string;
+			locale: DecoratorLocale;
+			handleInApp?: false;
+	  };
 
 // Bruk
-import { setAvailableLanguages } from "@navikt/nav-dekoratoren-moduler";
+import { setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 
 setAvailableLanguages([
-    { locale: "nb", url: "https://www.nav.no/person/kontakt-oss/nb/" }, // Sender brukeren til definert url
-    {
-        locale: "en",
-        url: "https://www.nav.no/person/kontakt-oss/en/",
-        handleInApp: true,
-    }, // Håndteres av onLanguageSelect
+	{ locale: 'nb', url: 'https://www.nav.no/person/kontakt-oss/nb/' }, // Sender brukeren til definert url
+	{
+		locale: 'en',
+		url: 'https://www.nav.no/person/kontakt-oss/en/',
+		handleInApp: true,
+	}, // Håndteres av onLanguageSelect
 ]);
 ```
 
@@ -958,11 +979,11 @@ Kalles med `language`-parametre dersom `handleInApp` var satt til `true`. Kan be
 client-side routing.
 
 ```tsx
-import { onLanguageSelect } from "@navikt/nav-dekoratoren-moduler";
-import router from "my-routing-library";
+import { onLanguageSelect } from '@navikt/nav-dekoratoren-moduler';
+import router from 'my-routing-library';
 
 onLanguageSelect((language) => {
-    router.push(language.url);
+	router.push(language.url);
 });
 ```
 
@@ -974,35 +995,35 @@ Samtlige parametre kan settes client-side via `setParams` dersom `setAvailableLa
 ```tsx
 // Type
 export type DecoratorParams = Partial<{
-    context: "privatperson" | "arbeidsgiver" | "samarbeidspartner";
-    simple: boolean;
-    simpleHeader: boolean;
-    simpleFooter: boolean;
-    redirectToApp: boolean;
-    redirectToUrl: string;
-    language: DecoratorLocale;
-    availableLanguages: DecoratorLanguageOption[];
-    breadcrumbs: DecoratorBreadcrumb[];
-    utilsBackground: "white" | "gray" | "transparent";
-    feedback: boolean;
-    chatbot: boolean;
-    chatbotVisible: boolean;
-    shareScreen: boolean;
-    logoutUrl: string;
-    logoutWarning: boolean;
-    redirectOnUserChange: boolean;
-    origin: string;
-    pageType: string;
-    analyticsQueryParams: string[];
-    analyticsRedactFilter: string[];
+	context: 'privatperson' | 'arbeidsgiver' | 'samarbeidspartner';
+	simple: boolean;
+	simpleHeader: boolean;
+	simpleFooter: boolean;
+	redirectToApp: boolean;
+	redirectToUrl: string;
+	language: DecoratorLocale;
+	availableLanguages: DecoratorLanguageOption[];
+	breadcrumbs: DecoratorBreadcrumb[];
+	utilsBackground: 'white' | 'gray' | 'transparent';
+	feedback: boolean;
+	chatbot: boolean;
+	chatbotVisible: boolean;
+	shareScreen: boolean;
+	logoutUrl: string;
+	logoutWarning: boolean;
+	redirectOnUserChange: boolean;
+	origin: string;
+	pageType: string;
+	analyticsQueryParams: string[];
+	analyticsRedactFilter: string[];
 }>;
 
 // Bruk
-import { setParams } from "@navikt/nav-dekoratoren-moduler";
+import { setParams } from '@navikt/nav-dekoratoren-moduler';
 
 setParams({
-    simple: true,
-    chatbot: true,
+	simple: true,
+	chatbot: true,
 });
 ```
 
@@ -1011,7 +1032,7 @@ setParams({
 Leser gjeldende parametre fra dekoratøren.
 
 ```tsx
-import { getParams } from "@navikt/nav-dekoratoren-moduler";
+import { getParams } from '@navikt/nav-dekoratoren-moduler';
 
 getParams();
 ```
@@ -1021,7 +1042,7 @@ getParams();
 Åpner Chatbot Frida og setter `chatbotVisible=true`.
 
 ```tsx
-import { openChatbot } from "@navikt/nav-dekoratoren-moduler";
+import { openChatbot } from '@navikt/nav-dekoratoren-moduler';
 
 openChatbot();
 ```
@@ -1067,8 +1088,8 @@ du må vente til dekoratøren har lastet inn dataene.
 
 ```ts
 const initMyApp = async () => {
-    await awaitDecoratorData();
-    doMyAppStuff();
+	await awaitDecoratorData();
+	doMyAppStuff();
 };
 ```
 
@@ -1119,13 +1140,13 @@ Dersom cookien er regnet som frivillig vil den ikke kunne settes dersom bruker i
 samtykke til at Nav kan lagre alle frivillige cookies.
 
 ```ts
-import { setNavCookie, getNavCookie } from "@navikt/nav-dekoratoren-moduler";
+import { setNavCookie, getNavCookie } from '@navikt/nav-dekoratoren-moduler';
 
 // Tillatt fordi tillatt-listen har registrert 'usertest-*' som tillatt cookie.
-setNavCookie("usertest-382738");
+setNavCookie('usertest-382738');
 
 // Returnerer null fordi 'foobar' ikke er i tillatt-listen.
-const foo = getNavCookie("foobar");
+const foo = getNavCookie('foobar');
 ```
 
 **navSessionStorage/navLocalStorage**
@@ -1182,7 +1203,7 @@ Brukergrensesnittet (header, meny, footer, osv.) støtter tre språk:
 - Sami (delvis)
 
 Du kan tilby `availableLanguages` for å fylle ut språkvelgeren, avhengig av hvor mange språk
-applikasjonen din støtter (se [seksjon for parametere](#31-oversikt-over-config-parametere)).
+applikasjonen din støtter (se [seksjon for parametere](#3-konfigurasjon-av-dekoratøren-%EF%B8%8F)).
 Imidlertid vil det faktiske brukergrensesnittet i headeren og footeren kun vises på ett av de tre
 nevnte språkene.
 

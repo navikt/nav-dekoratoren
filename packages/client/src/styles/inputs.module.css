@@ -1,38 +1,38 @@
 .textInput {
-    -webkit-appearance: none;
-    appearance: none;
-    padding: var(--ax-space-8);
-    background-color: var(--ax-bg-default);
-    border-radius: var(--ax-radius-8);
-    border: 1px solid var(--ax-neutral-600);
-    min-height: 3rem;
-    width: 100%;
-    color: var(--ax-text-default);
-    font-family: var(--ax-font-family), serif;
+	-webkit-appearance: none;
+	appearance: none;
+	padding: var(--ax-space-8);
+	background-color: var(--ax-bg-default);
+	border-radius: var(--ax-radius-8);
+	border: 1px solid var(--ax-neutral-600);
+	min-height: 3rem;
+	width: 100%;
+	color: var(--ax-text-default);
+	font-family: var(--ax-font-family), serif;
 }
 
 .textInput.invalid {
-    border-color: var(--ax-border-danger);
-    border-width: 2px;
+	border-color: var(--ax-border-danger);
+	border-width: 2px;
 }
 
 .textInputLabel {
-    font-size: var(--ax-font-size-large);
-    font-weight: var(--ax-font-weight-bold);
-    letter-spacing: 0;
-    line-height: var(--ax-font-line-height-large);
-    margin: 0;
+	font-size: var(--ax-font-size-large);
+	font-weight: var(--ax-font-weight-bold);
+	letter-spacing: 0;
+	line-height: var(--ax-font-line-height-large);
+	margin: 0;
 }
 
 .errorList {
-    display: none;
-    color: var(--ax-text-danger);
-    font-weight: var(--ax-font-weight-bold);
-    padding-top: 0;
-    margin-top: var(--ax-space-8);
-    padding-left: var(--ax-space-20);
+	display: none;
+	color: var(--ax-text-danger);
+	font-weight: var(--ax-font-weight-bold);
+	padding-top: 0;
+	margin-top: var(--ax-space-8);
+	padding-left: var(--ax-space-20);
 }
 
 .errorList.showErrors {
-    display: block;
+	display: block;
 }

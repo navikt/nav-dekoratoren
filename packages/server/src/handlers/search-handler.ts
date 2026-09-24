@@ -1,74 +1,63 @@
-import { Context, Language } from "decorator-shared/params";
-import { z } from "zod";
-import { env } from "../env/server";
-import { logger } from "../lib/logger";
-import { fetchAndValidateJson } from "../lib/fetch-and-validate";
-import { SearchErrorView } from "../views/errors/search-error";
-import { SearchHits } from "../views/search-hits";
+import { Context, Language } from 'decorator-shared/params';
+import { z } from 'zod';
+import { env } from '../env/server';
+import { logger } from '../lib/logger';
+import { fetchAndValidateJson } from '../lib/fetch-and-validate';
+import { SearchErrorView } from '../views/errors/search-error';
+import { SearchHits } from '../views/search-hits';
 
 export type SearchResult = z.infer<typeof resultSchema>;
 
 const resultSchema = z.object({
-    total: z.number(),
-    hits: z.array(
-        z.object({
-            displayName: z.string(),
-            highlight: z.string(),
-            href: z.string().url(),
-        }),
-    ),
+	total: z.number(),
+	hits: z.array(
+		z.object({
+			displayName: z.string(),
+			highlight: z.string(),
+			href: z.string().url(),
+		})
+	),
 });
 
-const fetchSearch = async ({
-    query,
-    context,
-    language,
-}: {
-    query: string;
-    context: string;
-    language: string;
-}) =>
-    fetchAndValidateJson(
-        `${env.SEARCH_API_URL}?ord=${query}&f=${context}&preferredLanguage=${language}`,
-        undefined,
-        resultSchema,
-    );
+const fetchSearch = async ({ query, context, language }: { query: string; context: string; language: string }) =>
+	fetchAndValidateJson(
+		`${env.SEARCH_API_URL}?ord=${query}&f=${context}&preferredLanguage=${language}`,
+		undefined,
+		resultSchema
+	);
 
 export const searchHandler = async ({
-    query,
-    context,
-    language,
+	query,
+	context,
+	language,
 }: {
-    query: string;
-    context: Context;
-    language: Language;
+	query: string;
+	context: Context;
+	language: Language;
 }): Promise<string> => {
-    // Always decode first to ensure the query is never double-encoded
-    const queryDecoded = decodeURIComponent(query);
-    const queryEncoded = encodeURIComponent(queryDecoded);
+	// Always decode first to ensure the query is never double-encoded
+	const queryDecoded = decodeURIComponent(query);
+	const queryEncoded = encodeURIComponent(queryDecoded);
 
-    const result = await fetchSearch({
-        query: queryEncoded,
-        language,
-        context,
-    });
+	const result = await fetchSearch({
+		query: queryEncoded,
+		language,
+		context,
+	});
 
-    if (!result.ok) {
-        logger.error(
-            `Error fetching search results for ${query} - ${result.error.message}`,
-            { error: result.error },
-        );
-        return SearchErrorView().render({ language });
-    }
+	if (!result.ok) {
+		logger.error(`Error fetching search results for ${query} - ${result.error.message}`, { error: result.error });
+		return SearchErrorView().render({ language });
+	}
 
-    const searchResult = result.data as SearchResult;
+	const searchResult = result.data as SearchResult;
 
-    return SearchHits({
-        results: {
-            total: searchResult.total,
-            hits: searchResult.hits,
-        },
-        query: queryDecoded,
-        context,
-    }).render({ language });
+	return SearchHits({
+		results: {
+			total: searchResult.total,
+			hits: searchResult.hits,
+		},
+		query: queryDecoded,
+		context,
+	}).render({ language });
 };

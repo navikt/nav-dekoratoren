@@ -1,16 +1,16 @@
 {
-    "name": "decorator-shared",
-    "version": "0.0.1",
-    "type": "module",
-    "scripts": {
-        "lint": "eslint . && tsc --noEmit",
-        "test": "vitest run"
-    },
-    "dependencies": {
-        "decorator-icons": "workspace:*"
-    },
-    "devDependencies": {
-        "@types/node": "catalog:",
-        "vitest": "catalog:"
-    }
+	"name": "decorator-shared",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"lint": "eslint . && tsc --noEmit",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"decorator-icons": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"vitest": "catalog:"
+	}
 }
