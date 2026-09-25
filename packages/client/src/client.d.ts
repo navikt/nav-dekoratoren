@@ -43,10 +43,6 @@ declare global {
 		skyraSurvey: any;
 		dataLayer: any;
 		boostInit?: (env: string, config: any) => BoostClient;
-		vngage: {
-			join: (queue: string, options: unknown) => void;
-			subscribe: (type: string, callback: (message: string, data: unknown) => void) => void;
-		};
 		// Bare definert de typene som brukes, ikke alle som finnes
 		pzl?: {
 			info?: {
