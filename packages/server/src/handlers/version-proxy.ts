@@ -10,16 +10,22 @@ import { logProxyProblem, resetProblemPersistence } from './version-proxy-loggin
 const SERVER_VERSION_ID = env.VERSION_ID;
 const APP_NAME = env.APP_NAME;
 const LOOPBACK_HEADER = 'is-dekoratoren-proxy-req';
-const METRIC_ROUTES = ['auth', 'header', 'footer', 'ssr'] as const;
+const METRIC_ROUTES = [
+	{ path: '/auth', label: 'auth' },
+	{ path: '/header', label: 'header' },
+	{ path: '/footer', label: 'footer' },
+	{ path: '/ssr', label: 'ssr' },
+	{ path: '/api/consentping', label: 'consentping' },
+] as const;
 
 const getMetricLabels = (request: HonoRequest) => {
 	const url = new URL(request.url);
 	const origin = url.searchParams.get('origin');
 	const path = url.pathname.replace(/\/$/, '');
 	const route =
-		METRIC_ROUTES.find((name) =>
-			INGRESS_PATH_PREFIXES.some((prefix) => path === `${prefix === '/' ? '' : prefix}/${name}`)
-		) ?? 'other';
+		METRIC_ROUTES.find(({ path: routePath }) =>
+			INGRESS_PATH_PREFIXES.some((prefix) => path === `${prefix === '/' ? '' : prefix}${routePath}`)
+		)?.label ?? 'other';
 	return {
 		origin: origin === 'navno-frontend' ? 'navno-frontend' : origin ? 'other' : 'unknown',
 		route,
@@ -62,11 +68,12 @@ const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId
 		const headers = new Headers(request.raw.headers);
 		headers.set(LOOPBACK_HEADER, 'true');
 
+		const body = request.raw.body ? request.raw.clone().body : null;
 		const response = await fetch(url, {
 			method: request.method,
 			headers,
-			body: request.raw.body,
-			...(request.raw.body ? { duplex: 'half' as const } : {}),
+			body,
+			...(body ? { duplex: 'half' as const } : {}),
 		});
 
 		// Clone response headers since they're immutable in Node 24

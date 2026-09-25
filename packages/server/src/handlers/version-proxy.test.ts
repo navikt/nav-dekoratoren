@@ -124,6 +124,34 @@ describe('versionProxyHandler', () => {
 		expect(await metricValues()).toEqual({ proxied: 1 });
 	});
 
+	it.each([
+		['not_found', notFoundError],
+		['unreachable', unreachableError],
+	])('preserves a consent ping body for local fallback after %s', async (result, error) => {
+		const payload = { consentObject: { analytics: true } };
+		vi.stubGlobal(
+			'fetch',
+			vi.fn(async (url: string, init: RequestInit) => {
+				await new Request(url, init).text();
+				throw error();
+			})
+		);
+
+		const app = buildApp(await loadHandler());
+		app.post('/api/consentping', async (c) => c.json(await c.req.json()));
+		const res = await requestWithVersion(
+			app,
+			STALE_VERSION_ID,
+			undefined,
+			{ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) },
+			'/api/consentping'
+		);
+
+		expect(res.status).toBe(200);
+		expect(await res.json()).toEqual(payload);
+		expect(await metricValues()).toEqual({ [result]: 1 });
+	});
+
 	it('passes 5xx responses on and counts them as error_response', async () => {
 		vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('oops', { status: 503 })));
 
@@ -195,6 +223,7 @@ describe('versionProxyHandler', () => {
 		await requestWithVersion(app, STALE_VERSION_ID, undefined, undefined, '/header');
 		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'unknown-app' }, undefined, '/dekoratoren/footer');
 		await requestWithVersion(app, STALE_VERSION_ID, undefined, undefined, '/common-html/v4/navno/api/consentping');
+		await requestWithVersion(app, STALE_VERSION_ID, undefined, undefined, '/api/search');
 		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'navno-frontend' }, undefined, '/other/auth');
 
 		expect(await metricBreakdown()).toEqual([
@@ -202,6 +231,7 @@ describe('versionProxyHandler', () => {
 			{ result: 'not_found', origin: 'other', route: 'ssr', value: 1 },
 			{ result: 'not_found', origin: 'unknown', route: 'header', value: 1 },
 			{ result: 'not_found', origin: 'other', route: 'footer', value: 1 },
+			{ result: 'not_found', origin: 'unknown', route: 'consentping', value: 1 },
 			{ result: 'not_found', origin: 'unknown', route: 'other', value: 1 },
 			{ result: 'not_found', origin: 'navno-frontend', route: 'other', value: 1 },
 		]);

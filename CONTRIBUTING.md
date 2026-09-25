@@ -105,8 +105,8 @@ trigget.
 `version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.
 Metrikken har etikettene `result` (`proxied`, `error_response`, `not_found`, `unreachable`),
 `origin` (`navno-frontend`, `other`, `unknown`) og `route` (`auth`, `header`, `footer`, `ssr`,
-`other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
-samles i `other`. Ruter utenfor de fire navngitte samles også i `other`. Versjons-ID og
+`consentping`, `other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
+samles i `other`. Ruter utenfor de fem navngitte samles også i `other`. Versjons-ID og
 vilkårlige URL-er brukes ikke som etiketter.
 
 I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
