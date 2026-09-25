@@ -39,7 +39,7 @@ env:
   - name: BOOST_ENV
     value: "navtest"
   - name: PUZZEL_CUSTOMER_ID
-    value: C1302192-8BEC-4EA2-84AB-F4EDE8AC6230
+    value: "41155"
 ttlInternal: 2h
 replicas:
   min: 1
