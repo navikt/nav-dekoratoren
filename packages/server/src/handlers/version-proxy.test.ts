@@ -268,6 +268,65 @@ describe('versionProxyHandler', () => {
 		expect(proxyLogs(warnSpy)).toHaveLength(1);
 	});
 
+	it.each(['unreachable', 'error_response'] as const)(
+		'logs one recovery after a persistent %s warning for the same origin',
+		async (result) => {
+			vi.useFakeTimers({ shouldAdvanceTime: true });
+			const fetchMock = vi.fn().mockImplementation(async () => {
+				if (result === 'unreachable') {
+					throw unreachableError();
+				}
+				return new Response('oops', { status: 503 });
+			});
+			vi.stubGlobal('fetch', fetchMock);
+
+			const app = buildApp(await loadHandler());
+			const params = { origin: 'navno-frontend' };
+			await requestWithVersion(app, STALE_VERSION_ID, params);
+			await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
+			await requestWithVersion(app, STALE_VERSION_ID, params);
+			await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
+			await requestWithVersion(app, STALE_VERSION_ID, params);
+			expect(proxyLogs(warnSpy)).toHaveLength(1);
+
+			fetchMock.mockResolvedValue(new Response('proxied response'));
+			await requestWithVersion(app, STALE_VERSION_ID, { origin: 'another-app' });
+			expect(proxyLogs(infoSpy)).toHaveLength(1);
+
+			await requestWithVersion(app, STALE_VERSION_ID, params);
+			await requestWithVersion(app, STALE_VERSION_ID, params);
+
+			const infoLogs = proxyLogs(infoSpy);
+			expect(infoLogs).toHaveLength(2);
+			expect(infoLogs[1]).toContain('proxying succeeded after persistent');
+			expect(parseMetaData(infoLogs[1])).toEqual({
+				result: 'recovered',
+				previousResults: [result],
+				requestedVersion: STALE_VERSION_ID,
+				path: '/',
+				origin: 'navno-frontend',
+			});
+		}
+	);
+
+	it('does not log a recovery for a version that was not found', async () => {
+		vi.useFakeTimers({ shouldAdvanceTime: true });
+		const fetchMock = vi.fn().mockRejectedValue(notFoundError());
+		vi.stubGlobal('fetch', fetchMock);
+
+		const app = buildApp(await loadHandler());
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
+		await requestWithVersion(app, STALE_VERSION_ID);
+		expect(proxyLogs(warnSpy)).toHaveLength(1);
+
+		fetchMock.mockResolvedValue(new Response('proxied response'));
+		await requestWithVersion(app, STALE_VERSION_ID);
+		expect(proxyLogs(infoSpy)).toHaveLength(1);
+	});
+
 	it('restarts the warning grace period after a successful response', async () => {
 		vi.useFakeTimers({ shouldAdvanceTime: true });
 		const fetchMock = vi
