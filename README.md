@@ -221,7 +221,7 @@ Direkte CSR ser typisk slik ut:
 Hvis du _må_ bruke CSR, anbefaler vi å gjøre det via `injectDecoratorClientSide` fra moduler-pakken.
 
 💡 **Konsumentlogging:** Hvis du bruker CSR med `@navikt/nav-dekoratoren-moduler`:
-Sett `teamName`-parameteren i `injectDecoratorClientSide` , slik at feil i logger kan
+Sett `teamName` i `params` til `injectDecoratorClientSide`, slik at feil i logger kan
 knyttes til teamet ditt. Se [Konsumentlogging](#innebygde-funksjoner-i-dekoratoren) for detaljer.
 
 ### 2.4 Ingresser og miljøer
@@ -1265,13 +1265,13 @@ teamet ser varselet i sine egne logger.
 
 `teamName` settes automatisk til `NAIS_APP_NAME.NAIS_NAMESPACE`. Disse variablene injiseres av
 Nais-plattformen i alle pods, så ingen ekstra konfigurasjon er nødvendig.
-Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang), og en eventuell
+Dersom `NAIS_APP_NAME` eller `NAIS_NAMESPACE` ikke er satt, logges et varsel til konsollen (én gang), og en eventuell
 manuelt satt `teamName` brukes i stedet.
 
 **2. SSR uten moduler-pakken eller CSR via moduler-pakken:**
 
-Sett `teamName` i forespørselen eller i `injectDecoratorClientSide` for å bli identifisert i logger
-og feilmeldinger.
+Sett `teamName` som query-parameter i forespørselen, eller i `params` til
+`injectDecoratorClientSide`, for å bli identifisert i logger og feilmeldinger.
 
 `teamName` må være et gyldig konsumentnavn i formatet `teamnavn.namespace`. Verdien må:
 
@@ -1285,8 +1285,10 @@ Eksempler: `team-navno.navno`, `min-side.personbruker`, `digihot.felles`.
 ```ts
 injectDecoratorClientSide({
 	env: 'prod',
-	teamName: 'team-navno.navno',
-	params: { context: 'privatperson' },
+	params: {
+		context: 'privatperson',
+		teamName: 'team-navno.navno',
+	},
 });
 ```
 
