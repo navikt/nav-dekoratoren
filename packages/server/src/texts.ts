@@ -22,7 +22,7 @@ export const nb = {
     consent_banner_consent_all: "Ja",
     consent_banner_refuse_optional: "Nei",
     consent_banner_additional_cookies_info:
-        "For at nav.no skal fungere og være trygt, lagrer vi også nødvendig informasjon som ikke er valgfri.",
+        "For at nav.no skal fungere og være trygt, har vi også nødvendige informasjonskapsler som ikke er valgfrie.",
     consent_banner_minimized:
         "Velg hvilke informasjons&shy;kapsler Nav kan bruke.",
     clear: "Tøm",
@@ -128,14 +128,14 @@ const en: Texts = {
     menu: "Menu",
     consent_banner_title: "Can we use optional cookies?",
     consent_banner_text: ({ url }: UrlArg) =>
-        html`If you answer yes, we use
-            <a href="${url}">cookies and similar technology</a> to store and
-            analyse information that helps us improve nav.no. You can change
-            your choice later in the footer at the bottom of the page.`,
+        html`If you answer yes, we will store and analyse information that helps
+            us improve nav.no. You can change your answer at any time using the
+            menu at the bottom of the page. Learn more about
+            <a href="${url}">cookies, what information we store, and why</a>.`,
     consent_banner_consent_all: "Yes",
     consent_banner_refuse_optional: "No",
     consent_banner_additional_cookies_info:
-        "We also use essential cookies that you cannot opt out of.",
+        "Essential cookies that keep nav.no secure and working are always on.",
     consent_banner_minimized: "Choose which cookies Nav can use.",
     close: "Close",
     did_you_find: "Did you find what you were looking for?",
