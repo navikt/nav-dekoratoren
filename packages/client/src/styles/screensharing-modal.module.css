@@ -1,28 +1,28 @@
 .screensharingModal {
-    overflow: visible;
-    border: none;
-    max-width: 560px;
-    width: 100%;
+	overflow: visible;
+	border: none;
+	max-width: 560px;
+	width: 100%;
 }
 
 .avatar {
-    position: absolute;
-    width: 70px;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	position: absolute;
+	width: 70px;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .content {
-    padding-top: var(--ax-space-16);
+	padding-top: var(--ax-space-16);
 }
 
 .buttonsWrapper {
-    margin-top: var(--ax-space-16);
-    display: flex;
-    gap: var(--ax-space-16);
+	margin-top: var(--ax-space-16);
+	display: flex;
+	gap: var(--ax-space-16);
 }
 
 .children {
-    margin-top: var(--ax-space-16);
+	margin-top: var(--ax-space-16);
 }

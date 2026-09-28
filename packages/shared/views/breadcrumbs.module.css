@@ -1,43 +1,43 @@
 .list {
-    list-style: none;
-    padding: 6px 0;
-    margin-block: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--ax-space-8);
+	list-style: none;
+	padding: 6px 0;
+	margin-block: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--ax-space-8);
 }
 
 .link {
-    padding-block: 0.625rem;
+	padding-block: 0.625rem;
 }
 
 .homeLink {
-    display: flex;
-    align-items: center;
-    gap: var(--ax-space-8);
-    padding-block: 6px;
+	display: flex;
+	align-items: center;
+	gap: var(--ax-space-8);
+	padding-block: 6px;
 }
 
 .homeLink .svg {
-    font-size: 2rem;
-    color: var(--ax-text-default);
-    line-height: 0;
+	font-size: 2rem;
+	color: var(--ax-text-default);
+	line-height: 0;
 }
 
 .homeLink:active .svg,
 .homeLink:focus-visible .svg {
-    color: var(--ax-text-accent-contrast);
+	color: var(--ax-text-accent-contrast);
 }
 
 @supports not selector(:focus-visible) {
-    .homeLink:focus-visible .svg {
-        color: var(--ax-text-accent-contrast);
-    }
+	.homeLink:focus-visible .svg {
+		color: var(--ax-text-accent-contrast);
+	}
 }
 
 .listItem {
-    display: flex;
-    align-items: center;
-    gap: var(--ax-space-8);
+	display: flex;
+	align-items: center;
+	gap: var(--ax-space-8);
 }

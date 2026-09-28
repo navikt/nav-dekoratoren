@@ -1,53 +1,53 @@
 .modal {
-    animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
-    border: none;
-    border-radius: var(--ax-radius-12);
-    padding: var(--ax-space-40);
-    box-shadow: var(--ax-shadow-dialog);
-    margin: auto;
+	animation: modalAnimationFadein 0.35s cubic-bezier(0.15, 1, 0.3, 1);
+	border: none;
+	border-radius: var(--ax-radius-12);
+	padding: var(--ax-space-40);
+	box-shadow: var(--ax-shadow-dialog);
+	margin: auto;
 }
 
 .modal::backdrop {
-    position: fixed;
-    inset: 0;
-    background-color: var(--ac-modal-backdrop, rgba(2, 20, 49, 0.49));
+	position: fixed;
+	inset: 0;
+	background-color: var(--ac-modal-backdrop, rgba(2, 20, 49, 0.49));
 }
 
 .modalWindow {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .modalTitle {
-    font-size: var(--ax-font-size-heading-medium);
-    font-weight: var(--ax-font-weight-bold);
-    margin-top: 0;
-    margin-bottom: var(--ax-space-16);
+	font-size: var(--ax-font-size-heading-medium);
+	font-weight: var(--ax-font-weight-bold);
+	margin-top: 0;
+	margin-bottom: var(--ax-space-16);
 }
 
 .modalBody {
-    margin-top: 0;
-    margin-bottom: var(--ax-space-16);
+	margin-top: 0;
+	margin-bottom: var(--ax-space-16);
 }
 
 @keyframes modalAnimationFadein {
-    from {
-        opacity: 0;
-        -webkit-transform: translate3d(0, calc(5% + 4px), 0);
-        transform: translate3d(0, calc(5% + 4px), 0);
-    }
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, calc(5% + 4px), 0);
+		transform: translate3d(0, calc(5% + 4px), 0);
+	}
 
-    50% {
-        opacity: 1;
-    }
+	50% {
+		opacity: 1;
+	}
 
-    to {
-        -webkit-transform: none;
-        transform: none;
-    }
+	to {
+		-webkit-transform: none;
+		transform: none;
+	}
 }
 
 .buttonWrapper {
-    display: flex;
-    flex-direction: row;
-    gap: var(--ax-space-16);
+	display: flex;
+	flex-direction: row;
+	gap: var(--ax-space-16);
 }

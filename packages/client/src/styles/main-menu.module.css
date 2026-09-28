@@ -1,100 +1,100 @@
 .mainMenu {
-    display: grid;
+	display: grid;
 }
 
 @media (min-width: 64rem) {
-    .mainMenu {
-        grid-template-columns: 2fr;
-        grid-auto-columns: minmax(340px, 1fr);
-        grid-auto-flow: column;
-    }
+	.mainMenu {
+		grid-template-columns: 2fr;
+		grid-auto-columns: minmax(340px, 1fr);
+		grid-auto-flow: column;
+	}
 }
 
 .content {
-    padding: var(--ax-space-32);
-    padding-left: var(--edge-spacing);
-    display: grid;
-    gap: var(--ax-space-32);
+	padding: var(--ax-space-32);
+	padding-left: var(--edge-spacing);
+	display: grid;
+	gap: var(--ax-space-32);
 }
 
 .header {
-    display: grid;
-    justify-items: start;
-    gap: var(--ax-space-12);
+	display: grid;
+	justify-items: start;
+	gap: var(--ax-space-12);
 }
 
 .links {
-    columns: 18rem 4;
-    gap: var(--ax-space-24);
+	columns: 18rem 4;
+	gap: var(--ax-space-24);
 }
 
 .linkGroup {
-    break-inside: avoid;
-    margin-bottom: var(--ax-space-40);
+	break-inside: avoid;
+	margin-bottom: var(--ax-space-40);
 }
 
 .linkGroupHeading {
-    margin-block: 0 var(--ax-space-12);
+	margin-block: 0 var(--ax-space-12);
 }
 
 .linkList {
-    list-style: none;
-    margin-block: 0;
-    padding-left: 0;
-    display: grid;
-    gap: var(--ax-space-8);
+	list-style: none;
+	margin-block: 0;
+	padding-left: 0;
+	display: grid;
+	gap: var(--ax-space-8);
 }
 
 .contextLinks {
-    background-color: var(--ax-bg-neutral-soft);
-    columns: 20rem 3;
-    gap: var(--ax-space-12);
-    padding-block: var(--ax-space-24);
-    padding-inline: var(--edge-spacing);
+	background-color: var(--ax-bg-neutral-soft);
+	columns: 20rem 3;
+	gap: var(--ax-space-12);
+	padding-block: var(--ax-space-24);
+	padding-inline: var(--edge-spacing);
 }
 
 @media (min-width: 64rem) {
-    .contextLinks {
-        padding-inline-start: var(--ax-space-24);
-        padding-block: var(--ax-space-24);
-    }
+	.contextLinks {
+		padding-inline-start: var(--ax-space-24);
+		padding-block: var(--ax-space-24);
+	}
 }
 
 .contextLink {
-    break-inside: avoid;
-    display: block;
-    margin-block-end: var(--ax-space-12);
-    background-color: var(--ax-bg-default);
-    padding: var(--ax-space-24);
-    border-radius: var(--ax-radius-12);
-    border: 2px solid var(--ax-border-accent);
-    text-decoration: none;
+	break-inside: avoid;
+	display: block;
+	margin-block-end: var(--ax-space-12);
+	background-color: var(--ax-bg-default);
+	padding: var(--ax-space-24);
+	border-radius: var(--ax-radius-12);
+	border: 2px solid var(--ax-border-accent);
+	text-decoration: none;
 }
 
 .contextLink:focus-visible {
-    box-shadow: 0 0 0 3px var(--ax-border-focus);
-    outline: none;
+	box-shadow: 0 0 0 3px var(--ax-border-focus);
+	outline: none;
 }
 
 .contextLink:hover {
-    background-color: var(--ax-bg-accent-strong);
-    border: 2px solid var(--ax-border-accent);
+	background-color: var(--ax-bg-accent-strong);
+	border: 2px solid var(--ax-border-accent);
 }
 
 .contextLinkTitle {
-    color: var(--ax-text-accent-subtle);
-    font-size: var(--ax-font-size-large);
-    font-weight: var(--ax-font-weight-bold);
+	color: var(--ax-text-accent-subtle);
+	font-size: var(--ax-font-size-large);
+	font-weight: var(--ax-font-weight-bold);
 }
 
 .contextLink:hover .contextLinkTitle {
-    color: var(--ax-text-accent-contrast);
+	color: var(--ax-text-accent-contrast);
 }
 
 .contextLinkDescription {
-    color: var(--ax-text-default);
+	color: var(--ax-text-default);
 }
 
 .contextLink:hover .contextLinkDescription {
-    color: var(--ax-text-accent-contrast);
+	color: var(--ax-text-accent-contrast);
 }

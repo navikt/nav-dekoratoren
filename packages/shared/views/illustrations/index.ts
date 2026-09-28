@@ -1,2 +1,2 @@
-export * from "./veileder";
-export * from "./katt-ingen-notifications";
+export * from './veileder';
+export * from './katt-ingen-notifications';

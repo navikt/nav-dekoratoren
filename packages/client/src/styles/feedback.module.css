@@ -1,27 +1,27 @@
 .feedback {
-    border-top: 2px solid var(--ax-neutral-300);
-    padding-block: var(--ax-space-16);
-    display: block;
+	border-top: 2px solid var(--ax-neutral-300);
+	padding-block: var(--ax-space-16);
+	display: block;
 }
 
 .feedbackContent {
-    margin-inline: auto;
-    /* 768px */
-    max-width: 48rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	margin-inline: auto;
+	/* 768px */
+	max-width: 48rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .buttonWrapper {
-    display: flex;
-    gap: var(--ax-space-8);
-    padding-inline: var(--ax-space-16);
+	display: flex;
+	gap: var(--ax-space-8);
+	padding-inline: var(--ax-space-16);
 }
 
 .feedbackSuccess {
-    text-align: center;
-    justify-items: center;
-    display: grid;
-    gap: var(--ax-space-4);
+	text-align: center;
+	justify-items: center;
+	display: grid;
+	gap: var(--ax-space-4);
 }

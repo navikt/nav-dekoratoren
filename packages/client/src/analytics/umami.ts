@@ -1,14 +1,10 @@
-import { env } from "../params";
-import {
-    getCurrentReferrer,
-    extraWindowParams,
-    buildLocationString,
-} from "./analytics";
-import { getDeviceParams } from "./deviceParams";
-import { redactData } from "./helpers/redactData";
-import { AnalyticsEventArgs, EventData } from "./types";
-import type { ModulerMetadata } from "decorator-shared/params";
-import { DEFAULT_ORIGIN } from "./constants";
+import { env } from '../params';
+import { getCurrentReferrer, extraWindowParams, buildLocationString } from './analytics';
+import { getDeviceParams } from './deviceParams';
+import { redactData } from './helpers/redactData';
+import { AnalyticsEventArgs, EventData } from './types';
+import type { ModulerMetadata } from 'decorator-shared/params';
+import { DEFAULT_ORIGIN } from './constants';
 
 /*
  * TIL UTVIKLER: ADVARSEL OM PERSONOPPLYSNINGER
@@ -21,103 +17,85 @@ import { DEFAULT_ORIGIN } from "./constants";
  */
 
 export const redactQueryString = (url: string): string => {
-    if (!url) return url;
-    if (!url.includes("?")) return url;
+	if (!url) return url;
+	if (!url.includes('?')) return url;
 
-    const [baseUrl] = url.split("?");
-    return baseUrl;
+	const [baseUrl] = url.split('?');
+	return baseUrl;
 };
 
 export const logUmamiEvent = async (
-    eventName: string,
-    eventData: EventData = {},
-    origin = DEFAULT_ORIGIN,
-    decoratorModuler?: ModulerMetadata,
+	eventName: string,
+	eventData: EventData = {},
+	origin = DEFAULT_ORIGIN,
+	decoratorModuler?: ModulerMetadata
 ) => {
-    if (
-        window.__DECORATOR_DATA__.features["dekoratoren.umami"] &&
-        typeof umami !== "undefined"
-    ) {
-        const url = buildLocationString({
-            includeOrigin: false,
-            includeHash: false,
-        });
-        // Internal adoption metadata. Use `besøk` events for
-        // moduler version/entry point stats. Missing analytics entry point means unknown/legacy.
-        return umami.track((props) =>
-            redactData({
-                ...props,
-                name: eventName === "besøk" ? undefined : eventName,
-                url,
-                id: window.webStorageController.getAnalyticsId(),
-                title: window.document.title,
-                referrer:
-                    eventName === "besøk"
-                        ? redactQueryString(
-                              getCurrentReferrer() ?? props.referrer,
-                          )
-                        : undefined,
-                data: {
-                    ...eventData,
-                    destinasjon: redactQueryString(eventData.destinasjon),
-                    origin,
-                    originVersion: eventData.originVersion || "unknown",
-                    viaDekoratoren: true,
-                    ...decoratorModuler,
-                    ...extraWindowParams(),
-                    ...getDeviceParams(),
-                },
-            }),
-        );
-    }
+	if (window.__DECORATOR_DATA__.features['dekoratoren.umami'] && typeof umami !== 'undefined') {
+		const url = buildLocationString({
+			includeOrigin: false,
+			includeHash: false,
+		});
+		// Internal adoption metadata. Use `besøk` events for
+		// moduler version/entry point stats. Missing analytics entry point means unknown/legacy.
+		return umami.track((props) =>
+			redactData({
+				...props,
+				name: eventName === 'besøk' ? undefined : eventName,
+				url,
+				id: window.webStorageController.getAnalyticsId(),
+				title: window.document.title,
+				referrer: eventName === 'besøk' ? redactQueryString(getCurrentReferrer() ?? props.referrer) : undefined,
+				data: {
+					...eventData,
+					destinasjon: redactQueryString(eventData.destinasjon),
+					origin,
+					originVersion: eventData.originVersion || 'unknown',
+					viaDekoratoren: true,
+					...decoratorModuler,
+					...extraWindowParams(),
+					...getDeviceParams(),
+				},
+			})
+		);
+	}
 };
 
 export const createUmamiEvent = (props: AnalyticsEventArgs) => {
-    const {
-        eventName: optionalEventName,
-        context,
-        pageType,
-        pageTheme,
-        ...rest
-    } = props;
+	const { eventName: optionalEventName, context, pageType, pageTheme, ...rest } = props;
 
-    const eventName = optionalEventName ?? "navigere";
-    return logUmamiEvent(eventName, {
-        // context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
-        målgruppe: context,
-        innholdstype: pageType,
-        tema: pageTheme,
-        søkeord: eventName === "søk" ? "[redacted: search]" : undefined,
-        ...rest,
-    });
+	const eventName = optionalEventName ?? 'navigere';
+	return logUmamiEvent(eventName, {
+		// context brukes i grensesnittet til dekoratøren, målgruppe er begrepet som brukes internt
+		målgruppe: context,
+		innholdstype: pageType,
+		tema: pageTheme,
+		søkeord: eventName === 'søk' ? '[redacted: search]' : undefined,
+		...rest,
+	});
 };
 
 export const initUmami = () => {
-    localStorage.removeItem("sporing.disabled");
-    const scriptUrl = env("UMAMI_SCRIPT_URL") || "";
-    if (window.__DECORATOR_DATA__.features["dekoratoren.umami"] && scriptUrl) {
-        const redactOptOut = (
-            window.__DECORATOR_DATA__.params.analyticsRedactFilter || []
-        ).join(",");
+	localStorage.removeItem('sporing.disabled');
+	const scriptUrl = env('UMAMI_SCRIPT_URL') || '';
+	if (window.__DECORATOR_DATA__.features['dekoratoren.umami'] && scriptUrl) {
+		const redactOptOut = (window.__DECORATOR_DATA__.params.analyticsRedactFilter || []).join(',');
 
-        const script = document.createElement("script");
-        script.src = scriptUrl;
-        script.defer = true;
-        script.setAttribute("data-host-url", `${env("UMAMI_PROXY_HOST")}`);
-        script.setAttribute("data-website-id", `${env("UMAMI_WEBSITE_ID")}`);
-        script.setAttribute("data-auto-track", "false");
-        script.setAttribute("data-opt-out-filters", redactOptOut);
-        document.head.appendChild(script);
-    }
+		const script = document.createElement('script');
+		script.src = scriptUrl;
+		script.defer = true;
+		script.setAttribute('data-host-url', `${env('UMAMI_PROXY_HOST')}`);
+		script.setAttribute('data-website-id', `${env('UMAMI_WEBSITE_ID')}`);
+		script.setAttribute('data-auto-track', 'false');
+		script.setAttribute('data-opt-out-filters', redactOptOut);
+		document.head.appendChild(script);
+	}
 };
 
 export const stopUmami = () => {
-    const umamiScript = document.querySelector(
-        `script[src="${env("UMAMI_SCRIPT_URL")}"]`,
-    );
-    localStorage.setItem("sporing.disabled", "1");
+	const umamiScript = document.querySelector(`script[src="${env('UMAMI_SCRIPT_URL')}"]`);
+	localStorage.setItem('sporing.disabled', '1');
 
-    if (umamiScript) {
-        umamiScript.remove();
-    }
+	if (umamiScript) {
+		umamiScript.remove();
+	}
 };
