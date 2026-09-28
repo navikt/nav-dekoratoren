@@ -86,7 +86,6 @@ export const parseAndValidateParams = (
 	requestType?: 'ssr' | 'csr'
 ): Params => {
 	const getConsumer = () => {
-		// Param som den konsumerende applikasjonen sender inn.
 		// Denne verdien blir en del av window.__DECORATOR_DATA__.params
 		if (query.teamName) {
 			if (teamNameSchema.safeParse(query.teamName).success) {
@@ -108,15 +107,21 @@ export const parseAndValidateParams = (
 
 	const consumer = getConsumer();
 
+	// Nav-dekoratoren-moduler varsler selv i appen når teamName mangler,
+	// så dekoratøren varsler kun for konsumenter uten moduler.
+	const usesModuler = Boolean(query.decoratorModulerVersion);
+
 	// Logges kun for inngangskall (/ssr, /csr). Oppfølgingskall fra klienten
 	// arver teamName via decoratorParams(), så consumer er allerede logget.
 	if (requestType) {
 		if (!consumer) {
-			logger.warn(
-				requestType === 'ssr'
-					? 'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
-					: 'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler). Hvis du bruker @navikt/nav-dekoratoren-moduler, må du angi teamName i injectDecoratorClientSide slik at forespørselen kan knyttes til riktig team.'
-			);
+			if (!usesModuler) {
+				logger.warn(
+					requestType === 'ssr'
+						? 'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
+						: 'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett query-parameteren teamName, eller sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler), slik at forespørselen kan knyttes til riktig team.'
+				);
+			}
 		} else {
 			logger.info('Decorator consumer info.', {
 				metaData: { consumer, requestType },

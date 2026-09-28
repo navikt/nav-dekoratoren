@@ -329,12 +329,20 @@ describe('Consumer identification', () => {
 			);
 		});
 
-		it('warns when no consumer can be identified on an entry request', () => {
+		it('warns when no consumer can be identified on an entry request without moduler', () => {
 			const { warn } = spyOnLogger();
 
 			parseAndValidateParams({}, {}, 'ssr');
 
 			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørselen'));
+		});
+
+		it('does not warn about a missing consumer when moduler is used, since moduler warns in the app', () => {
+			const { warn } = spyOnLogger();
+
+			parseAndValidateParams({ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'ssr' }, {}, 'ssr');
+
+			expect(warn).not.toHaveBeenCalled();
 		});
 
 		it('does not log consumer info on follow-up requests without requestType', () => {
