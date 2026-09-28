@@ -100,6 +100,32 @@ under fanen Actions:
 Når PR-en din er godkjent, kan du merge den til main, og en produksjonsdeploy blir automatisk
 trigget.
 
+### Versjonsproxy og metrikker
+
+`version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.
+Metrikken har etikettene `result` (`proxied`, `error_response`, `not_found`, `unreachable`),
+`origin` (`navno-frontend`, `other`, `unknown`) og `route` (`auth`, `header`, `footer`, `ssr`,
+`consentping`, `other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
+samles i `other`. Ruter utenfor de fem navngitte samles også i `other`. Versjons-ID og
+vilkårlige URL-er brukes ikke som etiketter.
+
+I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
+over antall forespørsler per resultat siste time:
+
+```promql
+sum by (result) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren"}[1h])
+)
+```
+
+For å fordele forespørsler mot interne apper som ikke finnes i DNS, grupper på `origin` og `route`:
+
+```promql
+sum by (origin, route) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",result="not_found"}[1h])
+)
+```
+
 ---
 
 ## Arkitektur og teknisk løsning

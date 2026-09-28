@@ -27,12 +27,13 @@ import { MainMenuTemplate } from './views/header/render-main-menu';
 import { buildDecoratorData } from './decorator-data';
 import { CONSUMER } from 'decorator-shared/constants';
 import { consentpingHandler } from './handlers/consentping-handler';
+import { INGRESS_PATH_PREFIXES } from './ingress-path-prefixes';
 import z from 'zod';
 
 // Ingresses don't strip the path prefix, so every route must be served under
 // each of these. See the ingresses in .nais/vars/*.yml - ingress-prefixes.test.ts
 // fails if this list and those files drift apart.
-export const INGRESS_PATH_PREFIXES = ['/', '/dekoratoren', '/common-html/v4/navno'] as const;
+export { INGRESS_PATH_PREFIXES } from './ingress-path-prefixes';
 
 // Use the global registry, so metrics defined outside this middleware (e.g. in version-proxy) are exposed too
 const { printMetrics, registerMetrics } = prometheus({ registry: register });
