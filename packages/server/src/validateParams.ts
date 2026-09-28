@@ -4,6 +4,7 @@ import {
 	AvailableLanguage,
 	modulerEntryPointSchema,
 	modulerVersionSemverSchema,
+	teamNameSchema,
 } from 'decorator-shared/params';
 import { P, match } from 'ts-pattern';
 import { ZodBoolean, ZodDefault } from 'zod';
@@ -88,7 +89,14 @@ export const parseAndValidateParams = (
 		// Param som den konsumerende applikasjonen sender inn.
 		// Denne verdien blir en del av window.__DECORATOR_DATA__.params
 		if (query.teamName) {
-			return `teamName: ${query.teamName}`;
+			if (teamNameSchema.safeParse(query.teamName).success) {
+				return `teamName: ${query.teamName}`;
+			}
+			if (requestType) {
+				logger.warn('Ugyldig teamName. Forventet format: <app>.<namespace>, f.eks. nav-dekoratoren.navno', {
+					metaData: { teamName: query.teamName.slice(0, 100), requestType },
+				});
+			}
 		}
 
 		// Automatisk fallback: nettleseren setter alltid Origin-headeren ved
@@ -100,20 +108,20 @@ export const parseAndValidateParams = (
 
 	const consumer = getConsumer();
 
-	if (!consumer) {
-		if (requestType === 'ssr') {
+	// Logges kun for inngangskall (/ssr, /csr). Oppfølgingskall fra klienten
+	// arver teamName via decoratorParams(), så consumer er allerede logget.
+	if (requestType) {
+		if (!consumer) {
 			logger.warn(
-				'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
+				requestType === 'ssr'
+					? 'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
+					: 'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler). Hvis du bruker @navikt/nav-dekoratoren-moduler, må du angi teamName i injectDecoratorClientSide slik at forespørselen kan knyttes til riktig team.'
 			);
 		} else {
-			logger.warn(
-				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler). Hvis du bruker @navikt/nav-dekoratoren-moduler, må du angi teamName i injectDecoratorClientSide slik at forespørselen kan knyttes til riktig team.'
-			);
+			logger.info('Decorator consumer info.', {
+				metaData: { consumer, requestType },
+			});
 		}
-	} else {
-		logger.info('Decorator consumer info.', {
-			metaData: { consumer },
-		});
 	}
 
 	const validParams = paramsSchema.safeParse(validateParams(query));

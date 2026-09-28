@@ -10,7 +10,7 @@ describe('teamName validation', () => {
 		expect(params.teamName).toBe('nav-dekoratoren.navno');
 	});
 
-	it('rejects team names with whitespace, uppercase letters, or norwegian characters', () => {
+	it('drops team names with whitespace, uppercase letters, norwegian characters or a missing dot instead of throwing', () => {
 		const invalidValues = [
 			'Nav-dekoratoren.navno',
 			'nav-dekøratoren.navno',
@@ -19,7 +19,7 @@ describe('teamName validation', () => {
 		];
 
 		for (const teamName of invalidValues) {
-			expect(() => paramsSchema.parse({ teamName })).toThrow();
+			expect(paramsSchema.parse({ teamName }).teamName).toBeUndefined();
 		}
 	});
 });
