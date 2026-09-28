@@ -189,7 +189,7 @@ fetch('https://www.nav.no/dekoratoren/ssr?context=privatperson&teamName=team-nav
 ```
 
 💡 **Konsumentlogging:** Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan
-knyttes tilbake til riktig team. Identiteten utledes i denne prioriterte rekkefølgen: Se
+knyttes tilbake til riktig team. Se
 [Innebygde funksjoner i Dekoratøren](#innebygde-funksjoner-i-dekoratoren) for detaljer.
 
 Hvis du bruker SSR uten `@navikt/nav-dekoratoren-moduler` må du sette `teamName` i
@@ -1234,25 +1234,39 @@ tilpassede implementasjon, må du sørge for at dine CSP-headere samsvarer med d
 Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan knyttes tilbake til
 riktig team. Identiteten utledes i denne prioriterte rekkefølgen:
 
-| Prioritet | Kilde                           | Hvem / Når                                                     |
-| --------- | ------------------------------- | -------------------------------------------------------------- |
-| 1         | `naisAppName` / `naisNamespace` | SSR via moduler – sendes automatisk fra server (`process.env`) |
-| 2         | `teamName`-parameter            | SSR uten moduler eller CSR med moduler – settes manuelt        |
-| 3         | `Origin`-header                 | CSR uten moduler – automatisk fallback fra nettleseren         |
-| 4         | `"unknown"`                     | Ingen identitet tilgjengelig                                   |
+| Prioritet | Kilde                                                    | Hvem / Når                                                            |
+| --------- | -------------------------------------------------------- | --------------------------------------------------------------------- |
+| 1         | `NAIS_APP_NAME` / `NAIS_NAMESPACE`, sendt som `teamName` | SSR via moduler – settes automatisk fra appens server (`process.env`) |
+| 2         | `teamName`-parameter                                     | SSR uten moduler eller CSR med moduler – settes manuelt               |
+| 3         | `Origin`-header                                          | CSR uten moduler – automatisk fallback fra nettleseren                |
+| 4         | `"unknown"`                                              | Ingen identitet tilgjengelig                                          |
 
-Konsumentidentitet er basert på `naisAppName`/`naisNamespace`, `teamName` og `Origin`.
+Dekoratøren leser selv bare `teamName`-parameteren og `Origin`-headeren. Ved SSR via moduler
+bygger moduler-pakken `teamName` automatisk som `NAIS_APP_NAME.NAIS_NAMESPACE`, og denne verdien
+går foran en `teamName` satt manuelt. Konsumenten logges én gang per sidelast, på inngangskallet
+til `/ssr` eller `/csr`.
+
 Dekoratøren gjør enkelte kall fra klienten (f.eks. `/auth`) uavhengig av om siden i
 utgangspunktet ble rendret med SSR eller CSR. En egendefinert header satt på det første
 SSR-kallet ville aldri blitt husket til disse senere klient-kallene. `teamName` som
 query-parameter blir derimot en del av `window.__DECORATOR_DATA__.params`, og følger dermed
 automatisk med på alle senere kall Dekoratøren selv gjør fra nettleseren.
 
+**Ugyldig eller manglende `teamName`**
+
+En ugyldig `teamName` fører ikke til at Dekoratøren feiler. Verdien forkastes, Dekoratøren logger
+et varsel, og `Origin`-headeren brukes som fallback hvis den finnes.
+
+Hvis ingen konsument kan identifiseres, varsler Dekoratøren bare for apper som ikke bruker
+moduler-pakken. Bruker appen moduler-pakken, er det moduler-pakken som varsler i appen, slik at
+teamet ser varselet i sine egne logger.
+
 **1. SSR via moduler-pakken (anbefalt):**
 
-Konsumentidentitet settes automatisk via `NAIS_APP_NAME` og `NAIS_NAMESPACE`,
-som injiseres av Nais-plattformen i alle pods. Ingen ekstra konfigurasjon er nødvendig.
-Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang).
+`teamName` settes automatisk til `NAIS_APP_NAME.NAIS_NAMESPACE`. Disse variablene injiseres av
+Nais-plattformen i alle pods, så ingen ekstra konfigurasjon er nødvendig.
+Dersom `NAIS_APP_NAME` ikke er satt, logges et varsel til konsollen (én gang), og en eventuell
+manuelt satt `teamName` brukes i stedet.
 
 **2. SSR uten moduler-pakken eller CSR via moduler-pakken:**
 
