@@ -195,8 +195,8 @@ importers:
         specifier: 'catalog:'
         version: 8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@navikt/nav-dekoratoren-moduler':
-        specifier: 4.2.2
-        version: 4.2.2(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)
+        specifier: 4.3.1-beta.2
+        version: 4.3.1-beta.2(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)
       next:
         specifier: 16.3.3
         version: 16.3.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.101.0)
@@ -984,8 +984,8 @@ packages:
   '@navikt/ds-tokens@8.16.1':
     resolution: {integrity: sha512-PTLN5EWkfprObW3sJfRqcZvYOTMpG2l92VrMYeVX272hPlKn7an9eodZ6ggIMTEeNoQ+MuOhN0wEVk6Cbs77SA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.16.1/f1ac550ff75679021d1c3a21997f33a9728a6a01}
 
-  '@navikt/nav-dekoratoren-moduler@4.2.2':
-    resolution: {integrity: sha512-1V/fOlgTNzTWRzIgtJwymamj6NgppZdcRTiy9OXO57PwEA6lCoWX9qXh82Zgxl0pOYQQ7QOUH9DOfKov18h3wQ==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.2.2/9982b2b38e397df0e9b0cd886beb3d16d0b97a61}
+  '@navikt/nav-dekoratoren-moduler@4.3.1-beta.2':
+    resolution: {integrity: sha512-8wcMMNZUXX+b1L/+2XLo8oLjSkVME1mISY24/7Foh1c7N3e4DiwIh7pAbUDfYC4c4F/BOBpatp37Gskbc8kX+Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.3.1-beta.2/41e9dd992e2030fb94c4ba96a814846b02a93965}
     engines: {node: 24.x}
     peerDependencies:
       html-react-parser: '>=5.x'
@@ -2490,6 +2490,10 @@ packages:
     resolution: {integrity: sha512-ykcqGMOGP/uU7RLXDD83k2Ge5Stgc/N3qgKgSN+dATDlNgLHnIoI1IdZBjOskD5Ev1RSKTabLdIETJ6VzXTmvA==}
     engines: {node: '>=18'}
 
+  csp-header@6.4.0:
+    resolution: {integrity: sha512-9YEpW20tPtKzVouyAxNtXqSE4EGaTd4ZiT1n/FbUQ5xhmFkPCjC3Db/gHDbesryQoO/TigBAUCqgKypOHviRgQ==}
+    engines: {node: '>=18'}
+
   css-select@6.0.0:
     resolution: {integrity: sha512-rZZVSLle8v0+EY8QAkDWrKhpgt6SA5OtHsgBnsj6ZaLb5dmDVOWUDtQitd9ydxxvEjhewNudS6eTVU7uOyzvXw==}
 
@@ -3344,10 +3348,6 @@ packages:
   iterator.prototype@1.1.5:
     resolution: {integrity: sha512-H0dkQoCa3b2VEeKQBOxFph+JAbcrQdE7KC0UkqwpLmv2EC4P41QXP+rqo9wYodACiG5/WM5s9oDApTU8utwj9g==}
     engines: {node: '>= 0.4'}
-
-  js-cookie@3.0.7:
-    resolution: {integrity: sha512-z/wZZgDrkNV1eA0ULjM/F9/50Ya8fbzgKneSpoPsXSGd0KnpdtHfOZWK+GcwLk+EZbS4F9RBhU+K2RgzuDaItw==}
-    engines: {node: '>=20'}
 
   js-cookie@3.0.8:
     resolution: {integrity: sha512-yeJd4aNAdYZQjaon2bpD/Gb0B/omw7HQOsynXXcOiWVCacbBcPlgn8S/d1X6blFSaHao7ozqtW7NZW19xpCtIw==}
@@ -5608,12 +5608,12 @@ snapshots:
 
   '@navikt/ds-tokens@8.16.1': {}
 
-  '@navikt/nav-dekoratoren-moduler@4.2.2(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)':
+  '@navikt/nav-dekoratoren-moduler@4.3.1-beta.2(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@navikt/analytics-types': 0.0.9
-      csp-header: 6.3.1
+      csp-header: 6.4.0
       html-react-parser: 6.0.1(@types/react@19.2.18)(react@19.2.8)
-      js-cookie: 3.0.7
+      js-cookie: 3.0.8
       react: 19.2.8
 
   '@next/env@16.3.3': {}
@@ -6912,6 +6912,8 @@ snapshots:
 
   csp-header@6.3.1: {}
 
+  csp-header@6.4.0: {}
+
   css-select@6.0.0:
     dependencies:
       boolbase: 1.0.0
@@ -7938,8 +7940,6 @@ snapshots:
       get-proto: 1.0.1
       has-symbols: 1.1.0
       set-function-name: 2.0.2
-
-  js-cookie@3.0.7: {}
 
   js-cookie@3.0.8: {}
 
