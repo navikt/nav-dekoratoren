@@ -1,12 +1,12 @@
 import {
-	paramsSchema,
-	type Params,
 	AvailableLanguage,
 	modulerEntryPointSchema,
 	modulerVersionSemverSchema,
+	type Params,
+	paramsSchema,
 	teamNameSchema,
 } from 'decorator-shared/params';
-import { P, match } from 'ts-pattern';
+import { match, P } from 'ts-pattern';
 import { ZodBoolean, ZodDefault } from 'zod';
 import { logger } from './lib/logger';
 
@@ -107,23 +107,33 @@ export const parseAndValidateParams = (
 
 	const consumer = getConsumer();
 
-	// Nav-dekoratoren-moduler varsler selv i appen når teamName mangler,
-	// så dekoratøren varsler kun for konsumenter uten moduler.
+	// Moduler varsler selv om manglende params.teamName ved CSR.
+	// Serveren varsler i tillegg hvis verken teamName eller Origin identifiserer appen.
 	const usesModuler = Boolean(query.decoratorModulerVersion);
 
 	// Logges kun for inngangskall (/ssr, /csr). Oppfølgingskall fra klienten
 	// arver teamName via decoratorParams(), så consumer er allerede logget.
 	if (requestType) {
 		if (!consumer) {
-			if (!usesModuler) {
-				logger.warn(
-					requestType === 'ssr'
-						? 'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
-						: 'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
-					{ metaData: { consumer: 'unknown', requestType } }
-				);
+			if (usesModuler) {
+				if (requestType === 'csr') {
+					logger.warn(
+						'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett params.teamName i injectDecoratorClientSide, eller sørg for at nettleseren sender en Origin-header, slik at forespørselen kan knyttes til riktig team.',
+						{ metaData: { consumer: 'unknown', requestType } }
+					);
+				}
+			} else {
+				if (requestType === 'ssr') {
+					logger.warn(
+						'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
+					);
+				} else if (requestType === 'csr')
+					logger.warn(
+						'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
+						{ metaData: { consumer: 'unknown', requestType } }
+					);
 			}
-		} else {
+		} else if (consumer) {
 			logger.info('Decorator consumer info.', {
 				metaData: { consumer, requestType },
 			});

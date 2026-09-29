@@ -1257,9 +1257,9 @@ automatisk med på alle senere kall Dekoratøren selv gjør fra nettleseren.
 En ugyldig `teamName` fører ikke til at Dekoratøren feiler. Verdien forkastes, Dekoratøren logger
 et varsel, og `Origin`-headeren brukes som fallback hvis den finnes.
 
-Hvis ingen konsument kan identifiseres, varsler Dekoratøren bare for apper som ikke bruker
-moduler-pakken. Bruker appen moduler-pakken, er det moduler-pakken som varsler i appen, slik at
-teamet ser varselet i sine egne logger.
+Når ingen konsument kan identifiseres, varsler Dekoratørens server for apper uten moduler.
+Ved CSR med moduler varsler moduler-pakken i appen, og serveren varsler også hvis både
+`teamName` og `Origin` mangler.
 
 **1. SSR via moduler-pakken (anbefalt):**
 
@@ -1268,10 +1268,10 @@ Nais-plattformen i alle pods, så ingen ekstra konfigurasjon er nødvendig.
 Dersom `NAIS_APP_NAME` eller `NAIS_NAMESPACE` ikke er satt, logges et varsel til konsollen (én gang), og en eventuell
 manuelt satt `teamName` brukes i stedet.
 
-**2. SSR uten moduler-pakken eller CSR via moduler-pakken:**
+**2. SSR uten moduler-pakken**
 
-Sett `teamName` som query-parameter i forespørselen, eller i `params` til
-`injectDecoratorClientSide`, for å bli identifisert i logger og feilmeldinger.
+Sett `teamName` som query-parameter i forespørselen for å bli identifisert i logger og
+feilmeldinger. Hvis serveren ikke kan identifisere appen, logger den et varsel.
 
 `teamName` må være et gyldig konsumentnavn i formatet `teamnavn.namespace`. Verdien må:
 
@@ -1281,6 +1281,34 @@ Sett `teamName` som query-parameter i forespørselen, eller i `params` til
 - kun bruke `a-z`, `0-9`, `-` og `.`
 
 Eksempler: `team-navno.navno`, `min-side.personbruker`, `digihot.felles`.
+
+Ved kall via offentlig ingress legger du parameteren i URL-en:
+
+```ts
+const response = await fetch('https://www.nav.no/dekoratoren/ssr?teamName=team-navno.navno');
+```
+
+Hvis appen kjører på Nais, kan serveren i stedet bruke `service discovery`. Gi appen tilgang til
+Dekoratøren i sitt Nais-manifest:
+
+```yaml
+spec:
+  accessPolicy:
+    outbound:
+      rules:
+        - application: nav-dekoratoren
+          namespace: personbruker
+```
+
+Bruk service-hosten uten `/dekoratoren` foran `/ssr`. `teamName` settes på samme måte:
+
+```ts
+const response = await fetch('http://nav-dekoratoren.personbruker/ssr?teamName=team-navno.navno');
+```
+
+**3. CSR med moduler-pakken**
+
+Sett `params.teamName` i `injectDecoratorClientSide`. Formatkravene over gjelder også her.
 
 ```ts
 injectDecoratorClientSide({
@@ -1292,10 +1320,12 @@ injectDecoratorClientSide({
 });
 ```
 
-Dersom `teamName` ikke settes, brukes `Origin`-headeren som nettleseren setter automatisk.
-Et varsel logges til konsollen som påminnelse.
+Hvis `params.teamName` mangler, bruker Dekoratøren nettleserens `Origin`-header. Moduler-pakken
+varsler i appens konsoll om at `params.teamName` må settes. Hvis også `Origin` mangler, varsler
+Dekoratørens server.
 
-**3. CSR uten moduler-pakken:**
+**4. CSR uten moduler-pakken**
+
 `Origin`-headeren settes automatisk av nettleseren ved forespørsler til et annet domene.
 Ingen ekstra konfigurasjon er nødvendig. Hvis headeren mangler, logger serveren et varsel
 med `consumer: unknown`.

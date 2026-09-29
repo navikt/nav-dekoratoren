@@ -357,16 +357,47 @@ describe('Consumer identification', () => {
 			parseAndValidateParams({}, {}, 'csr');
 
 			expect(info).not.toHaveBeenCalled();
-			expect(warn).toHaveBeenCalledWith(expect.stringContaining('CSR-forespørselen'), {
-				metaData: { consumer: 'unknown', requestType: 'csr' },
-			});
+			expect(warn).toHaveBeenCalledWith(
+				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
+				{
+					metaData: { consumer: 'unknown', requestType: 'csr' },
+				}
+			);
 		});
 
-		it('does not warn about a missing consumer when moduler is used, since moduler warns in the app', () => {
-			const { warn } = spyOnLogger();
+		it('warns on the server for CSR with moduler when both teamName and Origin are missing', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams({ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'csr' }, {}, 'csr');
+
+			expect(warn).toHaveBeenCalledWith(
+				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett params.teamName i injectDecoratorClientSide, eller sørg for at nettleseren sender en Origin-header, slik at forespørselen kan knyttes til riktig team.',
+				{ metaData: { consumer: 'unknown', requestType: 'csr' } }
+			);
+			expect(info).not.toHaveBeenCalled();
+		});
+
+		it('does not warn on the server for SSR with moduler when the consumer is missing', () => {
+			const { info, warn } = spyOnLogger();
 
 			parseAndValidateParams({ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'ssr' }, {}, 'ssr');
 
+			expect(warn).not.toHaveBeenCalled();
+			expect(info).not.toHaveBeenCalled();
+		});
+
+		it('does not warn for CSR with moduler when Origin identifies the consumer', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams(
+				{ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'csr' },
+				{ origin: 'https://min-app.nav.no' },
+				'csr'
+			);
+
+			expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
+				metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+			});
 			expect(warn).not.toHaveBeenCalled();
 		});
 
