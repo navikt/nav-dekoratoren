@@ -190,10 +190,10 @@ fetch('https://www.nav.no/dekoratoren/ssr?context=privatperson&teamName=team-nav
 
 💡 **Konsumentlogging:** Dekoratøren logger hvilket team som kaller den, slik at feil i logger kan
 knyttes tilbake til riktig team. Se
-[Innebygde funksjoner i Dekoratøren](#innebygde-funksjoner-i-dekoratoren) for detaljer.
+[Innebygde funksjoner i Dekoratøren](#10-innebygde-funksjoner-i-dekoratoren) for detaljer.
 
 Hvis du bruker SSR uten `@navikt/nav-dekoratoren-moduler` må du sette `teamName` i
-forespørselen som et parameter, slik at feil i logger kan knyttes til teamet ditt.
+forespørselen som en parameter, slik at feil i logger kan knyttes til teamet ditt.
 Eksempler: `team-navno.navno`, `min-side.personbruker`, `digihot.felles`.
 
 ### 2.3 Ikke anbefalt: Direkte Client-Side rendering (CSR-integrasjon)
