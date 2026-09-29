@@ -11,7 +11,7 @@ export const nb = {
     did_you_find: "Fant du det du lette etter?",
     search: "Søk",
     search_nav_no: "Søk på nav.no",
-    consent_banner_title: "Får vi bruke valgfrie informasjon&shy;skapsler?",
+    consent_banner_title: "Får vi samle informasjon om hvordan nav.no brukes?",
     consent_banner_text: ({ url }: UrlArg) =>
         html`Svarer du ja, lagrer og analyserer vi informasjon som hjelper oss å
             forbedre nav.no. Du kan når som helst endre valget ditt i menyen
