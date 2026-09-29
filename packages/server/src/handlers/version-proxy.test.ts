@@ -273,7 +273,7 @@ describe('versionProxyHandler', () => {
 		['not_found', notFoundError],
 		['unreachable', unreachableError],
 	])('logs %s at info level first, and warns once it has persisted for ten minutes', async (_, error) => {
-		vi.useFakeTimers({ shouldAdvanceTime: true });
+		vi.useFakeTimers();
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(error()));
 
 		const app = buildApp(await loadHandler());
