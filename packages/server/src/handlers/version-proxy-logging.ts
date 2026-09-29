@@ -14,6 +14,7 @@ type ProblemResult = (typeof PROBLEM_RESULTS)[number];
 type ProxyRequestMetadata = {
 	path: string;
 	origin?: string;
+	teamName?: string;
 	pageType?: string;
 	decoratorModulerVersion?: string;
 	decoratorModulerEntryPoint?: string;
@@ -24,10 +25,12 @@ const getBoundedQueryValue = (url: URL, key: string) => url.searchParams.get(key
 const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => {
 	const url = new URL(request.url);
 	const origin = getBoundedQueryValue(url, 'origin');
+	const teamName = getBoundedQueryValue(url, 'teamName');
 
 	return {
 		path: url.pathname.slice(0, 100),
 		origin: origin && /^[a-z0-9][a-z0-9._-]*$/i.test(origin) ? origin : undefined,
+		teamName: teamName && /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(teamName) ? teamName : undefined,
 		pageType: getBoundedQueryValue(url, 'pageType'),
 		decoratorModulerVersion: getBoundedQueryValue(url, 'decoratorModulerVersion'),
 		decoratorModulerEntryPoint: getBoundedQueryValue(url, 'decoratorModulerEntryPoint'),
@@ -43,10 +46,14 @@ type ProblemLogState = {
 
 const problemLogStates = new Map<string, ProblemLogState>();
 
-// Without an origin, moduler version and entry point are used to tell requesters apart
+// Prefer explicit consumer identity; origin is shared by some applications.
 const getProblemLogKey = (result: ProblemResult, requestedVersion: string, requestMetadata: ProxyRequestMetadata) => {
-	const { origin, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
-	const requesterKey = origin ? [origin] : [null, decoratorModulerVersion, decoratorModulerEntryPoint];
+	const { teamName, origin, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
+	const requesterKey = teamName
+		? ['teamName', teamName]
+		: origin
+			? ['origin', origin]
+			: [null, decoratorModulerVersion, decoratorModulerEntryPoint];
 	return JSON.stringify([result, requestedVersion, ...requesterKey]);
 };
 

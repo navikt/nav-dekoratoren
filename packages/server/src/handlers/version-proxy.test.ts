@@ -175,6 +175,7 @@ describe('versionProxyHandler', () => {
 		const app = buildApp(await loadHandler());
 		const res = await requestWithVersion(app, STALE_VERSION_ID, {
 			origin: 'navno-frontend',
+			teamName: 'nav-enonicxp-frontend.personbruker',
 			pageType: 'Forside',
 			decoratorModulerVersion: '4.3.0',
 			decoratorModulerEntryPoint: 'ssr',
@@ -196,6 +197,7 @@ describe('versionProxyHandler', () => {
 			path: '/',
 			errorCode: 'ECONNREFUSED',
 			origin: 'navno-frontend',
+			teamName: 'nav-enonicxp-frontend.personbruker',
 			pageType: 'Forside',
 			decoratorModulerVersion: '4.3.0',
 			decoratorModulerEntryPoint: 'ssr',
@@ -244,6 +246,27 @@ describe('versionProxyHandler', () => {
 		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'evil\napp' });
 
 		expect(proxyLogs(infoSpy)[0]).toContain('origin: unknown');
+	});
+
+	it('logs separately by team name when origin is shared', async () => {
+		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(unreachableError()));
+
+		const app = buildApp(await loadHandler());
+		await requestWithVersion(app, STALE_VERSION_ID, {
+			origin: 'navno-frontend',
+			teamName: 'first-app.personbruker',
+		});
+		await requestWithVersion(app, STALE_VERSION_ID, {
+			origin: 'navno-frontend',
+			teamName: 'second-app.personbruker',
+		});
+
+		const logs = proxyLogs(infoSpy);
+		expect(logs).toHaveLength(2);
+		expect(logs.map((log) => parseMetaData(log).teamName)).toEqual([
+			'first-app.personbruker',
+			'second-app.personbruker',
+		]);
 	});
 
 	it.each([

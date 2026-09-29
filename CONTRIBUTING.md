@@ -121,23 +121,30 @@ Metrikken har etikettene `result` (`proxied`, `error_response`, `not_found`, `un
 `consentping`, `other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
 samles i `other`. Ruter utenfor de fem navngitte samles også i `other`. Versjons-ID og
 vilkårlige URL-er brukes ikke som etiketter.
+Strukturerte versjonsproxy-logger inkluderer `teamName` når konsumenten sender det, slik at feil
+kan spores til en konkret applikasjon uten å øke metrikkens kardinalitet.
 
 I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
-over antall forespørsler per resultat siste time:
+over forespørsler per resultat siste time. Filteret `origin=~".+"` utelater eldre metrikktidsserier
+fra før `origin`-etiketten ble innført:
 
 ```promql
 sum by (result) (
-  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren"}[1h])
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",origin=~".+"}[1h])
 )
 ```
 
-For å fordele forespørsler mot interne apper som ikke finnes i DNS, grupper på `origin` og `route`:
+For å følge forespørsler der versjonens interne app ikke lenger finnes, fordel `not_found` på
+`origin` og `route`:
 
 ```promql
 sum by (origin, route) (
-  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",result="not_found"}[1h])
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",result="not_found",origin=~".+"}[1h])
 )
 ```
+
+`teamName` finnes i strukturerte logger, ikke som metriketikett. Bruk OpenSearch for å filtrere
+proxylogger på `x_metaData.teamName`; ikke legg teamnavn eller versjons-ID-er til metriketiketter.
 
 ---
 
