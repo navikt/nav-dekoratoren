@@ -14,8 +14,8 @@ export const nb = {
     consent_banner_title: "Får vi samle informasjon om hvordan nav.no brukes?",
     consent_banner_text: ({ url }: UrlArg) =>
         html`Svarer du ja, lagrer og analyserer vi informasjon som hjelper oss å
-            forbedre nav.no. Du kan når som helst endre valget ditt i menyen
-            nederst på siden. Mer om
+            forbedre nav.no. Du kan når som helst endre valget ditt nederst på
+            siden. Mer om
             <a href="${url}"
                 >informasjonskapsler, hva vi lagrer og hvorfor.</a
             >`,
@@ -129,8 +129,8 @@ const en: Texts = {
     consent_banner_title: "Can we use optional cookies?",
     consent_banner_text: ({ url }: UrlArg) =>
         html`If you answer yes, we will store and analyse information that helps
-            us improve nav.no. You can change your answer at any time using the
-            menu at the bottom of the page. Learn more about
+            us improve nav.no. You can change your answer at any time at the
+            bottom of the page. Learn more about
             <a href="${url}">cookies, what information we store, and why</a>.`,
     consent_banner_consent_all: "Yes",
     consent_banner_refuse_optional: "No",

@@ -147,6 +147,84 @@ describe("Tester webStorage", () => {
         }
     });
 
+    it("eksplisitt visning via showConsentBanner gir reshow og sender begge eventene", () => {
+        const controller = createController();
+        expect(document.documentElement.dataset.decoratorConsent).toBe(
+            "pending",
+        );
+
+        const showEvent = vi.fn();
+        const reshowEvent = vi.fn();
+        const listenerController = new AbortController();
+        const { signal } = listenerController;
+        window.addEventListener("showConsentBanner", showEvent, { signal });
+        window.addEventListener("reshowConsentBanner", reshowEvent, {
+            signal,
+        });
+
+        controller.showConsentBanner();
+
+        expect(document.documentElement.dataset.decoratorConsent).toBe(
+            "reshow",
+        );
+        expect(showEvent).toHaveBeenCalledTimes(1);
+        expect(reshowEvent).toHaveBeenCalledTimes(1);
+
+        listenerController.abort();
+    });
+
+    it("klikk på data-consent-banner-trigger gir reshow og sender begge eventene", () => {
+        createController();
+
+        // Mirrors the "Endre samtykke" link rendered by the main menu.
+        const trigger = document.createElement("a");
+        trigger.href = "#";
+        trigger.dataset.consentBannerTrigger = "true";
+        document.body.append(trigger);
+
+        const showEvent = vi.fn();
+        const reshowEvent = vi.fn();
+        const listenerController = new AbortController();
+        const { signal } = listenerController;
+        window.addEventListener("showConsentBanner", showEvent, { signal });
+        window.addEventListener("reshowConsentBanner", reshowEvent, {
+            signal,
+        });
+
+        try {
+            trigger.click();
+
+            expect(document.documentElement.dataset.decoratorConsent).toBe(
+                "reshow",
+            );
+            expect(showEvent).toHaveBeenCalledTimes(1);
+            expect(reshowEvent).toHaveBeenCalledTimes(1);
+        } finally {
+            listenerController.abort();
+            trigger.remove();
+        }
+    });
+
+    it("consent-reset i URL-en gir reshow, også når pre-paint-skriptet har satt decided", () => {
+        // What the pre-paint script sets for users with valid consent.
+        document.documentElement.dataset.decoratorConsent = "decided";
+        window.location.hash = "consent-reset";
+
+        try {
+            createController();
+
+            expect(document.documentElement.dataset.decoratorConsent).toBe(
+                "reshow",
+            );
+        } finally {
+            history.replaceState(
+                null,
+                "",
+                window.location.pathname + window.location.search,
+            );
+        }
+    });
+
     it("kjente frivillige cookies slettes når cookie-banner vises", async () => {
         expect(Cookies.get("usertest-1234")).toBe("foobar");
         expect(Cookies.get("AMP_1234")).toBe("foobar");

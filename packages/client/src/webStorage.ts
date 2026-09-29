@@ -16,10 +16,13 @@ import {
 const DECORATOR_DATA_TIMEOUT = 5000;
 
 // States
-//   pending  banner in normal flow at the top of the page
+//   pending  banner in normal flow at the top of the page. Only set by the
+//            automatic check for missing/outdated consent, mirroring the
+//            pre-paint script so the banner doesn't move once JS runs.
 //   decided  hidden (also the CSS default, so the banner cannot cause layout
 //            shift for the majority of users who have already consented)
-//   reshow   docked to the bottom of the viewport
+//   reshow   docked to the bottom of the viewport. Used whenever the banner is
+//            shown explicitly: public methods, trigger links, #consent-reset.
 type ConsentBannerState = "pending" | "decided" | "reshow";
 
 export class WebStorageController {
@@ -178,7 +181,7 @@ export class WebStorageController {
 
                 if (triggerElement) {
                     event.preventDefault();
-                    this.reshowConsentBanner();
+                    this.showConsentBanner();
                 }
             },
             { signal },
@@ -270,6 +273,18 @@ export class WebStorageController {
         return hostnameMatched || userAgentMatched;
     };
 
+    private promptForConsent = () => {
+        this.resetConsentHandler();
+        this.setConsentBannerState("pending");
+        window.dispatchEvent(createEvent("showConsentBanner", {}));
+    };
+
+    private reshowConsentBanner = () => {
+        this.resetConsentHandler();
+        this.setConsentBannerState("reshow");
+        window.dispatchEvent(createEvent("reshowConsentBanner", {}));
+    };
+
     private checkAndTriggerConsentBanner = () => {
         // An unanswered re-consent prompt must survive a header re-render. refreshHeader
         // fires recheckConsentBanner, and by that point reshowConsentBanner has already
@@ -300,7 +315,7 @@ export class WebStorageController {
         const { userActionTaken, meta } = this.getCurrentConsent();
         if (!userActionTaken || meta.version < this.currentConsentVersion) {
             this.clearOptionalStorage();
-            this.showConsentBanner();
+            this.promptForConsent();
         }
     };
 
@@ -309,15 +324,9 @@ export class WebStorageController {
      * ----------------------------------------------------------------------- */
 
     public showConsentBanner = () => {
-        this.resetConsentHandler();
-        this.setConsentBannerState("pending");
+        this.reshowConsentBanner();
+        // Nothing in the decorator listens for this, but consumers might.
         window.dispatchEvent(createEvent("showConsentBanner", {}));
-    };
-
-    public reshowConsentBanner = () => {
-        this.resetConsentHandler();
-        this.setConsentBannerState("reshow");
-        window.dispatchEvent(createEvent("reshowConsentBanner", {}));
     };
 
     public getCurrentConsent = (): Consent => {
