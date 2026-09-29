@@ -125,7 +125,8 @@ export const parseAndValidateParams = (
 			} else {
 				if (requestType === 'ssr') {
 					logger.warn(
-						'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
+						'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.',
+						{ metaData: { consumer: 'unknown', requestType } }
 					);
 				} else if (requestType === 'csr')
 					logger.warn(
