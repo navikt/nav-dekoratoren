@@ -17,7 +17,15 @@ type SsrPayload = {
 
 export const ssrApiHandler: Handler = async ({ req, json }) => {
 	const query = req.query();
-	const params = parseAndValidateParams(query);
+
+	const params = parseAndValidateParams(
+		query,
+		{
+			origin: req.header('origin'),
+		},
+		'ssr'
+	);
+
 	const features = getFeatures();
 
 	return json({

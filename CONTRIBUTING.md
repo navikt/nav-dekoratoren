@@ -78,6 +78,19 @@ Noen vennlige påminnelser før du begynner:
   på endringene dine, finnes det en beta-ingress hvor det er mer aksept for at ting kan gå i
   stykker. Se GitHub Action-en `Deploy to Team Nav.no beta`.
 
+### Konsumentlogging
+
+Når du tester en integrasjon som kaller Dekoratøren direkte, bør du sette `teamName` slik at
+logger kan knyttes til riktig team.
+
+`teamName` skal følge formatet `teamnavn.namespace`, der hver del kun bruker små bokstaver, tall,
+bindestrek og punktum. Eksempler: `team-navno.navno`, `minside.personbruker`.
+
+Dette gjelder særlig ved:
+
+- SSR uten `@navikt/nav-dekoratoren-moduler`
+- CSR med `@navikt/nav-dekoratoren-moduler`
+
 ### Linting og testing
 
 Husky kjører linting når du committer endringene dine. Du kan også kjøre

@@ -40,6 +40,11 @@ export const modulerVersionSemverSchema = modulerVersionSchema.regex(
 	/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/
 );
 export const modulerEntryPointSchema = z.enum(['ssr', 'csr']);
+export const teamNameSchema = z
+	.string()
+	.min(1)
+	.max(100)
+	.regex(/^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/);
 export const analyticsEntryPointSchema = z.enum(['typed', 'custom', 'legacy']);
 
 export type ModulerMetadata = {
@@ -70,6 +75,7 @@ export const paramsSchema = z.object({
 	bedrift: z.string().optional(),
 	redirectOnUserChange: z.boolean().default(false),
 	origin: z.string().trim().min(1).max(100).optional(),
+	teamName: teamNameSchema.optional().catch(undefined),
 	pageType: z.string().optional(),
 	pageTheme: z.string().optional(),
 	pageTitle: z.string().optional(),
@@ -103,6 +109,7 @@ export const clientParamKeys = [
 	'feedback',
 	'redirectOnUserChange',
 	'origin',
+	'teamName',
 	'pageType',
 	'pageTheme',
 	'pageTitle',
