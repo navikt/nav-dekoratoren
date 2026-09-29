@@ -263,7 +263,7 @@ describe('versionProxyHandler', () => {
 
 		const logs = proxyLogs(infoSpy);
 		expect(logs).toHaveLength(2);
-		expect(logs.map((log) => parseMetaData(log).teamName)).toEqual([
+		expect(logs.map((log: string) => parseMetaData(log).teamName)).toEqual([
 			'first-app.personbruker',
 			'second-app.personbruker',
 		]);
