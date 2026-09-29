@@ -334,7 +334,32 @@ describe('Consumer identification', () => {
 
 			parseAndValidateParams({}, {}, 'ssr');
 
-			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørselen'));
+			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørselen'), {
+				metaData: { consumer: 'unknown', requestType: 'ssr' },
+			});
+		});
+
+		it('logs origin as consumer for CSR without moduler', () => {
+			const { info, warn } = spyOnLogger();
+
+			const params = parseAndValidateParams({}, { origin: 'https://min-app.nav.no' }, 'csr');
+
+			expect(params.teamName).toBeUndefined();
+			expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
+				metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+			});
+			expect(warn).not.toHaveBeenCalled();
+		});
+
+		it('warns with unknown when CSR without moduler has no Origin header', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams({}, {}, 'csr');
+
+			expect(info).not.toHaveBeenCalled();
+			expect(warn).toHaveBeenCalledWith(expect.stringContaining('CSR-forespørselen'), {
+				metaData: { consumer: 'unknown', requestType: 'csr' },
+			});
 		});
 
 		it('does not warn about a missing consumer when moduler is used, since moduler warns in the app', () => {

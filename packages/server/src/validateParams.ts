@@ -119,7 +119,8 @@ export const parseAndValidateParams = (
 				logger.warn(
 					requestType === 'ssr'
 						? 'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.'
-						: 'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett query-parameteren teamName, eller sørg for at nettleseren sender med en Origin-header (settes automatisk ved cross-origin-forespørsler), slik at forespørselen kan knyttes til riktig team.'
+						: 'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
+					{ metaData: { consumer: 'unknown', requestType } }
 				);
 			}
 		} else {

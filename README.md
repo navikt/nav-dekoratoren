@@ -1296,7 +1296,9 @@ Dersom `teamName` ikke settes, brukes `Origin`-headeren som nettleseren setter a
 Et varsel logges til konsollen som påminnelse.
 
 **3. CSR uten moduler-pakken:**
-`Origin`-headeren settes automatisk av nettleseren. Ingen ekstra konfigurasjon er nødvendig.
+`Origin`-headeren settes automatisk av nettleseren ved forespørsler til et annet domene.
+Ingen ekstra konfigurasjon er nødvendig. Hvis headeren mangler, logger serveren et varsel
+med `consumer: unknown`.
 
 <a id="sprakstotte-og-nedtrekksmeny"></a>
 
