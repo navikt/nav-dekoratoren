@@ -195,8 +195,8 @@ importers:
         specifier: 'catalog:'
         version: 8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@navikt/nav-dekoratoren-moduler':
-        specifier: 4.3.1-beta.2
-        version: 4.3.1-beta.2(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)
+        specifier: 4.5.0
+        version: 4.5.0(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)
       next:
         specifier: 16.3.3
         version: 16.3.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.101.0)
@@ -984,8 +984,8 @@ packages:
   '@navikt/ds-tokens@8.16.1':
     resolution: {integrity: sha512-PTLN5EWkfprObW3sJfRqcZvYOTMpG2l92VrMYeVX272hPlKn7an9eodZ6ggIMTEeNoQ+MuOhN0wEVk6Cbs77SA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.16.1/f1ac550ff75679021d1c3a21997f33a9728a6a01}
 
-  '@navikt/nav-dekoratoren-moduler@4.3.1-beta.2':
-    resolution: {integrity: sha512-8wcMMNZUXX+b1L/+2XLo8oLjSkVME1mISY24/7Foh1c7N3e4DiwIh7pAbUDfYC4c4F/BOBpatp37Gskbc8kX+Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.3.1-beta.2/41e9dd992e2030fb94c4ba96a814846b02a93965}
+  '@navikt/nav-dekoratoren-moduler@4.5.0':
+    resolution: {integrity: sha512-0eTtpgk+kOGjxncAA5PT2+yLPIobPdvIMVJzWDVdlZmuKUGG1NMoom8DYtnCPkro3Mw+dZeoFJ0TVY+4F57J5Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.0/e3c7d8e6e3f2efd2fb46952564e6c9c47ca200ad}
     engines: {node: 24.x}
     peerDependencies:
       html-react-parser: '>=5.x'
@@ -5608,7 +5608,7 @@ snapshots:
 
   '@navikt/ds-tokens@8.16.1': {}
 
-  '@navikt/nav-dekoratoren-moduler@4.3.1-beta.2(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)':
+  '@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@6.0.1(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@navikt/analytics-types': 0.0.9
       csp-header: 6.4.0
