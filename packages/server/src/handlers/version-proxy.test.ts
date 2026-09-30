@@ -284,7 +284,7 @@ describe('versionProxyHandler', () => {
 		expect(proxyLogs(infoSpy)).toHaveLength(1);
 		expect(proxyLogs(warnSpy)).toHaveLength(0);
 
-		await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES + 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
 		const warnings = proxyLogs(warnSpy);
@@ -292,9 +292,13 @@ describe('versionProxyHandler', () => {
 		expect(warnings[0]).toContain('still occurring after 10 minutes on this pod');
 		expect(parseMetaData(warnings[0]).persistent).toBe(true);
 
-		await vi.advanceTimersByTimeAsync(TEN_MINUTES);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
 		await requestWithVersion(app, STALE_VERSION_ID);
-		await vi.advanceTimersByTimeAsync(TEN_MINUTES);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES + 1000);
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
+		await requestWithVersion(app, STALE_VERSION_ID);
+		await vi.advanceTimersByTimeAsync(FIVE_MINUTES + 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
 		expect(proxyLogs(warnSpy).map((log: string) => log.match(/still occurring after \d+ minutes/)?.[0])).toEqual([
