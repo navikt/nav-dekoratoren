@@ -19,8 +19,7 @@ if (!_clientEnv.success) {
     throw new Error("Invalid client environment variables");
 }
 
-// As to not leak important things
-export const env = { ..._serverEnv.data };
+export const env = _serverEnv.data;
 export const clientEnv = {
     ..._clientEnv.data,
 };
