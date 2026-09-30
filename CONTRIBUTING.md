@@ -73,6 +73,10 @@ Noen vennlige påminnelser før du begynner:
 - Knytt eventuelle eksisterende saker til PR-en for enklere sporing.
 - Skriv tydelige commit-meldinger og PR-beskrivelser (unngå for eksempel «fix stuff again»). Merk at
   PR-er kun kan squashes ved merge til main.
+- Ved endringer i Dekoratøren, sjekk og oppdater
+  [Aksel-dokumentasjonen](https://aksel.nav.no/komponenter/dekoratoren/dekoratoren) og
+  nav-dekoratoren-skillen i [navikt/copilot](https://github.com/navikt/copilot), slik at
+  integrasjonsveiledningene stemmer med gjeldende oppførsel.
 - Spør om hjelp dersom du er usikker eller trenger bistand med testing.
 - Dev-ingressen brukes av mange applikasjoner i NAV og forventes å være stabil. Hvis du er usikker
   på endringene dine, finnes det en beta-ingress hvor det er mer aksept for at ting kan gå i
