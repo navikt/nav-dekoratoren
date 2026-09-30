@@ -1,4 +1,4 @@
-# Rebuilds and redeploys main weekly so the image gets the newest base image.
+# Rebuilds and redeploys prod weekly so the image gets the newest base image.
 name: Refresh base image
 on:
   schedule:
