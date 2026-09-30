@@ -59,7 +59,8 @@ spec:
       value: "{{versionId}}"
   {{#each env as |var|}}
     - name: {{var.name}}
-      value: {{var.value}}
+      # Ensure this is always parsed as string!
+      value: "{{var.value}}"
   {{/each}}
   envFrom:
     - secret: nav-dekoratoren
