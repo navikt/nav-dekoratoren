@@ -38,6 +38,7 @@ Dette dokumentet beskriver:
 6. [Server-Side Rendering (anbefalt)](#6-server-side-rendering)
    - [6.1 SSR-funksjoner i moduler-pakken](#61-ssr-funksjoner-i-moduler-pakken)
    - [6.2 Detaljer](#62-detaljer)
+   - [6.3 Unngå statisk generering av sider med Dekoratøren](#unnga-statisk-generering)
 7. [Client-Side Rendering (CSR)](#7-client-side-rendering)
 8. [Andre hjelpefunksjoner i moduler-pakken](#8-andre-hjelpefunksjoner-i-moduler-pakken)
    - [8.1 Detaljer](#81-detaljer)
@@ -102,7 +103,7 @@ CONTRIBUTING.md.
 
 ### 1.4 Nav-pilot skill
 
-Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet [navikt/nav-pilot](https://github.com/navikt/copilot).
+Det finnes en **GitHub Copilot-skill** for Dekoratøren i repoet [navikt/copilot](https://github.com/navikt/copilot).
 Den hjelper deg å integrere og konfigurere Dekoratøren direkte fra terminalen.
 
 Installer nav-dekoratoren med nav-pilot slik:
@@ -115,19 +116,26 @@ Følg installasjonsinstruksjonene i nav-pilot for å ta den i bruk. Du kan deret
 eksplisitt – bytt ut beskrivelsen med ditt rammeverk eller behov:
 
 ```
-Use the /nav-dekoratoren skill to help me integrate the decorator in my Next.js app
+Bruk /nav-dekoratoren-skillen til å hjelpe meg å integrere Dekoratøren i Next.js-appen min
 ```
 
 ```
-Use the /nav-dekoratoren skill to help me set up breadcrumbs and language selector
+Bruk /nav-dekoratoren-skillen til å hjelpe meg å sette opp brødsmulesti og språkvelger
 ```
 
 ```
-Use the /nav-dekoratoren skill to help me set up analytics
+Bruk /nav-dekoratoren-skillen til å hjelpe meg å sette opp analytics
+```
+
+Har du allerede tatt i bruk Dekoratøren, kan skillen sjekke oppsettet ditt og oppdatere
+moduler-pakken:
+
+```
+Bruk /nav-dekoratoren-skillen til å oppdatere @navikt/nav-dekoratoren-moduler til nyeste versjon og revidere hvordan appen min integrerer Dekoratøren
 ```
 
 Skillen dekker installasjon, SSR/CSR-integrasjon, konfigurasjon, analytics og samtykke/cookies
-til Dekoratøren.
+til Dekoratøren, og revisjon av eksisterende integrasjoner.
 
 ---
 
@@ -606,7 +614,7 @@ rendres client-side.
 
 | Funksjon                            | Type                | Forklaring                                                                |
 | ----------------------------------- | ------------------- | ------------------------------------------------------------------------- |
-| `injectDecoratorServerSide`         | server-side         | Parser HTML-fil og setter inn dekoratør-HTML via JSDOM                    |
+| `injectDecoratorServerSide`         | server-side         | Leser en HTML-fil og setter inn dekoratør-HTML                            |
 | `injectDecoratorServerSideDocument` | server-side         | Setter inn Dekoratøren i et eksisterende `Document`-objekt                |
 | `fetchDecoratorHtml`                | server-side         | Henter Dekoratøren som HTML-fragmenter                                    |
 | `fetchDecoratorReact`               | server-side (React) | Henter Dekoratøren som React-komponenter for SSR-rammeverk (Next.js m.m.) |
@@ -618,8 +626,9 @@ rendres client-side.
 
 **injectDecoratorServerSide**
 
-Parser en HTML-fil med JSDOM og returnerer en HTML-string som inkluderer Dekoratøren. Krever at
-`jsdom >=16.x` er installert.
+Leser en HTML-fil og returnerer en HTML-string som inkluderer Dekoratøren. Filen må være et
+fullstendig HTML-dokument med `</head>`, `<body>` og `</body>`. Fra versjon 3.7.0 trengs ikke
+`jsdom`.
 
 ```ts
 import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
@@ -754,6 +763,28 @@ export default RootLayout;
 ```
 
 </details>
+
+<a id="unnga-statisk-generering"></a>
+
+### 6.3 Unngå statisk generering av sider med Dekoratøren ⚠️
+
+Dekoratøren må hentes per request, eller fra moduler-pakkens cache i runtime. Hvis Next.js
+genererer siden statisk i byggesteget, fryses Dekoratørens HTML, CSS og versjons-ID i den
+versjonen som gjaldt da appen ble bygget. Etter neste deploy av Dekoratøren vil siden da blande
+gammel CSS med ny HTML fra blant annet `/auth`, og for eksempel innlogget-menyen kan se feil ut.
+Feilen forsvinner når appen bygges på nytt, men kommer tilbake ved neste deploy av Dekoratøren.
+
+- **Page Router:** `_document` kjøres også for statisk genererte sider. Det gjelder sider med
+  `getStaticProps` og sider uten datahenting (Automatic Static Optimization). Bytt
+  `getStaticProps` med `getServerSideProps`. Sider uten datahenting kan gjøres dynamiske med
+  `getServerSideProps` hver for seg, eller for hele appen med `getInitialProps` i
+  `pages/_app.tsx`. Det siste gjelder ikke sider med `getStaticProps`.
+- **App Router:** ruter uten dynamiske API-er blir forhåndsrendret i byggesteget. Gjør layouten
+  dynamisk, for eksempel med `export const dynamic = 'force-dynamic';` i `app/layout.tsx`, eller
+  ved å kalle `await connection()` fra `next/server` før `fetchDecoratorReact`.
+
+Statisk generering i byggesteget gjør også at `teamName` ikke kan settes automatisk, fordi
+`NAIS_APP_NAME` og `NAIS_NAMESPACE` ikke finnes under bygging.
 
 ---
 
@@ -1263,8 +1294,11 @@ Ved CSR med moduler varsler moduler-pakken i appen, og serveren varsler også hv
 
 **1. SSR via moduler-pakken (anbefalt):**
 
-`teamName` settes automatisk til `NAIS_APP_NAME.NAIS_NAMESPACE`. Disse variablene injiseres av
-Nais-plattformen i alle pods, så ingen ekstra konfigurasjon er nødvendig.
+`teamName` settes automatisk til `NAIS_APP_NAME.NAIS_NAMESPACE` fra og med moduler-pakken 4.5.0.
+Disse variablene injiseres av Nais-plattformen i alle pods, så ingen ekstra konfigurasjon er
+nødvendig. Variablene finnes bare i runtime, ikke i byggesteget. Sider som bygges som statisk
+HTML, sender derfor ikke `teamName` (se
+[Unngå statisk generering](#unnga-statisk-generering)).
 Dersom `NAIS_APP_NAME` eller `NAIS_NAMESPACE` ikke er satt, logges et varsel til konsollen (én gang), og en eventuell
 manuelt satt `teamName` brukes i stedet.
 
