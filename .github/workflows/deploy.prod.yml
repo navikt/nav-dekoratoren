@@ -5,83 +5,13 @@ on:
     paths-ignore: ['**.md']
 
 jobs:
-  build:
-    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+  deploy:
+    uses: ./.github/workflows/build-deploy-prod.yml
     permissions: { contents: read, id-token: write }
-    with:
-      team: personbruker
-      image-suffix: prod
-      image-tag: latest
-      platforms: linux/amd64,linux/arm64
-      cdn-source: ./packages/server/public
-      cdn-destination: /nav-dekoratoren
-      # The Dockerfile copies only build output, no node_modules.
-      prune-remove: ''
-      playwright: pnpm run test:e2e
-    secrets: inherit
-
-  # One cluster-wide resource, so once per cluster rather than once per instance.
-  network-policy-prod:
-    needs: build
-    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
-    permissions: { contents: read, id-token: write }
-    with:
-      cluster: prod-gcp
-      resource: .nais/network-policy.yml
-
-  network-policy-dev:
-    needs: build
-    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
-    permissions: { contents: read, id-token: write }
-    with:
-      cluster: dev-gcp
-      resource: .nais/network-policy.yml
-
-  deploy-prod:
-    needs: [build, network-policy-prod]
-    uses: ./.github/workflows/deploy-instance.yml
-    permissions: { contents: read, id-token: write }
-    with:
-      instance: prod
-      cluster: prod-gcp
-      image: ${{ needs.build.outputs.image }}
-      hpa-resource: .nais/hpa/hpa-prod.yml
-      deploy-previous: true
-    secrets: inherit
-
-  deploy-dev-stable:
-    needs: [build, network-policy-dev]
-    uses: ./.github/workflows/deploy-instance.yml
-    permissions: { contents: read, id-token: write }
-    with:
-      instance: dev-stable
-      cluster: dev-gcp
-      image: ${{ needs.build.outputs.image }}
-      hpa-resource: .nais/hpa/hpa-dev-stable.yml
-    secrets: inherit
-
-  deploy-beta-navno:
-    needs: [build, network-policy-dev]
-    uses: ./.github/workflows/deploy-instance.yml
-    permissions: { contents: read, id-token: write }
-    with:
-      instance: dev-beta-navno
-      cluster: dev-gcp
-      image: ${{ needs.build.outputs.image }}
-    secrets: inherit
-
-  deploy-beta-tms:
-    needs: [build, network-policy-dev]
-    uses: ./.github/workflows/deploy-instance.yml
-    permissions: { contents: read, id-token: write }
-    with:
-      instance: dev-beta-tms
-      cluster: dev-gcp
-      image: ${{ needs.build.outputs.image }}
     secrets: inherit
 
   release:
-    needs: deploy-prod
+    needs: deploy
     uses: navikt/navno-ci/.github/workflows/release.yml@v1
     permissions: { contents: write }
     secrets: inherit
