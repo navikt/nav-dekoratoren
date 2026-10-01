@@ -73,10 +73,27 @@ Noen vennlige påminnelser før du begynner:
 - Knytt eventuelle eksisterende saker til PR-en for enklere sporing.
 - Skriv tydelige commit-meldinger og PR-beskrivelser (unngå for eksempel «fix stuff again»). Merk at
   PR-er kun kan squashes ved merge til main.
+- Ved endringer i Dekoratøren, sjekk og oppdater
+  [Aksel-dokumentasjonen](https://aksel.nav.no/komponenter/dekoratoren/dekoratoren) og
+  nav-dekoratoren-skillen i [navikt/copilot](https://github.com/navikt/copilot), slik at
+  integrasjonsveiledningene stemmer med gjeldende oppførsel.
 - Spør om hjelp dersom du er usikker eller trenger bistand med testing.
 - Dev-ingressen brukes av mange applikasjoner i NAV og forventes å være stabil. Hvis du er usikker
   på endringene dine, finnes det en beta-ingress hvor det er mer aksept for at ting kan gå i
   stykker. Se GitHub Action-en `Deploy to Team Nav.no beta`.
+
+### Konsumentlogging
+
+Når du tester en integrasjon som kaller Dekoratøren direkte, bør du sette `teamName` slik at
+logger kan knyttes til riktig team.
+
+`teamName` skal følge formatet `teamnavn.namespace`, der hver del kun bruker små bokstaver, tall,
+bindestrek og punktum. Eksempler: `team-navno.navno`, `minside.personbruker`.
+
+Dette gjelder særlig ved:
+
+- SSR uten `@navikt/nav-dekoratoren-moduler`
+- CSR med `@navikt/nav-dekoratoren-moduler`
 
 ### Linting og testing
 
@@ -99,6 +116,39 @@ under fanen Actions:
 
 Når PR-en din er godkjent, kan du merge den til main, og en produksjonsdeploy blir automatisk
 trigget.
+
+### Versjonsproxy og metrikker
+
+`version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.
+Metrikken har etikettene `result` (`proxied`, `error_response`, `not_found`, `unreachable`),
+`origin` (`navno-frontend`, `other`, `unknown`) og `route` (`auth`, `header`, `footer`, `ssr`,
+`consentping`, `other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
+samles i `other`. Ruter utenfor de fem navngitte samles også i `other`. Versjons-ID og
+vilkårlige URL-er brukes ikke som etiketter.
+Strukturerte versjonsproxy-logger inkluderer `teamName` når konsumenten sender det, slik at feil
+kan spores til en konkret applikasjon uten å øke metrikkens kardinalitet.
+
+I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
+over forespørsler per resultat siste time. Filteret `origin=~".+"` utelater eldre metrikktidsserier
+fra før `origin`-etiketten ble innført:
+
+```promql
+sum by (result) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",origin=~".+"}[1h])
+)
+```
+
+For å følge forespørsler der versjonens interne app ikke lenger finnes, fordel `not_found` på
+`origin` og `route`:
+
+```promql
+sum by (origin, route) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",result="not_found",origin=~".+"}[1h])
+)
+```
+
+`teamName` finnes i strukturerte logger, ikke som metriketikett. Bruk OpenSearch for å filtrere
+proxylogger på `x_metaData.teamName`; ikke legg teamnavn eller versjons-ID-er til metriketiketter.
 
 ---
 

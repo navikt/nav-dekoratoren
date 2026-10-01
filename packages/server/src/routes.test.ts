@@ -1,6 +1,7 @@
 import { readdirSync } from 'node:fs';
-import { describe, expect, test } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 import { app, INGRESS_PATH_PREFIXES } from './routes';
+import { logger } from './lib/logger';
 
 const [staticAsset] = readdirSync('../client/dist/assets');
 
@@ -77,6 +78,36 @@ test('serves the same static asset under every prefix', async () => {
 	);
 
 	expect(new Set(bodies).size).toBe(1);
+});
+
+describe('CSR without moduler', () => {
+	afterEach(() => vi.restoreAllMocks());
+
+	test('identifies the consumer from the browser Origin header', async () => {
+		const info = vi.spyOn(logger, 'info').mockImplementation(() => {});
+		const warn = vi.spyOn(logger, 'warn').mockImplementation(() => {});
+
+		const response = await app.request('/dekoratoren/csr', {
+			headers: { origin: 'https://min-app.nav.no' },
+		});
+
+		expect(response.status).toBe(200);
+		expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
+			metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+		});
+		expect(warn).not.toHaveBeenCalled();
+	});
+
+	test('warns with unknown when the Origin header is absent', async () => {
+		const warn = vi.spyOn(logger, 'warn').mockImplementation(() => {});
+
+		const response = await app.request('/dekoratoren/csr');
+
+		expect(response.status).toBe(200);
+		expect(warn).toHaveBeenCalledWith(expect.stringContaining('CSR-forespørselen'), {
+			metaData: { consumer: 'unknown', requestType: 'csr' },
+		});
+	});
 });
 
 // Regression: the app used to be mounted onto itself, so both "*" and

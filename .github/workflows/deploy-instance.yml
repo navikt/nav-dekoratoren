@@ -55,11 +55,12 @@ jobs:
           echo "version-id=$PREV_VERSION_ID" >> "$GITHUB_OUTPUT"
           echo "image=$PREV_IMAGE" >> "$GITHUB_OUTPUT"
 
-  # Checks out the previous version so its own .nais config is used.
+  # Checks out the previous version so its own .nais config is used. Skipped
+  # when the previous version is this commit, e.g. on a base image refresh.
   previous:
     name: Previous version
     needs: resolve-previous
-    if: ${{ !failure() && !cancelled() && needs.resolve-previous.outputs.version-id != '' && needs.resolve-previous.outputs.image != '' }}
+    if: ${{ !failure() && !cancelled() && needs.resolve-previous.outputs.version-id != '' && needs.resolve-previous.outputs.image != '' && needs.resolve-previous.outputs.version-id != github.sha }}
     uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
     permissions: { contents: read, id-token: write }
     with:
@@ -87,6 +88,9 @@ jobs:
   update-vars:
     name: Record deployed version
     needs: app
+    # Explicit, because the implicit success() is false when any earlier job
+    # in the chain was skipped, e.g. the previous-version jobs.
+    if: ${{ !cancelled() && needs.app.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -121,6 +125,7 @@ jobs:
   version-authority:
     name: Version authority
     needs: update-vars
+    if: ${{ !cancelled() && needs.update-vars.result == 'success' }}
     uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
     permissions: { contents: read, id-token: write }
     with:

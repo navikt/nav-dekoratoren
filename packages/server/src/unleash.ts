@@ -15,7 +15,6 @@ const defaultFeatures = {
 	'dekoratoren.skjermdeling': true,
 	'dekoratoren.chatbotscript': true,
 	'dekoratoren.umami': true,
-	'dekoratoren.puzzel-script': false,
 };
 
 // TODO: Features should be loaded on the client to avoid caching.
@@ -25,7 +24,6 @@ export const getFeatures = () => {
 			'dekoratoren.skjermdeling': unleash.isEnabled('dekoratoren.skjermdeling'),
 			'dekoratoren.chatbotscript': unleash.isEnabled('dekoratoren.chatbotscript'),
 			'dekoratoren.umami': unleash.isEnabled('dekoratoren.umami'),
-			'dekoratoren.puzzel-script': unleash.isEnabled('dekoratoren.puzzel-script'),
 		};
 	}
 

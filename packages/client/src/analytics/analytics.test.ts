@@ -53,7 +53,6 @@ const setupDecoratorData = () => {
 			'dekoratoren.skjermdeling': false,
 			'dekoratoren.chatbotscript': false,
 			'dekoratoren.umami': false,
-			'dekoratoren.puzzel-script': false,
 		},
 		env: {} as any,
 		texts: {} as any,

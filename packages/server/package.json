@@ -5,11 +5,11 @@
 	"module": "src/server.ts",
 	"scripts": {
 		"dev": "tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
-		"postinstall": "cp .env.sample .env",
-		"serve": "NODE_ENV=production node dist/server.js",
-		"serve-local": "NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
-		"prebuild": "rm -rf ./public/assets",
-		"build": "NODE_ENV=production tsx build.ts",
+		"postinstall": "node scripts/setup-env.mjs",
+		"serve": "cross-env NODE_ENV=production node dist/server.js",
+		"serve:e2e": "cross-env NODE_ENV=production APP_URL=http://localhost:8089 node --env-file=.env dist/server.js",
+		"serve-local": "cross-env NODE_ENV=production APP_URL=http://localhost:8089 tsx --import ./css-module-register.ts --env-file=.env --watch src/server.ts",
+		"build": "cross-env NODE_ENV=production tsx build.ts",
 		"test": "vitest run --silent=passed-only",
 		"lint": "eslint . && tsc --noEmit"
 	},
@@ -27,6 +27,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
+		"cross-env": "10.1.0",
 		"esbuild": "0.28.1",
 		"esbuild-minify-templates": "catalog:",
 		"msw": "2.15.0",

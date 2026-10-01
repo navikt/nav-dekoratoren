@@ -10,7 +10,6 @@ const meta: Meta<SimpleFooterProps> = {
 				'dekoratoren.skjermdeling': true,
 				'dekoratoren.chatbotscript': false,
 				'dekoratoren.umami': false,
-				'dekoratoren.puzzel-script': false,
 			},
 			links:
 				context.globals.locale === 'en'

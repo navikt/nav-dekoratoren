@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { parseBooleanParam, validateParams, parseAndValidateParams } from './validateParams';
 import { formatParams } from 'decorator-shared/json';
 import { Params } from 'decorator-shared/params';
+import { logger } from './lib/logger';
 
 describe('Validating urls', () => {
 	it('Should validate nav.no urls', () => {
@@ -275,5 +276,139 @@ describe('decorator moduler metadata', () => {
 
 		expect(params.decoratorModulerVersion).toBeUndefined();
 		expect(params.decoratorModulerEntryPoint).toBe('ssr');
+	});
+});
+
+describe('Consumer identification', () => {
+	it('should keep teamName as part of the validated params so it propagates to window.__DECORATOR_DATA__.params', () => {
+		const params = parseAndValidateParams({
+			teamName: 'nav-dekoratoren.navno',
+		} satisfies Partial<Record<keyof Params, unknown>>);
+
+		expect(params.teamName).toBe('nav-dekoratoren.navno');
+	});
+
+	it('should not throw when teamName is missing', () => {
+		const params = parseAndValidateParams({});
+
+		expect(params.teamName).toBeUndefined();
+	});
+
+	describe('logging', () => {
+		afterEach(() => {
+			vi.restoreAllMocks();
+		});
+
+		const spyOnLogger = () => ({
+			info: vi.spyOn(logger, 'info').mockImplementation(() => {}),
+			warn: vi.spyOn(logger, 'warn').mockImplementation(() => {}),
+		});
+
+		it('does not throw on an invalid teamName, drops it and warns with the raw value', () => {
+			const { warn } = spyOnLogger();
+
+			const params = parseAndValidateParams({ teamName: 'MittTeam' }, {}, 'ssr');
+
+			expect(params.teamName).toBeUndefined();
+			expect(warn).toHaveBeenCalledWith(
+				expect.stringContaining('Ugyldig teamName'),
+				expect.objectContaining({ metaData: expect.objectContaining({ teamName: 'MittTeam' }) })
+			);
+		});
+
+		it('falls back to origin when teamName is invalid', () => {
+			const { info } = spyOnLogger();
+
+			parseAndValidateParams({ teamName: 'MittTeam' }, { origin: 'https://www.nav.no' }, 'csr');
+
+			expect(info).toHaveBeenCalledWith(
+				'Decorator consumer info.',
+				expect.objectContaining({
+					metaData: expect.objectContaining({ consumer: 'origin: https://www.nav.no' }),
+				})
+			);
+		});
+
+		it('warns when no consumer can be identified on an entry request without moduler', () => {
+			const { warn } = spyOnLogger();
+
+			parseAndValidateParams({}, {}, 'ssr');
+
+			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørselen'), {
+				metaData: { consumer: 'unknown', requestType: 'ssr' },
+			});
+		});
+
+		it('logs origin as consumer for CSR without moduler', () => {
+			const { info, warn } = spyOnLogger();
+
+			const params = parseAndValidateParams({}, { origin: 'https://min-app.nav.no' }, 'csr');
+
+			expect(params.teamName).toBeUndefined();
+			expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
+				metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+			});
+			expect(warn).not.toHaveBeenCalled();
+		});
+
+		it('warns with unknown when CSR without moduler has no Origin header', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams({}, {}, 'csr');
+
+			expect(info).not.toHaveBeenCalled();
+			expect(warn).toHaveBeenCalledWith(
+				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
+				{
+					metaData: { consumer: 'unknown', requestType: 'csr' },
+				}
+			);
+		});
+
+		it('warns on the server for CSR with moduler when both teamName and Origin are missing', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams({ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'csr' }, {}, 'csr');
+
+			expect(warn).toHaveBeenCalledWith(
+				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett params.teamName i injectDecoratorClientSide, eller sørg for at nettleseren sender en Origin-header, slik at forespørselen kan knyttes til riktig team.',
+				{ metaData: { consumer: 'unknown', requestType: 'csr' } }
+			);
+			expect(info).not.toHaveBeenCalled();
+		});
+
+		it('does not warn on the server for SSR with moduler when the consumer is missing', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams({ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'ssr' }, {}, 'ssr');
+
+			expect(warn).not.toHaveBeenCalled();
+			expect(info).not.toHaveBeenCalled();
+		});
+
+		it('does not warn for CSR with moduler when Origin identifies the consumer', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams(
+				{ decoratorModulerVersion: '4.1.1', decoratorModulerEntryPoint: 'csr' },
+				{ origin: 'https://min-app.nav.no' },
+				'csr'
+			);
+
+			expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
+				metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+			});
+			expect(warn).not.toHaveBeenCalled();
+		});
+
+		it('does not log consumer info on follow-up requests without requestType', () => {
+			const { info, warn } = spyOnLogger();
+
+			parseAndValidateParams({ teamName: 'MittTeam' });
+			parseAndValidateParams({});
+
+			expect(info).not.toHaveBeenCalled();
+			expect(warn).not.toHaveBeenCalled();
+		});
 	});
 });
