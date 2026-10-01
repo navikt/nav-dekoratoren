@@ -39,12 +39,14 @@
 
 .arbeidsflate {
 	display: none;
-}
 
-@media (min-width: 64rem) {
-	.arbeidsflate {
+	@media (min-width: 64rem) {
 		display: flex;
 		height: 100%;
+
+		@media print {
+			display: none;
+		}
 	}
 }
 

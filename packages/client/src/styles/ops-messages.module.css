@@ -1,6 +1,10 @@
 .opsMessages {
 	background-color: var(--ax-brand-blue-900);
 	display: block;
+
+	@media print {
+		display: none;
+	}
 }
 
 .opsMessagesContent {
