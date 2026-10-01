@@ -2,6 +2,10 @@
 	animation-name: fadeIn;
 	animation-duration: 500ms;
 	animation-fill-mode: forwards;
+
+	@media print {
+		display: none;
+	}
 }
 
 .userMenu {
