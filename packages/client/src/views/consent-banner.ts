@@ -22,7 +22,17 @@ export class ConsentBanner extends HTMLElement {
     };
 
     focusBanner() {
-        this.querySelector<HTMLElement>("#consent_banner_title")?.focus();
+        const bannerEl = this.querySelector<HTMLElement>(
+            "#consent_banner_title",
+        );
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        bannerEl?.scrollIntoView({
+            behavior: reduceMotion ? "auto" : "smooth",
+        });
+        bannerEl?.focus({ preventScroll: true });
     }
 
     async connectedCallback() {
