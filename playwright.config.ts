@@ -71,8 +71,8 @@ export default defineConfig({
 	/* Run your local dev server before starting the tests */
 	webServer: [
 		{
-			command:
-				'cd packages/server && NODE_ENV=production APP_URL=http://localhost:8089 node --env-file=.env dist/server.js',
+			command: 'pnpm run serve:e2e',
+			cwd: './packages/server',
 			url: 'http://localhost:8089',
 			reuseExistingServer: !process.env.CI,
 			stderr: 'pipe',

@@ -1,4 +1,4 @@
-import { BLOB, CSPDirectives, DATA, UNSAFE_EVAL, UNSAFE_INLINE, getCSP, SELF } from 'csp-header';
+import { CSPDirectives, DATA, UNSAFE_EVAL, UNSAFE_INLINE, getCSP, SELF } from 'csp-header';
 import { clientEnv } from './env/server';
 import { isLocalhost } from './urls';
 
@@ -7,10 +7,8 @@ const cdnNavNo = 'cdn.nav.no';
 
 const uxsignals = 'widget.uxsignals.com';
 const uxsignalsApi = 'api.uxsignals.com';
-const vergicScreenSharing = '*.psplugin.com';
 const puzzelScreenSharing = '*.puzzel.com';
 const puzzelWebSocket = 'wss://*.puzzel.com'; // Need explicit websocket entry for puzzel
-const vergicDotCom = 'www.vergic.com'; // seems to only be used for a single placeholder image
 const boostChatbot = '*.boost.ai';
 const boostScript = `${clientEnv.BOOST_ENV}.boost.ai`;
 const vimeoPlayer = 'player.vimeo.com'; // used for inline videos in the chat client
@@ -24,7 +22,6 @@ const googleFontsStatic = '*.gstatic.com';
 
 const styleSrc = [
 	navNo,
-	vergicScreenSharing,
 	UNSAFE_INLINE, // various components with style-attributes,
 	googleFonts,
 	googleFontsStatic,
@@ -33,48 +30,39 @@ const styleSrc = [
 const scriptSrc = [
 	navNo,
 	uxsignals,
-	vergicScreenSharing,
 	puzzelScreenSharing,
 	skyra,
 	boostScript,
 	// localhost testing
-	UNSAFE_INLINE, // vergic/puzzel
+	UNSAFE_INLINE, // Puzzel
 ];
 
-const workerSrc = [
-	navNo,
-	BLOB, // vergic
-];
+const workerSrc = [navNo];
 
 const directives: Partial<CSPDirectives> = {
 	'default-src': [navNo],
-	'script-src': [
-		...scriptSrc,
-		UNSAFE_EVAL, // vergic
-	],
+	'script-src': [...scriptSrc, UNSAFE_EVAL],
 	'script-src-elem': scriptSrc,
 	'worker-src': workerSrc,
 	'child-src': workerSrc, // for browsers lacking support for worker-src
 	'style-src': styleSrc,
 	'style-src-elem': styleSrc,
 	'font-src': [
-		vergicScreenSharing,
 		skyra,
 		cdnNavNo,
 		googleFonts,
 		googleFontsStatic,
 		DATA, // ds-css
 	],
-	'img-src': [navNo, uxsignals, vergicScreenSharing, vimeoCdn, skyra, vergicDotCom],
+	'img-src': [navNo, uxsignals, vimeoCdn, skyra],
 	'frame-src': [vimeoPlayer, qbrick, navNo],
-	'frame-ancestors': [SELF, vergicScreenSharing],
+	'frame-ancestors': [SELF],
 	'connect-src': [
 		navNo,
 		uxsignalsApi,
 		qbrick,
 		qbrickNotification,
 		boostChatbot,
-		vergicScreenSharing,
 		puzzelScreenSharing,
 		puzzelWebSocket,
 		skyra,

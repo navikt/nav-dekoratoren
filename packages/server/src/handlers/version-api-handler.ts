@@ -9,6 +9,7 @@ type ConfigMapType = {
 const configMapWatcher = new ConfigMapWatcher<ConfigMapType>({
 	mountPath: '/version-authority',
 	filename: 'version-authority.json',
+	shouldPoll: true,
 	onUpdate: (fileContent) => {
 		versionData.latestVersion = fileContent?.AUTHORITATIVE_VERSION_ID;
 	},

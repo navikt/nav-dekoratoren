@@ -73,10 +73,27 @@ Noen vennlige påminnelser før du begynner:
 - Knytt eventuelle eksisterende saker til PR-en for enklere sporing.
 - Skriv tydelige commit-meldinger og PR-beskrivelser (unngå for eksempel «fix stuff again»). Merk at
   PR-er kun kan squashes ved merge til main.
+- Ved endringer i Dekoratøren, sjekk og oppdater
+  [Aksel-dokumentasjonen](https://aksel.nav.no/komponenter/dekoratoren/dekoratoren) og
+  nav-dekoratoren-skillen i [navikt/copilot](https://github.com/navikt/copilot), slik at
+  integrasjonsveiledningene stemmer med gjeldende oppførsel.
 - Spør om hjelp dersom du er usikker eller trenger bistand med testing.
 - Dev-ingressen brukes av mange applikasjoner i NAV og forventes å være stabil. Hvis du er usikker
   på endringene dine, finnes det en beta-ingress hvor det er mer aksept for at ting kan gå i
   stykker. Se GitHub Action-en `Deploy to Team Nav.no beta`.
+
+### Konsumentlogging
+
+Når du tester en integrasjon som kaller Dekoratøren direkte, bør du sette `teamName` slik at
+logger kan knyttes til riktig team.
+
+`teamName` skal følge formatet `teamnavn.namespace`, der hver del kun bruker små bokstaver, tall,
+bindestrek og punktum. Eksempler: `team-navno.navno`, `minside.personbruker`.
+
+Dette gjelder særlig ved:
+
+- SSR uten `@navikt/nav-dekoratoren-moduler`
+- CSR med `@navikt/nav-dekoratoren-moduler`
 
 ### Linting og testing
 
@@ -106,7 +123,8 @@ Hvis en deploy til produksjon har brutt noe, bruk `Rollback prod` under Actions.
 Den deployer et image som allerede er bygget, uten å bygge eller kjøre tester på nytt, og tar
 mye mindre tid enn en vanlig deploy.
 
-- Kjør den fra `main`.
+- Kjør den fra `main`. GitHub-miljøet `prod` godtar bare deploy fra `main`, så en kjøring fra en
+  annen branch stopper før den deployer. `dry-run` fungerer fra alle brancher.
 - La `release-tag` stå tom for å rulle tilbake til releasen før den nyeste. Releaser som peker på
   samme commit som den nyeste, hoppes over. Oppgi en `release/prod@...`-tag fra
   [releases](https://github.com/navikt/nav-dekoratoren/releases) for å rulle tilbake til en bestemt
@@ -115,12 +133,52 @@ mye mindre tid enn en vanlig deploy.
   deployer. Velg `dry-run` for å se dette uten å deploye.
 - En rollback oppretter ingen ny release, så to rollbacks på rad med tom `release-tag` deployer
   samme release. Oppgi en tag for å gå lenger tilbake.
-- Rollbacken varer bare til neste merge til `main`, som deployer `main` på nytt. Revert endringen
-  eller fiks feilen på `main` før du merger noe annet.
+- Rollbacken varer til `main` deployes på nytt, enten ved neste merge til `main` eller når
+  `Refresh base image` kjører hver søndag kveld. Deaktiver `Refresh base image` under Actions
+  mens rollbacken er aktiv, og aktiver den igjen når `main` er fikset. Revert endringen eller
+  fiks feilen på `main` før du merger noe annet.
+- En rollback deployer imaget som ble bygget for releasen, så base image-oppdateringer fra
+  senere kjøringer av `Refresh base image` rulles også tilbake. Har en slik kjøring brutt prod,
+  oppgi taggen til den nyeste releasen: da deployes samme kode med imaget fra før kjøringen.
+  Med tom `release-tag` rulles også koden tilbake.
 - Du kan bare rulle tilbake til releaser som er opprettet etter at rollback ble innført. Eldre
   releaser mangler linjen `Deployed image: ...` i beskrivelsen.
 - `.nais`-filene hentes fra commiten til releasen, så endringer i konfigurasjonen etter releasen
-  rulles også tilbake.
+  rulles også tilbake. Unntakene er `network-policy.yml` og `alerts.yml`, som rollback ikke
+  deployer.
+
+### Versjonsproxy og metrikker
+
+`version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.
+Metrikken har etikettene `result` (`proxied`, `error_response`, `not_found`, `unreachable`),
+`origin` (`navno-frontend`, `other`, `unknown`) og `route` (`auth`, `header`, `footer`, `ssr`,
+`consentping`, `other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
+samles i `other`. Ruter utenfor de fem navngitte samles også i `other`. Versjons-ID og
+vilkårlige URL-er brukes ikke som etiketter.
+Strukturerte versjonsproxy-logger inkluderer `teamName` når konsumenten sender det, slik at feil
+kan spores til en konkret applikasjon uten å øke metrikkens kardinalitet.
+
+I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
+over forespørsler per resultat siste time. Filteret `origin=~".+"` utelater eldre metrikktidsserier
+fra før `origin`-etiketten ble innført:
+
+```promql
+sum by (result) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",origin=~".+"}[1h])
+)
+```
+
+For å følge forespørsler der versjonens interne app ikke lenger finnes, fordel `not_found` på
+`origin` og `route`:
+
+```promql
+sum by (origin, route) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",result="not_found",origin=~".+"}[1h])
+)
+```
+
+`teamName` finnes i strukturerte logger, ikke som metriketikett. Bruk OpenSearch for å filtrere
+proxylogger på `x_metaData.teamName`; ikke legg teamnavn eller versjons-ID-er til metriketiketter.
 
 ---
 

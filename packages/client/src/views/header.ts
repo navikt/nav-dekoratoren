@@ -19,12 +19,12 @@ const msgFromNks = (message: MessageEvent) => {
 	return data.source === 'nksInnboks' && window.location.href.startsWith(origin) && source === window;
 };
 
-// TODO: this should probably include more params
 const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 	'breadcrumbs',
 	'availableLanguages',
 	'utilsBackground',
 	'language',
+	'chatbot',
 	'chatbotVisible',
 	'context',
 	'redirectOnUserChange',
@@ -32,6 +32,12 @@ const paramsUpdatesToHandle: Array<keyof ClientParams> = [
 	'pageTheme',
 	'simple',
 	'simpleHeader',
+	'redirectToApp',
+	'redirectToUrl',
+	'redirectToUrlLogout',
+	'logoutUrl',
+	'shareScreen',
+	'logoutWarning',
 ] as const;
 
 class Header extends HTMLElement {
@@ -114,7 +120,12 @@ class Header extends HTMLElement {
 		const isSimpleChange = changedKeys.includes('simple');
 		const isSimpleHeaderChange = changedKeys.includes('simpleHeader');
 
-		if (changedKeys.includes('language') || isSimpleChange || isSimpleHeaderChange) {
+		if (
+			changedKeys.includes('language') ||
+			isSimpleChange ||
+			isSimpleHeaderChange ||
+			changedKeys.includes('logoutUrl')
+		) {
 			this.refreshHeader();
 			return;
 		}

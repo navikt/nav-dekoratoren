@@ -1,5 +1,14 @@
 import type { ClientParams } from './params';
 
+export const getLogSafeUrl = (url: string): string => {
+	try {
+		const { protocol, host, pathname } = new URL(url);
+		return `${protocol}//${host}${pathname}`;
+	} catch {
+		return url.split(/[?#]/, 1)[0];
+	}
+};
+
 export function makeFrontpageUrl({
 	context,
 	language,

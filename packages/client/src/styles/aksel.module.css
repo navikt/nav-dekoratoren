@@ -16,5 +16,5 @@
 }
 
 .aksel-link:focus-visible {
-	outline: 3px solid var(--ax-info-400);
+	outline: 3px solid var(--ax-brand-blue-900);
 }
