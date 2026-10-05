@@ -68,6 +68,18 @@
     color: var(--ax-text-accent);
 }
 
+/*
+    The pre-paint script shows the banner before the client script has run, so the
+    buttons are visible before hydration. Ignoring events until <consent-banner>
+    is defined fixes this for Playwright users.
+
+    Done using CSS instead of the proper 'disabled' attribute because the
+    banner markup is owned by the consumer's React tree (ugh), see CONSENT_STATE_ELEMENT_ID.
+*/
+:global(consent-banner:not(:defined)) .button {
+    pointer-events: none;
+}
+
 .button:focus-visible {
     outline: 3px solid var(--ax-bg-default);
     outline-offset: 3px;
