@@ -1,0 +1,53 @@
+# Deploys the image of an earlier prod release again, without building or testing.
+# resolve (navno-actions/find-release) -> deploy-prod (deploy-instance.yml, the release's commit as version-id)
+name: Rollback prod
+on:
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        description: >
+          Release tag, e.g. release/prod@1790143322.
+          Empty = the release before the newest one.
+        type: string
+        required: false
+        default: ''
+      dry-run:
+        description: Only show which release would be deployed.
+        type: boolean
+        required: false
+        default: false
+
+concurrency:
+  group: rollback-prod
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    name: Find the release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      image: ${{ steps.release.outputs.image }}
+      sha: ${{ steps.release.outputs.sha }}
+    steps:
+      - id: release
+        uses: navikt/navno-actions/find-release@v1
+        with:
+          tag: ${{ inputs.release-tag }}
+
+  deploy-prod:
+    needs: resolve
+    if: ${{ !inputs.dry-run }}
+    uses: ./.github/workflows/deploy-instance.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: prod
+      cluster: prod-gcp
+      image: ${{ needs.resolve.outputs.image }}
+      version-id: ${{ needs.resolve.outputs.sha }}
+      hpa-resource: .nais/hpa/hpa-prod.yml
+      # deploy-previous stays off: PREV_* holds the version being rolled back,
+      # so it shouldn't keep running as an internal app.
+    secrets: inherit
