@@ -17,6 +17,17 @@ export const CONSUMER = "dekoratoren";
 // Bumping the version means the script has to be checked too.
 export const CONSENT_COOKIE_NAME = "navno-consent";
 
+// The consent banner state (pending | decided | reshow) lives in the data-state
+// attribute of an empty <style> in <head> with this id, and consent-banner.module.css
+// shows the banner off it with html:has(). Keep the id in sync with that file.
+//
+// It deliberately isn't an attribute on <html>: consumers rendering the document
+// with React (e.g. the Next App Router) hand <html> to React, which reports any
+// attribute it didn't render as a hydration mismatch, and strips them all if it
+// ever has to client-render the root. React skips foreign elements in <head> when
+// hydrating, and keeps <style> elements when it clears <head>.
+export const CONSENT_STATE_ELEMENT_ID = "decorator-consent-state";
+
 // Changelog consent versioning
 // --------------------------------
 // (Remember to update this list when making changes that require re-consent)

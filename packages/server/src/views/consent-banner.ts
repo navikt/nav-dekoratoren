@@ -7,6 +7,7 @@ import { Button } from "./components/button";
 import { Language } from "decorator-shared/params";
 import {
     CONSENT_COOKIE_NAME,
+    CONSENT_STATE_ELEMENT_ID,
     CURRENT_CONSENT_VERSION,
 } from "decorator-shared/constants";
 
@@ -55,12 +56,15 @@ export const ConsentBanner = ({ language }: ConsentBannerProps) => {
 
 // Runs before first paint, as the first child of <consent-banner> to avoid CLS.
 // Note the functionality here is duplicated in webStorage (yes this is icky).
-function consentDetectionScript() {
+// See CONSENT_STATE_ELEMENT_ID for why the state goes in <head>.
+//
+// The production build collapses all whitespace in html`` templates, so this
+// cannot rely on newlines: explicit semicolons, no line comments.
+export function consentDetectionScript() {
     return html`
         <script>
             try {
-                const root = document.documentElement;
-                if (!root.dataset.decoratorConsent) {
+                if (!document.getElementById("${CONSENT_STATE_ELEMENT_ID}")) {
                     let decided = false;
                     try {
                         const match = document.cookie.match(
@@ -73,9 +77,12 @@ function consentDetectionScript() {
                             consent.meta?.version >= ${CURRENT_CONSENT_VERSION}
                         );
                     } catch {}
-                    root.dataset.decoratorConsent = decided
+                    const stateElement = document.createElement("style");
+                    stateElement.id = "${CONSENT_STATE_ELEMENT_ID}";
+                    stateElement.dataset.state = decided
                         ? "decided"
                         : "pending";
+                    document.head.append(stateElement);
                 }
             } catch {}
         </script>

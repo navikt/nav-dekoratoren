@@ -8,11 +8,12 @@
     color: var(--ax-text-accent-contrast);
 }
 
-:global(html[data-decorator-consent="pending"]) .background {
-    display: block;
-}
-
-:global(html[data-decorator-consent="reshow"]) .background {
+/*
+    Shown off the state element in <head>, see CONSENT_STATE_ELEMENT_ID in
+    decorator-shared/constants for why it isn't an attribute on <html>.
+*/
+:global(html:has(#decorator-consent-state[data-state="pending"])) .background,
+:global(html:has(#decorator-consent-state[data-state="reshow"])) .background {
     display: block;
 }
 

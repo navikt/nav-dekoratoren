@@ -3,7 +3,7 @@ import { defineCustomElement } from "./custom-elements";
 import { logger } from "../helpers/logger";
 
 /*
-    WebStorageController owns state for this, which is set on data-decorator-consent
+    WebStorageController owns state for this, see CONSENT_STATE_ELEMENT_ID
 */
 export class ConsentBanner extends HTMLElement {
     buttonConsentAll!: HTMLElement | null;

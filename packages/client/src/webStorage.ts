@@ -10,19 +10,22 @@ import { endpointUrlWithoutParams } from "./helpers/urls";
 import { redactFromUrl } from "./analytics/helpers/redactUrl";
 import {
     CONSENT_COOKIE_NAME,
+    CONSENT_STATE_ELEMENT_ID,
     CURRENT_CONSENT_VERSION,
 } from "decorator-shared/constants";
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
-// States
+// States, kept on the CONSENT_STATE_ELEMENT_ID element in <head>
 //   pending  banner in normal flow at the top of the page. Only set by the
 //            automatic check for missing/outdated consent, mirroring the
 //            pre-paint script so the banner doesn't move once JS runs.
 //   decided  hidden (also the CSS default, so the banner cannot cause layout
 //            shift for the majority of users who have already consented)
-//   reshow   docked to the bottom of the viewport. Used whenever the banner is
-//            shown explicitly: public methods, trigger links, #consent-reset.
+//   reshow   same place as pending, but shown explicitly: public methods,
+//            trigger links, #consent-reset, which also scroll the banner into
+//            view and focus it. Kept apart from pending so that
+//            checkAndTriggerConsentBanner leaves an open re-consent prompt alone.
 type ConsentBannerState = "pending" | "decided" | "reshow";
 
 export class WebStorageController {
@@ -96,8 +99,19 @@ export class WebStorageController {
             : window.location.hostname;
     };
 
+    private getConsentBannerState = () =>
+        document.getElementById(CONSENT_STATE_ELEMENT_ID)?.dataset.state;
+
     private setConsentBannerState = (state: ConsentBannerState) => {
-        document.documentElement.dataset.decoratorConsent = state;
+        // Normally created by the pre-paint script, but that never runs when the
+        // header is injected client-side.
+        let stateElement = document.getElementById(CONSENT_STATE_ELEMENT_ID);
+        if (!stateElement) {
+            stateElement = document.createElement("style");
+            stateElement.id = CONSENT_STATE_ELEMENT_ID;
+            document.head.append(stateElement);
+        }
+        stateElement.dataset.state = state;
     };
 
     private consentAllStorageHandler = () => {
@@ -289,9 +303,9 @@ export class WebStorageController {
         // An unanswered re-consent prompt must survive a header re-render. refreshHeader
         // fires recheckConsentBanner, and by that point reshowConsentBanner has already
         // cleared the cookie -- so without this guard the checks below would treat the
-        // user as a first-time visitor and downgrade "reshow" to "pending", yanking the
-        // docked banner back to the top of the page.
-        if (document.documentElement.dataset.decoratorConsent === "reshow") {
+        // user as a first-time visitor: downgrade "reshow" to "pending", clear their
+        // optional storage and fire showConsentBanner again.
+        if (this.getConsentBannerState() === "reshow") {
             return;
         }
 
