@@ -94,9 +94,14 @@ export class WebStorageController {
     };
 
     private getConsentDomain = () => {
-        return window.location.hostname.includes("nav.no")
-            ? ".nav.no"
-            : window.location.hostname;
+        const { hostname } = window.location;
+        if (hostname.includes("nav.no")) {
+            return ".nav.no";
+        }
+        // Host-only (no Domain attribute) for dotless hosts like localhost. libsoup,
+        // the cookie store behind WebKit on Linux, silently drops any cookie whose
+        // Domain has no dot -- which is what Playwright runs in CI.
+        return hostname.includes(".") ? hostname : undefined;
     };
 
     private getConsentBannerState = () =>
