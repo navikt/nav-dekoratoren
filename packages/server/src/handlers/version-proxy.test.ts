@@ -500,4 +500,32 @@ describe('versionProxyHandler', () => {
 
 		expect(proxyLogs(infoSpy)).toHaveLength(1);
 	});
+
+	it('logs the referer host and build time flag, and logs separately per referer host', async () => {
+		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(notFoundError()));
+
+		const app = buildApp(await loadHandler());
+		const withReferer = (referer: string, params?: Record<string, string>) =>
+			requestWithVersion(app, STALE_VERSION_ID, params, { headers: { referer } }, '/auth');
+		await withReferer('https://www.nav.no/min-app/sak/12345678910?fnr=1', { decoratorModulerBuildTime: 'true' });
+		await withReferer('https://www.nav.no/min-app/annen-side', { decoratorModulerBuildTime: 'true' });
+		await withReferer('https://min-app.intern.nav.no/');
+		await withReferer('not a url');
+
+		const logged = proxyLogs(infoSpy).map((log: string) => {
+			const { refererHost, buildTime } = parseMetaData(log);
+			return [refererHost, buildTime];
+		});
+		expect(logged).toEqual([
+			['www.nav.no', true],
+			['min-app.intern.nav.no', undefined],
+			[undefined, undefined],
+		]);
+		expect(proxyLogs(infoSpy).join()).not.toContain('12345678910');
+
+		const buildTimeCounts = Object.fromEntries(
+			(await register.getSingleMetric(METRIC_NAME)!.get()).values.map(({ labels, value }) => [labels.build_time, value])
+		);
+		expect(buildTimeCounts).toEqual({ true: 2, false: 2 });
+	});
 });

@@ -277,6 +277,12 @@ describe('decorator moduler metadata', () => {
 		expect(params.decoratorModulerVersion).toBeUndefined();
 		expect(params.decoratorModulerEntryPoint).toBe('ssr');
 	});
+
+	it('should parse the build time flag only when it is true', () => {
+		expect(parseAndValidateParams({ decoratorModulerBuildTime: 'true' }).decoratorModulerBuildTime).toBe(true);
+		expect(parseAndValidateParams({ decoratorModulerBuildTime: 'false' }).decoratorModulerBuildTime).toBeUndefined();
+		expect(parseAndValidateParams({ decoratorModulerBuildTime: 'ja' }).decoratorModulerBuildTime).toBeUndefined();
+	});
 });
 
 describe('Consumer identification', () => {
@@ -408,6 +414,28 @@ describe('Consumer identification', () => {
 			parseAndValidateParams({});
 
 			expect(info).not.toHaveBeenCalled();
+			expect(warn).not.toHaveBeenCalled();
+		});
+
+		it('warns for SSR requests from a static build', () => {
+			const { warn } = spyOnLogger();
+
+			parseAndValidateParams(
+				{ decoratorModulerVersion: '4.6.0', decoratorModulerEntryPoint: 'ssr', decoratorModulerBuildTime: 'true' },
+				{},
+				'ssr'
+			);
+
+			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørsel fra next build'), {
+				metaData: { buildTime: true, requestType: 'ssr', consumer: 'unknown', decoratorModulerVersion: '4.6.0' },
+			});
+		});
+
+		it('does not warn about static builds on follow-up requests', () => {
+			const { warn } = spyOnLogger();
+
+			parseAndValidateParams({ decoratorModulerBuildTime: 'true' });
+
 			expect(warn).not.toHaveBeenCalled();
 		});
 	});

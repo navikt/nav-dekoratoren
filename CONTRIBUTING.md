@@ -121,12 +121,21 @@ trigget.
 
 `version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.
 Metrikken har etikettene `result` (`proxied`, `error_response`, `not_found`, `unreachable`),
-`origin` (`navno-frontend`, `other`, `unknown`) og `route` (`auth`, `header`, `footer`, `ssr`,
-`consentping`, `other`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
+`origin` (`navno-frontend`, `other`, `unknown`), `route` (`auth`, `header`, `footer`, `ssr`,
+`consentping`, `other`) og `build_time` (`true`, `false`). `unknown` betyr at `origin` mangler; alle andre origin-verdier enn `navno-frontend`
 samles i `other`. Ruter utenfor de fem navngitte samles også i `other`. Versjons-ID og
 vilkårlige URL-er brukes ikke som etiketter.
 Strukturerte versjonsproxy-logger inkluderer `teamName` når konsumenten sender det, slik at feil
-kan spores til en konkret applikasjon uten å øke metrikkens kardinalitet.
+kan spores til en konkret applikasjon uten å øke metrikkens kardinalitet. Mangler `teamName`,
+kan `refererHost` (vertsnavnet fra `Referer`-headeren, uten sti) vise hvilken side forespørselen
+kom fra.
+
+`build_time="true"` og loggfeltet `buildTime` betyr at siden ble rendret under `next build`.
+Moduler-pakken merker slike SSR-forespørsler med `decoratorModulerBuildTime=true`, og klienten
+sender flagget videre på senere kall som `/auth`. Slike sider sender versjons-ID-en fra da appen
+ble bygget helt til appen deployes på nytt, se
+[README-seksjonen om statisk generering](README.md#unnga-statisk-generering). SSR-kall fra
+byggesteget logges også som en advarsel med `x_metaData.buildTime`.
 
 I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
 over forespørsler per resultat siste time. Filteret `origin=~".+"` utelater eldre metrikktidsserier
@@ -148,7 +157,18 @@ sum by (origin, route) (
 ```
 
 `teamName` finnes i strukturerte logger, ikke som metriketikett. Bruk OpenSearch for å filtrere
-proxylogger på `x_metaData.teamName`; ikke legg teamnavn eller versjons-ID-er til metriketiketter.
+proxylogger på `x_metaData.teamName` eller `x_metaData.refererHost`; ikke legg teamnavn,
+vertsnavn eller versjons-ID-er til metriketiketter.
+
+Andelen `not_found` som kommer fra statisk genererte sider:
+
+```promql
+sum by (build_time) (
+  increase(version_proxy_requests_total{namespace="personbruker",app="nav-dekoratoren",result="not_found",origin=~".+"}[1h])
+)
+```
+
+Bare konsumenter på en moduler-versjon som sender flagget, telles som `build_time="true"`.
 
 ---
 

@@ -50,6 +50,7 @@ export const analyticsEntryPointSchema = z.enum(['typed', 'custom', 'legacy']);
 export type ModulerMetadata = {
 	decoratorModulerVersion?: z.infer<typeof modulerVersionSemverSchema>;
 	decoratorModulerEntryPoint?: z.infer<typeof modulerEntryPointSchema>;
+	decoratorModulerBuildTime?: true;
 	decoratorModulerAnalyticsEntryPoint?: z.infer<typeof analyticsEntryPointSchema>;
 };
 
@@ -83,6 +84,8 @@ export const paramsSchema = z.object({
 	analyticsRedactFilter: z.array(z.string()).default([]),
 	decoratorModulerVersion: modulerVersionSemverSchema.optional(),
 	decoratorModulerEntryPoint: modulerEntryPointSchema.optional(),
+	// Set by moduler when the SSR fetch runs during a static build (next build)
+	decoratorModulerBuildTime: z.literal(true).optional().catch(undefined),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -117,6 +120,7 @@ export const clientParamKeys = [
 	'analyticsRedactFilter',
 	'decoratorModulerVersion',
 	'decoratorModulerEntryPoint',
+	'decoratorModulerBuildTime',
 ] as const satisfies ReadonlyArray<keyof Params>;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;

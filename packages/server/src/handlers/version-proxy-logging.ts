@@ -15,12 +15,28 @@ type ProxyRequestMetadata = {
 	path: string;
 	origin?: string;
 	teamName?: string;
+	refererHost?: string;
+	buildTime?: true;
 	pageType?: string;
 	decoratorModulerVersion?: string;
 	decoratorModulerEntryPoint?: string;
 };
 
 const getBoundedQueryValue = (url: URL, key: string) => url.searchParams.get(key)?.trim().slice(0, 100) || undefined;
+
+// Host only - the path may contain personal data
+const getRefererHost = (request: HonoRequest) => {
+	const referer = request.header('referer');
+	if (!referer) {
+		return undefined;
+	}
+	try {
+		const { host } = new URL(referer);
+		return /^[a-z0-9.-]+(?::\d+)?$/i.test(host) ? host.slice(0, 100) : undefined;
+	} catch {
+		return undefined;
+	}
+};
 
 const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => {
 	const url = new URL(request.url);
@@ -31,6 +47,8 @@ const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => 
 		path: url.pathname.slice(0, 100),
 		origin: origin && /^[a-z0-9][a-z0-9._-]*$/i.test(origin) ? origin : undefined,
 		teamName: teamName && /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(teamName) ? teamName : undefined,
+		refererHost: getRefererHost(request),
+		buildTime: url.searchParams.get('decoratorModulerBuildTime') === 'true' ? true : undefined,
 		pageType: getBoundedQueryValue(url, 'pageType'),
 		decoratorModulerVersion: getBoundedQueryValue(url, 'decoratorModulerVersion'),
 		decoratorModulerEntryPoint: getBoundedQueryValue(url, 'decoratorModulerEntryPoint'),
@@ -48,12 +66,12 @@ const problemLogStates = new Map<string, ProblemLogState>();
 
 // Prefer explicit consumer identity; origin is shared by some applications.
 const getProblemLogKey = (result: ProblemResult, requestedVersion: string, requestMetadata: ProxyRequestMetadata) => {
-	const { teamName, origin, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
+	const { teamName, origin, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
 	const requesterKey = teamName
 		? ['teamName', teamName]
 		: origin
 			? ['origin', origin]
-			: [null, decoratorModulerVersion, decoratorModulerEntryPoint];
+			: [null, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint];
 	return JSON.stringify([result, requestedVersion, ...requesterKey]);
 };
 
