@@ -1,4 +1,5 @@
 import { HonoRequest } from 'hono';
+import { getLogSafeHost } from 'decorator-shared/urls';
 import { env } from '../env/server';
 import { logger } from '../lib/logger';
 
@@ -15,6 +16,8 @@ type ProxyRequestMetadata = {
 	path: string;
 	origin?: string;
 	teamName?: string;
+	refererHost?: string;
+	buildTime?: true;
 	pageType?: string;
 	decoratorModulerVersion?: string;
 	decoratorModulerEntryPoint?: string;
@@ -31,6 +34,8 @@ const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => 
 		path: url.pathname.slice(0, 100),
 		origin: origin && /^[a-z0-9][a-z0-9._-]*$/i.test(origin) ? origin : undefined,
 		teamName: teamName && /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(teamName) ? teamName : undefined,
+		refererHost: getLogSafeHost(request.header('referer')),
+		buildTime: url.searchParams.get('decoratorModulerBuildTime') === 'true' ? true : undefined,
 		pageType: getBoundedQueryValue(url, 'pageType'),
 		decoratorModulerVersion: getBoundedQueryValue(url, 'decoratorModulerVersion'),
 		decoratorModulerEntryPoint: getBoundedQueryValue(url, 'decoratorModulerEntryPoint'),
@@ -48,12 +53,12 @@ const problemLogStates = new Map<string, ProblemLogState>();
 
 // Prefer explicit consumer identity; origin is shared by some applications.
 const getProblemLogKey = (result: ProblemResult, requestedVersion: string, requestMetadata: ProxyRequestMetadata) => {
-	const { teamName, origin, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
+	const { teamName, origin, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
 	const requesterKey = teamName
 		? ['teamName', teamName]
 		: origin
 			? ['origin', origin]
-			: [null, decoratorModulerVersion, decoratorModulerEntryPoint];
+			: [null, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint];
 	return JSON.stringify([result, requestedVersion, ...requesterKey]);
 };
 

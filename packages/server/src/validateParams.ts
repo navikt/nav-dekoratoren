@@ -77,6 +77,7 @@ export const validateParams = (params: Record<string, string>) => {
 			.otherwise(() => []),
 		decoratorModulerVersion: modulerVersion,
 		decoratorModulerEntryPoint: modulerEntryPoint,
+		decoratorModulerBuildTime: params.decoratorModulerBuildTime === 'true' ? true : undefined,
 	} as Params;
 };
 
@@ -138,6 +139,20 @@ export const parseAndValidateParams = (
 			logger.info('Decorator consumer info.', {
 				metaData: { consumer, requestType },
 			});
+		}
+
+		if (requestType === 'ssr' && query.decoratorModulerBuildTime === 'true') {
+			logger.warn(
+				'SSR-forespørsel fra next build. Statisk genererte sider fryser Dekoratøren til neste deploy av appen og sender ikke teamName.',
+				{
+					metaData: {
+						buildTime: true,
+						requestType,
+						consumer: consumer ?? 'unknown',
+						decoratorModulerVersion: query.decoratorModulerVersion?.slice(0, 50),
+					},
+				}
+			);
 		}
 	}
 
