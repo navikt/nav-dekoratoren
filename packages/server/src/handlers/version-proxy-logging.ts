@@ -1,4 +1,5 @@
 import { HonoRequest } from 'hono';
+import { getLogSafeHost } from 'decorator-shared/urls';
 import { env } from '../env/server';
 import { logger } from '../lib/logger';
 
@@ -24,20 +25,6 @@ type ProxyRequestMetadata = {
 
 const getBoundedQueryValue = (url: URL, key: string) => url.searchParams.get(key)?.trim().slice(0, 100) || undefined;
 
-// Host only - the path may contain personal data
-const getRefererHost = (request: HonoRequest) => {
-	const referer = request.header('referer');
-	if (!referer) {
-		return undefined;
-	}
-	try {
-		const { host } = new URL(referer);
-		return /^[a-z0-9.-]+(?::\d+)?$/i.test(host) ? host.slice(0, 100) : undefined;
-	} catch {
-		return undefined;
-	}
-};
-
 const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => {
 	const url = new URL(request.url);
 	const origin = getBoundedQueryValue(url, 'origin');
@@ -47,7 +34,7 @@ const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => 
 		path: url.pathname.slice(0, 100),
 		origin: origin && /^[a-z0-9][a-z0-9._-]*$/i.test(origin) ? origin : undefined,
 		teamName: teamName && /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(teamName) ? teamName : undefined,
-		refererHost: getRefererHost(request),
+		refererHost: getLogSafeHost(request.header('referer')),
 		buildTime: url.searchParams.get('decoratorModulerBuildTime') === 'true' ? true : undefined,
 		pageType: getBoundedQueryValue(url, 'pageType'),
 		decoratorModulerVersion: getBoundedQueryValue(url, 'decoratorModulerVersion'),

@@ -1,5 +1,22 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { isValidNavUrl, makeFrontpageUrl } from '../urls';
+import { getLogSafeHost, isValidNavUrl, makeFrontpageUrl } from '../urls';
+
+describe('getLogSafeHost', () => {
+	test.each([
+		['https://www.nav.no/sak/123?token=secret#fragment', 'www.nav.no'],
+		['https://user:password@app.nav.no/private', 'app.nav.no'],
+		['http://localhost:8089/path', 'localhost:8089'],
+	])('returns only the host for %j', (url, host) => {
+		expect(getLogSafeHost(url)).toBe(host);
+	});
+
+	test.each([undefined, '', 'not a url', '/relative/path', 'javascript:alert(1)'])(
+		'does not log invalid input %j',
+		(url) => {
+			expect(getLogSafeHost(url)).toBeUndefined();
+		}
+	);
+});
 
 test('Frontpage URLs', () => {
 	const baseUrl = 'https://www.nav.no';
