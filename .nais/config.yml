@@ -39,6 +39,9 @@ spec:
     outbound:
       rules:
         - application: nav-dekoratoren-api
+          namespace: navno
+        - application: nav-dekoratoren-api
+          namespace: personbruker
         - application: navno-search-api
           namespace: navno
         - application: tms-varsel-api
