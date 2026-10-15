@@ -23,10 +23,12 @@ export type SearchHitsProps = {
 
 export const SearchHits = ({ results: { hits, total }, query, context }: SearchHitsProps) => html`
 	<div class="${cls.searchHits}">
-		<h2 role="alert" class="${cls.heading}">${i18n('search_hits_heading', { total, query, context })}</h2>
-		<a href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}" class="${aksel['aksel-link']}">
-			${i18n('change_search_filter')}
-		</a>
+		<section>
+			<h2 role="alert" class="${cls.heading}">${i18n('search_hits_heading', { total, query, context })}</h2>
+			<a href="${env.XP_BASE_URL}/sok?ord=${query}&f=${context}" class="${aksel['aksel-link']}">
+				${i18n('change_search_filter')}
+			</a>
+		</section>
 		${
 			total > 0
 				? html`
@@ -41,7 +43,7 @@ export const SearchHits = ({ results: { hits, total }, query, context }: SearchH
 											>
 												${hit.displayName}
 											</a>
-											${unsafeHtml(hit.highlight)}
+											<span>${unsafeHtml(hit.highlight)}</span>
 										</search-hit>
 									</li>
 								`
