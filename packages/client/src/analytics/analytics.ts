@@ -147,11 +147,7 @@ export const analyticsClickListener = (fn: (el: HTMLAnchorElement) => AnalyticsE
 				pageType: param('pageType'),
 				pageTheme: param('pageTheme'),
 				destinasjon: anchor.href,
-				kategori: args.kategori,
-				lenkegruppe: args.lenkegruppe,
-				lenketekst: args.lenketekst,
-				tekst: args.tekst,
-				komponent: args.komponent,
+				...args,
 			};
 			createUmamiEvent(analyticsEvent);
 		}
