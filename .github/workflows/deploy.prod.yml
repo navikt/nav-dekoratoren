@@ -14,4 +14,6 @@ jobs:
     needs: deploy
     uses: navikt/navno-ci/.github/workflows/release.yml@v1
     permissions: { contents: write }
+    with:
+      image: ${{ needs.deploy.outputs.image }}
     secrets: inherit

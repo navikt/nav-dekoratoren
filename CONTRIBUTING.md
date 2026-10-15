@@ -117,6 +117,36 @@ under fanen Actions:
 Når PR-en din er godkjent, kan du merge den til main, og en produksjonsdeploy blir automatisk
 trigget.
 
+### Rollback i produksjon
+
+Hvis en deploy til produksjon har brutt noe, bruk `Rollback prod` under Actions.
+Den deployer et image som allerede er bygget, uten å bygge eller kjøre tester på nytt, og tar
+mye mindre tid enn en vanlig deploy.
+
+- Kjør den fra `main`. GitHub-miljøet `prod` godtar bare deploy fra `main`, så en kjøring fra en
+  annen branch stopper før den deployer. `dry-run` fungerer fra alle brancher.
+- La `release-tag` stå tom for å rulle tilbake til releasen før den nyeste. Releaser som peker på
+  samme commit som den nyeste, hoppes over. Oppgi en `release/prod@...`-tag fra
+  [releases](https://github.com/navikt/nav-dekoratoren/releases) for å rulle tilbake til en bestemt
+  versjon.
+- Workflowen viser hvilken release, commit og image den deployer i oppsummeringen før den
+  deployer. Velg `dry-run` for å se dette uten å deploye.
+- En rollback oppretter ingen ny release, så to rollbacks på rad med tom `release-tag` deployer
+  samme release. Oppgi en tag for å gå lenger tilbake.
+- Rollbacken varer til `main` deployes på nytt, enten ved neste merge til `main` eller når
+  `Refresh base image` kjører hver søndag kveld. Deaktiver `Refresh base image` under Actions
+  mens rollbacken er aktiv, og aktiver den igjen når `main` er fikset. Revert endringen eller
+  fiks feilen på `main` før du merger noe annet.
+- En rollback deployer imaget som ble bygget for releasen, så base image-oppdateringer fra
+  senere kjøringer av `Refresh base image` rulles også tilbake. Har en slik kjøring brutt prod,
+  oppgi taggen til den nyeste releasen: da deployes samme kode med imaget fra før kjøringen.
+  Med tom `release-tag` rulles også koden tilbake.
+- Du kan bare rulle tilbake til releaser som er opprettet etter at rollback ble innført. Eldre
+  releaser mangler linjen `Deployed image: ...` i beskrivelsen.
+- `.nais`-filene hentes fra commiten til releasen, så endringer i konfigurasjonen etter releasen
+  rulles også tilbake. Unntakene er `network-policy.yml` og `alerts.yml`, som rollback ikke
+  deployer.
+
 ### Versjonsproxy og metrikker
 
 `version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.

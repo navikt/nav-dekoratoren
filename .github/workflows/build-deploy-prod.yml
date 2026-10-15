@@ -1,7 +1,12 @@
 # Builds main and deploys it to prod - shared by deploy.prod.yml and base-image-refresh.yml
 # Callers need `permissions: { contents: read, id-token: write }` and `secrets: inherit`.
 name: Build and deploy to prod
-on: workflow_call
+on:
+  workflow_call:
+    outputs:
+      image:
+        description: The image that was built and deployed, pinned to its digest.
+        value: ${{ jobs.build.outputs.image }}
 
 jobs:
   build:
