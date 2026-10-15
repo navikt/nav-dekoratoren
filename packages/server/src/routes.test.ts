@@ -110,6 +110,46 @@ describe('CSR without moduler', () => {
 	});
 });
 
+describe('CORS', () => {
+	const preflight = (origin: string) =>
+		app.request('/dekoratoren/auth', {
+			method: 'OPTIONS',
+			headers: {
+				origin,
+				'access-control-request-method': 'GET',
+				'access-control-request-headers': 'traceparent,tracestate',
+			},
+		});
+
+	test('answers preflights from allowed origins', async () => {
+		const response = await preflight('https://meldekort.intern.dev.nav.no');
+
+		expect(response.status).toBe(204);
+		expect(response.headers.get('access-control-allow-origin')).toBe('https://meldekort.intern.dev.nav.no');
+		expect(response.headers.get('access-control-allow-credentials')).toBe('true');
+		expect(response.headers.get('access-control-allow-methods')).toContain('GET');
+		expect(response.headers.get('access-control-allow-headers')).toBe('traceparent,tracestate');
+		expect(response.headers.get('access-control-max-age')).toBe('7200');
+	});
+
+	test('does not answer preflights from other origins', async () => {
+		const response = await preflight('https://example.com');
+
+		expect(response.ok).toBe(false);
+		expect(response.headers.get('access-control-allow-origin')).toBeNull();
+	});
+
+	test('allows credentialed requests from allowed origins', async () => {
+		const response = await app.request('/dekoratoren/auth', {
+			headers: { origin: 'https://min-app.nav.no' },
+		});
+
+		expect(response.status).toBe(200);
+		expect(response.headers.get('access-control-allow-origin')).toBe('https://min-app.nav.no');
+		expect(response.headers.get('access-control-allow-credentials')).toBe('true');
+	});
+});
+
 // Regression: the app used to be mounted onto itself, so both "*" and
 // "/dekoratoren/*" matched and every global middleware ran twice.
 test('counts each request once, also behind a prefix', async () => {
