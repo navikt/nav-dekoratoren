@@ -1,28 +1,28 @@
-import { defineConfig } from "vitest/config";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { defineConfig } from 'vitest/config';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 function parseEnvFile(path: string): Record<string, string> {
-    return Object.fromEntries(
-        readFileSync(path, "utf-8")
-            .split("\n")
-            .filter((line) => line.trim() && !line.startsWith("#"))
-            .map((line) => {
-                const idx = line.indexOf("=");
-                return [line.slice(0, idx).trim(), line.slice(idx + 1).trim()];
-            }),
-    );
+	return Object.fromEntries(
+		readFileSync(path, 'utf-8')
+			.split('\n')
+			.filter((line) => line.trim() && !line.startsWith('#'))
+			.map((line) => {
+				const idx = line.indexOf('=');
+				return [line.slice(0, idx).trim(), line.slice(idx + 1).trim()];
+			})
+	);
 }
 
-const clientRoot = fileURLToPath(new URL("../client", import.meta.url));
+const clientRoot = fileURLToPath(new URL('../client', import.meta.url));
 
 export default defineConfig({
-    resolve: {
-        alias: {
-            "decorator-client": clientRoot,
-        },
-    },
-    test: {
-        env: parseEnvFile("./.env.sample"),
-    },
+	resolve: {
+		alias: {
+			'decorator-client': clientRoot,
+		},
+	},
+	test: {
+		env: parseEnvFile('./.env.sample'),
+	},
 });

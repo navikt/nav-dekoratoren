@@ -1,0 +1,14 @@
+name: Deploy alerts
+on:
+  push:
+    branches: [main]
+    paths: ['.nais/alerts.yml']
+  workflow_dispatch:
+
+jobs:
+  deploy-alerts-prod:
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: prod-gcp
+      resource: .nais/alerts.yml

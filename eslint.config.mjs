@@ -1,31 +1,36 @@
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+	baseDirectory: __dirname,
+	recommendedConfig: js.configs.recommended,
+	allConfig: js.configs.all,
 });
 
-export default [{
-    ignores: ["**/*.js", "**/*.cjs"],
-}, {
-    files: ["**/*.mjs"],
-    languageOptions: {
-        globals: { process: "readonly" },
-    },
-}, ...compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended"), {
-    plugins: {
-        "@typescript-eslint": typescriptEslint,
-    },
+export default [
+	{
+		ignores: ['**/*.js', '**/*.cjs'],
+	},
+	{
+		files: ['**/*.mjs'],
+		languageOptions: {
+			globals: { process: 'readonly' },
+		},
+	},
+	...compat.extends('eslint:recommended', 'plugin:@typescript-eslint/recommended'),
+	{
+		plugins: {
+			'@typescript-eslint': typescriptEslint,
+		},
 
-    rules: {
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
-    },
-}];
+		rules: {
+			'@typescript-eslint/no-explicit-any': 'off',
+			'@typescript-eslint/no-unused-vars': 'warn',
+		},
+	},
+];

@@ -1,31 +1,31 @@
 {
-    "compilerOptions": {
-        "target": "ES2022",
-        "lib": ["ES2022", "DOM"],
-        "strict": true,
-        "skipLibCheck": true,
-        "isolatedModules": true,
-        "forceConsistentCasingInFileNames": true,
-        "allowJs": true,
-        "esModuleInterop": true,
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "moduleDetection": "force",
-        "noEmit": true,
-        "types": ["vite/client", "node"],
-        "paths": {
-            "decorator-server/src/*": ["../server/src/*"]
-        },
-        "plugins": [
-            {
-                "name": "typescript-plugin-css-modules",
-                "options": {
-                    "postcssOptions": {
-                        "useConfig": true
-                    }
-                }
-            }
-        ]
-    },
-    "exclude": ["test/**", "**/*.stories.ts"]
+	"compilerOptions": {
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM"],
+		"strict": true,
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowJs": true,
+		"esModuleInterop": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"moduleDetection": "force",
+		"noEmit": true,
+		"types": ["vite/client", "node"],
+		"paths": {
+			"decorator-server/src/*": ["../server/src/*"]
+		},
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"postcssOptions": {
+						"useConfig": true
+					}
+				}
+			}
+		]
+	},
+	"exclude": ["test/**", "**/*.stories.ts"]
 }

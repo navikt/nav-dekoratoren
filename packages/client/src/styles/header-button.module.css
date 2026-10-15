@@ -1,13 +1,13 @@
 @media (max-width: calc(48rem - 1px)) {
-    .headerButton.headerButton {
-        flex-direction: column;
-        gap: 0;
-        padding: var(--ax-space-8) var(--ax-space-12);
-    }
+	.headerButton.headerButton {
+		flex-direction: column;
+		gap: 0;
+		padding: var(--ax-space-8) var(--ax-space-12);
+	}
 }
 
 /* Fikser alignment i Safari når det er satt ellipsis på child-elementet */
 .headerButton :global(.label) {
-    display: inline-flex;
-    align-items: center;
+	display: inline-flex;
+	align-items: center;
 }

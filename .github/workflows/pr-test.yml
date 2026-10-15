@@ -1,21 +1,17 @@
 name: Run tests on PR
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v7
-
-      - name: Build and run tests (test-only)
-        uses: ./.github/actions/build-test
-        with:
-          READER_TOKEN: ${{ secrets.READER_TOKEN }}
-          TEST_ONLY: "true"
+    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+    with:
+      push-image: false
+      team: personbruker
+      playwright: pnpm run test:e2e
+    secrets: inherit

@@ -1,24 +1,19 @@
-import Cookies from "js-cookie";
-import type {
-    ClientParams,
-    Context,
-    Environment,
-    Language,
-} from "decorator-shared/params";
-import { createEvent } from "./events";
+import Cookies from 'js-cookie';
+import type { ClientParams, Context, Environment, Language } from 'decorator-shared/params';
+import { createEvent } from './events';
 
 type ParamKey = keyof ClientParams;
 type EnvKey = keyof Environment;
 
-const CONTEXT_COOKIE = "decorator-context";
-const LANGUAGE_COOKIE = "decorator-language";
+const CONTEXT_COOKIE = 'decorator-context';
+const LANGUAGE_COOKIE = 'decorator-language';
 
 export const param = <TKey extends ParamKey>(paramKey: TKey) => {
-    return window.__DECORATOR_DATA__.params[paramKey];
+	return window.__DECORATOR_DATA__.params[paramKey];
 };
 
 export const env = <TKey extends EnvKey>(envKey: TKey) => {
-    return window.__DECORATOR_DATA__.env[envKey];
+	return window.__DECORATOR_DATA__.env[envKey];
 };
 
 /**
@@ -26,58 +21,54 @@ export const env = <TKey extends EnvKey>(envKey: TKey) => {
  * full current params and the list of keys that changed.
  */
 export const updateDecoratorParams = (params: Partial<ClientParams>) => {
-    const updatedParams = { ...params };
+	const updatedParams = { ...params };
 
-    Object.entries(params).forEach(([key, value]) => {
-        if (param(key as ParamKey) === value) {
-            delete updatedParams[key as ParamKey];
-        }
-    });
+	Object.entries(params).forEach(([key, value]) => {
+		if (param(key as ParamKey) === value) {
+			delete updatedParams[key as ParamKey];
+		}
+	});
 
-    window.__DECORATOR_DATA__.params = {
-        ...window.__DECORATOR_DATA__.params,
-        ...updatedParams,
-    };
+	window.__DECORATOR_DATA__.params = {
+		...window.__DECORATOR_DATA__.params,
+		...updatedParams,
+	};
 
-    if (updatedParams.context !== undefined) {
-        Cookies.set(CONTEXT_COOKIE, updatedParams.context);
-    }
+	if (updatedParams.context !== undefined) {
+		Cookies.set(CONTEXT_COOKIE, updatedParams.context);
+	}
 
-    if (updatedParams.language !== undefined) {
-        Cookies.set(LANGUAGE_COOKIE, updatedParams.language);
-    }
+	if (updatedParams.language !== undefined) {
+		Cookies.set(LANGUAGE_COOKIE, updatedParams.language);
+	}
 
-    const changedKeys = Object.keys(updatedParams) as (keyof ClientParams)[];
-    if (changedKeys.length > 0) {
-        window.dispatchEvent(
-            createEvent("paramsupdated", {
-                detail: {
-                    params: window.__DECORATOR_DATA__.params,
-                    changedKeys,
-                },
-            }),
-        );
-    }
+	const changedKeys = Object.keys(updatedParams) as (keyof ClientParams)[];
+	if (changedKeys.length > 0) {
+		window.dispatchEvent(
+			createEvent('paramsupdated', {
+				detail: {
+					params: window.__DECORATOR_DATA__.params,
+					changedKeys,
+				},
+			})
+		);
+	}
 };
 
 export const initParams = () => {
-    const rawParams = window.__DECORATOR_DATA__.rawParams;
+	const rawParams = window.__DECORATOR_DATA__.rawParams;
 
-    const initialParams: Partial<ClientParams> = {};
+	const initialParams: Partial<ClientParams> = {};
 
-    const language =
-        rawParams?.language ||
-        (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
-    if (language) {
-        initialParams.language = language;
-    }
+	const language = rawParams?.language || (Cookies.get(LANGUAGE_COOKIE) as Language | undefined);
+	if (language) {
+		initialParams.language = language;
+	}
 
-    const context =
-        rawParams?.context ||
-        (Cookies.get(CONTEXT_COOKIE) as Context | undefined);
-    if (context) {
-        initialParams.context = context;
-    }
+	const context = rawParams?.context || (Cookies.get(CONTEXT_COOKIE) as Context | undefined);
+	if (context) {
+		initialParams.context = context;
+	}
 
-    updateDecoratorParams(initialParams);
+	updateDecoratorParams(initialParams);
 };

@@ -1,1 +1,1 @@
-export const DEFAULT_ORIGIN = "nav-dekoratoren";
+export const DEFAULT_ORIGIN = 'nav-dekoratoren';

@@ -1,70 +1,70 @@
-@import "@navikt/ds-css/dist/global/fonts.css";
-@import "@navikt/ds-css/dist/global/tokens.css";
+@import '@navikt/ds-css/dist/global/fonts.css';
+@import '@navikt/ds-css/dist/global/tokens.css';
 
 html {
-    box-sizing: border-box;
+	box-sizing: border-box;
 
-    /*
+	/*
         Reserves room for the scrollbar so page content does not shift when navigating
         between pages that do and do not overflow. Replaces overflow-y: scroll on the
         body element, which cannot be used together with overflow-x: clip below.
     */
-    scrollbar-gutter: stable;
+	scrollbar-gutter: stable;
 }
 
 *,
 :after,
 :before {
-    box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 body {
-    margin: 0;
+	margin: 0;
 
-    /*
+	/*
         clip, not hidden: overflow: hidden turns the body into a scroll container as soon
         as the consuming application sets any overflow on the html element
 
         Set to !important to avoid downstream apps bashing it and killing sticky
     */
-    overflow-x: clip !important;
+	overflow-x: clip !important;
 }
 
 :root {
-    /*
+	/*
         The header height is defined on the root element so it can be used when
         calculating --decorator-sticky-offset below. #decorator-header aliases it
         to --header-height for internal use.
     */
-    --decorator-header-height: 4.5rem;
+	--decorator-header-height: 4.5rem;
 
-    /*
+	/*
         This custom property is used by consuming applications for positioning their own
         sticky elements relative to the sticky header. It specifies the height of the
         sticky header, and is 0 when no sticky header is present (i.e. the simple header).
         Do not change the name or value assignment of this property without notifying consumers.
     */
-    --decorator-sticky-offset: 0px;
+	--decorator-sticky-offset: 0px;
 }
 
 @media (min-width: 48rem) {
-    :root {
-        --decorator-header-height: 5rem;
-    }
+	:root {
+		--decorator-header-height: 5rem;
+	}
 }
 
 /*
     Kill wrapper elements so sticky works
 */
 :is(#header-withmenu, #decorator-header, decorator-header) {
-    display: contents;
+	display: contents;
 }
 
 html:has(#decorator-header [data-sticky]) {
-    --decorator-sticky-offset: var(--decorator-header-height);
+	--decorator-sticky-offset: var(--decorator-header-height);
 
-    /* Prevents the sticky header from covering elements scrolled to via anchor links etc. */
-    scroll-padding-top: var(--decorator-sticky-offset);
+	/* Prevents the sticky header from covering elements scrolled to via anchor links etc. */
+	scroll-padding-top: var(--decorator-sticky-offset);
 }
 
 /*
@@ -77,45 +77,43 @@ html:has(#decorator-header [data-sticky]) {
     by itself whenever no scroll padding is applied (simple header, co-browsing).
 */
 :is([data-sticky], [data-sticky] *) {
-    scroll-margin-top: calc(var(--decorator-sticky-offset) * -1);
+	scroll-margin-top: calc(var(--decorator-sticky-offset) * -1);
 }
 
 /*
-    Disable sticky behaviour when viewed from the vergic or puzzel co-browsing UIs.
-    The #vngageDOMCSS4 and pzl-tag-1 elements are presently only rendered when viewed
-    from co-browsing, but there's no guarantee this assumption will hold in the future. :D
+    Disable sticky behaviour when viewed from the puzzel co-browsing UI.
+    The pzl-tag-1 element is presently only rendered when viewed from co-browsing,
+    but there's no guarantee this assumption will hold in the future. :D
 */
-html:has(head > #vngageDOMCSS4),
 html:has(#decorator-header pzl-tag-1) {
-    --decorator-sticky-offset: 0px !important;
-    scroll-padding-top: 0 !important;
+	--decorator-sticky-offset: 0px !important;
+	scroll-padding-top: 0 !important;
 }
 
-html:has(head > #vngageDOMCSS4) [data-sticky],
 html:has(#decorator-header pzl-tag-1) [data-sticky] {
-    position: static !important;
+	position: static !important;
 }
 
 :is(#decorator-header, #decorator-footer) {
-    --edge-spacing: var(--ax-space-16);
-    --desktop-min-width: 768px;
-    --header-height: var(--decorator-header-height);
+	--edge-spacing: var(--ax-space-16);
+	--desktop-min-width: 768px;
+	--header-height: var(--decorator-header-height);
 
-    font-family: var(--ax-font-family);
-    line-height: calc(4 / 3);
-    font-size: 1.125rem;
-    color: var(--ax-text-neutral);
+	font-family: var(--ax-font-family);
+	line-height: calc(4 / 3);
+	font-size: 1.125rem;
+	color: var(--ax-text-neutral);
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 @media (min-width: 64rem) {
-    :is(#decorator-header, #decorator-footer) {
-        --edge-spacing: var(--ax-space-48);
-    }
+	:is(#decorator-header, #decorator-footer) {
+		--edge-spacing: var(--ax-space-48);
+	}
 }
 
 :is(#header-withmenu, #footer-withmenu) {
-    font-family: var(--ax-font-family, "Source Sans Pro", Arial, sans-serif);
+	font-family: var(--ax-font-family, 'Source Sans Pro', Arial, sans-serif);
 }

@@ -1,18 +1,10 @@
-import Cookies from "js-cookie";
-import { createEvent } from "./events";
-import { logger } from "./helpers/logger";
-import {
-    ConsentAction,
-    Consent,
-    PublicStorageItem,
-} from "decorator-shared/types";
-import { endpointUrlWithoutParams } from "./helpers/urls";
-import { redactFromUrl } from "./analytics/helpers/redactUrl";
-import {
-    CONSENT_COOKIE_NAME,
-    CONSENT_STATE_ELEMENT_ID,
-    CURRENT_CONSENT_VERSION,
-} from "decorator-shared/constants";
+import Cookies from 'js-cookie';
+import { createEvent } from './events';
+import { logger } from './helpers/logger';
+import { ConsentAction, Consent, PublicStorageItem } from 'decorator-shared/types';
+import { decoratorApi } from './helpers/api';
+import { redactFromUrl } from './analytics/helpers/redactUrl';
+import { CONSENT_COOKIE_NAME, CONSENT_STATE_ELEMENT_ID, CURRENT_CONSENT_VERSION } from 'decorator-shared/constants';
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
@@ -26,372 +18,344 @@ const DECORATOR_DATA_TIMEOUT = 5000;
 //            trigger links, #consent-reset, which also scroll the banner into
 //            view and focus it. Kept apart from pending so that
 //            checkAndTriggerConsentBanner leaves an open re-consent prompt alone.
-type ConsentBannerState = "pending" | "decided" | "reshow";
+type ConsentBannerState = 'pending' | 'decided' | 'reshow';
 
 export class WebStorageController {
-    // Public because webStorageController is exposed on window.
-    currentConsentVersion: number = CURRENT_CONSENT_VERSION;
-    consentKey: string = CONSENT_COOKIE_NAME;
+	// Public because webStorageController is exposed on window.
+	currentConsentVersion: number = CURRENT_CONSENT_VERSION;
+	consentKey: string = CONSENT_COOKIE_NAME;
 
-    // Enables reaping every listener registered by this instance.
-    private readonly abortController = new AbortController();
+	// Enables reaping every listener registered by this instance.
+	private readonly abortController = new AbortController();
 
-    constructor() {
-        this.initEventListeners();
-        this.checkAndTriggerConsentBanner();
-    }
+	constructor() {
+		this.initEventListeners();
+		this.checkAndTriggerConsentBanner();
+	}
 
-    // Default consent object ensures that nothing is allowed until user has
-    // given and explicit consent.
-    private buildDefaultConsent = (): Consent => {
-        return {
-            consent: { analytics: false, surveys: false },
-            userActionTaken: false,
-            meta: {
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-                version: this.currentConsentVersion,
-                analyticsId: null,
-            },
-        };
-    };
+	// Default consent object ensures that nothing is allowed until user has
+	// given and explicit consent.
+	private buildDefaultConsent = (): Consent => {
+		return {
+			consent: { analytics: false, surveys: false },
+			userActionTaken: false,
+			meta: {
+				createdAt: new Date().toISOString(),
+				updatedAt: new Date().toISOString(),
+				version: this.currentConsentVersion,
+				analyticsId: null,
+			},
+		};
+	};
 
-    private getStorageDictionaryFromEnv = (): PublicStorageItem[] => {
-        if (!window.__DECORATOR_DATA__) {
-            logger.error(
-                "Decorator data not available. Make sure decorator is loaded correctly.",
-            );
-            return [];
-        }
-        return window.__DECORATOR_DATA__.allowedStorage || [];
-    };
+	private getStorageDictionaryFromEnv = (): PublicStorageItem[] => {
+		if (!window.__DECORATOR_DATA__) {
+			logger.error('Decorator data not available. Make sure decorator is loaded correctly.');
+			return [];
+		}
+		return window.__DECORATOR_DATA__.allowedStorage || [];
+	};
 
-    private buildUpdatedConsentObject = (consent: ConsentAction): Consent => {
-        // User either consent or refuse all for now. Differentiate between analytics and surveys
-        // in order to be scalable in the future.
-        const analytics = consent === "CONSENT_ALL_WEB_STORAGE";
-        const surveys = consent === "CONSENT_ALL_WEB_STORAGE";
+	private buildUpdatedConsentObject = (consent: ConsentAction): Consent => {
+		// User either consent or refuse all for now. Differentiate between analytics and surveys
+		// in order to be scalable in the future.
+		const analytics = consent === 'CONSENT_ALL_WEB_STORAGE';
+		const surveys = consent === 'CONSENT_ALL_WEB_STORAGE';
 
-        // We need to track the anonymous user across calendar months in Umami.
-        // To achieve this, generate a uuid to be used in umami.identify on each start.
-        // null if no consent.
-        const analyticsId = analytics ? crypto.randomUUID() : null;
+		// We need to track the anonymous user across calendar months in Umami.
+		// To achieve this, generate a uuid to be used in umami.identify on each start.
+		// null if no consent.
+		const analyticsId = analytics ? crypto.randomUUID() : null;
 
-        const currentConsent =
-            this.getCurrentConsent() ?? this.buildDefaultConsent();
+		const currentConsent = this.getCurrentConsent() ?? this.buildDefaultConsent();
 
-        return {
-            consent: { analytics, surveys },
-            userActionTaken: true,
-            meta: {
-                createdAt:
-                    currentConsent.meta?.createdAt ?? new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-                version: this.currentConsentVersion,
-                analyticsId,
-            },
-        };
-    };
+		return {
+			consent: { analytics, surveys },
+			userActionTaken: true,
+			meta: {
+				createdAt: currentConsent.meta?.createdAt ?? new Date().toISOString(),
+				updatedAt: new Date().toISOString(),
+				version: this.currentConsentVersion,
+				analyticsId,
+			},
+		};
+	};
 
-    private getConsentDomain = () => {
-        const { hostname } = window.location;
-        if (hostname.includes("nav.no")) {
-            return ".nav.no";
-        }
-        // Host-only (no Domain attribute) for dotless hosts like localhost. libsoup,
-        // the cookie store behind WebKit on Linux, silently drops any cookie whose
-        // Domain has no dot -- which is what Playwright runs in CI.
-        return hostname.includes(".") ? hostname : undefined;
-    };
+	private getConsentDomain = () => {
+		const { hostname } = window.location;
+		if (hostname.includes('nav.no')) {
+			return '.nav.no';
+		}
+		// Host-only (no Domain attribute) for dotless hosts like localhost. libsoup,
+		// the cookie store behind WebKit on Linux, silently drops any cookie whose
+		// Domain has no dot -- which is what Playwright runs in CI.
+		return hostname.includes('.') ? hostname : undefined;
+	};
 
-    private getConsentBannerState = () =>
-        document.getElementById(CONSENT_STATE_ELEMENT_ID)?.dataset.state;
+	private getConsentBannerState = () => document.getElementById(CONSENT_STATE_ELEMENT_ID)?.dataset.state;
 
-    private setConsentBannerState = (state: ConsentBannerState) => {
-        // Normally created by the pre-paint script, but that never runs when the
-        // header is injected client-side.
-        let stateElement = document.getElementById(CONSENT_STATE_ELEMENT_ID);
-        if (!stateElement) {
-            stateElement = document.createElement("style");
-            stateElement.id = CONSENT_STATE_ELEMENT_ID;
-            document.head.append(stateElement);
-        }
-        stateElement.dataset.state = state;
-    };
+	private setConsentBannerState = (state: ConsentBannerState) => {
+		// Normally created by the pre-paint script, but that never runs when the
+		// header is injected client-side.
+		let stateElement = document.getElementById(CONSENT_STATE_ELEMENT_ID);
+		if (!stateElement) {
+			stateElement = document.createElement('style');
+			stateElement.id = CONSENT_STATE_ELEMENT_ID;
+			document.head.append(stateElement);
+		}
+		stateElement.dataset.state = state;
+	};
 
-    private consentAllStorageHandler = () => {
-        const consentObject = this.buildUpdatedConsentObject(
-            "CONSENT_ALL_WEB_STORAGE",
-        );
+	private consentAllStorageHandler = () => {
+		const consentObject = this.buildUpdatedConsentObject('CONSENT_ALL_WEB_STORAGE');
 
-        Cookies.set(this.consentKey, JSON.stringify(consentObject), {
-            expires: 90,
-            domain: this.getConsentDomain(),
-        });
-        this.setConsentBannerState("decided");
-        this.pingConsentBack(consentObject);
-    };
+		Cookies.set(this.consentKey, JSON.stringify(consentObject), {
+			expires: 90,
+			domain: this.getConsentDomain(),
+		});
+		this.setConsentBannerState('decided');
+		this.pingConsentBack(consentObject);
+	};
 
-    private refuseOptionalStorageHandler = () => {
-        const consentObject = this.buildUpdatedConsentObject(
-            "REFUSE_OPTIONAL_WEB_STORAGE",
-        );
+	private refuseOptionalStorageHandler = () => {
+		const consentObject = this.buildUpdatedConsentObject('REFUSE_OPTIONAL_WEB_STORAGE');
 
-        Cookies.set(this.consentKey, JSON.stringify(consentObject), {
-            expires: 90,
-            domain: this.getConsentDomain(),
-        });
+		Cookies.set(this.consentKey, JSON.stringify(consentObject), {
+			expires: 90,
+			domain: this.getConsentDomain(),
+		});
 
-        this.setConsentBannerState("decided");
-        this.pingConsentBack(consentObject);
+		this.setConsentBannerState('decided');
+		this.pingConsentBack(consentObject);
 
-        setTimeout(() => {
-            this.clearOptionalStorage();
-        }, 1000);
-    };
+		setTimeout(() => {
+			this.clearOptionalStorage();
+		}, 1000);
+	};
 
-    private resetConsentHandler = () => {
-        Cookies.remove(this.consentKey, { domain: this.getConsentDomain() });
-    };
+	private resetConsentHandler = () => {
+		Cookies.remove(this.consentKey, { domain: this.getConsentDomain() });
+	};
 
-    private pingConsentBack = (consent: Consent) => {
-        const pingBody = {
-            consentObject: consent,
-            originUrl: redactFromUrl(window.location.href),
-        };
+	private pingConsentBack = async (consent: Consent) => {
+		const pingBody = {
+			consentObject: consent,
+			originUrl: redactFromUrl(window.location.href),
+		};
 
-        fetch(endpointUrlWithoutParams(`/api/consentping`), {
-            method: "POST",
-            credentials: "omit",
-            body: JSON.stringify(pingBody),
-        });
-    };
+		try {
+			await decoratorApi('/api/consentping', {
+				method: 'POST',
+				credentials: 'omit',
+				body: JSON.stringify(pingBody),
+			});
+		} catch (error) {
+			logger.error('Failed to send consent ping', { error });
+		}
+	};
 
-    private initEventListeners() {
-        const { signal } = this.abortController;
+	private initEventListeners() {
+		const { signal } = this.abortController;
 
-        window.addEventListener(
-            "recheckConsentBanner",
-            this.checkAndTriggerConsentBanner,
-            { signal },
-        );
+		window.addEventListener('recheckConsentBanner', this.checkAndTriggerConsentBanner, { signal });
 
-        window.addEventListener(
-            "consentAllWebStorage",
-            this.consentAllStorageHandler,
-            { signal },
-        );
-        window.addEventListener(
-            "refuseOptionalWebStorage",
-            this.refuseOptionalStorageHandler,
-            { signal },
-        );
-        // Add click event listener to handle consent banner triggers
-        document.addEventListener(
-            "click",
-            (event) => {
-                const target = event.target;
-                if (!(target instanceof Element)) {
-                    return;
-                }
-                const triggerElement = target.closest(
-                    "[data-consent-banner-trigger]",
-                );
+		window.addEventListener('consentAllWebStorage', this.consentAllStorageHandler, { signal });
+		window.addEventListener('refuseOptionalWebStorage', this.refuseOptionalStorageHandler, { signal });
+		// Add click event listener to handle consent banner triggers
+		document.addEventListener(
+			'click',
+			(event) => {
+				const target = event.target;
+				if (!(target instanceof Element)) {
+					return;
+				}
+				const triggerElement = target.closest('[data-consent-banner-trigger]');
 
-                if (triggerElement) {
-                    event.preventDefault();
-                    this.showConsentBanner();
-                }
-            },
-            { signal },
-        );
-    }
+				if (triggerElement) {
+					event.preventDefault();
+					this.showConsentBanner();
+				}
+			},
+			{ signal }
+		);
+	}
 
-    private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
-        const storedCookies = Object.keys(Cookies.get());
-        const domain = this.getConsentDomain();
+	private clearOptionalCookies(allOptionalStorage: PublicStorageItem[]) {
+		const storedCookies = Object.keys(Cookies.get());
+		const domain = this.getConsentDomain();
 
-        allOptionalStorage.forEach((storage) => {
-            const optionalStorageBase = storage.name.replace(/\*$/, "");
-            const matchedCookiesForDeletion = storedCookies.filter(
-                (cookieName) =>
-                    new RegExp(`^${optionalStorageBase}`, "i").test(cookieName),
-            );
+		allOptionalStorage.forEach((storage) => {
+			const optionalStorageBase = storage.name.replace(/\*$/, '');
+			const matchedCookiesForDeletion = storedCookies.filter((cookieName) =>
+				new RegExp(`^${optionalStorageBase}`, 'i').test(cookieName)
+			);
 
-            matchedCookiesForDeletion.forEach((cookieName) => {
-                Cookies.remove(cookieName, { domain, path: "/", expires: 0 });
-            });
-        });
-    }
+			matchedCookiesForDeletion.forEach((cookieName) => {
+				Cookies.remove(cookieName, { domain, path: '/', expires: 0 });
+			});
+		});
+	}
 
-    private clearOptionalLocalAndSessionStorage(
-        allOptionalStorage: PublicStorageItem[],
-    ) {
-        const deleteStorage = (storage: Storage, name: string) => {
-            const optionalStorageBase = name.replace(/\*$/, "");
-            Object.keys(storage).forEach((key) => {
-                if (new RegExp(`^${optionalStorageBase}`, "i").test(key)) {
-                    storage.removeItem(key);
-                }
-            });
-        };
-        allOptionalStorage.forEach((storage) => {
-            deleteStorage(localStorage, storage.name);
-            deleteStorage(sessionStorage, storage.name);
-        });
-    }
+	private clearOptionalLocalAndSessionStorage(allOptionalStorage: PublicStorageItem[]) {
+		const deleteStorage = (storage: Storage, name: string) => {
+			const optionalStorageBase = name.replace(/\*$/, '');
+			Object.keys(storage).forEach((key) => {
+				if (new RegExp(`^${optionalStorageBase}`, 'i').test(key)) {
+					storage.removeItem(key);
+				}
+			});
+		};
+		allOptionalStorage.forEach((storage) => {
+			deleteStorage(localStorage, storage.name);
+			deleteStorage(sessionStorage, storage.name);
+		});
+	}
 
-    private awaitDecoratorData = async () => {
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject(
-                    new Error(
-                        `Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is loading.`,
-                    ),
-                );
-            }, DECORATOR_DATA_TIMEOUT);
+	private awaitDecoratorData = async () => {
+		return new Promise((resolve, reject) => {
+			const timeout = setTimeout(() => {
+				reject(
+					new Error(
+						`Timed out after ${DECORATOR_DATA_TIMEOUT}ms waiting for __DECORATOR_DATA__ to be set. Please check that the decorator is loading.`
+					)
+				);
+			}, DECORATOR_DATA_TIMEOUT);
 
-            const checkForDecoratorData = () => {
-                if (window.__DECORATOR_DATA__) {
-                    clearTimeout(timeout);
-                    resolve(true);
-                } else {
-                    setTimeout(checkForDecoratorData, 50);
-                }
-            };
+			const checkForDecoratorData = () => {
+				if (window.__DECORATOR_DATA__) {
+					clearTimeout(timeout);
+					resolve(true);
+				} else {
+					setTimeout(checkForDecoratorData, 50);
+				}
+			};
 
-            checkForDecoratorData();
-        });
-    };
+			checkForDecoratorData();
+		});
+	};
 
-    private async clearOptionalStorage() {
-        await this.awaitDecoratorData();
-        const allowedStorage = this.getAllowedStorage();
-        const allOptionalStorage = allowedStorage.filter(
-            (storage) => storage.optional,
-        );
+	private async clearOptionalStorage() {
+		await this.awaitDecoratorData();
+		const allowedStorage = this.getAllowedStorage();
+		const allOptionalStorage = allowedStorage.filter((storage) => storage.optional);
 
-        this.clearOptionalCookies(allOptionalStorage);
-        this.clearOptionalLocalAndSessionStorage(allOptionalStorage);
-    }
+		this.clearOptionalCookies(allOptionalStorage);
+		this.clearOptionalLocalAndSessionStorage(allOptionalStorage);
+	}
 
-    private shouldDisableConsentBanner = (): boolean => {
-        const disabledPatterns = {
-            hostnames: ["oera.no", "cms-arkiv.ansatt", "siteimprove.com"],
-            userAgents: ["siteimprove.com"],
-        };
+	private shouldDisableConsentBanner = (): boolean => {
+		const disabledPatterns = {
+			hostnames: ['oera.no', 'cms-arkiv.ansatt', 'siteimprove.com'],
+			userAgents: ['siteimprove.com'],
+		};
 
-        const hostnameMatched = disabledPatterns.hostnames.some((pattern) =>
-            window.location.hostname.includes(pattern),
-        );
+		const hostnameMatched = disabledPatterns.hostnames.some((pattern) => window.location.hostname.includes(pattern));
 
-        const userAgentMatched = disabledPatterns.userAgents.some((pattern) =>
-            navigator.userAgent?.toLowerCase().includes(pattern),
-        );
+		const userAgentMatched = disabledPatterns.userAgents.some((pattern) =>
+			navigator.userAgent?.toLowerCase().includes(pattern)
+		);
 
-        return hostnameMatched || userAgentMatched;
-    };
+		return hostnameMatched || userAgentMatched;
+	};
 
-    private promptForConsent = () => {
-        this.resetConsentHandler();
-        this.setConsentBannerState("pending");
-        window.dispatchEvent(createEvent("showConsentBanner", {}));
-    };
+	private promptForConsent = () => {
+		this.resetConsentHandler();
+		this.setConsentBannerState('pending');
+		window.dispatchEvent(createEvent('showConsentBanner', {}));
+	};
 
-    private reshowConsentBanner = () => {
-        this.resetConsentHandler();
-        this.setConsentBannerState("reshow");
-        window.dispatchEvent(createEvent("reshowConsentBanner", {}));
-    };
+	private reshowConsentBanner = () => {
+		this.resetConsentHandler();
+		this.setConsentBannerState('reshow');
+		window.dispatchEvent(createEvent('reshowConsentBanner', {}));
+	};
 
-    private checkAndTriggerConsentBanner = () => {
-        // An unanswered re-consent prompt must survive a header re-render. refreshHeader
-        // fires recheckConsentBanner, and by that point reshowConsentBanner has already
-        // cleared the cookie -- so without this guard the checks below would treat the
-        // user as a first-time visitor: downgrade "reshow" to "pending", clear their
-        // optional storage and fire showConsentBanner again.
-        if (this.getConsentBannerState() === "reshow") {
-            return;
-        }
+	private checkAndTriggerConsentBanner = () => {
+		// An unanswered re-consent prompt must survive a header re-render. refreshHeader
+		// fires recheckConsentBanner, and by that point reshowConsentBanner has already
+		// cleared the cookie -- so without this guard the checks below would treat the
+		// user as a first-time visitor: downgrade "reshow" to "pending", clear their
+		// optional storage and fire showConsentBanner again.
+		if (this.getConsentBannerState() === 'reshow') {
+			return;
+		}
 
-        // Don't show cookie banner for nav.no editors. The banner is hidden by
-        // default in CSS, but the pre-paint script may already have set
-        // "pending", so this has to be an explicit downgrade rather than a bare
-        // return.
-        if (this.shouldDisableConsentBanner()) {
-            this.setConsentBannerState("decided");
-            return;
-        }
+		// Don't show cookie banner for nav.no editors. The banner is hidden by
+		// default in CSS, but the pre-paint script may already have set
+		// "pending", so this has to be an explicit downgrade rather than a bare
+		// return.
+		if (this.shouldDisableConsentBanner()) {
+			this.setConsentBannerState('decided');
+			return;
+		}
 
-        // Denne brukes for å sende en lenke hvor cookie-banneret trigges umiddelbart.
-        // Brukes i hovedsak i innkjøringsfasen. Kan vurderes fjernet etterhvert.
-        if (window.location.hash.includes("consent-reset")) {
-            this.clearOptionalStorage();
-            this.showConsentBanner();
-            return;
-        }
+		// Denne brukes for å sende en lenke hvor cookie-banneret trigges umiddelbart.
+		// Brukes i hovedsak i innkjøringsfasen. Kan vurderes fjernet etterhvert.
+		if (window.location.hash.includes('consent-reset')) {
+			this.clearOptionalStorage();
+			this.showConsentBanner();
+			return;
+		}
 
-        const { userActionTaken, meta } = this.getCurrentConsent();
-        if (!userActionTaken || meta.version < this.currentConsentVersion) {
-            this.clearOptionalStorage();
-            this.promptForConsent();
-        }
-    };
+		const { userActionTaken, meta } = this.getCurrentConsent();
+		if (!userActionTaken || meta.version < this.currentConsentVersion) {
+			this.clearOptionalStorage();
+			this.promptForConsent();
+		}
+	};
 
-    /* -----------------------------------------------------------------------
-     * Public methods
-     * ----------------------------------------------------------------------- */
+	/* -----------------------------------------------------------------------
+	 * Public methods
+	 * ----------------------------------------------------------------------- */
 
-    public showConsentBanner = () => {
-        this.reshowConsentBanner();
-        // Nothing in the decorator listens for this, but consumers might.
-        window.dispatchEvent(createEvent("showConsentBanner", {}));
-    };
+	public showConsentBanner = () => {
+		this.reshowConsentBanner();
+		// Nothing in the decorator listens for this, but consumers might.
+		window.dispatchEvent(createEvent('showConsentBanner', {}));
+	};
 
-    public getCurrentConsent = (): Consent => {
-        const currentConsent = Cookies.get(this.consentKey);
-        return currentConsent
-            ? JSON.parse(currentConsent)
-            : this.buildDefaultConsent();
-    };
+	public getCurrentConsent = (): Consent => {
+		const currentConsent = Cookies.get(this.consentKey);
+		return currentConsent ? JSON.parse(currentConsent) : this.buildDefaultConsent();
+	};
 
-    public getAnalyticsId = (): string | null => {
-        const currentConsent = this.getCurrentConsent();
-        return currentConsent.meta.analyticsId;
-    };
+	public getAnalyticsId = (): string | null => {
+		const currentConsent = this.getCurrentConsent();
+		return currentConsent.meta.analyticsId;
+	};
 
-    public isStorageKeyAllowed = (key: string) => {
-        const storageDictionary = this.getStorageDictionaryFromEnv();
-        const { consent } = this.getCurrentConsent();
-        const foundStorageObject = storageDictionary.find((storage) => {
-            if (storage.name.endsWith("*")) {
-                // Use regex for wildcard (*) names
-                const baseName = storage.name.slice(0, -1); // Remove '*'
-                return new RegExp(`^${baseName}`, "i").test(key); // Case-insensitive match
-            } else {
-                // Case-insensitive exact match
-                return storage.name.toLowerCase() === key.toLowerCase();
-            }
-        });
+	public isStorageKeyAllowed = (key: string) => {
+		const storageDictionary = this.getStorageDictionaryFromEnv();
+		const { consent } = this.getCurrentConsent();
+		const foundStorageObject = storageDictionary.find((storage) => {
+			if (storage.name.endsWith('*')) {
+				// Use regex for wildcard (*) names
+				const baseName = storage.name.slice(0, -1); // Remove '*'
+				return new RegExp(`^${baseName}`, 'i').test(key); // Case-insensitive match
+			} else {
+				// Case-insensitive exact match
+				return storage.name.toLowerCase() === key.toLowerCase();
+			}
+		});
 
-        if (!foundStorageObject) {
-            return false;
-        }
+		if (!foundStorageObject) {
+			return false;
+		}
 
-        if (!foundStorageObject.optional) {
-            return true;
-        }
+		if (!foundStorageObject.optional) {
+			return true;
+		}
 
-        return consent.analytics && consent.surveys;
-    };
+		return consent.analytics && consent.surveys;
+	};
 
-    public getAllowedStorage = () => {
-        const storageDictionary = this.getStorageDictionaryFromEnv();
-        return Array.from(storageDictionary);
-    };
+	public getAllowedStorage = () => {
+		const storageDictionary = this.getStorageDictionaryFromEnv();
+		return Array.from(storageDictionary);
+	};
 
-    // Cleanup when no longer needed
-    destroy() {
-        this.abortController.abort();
-    }
+	// Cleanup when no longer needed
+	destroy() {
+		this.abortController.abort();
+	}
 }

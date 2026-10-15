@@ -1,19 +1,19 @@
 .menuTop {
-    display: none;
+	display: none;
 }
 
 .searchMenu {
-    display: grid;
-    padding-inline: var(--edge-spacing);
-    grid-gap: var(--ax-space-16);
+	display: grid;
+	padding-inline: var(--edge-spacing);
+	grid-gap: var(--ax-space-16);
 }
 
 @media (min-width: 48rem) {
-    .menuTop {
-        display: block;
-    }
+	.menuTop {
+		display: block;
+	}
 
-    .searchMenu {
-        display: none;
-    }
+	.searchMenu {
+		display: none;
+	}
 }

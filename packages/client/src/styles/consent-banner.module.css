@@ -1,71 +1,71 @@
 .background {
-    display: none;
-    background-color: var(--ax-bg-accent-strong);
+	display: none;
+	background-color: var(--ax-bg-accent-strong);
 }
 
 .consentBanner {
-    background-color: var(--ax-bg-accent-strong);
-    color: var(--ax-text-accent-contrast);
+	background-color: var(--ax-bg-accent-strong);
+	color: var(--ax-text-accent-contrast);
 }
 
 /*
     Shown off the state element in <head>, see CONSENT_STATE_ELEMENT_ID in
     decorator-shared/constants for why it isn't an attribute on <html>.
 */
-:global(html:has(#decorator-consent-state[data-state="pending"])) .background,
-:global(html:has(#decorator-consent-state[data-state="reshow"])) .background {
-    display: block;
+:global(html:has(#decorator-consent-state[data-state='pending'])) .background,
+:global(html:has(#decorator-consent-state[data-state='reshow'])) .background {
+	display: block;
 }
 
 .content {
-    padding-block: 1rem;
+	padding-block: 1rem;
 
-    @media (min-width: 48rem) {
-        padding-block: 2rem;
-    }
+	@media (min-width: 48rem) {
+		padding-block: 2rem;
+	}
 
-    display: grid;
-    grid-row-gap: var(--ax-space-12);
+	display: grid;
+	grid-row-gap: var(--ax-space-12);
 }
 
 .content > * {
-    margin: 0;
+	margin: 0;
 }
 
 .title {
-    font-size: var(--ax-font-size-heading-medium);
-    font-weight: bold;
-    text-wrap: pretty;
+	font-size: var(--ax-font-size-heading-medium);
+	font-weight: bold;
+	text-wrap: pretty;
 }
 
 .text {
-    font-size: var(--ax-font-size-large);
-    line-height: var(--ax-font-line-height-xlarge);
+	font-size: var(--ax-font-size-large);
+	line-height: var(--ax-font-line-height-xlarge);
 }
 
 .text a {
-    color: inherit;
-    text-decoration: underline;
+	color: inherit;
+	text-decoration: underline;
 }
 
 .buttonContainer {
-    display: flex;
-    justify-content: flex-start;
-    gap: var(--ax-space-16);
-    align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	gap: var(--ax-space-16);
+	align-items: center;
 }
 
-.button[data-variant="primary"] {
-    background-color: var(--ax-bg-default);
-    color: var(--ax-text-accent-subtle);
-    cursor: pointer;
-    font-size: var(--ax-font-size-large);
-    flex: 1;
-    max-width: 8rem;
+.button[data-variant='primary'] {
+	background-color: var(--ax-bg-default);
+	color: var(--ax-text-accent-subtle);
+	cursor: pointer;
+	font-size: var(--ax-font-size-large);
+	flex: 1;
+	max-width: 8rem;
 }
-.button[data-variant="primary"]:hover {
-    background-color: var(--ax-bg-accent-moderate-hover);
-    color: var(--ax-text-accent);
+.button[data-variant='primary']:hover {
+	background-color: var(--ax-bg-accent-moderate-hover);
+	color: var(--ax-text-accent);
 }
 
 /*
@@ -77,10 +77,10 @@
     banner markup is owned by the consumer's React tree (ugh), see CONSENT_STATE_ELEMENT_ID.
 */
 :global(consent-banner:not(:defined)) .button {
-    pointer-events: none;
+	pointer-events: none;
 }
 
 .button:focus-visible {
-    outline: 3px solid var(--ax-bg-default);
-    outline-offset: 3px;
+	outline: 3px solid var(--ax-bg-default);
+	outline-offset: 3px;
 }

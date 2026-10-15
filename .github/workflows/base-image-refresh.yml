@@ -1,0 +1,16 @@
+# Rebuilds and redeploys prod weekly so the image gets the newest base image.
+name: Refresh base image
+on:
+  schedule:
+    - cron: '17 23 * * 0' # Sunday 23:17, off the hour due to quirks with GitHub scheduling
+      timezone: Europe/Oslo
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # "Run workflow" lets you pick a branch. Skip unless it's main, so a manual
+    # run can't put a feature branch in prod.
+    if: ${{ github.ref == 'refs/heads/main' }}
+    uses: ./.github/workflows/build-deploy-prod.yml
+    permissions: { contents: read, id-token: write }
+    secrets: inherit

@@ -1,22 +1,22 @@
 .splashPage {
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: "Source Sans 3", sans-serif;
-    line-height: 1.333;
-    font-size: var(--ax-font-size-large);
-    background-color: var(--ax-bg-neutral-moderate);
+	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Source Sans 3', sans-serif;
+	line-height: 1.333;
+	font-size: var(--ax-font-size-large);
+	background-color: var(--ax-bg-neutral-moderate);
 }
 
 .splashAlert {
-    align-items: center;
-    border: 1px solid;
-    border-radius: var(--ax-radius-8);
-    display: flex;
-    gap: var(--ax-space-12);
-    padding: var(--ax-space-16);
-    background-color: var(--ax-bg-info-soft);
-    border-color: var(--ax-border-info);
+	align-items: center;
+	border: 1px solid;
+	border-radius: var(--ax-radius-8);
+	display: flex;
+	gap: var(--ax-space-12);
+	padding: var(--ax-space-16);
+	background-color: var(--ax-bg-info-soft);
+	border-color: var(--ax-border-info);
 }

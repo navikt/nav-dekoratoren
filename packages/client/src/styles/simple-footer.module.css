@@ -1,40 +1,40 @@
 .simpleFooter {
-    border-top: 2px solid var(--ax-accent-500);
-    background-color: var(--ax-bg-default);
-    padding-block: var(--ax-space-16);
+	border-top: 2px solid var(--ax-accent-500);
+	background-color: var(--ax-bg-default);
+	padding-block: var(--ax-space-16);
 }
 
 .simpleFooterContent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--ax-space-16);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--ax-space-16);
 }
 
 @media (min-width: 48rem) {
-    .simpleFooterContent {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
+	.simpleFooterContent {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
 }
 
 .footerLinkList {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 .footerLinkList > a:focus-visible {
-    outline-color: initial;
+	outline-color: initial;
 }
 
 @media (min-width: 48rem) {
-    .footerLinkList {
-        flex-direction: row;
-        gap: var(--ax-space-32);
-    }
+	.footerLinkList {
+		flex-direction: row;
+		gap: var(--ax-space-32);
+	}
 }
 
 .footerLink {
-    padding-block: 0.625rem;
+	padding-block: 0.625rem;
 }

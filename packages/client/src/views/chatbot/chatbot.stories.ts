@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/html";
-import "./chatbot";
+import type { Meta, StoryObj } from '@storybook/html';
+import './chatbot';
 
 const meta: Meta = {
-    title: "chatbot",
-    tags: ["autodocs"],
-    render: () => {
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = "<d-chatbot></d-chatbot>";
+	title: 'chatbot',
+	tags: ['autodocs'],
+	render: () => {
+		const wrapper = document.createElement('div');
+		wrapper.innerHTML = '<d-chatbot></d-chatbot>';
 
-        window.__DECORATOR_DATA__ = {
-            params: { chatbot: true, chatbotVisible: true },
-            features: { ["dekoratoren.chatbotscript"]: true },
-        } as any;
+		window.__DECORATOR_DATA__ = {
+			params: { chatbot: true, chatbotVisible: true },
+			features: { ['dekoratoren.chatbotscript']: true },
+		} as any;
 
-        return wrapper;
-    },
+		return wrapper;
+	},
 };
 
 export default meta;

@@ -1,6 +1,6 @@
-import type { Template } from "decorator-shared/html";
+import type { Template } from 'decorator-shared/html';
 
 export type IconProps = {
-    className?: string;
-    ariaLabel?: Template | string;
+	className?: string;
+	ariaLabel?: Template | string;
 };

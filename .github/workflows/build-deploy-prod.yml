@@ -1,0 +1,40 @@
+# Builds main and deploys it to prod - shared by deploy.prod.yml and base-image-refresh.yml
+# Callers need `permissions: { contents: read, id-token: write }` and `secrets: inherit`.
+name: Build and deploy to prod
+on: workflow_call
+
+jobs:
+  build:
+    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      team: personbruker
+      image-suffix: prod
+      image-tag: latest
+      platforms: linux/amd64,linux/arm64
+      cdn-source: ./packages/server/public
+      cdn-destination: /nav-dekoratoren
+      # The Dockerfile copies only build output, no node_modules.
+      prune-remove: ''
+      playwright: pnpm run test:e2e
+    secrets: inherit
+
+  network-policy-prod:
+    needs: build
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: prod-gcp
+      resource: .nais/network-policy.yml
+
+  deploy-prod:
+    needs: [build, network-policy-prod]
+    uses: ./.github/workflows/deploy-instance.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: prod
+      cluster: prod-gcp
+      image: ${{ needs.build.outputs.image }}
+      hpa-resource: .nais/hpa/hpa-prod.yml
+      deploy-previous: true
+    secrets: inherit
