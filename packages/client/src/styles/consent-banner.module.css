@@ -12,6 +12,9 @@
 		inset-inline-start: 50%;
 		transform: translateX(-50%);
 	}
+	@media print {
+		display: none;
+	}
 }
 
 .consentBanner {
