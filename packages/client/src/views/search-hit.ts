@@ -9,6 +9,8 @@ class SearchHit extends HTMLElement {
 				eventName: 'resultat-klikk',
 				sokeord: '[redacted]',
 				treffnr: [...this.closest('ul')!.children].findIndex((el) => el.contains(this)) + 1,
+				kategori: 'dekorator-header',
+				komponent: 'SearchHit',
 			}))
 		);
 	}
