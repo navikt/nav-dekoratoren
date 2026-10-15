@@ -142,6 +142,7 @@ export const analyticsClickListener = (fn: (el: HTMLAnchorElement) => AnalyticsE
 		const args = fn(anchor);
 		if (args) {
 			const analyticsEvent: AnalyticsEventArgs = {
+				eventName: args.eventName,
 				context: param('context'),
 				pageType: param('pageType'),
 				pageTheme: param('pageTheme'),
@@ -222,10 +223,9 @@ class AnalyticsTracker {
 		// Monkey patch history push method to catch programmatic navigation
 		const originalPushState = history.pushState;
 		history.pushState = (...args) => {
-			const result = originalPushState.apply(history, args);
+			originalPushState.apply(history, args);
 			// Use setTimeout to ensure the URL has changed
 			setTimeout(() => this.handleNavigation(), 0);
-			return result;
 		};
 	}
 
