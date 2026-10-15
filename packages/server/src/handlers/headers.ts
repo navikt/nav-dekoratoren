@@ -14,16 +14,38 @@ const isAllowedOrigin = (origin?: string) =>
 	origin && (ALLOWED_DOMAINS.some((domain) => origin.endsWith(domain)) || origin.includes('/localhost:'));
 
 export const headers: MiddlewareHandler = async (c, next) => {
-	await next();
-
 	const origin = c.req.header('origin');
-	c.res.headers.delete('Date');
+	const allowedOrigin = isAllowedOrigin(origin);
+	const isPreflight = c.req.method === 'OPTIONS' && !!c.req.header('Access-Control-Request-Method');
 
-	if (isAllowedOrigin(origin)) {
+	if (allowedOrigin && isPreflight) {
+		c.res = c.body(null, 204);
+	} else {
+		await next();
+	}
+
+	c.res.headers.delete('Date');
+	c.header('Vary', 'Origin', { append: true });
+
+	if (allowedOrigin) {
 		c.header('Access-Control-Allow-Origin', origin);
-		c.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
 		c.header('Access-Control-Allow-Credentials', 'true');
-		c.header('Access-Control-Allow-Headers', 'cookie,Content-Type,Authorization');
+
+		// Browsers only read these on the preflight response.
+		if (isPreflight) {
+			c.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+
+			// Consumers' own fetch instrumentation (tracing, correlation ids) adds headers we can't list up front.
+			// Allowed origins can already send credentials, so allow whatever headers they ask for.
+			const requestedHeaders = c.req.header('Access-Control-Request-Headers');
+			if (requestedHeaders) {
+				c.header('Access-Control-Allow-Headers', requestedHeaders);
+			}
+			c.header('Vary', 'Access-Control-Request-Headers', { append: true });
+
+			// Without this, Chrome caches a preflight for only 5 seconds. 2 hours is its maximum.
+			c.header('Access-Control-Max-Age', '7200');
+		}
 	}
 
 	c.header('Content-Security-Policy', csp);
