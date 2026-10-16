@@ -38,3 +38,38 @@ jobs:
       hpa-resource: .nais/hpa/hpa-prod.yml
       deploy-previous: true
     secrets: inherit
+
+  ## Navno deployment steps
+  build-navno:
+    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      team: navno
+      image-suffix: prod
+      image-tag: latest
+      platforms: linux/amd64,linux/arm64
+      cdn-source: ./packages/server/public
+      cdn-destination: /nav-dekoratoren
+      prune-remove: ''
+      playwright: pnpm run test:e2e
+    secrets: inherit
+
+  network-policy-prod-navno:
+    needs: build-navno
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: prod-gcp
+      resource: .nais/network-policy-navno.yml
+
+  deploy-prod-navno:
+    needs: [build-navno, network-policy-prod-navno]
+    uses: ./.github/workflows/deploy-instance-navno.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: prod
+      cluster: prod-gcp
+      image: ${{ needs.build-navno.outputs.image }}
+      hpa-resource: .nais/hpa/hpa-prod-navno.yml
+      deploy-previous: true
+    secrets: inherit
