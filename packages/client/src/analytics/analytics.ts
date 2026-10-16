@@ -142,12 +142,11 @@ export const analyticsClickListener = (fn: (el: HTMLAnchorElement) => AnalyticsE
 		const args = fn(anchor);
 		if (args) {
 			const analyticsEvent: AnalyticsEventArgs = {
-				eventName: args.eventName,
+				...args,
 				context: param('context'),
 				pageType: param('pageType'),
 				pageTheme: param('pageTheme'),
 				destinasjon: anchor.href,
-				...args,
 			};
 			createUmamiEvent(analyticsEvent);
 		}
