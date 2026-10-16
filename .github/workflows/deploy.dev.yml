@@ -44,3 +44,36 @@ jobs:
       hpa-resource: .nais/hpa/hpa-dev-stable.yml
       deploy-previous: ${{ inputs.DEPLOY_PREVIOUS }}
     secrets: inherit
+
+  ## Navno deployment steps
+  build-navno:
+    uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      team: navno
+      image-suffix: dev-stable
+      cdn-source: ./packages/server/public
+      cdn-destination: /nav-dekoratoren
+      prune-remove: ''
+      playwright: ${{ !inputs.SKIP_TESTS && 'pnpm run test:e2e' || '' }}
+    secrets: inherit
+
+  network-policy-navno:
+    needs: build-navno
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: dev-gcp
+      resource: .nais/network-policy-navno.yml
+
+  deploy-navno:
+    needs: [build-navno, network-policy-navno]
+    uses: ./.github/workflows/deploy-instance-navno.yml
+    permissions: { contents: read, id-token: write }
+    with:
+      instance: dev-stable
+      cluster: dev-gcp
+      image: ${{ needs.build-navno.outputs.image }}
+      hpa-resource: .nais/hpa/hpa-dev-stable-navno.yml
+      deploy-previous: ${{ inputs.DEPLOY_PREVIOUS }}
+    secrets: inherit
