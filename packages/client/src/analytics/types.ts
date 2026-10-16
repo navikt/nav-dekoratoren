@@ -20,6 +20,8 @@ export type AnalyticsEventArgs = {
 	lenketekst?: string;
 	lenkegruppe?: string;
 	komponent?: string;
+	sokeord?: string;
+	treffnr?: number;
 };
 
 export type EventData = Record<string, any>;

@@ -1,7 +1,7 @@
 import type { Auth } from 'decorator-shared/auth';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { initAnalytics } from './analytics';
-import { logUmamiEvent } from './umami';
+import { analyticsClickListener, initAnalytics } from './analytics';
+import { createUmamiEvent, logUmamiEvent } from './umami';
 
 vi.mock('./amplitude', () => ({
 	initMockAmplitude: vi.fn(),
@@ -142,5 +142,26 @@ describe('analytics', () => {
 		} as any);
 
 		expect(logUmamiEvent).toHaveBeenCalledWith('test-event', {}, 'test-app', undefined);
+	});
+
+	it('forwards eventName and extra parameters from click listeners to createUmamiEvent', () => {
+		document.body.innerHTML = '<a href="https://www.nav.no/target">Treff</a>';
+		const anchor = document.querySelector('a')!;
+		const clickListener = analyticsClickListener(() => ({
+			eventName: 'resultat-klikk',
+			treffnr: 2,
+		}));
+		anchor.addEventListener('click', clickListener);
+		anchor.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		expect(createUmamiEvent).toHaveBeenCalledWith(
+			expect.objectContaining({
+				eventName: 'resultat-klikk',
+				treffnr: 2,
+				context: 'privatperson',
+				pageType: 'article',
+				pageTheme: 'theme',
+				destinasjon: 'https://www.nav.no/target',
+			})
+		);
 	});
 });
