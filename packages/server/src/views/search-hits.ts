@@ -43,7 +43,7 @@ export const SearchHits = ({ results: { hits, total }, query, context }: SearchH
 											>
 												${hit.displayName}
 											</a>
-											<span>${unsafeHtml(hit.highlight)}</span>
+											<div>${unsafeHtml(hit.highlight)}</div>
 										</search-hit>
 									</li>
 								`
