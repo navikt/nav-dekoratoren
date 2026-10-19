@@ -25,7 +25,7 @@
 	}
 
 	display: grid;
-	grid-row-gap: var(--ax-space-12);
+	grid-row-gap: var(--ax-space-8);
 }
 
 .content > * {
@@ -51,8 +51,9 @@
 .buttonContainer {
 	display: flex;
 	justify-content: flex-start;
-	gap: var(--ax-space-16);
+	gap: var(--ax-space-8);
 	align-items: center;
+	margin-block: var(--ax-space-4);
 }
 
 .button[data-variant='primary'] {
@@ -61,7 +62,7 @@
 	cursor: pointer;
 	font-size: var(--ax-font-size-large);
 	flex: 1;
-	max-width: 8rem;
+	max-width: 7.5rem;
 }
 .button[data-variant='primary']:hover {
 	background-color: var(--ax-bg-accent-moderate-hover);
