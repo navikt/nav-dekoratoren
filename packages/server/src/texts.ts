@@ -109,7 +109,7 @@ const en: Texts = {
 	consent_banner_title: 'Can we collect information about how nav.no is used?',
 	consent_banner_text: ({ url }: UrlArg) =>
 		html`If you say yes, we use the information for statistics and analysis to improve nav.no. You can change your
-			answer any time at the bottom of the page. Find out <a href="${url}">what we store, and why</a>.`,
+			answer at the bottom of the page. Find out <a href="${url}">what we store, and why</a>.`,
 	consent_banner_consent_all: 'Yes',
 	consent_banner_refuse_optional: 'No',
 	consent_banner_additional_cookies_info:
