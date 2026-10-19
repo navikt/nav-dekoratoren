@@ -13,12 +13,12 @@ export const nb = {
 	search_nav_no: 'Søk på nav.no',
 	consent_banner_title: 'Får vi samle informasjon om hvordan nav.no brukes?',
 	consent_banner_text: ({ url }: UrlArg) =>
-		html`Svarer du ja, lagrer og analyserer vi informasjon som hjelper oss å forbedre nav.no. Du kan når som helst endre
-			valget ditt nederst på siden. Mer om <a href="${url}">informasjonskapsler, hva vi lagrer og hvorfor.</a>`,
+		html`Hvis du svarer ja, bruker vi informasjonen til statistikk og analyse for å forbedre nav.no. Du kan når som
+			helst endre valget ditt nederst på siden. Mer om <a href="${url}">hva vi lagrer og hvorfor</a>.`,
 	consent_banner_consent_all: 'Ja',
 	consent_banner_refuse_optional: 'Nei',
 	consent_banner_additional_cookies_info:
-		'For at nav.no skal fungere og være trygt, har vi også nødvendige informasjonskapsler som ikke er valgfrie.',
+		'Vi lagrer alltid informasjon som er nødvendig for at nav.no skal fungere og være sikkert.',
 	consent_banner_minimized: 'Velg hvilke informasjons&shy;kapsler Nav kan bruke.',
 	clear: 'Tøm',
 	login: 'Logg inn',
@@ -106,14 +106,14 @@ const en: Texts = {
 	share_screen: 'Share screen with your counsellor',
 	to_top: 'To the top',
 	menu: 'Menu',
-	consent_banner_title: 'Can we use optional cookies?',
+	consent_banner_title: 'Can we collect information about how nav.no is used?',
 	consent_banner_text: ({ url }: UrlArg) =>
-		html`If you answer yes, we will store and analyse information that helps us improve nav.no. You can change your
-			answer at any time at the bottom of the page. Learn more about
-			<a href="${url}">cookies, what information we store, and why</a>.`,
+		html`If you say yes, we use the information for statistics and analysis to improve nav.no. You can change your
+			answer any time at the bottom of the page. Find out <a href="${url}">what we store, and why</a>.`,
 	consent_banner_consent_all: 'Yes',
 	consent_banner_refuse_optional: 'No',
-	consent_banner_additional_cookies_info: 'Essential cookies that keep nav.no secure and working are always on.',
+	consent_banner_additional_cookies_info:
+		'Information that is essential to keep nav.no secure and working is always stored.',
 	consent_banner_minimized: 'Choose which cookies Nav can use.',
 	close: 'Close',
 	did_you_find: 'Did you find what you were looking for?',
