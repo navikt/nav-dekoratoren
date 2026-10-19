@@ -1,14 +1,19 @@
 import { Unleash, initialize } from 'unleash-client';
 import { env } from './env/server';
+import { logger } from './lib/logger';
 import { isLocalhost } from './urls';
 
 let unleash: Unleash;
 if (env.NODE_ENV === 'production' && !isLocalhost()) {
-	unleash = initialize({
-		url: `${env.UNLEASH_SERVER_API_URL}/api/`,
-		appName: 'nav-dekoratoren',
-		customHeaders: { Authorization: env.UNLEASH_SERVER_API_TOKEN },
-	});
+	if (env.UNLEASH_SERVER_API_URL && env.UNLEASH_SERVER_API_TOKEN) {
+		unleash = initialize({
+			url: `${env.UNLEASH_SERVER_API_URL}/api/`,
+			appName: 'nav-dekoratoren',
+			customHeaders: { Authorization: env.UNLEASH_SERVER_API_TOKEN },
+		});
+	} else {
+		logger.warn('Unleash is disabled: missing API URL or token. Using default feature flags.');
+	}
 }
 
 const defaultFeatures = {
