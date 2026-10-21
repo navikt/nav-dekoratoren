@@ -7,6 +7,8 @@ import { ComplexHeader } from './complex-header';
 import { makeContextLinks } from '../../context';
 import { MainMenuTemplate } from './render-main-menu';
 import { ConsentBanner } from '../consent-banner';
+import { SkipLink } from '../skip-link';
+import i18n from '../../i18n';
 
 const frontPageUrl = clientEnv.XP_BASE_URL;
 
@@ -27,7 +29,8 @@ export const HeaderTemplate = async ({ params, withContainers }: HeaderProps): P
 	});
 
 	const headerContent = html`
-		${ConsentBanner({ language })}
+		<div id="toppen"></div>
+		${SkipLink(i18n('skip_link'))} ${ConsentBanner({ language })}
 		${
 			simple || simpleHeader
 				? SimpleHeader({

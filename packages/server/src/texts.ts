@@ -11,15 +11,14 @@ export const nb = {
 	did_you_find: 'Fant du det du lette etter?',
 	search: 'Søk',
 	search_nav_no: 'Søk på nav.no',
-	consent_banner_title: 'Får vi bruke valgfrie informasjon&shy;skapsler?',
-	consent_banner_text:
-		'Hvis du svarer ja, bruker vi informasjons­­kapsler og lignende teknologi til statistikk, analyse, spørreundersøkelser og bruker­tester. Målet er å forstå hvordan du og andre bruker nav.no, slik at vi kan forbedre nettsidene og tjenestene våre.',
+	consent_banner_title: 'Får vi samle informasjon om hvordan nav.no brukes?',
+	consent_banner_text: ({ url }: UrlArg) =>
+		html`Hvis du svarer ja, bruker vi informasjonen til statistikk og analyse for å forbedre nav.no. Du kan når som
+			helst endre valget ditt nederst på siden. Mer om <a href="${url}">hva vi lagrer og hvorfor</a>.`,
 	consent_banner_consent_all: 'Ja',
 	consent_banner_refuse_optional: 'Nei',
-	consent_banner_about_cookies: 'Om informasjonskapsler',
-	consent_banner_change_consent: 'Du kan når som helst endre samtykket ditt via lenken i bunnmenyen.',
-	consent_banner_additional_cookies_info: 'Vi har også nødvendige informasjonskapsler, som ikke kan velges bort.',
-	consent_banner_additional_cookies_link: 'Om informasjonskapslene våre.',
+	consent_banner_additional_cookies_info:
+		'Vi lagrer alltid informasjon som er nødvendig for at nav.no skal fungere og være sikkert.',
 	consent_banner_minimized: 'Velg hvilke informasjons&shy;kapsler Nav kan bruke.',
 	clear: 'Tøm',
 	login: 'Logg inn',
@@ -107,15 +106,14 @@ const en: Texts = {
 	share_screen: 'Share screen with your counsellor',
 	to_top: 'To the top',
 	menu: 'Menu',
-	consent_banner_title: 'Can we use optional cookies?',
-	consent_banner_text:
-		'If you answer yes, we will use cookies and similar technologies for statistics, analysis, surveys, and user tests. The goal is to understand how people use nav.no, so we can improve our website and services.',
+	consent_banner_title: 'Can we collect information about how nav.no is used?',
+	consent_banner_text: ({ url }: UrlArg) =>
+		html`If you say yes, we use the information for statistics and analysis to improve nav.no. You can change your
+			answer at the bottom of the page. Find out <a href="${url}">what we store, and why</a>.`,
 	consent_banner_consent_all: 'Yes',
 	consent_banner_refuse_optional: 'No',
-	consent_banner_change_consent: 'You can  change your consent at any time through the link in the footer menu.',
-	consent_banner_additional_cookies_info: 'We also use essential cookies that you cannot opt out of.',
-	consent_banner_additional_cookies_link: 'About our cookies.',
-	consent_banner_about_cookies: 'About cookies',
+	consent_banner_additional_cookies_info:
+		'Information that is essential to keep nav.no secure and working is always stored.',
 	consent_banner_minimized: 'Choose which cookies Nav can use.',
 	close: 'Close',
 	did_you_find: 'Did you find what you were looking for?',
@@ -216,3 +214,7 @@ export const texts: Record<Language, Texts> = {
 	uk: en,
 	ru: en,
 } as const;
+
+interface UrlArg {
+	url: string;
+}

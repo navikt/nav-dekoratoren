@@ -4,22 +4,26 @@ import { logger } from './helpers/logger';
 import { ConsentAction, Consent, PublicStorageItem } from 'decorator-shared/types';
 import { decoratorApi } from './helpers/api';
 import { redactFromUrl } from './analytics/helpers/redactUrl';
+import { CONSENT_COOKIE_NAME, CONSENT_STATE_ELEMENT_ID, CURRENT_CONSENT_VERSION } from 'decorator-shared/constants';
 
 const DECORATOR_DATA_TIMEOUT = 5000;
 
-// Changelog consent versioning
-// --------------------------------
-// (Remember to update this list when making changes that require re-consent)
-
-// V5: 18.06.2026: Changes to the cookie statement, requiring consent reset for all users
-// V4: 01.02.2026: Added analyticsId (uuid) to consent object for Umami user identification
-// V3: 03.11.2025: Added storage key 'flexjar-*' as well as updates to cookie declaration
-// V2: 22.10.2025: Updates in the cookie declaration on how Umami works.
-// V1: 28.02.2025: Initial version
+// States, kept on the CONSENT_STATE_ELEMENT_ID element in <head>
+//   pending  banner in normal flow at the top of the page. Only set by the
+//            automatic check for missing/outdated consent, mirroring the
+//            pre-paint script so the banner doesn't move once JS runs.
+//   decided  hidden (also the CSS default, so the banner cannot cause layout
+//            shift for the majority of users who have already consented)
+//   reshow   same place as pending, but shown explicitly: public methods,
+//            trigger links, #consent-reset, which also scroll the banner into
+//            view and focus it. Kept apart from pending so that
+//            checkAndTriggerConsentBanner leaves an open re-consent prompt alone.
+type ConsentBannerState = 'pending' | 'decided' | 'reshow';
 
 export class WebStorageController {
-	currentConsentVersion: number = 5;
-	consentKey: string = 'navno-consent';
+	// Public because webStorageController is exposed on window.
+	currentConsentVersion: number = CURRENT_CONSENT_VERSION;
+	consentKey: string = CONSENT_COOKIE_NAME;
 
 	// Enables reaping every listener registered by this instance.
 	private readonly abortController = new AbortController();
@@ -78,7 +82,28 @@ export class WebStorageController {
 	};
 
 	private getConsentDomain = () => {
-		return window.location.hostname.includes('nav.no') ? '.nav.no' : window.location.hostname;
+		const { hostname } = window.location;
+		if (hostname.includes('nav.no')) {
+			return '.nav.no';
+		}
+		// Host-only (no Domain attribute) for dotless hosts like localhost. libsoup,
+		// the cookie store behind WebKit on Linux, silently drops any cookie whose
+		// Domain has no dot -- which is what Playwright runs in CI.
+		return hostname.includes('.') ? hostname : undefined;
+	};
+
+	private getConsentBannerState = () => document.getElementById(CONSENT_STATE_ELEMENT_ID)?.dataset.state;
+
+	private setConsentBannerState = (state: ConsentBannerState) => {
+		// Normally created by the pre-paint script, but that never runs when the
+		// header is injected client-side.
+		let stateElement = document.getElementById(CONSENT_STATE_ELEMENT_ID);
+		if (!stateElement) {
+			stateElement = document.createElement('style');
+			stateElement.id = CONSENT_STATE_ELEMENT_ID;
+			document.head.append(stateElement);
+		}
+		stateElement.dataset.state = state;
 	};
 
 	private consentAllStorageHandler = () => {
@@ -88,6 +113,7 @@ export class WebStorageController {
 			expires: 90,
 			domain: this.getConsentDomain(),
 		});
+		this.setConsentBannerState('decided');
 		this.pingConsentBack(consentObject);
 	};
 
@@ -99,6 +125,7 @@ export class WebStorageController {
 			domain: this.getConsentDomain(),
 		});
 
+		this.setConsentBannerState('decided');
 		this.pingConsentBack(consentObject);
 
 		setTimeout(() => {
@@ -231,12 +258,34 @@ export class WebStorageController {
 		return hostnameMatched || userAgentMatched;
 	};
 
-	private checkAndTriggerConsentBanner = () => {
-		const { userActionTaken, meta } = this.getCurrentConsent();
-		const { version } = meta;
+	private promptForConsent = () => {
+		this.resetConsentHandler();
+		this.setConsentBannerState('pending');
+		window.dispatchEvent(createEvent('showConsentBanner', {}));
+	};
 
-		// Don't show cookie banner for nav.no editors
+	private reshowConsentBanner = () => {
+		this.resetConsentHandler();
+		this.setConsentBannerState('reshow');
+		window.dispatchEvent(createEvent('reshowConsentBanner', {}));
+	};
+
+	private checkAndTriggerConsentBanner = () => {
+		// An unanswered re-consent prompt must survive a header re-render. refreshHeader
+		// fires recheckConsentBanner, and by that point reshowConsentBanner has already
+		// cleared the cookie -- so without this guard the checks below would treat the
+		// user as a first-time visitor: downgrade "reshow" to "pending", clear their
+		// optional storage and fire showConsentBanner again.
+		if (this.getConsentBannerState() === 'reshow') {
+			return;
+		}
+
+		// Don't show cookie banner for nav.no editors. The banner is hidden by
+		// default in CSS, but the pre-paint script may already have set
+		// "pending", so this has to be an explicit downgrade rather than a bare
+		// return.
 		if (this.shouldDisableConsentBanner()) {
+			this.setConsentBannerState('decided');
 			return;
 		}
 
@@ -245,11 +294,13 @@ export class WebStorageController {
 		if (window.location.hash.includes('consent-reset')) {
 			this.clearOptionalStorage();
 			this.showConsentBanner();
+			return;
 		}
 
-		if (!userActionTaken || version < this.currentConsentVersion) {
+		const { userActionTaken, meta } = this.getCurrentConsent();
+		if (!userActionTaken || meta.version < this.currentConsentVersion) {
 			this.clearOptionalStorage();
-			this.showConsentBanner();
+			this.promptForConsent();
 		}
 	};
 
@@ -258,7 +309,8 @@ export class WebStorageController {
 	 * ----------------------------------------------------------------------- */
 
 	public showConsentBanner = () => {
-		this.resetConsentHandler();
+		this.reshowConsentBanner();
+		// Nothing in the decorator listens for this, but consumers might.
 		window.dispatchEvent(createEvent('showConsentBanner', {}));
 	};
 
