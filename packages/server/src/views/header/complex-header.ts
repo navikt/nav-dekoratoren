@@ -35,7 +35,7 @@ export function ComplexHeader({
 	mainMenu,
 }: ComplexHeaderProps) {
 	return html`
-		<div class="${cls.siteheader} ${cls.siteheaderSticky}" data-color="neutral" data-sticky>
+		<div class="${cls.siteheader}" data-color="neutral">
 			<nav aria-label="${i18n('menu')}" class="${cls.hovedmenyWrapper} ${utilsCls.contentContainer}">
 				<div class="${cls.hovedmenyContent}">
 					<a href="${frontPageUrl}" class="${cls.logo}">
