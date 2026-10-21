@@ -45,12 +45,18 @@ export const teamNameSchema = z
 	.min(1)
 	.max(100)
 	.regex(/^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/);
+// Repository or package name of the app being built, set by moduler during next build
+export const buildAppSchema = z
+	.string()
+	.max(100)
+	.regex(/^[@a-z0-9][a-z0-9._/-]*$/i);
 export const analyticsEntryPointSchema = z.enum(['typed', 'custom', 'legacy']);
 
 export type ModulerMetadata = {
 	decoratorModulerVersion?: z.infer<typeof modulerVersionSemverSchema>;
 	decoratorModulerEntryPoint?: z.infer<typeof modulerEntryPointSchema>;
 	decoratorModulerBuildTime?: true;
+	decoratorModulerBuildApp?: z.infer<typeof buildAppSchema>;
 	decoratorModulerAnalyticsEntryPoint?: z.infer<typeof analyticsEntryPointSchema>;
 };
 
@@ -86,6 +92,7 @@ export const paramsSchema = z.object({
 	decoratorModulerEntryPoint: modulerEntryPointSchema.optional(),
 	// Set by moduler when the SSR fetch runs during a static build (next build)
 	decoratorModulerBuildTime: z.literal(true).optional().catch(undefined),
+	decoratorModulerBuildApp: buildAppSchema.optional().catch(undefined),
 });
 
 export type Params = z.infer<typeof paramsSchema>;
@@ -121,6 +128,7 @@ export const clientParamKeys = [
 	'decoratorModulerVersion',
 	'decoratorModulerEntryPoint',
 	'decoratorModulerBuildTime',
+	'decoratorModulerBuildApp',
 ] as const satisfies ReadonlyArray<keyof Params>;
 
 export type ClientParams = Pick<Params, (typeof clientParamKeys)[number]>;

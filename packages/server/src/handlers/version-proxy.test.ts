@@ -528,4 +528,21 @@ describe('versionProxyHandler', () => {
 		);
 		expect(buildTimeCounts).toEqual({ true: 2, false: 2 });
 	});
+
+	it('logs the building app for build time requests and logs separately per app', async () => {
+		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(notFoundError()));
+
+		const app = buildApp(await loadHandler());
+		const request = (params: Record<string, string>) =>
+			requestWithVersion(app, STALE_VERSION_ID, { origin: 'my-app', ...params }, undefined, '/auth');
+		await request({ decoratorModulerBuildTime: 'true', decoratorModulerBuildApp: 'navikt/app-a' });
+		await request({ decoratorModulerBuildTime: 'true', decoratorModulerBuildApp: 'navikt/app-b' });
+		await request({ decoratorModulerBuildApp: 'navikt/app-c' });
+
+		expect(proxyLogs(infoSpy).map((log: string) => parseMetaData(log).buildApp)).toEqual([
+			'navikt/app-a',
+			'navikt/app-b',
+			undefined,
+		]);
+	});
 });

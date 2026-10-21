@@ -89,6 +89,7 @@ const excludedParametre = new Set<string>([
 	'decoratorModulerVersion',
 	'decoratorModulerEntryPoint',
 	'decoratorModulerBuildTime',
+	'decoratorModulerBuildApp',
 	'decoratorModulerAnalyticsEntryPoint',
 ]);
 

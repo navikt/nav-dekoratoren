@@ -1,5 +1,6 @@
 import {
 	AvailableLanguage,
+	buildAppSchema,
 	modulerEntryPointSchema,
 	modulerVersionSemverSchema,
 	type Params,
@@ -78,6 +79,7 @@ export const validateParams = (params: Record<string, string>) => {
 		decoratorModulerVersion: modulerVersion,
 		decoratorModulerEntryPoint: modulerEntryPoint,
 		decoratorModulerBuildTime: params.decoratorModulerBuildTime === 'true' ? true : undefined,
+		decoratorModulerBuildApp: params.decoratorModulerBuildTime === 'true' ? params.decoratorModulerBuildApp : undefined,
 	} as Params;
 };
 
@@ -149,6 +151,7 @@ export const parseAndValidateParams = (
 						buildTime: true,
 						requestType,
 						consumer: consumer ?? 'unknown',
+						buildApp: buildAppSchema.safeParse(query.decoratorModulerBuildApp).data,
 						decoratorModulerVersion: query.decoratorModulerVersion?.slice(0, 50),
 					},
 				}

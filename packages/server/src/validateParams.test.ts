@@ -283,6 +283,19 @@ describe('decorator moduler metadata', () => {
 		expect(parseAndValidateParams({ decoratorModulerBuildTime: 'false' }).decoratorModulerBuildTime).toBeUndefined();
 		expect(parseAndValidateParams({ decoratorModulerBuildTime: 'ja' }).decoratorModulerBuildTime).toBeUndefined();
 	});
+
+	it('should keep the building app only for valid build time requests', () => {
+		const parseBuildApp = (query: Record<string, string>) => parseAndValidateParams(query).decoratorModulerBuildApp;
+
+		expect(parseBuildApp({ decoratorModulerBuildTime: 'true', decoratorModulerBuildApp: 'navikt/min-app' })).toBe(
+			'navikt/min-app'
+		);
+		expect(parseBuildApp({ decoratorModulerBuildTime: 'true', decoratorModulerBuildApp: '@navikt/min-app' })).toBe(
+			'@navikt/min-app'
+		);
+		expect(parseBuildApp({ decoratorModulerBuildApp: 'navikt/min-app' })).toBeUndefined();
+		expect(parseBuildApp({ decoratorModulerBuildTime: 'true', decoratorModulerBuildApp: '<script>' })).toBeUndefined();
+	});
 });
 
 describe('Consumer identification', () => {
@@ -421,13 +434,24 @@ describe('Consumer identification', () => {
 			const { warn } = spyOnLogger();
 
 			parseAndValidateParams(
-				{ decoratorModulerVersion: '4.6.0', decoratorModulerEntryPoint: 'ssr', decoratorModulerBuildTime: 'true' },
+				{
+					decoratorModulerVersion: '4.6.0',
+					decoratorModulerEntryPoint: 'ssr',
+					decoratorModulerBuildTime: 'true',
+					decoratorModulerBuildApp: 'navikt/min-app',
+				},
 				{},
 				'ssr'
 			);
 
 			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørsel fra next build'), {
-				metaData: { buildTime: true, requestType: 'ssr', consumer: 'unknown', decoratorModulerVersion: '4.6.0' },
+				metaData: {
+					buildTime: true,
+					requestType: 'ssr',
+					consumer: 'unknown',
+					buildApp: 'navikt/min-app',
+					decoratorModulerVersion: '4.6.0',
+				},
 			});
 		});
 
