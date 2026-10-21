@@ -20,6 +20,37 @@ html {
 
 body {
 	margin: 0;
+
+	/*
+        Prevents horizontal scrolling from content wider than the viewport, such as
+        elements sized with 100vw in consuming applications.
+
+        clip, not hidden: overflow: hidden turns the body into a scroll container as soon
+        as the consuming application sets any overflow on the html element, which breaks
+        position: sticky in the application.
+
+        !important because many consuming applications set overflow-x: hidden on html and
+        body (from the create-next-app template), which would otherwise win depending on
+        the order the stylesheets are loaded in.
+    */
+	overflow-x: clip !important;
+}
+
+:root {
+	/*
+        Default header height, overridden from 48rem below. Aliased to --header-height
+        on #decorator-header and used by the header and the mobile dropdown menu, so it
+        must be defined for all screen widths.
+    */
+	--decorator-header-height: 4.5rem;
+
+	/*
+        Deprecated: Used to hold the height of the sticky header. The header is no longer
+        sticky, so this is always 0px. Kept because consuming applications use it to
+        position their own sticky elements, some without a fallback value.
+        Do not remove without notifying consumers.
+    */
+	--decorator-sticky-offset: 0px;
 }
 
 @media (min-width: 48rem) {
