@@ -22,82 +22,21 @@ body {
 	margin: 0;
 
 	/*
-        clip, not hidden: overflow: hidden turns the body into a scroll container as soon
-        as the consuming application sets any overflow on the html element
-
-        Set to !important to avoid downstream apps bashing it and killing sticky
+        Prevents horizontal scrolling. clip and !important because overflow-x: hidden set by
+        consuming applications can turn the body into a scroll container and break position: sticky.
     */
 	overflow-x: clip !important;
 }
 
 :root {
-	/*
-        The header height is defined on the root element so it can be used when
-        calculating --decorator-sticky-offset below. #decorator-header aliases it
-        to --header-height for internal use.
-    */
-	--decorator-header-height: 4.5rem;
-
-	/*
-        This custom property is used by consuming applications for positioning their own
-        sticky elements relative to the sticky header. It specifies the height of the
-        sticky header, and is 0 when no sticky header is present (i.e. the simple header).
-        Do not change the name or value assignment of this property without notifying consumers.
-    */
+	/* Deprecated: always 0px since the header is no longer sticky. Kept for consuming applications. */
 	--decorator-sticky-offset: 0px;
-}
-
-@media (min-width: 48rem) {
-	:root {
-		--decorator-header-height: 5rem;
-	}
-}
-
-/*
-    Kill wrapper elements so sticky works
-*/
-:is(#header-withmenu, #decorator-header, decorator-header) {
-	display: contents;
-}
-
-html:has(#decorator-header [data-sticky]) {
-	--decorator-sticky-offset: var(--decorator-header-height);
-
-	/* Prevents the sticky header from covering elements scrolled to via anchor links etc. */
-	scroll-padding-top: var(--decorator-sticky-offset);
-}
-
-/*
-    The sticky header can never cover itself, so the scroll padding above is cancelled out
-    for its own contents. Without this, moving focus to the skip link or any other element
-    in the header makes the browser scroll the page to get the element clear of the scroll
-    padding, which the sticky header just follows.
-
-    Keyed to --decorator-sticky-offset rather than the header height so it resolves to 0
-    by itself whenever no scroll padding is applied (simple header, co-browsing).
-*/
-:is([data-sticky], [data-sticky] *) {
-	scroll-margin-top: calc(var(--decorator-sticky-offset) * -1);
-}
-
-/*
-    Disable sticky behaviour when viewed from the puzzel co-browsing UI.
-    The pzl-tag-1 element is presently only rendered when viewed from co-browsing,
-    but there's no guarantee this assumption will hold in the future. :D
-*/
-html:has(#decorator-header pzl-tag-1) {
-	--decorator-sticky-offset: 0px !important;
-	scroll-padding-top: 0 !important;
-}
-
-html:has(#decorator-header pzl-tag-1) [data-sticky] {
-	position: static !important;
 }
 
 :is(#decorator-header, #decorator-footer) {
 	--edge-spacing: var(--ax-space-16);
 	--desktop-min-width: 768px;
-	--header-height: var(--decorator-header-height);
+	--header-height: 4.5rem;
 
 	font-family: var(--ax-font-family);
 	line-height: calc(4 / 3);
@@ -106,6 +45,12 @@ html:has(#decorator-header pzl-tag-1) [data-sticky] {
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 48rem) {
+	:is(#decorator-header, #decorator-footer) {
+		--header-height: 5rem;
+	}
 }
 
 @media (min-width: 64rem) {
