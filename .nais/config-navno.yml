@@ -60,7 +60,6 @@ spec:
   {{/each}}
   envFrom:
     - secret: nav-dekoratoren
-    - secret: nav-dekoratoren-unleash-api-token
   filesFrom:
     - configmap: dekoratoren-version-authority-{{deployInstance}}
       mountPath: /app/version-authority

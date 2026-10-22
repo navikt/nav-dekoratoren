@@ -117,6 +117,12 @@ under fanen Actions:
 Når PR-en din er godkjent, kan du merge den til main, og en produksjonsdeploy blir automatisk
 trigget.
 
+### Unleash
+
+Hvis `UNLEASH_SERVER_API_URL` eller `UNLEASH_SERVER_API_TOKEN` mangler, starter appen uten
+Unleash-klienten og logger en advarsel. Da brukes standardverdiene: skjermdeling, chatbot-script
+og Umami er aktivert. Navno-manifestene krever midlertidig ikke Unleash-secretet.
+
 ### Versjonsproxy og metrikker
 
 `version_proxy_requests_total` teller forespørsler med en annen versjon enn podens egen.
