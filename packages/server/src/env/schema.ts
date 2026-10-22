@@ -13,8 +13,8 @@ export const serverSchema = z.object({
 	PERSONOPPLYSNINGER_URL: z.string(),
 	SEARCH_API_URL: z.string().url(),
 	VARSEL_API_URL: z.string().url(),
-	UNLEASH_SERVER_API_TOKEN: z.string(),
-	UNLEASH_SERVER_API_URL: z.string().url(),
+	UNLEASH_SERVER_API_TOKEN: z.string().optional(),
+	UNLEASH_SERVER_API_URL: z.string().url().optional(),
 	VERSION_ID: z.string(),
 	XP_BASE_URL: z.string().url(),
 } satisfies Record<keyof typeof serverEnv, unknown>);
