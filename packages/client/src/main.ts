@@ -1,7 +1,7 @@
 /// <reference types="./client.d.ts" />
 import 'vite/modulepreload-polyfill';
 import { initAnalytics, mockAnalytics, stopAnalytics } from './analytics/analytics';
-import { initHistoryEvents, initScrollToEvents } from './events';
+import { initHistoryEvents } from './events';
 import { addFaroMetaData } from './faro';
 import { refreshAuthData } from './helpers/auth';
 import { buildHtmlElement } from './helpers/html-element-builder';
@@ -62,7 +62,6 @@ const init = () => {
 	initParams();
 	injectHeadAssets();
 	initHistoryEvents();
-	initScrollToEvents();
 	initConsentListener();
 
 	refreshAuthData();
