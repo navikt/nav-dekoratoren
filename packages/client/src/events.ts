@@ -20,10 +20,6 @@ export type CustomEvents = {
 	recheckConsentBanner: void;
 	showConsentBanner: void;
 	reshowConsentBanner: void;
-	scrollTo: {
-		top?: number;
-		left?: number;
-	};
 };
 
 export type MessageEvents =
@@ -97,57 +93,4 @@ export const initHistoryEvents = () => {
 		handleHistoryStateChange(args[2]);
 		return result;
 	};
-};
-
-type ScrollArgs = [ScrollToOptions] | [x?: number, y?: number];
-
-// Emits events on programmatic scrolling
-export const initScrollToEvents = () => {
-	const normalizeArgs = (...args: ScrollArgs) => {
-		const [optionsOrXCoord, undefinedOrYCoord] = args;
-		const isOptions = optionsOrXCoord && typeof optionsOrXCoord === 'object';
-
-		return isOptions
-			? { top: optionsOrXCoord.top, left: optionsOrXCoord.left }
-			: {
-					top: undefinedOrYCoord,
-					left: optionsOrXCoord,
-				};
-	};
-
-	const dispatchOnScrollTo = (...args: ScrollArgs) => {
-		dispatchEvent(createEvent('scrollTo', { detail: normalizeArgs(...args) }));
-	};
-
-	const dispatchOnScrollBy = (...args: ScrollArgs) => {
-		const { top, left } = normalizeArgs(...args);
-
-		dispatchEvent(
-			createEvent('scrollTo', {
-				detail: {
-					top: top !== undefined ? top + window.scrollY : top,
-					left: left !== undefined ? left + window.scrollX : left,
-				},
-			})
-		);
-	};
-
-	const scrollActual = window.scroll.bind(window);
-	const scrollToActual = window.scrollTo.bind(window);
-	const scrollByActual = window.scrollBy.bind(window);
-
-	window.scroll = ((...args: ScrollArgs) => {
-		dispatchOnScrollTo(...args);
-		return scrollActual(...(args as [ScrollToOptions]));
-	}) as typeof window.scroll;
-
-	window.scrollTo = ((...args: ScrollArgs) => {
-		dispatchOnScrollTo(...args);
-		return scrollToActual(...(args as [ScrollToOptions]));
-	}) as typeof window.scrollTo;
-
-	window.scrollBy = ((...args: ScrollArgs) => {
-		dispatchOnScrollBy(...args);
-		return scrollByActual(...(args as [ScrollToOptions]));
-	}) as typeof window.scrollBy;
 };
