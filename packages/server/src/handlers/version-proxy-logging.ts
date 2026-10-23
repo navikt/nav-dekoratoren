@@ -1,4 +1,5 @@
 import { HonoRequest } from 'hono';
+import { buildAppSchema } from 'decorator-shared/params';
 import { getLogSafeHost } from 'decorator-shared/urls';
 import { env } from '../env/server';
 import { logger } from '../lib/logger';
@@ -18,6 +19,7 @@ type ProxyRequestMetadata = {
 	teamName?: string;
 	refererHost?: string;
 	buildTime?: true;
+	buildApp?: string;
 	pageType?: string;
 	decoratorModulerVersion?: string;
 	decoratorModulerEntryPoint?: string;
@@ -29,13 +31,15 @@ const getProxyRequestMetadata = (request: HonoRequest): ProxyRequestMetadata => 
 	const url = new URL(request.url);
 	const origin = getBoundedQueryValue(url, 'origin');
 	const teamName = getBoundedQueryValue(url, 'teamName');
+	const buildTime = url.searchParams.get('decoratorModulerBuildTime') === 'true';
 
 	return {
 		path: url.pathname.slice(0, 100),
 		origin: origin && /^[a-z0-9][a-z0-9._-]*$/i.test(origin) ? origin : undefined,
 		teamName: teamName && /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(teamName) ? teamName : undefined,
 		refererHost: getLogSafeHost(request.header('referer')),
-		buildTime: url.searchParams.get('decoratorModulerBuildTime') === 'true' ? true : undefined,
+		buildTime: buildTime ? true : undefined,
+		buildApp: buildTime ? buildAppSchema.safeParse(url.searchParams.get('decoratorModulerBuildApp')).data : undefined,
 		pageType: getBoundedQueryValue(url, 'pageType'),
 		decoratorModulerVersion: getBoundedQueryValue(url, 'decoratorModulerVersion'),
 		decoratorModulerEntryPoint: getBoundedQueryValue(url, 'decoratorModulerEntryPoint'),
@@ -53,12 +57,15 @@ const problemLogStates = new Map<string, ProblemLogState>();
 
 // Prefer explicit consumer identity; origin is shared by some applications.
 const getProblemLogKey = (result: ProblemResult, requestedVersion: string, requestMetadata: ProxyRequestMetadata) => {
-	const { teamName, origin, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint } = requestMetadata;
+	const { teamName, buildApp, origin, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint } =
+		requestMetadata;
 	const requesterKey = teamName
 		? ['teamName', teamName]
-		: origin
-			? ['origin', origin]
-			: [null, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint];
+		: buildApp
+			? ['buildApp', buildApp]
+			: origin
+				? ['origin', origin]
+				: [null, refererHost, decoratorModulerVersion, decoratorModulerEntryPoint];
 	return JSON.stringify([result, requestedVersion, ...requesterKey]);
 };
 

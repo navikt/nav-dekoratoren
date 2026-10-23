@@ -141,7 +141,12 @@ Moduler-pakken merker slike SSR-forespørsler med `decoratorModulerBuildTime=tru
 sender flagget videre på senere kall som `/auth`. Slike sider sender versjons-ID-en fra da appen
 ble bygget helt til appen deployes på nytt, se
 [README-seksjonen om statisk generering](README.md#unnga-statisk-generering). SSR-kall fra
-byggesteget logges også som en advarsel med `x_metaData.buildTime`.
+byggesteget logges også som en advarsel med `buildTime`.
+
+Under bygg finnes ikke `teamName`, så moduler-pakken sender i stedet `decoratorModulerBuildApp`
+med repoet fra `GITHUB_REPOSITORY` (for eksempel `navikt/min-app`), eller pakkenavnet fra
+`npm_package_name` når bygget ikke kjører i GitHub Actions. Verdien logges som `buildApp` i
+advarselen og i proxyloggene, og sendes videre på senere kall fra siden.
 
 I [Grafana Explore](https://grafana.nav.cloud.nais.io/explore) gir denne spørringen oversikt
 over forespørsler per resultat siste time. Filteret `origin=~".+"` utelater eldre metrikktidsserier
@@ -162,9 +167,13 @@ sum by (origin, route) (
 )
 ```
 
-`teamName` finnes i strukturerte logger, ikke som metriketikett. Bruk OpenSearch for å filtrere
-proxylogger på `x_metaData.teamName` eller `x_metaData.refererHost`; ikke legg teamnavn,
-vertsnavn eller versjons-ID-er til metriketiketter.
+`teamName`, `buildApp` og `refererHost` finnes i strukturerte logger, ikke som metriketiketter;
+ikke legg teamnavn, appnavn, vertsnavn eller versjons-ID-er til metriketiketter. I OpenSearch er
+`x_metaData` lagret som én JSON-streng, så søk som `x_metaData.teamName:…` gir ingen treff. Søk i
+stedet på meldingsteksten, og les verdiene i `x_metaData`-kolonnen:
+
+- Versjoner uten intern app: `application:nav-dekoratoren AND cluster:prod-gcp AND message:"no internal app exists"`
+- SSR-kall under `next build`: `application:nav-dekoratoren AND cluster:prod-gcp AND message:"SSR-forespørsel fra next build"`
 
 Andelen `not_found` som kommer fra statisk genererte sider:
 
