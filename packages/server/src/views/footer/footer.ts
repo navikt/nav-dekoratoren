@@ -47,7 +47,6 @@ export const FooterTemplate = async ({ params, features, withContainers }: Foote
 	return withContainers
 		? html`
 				<div id="decorator-footer" data-nosnippet>
-					<div style="display: none;">Test</div>
 					<decorator-footer>${footerContent}</decorator-footer>
 				</div>
 			`
