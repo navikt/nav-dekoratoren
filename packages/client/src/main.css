@@ -3,6 +3,13 @@
 
 html {
 	box-sizing: border-box;
+
+	/*
+        Reserves room for the scrollbar so page content does not shift when navigating
+        between pages that do and do not overflow. Replaces overflow-y: scroll on the
+        body element, which cannot be used together with overflow-x: clip below.
+    */
+	scrollbar-gutter: stable;
 }
 
 *,
@@ -13,8 +20,17 @@ html {
 
 body {
 	margin: 0;
-	overflow-x: hidden;
-	overflow-y: scroll;
+
+	/*
+        Prevents horizontal scrolling. clip and !important because overflow-x: hidden set by
+        consuming applications can turn the body into a scroll container and break position: sticky.
+    */
+	overflow-x: clip !important;
+}
+
+:root {
+	/* Deprecated: always 0px since the header is no longer sticky. Kept for consuming applications. */
+	--decorator-sticky-offset: 0px;
 }
 
 :is(#decorator-header, #decorator-footer) {
@@ -29,11 +45,16 @@ body {
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
 
-	@media (min-width: 48rem) {
+@media (min-width: 48rem) {
+	:is(#decorator-header, #decorator-footer) {
 		--header-height: 5rem;
 	}
-	@media (min-width: 64rem) {
+}
+
+@media (min-width: 64rem) {
+	:is(#decorator-header, #decorator-footer) {
 		--edge-spacing: var(--ax-space-48);
 	}
 }

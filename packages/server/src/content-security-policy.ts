@@ -1,4 +1,4 @@
-import { CSPDirectives, DATA, UNSAFE_EVAL, UNSAFE_INLINE, getCSP, SELF } from 'csp-header';
+import { BLOB, CSPDirectives, DATA, UNSAFE_EVAL, UNSAFE_INLINE, getCSP, SELF } from 'csp-header';
 import { clientEnv } from './env/server';
 import { isLocalhost } from './urls';
 
@@ -37,7 +37,8 @@ const scriptSrc = [
 	UNSAFE_INLINE, // Puzzel
 ];
 
-const workerSrc = [navNo];
+// BLOB trengs av Qbrick
+const workerSrc = [navNo, BLOB];
 
 const directives: Partial<CSPDirectives> = {
 	'default-src': [navNo],

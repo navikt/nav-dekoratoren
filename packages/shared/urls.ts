@@ -1,5 +1,18 @@
 import type { ClientParams } from './params';
 
+// Unlike getLogSafeUrl, this also excludes paths, which may contain personal data.
+export const getLogSafeHost = (url?: string): string | undefined => {
+	if (!url) {
+		return undefined;
+	}
+	try {
+		const { host } = new URL(url);
+		return /^[a-z0-9.-]+(?::\d+)?$/i.test(host) ? host.slice(0, 100) : undefined;
+	} catch {
+		return undefined;
+	}
+};
+
 export const getLogSafeUrl = (url: string): string => {
 	try {
 		const { protocol, host, pathname } = new URL(url);

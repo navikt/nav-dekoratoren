@@ -2,13 +2,14 @@ import { createEvent } from '../events';
 import { defineCustomElement } from './custom-elements';
 import { logger } from '../helpers/logger';
 
+/*
+    WebStorageController owns state for this, see CONSENT_STATE_ELEMENT_ID
+*/
 export class ConsentBanner extends HTMLElement {
-	dialog!: HTMLDivElement;
-	input!: HTMLInputElement;
-	errorList!: HTMLElement;
 	buttonConsentAll!: HTMLElement | null;
 	buttonRefuseOptional!: HTMLElement | null;
-	buttonExpand!: HTMLElement | null;
+
+	#listeners: AbortController | null = null;
 
 	handleResponse = (response: 'CONSENT_ALL_WEB_STORAGE' | 'REFUSE_OPTIONAL_WEB_STORAGE') => {
 		if (response === 'CONSENT_ALL_WEB_STORAGE') {
@@ -16,70 +17,48 @@ export class ConsentBanner extends HTMLElement {
 		} else {
 			window.dispatchEvent(createEvent('refuseOptionalWebStorage', {}));
 		}
-		this.closeModal();
 	};
 
-	showModal() {
-		const header = document.getElementById('consent_banner_title');
-		if (header) {
-			header.focus();
-		}
-		this.dialog.classList.add('consentBanner--open');
-	}
+	focusBanner() {
+		const bannerEl = this.querySelector<HTMLElement>('#consent_banner_title');
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-	closeModal() {
-		this.dialog.classList.remove('consentBanner--open');
-	}
-
-	minimizeModal() {
-		this.dialog.classList.add('minimizedCookieBanner');
-	}
-
-	maximizeModal() {
-		this.dialog.classList.remove('minimizedCookieBanner');
+		bannerEl?.scrollIntoView({
+			behavior: reduceMotion ? 'auto' : 'smooth',
+		});
+		bannerEl?.focus({ preventScroll: true });
 	}
 
 	async connectedCallback() {
-		const dialog = this.querySelector('#consent-banner-dialog');
-		if (!dialog) {
+		if (!this.querySelector('#consent-banner-dialog')) {
 			logger.error('Could not find cookie consent banner dialog element.');
 			return;
 		}
 
-		this.dialog = dialog as HTMLDivElement;
+		this.#listeners?.abort();
+		this.#listeners = new AbortController();
+		const { signal } = this.#listeners;
 
-		this.buttonConsentAll = document.querySelector('[data-name="consent-banner-all"]');
-		this.buttonRefuseOptional = document.querySelector('[data-name="consent-banner-refuse-optional"]');
-		this.buttonExpand = document.querySelector('[data-name="consent-banner-expand"]');
+		this.buttonConsentAll = this.querySelector('[data-name="consent-banner-all"]');
+		this.buttonRefuseOptional = this.querySelector('[data-name="consent-banner-refuse-optional"]');
 
-		this.buttonConsentAll?.addEventListener('click', () => this.handleResponse('CONSENT_ALL_WEB_STORAGE'));
-		this.buttonRefuseOptional?.addEventListener('click', () => this.handleResponse('REFUSE_OPTIONAL_WEB_STORAGE'));
-		this.buttonExpand?.addEventListener('click', () => {
-			this.maximizeModal();
+		this.buttonConsentAll?.addEventListener('click', () => this.handleResponse('CONSENT_ALL_WEB_STORAGE'), { signal });
+		this.buttonRefuseOptional?.addEventListener('click', () => this.handleResponse('REFUSE_OPTIONAL_WEB_STORAGE'), {
+			signal,
 		});
 
-		window.addEventListener('showConsentBanner', () => {
-			this.showModal();
-
-			if (
-				window.location.pathname.includes('informasjonskapsler') ||
-				window.location.hash.includes('informasjonskapsler')
-			) {
-				this.minimizeModal();
-			}
-		});
+		window.addEventListener(
+			'reshowConsentBanner',
+			() => {
+				this.focusBanner();
+			},
+			{ signal }
+		);
 	}
 
 	disconnectedCallback() {
-		this.buttonConsentAll?.removeEventListener('click', () => this.handleResponse('CONSENT_ALL_WEB_STORAGE'));
-		this.buttonRefuseOptional?.removeEventListener('click', () => this.handleResponse('REFUSE_OPTIONAL_WEB_STORAGE'));
-		this.buttonExpand?.removeEventListener('click', () => {
-			this.minimizeModal();
-		});
-
-		window.removeEventListener('showConsentBanner', () => {
-			this.showModal();
-		});
+		this.#listeners?.abort();
+		this.#listeners = null;
 	}
 }
 

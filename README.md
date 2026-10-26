@@ -327,11 +327,12 @@ Kan oppdateres dynamisk client-side via
 
 **language**
 
-Språket settes automatisk på klient-side hvis den nåværende URL-en inneholder **/no/**, **/nb/**, \*
-\*/nn/** , **/en/**, eller **/se/\*\*. Dette vil overstyre eventuelle språkparametere som er satt.
-Vennligst merk at det faktiske brukergrensesnittet til Dekoratøren kun kan vise sitt eget
-tekstinnhold og meny på `nb`, `en`, og `se` (delvis støtte). For mer informasjon,
-se [Språkstøtte og nedtrekksmeny](#sprakstotte-og-nedtrekksmeny)
+Språket i Dekoratøren settes med `language`-parameteren. Hvis parameteren mangler, vises innholdet
+først på bokmål (`nb`). Når klienten lastes, bruker Dekoratøren språket i cookien `decorator-language` hvis
+den finnes. Hvis ikke, forblir innholdet på bokmål (`nb`).
+
+`language` godtar bokmål `nb`, nynorsk `nn`, engelsk `en`, nordsamisk `se`, polsk `pl`,
+ukrainsk `uk` og russisk `ru`. For mer informasjon, se [Språkstøtte og nedtrekksmeny](#sprakstotte-og-nedtrekksmeny)
 
 **availableLanguages**
 

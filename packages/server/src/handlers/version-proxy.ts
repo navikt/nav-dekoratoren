@@ -29,6 +29,7 @@ const getMetricLabels = (request: HonoRequest) => {
 	return {
 		origin: origin === 'navno-frontend' ? 'navno-frontend' : origin ? 'other' : 'unknown',
 		route,
+		build_time: url.searchParams.get('decoratorModulerBuildTime') === 'true' ? 'true' : 'false',
 	};
 };
 
@@ -44,8 +45,8 @@ const isValidVersionId = (versionId?: string): versionId is string =>
 // - unreachable: the internal app exists, but the request failed (ECONNREFUSED etc.)
 const proxyRequestsCounter = new Counter({
 	name: 'version_proxy_requests_total',
-	help: "Requests for a different version than this pod's, by proxy result, origin and route",
-	labelNames: ['result', 'origin', 'route'] as const,
+	help: "Requests for a different version than this pod's, by proxy result, origin, route and whether the page was rendered by a static build",
+	labelNames: ['result', 'origin', 'route', 'build_time'] as const,
 });
 
 type FetchOutcome =
