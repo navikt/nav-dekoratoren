@@ -1,6 +1,10 @@
 .background {
 	display: none;
 	background-color: var(--ax-bg-accent-strong);
+
+	@media print {
+		display: none !important;
+	}
 }
 
 .consentBanner {
