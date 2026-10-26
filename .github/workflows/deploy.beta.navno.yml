@@ -40,7 +40,7 @@ jobs:
     uses: ./.github/workflows/deploy-instance-navno.yml
     permissions: { contents: read, id-token: write }
     with:
-      instance: dev-beta-navno
+      instance: dev-beta
       cluster: dev-gcp
       image: ${{ needs.build.outputs.image }}
       deploy-previous: ${{ inputs.DEPLOY_PREVIOUS }}
