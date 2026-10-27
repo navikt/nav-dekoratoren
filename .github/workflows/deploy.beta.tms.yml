@@ -17,7 +17,7 @@ jobs:
     uses: navikt/navno-ci/.github/workflows/node-build.yml@v1
     permissions: { contents: read, id-token: write }
     with:
-      team: personbruker
+      team: navno
       image-suffix: dev-beta-tms
       cdn-source: ./packages/server/public
       cdn-destination: /nav-dekoratoren
@@ -31,11 +31,11 @@ jobs:
     permissions: { contents: read, id-token: write }
     with:
       cluster: dev-gcp
-      resource: .nais/network-policy.yml
+      resource: .nais/network-policy-navno.yml
 
   deploy:
     needs: [build, network-policy]
-    uses: ./.github/workflows/deploy-instance.yml
+    uses: ./.github/workflows/deploy-instance-navno.yml
     permissions: { contents: read, id-token: write }
     with:
       instance: dev-beta-tms

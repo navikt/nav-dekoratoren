@@ -31,6 +31,12 @@ spec:
       destinations:
         - id: elastic
         - id: loki
+  {{#if ingresses}}
+  ingresses:
+  {{#each ingresses as |url|}}
+    - {{url}}
+  {{/each}}
+  {{/if}}
   accessPolicy:
     outbound:
       rules:

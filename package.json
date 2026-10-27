@@ -40,7 +40,7 @@
 		"@eslint/eslintrc": "3.3.6",
 		"@eslint/js": "9.39.5",
 		"@navikt/browserslist-config": "^0.1.0",
-		"@playwright/test": "1.62.1",
+		"@playwright/test": "1.64.1",
 		"@storybook/addon-docs": "10.5.5",
 		"@storybook/html": "10.5.5",
 		"@storybook/html-vite": "10.5.5",
