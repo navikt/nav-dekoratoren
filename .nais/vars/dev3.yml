@@ -10,7 +10,6 @@ outboundHosts:
   - trial-navpoc.enonic.cloud
   - navno-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
-  - navno-search-api.ekstern.dev.nav.no
 env:
   - name: APP_URL
     value: https://dekoratoren-dev3.intern.dev.nav.no
