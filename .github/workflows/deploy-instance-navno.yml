@@ -54,8 +54,9 @@ jobs:
           echo "version-id=$NAVNO_PREV_VERSION_ID" >> "$GITHUB_OUTPUT"
           echo "image=$NAVNO_PREV_IMAGE" >> "$GITHUB_OUTPUT"
 
-  # Checks out the previous version so its own .nais config is used. Skipped
-  # when the previous version is this commit, e.g. on a base image refresh.
+  # Deploys the previous image with this commit's .nais config and vars.
+  # Config changes must support both versions. Skipped when the previous
+  # version is this commit, e.g. on a base image refresh.
   previous:
     name: Previous version
     needs: resolve-previous
@@ -64,7 +65,7 @@ jobs:
     permissions: { contents: read, id-token: write }
     with:
       cluster: ${{ inputs.cluster }}
-      ref: ${{ needs.resolve-previous.outputs.version-id }}
+      ref: ${{ github.sha }}
       resource: .nais/config-internal-navno.yml
       vars: .nais/vars/${{ inputs.instance }}-navno.yml
       var: image=${{ needs.resolve-previous.outputs.image }},versionId=${{ needs.resolve-previous.outputs.version-id }},deployInstance=${{ inputs.instance }}
