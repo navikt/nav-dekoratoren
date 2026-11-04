@@ -2,6 +2,10 @@
 	border-top: 2px solid var(--ax-accent-500);
 	background-color: var(--ax-bg-default);
 	padding-block: var(--ax-space-16);
+
+	@media print {
+		display: none;
+	}
 }
 
 .simpleFooterContent {

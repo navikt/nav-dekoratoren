@@ -4,6 +4,10 @@
 	justify-content: center;
 	align-items: center;
 	gap: var(--ax-space-8);
+
+	@media print {
+		display: none;
+	}
 }
 
 .menuItemsUniversalLinks {

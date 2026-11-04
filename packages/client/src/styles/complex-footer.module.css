@@ -3,6 +3,10 @@
 	color: var(--ax-neutral-000);
 	--ax-text-subtle: var(--ax-text-neutral-contrast);
 	padding-block: var(--ax-space-24) var(--ax-space-48);
+
+	@media print {
+		display: none;
+	}
 }
 
 .footerContent {
