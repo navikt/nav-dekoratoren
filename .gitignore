@@ -26,3 +26,7 @@ packages/server/.env
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# scripts/emulate-previous-version.mjs
+/.emulate-previous-profile/
+/emulate-previous-version.png
