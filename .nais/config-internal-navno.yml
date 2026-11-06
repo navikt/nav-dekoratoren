@@ -24,6 +24,11 @@ spec:
   prometheus:
     enabled: true
     path: /metrics
+  observability:
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki
   accessPolicy:
     outbound:
       rules:
