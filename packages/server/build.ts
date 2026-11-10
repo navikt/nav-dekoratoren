@@ -22,7 +22,7 @@ const cssModulesPlugin: Plugin = {
 
 const result = await build({
 	entryPoints: ['./src/server.ts'],
-	target: 'node24',
+	target: 'node26',
 	platform: 'node',
 	outdir: './dist',
 	bundle: true,
