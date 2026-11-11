@@ -13,7 +13,7 @@
 		"decorator-shared": "workspace:*"
 	},
 	"devDependencies": {
-		"@navikt/aksel-icons": "8.16.1",
+		"@navikt/aksel-icons": "8.21.0",
 		"svgo": "4.1.0"
 	}
 }
