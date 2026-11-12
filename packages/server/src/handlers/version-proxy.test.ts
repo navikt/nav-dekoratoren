@@ -124,6 +124,21 @@ describe('versionProxyHandler', () => {
 		expect(await metricValues()).toEqual({ proxied: 1 });
 	});
 
+	it.each(['//evil.example/ssr', '/\\evil.example/ssr', '/@evil.example/ssr'])(
+		'only proxies to the internal version app for path %s',
+		async (path) => {
+			const fetchMock = vi.fn().mockResolvedValue(new Response('proxied response'));
+			vi.stubGlobal('fetch', fetchMock);
+
+			const app = buildApp(await loadHandler());
+			await app.request(`http://localhost${path}?${VERSION_ID_PARAM}=${STALE_VERSION_ID}&a=1`);
+
+			const target = new URL(fetchMock.mock.calls[0]?.[0]);
+			expect(target.origin).toBe(`http://${env.APP_NAME}-${STALE_VERSION_ID}`);
+			expect(target.searchParams.get('a')).toBe('1');
+		}
+	);
+
 	it.each([
 		['not_found', notFoundError],
 		['unreachable', unreachableError],

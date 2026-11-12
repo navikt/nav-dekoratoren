@@ -57,12 +57,28 @@ const getErrorCode = (err: Error) =>
 	(err as NodeJS.ErrnoException).code ??
 	(err.cause instanceof Error ? (err.cause as NodeJS.ErrnoException).code : undefined);
 
-const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId: string): Promise<FetchOutcome> => {
-	const urlObj = new URL(request.url);
-	urlObj.protocol = 'http:';
-	urlObj.host = `${APP_NAME}-${targetVersionId}`;
+// Only the path and query come from the request. The origin is always an internal version app.
+export const buildInternalVersionAppUrl = (requestUrl: string, targetVersionId: string) => {
+	if (!isValidVersionId(targetVersionId)) {
+		throw new Error(`Invalid version id ${targetVersionId}`);
+	}
 
-	const url = urlObj.toString();
+	const expectedOrigin = `http://${APP_NAME}-${targetVersionId}`;
+	const { pathname, search } = new URL(requestUrl);
+
+	const target = new URL(expectedOrigin);
+	target.pathname = pathname;
+	target.search = search;
+
+	if (target.origin !== expectedOrigin) {
+		throw new Error(`Unexpected proxy target origin ${target.origin}`);
+	}
+
+	return target.toString();
+};
+
+const fetchFromInternalVersionApp = async (request: HonoRequest, targetVersionId: string): Promise<FetchOutcome> => {
+	const url = buildInternalVersionAppUrl(request.url, targetVersionId);
 	const logSafeUrl = getLogSafeUrl(url);
 
 	try {
