@@ -30,7 +30,7 @@
 		"cross-env": "10.1.0",
 		"esbuild": "0.28.2",
 		"esbuild-minify-templates": "catalog:",
-		"msw": "2.15.0",
+		"msw": "3.0.3",
 		"postcss": "catalog:",
 		"postcss-import": "16.2.0",
 		"postcss-modules": "6.0.1",
