@@ -21,12 +21,12 @@ export const Button = ({
 	attributes = {},
 	href,
 }: ButtonProps) => html`
-    <${href ? 'a' : 'button'}
-        ${htmlAttributes({ ...attributes, ['data-variant']: variant })}
-        ${href ? html`href="${href}"` : html`type="${type}"`}
-        class="${clsx(cls['aksel-button'], className)}"
-    >
-        ${icon && html`<span class="${cls['aksel-button__icon']}">${icon}</span>`}
-        <span class="${clsx(cls['aksel-label'], 'label')}">${content}</span>
-    </${href ? 'a' : 'button'}>
+	<${href ? 'a' : 'button'}
+		${htmlAttributes({ ...attributes, ['data-variant']: variant })}
+		${href ? html`href="${href}"` : html`type="${type}"`}
+		class="${clsx(cls['aksel-button'], className)}"
+	>
+		${icon && html`<span class="${cls['aksel-button__icon']}">${icon}</span>`}
+		<span class="${clsx(cls['aksel-label'], 'label')}">${content}</span>
+	</${href ? 'a' : 'button'}>
 `;

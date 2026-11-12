@@ -13,7 +13,7 @@
 		"lint": "eslint . && tsc --noEmit"
 	},
 	"dependencies": {
-		"@grafana/faro-web-sdk": "2.9.0",
+		"@grafana/faro-web-sdk": "2.13.0",
 		"@itsy/corgi": "^1.4.0",
 		"@navikt/ds-css": "catalog:",
 		"decorator-icons": "workspace:*",
