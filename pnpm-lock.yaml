@@ -381,8 +381,8 @@ importers:
   packages/server:
     dependencies:
       '@hono/node-server':
-        specifier: 2.1.5
-        version: 2.1.5(hono@4.13.16)
+        specifier: 2.1.6
+        version: 2.1.6(hono@4.13.16)
       '@hono/prometheus':
         specifier: 1.0.3
         version: 1.0.3(hono@4.13.16)(prom-client@15.1.3)
@@ -855,8 +855,8 @@ packages:
   '@grafana/faro-web-sdk@2.13.0':
     resolution: {integrity: sha512-k/vZL73Ii4PR6IyhyZZU/wWAlLL8HyPQ1re9CFyyIN2bXuX5b0dTYTLBHlEAK3oGqi7Nj/jGwKXoM27BNLPLuQ==}
 
-  '@hono/node-server@2.1.5':
-    resolution: {integrity: sha512-MgP/I06GdvsilDspMk/qmRzpk8LOUStP6jFAbSRi40W09DhoyUn+Mj7eyKICPqeYKybOjVFLVIAQzvu1bfIa7Q==}
+  '@hono/node-server@2.1.6':
+    resolution: {integrity: sha512-p/KH9MnfNcsm3sR6x4lNgm5j+QN4Et8srKredl9DZfXiyZ1UQ3aQ2YVpFLbqktYN5JI+DB+VZFKM2PqE5hLKjQ==}
     engines: {node: '>=20'}
     peerDependencies:
       hono: ^4 || ^5.0.0-0
@@ -5487,7 +5487,7 @@ snapshots:
       ua-parser-js: 1.0.41
       web-vitals: 6.2.3
 
-  '@hono/node-server@2.1.5(hono@4.13.16)':
+  '@hono/node-server@2.1.6(hono@4.13.16)':
     dependencies:
       hono: 4.13.16
 
