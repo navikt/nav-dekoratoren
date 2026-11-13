@@ -6,7 +6,7 @@ catalog:
   '@navikt/ds-react': '8.21.0'
   '@types/node': '26.6.6'
   esbuild-minify-templates: '0.13.1'
-  eslint: '9.39.5'
+  eslint: '10.13.0'
   postcss: '8.5.32'
   tsx: '4.23.15'
   typescript: '6.0.3'
