@@ -32,7 +32,7 @@
 		"esbuild-minify-templates": "catalog:",
 		"msw": "2.15.0",
 		"postcss": "catalog:",
-		"postcss-import": "16.2.0",
+		"postcss-import": "17.0.1",
 		"postcss-modules": "6.0.1",
 		"tsx": "catalog:",
 		"vitest": "catalog:"
