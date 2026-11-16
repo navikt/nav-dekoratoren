@@ -9,6 +9,6 @@ spec:
   unleashInstance:
     apiVersion: unleash.nais.io/v1
     kind: RemoteUnleash
-    name: navno
+    name: personbruker
   secretName: nav-dekoratoren-unleash-api-token
   environment: development

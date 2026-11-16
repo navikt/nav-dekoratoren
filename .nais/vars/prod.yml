@@ -5,7 +5,7 @@ ingresses:
   - https://appres.nav.no/common-html/v4/navno
 outboundHosts:
   - www.nav.no
-  - navno-unleash-api.nav.cloud.nais.io
+  - personbruker-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
   - umami.nav.no
   - reops-event-proxy.nav.no

@@ -1,5 +1,5 @@
 # Deploys one dekoratøren instance, in order:
-#   resolve-previous -> previous -> app (+ HPA) -> update-vars -> version-authority
+#   unleash-token + resolve-previous -> previous -> app (+ HPA) -> update-vars -> version-authority
 # Callers need `permissions: { contents: read, id-token: write }` and `secrets: inherit`.
 name: Deploy a dekoratøren instance
 on:
@@ -33,6 +33,15 @@ on:
         required: true
 
 jobs:
+  unleash-token:
+    name: Unleash API token
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    permissions: { contents: read, id-token: write }
+    with:
+      cluster: ${{ inputs.cluster }}
+      resource: .nais/unleash-api-token.${{ inputs.cluster == 'prod-gcp' && 'prod' || 'dev' }}.yml
+      environment: ${{ inputs.instance }}
+
   # PREV_VERSION_ID and PREV_IMAGE are environment-scoped variables. They are
   # only visible to a job that declares the environment, and a job that calls
   # a reusable workflow cannot. This job reads them and passes them on.
@@ -60,7 +69,7 @@ jobs:
   # version is this commit, e.g. on a base image refresh.
   previous:
     name: Previous version
-    needs: resolve-previous
+    needs: [unleash-token, resolve-previous]
     if: ${{ !failure() && !cancelled() && needs.resolve-previous.outputs.version-id != '' && needs.resolve-previous.outputs.image != '' && needs.resolve-previous.outputs.version-id != github.sha }}
     uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
     permissions: { contents: read, id-token: write }
@@ -73,7 +82,7 @@ jobs:
 
   app:
     name: Current version
-    needs: [resolve-previous, previous]
+    needs: [unleash-token, resolve-previous, previous]
     # Runs when the previous-version jobs were skipped, not when one failed.
     if: ${{ !failure() && !cancelled() }}
     uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
