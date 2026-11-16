@@ -77,7 +77,7 @@ describe('versionProxyHandler', () => {
 	beforeEach(() => {
 		vi.spyOn(console, 'error').mockImplementation(() => undefined);
 		warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-		infoSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+		infoSpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
 	});
 
 	afterEach(() => {
@@ -86,11 +86,15 @@ describe('versionProxyHandler', () => {
 		vi.useRealTimers();
 	});
 
-	const proxyLogs = (spy: ReturnType<typeof vi.spyOn>) =>
+	// Under Vitest, navno-logger calls console with the arguments as given: (message, fields)
+	type ProxyLog = { message: string; fields: Record<string, unknown> };
+	const proxyLogs = (spy: ReturnType<typeof vi.spyOn>): ProxyLog[] =>
 		spy.mock.calls
-			.map((call: unknown[]) => String(call[0]))
-			.filter((message: string) => message.includes('Version proxy:'));
-	const parseMetaData = (log: string) => JSON.parse(JSON.parse(log).metaData);
+			.map(([message, fields]: unknown[]) => ({
+				message: String(message),
+				fields: (fields ?? {}) as Record<string, unknown>,
+			}))
+			.filter(({ message }: ProxyLog) => message.includes('Version proxy:'));
 
 	it('returns the proxied response and counts it', async () => {
 		vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('proxied response', { status: 200 })));
@@ -180,8 +184,8 @@ describe('versionProxyHandler', () => {
 		]);
 		const logs = proxyLogs(infoSpy);
 		expect(logs).toHaveLength(1);
-		expect(logs[0]).toContain('responded with status 503');
-		expect(parseMetaData(logs[0])).toEqual(expect.objectContaining({ result: 'error_response', status: 503 }));
+		expect(logs[0].message).toContain('responded with status 503');
+		expect(logs[0].fields).toEqual(expect.objectContaining({ result: 'error_response', status: 503 }));
 	});
 
 	it('serves its own response for unreachable internal apps and counts them', async () => {
@@ -200,11 +204,11 @@ describe('versionProxyHandler', () => {
 		expect(await metricValues()).toEqual({ unreachable: 1 });
 		const logs = proxyLogs(infoSpy);
 		expect(logs).toHaveLength(1);
-		expect(logs[0]).toContain('ECONNREFUSED');
-		expect(logs[0]).toContain('origin: navno-frontend');
-		expect(logs[0]).not.toMatch(/consecutive|first failure/);
-		expect(JSON.parse(logs[0]).error).toContain('ECONNREFUSED internal-app');
-		expect(parseMetaData(logs[0])).toEqual({
+		expect(logs[0].message).toContain('ECONNREFUSED');
+		expect(logs[0].message).toContain('origin: navno-frontend');
+		expect(logs[0].message).not.toMatch(/consecutive|first failure/);
+		expect(logs[0].fields).toEqual({
+			error: expect.stringContaining('ECONNREFUSED internal-app'),
 			result: 'unreachable',
 			requestedVersion: STALE_VERSION_ID,
 			servingVersion: env.VERSION_ID,
@@ -227,7 +231,7 @@ describe('versionProxyHandler', () => {
 
 		expect(await res.text()).toBe('own pod response');
 		expect(await metricValues()).toEqual({ not_found: 1 });
-		expect(proxyLogs(infoSpy)[0]).toContain('no internal app exists for this version');
+		expect(proxyLogs(infoSpy)[0].message).toContain('no internal app exists for this version');
 	});
 
 	it('counts only bounded origins and routes across ingress prefixes', async () => {
@@ -260,7 +264,7 @@ describe('versionProxyHandler', () => {
 		const app = buildApp(await loadHandler());
 		await requestWithVersion(app, STALE_VERSION_ID, { origin: 'evil\napp' });
 
-		expect(proxyLogs(infoSpy)[0]).toContain('origin: unknown');
+		expect(proxyLogs(infoSpy)[0].message).toContain('origin: unknown');
 	});
 
 	it('logs separately by team name when origin is shared', async () => {
@@ -278,10 +282,7 @@ describe('versionProxyHandler', () => {
 
 		const logs = proxyLogs(infoSpy);
 		expect(logs).toHaveLength(2);
-		expect(logs.map((log: string) => parseMetaData(log).teamName)).toEqual([
-			'first-app.personbruker',
-			'second-app.personbruker',
-		]);
+		expect(logs.map(({ fields }) => fields.teamName)).toEqual(['first-app.personbruker', 'second-app.personbruker']);
 	});
 
 	it.each([
@@ -304,8 +305,8 @@ describe('versionProxyHandler', () => {
 
 		const warnings = proxyLogs(warnSpy);
 		expect(warnings).toHaveLength(1);
-		expect(warnings[0]).toContain('still occurring after 10 minutes on this pod');
-		expect(parseMetaData(warnings[0]).persistent).toBe(true);
+		expect(warnings[0].message).toContain('still occurring after 10 minutes on this pod');
+		expect(warnings[0].fields.persistent).toBe(true);
 
 		await vi.advanceTimersByTimeAsync(FIVE_MINUTES);
 		await requestWithVersion(app, STALE_VERSION_ID);
@@ -316,7 +317,7 @@ describe('versionProxyHandler', () => {
 		await vi.advanceTimersByTimeAsync(FIVE_MINUTES + 1000);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
-		expect(proxyLogs(warnSpy).map((log: string) => log.match(/still occurring after \d+ minutes/)?.[0])).toEqual([
+		expect(proxyLogs(warnSpy).map(({ message }) => message.match(/still occurring after \d+ minutes/)?.[0])).toEqual([
 			'still occurring after 10 minutes',
 			'still occurring after 20 minutes',
 			'still occurring after 30 minutes',
@@ -370,8 +371,8 @@ describe('versionProxyHandler', () => {
 
 			const infoLogs = proxyLogs(infoSpy);
 			expect(infoLogs).toHaveLength(2);
-			expect(infoLogs[1]).toContain('proxying succeeded after persistent');
-			expect(parseMetaData(infoLogs[1])).toEqual({
+			expect(infoLogs[1].message).toContain('proxying succeeded after persistent');
+			expect(infoLogs[1].fields).toEqual({
 				result: 'recovered',
 				previousResults: [result],
 				requestedVersion: STALE_VERSION_ID,
@@ -494,8 +495,8 @@ describe('versionProxyHandler', () => {
 		await requestWithVersion(app, STALE_VERSION_ID);
 		await requestWithVersion(app, STALE_VERSION_ID);
 
-		const logged = proxyLogs(infoSpy).map((log: string) => {
-			const { decoratorModulerVersion, decoratorModulerEntryPoint } = parseMetaData(log);
+		const logged = proxyLogs(infoSpy).map(({ fields }) => {
+			const { decoratorModulerVersion, decoratorModulerEntryPoint } = fields;
 			return [decoratorModulerVersion, decoratorModulerEntryPoint];
 		});
 		expect(logged).toEqual([
@@ -527,8 +528,8 @@ describe('versionProxyHandler', () => {
 		await withReferer('https://min-app.intern.nav.no/');
 		await withReferer('not a url');
 
-		const logged = proxyLogs(infoSpy).map((log: string) => {
-			const { refererHost, buildTime } = parseMetaData(log);
+		const logged = proxyLogs(infoSpy).map(({ fields }) => {
+			const { refererHost, buildTime } = fields;
 			return [refererHost, buildTime];
 		});
 		expect(logged).toEqual([
@@ -536,7 +537,7 @@ describe('versionProxyHandler', () => {
 			['min-app.intern.nav.no', undefined],
 			[undefined, undefined],
 		]);
-		expect(proxyLogs(infoSpy).join()).not.toContain('12345678910');
+		expect(JSON.stringify(proxyLogs(infoSpy))).not.toContain('12345678910');
 
 		const buildTimeCounts = Object.fromEntries(
 			(await register.getSingleMetric(METRIC_NAME)!.get()).values.map(({ labels, value }) => [labels.build_time, value])
@@ -554,7 +555,7 @@ describe('versionProxyHandler', () => {
 		await request({ decoratorModulerBuildTime: 'true', decoratorModulerBuildApp: 'navikt/app-b' });
 		await request({ decoratorModulerBuildApp: 'navikt/app-c' });
 
-		expect(proxyLogs(infoSpy).map((log: string) => parseMetaData(log).buildApp)).toEqual([
+		expect(proxyLogs(infoSpy).map(({ fields }) => fields.buildApp)).toEqual([
 			'navikt/app-a',
 			'navikt/app-b',
 			undefined,

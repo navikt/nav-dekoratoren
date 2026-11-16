@@ -40,7 +40,7 @@ const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
 			throw Error(`Bad response from auth api - ${res.status} ${res.statusText}`);
 		})
 		.catch((e) => {
-			logger.error('Auth error', { error: e });
+			logger.error('Auth error', e);
 			return null;
 		});
 };

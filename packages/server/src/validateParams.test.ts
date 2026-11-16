@@ -331,7 +331,7 @@ describe('Consumer identification', () => {
 			expect(params.teamName).toBeUndefined();
 			expect(warn).toHaveBeenCalledWith(
 				expect.stringContaining('Ugyldig teamName'),
-				expect.objectContaining({ metaData: expect.objectContaining({ teamName: 'MittTeam' }) })
+				expect.objectContaining({ teamName: 'MittTeam' })
 			);
 		});
 
@@ -342,9 +342,7 @@ describe('Consumer identification', () => {
 
 			expect(info).toHaveBeenCalledWith(
 				'Decorator consumer info.',
-				expect.objectContaining({
-					metaData: expect.objectContaining({ consumer: 'origin: https://www.nav.no' }),
-				})
+				expect.objectContaining({ consumer: 'origin: https://www.nav.no' })
 			);
 		});
 
@@ -354,7 +352,8 @@ describe('Consumer identification', () => {
 			parseAndValidateParams({}, {}, 'ssr');
 
 			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørselen'), {
-				metaData: { consumer: 'unknown', requestType: 'ssr' },
+				consumer: 'unknown',
+				requestType: 'ssr',
 			});
 		});
 
@@ -365,7 +364,8 @@ describe('Consumer identification', () => {
 
 			expect(params.teamName).toBeUndefined();
 			expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
-				metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+				consumer: 'origin: https://min-app.nav.no',
+				requestType: 'csr',
 			});
 			expect(warn).not.toHaveBeenCalled();
 		});
@@ -378,9 +378,7 @@ describe('Consumer identification', () => {
 			expect(info).not.toHaveBeenCalled();
 			expect(warn).toHaveBeenCalledWith(
 				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
-				{
-					metaData: { consumer: 'unknown', requestType: 'csr' },
-				}
+				{ consumer: 'unknown', requestType: 'csr' }
 			);
 		});
 
@@ -391,7 +389,7 @@ describe('Consumer identification', () => {
 
 			expect(warn).toHaveBeenCalledWith(
 				'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett params.teamName i injectDecoratorClientSide, eller sørg for at nettleseren sender en Origin-header, slik at forespørselen kan knyttes til riktig team.',
-				{ metaData: { consumer: 'unknown', requestType: 'csr' } }
+				{ consumer: 'unknown', requestType: 'csr' }
 			);
 			expect(info).not.toHaveBeenCalled();
 		});
@@ -415,7 +413,8 @@ describe('Consumer identification', () => {
 			);
 
 			expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
-				metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+				consumer: 'origin: https://min-app.nav.no',
+				requestType: 'csr',
 			});
 			expect(warn).not.toHaveBeenCalled();
 		});
@@ -445,13 +444,11 @@ describe('Consumer identification', () => {
 			);
 
 			expect(warn).toHaveBeenCalledWith(expect.stringContaining('SSR-forespørsel fra next build'), {
-				metaData: {
-					buildTime: true,
-					requestType: 'ssr',
-					consumer: 'unknown',
-					buildApp: 'navikt/min-app',
-					decoratorModulerVersion: '4.6.0',
-				},
+				buildTime: true,
+				requestType: 'ssr',
+				consumer: 'unknown',
+				buildApp: 'navikt/min-app',
+				decoratorModulerVersion: '4.6.0',
 			});
 		});
 

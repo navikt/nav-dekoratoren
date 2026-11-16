@@ -46,7 +46,7 @@ export const searchHandler = async ({
 	});
 
 	if (!result.ok) {
-		logger.error(`Error fetching search results for ${query} - ${result.error.message}`, { error: result.error });
+		logger.error('Error fetching search results', { query }, result.error);
 		return SearchErrorView().render({ language });
 	}
 
