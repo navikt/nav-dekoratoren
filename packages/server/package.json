@@ -14,13 +14,13 @@
 		"lint": "eslint . && tsc --noEmit"
 	},
 	"dependencies": {
-		"@hono/node-server": "2.1.5",
+		"@hono/node-server": "2.1.6",
 		"@hono/prometheus": "1.0.3",
 		"csp-header": "6.4.0",
 		"decorator-client": "workspace:*",
 		"decorator-icons": "workspace:*",
 		"decorator-shared": "workspace:*",
-		"hono": "4.13.16",
+		"hono": "4.13.17",
 		"prom-client": "15.1.3",
 		"ts-pattern": "5.9.2",
 		"unleash-client": "6.12.2"
