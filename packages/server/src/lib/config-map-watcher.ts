@@ -66,7 +66,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 				try {
 					await this.checkForUpdate(onUpdate);
 				} catch (e) {
-					logger.error(`Error during polling config map changes for ${this.filePath}`, { error: e });
+					logger.error(`Error during polling config map changes for ${this.filePath}`, e);
 				} finally {
 					// Schedule next poll regardless of success or failure
 					startPolling();
@@ -116,9 +116,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 				}
 			}
 		} catch (e) {
-			logger.error(`Error checking file update for ${this.filePath}.`, {
-				error: e,
-			});
+			logger.error(`Error checking file update for ${this.filePath}.`, e);
 		}
 	}
 
@@ -135,9 +133,7 @@ export class ConfigMapWatcher<FileContent extends Record<string, unknown>> {
 			logger.info(`Successfully read configmap file ${this.filePath}`);
 			return this.fileContent;
 		} catch (e) {
-			logger.error(`Error reading configmap file ${this.filePath}`, {
-				error: e,
-			});
+			logger.error(`Error reading configmap file ${this.filePath}`, e);
 			return null;
 		}
 	};

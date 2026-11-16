@@ -41,9 +41,7 @@ const fetchMenu = async (): Promise<MainMenu> => {
 	const menuFromService = await menuCache.get('menu', () =>
 		fetchAndValidateJson(MENU_SERVICE_URL, undefined, mainmenuSchema).then((res) => {
 			if (!res.ok) {
-				logger.error('Error fetching menu from Enonic', {
-					error: res.error,
-				});
+				logger.error('Error fetching menu from Enonic', res.error);
 				return null;
 			}
 

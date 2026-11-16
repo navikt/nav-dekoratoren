@@ -69,9 +69,7 @@ export const validateParams = (params: Record<string, string>) => {
 				try {
 					return JSON.parse(filters);
 				} catch (error) {
-					logger.error('Failed to parse analyticsRedactFilter', {
-						error,
-					});
+					logger.error('Failed to parse analyticsRedactFilter', error);
 					return [];
 				}
 			})
@@ -96,7 +94,8 @@ export const parseAndValidateParams = (
 			}
 			if (requestType) {
 				logger.warn('Ugyldig teamName. Forventet format: <app>.<namespace>, f.eks. nav-dekoratoren.navno', {
-					metaData: { teamName: query.teamName.slice(0, 100), requestType },
+					teamName: query.teamName.slice(0, 100),
+					requestType,
 				});
 			}
 		}
@@ -122,38 +121,34 @@ export const parseAndValidateParams = (
 				if (requestType === 'csr') {
 					logger.warn(
 						'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Sett params.teamName i injectDecoratorClientSide, eller sørg for at nettleseren sender en Origin-header, slik at forespørselen kan knyttes til riktig team.',
-						{ metaData: { consumer: 'unknown', requestType } }
+						{ consumer: 'unknown', requestType }
 					);
 				}
 			} else {
 				if (requestType === 'ssr') {
 					logger.warn(
 						'Kunne ikke identifisere hvilken applikasjon som gjorde SSR-forespørselen. Sett query-parameteren teamName slik at eventuelle feil kan spores tilbake til riktig team.',
-						{ metaData: { consumer: 'unknown', requestType } }
+						{ consumer: 'unknown', requestType }
 					);
 				} else if (requestType === 'csr')
 					logger.warn(
 						'Kunne ikke identifisere hvilken applikasjon som gjorde CSR-forespørselen. Nettleseren må sende en Origin-header for at forespørselen skal kunne knyttes til riktig app.',
-						{ metaData: { consumer: 'unknown', requestType } }
+						{ consumer: 'unknown', requestType }
 					);
 			}
 		} else if (consumer) {
-			logger.info('Decorator consumer info.', {
-				metaData: { consumer, requestType },
-			});
+			logger.info('Decorator consumer info.', { consumer, requestType });
 		}
 
 		if (requestType === 'ssr' && query.decoratorModulerBuildTime === 'true') {
 			logger.warn(
 				'SSR-forespørsel fra next build. Statisk genererte sider fryser Dekoratøren til neste deploy av appen og sender ikke teamName.',
 				{
-					metaData: {
-						buildTime: true,
-						requestType,
-						consumer: consumer ?? 'unknown',
-						buildApp: buildAppSchema.safeParse(query.decoratorModulerBuildApp).data,
-						decoratorModulerVersion: query.decoratorModulerVersion?.slice(0, 50),
-					},
+					buildTime: true,
+					requestType,
+					consumer: consumer ?? 'unknown',
+					buildApp: buildAppSchema.safeParse(query.decoratorModulerBuildApp).data,
+					decoratorModulerVersion: query.decoratorModulerVersion?.slice(0, 50),
 				}
 			);
 		}
@@ -162,10 +157,7 @@ export const parseAndValidateParams = (
 	const validParams = paramsSchema.safeParse(validateParams(query));
 
 	if (!validParams.success) {
-		logger.error('Failed to validate params', {
-			error: validParams.error,
-			metaData: { consumer: consumer ?? 'unknown' },
-		});
+		logger.error('Failed to validate params', { consumer: consumer ?? 'unknown' }, validParams.error);
 		throw new Error('Failed to validate params');
 	}
 
