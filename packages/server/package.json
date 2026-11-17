@@ -16,6 +16,7 @@
 	"dependencies": {
 		"@hono/node-server": "2.1.5",
 		"@hono/prometheus": "1.0.3",
+		"@itsy/corgi": "^1.4.0",
 		"csp-header": "6.4.0",
 		"decorator-client": "workspace:*",
 		"decorator-icons": "workspace:*",

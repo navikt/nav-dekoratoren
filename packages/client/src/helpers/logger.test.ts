@@ -98,4 +98,38 @@ describe('logger', () => {
 
 		expect(consoleError).toHaveBeenCalledOnce();
 	});
+
+	describe('while the page is hidden', () => {
+		let visibility: DocumentVisibilityState;
+
+		beforeEach(() => {
+			visibility = 'visible';
+			vi.spyOn(document, 'visibilityState', 'get').mockImplementation(() => visibility);
+		});
+
+		it('does not log a failed fetch from a hidden page', () => {
+			visibility = 'hidden';
+			logger.error('Failed to renew session.', { error: networkError('Failed to fetch') });
+
+			vi.advanceTimersByTime(PAGE_LEAVE_GRACE_MS);
+
+			expect(consoleError).not.toHaveBeenCalled();
+		});
+
+		it('does not log a failed fetch if the page is hidden by the time it would be logged', () => {
+			logger.error('Failed to fetch session.', { error: networkError('Failed to fetch') });
+			visibility = 'hidden';
+
+			vi.advanceTimersByTime(PAGE_LEAVE_GRACE_MS);
+
+			expect(consoleError).not.toHaveBeenCalled();
+		});
+
+		it('still logs other errors', () => {
+			visibility = 'hidden';
+			logger.error('Failed to fetch auth data.', { error: httpError(503) });
+
+			expect(consoleError).toHaveBeenCalledOnce();
+		});
+	});
 });
