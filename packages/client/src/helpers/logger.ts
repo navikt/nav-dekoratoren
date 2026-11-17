@@ -10,6 +10,9 @@ const MAX_CONTEXT_LENGTH = 1000;
  * network failure gives ("Load failed", "Failed to fetch"), and the consuming app's Faro still
  * reports the console.error. If the page is gone within this time the timer never runs, so only
  * failures on a page that's still open get logged.
+ *
+ * Failures while the page is hidden aren't logged at all: a background tab (Android cuts off its
+ * network) or a page prerendered and never shown. Nobody is looking at the page when they happen.
  */
 export const PAGE_LEAVE_GRACE_MS = 1000;
 
@@ -17,6 +20,8 @@ export const PAGE_LEAVE_GRACE_MS = 1000;
 const FETCH_FAILURE_MESSAGE = /failed to fetch|load failed|networkerror/i;
 
 type ErrorLike = { name: string; message: string };
+
+const isPageHidden = () => typeof document !== 'undefined' && document.visibilityState === 'hidden';
 
 const isErrorLike = (value: unknown): value is ErrorLike =>
 	value instanceof Error || (typeof DOMException !== 'undefined' && value instanceof DOMException);
@@ -78,7 +83,10 @@ export const logger: Logger = {
 	error: (message, context) => {
 		const text = line('ERROR', message, context);
 		if (mayBeFromLeavingPage(context)) {
-			globalThis.setTimeout(() => console.error(text), PAGE_LEAVE_GRACE_MS);
+			if (isPageHidden()) return;
+			globalThis.setTimeout(() => {
+				if (!isPageHidden()) console.error(text);
+			}, PAGE_LEAVE_GRACE_MS);
 		} else {
 			console.error(text);
 		}

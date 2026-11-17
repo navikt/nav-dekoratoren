@@ -389,6 +389,9 @@ importers:
       '@hono/prometheus':
         specifier: 1.0.3
         version: 1.0.3(hono@4.13.16)(prom-client@15.1.3)
+      '@itsy/corgi':
+        specifier: ^1.4.0
+        version: 1.4.0
       csp-header:
         specifier: 6.4.0
         version: 6.4.0
