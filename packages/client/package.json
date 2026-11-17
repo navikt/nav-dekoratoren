@@ -25,7 +25,7 @@
 		"@open-wc/testing-helpers": "3.0.1",
 		"@types/js-cookie": "3.0.6",
 		"@types/lodash.debounce": "4.0.9",
-		"cross-env": "7.0.3",
+		"cross-env": "10.1.0",
 		"jsdom": "27.4.0",
 		"lightningcss": "1.33.0",
 		"postcss": "catalog:",
