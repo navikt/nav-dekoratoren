@@ -3,7 +3,7 @@ packages:
 
 catalog:
   '@navikt/ds-css': '8.21.0'
-  '@navikt/ds-react': '8.21.0'
+  '@navikt/ds-react': '8.22.1'
   '@types/node': '26.6.6'
   esbuild-minify-templates: '0.13.1'
   eslint: '9.39.5'
