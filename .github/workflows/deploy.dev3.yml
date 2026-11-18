@@ -29,12 +29,15 @@ jobs:
       cluster: dev-gcp
       resource: .nais/network-policy-navno.yml
 
+  # Standalone deploy: dev3 does not use the version proxy architecture
+  # (no previous version, recorded vars or version-authority configmap).
   deploy:
     needs: [build, network-policy]
-    uses: ./.github/workflows/deploy-instance-navno.yml
+    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
     permissions: { contents: read, id-token: write }
     with:
-      instance: dev3
       cluster: dev-gcp
-      image: ${{ needs.build.outputs.image }}
-    secrets: inherit
+      resource: .nais/config-navno.yml
+      vars: .nais/vars/dev3-navno.yml
+      var: image=${{ needs.build.outputs.image }},versionId=${{ github.sha }},deployInstance=dev3
+      environment: dev3

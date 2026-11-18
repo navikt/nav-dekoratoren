@@ -1,5 +1,6 @@
 appName: nav-dekoratoren-dev3
 appPath: ""
+disableVersionAuthority: true
 ingresses:
   - https://dekoratoren-dev3.intern.dev.nav.no
 outboundHosts:
