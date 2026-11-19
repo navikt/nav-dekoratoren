@@ -38,9 +38,15 @@ export const getLogOutUrl = (params: Params) => {
  *
  * A 502/503 or a failed request is retried once, after a random wait of up to 300 ms, and on a
  * new connection too.
+ *
+ * Each attempt gets 3 s. The api answers in about 50 ms (p99), and its own call to PDL gives up
+ * after 2 s. Without a limit, a call waits for undici's defaults: 10 s to connect (a network blip,
+ * which hits every call since each one connects) and 300 s for the response (an api pod that
+ * hangs). A timed-out attempt is retried like a failed one, so a call takes at most about 6.3 s.
  */
 const authApi = corgi.create({
 	headers: { 'Cache-Control': 'no-cache', Connection: 'close' },
+	timeout: 3000,
 	retry: {
 		retries: 1,
 		statuses: [502, 503],
