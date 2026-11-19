@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
-import { HttpResponse, http } from 'msw';
+import { HttpResponse, delay, http } from 'msw';
 import { setupServer } from 'msw/node';
 import { clientEnv, env } from '../env/server';
 import { logger } from '../lib/logger';
@@ -40,7 +40,7 @@ describe('authHandler', () => {
 	const server = setupServer();
 	const requests: Request[] = [];
 
-	const answer = (...responses: Array<() => Response>) => {
+	const answer = (...responses: Array<() => Response | Promise<Response>>) => {
 		let call = 0;
 		server.use(
 			http.get(authApiUrl, ({ request }) => {
@@ -93,6 +93,29 @@ describe('authHandler', () => {
 
 		expect(result.auth).toEqual(loggedIn);
 		expect(requests).toHaveLength(2);
+	});
+
+	// Takes the 3 s the first attempt gets
+	it('gives up on an attempt that gets no answer, and retries it', { timeout: 10_000 }, async () => {
+		const warn = vi.spyOn(logger, 'warn').mockImplementation(() => {});
+		answer(
+			async () => {
+				await delay('infinite');
+				return HttpResponse.json(loggedIn);
+			},
+			() => HttpResponse.json(loggedIn)
+		);
+
+		const started = Date.now();
+		const result = await authHandler({ params, cookie: 'sso-nav.no=abc' });
+
+		expect(result.auth).toEqual(loggedIn);
+		expect(requests).toHaveLength(2);
+		expect(Date.now() - started).toBeLessThan(4000);
+		expect(warn).toHaveBeenCalledWith(
+			'Auth api request failed, retrying',
+			expect.objectContaining({ name: 'TimeoutError' })
+		);
 	});
 
 	it('gives up after the retry, as logged out', async () => {
