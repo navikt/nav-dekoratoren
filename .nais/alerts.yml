@@ -22,3 +22,18 @@ spec:
           labels:
             namespace: personbruker
             severity: warning
+        # Calls from this app to nav-dekoratoren-api that fail: a 5xx answer, or no answer at all
+        - alert: nav-dekoratoren calls to nav-dekoratoren-api failing
+          expr: |
+            100 * (
+              (sum(rate(http_client_request_duration_seconds_count{namespace="personbruker", app="nav-dekoratoren", server_address="nav-dekoratoren-api.navno", http_response_status_code=~"5.."}[5m])) or vector(0))
+              + (sum(rate(http_client_request_duration_seconds_count{namespace="personbruker", app="nav-dekoratoren", server_address="nav-dekoratoren-api.navno", http_response_status_code="", error_type!=""}[5m])) or vector(0))
+            ) / sum(rate(http_client_request_duration_seconds_count{namespace="personbruker", app="nav-dekoratoren", server_address="nav-dekoratoren-api.navno"}[5m])) > 1
+          for: 5m
+          annotations:
+            summary: '[nav-dekoratoren] \{{ $value | humanize }}% of calls to nav-dekoratoren-api fail'
+            consequence: Calls that still fail after the retry show logged-in users as logged out, and hanging calls slow down /auth.
+            action: "Check nav-dekoratoren-api: pods not completing requests (ktor_http_server_requests_active), its Wonderwall logs ('proxy error'), and the 'Auth api' / 'Auth error' lines in this app's logs."
+          labels:
+            namespace: personbruker
+            severity: warning
