@@ -32,6 +32,6 @@ export const fetchAndValidateJson: FetchAndValidate = async (url, init, schema) 
 		})
 		.catch((err) => {
 			const msg = `Failed to fetch from ${url}`;
-			logger.error(msg, { error: err });
+			logger.error(msg, err);
 			return Result.Error(msg);
 		});

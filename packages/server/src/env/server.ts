@@ -6,15 +6,15 @@ const _serverEnv = serverSchema.safeParse(serverEnv);
 const _clientEnv = clientEnvSchema.safeParse(client_env);
 
 if (!_serverEnv.success) {
-	logger.error('❌ Invalid server environment variables:\n', {
-		error: _serverEnv.error.issues.map((error) => error.path).join('\n'),
+	logger.error('❌ Invalid server environment variables', {
+		paths: _serverEnv.error.issues.map((issue) => issue.path.join('.')),
 	});
 	throw new Error('Invalid server environment variables');
 }
 
 if (!_clientEnv.success) {
-	logger.error('❌ Invalid client environment variables:\n', {
-		error: _clientEnv.error.issues.map((error) => error.path).join('\n'),
+	logger.error('❌ Invalid client environment variables', {
+		paths: _clientEnv.error.issues.map((issue) => issue.path.join('.')),
 	});
 	throw new Error('Invalid client environment variables');
 }

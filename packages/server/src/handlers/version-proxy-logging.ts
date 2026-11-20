@@ -88,12 +88,10 @@ export const resetProblemPersistence = (requestedVersion: string, request: HonoR
 		logger.info(
 			`Version proxy: proxying succeeded after persistent ${recoveredResults.join(', ')} - requested version ${requestedVersion} (origin: ${requestMetadata.origin ?? 'unknown'})`,
 			{
-				metaData: {
-					result: 'recovered',
-					previousResults: recoveredResults,
-					requestedVersion,
-					...requestMetadata,
-				},
+				result: 'recovered',
+				previousResults: recoveredResults,
+				requestedVersion,
+				...requestMetadata,
 			}
 		);
 	}
@@ -162,16 +160,13 @@ export const logProxyProblem = (
 		: '';
 	const message = `Version proxy: ${describeResult(result, details.errorCode, details.status)} - requested version ${requestedVersion}, ${outcome} (origin: ${requestMetadata.origin ?? 'unknown'})${persistence}`;
 
-	const log = isPersistent ? logger.warn : logger.info;
-	log(message, {
+	logger[isPersistent ? 'warn' : 'info'](message, {
 		error,
-		metaData: {
-			result,
-			requestedVersion,
-			servingVersion: SERVER_VERSION_ID,
-			persistent: isPersistent,
-			...detailsMetaData,
-			...requestMetadata,
-		},
+		result,
+		requestedVersion,
+		servingVersion: SERVER_VERSION_ID,
+		persistent: isPersistent,
+		...detailsMetaData,
+		...requestMetadata,
 	});
 };

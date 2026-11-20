@@ -1,4 +1,3 @@
-import type { Faro } from '@grafana/faro-web-sdk';
 import { AppState } from 'decorator-shared/types';
 import { CustomEvents, MessageEvents } from './events';
 import { WebStorageController } from './webStorage';
@@ -56,7 +55,12 @@ declare global {
 				}) => void;
 			};
 		};
-		faro?: Faro;
+		// Settes av konsumentappen, direkte med Faro eller via @nais/apm. Bare det Dekoratøren bruker er definert
+		faro?: {
+			api?: {
+				setSession?: (session: { attributes?: Record<string, string> }) => void;
+			};
+		};
 		addEventListener(type: 'message', listener: (this: Document, ev: MessageEvent<MessageEvents>) => void): void;
 		addEventListener<K extends keyof CustomEvents>(
 			type: K,
