@@ -1,6 +1,5 @@
 appName: nav-dekoratoren-dev3
 appPath: ""
-disableVersionAuthority: true
 ingresses:
   - https://dekoratoren-dev3.intern.dev.nav.no
 outboundHosts:
@@ -49,7 +48,7 @@ env:
     value: https://reops-event-proxy.ekstern.dev.nav.no
   - name: UMAMI_SCRIPT_URL
     value: https://cdn.nav.no/team-researchops/sporing/sporing-dev.js
-ttlInternal: 12h
+ttlInternal: 7h
 replicas:
   min: 1
   max: 1

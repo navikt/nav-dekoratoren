@@ -2,6 +2,11 @@ name: Deploy to dev3 (Enonic XP Cloud)
 on:
   workflow_dispatch:
     inputs:
+      DEPLOY_PREVIOUS:
+        description: 'Deploy previous version to internal'
+        required: false
+        type: boolean
+        default: true
       SKIP_TESTS:
         description: 'Skip Playwright tests'
         required: false
@@ -29,15 +34,13 @@ jobs:
       cluster: dev-gcp
       resource: .nais/network-policy-navno.yml
 
-  # Standalone deploy: dev3 does not use the version proxy architecture
-  # (no previous version, recorded vars or version-authority configmap).
   deploy:
     needs: [build, network-policy]
-    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
+    uses: ./.github/workflows/deploy-instance-navno.yml
     permissions: { contents: read, id-token: write }
     with:
+      instance: dev3
       cluster: dev-gcp
-      resource: .nais/config-navno.yml
-      vars: .nais/vars/dev3-navno.yml
-      var: image=${{ needs.build.outputs.image }},versionId=${{ github.sha }},deployInstance=dev3
-      environment: dev3
+      image: ${{ needs.build.outputs.image }}
+      deploy-previous: ${{ inputs.DEPLOY_PREVIOUS }}
+    secrets: inherit
