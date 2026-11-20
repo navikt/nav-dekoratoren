@@ -30,32 +30,17 @@ export type FetchRenew = 'fetch' | 'renew';
 export async function fetchOrRenewSession(fetchOrRenew: FetchRenew) {
 	const sessionUrl = window.__DECORATOR_DATA__.env.LOGIN_SESSION_API_URL;
 	const fetchUrl = `${sessionUrl}${fetchOrRenew === 'renew' ? '/refresh' : ''}`;
-	const startedAt = performance.now();
-	let sessionResponse: Response | undefined;
-	const logContext = () => ({
-		url: fetchUrl,
-		durationMs: Math.round(performance.now() - startedAt),
-		online: navigator.onLine,
-		visibilityState: document.visibilityState,
-		phase: sessionResponse ? 'response' : 'request',
-		status: sessionResponse?.status,
-		contentType: sessionResponse?.headers.get('content-type'),
-		redirected: sessionResponse?.redirected,
-	});
 
 	try {
-		sessionResponse = await fetch(fetchUrl, {
+		const sessionResponse = await fetch(fetchUrl, {
 			credentials: 'include',
 		});
 		if (!sessionResponse.ok) {
-			if (sessionResponse.status !== 401) {
-				logger.warn(`Failed to ${fetchOrRenew} session: unexpected HTTP status.`, logContext());
-			}
 			return null;
 		}
 		return (await sessionResponse.json()) as SessionData;
 	} catch (error) {
-		logger.error(`Failed to ${fetchOrRenew} session.`, { ...logContext(), error });
+		logger.error(`Failed to ${fetchOrRenew} session.`, { error });
 		return null;
 	}
 }
