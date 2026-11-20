@@ -15,7 +15,7 @@ env:
   - name: APP_URL
     value: https://dekoratoren-dev3.intern.dev.nav.no
   - name: CDN_URL
-    value: https://cdn.nav.no/personbruker/nav-dekoratoren/public
+    value: https://cdn.nav.no/navno/nav-dekoratoren/public
   - name: ENONICXP_SERVICES
     value: https://trial-navpoc.enonic.cloud/_/service
   - name: SEARCH_API_URL
@@ -48,7 +48,7 @@ env:
     value: https://reops-event-proxy.ekstern.dev.nav.no
   - name: UMAMI_SCRIPT_URL
     value: https://cdn.nav.no/team-researchops/sporing/sporing-dev.js
-ttlInternal: 12h
+ttlInternal: 7h
 replicas:
   min: 1
   max: 1
