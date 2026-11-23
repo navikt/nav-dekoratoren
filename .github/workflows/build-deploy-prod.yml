@@ -62,16 +62,8 @@ jobs:
       cluster: prod-gcp
       resource: .nais/network-policy-navno.yml
 
-  unleash-prod-navno:
-    needs: build-navno
-    uses: navikt/navno-ci/.github/workflows/nais-deploy.yml@v1
-    permissions: { contents: read, id-token: write }
-    with:
-      cluster: prod-gcp
-      resource: .nais/unleash-api-token-navno.prod.yml
-
   deploy-prod-navno:
-    needs: [build-navno, network-policy-prod-navno, unleash-prod-navno]
+    needs: [build-navno, network-policy-prod-navno]
     uses: ./.github/workflows/deploy-instance-navno.yml
     permissions: { contents: read, id-token: write }
     with:

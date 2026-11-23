@@ -39,7 +39,7 @@ jobs:
     permissions: { contents: read, id-token: write }
     with:
       cluster: ${{ inputs.cluster }}
-      resource: .nais/unleash-api-token-navno.dev.yml
+      resource: .nais/unleash-api-token-navno.${{ inputs.cluster == 'prod-gcp' && 'prod' || 'dev' }}.yml
       environment: ${{ inputs.instance }}
 
   # NAVNO_PREV_VERSION_ID and NAVNO_PREV_IMAGE are environment-scoped

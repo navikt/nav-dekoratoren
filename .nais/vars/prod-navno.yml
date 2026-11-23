@@ -1,9 +1,8 @@
 appName: nav-dekoratoren
 appPath: /dekoratoren
-unleashSecret: nav-dekoratoren-unleash-api-token
 outboundHosts:
   - www.nav.no
-  - navno-unleash-api.nav.cloud.nais.io
+  - personbruker-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
   - umami.nav.no
   - reops-event-proxy.nav.no
