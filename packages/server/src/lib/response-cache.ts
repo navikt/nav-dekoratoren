@@ -1,4 +1,4 @@
-import type { Logger } from 'decorator-shared/logger-contract';
+import type { Logger } from './logger';
 
 type CacheItem<Type> = {
 	value: Type;
@@ -67,7 +67,7 @@ export class ResponseCache<ValueType = unknown> {
 				return value;
 			})
 			.catch((e) => {
-				this.logger.error(`Callback error while fetching value for key ${key}`, { error: e });
+				this.logger.error(`Callback error while fetching value for key ${key}`, e);
 				if (this.suppressRetryForMs > 0) {
 					this.nextRetryAt.set(key, Date.now() + this.suppressRetryForMs);
 				}

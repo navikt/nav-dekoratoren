@@ -5,7 +5,7 @@ outboundHosts:
   - www.dev.nav.no
   - www.intern.dev.nav.no
   - www.ekstern.dev.nav.no
-  - navno-unleash-api.nav.cloud.nais.io
+  - personbruker-unleash-api.nav.cloud.nais.io
   - tokendings.dev-gcp.nais.io
   - navno-search-api.ekstern.dev.nav.no
 env:

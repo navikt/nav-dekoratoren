@@ -1,6 +1,7 @@
 import { Auth, AuthDataResponse, AuthLoggedIn } from 'decorator-shared/auth';
 import { type Params } from 'decorator-shared/params';
 import { LeaveIcon } from 'decorator-icons';
+import { corgi } from '@itsy/corgi/chonk';
 import { match } from 'ts-pattern';
 import { logger } from '../lib/logger';
 import { clientEnv, env } from '../env/server';
@@ -25,24 +26,45 @@ export const getLogOutUrl = (params: Params) => {
 	return clientEnv.LOGOUT_URL;
 };
 
-const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
-	return fetch(AUTH_API_URL, {
-		headers: {
-			'Cache-Control': 'no-cache',
-			Cookie: cookiesHeader,
-		},
-	})
-		.then((res) => {
-			if (res.ok) {
-				return res.json() as Promise<Auth>; // TODO: validate response
-			}
+/**
+ * Each call opens its own connection to nav-dekoratoren-api (`Connection: close`).
+ *
+ * Its pods run Wonderwall as a native sidecar, which Kubernetes stops only after the app
+ * container has exited, and which keeps kept-alive connections open until then. On a scale-down
+ * or deploy, a reused connection to that pod gets "connection refused" from Wonderwall, as a 502,
+ * for the second or two between the app stopping and Wonderwall stopping. New connections only go
+ * to pods that are still in the Service, and nais waits 5 s before stopping the app, so a pod that's
+ * shutting down has stopped getting requests by then.
+ *
+ * A 502/503 or a failed request is retried once, after a random wait of up to 300 ms, and on a
+ * new connection too.
+ *
+ * Each attempt gets 3 s. The api answers in about 50 ms (p99), and its own call to PDL gives up
+ * after 2 s. Without a limit, a call waits for undici's defaults: 10 s to connect (a network blip,
+ * which hits every call since each one connects) and 300 s for the response (an api pod that
+ * hangs). A timed-out attempt is retried like a failed one, so a call takes at most about 6.3 s.
+ */
+const authApi = corgi.create({
+	headers: { 'Cache-Control': 'no-cache', Connection: 'close' },
+	timeout: 3000,
+	retry: {
+		retries: 1,
+		statuses: [502, 503],
+		maxDelay: 1000,
+		onRetry: ({ error, response }) =>
+			response
+				? logger.warn(`Auth api answered ${response.status}, retrying`)
+				: logger.warn('Auth api request failed, retrying', error),
+	},
+});
 
-			throw Error(`Bad response from auth api - ${res.status} ${res.statusText}`);
-		})
-		.catch((e) => {
-			logger.error('Auth error', { error: e });
-			return null;
-		});
+const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
+	try {
+		return await authApi.get<Auth>(AUTH_API_URL, { headers: { Cookie: cookiesHeader } }); // TODO: validate response
+	} catch (e) {
+		logger.error('Auth error', e);
+		return null;
+	}
 };
 
 const buildUsermenuHtml = async (auth: AuthLoggedIn, cookie: string, params: Params) => {

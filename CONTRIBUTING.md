@@ -41,7 +41,7 @@ Hvis du allerede har pnpm installert, kan du hoppe over dette steget.
 Du kan installere pnpm globalt slik:
 
 ```bash
-corepack enable pnpm
+npm install --global pnpm
 ```
 
 (Du kan også installere pnpm med Brew, curl osv.: https://pnpm.io/installation)

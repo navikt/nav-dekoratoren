@@ -21,6 +21,7 @@ const config: StorybookConfig = {
 			...config.resolve,
 			alias: {
 				...config.resolve?.alias,
+				'@navikt/navno-logger': path.join(repoRoot, '.storybook/navno-logger-stub.ts'),
 				'decorator-client': path.join(repoRoot, 'packages/client'),
 				'decorator-shared': path.join(repoRoot, 'packages/shared'),
 				'decorator-server': path.join(repoRoot, 'packages/server'),

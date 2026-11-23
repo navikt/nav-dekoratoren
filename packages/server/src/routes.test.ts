@@ -93,7 +93,8 @@ describe('CSR without moduler', () => {
 
 		expect(response.status).toBe(200);
 		expect(info).toHaveBeenCalledWith('Decorator consumer info.', {
-			metaData: { consumer: 'origin: https://min-app.nav.no', requestType: 'csr' },
+			consumer: 'origin: https://min-app.nav.no',
+			requestType: 'csr',
 		});
 		expect(warn).not.toHaveBeenCalled();
 	});
@@ -105,7 +106,8 @@ describe('CSR without moduler', () => {
 
 		expect(response.status).toBe(200);
 		expect(warn).toHaveBeenCalledWith(expect.stringContaining('CSR-forespørselen'), {
-			metaData: { consumer: 'unknown', requestType: 'csr' },
+			consumer: 'unknown',
+			requestType: 'csr',
 		});
 	});
 });
