@@ -13,7 +13,7 @@
 		"lint": "eslint . && tsc --noEmit"
 	},
 	"dependencies": {
-		"@itsy/corgi": "^1.4.0",
+		"@itsy/corgi": "^1.5.0",
 		"@navikt/ds-css": "catalog:",
 		"decorator-icons": "workspace:*",
 		"decorator-shared": "workspace:*",
