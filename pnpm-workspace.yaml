@@ -3,11 +3,11 @@ packages:
 
 catalog:
   '@navikt/ds-css': '8.21.0'
-  '@navikt/ds-react': '8.21.0'
+  '@navikt/ds-react': '8.22.1'
   '@types/node': '26.6.6'
   esbuild-minify-templates: '0.13.1'
   eslint: '9.39.5'
-  postcss: '8.5.32'
+  postcss: '8.5.33'
   tsx: '4.23.15'
   typescript: '6.0.3'
   vitest: '4.1.12'
@@ -19,7 +19,7 @@ minimumReleaseAgeExclude:
   - '@itsy/corgi'
 
 overrides:
-  postcss: '8.5.32'
+  postcss: '8.5.33'
 
 engineStrict: true
 
