@@ -14,6 +14,9 @@ import { SimpleUserMenu } from '../views/simple-user-menu';
 
 const AUTH_API_URL = `${env.DEKORATOREN_API_URL}/auth`;
 
+// Temporary, for /auth-new. The address is the same in dev and prod.
+export const AUTH_NEW_API_URL = 'http://nav-dekoratoren-auth.navno/navno/nav-dekoratoren-auth/auth';
+
 export const getLogOutUrl = (params: Params) => {
 	if (params.logoutUrl) {
 		return params.logoutUrl;
@@ -46,11 +49,11 @@ export const getLogOutUrl = (params: Params) => {
  */
 const authApi = corgi.create({
 	headers: { 'Cache-Control': 'no-cache', Connection: 'close' },
-	timeout: 3000,
+	timeout: 1500,
 	retry: {
 		retries: 1,
 		statuses: [502, 503],
-		maxDelay: 1000,
+		maxDelay: 500,
 		onRetry: ({ error, response }) =>
 			response
 				? logger.warn(`Auth api answered ${response.status}, retrying`)
@@ -58,9 +61,9 @@ const authApi = corgi.create({
 	},
 });
 
-const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
+const fetchAuth = async (cookiesHeader: string, authApiUrl: string): Promise<Auth | null> => {
 	try {
-		return await authApi.get<Auth>(AUTH_API_URL, { headers: { Cookie: cookiesHeader } }); // TODO: validate response
+		return await authApi.get<Auth>(authApiUrl, { headers: { Cookie: cookiesHeader } }); // TODO: validate response
 	} catch (e) {
 		logger.error('Auth error', e);
 		return null;
@@ -114,15 +117,17 @@ const buildUsermenuHtml = async (auth: AuthLoggedIn, cookie: string, params: Par
 export const authHandler = async ({
 	params,
 	cookie,
+	authApiUrl = AUTH_API_URL,
 }: {
 	params: Params;
 	cookie: string;
+	authApiUrl?: string;
 }): Promise<AuthDataResponse> => {
 	if (!cookie) {
 		return { auth: { authenticated: false } };
 	}
 
-	const auth = await fetchAuth(cookie);
+	const auth = await fetchAuth(cookie, authApiUrl);
 	if (!auth?.authenticated) {
 		return { auth: { authenticated: false } };
 	}

@@ -41,6 +41,7 @@ spec:
     outbound:
       rules:
         - application: nav-dekoratoren-api
+        - application: nav-dekoratoren-auth
         - application: navno-search-api
           namespace: navno
         - application: tms-varsel-api

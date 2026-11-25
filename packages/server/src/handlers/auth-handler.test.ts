@@ -3,7 +3,7 @@ import { HttpResponse, delay, http } from 'msw';
 import { setupServer } from 'msw/node';
 import { clientEnv, env } from '../env/server';
 import { logger } from '../lib/logger';
-import { authHandler, getLogOutUrl } from './auth-handler';
+import { AUTH_NEW_API_URL, authHandler, getLogOutUrl } from './auth-handler';
 import { parseAndValidateParams } from '../validateParams';
 
 describe('getLogOutUrl', () => {
@@ -66,6 +66,21 @@ describe('authHandler', () => {
 		expect(result.auth).toEqual(loggedIn);
 		expect(requests).toHaveLength(1);
 		expect(requests[0].headers.get('connection')).toBe('close');
+		expect(requests[0].headers.get('cookie')).toBe('sso-nav.no=abc');
+	});
+
+	it('asks the given auth api instead, with the cookies', async () => {
+		server.use(
+			http.get(AUTH_NEW_API_URL, ({ request }) => {
+				requests.push(request);
+				return HttpResponse.json(loggedIn);
+			})
+		);
+
+		const result = await authHandler({ params, cookie: 'sso-nav.no=abc', authApiUrl: AUTH_NEW_API_URL });
+
+		expect(result.auth).toEqual(loggedIn);
+		expect(requests).toHaveLength(1);
 		expect(requests[0].headers.get('cookie')).toBe('sso-nav.no=abc');
 	});
 
