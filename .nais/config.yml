@@ -40,6 +40,8 @@ spec:
       rules:
         - application: nav-dekoratoren-api
           namespace: navno
+        - application: nav-dekoratoren-auth
+          namespace: navno
         - application: navno-search-api
           namespace: navno
         - application: tms-varsel-api

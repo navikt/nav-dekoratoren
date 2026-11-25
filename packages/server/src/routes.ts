@@ -6,7 +6,7 @@ import { HTTPException } from 'hono/http-exception';
 import { cspDirectives } from './content-security-policy';
 import { logger } from './lib/logger';
 import { env } from './env/server';
-import { authHandler } from './handlers/auth-handler';
+import { AUTH_NEW_API_URL, authHandler } from './handlers/auth-handler';
 import { headers } from './handlers/headers';
 import { searchHandler } from './handlers/search-handler';
 import { versionProxyHandler } from './handlers/version-proxy';
@@ -145,6 +145,19 @@ routes.get('/auth', async ({ req, json }) =>
 				origin: req.header('origin'),
 			}),
 			cookie: req.header('Cookie') ?? '',
+		})
+	)
+);
+
+// Temporary: /auth answered by nav-dekoratoren-auth, for testing it before /auth switches over
+routes.get('/auth-new', async ({ req, json }) =>
+	json(
+		await authHandler({
+			params: parseAndValidateParams(req.query(), {
+				origin: req.header('origin'),
+			}),
+			cookie: req.header('Cookie') ?? '',
+			authApiUrl: AUTH_NEW_API_URL,
 		})
 	)
 );
