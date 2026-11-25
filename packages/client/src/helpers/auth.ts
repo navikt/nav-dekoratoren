@@ -4,7 +4,8 @@ import { env } from '../params';
 import { logger } from './logger';
 import { decoratorApi, decoratorParams } from './api';
 
-const OneMinute = 60000;
+// See server's auth-handler before changing this
+const OneMinute = 3500;
 const authApi = decoratorApi.extend({ retry: 0, timeout: OneMinute });
 
 export type SessionData = {

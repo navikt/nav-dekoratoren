@@ -49,11 +49,11 @@ export const getLogOutUrl = (params: Params) => {
  */
 const authApi = corgi.create({
 	headers: { 'Cache-Control': 'no-cache', Connection: 'close' },
-	timeout: 3000,
+	timeout: 1500,
 	retry: {
 		retries: 1,
 		statuses: [502, 503],
-		maxDelay: 1000,
+		maxDelay: 500,
 		onRetry: ({ error, response }) =>
 			response
 				? logger.warn(`Auth api answered ${response.status}, retrying`)
