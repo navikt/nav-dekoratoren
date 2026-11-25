@@ -3,7 +3,7 @@ import { HttpResponse, delay, http } from 'msw';
 import { setupServer } from 'msw/node';
 import { clientEnv, env } from '../env/server';
 import { logger } from '../lib/logger';
-import { AUTH_NEW_API_URL, authHandler, getLogOutUrl } from './auth-handler';
+import { authHandler, getLogOutUrl } from './auth-handler';
 import { parseAndValidateParams } from '../validateParams';
 
 describe('getLogOutUrl', () => {
@@ -69,22 +69,8 @@ describe('authHandler', () => {
 		expect(requests[0].headers.get('cookie')).toBe('sso-nav.no=abc');
 	});
 
-	it('asks the given auth api instead, with the cookies', async () => {
-		server.use(
-			http.get(AUTH_NEW_API_URL, ({ request }) => {
-				requests.push(request);
-				return HttpResponse.json(loggedIn);
-			})
-		);
-
-		const result = await authHandler({ params, cookie: 'sso-nav.no=abc', authApiUrl: AUTH_NEW_API_URL });
-
-		expect(result.auth).toEqual(loggedIn);
-		expect(requests).toHaveLength(1);
-		expect(requests[0].headers.get('cookie')).toBe('sso-nav.no=abc');
-	});
-
-	it.each([502, 503])('retries once when the api answers %i', async (status) => {
+	// 500 too: nav-dekoratoren-auth answers 500 when the Texas in its pod can't say who the user is
+	it.each([500, 502, 503])('retries when the api answers %i', async (status) => {
 		vi.spyOn(logger, 'warn').mockImplementation(() => {});
 		answer(
 			() => new HttpResponse(null, { status }),
@@ -97,7 +83,7 @@ describe('authHandler', () => {
 		expect(requests).toHaveLength(2);
 	});
 
-	it('retries once when the request fails', async () => {
+	it('retries when the request fails', async () => {
 		vi.spyOn(logger, 'warn').mockImplementation(() => {});
 		answer(
 			() => HttpResponse.error(),
@@ -110,7 +96,35 @@ describe('authHandler', () => {
 		expect(requests).toHaveLength(2);
 	});
 
-	// Takes the 3 s the first attempt gets
+	it('retries up to three times', async () => {
+		vi.spyOn(logger, 'warn').mockImplementation(() => {});
+		answer(
+			() => new HttpResponse(null, { status: 502 }),
+			() => new HttpResponse(null, { status: 500 }),
+			() => HttpResponse.error(),
+			() => HttpResponse.json(loggedIn)
+		);
+
+		const result = await authHandler({ params, cookie: 'sso-nav.no=abc' });
+
+		expect(result.auth).toEqual(loggedIn);
+		expect(requests).toHaveLength(4);
+	});
+
+	// nav-dekoratoren-auth gives PDL 2 s, and then answers without a name
+	it('waits for an api that waits for PDL', { timeout: 10_000 }, async () => {
+		answer(async () => {
+			await delay(2100);
+			return HttpResponse.json({ ...loggedIn, name: '' });
+		});
+
+		const result = await authHandler({ params, cookie: 'sso-nav.no=abc' });
+
+		expect(result.auth).toEqual({ ...loggedIn, name: '' });
+		expect(requests).toHaveLength(1);
+	});
+
+	// Takes the 2.5 s the first attempt gets
 	it('gives up on an attempt that gets no answer, and retries it', { timeout: 10_000 }, async () => {
 		const warn = vi.spyOn(logger, 'warn').mockImplementation(() => {});
 		answer(
@@ -133,7 +147,26 @@ describe('authHandler', () => {
 		);
 	});
 
-	it('gives up after the retry, as logged out', async () => {
+	// Takes the 3.2 s the whole call gets: the first attempt's 2.5 s, and what is left for one retry.
+	// The client gives up on /auth after 3.5 s.
+	it('gives up on the whole call before the client does', { timeout: 10_000 }, async () => {
+		vi.spyOn(logger, 'warn').mockImplementation(() => {});
+		const error = vi.spyOn(logger, 'error').mockImplementation(() => {});
+		answer(async () => {
+			await delay('infinite');
+			return HttpResponse.json(loggedIn);
+		});
+
+		const started = Date.now();
+		const result = await authHandler({ params, cookie: 'sso-nav.no=abc' });
+
+		expect(result).toEqual({ auth: { authenticated: false } });
+		expect(requests).toHaveLength(2);
+		expect(Date.now() - started).toBeLessThan(3500);
+		expect(error).toHaveBeenCalledWith('Auth error', expect.objectContaining({ name: 'TimeoutError' }));
+	});
+
+	it('gives up after three retries, as logged out', async () => {
 		vi.spyOn(logger, 'warn').mockImplementation(() => {});
 		const error = vi.spyOn(logger, 'error').mockImplementation(() => {});
 		answer(() => new HttpResponse(null, { status: 502 }));
@@ -141,13 +174,13 @@ describe('authHandler', () => {
 		const result = await authHandler({ params, cookie: 'sso-nav.no=abc' });
 
 		expect(result).toEqual({ auth: { authenticated: false } });
-		expect(requests).toHaveLength(2);
+		expect(requests).toHaveLength(4);
 		expect(error).toHaveBeenCalledWith('Auth error', expect.any(Error));
 	});
 
 	it('does not retry other answers', async () => {
 		vi.spyOn(logger, 'error').mockImplementation(() => {});
-		answer(() => new HttpResponse(null, { status: 500 }));
+		answer(() => new HttpResponse(null, { status: 404 }));
 
 		await authHandler({ params, cookie: 'sso-nav.no=abc' });
 
