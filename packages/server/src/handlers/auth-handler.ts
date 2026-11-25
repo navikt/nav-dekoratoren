@@ -14,9 +14,6 @@ import { SimpleUserMenu } from '../views/simple-user-menu';
 
 const AUTH_API_URL = `${env.DEKORATOREN_API_URL}/auth`;
 
-// Temporary, for /auth-new. The address is the same in dev and prod.
-export const AUTH_NEW_API_URL = 'http://nav-dekoratoren-auth.navno/navno/nav-dekoratoren-auth/auth';
-
 export const getLogOutUrl = (params: Params) => {
 	if (params.logoutUrl) {
 		return params.logoutUrl;
@@ -30,29 +27,20 @@ export const getLogOutUrl = (params: Params) => {
 };
 
 /**
- * Each call opens its own connection to nav-dekoratoren-api (`Connection: close`).
+ * `Connection: close` is used below for two reasons
+ * - When a pod is stopping, Wonderwall answers with 502s on connections that are kept open
+ * - Retries will (more likely) hit a different pod, which is useful if one single pod is hanging or any other error condition
  *
- * Its pods run Wonderwall as a native sidecar, which Kubernetes stops only after the app
- * container has exited, and which keeps kept-alive connections open until then. On a scale-down
- * or deploy, a reused connection to that pod gets "connection refused" from Wonderwall, as a 502,
- * for the second or two between the app stopping and Wonderwall stopping. New connections only go
- * to pods that are still in the Service, and nais waits 5 s before stopping the app, so a pod that's
- * shutting down has stopped getting requests by then.
- *
- * A 502/503 or a failed request is retried once, after a random wait of up to 300 ms, and on a
- * new connection too.
- *
- * Each attempt gets 3 s. The api answers in about 50 ms (p99), and its own call to PDL gives up
- * after 2 s. Without a limit, a call waits for undici's defaults: 10 s to connect (a network blip,
- * which hits every call since each one connects) and 300 s for the response (an api pod that
- * hangs). A timed-out attempt is retried like a failed one, so a call takes at most about 6.3 s.
+ * The 2.5s timeout is just slightly more than the response time dekoratoren-auth gives PDL.
+ * All retries/timeouts together are limited to 3.2s, which is intentionally below the client's 3.5s - that leaves time for a client-retry as well.
  */
 const authApi = corgi.create({
 	headers: { 'Cache-Control': 'no-cache', Connection: 'close' },
-	timeout: 1500,
+	timeout: 2500,
 	retry: {
-		retries: 1,
-		statuses: [502, 503],
+		retries: 3,
+		statuses: [500, 502, 503],
+		backoff: 50,
 		maxDelay: 500,
 		onRetry: ({ error, response }) =>
 			response
@@ -61,9 +49,13 @@ const authApi = corgi.create({
 	},
 });
 
-const fetchAuth = async (cookiesHeader: string, authApiUrl: string): Promise<Auth | null> => {
+const fetchAuth = async (cookiesHeader: string): Promise<Auth | null> => {
 	try {
-		return await authApi.get<Auth>(authApiUrl, { headers: { Cookie: cookiesHeader } }); // TODO: validate response
+		// TODO: validate response
+		return await authApi.get<Auth>(AUTH_API_URL, {
+			headers: { Cookie: cookiesHeader },
+			signal: AbortSignal.timeout(3200),
+		});
 	} catch (e) {
 		logger.error('Auth error', e);
 		return null;
@@ -117,17 +109,15 @@ const buildUsermenuHtml = async (auth: AuthLoggedIn, cookie: string, params: Par
 export const authHandler = async ({
 	params,
 	cookie,
-	authApiUrl = AUTH_API_URL,
 }: {
 	params: Params;
 	cookie: string;
-	authApiUrl?: string;
 }): Promise<AuthDataResponse> => {
 	if (!cookie) {
 		return { auth: { authenticated: false } };
 	}
 
-	const auth = await fetchAuth(cookie, authApiUrl);
+	const auth = await fetchAuth(cookie);
 	if (!auth?.authenticated) {
 		return { auth: { authenticated: false } };
 	}

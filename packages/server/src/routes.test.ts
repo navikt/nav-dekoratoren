@@ -23,7 +23,6 @@ const OK_PATHS = [
 	'/env',
 	'/csr',
 	'/auth',
-	'/auth-new',
 ];
 
 const requestsTotalFor = async (route: string) => {
