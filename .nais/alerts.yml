@@ -2,38 +2,41 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: nav-dekoratoren-alerts
-  namespace: personbruker
+  namespace: navno
   labels:
-    team: personbruker
+    team: navno
 spec:
   groups:
-    - name: nav-dekoratoren-alerts
+    - name: nav-dekoratoren
       rules:
-        # not_found is left out on purpose: it mostly means callers are pinned to versions older
-        # than the internal app TTL, which is expected and not fixable by us. Use a dashboard for that.
-        # unreachable/error_response mean an internal version app exists but is failing.
-        - alert: nav-dekoratoren version proxy failing
-          expr: sum by (result) (rate(version_proxy_requests_total{namespace="personbruker", app="nav-dekoratoren", result=~"unreachable|error_response"}[5m])) > 0.1
+        # not_found is left out on purpose:
+        # - callers are pinned to versions older than the internal app TTL, which is expected and not fixable here
+        # - unreachable and error_response mean an internal version app exists but is failing
+        - alert: NavDekoratorenVersionProxyFailing
+          expr: sum by (result) (rate(version_proxy_requests_total{namespace=~"personbruker|navno", app="nav-dekoratoren", result=~"unreachable|error_response"}[5m])) > 0.1
           for: 15m
           annotations:
-            summary: '[nav-dekoratoren] Version proxy: \{{ $labels.result }} for over 15 minutes (\{{ $value | humanize }} req/s)'
+            summary: The version proxy in nav-dekoratoren has failed to reach internal version apps for over 15 minutes
             consequence: Requests for an older decorator version get this version's HTML or a 5xx response, which can break styling for the caller.
-            action: "Check the logs for 'Version proxy:' and the status of the nav-dekoratoren-<version> internal app (`kubectl get app -n personbruker | grep nav-dekoratoren-`)"
+            action: The result label says unreachable or error_response. Check the logs for 'Version proxy:' and the status of the internal version apps (kubectl get app -n personbruker | grep nav-dekoratoren-, and the same in navno).
           labels:
-            namespace: personbruker
+            namespace: navno
             severity: warning
-        # Calls from this app to nav-dekoratoren-auth that fail: a 5xx answer, or no answer at all
-        - alert: nav-dekoratoren calls to nav-dekoratoren-auth failing
+
+        # Calls from the decorator server to nav-dekoratoren-auth that fail with 5xx or timeout
+        # Counts every attempt, retries included. When a call still fails after the retries, /auth
+        # answers authenticated: false, so this is invisible in Faro.
+        - alert: NavDekoratorenAuthCallsFailing
           expr: |
             100 * (
-              (sum(rate(http_client_request_duration_seconds_count{namespace="personbruker", app="nav-dekoratoren", server_address="nav-dekoratoren-auth.navno", http_response_status_code=~"5.."}[5m])) or vector(0))
-              + (sum(rate(http_client_request_duration_seconds_count{namespace="personbruker", app="nav-dekoratoren", server_address="nav-dekoratoren-auth.navno", http_response_status_code="", error_type!=""}[5m])) or vector(0))
-            ) / sum(rate(http_client_request_duration_seconds_count{namespace="personbruker", app="nav-dekoratoren", server_address="nav-dekoratoren-auth.navno"}[5m])) > 1
+              (sum(rate(http_client_request_duration_seconds_count{namespace=~"personbruker|navno", app="nav-dekoratoren", server_address="nav-dekoratoren-auth.navno", http_response_status_code=~"5.."}[5m])) or vector(0))
+              + (sum(rate(http_client_request_duration_seconds_count{namespace=~"personbruker|navno", app="nav-dekoratoren", server_address="nav-dekoratoren-auth.navno", http_response_status_code="", error_type!=""}[5m])) or vector(0))
+            ) / sum(rate(http_client_request_duration_seconds_count{namespace=~"personbruker|navno", app="nav-dekoratoren", server_address="nav-dekoratoren-auth.navno"}[5m])) > 1
           for: 5m
           annotations:
-            summary: '[nav-dekoratoren] \{{ $value | humanize }}% of calls to nav-dekoratoren-auth fail'
-            consequence: Calls that still fail after the retries show logged-in users as logged out, and hanging calls slow down /auth.
-            action: "Check nav-dekoratoren-auth: its own alerts and logs, which of its calls fail or time out (nav_dekoratoren_auth_upstream_requests_total), its Wonderwall logs ('proxy error'), and the 'Auth api' / 'Auth error' lines in this app's logs."
+            summary: Over 1 % of the decorator's calls to nav-dekoratoren-auth fail
+            consequence: Calls that still fail after the retries show logged-in users as logged out in the header, and hanging calls slow down /auth.
+            action: Split http_client_request_duration_seconds_count by error_type. Connect Timeout Error across many apps at once points at the cluster network, so check #nais. Otherwise check nav-dekoratoren-auth, its own alerts and logs, its calls upstream (nav_dekoratoren_auth_upstream_requests_total) and its Wonderwall logs ('proxy error').
           labels:
-            namespace: personbruker
-            severity: warning
+            namespace: navno
+            severity: critical
