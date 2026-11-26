@@ -69,9 +69,8 @@ describe('Auth helpers', () => {
 
 		it('logs and falls back to unauthenticated when the fetch fails', async () => {
 			const errorSpy = vi.spyOn(logger, 'error').mockImplementation(() => {});
-			// A retryable 503 — but authApi is extended with retry: 0, so it
-			// must fail after exactly one attempt. The parent client's retry: 2
-			// would have made this three calls (and much slower).
+			// A retryable 503: authApi is extended with retry: 1, so it fails after exactly two
+			// attempts. The parent client's retry: 2 would have made this three calls (and slower).
 			http.get(apiPath('/auth'), { status: 503 });
 
 			const result = await refreshAuthData();
@@ -81,7 +80,32 @@ describe('Auth helpers', () => {
 				expect.objectContaining({ error: expect.any(Error) })
 			);
 			expect(result).toEqual({ auth: { authenticated: false } });
+			expect(http.calls).toHaveLength(2);
+		});
+
+		it('shares one request between overlapping calls', async () => {
+			const authResponse = { auth: { authenticated: true, userId: '1' } };
+			http.get(apiPath('/auth'), { json: authResponse });
+			const listener = vi.fn();
+			window.addEventListener('authupdated', listener);
+
+			const [first, second] = await Promise.all([refreshAuthData(), refreshAuthData()]);
+
 			expect(http.calls).toHaveLength(1);
+			expect(first).toEqual(authResponse);
+			expect(second).toEqual(authResponse);
+			expect(listener).toHaveBeenCalledTimes(2);
+
+			window.removeEventListener('authupdated', listener);
+		});
+
+		it('asks again for a call that starts after the previous one finished', async () => {
+			http.get(apiPath('/auth'), { json: { auth: { authenticated: false } } });
+
+			await refreshAuthData();
+			await refreshAuthData();
+
+			expect(http.calls).toHaveLength(2);
 		});
 	});
 

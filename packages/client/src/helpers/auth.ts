@@ -5,8 +5,10 @@ import { logger } from './logger';
 import { decoratorApi, decoratorParams } from './api';
 
 // See server's auth-handler before changing this
-const OneMinute = 3500;
-const authApi = decoratorApi.extend({ retry: 0, timeout: OneMinute });
+const SomeSeconds = 5000;
+// swr: 0 is corgi's in-flight dedupe: identical /auth calls that overlap share one request without caching
+// We do this because we're still on http/1.1 - so we have a limited pipeline (6) at startup of connections
+const authApi = decoratorApi.extend({ retry: 1, timeout: SomeSeconds, swr: 0 });
 
 export type SessionData = {
 	session: {
